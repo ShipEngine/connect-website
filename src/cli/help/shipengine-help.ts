@@ -9,9 +9,7 @@ export const usageText = `
 Usage: ${cli} [options] <command> <subcommand> [parameters]
 
 options:
-  -v, --versions             Show the version number
-
-  -q, --quiet               Suppress unnecessary output
+  -v, --versions            Show the version number
 
   -h, --help                Show usage information
 
@@ -23,6 +21,6 @@ commands:
 /**
  * Text describing the program and how to use it
  */
-export const helpText = `
+export const shipEngineHelpText = `
 ${manifest.name} - ${manifest.description}
 ${usageText}`;

@@ -1,7 +1,7 @@
 // tslint:disable: no-console
 import { shipengine } from "..";
 import { ExitCode } from "./exit-code";
-import { helpText } from "./help/shipengine-help";
+import { shipEngineHelpText } from "./help/shipengine-help";
 import { manifest } from "./manifest";
 import { parseArgs } from "./parse-args";
 
@@ -21,7 +21,7 @@ export async function main(args: string[]): Promise<void> {
 
     if (help) {
       // Show the help text and exit
-      console.log(helpText);
+      console.log(shipEngineHelpText);
       process.exit(ExitCode.Success);
     }
     else if (version) {

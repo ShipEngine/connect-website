@@ -3,10 +3,13 @@
  */
 export type Options = Partial<Settings>;
 
-/**Options for the IPaaS sub-command */
+/**
+ * Options for the IPaaS sub-command
+ */
 // tslint:disable-next-line: interface-name
 export interface IPaaSOptions {
   new?: boolean;
+  help?: boolean;
 }
 
 /**
@@ -14,6 +17,8 @@ export interface IPaaSOptions {
  * with default values for anything that wasn't specified by the caller.
  */
 export class Settings {
+
+  public help: boolean;
 
   public ipaas!: IPaaSOptions;
 
@@ -23,9 +28,14 @@ export class Settings {
    */
   public constructor(options: Options = {}) {
 
+    this.help = options.help === true;
+
     if (options.ipaas) {
       if (options.ipaas.new) {
-        this.ipaas = { new: true };
+        this.ipaas = {new: true};
+      }
+      else if (options.ipaas.help) {
+        this.ipaas = {help: true};
       }
     }
   }

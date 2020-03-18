@@ -6,20 +6,20 @@ const cli = Object.keys(manifest.bin)[0];
  * Text explaining how to use the IPAAS CLI
  */
 export const usageText = `
-Usage: ${cli} [options] <command> <subcommand> [parameters]
+Usage: ${cli} ipaas [options] <command> [parameters]
 
 options:
 
 -h, --help                Show usage information
--v, --version             
+-v, --versions            Show the version number
 
-COMMANDS
-  ipaas   create, manage, test, and deploy a ShipEngine IPaaS integration
+commands:
+  new   create new project to develop a custom ShipEngine IPaaS integration
 `;
 
 /**
  * Text describing the program and how to use it
  */
-export const helpText = `
+export const ipaasHelpText = `
 ${manifest.name} - ${manifest.description}
 ${usageText}`;
