@@ -3,7 +3,6 @@ import * as commandLineArgs from "command-line-args";
 import { Options } from "..";
 import { ExitCode } from "./exit-code";
 import { usageText } from "./help/shipengine-help";
-import { ipaasHelpText } from "./help/ipaas-help";
 
 /**
  * The parsed command-line arguments
@@ -52,9 +51,17 @@ export function parseArgs(argv: string[]): ParsedArgs {
       parsedArgs.help = true;
     }
 
-    else if (mainOptions.command === "ipaas") {
-      const secondaryArgs = (mainOptions._unknown || []).concat(argv.slice(1));
+    else if (mainOptions.command && mainOptions.command.includes("ipaas")) {
+      const secondaryArgs = (mainOptions._unknown || [])
+        .concat(argv.slice(1))
+        .concat(mainOptions.command.split(" ").slice(1));
+
       parseIPAASArgs(secondaryArgs, parsedArgs);
+    }
+
+    else if (mainOptions._unknown && mainOptions._unknown.length > 0) {
+      console.error(`Unknown option: ${mainOptions._unknown[0]}`);
+      process.exit(ExitCode.InvalidArgument);
     }
 
     // If there are no sub-commands then parse then set the root level options
@@ -87,12 +94,11 @@ function parseIPAASArgs(argv: string[], parsedArgs: ParsedArgs): void {
     }
   );
 
-  parsedArgs.options!.ipaas!.help = Boolean(ipaasOptions.help);
 
   if (ipaasOptions.command) {
     switch (ipaasOptions.command) {
       case "new":
-        parsedArgs.options!.ipaas!.new = true ;
+        parsedArgs.options!.ipaas!.new = true;
         break;
 
       case "help":
@@ -100,11 +106,17 @@ function parseIPAASArgs(argv: string[], parsedArgs: ParsedArgs): void {
         break;
 
       default:
-        console.log("Unrecognized command");
-        break;
+        console.error("Unrecognized command");
+        process.exit(ExitCode.InvalidArgument);
     }
   }
-
+  else if (ipaasOptions._unknown && ipaasOptions._unknown.length > 0) {
+    console.error(`Unknown option: ${ipaasOptions._unknown[0]}`);
+    process.exit(ExitCode.InvalidArgument);
+  }
+  else {
+    parsedArgs.options!.ipaas!.help = true;
+  }
 }
 
 function errorHandler(error: Error): never {

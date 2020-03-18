@@ -3,15 +3,20 @@
 const shipengine = require("../utils/shipengine");
 const manifest = require("../../package.json");
 const { expect } = require("chai");
+const { shipEngineHelpText } = require("../../lib/cli/help/shipengine-help");
+
 
 describe("shipengine", () => {
 
-  it("should run without any arguments", () => {
+  it("should show root help text without any arguments", async () => {
     // Run the CLI without any arguments.
-    let cli = shipengine("");
+    let cli = await shipengine();
 
     // It should have printed the default greeting
-    expect(cli).to.have.stdout("Hello, world.\n");
+    expect(cli).to.have.stdout.that.contains(manifest.description);
+    expect(cli).to.have.stdout.that.contains(shipEngineHelpText);
+    expect(cli).to.have.exitCode(0);
+
   });
 
   it("should error if an invalid argument is used", () => {
@@ -19,7 +24,7 @@ describe("shipengine", () => {
 
     expect(cli).to.have.exitCode(9);
     expect(cli).to.have.stdout("");
-    expect(cli).to.have.stderr.that.matches(/^Unknown option: --fizzbuzz\n\nUsage: shipengine \[options\] \[files...\]\n/);
+    expect(cli).to.have.stderr.that.matches(/^Unknown option: --fizzbuzz\n/);
   });
 
   it("should error if an invalid shorthand argument is used", () => {
@@ -27,23 +32,7 @@ describe("shipengine", () => {
 
     expect(cli).to.have.exitCode(9);
     expect(cli).to.have.stdout("");
-    expect(cli).to.have.stderr.that.matches(/^Unknown option: -z\n\nUsage: shipengine \[options\] \[files...\]\n/);
-  });
-
-  it("should error if an argument is missing its value", () => {
-    let cli = shipengine("--subject");
-
-    expect(cli).to.have.exitCode(9);
-    expect(cli).to.have.stdout("");
-    expect(cli).to.have.stderr.that.matches(/^The --subject option requires a value\.\n\nUsage: shipengine \[options\] \[files...\]\n/);
-  });
-
-  it("should print a more detailed error if DEBUG is set", () => {
-    let cli = shipengine("--greeting Goodbye", { env: { DEBUG: "true" }});
-
-    expect(cli).to.have.stdout("");
-    expect(cli).to.have.exitCode(1);
-    expect(cli).to.have.stderr.that.matches(/^Error: Cannot say goodbye\n\s+at \w+/);
+    expect(cli).to.have.stderr.that.matches(/^Unknown option: -z\n/);
   });
 
 });
@@ -56,7 +45,7 @@ describe("shipengine --help", () => {
     expect(cli).to.have.exitCode(0);
     expect(cli).to.have.stderr("");
     expect(cli).to.have.stdout.that.contains(manifest.description);
-    expect(cli).to.have.stdout.that.matches(/\nUsage: shipengine \[options\] \[files...\]\n/);
+    expect(cli).to.have.stdout.that.contains(shipEngineHelpText);
   });
 
   it("should support -h shorthand", () => {
@@ -65,7 +54,8 @@ describe("shipengine --help", () => {
     expect(cli).to.have.exitCode(0);
     expect(cli).to.have.stderr("");
     expect(cli).to.have.stdout.that.contains(manifest.description);
-    expect(cli).to.have.stdout.that.matches(/\nUsage: shipengine \[options\] \[files...\]\n/);
+    expect(cli).to.have.stdout.that.contains(shipEngineHelpText);
+
   });
 
   it("should ignore other arguments", () => {
@@ -74,7 +64,7 @@ describe("shipengine --help", () => {
     expect(cli).to.have.exitCode(0);
     expect(cli).to.have.stderr("");
     expect(cli).to.have.stdout.that.contains(manifest.description);
-    expect(cli).to.have.stdout.that.matches(/\nUsage: shipengine \[options\] \[files...\]\n/);
+    expect(cli).to.have.stdout.that.contains(shipEngineHelpText);
   });
 
   it("should ignore other shorthand arguments", () => {
@@ -83,7 +73,7 @@ describe("shipengine --help", () => {
     expect(cli).to.have.exitCode(0);
     expect(cli).to.have.stderr("");
     expect(cli).to.have.stdout.that.contains(manifest.description);
-    expect(cli).to.have.stdout.that.matches(/\nUsage: shipengine \[options\] \[files...\]\n/);
+    expect(cli).to.have.stdout.that.contains(shipEngineHelpText);
   });
 
 });

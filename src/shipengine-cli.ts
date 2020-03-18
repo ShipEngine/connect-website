@@ -3,6 +3,8 @@ import { Options, Settings } from "./settings";
 import { createTemplate } from "@shipengine/ipaas";
 import { ExitCode } from "./cli/exit-code";
 import { ipaasHelpText } from "./cli/help/ipaas-help";
+import { shipEngineHelpText } from "./cli/help/shipengine-help";
+
 
 /**
  * CLI for using public ShipEngine services
@@ -21,5 +23,9 @@ export async function shipengine(options?: Options): Promise<void> {
       console.log(ipaasHelpText);
       process.exit(ExitCode.Success);
     }
+  }
+  else {
+    console.log(shipEngineHelpText);
+    process.exit(ExitCode.Success);
   }
 }
