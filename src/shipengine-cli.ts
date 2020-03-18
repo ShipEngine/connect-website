@@ -1,17 +1,20 @@
 import { Options, Settings } from "./settings";
 
+import { Config } from "@shipengine/ipaas-types";
+
+import { createTemplate } from "@shipengine/ipaas";
+
 /**
  * CLI for using public ShipEngine services
  *
  * @returns - Options
  */
-export function shipengine(options?: Options): string {
+export async function shipengine(options?: Options): Promise<void> {
   let settings = new Settings(options);
 
-  if (settings.greeting === "Goodbye") {
-    // Simulate a runtime error
-    throw new Error("Cannot say goodbye");
+  if (settings.ipaas) {
+    if (settings.ipaas.new) {
+      await createTemplate();
+    }
   }
-
-  return `${settings.greeting}, ${settings.subject}.`;
 }

@@ -1,7 +1,7 @@
 // tslint:disable: no-console
 import { shipengine } from "..";
 import { ExitCode } from "./exit-code";
-import { helpText } from "./help";
+import { helpText } from "./help/shipengine-help";
 import { manifest } from "./manifest";
 import { parseArgs } from "./parse-args";
 
@@ -10,7 +10,7 @@ import { parseArgs } from "./parse-args";
  *
  * @param args - The command-line arguments
  */
-export function main(args: string[]): void {
+export async function main(args: string[]): Promise<void> {
   try {
     // Setup global error handlers
     process.on("uncaughtException", errorHandler);
@@ -30,11 +30,7 @@ export function main(args: string[]): void {
       process.exit(ExitCode.Success);
     }
     else {
-      let result = shipengine(options);
-
-      if (!quiet) {
-        console.log(result);
-      }
+      await shipengine(options);
     }
   }
   catch (error) {

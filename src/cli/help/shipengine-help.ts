@@ -1,4 +1,4 @@
-import { manifest } from "./manifest";
+import { manifest } from "../manifest";
 
 const cli = Object.keys(manifest.bin)[0];
 
@@ -6,17 +6,18 @@ const cli = Object.keys(manifest.bin)[0];
  * Text explaining how to use the CLI
  */
 export const usageText = `
-Usage: ${cli} [options] [files...]
+Usage: ${cli} [options] <command> <subcommand> [parameters]
 
 options:
-  -v, --version             Show the version number
+  -v, --versions             Show the version number
 
   -q, --quiet               Suppress unnecessary output
 
   -h, --help                Show usage information
 
-files...
-  One or more files and/or globs to process (ex: README.md *.txt docs/**/*).
+commands:
+  ipaas   create, manage, test, and deploy a ShipEngine IPaaS integration
+  help    display help text for ShipEngine
 `;
 
 /**

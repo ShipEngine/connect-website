@@ -3,31 +3,30 @@
  */
 export type Options = Partial<Settings>;
 
+/**Options for the IPaaS sub-command */
+// tslint:disable-next-line: interface-name
+export interface IPaaSOptions {
+  new?: boolean;
+}
+
 /**
  * Normalized, sanitized, and complete settings,
  * with default values for anything that wasn't specified by the caller.
  */
 export class Settings {
-  /**
-   * The greeting to return.
-   *
-   * The default is `"Hello"`.
-   */
-  public greeting = "Hello";
 
-  /**
-   * The name of the subject to greet.
-   *
-   * The default is `"world"`.
-   */
-  public subject = "world";
+  public ipaas!: IPaaSOptions;
 
   /**
    * Normalizes and sanitizes options provided by the caller,
    * and applies default values for any settings that aren't specified.
    */
   public constructor(options: Options = {}) {
-    options.greeting && (this.greeting = String(options.greeting));
-    options.subject && (this.subject = String(options.subject));
+
+    if (options.ipaas) {
+      if (options.ipaas.new) {
+        this.ipaas = { new: true };
+      }
+    }
   }
 }

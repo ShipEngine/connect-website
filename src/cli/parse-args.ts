@@ -2,7 +2,7 @@
 import * as commandLineArgs from "command-line-args";
 import { Options } from "..";
 import { ExitCode } from "./exit-code";
-import { usageText } from "./help";
+import { usageText } from "./help/shipengine-help";
 
 /**
  * The parsed command-line arguments
@@ -11,7 +11,7 @@ export interface ParsedArgs {
   help: boolean;
   version: boolean;
   quiet: boolean;
-  options: Options;
+  options?: Options;
 }
 
 /**
@@ -19,35 +19,53 @@ export interface ParsedArgs {
  */
 export function parseArgs(argv: string[]): ParsedArgs {
   try {
-    let args = commandLineArgs(
-      [
-        { name: "greeting", type: String },
-        { name: "subject", type: String },
-        { name: "quiet", alias: "q", type: Boolean },
-        { name: "version", alias: "v", type: Boolean },
-        { name: "help", alias: "h", type: Boolean },
-        { name: "files", type: String, multiple: true, defaultOption: true },
-      ],
-      { argv }
+
+    const shipEngineDefinitions = [
+      { name: "quiet", alias: "q", type: Boolean },
+      { name: "version", alias: "v", type: Boolean },
+      { name: "help", alias: "h", type: Boolean },
+      { name: "command", defaultOption: true }
+    ];
+
+    const mainOptions = commandLineArgs(
+      shipEngineDefinitions,
+      {
+        argv,
+        stopAtFirstUnknown: true
+      }
     );
 
-    if (args.greeting === null) {
-      throw new Error("The --greeting option requires a value.");
-    }
-
-    if (args.subject === null) {
-      throw new Error("The --subject option requires a value.");
-    }
-
-    return {
-      help: Boolean(args.help),
-      version: Boolean(args.version),
-      quiet: Boolean(args.quiet),
-      options: {
-        greeting: args.greeting as string | undefined,
-        subject: args.subject as string | undefined,
-      }
+    let parsedArgs: ParsedArgs = {
+      help: Boolean(mainOptions.help),
+      version: Boolean(mainOptions.version),
+      quiet: Boolean(mainOptions.quiet),
+      options: {}
     };
+
+    if (mainOptions.command === "ipaas") {
+      const secondaryArgs = mainOptions._unknown || [];
+
+      const ipaasDefinitions = [
+        { name: "help", alias: "h", type: Boolean },
+        { name: "command", defaultOption: true }
+      ];
+
+
+      const ipaasOptions = commandLineArgs(
+        ipaasDefinitions,
+        {
+          argv: secondaryArgs,
+          stopAtFirstUnknown: true
+        }
+      );
+
+      if (ipaasOptions.command === "new") {
+        parsedArgs.options!.ipaas = { new: true };
+      }
+
+    }
+    return parsedArgs;
+
   }
   catch (error) {
     // There was an error parsing the command-line args
