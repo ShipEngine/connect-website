@@ -44,7 +44,6 @@
     "@jsdevtools/tslint-modular": "^2.0.4",
     "@jsdevtools/version-bump-prompt": "^6.0.3",
     "@shipengine/ipaas": "0.0.2",
-    "@shipengine/ipaas-types": "0.0.2",
     "@types/chai": "^4.2.11",
     "@types/command-line-args": "^5.0.0",
     "@types/mocha": "^7.0.2",
