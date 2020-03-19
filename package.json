@@ -1,13 +1,13 @@
 {
   "name": "@shipengine/shipengine-cli",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "CLI for using public ShipEngine services",
   "keywords": [],
   "author": {
     "name": "James Messinger",
     "url": "https://jamesmessinger.com"
   },
-  "license": "PRIVATE",
+  "license": "UNLICENSED",
   "repository": {
     "type": "git",
     "url": "https://github.com/ShipEngine/shipengine-cli.git"
@@ -29,7 +29,7 @@
     "build": "tsc",
     "watch": "tsc --watch",
     "test:mocha": "mocha",
-    "test": "npm run mocha:test && npm run lint",
+    "test": "npm run test:mocha && npm run lint",
     "coverage": "nyc node_modules/mocha/bin/mocha",
     "upgrade": "npm-check -u && npm audit fix",
     "bump": "bump --tag --push --all",
@@ -43,7 +43,7 @@
     "@jsdevtools/eslint-config-modular": "^8.0.1",
     "@jsdevtools/tslint-modular": "^2.0.4",
     "@jsdevtools/version-bump-prompt": "^6.0.3",
-    "@shipengine/ipaas": "0.0.2",
+    "@shipengine/ipaas": "0.0.3",
     "@types/chai": "^4.2.11",
     "@types/command-line-args": "^5.0.0",
     "@types/mocha": "^7.0.2",

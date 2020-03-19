@@ -29,14 +29,12 @@
         "<node_internals>/**/*.js"
       ],
     },
-
-
     {
       "type": "node",
       "request": "launch",
       "name": "Run CLI",
       "program": "${workspaceRoot}/bin/shipengine.js",
-      "args": [],
+      "args": ["ipaas --help"],
       "env": {
         "NODE_ENV": "development"
       },

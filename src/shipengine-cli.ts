@@ -20,11 +20,13 @@ export async function shipengine(options?: Options): Promise<void> {
     }
     else if (settings.ipaas.help) {
       // Show the help text and exit
+      // tslint:disable-next-line: no-console
       console.log(ipaasHelpText);
       process.exit(ExitCode.Success);
     }
   }
   else {
+    // tslint:disable-next-line: no-console
     console.log(shipEngineHelpText);
     process.exit(ExitCode.Success);
   }

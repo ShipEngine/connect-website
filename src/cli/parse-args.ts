@@ -51,9 +51,11 @@ export function parseArgs(argv: string[]): ParsedArgs {
       parsedArgs.help = true;
     }
 
+    // tslint:disable-next-line: no-unsafe-any
     else if (mainOptions.command && mainOptions.command.includes("ipaas")) {
       const secondaryArgs = (mainOptions._unknown || [])
         .concat(argv.slice(1))
+        // tslint:disable-next-line: no-unsafe-any
         .concat(mainOptions.command.split(" ").slice(1));
 
       parseIPAASArgs(secondaryArgs, parsedArgs);
