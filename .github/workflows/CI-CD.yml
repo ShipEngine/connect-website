@@ -1,0 +1,57 @@
+# GitHub Actions workflow
+# https://help.github.com/en/actions/automating-your-workflow-with-github-actions
+# https://help.github.com/en/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions
+# https://help.github.com/en/actions/automating-your-workflow-with-github-actions/contexts-and-expression-syntax-for-github-actions
+
+name: CI-CD
+
+on:
+  push:
+    branches:
+      - "*"
+    tags-ignore:
+      - "*"
+
+  schedule:
+    - cron: "0 0 1 * *"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: true
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-latest
+          - windows-latest
+        node:
+          - 12
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v2
+
+      - name: Install Node ${{ matrix.node }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run linters
+        run: npm run lint
+
+      - name: Build the code
+        run: npm run build
+
+      - name: Run tests
+        run: npm run coverage
+
+      - name: Send code coverage results to Coveralls
+        uses: coverallsapp/github-action@v1.0.1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          parallel: true
