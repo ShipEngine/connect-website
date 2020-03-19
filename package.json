@@ -1,6 +1,6 @@
 {
-  "name": "@shipengine/shipengine-cli",
-  "version": "0.0.2",
+  "name": "@shipengine/cli",
+  "version": "0.0.1",
   "description": "CLI for using public ShipEngine services",
   "keywords": [],
   "author": {
