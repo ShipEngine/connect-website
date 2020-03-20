@@ -1,34 +1,16 @@
 IPaaS Loader
 ==============================================
-### Compile an IPaaS Integration into a single exported POJO
-
-[![Cross-Platform Compatibility](https://jstools.dev/img/badges/os-badges.svg)](https://github.com/ShipEngine/shipengine-ipaas-loader/blob/master/.github/workflows/CI-CD.yaml)
-[![Build Status](https://github.com/ShipEngine/shipengine-ipaas-loader/workflows/CI-CD/badge.svg)](https://github.com/ShipEngine/shipengine-ipaas-loader/blob/master/.github/workflows/CI-CD.yaml)
-
-[![Coverage Status](https://coveralls.io/repos/github/ShipEngine/shipengine-ipaas-loader/badge.svg?branch=master)](https://coveralls.io/github/ShipEngine/shipengine-ipaas-loader)
-[![Dependencies](https://david-dm.org/ShipEngine/shipengine-ipaas-loader.svg)](https://david-dm.org/ShipEngine/shipengine-ipaas-loader)
-
-[![npm](https://img.shields.io/npm/v/@shipengine/ipaas-loader.svg)](https://www.npmjs.com/package/@shipengine/ipaas-loader)
-[![License](https://img.shields.io/npm/l/@shipengine/ipaas-loader.svg)](LICENSE)
-[![Buy us a tree](https://img.shields.io/badge/Treeware-%F0%9F%8C%B3-lightgreen)](https://plant.treeware.earth/ShipEngine/shipengine-ipaas-loader)
-
-
-
-Features
---------------------------
-- Feature 1
-- Feature 2
-- Feature 3
-
+This library takes an IPaaS integration that may be broken up into various config components and bundles them together for testing and running in the IPaaS environment.
 
 
 Example
 --------------------------
 
-```javascript
+```typescript
 import ipaasLoader from "@shipengine/ipaas-loader";
 
-// TODO: Add a usage example here
+// Returns fully dereferenced config module.
+const ipaasModule = ipaasLoader("relative-path-to-ipaas-integration");
 ```
 
 
@@ -40,14 +22,6 @@ You can install IPaaS Loader via [npm](https://docs.npmjs.com/about-npm/).
 ```bash
 npm install @shipengine/ipaas-loader
 ```
-
-
-
-Usage
---------------------------
-TODO: Document the library's API and CLI usage
-
-
 
 Contributing
 --------------------------
@@ -67,21 +41,3 @@ To build the project locally on your computer:
 
 4. __Run the tests__<br>
 `npm test`
-
-
-
-License
---------------------------
-IPaaS Loader is 100% free and open-source, under the [MIT license](LICENSE). Use it however you want.
-
-This package is [Treeware](http://treeware.earth). If you use it in production, then we ask that you [**buy the world a tree**](https://plant.treeware.earth/ShipEngine/shipengine-ipaas-loader) to thank us for our work. By contributing to the Treeware forest you’ll be creating employment for local families and restoring wildlife habitats.
-
-
-
-Big Thanks To
---------------------------
-Thanks to these awesome companies for their support of Open Source developers ❤
-
-[![Travis CI](https://jstools.dev/img/badges/travis-ci.svg)](https://travis-ci.com)
-[![SauceLabs](https://jstools.dev/img/badges/sauce-labs.svg)](https://saucelabs.com)
-[![Coveralls](https://jstools.dev/img/badges/coveralls.svg)](https://coveralls.io)

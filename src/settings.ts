@@ -20,6 +20,6 @@ export class Settings {
    * Normalizes and sanitizes options provided by the caller,
    * and applies default values for any settings that aren't specified.
    */
-  public constructor(options: Options = {}) {
-  }
+  // public constructor(options: Options = {}) {
+  // }
 }

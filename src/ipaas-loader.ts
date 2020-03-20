@@ -11,31 +11,26 @@ import { Options, Settings } from "./settings";
  * @returns - Options
  */
 export async function ipaasLoader(options: Options): Promise<Config> {
-  let settings = new Settings(options);
+  // let settings = new Settings(options);
+
+  if (!options || typeof options.pathToModule !== "string") {
+    throw new Error("Module path not specified.");
+  }
 
   let importedModule;
-  if (!options || typeof options.pathToModule !== "string") {
-    throw new Error("Module path not specified.")
+  // TODO: Research if there's a better way to do this.
+  const callPath = callsites()[1].getFileName();
+  const pathToModule = path.join(callPath as string, "..", options.pathToModule);
+
+  try {
+    importedModule = await import(pathToModule);
+  }
+  catch (e) {
+    // tslint:disable-next-line: no-unsafe-any
+    throw new Error(e);
   }
 
-  const callSites = callsites();
-  let callPath;
-  let pathToModule;
-
-  if (callSites.length > 1) {
-    callPath = callSites[1].getFileName();
-    pathToModule = path.join(callPath as string, "..", options.pathToModule as string);
-
-    try {
-      importedModule = await import(pathToModule);
-    }
-    catch (e) {
-      // tslint:disable-next-line: no-unsafe-any
-      throw new Error(e);
-    }
-
-    await crawlAndLoadModule(importedModule as Config, pathToModule);
-  }
+  await crawlAndLoadModule(importedModule as Config, pathToModule);
 
   return importedModule as Config;
 }
@@ -55,6 +50,7 @@ async function loadModuleProperty(module: Config, property: "services" | "packag
       const jsonPath = path.join(pathToModule, "..", moduleProperty);
       const json = JSON.parse(await fs.promises.readFile(jsonPath, "utf-8"));
 
+      // tslint:disable-next-line: no-unsafe-any
       module[property] = json;
     }
 
@@ -64,10 +60,10 @@ async function loadModuleProperty(module: Config, property: "services" | "packag
       const yamlText = await fs.promises.readFile(yamlPath, "utf-8");
       const json = jsYaml.safeLoad(yamlText);
 
+      // tslint:disable-next-line: no-unsafe-any
       module[property] = json;
     }
   }
-
 }
 
 
