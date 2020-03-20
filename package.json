@@ -25,7 +25,8 @@
     "lint:javascript": "eslint test",
     "build": "tsc",
     "watch": "tsc --watch",
-    "test": "mocha && npm run lint",
+    "test": "npm run test:mocha && npm run lint",
+    "test:mocha": "mocha",
     "coverage": "nyc node_modules/mocha/bin/mocha",
     "upgrade": "npm-check -u && npm audit fix",
     "bump": "bump --tag --push --all",
@@ -54,7 +55,9 @@
   },
   "dependencies": {
     "@shipengine/ipaas-types": "0.0.2",
+    "@types/callsites": "^3.0.0",
     "@types/js-yaml": "^3.12.2",
+    "callsites": "^3.1.0",
     "js-yaml": "^3.13.1"
   }
 }
