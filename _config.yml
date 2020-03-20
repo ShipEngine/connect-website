@@ -1,10 +1,10 @@
-remote_theme: MyGitHubOrg/gh-pages-theme
+remote_theme: ShipEngine/gh-pages-theme
 
-title: My Project Name
+title: IPaaS Loader
 logo: https://jstools.dev/img/logos/logo.png
 
 author:
-  twitter: MyTwitterAccount
+  twitter: ShipEngine
 
 google_analytics: UA-68102273-3
 

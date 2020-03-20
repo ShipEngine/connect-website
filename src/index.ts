@@ -1,11 +1,11 @@
-import { myLibrary } from "./my-package-name";
+import { ipaasLoader } from "./ipaas-loader";
 
 export { Options } from "./settings";
-export { myLibrary };
+export { ipaasLoader };
 
-// Export `myLibrary` as the default export
+// Export `ipaasLoader` as the default export
 // tslint:disable: no-default-export
-export default myLibrary;
+export default ipaasLoader;
 
 // CommonJS default export hack
 if (typeof module === "object" && typeof module.exports === "object") {

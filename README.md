@@ -1,57 +1,87 @@
-Node.js TypeScript Template
-===========================
-This is a **template repo** for Node.js projects written in TypeScript. This template works for libraries and/or CLIs.
+IPaaS Loader
+==============================================
+### Compile an IPaaS Integration into a single exported POJO
+
+[![Cross-Platform Compatibility](https://jstools.dev/img/badges/os-badges.svg)](https://github.com/ShipEngine/shipengine-ipaas-loader/blob/master/.github/workflows/CI-CD.yaml)
+[![Build Status](https://github.com/ShipEngine/shipengine-ipaas-loader/workflows/CI-CD/badge.svg)](https://github.com/ShipEngine/shipengine-ipaas-loader/blob/master/.github/workflows/CI-CD.yaml)
+
+[![Coverage Status](https://coveralls.io/repos/github/ShipEngine/shipengine-ipaas-loader/badge.svg?branch=master)](https://coveralls.io/github/ShipEngine/shipengine-ipaas-loader)
+[![Dependencies](https://david-dm.org/ShipEngine/shipengine-ipaas-loader.svg)](https://david-dm.org/ShipEngine/shipengine-ipaas-loader)
+
+[![npm](https://img.shields.io/npm/v/@shipengine/ipaas-loader.svg)](https://www.npmjs.com/package/@shipengine/ipaas-loader)
+[![License](https://img.shields.io/npm/l/@shipengine/ipaas-loader.svg)](LICENSE)
+[![Buy us a tree](https://img.shields.io/badge/Treeware-%F0%9F%8C%B3-lightgreen)](https://plant.treeware.earth/ShipEngine/shipengine-ipaas-loader)
 
 
 
-Step 1: Copy this repo
----------------------------------------------
-Create a new git repo and copy the contents of this repo into it.
+Features
+--------------------------
+- Feature 1
+- Feature 2
+- Feature 3
 
 
 
-Step 2: Delete unneeded files
----------------------------------------------
-If you **don't** need a CLI, then:
-  - Delete the following files and directories:
-    - `bin`
-    - `src/cli`
-    - `test/specs/cli.spec.js`
-    - `test/utils/my-cli.js`
-  - Delete the following fields in `package.json`:
-    - `bin`
-    - `files.bin`
-    - `devDependencies.chai-exec`
-    - `devDependencies.@types/command-line-args`
-    - `dependencies.command-line-args`
-  - Delete the `Run CLI` config from `.vscode/launch.json`
+Example
+--------------------------
+
+```javascript
+import ipaasLoader from "@shipengine/ipaas-loader";
+
+// TODO: Add a usage example here
+```
 
 
 
-Step 3: Replace placeholders
----------------------------------------------
-Replace all occurrences of the following placeholders in all files:
+Installation
+--------------------------
+You can install IPaaS Loader via [npm](https://docs.npmjs.com/about-npm/).
 
-|Placeholder                        |Description
-|:----------------------------------|:------------------------------------------------------------
-|`MyGitHubOrg`                      |The GitHub org for this repository, such as "JS-DevTools".
-|`my-repo-name`                     |The GitHub repo name
-|`MyTwitterAccount`                 |The Twitter account associated with this project, such as "JSDevTools".
-|`@my-npm-scope`                    |The NPM scope that the package will be published to, such as "@jsdevtools".
-|`my-package-name`                  |The NPM package name. It should be kebab-cased.
-|`my-cli`                           |The CLI command for this project, if any.
-|`myLibrary`                        |The name of the library's default export, if any.  This should be a valid JavaScript identifier name.
-|`My Project Name`                  |The human friendly name of the project that is used in the ReadMe, descriptions, and docs pages
-|`The description of my library`    |A short, human friendly description of the project that is used in the ReadMe and package.json
+```bash
+npm install @shipengine/ipaas-loader
+```
 
 
 
-Step 4: TODOs
----------------------------------------------
-Find all "TODO" notes in the code and follow their instructions.
+Usage
+--------------------------
+TODO: Document the library's API and CLI usage
 
 
 
-Step 5: ReadMe
----------------------------------------------
-Delete this file and replace it with `README_md`.
+Contributing
+--------------------------
+Contributions, enhancements, and bug-fixes are welcome!  [File an issue](https://github.com/ShipEngine/shipengine-ipaas-loader/issues) on GitHub and [submit a pull request](https://github.com/ShipEngine/shipengine-ipaas-loader/pulls).
+
+#### Building
+To build the project locally on your computer:
+
+1. __Clone this repo__<br>
+`git clone https://github.com/ShipEngine/shipengine-ipaas-loader.git`
+
+2. __Install dependencies__<br>
+`npm install`
+
+3. __Build the code__<br>
+`npm run build`
+
+4. __Run the tests__<br>
+`npm test`
+
+
+
+License
+--------------------------
+IPaaS Loader is 100% free and open-source, under the [MIT license](LICENSE). Use it however you want.
+
+This package is [Treeware](http://treeware.earth). If you use it in production, then we ask that you [**buy the world a tree**](https://plant.treeware.earth/ShipEngine/shipengine-ipaas-loader) to thank us for our work. By contributing to the Treeware forest you’ll be creating employment for local families and restoring wildlife habitats.
+
+
+
+Big Thanks To
+--------------------------
+Thanks to these awesome companies for their support of Open Source developers ❤
+
+[![Travis CI](https://jstools.dev/img/badges/travis-ci.svg)](https://travis-ci.com)
+[![SauceLabs](https://jstools.dev/img/badges/sauce-labs.svg)](https://saucelabs.com)
+[![Coveralls](https://jstools.dev/img/badges/coveralls.svg)](https://coveralls.io)
