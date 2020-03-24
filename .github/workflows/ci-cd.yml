@@ -1,0 +1,102 @@
+name: CI-CD
+
+on: 
+  push:
+    branches:
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+    steps:
+    
+    - name: Checkout ShipEngine IPaaS Docs
+      uses: actions/checkout@v2
+      with: 
+        path: shipengine-ipaas-docs
+
+    - name: Clone ShipEngine Docs Generator
+      uses: actions/checkout@v2
+      with:
+        repository: ShipEngine/shipengine-docs-generator
+        token: ${{ secrets.GITHUB_ACCESS_TOKEN }}
+        path: generator
+
+    - name: Clone Private Github Actions Repo
+      uses: actions/checkout@v2
+      with:
+        repository: ShipEngine/github-actions
+        token: ${{ secrets.GITHUB_ACCESS_TOKEN }}
+        path: github-actions
+
+    - name: Clone ShipEngine.com repo
+      uses: actions/checkout@v2
+      with:
+        repository: ShipEngine/shipengine-dot-com
+        token: ${{ secrets.GITHUB_ACCESS_TOKEN }}
+        path: shipengine-dot-com
+
+    - name: Configure WP Engine SSH connection
+      uses: webfactory/ssh-agent@v0.2.0
+      with:
+        ssh-private-key: ${{ secrets.WP_ENGINE_TOKEN }}
+
+    - name: Configure Git User
+      run: |
+        git config --global user.email "service-github-build@shipengine.com"
+        git config --global user.name "ShipEngine Bot"
+    
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Set NPM Registry
+      uses: ./github-actions/npm-login
+
+    # need to npm ci before the should-deploy check because the get-version script depends on axios.
+    - name: Install Dependencies
+      run: |
+        npm --prefix generator/ ci
+        npm install @shipengine/code-engine -g
+      env:
+        NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+
+    - name: Run Docs Generator
+      run: cd shipengine-docs && code-engine ../generator; cd ..
+      env:
+        NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+
+    - name: Copy new generator content to site
+      # run: cp -R ../shipengine-docs/dist shipengine-dot-com/docs
+      uses: ./github-actions/remove-and-copy
+      with:
+        generator-output-dir: shipengine-docs/dist/
+        destination-dir: shipengine-dot-com/docs/ipaas
+
+    - name: Git add and commit newly generator files
+      uses: ./github-actions/add-and-commit
+      with:
+        git-repo-dir: shipengine-dot-com
+        dir-to-commit: docs/
+        commit-message: Update ShipEngine IPaaS docs
+
+    # - name: Push Changes to wordpress engine repo
+    #   uses: ./github-actions/wordpress-engine-push
+    #   with:
+    #     docs-sitemap-url: https://www.shipengine.com/docs/sitemap.xml
+    #     wp-prod-repo: shipengine
+    #     wp-staging-repo: shipenginestag
+    #     host-docs-repo-dir: shipengine-dot-com 
+
+    # - name: Push Changes 
+    #   uses: ad-m/github-push-action@master
+    #   with: 
+    #     directory: generator
+    #     github_token: ${{ secrets.GITHUB_ACCESS_TOKEN }}
+    #     repository: ShipEngine/shipengine-dot-com
+    #     branch: ${{ steps.should-deploy.outputs.branch-name }}
+        
