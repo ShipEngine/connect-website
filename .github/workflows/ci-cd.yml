@@ -66,7 +66,7 @@ jobs:
         NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
 
     - name: Run Docs Generator
-      run: cd shipengine-docs && code-engine ../generator; cd ..
+      run: cd shipengine-ipaas-docs && code-engine ../generator; cd ..
       env:
         NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
 
@@ -74,7 +74,7 @@ jobs:
       # run: cp -R ../shipengine-docs/dist shipengine-dot-com/docs
       uses: ./github-actions/remove-and-copy
       with:
-        generator-output-dir: shipengine-docs/dist/
+        generator-output-dir: shipengine-ipaas-docs/dist/
         destination-dir: shipengine-dot-com/docs/ipaas
 
     - name: Git add and commit newly generator files
