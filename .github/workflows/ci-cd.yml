@@ -84,13 +84,15 @@ jobs:
         dir-to-commit: docs/
         commit-message: Update ShipEngine IPaaS docs
 
-    # - name: Push Changes to wordpress engine repo
-    #   uses: ./github-actions/wordpress-engine-push
-    #   with:
-    #     docs-sitemap-url: https://www.shipengine.com/docs/sitemap.xml
-    #     wp-prod-repo: shipengine
-    #     wp-staging-repo: shipenginestag
-    #     host-docs-repo-dir: shipengine-dot-com 
+    # - name: If Branch is master 
+
+    - name: Push Changes to wordpress engine repo
+      uses: ./github-actions/wordpress-engine-push
+      with:
+        docs-sitemap-url: https://www.shipengine.com/docs/sitemap.xml
+        wp-prod-repo: shipengine
+        wp-staging-repo: shipenginestag
+        host-docs-repo-dir: shipengine-dot-com 
 
     # - name: Push Changes 
     #   uses: ad-m/github-push-action@master
