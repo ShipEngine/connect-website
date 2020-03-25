@@ -52,7 +52,7 @@ jobs:
       id: get-branch
       uses: ./github-actions/get-current-branch
 
-    - name: Configure Git User
+    - name: Configure Git User 
       run: |
         git config --global user.email "service-github-build@shipengine.com"
         git config --global user.name "ShipEngine Bot"
