@@ -48,7 +48,7 @@ jobs:
     - name: Create ipaas directory
       run: mkdir -p shipengine-dot-com/docs/ipaas
 
-    - name: Get current branch
+    - name: Get current branch 
       id: get-branch
       uses: ./github-actions/get-current-branch
 
