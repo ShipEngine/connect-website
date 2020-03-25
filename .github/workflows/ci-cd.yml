@@ -44,6 +44,10 @@ jobs:
       with:
         ssh-private-key: ${{ secrets.WP_ENGINE_TOKEN }}
 
+    - name: Add WP Engine to known host-docs-repo-dir
+      run: echo "|1|jd6bYRvK+GN8tEsMg6Jgjtzp8zc=|4LJVOmX2EN51n5qUSeFvwb1b9+E= ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBKPFgZ9SUnEqp6yVjT4plVEADyyO7/LQuVqAvOAKF24X1JDgQwT7Fge8daPQYiXZN6vN+UaPIyEGy8fY3xkYbhA=" >> ~/.ssh/known_hosts
+
+
     - name: Configure Git User
       run: |
         git config --global user.email "service-github-build@shipengine.com"
@@ -74,7 +78,6 @@ jobs:
       run: mkdir shipengine-dot-com/docs/ipaas
 
     - name: Copy new generator content to site
-      # run: cp -R ../shipengine-docs/dist shipengine-dot-com/docs
       uses: ./github-actions/remove-and-copy
       with:
         generator-output-dir: shipengine-ipaas-docs/dist/
