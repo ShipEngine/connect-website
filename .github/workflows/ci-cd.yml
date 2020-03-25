@@ -45,6 +45,10 @@ jobs:
       with:
         ssh-private-key: ${{ secrets.WP_ENGINE_TOKEN }}
 
+    - name: Copy new generator content to site
+      id: get-branch
+      uses: ./github-actions/get-current-branch
+
     - name: Configure Git User
       run: |
         git config --global user.email "service-github-build@shipengine.com"
@@ -95,11 +99,11 @@ jobs:
         wp-staging-repo: shipenginestag
         host-docs-repo-dir: shipengine-dot-com 
 
-    # - name: Push Changes 
-    #   uses: ad-m/github-push-action@master
-    #   with: 
-    #     directory: generator
-    #     github_token: ${{ secrets.GITHUB_ACCESS_TOKEN }}
-    #     repository: ShipEngine/shipengine-dot-com
-    #     branch: ${{ steps.should-deploy.outputs.branch-name }}
+    - name: Push Changes to ShipEngine marketing site master branch
+      if: steps.get-branch.outputs.current-branch == 'master'
+      uses: ad-m/github-push-action@master
+      with: 
+        directory: shipengine-dot-com
+        github_token: ${{ secrets.GITHUB_ACCESS_TOKEN }}
+        repository: ShipEngine/shipengine-dot-com
         
