@@ -44,6 +44,9 @@ jobs:
       uses: webfactory/ssh-agent@v0.2.0
       with:
         ssh-private-key: ${{ secrets.WP_ENGINE_TOKEN }}
+    
+    - name: Create ipaas directory
+      run: mkdir -p shipengine-dot-com/docs/ipaas
 
     - name: Get current branch
       id: get-branch
