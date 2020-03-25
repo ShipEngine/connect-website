@@ -1,0 +1,10 @@
+{
+  "basePath": "docs/ipaas",
+  "description": "By building an IPaaS integration, any carrier or marketplace can add themselves to the ShipEngine ecosystem",
+  "tags": [
+    "shipengine carrier integration",
+    "shipengine marketplace integration",
+    "integrate with shipengine",
+    "shipengine plugin"
+  ]
+}

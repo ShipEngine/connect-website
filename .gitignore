@@ -1,0 +1,23 @@
+# Git ignore
+# https://git-scm.com/docs/gitignore
+
+# Private files
+.env
+
+# System files
+*~
+*#
+.DS_STORE
+Thumbs.db
+
+# IDEs & Text Editors
+.idea
+.sublime-*
+.vscode
+.netbeans
+nbproject
+
+# Build output
+/dist
+/.rpt2_cache
+undefined
