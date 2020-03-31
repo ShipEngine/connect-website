@@ -1,4 +1,4 @@
-import { Config } from "@shipengine/ipaas-types";
+import { App } from "@shipengine/ipaas-types";
 import * as callsites from "callsites";
 import * as fs from "fs";
 import * as jsYaml from "js-yaml";
@@ -10,7 +10,7 @@ import { Options, Settings } from "./settings";
  *
  * @returns - Options
  */
-export async function ipaasLoader(options: Options): Promise<Config> {
+export async function ipaasLoader(options: Options): Promise<App> {
   // let settings = new Settings(options);
 
   if (!options || typeof options.pathToModule !== "string") {
@@ -30,43 +30,36 @@ export async function ipaasLoader(options: Options): Promise<Config> {
     throw new Error(e);
   }
 
-  await crawlAndLoadModule(importedModule as Config, pathToModule);
+  await crawlAndLoadModule(importedModule as App, pathToModule);
 
-  return importedModule as Config;
+  return importedModule as App;
 }
 
-async function crawlAndLoadModule(module: Config, pathToModule: string) {
-  await loadModuleProperty(module, "services", pathToModule);
-  await loadModuleProperty(module, "packageTypes", pathToModule);
-}
+async function crawlAndLoadModule(module: App, pathToModule: string) {
 
-async function loadModuleProperty(module: Config, property: "services" | "packageTypes", pathToModule: string) {
+  // Load all module properties
+  for (let [key, value] of Object.entries(module)) {
 
-  // Load any JSON files
-  let moduleProperty = module[property];
-  if (isString(moduleProperty)) {
+    // Load any JSON files
+    if (typeof value === "string") {
 
-    if (moduleProperty.endsWith(".json")) {
-      const jsonPath = path.join(pathToModule, "..", moduleProperty);
-      const json = JSON.parse(await fs.promises.readFile(jsonPath, "utf-8"));
+      if (value.endsWith(".json")) {
+        const jsonPath = path.join(pathToModule, "..", value);
+        const json = JSON.parse(await fs.promises.readFile(jsonPath, "utf-8"));
 
-      // tslint:disable-next-line: no-unsafe-any
-      module[property] = json;
-    }
+        // @ts-ignore
+        module[key] = json;
+      }
 
-    // Load any YAML files
-    if (moduleProperty.endsWith(".yaml") || moduleProperty.endsWith(".yml")) {
-      const yamlPath = path.join(pathToModule, "..", moduleProperty);
-      const yamlText = await fs.promises.readFile(yamlPath, "utf-8");
-      const json = jsYaml.safeLoad(yamlText);
+      // Load any YAML files
+      if (value.endsWith(".yaml") || value.endsWith(".yml")) {
+        const yamlPath = path.join(pathToModule, "..", value);
+        const yamlText = await fs.promises.readFile(yamlPath, "utf-8");
+        const json = jsYaml.safeLoad(yamlText);
 
-      // tslint:disable-next-line: no-unsafe-any
-      module[property] = json;
+        // @ts-ignore
+        module[key] = json;
+      }
     }
   }
-}
-
-
-function isString(item: unknown): item is string {
-  return typeof item === "string";
 }
