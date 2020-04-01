@@ -7,7 +7,7 @@ let jsonConfig;
 describe("ipaasLoader() with reference to yaml config files that have nested references", () => {
 
   beforeEach(async () => {
-    const pathToModule = "../fixtures/carrier-yaml-app";
+    const pathToModule = "../fixtures/integration-apps/carrier-yaml-app";
     jsonConfig = await ipaasLoader({ pathToModule });
   });
 
@@ -22,9 +22,11 @@ describe("ipaasLoader() with reference to yaml config files that have nested ref
     expect(jsonConfig.deliveryServices).to.be.an("array").with.lengthOf(1);
     expect(jsonConfig.deliveryServices[0].name).to.equal("Priority Overnight");
 
+
     expect(jsonConfig.pickupServices).to.be.an("array");
-    expect(jsonConfig.pickupServices).to.be.an("array").with.lengthOf(1);
+    expect(jsonConfig.pickupServices).to.be.an("array").with.lengthOf(2);
     expect(jsonConfig.pickupServices[0].name).to.equal("Drop Off Pickup");
+    expect(jsonConfig.pickupServices[1].name).to.equal("One Time Pickup");
 
     expect(jsonConfig.registrationForm).to.be.an("object");
     expect(jsonConfig.registrationForm.dataSchema.title).to.equal("Carrier One Registration");
@@ -33,6 +35,10 @@ describe("ipaasLoader() with reference to yaml config files that have nested ref
     expect(jsonConfig.settingsForm.dataSchema.title).to.equal("Carrier One Settings");
 
     expect(jsonConfig.requestPickup).to.be.a("function");
+  });
+
+  it("should properly dereference an array that has inline and references to config files", () => {
+
   });
 
 });

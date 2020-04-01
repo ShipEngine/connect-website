@@ -7,7 +7,7 @@ let inlineConfig;
 describe("ipaasLoader() with inline config", () => {
 
   beforeEach(async () => {
-    inlineConfig = await ipaasLoader({ pathToModule: "../fixtures/carrier-inline-app" });
+    inlineConfig = await ipaasLoader({ pathToModule: "../fixtures/integration-apps/carrier-inline-app" });
   });
 
   it("should not attempt to dereference a config that has all properties inlined", () => {
