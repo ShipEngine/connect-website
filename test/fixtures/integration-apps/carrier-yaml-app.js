@@ -6,7 +6,7 @@ const config = {
   name: "My Carrier",
   description: "My Carrier description goes here",
   url: "https://www.my-carrier.com",
-  logo: "./logo.svg",
+  logo: "../logo.svg",
 
   deliveryServices: "../configs/delivery-services/delivery-services.yaml",
   pickupServices: "../configs/pickup-services/pickup-services.yaml",

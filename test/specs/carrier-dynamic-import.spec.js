@@ -4,13 +4,13 @@ const ipaasLoader = require("../../lib");
 const { expect } = require("chai");
 let jsonConfig;
 
-describe("ipaasLoader() with reference to json config files that have nested schema references", () => {
+describe.skip("ipaasLoader() with reference to json config files that have nested schema references", () => {
 
   beforeEach(async () => {
-    jsonConfig = await ipaasLoader("../fixtures/integration-apps/carrier-json-app");
+    jsonConfig = await ipaasLoader("../fixtures/integration-apps/carrier-dynamic-import");
   });
 
-  it("should properly dereference a config file", () => {
+  it("should properly dereference a config file that has dynamic imports", () => {
     expect(jsonConfig.type).to.equal("carrier");
     expect(jsonConfig.name).to.equal("My Carrier");
     expect(jsonConfig.description).to.equal("My Carrier description goes here");
@@ -19,15 +19,15 @@ describe("ipaasLoader() with reference to json config files that have nested sch
 
     expect(jsonConfig.deliveryServices).to.be.an("array");
     expect(jsonConfig.deliveryServices).to.be.an("array").with.lengthOf(1);
-    expect(jsonConfig.deliveryServices[0].name).to.equal("Priority Overnight");
-    expect(jsonConfig.deliveryServices[0].packaging[1].name).to.equal("Large Padded Envelope");
-
+    expect(jsonConfig.deliveryServices[0].name).to.equal("Ground");
 
 
     expect(jsonConfig.pickupServices).to.be.an("array");
-    expect(jsonConfig.pickupServices).to.be.an("array").with.lengthOf(2);
-    expect(jsonConfig.pickupServices[0].name).to.equal("Drop Off Pickup");
-    expect(jsonConfig.pickupServices[1].name).to.equal("One Time Pickup");
+    expect(jsonConfig.pickupServices).to.be.an("array").with.lengthOf(3);
+    expect(jsonConfig.pickupServices[0].name).to.equal("One Time Pickup");
+    expect(jsonConfig.pickupServices[2].name).to.equal("One Time Pickup");
+    expect(jsonConfig.pickupServices[3].name).to.equal("Recurring Pickup");
+
 
     expect(jsonConfig.registrationForm).to.be.an("object");
     expect(jsonConfig.registrationForm.dataSchema.title).to.equal("Carrier One Registration");

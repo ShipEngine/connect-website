@@ -4,11 +4,10 @@ const ipaasLoader = require("../../lib");
 const { expect } = require("chai");
 let jsonConfig;
 
-describe("ipaasLoader() with reference to yaml config files that have nested references", () => {
+describe.only("ipaasLoader() with reference to yaml config files that have nested references", () => {
 
   beforeEach(async () => {
-    const pathToModule = "../fixtures/integration-apps/carrier-yaml-app";
-    jsonConfig = await ipaasLoader({ pathToModule });
+    jsonConfig = await ipaasLoader("../fixtures/integration-apps/carrier-yaml-app.js");
   });
 
   it("should properly dereference a config file", () => {
