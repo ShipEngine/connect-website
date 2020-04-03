@@ -1,5 +1,4 @@
 import * as types from "@shipengine/ipaas-types";
-import * as path from "path";
 import { isFilePath, loadJsonOrYaml } from "./files";
 
 export async function resolveAndPopulateArray<T>(property: types.InlineOrReferenceArray<T>, appDir: string): Promise<T[]> {
@@ -9,10 +8,14 @@ export async function resolveAndPopulateArray<T>(property: types.InlineOrReferen
     let array = await loadJsonOrYaml<T>(property, appDir);
 
     // TODO: Error handling
-    // array = await import(path.join(appDir, property));
-
     if (Array.isArray(array)) {
-      return array;
+      let resolvedArray = [];
+      for (let item of array) {
+        const resolvedItem = await resolveAndPopulateObject<T>(item, appDir);
+        resolvedArray.push(resolvedItem);
+      }
+
+      return resolvedArray;
     }
     else {
       throw new Error(`Did not resolve to expected array: ${property}`);
@@ -26,8 +29,8 @@ export async function resolveAndPopulateArray<T>(property: types.InlineOrReferen
 
 export async function resolveAndPopulateObject<T>(property: types.InlineOrReference<T>, appDir: string): Promise<T> {
 
-  if (typeof property === "string") {
-    let object = await import(path.join(appDir, property));
+  if (typeof property === "string" && isFilePath(property)) {
+    let object = await loadJsonOrYaml<T>(property, appDir);
 
     if (typeof object === "object") {
       return object as T;

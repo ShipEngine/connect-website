@@ -12,7 +12,6 @@ export async function ipaasLoader(moduleId: string): Promise<CarrierApp /** | Or
 
   const callPath = callsites()[1].getFileName();
   // TODO: Figure out why require.resolve isn't working and remove callsites
-  // console.log("module = ", require.resolve(moduleId));
   // const pathToModule = require.resolve(moduleId);
   const pathToModule = path.join(callPath as string, "..", moduleId);
 

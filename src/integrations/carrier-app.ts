@@ -1,7 +1,8 @@
 import validate from "@code-engine/validate";
 import * as types from "@shipengine/ipaas-types";
 import * as path from "path";
-import { isFilePath, loadJsonOrYaml, readLogo } from "../utils/files";
+import { readLogo } from "../utils/files";
+import { resolveAndPopulateArray } from "../utils/resolve-and-populate";
 import { DeliveryService } from "./delivery-service";
 import { Form } from "./form";
 import { PickupService } from "./pickup-service";
@@ -65,17 +66,17 @@ export class CarrierApp {
       colorSVG: await readLogo(app.logo.colorSVG, appDir)
     };
 
-    if (typeof app.deliveryServices === "string" && isFilePath(app.deliveryServices)) {
-      const deliveryServices = await loadJsonOrYaml<types.DeliveryService>(app.deliveryServices, appDir);
+    const deliveryServices = await resolveAndPopulateArray<types.DeliveryService>(app.deliveryServices, appDir);
 
-
-      if (Array.isArray(deliveryServices)) {
-        const dsPromises = deliveryServices
-          .map((ds: types.DeliveryService | string) => DeliveryService.import(ds, appDir));
-
-        carrier.deliveryServices = await Promise.all(dsPromises);
-      }
+    let cwd = appDir;
+    if (typeof app.deliveryServices === "string") {
+      cwd = path.parse(path.join(appDir, app.deliveryServices)).dir;
     }
+
+    const dsPromises = deliveryServices
+      .map((ds: types.DeliveryService | string) => DeliveryService.import(ds, cwd));
+
+    carrier.deliveryServices = await Promise.all(dsPromises);
 
     // carrier.pickupServices = app.pickupServices.map(async ps => await PickupService.import(ps));
 

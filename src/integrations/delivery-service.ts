@@ -1,10 +1,11 @@
 import validate from "@code-engine/validate";
 import * as types from "@shipengine/ipaas-types";
-import { Country } from "../utils/countries";
+import { Country } from "../enums/countries";
 import { resolveAndPopulateArray, resolveAndPopulateObject } from "../utils/resolve-and-populate";
 import { Carrier } from "./carrier";
 import { DeliveryConfirmation } from "./delivery-confirmation";
 import { Packaging } from "./packaging";
+import { isFilePath } from "../utils/files";
 
 /**
  * An IPaaS delivery service.
@@ -40,7 +41,7 @@ export class DeliveryService {
   /**
    * Import and dereference a delivery service object.
    */
-  public static async import(deliveryService: types.DeliveryService | string, appDir: string)
+  public static async import(deliveryService: types.InlineOrReference<types.DeliveryService> | string, appDir: string)
     : Promise<DeliveryService> {
 
     const importedDS = await resolveAndPopulateObject<types.DeliveryService>(deliveryService, appDir);
@@ -58,6 +59,10 @@ export class DeliveryService {
 
     ds.destinationCountries = await resolveAndPopulateArray<types.Country>(importedDS.destinationCountries, appDir);
     validateCountries(ds.originCountries, "Destination");
+
+    ds.carrier = await Carrier.import(importedDS.carrier, appDir);
+
+    // ds.packaging = await resolveAndPopulateArray<types.Packaging>(importedDS.packaging);
 
     return ds;
   }
