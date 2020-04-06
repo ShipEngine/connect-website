@@ -34,7 +34,7 @@ export class Carrier {
       throw new Error(`Error in Carrier validation for Delivery Service: ${error.message}`);
     }
     /**
-     * If the  carrier property is a string that means that it is in a new cwd so all imports 
+     * If the  carrier property is a string that means that it is in a new cwd so all imports
      * within this class will need to account for it.
      */
 

@@ -1,6 +1,10 @@
 import * as types from "@shipengine/ipaas-types";
 import { isFilePath, loadJsonOrYaml } from "./files";
 
+/**
+ * This function takes an unknown property, it could be an array, or a file path. It will then resolve and load
+ * the array and properly crawl and dereference each item in the array for the desired type.
+ */
 export async function resolveAndPopulateArray<T>(property: types.InlineOrReferenceArray<T>, appDir: string): Promise<T[]> {
 
   if (typeof property === "string" && isFilePath(property)) {
@@ -27,6 +31,10 @@ export async function resolveAndPopulateArray<T>(property: types.InlineOrReferen
 
 }
 
+/**
+ * This function takes an unknown property, it could be an object, or a file path. It will then resolve and load
+ * the object and return it as the desired type.
+ */
 export async function resolveAndPopulateObject<T>(property: types.InlineOrReference<T>, appDir: string): Promise<T> {
 
   if (typeof property === "string" && isFilePath(property)) {

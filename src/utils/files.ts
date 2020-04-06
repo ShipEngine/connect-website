@@ -62,6 +62,9 @@ export async function loadJsonOrYaml<T>(filePath: string, currentDir: string): P
   return undefined;
 }
 
+/**
+ * Read an svg logo and store it in a buffer format.
+ */
 export async function readLogo(filePath: string, appDir: string): Promise<Buffer> {
 
   let buffer;
@@ -74,5 +77,5 @@ export async function readLogo(filePath: string, appDir: string): Promise<Buffer
   }
 
 
-  return buffer;;
+  return buffer;
 }

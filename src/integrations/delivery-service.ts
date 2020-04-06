@@ -5,7 +5,6 @@ import { resolveAndPopulateArray, resolveAndPopulateObject } from "../utils/reso
 import { Carrier } from "./carrier";
 import { DeliveryConfirmation } from "./delivery-confirmation";
 import { Packaging } from "./packaging";
-import { isFilePath } from "../utils/files";
 
 /**
  * An IPaaS delivery service.
@@ -87,7 +86,7 @@ export class DeliveryService {
     validate.type.oneOf(ds.isReturnService, [Boolean, undefined]);
     validate.type.oneOf(ds.allowsMultiplePackages, [Boolean, undefined]);
     validate.type.oneOf(ds.hasTracking, [Boolean, undefined]);
-    validate.type.oneOf(ds.requiresManifest, [Boolean, String, undefined])
+    validate.type.oneOf(ds.requiresManifest, [Boolean, String, undefined]);
   }
 }
 
