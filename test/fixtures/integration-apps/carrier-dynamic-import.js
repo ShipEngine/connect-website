@@ -1,7 +1,7 @@
 "use strict";
 
 const config = {
-  type: "carrier",
+  type: "shipping_provider",
   name: "My Carrier",
   description: "My Carrier description goes here",
 

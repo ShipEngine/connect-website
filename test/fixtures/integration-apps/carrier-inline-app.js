@@ -2,17 +2,31 @@
 
 const config = {
 
-  type: "carrier",
+  type: "shipping_provider",
   name: "My Carrier",
   description: "My Carrier description goes here",
-  url: "https://www.my-carrier.com",
-  logo: "./logo.svg",
+  websiteURL: "https://www.my-carrier.com",
+  logo: {
+    blackAndWhiteSVG: "../logo.svg",
+    colorSVG: "../logo.svg"
+  },
 
   deliveryServices: [{
     id: "2a20b066-71c3-11ea-bc55-0242ac130003",
     name: "Priority Overnight",
     class: "ground",
     grade: "overnight",
+
+    carrier: {
+      id: "8ea1989e-d504-433f-b031-b04d5d9ace94",
+      name: "Test Carrier",
+      description: "Test Carrier description",
+      websiteURL: "https://my-test-site.com",
+      logo: {
+        colorSVG: "../logo.svg",
+        blackAndWhiteSVG: "../logo.svg"
+      }
+    },
 
     originCountries: ["US"],
     destinationCountries: ["US", "CA", "MX"],

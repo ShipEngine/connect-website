@@ -2,11 +2,14 @@
 
 const config = {
 
-  type: "carrier",
+  type: "shipping_provider",
   name: "My Carrier",
   description: "My Carrier description goes here",
-  url: "https://www.my-carrier.com",
-  logo: "./logo.svg",
+  websiteURL: "https://www.my-carrier.com",
+  logo: {
+    blackAndWhiteSVG: "../logo.svg",
+    colorSVG: "../logo.svg"
+  },
 
   deliveryServices: "../configs/delivery-services/delivery-services.json",
   pickupServices: "../configs/pickup-services/pickup-services.json",
