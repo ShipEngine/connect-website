@@ -6,7 +6,7 @@ import { readConfig } from "../read-config";
 /**
  * Reads the config for a form
  */
-export async function readFormConfig(config: InlineOrReference<FormConfig>, fieldName: string, cwd = "."): Promise<FormConfig> {
+export async function readFormConfig(config: InlineOrReference<FormConfig>, fieldName: string, cwd: string): Promise<FormConfig> {
   try {
     config = await readConfig(config, fieldName, cwd);
 

@@ -7,10 +7,10 @@ import { readArrayConfig, readConfig } from "../read-config";
 /**
  * Reads the config for a delivery confirmation
  */
-async function readDeliveryConfirmationConfig(config: InlineOrReference<DeliveryConfirmationConfig>, cwd = ".")
+async function readDeliveryConfirmationConfig(config: InlineOrReference<DeliveryConfirmationConfig>, cwd: string)
   : Promise<DeliveryConfirmationConfig> {
   try {
-    return await readConfig(config);
+    return await readConfig(config, cwd);
   }
   catch (error) {
     throw ono(error, `Error reading the delivery confirmation config: ${humanize(config)}`);

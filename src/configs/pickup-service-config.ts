@@ -8,7 +8,7 @@ import { readCarrierConfig } from "./carrier-config";
 /**
  * Reads the config for a pickup service
  */
-export async function readPickupService(config: InlineOrReference<PickupServiceConfig>, cwd = ".")
+export async function readPickupService(config: InlineOrReference<PickupServiceConfig>, cwd: string)
   : Promise<PickupServiceConfig> {
   try {
 
@@ -28,7 +28,7 @@ export async function readPickupService(config: InlineOrReference<PickupServiceC
 /**
  * Reads the config for an array of pickup services
  */
-export async function readPickupServiceArrayConfig(config: InlineOrReferenceArray<PickupServiceConfig>, cwd = ".")
+export async function readPickupServiceArrayConfig(config: InlineOrReferenceArray<PickupServiceConfig>, cwd: string)
   : Promise<PickupServiceConfig[]> {
   try {
 

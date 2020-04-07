@@ -10,9 +10,9 @@ import { readPackingArrayConfig } from "./packaging-config";
 /**
  * Reads the config for a delivery service
  */
-export async function readDeliveryServiceConfig(config: InlineOrReference<DeliveryServiceConfig>, cwd = "."): Promise<DeliveryServiceConfig> {
+export async function readDeliveryServiceConfig(config: InlineOrReference<DeliveryServiceConfig>, cwd: string): Promise<DeliveryServiceConfig> {
   try {
-    config = await readConfig(config);
+    config = await readConfig(config, cwd);
 
     return {
       ...config,
@@ -32,7 +32,7 @@ export async function readDeliveryServiceConfig(config: InlineOrReference<Delive
 /**
  * Reads the config for an array of delivery services
  */
-export async function readDeliveryServiceArrayConfig(config: InlineOrReferenceArray<DeliveryServiceConfig>, cwd = ".")
+export async function readDeliveryServiceArrayConfig(config: InlineOrReferenceArray<DeliveryServiceConfig>, cwd: string)
   : Promise<DeliveryServiceConfig[]> {
   try {
 

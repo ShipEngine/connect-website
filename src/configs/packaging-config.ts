@@ -7,7 +7,7 @@ import { readArrayConfig, readConfig } from "../read-config";
 /**
  * Reads the config for a packaging type
  */
-export async function readPackingConfig(config: InlineOrReference<PackagingConfig>, cwd = "."): Promise<PackagingConfig> {
+export async function readPackingConfig(config: InlineOrReference<PackagingConfig>, cwd: string): Promise<PackagingConfig> {
   try {
     return await readConfig(config, "packaging", cwd);
   }
@@ -19,7 +19,7 @@ export async function readPackingConfig(config: InlineOrReference<PackagingConfi
 /**
  * Reads the config for an array of packaging types
  */
-export async function readPackingArrayConfig(config: InlineOrReferenceArray<PackagingConfig>, cwd = "."): Promise<PackagingConfig[]> {
+export async function readPackingArrayConfig(config: InlineOrReferenceArray<PackagingConfig>, cwd: string): Promise<PackagingConfig[]> {
   try {
     const arrayItemCwd = getCwd(config, cwd);
 

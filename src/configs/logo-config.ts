@@ -8,7 +8,7 @@ import { readConfig } from "../read-config";
 /**
  * Reads the config for a ShipEngine IPaaS logo
  */
-export async function readLogoConfig(config: InlineOrReference<LogoConfig>, cwd = "."): Promise<LogoConfig> {
+export async function readLogoConfig(config: InlineOrReference<LogoConfig>, cwd: string): Promise<LogoConfig> {
   try {
     config = await readConfig(config, undefined, cwd);
 
