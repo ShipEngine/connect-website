@@ -14,10 +14,19 @@ const config = {
   deliveryServices: "../configs/delivery-services/delivery-services.json",
   pickupServices: "../configs/pickup-services/pickup-services.json",
 
-  registrationForm: "../configs/forms/registration-form.json",
+  loginForm: "../configs/forms/registration-form.json",
   settingsForm: "../configs/forms/settings-form.json",
 
-  requestPickup () {}
+  login () {},
+  requestPickup () { },
+  cancelPickup () { },
+
+  createLabel () { },
+  voidLabel () { },
+  getRates () { },
+  getTrackingUrl () { },
+  track () { },
+  createManifest () { }
 
 };
 

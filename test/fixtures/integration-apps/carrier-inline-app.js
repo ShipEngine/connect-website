@@ -16,6 +16,7 @@ const config = {
     name: "Priority Overnight",
     class: "ground",
     grade: "overnight",
+    requiresManifest: false,
 
     carrier: {
       id: "8ea1989e-d504-433f-b031-b04d5d9ace94",
@@ -45,10 +46,20 @@ const config = {
   pickupServices: [{
     id: "27483200-72b4-11ea-bc55-0242ac130003",
     name: "Drop Off Pickup",
-    description: "Take your package to the specified carrier location."
+    description: "Take your package to the specified carrier location.",
+    carrier: {
+      id: "8ea1989e-d504-433f-b031-b04d5d9ace94",
+      name: "Test Carrier",
+      description: "Test Carrier description",
+      websiteURL: "https://my-test-site.com",
+      logo: {
+        colorSVG: "../logo.svg",
+        blackAndWhiteSVG: "../logo.svg"
+      }
+    }
   }],
 
-  registrationForm: {
+  loginForm: {
     dataSchema: {
       title: "Carrier One Registration",
       description: "Login with your Carrier One account information.",
@@ -115,8 +126,16 @@ const config = {
   },
 
 
-  requestPickup () {},
+  login () {},
+  requestPickup () { },
+  cancelPickup () { },
 
+  createLabel () { },
+  voidLabel () { },
+  getRates () { },
+  getTrackingUrl () { },
+  track () { },
+  createManifest () { }
 
 };
 

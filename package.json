@@ -55,8 +55,8 @@
   },
   "dependencies": {
     "@code-engine/validate": "^1.0.2",
-    "@shipengine/ipaas-types": "0.0.6",
     "@types/callsites": "^3.0.0",
+    "@shipengine/ipaas": "0.0.3",
     "@types/js-yaml": "^3.12.3",
     "callsites": "^3.1.0",
     "js-yaml": "^3.13.1"

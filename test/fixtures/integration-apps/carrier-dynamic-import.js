@@ -5,17 +5,16 @@ const config = {
   name: "My Carrier",
   description: "My Carrier description goes here",
 
-  url: "https://www.my-carrier.com",
+  websiteURL: "https://www.my-carrier.com",
 
-  logo: "./logo.svg",
+  logo: {
+    blackAndWhiteSVG: "../logo.svg",
+    colorSVG: "../logo.svg"
+  },
 
   deliveryServices: [
-    "../modules/delivery-services/ground-service",
     require("../modules/delivery-services/ground-service"),
     // import("../modules/delivery-services/ground-service"),
-    {
-      name: ""
-    }
   ],
 
   pickupServices: [

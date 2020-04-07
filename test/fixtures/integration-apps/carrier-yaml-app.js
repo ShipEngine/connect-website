@@ -14,11 +14,19 @@ const config = {
   deliveryServices: "../configs/delivery-services/delivery-services.yaml",
   pickupServices: "../configs/pickup-services/pickup-services.yaml",
 
-  registrationForm: "../configs/forms/registration-form.json",
+  loginForm: "../configs/forms/registration-form.json",
   settingsForm: "../configs/forms/settings-form.json",
 
-  requestPickup () {}
+  login () {},
+  requestPickup () { },
+  cancelPickup () { },
 
+  createLabel () { },
+  voidLabel () { },
+  getRates () { },
+  getTrackingUrl () { },
+  track () { },
+  createManifest () { }
 };
 
 module.exports = config;

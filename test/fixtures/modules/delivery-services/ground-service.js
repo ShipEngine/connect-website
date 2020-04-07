@@ -13,6 +13,7 @@ const groundService = {
 
     grade: "standard",
 
+    carrier: "../../configs/carrier/carrier.yaml",
     originCountries: [
       "US"
     ],
