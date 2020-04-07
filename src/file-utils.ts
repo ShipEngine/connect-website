@@ -61,17 +61,25 @@ export async function loadConfigOrModuleFiles<T>(filePath: string, currentDir: s
     }
   }
 
-  else if (filePath.endsWith(".js") || filePath.endsWith(".ts")) {
+  // TODO: rethink and clean this section up once there's more clarity on dynamic imports
+  else if (filePath.endsWith(".js")) {
     const json = await import(filePath);
+    // tslint:disable-next-line: no-unsafe-any
     if (json.default && Array.isArray(json.default)) {
       return json as T[];
     }
+    // tslint:disable-next-line: no-unsafe-any
     else if (json.default) {
+      // tslint:disable-next-line: no-unsafe-any
       return json.default as T;
     }
     else {
       return json as T;
     }
+  }
+
+  else if (filePath.endsWith(".ts")) {
+    // TODO: resolve .ts with TS node
   }
 
   return undefined;

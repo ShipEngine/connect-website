@@ -1,10 +1,13 @@
 import { ono } from "@jsdevtools/ono";
-import { AppManifest, DeliveryService, Form, Logo, PickupService, ShippingProviderApp, ShippingProviderConfig } from "@shipengine/ipaas";
+import { AppManifest, ShippingProviderApp, ShippingProviderConfig } from "@shipengine/ipaas";
+// tslint:disable-next-line: match-default-export-name
 import callsites from "callsites";
 import * as path from "path";
+import { readDeliveryServiceArrayConfig } from "./configs/delivery-service-config";
+import { readFormConfig } from "./configs/form-config";
+import { readLogoConfig } from "./configs/logo-config";
+import { readPickupServiceArrayConfig } from "./configs/pickup-service-config";
 import { readConfig } from "./read-config";
-
-
 
 
 /**
@@ -49,11 +52,11 @@ async function derferenceShippingProviderApp(config: AppConfig, cwd = "."): Prom
 
   return {
     ...config,
-    logo: await Logo.readConfig(config.logo, appDir),
-    deliveryServices: await DeliveryService.readArrayConfig(config.deliveryServices, appDir),
-    pickupServices: config.pickupServices && await PickupService.readArrayConfig(config.pickupServices, appDir),
-    loginForm: await Form.readConfig(config.loginForm, "loginForm", appDir),
-    settingsForm: config.settingsForm && await Form.readConfig(config.settingsForm, "settingsForm", appDir),
+    logo: await readLogoConfig(config.logo, appDir),
+    deliveryServices: await readDeliveryServiceArrayConfig(config.deliveryServices, appDir),
+    pickupServices: config.pickupServices && await readPickupServiceArrayConfig(config.pickupServices, appDir),
+    loginForm: await readFormConfig(config.loginForm, "loginForm", appDir),
+    settingsForm: config.settingsForm && await readFormConfig(config.settingsForm, "settingsForm", appDir),
     login: await readConfig(config.login),
     requestPickup: await readConfig(config.requestPickup),
     cancelPickup: await readConfig(config.cancelPickup),
