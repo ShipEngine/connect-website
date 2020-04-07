@@ -20,6 +20,7 @@
         "name": "Flat-Rate Box"
       },
       "../package-types/large-padded-envelope.json"
-    ]
+    ],
+    "deliveryConfirmations": "../delivery-confirmations/delivery-confirmations.json"
   }
 ]

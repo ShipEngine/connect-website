@@ -21,7 +21,7 @@ export async function readDeliveryServiceConfig(config: InlineOrReference<Delive
       carrier: await readCarrierConfig(config.carrier, cwd),
       packaging: await readPackingArrayConfig(config.packaging, cwd),
       deliveryConfirmations:
-        config.deliveryConfirmations && await readDeliveryConfirmationArrayConfig(config.deliveryConfirmations),
+        config.deliveryConfirmations && await readDeliveryConfirmationArrayConfig(config.deliveryConfirmations, cwd),
     };
   }
   catch (error) {

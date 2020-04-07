@@ -25,6 +25,7 @@ describe("loadApp() with reference to yaml config files that have nested referen
     expect(yamlConfig.deliveryServices).to.be.an("array").with.lengthOf(1);
     expect(yamlConfig.deliveryServices[0].name).to.equal("Priority Overnight");
 
+    expect(yamlConfig.deliveryServices[0].deliveryConfirmations[0].name).to.equal("Adult Signature");
 
     expect(yamlConfig.pickupServices).to.be.an("array");
     expect(yamlConfig.pickupServices).to.be.an("array").with.lengthOf(2);

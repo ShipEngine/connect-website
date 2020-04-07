@@ -36,12 +36,11 @@ export async function loadApp(appPath: string): Promise<App> {
 
   switch (config.type) {
     case "shipping_provider":
-      // config = await ShippingProviderApp.readConfig(config, moduleDir);
       config = await derferenceShippingProviderApp(config, pathToModule);
       return new ShippingProviderApp(manifest, config);
 
     default:
-      throw new Error(``);
+      throw new Error(`Incorrect app type: ${config.type}`);
   }
 }
 

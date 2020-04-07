@@ -25,6 +25,7 @@ describe("loadApp() with reference to json config files that have nested schema 
     expect(jsonConfig.deliveryServices[0].name).to.equal("Priority Overnight");
     expect(jsonConfig.deliveryServices[0].packaging[1].name).to.equal("Large Padded Envelope");
 
+    expect(jsonConfig.deliveryServices[0].deliveryConfirmations[0].name).to.equal("Adult Signature");
 
 
     expect(jsonConfig.pickupServices).to.be.an("array");

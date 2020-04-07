@@ -40,7 +40,12 @@ const config = {
         id: "e7d6906a-72ba-11ea-bc55-0242ac130003",
         name: "Large Padded Envelope"
       }
-    ]
+    ],
+    deliveryConfirmations: [{
+      id: "cc10a05a-78eb-11ea-bc55-0242ac130003",
+      name: "Adult Signature",
+      description: "Service that ensures that the recipient of the mail items is at least 21 years of age or above."
+    }]
   }],
 
   pickupServices: [{

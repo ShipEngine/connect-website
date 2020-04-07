@@ -24,6 +24,7 @@ describe("loadApp() with inline config", () => {
     expect(inlineConfig.deliveryServices).to.be.an("array").with.lengthOf(1);
     expect(inlineConfig.deliveryServices[0].name).to.equal("Priority Overnight");
 
+    expect(inlineConfig.deliveryServices[0].deliveryConfirmations[0].name).to.equal("Adult Signature");
 
     expect(inlineConfig.pickupServices).to.be.an("array");
     expect(inlineConfig.pickupServices).to.be.an("array").with.lengthOf(1);
