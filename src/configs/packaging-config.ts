@@ -23,7 +23,7 @@ export async function readPackingArrayConfig(config: InlineOrReferenceArray<Pack
   try {
     const arrayItemCwd = getCwd(config, cwd);
 
-    const arrayConfig = await readArrayConfig(config, "delivery_services,", cwd);
+    let arrayConfig = await readArrayConfig(config, "delivery_services,", cwd);
     const dereferencedArray = [];
 
     for (let item of arrayConfig) {

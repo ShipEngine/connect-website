@@ -11,8 +11,8 @@ const config = {
     colorSVG: "../logo.svg"
   },
 
-  deliveryServices: "../configs/delivery-services/delivery-services.yaml",
-  pickupServices: "../configs/pickup-services/pickup-services.yaml",
+  deliveryServices: ["../configs/delivery-services/priority-overnight.yaml"],
+  pickupServices: ["../configs/pickup-services/drop-off.yaml", "../configs/pickup-services/one-time.yaml"],
 
   loginForm: "../configs/forms/registration-form.json",
   settingsForm: "../configs/forms/settings-form.json",

@@ -1,7 +1,7 @@
 import humanize from "@jsdevtools/humanize-anything";
 import { ono } from "@jsdevtools/ono";
 import { DeliveryServiceConfig, InlineOrReference, InlineOrReferenceArray } from "@shipengine/ipaas";
-import { getCwd } from "../file-utils";
+import { getCwd, isFilePath } from "../file-utils";
 import { readArrayConfig, readConfig } from "../read-config";
 import { readCarrierConfig } from "./carrier-config";
 import { readDeliveryConfirmationArrayConfig } from "./delivery-confirmation-config";
@@ -12,16 +12,20 @@ import { readPackingArrayConfig } from "./packaging-config";
  */
 export async function readDeliveryServiceConfig(config: InlineOrReference<DeliveryServiceConfig>, cwd: string): Promise<DeliveryServiceConfig> {
   try {
-    config = await readConfig(config, cwd);
+
+    const loadedConfig = await readConfig(config, "delivery_service", cwd);
+
+    const newCwd = getCwd(config, cwd);
 
     return {
-      ...config,
-      originCountries: await readArrayConfig(config.originCountries),
-      destinationCountries: await readArrayConfig(config.destinationCountries),
-      carrier: await readCarrierConfig(config.carrier, cwd),
-      packaging: await readPackingArrayConfig(config.packaging, cwd),
+      ...loadedConfig,
+      originCountries: await readArrayConfig(loadedConfig.originCountries),
+      destinationCountries: await readArrayConfig(loadedConfig.destinationCountries),
+      carrier: await readCarrierConfig(loadedConfig.carrier, newCwd),
+      packaging: await readPackingArrayConfig(loadedConfig.packaging, newCwd),
       deliveryConfirmations:
-        config.deliveryConfirmations && await readDeliveryConfirmationArrayConfig(config.deliveryConfirmations, cwd),
+        loadedConfig.deliveryConfirmations
+        && await readDeliveryConfirmationArrayConfig(loadedConfig.deliveryConfirmations, newCwd),
     };
   }
   catch (error) {
@@ -37,17 +41,47 @@ export async function readDeliveryServiceArrayConfig(config: InlineOrReferenceAr
   try {
 
     const arrayItemCwd = getCwd(config, cwd);
+    let arrayConfig;
 
-    const arrayConfig = await readArrayConfig(config, "delivery_services,", cwd);
+    if (isFilePath(config)) {
+      arrayConfig = await readArrayConfig(config, "delivery_services,", cwd);
+    }
+    else {
+      // Don't do a generic dereference because sub-references will need the new cwd
+      arrayConfig = config;
+    }
+
     const dereferencedArray = [];
 
-    for (let item of arrayConfig) {
-      const dereferencedConfig = await readDeliveryServiceConfig(item, arrayItemCwd);
-      dereferencedArray.push(dereferencedConfig);
+    if (isDeliveryServiceConfigArray(arrayConfig)) {
+      for (let item of arrayConfig) {
+        const dereferencedConfig = await readDeliveryServiceConfig(item, arrayItemCwd);
+        dereferencedArray.push(dereferencedConfig);
+      }
     }
     return dereferencedArray;
   }
   catch (error) {
     throw ono(error, `Error reading the packaging config: ${humanize(config)}`);
   }
+}
+
+function isDeliveryServiceConfigArray(config: unknown): config is Array<InlineOrReference<DeliveryServiceConfig>> {
+
+  return Array.isArray(config) && config.every((item) => isDeliveryService(item) || isFilePath(item));
+}
+
+function isDeliveryService(item: unknown): item is DeliveryServiceConfig {
+  if (typeof item === "object" && item !== null) {
+    return "id" in item &&
+      "name" in item &&
+      "class" in item &&
+      "grade" in item &&
+      "originCountries" in item &&
+      "destinationCountries" in item &&
+      "carrier" in item &&
+      "packaging" in item;
+  }
+
+  return false;
 }

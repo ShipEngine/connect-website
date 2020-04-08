@@ -27,6 +27,9 @@ describe("loadApp() with reference to yaml config files that have nested referen
 
     expect(yamlConfig.deliveryServices[0].deliveryConfirmations[0].name).to.equal("Adult Signature");
 
+    expect(yamlConfig.deliveryServices[0].packaging[0].name).to.equal("Flat-Rate Box");
+    expect(yamlConfig.deliveryServices[0].packaging[1].name).to.equal("Large Padded Envelope");
+
     expect(yamlConfig.pickupServices).to.be.an("array");
     expect(yamlConfig.pickupServices).to.be.an("array").with.lengthOf(2);
     expect(yamlConfig.pickupServices[0].name).to.equal("Drop Off Pickup");

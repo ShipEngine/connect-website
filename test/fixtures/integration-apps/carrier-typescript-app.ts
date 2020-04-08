@@ -1,6 +1,9 @@
 "use strict";
 
-const config = {
+import { ShippingProviderConfig } from "@shipengine/ipaas";
+
+/** Test Shipping Provider */
+export const config: ShippingProviderConfig = {
 
   type: "shipping_provider",
   name: "My Carrier",
@@ -11,12 +14,13 @@ const config = {
     colorSVG: "../logo.svg"
   },
 
-  deliveryServices: "../configs/delivery-services/delivery-services.json",
+  deliveryServices: ["../modules/carrier/carrier.ts"],
   pickupServices: "../configs/pickup-services/pickup-services.json",
 
   loginForm: "../configs/forms/registration-form.json",
   settingsForm: "../configs/forms/settings-form.json",
 
+  // TODO: add tests for referencing files.
   login: "../modules/methods/login.js",
   requestPickup: "../modules/methods/requestPickup.js",
   cancelPickup: "../modules/methods/cancelPickup.js",
@@ -30,4 +34,3 @@ const config = {
 
 };
 
-module.exports = config;

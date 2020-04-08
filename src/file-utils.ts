@@ -1,14 +1,19 @@
 import * as fs from "fs";
 import * as jsYaml from "js-yaml";
 import * as path from "path";
+import { register } from "ts-node";
 
+
+register();
 /**
  * Check is string has a JSON or YAML extension
  */
-export function isFilePath(filePath: string): boolean {
-  if (filePath.endsWith(".json") || filePath.endsWith(".yaml") || filePath.endsWith(".yml")
-    || filePath.endsWith(".js") || filePath.endsWith(".ts")) {
-    return true;
+export function isFilePath(filePath: unknown): filePath is string {
+  if (typeof filePath === "string") {
+    if (filePath.endsWith(".json") || filePath.endsWith(".yaml") || filePath.endsWith(".yml")
+      || filePath.endsWith(".js") || filePath.endsWith(".ts")) {
+      return true;
+    }
   }
 
   return false;
@@ -78,7 +83,15 @@ export async function loadConfigOrModuleFiles<T>(filePath: string, currentDir: s
   }
 
   else if (filePath.endsWith(".ts")) {
-    // TODO: resolve .ts with TS node
+    const tsPath = path.join(currentDir, filePath);
+    const json = await require(tsPath);
+
+    if (Object.keys(json).length === 1) {
+      // @ts-ignore
+      return json[Object.keys(json)[0]];
+    }
+
+    return json;
   }
 
   return undefined;

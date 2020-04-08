@@ -1,7 +1,7 @@
 import humanize from "@jsdevtools/humanize-anything";
 import { ono } from "@jsdevtools/ono";
 import { InlineOrReference, InlineOrReferenceArray, PickupService, PickupServiceConfig } from "@shipengine/ipaas";
-import { getCwd } from "../file-utils";
+import { getCwd, isFilePath } from "../file-utils";
 import { readArrayConfig, readConfig } from "../read-config";
 import { readCarrierConfig } from "./carrier-config";
 
@@ -12,11 +12,13 @@ export async function readPickupService(config: InlineOrReference<PickupServiceC
   : Promise<PickupServiceConfig> {
   try {
 
-    config = await readConfig(config, cwd);
+    const loadedConfig = await readConfig(config, "pickup_service", cwd);
+
+    const newCwd = getCwd(config, cwd);
 
     return {
-      ...config,
-      carrier: await readCarrierConfig(config.carrier, cwd)
+      ...loadedConfig,
+      carrier: await readCarrierConfig(loadedConfig.carrier, newCwd)
     };
 
   }
@@ -33,16 +35,39 @@ export async function readPickupServiceArrayConfig(config: InlineOrReferenceArra
   try {
 
     const arrayItemCwd = getCwd(config, cwd);
-    const arrayConfig = await readArrayConfig(config, "pickup_services", cwd);
+    let arrayConfig;
+
+    if (typeof config === "string") {
+      arrayConfig = await readArrayConfig(config, "pickup_services,", cwd);
+    }
+    else {
+      arrayConfig = config;
+    }
     const dereferencedArray = [];
 
-    for (let item of arrayConfig) {
-      const dereferencedConfig = await readPickupService(item, arrayItemCwd);
-      dereferencedArray.push(dereferencedConfig);
+    if (isPickupServiceConfigArray(arrayConfig)) {
+      for (let item of arrayConfig) {
+        const dereferencedConfig = await readPickupService(item, arrayItemCwd);
+        dereferencedArray.push(dereferencedConfig);
+      }
     }
     return dereferencedArray;
   }
   catch (error) {
     throw ono(error, `Error reading the pickup service config: ${humanize(config)}`);
   }
+}
+
+function isPickupServiceConfigArray(config: unknown): config is Array<InlineOrReference<PickupServiceConfig>> {
+  return Array.isArray(config) && config.every((item) => isPickupService(item) || isFilePath(item));
+}
+
+function isPickupService(item: unknown): item is PickupServiceConfig {
+  if (typeof item === "object" && item !== null) {
+    return "id" in item &&
+      "name" in item &&
+      "carrier" in item;
+  }
+
+  return false;
 }
