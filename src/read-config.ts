@@ -14,11 +14,12 @@ import { getCwd, isFilePath, loadConfigOrModuleFiles } from "./file-utils";
  */
 export async function readConfig<T>(config: InlineOrReference<T>, fieldName = "config", cwd = "."): Promise<T> {
 
+  // TODO: use fieldName to provide more helpful errors
   if (typeof config === "string" && isFilePath(config)) {
-    let object = await loadConfigOrModuleFiles<T>(config, cwd);
+    let result = await loadConfigOrModuleFiles<T>(config, cwd);
 
-    if (typeof object === "object") {
-      return object as T;
+    if (typeof result === "object" || typeof result === "function") {
+      return result as T;
     }
   }
 
@@ -39,6 +40,8 @@ export async function readConfig<T>(config: InlineOrReference<T>, fieldName = "c
 export async function readArrayConfig<T>(config: InlineOrReferenceArray<T>, fieldName = "config list", cwd = "."): Promise<T[]> {
 
   const arrayCwd = getCwd(config, cwd);
+
+  // TODO: use fieldName to provide more helpful errors
 
   if (typeof config === "string" && isFilePath(config)) {
     let array = await loadConfigOrModuleFiles(config, cwd);

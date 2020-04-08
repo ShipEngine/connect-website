@@ -17,7 +17,7 @@ const config = {
   loginForm: "../configs/forms/registration-form.json",
   settingsForm: "../configs/forms/settings-form.json",
 
-  login () {},
+  login: "../modules/methods/login.js",
   requestPickup () { },
   cancelPickup () { },
 

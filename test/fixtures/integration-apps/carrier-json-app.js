@@ -17,7 +17,9 @@ const config = {
   loginForm: "../configs/forms/registration-form.json",
   settingsForm: "../configs/forms/settings-form.json",
 
-  login () {},
+  // TODO: add tests for referencing files.
+  login: "../modules/methods/login.js",
+  // login () {},
   requestPickup () { },
   cancelPickup () { },
 

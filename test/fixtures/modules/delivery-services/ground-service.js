@@ -35,7 +35,3 @@ module.exports = new Promise((res) => {
   res(groundService);
 });
 
-
-// let x = await import("foo");
-
-// let x = await Promise.resolve({ default: require("foo") });

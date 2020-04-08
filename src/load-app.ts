@@ -27,7 +27,7 @@ export async function loadApp(appPath: string): Promise<App> {
     throw new Error(`Unable to find app config: ${callPath}`);
   }
   // TODO: Figure out why require.resolve isn't working and remove callsites
-  // const reqPath = require.resolve(moduleId);
+  // const reqPath = require.resolve(appPath);
   const pathToModule = path.join(callPath, "..", appPath);
   const moduleDir = path.parse(pathToModule).dir;
 
@@ -56,15 +56,15 @@ async function derferenceShippingProviderApp(config: AppConfig, cwd = "."): Prom
     pickupServices: config.pickupServices && await readPickupServiceArrayConfig(config.pickupServices, appDir),
     loginForm: await readFormConfig(config.loginForm, "loginForm", appDir),
     settingsForm: config.settingsForm && await readFormConfig(config.settingsForm, "settingsForm", appDir),
-    login: await readConfig(config.login),
-    requestPickup: await readConfig(config.requestPickup),
-    cancelPickup: await readConfig(config.cancelPickup),
-    createLabel: await readConfig(config.createLabel),
-    voidLabel: await readConfig(config.voidLabel),
-    getRates: await readConfig(config.getRates),
-    getTrackingUrl: await readConfig(config.getTrackingUrl),
-    track: await readConfig(config.track),
-    createManifest: await readConfig(config.createManifest),
+    login: await readConfig(config.login, "login", appDir),
+    requestPickup: await readConfig(config.requestPickup, "requestPickup", appDir),
+    cancelPickup: await readConfig(config.cancelPickup, "cancelPickup", appDir),
+    createLabel: await readConfig(config.createLabel, "createLabel", appDir),
+    voidLabel: await readConfig(config.voidLabel, "voidLabel", appDir),
+    getRates: await readConfig(config.getRates, "getRates", appDir),
+    getTrackingUrl: await readConfig(config.getTrackingUrl, "getTrackingUrl", appDir),
+    track: await readConfig(config.track, "track", appDir),
+    createManifest: await readConfig(config.createManifest, "createManifest", appDir),
   };
 
 }

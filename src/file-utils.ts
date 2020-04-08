@@ -61,17 +61,16 @@ export async function loadConfigOrModuleFiles<T>(filePath: string, currentDir: s
     }
   }
 
-  // TODO: rethink and clean this section up once there's more clarity on dynamic imports
   else if (filePath.endsWith(".js")) {
-    const json = await import(filePath);
-    // tslint:disable-next-line: no-unsafe-any
-    if (json.default && Array.isArray(json.default)) {
-      return json as T[];
-    }
-    // tslint:disable-next-line: no-unsafe-any
-    else if (json.default) {
-      // tslint:disable-next-line: no-unsafe-any
-      return json.default as T;
+    const jsPath = path.join(currentDir, filePath);
+    const json = await import(jsPath);
+    if (isModuleExport<T>(json)) {
+      if (Array.isArray(json.default)) {
+        return json.default as T[];
+      }
+      else {
+        return json.default;
+      }
     }
     else {
       return json as T;
@@ -97,4 +96,14 @@ export function getCwd(property: string | object, cwd: string): string {
   }
 
   return path.parse(path.join(cwd, property)).dir;
+}
+
+
+function isModuleExport<T>(module: unknown): module is { default: T } {
+
+  if (typeof module === "object" && module && "default" in module) {
+    return true;
+  }
+
+  return false;
 }
