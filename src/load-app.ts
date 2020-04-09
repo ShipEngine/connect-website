@@ -39,7 +39,7 @@ export async function loadApp(appPath: string): Promise<App> {
       try {
         config = await dereferenceShippingProviderApp(config, pathToModule);
       }
-      catch(e) {
+      catch (e) {
         const error = e as Error;
         throw new Error(`Error dereferencing Shipping Provider App: ${error.message}`);
       }

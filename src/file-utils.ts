@@ -85,6 +85,7 @@ export async function loadConfigOrModuleFiles<T>(filePath: string, currentDir: s
 
   else if (filePath.endsWith(".ts")) {
     const tsPath = path.join(currentDir, filePath);
+    // tslint:disable-next-line: no-unsafe-any
     const module = await require(tsPath) as unknown;
 
     if (typeof module === "object" && module !== null) {
@@ -93,6 +94,7 @@ export async function loadConfigOrModuleFiles<T>(filePath: string, currentDir: s
 
         // @ts-ignore
         const moduleItem = module[moduleKeys[0]];
+        // tslint:disable-next-line: no-unsafe-any
         return moduleItem;
       }
     }
