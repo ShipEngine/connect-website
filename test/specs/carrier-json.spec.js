@@ -2,12 +2,15 @@
 
 const { loadApp } = require("../../lib");
 const { expect } = require("chai");
+const path = require("path");
 let jsonConfig;
 
 describe("loadApp() with reference to json config files that have nested schema references", () => {
 
   beforeEach(async () => {
-    jsonConfig = await loadApp("../fixtures/integration-apps/carrier-json-app.js");
+    const relativePath = "../fixtures/integration-apps/carrier-json-app";
+    const appPath = path.join(__dirname, relativePath);
+    jsonConfig = await loadApp(appPath);
   });
 
   it("should properly dereference a config file", () => {

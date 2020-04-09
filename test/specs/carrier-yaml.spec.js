@@ -2,12 +2,15 @@
 
 const { loadApp } = require("../../lib");
 const { expect } = require("chai");
+const path = require("path");
 let yamlConfig;
 
 describe("loadApp() with reference to yaml config files that have nested references", () => {
 
   beforeEach(async () => {
-    yamlConfig = await loadApp("../fixtures/integration-apps/carrier-yaml-app.js");
+    const relativePath = "../fixtures/integration-apps/carrier-yaml-app";
+    const appPath = path.join(__dirname, relativePath);
+    yamlConfig = await loadApp(appPath);
   });
 
   it("should properly dereference a config file", () => {

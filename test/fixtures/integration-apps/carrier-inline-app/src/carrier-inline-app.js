@@ -7,8 +7,8 @@ const config = {
   description: "My Carrier description goes here",
   websiteURL: "https://www.my-carrier.com",
   logo: {
-    blackAndWhiteSVG: "../logo.svg",
-    colorSVG: "../logo.svg"
+    blackAndWhiteSVG: "../../../logo.svg",
+    colorSVG: "../../../logo.svg"
   },
 
   deliveryServices: [{
@@ -24,8 +24,8 @@ const config = {
       description: "Test Carrier description",
       websiteURL: "https://my-test-site.com",
       logo: {
-        colorSVG: "../logo.svg",
-        blackAndWhiteSVG: "../logo.svg"
+        colorSVG: "../../../logo.svg",
+        blackAndWhiteSVG: "../../../logo.svg"
       }
     },
 
@@ -58,8 +58,8 @@ const config = {
       description: "Test Carrier description",
       websiteURL: "https://my-test-site.com",
       logo: {
-        colorSVG: "../logo.svg",
-        blackAndWhiteSVG: "../logo.svg"
+        colorSVG: "../../../logo.svg",
+        blackAndWhiteSVG: "../../../logo.svg"
       }
     }
   }],

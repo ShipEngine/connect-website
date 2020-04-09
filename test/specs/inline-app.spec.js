@@ -2,12 +2,15 @@
 
 const { loadApp } = require("../../lib");
 const { expect } = require("chai");
+const path = require("path");
 let inlineConfig;
 
 describe("loadApp() with inline config", () => {
 
   beforeEach(async () => {
-    inlineConfig = await loadApp("../fixtures/integration-apps/carrier-inline-app.js");
+    const relativePath = "../fixtures/integration-apps/carrier-inline-app";
+    const appPath = path.join(__dirname, relativePath);
+    inlineConfig = await loadApp(appPath);
   });
 
   it("should not attempt to dereference a config that has all properties inlined", () => {

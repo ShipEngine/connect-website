@@ -1,7 +1,5 @@
 import { ono } from "@jsdevtools/ono";
 import { AppManifest, ShippingProviderApp, ShippingProviderConfig } from "@shipengine/ipaas";
-// tslint:disable-next-line: match-default-export-name
-import callsites from "callsites";
 import * as path from "path";
 import { readDeliveryServiceArrayConfig } from "./configs/delivery-service-config";
 import { readFormConfig } from "./configs/form-config";
@@ -22,13 +20,7 @@ type AppConfig = ShippingProviderConfig; // | OrderSourceConfig
  */
 export async function loadApp(appPath: string): Promise<App> {
 
-  const callPath = callsites()[1].getFileName();
-  if (!callPath) {
-    throw new Error(`Unable to find app config: ${callPath}`);
-  }
-  // TODO: Figure out why require.resolve isn't working and remove callsites
-  // const reqPath = require.resolve(appPath);
-  const pathToModule = path.join(callPath, "..", appPath);
+  const pathToModule = require.resolve(appPath);
   const moduleDir = path.parse(pathToModule).dir;
 
   let manifest = await readManifest(moduleDir);

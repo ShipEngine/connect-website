@@ -2,12 +2,15 @@
 
 const { loadApp } = require("../../lib");
 const { expect } = require("chai");
+const path = require("path");
 let jsonConfig;
 
 describe("loadApp() should load a typescript file that also references a .ts file path", () => {
 
   beforeEach(async () => {
-    jsonConfig = await loadApp("../fixtures/integration-apps/carrier-typescript-app.ts");
+    const relativePath = "../fixtures/integration-apps/carrier-typescript-app";
+    const appPath = path.join(__dirname, relativePath);
+    jsonConfig = await loadApp(appPath);
   });
 
   it("should properly dereference a config file that has dynamic imports", () => {
