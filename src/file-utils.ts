@@ -2,7 +2,6 @@ import * as fs from "fs";
 import * as jsYaml from "js-yaml";
 import * as path from "path";
 import { register } from "ts-node";
-import { ModuleKind } from "typescript";
 
 register();
 
