@@ -1,6 +1,6 @@
 {
   "name": "@shipengine/ipaas-loader",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Compile an IPaaS Integration into a single exported POJO",
   "keywords": [],
   "author": {
