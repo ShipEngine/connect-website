@@ -2,9 +2,10 @@ import * as fs from "fs";
 import * as jsYaml from "js-yaml";
 import * as path from "path";
 import { register } from "ts-node";
-
+import { ModuleKind } from "typescript";
 
 register();
+
 /**
  * Check is string has a JSON or YAML extension
  */
@@ -69,7 +70,7 @@ export async function loadConfigOrModuleFiles<T>(filePath: string, currentDir: s
   else if (filePath.endsWith(".js")) {
     const jsPath = path.join(currentDir, filePath);
     const json = await import(jsPath);
-    if (isModuleExport<T>(json)) {
+    if (isDefaultModuleExport<T>(json)) {
       if (Array.isArray(json.default)) {
         return json.default as T[];
       }
@@ -84,14 +85,19 @@ export async function loadConfigOrModuleFiles<T>(filePath: string, currentDir: s
 
   else if (filePath.endsWith(".ts")) {
     const tsPath = path.join(currentDir, filePath);
-    const json = await require(tsPath);
+    const module = await require(tsPath) as unknown;
 
-    if (Object.keys(json).length === 1) {
-      // @ts-ignore
-      return json[Object.keys(json)[0]];
+    if (typeof module === "object" && module !== null) {
+      const moduleKeys = Object.keys(module);
+      if (moduleKeys.length === 1) {
+
+        // @ts-ignore
+        const moduleItem = module[moduleKeys[0]];
+        return moduleItem;
+      }
     }
 
-    return json;
+    return undefined;
   }
 
   return undefined;
@@ -112,7 +118,7 @@ export function getCwd(property: string | object, cwd: string): string {
 }
 
 
-function isModuleExport<T>(module: unknown): module is { default: T } {
+function isDefaultModuleExport<T>(module: unknown): module is { default: T } {
 
   if (typeof module === "object" && module && "default" in module) {
     return true;

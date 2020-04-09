@@ -12,8 +12,11 @@ export async function readLogoConfig(config: InlineOrReference<LogoConfig>, cwd:
   try {
     config = await readConfig(config, undefined, cwd);
 
-    const colorSVGBuffer = await fs.promises.readFile(path.join(cwd, config.colorSVG as string));
-    const blackAndWhiteSVGBuffer = await fs.promises.readFile(path.join(cwd, config.blackAndWhiteSVG as string));
+    const colorSVGPath = path.join(cwd, config.colorSVG as string);
+    const blackAndWhiteSVGPath = path.join(cwd, config.blackAndWhiteSVG as string);
+
+    const colorSVGBuffer = await fs.promises.readFile(colorSVGPath);
+    const blackAndWhiteSVGBuffer = await fs.promises.readFile(blackAndWhiteSVGPath);
 
     return {
       ...config,

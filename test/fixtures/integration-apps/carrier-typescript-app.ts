@@ -14,13 +14,12 @@ export const config: ShippingProviderConfig = {
     colorSVG: "../logo.svg"
   },
 
-  deliveryServices: ["../modules/carrier/carrier.ts"],
+  deliveryServices: ["../modules/delivery-services/ground-service.ts"],
   pickupServices: "../configs/pickup-services/pickup-services.json",
 
   loginForm: "../configs/forms/registration-form.json",
   settingsForm: "../configs/forms/settings-form.json",
 
-  // TODO: add tests for referencing files.
   login: "../modules/methods/login.js",
   requestPickup: "../modules/methods/requestPickup.js",
   cancelPickup: "../modules/methods/cancelPickup.js",
@@ -33,4 +32,3 @@ export const config: ShippingProviderConfig = {
   createManifest: "../modules/methods/createManifest.js"
 
 };
-

@@ -36,7 +36,13 @@ export async function loadApp(appPath: string): Promise<App> {
 
   switch (config.type) {
     case "shipping_provider":
-      config = await derferenceShippingProviderApp(config, pathToModule);
+      try {
+        config = await dereferenceShippingProviderApp(config, pathToModule);
+      }
+      catch(e) {
+        const error = e as Error;
+        throw new Error(`Error dereferencing Shipping Provider App: ${error.message}`);
+      }
       return new ShippingProviderApp(manifest, config);
 
     default:
@@ -45,7 +51,7 @@ export async function loadApp(appPath: string): Promise<App> {
 }
 
 
-async function derferenceShippingProviderApp(config: AppConfig, cwd = "."): Promise<ShippingProviderConfig> {
+async function dereferenceShippingProviderApp(config: AppConfig, cwd = "."): Promise<ShippingProviderConfig> {
 
   const appDir = path.parse(cwd).dir;
 
@@ -74,7 +80,10 @@ async function derferenceShippingProviderApp(config: AppConfig, cwd = "."): Prom
  * Reads the ShipEngine IPaaS shipping provider app manifest (package.json file)
  */
 async function readManifest(appPath: string): Promise<AppManifest> {
-  let manifestPath = path.join(appPath, "package.json");
+  let manifestPath = path.join(appPath, "..", "package.json");
+
+  // TODO: This currently only supports a package.json that is one directory above the config file
+  // need to make this more robust and finding different package.json locations
 
   try {
     return await readConfig<AppManifest>(manifestPath, "package.json");

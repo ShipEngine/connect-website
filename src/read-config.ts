@@ -15,7 +15,7 @@ import { getCwd, isFilePath, loadConfigOrModuleFiles } from "./file-utils";
 export async function readConfig<T>(config: InlineOrReference<T>, fieldName = "config", cwd = "."): Promise<T> {
 
   // TODO: use fieldName to provide more helpful errors
-  if (typeof config === "string" && isFilePath(config)) {
+  if (isFilePath(config)) {
     let result = await loadConfigOrModuleFiles<T>(config, cwd);
 
     if (typeof result === "object" || typeof result === "function") {
@@ -39,22 +39,32 @@ export async function readConfig<T>(config: InlineOrReference<T>, fieldName = "c
  */
 export async function readArrayConfig<T>(config: InlineOrReferenceArray<T>, fieldName = "config list", cwd = "."): Promise<T[]> {
 
-  const arrayCwd = getCwd(config, cwd);
+  let arrayCwd = getCwd(config, cwd);
 
   // TODO: use fieldName to provide more helpful errors
 
-  if (typeof config === "string" && isFilePath(config)) {
-    let array = await loadConfigOrModuleFiles(config, cwd);
-    if (Array.isArray(array)) {
-      const resolvedArray = [];
-      for (let item of array) {
+  if (Array.isArray(config)) {
+    const resolvedArray = [];
+    for (let item of config) {
+      if (isFilePath(item)) {
         const resolvedItem = await readConfig(item, undefined, arrayCwd);
         resolvedArray.push(resolvedItem);
       }
-
-      return resolvedArray as T[];
+      else {
+        resolvedArray.push(item);
+      }
     }
-  }
 
-  return config as T[];
+    return resolvedArray as T[];
+  }
+  else {
+    let array = await loadConfigOrModuleFiles(config as string, cwd) as unknown[];
+    const resolvedArray = [];
+    for (let item of array) {
+      const resolvedItem = await readConfig(item, undefined, arrayCwd);
+      resolvedArray.push(resolvedItem);
+    }
+
+    return resolvedArray as T[];
+  }
 }

@@ -1,5 +1,4 @@
 import { Country, DeliveryServiceClass, DeliveryServiceConfig, DeliveryServiceGrade } from "@shipengine/ipaas";
-import { carrierConfig } from "../carrier/carrier";
 import { flatRatePackaging, largePaddedEnvelope } from "../packaging";
 
 /** Sample Ground Service  */
@@ -12,7 +11,7 @@ export const groundService: DeliveryServiceConfig = {
 
   grade: DeliveryServiceGrade.Standard,
 
-  carrier: carrierConfig,
+  carrier: "../carrier/carrier.ts",
 
   originCountries: [
     Country.UnitedStates
@@ -27,6 +26,8 @@ export const groundService: DeliveryServiceConfig = {
   packaging: [
     flatRatePackaging,
     largePaddedEnvelope
-  ]
+  ],
+
+  requiresManifest: false
 };
 
