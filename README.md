@@ -3,6 +3,16 @@ IPaaS Loader
 This library takes an IPaaS integration that may be broken up into various config components and bundles them together for testing and running in the IPaaS environment.
 
 
+[![Cross-Platform Compatibility](https://shipengine.github.io/img/badges/os-badges.svg)](https://github.com/ShipEngine/shipengine-ipaas-loader/blob/master/.github/workflows/CI-CD.yaml)
+[![Build Status](https://github.com/ShipEngine/shipengine-ipaas-loader/workflows/CI-CD/badge.svg)](https://github.com/ShipEngine/shipengine-ipaas-loader/blob/master/.github/workflows/CI-CD.yaml)
+
+[![Coverage Status](https://coveralls.io/repos/github/ShipEngine/shipengine-ipaas-loader/badge.svg?branch=master)](https://coveralls.io/github/ShipEngine/shipengine-ipaas-loader)
+[![Dependencies](https://david-dm.org/ShipEngine/shipengine-ipaas-loader.svg)](https://david-dm.org/ShipEngine/shipengine-ipaas-loader)
+
+[![npm](https://img.shields.io/npm/v/@shipengine/ipaas-loader.svg)](https://www.npmjs.com/package/@shipengine/ipaas-loader)
+[![License](https://img.shields.io/npm/l/@shipengine/ipaas-loader.svg)](LICENSE)
+
+
 Example
 --------------------------
 
