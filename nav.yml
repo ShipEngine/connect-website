@@ -1,9 +1,33 @@
 # ShipEngine Documentation Navigation
 # https://github.com/ShipEngine/shipengine-docs/wiki/Navigation
 
-# Start Here:
-#   Overview:
-#     Understanding REST: rest.md
+Start Here:
+  Overview:
+    What is ShipEngine IPaaS?
+      - from the integrator's perspective, NOT ours
+      - one integration for all ShipX products
+      - provider vs order source
+      - javascript app, hosted by us
+      - we handle all infra, scaling, etc.
+
+    Getting Started
+    Installing the CLI
+      - prerequisites (Node, NPM)
+
+    Creating your first app
+      - structure of an app
+      - package.json
+      - javascript vs Typescript
+
+    Recommended Tools
+      - VS Code
+      - Atom
+      - Sublime
+
+Config Reference:
+
+Class Reference:
+
 
 Service:
   FAQ: https://help.shipengine.com/
