@@ -1,9 +1,10 @@
 import { loadApp } from "./load-app";
 
-// // Export `loadApp` as a named export and the default export
 export { loadApp };
+
+// The default export is an "IPaaS Loader" object, which has a `loadApp()` method
 // tslint:disable-next-line: no-default-export
-export default loadApp;
+export default { loadApp };
 
 // CommonJS default export hack
 if (typeof module === "object" && typeof module.exports === "object") {
