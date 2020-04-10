@@ -12,7 +12,7 @@ ShipEngine IPaaS App Loader
 [![License](https://img.shields.io/npm/l/@shipengine/ipaas-loader.svg)](LICENSE)
 
 
-This library loads a ShipEngine IPaaS app from an NPM package. Regardless of whether the app is written in JavaScript, TypeScript, JSON, YAML, or a mix of them all, the loader reads those files, validates them, and returns a normalized structure.
+This library loads a [**ShipEngine IPaaS app**](https://www.shipengine.com/docs/ipaas/) from an NPM package. Regardless of whether the app is written in JavaScript, TypeScript, JSON, YAML, or a mix of them all, the loader reads those files, validates them, and returns a normalized structure.
 
 
 
