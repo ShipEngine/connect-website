@@ -24,12 +24,16 @@ export function isFilePath(filePath: unknown): filePath is string {
  */
 export async function loadConfigOrModuleFiles<T>(filePath: string, currentDir: string): Promise<T | T[] | undefined> {
 
+  let fullPath = filePath;
+  if (currentDir !== ".") {
+    fullPath = path.join(currentDir, filePath);
+  }
+
   if (filePath.endsWith(".json")) {
-    const jsonPath = path.join(currentDir, filePath);
     let json;
 
     try {
-      const results = await fs.promises.readFile(jsonPath, "utf-8");
+      const results = await fs.promises.readFile(fullPath, "utf-8");
       json = JSON.parse(results);
     }
     catch (e) {
@@ -46,11 +50,10 @@ export async function loadConfigOrModuleFiles<T>(filePath: string, currentDir: s
   }
 
   else if (filePath.endsWith(".yaml") || filePath.endsWith(".yml")) {
-    const yamlPath = path.join(currentDir, filePath);
     let yamlText;
 
     try {
-      yamlText = await fs.promises.readFile(yamlPath, "utf-8");
+      yamlText = await fs.promises.readFile(fullPath, "utf-8");
     }
     catch (e) {
       const error = e as Error;
@@ -67,8 +70,7 @@ export async function loadConfigOrModuleFiles<T>(filePath: string, currentDir: s
   }
 
   else if (filePath.endsWith(".js")) {
-    const jsPath = path.join(currentDir, filePath);
-    const json = await import(jsPath);
+    const json = await import(fullPath);
     if (isDefaultModuleExport<T>(json)) {
       if (Array.isArray(json.default)) {
         return json.default as T[];
@@ -83,9 +85,8 @@ export async function loadConfigOrModuleFiles<T>(filePath: string, currentDir: s
   }
 
   else if (filePath.endsWith(".ts")) {
-    const tsPath = path.join(currentDir, filePath);
     // tslint:disable-next-line: no-unsafe-any
-    const module = await require(tsPath) as unknown;
+    const module = await require(fullPath) as unknown;
 
     if (typeof module === "object" && module !== null) {
       const moduleKeys = Object.keys(module);

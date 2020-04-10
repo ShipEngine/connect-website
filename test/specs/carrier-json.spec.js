@@ -8,7 +8,7 @@ let jsonConfig;
 describe("loadApp() with reference to json config files that have nested schema references", () => {
 
   beforeEach(async () => {
-    const relativePath = "../fixtures/integration-apps/carrier-json-app";
+    const relativePath = "../fixtures/integration-apps/carrier-json-app/";
     const appPath = path.join(__dirname, relativePath);
     jsonConfig = await loadApp(appPath);
   });
