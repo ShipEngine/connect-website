@@ -1,6 +1,5 @@
-IPaaS Loader
+ShipEngine IPaaS App Loader
 ==============================================
-This library takes an IPaaS integration that may be broken up into various config components and bundles them together for testing and running in the IPaaS environment.
 
 
 [![Cross-Platform Compatibility](https://shipengine.github.io/img/badges/os-badges.svg)](https://github.com/ShipEngine/shipengine-ipaas-loader/blob/master/.github/workflows/CI-CD.yaml)
@@ -13,41 +12,30 @@ This library takes an IPaaS integration that may be broken up into various confi
 [![License](https://img.shields.io/npm/l/@shipengine/ipaas-loader.svg)](LICENSE)
 
 
+This library loads a ShipEngine IPaaS app from an NPM package. Regardless of whether the app is written in JavaScript, TypeScript, JSON, YAML, or a mix of them all, the loader reads those files, validates them, and returns a normalized structure.
+
+
+
 Example
 --------------------------
 
 ```typescript
 import ipaasLoader from "@shipengine/ipaas-loader";
 
-// Returns fully dereferenced config module.
-const ipaasModule = ipaasLoader("relative-path-to-ipaas-integration");
+async function printAppInfo() {
+  let app = await ipaasLoader.loadApp("/path/to/the/app");
+  console.log(`Successfully loaded ${app.name} v${app.version}`);
+}
+
+printAppInfo();
 ```
 
 
 
 Installation
 --------------------------
-You can install IPaaS Loader via [npm](https://docs.npmjs.com/about-npm/).
+You can install the ShipEngine IPaaS App Loader via [npm](https://docs.npmjs.com/about-npm/).
 
 ```bash
 npm install @shipengine/ipaas-loader
 ```
-
-Contributing
---------------------------
-Contributions, enhancements, and bug-fixes are welcome!  [File an issue](https://github.com/ShipEngine/shipengine-ipaas-loader/issues) on GitHub and [submit a pull request](https://github.com/ShipEngine/shipengine-ipaas-loader/pulls).
-
-#### Building
-To build the project locally on your computer:
-
-1. __Clone this repo__<br>
-`git clone https://github.com/ShipEngine/shipengine-ipaas-loader.git`
-
-2. __Install dependencies__<br>
-`npm install`
-
-3. __Build the code__<br>
-`npm run build`
-
-4. __Run the tests__<br>
-`npm test`
