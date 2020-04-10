@@ -14,6 +14,8 @@ describe("loadApp() with reference to yaml config files that have nested referen
   });
 
   it("should properly dereference a config file", () => {
+    expect(yamlConfig.id).to.be.a("string");
+
     expect(yamlConfig.name).to.equal("My Carrier");
     expect(yamlConfig.description).to.equal("My Carrier description goes here");
     expect(yamlConfig.websiteURL.href).to.equal("https://www.my-carrier.com/");

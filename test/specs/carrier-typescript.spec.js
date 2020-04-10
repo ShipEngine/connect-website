@@ -14,6 +14,7 @@ describe("loadApp() should load a typescript file that also references a .ts fil
   });
 
   it("should properly dereference a config file that has dynamic imports", () => {
+    expect(jsonConfig.id).to.be.a("string");
     expect(jsonConfig.name).to.equal("My Carrier");
     expect(jsonConfig.description).to.equal("My Carrier description goes here");
     expect(jsonConfig.websiteURL.href).to.equal("https://www.my-carrier.com/");

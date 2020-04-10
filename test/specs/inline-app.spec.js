@@ -14,6 +14,7 @@ describe("loadApp() with inline config", () => {
   });
 
   it("should not attempt to dereference a config that has all properties inlined", () => {
+    expect(inlineConfig.id).to.be.a("string");
     expect(inlineConfig.name).to.equal("My Carrier");
     expect(inlineConfig.description).to.equal("My Carrier description goes here");
     expect(inlineConfig.websiteURL.href).to.equal("https://www.my-carrier.com/");
