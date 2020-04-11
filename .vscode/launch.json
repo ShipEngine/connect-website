@@ -29,5 +29,21 @@
         "<node_internals>/**/*.js"
       ],
     },
+
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Run IPaaS Loader",
+      "runtimeArgs": [
+        "-e",
+        "require('.').loadApp('../integrations-metapack/shipping-provider-javascript').then(console.log, (e) => console.error(e.stack))",
+      ],
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "outFiles": [
+        "${workspaceFolder}/**/*.js"
+      ],
+    }
   ]
 }
