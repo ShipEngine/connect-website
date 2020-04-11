@@ -1,5 +1,9 @@
-import { InlineOrReference, InlineOrReferenceArray } from "@shipengine/ipaas";
-import { getCwd, isFilePath, loadConfigOrModuleFiles } from "./file-utils";
+import { humanize } from "@jsdevtools/humanize-anything";
+import { ono } from "@jsdevtools/ono";
+import { DynamicImport, InlineOrReference } from "@shipengine/ipaas";
+import * as path from "path";
+import * as resolveFrom from "resolve-from";
+import { readFile } from "./read-file";
 
 /**
  * Reads an ShipEngine IPaaS config that is expected to be a single value.
@@ -12,23 +16,15 @@ import { getCwd, isFilePath, loadConfigOrModuleFiles } from "./file-utils";
  *    - a TypeScript file path
  *    - a dynamic import via `require()` or `import()`
  */
-export async function readConfig<T>(config: InlineOrReference<T>, fieldName = "config", cwd = "."): Promise<T> {
-
-  // TODO: use fieldName to provide more helpful errors
-  if (isFilePath(config)) {
-    let result = await loadConfigOrModuleFiles<T>(config, cwd);
-
-    if (typeof result === "object" || typeof result === "function") {
-      return result as T;
-    }
-  }
-
-  return config as T;
+export async function readConfigValue<T>(config: InlineOrReference<T>, cwd: string, fieldName: string): Promise<T> {
+  let [value] = await readConfig(config, cwd, fieldName);
+  return value;
 }
 
+
 /**
- * Reads an ShipEngine IPaaS config that is expected to be an array of values or other configs.
- * Each config can be any of:
+ * Reads an ShipEngine IPaaS config that is expected to be a single value.
+ * The config can be any of:
  *
  *    - an inline value
  *    - a YAML file path
@@ -36,35 +32,55 @@ export async function readConfig<T>(config: InlineOrReference<T>, fieldName = "c
  *    - a JavaScript file path
  *    - a TypeScript file path
  *    - a dynamic import via `require()` or `import()`
+ *
+ * @returns A tuple containing the config value and the directory path of the config file
  */
-export async function readArrayConfig<T>(config: InlineOrReferenceArray<T>, fieldName = "config list", cwd = "."): Promise<T[]> {
-
-  let arrayCwd = getCwd(config, cwd);
-
-  // TODO: use fieldName to provide more helpful errors
-
-  if (Array.isArray(config)) {
-    const resolvedArray = [];
-    for (let item of config) {
-      if (isFilePath(item)) {
-        const resolvedItem = await readConfig(item, undefined, arrayCwd);
-        resolvedArray.push(resolvedItem);
-      }
-      else {
-        resolvedArray.push(item);
-      }
-    }
-
-    return resolvedArray as T[];
+export async function readConfig<T>(config: InlineOrReference<T>, cwd: string, fieldName: string): Promise<[T, string]> {
+  if (!config) {
+    throw new TypeError(`Invalid ${fieldName}: ${humanize(config)}. Expected an inline value or file path.`);
   }
-  else {
-    let array = await loadConfigOrModuleFiles(config as string, cwd) as unknown[];
-    const resolvedArray = [];
-    for (let item of array) {
-      const resolvedItem = await readConfig(item, undefined, arrayCwd);
-      resolvedArray.push(resolvedItem);
-    }
 
-    return resolvedArray as T[];
+  try {
+    if (typeof config === "string") {
+      // The config value is a file path, so return the file's contents
+      let filePath = resolve(config, cwd);
+      let dir = path.dirname(filePath);
+      let contents = await readFile(filePath) as T;
+      return [contents, dir];
+    }
+    else if (isDynamicImport(config)) {
+      // The config value is a dynamic import, so return the default export
+      let exports = await config;
+      return [exports.default, cwd];
+    }
+    else {
+      // The config value was defined inline, so just return it as-is
+      return [config, cwd];
+    }
   }
+  catch (error) {
+    throw ono(error, `Invalid ${fieldName} config.`);
+  }
+}
+
+
+/**
+ * Resolves a Node.js Module ID or file path
+ */
+function resolve(moduleId: string, cwd: string): string {
+  if (!moduleId.startsWith(".") && !path.isAbsolute(moduleId)) {
+    // Relative paths must start with a "./"
+    moduleId = "./" + moduleId;
+  }
+
+  return resolveFrom(cwd, moduleId);
+}
+
+
+/**
+ * Determines whether the given value is a dynamically imported JavaScript module
+ */
+function isDynamicImport<T>(value: unknown): value is DynamicImport<T> {
+  let dynamicImport = value as DynamicImport<T>;
+  return value && typeof dynamicImport.then === "function";
 }
