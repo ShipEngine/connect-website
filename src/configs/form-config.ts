@@ -1,22 +1,22 @@
 import humanize from "@jsdevtools/humanize-anything";
 import { ono } from "@jsdevtools/ono";
 import { FormConfig, InlineOrReference } from "@shipengine/ipaas";
-import { readConfig } from "../read-config";
+import { readConfig, readConfigValue } from "../read-config";
 
 /**
  * Reads the config for a form
  */
-export async function readFormConfig(config: InlineOrReference<FormConfig>, fieldName: string, cwd: string): Promise<FormConfig> {
-  try {
-    config = await readConfig(config, fieldName, cwd);
+export async function readFormConfig(config: InlineOrReference<FormConfig>, cwd: string, fieldName: string): Promise<FormConfig> {
+  [config, cwd] = await readConfig(config, cwd, fieldName);
 
+  try {
     return {
       ...config,
-      dataSchema: await readConfig(config.dataSchema),
-      uiSchema: await readConfig(config.uiSchema),
+      dataSchema: await readConfigValue(config.dataSchema, cwd, `${fieldName} data schema`),
+      uiSchema: await readConfigValue(config.uiSchema, cwd, `${fieldName} UI schema`),
     };
   }
   catch (error) {
-    throw ono(error, `Error reading the form config: ${humanize(config)}`);
+    throw ono(error, `Invalid ${fieldName} config: ${humanize(config)}`);
   }
 }
