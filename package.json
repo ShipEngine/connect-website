@@ -61,7 +61,7 @@
   "dependencies": {
     "@jsdevtools/humanize-anything": "^1.1.0",
     "@jsdevtools/ono": "^7.1.1",
-    "@shipengine/ipaas": "0.0.8",
+    "@shipengine/ipaas": "0.0.9",
     "js-yaml": "^3.13.1",
     "json5": "^2.1.3",
     "resolve-from": "^5.0.0",
