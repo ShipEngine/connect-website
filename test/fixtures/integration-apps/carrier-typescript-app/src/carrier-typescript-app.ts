@@ -3,7 +3,7 @@
 import { ShippingProviderConfig } from "@shipengine/ipaas";
 
 /** Test Shipping Provider */
-export const config: ShippingProviderConfig = {
+const config: ShippingProviderConfig = {
 
   type: "shipping_provider",
   id: "d54ea601-9374-425c-8732-1f9eae4eae18",
@@ -33,3 +33,6 @@ export const config: ShippingProviderConfig = {
   createManifest: "../../../modules/methods/createManifest.js"
 
 };
+
+// tslint:disable-next-line: no-default-export
+export default config;

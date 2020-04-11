@@ -1,5 +1,8 @@
 {
   "name": "unit-test-fixture",
   "version": "0.0.1",
-  "main": "src/carrier-json-app.js"
+  "main": "src/carrier-json-app.js",
+  "devDependencies": {
+    "@shipengine/ipaas": "0.0.9"
+  }
 }
