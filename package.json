@@ -1,6 +1,6 @@
 {
   "name": "@shipengine/ipaas-loader",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Loads a ShipEngine IPaaS app from an NPM package",
   "keywords": [
     "shipengine",
