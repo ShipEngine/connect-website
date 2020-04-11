@@ -59,7 +59,7 @@ export async function readConfig<T>(config: InlineOrReference<T>, cwd: string, f
     }
   }
   catch (error) {
-    throw ono(error, `Invalid ${fieldName} config.`);
+    throw ono(error, `Invalid ${fieldName} config: ${humanize(config)}.`);
   }
 }
 
