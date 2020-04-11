@@ -1,7 +1,7 @@
 import { ono } from "@jsdevtools/ono";
-import { AppManifest, ShippingProviderApp, ShippingProviderConfig } from "@shipengine/ipaas";
-import * as path from "path";
+import { ShippingProviderApp, ShippingProviderConfig } from "@shipengine/ipaas";
 import { readShippingProviderConfig } from "./configs/provider-app-config";
+import { readAppManifest } from "./read-app-manifest";
 import { readConfig } from "./read-config";
 
 
@@ -21,8 +21,7 @@ export type AppConfig = ShippingProviderConfig; // | OrderSourceConfig
 export async function loadApp(appPath: string): Promise<App> {
   try {
     // Read the app's manifest (package.json file)
-    let manifestPath = path.join(appPath, "package.json");
-    let [manifest] = await readConfig<AppManifest>(manifestPath, ".", "ShipEngine IPaaS app");
+    let manifest = await readAppManifest(appPath);
 
     // Read the app's exported config
     let [config, configPath] = await readConfig<AppConfig>(appPath, ".", "ShipEngine IPaaS app");
@@ -38,6 +37,6 @@ export async function loadApp(appPath: string): Promise<App> {
     }
   }
   catch (error) {
-    throw ono(error, `Error loading the ShipEngine IPaaS app.`);
+    throw ono(error, `Error loading the ShipEngine IPaaS app:`);
   }
 }
