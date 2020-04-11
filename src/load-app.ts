@@ -11,9 +11,12 @@ import { readConfig } from "./read-config";
 /**
  * A ShipEngine IPaaS app
  */
-type App = ShippingProviderApp; // | OrderSourceApp
+export type App = ShippingProviderApp; // | OrderSourceApp
 
-type AppConfig = ShippingProviderConfig; // | OrderSourceConfig
+/**
+ * A ShipEngine IPaaS app config
+ */
+export type AppConfig = ShippingProviderConfig; // | OrderSourceConfig
 
 /**
  * Load a ShipEngine IPaaS shipping provider app
