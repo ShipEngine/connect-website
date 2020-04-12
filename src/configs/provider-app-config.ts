@@ -1,9 +1,8 @@
 import { ShippingProviderConfig } from "@shipengine/ipaas";
 import { readConfigValue } from "../read-config";
-import { readDeliveryServiceArrayConfig } from "./delivery-service-config";
+import { readCarrierArrayConfig } from "./carrier-config";
 import { readFormConfig } from "./form-config";
 import { readLogoConfig } from "./logo-config";
-import { readPickupServiceArrayConfig } from "./pickup-service-config";
 
 /**
  * Reads the config for a ShipEngine IPaaS shipping provider
@@ -12,8 +11,7 @@ export async function readShippingProviderConfig(config: ShippingProviderConfig,
   return {
     ...config,
     logo: await readLogoConfig(config.logo, cwd, "shipping provider logo"),
-    deliveryServices: await readDeliveryServiceArrayConfig(config.deliveryServices, cwd),
-    pickupServices: config.pickupServices && await readPickupServiceArrayConfig(config.pickupServices, cwd),
+    carriers: await readCarrierArrayConfig(config.carriers, cwd),
     loginForm: await readFormConfig(config.loginForm, cwd, "login form"),
     settingsForm: config.settingsForm && await readFormConfig(config.settingsForm, cwd, "settings form"),
     login: config.login

@@ -1,7 +1,7 @@
 {
   "name": "unit-test-fixture",
   "version": "0.0.1",
-  "main": "src/carrier-yaml-app.js",
+  "main": "carrier-yaml-app.yml",
   "devDependencies": {
     "@shipengine/ipaas": "0.0.9"
   }

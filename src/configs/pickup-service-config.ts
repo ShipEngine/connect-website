@@ -1,25 +1,11 @@
-import humanize from "@jsdevtools/humanize-anything";
-import { ono } from "@jsdevtools/ono";
 import { InlineOrReference, InlineOrReferenceArray, PickupServiceConfig } from "@shipengine/ipaas";
-import { readConfig } from "../read-config";
-import { readCarrierConfig } from "./carrier-config";
+import { readConfig, readConfigValue } from "../read-config";
 
 /**
  * Reads the config for a pickup service
  */
 export async function readPickupServiceConfig(config: InlineOrReference<PickupServiceConfig>, cwd: string): Promise<PickupServiceConfig> {
-  [config, cwd] = await readConfig(config, cwd, "pickup service");
-
-  try {
-    return {
-      ...config,
-      carrier: await readCarrierConfig(config.carrier, cwd),
-    };
-
-  }
-  catch (error) {
-    throw ono(error, `Invalid pickup service config: ${humanize(config)}`);
-  }
+  return readConfigValue(config, cwd, "pickup service");
 }
 
 /**

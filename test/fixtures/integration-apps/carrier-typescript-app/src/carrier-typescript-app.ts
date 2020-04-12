@@ -15,11 +15,10 @@ const config: ShippingProviderConfig = {
     colorSVG: "../../../logo.svg"
   },
 
-  deliveryServices: ["../../../modules/delivery-services/ground-service.ts"],
-  pickupServices: "../../../configs/pickup-services/pickup-services.json",
-
   loginForm: "../../../configs/forms/registration-form.json",
   settingsForm: "../../../configs/forms/settings-form.json",
+
+  carriers: "../../../modules/carrier/carriers.ts",
 
   login: "../../../modules/methods/login.js",
   requestPickup: "../../../modules/methods/requestPickup.js",

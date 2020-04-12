@@ -8,62 +8,9 @@ const config = {
   description: "My Carrier description goes here",
   websiteURL: "https://www.my-carrier.com",
   logo: {
-    blackAndWhiteSVG: "../../../logo.svg",
-    colorSVG: "../../../logo.svg"
+    blackAndWhiteSVG: "../../logo.svg",
+    colorSVG: "../../logo.svg"
   },
-
-  deliveryServices: [{
-    id: "2a20b066-71c3-11ea-bc55-0242ac130003",
-    name: "Priority Overnight",
-    class: "ground",
-    grade: "overnight",
-    requiresManifest: false,
-
-    carrier: {
-      id: "8ea1989e-d504-433f-b031-b04d5d9ace94",
-      name: "Test Carrier",
-      description: "Test Carrier description",
-      websiteURL: "https://my-test-site.com",
-      logo: {
-        colorSVG: "../../../logo.svg",
-        blackAndWhiteSVG: "../../../logo.svg"
-      }
-    },
-
-    originCountries: ["US"],
-    destinationCountries: ["US", "CA", "MX"],
-    packaging: [
-      {
-        id: "7c012ad2-71c3-11ea-bc55-0242ac130003",
-        name: "Flat-Rate Box"
-      },
-      {
-        id: "e7d6906a-72ba-11ea-bc55-0242ac130003",
-        name: "Large Padded Envelope"
-      }
-    ],
-    deliveryConfirmations: [{
-      id: "cc10a05a-78eb-11ea-bc55-0242ac130003",
-      name: "Adult Signature",
-      description: "Service that ensures that the recipient of the mail items is at least 21 years of age or above."
-    }]
-  }],
-
-  pickupServices: [{
-    id: "27483200-72b4-11ea-bc55-0242ac130003",
-    name: "Drop Off Pickup",
-    description: "Take your package to the specified carrier location.",
-    carrier: {
-      id: "8ea1989e-d504-433f-b031-b04d5d9ace94",
-      name: "Test Carrier",
-      description: "Test Carrier description",
-      websiteURL: "https://my-test-site.com",
-      logo: {
-        colorSVG: "../../../logo.svg",
-        blackAndWhiteSVG: "../../../logo.svg"
-      }
-    }
-  }],
 
   loginForm: {
     dataSchema: {
@@ -131,6 +78,48 @@ const config = {
     }
   },
 
+  carriers: [{
+    id: "8ea1989e-d504-433f-b031-b04d5d9ace94",
+    name: "Test Carrier",
+    description: "Test Carrier description",
+    websiteURL: "https://my-test-site.com",
+    logo: {
+      colorSVG: "../../logo.svg",
+      blackAndWhiteSVG: "../../logo.svg"
+    },
+
+    deliveryServices: [{
+      id: "2a20b066-71c3-11ea-bc55-0242ac130003",
+      name: "Priority Overnight",
+      class: "ground",
+      grade: "overnight",
+      requiresManifest: false,
+
+      originCountries: ["US"],
+      destinationCountries: ["US", "CA", "MX"],
+      packaging: [
+        {
+          id: "7c012ad2-71c3-11ea-bc55-0242ac130003",
+          name: "Flat-Rate Box"
+        },
+        {
+          id: "e7d6906a-72ba-11ea-bc55-0242ac130003",
+          name: "Large Padded Envelope"
+        }
+      ],
+      deliveryConfirmations: [{
+        id: "cc10a05a-78eb-11ea-bc55-0242ac130003",
+        name: "Adult Signature",
+        description: "Service that ensures that the recipient of the mail items is at least 21 years of age or above."
+      }]
+    }],
+
+    pickupServices: [{
+      id: "27483200-72b4-11ea-bc55-0242ac130003",
+      name: "Drop Off Pickup",
+      description: "Take your package to the specified carrier location.",
+    }],
+  }],
 
   login () {},
   requestPickup () { },

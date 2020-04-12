@@ -2,7 +2,6 @@ import humanize from "@jsdevtools/humanize-anything";
 import { ono } from "@jsdevtools/ono";
 import { DeliveryServiceConfig, InlineOrReference, InlineOrReferenceArray } from "@shipengine/ipaas";
 import { readConfig, readConfigValue } from "../read-config";
-import { readCarrierConfig } from "./carrier-config";
 import { readDeliveryConfirmationArrayConfig } from "./delivery-confirmation-config";
 import { readPackingArrayConfig } from "./packaging-config";
 
@@ -17,7 +16,6 @@ export async function readDeliveryServiceConfig(config: InlineOrReference<Delive
       ...config,
       originCountries: await readConfigValue(config.originCountries, cwd, "origin countries"),
       destinationCountries: await readConfigValue(config.destinationCountries, cwd, "destination countries"),
-      carrier: await readCarrierConfig(config.carrier, cwd),
       packaging: await readPackingArrayConfig(config.packaging, cwd),
       deliveryConfirmations: config.deliveryConfirmations
         && await readDeliveryConfirmationArrayConfig(config.deliveryConfirmations, cwd),

@@ -6,5 +6,8 @@
   "logo": {
     "colorSVG": "../../logo.svg",
     "blackAndWhiteSVG": "../../logo.svg"
-  }
+  },
+
+  "deliveryServices": "../delivery-services/delivery-services.json",
+  "pickupServices": "../pickup-services/pickup-services.json"
 }

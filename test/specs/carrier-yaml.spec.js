@@ -47,14 +47,14 @@ describe("loadApp() with reference to yaml config files that have nested referen
     expect(yamlConfig.settingsForm.dataSchema.title).to.equal("Carrier One Settings");
 
     expect(yamlConfig.login).to.be.a("function");
-    expect(yamlConfig.requestPickup).to.be.a("function");
-    expect(yamlConfig.cancelPickup).to.be.a("function");
-    expect(yamlConfig.createLabel).to.be.a("function");
-    expect(yamlConfig.voidLabel).to.be.a("function");
-    expect(yamlConfig.getRates).to.be.a("function");
-    expect(yamlConfig.getTrackingUrl).to.be.a("function");
-    expect(yamlConfig.track).to.be.a("function");
-    expect(yamlConfig.createManifest).to.be.a("function");
+    expect(yamlConfig.requestPickup).to.equal(undefined);
+    expect(yamlConfig.cancelPickup).to.equal(undefined);
+    expect(yamlConfig.createLabel).to.equal(undefined);
+    expect(yamlConfig.voidLabel).to.equal(undefined);
+    expect(yamlConfig.getRates).to.equal(undefined);
+    expect(yamlConfig.getTrackingUrl).to.equal(undefined);
+    expect(yamlConfig.track).to.equal(undefined);
+    expect(yamlConfig.createManifest).to.equal(undefined);
   });
 
 });

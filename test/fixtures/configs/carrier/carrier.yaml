@@ -2,6 +2,13 @@ id: 8ea1989e-d504-433f-b031-b04d5d9ace94
 name: Test Carrier
 description: Test Carrier description
 websiteURL: https://my-test-site.com
-logo: 
+logo:
   colorSVG: ../../logo.svg
   blackAndWhiteSVG: ../../logo.svg
+
+deliveryServices:
+  - ../delivery-services/priority-overnight.yaml
+
+pickupServices:
+  - ../pickup-services/drop-off.yaml
+  - ../pickup-services/one-time.yaml

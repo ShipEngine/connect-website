@@ -4,7 +4,6 @@
     "name": "Priority Overnight",
     "class": "ground",
     "grade": "overnight",
-    "carrier": "../carrier/carrier.json",
     "requiresManifest": false,
     "originCountries": [
       "US"

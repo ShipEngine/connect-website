@@ -8,7 +8,10 @@ const carrierConfig: CarrierConfig = {
   logo: {
     colorSVG: "./logo.svg",
     blackAndWhiteSVG: "./logo.svg"
-  }
+  },
+
+  deliveryServices: ["../delivery-services/ground-service.ts"],
+  pickupServices: "../../configs/pickup-services/pickup-services.json",
 };
 
 // tslint:disable-next-line: no-default-export

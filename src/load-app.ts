@@ -4,7 +4,6 @@ import { readShippingProviderConfig } from "./configs/provider-app-config";
 import { readAppManifest } from "./read-app-manifest";
 import { readConfig } from "./read-config";
 
-
 /**
  * A ShipEngine IPaaS app
  */
