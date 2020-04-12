@@ -1,5 +1,5 @@
 import { ono } from "@jsdevtools/ono";
-import { ShippingProviderApp, ShippingProviderConfig } from "@shipengine/ipaas";
+import { ErrorCode, ShippingProviderApp, ShippingProviderConfig } from "@shipengine/ipaas";
 import { readShippingProviderConfig } from "./configs/provider-app-config";
 import { readAppManifest } from "./read-app-manifest";
 import { readConfig } from "./read-config";
@@ -37,6 +37,6 @@ export async function loadApp(appPath: string): Promise<App> {
     }
   }
   catch (error) {
-    throw ono(error, `Error loading the ShipEngine IPaaS app:`);
+    throw ono(error, { code: ErrorCode.InvalidConfig }, `Error loading the ShipEngine IPaaS app:`);
   }
 }
