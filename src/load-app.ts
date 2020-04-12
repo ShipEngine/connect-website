@@ -18,7 +18,7 @@ export type AppConfig = ShippingProviderConfig; // | OrderSourceConfig
 /**
  * Load a ShipEngine IPaaS shipping provider app
  */
-export async function loadApp(appPath: string): Promise<App> {
+export async function loadApp(appPath: string = "."): Promise<App> {
   try {
     // Read the app's manifest (package.json file)
     let manifest = await readAppManifest(appPath);
