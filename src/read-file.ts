@@ -10,7 +10,7 @@ import * as tsNode from "ts-node";
 /**
  * Reads a file based on its file extension
  */
-export async function readFile(filePath: string): Promise<unknown> {
+export async function readFile<T>(filePath: string): Promise<T> {
   switch (path.extname(filePath)) {
     case ".yml":
     case ".yaml":
@@ -28,7 +28,7 @@ export async function readFile(filePath: string): Promise<unknown> {
       return importTypeScriptModule(filePath);
 
     default:
-      return readTextFile(filePath);
+      return readTextFile(filePath) as unknown as T;
   }
 }
 
@@ -36,11 +36,11 @@ export async function readFile(filePath: string): Promise<unknown> {
 /**
  * Returns the parsed contents of the specified YAML file
  */
-async function readYamlFile(filePath: string): Promise<unknown> {
+async function readYamlFile<T>(filePath: string): Promise<T> {
   let yaml = await readTextFile(filePath);
 
   try {
-    return jsYaml.safeLoad(yaml, { filename: path.basename(filePath) });
+    return jsYaml.safeLoad(yaml, { filename: path.basename(filePath) }) as T;
   }
   catch (error) {
     throw ono(error, `Unable to parse ${path.basename(filePath)}.`);
@@ -51,11 +51,11 @@ async function readYamlFile(filePath: string): Promise<unknown> {
 /**
  * Returns the parsed contents of the specified JSON file
  */
-async function readJsonFile(filePath: string): Promise<unknown> {
+async function readJsonFile<T>(filePath: string): Promise<T> {
   let json = await readTextFile(filePath);
 
   try {
-    return json5.parse(json);
+    return json5.parse(json) as T;
   }
   catch (error) {
     throw ono(error, `Unable to parse ${path.basename(filePath)}.`);
@@ -80,16 +80,16 @@ async function readTextFile(filePath: string): Promise<string> {
 /**
  * Returns the default export of the specified JavaScript module
  */
-async function importJavaScriptModule(filePath: string): Promise<unknown> {
+async function importJavaScriptModule<T>(filePath: string): Promise<T> {
   try {
     let exports = await import(filePath) as EcmaScriptModule;
     if ("default" in exports) {
       // This appears to be an ECMAScript module, so return its default export
-      return exports.default;
+      return exports.default as T;
     }
     else {
       // This appears to be a CommonJS module, so return the module exports
-      return exports;
+      return exports as unknown as T;
     }
   }
   catch (error) {
@@ -103,7 +103,7 @@ let tsNodeRegistered = false;
 /**
  * Returns the default export of the specified TypeScript module
  */
-async function importTypeScriptModule(filePath: string): Promise<unknown> {
+async function importTypeScriptModule<T>(filePath: string): Promise<T> {
   try {
     if (!tsNodeRegistered) {
       tsNodeRegistered = true;
