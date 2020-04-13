@@ -3,6 +3,7 @@ import { ono } from "@jsdevtools/ono";
 import { DynamicImport, InlineOrReference } from "@shipengine/ipaas";
 import * as path from "path";
 import * as resolveFrom from "resolve-from";
+import { configCache } from "./config-cache";
 import { readFile } from "./read-file";
 
 /**
@@ -45,7 +46,18 @@ export async function readConfig<T>(config: InlineOrReference<T>, cwd: string, f
       // The config value is a file path, so return the file's contents
       let filePath = resolve(config, cwd);
       let dir = path.dirname(filePath);
-      let contents = await readFile(filePath) as T;
+      let contents: T;
+
+      // Get the file from the cache, if possible
+      let cached = configCache.get<T>(filePath);
+      if (cached) {
+        contents = await cached;
+      }
+      else {
+        // The file isn't cached, so read it and cache it
+        contents = await configCache.add(filePath, readFile<T>(filePath));
+      }
+
       return [contents, dir];
     }
     else if (isDynamicImport(config)) {

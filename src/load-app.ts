@@ -1,5 +1,6 @@
 import { ono } from "@jsdevtools/ono";
 import { ErrorCode, ShippingProviderApp, ShippingProviderConfig } from "@shipengine/ipaas";
+import { configCache } from "./config-cache";
 import { readShippingProviderConfig } from "./configs/provider-app-config";
 import { readAppManifest } from "./read-app-manifest";
 import { readConfig } from "./read-config";
@@ -19,6 +20,8 @@ export type AppConfig = ShippingProviderConfig; // | OrderSourceConfig
  */
 export async function loadApp(appPath: string = "."): Promise<App> {
   try {
+    configCache.startedLoading();
+
     // Read the app's manifest (package.json file)
     let manifest = await readAppManifest(appPath);
 
@@ -37,5 +40,10 @@ export async function loadApp(appPath: string = "."): Promise<App> {
   }
   catch (error) {
     throw ono(error, { code: ErrorCode.InvalidConfig }, `Error loading the ShipEngine IPaaS app:`);
+  }
+  finally {
+    // Let the cache know that we're done loading the app,
+    // so the cache can be cleared to free-up memory
+    configCache.finishedLoading();
   }
 }

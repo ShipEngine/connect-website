@@ -33,7 +33,7 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Run IPaaS Loader",
+      "name": "Load the Sample App",
       "runtimeArgs": [
         "-e",
         "require('.').loadApp('../integrations-metapack/shipping-provider-javascript').then(console.log, (e) => console.error(e.stack))",
