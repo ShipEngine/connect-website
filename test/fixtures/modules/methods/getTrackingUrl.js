@@ -1,6 +1,6 @@
 "use strict";
-function getTrackingUrl () {
+function getTrackingURL () {
   console.log("Retrieving Tracking Url");
 }
 
-module.exports = getTrackingUrl;
+module.exports = getTrackingURL;

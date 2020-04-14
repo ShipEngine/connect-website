@@ -48,7 +48,7 @@ describe("loadApp() should load a typescript file that also references a .ts fil
     expect(jsonConfig.createLabel).to.be.a("function");
     expect(jsonConfig.voidLabel).to.be.a("function");
     expect(jsonConfig.getRates).to.be.a("function");
-    expect(jsonConfig.getTrackingUrl).to.be.a("function");
+    expect(jsonConfig.getTrackingURL).to.be.a("function");
     expect(jsonConfig.track).to.be.a("function");
     expect(jsonConfig.createManifest).to.be.a("function");
   });

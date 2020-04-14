@@ -49,7 +49,7 @@ describe("loadApp() with reference to json config files that have nested schema 
     expect(jsonConfig.createLabel).to.be.a("function");
     expect(jsonConfig.voidLabel).to.be.a("function");
     expect(jsonConfig.getRates).to.be.a("function");
-    expect(jsonConfig.getTrackingUrl).to.be.a("function");
+    expect(jsonConfig.getTrackingURL).to.be.a("function");
     expect(jsonConfig.track).to.be.a("function");
     expect(jsonConfig.createManifest).to.be.a("function");
   });

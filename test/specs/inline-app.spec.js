@@ -47,7 +47,7 @@ describe("loadApp() with inline config", () => {
     expect(inlineConfig.createLabel).to.be.a("function");
     expect(inlineConfig.voidLabel).to.be.a("function");
     expect(inlineConfig.getRates).to.be.a("function");
-    expect(inlineConfig.getTrackingUrl).to.be.a("function");
+    expect(inlineConfig.getTrackingURL).to.be.a("function");
     expect(inlineConfig.track).to.be.a("function");
     expect(inlineConfig.createManifest).to.be.a("function");
 

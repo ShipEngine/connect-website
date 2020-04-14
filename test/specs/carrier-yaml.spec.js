@@ -52,7 +52,7 @@ describe("loadApp() with reference to yaml config files that have nested referen
     expect(yamlConfig.createLabel).to.equal(undefined);
     expect(yamlConfig.voidLabel).to.equal(undefined);
     expect(yamlConfig.getRates).to.equal(undefined);
-    expect(yamlConfig.getTrackingUrl).to.equal(undefined);
+    expect(yamlConfig.getTrackingURL).to.equal(undefined);
     expect(yamlConfig.track).to.equal(undefined);
     expect(yamlConfig.createManifest).to.equal(undefined);
   });

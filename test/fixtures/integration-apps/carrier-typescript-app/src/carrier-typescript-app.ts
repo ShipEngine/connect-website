@@ -27,7 +27,7 @@ const config: ShippingProviderConfig = {
   createLabel: "../../../modules/methods/createLabel.js",
   voidLabel: "../../../modules/methods/voidLabel.js",
   getRates: "../../../modules/methods/getRates.js",
-  getTrackingUrl: "../../../modules/methods/getTrackingUrl.js",
+  getTrackingURL: "../../../modules/methods/getTrackingURL.js",
   track: "../../../modules/methods/track.js",
   createManifest: "../../../modules/methods/createManifest.js"
 

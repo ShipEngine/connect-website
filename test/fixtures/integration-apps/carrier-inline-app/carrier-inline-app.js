@@ -128,7 +128,7 @@ const config = {
   createLabel () { },
   voidLabel () { },
   getRates () { },
-  getTrackingUrl () { },
+  getTrackingURL () { },
   track () { },
   createManifest () { }
 

@@ -26,8 +26,8 @@ export async function readShippingProviderConfig(config: ShippingProviderConfig,
       && await readConfigValue(config.voidLabel, cwd, "voidLabel function"),
     getRates: config.getRates
       && await readConfigValue(config.getRates, cwd, "getRates function"),
-    getTrackingUrl: config.getTrackingUrl
-      && await readConfigValue(config.getTrackingUrl, cwd, "getTrackingUrl function"),
+    getTrackingURL: config.getTrackingURL
+      && await readConfigValue(config.getTrackingURL, cwd, "getTrackingURL function"),
     track: config.track
       && await readConfigValue(config.track, cwd, "track function"),
     createManifest: config.createManifest
