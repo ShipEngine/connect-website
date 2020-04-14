@@ -21,15 +21,14 @@ const config: ShippingProviderConfig = {
   carriers: "../../../modules/carrier/carriers.ts",
 
   login: "../../../modules/methods/login.js",
-  requestPickup: "../../../modules/methods/requestPickup.js",
-  cancelPickup: "../../../modules/methods/cancelPickup.js",
-
-  createLabel: "../../../modules/methods/createLabel.js",
-  voidLabel: "../../../modules/methods/voidLabel.js",
-  getRates: "../../../modules/methods/getRates.js",
-  getTrackingURL: "../../../modules/methods/getTrackingURL.js",
+  requestPickup: "../../../modules/methods/request-pickup.js",
+  cancelPickup: "../../../modules/methods/cancel-pickup.js",
+  createLabel: "../../../modules/methods/create-label.js",
+  voidLabel: "../../../modules/methods/void-label.js",
+  getRates: "../../../modules/methods/get-rates.js",
+  getTrackingURL: "../../../modules/methods/get-tracking-url.js",
   track: "../../../modules/methods/track.js",
-  createManifest: "../../../modules/methods/createManifest.js"
+  createManifest: "../../../modules/methods/create-manifest.js"
 
 };
 
