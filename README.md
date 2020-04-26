@@ -2,8 +2,8 @@ ShipEngine IPaaS App Loader
 ==============================================
 
 
-[![Cross-Platform Compatibility](https://shipengine.github.io/img/badges/os-badges.svg)](https://github.com/ShipEngine/shipengine-ipaas-loader/blob/master/.github/workflows/CI-CD.yaml)
-[![Build Status](https://github.com/ShipEngine/shipengine-ipaas-loader/workflows/CI-CD/badge.svg)](https://github.com/ShipEngine/shipengine-ipaas-loader/blob/master/.github/workflows/CI-CD.yaml)
+[![Cross-Platform Compatibility](https://shipengine.github.io/img/badges/os-badges.svg)](https://github.com/ShipEngine/shipengine-ipaas-loader/actions)
+[![Build Status](https://github.com/ShipEngine/shipengine-ipaas-loader/workflows/CI-CD/badge.svg)](https://github.com/ShipEngine/shipengine-ipaas-loader/actions)
 
 [![Coverage Status](https://coveralls.io/repos/github/ShipEngine/shipengine-ipaas-loader/badge.svg?branch=master)](https://coveralls.io/github/ShipEngine/shipengine-ipaas-loader)
 [![Dependencies](https://david-dm.org/ShipEngine/shipengine-ipaas-loader.svg)](https://david-dm.org/ShipEngine/shipengine-ipaas-loader)
