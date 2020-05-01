@@ -1,5 +1,5 @@
-ShipEngine CLI
-==============================================
+# shipengine-cli
+
 ### Command-line tool for working with your [ShipEngine](https://www.shipengine.com) account
 
 [![Cross-Platform Compatibility](https://shipengine.github.io/img/badges/os-badges.svg)](https://github.com/ShipEngine/shipengine-cli/actions)
@@ -11,7 +11,78 @@ ShipEngine CLI
 [![npm](https://img.shields.io/npm/v/@shipengine/cli.svg)](https://www.npmjs.com/package/@shipengine/cli)
 [![License](https://img.shields.io/npm/l/@shipengine/cli.svg)](LICENSE)
 
-
-
 # 🚧 UNDER CONSTRUCTION 🚧
+
 ### This app is still being developed and is <u><big>not ready for public use</big></u> yet.
+
+[![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
+[![Version](https://img.shields.io/npm/v/shipengine-cli.svg)](https://npmjs.org/package/shipengine-cli)
+[![Downloads/week](https://img.shields.io/npm/dw/shipengine-cli.svg)](https://npmjs.org/package/shipengine-cli)
+[![License](https://img.shields.io/npm/l/shipengine-cli.svg)](https://github.com/ShipEngine/shipengine-cli/blob/master/package.json)
+
+<!-- toc -->
+* [shipengine-cli](#shipengine-cli)
+* [🚧 UNDER CONSTRUCTION 🚧](#-under-construction-)
+* [Usage](#usage)
+* [Commands](#commands)
+<!-- tocstop -->
+
+# Usage
+
+<!-- usage -->
+```sh-session
+$ npm install -g @shipengine/cli
+$ shipengine COMMAND
+running command...
+$ shipengine (-v|--version|version)
+@shipengine/cli/0.0.1 darwin-x64 node-v12.16.2
+$ shipengine --help [COMMAND]
+USAGE
+  $ shipengine COMMAND
+...
+```
+<!-- usagestop -->
+
+# Commands
+
+<!-- commands -->
+* [`shipengine hello [FILE]`](#shipengine-hello-file)
+* [`shipengine help [COMMAND]`](#shipengine-help-command)
+
+## `shipengine hello [FILE]`
+
+describe the command here
+
+```
+USAGE
+  $ shipengine hello [FILE]
+
+OPTIONS
+  -f, --force
+  -h, --help       show CLI help
+  -n, --name=name  name to print
+
+EXAMPLE
+  $ shipengine hello
+  hello world from ./src/hello.ts!
+```
+
+_See code: [src/commands/hello.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.1/src/commands/hello.ts)_
+
+## `shipengine help [COMMAND]`
+
+display help for shipengine
+
+```
+USAGE
+  $ shipengine help [COMMAND]
+
+ARGUMENTS
+  COMMAND  command to show help for
+
+OPTIONS
+  --all  see all commands in CLI
+```
+
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src/commands/help.ts)_
+<!-- commandsstop -->

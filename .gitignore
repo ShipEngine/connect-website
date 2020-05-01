@@ -40,6 +40,8 @@ node_modules
 
 # Build output
 /lib
+/dist
+/tmp
 
 # Test output
 /.nyc_output

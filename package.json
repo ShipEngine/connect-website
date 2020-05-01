@@ -6,7 +6,8 @@
     "shipengine",
     "cli",
     "api",
-    "ipaas"
+    "integrations",
+    "oclif"
   ],
   "author": {
     "name": "ShipEngine",
@@ -15,45 +16,84 @@
   },
   "license": "Apache-2.0",
   "homepage": "https://www.shipengine.com/docs/",
+  "bugs": "https://github.com/ShipEngine/shipengine-cli/issues",
   "repository": {
     "type": "git",
     "url": "https://github.com/ShipEngine/shipengine-cli.git"
   },
+  "bin": {
+    "shipengine": "./bin/run"
+  },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
-    "bin",
-    "lib"
+    "/bin",
+    "/lib",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json"
   ],
+  "oclif": {
+    "commands": "./lib/commands",
+    "bin": "shipengine",
+    "plugins": [
+      "@oclif/plugin-help",
+      "@oclif/plugin-not-found"
+    ]
+  },
   "scripts": {
+    "postpack": "shx rm -rf oclif.manifest.json",
+    "posttest": "eslint . --ext .ts --config .eslintrc.js",
+    "prepack": "shx rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
     "clean": "shx rm -rf .nyc_output coverage lib",
-    "lint": "eslint .",
-    "build": "tsc",
+    "lint": "eslint . --ext .ts --config .eslintrc.js",
+    "build": "tsc && shx cp -R src/shipengine-core/templates/ lib/shipengine-core/templates/",
     "watch": "tsc --watch",
-    "test": "mocha && npm run lint",
-    "coverage": "nyc node_modules/mocha/bin/mocha",
+    "test": "nyc --extension .ts mocha --forbid-only && npm run lint",
+    "mocha": "mocha",
+    "coverage": "nyc npm run test",
     "upgrade": "npm-check -u && npm audit fix",
     "bump": "bump --tag --push --all",
-    "release": "npm run upgrade && npm run clean && npm run build && npm test && npm run bump"
+    "release": "npm run upgrade && npm run clean && npm run build && npm test && npm run bump",
+    "version": "oclif-dev readme && git add README.md"
   },
   "engines": {
-    "node": ">=10"
+    "node": ">=10.1.0"
   },
   "engineStrict": true,
   "devDependencies": {
+    "@jsdevtools/eslint-config-modular": "^8.0.3",
     "@jsdevtools/version-bump-prompt": "^6.0.2",
+    "@oclif/dev-cli": "^1.22.2",
+    "@oclif/test": "^1.2.5",
     "@types/chai": "^4.1.7",
+    "@types/fs-extra": "^8.1.0",
+    "@types/inquirer": "^6.5.0",
     "@types/mocha": "^7.0.2",
     "@types/node": "^13.13.1",
     "chai": "^4.2.0",
-    "eslint": "^6.8.0",
+    "chai-fs": "^2.0.0",
+    "eslint": "^5.16.0",
+    "eslint-config-oclif": "^3.1.0",
+    "eslint-config-oclif-typescript": "^0.1.0",
+    "eslint-config-prettier": "^6.11.0",
+    "globby": "^10.0.2",
     "mocha": "^7.1.0",
     "npm-check": "^5.9.0",
     "nyc": "^15.0.0",
     "shx": "^0.3.2",
+    "sinon": "^9.0.2",
     "source-map-support": "^0.5.17",
-    "typescript": "^3.5.1"
+    "ts-node": "^8.9.1",
+    "typescript": "^3.8.3"
   },
   "dependencies": {
+    "@oclif/command": "^1.5.20",
+    "@oclif/config": "^1.15.1",
+    "@oclif/plugin-autocomplete": "^0.1.5",
+    "@oclif/plugin-help": "^2.2.3",
+    "@oclif/plugin-not-found": "^1.2.3",
+    "fs-extra": "^9.0.0",
+    "inquirer": "^7.1.0",
+    "tslib": "^1.11.1"
   }
 }
