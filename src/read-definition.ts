@@ -3,12 +3,12 @@ import { ono } from "@jsdevtools/ono";
 import { DynamicImport, InlineOrReference } from "@shipengine/integration-platform-sdk";
 import * as path from "path";
 import * as resolveFrom from "resolve-from";
-import { configCache } from "./config-cache";
+import { fileCache } from "./file-cache";
 import { readFile } from "./read-file";
 
 /**
- * Reads an ShipEngine Integration Platform config that is expected to be a single value.
- * The config can be any of:
+ * Reads an ShipEngine Integration Platform definition that is expected to be a single value.
+ * The definition can be any of:
  *
  *    - an inline value
  *    - a YAML file path
@@ -17,15 +17,15 @@ import { readFile } from "./read-file";
  *    - a TypeScript file path
  *    - a dynamic import via `require()` or `import()`
  */
-export async function readConfigValue<T>(config: InlineOrReference<T>, cwd: string, fieldName: string): Promise<T> {
-  let [value] = await readConfig(config, cwd, fieldName);
+export async function readDefinitionValue<T>(definition: InlineOrReference<T>, cwd: string, fieldName: string): Promise<T> {
+  let [value] = await readDefinition(definition, cwd, fieldName);
   return value;
 }
 
 
 /**
- * Reads an ShipEngine Integration Platform config that is expected to be a single value.
- * The config can be any of:
+ * Reads an ShipEngine Integration Platform definition that is expected to be a single value.
+ * The definition can be any of:
  *
  *    - an inline value
  *    - a YAML file path
@@ -34,44 +34,40 @@ export async function readConfigValue<T>(config: InlineOrReference<T>, cwd: stri
  *    - a TypeScript file path
  *    - a dynamic import via `require()` or `import()`
  *
- * @returns A tuple containing the config value and the directory path of the config file
+ * @returns A tuple containing the definition value and the directory path of the definition file
  */
-export async function readConfig<T>(config: InlineOrReference<T>, cwd: string, fieldName: string): Promise<[T, string]> {
-  if (!config) {
-    throw new TypeError(`Invalid ${fieldName}: ${humanize(config)}. Expected an inline value or file path.`);
-  }
-
+export async function readDefinition<T>(definition: InlineOrReference<T>, cwd: string, fieldName: string): Promise<[T, string]> {
   try {
-    if (typeof config === "string") {
-      // The config value is a file path, so return the file's contents
-      let filePath = resolve(config, cwd);
+    if (typeof definition === "string") {
+      // The definition value is a file path, so return the file's contents
+      let filePath = resolve(definition, cwd);
       let dir = path.dirname(filePath);
       let contents: T;
 
       // Get the file from the cache, if possible
-      let cached = configCache.get<T>(filePath);
+      let cached = fileCache.get<T>(filePath);
       if (cached) {
         contents = await cached;
       }
       else {
         // The file isn't cached, so read it and cache it
-        contents = await configCache.add(filePath, readFile<T>(filePath));
+        contents = await fileCache.add(filePath, readFile<T>(filePath));
       }
 
       return [contents, dir];
     }
-    else if (isDynamicImport(config)) {
-      // The config value is a dynamic import, so return the default export
-      let exports = await config;
+    else if (isDynamicImport(definition)) {
+      // The definition value is a dynamic import, so return the default export
+      let exports = await definition;
       return [exports.default, cwd];
     }
     else {
-      // The config value was defined inline, so just return it as-is
-      return [config, cwd];
+      // The definition value was defined inline, so just return it as-is
+      return [definition, cwd];
     }
   }
   catch (error) {
-    throw ono(error, `Invalid ${fieldName} config: ${humanize(config)}.`);
+    throw ono(error, `Invalid ${fieldName}: ${humanize(definition)}.`);
   }
 }
 

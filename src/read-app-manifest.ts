@@ -1,15 +1,15 @@
 import { ono } from "@jsdevtools/ono";
-import { AppManifest } from "@shipengine/integration-platform-sdk";
+import { AppPOJO } from "@shipengine/integration-platform-sdk";
 import * as path from "path";
-import { readConfig } from "./read-config";
+import { readDefinition } from "./read-definition";
 
 
 /**
  * Reads a ShipEngine Integration Platform app manifest (package.json file)
  */
-export async function readAppManifest(appPath: string): Promise<AppManifest> {
+export async function readAppManifest(appPath: string): Promise<AppPOJO> {
   let manifestPath = path.join(appPath, "package.json");
-  let [manifest] = await readConfig<AppManifest>(manifestPath, ".", "ShipEngine Integration Platform app");
+  let [manifest] = await readDefinition<AppPOJO>(manifestPath, ".", "ShipEngine Integration Platform app");
   validateSdkVersion(manifest, manifestPath);
   return manifest;
 }
@@ -18,7 +18,7 @@ export async function readAppManifest(appPath: string): Promise<AppManifest> {
 /**
  * Ensures that the app uses a supported version of the ShipEngine Integration Platform SDK
  */
-function validateSdkVersion(manifest: AppManifest, manifestPath: string): void {
+function validateSdkVersion(manifest: AppPOJO, manifestPath: string): void {
   const sdk = "@shipengine/integration-platform-sdk";
   let dependencies = manifest.dependencies || {};
   let devDependencies = manifest.devDependencies || {};

@@ -1,8 +1,8 @@
 /**
- * Caches Config objects so the same file doesn't get read multiple times,
- * and so multiple references to the same file resolve to the same Config obect instance.
+ * Caches parsed file contents so the same file doesn't get read and parsed multiple times.
+ * This also ensures that multiple references to the same file resolve to the same parsed obect instance.
  */
-class ConfigCache {
+class FileCache {
   private readonly _cache = new Map<string, Promise<unknown>>();
   private _loadsInProgress = 0;
 
@@ -48,6 +48,6 @@ class ConfigCache {
 }
 
 /**
- * The singleton instance of the ConfigCache
+ * The singleton instance of the FileCache
  */
-export const configCache = new ConfigCache();
+export const fileCache = new FileCache();

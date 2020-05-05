@@ -17,6 +17,7 @@ export async function readFile<T>(filePath: string): Promise<T> {
       return readYamlFile(filePath);
 
     case ".json":
+    case ".jsonc":
     case ".json5":
       return readJsonFile(filePath);
 
