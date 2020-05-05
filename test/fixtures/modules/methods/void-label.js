@@ -1,6 +1,6 @@
 "use strict";
-function voidLabel () {
+function voidLabels () {
   console.log("Voiding a label");
 }
 
-module.exports = voidLabel;
+module.exports = voidLabels;

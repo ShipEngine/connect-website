@@ -13,7 +13,6 @@ const groundService = {
 
     grade: "standard",
 
-    carrier: "../../configs/carrier/carrier.yaml",
     originCountries: [
       "US"
     ],
@@ -34,4 +33,3 @@ const groundService = {
 module.exports = new Promise((res) => {
   res(groundService);
 });
-

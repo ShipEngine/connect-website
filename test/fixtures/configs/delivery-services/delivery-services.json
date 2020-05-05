@@ -4,7 +4,6 @@
     "name": "Priority Overnight",
     "class": "ground",
     "grade": "overnight",
-    "requiresManifest": false,
     "originCountries": [
       "US"
     ],

@@ -1,8 +1,8 @@
-import { Country, DeliveryServiceClass, DeliveryServiceConfig, DeliveryServiceGrade } from "@shipengine/integration-platform-sdk";
+import { Country, DeliveryServiceClass, DeliveryServiceDefinition, DeliveryServiceGrade } from "@shipengine/integration-platform-sdk";
 import { flatRatePackaging, largePaddedEnvelope } from "../packaging";
 
 /** Sample Ground Service  */
-const groundService: DeliveryServiceConfig = {
+const groundService: DeliveryServiceDefinition = {
   id: "2a20b066-71c3-11ea-bc55-0242ac130003",
 
   name: "Ground",
@@ -10,8 +10,6 @@ const groundService: DeliveryServiceConfig = {
   class: DeliveryServiceClass.Ground,
 
   grade: DeliveryServiceGrade.Standard,
-
-  carrier: "../carrier/carrier.ts",
 
   originCountries: [
     Country.UnitedStates
@@ -28,7 +26,6 @@ const groundService: DeliveryServiceConfig = {
     largePaddedEnvelope
   ],
 
-  requiresManifest: false
 };
 
 // tslint:disable-next-line: no-default-export

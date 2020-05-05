@@ -1,7 +1,7 @@
 {
-  "name": "unit-test-fixture",
+  "name": "@connection/yaml-app",
   "version": "0.0.1",
-  "main": "carrier-json-app.json",
+  "main": "connection.yml",
   "devDependencies": {
     "@shipengine/integration-platform-sdk": "0.0.9"
   }

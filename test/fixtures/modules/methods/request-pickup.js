@@ -1,6 +1,6 @@
 "use strict";
-function requestPickup () {
+function schedulePickup () {
   console.log("Requesting a Pickup");
 }
 
-module.exports = requestPickup;
+module.exports = schedulePickup;

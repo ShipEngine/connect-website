@@ -1,7 +1,7 @@
 {
-  "name": "unit-test-fixture",
+  "name": "@connection/typescript-app",
   "version": "0.0.1",
-  "main": "carrier-yaml-app.yml",
+  "main": "src/connection.ts",
   "devDependencies": {
     "@shipengine/integration-platform-sdk": "0.0.9"
   }

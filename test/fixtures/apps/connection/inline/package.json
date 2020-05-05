@@ -1,7 +1,7 @@
 {
-  "name": "unit-test-fixture",
+  "name": "@connection/inline-app",
   "version": "0.0.1",
-  "main": "carrier-inline-app.js",
+  "main": "connection.js",
   "devDependencies": {
     "@shipengine/integration-platform-sdk": "0.0.9"
   }
