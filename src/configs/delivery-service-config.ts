@@ -1,6 +1,6 @@
 import humanize from "@jsdevtools/humanize-anything";
 import { ono } from "@jsdevtools/ono";
-import { DeliveryServiceConfig, InlineOrReference, InlineOrReferenceArray } from "@shipengine/ipaas";
+import { DeliveryServiceConfig, InlineOrReference, InlineOrReferenceArray } from "@shipengine/integration-platform-sdk";
 import { readConfig, readConfigValue } from "../read-config";
 import { readDeliveryConfirmationArrayConfig } from "./delivery-confirmation-config";
 import { readPackingArrayConfig } from "./packaging-config";

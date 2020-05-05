@@ -1,6 +1,6 @@
 "use strict";
 
-import { ShippingProviderConfig } from "@shipengine/ipaas";
+import { ShippingProviderConfig } from "@shipengine/integration-platform-sdk";
 
 /** Test Shipping Provider */
 const config: ShippingProviderConfig = {

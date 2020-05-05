@@ -1,4 +1,4 @@
-import { PackagingConfig } from "@shipengine/ipaas"
+import { PackagingConfig } from "@shipengine/integration-platform-sdk"
 
 /** Flat Rate Packaging */
 export const flatRatePackaging: PackagingConfig = {

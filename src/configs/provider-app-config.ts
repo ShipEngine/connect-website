@@ -1,11 +1,11 @@
-import { ShippingProviderConfig } from "@shipengine/ipaas";
+import { ShippingProviderConfig } from "@shipengine/integration-platform-sdk";
 import { readConfigValue } from "../read-config";
 import { readCarrierArrayConfig } from "./carrier-config";
 import { readFormConfig } from "./form-config";
 import { readLogoConfig } from "./logo-config";
 
 /**
- * Reads the config for a ShipEngine IPaaS shipping provider
+ * Reads the config for a ShipEngine Integration Platform shipping provider
  */
 export async function readShippingProviderConfig(config: ShippingProviderConfig, cwd: string): Promise<ShippingProviderConfig> {
   return {

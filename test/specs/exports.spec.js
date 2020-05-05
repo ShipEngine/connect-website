@@ -4,14 +4,14 @@ const commonJSExport = require("../../");
 const { default: defaultExport, loadApp: namedExport } = require("../../");
 const { expect } = require("chai");
 
-describe("ipaas loader exports", () => {
+describe("@shipengine/integration-platform-loader exports", () => {
 
-  it("should export the IPaaS Loader object as the default CommonJS export", () => {
+  it("should export the Integration Platform Loader object as the default CommonJS export", () => {
     expect(commonJSExport).to.be.an("object");
     expect(commonJSExport.loadApp).to.be.a("function").with.property("name", "loadApp");
   });
 
-  it("should export the IPaaS Loader object as the default ESM export", () => {
+  it("should export the Integration Platform Loader object as the default ESM export", () => {
     expect(defaultExport).to.be.an("object");
     expect(defaultExport.loadApp).to.be.a("function").with.property("name", "loadApp");
   });

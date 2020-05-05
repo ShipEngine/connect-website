@@ -3,6 +3,6 @@
   "version": "0.0.1",
   "main": "src/carrier-typescript-app.ts",
   "devDependencies": {
-    "@shipengine/ipaas": "0.0.9"
+    "@shipengine/integration-platform-sdk": "0.0.9"
   }
 }

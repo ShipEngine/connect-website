@@ -1,4 +1,4 @@
-import { DeliveryConfirmationConfig, InlineOrReference, InlineOrReferenceArray } from "@shipengine/ipaas";
+import { DeliveryConfirmationConfig, InlineOrReference, InlineOrReferenceArray } from "@shipengine/integration-platform-sdk";
 import { readConfig, readConfigValue } from "../read-config";
 
 /**

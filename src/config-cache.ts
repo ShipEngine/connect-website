@@ -26,7 +26,7 @@ class ConfigCache {
   }
 
   /**
-   * Lets the cache know that a ShipEngine IPaaS app is currently being loaded.
+   * Lets the cache know that a ShipEngine Integration Platform app is currently being loaded.
    * Be sure to call `finishedLoading()` afterward so the cache can be cleared to free-up memory.
    */
   public startedLoading() {
@@ -34,7 +34,7 @@ class ConfigCache {
   }
 
   /**
-   * Lets the cache know that a ShipEngine IPaaS app has finished loading.
+   * Lets the cache know that a ShipEngine Integration Platform app has finished loading.
    * The cache will be cleared to free-up memory.
    */
   public finishedLoading() {

@@ -1,13 +1,13 @@
 import { humanize } from "@jsdevtools/humanize-anything";
 import { ono } from "@jsdevtools/ono";
-import { DynamicImport, InlineOrReference } from "@shipengine/ipaas";
+import { DynamicImport, InlineOrReference } from "@shipengine/integration-platform-sdk";
 import * as path from "path";
 import * as resolveFrom from "resolve-from";
 import { configCache } from "./config-cache";
 import { readFile } from "./read-file";
 
 /**
- * Reads an ShipEngine IPaaS config that is expected to be a single value.
+ * Reads an ShipEngine Integration Platform config that is expected to be a single value.
  * The config can be any of:
  *
  *    - an inline value
@@ -24,7 +24,7 @@ export async function readConfigValue<T>(config: InlineOrReference<T>, cwd: stri
 
 
 /**
- * Reads an ShipEngine IPaaS config that is expected to be a single value.
+ * Reads an ShipEngine Integration Platform config that is expected to be a single value.
  * The config can be any of:
  *
  *    - an inline value

@@ -1,5 +1,5 @@
 import { ono } from "@jsdevtools/ono";
-import { EcmaScriptModule } from "@shipengine/ipaas";
+import { EcmaScriptModule } from "@shipengine/integration-platform-sdk";
 import { promises as fs } from "fs";
 import * as jsYaml from "js-yaml";
 import * as json5 from "json5";

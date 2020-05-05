@@ -1,10 +1,10 @@
 import humanize from "@jsdevtools/humanize-anything";
 import { ono } from "@jsdevtools/ono";
-import { InlineOrReference, LogoConfig } from "@shipengine/ipaas";
+import { InlineOrReference, LogoConfig } from "@shipengine/integration-platform-sdk";
 import { readConfig, readConfigValue } from "../read-config";
 
 /**
- * Reads the config for a ShipEngine IPaaS logo
+ * Reads the config for a ShipEngine Integration Platform logo
  */
 export async function readLogoConfig(config: InlineOrReference<LogoConfig>, cwd: string, fieldName: string): Promise<LogoConfig> {
   [config, cwd] = await readConfig(config, cwd, fieldName);

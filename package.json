@@ -1,10 +1,12 @@
 {
-  "name": "@shipengine/ipaas-loader",
+  "name": "@shipengine/integration-platform-loader",
   "version": "0.0.12",
-  "description": "Loads a ShipEngine IPaaS app from an NPM package",
+  "description": "Internal library for loading ShipEngine Integration Platform apps",
   "keywords": [
     "shipengine",
-    "ipaas"
+    "integration",
+    "ipaas",
+    "app"
   ],
   "author": {
     "name": "ShipEngine",
@@ -12,10 +14,10 @@
     "url": "https://www.shipengine.com"
   },
   "license": "Apache-2.0",
-  "homepage": "https://www.shipengine.com/docs/ipaas/",
+  "homepage": "https://www.shipengine.com/docs/integration-platform/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ShipEngine/shipengine-ipaas-loader.git"
+    "url": "https://github.com/ShipEngine/shipengine-integration-platform-loader.git"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -61,7 +63,7 @@
   "dependencies": {
     "@jsdevtools/humanize-anything": "^1.1.0",
     "@jsdevtools/ono": "^7.1.1",
-    "@shipengine/ipaas": "0.0.14",
+    "@shipengine/integration-platform-sdk": "^0.0.2",
     "js-yaml": "^3.13.1",
     "json5": "^2.1.3",
     "resolve-from": "^5.0.0",

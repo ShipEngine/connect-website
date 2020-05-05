@@ -1,4 +1,4 @@
-import { CarrierConfig } from "@shipengine/ipaas";
+import { CarrierConfig } from "@shipengine/integration-platform-sdk";
 
 const carrierConfig: CarrierConfig = {
   id: "57fb5964-17c5-4fbc-867b-18ff7858133f",

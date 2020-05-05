@@ -3,6 +3,6 @@
   "version": "0.0.1",
   "main": "carrier-yaml-app.yml",
   "devDependencies": {
-    "@shipengine/ipaas": "0.0.9"
+    "@shipengine/integration-platform-sdk": "0.0.9"
   }
 }

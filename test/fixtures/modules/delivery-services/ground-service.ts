@@ -1,4 +1,4 @@
-import { Country, DeliveryServiceClass, DeliveryServiceConfig, DeliveryServiceGrade } from "@shipengine/ipaas";
+import { Country, DeliveryServiceClass, DeliveryServiceConfig, DeliveryServiceGrade } from "@shipengine/integration-platform-sdk";
 import { flatRatePackaging, largePaddedEnvelope } from "../packaging";
 
 /** Sample Ground Service  */

@@ -1,6 +1,6 @@
 import humanize from "@jsdevtools/humanize-anything";
 import { ono } from "@jsdevtools/ono";
-import { FormConfig, InlineOrReference } from "@shipengine/ipaas";
+import { FormConfig, InlineOrReference } from "@shipengine/integration-platform-sdk";
 import { readConfig, readConfigValue } from "../read-config";
 
 /**

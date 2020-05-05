@@ -1,4 +1,4 @@
-import { InlineOrReference, InlineOrReferenceArray, PickupServiceConfig } from "@shipengine/ipaas";
+import { InlineOrReference, InlineOrReferenceArray, PickupServiceConfig } from "@shipengine/integration-platform-sdk";
 import { readConfig, readConfigValue } from "../read-config";
 
 /**

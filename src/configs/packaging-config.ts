@@ -1,4 +1,4 @@
-import { InlineOrReference, InlineOrReferenceArray, PackagingConfig } from "@shipengine/ipaas";
+import { InlineOrReference, InlineOrReferenceArray, PackagingConfig } from "@shipengine/integration-platform-sdk";
 import { readConfig, readConfigValue } from "../read-config";
 
 /**

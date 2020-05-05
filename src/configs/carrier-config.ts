@@ -1,13 +1,13 @@
 import humanize from "@jsdevtools/humanize-anything";
 import { ono } from "@jsdevtools/ono";
-import { CarrierConfig, InlineOrReference, InlineOrReferenceArray } from "@shipengine/ipaas";
+import { CarrierConfig, InlineOrReference, InlineOrReferenceArray } from "@shipengine/integration-platform-sdk";
 import { readConfig } from "../read-config";
 import { readDeliveryServiceArrayConfig } from "./delivery-service-config";
 import { readLogoConfig } from "./logo-config";
 import { readPickupServiceArrayConfig } from "./pickup-service-config";
 
 /**
- * Reads the config for a ShipEngine IPaaS carrier
+ * Reads the config for a ShipEngine Integration Platform carrier
  */
 export async function readCarrierConfig(config: InlineOrReference<CarrierConfig>, cwd: string): Promise<CarrierConfig> {
   [config, cwd] = await readConfig(config, cwd, "carrier");
