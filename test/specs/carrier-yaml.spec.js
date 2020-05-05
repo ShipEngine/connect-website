@@ -2,59 +2,65 @@
 
 const { loadApp } = require("../../lib");
 const { expect } = require("chai");
-const path = require("path");
-let yamlConfig;
 
-describe("loadApp() with reference to yaml config files that have nested references", () => {
+describe("YAML apps", () => {
 
-  beforeEach(async () => {
-    const relativePath = "../fixtures/integration-apps/carrier-yaml-app";
-    const appPath = path.join(__dirname, relativePath);
-    yamlConfig = await loadApp(appPath);
+  it("should load a carrier app", async () => {
+    let app = await loadApp("test/fixtures/apps/carrier/yaml");
+
+    expect(app.name).to.equal("@carrier/yaml-app");
+    expect(app.version).to.equal("0.0.1");
+    expect(app.description).to.equal("");
+
+    expect(app.carrier.id).to.be.a("string");
+    expect(app.carrier.name).to.equal("My Carrier");
+    expect(app.carrier.description).to.equal("My Carrier description goes here");
+    expect(app.carrier.websiteURL.href).to.equal("https://www.my-carrier.com/");
+    expect(app.carrier.logo).to.be.a("string");
+
+    expect(app.carrier.deliveryServices).to.be.an("array");
+    expect(app.carrier.deliveryServices).to.be.an("array").with.lengthOf(1);
+    expect(app.carrier.deliveryServices[0].name).to.equal("Priority Overnight");
+
+    expect(app.carrier.deliveryServices[0].deliveryConfirmations[0].name).to.equal("Adult Signature");
+
+    expect(app.carrier.deliveryServices[0].packaging[0].name).to.equal("Flat-Rate Box");
+    expect(app.carrier.deliveryServices[0].packaging[1].name).to.equal("Large Padded Envelope");
+
+    expect(app.carrier.pickupServices).to.be.an("array");
+    expect(app.carrier.pickupServices).to.be.an("array").with.lengthOf(2);
+    expect(app.carrier.pickupServices[0].name).to.equal("Drop Off Pickup");
+    expect(app.carrier.pickupServices[1].name).to.equal("One Time Pickup");
+
+    expect(app.carrier.schedulePickup).to.equal(undefined);
+    expect(app.carrier.cancelPickup).to.equal(undefined);
+    expect(app.carrier.createLabel).to.equal(undefined);
+    expect(app.carrier.voidLabels).to.equal(undefined);
+    expect(app.carrier.getRates).to.equal(undefined);
+    expect(app.carrier.track).to.equal(undefined);
+    expect(app.carrier.createManifest).to.equal(undefined);
   });
 
-  it("should properly dereference a config file", () => {
-    expect(yamlConfig.id).to.be.a("string");
+  it("should load a connection app", async () => {
+    let app = await loadApp("test/fixtures/apps/connection/yaml");
 
-    expect(yamlConfig.name).to.equal("My Carrier");
-    expect(yamlConfig.description).to.equal("My Carrier description goes here");
-    expect(yamlConfig.websiteURL.href).to.equal("https://www.my-carrier.com/");
-    expect(yamlConfig.logo.colorSVG).to.be.a("string");
-    expect(yamlConfig.logo.colorSVG).to.be.contain("<svg");
+    expect(app.name).to.equal("@connection/yaml-app");
+    expect(app.version).to.equal("0.0.1");
+    expect(app.description).to.equal("");
 
-    expect(yamlConfig.logo.blackAndWhiteSVG).to.be.a("string");
-    expect(yamlConfig.logo.blackAndWhiteSVG).to.be.contain("<svg");
+    expect(app.connection.id).to.be.a("string");
+    expect(app.connection.name).to.equal("My Connection");
+    expect(app.connection.description).to.equal("My Connection description goes here");
+    expect(app.connection.websiteURL.href).to.equal("https://www.my-connection.com/");
+    expect(app.connection.logo).to.be.a("string");
 
+    expect(app.connection.connectForm).to.be.an("object");
+    expect(app.connection.connectForm.dataSchema.title).to.equal("Connection One Registration");
 
-    expect(yamlConfig.deliveryServices).to.be.an("array");
-    expect(yamlConfig.deliveryServices).to.be.an("array").with.lengthOf(1);
-    expect(yamlConfig.deliveryServices[0].name).to.equal("Priority Overnight");
+    expect(app.connection.settingsForm).to.be.an("object");
+    expect(app.connection.settingsForm.dataSchema.title).to.equal("Connection One Settings");
 
-    expect(yamlConfig.deliveryServices[0].deliveryConfirmations[0].name).to.equal("Adult Signature");
-
-    expect(yamlConfig.deliveryServices[0].packaging[0].name).to.equal("Flat-Rate Box");
-    expect(yamlConfig.deliveryServices[0].packaging[1].name).to.equal("Large Padded Envelope");
-
-    expect(yamlConfig.pickupServices).to.be.an("array");
-    expect(yamlConfig.pickupServices).to.be.an("array").with.lengthOf(2);
-    expect(yamlConfig.pickupServices[0].name).to.equal("Drop Off Pickup");
-    expect(yamlConfig.pickupServices[1].name).to.equal("One Time Pickup");
-
-    expect(yamlConfig.loginForm).to.be.an("object");
-    expect(yamlConfig.loginForm.dataSchema.title).to.equal("Carrier One Registration");
-
-    expect(yamlConfig.settingsForm).to.be.an("object");
-    expect(yamlConfig.settingsForm.dataSchema.title).to.equal("Carrier One Settings");
-
-    expect(yamlConfig.login).to.be.a("function");
-    expect(yamlConfig.requestPickup).to.equal(undefined);
-    expect(yamlConfig.cancelPickup).to.equal(undefined);
-    expect(yamlConfig.createLabel).to.equal(undefined);
-    expect(yamlConfig.voidLabel).to.equal(undefined);
-    expect(yamlConfig.getRates).to.equal(undefined);
-    expect(yamlConfig.getTrackingURL).to.equal(undefined);
-    expect(yamlConfig.track).to.equal(undefined);
-    expect(yamlConfig.createManifest).to.equal(undefined);
+    expect(app.connection.connect).to.be.a("function");
   });
 
 });

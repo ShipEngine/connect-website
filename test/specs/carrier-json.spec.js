@@ -2,56 +2,63 @@
 
 const { loadApp } = require("../../lib");
 const { expect } = require("chai");
-const path = require("path");
-let jsonConfig;
 
-describe("loadApp() with reference to json config files that have nested schema references", () => {
+describe("JSON apps", () => {
 
-  beforeEach(async () => {
-    const relativePath = "../fixtures/integration-apps/carrier-json-app/";
-    const appPath = path.join(__dirname, relativePath);
-    jsonConfig = await loadApp(appPath);
+  it("should load a carrier app", async () => {
+    let app = await loadApp("test/fixtures/apps/carrier/json");
+
+    expect(app.name).to.equal("@carrier/json-app");
+    expect(app.version).to.equal("0.0.1");
+    expect(app.description).to.equal("");
+
+    expect(app.carrier.id).to.be.a("string");
+    expect(app.carrier.name).to.equal("My Carrier");
+    expect(app.carrier.description).to.equal("My Carrier description goes here");
+    expect(app.carrier.websiteURL.href).to.equal("https://www.my-carrier.com/");
+    expect(app.carrier.logo).to.be.a("string");
+
+    expect(app.carrier.deliveryServices).to.be.an("array");
+    expect(app.carrier.deliveryServices).to.be.an("array").with.lengthOf(1);
+    expect(app.carrier.deliveryServices[0].name).to.equal("Priority Overnight");
+    expect(app.carrier.deliveryServices[0].packaging[1].name).to.equal("Large Padded Envelope");
+
+    expect(app.carrier.deliveryServices[0].deliveryConfirmations[0].name).to.equal("Adult Signature");
+
+    expect(app.carrier.pickupServices).to.be.an("array");
+    expect(app.carrier.pickupServices).to.be.an("array").with.lengthOf(2);
+    expect(app.carrier.pickupServices[0].name).to.equal("Drop Off Pickup");
+    expect(app.carrier.pickupServices[1].name).to.equal("One Time Pickup");
+
+    expect(app.carrier.createLabel).to.be.a("function");
+    expect(app.carrier.voidLabels).to.be.a("function");
+    expect(app.carrier.getRates).to.be.a("function");
+    expect(app.carrier.track).to.be.a("function");
+    expect(app.carrier.createManifest).to.be.a("function");
+    expect(app.carrier.schedulePickup).to.be.a("function");
+    expect(app.carrier.cancelPickup).to.be.a("function");
   });
 
-  it("should properly dereference a config file", () => {
-    expect(jsonConfig.id).to.be.a("string");
-    expect(jsonConfig.name).to.equal("My Carrier");
-    expect(jsonConfig.description).to.equal("My Carrier description goes here");
-    expect(jsonConfig.websiteURL.href).to.equal("https://www.my-carrier.com/");
-    expect(jsonConfig.logo.colorSVG).to.be.a("string");
-    expect(jsonConfig.logo.colorSVG).to.be.contain("<svg");
+  it("should load a connection app", async () => {
+    let app = await loadApp("test/fixtures/apps/connection/json");
 
-    expect(jsonConfig.logo.blackAndWhiteSVG).to.be.a("string");
-    expect(jsonConfig.logo.blackAndWhiteSVG).to.be.contain("<svg");
+    expect(app.name).to.equal("@connection/json-app");
+    expect(app.version).to.equal("0.0.1");
+    expect(app.description).to.equal("");
 
-    expect(jsonConfig.deliveryServices).to.be.an("array");
-    expect(jsonConfig.deliveryServices).to.be.an("array").with.lengthOf(1);
-    expect(jsonConfig.deliveryServices[0].name).to.equal("Priority Overnight");
-    expect(jsonConfig.deliveryServices[0].packaging[1].name).to.equal("Large Padded Envelope");
+    expect(app.connection.id).to.be.a("string");
+    expect(app.connection.name).to.equal("My Connection");
+    expect(app.connection.description).to.equal("My Connection description goes here");
+    expect(app.connection.websiteURL.href).to.equal("https://www.my-connection.com/");
+    expect(app.connection.logo).to.be.a("string");
 
-    expect(jsonConfig.deliveryServices[0].deliveryConfirmations[0].name).to.equal("Adult Signature");
+    expect(app.connection.connectForm).to.be.an("object");
+    expect(app.connection.connectForm.dataSchema.title).to.equal("Connection One Registration");
 
+    expect(app.connection.settingsForm).to.be.an("object");
+    expect(app.connection.settingsForm.dataSchema.title).to.equal("Connection One Settings");
 
-    expect(jsonConfig.pickupServices).to.be.an("array");
-    expect(jsonConfig.pickupServices).to.be.an("array").with.lengthOf(2);
-    expect(jsonConfig.pickupServices[0].name).to.equal("Drop Off Pickup");
-    expect(jsonConfig.pickupServices[1].name).to.equal("One Time Pickup");
-
-    expect(jsonConfig.loginForm).to.be.an("object");
-    expect(jsonConfig.loginForm.dataSchema.title).to.equal("Carrier One Registration");
-
-    expect(jsonConfig.settingsForm).to.be.an("object");
-    expect(jsonConfig.settingsForm.dataSchema.title).to.equal("Carrier One Settings");
-
-    expect(jsonConfig.login).to.be.a("function");
-    expect(jsonConfig.requestPickup).to.be.a("function");
-    expect(jsonConfig.cancelPickup).to.be.a("function");
-    expect(jsonConfig.createLabel).to.be.a("function");
-    expect(jsonConfig.voidLabel).to.be.a("function");
-    expect(jsonConfig.getRates).to.be.a("function");
-    expect(jsonConfig.getTrackingURL).to.be.a("function");
-    expect(jsonConfig.track).to.be.a("function");
-    expect(jsonConfig.createManifest).to.be.a("function");
+    expect(app.connection.connect).to.be.a("function");
   });
 
 });
