@@ -26,17 +26,17 @@ function validateSdkVersion(manifest: AppPOJO, manifestPath: string): void {
   try {
     let versionString = dependencies[sdk] || devDependencies[sdk];
     if (!versionString) {
-      throw new Error(`The ShipEngine Integration Platform SDK (@shipengine/integration-platform-sdk) must be listed as a dependency or devDependency.`);
+      throw new Error(`The ShipEngine Integration Platform SDK (${sdk}) must be listed as a dependency or devDependency.`);
     }
 
-    let versionParts = /^(\d+\.\d+)\./.exec(versionString);
+    let versionParts = /^\W*(\d+\.\d+)\./.exec(versionString);
     if (!versionParts) {
-      throw new Error(`Invalid @shipengine/integration-platform-sdk version: ${versionString}`);
+      throw new Error(`Invalid ${sdk} version: ${versionString}`);
     }
 
     let versionNumber = Number.parseFloat(versionParts[1]);
     if (versionNumber < 0 || versionNumber >= 1) {
-      throw new RangeError(`Unsupported @shipengine/integration-platform-sdk version: ${versionString}`);
+      throw new RangeError(`Unsupported ${sdk} version: ${versionString}`);
     }
   }
   catch (error) {
