@@ -1,6 +1,6 @@
 {
   "name": "@shipengine/integration-platform-loader",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Internal library for loading ShipEngine Integration Platform apps",
   "keywords": [
     "shipengine",
@@ -63,7 +63,7 @@
   "dependencies": {
     "@jsdevtools/humanize-anything": "^1.1.0",
     "@jsdevtools/ono": "^7.1.1",
-    "@shipengine/integration-platform-sdk": "0.0.3",
+    "@shipengine/integration-platform-sdk": "0.0.4",
     "js-yaml": "^3.13.1",
     "json5": "^2.1.3",
     "resolve-from": "^5.0.0",
