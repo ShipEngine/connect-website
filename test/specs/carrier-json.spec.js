@@ -52,8 +52,8 @@ describe("JSON apps", () => {
     expect(app.connection.websiteURL.href).to.equal("https://www.my-connection.com/");
     expect(app.connection.logo).to.be.a("string");
 
-    expect(app.connection.connectForm).to.be.an("object");
-    expect(app.connection.connectForm.dataSchema.title).to.equal("Connection One Registration");
+    expect(app.connection.connectionForm).to.be.an("object");
+    expect(app.connection.connectionForm.dataSchema.title).to.equal("Connection One Registration");
 
     expect(app.connection.settingsForm).to.be.an("object");
     expect(app.connection.settingsForm.dataSchema.title).to.equal("Connection One Settings");

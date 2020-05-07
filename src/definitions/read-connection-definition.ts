@@ -12,7 +12,7 @@ definition: ConnectionDefinition, cwd: string, fieldName: string): Promise<Conne
   return {
     ...definition,
     logo: path.resolve(cwd, definition.logo),
-    connectForm: await readFormDefinition(definition.connectForm, cwd, `${fieldName}.connectForm`),
+    connectionForm: await readFormDefinition(definition.connectionForm, cwd, `${fieldName}.connectionForm`),
     settingsForm: await readFormDefinition(definition.settingsForm, cwd, `${fieldName}.settingsForm`),
     connect: await readDefinitionValue(definition.connect, cwd, `${fieldName}.connect`),
     localization: await readLocalizationDefinition(definition.localization, cwd, `${fieldName}.localization`),

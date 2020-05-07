@@ -9,7 +9,7 @@ const config: ConnectionDefinition = {
   websiteURL: "https://www.my-connection.com",
   logo: "../../../../logo.svg",
 
-  connectForm: "../../../../configs/forms/registration-form.json",
+  connectionForm: "../../../../configs/forms/registration-form.json",
   settingsForm: "../../../../configs/forms/settings-form.json",
   connect: "../../../../modules/methods/login.js",
 

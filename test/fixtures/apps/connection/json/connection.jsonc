@@ -6,7 +6,7 @@
   "logo": "../../../logo.svg",
 
   // Form definitions
-  "connectForm": "../../../configs/forms/registration-form.json",
+  "connectionForm": "../../../configs/forms/registration-form.json",
   "settingsForm": "../../../configs/forms/settings-form.json",
 
   // The connect method

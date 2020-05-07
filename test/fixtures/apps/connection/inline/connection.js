@@ -8,7 +8,7 @@ module.exports = {
   websiteURL: "https://www.my-connection.com",
   logo: "../../../logo.svg",
 
-  connectForm: {
+  connectionForm: {
     dataSchema: {
       title: "Connection One Registration",
       description: "Login with your Connection One account information.",
