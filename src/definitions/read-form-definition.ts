@@ -18,7 +18,12 @@ definition: InlineOrReference<FormDefinition> | undefined, cwd: string, fieldNam
       ...definition,
       dataSchema: await readDefinitionValue(definition.dataSchema, cwd, `${fieldName}.dataSchema`),
       uiSchema: await readDefinitionValue(definition.uiSchema, cwd, `${fieldName}.uiSchema`),
-      localization: await readLocalizationDefinition(definition.localization, cwd, `${fieldName}.localization`),
+      localization: await readLocalizationDefinition(definition.localization, cwd, `${fieldName}.localization`,
+        async ({ dataSchema, uiSchema }, localeCWD, localeFieldName) => ({
+          dataSchema: await readDefinitionValue(dataSchema, localeCWD, `${localeFieldName}.dataSchema`),
+          uiSchema: await readDefinitionValue(uiSchema, localeCWD, `${localeFieldName}.uiSchema`),
+        })
+      ),
     };
   }
 }

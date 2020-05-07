@@ -53,9 +53,11 @@
     "@types/source-map-support": "^0.5.1",
     "chai": "^4.2.0",
     "eslint": "^6.8.0",
+    "json-schema": "^0.2.5",
     "mocha": "^7.1.0",
     "npm-check": "^5.9.0",
     "nyc": "^15.0.1",
+    "react-jsonschema-form": "^1.8.1",
     "shx": "^0.3.2",
     "tslint": "^6.1.1",
     "typescript-tslint-plugin": "^0.5.0"
