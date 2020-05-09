@@ -1,9 +1,9 @@
 "use strict";
 
-const apiClient = require("./api-client");
+const apiClient = require("./mock-api/client");
 
 /**
- * Logs in using the username and password entered on the login form
+ * Connects a user's Cargo Incorporated account to ShipEngine
  */
 async function connect(transaction, connectionFormData) {
   // STEP 1: Validation
@@ -13,7 +13,7 @@ async function connect(transaction, connectionFormData) {
 
   // STEP 2: Create the data that the carrier's API expects
   let data = {
-    operation: "acquire_session",
+    operation: "authenticate",
     account_id: connectionFormData.account_id,
     account_email: connectionFormData.account_email,
     account_password: connectionFormData.account_password,
