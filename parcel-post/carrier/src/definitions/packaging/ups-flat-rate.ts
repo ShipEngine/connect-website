@@ -19,7 +19,7 @@ export const upsFlatRatePackaging: PackagingDefinition[] = [
 
   {
     id: "5b992d91-2ca5-447b-beab-72f67d512101",
-    name: "UPS XXXXXXXXXX Box",
+    name: "UPS Large Box",
     description: 'Any box up to 1,050 cubic inches',
     requiresDimensions: true,
     requiresWeight: false,

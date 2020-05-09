@@ -1,12 +1,32 @@
-"use strict";
+import * as fs from "fs";
+import * as path from "path";
 
-const fs = require("fs");
-const path = require("path");
+export interface GenerateLabelRequest {
+  operation: "generate_label";
+  session_id: string;
+  label_type: string;
+  label_size: string;
+  service_code: string;
+  confirmation_code: string;
+  ship_date: string;
+  from_zip: string;
+  to_zip: string;
+  total_weight: number;
+}
+
+export interface GenerateLabelResponse {
+  tracking_number: string;
+  delivery_date: string;
+  shipment_cost: number;
+  confirmation_cost: number;
+  other_cost: number;
+  image: string;
+}
 
 /**
  * This is a mock implementation of a carrier's API that generates a label for a shipment
  */
-function generateLabel(request) {
+export function generateLabel(request: GenerateLabelRequest): GenerateLabelResponse {
   let shipDate = new Date(request.ship_date);
 
   return {
@@ -18,5 +38,3 @@ function generateLabel(request) {
     image: fs.readFileSync(path.join(__dirname, "sample-label.pdf")).toString("base64"),
   }
 }
-
-module.exports = generateLabel;

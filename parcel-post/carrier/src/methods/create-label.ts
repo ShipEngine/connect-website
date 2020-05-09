@@ -1,19 +1,27 @@
+import { Currency, DocumentFormat, DocumentSize, LabelConfirmationPOJO, LabelSpec, ShippingChargeType, Transaction } from "@shipengine/integration-platform-sdk";
+import { bag, box } from "../definitions/packaging/customer";
 import { idToCode } from "../id-code-map";
 import { apiClient } from "../mock-api/client";
+import { GenerateLabelRequest, GenerateLabelResponse } from "../mock-api/generate-label";
 
 /**
  * Requests a shipping label for a shipment
  */
-export default async function createLabel(transaction, { format, size, shipment }) {
+export default async function createLabel(
+  transaction: Transaction, { format, size, shipment }: LabelSpec): Promise<LabelConfirmationPOJO> {
+
   // STEP 1: Validation
   for (let parcel of shipment.packages) {
-    if (parcel.packaging.id === box.id && parcel.weight.grams > 100000) {
-      throw new Error(`${parcel.packaging.name} cannot weigh more than 100 kilograms`);
+    if (parcel.packaging.id === box.id && parcel.weight.ounces > (150 * 16)) {
+      throw new Error(`${parcel.packaging.name} cannot weigh more than 150 pounds`);
+    }
+    else if (parcel.packaging.id === bag.id && parcel.weight.ounces > (45 * 16)) {
+      throw new Error(`${parcel.packaging.name} cannot weigh more than 45 pounds`);
     }
   }
 
   // STEP 2: Create the data that the carrier's API expects
-  let data = {
+  let data: GenerateLabelRequest = {
     operation: "generate_label",
     session_id: transaction.session.id,
     label_type: format,
@@ -36,41 +44,41 @@ export default async function createLabel(transaction, { format, size, shipment 
 /**
  * Formats a label in the way ShipEngine expects
  */
-async function formatLabel(label) {
+function formatLabel(response: GenerateLabelResponse): LabelConfirmationPOJO {
   return {
     charges: [
       {
-        type: "shipping",
+        type: ShippingChargeType.Shipping,
         amount: {
-          value: label.shipment_cost,
-          currency: "USD"
+          value: response.shipment_cost,
+          currency: Currency.UnitedStatesDollar,
         }
       },
       {
-        type: "delivery_confirmation",
+        type: ShippingChargeType.DeliveryConfirmation,
         amount: {
-          value: label.confirmation_cost,
-          currency: "USD"
+          value: response.confirmation_cost,
+          currency: Currency.UnitedStatesDollar,
         }
       },
       {
-        type: "uncategorized",
+        type: ShippingChargeType.Uncategorized,
         amount: {
-          value: label.other_cost,
-          currency: "USD"
+          value: response.other_cost,
+          currency: Currency.UnitedStatesDollar,
         }
       },
     ],
     shipment: {
-      trackingNumber: label.tracking_number,
-      deliveryDateTime: label.delivery_date,
+      trackingNumber: response.tracking_number,
+      deliveryDateTime: response.delivery_date,
       packages: [{
-        trackingNumber: label.tracking_number,
+        trackingNumber: response.tracking_number,
         label: {
           name: "Label",
-          size: "4x8",
-          format: "pdf",
-          data: Buffer.from(label.image, "base64"),
+          size: DocumentSize.Inches4x6,
+          format: DocumentFormat.PDF,
+          data: Buffer.from(response.image, "base64"),
         }
       }],
     },
