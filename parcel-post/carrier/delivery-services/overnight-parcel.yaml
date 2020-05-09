@@ -1,0 +1,44 @@
+id: 4bb41067-076c-4b8f-b96f-cec21fbf65ef
+
+name: Overnight Parcel
+
+description: Priority overnight small parcel delivery by 11am
+
+class: one_day_early_am
+
+grade: overnight
+
+serviceArea: regional
+
+isReturnService: true
+
+allowsMultiplePackages: true
+
+isTrackable: true
+
+labelFormats:
+  - pdf
+  - zpl
+  - png
+
+labelSizes:
+  - 4x6
+
+originCountries:
+  - US
+
+destinationCountries:
+ - US
+
+packaging:
+  - ../packaging/parcel.yaml
+  - ../packaging/flat-rate-box.yaml
+  - ../packaging/large-padded-envelope.yaml
+
+  - id: 6a5a18a8-c568-4801-bc2f-75fa498cfadc
+    name: Overnight Envelope
+    description: Parcel Post™ pre-paid overnight envelope
+
+deliveryConfirmations:
+  - ../../../delivery-confirmations/signature.yaml
+  - ../../../delivery-confirmations/adult-signature.yaml

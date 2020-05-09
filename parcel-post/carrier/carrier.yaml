@@ -1,0 +1,22 @@
+id: 8ea1989e-d504-433f-b031-b04d5d9ace94
+
+name: Parcel Post
+
+description:
+  Parcel Post is a last-mile parcel delivery service that covers major U.S. metropolitan areas.
+
+websiteURL: https://parcel-post.com
+
+logo:
+  colorSVG: logo.svg
+  blackAndWhiteSVG: logo.bw.svg
+
+deliveryServices:
+  - delivery-services/economy-parcel.yaml
+  - delivery-services/ground-parcel.yaml
+  - delivery-services/overnight-parcel.yaml
+
+pickupServices:
+  - pickup-services/one-time.yaml
+  - pickup-services/recurring.yaml
+  - pickup-services/drop-off.yaml

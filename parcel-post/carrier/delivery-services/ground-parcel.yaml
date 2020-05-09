@@ -1,0 +1,41 @@
+id: 2a20b066-71c3-11ea-bc55-0242ac130003
+
+name: Ground Parcel
+
+description: Standard 5 - 7 day ground delivery
+
+class: ground
+
+grade: standard
+
+serviceArea: regional
+
+isReturnService: true
+
+allowsMultiplePackages: true
+
+isTrackable: true
+
+labelFormats:
+  - pdf
+  - zpl
+  - png
+
+labelSizes:
+  - 4x6
+
+originCountries:
+  - US
+
+destinationCountries:
+ - US
+
+packaging:
+  - ../packaging/parcel.yaml
+  - ../packaging/flat-rate-box.yaml
+  - ../packaging/large-padded-envelope.yaml
+
+deliveryConfirmations:
+  - ../../../delivery-confirmations/signature.yaml
+  - ../../../delivery-confirmations/adult-signature.yaml
+  - ../../../delivery-confirmations/photo.yaml
