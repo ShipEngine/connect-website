@@ -3,7 +3,7 @@
 
 This folder contains sample [**ShipEngine Integration Platform**](https://www.shipengine.com/docs/integration-platform/) apps that demonstrate how to integrate a carrier into ShipEngine. In this case the carrier is a fictional company called "Cargo Incorporated".
 
-Cargo International ships worldwide. Because of its global reach, the apps include [**localization**](./carrier/cargo-inc.yaml) support, including [form localization](./connection/forms/connect.json).
+Cargo Incorporated ships worldwide. Because of its global reach, the apps include [**localization**](./carrier/cargo-inc.yaml) support, including [form localization](./connection/forms/connect.json).
 
 
 

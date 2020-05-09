@@ -3,7 +3,7 @@
 
 This is a sample [**ShipEngine Integration Platform**](https://www.shipengine.com/docs/integration-platform/) app that demonstrate how to integrate a carrier into ShipEngine. In this case the carrier is a fictional company called "Cargo Incorporated".
 
-Cargo International ships worldwide. Because of its global reach, the app includes [**localization**](./cargo-inc.yaml) support for English, Spanish, and Chinese.
+Cargo Incorporated ships worldwide. Because of its global reach, the app includes [**localization**](./cargo-inc.yaml) support for English, Spanish, and Chinese.
 
 This app defines the [account connection form](./forms/connect.json) and [account settings form](./forms/settings.json) that enable a user to connect and manage their Cargo Incorporated account in ShipEngine. It also implements the [connection logic](./src/connect.js), which validates a user's credentials and establishes a session.
 
