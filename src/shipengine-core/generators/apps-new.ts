@@ -3,6 +3,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { execSync } from "child_process";
 import Generator = require("yeoman-generator");
+import { v4 as uuidv4 } from "uuid";
 
 const fixpack = require("@oclif/fixpack");
 const nps = require("nps-utils");
@@ -467,7 +468,7 @@ class AppsNew extends Generator {
     const dependencies: string[] = [];
     const devDependencies: string[] = [];
 
-    devDependencies.push("@shipengine/integration-platform-sdk@^0.0.5");
+    devDependencies.push("@shipengine/integration-platform-sdk@0.0.5");
 
     if (this.mocha) {
       devDependencies.push("mocha@^5", "nyc@^14", "chai@^4");
@@ -525,6 +526,10 @@ class AppsNew extends Generator {
 
   get _codeExt() {
     return this.ts ? "ts" : "js";
+  }
+
+  get _uuidv4() {
+    return uuidv4();
   }
 
   private _gitignore(): string {

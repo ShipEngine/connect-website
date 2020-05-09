@@ -1,5 +1,5 @@
 {
-  "id": "",
+  "id": "<%- _uuidv4 %>",
   "name": "<%- pjson.name %>",
   "description": "<%- pjson.description %>",
   "websiteURL": "",

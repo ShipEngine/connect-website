@@ -2,7 +2,7 @@ const createLable = require("./methods/create-label");
 const getRates = require("./methods/get-rates");
 
 const app = {
-  id: "",
+  id: "<%- _uuidv4 %>",
   name: "<%- pjson.name %>",
   description: "<%- pjson.description %>",
   logo: "./logo.svg",
