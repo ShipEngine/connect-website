@@ -5,7 +5,7 @@ This is a sample [**ShipEngine Integration Platform**](https://www.shipengine.co
 
 FreightCo ships to/from Mexico, Canda, and the U.S. Because of its international reach, the app includes [**localization**](./index.js) support for Spanish and French in addition to English.
 
-This app defines the [account connection form](./forms/connect.json) and [account settings form](./forms/settings.json) that enable a user to connect and manage their FreightCo account in ShipEngine. It also implements the [connection logic](./connect.js), which validates a user's credentials and establishes a session.
+This app defines the [account connection form](./forms/connect.js) and [account settings form](./forms/settings.js) that enable a user to connect and manage their FreightCo account in ShipEngine. It also implements the [connection logic](./connect.js), which validates a user's credentials and establishes a session.
 
 
 

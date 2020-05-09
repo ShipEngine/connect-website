@@ -13,7 +13,7 @@ This folder contains 2 sample apps.
 
 | App                                     | Description
 |-----------------------------------------|-----------------------------------------------------------------------------
-| [`@freightco/connection`](./connection) | **TODO: Work in progress**
+| [`@freightco/connection`](./connection) | This app defines the [account connection form](./connection/forms/connect.js) and [account settings form](./connection/forms/settings.js) that enable a user to connect and manage their FreightCo account in ShipEngine. It also implements the [connection logic](./connection/connect.js), which validates a user's credentials and establishes a session.
 | [`@freightco/carrier`](./carrier)       | This app defines the [delivery services](./carrier/delivery-services), [delivery confirmations](./carrier/delivery-confirmations), and [packaging](./carrier/packaging) that FreightCo supports. It also implements functionality, such as [creating labels](./carrier/create-label.js) and [calculating shipping costs](./carrier/get-rates.js).
 
 
