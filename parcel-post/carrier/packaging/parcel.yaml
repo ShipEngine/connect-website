@@ -1,9 +1,0 @@
-id: 1a1c3de8-bf16-4f9f-b365-c7032a642295
-
-name: Parcel
-
-description: Your own packaging, up to 50 kilograms (100 pounds)
-
-requiresWeight: true
-
-requiresDimensions: true
