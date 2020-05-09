@@ -18,7 +18,7 @@
     "@oclif/plugin-autocomplete": "^0.1.5",
     "@oclif/plugin-help": "^2.2.3",
     "@oclif/plugin-not-found": "^1.2.3",
-    "@shipengine/integration-platform-loader": "0.0.3",
+    "@shipengine/integration-platform-loader": "0.0.4",
     "@types/uuid": "^7.0.3",
     "axios": "^0.19.2",
     "chalk": "^4.0.0",
