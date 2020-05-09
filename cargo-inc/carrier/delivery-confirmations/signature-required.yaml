@@ -1,0 +1,13 @@
+id: dbcfb3b5-9457-4d82-b614-123aadc96b1e
+name: Signature Required
+description: Requires a signature from any resident
+type: signature
+
+localization:
+  es:
+    name: Firma
+    description: Requiere una firma de cualquier residente
+
+  zh:
+    name: 签名
+    description: 需要任何居民签名

@@ -1,0 +1,13 @@
+id: 5c59b2b3-49fb-41c6-9e77-e97a75067f36
+name: Recipient Signature
+description: Requires a signature from the person named in the delivery address
+type: direct_signature
+
+localization:
+  es:
+    name: Firma del destinatario
+    description: Requiere una firma de la persona nombrada en la dirección de entrega
+
+  zh:
+    name: 收件人签名
+    description: 需要送货地址上指定的人签名

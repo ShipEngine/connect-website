@@ -1,0 +1,38 @@
+id: 8b69c0ff-9017-4e89-82dd-0dbfab691047
+name: International Overnight
+description: Overnight delivery worldwide
+class: one_day
+grade: overnight
+serviceArea: global
+isConsolidationService: true
+isTrackable: true
+isInsurable: true
+
+labelFormats:
+  - html
+  - pdf
+
+labelSizes:
+  - A4
+  - letter
+
+originCountries: worldwide.yaml
+destinationCountries: worldwide.yaml
+
+packaging:
+  - ../packaging/package.yaml
+  - ../packaging/pallet.yaml
+
+deliveryConfirmations:
+  - ../delivery-confirmations/signature-required.yaml
+  - ../delivery-confirmations/adult-signature.yaml
+  - ../delivery-confirmations/recipient-signature.yaml
+
+localization:
+  es:
+    name: Noche internacional
+    description: Entrega nocturna en todo el mundo
+
+  zh:
+    name: 国际隔夜
+    description: 全球隔夜交货

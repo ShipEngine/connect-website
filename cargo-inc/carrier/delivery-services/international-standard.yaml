@@ -1,0 +1,38 @@
+id: 2c24a88f-a6ab-4082-9761-674e9280d5f8
+name: International Standard
+description: Standard 3-day delivery anwyere in the world
+class: three_day
+grade: standard
+serviceArea: global
+isConsolidationService: true
+isTrackable: true
+isInsurable: true
+
+labelFormats:
+  - html
+  - pdf
+
+labelSizes:
+  - A4
+  - letter
+
+originCountries: worldwide.yaml
+destinationCountries: worldwide.yaml
+
+packaging:
+  - ../packaging/package.yaml
+  - ../packaging/pallet.yaml
+
+deliveryConfirmations:
+  - ../delivery-confirmations/signature-required.yaml
+  - ../delivery-confirmations/adult-signature.yaml
+  - ../delivery-confirmations/recipient-signature.yaml
+
+localization:
+  es:
+    name: Estándar internacional
+    description: Entrega estándar de 3 días en cualquier parte del mundo
+
+  zh:
+    name: 国际标准
+    description: 世界各地的标准3天交货

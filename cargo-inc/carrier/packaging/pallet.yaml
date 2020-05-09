@@ -1,0 +1,17 @@
+id: 59ea9801-9377-495d-a71c-71b65ced205f
+name: Pallet
+description: 1.2 Meter Square Wood Pallet
+requiresWeight: true
+requiresDimensions: false
+
+localization:
+  en-US:
+    description: 48" x 48" Wood Pallet
+
+  es:
+    name: paleta
+    description: Palet de madera cuadrado de 1.2 metros
+
+  zh:
+    name: 货盘
+    description: 1.2平方米木托盘

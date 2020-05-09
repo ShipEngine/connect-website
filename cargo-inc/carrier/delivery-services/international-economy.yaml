@@ -1,0 +1,38 @@
+id: 43fc9d24-6a89-428a-ad34-c614c14170b6
+name: International Economy
+description: Worldwide delivery at an affordable price
+class: ground
+grade: economy
+serviceArea: global
+isConsolidationService: true
+isTrackable: false
+isInsurable: true
+
+labelFormats:
+  - html
+  - pdf
+
+labelSizes:
+  - A4
+  - letter
+
+originCountries: worldwide.yaml
+destinationCountries: worldwide.yaml
+
+packaging:
+  - ../packaging/package.yaml
+  - ../packaging/pallet.yaml
+
+deliveryConfirmations:
+  - ../delivery-confirmations/signature-required.yaml
+  - ../delivery-confirmations/adult-signature.yaml
+  - ../delivery-confirmations/recipient-signature.yaml
+
+localization:
+  es:
+    name: Económico Internacional
+    description: Entrega mundial a un precio asequible
+
+  zh:
+    name: 国际经济
+    description: 以合理的价格向全球交付
