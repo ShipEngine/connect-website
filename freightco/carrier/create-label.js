@@ -33,13 +33,13 @@ async function createLabel(transaction, { format, size, shipment }) {
   const response = await apiClient.request({ data });
 
   // STEP 4: Create the output data that ShipEngine expects
-  return await formatLabel(response.data);
+  return formatLabel(response.data);
 }
 
 /**
  * Formats a label in the way ShipEngine expects
  */
-async function formatLabel(label) {
+function formatLabel(label) {
   return {
     charges: [
       {

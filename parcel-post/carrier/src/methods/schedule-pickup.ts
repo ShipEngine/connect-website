@@ -32,7 +32,7 @@ export default async function schedulePickup(
   const response = await apiClient.request<PickUpResponse>({ data });
 
   // STEP 4: Create the output data that ShipEngine expects
-  return await formatConfirmation(response.data);
+  return formatConfirmation(response.data);
 }
 
 /**

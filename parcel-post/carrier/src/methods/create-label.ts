@@ -38,7 +38,7 @@ export default async function createLabel(
   const response = await apiClient.request<GenerateLabelResponse>({ data });
 
   // STEP 4: Create the output data that ShipEngine expects
-  return await formatLabel(response.data);
+  return formatLabel(response.data);
 }
 
 /**
