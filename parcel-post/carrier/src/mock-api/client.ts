@@ -1,6 +1,7 @@
 import axios from "axios";
 import { generateLabel, GenerateLabelRequest } from "./generate-label";
 import { pickUp, PickUpRequest } from "./pick-up";
+import { pickUpCancellation, PickUpCancellationRequest } from "./pick-up-cancellation";
 import { quoteRates, QuoteRatesRequest } from "./quote-rates";
 
 
@@ -48,6 +49,9 @@ export const apiClient = axios.create({
 
       case "pick_up":
         return pickUp(request as HttpRequest & PickUpRequest);
+
+      case "pick_up_cancellation":
+        return pickUpCancellation(request as HttpRequest & PickUpCancellationRequest);
     }
   }
 });

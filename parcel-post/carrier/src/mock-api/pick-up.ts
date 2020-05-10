@@ -22,7 +22,7 @@ export interface PickUpResponse {
 }
 
 /**
- * This is a mock implementation of a carrier's API that generates a label for a shipment
+ * This is a mock implementation of a carrier's API that schedules a pick-up
  */
 export function pickUp(request: HttpRequest & PickUpRequest): PickUpResponse {
   let serviceCode = request.service_code;

@@ -20,6 +20,7 @@ const parcelPost: CarrierDefinition = {
   createLabel: import("./methods/create-label"),
   getRates: import("./methods/get-rates"),
   schedulePickup: import("./methods/schedule-pickup"),
+  cancelPickup: import("./methods/cancel-pickup"),
 };
 
 export default parcelPost;
