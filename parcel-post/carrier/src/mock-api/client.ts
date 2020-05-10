@@ -1,6 +1,6 @@
 import axios from "axios";
 import { generateLabel } from "./generate-label";
-import quoteRates from "./quote-rates";
+import { quoteRates } from "./quote-rates";
 
 
 // Read config values from environment variables

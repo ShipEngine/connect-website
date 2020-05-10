@@ -1,15 +1,19 @@
+import { Currency, RateCriteria, RatePOJO, RateQuotePOJO, ShippingChargeType, Transaction } from "@shipengine/integration-platform-sdk";
 import { codeToID, idToCode } from "../id-code-map";
 import { apiClient } from "../mock-api/client";
+import { QuoteRateResponseItem, QuoteRatesRequest, QuoteRatesResponse } from "../mock-api/quote-rates";
 
 /**
  * Gets shipping rate quotes for the specified criteria
  */
-export default async function getRates(transaction, criteria) {
+export default async function getRates(
+  transaction: Transaction, criteria: RateCriteria): Promise<RateQuotePOJO> {
+
   // STEP 1: Validation
   // TODO: add any validation logic here
 
   // STEP 2: Create the data that the carrier's API expects
-  let data = {
+  let data: QuoteRatesRequest = {
     operation: "quote_rates",
     session_id: transaction.session.id,
     service_codes: criteria.deliveryServices.map(({id}) => idToCode(id)),
@@ -27,14 +31,14 @@ export default async function getRates(transaction, criteria) {
 
   // STEP 4: Create the output data that ShipEngine expects
   return {
-    rates: response.data.map(formatRate)
+    rates: (response.data as QuoteRatesResponse).map(formatRate)
   };
 }
 
 /**
  * Formats a rate quote in the way ShipEngine expects
  */
-function formatRate(rate) {
+function formatRate(rate: QuoteRateResponseItem): RatePOJO {
   return {
     deliveryServiceID: codeToID(rate.service_code),
     deliveryConfirmationID: codeToID(rate.confirmation_code),
@@ -47,29 +51,29 @@ function formatRate(rate) {
     charges: [
       {
         name: "Service Charge",
-        type: "shipping",
+        type: ShippingChargeType.Shipping,
         code: "SC1",
         amount: {
           value: rate.shipment_cost,
-          currency: "USD"
+          currency: Currency.UnitedStatesDollar,
         }
       },
       {
         name: "Confirmation Fee",
-        type: "delivery_confirmation",
+        type: ShippingChargeType.DeliveryConfirmation,
         code: "CONF",
         amount: {
           value: rate.confirmation_cost,
-          currency: "USD"
+          currency: Currency.UnitedStatesDollar,
         }
       },
       {
         name: "Transport Tax",
-        type: "tax",
+        type: ShippingChargeType.Tax,
         code: "TX7",
         amount: {
           value: rate.tax_cost,
-          currency: "USD"
+          currency: Currency.UnitedStatesDollar,
         }
       },
     ],

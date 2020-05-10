@@ -2,7 +2,7 @@
  * Maps ShipEngine App UUIDs to the corresponding carrier code that's expected
  * by the carrier's API
  */
-export function idToCode(uuid) {
+export function idToCode(uuid: string): string {
   return idCodeMap[uuid];
 }
 
@@ -10,7 +10,7 @@ export function idToCode(uuid) {
 /**
  * Maps the carrier's API code to the corresponding ShipEngine App UUID
  */
-export function codeToID(code) {
+export function codeToID(code: string): string {
   for (let [uuid, c] of Object.entries(idCodeMap)) {
     if (c === code) {
       return uuid;
