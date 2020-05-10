@@ -1,6 +1,6 @@
-"use strict";
+import { FormDefinition } from "@shipengine/integration-platform-sdk";
 
-module.exports = {
+const settingsForm: FormDefinition = {
   dataSchema: {
     title: "Parcel Post Settings",
     description: "Update your Parcel Post account settings",
@@ -33,34 +33,6 @@ module.exports = {
       "ui:autofocus": true
     }
   },
-  localization: {
-    es: {
-      dataSchema: {
-        title: "Configuraciones de Parcel Post",
-        description: "Actualice la configuración de su cuenta de Parcel Post",
-        properties: {
-          default_currency: {
-            title: "Moneda predeterminada",
-          },
-          deliver_duties_paid: {
-            title: "Incluya aranceles e impuestos en el costo de la etiqueta"
-          }
-        }
-      }
-    },
-    fr: {
-      dataSchema: {
-        title: "Paramètres Parcel Post",
-        description: "Mettez à jour les paramètres de votre compte Parcel Post",
-        properties: {
-          default_currency: {
-            title: "Devise par Défaut"
-          },
-          deliver_duties_paid: {
-            title: "Inclure les droits et taxes dans le coût de l'étiquette"
-          }
-        }
-      }
-    }
-  }
 };
+
+export default settingsForm;
