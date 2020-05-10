@@ -29,7 +29,7 @@ export default async function schedulePickup(
   };
 
   // STEP 3: Call the carrier's API
-  const response = await apiClient.request({ data });
+  const response = await apiClient.request<PickUpResponse>({ data });
 
   // STEP 4: Create the output data that ShipEngine expects
   return await formatConfirmation(response.data);

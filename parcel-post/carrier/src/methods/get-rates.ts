@@ -27,11 +27,11 @@ export default async function getRates(
   };
 
   // STEP 3: Call the carrier's API
-  const response = await apiClient.request({ data });
+  const response = await apiClient.request<QuoteRatesResponse>({ data });
 
   // STEP 4: Create the output data that ShipEngine expects
   return {
-    rates: (response.data as QuoteRatesResponse).map(formatRate)
+    rates: response.data.map(formatRate)
   };
 }
 

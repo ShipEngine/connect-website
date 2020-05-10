@@ -28,7 +28,7 @@ export default async function connect(
   };
 
   // STEP 3: Call the carrier's API
-  const response: { data: AuthenticateResponse } = await apiClient.request({ data });
+  const response = await apiClient.request<AuthenticateResponse>({ data });
 
   // STEP 4: Store session data in the transaction.session property,
   // which is persisted across all method calls

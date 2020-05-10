@@ -35,7 +35,7 @@ export default async function createLabel(
   };
 
   // STEP 3: Call the carrier's API
-  const response = await apiClient.request({ data });
+  const response = await apiClient.request<GenerateLabelResponse>({ data });
 
   // STEP 4: Create the output data that ShipEngine expects
   return await formatLabel(response.data);
