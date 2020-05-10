@@ -21,9 +21,18 @@ const apiClient = axios.create({
   transformResponse(data) {
     data = JSON.parse(data);
 
-    switch (data.json.operation) {
+    // HttpBin echoes back the request data
+    let request = {
+      method: data.method,
+      url: data.url,
+      headers: data.headers,
+      origin: data.origin,
+      ...data.json
+    };
+
+    switch (request.operation) {
       case "authenticate":
-        return authenticate(data.json);
+        return authenticate(request);
     }
   }
 });

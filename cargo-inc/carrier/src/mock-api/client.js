@@ -22,12 +22,21 @@ const apiClient = axios.create({
   transformResponse(data) {
     data = JSON.parse(data);
 
-    switch (data.json.operation) {
+    // HttpBin echoes back the request data
+    let request = {
+      method: data.method,
+      url: data.url,
+      headers: data.headers,
+      origin: data.origin,
+      ...data.json
+    };
+
+    switch (request.operation) {
       case "generate_label":
-        return generateLabel(data.json);
+        return generateLabel(request);
 
       case "quote_rates":
-        return quoteRates(data.json);
+        return quoteRates(request);
     }
   }
 });

@@ -1,4 +1,5 @@
 import { customerPackaging } from "../definitions/packaging/customer";
+import { HttpRequest } from "./client";
 
 const allServices = {
   "DOMECO": { price: .20, days: 6 },
@@ -48,7 +49,7 @@ export interface QuoteRateResponseItem {
 /**
  * This is a mock implementation of a carrier's API that returns rate quotes for a shipment
  */
-export function quoteRates(request: QuoteRatesRequest): QuoteRatesResponse {
+export function quoteRates(request: HttpRequest & QuoteRatesRequest): QuoteRatesResponse {
   let services = request.service_codes.length > 0 ? request.service_codes : Object.keys(allServices);
   let confirmations = request.confirmation_codes.length > 0 ? request.confirmation_codes : Object.keys(allConfirmations);
   let packaging = request.parcel_codes.length > 0 ? request.parcel_codes : customerPackaging.map((pack) => pack.id);

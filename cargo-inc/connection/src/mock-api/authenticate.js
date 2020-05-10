@@ -10,7 +10,7 @@ function authenticate(request) {
     id: Buffer.from(`${account_id}${account_password}${Math.random()}`).toString("base64"),
     ip: request.origin,
     created: new Date().toISOString(),
-    language: request["Accept-Language"] || "en-US",
+    language: request.headers["Accept-Language"] || "en-US",
   };
 }
 

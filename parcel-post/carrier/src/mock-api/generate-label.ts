@@ -1,5 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
+import { HttpRequest } from "./client";
 
 export interface GenerateLabelRequest {
   operation: "generate_label";
@@ -26,7 +27,7 @@ export interface GenerateLabelResponse {
 /**
  * This is a mock implementation of a carrier's API that generates a label for a shipment
  */
-export function generateLabel(request: GenerateLabelRequest): GenerateLabelResponse {
+export function generateLabel(request: HttpRequest & GenerateLabelRequest): GenerateLabelResponse {
   let shipDate = new Date(request.ship_date);
 
   return {
