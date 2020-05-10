@@ -21,8 +21,8 @@ export default async function getRates(
     parcel_codes: criteria.packaging.map(({id}) => idToCode(id)),
     ship_date: criteria.shipDateTime.toISOString(),
     delivery_date: criteria.deliveryDateTime.toISOString(),
-    from_zip: criteria.shipFrom.postalCode,
-    to_zip: criteria.shipTo.postalCode,
+    from_zone: parseInt(criteria.shipFrom.postalCode, 10),
+    to_zone: parseInt(criteria.shipTo.postalCode, 10),
     total_weight: criteria.packages.reduce((w, pkg) => w + pkg.weight.ounces, 0),
   };
 

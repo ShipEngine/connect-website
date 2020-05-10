@@ -29,9 +29,9 @@ export default async function createLabel(
     service_code: idToCode(shipment.deliveryService.id),
     confirmation_code: idToCode(shipment.deliveryConfirmation.id),
     ship_date: shipment.shipDateTime.toISOString(),
-    from_zip: shipment.shipFrom.postalCode,
-    to_zip: shipment.shipTo.postalCode,
-    total_weight: shipment.packages.reduce((w, pkg) => w + pkg.weight.value, 0),
+    from_zone: parseInt(shipment.shipFrom.postalCode, 10),
+    to_zone: parseInt(shipment.shipTo.postalCode, 10),
+    total_weight: shipment.packages.reduce((w, pkg) => w + pkg.weight.ounces, 0),
   };
 
   // STEP 3: Call the carrier's API
@@ -62,9 +62,9 @@ function formatLabel(response: GenerateLabelResponse): LabelConfirmationPOJO {
         }
       },
       {
-        type: ShippingChargeType.Uncategorized,
+        type: ShippingChargeType.LocationFee,
         amount: {
-          value: response.other_cost,
+          value: response.location_cost,
           currency: Currency.UnitedStatesDollar,
         }
       },

@@ -26,8 +26,8 @@ export interface QuoteRatesRequest {
   parcel_codes: string[];
   ship_date: string;
   delivery_date: string;
-  from_zip: string;
-  to_zip: string;
+  from_zone: number;
+  to_zone: number;
   total_weight: number;
 }
 
