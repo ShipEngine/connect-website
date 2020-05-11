@@ -46,28 +46,45 @@ USAGE
 # Commands
 
 <!-- commands -->
-* [`shipengine hello [FILE]`](#shipengine-hello-file)
+* [`shipengine apps:new [PATH]`](#shipengine-appsnew-path)
+* [`shipengine apps:test`](#shipengine-appstest)
 * [`shipengine help [COMMAND]`](#shipengine-help-command)
 
-## `shipengine hello [FILE]`
+## `shipengine apps:new [PATH]`
 
-describe the command here
+create a new package to develop a custom ShipEngine app
 
 ```
 USAGE
-  $ shipengine hello [FILE]
+  $ shipengine apps:new [PATH]
+
+ARGUMENTS
+  PATH  path to new package (defaults to current directory)
 
 OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
+  -f, --force  overwrite existing files
+  -h, --help   show CLI help
+  -y, --yes    skips the questions and uses the defaults (carrier|yarn|TypeScript|eslint|mocha)
 
 EXAMPLE
-  $ shipengine hello
-  hello world from ./src/hello.ts!
+  $ shipengine apps:new
 ```
 
-_See code: [src/commands/hello.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.1/src/commands/hello.ts)_
+_See code: [src/commands/apps/new.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.1/src/commands/apps/new.ts)_
+
+## `shipengine apps:test`
+
+test your app
+
+```
+USAGE
+  $ shipengine apps:test
+
+EXAMPLE
+  $ shipengine apps:test
+```
+
+_See code: [src/commands/apps/test.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.1/src/commands/apps/test.ts)_
 
 ## `shipengine help [COMMAND]`
 

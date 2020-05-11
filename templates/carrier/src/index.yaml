@@ -1,0 +1,9 @@
+id: nil
+name: <%- pjson.name %>
+description: <%- pjson.description %>
+websiteURL: nil
+logo: "./logo.svg"
+
+createLabel: ./methods/create-label.<%- _codeExt %>
+getRates: ./methods/get-rates.<%- _codeExt %>
+

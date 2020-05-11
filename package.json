@@ -1,83 +1,46 @@
 {
   "name": "@shipengine/cli",
+  "description": "A CLI tool for working with your ShipEngine account.",
   "version": "0.0.1",
-  "description": "Command-line tool for working with your ShipEngine account",
-  "keywords": [
-    "shipengine",
-    "cli",
-    "api",
-    "integrations",
-    "oclif"
-  ],
   "author": {
     "name": "ShipEngine",
     "email": "support@shipengine.com",
     "url": "https://www.shipengine.com"
   },
-  "license": "Apache-2.0",
-  "homepage": "https://www.shipengine.com/docs/",
-  "bugs": "https://github.com/ShipEngine/shipengine-cli/issues",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ShipEngine/shipengine-cli.git"
-  },
   "bin": {
     "shipengine": "./bin/run"
   },
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
-  "files": [
-    "/bin",
-    "/lib",
-    "/npm-shrinkwrap.json",
-    "/oclif.manifest.json"
-  ],
-  "oclif": {
-    "commands": "./lib/commands",
-    "bin": "shipengine",
-    "plugins": [
-      "@oclif/plugin-help",
-      "@oclif/plugin-not-found"
-    ],
-    "topics": {
-      "apps": {
-        "description": "manage apps"
-      },
-      "auth": {
-        "description": "manage API access"
-      }
-    }
+  "bugs": "https://github.com/ShipEngine/shipengine-cli/issues",
+  "dependencies": {
+    "@oclif/command": "^1.5.20",
+    "@oclif/config": "^1.15.1",
+    "@oclif/fixpack": "^2.3.0",
+    "@oclif/plugin-autocomplete": "^0.1.5",
+    "@oclif/plugin-help": "^2.2.3",
+    "@oclif/plugin-not-found": "^1.2.3",
+    "axios": "^0.19.2",
+    "chalk": "^4.0.0",
+    "fs-extra": "^9.0.0",
+    "inquirer": "^7.1.0",
+    "lodash": "^4.17.15",
+    "nps": "^5.9.12",
+    "nps-utils": "^1.7.0",
+    "sort-pjson": "^1.0.3",
+    "tslib": "^1",
+    "yeoman-environment": "^2.10.0",
+    "yeoman-generator": "^4.10.0"
   },
-  "scripts": {
-    "postpack": "shx rm -rf oclif.manifest.json",
-    "posttest": "eslint . --ext .ts --config .eslintrc.js",
-    "prepack": "shx rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
-    "clean": "shx rm -rf .nyc_output coverage lib",
-    "lint": "eslint . --ext .ts --config .eslintrc.js",
-    "build": "tsc && shx cp -R src/shipengine-core/templates/ lib/shipengine-core/templates/",
-    "watch": "tsc --watch",
-    "test": "nyc --extension .ts mocha --forbid-only && npm run lint",
-    "mocha": "mocha",
-    "coverage": "nyc npm run test",
-    "upgrade": "npm-check -u && npm audit fix",
-    "bump": "bump --tag --push --all",
-    "release": "npm run upgrade && npm run clean && npm run build && npm test && npm run bump",
-    "version": "oclif-dev readme && git add README.md"
-  },
-  "engines": {
-    "node": ">=10.1.0"
-  },
-  "engineStrict": true,
   "devDependencies": {
     "@jsdevtools/eslint-config-modular": "^8.0.3",
     "@jsdevtools/version-bump-prompt": "^6.0.2",
-    "@oclif/dev-cli": "^1.22.2",
     "@oclif/test": "^1.2.5",
     "@types/chai": "^4.1.7",
     "@types/fs-extra": "^8.1.0",
     "@types/inquirer": "^6.5.0",
     "@types/mocha": "^7.0.2",
     "@types/node": "^13.13.1",
+    "@types/yeoman-environment": "^2.3.3",
+    "@types/yeoman-generator": "^3.1.4",
     "chai": "^4.2.0",
     "chai-fs": "^2.0.0",
     "eslint": "^5.16.0",
@@ -92,17 +55,63 @@
     "sinon": "^9.0.2",
     "source-map-support": "^0.5.17",
     "ts-node": "^8.9.1",
-    "typescript": "^3.8.3"
+    "typescript": "^3.8.3",
+    "yeoman-assert": "^3.1.1",
+    "yeoman-test": "^2.6.0"
   },
-  "dependencies": {
-    "@oclif/command": "^1.5.20",
-    "@oclif/config": "^1.15.1",
-    "@oclif/plugin-autocomplete": "^0.1.5",
-    "@oclif/plugin-help": "^2.2.3",
-    "@oclif/plugin-not-found": "^1.2.3",
-    "axios": "^0.19.2",
-    "fs-extra": "^9.0.0",
-    "inquirer": "^7.1.0",
-    "tslib": "^1.11.1"
-  }
+  "engineStrict": true,
+  "engines": {
+    "node": ">=10.1.0"
+  },
+  "files": [
+    "/bin",
+    "/lib",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json",
+    "/templates"
+  ],
+  "homepage": "https://www.shipengine.com/docs/",
+  "keywords": [
+    "api",
+    "cli",
+    "integrations",
+    "oclif",
+    "shipengine"
+  ],
+  "license": "Apache-2.0",
+  "main": "lib/index.js",
+  "oclif": {
+    "commands": "./lib/commands",
+    "bin": "shipengine",
+    "plugins": [
+      "@oclif/plugin-help",
+      "@oclif/plugin-not-found"
+    ],
+    "topics": {
+      "apps": {
+        "description": "manage apps"
+      }
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ShipEngine/shipengine-cli.git"
+  },
+  "scripts": {
+    "build": "tsc",
+    "bump": "bump --tag --push --all",
+    "clean": "shx rm -rf .nyc_output coverage lib",
+    "coverage": "nyc npm run test",
+    "lint": "eslint . --ext .ts --config .eslintrc.js",
+    "mocha": "mocha",
+    "postpack": "shx rm -rf oclif.manifest.json",
+    "posttest": "eslint . --ext .ts --config .eslintrc.js",
+    "prepack": "shx rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
+    "release": "npm run upgrade && npm run clean && npm run build && npm test && npm run bump",
+    "test": "npm run build && nyc --extension .ts mocha --forbid-only && npm run lint",
+    "upgrade": "npm-check -u && npm audit fix",
+    "version": "oclif-dev readme && git add README.md",
+    "watch": "tsc --watch"
+  },
+  "types": "lib/index.d.ts"
 }

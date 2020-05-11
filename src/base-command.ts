@@ -4,7 +4,7 @@ import APIClient from "./api-client";
 
 const pjson = require("../package.json");
 
-export default abstract class Command extends Base {
+export default abstract class BaseCommand extends Base {
   base = `${pjson.name}@${pjson.version}`;
   _client!: APIClient;
 
