@@ -43,7 +43,7 @@ class AppsNew extends Generator {
 
   ts!: boolean;
 
-  yarn!: boolean;
+  npm!: boolean;
 
   definitions!: "pojo" | "json" | "yaml";
 
@@ -97,7 +97,7 @@ class AppsNew extends Generator {
         node: ">=8.0.0",
         ...this.pjson.engines,
       },
-      pkg: "yarn",
+      pkg: "npm",
       typescript: true,
       definitions: "pojo",
     };
@@ -184,7 +184,7 @@ class AppsNew extends Generator {
             { name: "npm", value: "npm" },
             { name: "yarn", value: "yarn" },
           ],
-          default: () => (this.options.yarn || hasYarn ? 1 : 0),
+          default: () => (hasYarn ? 1 : 0 || defaults.pkg),
         },
         {
           type: "confirm",
@@ -217,7 +217,7 @@ class AppsNew extends Generator {
 
     this.type = this.answers.type;
     this.ts = this.answers.typescript;
-    this.yarn = this.answers.pkg === "yarn";
+    this.npm = this.answers.pkg === "npm";
     this.definitions = this.answers.definitions;
 
     this.pjson.name = this.answers.name || defaults.name;
@@ -349,9 +349,9 @@ class AppsNew extends Generator {
 
     if (process.env.YARN_MUTEX) yarnOpts.mutex = process.env.YARN_MUTEX;
     const install = (deps: string[], opts: object) =>
-      this.yarn ? this.yarnInstall(deps, opts) : this.npmInstall(deps, opts);
-    const dev = this.yarn ? { dev: true } : { "save-dev": true };
-    const save = this.yarn ? {} : { save: true };
+      this.npm ? this.npmInstall(deps, opts) : this.yarnInstall(deps, opts);
+    const dev = this.npm ? { "save-dev": true } : { dev: true };
+    const save = this.npm ? { save: true } : {};
 
     try {
       await install(devDependencies, {
@@ -397,7 +397,7 @@ class AppsNew extends Generator {
         "/tmp",
         "/dist",
         "/.nyc_output",
-        this.yarn ? "/package-lock.json" : "/yarn.lock",
+        this.npm ? "/yarn.lock" : "/package-lock.json",
         this.ts && "/lib",
       ])
         .concat(existing)
