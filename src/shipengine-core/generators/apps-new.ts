@@ -6,11 +6,9 @@ import Generator = require("yeoman-generator");
 import { v4 as uuidv4 } from "uuid";
 
 const fixpack = require("@oclif/fixpack");
-const nps = require("nps-utils");
 const sortPjson = require("sort-pjson");
 
 const isWindows = process.platform === "win32";
-const rmrf = isWindows ? "rimraf" : "rm -rf";
 
 let hasYarn = false;
 
@@ -37,7 +35,6 @@ class AppsNew extends Generator {
     version: string;
     github: { repo: string; user: string };
     author: string;
-    files: string;
     license: string;
     pkg: string;
     typescript: boolean;
@@ -239,27 +236,10 @@ class AppsNew extends Generator {
     this.pjson.version = this.answers.version || defaults.version;
     this.pjson.engines.node = defaults.engines.node;
     this.pjson.author = this.answers.author || defaults.author;
-    this.pjson.files = this.answers.files || defaults.files || ["/src"];
     this.pjson.license = this.answers.license || defaults.license;
     this.repository = this.pjson.repository = this.answers.github
       ? `${this.answers.github.user}/${this.answers.github.repo}`
       : defaults.repository;
-
-    if (this.eslint) {
-      this.pjson.scripts.posttest = "eslint .";
-    }
-
-    if (this.ts) {
-      this.pjson.scripts.prepack = nps.series(`${rmrf} lib`, "tsc -b");
-      if (this.eslint) {
-        this.pjson.scripts.posttest = "eslint . --ext .ts --config .eslintrc";
-      }
-    }
-
-    if (hasYarn) {
-      // add yarn.lock file to package so we can lock plugin dependencies
-      this.pjson.files.push("/yarn.lock");
-    }
 
     this.pjson.keywords = defaults.keywords || [
       "ShipEngine",
@@ -396,8 +376,7 @@ class AppsNew extends Generator {
     devDependencies.push("@shipengine/integration-platform-sdk@0.0.6");
 
     if (this.ts) {
-      dependencies.push("tslib@^1");
-      devDependencies.push("@types/node@^10", "typescript@^3.3", "ts-node@^8");
+      devDependencies.push("@types/node@^13.13.5");
     }
 
     if (this.eslint) {
