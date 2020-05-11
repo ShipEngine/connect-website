@@ -33,8 +33,6 @@ describe("generator apps:new", function () {
             "src/methods/get-rates.ts",
             "src/methods/create-label.ts",
             ".editorconfig",
-            ".eslintignore",
-            ".eslintrc",
             "LICENSE",
             "README.md",
             "README.md",
@@ -42,50 +40,6 @@ describe("generator apps:new", function () {
             "tsconfig.json",
           ]);
 
-          assert.jsonFileContent("package.json", {
-            name: "test name",
-          });
-          assert.jsonFileContent("package.json", {
-            description: "test description",
-          });
-          assert.jsonFileContent("package.json", { main: "src/index.ts" });
-        });
-    });
-  });
-
-  describe("when configured without eslint", function () {
-    it("generates a new app", function () {
-      // The object returned acts like a promise, so return it to wait until the process is done
-      return helpers
-        .run(AppsNew, {
-          resolved: path.join(__dirname, pathToGenerator),
-          namespace: "apps:new",
-        })
-        .withArguments(["test-app"]) // Mock the arguments
-        .withPrompts({ name: "test name" })
-        .withPrompts({ description: "test description" })
-        .withPrompts({ type: "carrier" })
-        .withPrompts({ author: "test" })
-        .withPrompts({ version: "0.0.0" })
-        .withPrompts({ "github.user": "@test" })
-        .withPrompts({ "github.repo": "https://github.com/test/test" })
-        .withPrompts({ eslint: false })
-        .withPrompts({ pkg: true })
-        .withPrompts({ typescript: true })
-        .withArguments(["test-app"]) // Mock the arguments
-        .then(function () {
-          assert.file([
-            "src/index.ts",
-            "src/methods/get-rates.ts",
-            "src/methods/create-label.ts",
-            ".editorconfig",
-            "LICENSE",
-            "README.md",
-            "package.json",
-            "tsconfig.json",
-          ]);
-
-          assert.noFile([".eslintignore", ".eslintrc"]);
           assert.jsonFileContent("package.json", {
             name: "test name",
           });
@@ -123,7 +77,6 @@ describe("generator apps:new", function () {
             "src/methods/get-rates.js",
             "src/methods/create-label.js",
             ".editorconfig",
-            ".eslintrc",
             "LICENSE",
             "README.md",
             "package.json",
@@ -170,8 +123,6 @@ describe("generator apps:new", function () {
           "src/methods/get-rates.ts",
           "src/methods/create-label.ts",
           ".editorconfig",
-          ".eslintignore",
-          ".eslintrc",
           "LICENSE",
           "README.md",
           "README.md",
@@ -214,8 +165,6 @@ describe("generator apps:new", function () {
           "src/methods/get-rates.ts",
           "src/methods/create-label.ts",
           ".editorconfig",
-          ".eslintignore",
-          ".eslintrc",
           "LICENSE",
           "README.md",
           "README.md",

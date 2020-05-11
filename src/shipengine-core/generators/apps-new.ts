@@ -39,12 +39,9 @@ class AppsNew extends Generator {
     pkg: string;
     typescript: boolean;
     definitions: "pojo" | "json" | "yaml";
-    eslint: boolean;
   };
 
   ts!: boolean;
-
-  eslint!: boolean;
 
   yarn!: boolean;
 
@@ -102,7 +99,6 @@ class AppsNew extends Generator {
       },
       pkg: "yarn",
       typescript: true,
-      eslint: true,
       definitions: "pojo",
     };
 
@@ -216,19 +212,12 @@ class AppsNew extends Generator {
           ],
           default: defaults.definitions,
         },
-        {
-          type: "confirm",
-          name: "eslint",
-          message: "Use eslint (linter for JavaScript and Typescript)",
-          default: defaults.eslint,
-        },
       ])) as any;
     }
 
     this.type = this.answers.type;
     this.ts = this.answers.typescript;
     this.yarn = this.answers.pkg === "yarn";
-    this.eslint = this.answers.eslint;
     this.definitions = this.answers.definitions;
 
     this.pjson.name = this.answers.name || defaults.name;
@@ -268,31 +257,6 @@ class AppsNew extends Generator {
         this.destinationPath("tsconfig.json"),
         this,
       );
-    }
-
-    if (this.eslint) {
-      const eslintignore = this._eslintignore();
-
-      if (eslintignore.trim()) {
-        this.fs.write(
-          this.destinationPath(".eslintignore"),
-          this._eslintignore(),
-        );
-      }
-
-      if (this.ts) {
-        this.fs.copyTpl(
-          this.templatePath("eslintrc.typescript"),
-          this.destinationPath(".eslintrc"),
-          this,
-        );
-      } else {
-        this.fs.copyTpl(
-          this.templatePath("eslintrc"),
-          this.destinationPath(".eslintrc"),
-          this,
-        );
-      }
     }
 
     if (this.fs.exists(this.destinationPath("./package.json"))) {
@@ -379,14 +343,6 @@ class AppsNew extends Generator {
       devDependencies.push("@types/node@^13.13.5");
     }
 
-    if (this.eslint) {
-      devDependencies.push("eslint@^5.13", "eslint-config-oclif@^3.1");
-
-      if (this.ts) {
-        devDependencies.push("eslint-config-oclif-typescript@^0.1");
-      }
-    }
-
     if (isWindows) devDependencies.push("rimraf");
 
     const yarnOpts = {} as any;
@@ -444,20 +400,6 @@ class AppsNew extends Generator {
         this.yarn ? "/package-lock.json" : "/yarn.lock",
         this.ts && "/lib",
       ])
-        .concat(existing)
-        .compact()
-        .uniq()
-        .sort()
-        .join("\n") + "\n"
-    );
-  }
-
-  private _eslintignore(): string {
-    const existing = this.fs.exists(this.destinationPath(".eslintignore"))
-      ? this.fs.read(this.destinationPath(".eslintignore")).split("\n")
-      : [];
-    return (
-      _([this.ts && "/lib"])
         .concat(existing)
         .compact()
         .uniq()
