@@ -43,10 +43,7 @@ class AppsNew extends Generator {
     typescript: boolean;
     definitions: "pojo" | "json" | "yaml";
     eslint: boolean;
-    mocha: boolean;
   };
-
-  mocha!: boolean;
 
   ts!: boolean;
 
@@ -109,7 +106,6 @@ class AppsNew extends Generator {
       pkg: "yarn",
       typescript: true,
       eslint: true,
-      mocha: true,
       definitions: "pojo",
     };
 
@@ -229,19 +225,12 @@ class AppsNew extends Generator {
           message: "Use eslint (linter for JavaScript and Typescript)",
           default: defaults.eslint,
         },
-        {
-          type: "confirm",
-          name: "mocha",
-          message: "Use mocha for testing (recommended)",
-          default: defaults.mocha,
-        },
       ])) as any;
     }
 
     this.type = this.answers.type;
     this.ts = this.answers.typescript;
     this.yarn = this.answers.pkg === "yarn";
-    this.mocha = this.answers.mocha;
     this.eslint = this.answers.eslint;
     this.definitions = this.answers.definitions;
 
@@ -250,24 +239,14 @@ class AppsNew extends Generator {
     this.pjson.version = this.answers.version || defaults.version;
     this.pjson.engines.node = defaults.engines.node;
     this.pjson.author = this.answers.author || defaults.author;
-    this.pjson.files = this.answers.files ||
-      defaults.files || [this.ts ? "/lib" : "/src"];
+    this.pjson.files = this.answers.files || defaults.files || ["/src"];
     this.pjson.license = this.answers.license || defaults.license;
-    // eslint-disable-next-line no-multi-assign
     this.repository = this.pjson.repository = this.answers.github
       ? `${this.answers.github.user}/${this.answers.github.repo}`
       : defaults.repository;
 
     if (this.eslint) {
       this.pjson.scripts.posttest = "eslint .";
-    }
-
-    if (this.mocha) {
-      this.pjson.scripts.test = `nyc ${
-        this.ts ? "--extension .ts " : ""
-      }mocha --forbid-only "test/**/*.test.${this._codeExt}"`;
-    } else {
-      this.pjson.scripts.test = "echo NO TESTS";
     }
 
     if (this.ts) {
@@ -309,14 +288,6 @@ class AppsNew extends Generator {
         this.destinationPath("tsconfig.json"),
         this,
       );
-
-      if (this.mocha) {
-        this.fs.copyTpl(
-          this.templatePath("test/tsconfig.json"),
-          this.destinationPath("test/tsconfig.json"),
-          this,
-        );
-      }
     }
 
     if (this.eslint) {
@@ -342,14 +313,6 @@ class AppsNew extends Generator {
           this,
         );
       }
-    }
-
-    if (this.mocha) {
-      this.fs.copyTpl(
-        this.templatePath("test/mocha.opts"),
-        this.destinationPath("test/mocha.opts"),
-        this,
-      );
     }
 
     if (this.fs.exists(this.destinationPath("./package.json"))) {
@@ -390,56 +353,26 @@ class AppsNew extends Generator {
       case "carrier":
         if (!fs.existsSync("src")) {
           this.fs.copyTpl(
-            this.templatePath(`carrier/src/index.${this._definitionExt}`),
+            this.templatePath(`carrier/index.${this._definitionExt}`),
             this.destinationPath(`src/index.${this._definitionExt}`),
             this,
           );
 
           this.fs.copyTpl(
-            this.templatePath(
-              `carrier/src/methods/create-label.${this._codeExt}`,
-            ),
+            this.templatePath(`carrier/methods/create-label.${this._codeExt}`),
             this.destinationPath(`src/methods/create-label.${this._codeExt}`),
             this,
           );
 
           this.fs.copyTpl(
-            this.templatePath(
-              `carrier/test/methods/create-label.test.${this._codeExt}`,
-            ),
-            this.destinationPath(
-              `test/methods/create-label.test.${this._codeExt}`,
-            ),
-            this,
-          );
-
-          this.fs.copyTpl(
-            this.templatePath(`carrier/src/methods/get-rates.${this._codeExt}`),
+            this.templatePath(`carrier/methods/get-rates.${this._codeExt}`),
             this.destinationPath(`src/methods/get-rates.${this._codeExt}`),
             this,
           );
 
           this.fs.copyTpl(
-            this.templatePath(
-              `carrier/test/methods/get-rates.test.${this._codeExt}`,
-            ),
-            this.destinationPath(
-              `test/methods/get-rates.test.${this._codeExt}`,
-            ),
-            this,
-          );
-
-          this.fs.copyTpl(
-            this.templatePath("carrier/src/logo.svg"),
+            this.templatePath("carrier/logo.svg"),
             this.destinationPath("src/logo.svg"),
-            this,
-          );
-        }
-
-        if (this.mocha && !fs.existsSync("test")) {
-          this.fs.copyTpl(
-            this.templatePath(`carrier/test/index.test.${this._codeExt}`),
-            this.destinationPath(`test/index.test.${this._codeExt}`),
             this,
           );
         }
@@ -447,16 +380,8 @@ class AppsNew extends Generator {
       case "order source":
         if (!fs.existsSync("src")) {
           this.fs.copyTpl(
-            this.templatePath(`order-source/src/index.${this._definitionExt}`),
+            this.templatePath(`order-source/index.${this._definitionExt}`),
             this.destinationPath(`src/index.${this._definitionExt}`),
-            this,
-          );
-        }
-
-        if (this.mocha && !fs.existsSync("test")) {
-          this.fs.copyTpl(
-            this.templatePath(`order-source/test/index.test.${this._codeExt}`),
-            this.destinationPath(`test/index.test.${this._codeExt}`),
             this,
           );
         }
@@ -468,18 +393,11 @@ class AppsNew extends Generator {
     const dependencies: string[] = [];
     const devDependencies: string[] = [];
 
-    devDependencies.push("@shipengine/integration-platform-sdk@0.0.5");
-
-    if (this.mocha) {
-      devDependencies.push("mocha@^5", "nyc@^14", "chai@^4");
-    }
+    devDependencies.push("@shipengine/integration-platform-sdk@0.0.6");
 
     if (this.ts) {
       dependencies.push("tslib@^1");
       devDependencies.push("@types/node@^10", "typescript@^3.3", "ts-node@^8");
-      if (this.mocha) {
-        devDependencies.push("@types/chai@^4", "@types/mocha@^5");
-      }
     }
 
     if (this.eslint) {
