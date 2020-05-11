@@ -10,7 +10,12 @@ export default class Test extends BaseCommand {
 
   async run() {
     const pathToApp = `${process.cwd()}`;
-    const app = await loadApp(pathToApp);
-    this.log(`Successfully loaded ${app.name} v${app.version}`);
+
+    try {
+      const app = await loadApp(pathToApp);
+      this.log(`Successfully loaded ${app.name} v${app.version}`);
+    } catch (error) {
+      error.log(error);
+    }
   }
 }

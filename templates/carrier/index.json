@@ -2,9 +2,11 @@
   "id": "<%- _uuidv4 %>",
   "name": "<%- pjson.name %>",
   "description": "<%- pjson.description %>",
-  "websiteURL": "",
+  "websiteURL": "https://example-carrier.com",
   "logo": "./logo.svg",
+  "cancelPickup": "./methods/cancel-pickup.<%- _codeExt %>",
   "createLabel": "./methods/create-label.<%- _codeExt %>",
   "getRates": "./methods/get-rates.<%- _codeExt %>",
+  "schedulePickup": "./methods/schedule-pickup.<%- _codeExt %>",
   "deliveryServices": []
 }

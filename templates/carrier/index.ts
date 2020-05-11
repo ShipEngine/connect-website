@@ -1,14 +1,17 @@
-import { CarrierPOJO } from "@shipengine/integration-platform-sdk";
-import { createLabel } from "./methods/create-label";
-import { getRates } from "./methods/get-rates";
+import { CarrierDefinition } from "@shipengine/integration-platform-sdk";
 
-export const carrier: CarrierPOJO = {
+const carrier: CarrierDefinition = {
   id: "<%- _uuidv4 %>",
   name: "<%- pjson.name %>",
   description: "<%- pjson.description %>",
+  websiteURL: "https://example-carrier.com",
   logo: "./logo.svg",
-  websiteURL: "",
-  createLabel: createLabel,
-  getRates: getRates,
+  cancelPickup: import("./methods/cancel-pickup"),
+  createLabel: import("./methods/create-label"),
+  getRates: import("./methods/get-rates"),
+  schedulePickup: import("./methods/schedule-pickup"),
+  pickupServices: [],
   deliveryServices: [],
 };
+
+export default carrier;

@@ -1,16 +1,16 @@
 import {
-  LabelConfirmationPOJO,
-  LabelSpec,
+  PickupCancellation,
+  PickupCancellationConfirmationPOJO,
   Transaction,
 } from "@shipengine/integration-platform-sdk";
 
 /**
- * Requests a shipping label for a shipment
+ * Cancels a previously-scheduled pickup
  */
-export default async function createLabel(
+export default async function cancelPickup(
   transaction: Transaction,
-  { format, size, shipment }: LabelSpec,
-): Promise<LabelConfirmationPOJO> {
+  cancellation: PickupCancellation,
+): Promise<PickupCancellationConfirmationPOJO> {
   // STEP 1: Validation
   // STEP 2: Create the data that the carrier's API expects
   // STEP 3: Call the carrier's API

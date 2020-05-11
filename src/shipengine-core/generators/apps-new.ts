@@ -315,6 +315,22 @@ class AppsNew extends Generator {
           );
 
           this.fs.copyTpl(
+            this.templatePath(`carrier/methods/cancel-pickup.${this._codeExt}`),
+            this.destinationPath(`src/methods/cancel-pickup.${this._codeExt}`),
+            this,
+          );
+
+          this.fs.copyTpl(
+            this.templatePath(
+              `carrier/methods/schedule-pickup.${this._codeExt}`,
+            ),
+            this.destinationPath(
+              `src/methods/schedule-pickup.${this._codeExt}`,
+            ),
+            this,
+          );
+
+          this.fs.copyTpl(
             this.templatePath("carrier/logo.svg"),
             this.destinationPath("src/logo.svg"),
             this,
