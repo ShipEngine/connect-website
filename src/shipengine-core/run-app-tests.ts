@@ -2,8 +2,9 @@ import { loadApp } from "@shipengine/integration-platform-loader";
 
 export async function runAppTests(pathToApp: string) {
   try {
-    await loadApp(pathToApp);
+    const app = await loadApp(pathToApp);
+    return app;
   } catch (error) {
-    Promise.reject(error);
+    return Promise.reject(error);
   }
 }

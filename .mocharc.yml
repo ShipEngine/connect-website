@@ -1,4 +1,3 @@
-
 # Mocha options
 # https://mochajs.org/#configuring-mocha-nodejs
 # https://github.com/mochajs/mocha/blob/master/example/config/.mocharc.yml
@@ -12,7 +11,9 @@ timeout: 10000
 spec:
   # Test fixtures
   - test/fixtures/**/*.js
-  - test/**/*.spec.js
+
+  # Test specs
+  - test/specs/**/*.spec.js
 
 extensions:
   - js
