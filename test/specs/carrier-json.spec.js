@@ -30,13 +30,13 @@ describe("JSON apps", () => {
     expect(app.carrier.pickupServices[0].name).to.equal("Drop Off Pickup");
     expect(app.carrier.pickupServices[1].name).to.equal("One Time Pickup");
 
-    expect(app.carrier.createLabel).to.be.a("function");
-    expect(app.carrier.voidLabels).to.be.a("function");
-    expect(app.carrier.getRates).to.be.a("function");
+    expect(app.carrier.createShipment).to.be.a("function");
+    expect(app.carrier.cancelShipments).to.be.a("function");
+    expect(app.carrier.rateShipment).to.be.a("function");
     expect(app.carrier.track).to.be.a("function");
     expect(app.carrier.createManifest).to.be.a("function");
     expect(app.carrier.schedulePickup).to.be.a("function");
-    expect(app.carrier.cancelPickup).to.be.a("function");
+    expect(app.carrier.cancelPickups).to.be.a("function");
   });
 
   it("should load a connection app", async () => {

@@ -1,6 +1,6 @@
 "use strict";
-function getRates () {
+function rateShipment () {
   console.log("Getting Rates");
 }
 
-module.exports = getRates;
+module.exports = rateShipment;

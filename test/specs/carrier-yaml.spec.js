@@ -33,10 +33,10 @@ describe("YAML apps", () => {
     expect(app.carrier.pickupServices[1].name).to.equal("One Time Pickup");
 
     expect(app.carrier.schedulePickup).to.equal(undefined);
-    expect(app.carrier.cancelPickup).to.equal(undefined);
-    expect(app.carrier.createLabel).to.equal(undefined);
-    expect(app.carrier.voidLabels).to.equal(undefined);
-    expect(app.carrier.getRates).to.equal(undefined);
+    expect(app.carrier.cancelPickups).to.equal(undefined);
+    expect(app.carrier.createShipment).to.equal(undefined);
+    expect(app.carrier.cancelShipments).to.equal(undefined);
+    expect(app.carrier.rateShipment).to.equal(undefined);
     expect(app.carrier.track).to.equal(undefined);
     expect(app.carrier.createManifest).to.equal(undefined);
   });

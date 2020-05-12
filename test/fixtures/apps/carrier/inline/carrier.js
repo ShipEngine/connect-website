@@ -40,12 +40,12 @@ module.exports = {
     description: "Take your package to the specified carrier location.",
   }],
 
-  createLabel () { },
-  voidLabels () { },
-  getRates () { },
+  createShipment () { },
+  cancelShipments () { },
+  rateShipment () { },
   track () { },
   createManifest () { },
   schedulePickup () { },
-  cancelPickup () { },
+  cancelPickups () { },
 
 };

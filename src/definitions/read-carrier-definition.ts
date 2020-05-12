@@ -20,12 +20,12 @@ definition: InlineOrReference<CarrierDefinition>, cwd: string, fieldName: string
     pickupServices:
       await readPickupServiceArrayDefinition(definition.pickupServices, cwd, `${fieldName}.pickupServices`),
     localization: await readLocalizationDefinition(definition.localization, cwd, `${fieldName}.localization`),
-    createLabel: await readDefinitionValue(definition.createLabel, cwd, `${fieldName}.createLabel`),
-    voidLabels: await readDefinitionValue(definition.voidLabels, cwd, `${fieldName}.voidLabels`),
-    getRates: await readDefinitionValue(definition.getRates, cwd, `${fieldName}.getRates`),
+    createShipment: await readDefinitionValue(definition.createShipment, cwd, `${fieldName}.createShipment`),
+    cancelShipments: await readDefinitionValue(definition.cancelShipments, cwd, `${fieldName}.cancelShipments`),
+    rateShipment: await readDefinitionValue(definition.rateShipment, cwd, `${fieldName}.rateShipment`),
     track: await readDefinitionValue(definition.track, cwd, `${fieldName}.track`),
     createManifest: await readDefinitionValue(definition.createManifest, cwd, `${fieldName}.createManifest`),
     schedulePickup: await readDefinitionValue(definition.schedulePickup, cwd, `${fieldName}.schedulePickup`),
-    cancelPickup: await readDefinitionValue(definition.cancelPickup, cwd, `${fieldName}.cancelPickup`),
+    cancelPickups: await readDefinitionValue(definition.cancelPickups, cwd, `${fieldName}.cancelPickups`),
   };
 }

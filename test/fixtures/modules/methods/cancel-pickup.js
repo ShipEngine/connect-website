@@ -1,6 +1,6 @@
 "use strict";
-function cancelPickup () {
+function cancelPickups () {
   console.log("Cancelling Pickup");
 }
 
-module.exports = cancelPickup;
+module.exports = cancelPickups;

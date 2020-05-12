@@ -1,6 +1,6 @@
 "use strict";
-function voidLabels () {
+function cancelShipments () {
   console.log("Voiding a label");
 }
 
-module.exports = voidLabels;
+module.exports = cancelShipments;

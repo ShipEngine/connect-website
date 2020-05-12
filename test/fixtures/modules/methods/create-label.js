@@ -1,6 +1,6 @@
 "use strict";
-function createLabel () {
+function createShipment () {
   console.log("Creating a Label");
 }
 
-module.exports = createLabel;
+module.exports = createShipment;

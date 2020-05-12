@@ -8,11 +8,11 @@
   "deliveryServices": "../../../configs/delivery-services/delivery-services.json",
   "pickupServices": "../../../configs/pickup-services/pickup-services.json",
 
-  "createLabel": "../../../modules/methods/create-label.js",
-  "voidLabels": "../../../modules/methods/void-label.js",
-  "getRates": "../../../modules/methods/get-rates.js",
+  "createShipment": "../../../modules/methods/create-label.js",
+  "cancelShipments": "../../../modules/methods/void-label.js",
+  "rateShipment": "../../../modules/methods/get-rates.js",
   "track": "../../../modules/methods/track.js",
   "createManifest": "../../../modules/methods/create-manifest.js",
   "schedulePickup": "../../../modules/methods/request-pickup.js",
-  "cancelPickup": "../../../modules/methods/cancel-pickup.js",
+  "cancelPickups": "../../../modules/methods/cancel-pickup.js",
 }
