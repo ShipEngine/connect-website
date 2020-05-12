@@ -5,8 +5,22 @@ let assert = require("yeoman-assert");
 const path = require("path");
 const pathToGenerator = "../../../../lib/shipengine-core/generators/apps-new";
 const AppsNew = require(pathToGenerator);
-
 describe("generator apps:new", function () {
+
+  /**
+   * The yeoman generator tests alter the cwd of the mocha process. Need to change it back
+   * to the original otherwise could cause unintended side effects to other tests.
+   */
+  let currentCwd = "";
+  before(() => {
+    currentCwd = process.cwd();
+  });
+
+  after(() => {
+    process.chdir(currentCwd);
+  });
+
+
   describe("defaults", function () {
     it("generates a new app", function () {
       // The object returned acts like a promise, so return it to wait until the process is done

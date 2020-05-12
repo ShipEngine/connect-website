@@ -46,6 +46,7 @@
     "@types/node": "^13.13.1",
     "@types/yeoman-environment": "^2.3.3",
     "@types/yeoman-generator": "^3.1.4",
+    "@types/yeoman-test": "^2.0.3",
     "chai": "^4.2.0",
     "chai-fs": "^2.0.0",
     "eslint": "^5.16.0",
@@ -113,7 +114,7 @@
     "posttest": "eslint . --ext .ts --config .eslintrc.js",
     "prepack": "shx rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
     "release": "npm run upgrade && npm run clean && npm run build && npm test && npm run bump",
-    "test": "rm -rf lib && npm run build && nyc --extension .ts mocha --forbid-only && npm run lint",
+    "test": "shx rm -rf lib && npm run build && nyc --extension .ts mocha --forbid-only && npm run lint",
     "upgrade": "npm-check -u && npm audit fix",
     "version": "oclif-dev readme && git add README.md",
     "watch": "tsc --watch"
