@@ -11,6 +11,7 @@ export default async function schedulePickup(
   transaction: Transaction,
   pickup: PickupRequest,
 ): Promise<PickupConfirmationPOJO> {
+  throw new Error("NotImplementedError");
   // STEP 1: Validation
   // STEP 2: Create the data that the carrier's API expects
   // STEP 3: Call the carrier's API

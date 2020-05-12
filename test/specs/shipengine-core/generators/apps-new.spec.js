@@ -3,7 +3,7 @@
 const helpers = require("yeoman-test");
 let assert = require("yeoman-assert");
 const path = require("path");
-const pathToGenerator = "../../../lib/shipengine-core/generators/apps-new";
+const pathToGenerator = "../../../../lib/shipengine-core/generators/apps-new";
 const AppsNew = require(pathToGenerator);
 
 describe("generator apps:new", function () {

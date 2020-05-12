@@ -1,7 +1,6 @@
 import BaseCommand from "../../base-command";
-import { loadApp } from "@shipengine/integration-platform-loader";
 // import { flags } from "@oclif/command";
-// import { testApp } from "../../shipengine-core/test-app";
+import { runAppTests } from "../../shipengine-core/run-app-tests";
 
 export default class Test extends BaseCommand {
   static description = "test your app";
@@ -12,10 +11,10 @@ export default class Test extends BaseCommand {
     const pathToApp = `${process.cwd()}`;
 
     try {
-      const app = await loadApp(pathToApp);
-      this.log(`Successfully loaded ${app.name} v${app.version}`);
+      await runAppTests(pathToApp);
+      this.log("ok");
     } catch (error) {
-      error.log(error);
+      this.error(error);
     }
   }
 }
