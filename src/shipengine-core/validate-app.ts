@@ -1,5 +1,9 @@
 import { loadApp, App } from "@shipengine/integration-platform-loader";
-
+import Mocha from "mocha";
+import * as fs from "fs";
+import * as path from "path";
+import * as fsExtra from "fs-extra";
+import readdir from "recursive-readdir";
 export class InvalidAppError extends Error {
   errors: string[];
 
@@ -48,6 +52,38 @@ export async function validateApp(pathToApp: string): Promise<App> {
   }
 }
 
-export async function validateTestSuite(app: App) {
+export async function validateTestSuite(app: App): Promise<void> {
+
+  // Find all methods that aren't undefined.
+
+  // Parse through the metadata to find what mocha test files will be needed.
+
+  // The app will be loaded into the mocha suite via a `before()` hook, the cwd can be used
+  // or an environment variable with the relative path can be set
+
+  const mocha = new Mocha();
+
+  const testDir = path.join(__dirname, "test-harness");
+
+  // Add each .js file to the mocha instance
+  const files = await fs.promises.readdir(testDir);
+  // const files = await readdir(testDir);
   
+  files
+    .filter((file) => {
+    // Only keep the .js files
+    return file.substr(-3) === '.js';
+
+    })
+    .forEach(function (file) {
+      mocha.addFile(
+        path.join(testDir, file)
+      );
+    });
+
+  mocha.run((failures) => {
+    process.exitCode = failures ? 1 : 0;
+  });
+
+
 }

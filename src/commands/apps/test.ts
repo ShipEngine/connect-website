@@ -7,6 +7,7 @@ import {
 } from "../../shipengine-core/validate-app";
 import chalk from "chalk";
 import { App } from "@shipengine/integration-platform-loader";
+let app: App;
 
 export default class Test extends BaseCommand {
   static description = "test your app";
@@ -16,7 +17,6 @@ export default class Test extends BaseCommand {
   async run() {
     const pathToApp = `${process.cwd()}`;
 
-    let app: App;
 
     try {
       app = await validateApp(pathToApp);
