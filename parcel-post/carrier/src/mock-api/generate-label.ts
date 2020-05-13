@@ -5,8 +5,6 @@ import { HttpRequest } from "./client";
 export interface GenerateLabelRequest {
   operation: "generate_label";
   session_id: string;
-  label_type: string;
-  label_size: string;
   service_code: string;
   confirmation_code: string;
   ship_date: string;

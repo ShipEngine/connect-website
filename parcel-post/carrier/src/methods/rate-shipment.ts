@@ -1,13 +1,14 @@
-import { Currency, RateCriteria, RatePOJO, RateQuotePOJO, ShippingChargeType, Transaction } from "@shipengine/integration-platform-sdk";
+import { Currency, RateCriteria, RatePOJO, ShippingChargeType, Transaction } from "@shipengine/integration-platform-sdk";
 import { codeToID, idToCode } from "../id-code-map";
 import { apiClient } from "../mock-api/client";
 import { QuoteRateResponseItem, QuoteRatesRequest, QuoteRatesResponse } from "../mock-api/quote-rates";
+import { Session } from "./session";
 
 /**
- * Gets shipping rate quotes for the specified criteria
+ * Generates shipping rates for a shipment
  */
-export default async function getRates(
-  transaction: Transaction, criteria: RateCriteria): Promise<RateQuotePOJO> {
+export default async function rateShipment(
+  transaction: Transaction<Session>, shipment: RateCriteria): Promise<RatePOJO[]> {
 
   // STEP 1: Validation
   // TODO: add any validation logic here
@@ -16,23 +17,22 @@ export default async function getRates(
   let data: QuoteRatesRequest = {
     operation: "quote_rates",
     session_id: transaction.session.id,
-    service_codes: criteria.deliveryServices.map(({id}) => idToCode(id)),
-    confirmation_codes: criteria.deliveryConfirmations.map(({id}) => idToCode(id)),
-    parcel_codes: criteria.packaging.map(({id}) => idToCode(id)),
-    ship_date: criteria.shipDateTime.toISOString(),
-    delivery_date: criteria.deliveryDateTime.toISOString(),
-    from_zone: parseInt(criteria.shipFrom.postalCode, 10),
-    to_zone: parseInt(criteria.shipTo.postalCode, 10),
-    total_weight: criteria.packages.reduce((w, pkg) => w + pkg.weight.ounces, 0),
+    service_codes: shipment.deliveryServices.map(({id}) => idToCode(id)),
+    confirmation_codes: shipment.deliveryConfirmations.map(({id}) => idToCode(id)),
+    parcel_codes: shipment.packages.reduce((codes, pkg) =>
+      codes.concat(pkg.packaging.map(({id}) => idToCode(id))), []),
+    ship_date: shipment.shipDateTime.toISOString(),
+    delivery_date: shipment.deliveryDateTime.toISOString(),
+    from_zone: parseInt(shipment.shipFrom.postalCode, 10),
+    to_zone: parseInt(shipment.shipTo.postalCode, 10),
+    total_weight: shipment.packages.reduce((w, pkg) => w + pkg.weight.ounces, 0),
   };
 
   // STEP 3: Call the carrier's API
   const response = await apiClient.request<QuoteRatesResponse>({ data });
 
   // STEP 4: Create the output data that ShipEngine expects
-  return {
-    rates: response.data.map(formatRate)
-  };
+  return response.data.map(formatRate);
 }
 
 /**
@@ -42,12 +42,16 @@ function formatRate(rate: QuoteRateResponseItem): RatePOJO {
   return {
     deliveryServiceID: codeToID(rate.service_code),
     deliveryConfirmationID: codeToID(rate.confirmation_code),
-    packagingID: codeToID(rate.parcel_code),
     shipDateTime: new Date(rate.ship_date),
     deliveryDateTime: new Date(rate.delivery_date),
-    maximumDays: rate.delivery_days,
+    maximumDeliveryDays: rate.delivery_days,
     isGuaranteed: true,
     isTrackable: true,
+    packages: [
+      {
+        packagingID: codeToID(rate.parcel_code),
+      }
+    ],
     charges: [
       {
         name: "Service Charge",

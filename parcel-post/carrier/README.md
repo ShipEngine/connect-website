@@ -5,7 +5,7 @@ This is a sample [**ShipEngine Integration Platform**](https://www.shipengine.co
 
 Parcel Post is a U.S. carrier that provides its own [pickup](./src/definitions/pickup-services.ts) and [same-day delivery](./src/definitions/delivery-services/same-day.ts) services. They use UPS to fulfill some of their [domestic delivery services](./src/definitions/delivery-services/domestic-standard.ts) and FedEx to fulfill their [international services](./src/definitions/delivery-services/international-priority.ts).
 
-This app defines the [pickup services](./src/definitions/pickup-services.ts), [delivery services](./src/definitions/delivery-services), [delivery confirmations](./src/definitions/delivery-confirmations.ts), and [packaging](./src/definitions/packaging) that Parcel Post and its fulfillment partners support. It also implements functionality, such as [creating labels](./src/methods/create-label.ts) and [calculating shipping costs](./src/methods/get-rates.ts).
+This app defines the [pickup services](./src/definitions/pickup-services.ts), [delivery services](./src/definitions/delivery-services), [delivery confirmations](./src/definitions/delivery-confirmations.ts), and [packaging](./src/definitions/packaging) that Parcel Post and its fulfillment partners support. It also implements functionality, such as [creating labels](./src/methods/create-shipment.ts) and [calculating shipping costs](./src/methods/rate-shipment.ts).
 
 
 

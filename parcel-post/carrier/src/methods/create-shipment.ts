@@ -1,14 +1,15 @@
-import { Currency, DocumentFormat, DocumentSize, LabelConfirmationPOJO, LabelSpec, ShippingChargeType, Transaction } from "@shipengine/integration-platform-sdk";
+import { Currency, DocumentFormat, DocumentSize, NewShipment, ShipmentConfirmationPOJO, ShippingChargeType, Transaction } from "@shipengine/integration-platform-sdk";
 import { bag, box } from "../definitions/packaging/customer";
 import { idToCode } from "../id-code-map";
 import { apiClient } from "../mock-api/client";
 import { GenerateLabelRequest, GenerateLabelResponse } from "../mock-api/generate-label";
+import { Session } from "./session";
 
 /**
- * Requests a shipping label for a shipment
+ * Generates a shipping label and tracking number for a shipment
  */
-export default async function createLabel(
-  transaction: Transaction, { format, size, shipment }: LabelSpec): Promise<LabelConfirmationPOJO> {
+export default async function createShipment(
+  transaction: Transaction<Session>, shipment: NewShipment): Promise<ShipmentConfirmationPOJO> {
 
   // STEP 1: Validation
   for (let parcel of shipment.packages) {
@@ -24,8 +25,6 @@ export default async function createLabel(
   let data: GenerateLabelRequest = {
     operation: "generate_label",
     session_id: transaction.session.id,
-    label_type: format,
-    label_size: size,
     service_code: idToCode(shipment.deliveryService.id),
     confirmation_code: idToCode(shipment.deliveryConfirmation.id),
     ship_date: shipment.shipDateTime.toISOString(),
@@ -38,14 +37,16 @@ export default async function createLabel(
   const response = await apiClient.request<GenerateLabelResponse>({ data });
 
   // STEP 4: Create the output data that ShipEngine expects
-  return formatLabel(response.data);
+  return formatShipment(response.data);
 }
 
 /**
- * Formats a label in the way ShipEngine expects
+ * Formats a shipment in the way ShipEngine expects
  */
-function formatLabel(response: GenerateLabelResponse): LabelConfirmationPOJO {
+function formatShipment(response: GenerateLabelResponse): ShipmentConfirmationPOJO {
   return {
+    trackingNumber: response.tracking_number,
+    deliveryDateTime: response.delivery_date,
     charges: [
       {
         type: ShippingChargeType.Shipping,
@@ -69,18 +70,14 @@ function formatLabel(response: GenerateLabelResponse): LabelConfirmationPOJO {
         }
       },
     ],
-    shipment: {
+    packages: [{
       trackingNumber: response.tracking_number,
-      deliveryDateTime: response.delivery_date,
-      packages: [{
-        trackingNumber: response.tracking_number,
-        label: {
-          name: "Label",
-          size: DocumentSize.Inches4x6,
-          format: DocumentFormat.PDF,
-          data: Buffer.from(response.image, "base64"),
-        }
-      }],
-    },
+      label: {
+        name: "Label",
+        size: DocumentSize.Inches4x6,
+        format: DocumentFormat.PDF,
+        data: Buffer.from(response.image, "base64"),
+      }
+    }],
   };
 }

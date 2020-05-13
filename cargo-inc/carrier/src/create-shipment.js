@@ -8,9 +8,9 @@ const { idToCode } = require("./id-code-map");
 const OWN_PACKAGING = "03318192-3e6c-475f-a496-a4f17c1dbcae";
 
 /**
- * Requests a shipping label for a shipment
+ * Generates a shipping label and tracking number for a shipment
  */
-async function createLabel(transaction, { format, size, shipment }) {
+async function createShipment(transaction, shipment) {
   // STEP 1: Validation
   for (let parcel of shipment.packages) {
     if (parcel.packaging.id === OWN_PACKAGING && parcel.weight.grams > 100000) {
@@ -22,8 +22,6 @@ async function createLabel(transaction, { format, size, shipment }) {
   let data = {
     operation: "generate_label",
     session_id: transaction.session.id,
-    label_type: format,
-    label_size: size,
     service_code: idToCode(shipment.deliveryService.id),
     confirmation_code: idToCode(shipment.deliveryConfirmation.id),
     ship_date: shipment.shipDateTime.toISOString(),
@@ -36,50 +34,48 @@ async function createLabel(transaction, { format, size, shipment }) {
   const response = await apiClient.request({ data });
 
   // STEP 4: Create the output data that ShipEngine expects
-  return await formatLabel(response.data);
+  return await formatShipment(response.data);
 }
 
 /**
- * Formats a label in the way ShipEngine expects
+ * Formats a shipment in the way ShipEngine expects
  */
-async function formatLabel(label) {
+async function formatShipment(response) {
   return {
+    trackingNumber: response.tracking_number,
+    deliveryDateTime: response.delivery_date,
     charges: [
       {
         type: "shipping",
         amount: {
-          value: label.shipment_cost,
+          value: response.shipment_cost,
           currency: "USD"
         }
       },
       {
         type: "delivery_confirmation",
         amount: {
-          value: label.confirmation_cost,
+          value: response.confirmation_cost,
           currency: "USD"
         }
       },
       {
         type: "location_fee",
         amount: {
-          value: label.location_cost,
+          value: response.location_cost,
           currency: "USD"
         }
       },
     ],
-    shipment: {
-      trackingNumber: label.tracking_number,
-      deliveryDateTime: label.delivery_date,
-      packages: [{
-        trackingNumber: label.tracking_number,
-        label: {
-          name: "Label",
-          size: "letter",
-          format: "html",
-          data: await downloadLabel(label.image_url),
-        }
-      }],
-    },
+    packages: [{
+      trackingNumber: response.tracking_number,
+      label: {
+        name: "Label",
+        size: "letter",
+        format: "html",
+        data: await downloadLabel(response.image_url),
+      }
+    }],
   };
 }
 
@@ -91,4 +87,4 @@ async function downloadLabel(imageUrl) {
   return Buffer.from(response.data, "utf-8")
 }
 
-module.exports = createLabel;
+module.exports = createShipment;

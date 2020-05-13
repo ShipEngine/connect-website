@@ -3,12 +3,13 @@ import { nextDayPickup } from "../definitions/pickup-services";
 import { idToCode } from "../id-code-map";
 import { apiClient } from "../mock-api/client";
 import { ONE_DAY, ONE_HOUR, PickUpRequest, PickUpResponse } from "../mock-api/pick-up";
+import { Session } from "./session";
 
 /**
  * Schedules a pick-up at a specific time and location
  */
 export default async function schedulePickup(
-  transaction: Transaction, pickup: PickupRequest): Promise<PickupConfirmationPOJO> {
+  transaction: Transaction<Session>, pickup: PickupRequest): Promise<PickupConfirmationPOJO> {
 
   // STEP 1: Validation
   if (pickup.pickupService.id === nextDayPickup.id
@@ -42,7 +43,7 @@ function formatConfirmation(response: PickUpResponse): PickupConfirmationPOJO {
   let pickupDateTime = new Date(response.date_time);
 
   return {
-    confirmationID: response.id,
+    confirmationNumber: response.id,
     timeWindows: [
       {
         startDateTime: pickupDateTime,

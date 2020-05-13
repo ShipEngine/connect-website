@@ -1,6 +1,7 @@
 import { Transaction } from "@shipengine/integration-platform-sdk";
 import { AuthenticateRequest, AuthenticateResponse } from "./mock-api/authenticate";
 import { apiClient } from "./mock-api/client";
+import { Session } from "./session";
 
 interface ConnectionFormData {
   account_id: string;
@@ -14,7 +15,7 @@ interface ConnectionFormData {
  * Logs in using the username and password entered on the login form
  */
 export default async function connect(
-  transaction: Transaction, connectionFormData: ConnectionFormData): Promise<void> {
+  transaction: Transaction<Session>, connectionFormData: ConnectionFormData): Promise<void> {
 
   // STEP 1: Validation
   if (!connectionFormData.agree_to_eula) {

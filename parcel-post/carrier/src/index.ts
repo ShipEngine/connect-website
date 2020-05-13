@@ -17,10 +17,10 @@ const parcelPost: CarrierDefinition = {
     import("./definitions/delivery-services/international-priority"),
   ],
 
-  createLabel: import("./methods/create-label"),
-  getRates: import("./methods/get-rates"),
+  createShipment: import("./methods/create-shipment"),
+  rateShipment: import("./methods/rate-shipment"),
   schedulePickup: import("./methods/schedule-pickup"),
-  cancelPickup: import("./methods/cancel-pickup"),
+  cancelPickups: import("./methods/cancel-pickups"),
 };
 
 export default parcelPost;

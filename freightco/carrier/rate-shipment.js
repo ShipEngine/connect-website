@@ -4,9 +4,9 @@ const apiClient = require("./mock-api/client");
 const { idToCode, codeToID } = require("./id-code-map");
 
 /**
- * Gets shipping rate quotes for the specified criteria
+ * Generates shipping rates for a shipment
  */
-async function getRates(transaction, criteria) {
+async function rateShipment(transaction, shipment) {
   // STEP 1: Validation
   // TODO: add any validation logic here
 
@@ -14,23 +14,22 @@ async function getRates(transaction, criteria) {
   let data = {
     operation: "quote_rates",
     session_id: transaction.session.id,
-    service_codes: criteria.deliveryServices.map(({id}) => idToCode(id)),
-    confirmation_codes: criteria.deliveryConfirmations.map(({id}) => idToCode(id)),
-    parcel_codes: criteria.packaging.map(({id}) => idToCode(id)),
-    ship_date: criteria.shipDateTime.toISOString(),
-    delivery_date: criteria.deliveryDateTime.toISOString(),
-    from_zone: parseInt(criteria.shipFrom.postalCode, 10),
-    to_zone: parseInt(criteria.shipTo.postalCode, 10),
-    total_weight: criteria.packages.reduce((w, pkg) => w + pkg.weight.ounces, 0),
+    service_codes: shipment.deliveryServices.map(({id}) => idToCode(id)),
+    confirmation_codes: shipment.deliveryConfirmations.map(({id}) => idToCode(id)),
+    parcel_codes: shipment.packages.reduce((codes, pkg) =>
+      codes.concat(pkg.packaging.map(({id}) => idToCode(id))), []),
+    ship_date: shipment.shipDateTime.toISOString(),
+    delivery_date: shipment.deliveryDateTime.toISOString(),
+    from_zone: parseInt(shipment.shipFrom.postalCode, 10),
+    to_zone: parseInt(shipment.shipTo.postalCode, 10),
+    total_weight: shipment.packages.reduce((w, pkg) => w + pkg.weight.ounces, 0),
   };
 
   // STEP 3: Call the carrier's API
   const response = await apiClient.request({ data });
 
   // STEP 4: Create the output data that ShipEngine expects
-  return {
-    rates: response.data.map(formatRate)
-  };
+  return response.data.map(formatRate);
 }
 
 /**
@@ -40,12 +39,16 @@ function formatRate(rate) {
   return {
     deliveryServiceID: codeToID(rate.service_code),
     deliveryConfirmationID: codeToID(rate.confirmation_code),
-    packagingID: codeToID(rate.parcel_code),
     shipDateTime: new Date(rate.ship_date),
     deliveryDateTime: new Date(rate.delivery_date),
-    maximumDays: rate.delivery_days,
-    isGuaranteed: rate.service_code !== "ECO",
-    isTrackable: rate.service_code !== "ECO",
+    maximumDeliveryDays: rate.delivery_days,
+    isGuaranteed: true,
+    isTrackable: true,
+    packages: [
+      {
+        packagingID: codeToID(rate.parcel_code),
+      }
+    ],
     charges: [
       {
         name: "Service Charge",
@@ -78,4 +81,4 @@ function formatRate(rate) {
   };
 }
 
-module.exports = getRates;
+module.exports = rateShipment;

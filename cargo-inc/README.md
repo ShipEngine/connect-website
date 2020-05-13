@@ -14,7 +14,7 @@ This folder contains 2 sample apps.
 | App                                     | Description
 |-----------------------------------------|-----------------------------------------------------------------------------
 | [`@cargo-inc/connection`](./connection) | This app defines the [account connection form](./connection/forms/connect.json) and [account settings form](./connection/forms/settings.json) that enable a user to connect and manage their Cargo Incorporated account in ShipEngine. It also implements the [connection logic](./connection/src/connect.js), which validates a user's credentials and establishes a session.
-| [`@cargo-inc/carrier`](./carrier)       | This app defines the [delivery services](./carrier/delivery-services), [delivery confirmations](./carrier/delivery-confirmations), and [packaging](./carrier/packaging) that Cargo Incorporated supports. It also implements functionality, such as [creating labels](./carrier/src/create-label.js) and [calculating shipping costs](./carrier/src/get-rates.js).
+| [`@cargo-inc/carrier`](./carrier)       | This app defines the [delivery services](./carrier/delivery-services), [delivery confirmations](./carrier/delivery-confirmations), and [packaging](./carrier/packaging) that Cargo Incorporated supports. It also implements functionality, such as [creating labels](./carrier/src/create-shipment.js) and [calculating shipping costs](./carrier/src/rate-shipment.js).
 
 
 

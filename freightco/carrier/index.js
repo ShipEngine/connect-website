@@ -7,8 +7,8 @@ module.exports = {
   websiteURL: "https://freightco.net",
   logo: "../logo.svg",
 
-  createLabel: "create-label.js",
-  getRates: "get-rates.js",
+  createShipment: "create-shipment.js",
+  rateShipment: "rate-shipment.js",
 
   deliveryServices: [
     "delivery-services/international-ground.js",

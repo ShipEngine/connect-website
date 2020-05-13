@@ -5,7 +5,7 @@ This is a sample [**ShipEngine Integration Platform**](https://www.shipengine.co
 
 FreightCo ships to/from Mexico, Canda, and the U.S. Because of its international reach, the app includes [**localization**](./index.js) support for Spanish and French in addition to English.
 
-This app defines the [delivery services](./delivery-services), [delivery confirmations](./delivery-confirmations), and [packaging](./packaging) that FreightCo supports. It also implements functionality, such as [creating labels](./create-label.js) and [calculating shipping costs](./get-rates.js).
+This app defines the [delivery services](./delivery-services), [delivery confirmations](./delivery-confirmations), and [packaging](./packaging) that FreightCo supports. It also implements functionality, such as [creating labels](./create-shipment.js) and [calculating shipping costs](./rate-shipment.js).
 
 
 

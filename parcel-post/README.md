@@ -14,7 +14,7 @@ This folder contains 2 sample apps.
 | App                                       | Description
 |-------------------------------------------|-----------------------------------------------------------------------------
 | [`@parcel-post/connection`](./connection) | This app defines the [account connection form](./connection/src/forms/connect.ts) and [account settings form](./connection/src/forms/settings.ts) that enable a user to connect and manage their Parcel Post account in ShipEngine. It also implements the [connection logic](./connection/src/connect.ts), which validates a user's credentials and establishes a session.
-| [`@parcel-post/carrier`](./carrier)       | This app defines the [pickup services](./carrier/src/definitions/pickup-services.ts), [delivery services](./carrier/src/definitions/delivery-services), [delivery confirmations](./carrier/src/definitions/delivery-confirmations.ts), and [packaging](./carrier/src/definitions/packaging) that Parcel Post and its fulfillment partners support. It also implements functionality, such as [creating labels](./carrier/src/methods/create-label.ts) and [calculating shipping costs](./carrier/src/methods/get-rates.ts).
+| [`@parcel-post/carrier`](./carrier)       | This app defines the [pickup services](./carrier/src/definitions/pickup-services.ts), [delivery services](./carrier/src/definitions/delivery-services), [delivery confirmations](./carrier/src/definitions/delivery-confirmations.ts), and [packaging](./carrier/src/definitions/packaging) that Parcel Post and its fulfillment partners support. It also implements functionality, such as [creating labels](./carrier/src/methods/create-shipment.ts) and [calculating shipping costs](./carrier/src/methods/rate-shipment.ts).
 
 
 

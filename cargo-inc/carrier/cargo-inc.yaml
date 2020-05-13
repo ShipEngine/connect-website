@@ -4,8 +4,8 @@ description: Cargo Incorporated is the global leader in air cargo.
 websiteURL: https://cargo-inc.net
 logo: ../logo.svg
 
-createLabel: src/create-label.js
-getRates: src/get-rates.js
+createShipment: src/create-shipment.js
+rateShipment: src/rate-shipment.js
 
 deliveryServices:
   - delivery-services/international-standard.yaml
