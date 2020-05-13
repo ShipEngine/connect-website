@@ -303,20 +303,26 @@ class AppsNew extends Generator {
           );
 
           this.fs.copyTpl(
-            this.templatePath(`carrier/methods/create-label.${this._codeExt}`),
-            this.destinationPath(`src/methods/create-label.${this._codeExt}`),
+            this.templatePath(
+              `carrier/methods/cancel-pickups.${this._codeExt}`,
+            ),
+            this.destinationPath(`src/methods/cancel-pickups.${this._codeExt}`),
             this,
           );
 
           this.fs.copyTpl(
-            this.templatePath(`carrier/methods/get-rates.${this._codeExt}`),
-            this.destinationPath(`src/methods/get-rates.${this._codeExt}`),
+            this.templatePath(
+              `carrier/methods/create-shipment.${this._codeExt}`,
+            ),
+            this.destinationPath(
+              `src/methods/create-shipment.${this._codeExt}`,
+            ),
             this,
           );
 
           this.fs.copyTpl(
-            this.templatePath(`carrier/methods/cancel-pickup.${this._codeExt}`),
-            this.destinationPath(`src/methods/cancel-pickup.${this._codeExt}`),
+            this.templatePath(`carrier/methods/rate-shipment.${this._codeExt}`),
+            this.destinationPath(`src/methods/rate-shipment.${this._codeExt}`),
             this,
           );
 
@@ -335,6 +341,14 @@ class AppsNew extends Generator {
             this.destinationPath("src/logo.svg"),
             this,
           );
+
+          if (this.ts) {
+            this.fs.copyTpl(
+              this.templatePath(`carrier/methods/session.ts`),
+              this.destinationPath(`src/methods/session.ts`),
+              this,
+            );
+          }
         }
         break;
       case "order source":
@@ -353,7 +367,7 @@ class AppsNew extends Generator {
     const dependencies: string[] = [];
     const devDependencies: string[] = [];
 
-    devDependencies.push("@shipengine/integration-platform-sdk@0.0.6");
+    devDependencies.push("@shipengine/integration-platform-sdk@0.0.8");
 
     if (this.ts) {
       devDependencies.push("@types/node@^13.13.5");

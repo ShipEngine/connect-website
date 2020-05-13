@@ -1,9 +1,9 @@
 "use strict";
 
 /**
- * Schedules a pick-up at a specific time and location
+ * Cancels one or more previously-scheduled pickups
  */
-async function schedulePickup(transaction, pickup) {
+async function cancelPickups(transaction, pickups) {
   throw new Error("NotImplementedError");
   // STEP 1: Validation
   // STEP 2: Create the data that the carrier's API expects
@@ -11,4 +11,4 @@ async function schedulePickup(transaction, pickup) {
   // STEP 4: Create the output data that ShipEngine expects
 }
 
-module.exports = schedulePickup;
+module.exports = cancelPickups;

@@ -1,16 +1,17 @@
 import {
-  PickupCancellation,
-  PickupCancellationConfirmationPOJO,
+  RateCriteria,
+  RatePOJO,
   Transaction,
 } from "@shipengine/integration-platform-sdk";
+import { Session } from "./session";
 
 /**
- * Cancels a previously-scheduled pickup
+ * Generates shipping rates for a shipment
  */
-export default async function cancelPickup(
-  transaction: Transaction,
-  cancellation: PickupCancellation,
-): Promise<PickupCancellationConfirmationPOJO> {
+export default async function rateShipment(
+  transaction: Transaction<Session>,
+  shipment: RateCriteria,
+): Promise<RatePOJO[]> {
   throw new Error("NotImplementedError");
   // STEP 1: Validation
   // STEP 2: Create the data that the carrier's API expects

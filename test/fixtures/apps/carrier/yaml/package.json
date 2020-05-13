@@ -1,8 +1,0 @@
-{
-  "name": "@carrier/yaml-app",
-  "version": "0.0.1",
-  "main": "carrier.yml",
-  "devDependencies": {
-    "@shipengine/integration-platform-sdk": "0.0.9"
-  }
-}

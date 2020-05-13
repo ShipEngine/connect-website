@@ -1,9 +1,9 @@
 "use strict";
 
 /**
- * Requests a shipping label from the provider
+ * Generates a shipping label and tracking number for a shipment
  */
-async function createLabel(transaction, { format, size, shipment }) {
+async function createShipment(transaction, shipment) {
   throw new Error("NotImplementedError");
   // STEP 1: Validation
   // STEP 2: Create the data that the carrier's API expects
@@ -11,4 +11,4 @@ async function createLabel(transaction, { format, size, shipment }) {
   // STEP 4: Create the output data that ShipEngine expects
 }
 
-module.exports = createLabel;
+module.exports = createShipment;

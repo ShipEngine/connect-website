@@ -1,14 +1,16 @@
 import { loadApp } from "@shipengine/integration-platform-loader";
 
-export class ValidationError extends Error {
+export class InvalidAppError extends Error {
   errors: string[];
 
   constructor(message: string, errors: string[]) {
     super(message);
-    this.name = "ValidationError";
+    Object.setPrototypeOf(this, new.target.prototype); // restore prototype chain
+    this.name = InvalidAppError.name; // stack traces display correctly now
     this.errors = errors;
   }
 }
+
 function isError(error: string): boolean {
   const nonErrorChecks = [
     /Error loading the ShipEngine Integration Platform app:/,
@@ -20,7 +22,15 @@ function isError(error: string): boolean {
   });
 }
 
-export async function validateAppWillLoad(pathToApp: string) {
+// TODO - handle following
+// Make sure the cwd has a package.json file
+//  ›   Error: Error: Cannot find module '/Users/pierce/package.json'
+//  ›   Require stack: ...
+
+// Make sure there is a local installation of the SDK
+//  ›   Error: Looks like you're missing a local installation of
+//  ›   @shipengine/integration-platform-sdk. Run `npm install` to resolve
+export async function validateApp(pathToApp: string) {
   try {
     const app = await loadApp(pathToApp);
     return app;
@@ -29,8 +39,11 @@ export async function validateAppWillLoad(pathToApp: string) {
       .split(/\r?\n/)
       .filter((errorLine: string) => {
         return isError(errorLine);
+      })
+      .map((errorLine: string) => {
+        return errorLine.trim();
       });
 
-    return Promise.reject(new ValidationError(error.message, errors));
+    return Promise.reject(new InvalidAppError(error.message, errors));
   }
 }

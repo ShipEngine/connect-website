@@ -3,7 +3,7 @@ name: <%- pjson.name %>
 description: <%- pjson.description %>
 websiteURL: https://example-carrier.com
 logo: "./logo.svg"
-cancelPickup: ./methods/cancel-pickup.<%- _codeExt %>
-createLabel: ./methods/create-label.<%- _codeExt %>
-getRates: ./methods/get-rates.<%- _codeExt %>
+cancelPickups: ./methods/cancel-pickups.<%- _codeExt %>
+createShipment: ./methods/create-shipment.<%- _codeExt %>
+rateShipment: ./methods/rate-shipment.<%- _codeExt %>
 schedulePickup: ./methods/schedule-pickup.<%- _codeExt %>

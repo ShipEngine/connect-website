@@ -6,9 +6,10 @@ module.exports = {
   description: "<%- pjson.description %>",
   logo: "./logo.svg",
   websiteURL: "https://example-carrier.com",
-  cancelPickup: "./methods/cancel-pickup.js",
-  createLabel: "./methods/create-label.js",
-  getRates: "./methods/get-rates.js",
+  cancelPickups: "./methods/cancel-pickups.js",
+  createShipment: "./methods/create-shipment.js",
+  rateShipment: "./methods/rate-shipment.js",
   schedulePickup: "./methods/schedule-pickup.js",
+  pickupServices: [],
   deliveryServices: [],
 };

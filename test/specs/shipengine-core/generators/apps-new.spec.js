@@ -44,10 +44,11 @@ describe("generator apps:new", function () {
         .then(function () {
           assert.file([
             "src/index.ts",
-            "src/methods/get-rates.ts",
-            "src/methods/create-label.ts",
+            "src/methods/cancel-pickups.ts",
+            "src/methods/create-shipment.ts",
             "src/methods/schedule-pickup.ts",
-            "src/methods/cancel-pickup.ts",
+            "src/methods/rate-shipment.ts",
+            "src/methods/session.ts",
             ".editorconfig",
             "LICENSE",
             "README.md",
@@ -90,10 +91,10 @@ describe("generator apps:new", function () {
         .then(function () {
           assert.file([
             "src/index.js",
-            "src/methods/get-rates.js",
-            "src/methods/create-label.js",
+            "src/methods/cancel-pickups.js",
+            "src/methods/create-shipment.js",
             "src/methods/schedule-pickup.js",
-            "src/methods/cancel-pickup.js",
+            "src/methods/rate-shipment.js",
             ".editorconfig",
             "LICENSE",
             "README.md",
@@ -138,10 +139,11 @@ describe("generator apps:new", function () {
       .then(function () {
         assert.file([
           "src/index.json",
-          "src/methods/get-rates.ts",
-          "src/methods/create-label.ts",
+          "src/methods/cancel-pickups.ts",
+          "src/methods/create-shipment.ts",
           "src/methods/schedule-pickup.ts",
-          "src/methods/cancel-pickup.ts",
+          "src/methods/rate-shipment.ts",
+          "src/methods/session.ts",
           ".editorconfig",
           "LICENSE",
           "README.md",
@@ -182,10 +184,11 @@ describe("generator apps:new", function () {
       .then(function () {
         assert.file([
           "src/index.yaml",
-          "src/methods/get-rates.ts",
-          "src/methods/create-label.ts",
+          "src/methods/cancel-pickups.ts",
+          "src/methods/create-shipment.ts",
           "src/methods/schedule-pickup.ts",
-          "src/methods/cancel-pickup.ts",
+          "src/methods/rate-shipment.ts",
+          "src/methods/session.ts",
           ".editorconfig",
           "LICENSE",
           "README.md",

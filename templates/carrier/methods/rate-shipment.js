@@ -1,9 +1,9 @@
 "use strict";
 
 /**
- * Gets shipping rate quotes for the specified criteria
+ * Generates shipping rates for a shipment
  */
-export default async function getRates(transaction, criteria) {
+async function rateShipment(transaction, shipment) {
   throw new Error("NotImplementedError");
   // STEP 1: Validation
   // STEP 2: Create the data that the carrier's API expects
@@ -11,4 +11,4 @@ export default async function getRates(transaction, criteria) {
   // STEP 4: Create the output data that ShipEngine expects
 }
 
-module.exports = getRates;
+module.exports = rateShipment;

@@ -1,7 +1,6 @@
 {
-  "name": "@connection/yaml-app",
   "version": "0.0.1",
-  "main": "connection.yml",
+  "main": "carrier.js",
   "devDependencies": {
     "@shipengine/integration-platform-sdk": "0.0.9"
   }
