@@ -1,4 +1,4 @@
-import { loadApp } from "@shipengine/integration-platform-loader";
+import { loadApp, App } from "@shipengine/integration-platform-loader";
 
 export class InvalidAppError extends Error {
   errors: string[];
@@ -30,7 +30,7 @@ function isError(error: string): boolean {
 // Make sure there is a local installation of the SDK
 //  ›   Error: Looks like you're missing a local installation of
 //  ›   @shipengine/integration-platform-sdk. Run `npm install` to resolve
-export async function validateApp(pathToApp: string) {
+export async function validateApp(pathToApp: string): Promise<App> {
   try {
     const app = await loadApp(pathToApp);
     return app;
