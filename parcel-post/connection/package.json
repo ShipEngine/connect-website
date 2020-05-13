@@ -4,7 +4,7 @@
   "description": "The Parcel Post connection app",
   "main": "src/index.ts",
   "devDependencies": {
-    "@shipengine/integration-platform-sdk": "0.0.7",
+    "@shipengine/integration-platform-sdk": "0.0.8",
     "@types/node": "^14.0.1"
   },
   "dependencies": {
