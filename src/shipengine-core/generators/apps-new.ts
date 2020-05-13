@@ -334,6 +334,34 @@ class AppsNew extends Generator {
 
           this.fs.copyTpl(
             this.templatePath(
+              `carrier/methods/cancel-shipments.${this._codeExt}`,
+            ),
+            this.destinationPath(
+              `src/methods/cancel-shipments.${this._codeExt}`,
+            ),
+            this,
+          );
+
+          this.fs.copyTpl(
+            this.templatePath(
+              `carrier/methods/create-manifest.${this._codeExt}`,
+            ),
+            this.destinationPath(
+              `src/methods/create-manifest.${this._codeExt}`,
+            ),
+            this,
+          );
+
+          this.fs.copyTpl(
+            this.templatePath(
+              `carrier/methods/track-shipment.${this._codeExt}`,
+            ),
+            this.destinationPath(`src/methods/track-shipment.${this._codeExt}`),
+            this,
+          );
+
+          this.fs.copyTpl(
+            this.templatePath(
               `carrier/methods/cancel-pickups.${this._codeExt}`,
             ),
             this.destinationPath(`src/methods/cancel-pickups.${this._codeExt}`),
