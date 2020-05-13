@@ -6,7 +6,6 @@ const path = require("path");
 const pathToGenerator = "../../../../lib/shipengine-core/generators/apps-new";
 const AppsNew = require(pathToGenerator);
 describe("generator apps:new", function () {
-
   /**
    * The yeoman generator tests alter the cwd of the mocha process. Need to change it back
    * to the original otherwise could cause unintended side effects to other tests.
@@ -20,7 +19,6 @@ describe("generator apps:new", function () {
     process.chdir(currentCwd);
   });
 
-
   describe("defaults", function () {
     it("generates a new app", function () {
       // The object returned acts like a promise, so return it to wait until the process is done
@@ -30,7 +28,7 @@ describe("generator apps:new", function () {
           namespace: "apps:new",
         })
         .withArguments(["test-app"]) // Mock the arguments
-        .withPrompts({ name: "test name" })
+        .withPrompts({ name: "testname" })
         .withPrompts({ description: "test description" })
         .withPrompts({ type: "carrier" })
         .withPrompts({ author: "test" })
@@ -58,7 +56,7 @@ describe("generator apps:new", function () {
           ]);
 
           assert.jsonFileContent("package.json", {
-            name: "test name",
+            name: "@shipengine/testname",
           });
           assert.jsonFileContent("package.json", {
             description: "test description",
@@ -77,7 +75,7 @@ describe("generator apps:new", function () {
           namespace: "apps:new",
         })
         .withArguments(["test-app"]) // Mock the arguments
-        .withPrompts({ name: "test name" })
+        .withPrompts({ name: "testname" })
         .withPrompts({ description: "test description" })
         .withPrompts({ type: "carrier" })
         .withPrompts({ author: "test" })
@@ -108,7 +106,9 @@ describe("generator apps:new", function () {
             "tsconfig.json",
           ]);
 
-          assert.jsonFileContent("package.json", { name: "test name" });
+          assert.jsonFileContent("package.json", {
+            name: "@shipengine/testname",
+          });
           assert.jsonFileContent("package.json", {
             description: "test description",
           });
@@ -125,7 +125,7 @@ describe("generator apps:new", function () {
         namespace: "apps:new",
       })
       .withArguments(["test-app"]) // Mock the arguments
-      .withPrompts({ name: "test name" })
+      .withPrompts({ name: "testname" })
       .withPrompts({ description: "test description" })
       .withPrompts({ type: "carrier" })
       .withPrompts({ author: "test" })
@@ -153,7 +153,7 @@ describe("generator apps:new", function () {
         ]);
 
         assert.jsonFileContent("package.json", {
-          name: "test name",
+          name: "@shipengine/testname",
         });
         assert.jsonFileContent("package.json", {
           description: "test description",
@@ -170,7 +170,7 @@ describe("generator apps:new", function () {
         namespace: "apps:new",
       })
       .withArguments(["test-app"]) // Mock the arguments
-      .withPrompts({ name: "test name" })
+      .withPrompts({ name: "testname" })
       .withPrompts({ description: "test description" })
       .withPrompts({ type: "carrier" })
       .withPrompts({ author: "test" })
@@ -198,7 +198,7 @@ describe("generator apps:new", function () {
         ]);
 
         assert.jsonFileContent("package.json", {
-          name: "test name",
+          name: "@shipengine/testname",
         });
         assert.jsonFileContent("package.json", {
           description: "test description",

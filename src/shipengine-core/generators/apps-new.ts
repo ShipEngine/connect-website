@@ -30,6 +30,7 @@ class AppsNew extends Generator {
 
   answers!: {
     name: string;
+    scope: string;
     type: "carrier" | "order source";
     description: string;
     version: string;
@@ -84,6 +85,7 @@ class AppsNew extends Generator {
 
     const defaults = {
       name: this.determineAppname().replace(/ /g, "-"),
+      scope: "@shipengine",
       type: "carrier",
       version: "0.0.0",
       license: "ISC",
@@ -118,6 +120,22 @@ class AppsNew extends Generator {
           message: "npm package name",
           default: defaults.name,
           when: !this.pjson.name,
+        },
+        {
+          type: "input",
+          name: "scope",
+          message: "npm package scope (e.g. @shipengine)",
+          default: defaults.scope,
+          validate: (value: string) => {
+            const re = /^@[a-z0-9-~][a-z0-9-._~]*$/;
+            const pass = value.match(re);
+
+            if (pass) {
+              return true;
+            }
+
+            return "Please enter a valid npm scope name (ex: @shipengine)";
+          },
         },
         {
           type: "list",
@@ -220,7 +238,9 @@ class AppsNew extends Generator {
     this.npm = this.answers.pkg === "npm";
     this.definitions = this.answers.definitions;
 
-    this.pjson.name = this.answers.name || defaults.name;
+    this.pjson.name = `${this.answers.scope || defaults.scope}/${
+      this.answers.name || defaults.name
+    }`;
     this.pjson.description = this.answers.description || defaults.description;
     this.pjson.version = this.answers.version || defaults.version;
     this.pjson.engines.node = defaults.engines.node;
