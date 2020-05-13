@@ -10,6 +10,8 @@ module.exports = {
   createShipment: "./methods/create-shipment.js",
   rateShipment: "./methods/rate-shipment.js",
   schedulePickup: "./methods/schedule-pickup.js",
+  deliveryServices: [
+    "./definitions/example-delivery-service.<%- _definitionExt %>",
+  ],
   pickupServices: [],
-  deliveryServices: [],
 };

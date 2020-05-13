@@ -1,9 +1,12 @@
 id: <%- _uuidv4 %>
-name: <%- pjson.name %>
-description: <%- pjson.description %>
+name: "<%- pjson.name %>"
+description: "<%- pjson.description %>"
 websiteURL: https://example-carrier.com
-logo: "./logo.svg"
+logo: ./logo.svg
 cancelPickups: ./methods/cancel-pickups.<%- _codeExt %>
 createShipment: ./methods/create-shipment.<%- _codeExt %>
 rateShipment: ./methods/rate-shipment.<%- _codeExt %>
 schedulePickup: ./methods/schedule-pickup.<%- _codeExt %>
+deliveryServices:
+  - ./definitions/example-delivery-service.<%- _definitionExt %>
+pickupServices: []

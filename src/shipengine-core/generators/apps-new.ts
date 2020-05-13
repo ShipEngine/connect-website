@@ -324,6 +324,16 @@ class AppsNew extends Generator {
 
           this.fs.copyTpl(
             this.templatePath(
+              `carrier/definitions/example-delivery-service.${this._definitionExt}`,
+            ),
+            this.destinationPath(
+              `src/definitions/example-delivery-service.${this._definitionExt}`,
+            ),
+            this,
+          );
+
+          this.fs.copyTpl(
+            this.templatePath(
               `carrier/methods/cancel-pickups.${this._codeExt}`,
             ),
             this.destinationPath(`src/methods/cancel-pickups.${this._codeExt}`),

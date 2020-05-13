@@ -10,8 +10,10 @@ const carrier: CarrierDefinition = {
   createShipment: import("./methods/create-shipment"),
   rateShipment: import("./methods/rate-shipment"),
   schedulePickup: import("./methods/schedule-pickup"),
+  deliveryServices: [
+    import("./definitions/example-delivery-service.<%- _definitionExt %>"),
+  ],
   pickupServices: [],
-  deliveryServices: [],
 };
 
 export default carrier;

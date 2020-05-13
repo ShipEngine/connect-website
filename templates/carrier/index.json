@@ -8,6 +8,6 @@
   "createShipment": "./methods/create-shipment.<%- _codeExt %>",
   "rateShipment": "./methods/rate-shipment.<%- _codeExt %>",
   "schedulePickup": "./methods/schedule-pickup.<%- _codeExt %>",
-  "deliveryServices": [],
+  "deliveryServices": ["./definitions/example-delivery-service.<%- _definitionExt %>"],
   "pickupServices": []
 }
