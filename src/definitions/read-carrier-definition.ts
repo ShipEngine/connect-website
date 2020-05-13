@@ -23,7 +23,7 @@ definition: InlineOrReference<CarrierDefinition>, cwd: string, fieldName: string
     createShipment: await readDefinitionValue(definition.createShipment, cwd, `${fieldName}.createShipment`),
     cancelShipments: await readDefinitionValue(definition.cancelShipments, cwd, `${fieldName}.cancelShipments`),
     rateShipment: await readDefinitionValue(definition.rateShipment, cwd, `${fieldName}.rateShipment`),
-    track: await readDefinitionValue(definition.track, cwd, `${fieldName}.track`),
+    trackShipment: await readDefinitionValue(definition.trackShipment, cwd, `${fieldName}.trackShipment`),
     createManifest: await readDefinitionValue(definition.createManifest, cwd, `${fieldName}.createManifest`),
     schedulePickup: await readDefinitionValue(definition.schedulePickup, cwd, `${fieldName}.schedulePickup`),
     cancelPickups: await readDefinitionValue(definition.cancelPickups, cwd, `${fieldName}.cancelPickups`),

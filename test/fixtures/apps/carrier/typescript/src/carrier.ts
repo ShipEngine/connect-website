@@ -15,7 +15,7 @@ const config: CarrierDefinition = {
   createShipment: "../../../../modules/methods/create-label.js",
   cancelShipments: "../../../../modules/methods/void-label.js",
   rateShipment: "../../../../modules/methods/get-rates.js",
-  track: "../../../../modules/methods/track.js",
+  trackShipment: "../../../../modules/methods/track-shipment.js",
   createManifest: "../../../../modules/methods/create-manifest.js",
   schedulePickup: "../../../../modules/methods/request-pickup.js",
   cancelPickups: "../../../../modules/methods/cancel-pickup.js",

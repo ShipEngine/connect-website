@@ -33,7 +33,7 @@ describe("JSON apps", () => {
     expect(app.carrier.createShipment).to.be.a("function");
     expect(app.carrier.cancelShipments).to.be.a("function");
     expect(app.carrier.rateShipment).to.be.a("function");
-    expect(app.carrier.track).to.be.a("function");
+    expect(app.carrier.trackShipment).to.be.a("function");
     expect(app.carrier.createManifest).to.be.a("function");
     expect(app.carrier.schedulePickup).to.be.a("function");
     expect(app.carrier.cancelPickups).to.be.a("function");

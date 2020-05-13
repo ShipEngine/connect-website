@@ -43,7 +43,7 @@ module.exports = {
   createShipment () { },
   cancelShipments () { },
   rateShipment () { },
-  track () { },
+  trackShipment () { },
   createManifest () { },
   schedulePickup () { },
   cancelPickups () { },

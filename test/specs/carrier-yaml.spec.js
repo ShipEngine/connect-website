@@ -37,7 +37,7 @@ describe("YAML apps", () => {
     expect(app.carrier.createShipment).to.equal(undefined);
     expect(app.carrier.cancelShipments).to.equal(undefined);
     expect(app.carrier.rateShipment).to.equal(undefined);
-    expect(app.carrier.track).to.equal(undefined);
+    expect(app.carrier.trackShipment).to.equal(undefined);
     expect(app.carrier.createManifest).to.equal(undefined);
   });
 
