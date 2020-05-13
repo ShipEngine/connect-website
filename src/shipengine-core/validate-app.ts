@@ -47,3 +47,7 @@ export async function validateApp(pathToApp: string): Promise<App> {
     return Promise.reject(new InvalidAppError(error.message, errors));
   }
 }
+
+export async function validateTestSuite(app: App) {
+  
+}
