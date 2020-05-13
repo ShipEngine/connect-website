@@ -3,13 +3,12 @@ import * as fs from "fs";
 import * as path from "path";
 import { execSync } from "child_process";
 import Generator = require("yeoman-generator");
+import { v4 as uuidv4 } from "uuid";
 
 const fixpack = require("@oclif/fixpack");
-const nps = require("nps-utils");
 const sortPjson = require("sort-pjson");
 
 const isWindows = process.platform === "win32";
-const rmrf = isWindows ? "rimraf" : "rm -rf";
 
 let hasYarn = false;
 
@@ -31,27 +30,21 @@ class AppsNew extends Generator {
 
   answers!: {
     name: string;
+    scope: string;
     type: "carrier" | "order source";
     description: string;
     version: string;
     github: { repo: string; user: string };
     author: string;
-    files: string;
     license: string;
     pkg: string;
     typescript: boolean;
     definitions: "pojo" | "json" | "yaml";
-    eslint: boolean;
-    mocha: boolean;
   };
-
-  mocha!: boolean;
 
   ts!: boolean;
 
-  eslint!: boolean;
-
-  yarn!: boolean;
+  npm!: boolean;
 
   definitions!: "pojo" | "json" | "yaml";
 
@@ -92,6 +85,7 @@ class AppsNew extends Generator {
 
     const defaults = {
       name: this.determineAppname().replace(/ /g, "-"),
+      scope: "@shipengine",
       type: "carrier",
       version: "0.0.0",
       license: "ISC",
@@ -105,10 +99,8 @@ class AppsNew extends Generator {
         node: ">=8.0.0",
         ...this.pjson.engines,
       },
-      pkg: "yarn",
+      pkg: "npm",
       typescript: true,
-      eslint: true,
-      mocha: true,
       definitions: "pojo",
     };
 
@@ -128,6 +120,22 @@ class AppsNew extends Generator {
           message: "npm package name",
           default: defaults.name,
           when: !this.pjson.name,
+        },
+        {
+          type: "input",
+          name: "scope",
+          message: "npm package scope (e.g. @shipengine)",
+          default: defaults.scope,
+          validate: (value: string) => {
+            const re = /^@[a-z0-9-~][a-z0-9-._~]*$/;
+            const pass = value.match(re);
+
+            if (pass) {
+              return true;
+            }
+
+            return "Please enter a valid npm scope name (ex: @shipengine)";
+          },
         },
         {
           type: "list",
@@ -194,7 +202,7 @@ class AppsNew extends Generator {
             { name: "npm", value: "npm" },
             { name: "yarn", value: "yarn" },
           ],
-          default: () => (this.options.yarn || hasYarn ? 1 : 0),
+          default: () => (hasYarn ? 1 : 0 || defaults.pkg),
         },
         {
           type: "confirm",
@@ -222,64 +230,25 @@ class AppsNew extends Generator {
           ],
           default: defaults.definitions,
         },
-        {
-          type: "confirm",
-          name: "eslint",
-          message: "Use eslint (linter for JavaScript and Typescript)",
-          default: defaults.eslint,
-        },
-        {
-          type: "confirm",
-          name: "mocha",
-          message: "Use mocha for testing (recommended)",
-          default: defaults.mocha,
-        },
       ])) as any;
     }
 
     this.type = this.answers.type;
     this.ts = this.answers.typescript;
-    this.yarn = this.answers.pkg === "yarn";
-    this.mocha = this.answers.mocha;
-    this.eslint = this.answers.eslint;
+    this.npm = this.answers.pkg === "npm";
     this.definitions = this.answers.definitions;
 
-    this.pjson.name = this.answers.name || defaults.name;
+    this.pjson.name = `${this.answers.scope || defaults.scope}/${
+      this.answers.name || defaults.name
+    }`;
     this.pjson.description = this.answers.description || defaults.description;
     this.pjson.version = this.answers.version || defaults.version;
     this.pjson.engines.node = defaults.engines.node;
     this.pjson.author = this.answers.author || defaults.author;
-    this.pjson.files = this.answers.files ||
-      defaults.files || [this.ts ? "/lib" : "/src"];
     this.pjson.license = this.answers.license || defaults.license;
-    // eslint-disable-next-line no-multi-assign
     this.repository = this.pjson.repository = this.answers.github
       ? `${this.answers.github.user}/${this.answers.github.repo}`
       : defaults.repository;
-
-    if (this.eslint) {
-      this.pjson.scripts.posttest = "eslint .";
-    }
-
-    if (this.mocha) {
-      this.pjson.scripts.test = `nyc ${
-        this.ts ? "--extension .ts " : ""
-      }mocha --forbid-only "test/**/*.test.${this._codeExt}"`;
-    } else {
-      this.pjson.scripts.test = "echo NO TESTS";
-    }
-
-    if (this.ts) {
-      this.pjson.scripts.prepack = nps.series(`${rmrf} lib`, "tsc -b");
-      if (this.eslint) {
-        this.pjson.scripts.posttest = "eslint . --ext .ts --config .eslintrc";
-      }
-    }
-
-    if (hasYarn) {
-      // add yarn.lock file to package so we can lock plugin dependencies
-      this.pjson.files.push("/yarn.lock");
-    }
 
     this.pjson.keywords = defaults.keywords || [
       "ShipEngine",
@@ -306,47 +275,6 @@ class AppsNew extends Generator {
       this.fs.copyTpl(
         this.templatePath("tsconfig.json"),
         this.destinationPath("tsconfig.json"),
-        this,
-      );
-
-      if (this.mocha) {
-        this.fs.copyTpl(
-          this.templatePath("test/tsconfig.json"),
-          this.destinationPath("test/tsconfig.json"),
-          this,
-        );
-      }
-    }
-
-    if (this.eslint) {
-      const eslintignore = this._eslintignore();
-
-      if (eslintignore.trim()) {
-        this.fs.write(
-          this.destinationPath(".eslintignore"),
-          this._eslintignore(),
-        );
-      }
-
-      if (this.ts) {
-        this.fs.copyTpl(
-          this.templatePath("eslintrc.typescript"),
-          this.destinationPath(".eslintrc"),
-          this,
-        );
-      } else {
-        this.fs.copyTpl(
-          this.templatePath("eslintrc"),
-          this.destinationPath(".eslintrc"),
-          this,
-        );
-      }
-    }
-
-    if (this.mocha) {
-      this.fs.copyTpl(
-        this.templatePath("test/mocha.opts"),
-        this.destinationPath("test/mocha.opts"),
         this,
       );
     }
@@ -389,73 +317,75 @@ class AppsNew extends Generator {
       case "carrier":
         if (!fs.existsSync("src")) {
           this.fs.copyTpl(
-            this.templatePath(`carrier/src/index.${this._definitionExt}`),
+            this.templatePath(`carrier/index.${this._definitionExt}`),
             this.destinationPath(`src/index.${this._definitionExt}`),
             this,
           );
 
           this.fs.copyTpl(
             this.templatePath(
-              `carrier/src/methods/create-label.${this._codeExt}`,
+              `carrier/definitions/example-delivery-service.${this._definitionExt}`,
             ),
-            this.destinationPath(`src/methods/create-label.${this._codeExt}`),
+            this.destinationPath(
+              `src/definitions/example-delivery-service.${this._definitionExt}`,
+            ),
             this,
           );
 
           this.fs.copyTpl(
             this.templatePath(
-              `carrier/test/methods/create-label.test.${this._codeExt}`,
+              `carrier/methods/cancel-pickups.${this._codeExt}`,
             ),
-            this.destinationPath(
-              `test/methods/create-label.test.${this._codeExt}`,
-            ),
-            this,
-          );
-
-          this.fs.copyTpl(
-            this.templatePath(`carrier/src/methods/get-rates.${this._codeExt}`),
-            this.destinationPath(`src/methods/get-rates.${this._codeExt}`),
+            this.destinationPath(`src/methods/cancel-pickups.${this._codeExt}`),
             this,
           );
 
           this.fs.copyTpl(
             this.templatePath(
-              `carrier/test/methods/get-rates.test.${this._codeExt}`,
+              `carrier/methods/create-shipment.${this._codeExt}`,
             ),
             this.destinationPath(
-              `test/methods/get-rates.test.${this._codeExt}`,
+              `src/methods/create-shipment.${this._codeExt}`,
             ),
             this,
           );
 
           this.fs.copyTpl(
-            this.templatePath("carrier/src/logo.svg"),
+            this.templatePath(`carrier/methods/rate-shipment.${this._codeExt}`),
+            this.destinationPath(`src/methods/rate-shipment.${this._codeExt}`),
+            this,
+          );
+
+          this.fs.copyTpl(
+            this.templatePath(
+              `carrier/methods/schedule-pickup.${this._codeExt}`,
+            ),
+            this.destinationPath(
+              `src/methods/schedule-pickup.${this._codeExt}`,
+            ),
+            this,
+          );
+
+          this.fs.copyTpl(
+            this.templatePath("carrier/logo.svg"),
             this.destinationPath("src/logo.svg"),
             this,
           );
-        }
 
-        if (this.mocha && !fs.existsSync("test")) {
-          this.fs.copyTpl(
-            this.templatePath(`carrier/test/index.test.${this._codeExt}`),
-            this.destinationPath(`test/index.test.${this._codeExt}`),
-            this,
-          );
+          if (this.ts) {
+            this.fs.copyTpl(
+              this.templatePath(`carrier/methods/session.ts`),
+              this.destinationPath(`src/methods/session.ts`),
+              this,
+            );
+          }
         }
         break;
       case "order source":
         if (!fs.existsSync("src")) {
           this.fs.copyTpl(
-            this.templatePath(`order-source/src/index.${this._definitionExt}`),
+            this.templatePath(`order-source/index.${this._definitionExt}`),
             this.destinationPath(`src/index.${this._definitionExt}`),
-            this,
-          );
-        }
-
-        if (this.mocha && !fs.existsSync("test")) {
-          this.fs.copyTpl(
-            this.templatePath(`order-source/test/index.test.${this._codeExt}`),
-            this.destinationPath(`test/index.test.${this._codeExt}`),
             this,
           );
         }
@@ -467,26 +397,10 @@ class AppsNew extends Generator {
     const dependencies: string[] = [];
     const devDependencies: string[] = [];
 
-    devDependencies.push("@shipengine/integration-platform-sdk@^0.0.5");
-
-    if (this.mocha) {
-      devDependencies.push("mocha@^5", "nyc@^14", "chai@^4");
-    }
+    devDependencies.push("@shipengine/integration-platform-sdk@0.0.8");
 
     if (this.ts) {
-      dependencies.push("tslib@^1");
-      devDependencies.push("@types/node@^10", "typescript@^3.3", "ts-node@^8");
-      if (this.mocha) {
-        devDependencies.push("@types/chai@^4", "@types/mocha@^5");
-      }
-    }
-
-    if (this.eslint) {
-      devDependencies.push("eslint@^5.13", "eslint-config-oclif@^3.1");
-
-      if (this.ts) {
-        devDependencies.push("eslint-config-oclif-typescript@^0.1");
-      }
+      devDependencies.push("@types/node@^13.13.5");
     }
 
     if (isWindows) devDependencies.push("rimraf");
@@ -495,9 +409,9 @@ class AppsNew extends Generator {
 
     if (process.env.YARN_MUTEX) yarnOpts.mutex = process.env.YARN_MUTEX;
     const install = (deps: string[], opts: object) =>
-      this.yarn ? this.yarnInstall(deps, opts) : this.npmInstall(deps, opts);
-    const dev = this.yarn ? { dev: true } : { "save-dev": true };
-    const save = this.yarn ? {} : { save: true };
+      this.npm ? this.npmInstall(deps, opts) : this.yarnInstall(deps, opts);
+    const dev = this.npm ? { "save-dev": true } : { dev: true };
+    const save = this.npm ? { save: true } : {};
 
     try {
       await install(devDependencies, {
@@ -527,6 +441,10 @@ class AppsNew extends Generator {
     return this.ts ? "ts" : "js";
   }
 
+  get _uuidv4() {
+    return uuidv4();
+  }
+
   private _gitignore(): string {
     const existing = this.fs.exists(this.destinationPath(".gitignore"))
       ? this.fs.read(this.destinationPath(".gitignore")).split("\n")
@@ -539,23 +457,9 @@ class AppsNew extends Generator {
         "/tmp",
         "/dist",
         "/.nyc_output",
-        this.yarn ? "/package-lock.json" : "/yarn.lock",
+        this.npm ? "/yarn.lock" : "/package-lock.json",
         this.ts && "/lib",
       ])
-        .concat(existing)
-        .compact()
-        .uniq()
-        .sort()
-        .join("\n") + "\n"
-    );
-  }
-
-  private _eslintignore(): string {
-    const existing = this.fs.exists(this.destinationPath(".eslintignore"))
-      ? this.fs.read(this.destinationPath(".eslintignore")).split("\n")
-      : [];
-    return (
-      _([this.ts && "/lib"])
         .concat(existing)
         .compact()
         .uniq()
