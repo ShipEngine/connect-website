@@ -5,9 +5,14 @@
   "websiteURL": "https://example-carrier.com",
   "logo": "./logo.svg",
   "cancelPickups": "./methods/cancel-pickups.<%- _codeExt %>",
+  "cancelShipments": "./methods/cancel-shipments.<%- _codeExt %>",
+  "createManifest": "./methods/create-manifest.<%- _codeExt %>",
   "createShipment": "./methods/create-shipment.<%- _codeExt %>",
   "rateShipment": "./methods/rate-shipment.<%- _codeExt %>",
   "schedulePickup": "./methods/schedule-pickup.<%- _codeExt %>",
-  "deliveryServices": ["./definitions/example-delivery-service.<%- _definitionExt %>"],
+  "trackShipment": "./methods/track-shipment.<%- _codeExt %>",
+  "deliveryServices": [
+    "./definitions/example-delivery-service.<%- _definitionExt %>"
+  ],
   "pickupServices": []
 }
