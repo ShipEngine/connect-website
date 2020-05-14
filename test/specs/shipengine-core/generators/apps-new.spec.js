@@ -35,8 +35,6 @@ describe("generator apps:new", function () {
         .withPrompts({ version: "0.0.0" })
         .withPrompts({ "github.user": "@test" })
         .withPrompts({ "github.repo": "https://github.com/test/test" })
-        .withPrompts({ eslint: true })
-        .withPrompts({ pkg: true })
         .withPrompts({ definitions: "pojo" })
         .withPrompts({ typescript: true })
         .then(function () {
@@ -85,13 +83,11 @@ describe("generator apps:new", function () {
         .withPrompts({ version: "0.0.0" })
         .withPrompts({ "github.user": "@test" })
         .withPrompts({ "github.repo": "https://github.com/test/test" })
-        .withPrompts({ eslint: true })
-        .withPrompts({ pkg: true })
         .withPrompts({ typescript: false })
         .withArguments(["test-app"]) // Mock the arguments
         .then(function () {
           assert.file([
-            "src/index.js",
+            "src/index.yaml",
             "src/methods/cancel-pickups.js",
             "src/methods/create-shipment.js",
             "src/methods/schedule-pickup.js",
@@ -105,12 +101,7 @@ describe("generator apps:new", function () {
             "package.json",
           ]);
 
-          assert.noFile([
-            "src/index.ts",
-            "test/tsconfig.json",
-            ".eslintignore",
-            "tsconfig.json",
-          ]);
+          assert.noFile(["test/tsconfig.json", "tsconfig.json"]);
 
           assert.jsonFileContent("package.json", {
             name: "@shipengine/testname",
@@ -118,7 +109,7 @@ describe("generator apps:new", function () {
           assert.jsonFileContent("package.json", {
             description: "test description",
           });
-          assert.jsonFileContent("package.json", { main: "src/index.js" });
+          assert.jsonFileContent("package.json", { main: "src/index.yaml" });
         });
     });
   });
@@ -138,8 +129,6 @@ describe("generator apps:new", function () {
       .withPrompts({ version: "0.0.0" })
       .withPrompts({ "github.user": "@test" })
       .withPrompts({ "github.repo": "https://github.com/test/test" })
-      .withPrompts({ eslint: true })
-      .withPrompts({ pkg: true })
       .withPrompts({ definitions: "json" })
       .withPrompts({ typescript: true })
       .then(function () {
@@ -186,8 +175,6 @@ describe("generator apps:new", function () {
       .withPrompts({ version: "0.0.0" })
       .withPrompts({ "github.user": "@test" })
       .withPrompts({ "github.repo": "https://github.com/test/test" })
-      .withPrompts({ eslint: true })
-      .withPrompts({ pkg: true })
       .withPrompts({ definitions: "yaml" })
       .withPrompts({ typescript: true })
       .then(function () {

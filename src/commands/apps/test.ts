@@ -17,15 +17,17 @@ export default class Test extends BaseCommand {
   async run() {
     const pathToApp = `${process.cwd()}`;
 
-
     try {
       app = await validateApp(pathToApp);
       this.log("✅ App structure is valid");
     } catch (error) {
       if (error instanceof InvalidAppError) {
+        const errorsCount = error.errors.length;
+        const errorsWithInflection = errorsCount > 1 ? "errors" : "error";
+
         this.log(
           chalk.red(
-            `App structure is not valid - ${error.errors.length} errors found\n`,
+            `App structure is not valid - ${errorsCount} ${errorsWithInflection} found\n`,
           ),
         );
 

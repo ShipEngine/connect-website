@@ -2,10 +2,12 @@ import { CarrierDefinition } from "@shipengine/integration-platform-sdk";
 
 const carrier: CarrierDefinition = {
   id: "<%- _uuidv4 %>",
-  name: "<%- pjson.name %>",
+  name: "<%- _appName %>",
   description: "<%- pjson.description %>",
   websiteURL: "https://example-carrier.com",
   logo: "./logo.svg",
+  manifestLocations: "single_location",
+  manifestShipments: "explicit_shipments",
   cancelPickups: import("./methods/cancel-pickups"),
   cancelShipments: import("./methods/cancel-shipments"),
   createManifest: import("./methods/create-manifest"),
