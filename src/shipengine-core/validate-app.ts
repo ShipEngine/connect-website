@@ -52,30 +52,56 @@ export async function validateApp(pathToApp: string): Promise<App> {
 
 export async function validateTestSuite(app: App): Promise<void> {
 
-  // Find all methods that aren't undefined.
-  // const appMethods = ["createShipment", "voidLabels", "rateShipment", "track", "createManifest", "schedulePickup", "cancelPickup"];
+  // Find all defined methods.
+  const carrierAppMethods = ["createShipment", "cancelShipments", "rateShipment", "track", "createManifest", "schedulePickup", "cancelPickup"];
+  const appMethods: string[] = [];
 
-  // Parse through the metadata to find what mocha test files will be needed.
+  if (app.type === "carrier") {
+    for (let carrierMethod of carrierAppMethods) {
+      if (Reflect.get(app.carrier, carrierMethod)) {
+        appMethods.push(carrierMethod);
+      }
+    }
+  }
+  else if (app.type === "connection") {
+    if(Reflect.get(app.connection, "connect")) {
+      appMethods.push("connect");
+    }
+  }
+
+  // Map method names to the corresponding test suites
+  const testSuiteMap: Record<string, string> = {
+    "createShipment": "create-shipment",
+    "cancelShipments": "cancel-shipments",
+    "rateShipment": "rate-shipment",
+    "track": "track",
+    "createManifest": "create-manifest",
+    "schedulePickup": "schedule-pickup",
+    "cancelPickup": "cancel-pickup",
+    "connect": "connect"
+  }
 
   const mocha = new Mocha();
   const testDir = path.join(__dirname, "test-harness");
 
   // Add each .js file to the mocha instance
   const files = await readdir(testDir);
-  
+
   files
     .filter((file) => {
-    // Only keep the .js files
-    return file.substr(-3) === '.js';
-
+      // Only keep the .js files
+      return file.substr(-3) === '.js';
     })
-    .forEach(function (file) {
-      mocha.addFile(file);
+    .forEach((file) => {
+      // Only add method test suites that are defined in the Integration App that is being tested.
+      for (let appMethod of appMethods) {
+        if (file.includes(testSuiteMap[appMethod])) {
+          mocha.addFile(file);
+        }
+      }
     });
 
   mocha.run((failures) => {
     process.exitCode = failures ? 1 : 0;
   });
-
-
 }
