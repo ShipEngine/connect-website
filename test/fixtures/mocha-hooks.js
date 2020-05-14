@@ -1,8 +1,4 @@
 "use strict";
-
-const chai = require("chai");
-
-chai.use(require("chai-fs"));
 /**
  * Perform one-time setup before any tests are run.
  */
