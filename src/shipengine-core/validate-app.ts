@@ -87,6 +87,9 @@ export async function validateTestSuite(app: App): Promise<void> {
   // Add each .js file to the mocha instance
   const files = await readdir(testDir);
 
+  // Files to always include in the test-harness suites
+  const ignoreFiles = ["mocha-hooks"];
+
   files
     .filter((file) => {
       // Only keep the .js files
@@ -95,7 +98,7 @@ export async function validateTestSuite(app: App): Promise<void> {
     .forEach((file) => {
       // Only add method test suites that are defined in the Integration App that is being tested.
       for (let appMethod of appMethods) {
-        if (file.includes(testSuiteMap[appMethod])) {
+        if (file.includes(testSuiteMap[appMethod]) || ignoreFiles.some(ignoreFile => file.includes(ignoreFile))) {
           mocha.addFile(file);
         }
       }
