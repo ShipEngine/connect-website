@@ -66,12 +66,15 @@ function formatShipment(response) {
     ],
     packages: [{
       trackingNumber: response.tracking_number,
-      label: {
-        name: "Label",
-        size: "4x8",
-        format: "pdf",
-        data: Buffer.from(response.image, "base64"),
-      }
+      documents: [
+        {
+          name: "Label",
+          type: "label",
+          size: "4x8",
+          format: "pdf",
+          data: Buffer.from(response.image, "base64"),
+        }
+      ]
     }],
   };
 }

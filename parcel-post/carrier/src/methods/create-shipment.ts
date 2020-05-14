@@ -1,4 +1,4 @@
-import { Currency, DocumentFormat, DocumentSize, NewShipment, ShipmentConfirmationPOJO, ShippingChargeType, Transaction } from "@shipengine/integration-platform-sdk";
+import { Currency, DocumentFormat, DocumentSize, DocumentType, NewShipment, ShipmentConfirmationPOJO, ShippingChargeType, Transaction } from "@shipengine/integration-platform-sdk";
 import { bag, box } from "../definitions/packaging/customer";
 import { idToCode } from "../id-code-map";
 import { apiClient } from "../mock-api/client";
@@ -72,12 +72,15 @@ function formatShipment(response: GenerateLabelResponse): ShipmentConfirmationPO
     ],
     packages: [{
       trackingNumber: response.tracking_number,
-      label: {
-        name: "Label",
-        size: DocumentSize.Inches4x6,
-        format: DocumentFormat.PDF,
-        data: Buffer.from(response.image, "base64"),
-      }
+      documents: [
+        {
+          name: "Shipping Label",
+          type: DocumentType.Label,
+          size: DocumentSize.Inches4x6,
+          format: DocumentFormat.PDF,
+          data: Buffer.from(response.image, "base64"),
+        }
+      ]
     }],
   };
 }
