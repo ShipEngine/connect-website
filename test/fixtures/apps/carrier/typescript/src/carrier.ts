@@ -9,6 +9,9 @@ const config: CarrierDefinition = {
   websiteURL: "https://www.my-carrier.com",
   logo: "../../../../logo.svg",
 
+  manifestLocations: "single_location",
+  manifestShipments: "explicit_shipments",
+
   deliveryServices: ["../../../../modules/delivery-services/ground-service.ts"],
   pickupServices: "../../../../configs/pickup-services/pickup-services.json",
 

@@ -5,6 +5,9 @@
   "websiteURL": "https://www.my-carrier.com",
   "logo": "../../../logo.svg",
 
+  "manifestLocations": "single_location",
+  "manifestShipments": "explicit_shipments",
+
   "deliveryServices": "../../../configs/delivery-services/delivery-services.json",
   "pickupServices": "../../../configs/pickup-services/pickup-services.json",
 
