@@ -1,6 +1,6 @@
 {
   "name": "@shipengine/integration-platform-loader",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Internal library for loading ShipEngine Integration Platform apps",
   "keywords": [
     "shipengine",
@@ -46,7 +46,7 @@
     "@jsdevtools/tslint-modular": "^2.0.5",
     "@jsdevtools/version-bump-prompt": "^6.0.2",
     "@types/chai": "^4.1.7",
-    "@types/js-yaml": "^3.12.3",
+    "@types/js-yaml": "^3.12.4",
     "@types/json5": "0.0.30",
     "@types/mocha": "^7.0.2",
     "@types/node": "^14.0.1",
@@ -66,7 +66,7 @@
   "dependencies": {
     "@jsdevtools/humanize-anything": "^1.1.0",
     "@jsdevtools/ono": "^7.1.1",
-    "@shipengine/integration-platform-sdk": "0.0.11",
+    "@shipengine/integration-platform-sdk": "0.0.12",
     "js-yaml": "^3.13.1",
     "json5": "^2.1.3",
     "resolve-from": "^5.0.0",
