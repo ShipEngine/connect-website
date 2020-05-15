@@ -20,7 +20,7 @@ async function createShipment(transaction, shipment) {
     operation: "generate_label",
     session_id: transaction.session.id,
     service_code: idToCode(shipment.deliveryService.id),
-    confirmation_code: idToCode(shipment.deliveryConfirmation.id),
+    confirmation_code: idToCode(shipment.packages[0].deliveryConfirmation.id),
     ship_date: shipment.shipDateTime.toISOString(),
     from_zone: parseInt(shipment.shipFrom.postalCode, 10),
     to_zone: parseInt(shipment.shipTo.postalCode, 10),

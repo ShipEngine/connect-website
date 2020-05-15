@@ -17,7 +17,7 @@ export interface PickUpCancellationRequest {
 export interface PickUpCancellationResponse {
   canceled_pick_ups: Array<{
     id: string;
-    canceled: boolean;
+    error?: boolean;
     reason?: string;
   }>;
 }
@@ -36,14 +36,13 @@ export function pickUpCancellation(request: HttpRequest & PickUpCancellationRequ
         // Successful cancellation
         return {
           id: pickupID,
-          canceled: true,
         };
       }
       else {
         // Failed cancellation
         return {
           id: pickupID,
-          canceled: false,
+          error: true,
           reason: `${serviceCode} must be cancelled by phone. Please call 1-800-555-5555`,
         };
       }

@@ -15,7 +15,8 @@ async function rateShipment(transaction, shipment) {
     operation: "quote_rates",
     session_id: transaction.session.id,
     service_codes: shipment.deliveryServices.map(({id}) => idToCode(id)),
-    confirmation_codes: shipment.deliveryConfirmations.map(({id}) => idToCode(id)),
+    confirmation_codes: shipment.packages.reduce((codes, pkg) =>
+      codes.concat(pkg.deliveryConfirmations.map(({id}) => idToCode(id))), []),
     parcel_codes: shipment.packages.reduce((codes, pkg) =>
       codes.concat(pkg.packaging.map(({id}) => idToCode(id))), []),
     ship_date: shipment.shipDateTime.toISOString(),
@@ -38,7 +39,6 @@ async function rateShipment(transaction, shipment) {
 function formatRate(rate) {
   return {
     deliveryServiceID: codeToID(rate.service_code),
-    deliveryConfirmationID: codeToID(rate.confirmation_code),
     shipDateTime: new Date(rate.ship_date),
     deliveryDateTime: new Date(rate.delivery_date),
     maximumDeliveryDays: rate.delivery_days,
@@ -47,6 +47,7 @@ function formatRate(rate) {
     packages: [
       {
         packagingID: codeToID(rate.parcel_code),
+        deliveryConfirmationID: codeToID(rate.confirmation_code),
       }
     ],
     charges: [

@@ -36,8 +36,8 @@ export default async function cancelPickups(
   // STEP 4: Create the output data that ShipEngine expects
   return response.data.canceled_pick_ups.map((cancellation, index) => ({
     pickupID: pickups[index].pickupID,
-    successful: cancellation.canceled,
     cancellationNumber: cancellation.id,
+    isError: cancellation.error,
     notes: cancellation.reason,
   }));
 }
