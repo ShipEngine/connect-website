@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "The FreightCo connection app",
   "devDependencies": {
-    "@shipengine/integration-platform-sdk": "0.0.11"
+    "@shipengine/integration-platform-sdk": "0.0.12"
   },
   "dependencies": {
     "axios": "^0.19.2"
