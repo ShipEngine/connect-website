@@ -3,8 +3,11 @@ import { adultSignature, photo, recipientSignature, signature } from "../deliver
 import { customerPackaging } from "../packaging/customer";
 import { upsFlatRatePackaging } from "../packaging/ups-flat-rate";
 
-const domesticStandard: DeliveryServiceDefinition = {
+export const domesticStandard: DeliveryServiceDefinition = {
   id: "43fc9d24-6a89-428a-ad34-c614c14170b6",
+  identifiers: {
+    apiCode: "DOMSTD",
+  },
   name: "Domestic Standard",
   description: "3 day ground service within the U.S.",
   class: DeliveryServiceClass.Ground,

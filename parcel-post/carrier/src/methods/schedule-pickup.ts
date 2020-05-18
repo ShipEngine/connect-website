@@ -1,6 +1,5 @@
 import { Currency, PickupConfirmationPOJO, PickupRequest, ShippingChargeType, Transaction } from "@shipengine/integration-platform-sdk";
 import { nextDayPickup } from "../definitions/pickup-services";
-import { idToCode } from "../id-code-map";
 import { apiClient } from "../mock-api/client";
 import { ONE_DAY, ONE_HOUR, PickUpRequest, PickUpResponse } from "../mock-api/pick-up";
 import { Session } from "./session";
@@ -21,12 +20,11 @@ export default async function schedulePickup(
   let data: PickUpRequest = {
     operation: "pick_up",
     session_id: transaction.session.id,
-    service_code: idToCode(pickup.pickupService.id),
+    service_code: pickup.pickupService.identifiers.apiCode,
     date_time: pickup.timeWindow.startDateTime.toISOString(),
     zone: Number.parseInt(pickup.address.postalCode),
     contact_phone: pickup.contact.phoneNumber,
-    total_weight: pickup.shipments.reduce(
-      (w, ship) => w + ship.packages.reduce((w, pkg) => w + pkg.weight.ounces, 0), 0),
+    total_weight: pickup.shipments.reduce((w, ship) => w + ship.package.weight.ounces, 0),
   };
 
   // STEP 3: Call the carrier's API
@@ -43,7 +41,7 @@ function formatConfirmation(response: PickUpResponse): PickupConfirmationPOJO {
   let pickupDateTime = new Date(response.date_time);
 
   return {
-    confirmationNumber: response.id,
+    id: response.id,
     timeWindows: [
       {
         startDateTime: pickupDateTime,

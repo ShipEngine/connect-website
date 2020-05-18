@@ -2,8 +2,11 @@ import { Country, DeliveryServiceClass, DeliveryServiceDefinition, DeliveryServi
 import { adultSignature, photo, receipt, recipientSignature, signature } from "../delivery-confirmations";
 import { customerPackaging } from "../packaging/customer";
 
-const sameDay: DeliveryServiceDefinition = {
+export const sameDay: DeliveryServiceDefinition = {
   id: "8b69c0ff-9017-4e89-82dd-0dbfab691047",
+  identifiers: {
+    apiCode: "SAMEDY",
+  },
   name: "Same Day Delivery",
   description: "Same day delivery within major U.S. metropolitan areas",
   class: DeliveryServiceClass.OneDay,

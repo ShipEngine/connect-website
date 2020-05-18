@@ -3,8 +3,11 @@ import { adultSignature, recipientSignature, signature } from "../delivery-confi
 import { customerPackaging } from "../packaging/customer";
 import { fedExFlatRatePackaging } from "../packaging/fedex-flat-rate";
 
-const internationalPriority: DeliveryServiceDefinition = {
+export const internationalPriority: DeliveryServiceDefinition = {
   id: "f4bf9040-a84c-4761-a2f4-fb1a2b42e905",
+  identifiers: {
+    apiCode: "INTPRI",
+  },
   name: "International Priority",
   description:
     "Delivery typically in 1 to 3 business days, next business day to the U.S., Canada, Mexico and the Caribbean. " +

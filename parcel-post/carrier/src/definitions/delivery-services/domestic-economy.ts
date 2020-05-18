@@ -3,8 +3,11 @@ import { adultSignature, photo, recipientSignature, signature } from "../deliver
 import { customerPackaging } from "../packaging/customer";
 import { upsFlatRatePackaging } from "../packaging/ups-flat-rate";
 
-const domesticEconomy: DeliveryServiceDefinition = {
+export const domesticEconomy: DeliveryServiceDefinition = {
   id: "2c24a88f-a6ab-4082-9761-674e9280d5f8",
+  identifiers: {
+    apiCode: "DOMECO",
+  },
   name: "Domestic Economy",
   description: "5 - 7 day ground service within the U.S.",
   class: DeliveryServiceClass.Ground,

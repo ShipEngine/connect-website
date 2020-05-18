@@ -3,8 +3,11 @@ import { adultSignature, recipientSignature, signature } from "../delivery-confi
 import { customerPackaging } from "../packaging/customer";
 import { fedExFlatRatePackaging } from "../packaging/fedex-flat-rate";
 
-const internationalEconomy: DeliveryServiceDefinition = {
+export const internationalEconomy: DeliveryServiceDefinition = {
   id: "17669004-c971-4349-a81e-a82d80066f30",
+  identifiers: {
+    apiCode: "INTECO",
+  },
   name: "International Economy",
   description:
     "Ship packages economically to Canada, Mexico and Puerto Rico typically in 2 to 3 business days " +

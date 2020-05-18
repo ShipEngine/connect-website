@@ -1,5 +1,7 @@
 import { Currency, RateCriteria, RatePOJO, ShippingChargeType, Transaction } from "@shipengine/integration-platform-sdk";
-import { codeToID, idToCode } from "../id-code-map";
+import deliveryConfirmations from "../definitions/delivery-confirmations";
+import deliveryServices from "../definitions/delivery-services";
+import packaging from "../definitions/packaging";
 import { apiClient } from "../mock-api/client";
 import { QuoteRateResponseItem, QuoteRatesRequest, QuoteRatesResponse } from "../mock-api/quote-rates";
 import { Session } from "./session";
@@ -17,16 +19,14 @@ export default async function rateShipment(
   let data: QuoteRatesRequest = {
     operation: "quote_rates",
     session_id: transaction.session.id,
-    service_codes: shipment.deliveryServices.map(({id}) => idToCode(id)),
-    confirmation_codes: shipment.packages.reduce((codes, pkg) =>
-      codes.concat(pkg.deliveryConfirmations.map(({id}) => idToCode(id))), []),
-    parcel_codes: shipment.packages.reduce((codes, pkg) =>
-      codes.concat(pkg.packaging.map(({id}) => idToCode(id))), []),
+    service_codes: shipment.deliveryServices.map((svc) => svc.identifiers.apiCode),
+    confirmation_codes: shipment.package.deliveryConfirmations.map((svc) => svc.identifiers.apiCode),
+    parcel_codes: shipment.package.packaging.map((pkg) => pkg.identifiers.apiCode),
     ship_date: shipment.shipDateTime.toISOString(),
     delivery_date: shipment.deliveryDateTime.toISOString(),
     from_zone: parseInt(shipment.shipFrom.postalCode, 10),
     to_zone: parseInt(shipment.shipTo.postalCode, 10),
-    total_weight: shipment.packages.reduce((w, pkg) => w + pkg.weight.ounces, 0),
+    total_weight: shipment.package.weight.ounces,
   };
 
   // STEP 3: Call the carrier's API
@@ -41,18 +41,16 @@ export default async function rateShipment(
  */
 function formatRate(rate: QuoteRateResponseItem): RatePOJO {
   return {
-    deliveryServiceID: codeToID(rate.service_code),
+    deliveryService: deliveryServices.find((svc) => svc.identifiers.apiCode === rate.service_code),
     shipDateTime: new Date(rate.ship_date),
     deliveryDateTime: new Date(rate.delivery_date),
     maximumDeliveryDays: rate.delivery_days,
     isGuaranteed: true,
     isTrackable: true,
-    packages: [
-      {
-        packagingID: codeToID(rate.parcel_code),
-        deliveryConfirmationID: codeToID(rate.confirmation_code),
-      }
-    ],
+    packages: [{
+      packaging: packaging.find((pkg) => pkg.identifiers.apiCode === rate.parcel_code),
+      deliveryConfirmation: deliveryConfirmations.find((conf) => conf.identifiers.apiCode === rate.confirmation_code),
+    }],
     charges: [
       {
         name: "Service Charge",
