@@ -104,7 +104,7 @@ export async function validateTestSuite(app: App): Promise<void> {
       }
     });
 
-  mocha.run((failures) => {
+  mocha.timeout(20000).run((failures) => {
     process.exitCode = failures ? 1 : 0;
   });
 }

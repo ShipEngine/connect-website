@@ -1,7 +1,7 @@
 const { before } = require("mocha");
 const { expect } = require("chai");
 
-describe("The rate shipment method", () => {
+describe.skip("The rate shipment method", () => {
 
   before(async () => {
     // console.log(app);
