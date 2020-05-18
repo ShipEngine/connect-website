@@ -3,6 +3,7 @@ import * as path from "path";
 import Generator = require("yeoman-generator");
 import _ from "lodash";
 import { v4 as uuidv4 } from "uuid";
+import capitalization from "@shipengine/capitalization";
 
 const fixpack = require("@oclif/fixpack");
 const sortPjson = require("sort-pjson");
@@ -383,7 +384,7 @@ class AppsNew extends Generator {
           );
 
           this.fs.copyTpl(
-            this.templatePath("carrier/logo.svg"),
+            this.templatePath("logo.svg"),
             this.destinationPath("src/logo.svg"),
             this,
           );
@@ -402,6 +403,51 @@ class AppsNew extends Generator {
           this.fs.copyTpl(
             this.templatePath(`order-source/index.${this._definitionExt}`),
             this.destinationPath(`src/index.${this._definitionExt}`),
+            this,
+          );
+        }
+        break;
+      case "connection":
+        if (!fs.existsSync("src")) {
+          this.fs.copyTpl(
+            this.templatePath(`connection/index.${this._definitionExt}`),
+            this.destinationPath(`src/index.${this._definitionExt}`),
+            this,
+          );
+
+          this.fs.copyTpl(
+            this.templatePath(
+              `connection/forms/connect.${this._definitionExt}`,
+            ),
+            this.destinationPath(`src/forms/connect.${this._definitionExt}`),
+            this,
+          );
+
+          this.fs.copyTpl(
+            this.templatePath(
+              `connection/forms/settings.${this._definitionExt}`,
+            ),
+            this.destinationPath(`src/forms/settings.${this._definitionExt}`),
+            this,
+          );
+
+          this.fs.copyTpl(
+            this.templatePath(`connection/methods/connect.${this._codeExt}`),
+            this.destinationPath(`src/connect.${this._codeExt}`),
+            this,
+          );
+
+          if (this.ts) {
+            this.fs.copyTpl(
+              this.templatePath(`connection/methods/session.ts`),
+              this.destinationPath(`src/session.ts`),
+              this,
+            );
+          }
+
+          this.fs.copyTpl(
+            this.templatePath("logo.svg"),
+            this.destinationPath("src/logo.svg"),
             this,
           );
         }
@@ -450,7 +496,8 @@ class AppsNew extends Generator {
   }
 
   get _appName() {
-    return this.pjson.name;
+    const name = this.pjson.name.replace("@", "").replace("/", " ");
+    return capitalization.titleCase(name);
   }
 
   private _gitignore(): string {

@@ -44,7 +44,7 @@ function generateTestData(app) {
 
     // TODO: randomize weight values
     // TODO: Add support for calling from different countries
-    // TODO: Test different date time 
+    // TODO: Test different date time
     for (let labelFormat of deliveryService.labelFormats) {
 
       for (let labelSize of deliveryService.labelSizes) {
@@ -82,9 +82,9 @@ function generateTestData(app) {
           }
 
           testCounter = testCounter + 1;
-          let message = 
+          let message =
           `Create Shipment (${testCounter}): should return a valid shipment for the following request:
-          
+
           Delivery Service: ${deliveryService.name}
           Label Format: ${labelFormat}
           Label Size: ${labelSize}
