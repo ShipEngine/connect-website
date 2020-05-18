@@ -1,4 +1,6 @@
 id: 43fc9d24-6a89-428a-ad34-c614c14170b6
+identifiers:
+  apiCode: ECO
 name: International Economy
 description: Worldwide delivery at an affordable price
 class: ground

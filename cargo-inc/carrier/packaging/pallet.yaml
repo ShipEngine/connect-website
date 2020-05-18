@@ -1,4 +1,6 @@
 id: 59ea9801-9377-495d-a71c-71b65ced205f
+identifiers:
+  apiCode: PAL
 name: Pallet
 description: 1.2 Meter Square Wood Pallet
 requiresWeight: true
