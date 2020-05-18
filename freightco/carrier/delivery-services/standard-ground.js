@@ -2,6 +2,9 @@
 
 module.exports = {
   id: "2c24a88f-a6ab-4082-9761-674e9280d5f8",
+  identifiers: {
+    apiCode: "STD"
+  },
   name: "Standard Ground",
   description: "5 - 7 day ground service to any NAFTA trade country",
   class: "ground",

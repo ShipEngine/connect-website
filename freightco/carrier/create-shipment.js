@@ -1,7 +1,6 @@
 "use strict";
 
 const apiClient = require("./mock-api/client");
-const { idToCode } = require("./id-code-map");
 const box = require("./packaging/box");
 
 /**
@@ -19,12 +18,12 @@ async function createShipment(transaction, shipment) {
   let data = {
     operation: "generate_label",
     session_id: transaction.session.id,
-    service_code: idToCode(shipment.deliveryService.id),
-    confirmation_code: idToCode(shipment.packages[0].deliveryConfirmation.id),
+    service_code: shipment.deliveryService.identifiers.apiCode,
+    confirmation_code: shipment.package.deliveryConfirmation.identifiers.apiCode,
     ship_date: shipment.shipDateTime.toISOString(),
     from_zone: parseInt(shipment.shipFrom.postalCode, 10),
     to_zone: parseInt(shipment.shipTo.postalCode, 10),
-    total_weight: shipment.packages.reduce((w, pkg) => w + pkg.weight.ounces, 0),
+    total_weight: shipment.package.weight.ounces,
   };
 
   // STEP 3: Call the carrier's API

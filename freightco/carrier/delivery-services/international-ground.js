@@ -2,6 +2,9 @@
 
 module.exports = {
   id: "43fc9d24-6a89-428a-ad34-c614c14170b6",
+  identifiers: {
+    apiCode: "INTL"
+  },
   name: "International Ground",
   description: "3-day ground delivery to any NAFTA trade country",
   class: "three_day",

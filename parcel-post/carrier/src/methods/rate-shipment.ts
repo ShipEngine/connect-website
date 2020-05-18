@@ -20,7 +20,7 @@ export default async function rateShipment(
     operation: "quote_rates",
     session_id: transaction.session.id,
     service_codes: shipment.deliveryServices.map((svc) => svc.identifiers.apiCode),
-    confirmation_codes: shipment.package.deliveryConfirmations.map((svc) => svc.identifiers.apiCode),
+    confirmation_codes: shipment.package.deliveryConfirmations.map((conf) => conf.identifiers.apiCode),
     parcel_codes: shipment.package.packaging.map((pkg) => pkg.identifiers.apiCode),
     ship_date: shipment.shipDateTime.toISOString(),
     delivery_date: shipment.deliveryDateTime.toISOString(),
