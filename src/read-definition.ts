@@ -1,6 +1,6 @@
 import { humanize } from "@jsdevtools/humanize-anything";
 import { ono } from "@jsdevtools/ono";
-import { DynamicImport, InlineOrReference } from "@shipengine/integration-platform-sdk";
+import { DynamicImport, InlineOrReference, InlineOrReferenceArray } from "@shipengine/integration-platform-sdk";
 import * as path from "path";
 import * as resolveFrom from "resolve-from";
 import { fileCache } from "./file-cache";
@@ -22,9 +22,8 @@ export async function readDefinitionValue<T>(definition: InlineOrReference<T>, c
   return value;
 }
 
-
 /**
- * Reads an ShipEngine Integration Platform definition that is expected to be a single value.
+ * Reads a ShipEngine Integration Platform definition that is expected to be an array of values.
  * The definition can be any of:
  *
  *    - an inline value
@@ -36,6 +35,27 @@ export async function readDefinitionValue<T>(definition: InlineOrReference<T>, c
  *
  * @returns A tuple containing the definition value and the directory path of the definition file
  */
+export async function readDefinitions<T>(definition: InlineOrReferenceArray<T>, cwd: string, fieldName: string): Promise<[T[], string]>;
+export async function readDefinitions<T>(definition: InlineOrReferenceArray<T> | undefined, cwd: string, fieldName: string): Promise<[T[] | undefined, string]>;
+export async function readDefinitions<T>(definition: InlineOrReferenceArray<T>, cwd: string, fieldName: string): Promise<[T[], string]> {
+  return readDefinition(definition, cwd, fieldName) as unknown as [T[], string];
+}
+
+/**
+ * Reads a ShipEngine Integration Platform definition that is expected to be a single value.
+ * The definition can be any of:
+ *
+ *    - an inline value
+ *    - a YAML file path
+ *    - a JSON file path
+ *    - a JavaScript file path
+ *    - a TypeScript file path
+ *    - a dynamic import via `require()` or `import()`
+ *
+ * @returns A tuple containing the definition value and the directory path of the definition file
+ */
+export async function readDefinition<T>(definition: InlineOrReference<T>, cwd: string, fieldName: string): Promise<[T, string]>;
+export async function readDefinition<T>(definition: InlineOrReference<T> | undefined, cwd: string, fieldName: string): Promise<[T | undefined, string]>;
 export async function readDefinition<T>(definition: InlineOrReference<T>, cwd: string, fieldName: string): Promise<[T, string]> {
   try {
     if (typeof definition === "string") {

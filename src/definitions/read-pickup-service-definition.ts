@@ -1,5 +1,5 @@
 import { InlineOrReference, InlineOrReferenceArray, PickupServiceDefinition, PickupServicePOJO } from "@shipengine/integration-platform-sdk";
-import { readDefinition, readDefinitionValue } from "../read-definition";
+import { readDefinitions, readDefinitionValue } from "../read-definition";
 import { readLocalizationDefinition } from "./read-localization-definition";
 
 /**
@@ -24,11 +24,12 @@ export async function readPickupServiceArrayDefinition(
 definitions: InlineOrReferenceArray<PickupServiceDefinition> | undefined, cwd: string, fieldName: string)
 : Promise<PickupServicePOJO[] | undefined> {
 
-  [definitions, cwd] = await readDefinition(definitions, cwd, fieldName);
+  let array: PickupServiceDefinition[] | undefined;
+  [array, cwd] = await readDefinitions(definitions, cwd, fieldName);
 
-  if (Array.isArray(definitions)) {
+  if (Array.isArray(array)) {
     definitions = await Promise.all(
-      definitions.map((service, index) => readPickupServiceDefinition(service, cwd, `${fieldName}[${index}]`))
+      array.map((service, index) => readPickupServiceDefinition(service, cwd, `${fieldName}[${index}]`))
     );
 
     return definitions as PickupServicePOJO[];

@@ -1,5 +1,5 @@
 import { DeliveryConfirmationDefinition, DeliveryConfirmationPOJO, InlineOrReference, InlineOrReferenceArray } from "@shipengine/integration-platform-sdk";
-import { readDefinition, readDefinitionValue } from "../read-definition";
+import { readDefinitions, readDefinitionValue } from "../read-definition";
 import { readLocalizationDefinition } from "./read-localization-definition";
 
 /**
@@ -24,11 +24,12 @@ export async function readDeliveryConfirmationArrayDefinition(
 definitions: InlineOrReferenceArray<DeliveryConfirmationDefinition> | undefined, cwd: string, fieldName: string)
 : Promise<DeliveryConfirmationPOJO[] | undefined> {
 
-  [definitions, cwd] = await readDefinition(definitions, cwd, fieldName);
+  let array: DeliveryConfirmationDefinition[] | undefined;
+  [array, cwd] = await readDefinitions(definitions, cwd, fieldName);
 
-  if (Array.isArray(definitions)) {
+  if (Array.isArray(array)) {
     definitions = await Promise.all(
-      definitions.map((service, index) => readDeliveryConfirmationDefinition(service, cwd, `${fieldName}[${index}]`))
+      array.map((service, index) => readDeliveryConfirmationDefinition(service, cwd, `${fieldName}[${index}]`))
     );
 
     return definitions as DeliveryConfirmationPOJO[];
