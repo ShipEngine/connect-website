@@ -2,6 +2,9 @@ import { loadApp, App } from "@shipengine/integration-platform-loader";
 import Mocha from "mocha";
 import * as path from "path";
 import readdir from "recursive-readdir";
+
+export const testSuites = ["create-shipment", "rate-shipment", "schedule-pickup"];
+
 export class InvalidAppError extends Error {
   errors: string[];
 
@@ -50,7 +53,15 @@ export async function validateApp(pathToApp: string): Promise<App> {
   }
 }
 
-export async function validateTestSuite(app: App): Promise<void> {
+export async function validateTestSuite(app: App, argv: string[]): Promise<void> {
+
+  if (argv[0]) {
+    process.env["TEST-SUITE"] = argv[0];
+  }
+
+  if (argv[1]) {
+    process.env["TEST-NUMBER"] = argv[1];
+  }
 
   // Find all defined methods.
   const carrierAppMethods = ["createShipment", "cancelShipments", "rateShipment", "track", "createManifest", "schedulePickup", "cancelPickup"];
@@ -64,7 +75,7 @@ export async function validateTestSuite(app: App): Promise<void> {
     }
   }
   else if (app.type === "connection") {
-    if(Reflect.get(app.connection, "connect")) {
+    if (Reflect.get(app.connection, "connect")) {
       appMethods.push("connect");
     }
   }
@@ -99,16 +110,30 @@ export async function validateTestSuite(app: App): Promise<void> {
       return file.substr(-3) === '.js';
     })
     .forEach((file) => {
-      // Only add method test suites that are defined in the Integration App that is being tested.
-      for (let appMethod of appMethods) {
-        if (file.includes(testSuiteMap[appMethod]) || ignoreFiles.some(ignoreFile => file.includes(ignoreFile))) {
-          mocha.addFile(file);
+
+      if (argv[0]) {
+        if (file.includes(argv[0]) || ignoreFiles.some(ignoreFile => file.includes(ignoreFile))) {
+          addMochaFile(mocha, file);
+        }
+      }
+      else {
+        // Only add method test suites that are defined in the Integration App that is being tested.
+        for (let appMethod of appMethods) {
+          if (file.includes(testSuiteMap[appMethod]) || ignoreFiles.some(ignoreFile => file.includes(ignoreFile))) {
+            // Checke to make sure 
+            addMochaFile(mocha, file);
+          }
         }
       }
     });
 
-
   mocha.run((failures) => {
     process.exitCode = failures ? 1 : 0;
   });
+}
+
+function addMochaFile(mocha: Mocha, file: string) {
+  if(!mocha.files.includes(file)) {
+    mocha.addFile(file);
+  }
 }

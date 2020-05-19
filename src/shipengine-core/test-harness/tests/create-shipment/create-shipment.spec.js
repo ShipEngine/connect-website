@@ -16,16 +16,17 @@ async function loadApp() {
 
 setTimeout(() => {
   describe("The create shipment method", () => {
+    const onlyTestNumber = process.env["TEST-NUMBER"];
 
-    for (let generatedTest of tests) {
-      it(generatedTest[2], async () => {
-        // expect(true).to.equal(true);
-        await expect(app.carrier.createShipment(generatedTest[0], generatedTest[1])).to.not.be.rejected;
-      });
+    for (let i = 0; i < tests.length; i++) {
+      let generatedTest = tests[i];
+      if(!onlyTestNumber || (onlyTestNumber && i === Number(onlyTestNumber) - 1)) {
+        it(generatedTest[2], async () => {
+          // TODO: error message is not formatted very well, make it more readable for the end user.
+          await expect(app.carrier.createShipment(generatedTest[0], generatedTest[1])).to.not.be.rejected;
+        });
+      }
     }
-    // it("should handle a ship date that is a date time pojo", () => {
-    // });
-
   });
   run();
 }, 1000);
@@ -51,8 +52,7 @@ function generateTests(app) {
 
     // TODO: randomize weight values
     // TODO: Add support for calling from different countries
-
-
+    // TODO: Test different date time 
     for (let labelFormat of deliveryService.labelFormats) {
 
       for (let labelSize of deliveryService.labelSizes) {
@@ -80,19 +80,19 @@ function generateTests(app) {
               unit: "g"
             }
           };
-          
+
           newShipmentPOJO.packages = [];
           newShipmentPOJO.packages.push(packagePOJO);
 
           let debugString = JSON.stringify(newShipmentPOJO, undefined, 2);
-            
+
           testCounter = testCounter + 1;
           let message = `Create Shipment (${testCounter}): should return a valid shipment for the following request:
           Delivery Service: ${deliveryService.name}
           Label Format: ${labelFormat}
           Label Size: ${labelSize}
           Delivery Confirmation: ${deliveryConfirmation.name}`;
-          
+
           generatedTests.push([transactionPOJO, newShipmentPOJO, message]);
 
           //   for (let originCountry of deliveryService.originCountries) {

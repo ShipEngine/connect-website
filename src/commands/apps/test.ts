@@ -7,6 +7,8 @@ import {
 } from "../../shipengine-core/validate-app";
 import chalk from "chalk";
 import { App } from "@shipengine/integration-platform-loader";
+import { flags } from "@oclif/command";
+import { testSuites } from "../../shipengine-core/validate-app"
 let app: App;
 
 export default class Test extends BaseCommand {
@@ -14,9 +16,28 @@ export default class Test extends BaseCommand {
 
   static examples = ["$ shipengine apps:test"];
 
+  static flags = {
+    help: flags.help({char: "h"})
+  }
+
+  static args = [
+    {
+      name: "test suite",
+      required: false,
+      description: "Name of test suite to only run",
+      options: testSuites
+    },
+    {
+      name: "test number",
+      required: false,
+      description: "Number within the test suite to run"
+    }
+  ]
+
   async run() {
     const pathToApp = `${process.cwd()}`;
 
+    const { argv } = this.parse(Test);
 
     try {
       app = await validateApp(pathToApp);
@@ -44,7 +65,7 @@ export default class Test extends BaseCommand {
     // Run test suite
 
     try {
-      await validateTestSuite(app);
+      await validateTestSuite(app, argv);
     } catch (error) {
       throw error;
     }
