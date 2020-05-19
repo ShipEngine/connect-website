@@ -17,7 +17,11 @@ export default class Test extends BaseCommand {
   static examples = ["$ shipengine apps:test"];
 
   static flags = {
-    help: flags.help({char: "h"})
+    help: flags.help({char: "h"}),
+    debug: flags.boolean({
+      char: "d",
+      description: "Provides additional logs to test output"
+    })
   }
 
   static args = [
@@ -37,7 +41,11 @@ export default class Test extends BaseCommand {
   async run() {
     const pathToApp = `${process.cwd()}`;
 
-    const { argv } = this.parse(Test);
+    const { argv, flags } = this.parse(Test);
+
+    if(flags.debug) {
+      process.env["TEST_DEBUG"] = "true";
+    }
 
     try {
       app = await validateApp(pathToApp);

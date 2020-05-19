@@ -1,6 +1,7 @@
 const generateAddress = require("../../utils/address");
 const { v4: uuidv4 } = require('uuid');
 const loadApp = require("../../utils/load-app");
+const generateCarrierTests = require("../../utils/generate-tests");
 
 let tests;
 
@@ -9,30 +10,20 @@ let tests;
  */
 async function initialSetup() {
   let app = await loadApp();
-  tests = generateTests(app);
+  tests = generateTestData(app);
 }
 
 initialSetup();
 
 setTimeout(() => {
   describe("The create shipment method", () => {
-    const onlyTestNumber = process.env["TEST-NUMBER"];
-
-    for (let i = 0; i < tests.length; i++) {
-      let generatedTest = tests[i];
-      if (!onlyTestNumber || (onlyTestNumber && i === Number(onlyTestNumber) - 1)) {
-        it(generatedTest[2], async () => {
-          // TODO: error message is not formatted very well, make it more readable for the end user.
-          await expect(app.carrier.createShipment(generatedTest[0], generatedTest[1])).to.not.be.rejected;
-        });
-      }
-    }
+    generateCarrierTests(tests, "createShipment");
   });
 
   run();
 }, 1000);
 
-function generateTests(app) {
+function generateTestData(app) {
 
   let generatedTests = [];
 
@@ -85,17 +76,22 @@ function generateTests(app) {
           newShipmentPOJO.packages = [];
           newShipmentPOJO.packages.push(packagePOJO);
 
-          let debugString = JSON.stringify(newShipmentPOJO, undefined, 2);
+          let debugString;
+          if (process.env["TEST_DEBUG"]) {
+            debugString = JSON.stringify(newShipmentPOJO, undefined, 2);
+          }
 
           testCounter = testCounter + 1;
-          let message = `Create Shipment (${testCounter}): should return a valid shipment for the following request:
+          let message = 
+          `Create Shipment (${testCounter}): should return a valid shipment for the following request:
+          
           Delivery Service: ${deliveryService.name}
           Label Format: ${labelFormat}
           Label Size: ${labelSize}
-          Delivery Confirmation: ${deliveryConfirmation.name}`;
+          Delivery Confirmation: ${deliveryConfirmation.name}
+          ${debugString ? debugString : ""}`;
 
           generatedTests.push([transactionPOJO, newShipmentPOJO, message]);
-
           //   for (let originCountry of deliveryService.originCountries) {
           //     for (let destinationCountry of deliveryService.destinationCountries) {
           //       for (let package of deliveryService.packaging) {
