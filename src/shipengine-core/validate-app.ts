@@ -81,7 +81,10 @@ export async function validateTestSuite(app: App): Promise<void> {
     "connect": "connect"
   }
 
-  const mocha = new Mocha();
+  const mocha = new Mocha({
+    delay: true,
+    timeout: 20000
+  });
   const testDir = path.join(__dirname, "test-harness");
 
   // Add each .js file to the mocha instance
@@ -104,7 +107,8 @@ export async function validateTestSuite(app: App): Promise<void> {
       }
     });
 
-  mocha.timeout(20000).run((failures) => {
+
+  mocha.run((failures) => {
     process.exitCode = failures ? 1 : 0;
   });
 }

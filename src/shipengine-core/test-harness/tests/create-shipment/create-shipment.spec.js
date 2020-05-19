@@ -1,55 +1,63 @@
 const { before } = require("mocha");
 const { expect } = require("chai");
-// const { NewShipment, Transaction } = require("@shipengine/integration-platform-sdk")
 const generateAddress = require("../../utils/address");
 const appLoader = require("@shipengine/integration-platform-loader");
 const { v4: uuidv4 } = require('uuid');
 
 let newShipmentResult;
-let newShipmentPOJO;
-let app;
-describe("The create shipment method", async () => {
+let tests;
 
-  before(async () => {
-    app = await appLoader.loadApp(process.cwd());
+loadApp();
 
-    newShipmentPOJO = {
-      deliveryServiceID: "",
-      shipFrom: generateAddress("US"),
-      shipTo: generateAddress("US"),
-      // returnTo: undefined,
-      shipDateTime: new Date(),
-      // insuranceProvider: undefined,
-      // returns?: "",
-      // billing: undefined,
-      packages: []
-    };
+async function loadApp() {
+  let app = await appLoader.loadApp(process.cwd());
+  tests = generateTests(app);
+}
+
+setTimeout(() => {
+  describe("The create shipment method", () => {
+
+    for (let generatedTest of tests) {
+      it(generatedTest[2], async () => {
+        // expect(true).to.equal(true);
+        await expect(app.carrier.createShipment(generatedTest[0], generatedTest[1])).to.not.be.rejected;
+      });
+    }
+    // it("should handle a ship date that is a date time pojo", () => {
+    // });
 
   });
+  run();
+}, 1000);
 
-  describe("test describe", async () => {
-    before(async () => {
+function generateTests(app) {
 
-      for (let deliveryService of app.carrier.deliveryServices) {
-        newShipmentPOJO.deliveryServiceID = deliveryService.id;
+  let generatedTests = [];
 
-        const packagePOJO = {
-          packagingID: deliveryService.packaging[0].id,
-          label: {
-            size: "4x6",
-            format: "pdf"
-          },
-          weight: {
-            value: 1.0,
-            unit: "g"
-          }
-        };
+  let newShipmentPOJO = {
+    shipFrom: generateAddress("US"),
+    shipTo: generateAddress("US"),
+    // returnTo: undefined,
+    shipDateTime: new Date(),
+    // insuranceProvider: undefined,
+    // returns?: "",
+    // billing: undefined,
+    packages: []
+  };
 
-        newShipmentPOJO.packages.push(packagePOJO);
+  let testCounter = 0;
+  for (let deliveryService of app.carrier.deliveryServices) {
+    newShipmentPOJO.deliveryService = { id: deliveryService.id };
 
-        for(let deliveryConfirmation of deliveryService.deliveryConfirmations) {
-        
-          packagePOJO.deliveryConfirmationID = deliveryConfirmation.id;
+    // TODO: randomize weight values
+    // TODO: Add support for calling from different countries
+
+
+    for (let labelFormat of deliveryService.labelFormats) {
+
+      for (let labelSize of deliveryService.labelSizes) {
+
+        for (let deliveryConfirmation of deliveryService.deliveryConfirmations) {
 
           let transactionPOJO = {
             id: uuidv4(),
@@ -60,33 +68,45 @@ describe("The create shipment method", async () => {
             }
           };
 
-          newShipmentResult = await app.carrier.createShipment(transactionPOJO, newShipmentPOJO);
-          console.log(newShipmentResult);
+          const packagePOJO = {
+            deliveryConfirmation: { id: deliveryConfirmation.id },
+            packaging: { id: deliveryService.packaging[0].id },
+            label: {
+              size: labelSize,
+              format: labelFormat
+            },
+            weight: {
+              value: 1.0,
+              unit: "g"
+            }
+          };
+          
+          newShipmentPOJO.packages = [];
+          newShipmentPOJO.packages.push(packagePOJO);
+
+          let debugString = JSON.stringify(newShipmentPOJO, undefined, 2);
+            
+          testCounter = testCounter + 1;
+          let message = `Create Shipment (${testCounter}): should return a valid shipment for the following request:
+          Delivery Service: ${deliveryService.name}
+          Label Format: ${labelFormat}
+          Label Size: ${labelSize}
+          Delivery Confirmation: ${deliveryConfirmation.name}`;
+          
+          generatedTests.push([transactionPOJO, newShipmentPOJO, message]);
+
           //   for (let originCountry of deliveryService.originCountries) {
           //     for (let destinationCountry of deliveryService.destinationCountries) {
-          //       for (let labelFormat of deliveryService.labelFormats) {
-          //         for (let labelSize of deliveryService.labelSizes) {
-          //         }A
-          //       }
           //       for (let package of deliveryService.packaging) {
           //       }
           //     }
           //   }
         }
+
       }
-    });
+    }
 
-    it("should handle a ship date that is a date time pojo", () => {
-      expect(true).to.equal(true);
-    });
+  }
 
-  })
-
-  it("should handle a ship date that is a date time pojo");
-
-  it("should handle a ship date that is a date time object");
-
-  it("should handle a ship date that is a date time string");
-
-
-});
+  return generatedTests;
+}

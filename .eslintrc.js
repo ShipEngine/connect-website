@@ -10,4 +10,9 @@ module.exports = {
     "prettier",
     "prettier/@typescript-eslint",
   ],
+  globals: {
+    app: "readOnly",
+    expect: "readOnly",
+    before: "readOnly"
+  }
 };
