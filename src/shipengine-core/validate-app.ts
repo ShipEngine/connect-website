@@ -5,6 +5,12 @@ import readdir from "recursive-readdir";
 
 export const testSuites = ["create-shipment", "rate-shipment", "schedule-pickup"];
 
+function addMochaFile(mocha: Mocha, file: string) {
+  if(!mocha.files.includes(file)) {
+    mocha.addFile(file);
+  }
+}
+
 export class InvalidAppError extends Error {
   errors: string[];
 
@@ -132,8 +138,3 @@ export async function validateTestSuite(app: App, argv: string[]): Promise<void>
   });
 }
 
-function addMochaFile(mocha: Mocha, file: string) {
-  if(!mocha.files.includes(file)) {
-    mocha.addFile(file);
-  }
-}

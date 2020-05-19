@@ -1,18 +1,18 @@
-const { before } = require("mocha");
-const { expect } = require("chai");
 const generateAddress = require("../../utils/address");
-const appLoader = require("@shipengine/integration-platform-loader");
 const { v4: uuidv4 } = require('uuid');
+const loadApp = require("../../utils/load-app");
 
-let newShipmentResult;
 let tests;
 
-loadApp();
-
-async function loadApp() {
-  let app = await appLoader.loadApp(process.cwd());
+/**
+ * Need to load the app to be able to gen
+ */
+async function initialSetup() {
+  let app = await loadApp();
   tests = generateTests(app);
 }
+
+initialSetup();
 
 setTimeout(() => {
   describe("The create shipment method", () => {
@@ -20,7 +20,7 @@ setTimeout(() => {
 
     for (let i = 0; i < tests.length; i++) {
       let generatedTest = tests[i];
-      if(!onlyTestNumber || (onlyTestNumber && i === Number(onlyTestNumber) - 1)) {
+      if (!onlyTestNumber || (onlyTestNumber && i === Number(onlyTestNumber) - 1)) {
         it(generatedTest[2], async () => {
           // TODO: error message is not formatted very well, make it more readable for the end user.
           await expect(app.carrier.createShipment(generatedTest[0], generatedTest[1])).to.not.be.rejected;
@@ -28,6 +28,7 @@ setTimeout(() => {
       }
     }
   });
+
   run();
 }, 1000);
 
