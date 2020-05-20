@@ -14,7 +14,7 @@ export default class New extends BaseCommand {
     }),
     yes: flags.boolean({
       description:
-        "skips the questions and uses the defaults (carrier|npm|TypeScript)",
+        "skips the questions and uses the defaults (carrier|TypeScript)",
       char: "y",
     }),
     help: flags.help({ char: "h" }),

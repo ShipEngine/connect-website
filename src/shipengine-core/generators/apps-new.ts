@@ -1,8 +1,7 @@
-import _ from "lodash";
 import * as fs from "fs";
 import * as path from "path";
-import { execSync } from "child_process";
 import Generator = require("yeoman-generator");
+import _ from "lodash";
 import { v4 as uuidv4 } from "uuid";
 
 const fixpack = require("@oclif/fixpack");
@@ -10,17 +9,13 @@ const sortPjson = require("sort-pjson");
 
 const isWindows = process.platform === "win32";
 
-let hasYarn = false;
-
-try {
-  execSync("yarn -v", { stdio: "ignore" });
-  hasYarn = true;
-} catch {}
+type AppTypes = "carrier" | "order source" | "connection";
+type DefinitionTypes = "pojo" | "json" | "yaml";
 
 class AppsNew extends Generator {
   args!: { [k: string]: string };
 
-  type: "carrier" | "order source";
+  type: AppTypes;
 
   path: string;
 
@@ -31,28 +26,28 @@ class AppsNew extends Generator {
   answers!: {
     name: string;
     scope: string;
-    type: "carrier" | "order source";
+    type: AppTypes;
     description: string;
     version: string;
     github: { repo: string; user: string };
     author: string;
     license: string;
-    pkg: string;
     typescript: boolean;
-    definitions: "pojo" | "json" | "yaml";
+    definitions: DefinitionTypes;
   };
 
   ts!: boolean;
 
   npm!: boolean;
 
-  definitions!: "pojo" | "json" | "yaml";
+  definitions!: DefinitionTypes;
 
   repository?: string;
 
   constructor(args: any, opts: any) {
     super(args, opts);
 
+    this.npm = true;
     this.path = opts.path;
     this.type = "carrier";
   }
@@ -77,11 +72,9 @@ class AppsNew extends Generator {
       ...this.fs.readJSON("package.json", {}),
     };
 
-    let repository = this.destinationRoot().split(path.sep).slice(-2).join("/");
-
-    if (this.githubUser) {
-      repository = `${this.githubUser}/${repository.split("/")[1]}`;
-    }
+    const scopePresentInName = (name: string): boolean => {
+      return !!name.match(/^@[a-z0-9-*~][a-z0-9-*._~]*/);
+    };
 
     const defaults = {
       name: this.determineAppname().replace(/ /g, "-"),
@@ -93,22 +86,14 @@ class AppsNew extends Generator {
         ? `${this.user.git.name()} @${this.githubUser}`
         : this.user.git.name(),
       dependencies: {},
-      repository,
       ...this.pjson,
       engines: {
         node: ">=8.0.0",
         ...this.pjson.engines,
       },
-      pkg: "npm",
-      typescript: true,
-      definitions: "pojo",
+      typescript: false,
+      definitions: "yaml",
     };
-
-    this.repository = defaults.repository;
-
-    if (this.repository && (this.repository as any).url) {
-      this.repository = (this.repository as any).url;
-    }
 
     if (this.options.skipQuestions) {
       this.answers = defaults;
@@ -120,12 +105,25 @@ class AppsNew extends Generator {
           message: "npm package name",
           default: defaults.name,
           when: !this.pjson.name,
+          validate: (value: string) => {
+            const re = /^(?:@[a-z0-9-*~][a-z0-9-*._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/;
+            const pass = value.match(re);
+
+            if (pass) {
+              return true;
+            }
+
+            return "please enter a valid npm package name (ex: shipengine-integration)";
+          },
         },
         {
           type: "input",
           name: "scope",
           message: "npm package scope (e.g. @shipengine)",
           default: defaults.scope,
+          when: (answers: any) => {
+            return !scopePresentInName(answers.name);
+          },
           validate: (value: string) => {
             const re = /^@[a-z0-9-~][a-z0-9-._~]*$/;
             const pass = value.match(re);
@@ -134,16 +132,17 @@ class AppsNew extends Generator {
               return true;
             }
 
-            return "Please enter a valid npm scope name (ex: @shipengine)";
+            return "please enter a valid npm scope (ex: @shipengine)";
           },
         },
         {
           type: "list",
           name: "type",
-          message: "what type of app",
+          message: "what type of app are you building",
           choices: [
-            { name: "carrier", value: "carrier" },
-            // { name: "order source", value: "order source" },
+            { name: "carrier ", value: "carrier" },
+            { name: "order source", value: "order source" },
+            { name: "connection", value: "connection" },
           ],
           default: defaults.type,
         },
@@ -169,63 +168,37 @@ class AppsNew extends Generator {
           when: !this.pjson.version,
         },
         {
-          type: "input",
-          name: "license",
-          message: "license",
-          default: defaults.license,
-          when: !this.pjson.license,
-        },
-        {
-          type: "input",
-          name: "github.user",
-          message:
-            "Who is the GitHub owner of repository (https://github.com/OWNER/repo)",
-          default: repository.split("/").slice(0, -1).pop(),
-          when: !this.pjson.repository,
-        },
-        {
-          type: "input",
-          name: "github.repo",
-          message:
-            "What is the GitHub name of repository (https://github.com/owner/REPO)",
-          default: (answers: any) =>
-            (this.pjson.repository || answers.name || this.pjson.name)
-              .split("/")
-              .pop(),
-          when: !this.pjson.repository,
-        },
-        {
           type: "list",
-          name: "pkg",
-          message: "Select a package manager",
-          choices: [
-            { name: "npm", value: "npm" },
-            { name: "yarn", value: "yarn" },
-          ],
-          default: () => (hasYarn ? 1 : 0 || defaults.pkg),
-        },
-        {
-          type: "confirm",
           name: "typescript",
-          message: "TypeScript",
+          message: "which language would you like to use",
+          choices: [
+            {
+              name: "Javascript",
+              value: false,
+            },
+            {
+              name: "TypeScript",
+              value: true,
+            },
+          ],
           default: defaults.typescript,
         },
         {
           type: "list",
           name: "definitions",
-          message: "App definitions file type",
+          message: "app definitions file type",
           choices: [
             {
-              name: "pojo (TypeScript or Javascript objects)",
-              value: "pojo",
+              name: "yaml",
+              value: "yaml",
             },
             {
               name: "json",
               value: "json",
             },
             {
-              name: "yaml",
-              value: "yaml",
+              name: "pojo (TypeScript or Javascript objects)",
+              value: "pojo",
             },
           ],
           default: defaults.definitions,
@@ -235,31 +208,26 @@ class AppsNew extends Generator {
 
     this.type = this.answers.type;
     this.ts = this.answers.typescript;
-    this.npm = this.answers.pkg === "npm";
     this.definitions = this.answers.definitions;
 
-    this.pjson.name = `${this.answers.scope || defaults.scope}/${
-      this.answers.name || defaults.name
-    }`;
+    if (scopePresentInName(this.answers.name)) {
+      this.pjson.name = this.answers.name || defaults.name;
+    } else {
+      this.pjson.name = `${this.answers.scope || defaults.scope}/${
+        this.answers.name || defaults.name
+      }`;
+    }
+
     this.pjson.description = this.answers.description || defaults.description;
     this.pjson.version = this.answers.version || defaults.version;
     this.pjson.engines.node = defaults.engines.node;
     this.pjson.author = this.answers.author || defaults.author;
-    this.pjson.license = this.answers.license || defaults.license;
-    this.repository = this.pjson.repository = this.answers.github
-      ? `${this.answers.github.user}/${this.answers.github.repo}`
-      : defaults.repository;
+    this.pjson.license = defaults.license;
 
     this.pjson.keywords = defaults.keywords || [
       "ShipEngine",
       `${this.type} app`,
     ];
-
-    this.pjson.homepage =
-      defaults.homepage || `https://github.com/${this.pjson.repository}`;
-
-    this.pjson.bugs =
-      defaults.bugs || `https://github.com/${this.pjson.repository}/issues`;
 
     this.pjson.main = this.pJsonMain();
 
@@ -328,6 +296,26 @@ class AppsNew extends Generator {
             ),
             this.destinationPath(
               `src/definitions/example-delivery-service.${this._definitionExt}`,
+            ),
+            this,
+          );
+
+          this.fs.copyTpl(
+            this.templatePath(
+              `carrier/definitions/example-delivery-confirmation.${this._definitionExt}`,
+            ),
+            this.destinationPath(
+              `src/definitions/example-delivery-confirmation.${this._definitionExt}`,
+            ),
+            this,
+          );
+
+          this.fs.copyTpl(
+            this.templatePath(
+              `carrier/definitions/example-packaging.${this._definitionExt}`,
+            ),
+            this.destinationPath(
+              `src/definitions/example-packaging.${this._definitionExt}`,
             ),
             this,
           );
@@ -425,7 +413,7 @@ class AppsNew extends Generator {
     const dependencies: string[] = [];
     const devDependencies: string[] = [];
 
-    devDependencies.push("@shipengine/integration-platform-sdk@0.0.8");
+    devDependencies.push("@shipengine/integration-platform-sdk@0.0.13");
 
     if (this.ts) {
       devDependencies.push("@types/node@^13.13.5");
@@ -433,24 +421,12 @@ class AppsNew extends Generator {
 
     if (isWindows) devDependencies.push("rimraf");
 
-    const yarnOpts = {} as any;
+    await this.npmInstall(devDependencies, {
+      "save-dev": true,
+      ignoreScripts: true,
+    });
 
-    if (process.env.YARN_MUTEX) yarnOpts.mutex = process.env.YARN_MUTEX;
-    const install = (deps: string[], opts: object) =>
-      this.npm ? this.npmInstall(deps, opts) : this.yarnInstall(deps, opts);
-    const dev = this.npm ? { "save-dev": true } : { dev: true };
-    const save = this.npm ? { save: true } : {};
-
-    try {
-      await install(devDependencies, {
-        ...yarnOpts,
-        ...dev,
-        ignoreScripts: true,
-      });
-      await install(dependencies, { ...yarnOpts, ...save });
-    } catch (error) {
-      throw error;
-    }
+    await this.npmInstall(dependencies, { save: true });
   }
 
   end() {
@@ -471,6 +447,10 @@ class AppsNew extends Generator {
 
   get _uuidv4() {
     return uuidv4();
+  }
+
+  get _appName() {
+    return this.pjson.name;
   }
 
   private _gitignore(): string {

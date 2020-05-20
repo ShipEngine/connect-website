@@ -2,10 +2,12 @@
 
 module.exports = {
   id: "<%- _uuidv4 %>",
-  name: "<%- pjson.name %>",
+  name: "<%- _appName %>",
   description: "<%- pjson.description %>",
   logo: "./logo.svg",
   websiteURL: "https://example-carrier.com",
+  manifestLocations: "single_location",
+  manifestShipments: "explicit_shipments",
   cancelPickups: "./methods/cancel-pickups.js",
   cancelShipments: "./methods/cancel-shipments.js",
   createManifest: "./methods/create-manifest.js",

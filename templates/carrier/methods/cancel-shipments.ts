@@ -1,6 +1,6 @@
 import {
   ShipmentCancellation,
-  ShipmentCancellationConfirmationPOJO,
+  ShipmentCancellationOutcomePOJO,
   Transaction,
 } from "@shipengine/integration-platform-sdk";
 import { Session } from "./session";
@@ -12,7 +12,7 @@ import { Session } from "./session";
 export default async function cancelShipments(
   transaction: Transaction<Session>,
   shipments: ShipmentCancellation[],
-): Promise<ShipmentCancellationConfirmationPOJO[]> {
+): Promise<ShipmentCancellationOutcomePOJO[]> {
   throw new Error("NotImplementedError");
   // STEP 1: Validation
   // STEP 2: Create the data that the carrier's API expects

@@ -1,9 +1,11 @@
 {
   "id": "<%- _uuidv4 %>",
-  "name": "<%- pjson.name %>",
+  "name": "<%- _appName %>",
   "description": "<%- pjson.description %>",
   "websiteURL": "https://example-carrier.com",
   "logo": "./logo.svg",
+  "manifestLocations": "single_location",
+  "manifestShipments": "explicit_shipments",
   "cancelPickups": "./methods/cancel-pickups.<%- _codeExt %>",
   "cancelShipments": "./methods/cancel-shipments.<%- _codeExt %>",
   "createManifest": "./methods/create-manifest.<%- _codeExt %>",
@@ -11,8 +13,6 @@
   "rateShipment": "./methods/rate-shipment.<%- _codeExt %>",
   "schedulePickup": "./methods/schedule-pickup.<%- _codeExt %>",
   "trackShipment": "./methods/track-shipment.<%- _codeExt %>",
-  "deliveryServices": [
-    "./definitions/example-delivery-service.<%- _definitionExt %>"
-  ],
+  "deliveryServices": ["./definitions/example-delivery-service.json"],
   "pickupServices": []
 }
