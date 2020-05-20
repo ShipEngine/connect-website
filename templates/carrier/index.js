@@ -5,7 +5,7 @@ module.exports = {
   name: "<%- _appName %>",
   description: "<%- pjson.description %>",
   logo: "./logo.svg",
-  websiteURL: "https://example-carrier.com",
+  websiteURL: null,
   manifestLocations: "single_location",
   manifestShipments: "explicit_shipments",
   cancelPickups: "./methods/cancel-pickups.js",
