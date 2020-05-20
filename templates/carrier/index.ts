@@ -4,7 +4,7 @@ const carrier: CarrierDefinition = {
   id: "<%- _uuidv4 %>",
   name: "<%- _appName %>",
   description: "<%- pjson.description %>",
-  websiteURL: "https://example-carrier.com",
+  websiteURL: null,
   logo: "./logo.svg",
   manifestLocations: "single_location",
   manifestShipments: "explicit_shipments",

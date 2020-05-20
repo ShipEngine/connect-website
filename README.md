@@ -64,7 +64,7 @@ ARGUMENTS
 OPTIONS
   -f, --force  overwrite existing files
   -h, --help   show CLI help
-  -y, --yes    skips the questions and uses the defaults (carrier|yarn|TypeScript|eslint|mocha)
+  -y, --yes    skips the questions and uses the defaults (carrier|TypeScript)
 
 EXAMPLE
   $ shipengine apps:new

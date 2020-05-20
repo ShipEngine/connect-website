@@ -1,0 +1,10 @@
+{
+  "id": "<%- _uuidv4 %>",
+  "name": "<%- _appName %>",
+  "description": "<%- pjson.description %>",
+  "logo": "./logo.svg",
+  "websiteURL": null,
+  "connectionForm": "forms/connect.json",
+  "settingsForm": "forms/settings.json",
+  "connect": "connect.<%- _codeExt %>"
+}
