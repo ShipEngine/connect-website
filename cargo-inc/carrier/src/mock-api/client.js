@@ -3,6 +3,7 @@
 const axios = require("axios");
 const generateLabel = require("./generate-label");
 const quoteRates = require("./quote-rates");
+const cancelShipment = require("./cancel-shipments");
 
 
 // Read config values from environment variables
@@ -37,6 +38,9 @@ const apiClient = axios.create({
 
       case "quote_rates":
         return quoteRates(request);
+
+      case "cancel_shipments":
+        return cancelShipment(request);
     }
   }
 });
