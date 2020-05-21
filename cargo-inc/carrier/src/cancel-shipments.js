@@ -46,3 +46,5 @@ async function formatCancellationResponse(response) {
         }
     })
 }
+
+module.exports = cancelShipments;
