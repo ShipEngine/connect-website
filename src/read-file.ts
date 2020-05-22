@@ -1,10 +1,10 @@
-import { ono } from "@jsdevtools/ono";
-import { EcmaScriptModule } from "@shipengine/integration-platform-sdk";
+import { EcmaScriptModule, ErrorCode } from "@shipengine/integration-platform-sdk";
 import { promises as fs } from "fs";
 import * as jsYaml from "js-yaml";
 import * as json5 from "json5";
 import * as path from "path";
 import * as tsNode from "ts-node";
+import { error } from "./internal";
 
 
 /**
@@ -43,8 +43,8 @@ async function readYamlFile<T>(filePath: string): Promise<T> {
   try {
     return jsYaml.safeLoad(yaml, { filename: path.basename(filePath) }) as T;
   }
-  catch (error) {
-    throw ono(error, `Unable to parse ${path.basename(filePath)}.`);
+  catch (originalError) {
+    throw error(ErrorCode.Syntax, `Unable to parse ${path.basename(filePath)}.`, { originalError });
   }
 }
 
@@ -58,8 +58,8 @@ async function readJsonFile<T>(filePath: string): Promise<T> {
   try {
     return json5.parse(json) as T;
   }
-  catch (error) {
-    throw ono(error, `Unable to parse ${path.basename(filePath)}.`);
+  catch (originalError) {
+    throw error(ErrorCode.Syntax, `Unable to parse ${path.basename(filePath)}.`, { originalError });
   }
 }
 
@@ -72,8 +72,8 @@ async function readTextFile(filePath: string): Promise<string> {
     // tslint:disable-next-line: ban
     return fs.readFile(filePath, "utf8");
   }
-  catch (error) {
-    throw ono(error, `Unable to read ${filePath}.`);
+  catch (originalError) {
+    throw error(ErrorCode.Filesystem, `Unable to read ${filePath}.`, { originalError });
   }
 }
 
@@ -93,8 +93,8 @@ async function importJavaScriptModule<T>(filePath: string): Promise<T> {
       return exports as unknown as T;
     }
   }
-  catch (error) {
-    throw ono(error, `Unable to import ${path.basename(filePath)}.`);
+  catch (originalError) {
+    throw error(ErrorCode.Filesystem, `Unable to import ${path.basename(filePath)}.`, { originalError });
   }
 }
 
@@ -105,40 +105,35 @@ let tsNodeRegistered = false;
  * Returns the default export of the specified TypeScript module
  */
 async function importTypeScriptModule<T>(filePath: string): Promise<T> {
-  try {
-    if (!tsNodeRegistered) {
-      tsNodeRegistered = true;
+  if (!tsNodeRegistered) {
+    tsNodeRegistered = true;
 
-      tsNode.register({
-        // Don't do full type checking. Just transpile TS to JS.
-        transpileOnly: true,
+    tsNode.register({
+      // Don't do full type checking. Just transpile TS to JS.
+      transpileOnly: true,
 
-        // Don't search for a tsconfig.json. Just use the compilerOptions specified below.
-        skipProject: true,
+      // Don't search for a tsconfig.json. Just use the compilerOptions specified below.
+      skipProject: true,
 
-        // TypeScript compiler options
-        compilerOptions: {
-          // These options ensure compatibility with Node 10
-          moduleResolution: "Node",
-          module: "CommonJS",
-          target: "ES2019",
+      // TypeScript compiler options
+      compilerOptions: {
+        // These options ensure compatibility with Node 10
+        moduleResolution: "Node",
+        module: "CommonJS",
+        target: "ES2019",
 
-          // Allow import JSON files
-          resolveJsonModule: true,
+        // Allow import JSON files
+        resolveJsonModule: true,
 
-          // Enable interoperability between CJS and ESM
-          esModuleInterop: true,
+        // Enable interoperability between CJS and ESM
+        esModuleInterop: true,
 
-          // Enable sourcemaps, so errors map to original source
-          sourceMap: true,
-        },
-      });
-    }
-
-    // Once TS-Node is registered, TypeScript files can be imported just like JavaScript files
-    return await importJavaScriptModule(filePath);
+        // Enable sourcemaps, so errors map to original source
+        sourceMap: true,
+      },
+    });
   }
-  catch (error) {
-    throw ono(error, `Unable to import ${path.basename(filePath)}.`);
-  }
+
+  // Once TS-Node is registered, TypeScript files can be imported just like JavaScript files
+  return importJavaScriptModule(filePath);
 }

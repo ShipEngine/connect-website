@@ -1,9 +1,8 @@
-import { humanize } from "@jsdevtools/humanize-anything";
-import { ono } from "@jsdevtools/ono";
-import { DynamicImport, InlineOrReference, InlineOrReferenceArray } from "@shipengine/integration-platform-sdk";
+import { DynamicImport, ErrorCode, InlineOrReference, InlineOrReferenceArray } from "@shipengine/integration-platform-sdk";
 import * as path from "path";
 import * as resolveFrom from "resolve-from";
 import { fileCache } from "./file-cache";
+import { error } from "./internal";
 import { readFile } from "./read-file";
 
 /**
@@ -86,8 +85,8 @@ export async function readDefinition<T>(definition: InlineOrReference<T>, cwd: s
       return [definition, cwd];
     }
   }
-  catch (error) {
-    throw ono(error, `Invalid ${fieldName}: ${humanize(definition)}.`);
+  catch (originalError) {
+    throw error(ErrorCode.Validation, `Invalid ${fieldName}: ${definition}.`, { originalError });
   }
 }
 

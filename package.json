@@ -64,8 +64,6 @@
     "typescript-tslint-plugin": "^0.5.0"
   },
   "dependencies": {
-    "@jsdevtools/humanize-anything": "^1.1.0",
-    "@jsdevtools/ono": "^7.1.1",
     "@shipengine/integration-platform-sdk": "0.0.13",
     "js-yaml": "^3.13.1",
     "json5": "^2.1.3",

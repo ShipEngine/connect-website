@@ -1,20 +1,20 @@
-import { ono } from "@jsdevtools/ono";
-import { CarrierApp, CarrierDefinition, ConnectionApp, ConnectionDefinition, ErrorCode } from "@shipengine/integration-platform-sdk";
+import { CarrierApp, CarrierAppDefinition, ErrorCode, OrderApp, OrderAppDefinition } from "@shipengine/integration-platform-sdk";
 import { readCarrierDefinition } from "./definitions/read-carrier-definition";
 import { readConnectionDefinition } from "./definitions/read-connection-definition";
 import { fileCache } from "./file-cache";
+import { error } from "./internal";
 import { readAppManifest } from "./read-app-manifest";
 import { readDefinition } from "./read-definition";
 
 /**
  * A ShipEngine Integration Platform app
  */
-export type App = ConnectionApp | CarrierApp; // | OrderApp
+export type App = CarrierApp | OrderApp;
 
 /**
  * A ShipEngine Integration Platform app definition
  */
-export type AppDefinition = ConnectionDefinition | CarrierDefinition; // | OrderDefinition
+export type AppDefinition = CarrierAppDefinition | OrderAppDefinition;
 
 /**
  * Loads a ShipEngine Integration Platform App
@@ -38,8 +38,8 @@ export async function loadApp(appPath: string = "."): Promise<App> {
       return new ConnectionApp({ ...manifest, connection });
     }
   }
-  catch (error) {
-    throw ono(error, { code: ErrorCode.Validation }, `Error loading the ShipEngine Integration Platform app:`);
+  catch (originalError) {
+    throw error(ErrorCode.AppError, `Error loading the ShipEngine Integration Platform app:`, { originalError });
   }
   finally {
     // Let the cache know that we're done loading the app,
