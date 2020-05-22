@@ -1,7 +1,7 @@
 {
   "dataSchema": {
-    "title": "Connection One Settings",
-    "description": "Update your Connection One account information.",
+    "title": "Order One Settings",
+    "description": "Update your Order One account information.",
     "type": "object",
     "required": [
       "userName",
@@ -26,7 +26,7 @@
     },
     "password": {
       "ui:widget": "text",
-      "ui:help": "Password for connection account"
+      "ui:help": "Password for order account"
     }
   }
 }

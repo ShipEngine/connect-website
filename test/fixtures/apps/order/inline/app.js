@@ -3,15 +3,15 @@
 module.exports = {
 
   id: "d54ea601-9374-425c-8732-1f9eae4eae18",
-  name: "My Connection",
-  description: "My connection description goes here",
-  websiteURL: "https://www.my-connection.com",
+  name: "My Order",
+  description: "My order description goes here",
+  websiteURL: "https://www.my-order.com",
   logo: "../../../logo.svg",
 
   connectionForm: {
     dataSchema: {
-      title: "Connection One Registration",
-      description: "Login with your Connection One account information.",
+      title: "Order One Registration",
+      description: "Login with your Order One account information.",
       type: "object",
       required: [
         "userName",
@@ -36,15 +36,15 @@ module.exports = {
       },
       password: {
         "ui:widget": "text",
-        "ui:help": "Password for connection account"
+        "ui:help": "Password for order account"
       }
     }
   },
 
   settingsForm: {
     dataSchema: {
-      title: "Connection One Settings",
-      description: "Update your Connection One account information.",
+      title: "Order One Settings",
+      description: "Update your Order One account information.",
       type: "object",
       required: [
         "userName",
@@ -69,11 +69,14 @@ module.exports = {
       },
       password: {
         "ui:widget": "text",
-        "ui:help": "Password for connection account"
+        "ui:help": "Password for order account"
       }
     }
   },
 
   connect () {},
+  getSeller () {},
+  getSalesOrder () {},
+  getSalesOrdersByDate () {},
 
 };

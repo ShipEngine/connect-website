@@ -1,7 +1,7 @@
 {
-  "name": "@connection/yaml-app",
+  "name": "@order/inline-app",
   "version": "0.0.1",
-  "main": "connection.yml",
+  "main": "app.js",
   "devDependencies": {
     "@shipengine/integration-platform-sdk": "0.0.9"
   }

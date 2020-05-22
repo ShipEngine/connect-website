@@ -10,7 +10,10 @@
 
   "deliveryServices": "../../../configs/delivery-services/delivery-services.json",
   "pickupServices": "../../../configs/pickup-services/pickup-services.json",
+  "connectionForm": "../../../configs/forms/registration-form.json",
+  "settingsForm": "../../../configs/forms/settings-form.json",
 
+  "connect": "../../../modules/methods/login.js",
   "createShipment": "../../../modules/methods/create-label.js",
   "cancelShipments": "../../../modules/methods/void-label.js",
   "rateShipment": "../../../modules/methods/get-rates.js",

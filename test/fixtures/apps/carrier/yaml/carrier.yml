@@ -10,3 +10,8 @@ deliveryServices:
 pickupServices:
   - ../../../configs/pickup-services/drop-off.yaml
   - ../../../configs/pickup-services/one-time.yaml
+
+connectionForm: ../../../configs/forms/registration-form.json
+settingsForm: ../../../configs/forms/settings-form.json
+
+connect: ../../../modules/methods/login.js

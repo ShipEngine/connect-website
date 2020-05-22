@@ -1,7 +1,7 @@
 {
-  "name": "@connection/inline-app",
+  "name": "@order/typescript-app",
   "version": "0.0.1",
-  "main": "connection.js",
+  "main": "src/app.ts",
   "devDependencies": {
     "@shipengine/integration-platform-sdk": "0.0.9"
   }

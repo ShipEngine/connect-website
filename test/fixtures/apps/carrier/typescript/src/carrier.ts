@@ -1,7 +1,7 @@
 "use strict";
 
 /** Test Shipping Provider */
-const config: CarrierDefinition = {
+const config: CarrierAppDefinition = {
 
   id: "d54ea601-9374-425c-8732-1f9eae4eae18",
   name: "My Carrier",
@@ -15,6 +15,9 @@ const config: CarrierDefinition = {
   deliveryServices: ["../../../../modules/delivery-services/ground-service.ts"],
   pickupServices: "../../../../configs/pickup-services/pickup-services.json",
 
+  connectionForm: "../../../../configs/forms/registration-form.json",
+  settingsForm: "../../../../configs/forms/settings-form.json",
+  connect: "../../../../modules/methods/login.js",
   createShipment: "../../../../modules/methods/create-label.js",
   cancelShipments: "../../../../modules/methods/void-label.js",
   rateShipment: "../../../../modules/methods/get-rates.js",

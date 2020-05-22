@@ -1,7 +1,7 @@
 {
-  "name": "@connection/json-app",
+  "name": "@order/json-app",
   "version": "0.0.1",
-  "main": "connection.jsonc",
+  "main": "app.jsonc",
   "devDependencies": {
     "@shipengine/integration-platform-sdk": "0.0.9"
   }
