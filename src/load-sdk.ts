@@ -1,6 +1,7 @@
-import { AppManifestPOJO, AppType, CarrierAppPOJO, ErrorCode, OrderAppPOJO } from "@shipengine/integration-platform-sdk";
+import { AppManifestPOJO, CarrierAppPOJO, ErrorCode, OrderAppPOJO } from "@shipengine/integration-platform-sdk";
 import * as path from "path";
 import { error } from "./internal";
+import { App } from "./types";
 
 const sdk = "@shipengine/integration-platform-sdk";
 
@@ -9,8 +10,8 @@ const sdk = "@shipengine/integration-platform-sdk";
  */
 export interface SDK {
   version: number;
-  CarrierApp: new (pojo: CarrierAppPOJO) => { type: AppType };
-  OrderApp: new (pojo: OrderAppPOJO) => { type: AppType };
+  CarrierApp: new (pojo: CarrierAppPOJO) => App;
+  OrderApp: new (pojo: OrderAppPOJO) => App;
 }
 
 

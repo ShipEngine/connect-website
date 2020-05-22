@@ -6,13 +6,14 @@ import { error } from "./internal";
 import { loadSDK } from "./load-sdk";
 import { readAppManifest } from "./read-app-manifest";
 import { readDefinition } from "./read-definition";
+import { App } from "./types";
 
 type AppDefinition = CarrierAppDefinition | OrderAppDefinition;
 
 /**
  * Loads a ShipEngine Integration Platform App
  */
-export async function loadApp(appPath: string = ".") {
+export async function loadApp(appPath: string = "."): Promise<App> {
   try {
     fileCache.startedLoading();
 

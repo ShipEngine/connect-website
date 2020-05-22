@@ -13,6 +13,7 @@ describe("loadApp() with inline config", () => {
     expect(app.manifest.description).to.equal("");
 
     expect(app.type).to.equal("carrier");
+    expect(app.sdkVersion).to.equal(0);
     expect(app.id).to.be.a("string");
     expect(app.name).to.equal("My Carrier");
     expect(app.description).to.equal("My Carrier description goes here");
@@ -52,6 +53,8 @@ describe("loadApp() with inline config", () => {
     expect(app.manifest.version).to.equal("0.0.1");
     expect(app.manifest.description).to.equal("");
 
+    expect(app.type).to.equal("order");
+    expect(app.sdkVersion).to.equal(0);
     expect(app.id).to.be.a("string");
     expect(app.name).to.equal("My Order");
     expect(app.description).to.equal("My order description goes here");
