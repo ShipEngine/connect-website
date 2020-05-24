@@ -7,8 +7,12 @@ module.exports = {
   websiteURL: "https://freightco.net",
   logo: "../logo.svg",
 
+  connect: "connect.js",
   createShipment: "create-shipment.js",
   rateShipment: "rate-shipment.js",
+
+  connectionForm: "forms/connect.js",
+  settingsForm: "forms/settings.js",
 
   deliveryServices: [
     "delivery-services/international-ground.js",
