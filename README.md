@@ -17,7 +17,7 @@ Other than that, the folder structure and file names are entirely up to you.  As
 
 Supported File Types
 ----------------------------
-To make things even easier for you, ShipEngine Integration Platform supports JSON, JSON5, YAML, and even TypeScript files in addition to plain JavaScript. You can use any combination of these file types for different parts of your app.
+To make things even easier for you, the ShipEngine Integration Platform supports JSON, JSON5, YAML, and even TypeScript files in addition to plain JavaScript. You can use any combination of these file types for different parts of your app.
 
 
 
