@@ -23,7 +23,7 @@ function cancelShipments(request) {
   return {
     canceledShipments: request.cancelations.map((cancelation) => {
       const { cancelationID } = cancelation;
-      const { status, code, description, notes } = data[Math.floor(Math.random * data.length)];
+      const { status, code, description, notes } = data[Math.floor(Math.random() * data.length)];
 
       return {
         id: cancelationID,

@@ -12,7 +12,7 @@ const allStatuses = {
  * This is a mock implementation of a carrier"s API that cancels a shipment.
  */
 function trackShipment(request) {
-  const statusCode = allStatusCodes[Math.floor(Math.random * allStatuCodes.length)];
+  const statusCode = allStatusCodes[Math.floor(Math.random() * allStatuCodes.length)];
   const status = allStatuses[statusCode];
 
   return {
