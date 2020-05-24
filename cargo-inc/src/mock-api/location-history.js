@@ -9,9 +9,9 @@ const allStatuses = {
 
 
 /**
- * This is a mock implementation of a carrier"s API that cancels a shipment.
+ * This is a mock implementation of a carrier"s API that returns the location history of a shipment
  */
-function trackShipment(request) {
+function locationHistory(request) {
   const statusCode = allStatusCodes[Math.floor(Math.random() * allStatuCodes.length)];
   const status = allStatuses[statusCode];
 
@@ -58,4 +58,4 @@ function trackShipment(request) {
   }
 }
 
-module.exports = trackShipment;
+module.exports = locationHistory;

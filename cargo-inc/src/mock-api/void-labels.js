@@ -16,9 +16,9 @@ const data = [
 ]
 
 /**
- * This is a mock implementation of a carrier"s API that cancels a shipment.
+ * This is a mock implementation of a carrier"s API that voids one or more labels
  */
-function cancelShipments(request) {
+function voidLabels(request) {
   return {
     canceledShipments: request.cancelations.map((cancelation) => {
       const { cancelationID } = cancelation;
@@ -36,4 +36,4 @@ function cancelShipments(request) {
   }
 }
 
-module.exports = cancelShipments;
+module.exports = voidLabels;

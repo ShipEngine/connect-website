@@ -11,7 +11,7 @@ async function trackShipment(transaction, trackingCriteria){
   const { trackingNumber, returns } = trackingCriteria;
 
   const data = {
-    operation: "track_shipment",
+    operation: "location_history",
     trackingNumber,
     isReturn: returns.isReturn
   };

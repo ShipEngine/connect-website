@@ -9,7 +9,7 @@ async function cancelShipments(transaction, shipmentCancellations){
   // STEP 2: Create the data that the carrier's API expects
 
   let data = {
-    operation: "cancel_shipments",
+    operation: "void_labels",
     session_id: transaction.session.id,
     cancelations: shipmentCancelations.map( (cancelation) => {
       const { cancelationID, trackingNumber } = cancelation;
