@@ -5,7 +5,7 @@ const authenticate = require("./authenticate");
 const generateLabel = require("./generate-label");
 const quoteRates = require("./quote-rates");
 const cancelShipment = require("./cancel-shipments");
-const trackShipment = require('./track-shipment')
+const trackShipment = require("./track-shipment")
 
 
 // Read config values from environment variables
@@ -47,7 +47,7 @@ const apiClient = axios.create({
       case "cancel_shipments":
         return cancelShipment(request);
 
-      case 'track_shipment':
+      case "track_shipment":
         return trackShipment(request);
     }
   }
