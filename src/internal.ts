@@ -3,4 +3,4 @@
  */
 
 // tslint:disable-next-line: no-submodule-imports
-export { ConnectionAppDefinition, ConnectionAppPOJO, error } from "@shipengine/integration-platform-sdk/lib/common/internal";
+export { error } from "@shipengine/integration-platform-sdk/lib/internal";

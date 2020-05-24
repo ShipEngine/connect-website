@@ -23,7 +23,7 @@ export async function loadSDK(appPath: string, manifest: AppManifestPOJO): Promi
 
     if (version >= 0 && version < 1) {
       // Import the 0.x version of the SDK
-      let { CarrierApp, OrderApp } = await import("@shipengine/integration-platform-sdk");
+      let { CarrierApp, OrderApp } = await import("@shipengine/integration-platform-sdk/lib/internal");   // tslint:disable-line: no-submodule-imports
       return { version, CarrierApp, OrderApp };
     }
     else {
