@@ -1,5 +1,4 @@
 "use strict";
-const randomString = require("randomstring");
 
 const data = [
   {
@@ -31,7 +30,7 @@ function cancelShipments(request) {
         cancelationCode: code,
         cancelationDescription: description,
         cancelationNotes: notes,
-        cancelationConfirmation: randomstring.generate(12)
+        cancelationConfirmation: Buffer.from(new Date().toISOString()).toString("base64"),
       }
     })
   }
