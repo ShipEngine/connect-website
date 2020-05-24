@@ -1,8 +1,11 @@
 "use strict";
 
 const axios = require("axios");
+const authenticate = require("./authenticate");
 const generateLabel = require("./generate-label");
 const quoteRates = require("./quote-rates");
+const cancelShipment = require("./cancel-shipments");
+const trackShipment = require('./track-shipment')
 
 
 // Read config values from environment variables
@@ -32,11 +35,20 @@ const apiClient = axios.create({
     };
 
     switch (request.operation) {
+      case "authenticate":
+        return authenticate(request);
+
       case "generate_label":
         return generateLabel(request);
 
       case "quote_rates":
         return quoteRates(request);
+
+      case "cancel_shipments":
+        return cancelShipment(request);
+
+      case 'track_shipment':
+        return trackShipment(request);
     }
   }
 });

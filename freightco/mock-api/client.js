@@ -1,6 +1,7 @@
 "use strict";
 
 const axios = require("axios");
+const authenticate = require("./authenticate");
 const generateLabel = require("./generate-label");
 const quoteRates = require("./quote-rates");
 
@@ -32,6 +33,9 @@ const apiClient = axios.create({
     };
 
     switch (request.operation) {
+      case "authenticate":
+        return authenticate(request);
+
       case "generate_label":
         return generateLabel(request);
 

@@ -1,20 +1,11 @@
 ![FreightCo](logo.svg)
 =====================================================
 
-This folder contains sample [**ShipEngine Integration Platform**](https://www.shipengine.com/docs/integration-platform/) apps that demonstrate how to integrate a carrier into ShipEngine. In this case the carrier is a fictional company called "FreightCo".
+This folder contains a sample [**ShipEngine Integration Platform app**](https://www.shipengine.com/docs/integration-platform/) that demonstrates how to integrate a carrier into ShipEngine. In this case the carrier is a fictional company called "FreightCo".
 
-FreightCo ships to/from Mexico, Canda, and the U.S. Because of its international reach, the apps include [**localization**](./carrier/index.js) support for Spanish and French in addition to English.
+This app defines the [delivery services](./delivery-services), [delivery confirmations](./delivery-confirmations), and [packaging](./packaging) that FreightCo supports. It also defines the [account connection form](./forms/connect.js) and [account settings form](./forms/settings.js) that enable a user to connect and manage their FreightCo account in ShipEngine. Because FreightCo ships to/from Mexico, Canda, and the U.S, the app includes [**localization**](./index.js) support for Spanish and French in addition to English.
 
-
-
-Sample Apps
------------------------
-This folder contains 2 sample apps.
-
-| App                                     | Description
-|-----------------------------------------|-----------------------------------------------------------------------------
-| [`@freightco/connection`](./connection) | This app defines the [account connection form](./connection/forms/connect.js) and [account settings form](./connection/forms/settings.js) that enable a user to connect and manage their FreightCo account in ShipEngine. It also implements the [connection logic](./connection/connect.js), which validates a user's credentials and establishes a session.
-| [`@freightco/carrier`](./carrier)       | This app defines the [delivery services](./carrier/delivery-services), [delivery confirmations](./carrier/delivery-confirmations), and [packaging](./carrier/packaging) that FreightCo supports. It also implements functionality, such as [creating labels](./carrier/create-shipment.js) and [calculating shipping costs](./carrier/rate-shipment.js).
+The app implements functionality, such as [creating shipments](./create-shipment.js), [calculating shipping costs](./rate-shipment.js), and the [connection logic](./connect.js) that validates a user's credentials and establishes a session.
 
 
 
@@ -30,6 +21,6 @@ Other than that, the folder structure and file names are entirely up to you.  As
 
 Supported File Types
 ----------------------------
-To make things even easier for you, ShipEngine Integration Platform supports JSON, JSON5, YAML, and even TypeScript files in addition to plain JavaScript. You can use any combination of these file types for different parts of your app.
+To make things even easier for you, the ShipEngine Integration Platform supports JSON, JSON5, YAML, and even TypeScript files in addition to plain JavaScript. You can use any combination of these file types for different parts of your app.
 
-The FreightCo apps are written entirely in **JavaScript**. See [other sample apps](../README.md) for examples in other formats.
+The FreightCo app is written entirely in **JavaScript**. See [other sample apps](../README.md) for examples in other formats.

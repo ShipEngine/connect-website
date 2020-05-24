@@ -1,0 +1,30 @@
+import { CarrierAppDefinition } from "@shipengine/integration-platform-sdk";
+
+const parcelPost: CarrierAppDefinition = {
+  id: "29291ae9-99f6-4a74-baa1-84058c3e28d2",
+  name: "Parcel Post",
+  description: "Parcel Post provides low-cost multi-carrier delivery services within the U.S. and to major international destinations",
+  websiteURL: "https://parcel-post.net",
+  logo: "../logo.svg",
+
+  connect: import("./methods/connect"),
+  createShipment: import("./methods/create-shipment"),
+  rateShipment: import("./methods/rate-shipment"),
+  schedulePickup: import("./methods/schedule-pickup"),
+  cancelPickups: import("./methods/cancel-pickups"),
+
+  connectionForm: import("./forms/connect"),
+  settingsForm: import("./forms/settings"),
+
+  pickupServices: import("./definitions/pickup-services"),
+
+  deliveryServices: [
+    import("./definitions/delivery-services/same-day"),
+    import("./definitions/delivery-services/domestic-economy"),
+    import("./definitions/delivery-services/domestic-standard"),
+    import("./definitions/delivery-services/international-economy"),
+    import("./definitions/delivery-services/international-priority"),
+  ],
+};
+
+export default parcelPost;

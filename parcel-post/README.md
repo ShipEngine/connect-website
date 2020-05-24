@@ -1,20 +1,13 @@
 ![Parcel Post](logo.svg)
 =====================================================
 
-This folder contains sample [**ShipEngine Integration Platform**](https://www.shipengine.com/docs/integration-platform/) apps that demonstrate how to integrate a carrier into ShipEngine. In this case the carrier is a fictional company called "Parcel Post".
+This folder contains a sample [**ShipEngine Integration Platform app**](https://www.shipengine.com/docs/integration-platform/) that demonstrates how to integrate a carrier into ShipEngine. In this case the carrier is a fictional company called "Parcel Post".
 
-Parcel Post is a U.S. carrier that provides its own [pickup](./carrier/src/definitions/pickup-services.ts) and [same-day delivery](./carrier/src/definitions/delivery-services/same-day.ts) services. They use UPS to fulfill some of their [domestic delivery services](./carrier/src/definitions/delivery-services/domestic-standard.ts) and FedEx to fulfill their [international services](./carrier/src/definitions/delivery-services/international-priority.ts).
+Parcel Post is a U.S. carrier that provides its own [pickup](./src/definitions/pickup-services.ts) and [same-day delivery](./src/definitions/delivery-services/same-day.ts) services. They use UPS to fulfill some of their [domestic delivery services](./src/definitions/delivery-services/domestic-standard.ts) and FedEx to fulfill their [international services](./src/definitions/delivery-services/international-priority.ts).
 
+This app defines the [pickup services](./src/definitions/pickup-services.ts), [delivery services](./src/definitions/delivery-services), [delivery confirmations](./src/definitions/delivery-confirmations.ts), and [packaging](./src/definitions/packaging) that Parcel Post and its fulfillment partners support. It also defines the [account connection form](./src/forms/connect.ts) and [account settings form](./src/forms/settings.ts) that enable a user to connect and manage their Parcel Post account in ShipEngine.
 
-
-Sample Apps
------------------------
-This folder contains 2 sample apps.
-
-| App                                       | Description
-|-------------------------------------------|-----------------------------------------------------------------------------
-| [`@parcel-post/connection`](./connection) | This app defines the [account connection form](./connection/src/forms/connect.ts) and [account settings form](./connection/src/forms/settings.ts) that enable a user to connect and manage their Parcel Post account in ShipEngine. It also implements the [connection logic](./connection/src/connect.ts), which validates a user's credentials and establishes a session.
-| [`@parcel-post/carrier`](./carrier)       | This app defines the [pickup services](./carrier/src/definitions/pickup-services.ts), [delivery services](./carrier/src/definitions/delivery-services), [delivery confirmations](./carrier/src/definitions/delivery-confirmations.ts), and [packaging](./carrier/src/definitions/packaging) that Parcel Post and its fulfillment partners support. It also implements functionality, such as [creating labels](./carrier/src/methods/create-shipment.ts) and [calculating shipping costs](./carrier/src/methods/rate-shipment.ts).
+The app implements functionality, such as [creating shipments](./src/methods/create-shipment.ts), [calculating shipping costs](./src/methods/rate-shipment.ts), and the [connection logic](./src/methods/connect.ts) that validates a user's credentials and establishes a session.
 
 
 
@@ -30,6 +23,6 @@ Other than that, the folder structure and file names are entirely up to you.  As
 
 Supported File Types
 ----------------------------
-To make things even easier for you, ShipEngine Integration Platform supports JSON, JSON5, YAML, and even TypeScript files in addition to plain JavaScript. You can use any combination of these file types for different parts of your app.
+To make things even easier for you, the ShipEngine Integration Platform supports JSON, JSON5, YAML, and even TypeScript files in addition to plain JavaScript. You can use any combination of these file types for different parts of your app.
 
-The Parcel Post apps are written entirely in **TypeScript**. See [other sample apps](../README.md) for examples in other formats.
+The Parcel Post app is written entirely in **TypeScript**. See [other sample apps](../README.md) for examples in other formats.

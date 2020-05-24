@@ -17,7 +17,7 @@ Other than that, the folder structure and file names are entirely up to you.  As
 
 Supported File Types
 ----------------------------
-To make things even easier for you, ShipEngine Integration Platform supports JSON, JSON5, YAML, and even TypeScript files in addition to plain JavaScript. You can use any combination of these file types for different parts of your app.
+To make things even easier for you, the ShipEngine Integration Platform supports JSON, JSON5, YAML, and even TypeScript files in addition to plain JavaScript. You can use any combination of these file types for different parts of your app.
 
 
 
@@ -25,11 +25,11 @@ Sample Apps
 -----------------------
 This repo contains several sample ShipEngine Integration Platform apps that demonstrate various features of the platform.
 
-| Sample Company | Apps | Description
+| Sample Company | Description
 |----------------|------|-----------------------------------------------------------------------------
-| [![Cargo Incorporated](./cargo-inc/logo.svg)](./cargo-inc) | [`@cargo-inc/connection`](./cargo-inc/connection)<br>[`@cargo-inc/carrier`](./cargo-inc/carrier) | This is a carrier integration, written in **JavaScript**. It uses **YAML** to define service offerings and **JSON** for form definitions.
-| [![FreightCo](./freightco/logo.svg)](./freightco) | [`@freightco/connection`](./freightco/connection)<br>[`@freightco/carrier`](./freightco/carrier) | This is a carrier integration written entirely in **JavaScript**, including its service offerings and form definitions.
-| [![Parcel Post](./parcel-post/logo.svg)](./parcel-post) | [`@parcel-post/connection`](./parcel-post/connection)<br>[`@parcel-post/carrier`](./parcel-post/carrier) | This is a carrier integration written entirely in **TypeScript**, including its service offerings and form definitions.
-| [COMING SOON] | | A sample orders integration written in **JavaScript**, **YAML**, and **JSON** is coming soon
-| [COMING SOON] | | A sample orders integration written entirely in **JavaScript** is coming soon
-| [COMING SOON] | | A sample orders integration written entirely in **TypeScript** is coming soon
+| [![Cargo Incorporated](./cargo-inc/logo.svg)](./cargo-inc) | This is a carrier integration, written in **JavaScript**. It uses **YAML** to define service offerings and **JSON** for form definitions.
+| [![FreightCo](./freightco/logo.svg)](./freightco) | This is a carrier integration written entirely in **JavaScript**, including its service offerings and form definitions.
+| [![Parcel Post](./parcel-post/logo.svg)](./parcel-post) | This is a carrier integration written entirely in **TypeScript**, including its service offerings and form definitions.
+| [COMING SOON] | A sample order app written in **JavaScript**, **YAML**, and **JSON** is coming soon
+| [COMING SOON] | A sample order app written entirely in **JavaScript** is coming soon
+| [COMING SOON] | A sample order app written entirely in **TypeScript** is coming soon
