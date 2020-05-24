@@ -1,10 +1,10 @@
 {
-  "name": "@cargo-inc/connection",
+  "name": "@cargo-inc/carrier",
   "version": "1.0.0",
-  "description": "The Cargo Incorporated connection app",
+  "description": "The Cargo Incorporated carrier app",
   "main": "cargo-inc.yaml",
   "devDependencies": {
-    "@shipengine/integration-platform-sdk": "0.0.13"
+    "@shipengine/integration-platform-sdk": "0.0.15"
   },
   "dependencies": {
     "axios": "^0.19.2"

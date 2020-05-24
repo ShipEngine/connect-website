@@ -1,20 +1,12 @@
 ![Cargo Incorporated](logo.svg)
 =====================================================
 
-This folder contains sample [**ShipEngine Integration Platform**](https://www.shipengine.com/docs/integration-platform/) apps that demonstrate how to integrate a carrier into ShipEngine. In this case the carrier is a fictional company called "Cargo Incorporated".
+This folder contains a sample [**ShipEngine Integration Platform app**](https://www.shipengine.com/docs/integration-platform/) that demonstrates how to integrate a carrier into ShipEngine. In this case the carrier is a fictional company called "Cargo Incorporated".
 
-Cargo Incorporated ships worldwide. Because of its global reach, the apps include [**localization**](./carrier/cargo-inc.yaml) support, including [form localization](./connection/forms/connect.json).
+This app defines the [delivery services](./delivery-services), [delivery confirmations](./delivery-confirmations), and [packaging](./packaging) that Cargo Incorporated supports. It also defines the [account connection form](./forms/connect.json) and [account settings form](./forms/settings.json) that enable a user to connect and manage their Cargo Incorporated account in ShipEngine.
+Because Cargo Incorporated ships worldwide, the app includes [**localization**](./cargo-inc.yaml) support, including [form localization](./forms/connect.json).
 
-
-
-Sample Apps
------------------------
-This folder contains 2 sample apps.
-
-| App                                     | Description
-|-----------------------------------------|-----------------------------------------------------------------------------
-| [`@cargo-inc/connection`](./connection) | This app defines the [account connection form](./connection/forms/connect.json) and [account settings form](./connection/forms/settings.json) that enable a user to connect and manage their Cargo Incorporated account in ShipEngine. It also implements the [connection logic](./connection/src/connect.js), which validates a user's credentials and establishes a session.
-| [`@cargo-inc/carrier`](./carrier)       | This app defines the [delivery services](./carrier/delivery-services), [delivery confirmations](./carrier/delivery-confirmations), and [packaging](./carrier/packaging) that Cargo Incorporated supports. It also implements functionality, such as [creating labels](./carrier/src/create-shipment.js) and [calculating shipping costs](./carrier/src/rate-shipment.js).
+This app implements functionality, such as [creating shipments](./src/create-shipment.js), [calculating shipping costs](./src/rate-shipment.js), and the [connection logic](./src/connect.js) that validates a user's credentials and establishes a session.
 
 
 
@@ -32,4 +24,4 @@ Supported File Types
 ----------------------------
 To make things even easier for you, the ShipEngine Integration Platform supports JSON, JSON5, YAML, and even TypeScript files in addition to plain JavaScript. You can use any combination of these file types for different parts of your app.
 
-The Cargo Incorporated apps use **YAML** for all of their metadata and **JavaScript** for their functionality. See [other sample apps](../README.md) for examples in other formats.
+The Cargo Incorporated app uses **YAML** for all of its metadata and **JavaScript** for its functionality. See [other sample apps](../README.md) for examples in other formats.

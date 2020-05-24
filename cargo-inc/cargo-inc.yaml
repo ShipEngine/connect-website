@@ -2,10 +2,14 @@ id: 40cc4792-dd01-4f71-9c74-b70d42756b1a
 name: Cargo Incorporated
 description: Cargo Incorporated is the global leader in air cargo.
 websiteURL: https://cargo-inc.net
-logo: ../logo.svg
+logo: logo.svg
 
+connect: src/connect.js
 createShipment: src/create-shipment.js
 rateShipment: src/rate-shipment.js
+
+connectionForm: forms/connect.json
+settingsForm: forms/settings.json
 
 deliveryServices:
   - delivery-services/international-standard.yaml
