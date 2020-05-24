@@ -1,5 +1,9 @@
 import axios from "axios";
 import { authenticate, AuthenticateRequest } from "./authenticate";
+import { generateLabel, GenerateLabelRequest } from "./generate-label";
+import { pickUp, PickUpRequest } from "./pick-up";
+import { pickUpCancellation, PickUpCancellationRequest } from "./pick-up-cancellation";
+import { quoteRates, QuoteRatesRequest } from "./quote-rates";
 
 
 // Read config values from environment variables
@@ -40,6 +44,18 @@ export const apiClient = axios.create({
     switch (request.operation) {
       case "authenticate":
         return authenticate(request as HttpRequest & AuthenticateRequest);
+
+      case "generate_label":
+        return generateLabel(request as HttpRequest & GenerateLabelRequest);
+
+      case "quote_rates":
+        return quoteRates(request as HttpRequest & QuoteRatesRequest);
+
+      case "pick_up":
+        return pickUp(request as HttpRequest & PickUpRequest);
+
+      case "pick_up_cancellation":
+        return pickUpCancellation(request as HttpRequest & PickUpCancellationRequest);
     }
   }
 });

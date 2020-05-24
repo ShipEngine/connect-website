@@ -1,4 +1,4 @@
-import { Currency, PickupConfirmationPOJO, PickupRequest, ShippingChargeType, Transaction } from "@shipengine/integration-platform-sdk";
+import { ChargeType, Currency, PickupConfirmationPOJO, PickupRequest, Transaction } from "@shipengine/integration-platform-sdk";
 import { nextDayPickup } from "../definitions/pickup-services";
 import { apiClient } from "../mock-api/client";
 import { ONE_DAY, ONE_HOUR, PickUpRequest, PickUpResponse } from "../mock-api/pick-up";
@@ -52,7 +52,7 @@ function formatConfirmation(response: PickUpResponse): PickupConfirmationPOJO {
       {
         name: "Pickup Fee",
         code: "PU2",
-        type: ShippingChargeType.Pickup,
+        type: ChargeType.Pickup,
         amount: {
           value: response.pickup_cost,
           currency: Currency.UnitedStatesDollar,
@@ -61,7 +61,7 @@ function formatConfirmation(response: PickUpResponse): PickupConfirmationPOJO {
       {
         name: "Transport Tax",
         code: "TX7",
-        type: ShippingChargeType.Tax,
+        type: ChargeType.Tax,
         amount: {
           value: response.tax_cost,
           currency: Currency.UnitedStatesDollar,
@@ -70,7 +70,7 @@ function formatConfirmation(response: PickUpResponse): PickupConfirmationPOJO {
       {
         name: "Location Fee",
         code: "L4",
-        type: ShippingChargeType.LocationFee,
+        type: ChargeType.LocationFee,
         amount: {
           value: response.location_cost,
           currency: Currency.UnitedStatesDollar,

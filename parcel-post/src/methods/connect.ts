@@ -1,6 +1,6 @@
 import { Transaction } from "@shipengine/integration-platform-sdk";
-import { AuthenticateRequest, AuthenticateResponse } from "./mock-api/authenticate";
-import { apiClient } from "./mock-api/client";
+import { AuthenticateRequest, AuthenticateResponse } from "../mock-api/authenticate";
+import { apiClient } from "../mock-api/client";
 import { Session } from "./session";
 
 interface ConnectionFormData {

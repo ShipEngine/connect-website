@@ -1,4 +1,4 @@
-import { Currency, DocumentFormat, DocumentSize, DocumentType, NewShipment, ShipmentConfirmationPOJO, ShippingChargeType, Transaction } from "@shipengine/integration-platform-sdk";
+import { ChargeType, Currency, DocumentFormat, DocumentSize, DocumentType, NewShipment, ShipmentConfirmationPOJO, Transaction } from "@shipengine/integration-platform-sdk";
 import { bag, box } from "../definitions/packaging/customer";
 import { apiClient } from "../mock-api/client";
 import { GenerateLabelRequest, GenerateLabelResponse } from "../mock-api/generate-label";
@@ -48,21 +48,21 @@ function formatShipment(response: GenerateLabelResponse): ShipmentConfirmationPO
     deliveryDateTime: response.delivery_date,
     charges: [
       {
-        type: ShippingChargeType.Shipping,
+        type: ChargeType.Shipping,
         amount: {
           value: response.shipment_cost,
           currency: Currency.UnitedStatesDollar,
         }
       },
       {
-        type: ShippingChargeType.DeliveryConfirmation,
+        type: ChargeType.DeliveryConfirmation,
         amount: {
           value: response.confirmation_cost,
           currency: Currency.UnitedStatesDollar,
         }
       },
       {
-        type: ShippingChargeType.LocationFee,
+        type: ChargeType.LocationFee,
         amount: {
           value: response.location_cost,
           currency: Currency.UnitedStatesDollar,
