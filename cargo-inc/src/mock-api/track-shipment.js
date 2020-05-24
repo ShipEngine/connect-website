@@ -8,8 +8,6 @@ const allStatuses = {
 }
 
 
-const currentData = data[Math.floor(Math.random * data.length)];
-
 /**
  * This is a mock implementation of a carrier"s API that cancels a shipment.
  */

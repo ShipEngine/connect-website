@@ -1,6 +1,5 @@
 "use strict";
 
-const axios = require("axios");
 const apiClient = require("../carrier/src/mock-api/client");
 
 async function cancelShipments(transaction, shipmentCancellations){

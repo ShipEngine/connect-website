@@ -16,15 +16,13 @@ const data = [
   }
 ]
 
-const currentData = data[Math.floor(Math.random * data.length)];
-
 /**
  * This is a mock implementation of a carrier"s API that cancels a shipment.
  */
 function cancelShipments(request) {
   return {
-    canceledShipments: request.cancelations.map((cancelation, index) => {
-      const { cancelationID, trackingNumber } = cancelation;
+    canceledShipments: request.cancelations.map((cancelation) => {
+      const { cancelationID } = cancelation;
       const { status, code, description, notes } = data[Math.floor(Math.random * data.length)];
 
       return {
