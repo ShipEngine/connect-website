@@ -1,7 +1,6 @@
-import { AppManifestPOJO, CarrierAppPOJO, ErrorCode, OrderAppPOJO } from "@shipengine/integration-platform-sdk";
+import { App, AppManifestPOJO, CarrierAppPOJO, ErrorCode, OrderAppPOJO } from "@shipengine/integration-platform-sdk";
 import * as path from "path";
 import { error } from "./internal";
-import { App } from "./types";
 
 const sdk = "@shipengine/integration-platform-sdk";
 
