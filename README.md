@@ -26,7 +26,7 @@ Sample Apps
 This repo contains several sample ShipEngine Integration Platform apps that demonstrate various features of the platform.
 
 | Sample Company | Description
-|----------------|------|-----------------------------------------------------------------------------
+|----------------|-----------------------------------------------------------------------------
 | [![Cargo Incorporated](./cargo-inc/logo.svg)](./cargo-inc) | This is a carrier integration, written in **JavaScript**. It uses **YAML** to define service offerings and **JSON** for form definitions.
 | [![FreightCo](./freightco/logo.svg)](./freightco) | This is a carrier integration written entirely in **JavaScript**, including its service offerings and form definitions.
 | [![Parcel Post](./parcel-post/logo.svg)](./parcel-post) | This is a carrier integration written entirely in **TypeScript**, including its service offerings and form definitions.
