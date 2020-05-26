@@ -1,0 +1,28 @@
+{
+  "name": "@ipaas/capi",
+  "version": "0.0.2",
+  "description": "This is the typescript/javascript definitions for carrier api",
+  "main": "/index.js",
+  "types": "/index.ts",
+  "publishConfig": {
+    "registry": "https://infra-nexus.kube.sslocal.com/repository/s3-npm-hosted/"
+  },
+  "scripts": {
+    "test": "test",
+    "build": "tsc -p . && cp -rf package.json lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/shipstation/integrations-shipping"
+  },
+  "keywords": [
+    "ipaas",
+    "capi",
+    "integrations-shipping"
+  ],
+  "author": "Justin Robertson",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^3.9.3"
+  }
+}
