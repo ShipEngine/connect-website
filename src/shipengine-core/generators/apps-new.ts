@@ -4,13 +4,14 @@ import Generator = require("yeoman-generator");
 import _ from "lodash";
 import { v4 as uuidv4 } from "uuid";
 import capitalization from "@shipengine/capitalization";
+import { AppType } from '@shipengine/integration-platform-sdk';
+import { AppTypes } from '../utils/types';
 
 const fixpack = require("@oclif/fixpack");
 const sortPjson = require("sort-pjson");
 
 const isWindows = process.platform === "win32";
 
-type AppTypes = "carrier" | "order source" | "connection";
 type DefinitionTypes = "pojo" | "json" | "yaml";
 
 class AppsNew extends Generator {
@@ -50,7 +51,7 @@ class AppsNew extends Generator {
 
     this.npm = true;
     this.path = opts.path;
-    this.type = "carrier";
+    this.type = AppType.Carrier;
   }
 
   async prompting() {
@@ -142,8 +143,7 @@ class AppsNew extends Generator {
           message: "what type of app are you building",
           choices: [
             { name: "carrier ", value: "carrier" },
-            { name: "order source", value: "order source" },
-            { name: "connection", value: "connection" },
+            { name: "order source", value: "order source" }
           ],
           default: defaults.type,
         },
@@ -216,7 +216,7 @@ class AppsNew extends Generator {
     } else {
       this.pjson.name = `${this.answers.scope || defaults.scope}/${
         this.answers.name || defaults.name
-      }`;
+        }`;
     }
 
     this.pjson.description = this.answers.description || defaults.description;
@@ -323,6 +323,28 @@ class AppsNew extends Generator {
 
           this.fs.copyTpl(
             this.templatePath(
+              `carrier/forms/connect.${this._definitionExt}`,
+            ),
+            this.destinationPath(`src/forms/connect.${this._definitionExt}`),
+            this,
+          );
+
+          this.fs.copyTpl(
+            this.templatePath(
+              `carrier/forms/settings.${this._definitionExt}`,
+            ),
+            this.destinationPath(`src/forms/settings.${this._definitionExt}`),
+            this,
+          );
+
+          this.fs.copyTpl(
+            this.templatePath(`carrier/methods/connect.${this._codeExt}`),
+            this.destinationPath(`src/connect.${this._codeExt}`),
+            this,
+          );
+
+          this.fs.copyTpl(
+            this.templatePath(
               `carrier/methods/cancel-shipments.${this._codeExt}`,
             ),
             this.destinationPath(
@@ -354,6 +376,14 @@ class AppsNew extends Generator {
               `carrier/methods/cancel-pickups.${this._codeExt}`,
             ),
             this.destinationPath(`src/methods/cancel-pickups.${this._codeExt}`),
+            this,
+          );
+
+          this.fs.copyTpl(
+            this.templatePath(
+              `carrier/methods/connect.${this._codeExt}`,
+            ),
+            this.destinationPath(`src/methods/connect.${this._codeExt}`),
             this,
           );
 
@@ -398,56 +428,11 @@ class AppsNew extends Generator {
           }
         }
         break;
-      case "order source":
+      case AppType.Order:
         if (!fs.existsSync("src")) {
           this.fs.copyTpl(
             this.templatePath(`order-source/index.${this._definitionExt}`),
             this.destinationPath(`src/index.${this._definitionExt}`),
-            this,
-          );
-        }
-        break;
-      case "connection":
-        if (!fs.existsSync("src")) {
-          this.fs.copyTpl(
-            this.templatePath(`connection/index.${this._definitionExt}`),
-            this.destinationPath(`src/index.${this._definitionExt}`),
-            this,
-          );
-
-          this.fs.copyTpl(
-            this.templatePath(
-              `connection/forms/connect.${this._definitionExt}`,
-            ),
-            this.destinationPath(`src/forms/connect.${this._definitionExt}`),
-            this,
-          );
-
-          this.fs.copyTpl(
-            this.templatePath(
-              `connection/forms/settings.${this._definitionExt}`,
-            ),
-            this.destinationPath(`src/forms/settings.${this._definitionExt}`),
-            this,
-          );
-
-          this.fs.copyTpl(
-            this.templatePath(`connection/methods/connect.${this._codeExt}`),
-            this.destinationPath(`src/connect.${this._codeExt}`),
-            this,
-          );
-
-          if (this.ts) {
-            this.fs.copyTpl(
-              this.templatePath(`connection/methods/session.ts`),
-              this.destinationPath(`src/session.ts`),
-              this,
-            );
-          }
-
-          this.fs.copyTpl(
-            this.templatePath("logo.svg"),
-            this.destinationPath("src/logo.svg"),
             this,
           );
         }
@@ -459,7 +444,7 @@ class AppsNew extends Generator {
     const dependencies: string[] = [];
     const devDependencies: string[] = [];
 
-    devDependencies.push("@shipengine/integration-platform-sdk@0.0.13");
+    devDependencies.push("@shipengine/integration-platform-sdk@0.0.16");
 
     if (this.ts) {
       devDependencies.push("@types/node@^13.13.5");
