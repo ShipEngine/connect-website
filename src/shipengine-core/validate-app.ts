@@ -1,12 +1,14 @@
-import { loadApp, App } from "@shipengine/integration-platform-loader";
+import { loadApp } from "@shipengine/integration-platform-loader";
 import Mocha from "mocha";
 import * as path from "path";
 import readdir from "recursive-readdir";
+import { isCarrierApp } from './utils/is-functions';
+import { App } from './utils/types';
 
 export const testSuites = ["create-shipment", "rate-shipment", "schedule-pickup"];
 
 function addMochaFile(mocha: Mocha, file: string) {
-  if(!mocha.files.includes(file)) {
+  if (!mocha.files.includes(file)) {
     mocha.addFile(file);
   }
 }
@@ -43,7 +45,7 @@ function isError(error: string): boolean {
 //  ›   @shipengine/integration-platform-sdk. Run `npm install` to resolve
 export async function validateApp(pathToApp: string): Promise<App> {
   try {
-    const app = await loadApp(pathToApp);
+    const app = await loadApp(pathToApp) as App;
     return app;
   } catch (error) {
     const errors: string[] = error.message
@@ -73,16 +75,11 @@ export async function validateTestSuite(app: App, argv: string[]): Promise<void>
   const carrierAppMethods = ["createShipment", "cancelShipments", "rateShipment", "track", "createManifest", "schedulePickup", "cancelPickup"];
   const appMethods: string[] = [];
 
-  if (app.type === "carrier") {
+  if (isCarrierApp(app)) {
     for (let carrierMethod of carrierAppMethods) {
-      if (Reflect.get(app.carrier, carrierMethod)) {
+      if (Reflect.get(app, carrierMethod)) {
         appMethods.push(carrierMethod);
       }
-    }
-  }
-  else if (app.type === "connection") {
-    if (Reflect.get(app.connection, "connect")) {
-      appMethods.push("connect");
     }
   }
 
