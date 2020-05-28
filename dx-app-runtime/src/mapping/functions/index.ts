@@ -10,21 +10,35 @@ export * as cancelPickupRequest from './mapping/cancel-pickup-request';
 export * as cancelPickupResponse from './mapping/cancel-pickup-response';*/
 
 import {CarrierApp} from "@shipengine/integration-platform-sdk";
-import {TrackRequest} from "@ipaas/capi/requests";
-import {capiToDxTrack, dxToCapiTrack} from "./mapping/tracking";
-import {capiRequestToDxTransaction} from "./mapping/transaction";
-import {TrackResponse} from "@ipaas/capi/responses";
+import {TrackRequest, RegisterRequest} from "@ipaas/capi/requests";
+import {capiToDxTrack, dxToCapiTrack} from "./tracking";
+import {capiRequestToDxTransaction} from "./transaction";
+import capiToDxTransaction from './register-request';
+import dxToCapiRegisterResponse from './register-response';
+import {TrackResponse, RegisterResponse} from "@ipaas/capi/responses";
+import { BasicAuth } from "../../basic-auth";
 
-const handleTrackingRequest = async (app: CarrierApp, request: TrackRequest): Promise<TrackResponse> => {
-
+const handleTrackingRequest = async (app: CarrierApp, request: TrackRequest, auth: BasicAuth): Promise<TrackResponse> => {
     if(!app.trackShipment){
         throw new Error(`${app.name} does not implement trackShipment`);
     }
 
     const dxTracking = capiToDxTrack(request);
-    const transaction = capiRequestToDxTransaction(request);
+    const transaction = capiRequestToDxTransaction(request, auth);
     const trackingInfo = await app.trackShipment(transaction, dxTracking);
-    return dxToCapiTrack(trackingInfo);
+    return dxToCapiTrack(trackingInfo, transaction);
 }
 
-export {handleTrackingRequest};
+const handleRegisterRequest = async (app: CarrierApp, request: RegisterRequest): Promise<RegisterResponse> => {
+    if(!app.connect) {
+        throw new Error(`${app.name} does not implement connect`)
+    }
+    const transaction = capiToDxTransaction(request);
+    await app.connect(transaction, request.registration_info);
+    return dxToCapiRegisterResponse(transaction);
+}
+
+export {
+    handleTrackingRequest,
+    handleRegisterRequest
+};

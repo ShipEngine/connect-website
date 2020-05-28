@@ -1,8 +1,9 @@
-const logger = require("../../logger");
+import logger from "../../logger";
+import {NextFunction, Request, Response} from "express";
 
-module.exports = (err, req, res, next) => {
+export default (err: any, request: Request, response: Response, next: NextFunction) => {
   logger.error(err);
-  res.status(500).send({
+  response.status(500).send({
     detailed_errors: [
       {
         standardized_error_code: "unhandled_module_exception",

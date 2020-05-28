@@ -1,4 +1,6 @@
-const router = require('express').Router();
+import * as fs from "fs";
+import {Router} from "express";
+const router = Router();
 
 router.get('/version', (req, res) => {
   res.send({
@@ -16,9 +18,8 @@ router.get('/liveness', (req, res) => {
 });
 
 router.get('/exception', (req, res) => {
-  const fs = require('fs');
   fs.readFileSync('madeupgarbage');
 });
 
+export default router;
 
-module.exports = router;

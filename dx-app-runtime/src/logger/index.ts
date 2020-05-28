@@ -1,14 +1,16 @@
-const { createLogger, transports, format } = require("winston");
+import {createLogger, transports, format, Logger} from "winston";
 
-module.exports = createLogger({
+const logger: Logger = createLogger({
   transports: [
     new transports.Console({
       format: format.combine(
         format.timestamp({
           format: 'YYYY-MM-DD HH:mm:ss'
         }),
-        format.logstash()
+        format.cli()
       ),
     }),
   ]
 });
+
+export default logger;

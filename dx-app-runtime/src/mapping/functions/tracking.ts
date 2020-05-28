@@ -3,7 +3,8 @@ import {
     IdentifiersPOJO,
     ShipmentStatus,
     TrackingCriteriaPOJO,
-    TrackingInfo
+    TrackingInfo,
+    TransactionPOJO
 } from "@shipengine/integration-platform-sdk";
 import {
     EventElement,
@@ -80,7 +81,7 @@ const dxToCapiTrackEvent = (event: TrackingEvent): EventElement => {
 
 }
 
-const dxToCapiTrack = (trackingInfo: TrackingInfo): TrackResponse => {
+const dxToCapiTrack = (trackingInfo: TrackingInfo, transaction: TransactionPOJO): TrackResponse => {
 
     const totalWeight = trackingInfo.packages.map(p => p.weight?.value ?? 0).reduce((total, current) => {
         return total + current;
@@ -127,7 +128,10 @@ const dxToCapiTrack = (trackingInfo: TrackingInfo): TrackResponse => {
     };
 
     return {
-        tracking_info: capiInfo
+        tracking_info: capiInfo,
+        metadata: {
+            ...transaction.session
+        }
     }
 }
 
