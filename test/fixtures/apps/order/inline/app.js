@@ -2,7 +2,6 @@
 
 module.exports = {
 
-  id: "d54ea601-9374-425c-8732-1f9eae4eae18",
   name: "My Order",
   description: "My order description goes here",
   websiteURL: "https://www.my-order.com",
