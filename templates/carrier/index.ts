@@ -1,7 +1,6 @@
 import { CarrierAppDefinition, ManifestLocation, ManifestShipment } from "@shipengine/integration-platform-sdk";
 
 const carrier: CarrierAppDefinition = {
-  id: "<%- _uuidv4 %>",
   name: "<%- _appName %>",
   description: "<%- pjson.description %>",
   websiteURL: "http://www.carier-site.com",
