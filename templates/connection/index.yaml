@@ -1,8 +1,0 @@
-id: <%- _uuidv4 %>
-name: <%- _appName %>
-description: <%- pjson.description %>
-websiteURL:
-logo: ./logo.svg
-connectionForm: forms/connect.yaml
-settingsForm: forms/settings.yaml
-connect: connect.<%- _codeExt %>

@@ -1,13 +1,16 @@
-import { CarrierDefinition } from "@shipengine/integration-platform-sdk";
+import { CarrierAppDefinition, ManifestLocation, ManifestShipment } from "@shipengine/integration-platform-sdk";
 
-const carrier: CarrierDefinition = {
+const carrier: CarrierAppDefinition = {
   id: "<%- _uuidv4 %>",
   name: "<%- _appName %>",
   description: "<%- pjson.description %>",
-  websiteURL: null,
+  websiteURL: "http://www.carier-site.com",
   logo: "./logo.svg",
-  manifestLocations: "single_location",
-  manifestShipments: "explicit_shipments",
+  manifestLocations: ManifestLocation.SingleLocation,
+  manifestShipments: ManifestShipment.ExplicitShipments,
+  connectionForm: import("./forms/connect"),
+  settingsForm: import("./forms/settings"),
+  connect: import("./methods/connect"),
   cancelPickups: import("./methods/cancel-pickups"),
   cancelShipments: import("./methods/cancel-shipments"),
   createManifest: import("./methods/create-manifest"),
