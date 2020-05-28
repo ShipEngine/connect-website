@@ -1,4 +1,3 @@
-id: <%- _uuidv4 %>
 name: "<%- _appName %>"
 description: "<%- pjson.description %>"
 websiteURL: http://www.carier-site.com

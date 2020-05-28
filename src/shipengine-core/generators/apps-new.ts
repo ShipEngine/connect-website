@@ -4,8 +4,8 @@ import Generator = require("yeoman-generator");
 import _ from "lodash";
 import { v4 as uuidv4 } from "uuid";
 import capitalization from "@shipengine/capitalization";
-import { AppType } from '@shipengine/integration-platform-sdk';
-import { AppTypes } from '../utils/types';
+import { AppType } from "@shipengine/integration-platform-sdk";
+import { AppTypes } from "../utils/types";
 
 const fixpack = require("@oclif/fixpack");
 const sortPjson = require("sort-pjson");
@@ -143,7 +143,7 @@ class AppsNew extends Generator {
           message: "what type of app are you building",
           choices: [
             { name: "carrier ", value: "carrier" },
-            { name: "order source", value: "order source" }
+            { name: "order source", value: "order source" },
           ],
           default: defaults.type,
         },
@@ -216,7 +216,7 @@ class AppsNew extends Generator {
     } else {
       this.pjson.name = `${this.answers.scope || defaults.scope}/${
         this.answers.name || defaults.name
-        }`;
+      }`;
     }
 
     this.pjson.description = this.answers.description || defaults.description;
@@ -322,17 +322,13 @@ class AppsNew extends Generator {
           );
 
           this.fs.copyTpl(
-            this.templatePath(
-              `carrier/forms/connect.${this._definitionExt}`,
-            ),
+            this.templatePath(`carrier/forms/connect.${this._definitionExt}`),
             this.destinationPath(`src/forms/connect.${this._definitionExt}`),
             this,
           );
 
           this.fs.copyTpl(
-            this.templatePath(
-              `carrier/forms/settings.${this._definitionExt}`,
-            ),
+            this.templatePath(`carrier/forms/settings.${this._definitionExt}`),
             this.destinationPath(`src/forms/settings.${this._definitionExt}`),
             this,
           );
@@ -380,9 +376,7 @@ class AppsNew extends Generator {
           );
 
           this.fs.copyTpl(
-            this.templatePath(
-              `carrier/methods/connect.${this._codeExt}`,
-            ),
+            this.templatePath(`carrier/methods/connect.${this._codeExt}`),
             this.destinationPath(`src/methods/connect.${this._codeExt}`),
             this,
           );
@@ -444,7 +438,7 @@ class AppsNew extends Generator {
     const dependencies: string[] = [];
     const devDependencies: string[] = [];
 
-    devDependencies.push("@shipengine/integration-platform-sdk@0.0.16");
+    devDependencies.push("@shipengine/integration-platform-sdk@0.0.17");
 
     if (this.ts) {
       devDependencies.push("@types/node@^13.13.5");
