@@ -1,4 +1,6 @@
-export interface VoidLabelsResponse {
+import { BaseResponse } from "./base-response";
+
+export interface VoidLabelsResponse extends BaseResponse {
   /**
    * A request to void a particular label.
    */

@@ -1,9 +1,10 @@
 import { 
   Dimensions
 } from "../models";
+import { BaseResponse } from "./base-response";
 
 
-export interface TrackResponse {
+export interface TrackResponse extends BaseResponse {
   /**
    * This model represents tracking information for a shipment.
    */

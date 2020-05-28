@@ -1,8 +1,9 @@
 import { 
   Currency
 } from "../models";
+import { BaseResponse } from "./base-response";
 
-export interface GetRatesResponse {
+export interface GetRatesResponse extends BaseResponse {
   /**
    * A list of rates for shipping services. If you use service codes there may be exactly one
    * rate returned for the requested service. If you use service codes there may be more than

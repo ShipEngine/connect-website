@@ -4,8 +4,9 @@ import {
   PickupConfirmation,
   PickupWindow
 } from "../models";
+import { BaseResponse } from "./base-response";
 
-export interface SchedulePickupResponse {
+export interface SchedulePickupResponse extends BaseResponse {
   /**
    * A list of charges accrued with a schedule pickup request.
    */

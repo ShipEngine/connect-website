@@ -2,8 +2,9 @@ import {
   Currency,
   Download
 } from "../models";
+import { BaseResponse } from "./base-response";
 
-export interface CreateLabelResponse {
+export interface CreateLabelResponse extends BaseResponse {
   /**
    * The shipping provider specific id for the creation of this label.
    */

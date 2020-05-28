@@ -1,4 +1,6 @@
-export interface CancelPickupResponse {
+import { BaseResponse } from "./base-response";
+
+export interface CancelPickupResponse extends BaseResponse {
   /**
    * The confirmation id from the carrier associated with the cancellation request.
    */
