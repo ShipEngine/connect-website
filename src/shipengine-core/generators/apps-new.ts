@@ -36,20 +36,16 @@ class AppsNew extends Generator {
     license: string;
     typescript: boolean;
     definitions: DefinitionTypes;
+    vscode: boolean;
   };
 
   ts!: boolean;
 
-  npm!: boolean;
-
   definitions!: DefinitionTypes;
-
-  repository?: string;
 
   constructor(args: any, opts: any) {
     super(args, opts);
 
-    this.npm = true;
     this.path = opts.path;
     this.type = AppType.Carrier;
   }
@@ -95,6 +91,7 @@ class AppsNew extends Generator {
       },
       typescript: false,
       definitions: "yaml",
+      vscode: true,
     };
 
     if (this.options.skipQuestions) {
@@ -202,7 +199,14 @@ class AppsNew extends Generator {
               value: "pojo",
             },
           ],
+
           default: defaults.definitions,
+        },
+        {
+          type: "confirm",
+          name: "vscode",
+          message: "are you using vscode",
+          default: defaults.vscode,
         },
       ])) as any;
     }
@@ -232,6 +236,13 @@ class AppsNew extends Generator {
 
     this.pjson.main = this.pJsonMain();
 
+    if (this.answers.vscode) {
+      this.pjson.scripts = {
+        debug:
+          "cross-env NODE_OPTIONS=--inspect-brk shipengine apps:test -g=rateShipment",
+      };
+    }
+
     if (this.ts) {
       this.pjson.types = defaults.types || "lib/index.d.ts";
     }
@@ -239,6 +250,14 @@ class AppsNew extends Generator {
 
   writing() {
     this.sourceRoot(path.join(__dirname, "../../../templates"));
+
+    if (this.answers.vscode) {
+      this.fs.copyTpl(
+        this.templatePath("vscode/launch.json"),
+        this.destinationPath(".vscode/launch.json"),
+        this,
+      );
+    }
 
     if (this.ts) {
       this.fs.copyTpl(
@@ -439,6 +458,7 @@ class AppsNew extends Generator {
     const devDependencies: string[] = [];
 
     devDependencies.push("@shipengine/integration-platform-sdk@0.0.17");
+    devDependencies.push("cross-env");
 
     if (this.ts) {
       devDependencies.push("@types/node@^13.13.5");
@@ -491,7 +511,7 @@ class AppsNew extends Generator {
         "/tmp",
         "/dist",
         "/.nyc_output",
-        this.npm ? "/yarn.lock" : "/package-lock.json",
+        "/package-lock.json",
         this.ts && "/lib",
       ])
         .concat(existing)
