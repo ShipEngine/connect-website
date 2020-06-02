@@ -11,14 +11,13 @@ export default abstract class Suite {
 
   constructor(app: App) {
     this.app = app;
-    this._testCache = this.tests();
-
     this.transactionWithMockSession = {
       id: v4(),
       isRetry: false,
       useSandbox: false,
       session: {},
     };
+    this._testCache = this.tests();
   }
 
   abstract tests(): Test[];
