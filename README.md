@@ -64,7 +64,7 @@ ARGUMENTS
 OPTIONS
   -f, --force  overwrite existing files
   -h, --help   show CLI help
-  -y, --yes    skips the questions and uses the defaults (carrier|TypeScript)
+  -y, --yes    skips the questions and uses the defaults (carrier|Javascript|yaml)
 
 EXAMPLE
   $ shipengine apps:new
@@ -79,6 +79,13 @@ test your app
 ```
 USAGE
   $ shipengine apps:test
+
+OPTIONS
+  -c, --concurrency=concurrency  [default: 1] specify the test concurrency
+  -d, --debug                    provides additional logs to test output
+  -f, --fail-fast                stop running the test suite on the first failed test
+  -g, --grep=grep                only run test that match this string (e.g. method name or test SHA)
+  -h, --help                     show CLI help
 
 EXAMPLE
   $ shipengine apps:test
