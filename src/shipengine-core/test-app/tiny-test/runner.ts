@@ -30,6 +30,7 @@ async function runTest(
 
   if (test.skip) {
     results.skipped++;
+
     log(
       `${indent(2)}${chalk.bgWhite.black(" SKIP ")} ${chalk.gray(
         test.toString(),
@@ -48,6 +49,8 @@ async function runTest(
     );
   } catch (error) {
     results.failed++;
+    // This extra check is needed when test are running concurrently
+    if (failFast && results.failed > 1) return;
     log(
       `${indent(2)}${chalk.bgRed.black(" FAIL ")} ${chalk.red(
         test.toString(),
@@ -62,21 +65,36 @@ async function runTest(
   }
 }
 
+function partitionTestSuite(suite: Test[], size: number) {
+  const partitionedTestSuite = [];
+  let index = 0;
+
+  while (index < suite.length) {
+    partitionedTestSuite.push(suite.slice(index, size + index));
+    index += size;
+  }
+  return partitionedTestSuite;
+}
+
 export async function Runner(
   suites: Suite[],
 
   { failFast = false, concurrency = 1, debug = false }: RunnerOptions,
 ): Promise<RunnerResults> {
-  // Concurrency is not configurable at the moment
-  if (concurrency !== 1) return results;
-
   for (let suite of suites) {
+    const partitionedTestSuite = partitionTestSuite(
+      suite._testCache,
+      concurrency,
+    );
+
     if (failFast && results.failed > 0) return results;
 
     log(indentLines(chalk.yellow(`suite ${suite.title}`), 0));
 
-    for (let test of suite._testCache) {
-      await runTest(test, failFast, debug);
+    for (let testBatch of partitionedTestSuite) {
+      await Promise.all(
+        testBatch.map((test) => runTest(test, failFast, debug)),
+      );
     }
   }
 

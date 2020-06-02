@@ -86,7 +86,6 @@ OPTIONS
   -f, --fail-fast                stop running the test suite on the first failed test
   -g, --grep=grep                only run test that match this string (e.g. method name or test SHA)
   -h, --help                     show CLI help
-  -i, --inspect-brk              support for node's `--inspect-brk` flag
 
 EXAMPLE
   $ shipengine apps:test
