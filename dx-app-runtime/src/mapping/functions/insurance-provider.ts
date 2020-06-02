@@ -1,5 +1,5 @@
-import { InsuranceProvider as capiInsuranceProvider } from '../capi/models/insurance-provider';
-import { InsuranceProvider } from '@shipengine/ipaas';
+import { InsuranceProvider as capiInsuranceProvider } from '@ipaas/capi/models';
+import { InsuranceProvider } from '@shipengine/integration-platform-sdk';
 
 export default (insuranceProvider: capiInsuranceProvider | null | undefined): InsuranceProvider | undefined => {
   switch (insuranceProvider) {

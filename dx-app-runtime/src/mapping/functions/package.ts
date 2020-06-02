@@ -5,11 +5,13 @@ import {
   DocumentSize,
   LengthUnit,
   NewPackagePOJO,
-  WeightUnit
+  WeightUnit,
+  RatePackagePOJO,
+  PackageRateCriteriaPOJO
 } from "@shipengine/integration-platform-sdk";
 import {capiToDxCustomsItem} from './customs-item';
 
-const capiToDxPackage = (capiPackage: Package, customs: Customs | null | undefined, advancedOptions: AdvancedShippingOptions | null | undefined): NewPackagePOJO => {
+const capiToDxPackage = (capiPackage: Package, customs: Customs | null | undefined, advancedOptions: AdvancedShippingOptions | null | undefined): NewPackagePOJO | RatePackagePOJO => {
 
   const nonNullCustomsItems = (<CapiCustomsItem[] | undefined>customs?.customs_items.filter(item => (item !== null && item !== undefined)));
 
@@ -55,4 +57,31 @@ const capiToDxPackage = (capiPackage: Package, customs: Customs | null | undefin
   return mappedPackage;
 }
 
-export {capiToDxPackage};
+const capiToDxPackageRateCriteria = (capiPackage: Package, customs: Customs | null | undefined, advancedOptions: AdvancedShippingOptions | null | undefined) : PackageRateCriteriaPOJO => {
+  const nonNullCustomsItems = (<CapiCustomsItem[] | undefined>customs?.customs_items.filter(item => (item !== null && item !== undefined)));
+
+
+  const mappedPackage = {
+    dimensions: {
+      length: capiPackage.dimension_details?.dimensions_in_centimeters?.length || 0,
+      width: capiPackage.dimension_details?.dimensions_in_centimeters?.width || 0,
+      height: capiPackage.dimension_details?.dimensions_in_centimeters?.height || 0,
+      unit: LengthUnit.Centimeters
+    },
+    weight: {
+      value: capiPackage.weight_details?.weight_in_grams || 0,
+      unit: WeightUnit.Grams
+    },
+    insuredValue: {
+      value: capiPackage.insured_value.amount || 0,
+      currency: capiToDxCurrencyCode(capiPackage.insured_value.currency)
+    },
+    containsAlcohol: advancedOptions?.contains_alcohol || false,
+    isNonMachinable: advancedOptions?.nonmachineable || false,
+    //contents: /*customs?.customs_items.map(mapCustomsToItemToPackageItem) ||*/ [] //TODO: how do contents differ from customs items
+  };
+  return mappedPackage;
+}
+
+
+export {capiToDxPackage, capiToDxPackageRateCriteria};

@@ -1,15 +1,14 @@
-import { GetRatesRequest } from "../../capi/get-rates-request";
-import { CreateLabelRequest } from "../../capi/create-label-request";
-import { capiToDxAddress } from "../address";
+import { GetRatesRequest, CreateLabelRequest } from "@ipaas/capi/requests";
+import { mapAddressToAddressWithContactInfoPOJO } from "./address";
 import { BilledParty, Country } from "@shipengine/integration-platform-sdk";
-import {capiToDxPackage} from "../package";
+import {capiToDxPackage} from "./package";
 import mapInsuranceProvider from './insurance-provider';
 
 export default (request: GetRatesRequest | CreateLabelRequest) => {
   return {
     deliveryServiceID: request.service_code || '',
-    shipFrom: capiToDxAddress(request.ship_from),
-    shipTo: capiToDxAddress(request.ship_to),
+    shipFrom: mapAddressToAddressWithContactInfoPOJO(request.ship_from),
+    shipTo: mapAddressToAddressWithContactInfoPOJO(request.ship_to),
     shipDateTime: new Date(request.ship_datetime),
 //    nonDeliveryAction: NonDeliveryAction.ReturnToSender, //TODO: how to map nonDeliveryAction?
     insuranceProvider: mapInsuranceProvider(request.insurance_provider),

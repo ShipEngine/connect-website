@@ -37,7 +37,7 @@ const emptyDxAddress: AddressWithContactInfoPOJO = {
   timeZone: ''
 };
 
-export const capiToDxAddress = (address: Address | null | undefined): AddressWithContactInfoPOJO => {
+export const mapAddressToAddressWithContactInfoPOJO = (address: Address | null | undefined): AddressWithContactInfoPOJO => {
   if(!address) {
     return emptyDxAddress;
   }
@@ -53,13 +53,13 @@ export const capiToDxAddress = (address: Address | null | undefined): AddressWit
     name: {
       given: address.first_name ?? "",
       family: address.last_name ?? "",
-      middle: "",
-      suffix: "",
-      title: ""
+      middle: "", // TODO: We don't send over middle names.
+      suffix: "", // TODO: We don't send over suffix
+      title: "" // TODO: We don't send over title
     },
     isResidential: convertResidentialIndicatorToBoolean(address.address_residential_indicator),
     company: address.company_name || '',
-    timeZone: ""
+    timeZone: "America/Chicago" // TODO: We don't send over timeZone
   };
 
   return dxAddress;

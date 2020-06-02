@@ -11,5 +11,10 @@ export default {
   register: async (dxApp: CarrierApp, body: any) => {
     const response = await mapFunctions.handleRegisterRequest(dxApp, body);
     return response;
+  },
+  getRates: async (dxApp: CarrierApp, body: any, headers: any) => {
+    const auth = getBasicAuthFromHeader(headers.authorization);
+    const response = await mapFunctions.handleGetRatesRequest(dxApp, body, auth);
+    return response;
   }
 }

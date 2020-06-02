@@ -3,7 +3,7 @@ import { TransactionPOJO } from "@shipengine/integration-platform-sdk"
 import { BasicAuth } from "../../basic-auth";
 
 
-const capiRequestToDxTransaction = (request: RegisterRequest | GetRatesRequest | CreateLabelRequest | VoidLabelsRequest | TrackRequest | SchedulePickupRequest | CancelPickupRequest, auth: BasicAuth | null | undefined): TransactionPOJO => {
+export default (request: RegisterRequest | GetRatesRequest | CreateLabelRequest | VoidLabelsRequest | TrackRequest | SchedulePickupRequest | CancelPickupRequest, auth: BasicAuth | null | undefined): TransactionPOJO => {
   const transaction = {
     id: request.transaction_id || '',
     session: {
@@ -13,5 +13,3 @@ const capiRequestToDxTransaction = (request: RegisterRequest | GetRatesRequest |
   };
   return transaction;
 }
-
-export { capiRequestToDxTransaction };
