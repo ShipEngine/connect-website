@@ -14,7 +14,7 @@ export default class Test extends BaseCommand {
     help: flags.help({ char: "h" }),
     debug: flags.boolean({
       char: "d",
-      description: "provides additional logs to test output",
+      description: "logs additional debug information",
     }),
     concurrency: flags.integer({
       char: "c",
