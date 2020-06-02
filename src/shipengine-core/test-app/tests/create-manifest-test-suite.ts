@@ -1,6 +1,5 @@
 import { Suite, TestProp, expect } from "../tiny-test";
 import { buildAddress } from "../factories/address";
-import { v4 } from "uuid";
 import {
   CarrierApp,
   NewManifestPOJO,
@@ -32,15 +31,6 @@ export class CreateManifestTestSuite extends Suite {
   }
 
   private testProps(): TestProp<CreateManifestProps>[] {
-    const transactionPOJO: TransactionPOJO = {
-      id: v4(),
-      isRetry: false,
-      useSandbox: false,
-      session: {
-        id: v4(),
-      },
-    };
-
     const newManifestPOJO: NewManifestPOJO = {
       shipFrom: buildAddress("US"),
       openDateTime: new Date(),
@@ -51,7 +41,7 @@ export class CreateManifestTestSuite extends Suite {
     return [
       {
         title: "creates a new manifest",
-        props: [transactionPOJO, newManifestPOJO],
+        props: [this.transactionWithMockSession, newManifestPOJO],
       },
     ];
   }

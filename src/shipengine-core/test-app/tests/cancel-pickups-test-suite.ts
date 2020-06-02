@@ -64,15 +64,6 @@ export class CancelPickupsTestSuite extends Suite {
         for (let deliveryService of carrierApp.deliveryServices) {
           for (let packageUnit of packageUnits) {
             for (let packageWeight of packageWeights) {
-              const transactionPOJO: TransactionPOJO = {
-                id: v4(),
-                isRetry: false,
-                useSandbox: false,
-                session: {
-                  id: v4(),
-                },
-              };
-
               const packagePOJO: PickupPackagePOJO = {
                 packaging: {
                   id: deliveryService.packaging[0].id,
@@ -112,7 +103,7 @@ export class CancelPickupsTestSuite extends Suite {
 
               props.push({
                 title: title,
-                props: [transactionPOJO, pickupCancellations],
+                props: [this.transactionWithMockSession, pickupCancellations],
               });
             }
           }

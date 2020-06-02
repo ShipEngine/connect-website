@@ -1,5 +1,4 @@
 import { Suite, TestProp, expect } from "../tiny-test";
-import { v4 } from "uuid";
 import { TransactionPOJO } from "@shipengine/integration-platform-sdk";
 
 type ConnectProps = [TransactionPOJO, {}];
@@ -25,13 +24,11 @@ export class ConnectTestSuite extends Suite {
   }
 
   private testProps(): TestProp<ConnectProps>[] {
-    const transactionPOJO: TransactionPOJO = {
-      id: v4(),
-      isRetry: false,
-      useSandbox: false,
-      session: {},
-    };
-
-    return [{ title: "saves session data", props: [transactionPOJO, {}] }];
+    return [
+      {
+        title: "saves session data",
+        props: [this.transactionWithMockSession, {}],
+      },
+    ];
   }
 }

@@ -1,6 +1,5 @@
 import { Suite, TestProp, expect } from "../tiny-test";
 import { buildAddressWithContactInfo } from "../factories/address";
-import { v4 } from "uuid";
 import {
   CarrierApp,
   NewShipmentPOJO,
@@ -63,15 +62,6 @@ export class CreateShipmentTestSuite extends Suite {
                 //     }
                 //   }
 
-                let transactionPOJO: TransactionPOJO = {
-                  id: v4(),
-                  isRetry: false,
-                  useSandbox: false,
-                  session: {
-                    id: v4(),
-                  },
-                };
-
                 const packagePOJO: NewPackagePOJO = {
                   deliveryConfirmation: {
                     id: deliveryConfirmation.id,
@@ -103,7 +93,7 @@ export class CreateShipmentTestSuite extends Suite {
 
                 props.push({
                   title: title,
-                  props: [transactionPOJO, newShipmentPOJO],
+                  props: [this.transactionWithMockSession, newShipmentPOJO],
                 });
               }
             }
