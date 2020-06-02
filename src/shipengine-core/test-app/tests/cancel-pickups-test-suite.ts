@@ -68,9 +68,7 @@ export class CancelPickupsTestSuite extends Suite {
                 id: v4(),
                 isRetry: false,
                 useSandbox: false,
-                session: {
-                  id: v4(),
-                },
+                session: {},
               };
 
               const packagePOJO: PickupPackagePOJO = {

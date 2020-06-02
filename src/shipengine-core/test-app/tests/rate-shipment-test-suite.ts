@@ -48,9 +48,7 @@ export class RateShipmentTestSuite extends Suite {
           id: v4(),
           isRetry: false,
           useSandbox: false,
-          session: {
-            id: v4(),
-          },
+          session: {},
         };
 
         const packageRateCriteriaPOJO: PackageRateCriteriaPOJO = {
