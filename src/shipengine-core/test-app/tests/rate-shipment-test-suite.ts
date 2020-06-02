@@ -1,5 +1,4 @@
 import { Suite, TestProp, expect } from "../tiny-test";
-import { v4 } from "uuid";
 import { buildAddressWithContactInfo } from "../factories/address";
 import {
   CarrierApp,
