@@ -31,13 +31,6 @@ export class CancelShipmentsTestSuite extends Suite {
   }
 
   private testProps(): TestProp<CancelShipmentsProps>[] {
-    const transactionPOJO: TransactionPOJO = {
-      id: v4(),
-      isRetry: false,
-      useSandbox: false,
-      session: {},
-    };
-
     const shipmentCancellationPOJOs: ShipmentCancellationPOJO[] = [
       {
         cancellationID: v4(),
@@ -47,7 +40,7 @@ export class CancelShipmentsTestSuite extends Suite {
     return [
       {
         title: "cancels a shipment",
-        props: [transactionPOJO, shipmentCancellationPOJOs],
+        props: [this.transactionWithMockSession, shipmentCancellationPOJOs],
       },
     ];
   }

@@ -63,13 +63,6 @@ export class CreateShipmentTestSuite extends Suite {
                 //     }
                 //   }
 
-                let transactionPOJO: TransactionPOJO = {
-                  id: v4(),
-                  isRetry: false,
-                  useSandbox: false,
-                  session: {},
-                };
-
                 const packagePOJO: NewPackagePOJO = {
                   deliveryConfirmation: {
                     id: deliveryConfirmation.id,
@@ -101,7 +94,7 @@ export class CreateShipmentTestSuite extends Suite {
 
                 props.push({
                   title: title,
-                  props: [transactionPOJO, newShipmentPOJO],
+                  props: [this.transactionWithMockSession, newShipmentPOJO],
                 });
               }
             }

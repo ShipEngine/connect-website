@@ -36,7 +36,7 @@ export default class Test extends BaseCommand {
   async run() {
     this.parse(Test);
     const { flags } = this.parse(Test);
-    const pathToApp = `${process.cwd()}`;
+    const pathToApp = process.cwd();
 
     try {
       const app = await loadAndValidateApp(pathToApp);

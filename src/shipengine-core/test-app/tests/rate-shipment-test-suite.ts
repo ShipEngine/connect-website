@@ -44,13 +44,6 @@ export class RateShipmentTestSuite extends Suite {
     ];
     for (let packageUnit of packageUnits) {
       for (let packageWeight of packageWeights) {
-        const transactionPOJO: TransactionPOJO = {
-          id: v4(),
-          isRetry: false,
-          useSandbox: false,
-          session: {},
-        };
-
         const packageRateCriteriaPOJO: PackageRateCriteriaPOJO = {
           weight: {
             value: packageWeight,
@@ -67,7 +60,7 @@ export class RateShipmentTestSuite extends Suite {
 
         props.push({
           title: `rate a shipment with package unit: ${packageUnit}, and package weight: ${packageWeight}`,
-          props: [transactionPOJO, rateCriteriaPOJO],
+          props: [this.transactionWithMockSession, rateCriteriaPOJO],
         });
       }
     }
