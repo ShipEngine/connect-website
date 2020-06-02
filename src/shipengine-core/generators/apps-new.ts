@@ -239,7 +239,7 @@ class AppsNew extends Generator {
     if (this.answers.vscode) {
       this.pjson.scripts = {
         debug:
-          "NODE_OPTIONS=--inspect-brk shipengine apps:test -g=rateShipment",
+          "cross-env NODE_OPTIONS=--inspect-brk shipengine apps:test -g=rateShipment",
       };
     }
 
@@ -458,6 +458,7 @@ class AppsNew extends Generator {
     const devDependencies: string[] = [];
 
     devDependencies.push("@shipengine/integration-platform-sdk@0.0.17");
+    devDependencies.push("cross-env");
 
     if (this.ts) {
       devDependencies.push("@types/node@^13.13.5");
