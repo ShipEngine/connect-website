@@ -3,6 +3,7 @@
 /** Test Shipping Provider */
 const config: CarrierAppDefinition = {
 
+  id: "d54ea601-9374-425c-8732-1f9eae4eae18",
   name: "My Carrier",
   description: "My Carrier description goes here",
   websiteURL: "https://www.my-carrier.com",

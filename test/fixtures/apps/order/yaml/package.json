@@ -3,6 +3,6 @@
   "version": "0.0.1",
   "main": "app.yml",
   "devDependencies": {
-    "@shipengine/integration-platform-sdk": "0.0.17"
+    "@shipengine/integration-platform-sdk": "0.0.20"
   }
 }

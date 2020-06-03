@@ -14,6 +14,7 @@ describe("TypeScript apps", () => {
 
     expect(app.type).to.equal("carrier");
     expect(app.sdkVersion).to.equal(0);
+    expect(app.id).to.be.a("string");
     expect(app.name).to.equal("My Carrier");
     expect(app.description).to.equal("My Carrier description goes here");
     expect(app.websiteURL.href).to.equal("https://www.my-carrier.com/");
@@ -55,6 +56,7 @@ describe("TypeScript apps", () => {
 
     expect(app.type).to.equal("order");
     expect(app.sdkVersion).to.equal(0);
+    expect(app.id).to.be.a("string");
     expect(app.name).to.equal("My Order");
     expect(app.description).to.equal("My Order description goes here");
     expect(app.websiteURL.href).to.equal("https://www.my-order.com/");
