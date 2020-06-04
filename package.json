@@ -21,8 +21,6 @@
     "@shipengine/capitalization": "^1.2.0",
     "@shipengine/integration-platform-loader": "0.0.15",
     "@shipengine/integration-platform-sdk": "0.0.18",
-    "@types/recursive-readdir": "^2.2.0",
-    "@types/uuid": "^7.0.3",
     "axios": "^0.19.2",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
