@@ -3,14 +3,13 @@ import {AddressWithContactInfoPOJO, Country, PersonNamePOJO} from '@shipengine/i
 import convertISOCountryCodeToCountryEnum from './country-conversion';
 
 const excludeNullsFromAddressLines = (addressLines: (string | null)[] | null | undefined): string[] => {
-  if (!addressLines) {
-    return [];
-  }
-  const cleanedAddressLines = addressLines.map((addressLine) => {
-    return addressLine || '';
-  });
-
-  return cleanedAddressLines;
+  const cleanedAddress: string[] = [];
+  addressLines?.forEach(line => {
+    if(line !== null && line !== '') {
+      cleanedAddress.push(line);
+    }
+  })
+  return cleanedAddress;
 }
 
 const convertResidentialIndicatorToBoolean = (residentialIndicator: AddressResidentialIndicator | null | undefined): (boolean | undefined) => {

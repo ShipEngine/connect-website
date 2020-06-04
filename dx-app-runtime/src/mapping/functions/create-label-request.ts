@@ -1,19 +1,20 @@
-import { GetRatesRequest } from "@ipaas/capi/requests";
+import { CreateLabelRequest } from "@ipaas/capi/requests";
 import { mapAddressToAddressWithContactInfoPOJO } from "./address";
-import {  NewShipmentPOJO } from "@shipengine/integration-platform-sdk";
+import { NewShipmentPOJO } from "@shipengine/integration-platform-sdk";
 import {capiToDxNewPackagePOJO} from "./package";
 
-export const mapGetRatesRequestToNewShipmentPOJO =  (request: GetRatesRequest) : NewShipmentPOJO => {
+export const mapCreateLabelRequestToNewShipmentPOJO = (request: CreateLabelRequest) : NewShipmentPOJO => {
   return {
     deliveryService: {
       id: request.service_code || ''
     },
     shipFrom: mapAddressToAddressWithContactInfoPOJO(request.ship_from),
     shipTo: mapAddressToAddressWithContactInfoPOJO(request.ship_to),
+    returnTo: request.ship_from_display ? mapAddressToAddressWithContactInfoPOJO(request.ship_from_display) : undefined,
     shipDateTime: new Date(request.ship_datetime),
     returns: {
       isReturn: request.is_return_label,
-      rmaNumber: '', // TODO: RMA Number is added in 1.13
+      rmaNumber: undefined, // TODO: This is added in 1.13
       outboundShipment: undefined // TODO: This is suppose to represent the original shipment associated with this return Platform doesn't sent this I don't beleive.
     },
     billing: {

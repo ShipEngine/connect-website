@@ -1,7 +1,7 @@
 import {LabelFormat, LabelFormat as capiLabelFormat} from "@ipaas/capi/models";
 import {DocumentFormat} from "@shipengine/integration-platform-sdk";
 
-const capiToDxLabelFormat = (format: capiLabelFormat): DocumentFormat => {
+export const capiToDxLabelFormat = (format: capiLabelFormat): DocumentFormat => {
     switch (format) {
         case capiLabelFormat.PDF:
             return DocumentFormat.PDF;
@@ -14,7 +14,7 @@ const capiToDxLabelFormat = (format: capiLabelFormat): DocumentFormat => {
     }
 }
 
-const dxToCapiLabelFormat = (format: DocumentFormat): capiLabelFormat => {
+export const dxToCapiLabelFormat = (format: DocumentFormat): capiLabelFormat => {
     switch (format) {
         case DocumentFormat.PDF:
             return LabelFormat.PDF;
@@ -29,5 +29,3 @@ const dxToCapiLabelFormat = (format: DocumentFormat): capiLabelFormat => {
             break;
     }
 }
-
-export default {capiToDxLabelFormat, dxToCapiLabelFormat};

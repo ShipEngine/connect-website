@@ -16,5 +16,10 @@ export default {
     const auth = getBasicAuthFromHeader(headers.authorization);
     const response = await mapFunctions.handleGetRatesRequest(dxApp, body, auth);
     return response;
+  },
+  createLabel: async (dxApp: CarrierApp, body: any, headers: any) => {
+    const auth = getBasicAuthFromHeader(headers.authorization);
+    const response = await mapFunctions.handleCreateLabelRequest(dxApp, body, auth);
+    return response;
   }
 }
