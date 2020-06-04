@@ -1,4 +1,12 @@
 export default interface ConfirmationType {
   Name?: string | null;
-  Type?: 'None' | 'Delivery' | 'Signature' | 'AdultSignature' | 'DirectSignature';
+  Type?: ConfirmationTypeType;
+}
+
+export enum ConfirmationTypeType {
+  None = "None",
+  Delivery = "Delivery",
+  Signature = "Signature",
+  AdultSignature = "AdultSignature",
+  DirectSignature = "DirectSignature"
 }

@@ -1,6 +1,6 @@
 import serviceHandler from "../service-handler";
-import {Router} from "express";
-const router = Router();
+import {IRouter, Router} from "express";
+const router: IRouter = Router();
 import integration from "../integration";
 import diagnostics from "./diagnostics";
 import registry from "./loader-data";

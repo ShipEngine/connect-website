@@ -4,6 +4,12 @@ export default interface PackageType {
   CarrierPackageTypeCode: string;
   Description?: string | null;
   Abbreviation?: string | null;
-  PackageAttributes?: ('International' | 'Domestic' | 'Consolidator')[] | null;
+  PackageAttributes: PackageAttribute[];
   RequiredToShip?: ('Weight' | 'Dimensions')[] | null;
+}
+
+export enum PackageAttribute {
+  International = "International",
+  Domestic = "Domestic",
+  Consolidator = "Consolidator"
 }

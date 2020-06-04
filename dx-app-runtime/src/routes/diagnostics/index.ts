@@ -1,6 +1,6 @@
 import * as fs from "fs";
-import {Router} from "express";
-const router = Router();
+import {IRouter, Router} from "express";
+const router: IRouter = Router();
 
 router.get('/version', (req, res) => {
   res.send({

@@ -1,10 +1,9 @@
 import ExternalSpec from './external/external-spec';
 import CarrierSpecification from './external/carrier';
-import ConfirmationType from './external/confirmation-type';
+import ConfirmationType, {ConfirmationTypeType} from './external/confirmation-type';
 import DiagnosticRoutes from './external/diagnostic-routes';
 import ShippingServiceSpecification from './external/shipping-service';
 import ProviderFunction from './external/function';
-import PackageType from './external/package-type';
 import CountryAssociation from './external/country-association';
 import {
   CarrierAttribute,
@@ -18,15 +17,19 @@ import {
   CarrierApp,
   Country,
   DeliveryConfirmation,
+  DeliveryConfirmationType,
   DeliveryService,
   DeliveryServiceClass,
   DeliveryServiceGrade,
+  DocumentFormat,
   DocumentSize,
-  Packaging,
   ServiceArea,
 } from '@shipengine/integration-platform-sdk';
 import logger from "../../logger";
 import ShippingProviderConnector from "./external/shipping-provider-connector";
+import {MappingError} from "./errors";
+import {LabelFormat} from "@ipaas/capi/models";
+import {dxToCapiSpecPackageType} from "../../routes/loader-data/package-type";
 
 const defaultDiagnosticRoutes: DiagnosticRoutes = {
   Liveness: 'diagnostics/heartbeat',
@@ -38,7 +41,8 @@ const mapConnectorModule = (app: CarrierApp): ShippingProviderConnector => {
   return {
     ApiVersion: "1.12",
     ConnectorUrl: "https://nothing.sslocal.com",
-    Functions: mapFunctions(app)
+    Functions: mapFunctions(app),
+    DiagnosticRoutes: defaultDiagnosticRoutes
   }
 };
 
@@ -167,8 +171,14 @@ const mapSupportedLabelSize = (documentSizes: readonly DocumentSize[]): Supporte
         break;
       case DocumentSize.A4:
       case DocumentSize.Letter:
-      default:
-        logger.warn(`${documentSize} is not a supported document size`);
+      default: {
+        const message = `${documentSize} is not a supported document size`;
+        logger.error(message);
+        throw new MappingError(message, {
+          fieldName: "DocumentSize",
+          value: documentSize.toString()
+        }, "SupportedLabelSize");
+      }
     }
 
   });
@@ -211,15 +221,36 @@ const mapGrade = (deliveryServiceGrate: DeliveryServiceGrade): ServiceGrade => {
   }
 };
 
+function dxToCapiConfirmationType(type: DeliveryConfirmationType): ConfirmationTypeType {
+  switch (type) {
+    case DeliveryConfirmationType.Delivery:
+      return ConfirmationTypeType.Delivery;
+      break;
+    case DeliveryConfirmationType.Signature:
+      return ConfirmationTypeType.Signature;
+      break;
+    case DeliveryConfirmationType.AdultSignature:
+      return ConfirmationTypeType.AdultSignature;
+      break;
+    case DeliveryConfirmationType.DirectSignature:
+      return ConfirmationTypeType.DirectSignature;
+      break;
+    default:
+      logger.info(`defaulting unknown type ${type} to 'none'`)
+  }
+
+  return ConfirmationTypeType.None;
+}
+
 const mapConfirmationTypes = (deliveryConfirmations: readonly DeliveryConfirmation[]): ConfirmationType[] => {
   const confirmationTypes: ConfirmationType[] = [];
   deliveryConfirmations.forEach((deliveryConfirmation) => {
     const confirmationType: ConfirmationType = {
       Name: deliveryConfirmation.name,
+      Type: dxToCapiConfirmationType(deliveryConfirmation.type)
     };
     // TODO: Cannot map confirmation type Id
     // TODO: Cannot map confirmation description
-    // TODO: There is no mapping to existing SS definitions for Type (adult signature, delivery, none, etc)
     confirmationTypes.push(confirmationType);
   });
   return confirmationTypes;
@@ -273,51 +304,61 @@ const mapDeliveryServices = (services: readonly DeliveryService[]): ShippingServ
   return shippingServices;
 };
 
-const mapPackageTypes = (packaging: readonly Packaging[]): PackageType[] => {
-  const packageTypes: PackageType[] = [];
-  packaging.forEach((dxPackage) => {
-    const packageType: PackageType = {
-      Abbreviation: 'Not Supported',
-      Id: dxPackage.id,
-      Name: dxPackage.name,
-      CarrierPackageTypeCode: dxPackage.id,
-      Description: dxPackage.description,
-    };
-    packageType.RequiredToShip = [];
-    if (dxPackage.requiresDimensions) {
-      packageType.RequiredToShip.push(RequiredProperty.Dimensions);
+
+const mapLabelFormats = (documentFormats: ReadonlyArray<DocumentFormat>): LabelFormat[] => {
+  const formats: LabelFormat[] = [];
+  documentFormats.forEach((documentFormat) => {
+
+    switch (documentFormat) {
+      case DocumentFormat.PDF:
+        formats.push(LabelFormat.PDF);
+        break;
+      case DocumentFormat.ZPL:
+        formats.push(LabelFormat.ZPL);
+        break;
+      case DocumentFormat.PNG:
+        formats.push(LabelFormat.PNG)
+        break;
+      case DocumentFormat.HTML:
+      default: {
+        const msg = `DocumentFormat ${documentFormat} does not map to CAPI LabelFormat`;
+        logger.error(msg);
+        throw new MappingError(msg, {fieldName: "DocumentFormat", value: documentFormat}, "LabelFormat");
+      }
     }
-    if (dxPackage.requiresWeight) {
-      packageType.RequiredToShip.push(RequiredProperty.Weight);
-    }
-    packageTypes.push(packageType);
   });
-  return packageTypes;
-};
+  return formats;
+}
 
 const dxToCarrierSpecification = (app: CarrierApp): CarrierSpecification => {
   if (!app) {
     throw new Error('Unable to map null CarrierApp');
   }
   const carrierSpecification: CarrierSpecification = {
-    Id: "",// carrier-id should come from DX WebAPI
-    Name: app.manifest.name,
+    Id: app.id,
+    Name: app.name,
     ShippingOptions: [], // This needs to be moved to the service level
     AccountModals: {
       RegistrationFormSchema: {
-        formSchema: app.connectionForm?.dataSchema,
-        uiSchema: app.connectionForm?.uiSchema,
+        formSchema: {
+          jsonSchema: app.connectionForm?.dataSchema,
+          uiSchema: JSON.stringify(app.connectionForm?.uiSchema),
+        }
       },
       SettingsFormSchema: {
-        formSchema: app.settingsForm?.dataSchema,
-        uiSchema: app.settingsForm?.uiSchema
+        formSchema: {
+          jsonSchema: app.settingsForm?.dataSchema,
+          uiSchema: JSON.stringify(app.settingsForm?.uiSchema),
+        }
       },
     },
     CarrierAttributes: mapCarrierAttributes(app),
     CarrierUrl: app.websiteURL.toString(),
     TrackingUrl: "",// app.getTrackingURL({id: ''}, {}).toString(), // TODO tracking url
     ShippingServices: mapDeliveryServices(app.deliveryServices),
-    PackageTypes: mapPackageTypes(app.packaging),
+    PackageTypes: dxToCapiSpecPackageType(app.packaging, app.deliveryServices),
+    LabelFormats: mapLabelFormats(app.labelFormats),
+    DefaultLabelSizes: mapSupportedLabelSize(app.labelSizes)
   };
   return carrierSpecification;
 };
@@ -325,7 +366,7 @@ const dxToCarrierSpecification = (app: CarrierApp): CarrierSpecification => {
 export default (app: CarrierApp): ExternalSpec => {
   const provider: ExternalSpec = {
     Id: "", //app-id is provided by DX WebAPI
-    Name: app.manifest.name,
+    Name: app.name,
     Carriers: [dxToCarrierSpecification(app)],
     Connector: mapConnectorModule(app)
   };

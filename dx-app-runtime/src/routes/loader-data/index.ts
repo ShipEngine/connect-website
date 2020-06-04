@@ -1,6 +1,6 @@
-import {Router} from "express";
+import {IRouter, Router} from "express";
 
-const router = Router();
+const router: IRouter = Router();
 
 import spec from "../../mapping/registry-data";
 
