@@ -15,4 +15,4 @@ function indentLines(str: string, n: number): string {
   return indent(n) + str.replace(/\n/g, `\n${indent(n)}`);
 }
 
-export { log, repeat, indent, indentLines };
+export { log, indent, indentLines };

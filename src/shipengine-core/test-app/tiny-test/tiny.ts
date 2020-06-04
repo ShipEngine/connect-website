@@ -1,6 +1,43 @@
-import { App } from "../../utils/types";
 import Suite from "./suite";
+import { App } from "../../utils/types";
 import { Runner, RunnerResults } from "./runner";
+import { v4 } from "uuid";
+import { readFile } from "../../utils/read-file";
+
+function filterTests(grep: string, suites: Suite[]): Suite[] {
+  let tempSuites = suites.filter((suite) => suite.title === grep);
+
+  if (tempSuites.length === 0) {
+    tempSuites = suites.filter((suite) => {
+      let tests = suite._testCache.filter((test) => test.sha.includes(grep));
+      if (tests.length === 1) {
+        suite.testCache = tests;
+        return true;
+      } else {
+        return false;
+      }
+    });
+  }
+
+  return tempSuites;
+}
+
+interface TinyStaticConfig {
+  sessionMock?: object;
+}
+
+async function loadStaticConfig(): Promise<TinyStaticConfig> {
+  let staticConfig: TinyStaticConfig = {};
+
+  try {
+    staticConfig = await readFile<TinyStaticConfig>(
+      `${process.cwd()}/shipengine.config.js`,
+    );
+    return staticConfig;
+  } catch {
+    return {};
+  }
+}
 
 interface TinyOptions {
   grep: string | undefined;
@@ -9,49 +46,37 @@ interface TinyOptions {
   debug: boolean;
 }
 
-export default class Tiny {
-  suites: Suite[];
-  options: TinyOptions;
+export default function Tiny(
+  app: App,
+  suiteModules: any[],
+  { grep, failFast = false, concurrency = 1, debug = false }: TinyOptions,
+) {
+  process.env.NODE_ENV = "test";
 
-  constructor(
-    app: App,
-    suiteModules: any[],
-    { grep, failFast = false, concurrency = 1, debug = false }: TinyOptions,
-  ) {
-    process.env.NODE_ENV = "test";
+  const options = { grep, failFast, concurrency, debug };
 
-    this.options = { grep, failFast, concurrency, debug };
+  return {
+    run: async (): Promise<RunnerResults> => {
+      const staticConfig = await loadStaticConfig();
+      const sessionMock = staticConfig.sessionMock
+        ? staticConfig.sessionMock
+        : {};
+      const transactionWithMockSession = {
+        id: v4(),
+        isRetry: false,
+        useSandbox: false,
+        session: sessionMock,
+      };
 
-    let tempSuites = suiteModules.map(
-      (suiteModule) => new suiteModule(app),
-    ) as Suite[];
+      let suites = suiteModules.map(
+        (suiteModule) => new suiteModule(app, transactionWithMockSession),
+      ) as Suite[];
 
-    if (this.options.grep) {
-      tempSuites = this.filterTests(this.options.grep, tempSuites);
-    }
+      if (options.grep) {
+        suites = filterTests(options.grep, suites);
+      }
 
-    this.suites = tempSuites;
-  }
-
-  async run(): Promise<RunnerResults> {
-    return await Runner(this.suites, this.options);
-  }
-
-  private filterTests(grep: string, suites: Suite[]): Suite[] {
-    let tempSuites = suites.filter((suite) => suite.title === grep);
-
-    if (tempSuites.length === 0) {
-      tempSuites = suites.filter((suite) => {
-        let tests = suite._testCache.filter((test) => test.sha.includes(grep));
-        if (tests.length === 1) {
-          suite.testCache = tests;
-          return true;
-        } else {
-          return false;
-        }
-      });
-    }
-
-    return tempSuites;
-  }
+      return await new Runner(suites, options).run();
+    },
+  };
 }

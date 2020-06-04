@@ -68,7 +68,7 @@ export default async function testApp(
 ): Promise<void> {
   const registeredTestSuiteModules = registerTestSuiteModules(app);
 
-  const tinyTest = new Tiny(app, registeredTestSuiteModules, {
+  const tinyTest = Tiny(app, registeredTestSuiteModules, {
     grep,
     failFast,
     concurrency,

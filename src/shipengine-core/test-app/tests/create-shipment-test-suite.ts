@@ -44,7 +44,7 @@ export class CreateShipmentTestSuite extends Suite {
       WeightUnit.Pounds,
     ];
     // const dateTimes = {
-    //   now: "",
+    //   now: new Date(),
     //   tomorrow: "",
     //   yesterday: "",
     // };
