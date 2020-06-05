@@ -6,7 +6,7 @@ import {
 
 export function buildAddressWithContactInfo(
   countryCode: string,
-): AddressWithContactInfoPOJO {
+): AddressWithContactInfoPOJO | undefined {
   const countryMap: Record<string, AddressWithContactInfoPOJO> = {
     "US-from": Object.assign(buildAddress("US-from"), {
       name: "John Doe",
