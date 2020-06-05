@@ -93,7 +93,7 @@ export class CreateShipmentTestSuite extends Suite {
 
                 props.push({
                   title: title,
-                  props: [this.transactionWithMockSession, newShipmentPOJO],
+                  props: [this.transaction, newShipmentPOJO],
                 });
               }
             }

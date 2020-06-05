@@ -1,8 +1,11 @@
-// import { flags } from "@oclif/command";
 import BaseCommand from "../../base-command";
-import chalk from "chalk";
 import { flags } from "@oclif/command";
 import testApp from "../../shipengine-core/test-app";
+import {
+  logFail,
+  logPass,
+  logStep,
+} from "../../shipengine-core/utils/log-helpers";
 import loadAndValidateApp from "../../shipengine-core/load-and-validate-app";
 
 export default class Test extends BaseCommand {
@@ -39,9 +42,11 @@ export default class Test extends BaseCommand {
     const pathToApp = process.cwd();
 
     try {
+      logStep("validating app structure");
+
       const app = await loadAndValidateApp(pathToApp);
 
-      this.log("✅ App structure is valid");
+      logPass("app structure is valid");
 
       await testApp(app, {
         concurrency: flags.concurrency,
@@ -57,14 +62,12 @@ export default class Test extends BaseCommand {
           // eslint-disable-next-line no-case-declarations
           const errorsWithInflection = errorsCount > 1 ? "errors" : "error";
 
-          this.log(
-            chalk.red(
-              `App structure is not valid - ${errorsCount} ${errorsWithInflection} found\n`,
-            ),
+          logFail(
+            `App structure is not valid - ${errorsCount} ${errorsWithInflection} found`,
           );
 
           error.errors.forEach((errorMessage: string) => {
-            this.log(`❌ ${errorMessage} `);
+            logFail(errorMessage);
           });
           break;
         case "TESTS_FAILED":

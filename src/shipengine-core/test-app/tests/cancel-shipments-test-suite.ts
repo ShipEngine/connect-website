@@ -40,7 +40,7 @@ export class CancelShipmentsTestSuite extends Suite {
     return [
       {
         title: "cancels a shipment",
-        props: [this.transactionWithMockSession, shipmentCancellationPOJOs],
+        props: [this.transaction, shipmentCancellationPOJOs],
       },
     ];
   }

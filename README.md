@@ -82,7 +82,7 @@ USAGE
 
 OPTIONS
   -c, --concurrency=concurrency  [default: 1] specify the test concurrency
-  -d, --debug                    provides additional logs to test output
+  -d, --debug                    logs additional debug information
   -f, --fail-fast                stop running the test suite on the first failed test
   -g, --grep=grep                only run test that match this string (e.g. method name or test SHA)
   -h, --help                     show CLI help

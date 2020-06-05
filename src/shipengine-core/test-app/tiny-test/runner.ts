@@ -1,7 +1,15 @@
 import chalk from "chalk";
 import Suite from "./suite";
 import Test from "./test";
-import { log, indent, indentLines } from "./log-helpers";
+import {
+  indent,
+  indentLines,
+  log,
+  logFail,
+  logPass,
+  logSkip,
+  logStep,
+} from "../../utils/log-helpers";
 
 interface RunnerOptions {
   failFast: boolean;
@@ -42,7 +50,7 @@ export class Runner {
 
       if (this.options.failFast && this.results.failed > 0) return this.results;
 
-      log(indentLines(chalk.yellow(`suite ${suite.title}`), 0));
+      logStep(`test ${suite.title}`);
 
       for (let testBatch of partitionedTestSuite) {
         await Promise.all(testBatch.map((test) => this.runTest(test)));
@@ -57,32 +65,19 @@ export class Runner {
 
     if (test.skip) {
       this.results.skipped++;
-
-      log(
-        `${indent(2)}${chalk.bgWhite.black(" SKIP ")} ${chalk.gray(
-          test.toString(),
-        )}`,
-      );
+      logSkip(test.toString());
       return;
     }
 
     try {
       await test.fn();
       this.results.passed++;
-      log(
-        `${indent(2)}${chalk.bgGreen.black(" PASS ")} ${chalk.green(
-          test.toString(),
-        )}`,
-      );
+      logPass(test.toString());
     } catch (error) {
       this.results.failed++;
       // This extra check is needed when test are running concurrently
       if (this.options.failFast && this.results.failed > 1) return;
-      log(
-        `${indent(2)}${chalk.bgRed.black(" FAIL ")} ${chalk.red(
-          test.toString(),
-        )}`,
-      );
+      logFail(test.toString());
       if (this.options.debug) {
         log(indentLines(chalk.red(error.stack), 4));
         log(

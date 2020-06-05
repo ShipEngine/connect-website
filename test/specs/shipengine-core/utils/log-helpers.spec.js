@@ -4,7 +4,7 @@ const { expect } = require("chai");
 const {
   indent,
   indentLines,
-} = require("../../../../../lib/shipengine-core/test-app/tiny-test/log-helpers");
+} = require("../../../../lib/shipengine-core/utils/log-helpers");
 
 describe(".indent", () => {
   it("returns an indented string", () => {

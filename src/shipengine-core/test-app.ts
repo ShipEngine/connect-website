@@ -3,7 +3,6 @@ import { App } from "./utils/types";
 import {
   CancelPickupsTestSuite,
   CancelShipmentsTestSuite,
-  ConnectTestSuite,
   CreateManifestTestSuite,
   CreateShipmentTestSuite,
   // GetSalesOrderTestSuite,
@@ -27,7 +26,6 @@ function registerTestSuiteModules(app: App): RegisteredTestSuiteModules {
   const carrierAppMethods = {
     cancelPickups: CancelPickupsTestSuite,
     cancelShipments: CancelShipmentsTestSuite,
-    connect: ConnectTestSuite,
     createManifest: CreateManifestTestSuite,
     createShipment: CreateShipmentTestSuite,
     rateShipment: RateShipmentTestSuite,
@@ -36,7 +34,6 @@ function registerTestSuiteModules(app: App): RegisteredTestSuiteModules {
   };
 
   const orderAppMethods = {
-    connect: ConnectTestSuite,
     // getSalesOrder: GetSalesOrderTestSuite,
     // getSalesOrdersByDate: GetSalesOrdersByDateTestSuite,
     // getSeller: GetSellerTestSuite,

@@ -41,7 +41,7 @@ export class CreateManifestTestSuite extends Suite {
     return [
       {
         title: "creates a new manifest",
-        props: [this.transactionWithMockSession, newManifestPOJO],
+        props: [this.transaction, newManifestPOJO],
       },
     ];
   }

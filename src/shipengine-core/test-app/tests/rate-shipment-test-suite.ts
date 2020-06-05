@@ -59,7 +59,7 @@ export class RateShipmentTestSuite extends Suite {
 
         props.push({
           title: `rate a shipment with package unit: ${packageUnit}, and package weight: ${packageWeight}`,
-          props: [this.transactionWithMockSession, rateCriteriaPOJO],
+          props: [this.transaction, rateCriteriaPOJO],
         });
       }
     }

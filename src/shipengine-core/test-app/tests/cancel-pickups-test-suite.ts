@@ -103,7 +103,7 @@ export class CancelPickupsTestSuite extends Suite {
 
               props.push({
                 title: title,
-                props: [this.transactionWithMockSession, pickupCancellations],
+                props: [this.transaction, pickupCancellations],
               });
             }
           }

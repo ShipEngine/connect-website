@@ -3,6 +3,8 @@ import { App } from "../../utils/types";
 import { Runner, RunnerResults } from "./runner";
 import { v4 } from "uuid";
 import { readFile } from "../../utils/read-file";
+import { TransactionPOJO } from "@shipengine/integration-platform-sdk";
+import { logFail, logPass, logStep } from "../../utils/log-helpers";
 
 function filterTests(grep: string, suites: Suite[]): Suite[] {
   let tempSuites = suites.filter((suite) => suite.title === grep);
@@ -23,7 +25,7 @@ function filterTests(grep: string, suites: Suite[]): Suite[] {
 }
 
 interface TinyStaticConfig {
-  sessionMock?: object;
+  connectionFormDataProps?: object;
 }
 
 async function loadStaticConfig(): Promise<TinyStaticConfig> {
@@ -58,18 +60,40 @@ export default function Tiny(
   return {
     run: async (): Promise<RunnerResults> => {
       const staticConfig = await loadStaticConfig();
-      const sessionMock = staticConfig.sessionMock
-        ? staticConfig.sessionMock
+      const connectionFormDataProps = staticConfig.connectionFormDataProps
+        ? staticConfig.connectionFormDataProps
         : {};
-      const transactionWithMockSession = {
+
+      let transaction: TransactionPOJO = {
         id: v4(),
         isRetry: false,
         useSandbox: false,
-        session: sessionMock,
+        session: {},
       };
 
+      logStep("calling the connect method to set the session");
+
+      if (options.debug) {
+        logStep("transaction:");
+        // eslint-disable-next-line no-console
+        console.log(transaction);
+        logStep("connectionFormDataProps:");
+        // eslint-disable-next-line no-console
+        console.log(connectionFormDataProps);
+      }
+
+      try {
+        await app.connect(transaction, connectionFormDataProps);
+        logPass("connect successfully set the session");
+        // eslint-disable-next-line no-console
+        if (options.debug) console.log(transaction);
+      } catch (error) {
+        logFail(error.message);
+        return { failed: 1, passed: 0, skipped: 0 };
+      }
+
       let suites = suiteModules.map(
-        (suiteModule) => new suiteModule(app, transactionWithMockSession),
+        (suiteModule) => new suiteModule(app, transaction),
       ) as Suite[];
 
       if (options.grep) {

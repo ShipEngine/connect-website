@@ -4,13 +4,13 @@ import { TransactionPOJO } from "@shipengine/integration-platform-sdk";
 
 export default abstract class Suite {
   app: App;
-  protected transactionWithMockSession: TransactionPOJO;
+  protected transaction: TransactionPOJO;
   abstract title: string;
   _testCache: Test[];
 
-  constructor(app: App, transactionWithMockSession: TransactionPOJO) {
+  constructor(app: App, transaction: TransactionPOJO) {
     this.app = app;
-    this.transactionWithMockSession = transactionWithMockSession;
+    this.transaction = transaction;
     this._testCache = this.tests();
   }
 
