@@ -1,6 +1,7 @@
 "use strict";
 
 module.exports = {
+  id: "<%- _uuidv4 %>",
   name: "<%- _appName %>",
   description: "<%- pjson.description %>",
   logo: "./logo.svg",
