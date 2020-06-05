@@ -1,6 +1,7 @@
 "use strict";
 
 module.exports = {
+  id: "2a20b066-71c3-11ea-bc55-0242ac130002",
   name: "My Carrier",
   description: "My Carrier description goes here",
   websiteURL: "https://www.my-carrier.com",
