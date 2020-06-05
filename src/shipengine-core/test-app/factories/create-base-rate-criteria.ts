@@ -1,4 +1,4 @@
-import { WeightUnit, DeliveryService, FulfillmentService, RateCriteriaPOJO, PackageRateCriteriaPOJO, CarrierApp, AddressWithContactInfoPOJO, RateCriteria, ShipmentIdentifierPOJO, DeliveryServiceIdentifierPOJO, DeliveryServiceClass } from '@shipengine/integration-platform-sdk';
+import { WeightUnit, DeliveryService, FulfillmentService, RateCriteriaPOJO, PackageRateCriteriaPOJO, CarrierApp, AddressWithContactInfoPOJO, RateCriteria, ShipmentIdentifierPOJO, DeliveryServiceIdentifierPOJO, DeliveryServiceClass, Country } from '@shipengine/integration-platform-sdk';
 import { buildAddressWithContactInfo } from './address';
 import { DateTime } from "luxon";
 
@@ -26,7 +26,7 @@ export interface TimeStamps {
 
 type RateCriteriaWithMetdata = Array<[RateCriteriaPOJO, { timeStamps: TimeStamps }]>;
 
-export function createBaseRateCriteriaPOJOs(packageWeights: number[], packageUnits: WeightUnit[], app: CarrierApp, deliveryService?: DeliveryService, fulfillmentService?: FulfillmentService): RateCriteriaWithMetdata {
+export function createRateCriteriaPOJOs(packageWeights: number[], packageUnits: WeightUnit[], app: CarrierApp, deliveryService?: DeliveryService, fulfillmentService?: FulfillmentService): RateCriteriaWithMetdata {
   const baseRateCriteria: RateCriteriaWithMetdata = [];
   for (let packageUnit of packageUnits) {
     for (let packageWeight of packageWeights) {
@@ -36,9 +36,6 @@ export function createBaseRateCriteriaPOJOs(packageWeights: number[], packageUni
           unit: packageUnit,
         },
       };
-
-      // - Need to find the origin countries specified, and have tests to and from within that country,
-      // - If destination countries exist then need to loop through the origin countries again and pair them with all the destination countries too.
 
       let rateCriteriaOpts: RateOpts = {
         deliveryServices: [],
@@ -55,88 +52,58 @@ export function createBaseRateCriteriaPOJOs(packageWeights: number[], packageUni
       }
 
       if (deliveryService) {
-
-        let countryCombos = [];
         rateCriteriaOpts.deliveryServices.push({ id: deliveryService.id });
 
-        for (let oCountry of deliveryService.originCountries) {
-          if (buildAddressWithContactInfo(`${oCountry}-from`)) {
-            rateCriteriaOpts.shipFrom = buildAddressWithContactInfo(`${oCountry}-from`)!;
-            rateCriteriaOpts.shipTo = buildAddressWithContactInfo(`${oCountry}-to`)!;
-
-            const timeStamps = initializeTimeStamps(rateCriteriaOpts.shipFrom.timeZone);
-
-            const results = parseDeliveryService(deliveryService, timeStamps);
-            rateCriteriaOpts.shipDateTime = results[0];
-            rateCriteriaOpts.deliveryDateTime = results[1];
-
-            let rateCriteriaPOJO: RateCriteriaPOJO = rateCriteriaOpts;
-
-            baseRateCriteria.push([Object.assign({}, rateCriteriaPOJO), { timeStamps }]);
-
-            countryCombos.push([oCountry, oCountry]);
-          }
-        }
-
-        for (let dCountry of deliveryService.destinationCountries) {
-          for (let oCountry of deliveryService.originCountries) {
-
-            const hasCountryCombo = countryCombos.some((combo) => {
-              return combo[0] === oCountry && combo[1] === dCountry;
-            });
-
-            if (!hasCountryCombo && buildAddressWithContactInfo(`${oCountry}-from`)) {
-              rateCriteriaOpts.shipFrom = buildAddressWithContactInfo(`${oCountry}-from`)!;
-              rateCriteriaOpts.shipTo = buildAddressWithContactInfo(`${dCountry}-to`)!;
-
-              const timeStamps = initializeTimeStamps(rateCriteriaOpts.shipFrom.timeZone);
-
-              const results = parseDeliveryService(deliveryService, timeStamps);
-              rateCriteriaOpts.shipDateTime = results[0];
-              rateCriteriaOpts.deliveryDateTime = results[1];
-
-              let rateCriteriaPOJO: RateCriteriaPOJO = rateCriteriaOpts;
-
-              baseRateCriteria.push([Object.assign({}, rateCriteriaPOJO), { timeStamps }]);
-              countryCombos.push([oCountry, dCountry]);
-            }
-          }
-        }
+        // Handle combinations of packages within the
+        countryAndTimePermutations(deliveryService.originCountries.slice(), deliveryService.originCountries.slice(), baseRateCriteria, rateCriteriaOpts, deliveryService);
       }
       //If a delivery service isn't specified then get loop through all destination and origin countries
       else {
-        let countryCombos = [];
-
-        for (let dCountry of app.destinationCountries) {
-
-          for (let oCountry of app.originCountries) {
-
-            const hasCountryCombo = countryCombos.some((combo) => {
-              return combo[0] === oCountry && combo[1] === dCountry;
-            });
-
-            if (!hasCountryCombo && buildAddressWithContactInfo(`${oCountry}-from`)) {
-              rateCriteriaOpts.shipFrom = buildAddressWithContactInfo(`${oCountry}-from`)!;
-              rateCriteriaOpts.shipTo = buildAddressWithContactInfo(`${dCountry}-to`)!;
-
-              // TODO: currently just hardcoding this to a two day shipping until i have a better idea of what more realistic test data will look like.
-              const timeStamps = initializeTimeStamps(rateCriteriaOpts.shipFrom.timeZone);
-
-              rateCriteriaOpts.shipDateTime = timeStamps.today;
-              rateCriteriaOpts.deliveryDateTime = timeStamps.twoDays;
-
-              let rateCriteriaPOJO: RateCriteriaPOJO = rateCriteriaOpts;
-
-              baseRateCriteria.push([Object.assign({}, rateCriteriaPOJO), { timeStamps }]);
-              countryCombos.push([oCountry, dCountry]);
-            }
-          }
-        }
+        countryAndTimePermutations(app.originCountries.slice(), app.destinationCountries.slice(), baseRateCriteria, rateCriteriaOpts);
       }
     }
   }
 
   return baseRateCriteria;
+}
+
+
+function countryAndTimePermutations(originCountries: Country[], destinationCountries: Country[], baseRateCriteria: RateCriteriaWithMetdata, rateCriteriaOpts: RateOpts, deliveryService?: DeliveryService): void {
+
+  let countryCombos: Array<[string, string]> = [];
+  for (let dCountry of destinationCountries) {
+    for (let oCountry of originCountries) {
+
+      const hasCountryCombo = countryCombos.some((combo) => {
+        return combo[0] === oCountry && combo[1] === dCountry;
+      });
+
+      if (!hasCountryCombo && buildAddressWithContactInfo(`${oCountry}-from`)) {
+        rateCriteriaOpts.shipFrom = buildAddressWithContactInfo(`${oCountry}-from`)!;
+        rateCriteriaOpts.shipTo = buildAddressWithContactInfo(`${dCountry}-to`)!;
+
+        let timeStamps;
+        if (!deliveryService) {
+          timeStamps = initializeTimeStamps(rateCriteriaOpts.shipFrom.timeZone);
+
+          rateCriteriaOpts.shipDateTime = timeStamps.today;
+          rateCriteriaOpts.deliveryDateTime = timeStamps.twoDays;
+        }
+        else {
+          timeStamps = initializeTimeStamps(rateCriteriaOpts.shipFrom.timeZone);
+
+          const results = parseDeliveryService(deliveryService, timeStamps);
+          rateCriteriaOpts.shipDateTime = results[0];
+          rateCriteriaOpts.deliveryDateTime = results[1];
+        }
+
+        let rateCriteriaPOJO: RateCriteriaPOJO = rateCriteriaOpts;
+
+        baseRateCriteria.push([Object.assign({}, rateCriteriaPOJO), { timeStamps }]);
+        countryCombos.push([oCountry, dCountry]);
+      }
+    }
+  }
 }
 
 function parseDeliveryService(deliveryService: DeliveryService, timeStamps: TimeStamps): [string, string] {

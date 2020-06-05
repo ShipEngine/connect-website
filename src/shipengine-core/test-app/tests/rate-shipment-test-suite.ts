@@ -5,7 +5,7 @@ import {
   TransactionPOJO,
   WeightUnit,
 } from "@shipengine/integration-platform-sdk";
-import { createBaseRateCriteriaPOJOs, TimeStamps } from '../factories/create-base-rate-criteria';
+import { createRateCriteriaPOJOs, TimeStamps } from '../factories/create-base-rate-criteria';
 
 type RateShipmentProps = [TransactionPOJO, RateCriteriaPOJO];
 
@@ -59,16 +59,17 @@ export class RateShipmentTestSuite extends Suite {
     // Test across various datetimes for shipment dates
 
     // This set of rateCriteria will satisfy the condition of no delivery service or fulfillment service being specified.
-    let ratePOJOs = createBaseRateCriteriaPOJOs(packageWeights, packageUnits, carrierApp);
+    let ratePOJOs = createRateCriteriaPOJOs(packageWeights, packageUnits, carrierApp);
 
     // Check and test for delivery services specified.
+    // TODO: test permutations of deliveryServices, currently only creates one or ALL (by leaving delivery service empty) at a time.
     for (let deliveryService of carrierApp.deliveryServices) {
 
-      const deliveryServiceRatePOJOs = createBaseRateCriteriaPOJOs(packageWeights, packageUnits, carrierApp, deliveryService);
+      const deliveryServiceRatePOJOs = createRateCriteriaPOJOs(packageWeights, packageUnits, carrierApp, deliveryService);
       ratePOJOs = ratePOJOs.concat(deliveryServiceRatePOJOs);
 
       if (deliveryService.fulfillmentService) {
-        const ratePOJOWithFulfillments = createBaseRateCriteriaPOJOs(packageWeights, packageUnits, carrierApp, deliveryService, deliveryService.fulfillmentService)
+        const ratePOJOWithFulfillments = createRateCriteriaPOJOs(packageWeights, packageUnits, carrierApp, deliveryService, deliveryService.fulfillmentService)
         ratePOJOs = ratePOJOs.concat(ratePOJOWithFulfillments);
       }
     }
@@ -96,9 +97,9 @@ export class RateShipmentTestSuite extends Suite {
 
 function composeTitle(ratePOJO: RateCriteriaPOJO, timeStamps: TimeStamps, app: CarrierApp): string {
 
-  let title = "rate a shipment ";
+  let title = "rate a shipment";
 
-  if (ratePOJO.deliveryServices) {
+  if (ratePOJO.deliveryServices && ratePOJO.deliveryServices.length > 0) {
     let names = [];
     for (let ds of ratePOJO.deliveryServices) {
       const name = getDeliveryServiceName(ds.id, app);
@@ -106,25 +107,25 @@ function composeTitle(ratePOJO: RateCriteriaPOJO, timeStamps: TimeStamps, app: C
     }
 
     if (names.length > 1) {
-      title += `with delivery services: ${names.join(", ")}`;
+      title += ` with delivery services: ${names.join(", ")}`;
     }
     else if (names.length === 1) {
-      title += `with delivery service: ${names[0]}`;
+      title += ` with delivery service: ${names[0]}`;
     }
   }
   else {
     // if no Delivery Service or Fulfillment Service is specified then the test becomes added for ALL of the services.
     const names = app.deliveryServices.map(ds => ds.name);
-    title += `with delivery services: ${names.join(", ")}`;
+    title += ` with delivery services: ${names.join(", ")}`;
 
-    if (ratePOJO.fulfillmentServices) {
+    if (ratePOJO.fulfillmentServices && ratePOJO.fulfillmentServices.length > 0) {
       // Currently there will only ever be one fulfillment service per delivery service
-      title += `with fulfillment service: ${ratePOJO.fulfillmentServices[0]}, `;
+      title += ` with fulfillment service: ${ratePOJO.fulfillmentServices[0]}, `;
     }
   }
 
   title += ` from address: ${ratePOJO.shipFrom.country}, to address: ${ratePOJO.shipTo.country}`;
-  title += ` with package unit: ${ratePOJO.packages[0].weight?.unit}, and package weight: ${ratePOJO.packages[0].weight?.value}`;
+  title += ` with package weight: ${ratePOJO.packages[0].weight?.value}, and package unit: ${ratePOJO.packages[0].weight?.unit}`;
 
   title += ` with ship date time: ${getTimeTitle(ratePOJO.shipDateTime as string, timeStamps)},`;
   title += ` with deliveryDateTime: ${getTimeTitle(ratePOJO.deliveryDateTime as string, timeStamps)}`;
