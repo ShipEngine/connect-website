@@ -1,5 +1,6 @@
 import { Suite, TestProp, expect } from "../tiny-test";
 import { buildAddress } from "../factories/address";
+import { log, logObject } from "../../utils/log-helpers";
 import {
   CarrierApp,
   NewManifestPOJO,
@@ -15,7 +16,13 @@ export class CreateManifestTestSuite extends Suite {
     const carrierApp = this.app as CarrierApp;
 
     return this.testProps().map((testProp) => {
-      return this.test(testProp.title, async function () {
+      return this.test(testProp.title, async () => {
+        if (this.debug) {
+          log("input:");
+          logObject(testProp.props[0]);
+          logObject(testProp.props[1]);
+        }
+
         let result, errorResult;
         try {
           carrierApp.createManifest &&

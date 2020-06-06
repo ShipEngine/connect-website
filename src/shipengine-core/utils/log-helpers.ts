@@ -33,4 +33,18 @@ function logStep(logLine: string) {
   log(chalk.yellow(logLine));
 }
 
-export { log, logSkip, logPass, logStep, logFail, indent, indentLines };
+function logObject(obj: object) {
+  /* eslint-disable no-console */
+  console.dir(obj, { depth: null });
+}
+
+export {
+  indent,
+  indentLines,
+  log,
+  logFail,
+  logObject,
+  logPass,
+  logSkip,
+  logStep,
+};

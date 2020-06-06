@@ -3,14 +3,16 @@ import { App } from "../../utils/types";
 import { TransactionPOJO } from "@shipengine/integration-platform-sdk";
 
 export default abstract class Suite {
-  app: App;
+  protected app: App;
   protected transaction: TransactionPOJO;
+  protected debug: boolean;
   abstract title: string;
   _testCache: Test[];
 
-  constructor(app: App, transaction: TransactionPOJO) {
+  constructor(app: App, transaction: TransactionPOJO, debug = false) {
     this.app = app;
     this.transaction = transaction;
+    this.debug = debug;
     this._testCache = this.tests();
   }
 
