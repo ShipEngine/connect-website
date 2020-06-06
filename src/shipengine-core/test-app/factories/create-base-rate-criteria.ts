@@ -1,7 +1,6 @@
-import { WeightUnit, DeliveryService, FulfillmentService, RateCriteriaPOJO, PackageRateCriteriaPOJO, CarrierApp, AddressWithContactInfoPOJO, RateCriteria, ShipmentIdentifierPOJO, DeliveryServiceIdentifierPOJO, DeliveryServiceClass, Country } from '@shipengine/integration-platform-sdk';
+import { WeightUnit, DeliveryService, FulfillmentService, RateCriteriaPOJO, PackageRateCriteriaPOJO, CarrierApp, AddressWithContactInfoPOJO, DeliveryServiceIdentifierPOJO, DeliveryServiceClass, Country } from '@shipengine/integration-platform-sdk';
 import { buildAddressWithContactInfo } from './address';
 import { DateTime } from "luxon";
-
 
 interface RateOpts {
   deliveryServices: DeliveryServiceIdentifierPOJO[];
@@ -78,7 +77,7 @@ function countryAndTimePermutations(originCountries: Country[], destinationCount
         return combo[0] === oCountry && combo[1] === dCountry;
       });
 
-      if (!hasCountryCombo && buildAddressWithContactInfo(`${oCountry}-from`)) {
+      if (!hasCountryCombo && buildAddressWithContactInfo(`${oCountry}-from`) && buildAddressWithContactInfo(`${dCountry}-from`)) {
         rateCriteriaOpts.shipFrom = buildAddressWithContactInfo(`${oCountry}-from`)!;
         rateCriteriaOpts.shipTo = buildAddressWithContactInfo(`${dCountry}-to`)!;
 
