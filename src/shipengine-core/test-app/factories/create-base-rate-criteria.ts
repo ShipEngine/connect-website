@@ -23,8 +23,13 @@ export interface TimeStamps {
   threeDays: string;
 }
 
+// TODO: Refactor to make more generic for reuse
+
 type RateCriteriaWithMetdata = Array<[RateCriteriaPOJO, { timeStamps: TimeStamps }]>;
 
+/**
+ * Create an array of rateCriteraPOJOs based on the parameters passed in. 
+ */
 export function createRateCriteriaPOJOs(packageWeights: number[], packageUnits: WeightUnit[], app: CarrierApp, deliveryService?: DeliveryService, fulfillmentService?: FulfillmentService): RateCriteriaWithMetdata {
   const baseRateCriteria: RateCriteriaWithMetdata = [];
   for (let packageUnit of packageUnits) {
@@ -66,7 +71,10 @@ export function createRateCriteriaPOJOs(packageWeights: number[], packageUnits: 
   return baseRateCriteria;
 }
 
-
+/**
+ * Augment the rateCriteria object by adding country and time permutations based on the app or delivery service metadata.
+ */
+// TODO: Make this re-usable by having it accept generics with the `shipFrom` and `shipTo` properties, if possible.
 function countryAndTimePermutations(originCountries: Country[], destinationCountries: Country[], baseRateCriteria: RateCriteriaWithMetdata, rateCriteriaOpts: RateOpts, deliveryService?: DeliveryService): void {
 
   let countryCombos: Array<[string, string]> = [];
@@ -105,6 +113,7 @@ function countryAndTimePermutations(originCountries: Country[], destinationCount
   }
 }
 
+// TODO: Get more business logic and see if these time stamps are accurate
 function parseDeliveryService(deliveryService: DeliveryService, timeStamps: TimeStamps): [string, string] {
   switch (deliveryService.class) {
     // Two day gap?
@@ -131,11 +140,12 @@ function parseDeliveryService(deliveryService: DeliveryService, timeStamps: Time
   }
 }
 
-// TODO: currently all the timestamps are based off of the origin addresses' timezone, research whether that is common for most carriers?
+// TODO: ASSUMPTION: currently all the timestamps are based off of the origin addresses' timezone, research whether that is common for most carriers?
 function initializeTimeStamps(timeZone: string): TimeStamps {
 
   let date = new Date();
 
+  // TODO: Get more business logic and see if these time stamps are accurate 
   let yesterday = DateTime.local(date.getFullYear(), date.getMonth() + 1, date.getDate()).setZone(timeZone).plus({ hours: 12 }).minus({ days: 1 }).toISO();
   let today = DateTime.local(date.getFullYear(), date.getMonth() + 1, date.getDate()).setZone(timeZone).plus({ hours: 12 }).toISO();
   let tomorrowEarly = DateTime.local(date.getFullYear(), date.getMonth() + 1, date.getDate()).setZone(timeZone).plus({ days: 1, hours: 9 }).toISO();
