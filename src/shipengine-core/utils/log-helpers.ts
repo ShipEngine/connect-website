@@ -38,6 +38,17 @@ function logObject(obj: object) {
   console.dir(obj, { depth: null });
 }
 
+function logResults(results: {
+  failed: number;
+  passed: number;
+  skipped: number;
+}) {
+  log(
+    `${chalk.green(results.passed + " passing")} , ${chalk.red(
+      results.failed + " failing",
+    )}, ${chalk.white(results.skipped + " skipped")}`,
+  );
+}
 export {
   indent,
   indentLines,
@@ -45,6 +56,7 @@ export {
   logFail,
   logObject,
   logPass,
+  logResults,
   logSkip,
   logStep,
 };

@@ -15,6 +15,7 @@ import {
   // TrackShipmentTestSuite,
 } from "./test-app/tests";
 import { Tiny } from "./test-app/tiny-test";
+import { logResults } from "./utils/log-helpers";
 
 type RegisteredTestSuiteModules = object[];
 
@@ -73,6 +74,8 @@ export default async function testApp(
   });
 
   const testResults = await tinyTest.run();
+
+  logResults(testResults);
 
   process.exitCode = testResults.failed > 0 ? 1 : 0; // exit with non-zero status if there were failures
 }
