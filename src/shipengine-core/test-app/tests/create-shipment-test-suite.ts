@@ -1,5 +1,6 @@
 import { Suite, TestProp, expect } from "../tiny-test";
 import { buildAddressWithContactInfo } from "../factories/address";
+import { log, logObject } from "../../utils/log-helpers";
 import {
   CarrierApp,
   NewShipmentPOJO,
@@ -17,7 +18,12 @@ export class CreateShipmentTestSuite extends Suite {
     const carrierApp = this.app as CarrierApp;
 
     return this.testProps().map((testProp) => {
-      return this.test(testProp.title, async function () {
+      return this.test(testProp.title, async () => {
+        if (this.debug) {
+          log("input:");
+          logObject(testProp.props[0]);
+          logObject(testProp.props[1]);
+        }
         let result, errorResult;
         try {
           carrierApp.createShipment &&
@@ -44,7 +50,7 @@ export class CreateShipmentTestSuite extends Suite {
       WeightUnit.Pounds,
     ];
     // const dateTimes = {
-    //   now: "",
+    //   now: new Date(),
     //   tomorrow: "",
     //   yesterday: "",
     // };
@@ -93,7 +99,7 @@ export class CreateShipmentTestSuite extends Suite {
 
                 props.push({
                   title: title,
-                  props: [this.transactionWithMockSession, newShipmentPOJO],
+                  props: [this.transaction, newShipmentPOJO],
                 });
               }
             }

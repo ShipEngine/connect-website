@@ -1,24 +1,18 @@
 import Test from "./test";
 import { App } from "../../utils/types";
 import { TransactionPOJO } from "@shipengine/integration-platform-sdk";
-import { v4 } from "uuid";
 
 export default abstract class Suite {
-  app: App;
-  protected transactionWithMockSession: TransactionPOJO;
+  protected app: App;
+  protected transaction: TransactionPOJO;
+  protected debug: boolean;
   abstract title: string;
   _testCache: Test[];
 
-  constructor(app: App) {
+  constructor(app: App, transaction: TransactionPOJO, debug = false) {
     this.app = app;
-
-    this.transactionWithMockSession = {
-      id: v4(),
-      isRetry: false,
-      useSandbox: false,
-      session: {},
-    };
-
+    this.transaction = transaction;
+    this.debug = debug;
     this._testCache = this.tests();
   }
 

@@ -1,6 +1,5 @@
 export * from "./cancel-pickups-test-suite";
 export * from "./cancel-shipments-test-suite";
-export * from "./connect-test-suite";
 export * from "./create-manifest-test-suite";
 export * from "./create-shipment-test-suite";
 // export * from "./get-sales-order-test-suite";

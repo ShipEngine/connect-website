@@ -3,7 +3,6 @@ import { App } from "./utils/types";
 import {
   CancelPickupsTestSuite,
   CancelShipmentsTestSuite,
-  ConnectTestSuite,
   CreateManifestTestSuite,
   CreateShipmentTestSuite,
   // GetSalesOrderTestSuite,
@@ -16,6 +15,7 @@ import {
   // TrackShipmentTestSuite,
 } from "./test-app/tests";
 import { Tiny } from "./test-app/tiny-test";
+import { logResults } from "./utils/log-helpers";
 
 type RegisteredTestSuiteModules = object[];
 
@@ -27,7 +27,6 @@ function registerTestSuiteModules(app: App): RegisteredTestSuiteModules {
   const carrierAppMethods = {
     cancelPickups: CancelPickupsTestSuite,
     cancelShipments: CancelShipmentsTestSuite,
-    connect: ConnectTestSuite,
     createManifest: CreateManifestTestSuite,
     createShipment: CreateShipmentTestSuite,
     rateShipment: RateShipmentTestSuite,
@@ -36,7 +35,6 @@ function registerTestSuiteModules(app: App): RegisteredTestSuiteModules {
   };
 
   const orderAppMethods = {
-    connect: ConnectTestSuite,
     // getSalesOrder: GetSalesOrderTestSuite,
     // getSalesOrdersByDate: GetSalesOrdersByDateTestSuite,
     // getSeller: GetSellerTestSuite,
@@ -68,7 +66,7 @@ export default async function testApp(
 ): Promise<void> {
   const registeredTestSuiteModules = registerTestSuiteModules(app);
 
-  const tinyTest = new Tiny(app, registeredTestSuiteModules, {
+  const tinyTest = Tiny(app, registeredTestSuiteModules, {
     grep,
     failFast,
     concurrency,
@@ -76,6 +74,8 @@ export default async function testApp(
   });
 
   const testResults = await tinyTest.run();
+
+  logResults(testResults);
 
   process.exitCode = testResults.failed > 0 ? 1 : 0; // exit with non-zero status if there were failures
 }

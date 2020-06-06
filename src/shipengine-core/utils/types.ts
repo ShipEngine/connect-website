@@ -1,4 +1,8 @@
-import { OrderApp, CarrierApp, AppType } from '@shipengine/integration-platform-sdk';
+import {
+  OrderApp,
+  CarrierApp,
+  AppType,
+} from "@shipengine/integration-platform-sdk";
 
 export type App = CarrierApp | OrderApp;
 

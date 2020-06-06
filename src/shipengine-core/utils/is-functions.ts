@@ -1,4 +1,8 @@
-import { CarrierApp, OrderApp, AppType } from '@shipengine/integration-platform-sdk';
+import {
+  CarrierApp,
+  OrderApp,
+  AppType,
+} from "@shipengine/integration-platform-sdk";
 
 export function isCarrierApp(app: CarrierApp | OrderApp): app is CarrierApp {
   if (app.type === AppType.Carrier) {
