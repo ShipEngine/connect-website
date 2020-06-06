@@ -285,6 +285,12 @@ class AppsNew extends Generator {
     );
 
     this.fs.copyTpl(
+      this.templatePath("shipengine.config.js"),
+      this.destinationPath("shipengine.config.js"),
+      this,
+    );
+
+    this.fs.copyTpl(
       this.templatePath("README.md.ejs"),
       this.destinationPath("README.md"),
       this,
@@ -456,7 +462,7 @@ class AppsNew extends Generator {
     const dependencies: string[] = [];
     const devDependencies: string[] = [];
 
-    devDependencies.push("@shipengine/integration-platform-sdk@0.0.17");
+    devDependencies.push("@shipengine/integration-platform-sdk@0.0.21");
     devDependencies.push("cross-env");
 
     if (this.ts) {
