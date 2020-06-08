@@ -32,6 +32,7 @@ function filterTests(grep: string, suites: Suite[]): Suite[] {
 
 interface TinyStaticConfig {
   connectionFormDataProps?: object;
+  negateTests?: string[];
 }
 
 async function loadStaticConfig(): Promise<TinyStaticConfig> {
@@ -105,7 +106,11 @@ export default function Tiny(
         suites = filterTests(options.grep, suites);
       }
 
-      return await new Runner(suites, options).run();
+      const negateTests = staticConfig.negateTests
+        ? staticConfig.negateTests
+        : [];
+
+      return await new Runner(suites, { ...options, negateTests }).run();
     },
   };
 }

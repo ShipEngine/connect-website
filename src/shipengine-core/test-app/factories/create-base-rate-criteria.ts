@@ -24,14 +24,12 @@ export function createRateCriteriaPOJOs(packageWeights: number[], packageUnits: 
   const baseRateCriteria: RateCriteriaWithMetdata = [];
   for (let packageUnit of packageUnits) {
     for (let packageWeight of packageWeights) {
+      // TODO: add "packaging" and delivery confirmation to the package rate criteria pojo
       const packageRateCriteriaPOJO: PackageRateCriteriaPOJO = {
         weight: {
           value: packageWeight,
           unit: packageUnit,
         },
-        // packaging: {
-        //   deliveryService && deliveryService?.packaging
-        // }
       };
 
       let rateCriteriaOpts: RateOpts = {

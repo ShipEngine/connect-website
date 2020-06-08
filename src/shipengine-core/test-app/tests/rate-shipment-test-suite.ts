@@ -136,6 +136,7 @@ function composeTitle(ratePOJO: RateCriteriaPOJO, timeStamps: TimeStamps, app: C
   }
 
   title += ` from address: ${ratePOJO.shipFrom.country}, to address: ${ratePOJO.shipTo.country}`;
+  title += ` with package weight: ${ratePOJO.packages[0].weight?.value}, and package unit: ${ratePOJO.packages[0].weight?.unit}`;
 
   title += ` with ship date time: ${getTimeTitle(ratePOJO.shipDateTime as string, timeStamps)},`;
   title += ` with deliveryDateTime: ${getTimeTitle(ratePOJO.deliveryDateTime as string, timeStamps)}`;

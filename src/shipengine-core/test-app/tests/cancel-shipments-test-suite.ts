@@ -45,7 +45,7 @@ export class CancelShipmentsTestSuite extends Suite {
 
     return [
       {
-        title: "cancels a shipment",
+        title: "cancels shipments",
         props: [this.transaction, shipmentCancellationPOJOs],
       },
     ];

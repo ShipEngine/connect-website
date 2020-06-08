@@ -95,7 +95,7 @@ export class CreateShipmentTestSuite extends Suite {
                   packages: [packagePOJO],
                 };
 
-                const title = `creates a shipment with delivery service: ${deliveryService.name}, label format: ${labelFormat}, label size: ${labelSize}, delivery confirmation: ${deliveryConfirmation.name}, package unit: ${packageUnit}, and package weight: ${packageWeight}`;
+                const title = `creates shipment with delivery service: ${deliveryService.name}, label format: ${labelFormat}, label size: ${labelSize}, delivery confirmation: ${deliveryConfirmation.name}, package unit: ${packageUnit}, and package weight: ${packageWeight}`;
 
                 props.push({
                   title: title,
