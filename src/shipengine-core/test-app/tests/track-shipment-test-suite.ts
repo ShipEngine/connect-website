@@ -1,34 +1,37 @@
-// import { Suite, TestProp, expect } from "../tiny-test";
-// import { CarrierApp } from "@shipengine/integration-platform-sdk";
+import { Suite, expect } from "../tiny-test";
+import { CarrierApp, TrackingCriteriaPOJO, TransactionPOJO } from "@shipengine/integration-platform-sdk";
+import { logObject } from '../../utils/log-helpers';
 
-// type TrackShipmentProps = [];
+type TrackShipmentProps = [TransactionPOJO, TrackingCriteriaPOJO];
 
-// export class TrackShipmentTestSuite extends Suite {
-//   title = "trackShipment";
+export class TrackShipmentTestSuite extends Suite {
+  title = "trackShipment";
 
-//   tests() {
-//     const carrierApp = this.app as CarrierApp;
+  tests() {
+    const carrierApp = this.app as CarrierApp;
 
-//     return this.testProps().map((testProp) => {
-//       return this.test(testProp.title, async function () {
-//         let result, errorResult;
-//         try {
-//           carrierApp.trackShipment &&
-//             (result = await carrierApp.trackShipment(...testProp.props));
-//         } catch (error) {
-//           errorResult = error;
-//         } finally {
-//           expect(errorResult).to.be.undefined;
-//           expect(result).to.be.ok;
-//         }
-//       });
-//     });
-//   }
+    return [
+      this.test("handles an unknown tracking number", async () => {
+        const trackingPOJO: TrackingCriteriaPOJO = {
+          trackingNumber: "MJAYMC0WNI0WOFQXODOWMTOXNS41NJZA"
+        }
 
-//   private testProps(): TestProp<TrackShipmentProps>[] {
-//     const carrierApp = this.app as CarrierApp;
-//     let props: TestProp<TrackShipmentProps>[] = [];
+        if(this.debug) {
+          logObject(this.transaction);
+          logObject(trackingPOJO);
+        }        
 
-//     return props;
-//   }
-// }
+        let result, errorResult;
+        try {
+          carrierApp.trackShipment &&
+            (result = await carrierApp.trackShipment(this.transaction, trackingPOJO));
+        } catch (error) {
+          errorResult = error;
+        } finally {
+          expect(errorResult).to.be.undefined;
+          expect(result).to.be.ok;
+        }
+      })
+    ]
+  }
+}
