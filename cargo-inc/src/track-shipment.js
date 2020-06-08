@@ -1,8 +1,8 @@
 "use strict";
 
-const apiClient = require("../carrier/src/mock-api/client");
+const apiClient = require("./mock-api/client");
 
-async function trackShipment(transaction, trackingCriteria){
+async function trackShipment(transaction, trackingCriteria) {
   // STEP 1: Validation
 
 
@@ -28,18 +28,14 @@ async function trackShipment(transaction, trackingCriteria){
  * Formats a shipment in the way ShipEngine expects
  */
 async function formatTrackingResponse(response) {
-  const deliveryTzSplit = response.deliveryDate.split();
-  const eventTzSplit = response.trackingEvents[0].date.split();
 
   return {
-    deliveryDateTime: {
-      value: deliveryTzSplit[0],
-      timeZone: deliveryTzSplit[1]
-    },
+    deliveryDateTime: response.deliveryDate,
     packages: [
       {
         packaging: {
-          description: response.packaging[0].description,
+          id: "03318192-3e6c-475f-a496-a4f17c1dbcae",
+          description: response.packages[0].description,
           requiresWeight: true,
           requiresDimensions: false
         },
@@ -58,41 +54,49 @@ async function formatTrackingResponse(response) {
     events: [
       {
         name: response.trackingEvents[0].description,
-        dateTime: {
-          value: eventTzSplit[0] ,
-          timezone: eventTzSplit[1],
-          status: response.trackingEvents[0].status,
-          isError: (response.trackingEvents[0].length == 0 ? false : true),
-          code: response.trackingEvents[0].statusCode,
-          description: response.trackingEvents[0].description,
-          address: {
-            company: response.trackingEvents[0].companyName,
-            addressLine1: response.trackingEvents[0].addressLine1,
-            addressLine2: response.trackingEvents[0].addressLine1,
-            cityLocality: response.trackingEvents[0].city,
-            stateProvince: response.trackingEvents[0].state,
-            postalCode: response.trackingEvents[0].zip,
-            country: response.trackingEvents[0].country,
-            timeZone: eventTzSplit[1],
-            isResidential: (response.trackingEvents[0].addressType == "residential" ? true : false),
-            coordinates: {
-              latitude: response.trackingEvents[0].latitude,
-              longitude: response.trackingEvents[0].longitude
-            }
-          },
-          signer: {
-            title: response.signedBy.salutation,
-            given: response.signedBy.firstName,
-            middle: response.signedBy.middleName,
-            family: response.signedBy.lastName,
-            suffix: response.signedBy.suffix
-          },
-          notes: [
-            response.notes,
-          ]
-        }
+        dateTime: response.deliveryDate,
+        status: mapStatusCodes(response.trackingEvents[0].statusCode),
+        isError: (response.trackingEvents[0].length == 0 ? false : true),
+        code: response.trackingEvents[0].statusCode,
+        description: response.trackingEvents[0].description,
+        address: {
+          company: response.trackingEvents[0].companyName,
+          addressLines: [response.trackingEvents[0].addressLine1],
+          cityLocality: response.trackingEvents[0].city,
+          stateProvince: response.trackingEvents[0].state,
+          postalCode: response.trackingEvents[0].zip,
+          country: response.trackingEvents[0].country,
+          timeZone: response.trackingEvents[0].timeZone,
+          isResidential: (response.trackingEvents[0].addressType == "residential" ? true : false),
+          coordinates: {
+            latitude: response.trackingEvents[0].latitude,
+            longitude: response.trackingEvents[0].longitude
+          }
+        },
+        signer: {
+          title: response.signedBy.salutation,
+          given: response.signedBy.firstName,
+          middle: response.signedBy.middleName,
+          family: response.signedBy.lastName,
+          suffix: response.signedBy.suffix
+        },
+        notes: [
+          response.notes,
+        ]
       }
     ]
+  }
+}
+
+function mapStatusCodes(statusCodes) {
+
+  switch(statusCodes) {
+    case "NY":
+      return "accepted";
+    case "C":
+      return "delivered";
+    case "IT":
+      return "in_transit";
   }
 }
 

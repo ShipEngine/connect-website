@@ -12,11 +12,11 @@ const allStatuses = {
  * This is a mock implementation of a carrier"s API that returns the location history of a shipment
  */
 function locationHistory(request) {
-  const statusCode = allStatusCodes[Math.floor(Math.random() * allStatuCodes.length)];
+  const statusCode = allStatusCodes[Math.floor(Math.random() * allStatusCodes.length)];
   const status = allStatuses[statusCode];
 
   return {
-    deliveryDate: "2005-09-23T17:30:00 CST",
+    deliveryDate: "2020-06-08T19:40:42.522Z",
     packages: [
       {
         description: "Large square box",
@@ -31,19 +31,19 @@ function locationHistory(request) {
     trackingEvents: [
       {
         description: "Received at facility,",
-        date: "2005-09-23T17:30:00 CST",
+        date: "2020-06-08T19:40:42.522Z",
         status: status,
         errors: [],
         statusCode: statusCode,
         addressLine1: "4009 Marathon Blvd.",
-        addressLine2: "",
         city: "Austin",
         state: "TX",
         zip: "78756",
-        country: "USA",
+        country: "US",
+        timeZone: "America/Chicago",
         addressType: "residential",
-        latitude: "30.308740",
-        longitude: "-97.741750",
+        latitude: 30.308740,
+        longitude: -97.741750,
         companyName: "ShipEngine",
       }
     ],
