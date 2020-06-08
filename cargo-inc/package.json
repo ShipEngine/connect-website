@@ -4,7 +4,8 @@
   "description": "The Cargo Incorporated carrier app",
   "main": "cargo-inc.yaml",
   "devDependencies": {
-    "@shipengine/integration-platform-sdk": "0.0.21"
+    "@shipengine/integration-platform-sdk": "0.0.21",
+    "dotenv-flow": "^3.1.0"
   },
   "dependencies": {
     "axios": "^0.19.2"
