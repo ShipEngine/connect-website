@@ -1,5 +1,6 @@
 import { Suite, TestProp, expect } from "../tiny-test";
 import { CarrierApp, TrackingCriteriaPOJO, TransactionPOJO } from "@shipengine/integration-platform-sdk";
+import { logObject } from '../../utils/log-helpers';
 
 type TrackShipmentProps = [TransactionPOJO, TrackingCriteriaPOJO];
 
@@ -9,40 +10,28 @@ export class TrackShipmentTestSuite extends Suite {
   tests() {
     const carrierApp = this.app as CarrierApp;
 
-    return this.testProps().map((testProp) => {
-      return this.test(testProp.title, async function () {
+    return [
+      this.test("handles an unknown tracking number", async () => {
+        const trackingPOJO: TrackingCriteriaPOJO = {
+          trackingNumber: "MJAYMC0WNI0WOFQXODOWMTOXNS41NJZA"
+        }
+
+        if(this.debug) {
+          logObject(this.transaction);
+          logObject(trackingPOJO);
+        }        
+
         let result, errorResult;
         try {
           carrierApp.trackShipment &&
-            (result = await carrierApp.trackShipment(...testProp.props));
+            (result = await carrierApp.trackShipment(this.transaction, trackingPOJO));
         } catch (error) {
           errorResult = error;
         } finally {
           expect(errorResult).to.be.undefined;
           expect(result).to.be.ok;
         }
-      });
-    });
+      })
+    ]
   }
-
-  private testProps(): TestProp<TrackShipmentProps>[] {
-    let props: TestProp<TrackShipmentProps>[] = [];
-    generateNonDynamicTests(props, this.transaction);
-
-    return props;
-  }
-}
-
-function generateNonDynamicTests(props: TestProp<TrackShipmentProps>[], transaction: TransactionPOJO): void {
-  const trackingPOJO: TrackingCriteriaPOJO = {
-    trackingNumber: "MJAYMC0WNI0WOFQXODOWMTOXNS41NJZA"
-  }
-
-  let title = "tracking a shipment";
-  title = ` with ${trackingPOJO.trackingNumber}`;
-
-  props.push({
-    title,
-    props: [transaction, trackingPOJO]
-  });
 }
