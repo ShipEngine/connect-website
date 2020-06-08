@@ -1,15 +1,17 @@
 import { Suite, TestProp, expect } from "../tiny-test";
-import { buildAddressWithContactInfo } from "../factories/address";
 import { log, logObject } from "../../utils/log-helpers";
 import {
   CarrierApp,
   RateCriteriaPOJO,
   TransactionPOJO,
-  PackageRateCriteriaPOJO,
   WeightUnit,
 } from "@shipengine/integration-platform-sdk";
+import { createRateCriteriaPOJOs, TimeStamps } from '../factories/create-base-rate-criteria';
 
 type RateShipmentProps = [TransactionPOJO, RateCriteriaPOJO];
+
+// TODO: How to validate "correctness" of tests where individual or ALL delivery/fulfillment services are specified? Is this a business logic 
+// that is out of the scope of the test-harness?
 
 export class RateShipmentTestSuite extends Suite {
   title = "rateShipment";
@@ -40,37 +42,141 @@ export class RateShipmentTestSuite extends Suite {
   }
 
   private testProps(): TestProp<RateShipmentProps>[] {
+    const carrierApp = this.app as CarrierApp;
     let props: TestProp<RateShipmentProps>[] = [];
-    const packageWeights = [1.0, 10.0, 100.0];
+    const packageWeights = [
+      1.0,
+      10.0,
+      100.0
+    ];
     const packageUnits = [
       WeightUnit.Grams,
       WeightUnit.Kilograms,
       WeightUnit.Ounces,
       WeightUnit.Pounds,
     ];
-    for (let packageUnit of packageUnits) {
-      for (let packageWeight of packageWeights) {
-        const packageRateCriteriaPOJO: PackageRateCriteriaPOJO = {
-          weight: {
-            value: packageWeight,
-            unit: packageUnit,
-          },
-        };
 
-        const rateCriteriaPOJO: RateCriteriaPOJO = {
-          shipFrom: buildAddressWithContactInfo("US"),
-          shipTo: buildAddressWithContactInfo("US"),
-          shipDateTime: new Date(),
-          packages: [packageRateCriteriaPOJO],
-        };
+    /**
+     * The test harness needs 
+     */
 
-        props.push({
-          title: `rate a shipment with package unit: ${packageUnit}, and package weight: ${packageWeight}`,
-          props: [this.transaction, rateCriteriaPOJO],
-        });
+    // Check and test for fulfillment services to use within that deliveryService
+
+    // Check and test for return shipments
+    // Test across various datetimes for shipment dates
+
+    // This set of rateCriteria will satisfy the condition of no delivery service or fulfillment service being specified.
+    let ratePOJOs = createRateCriteriaPOJOs(packageWeights, packageUnits, carrierApp);
+
+    // Check and test for delivery services specified.
+    // TODO: test permutations of deliveryServices, currently only creates one or ALL (by leaving delivery service empty) at a time.
+    for (let deliveryService of carrierApp.deliveryServices) {
+
+      const deliveryServiceRatePOJOs = createRateCriteriaPOJOs(packageWeights, packageUnits, carrierApp, deliveryService);
+      ratePOJOs = ratePOJOs.concat(deliveryServiceRatePOJOs);
+
+      if (deliveryService.fulfillmentService) {
+        const ratePOJOWithFulfillments = createRateCriteriaPOJOs(packageWeights, packageUnits, carrierApp, deliveryService, deliveryService.fulfillmentService)
+        ratePOJOs = ratePOJOs.concat(ratePOJOWithFulfillments);
       }
+    }
+
+    // Use this to store and verify that there are no duplicate titles.
+    let titles = new Set();
+    for (let [ratePOJO, metadata] of ratePOJOs) {
+      const title = composeTitle(ratePOJO, metadata.timeStamps, carrierApp);
+
+      if (titles.has(title)) {
+        throw new Error("duplicate title");
+      }
+
+      titles.add(title);
+
+      props.push({
+        title,
+        props: [this.transaction, ratePOJO],
+      });
     }
 
     return props;
   }
+}
+
+function composeTitle(ratePOJO: RateCriteriaPOJO, timeStamps: TimeStamps, app: CarrierApp): string {
+
+  let title = "rate a shipment";
+
+  if (ratePOJO.deliveryServices && ratePOJO.deliveryServices.length > 0) {
+    let names = [];
+    for (let ds of ratePOJO.deliveryServices) {
+      const name = getDeliveryServiceName(ds.id, app);
+      names.push(name);
+    }
+
+    if (names.length > 1) {
+      title += ` with delivery services: ${names.join(", ")}`;
+    }
+    else if (names.length === 1) {
+      title += ` with delivery service: ${names[0]}`;
+    }
+  }
+  else {
+    // if no Delivery Service or Fulfillment Service is specified then the test becomes added for ALL of the services.
+    const names = app.deliveryServices.map(ds => ds.name);
+    title += ` with delivery services: ${names.join(", ")}`;
+
+    if (ratePOJO.fulfillmentServices && ratePOJO.fulfillmentServices.length > 0) {
+      // Currently there will only ever be one fulfillment service per delivery service
+      title += ` with fulfillment service: ${ratePOJO.fulfillmentServices[0]}, `;
+    }
+  }
+
+  title += ` from address: ${ratePOJO.shipFrom.country}, to address: ${ratePOJO.shipTo.country}`;
+  title += ` with package weight: ${ratePOJO.packages[0].weight?.value}, and package unit: ${ratePOJO.packages[0].weight?.unit}`;
+
+  title += ` with ship date time: ${getTimeTitle(ratePOJO.shipDateTime as string, timeStamps)},`;
+  title += ` with deliveryDateTime: ${getTimeTitle(ratePOJO.deliveryDateTime as string, timeStamps)}`;
+
+  return title;
+}
+
+
+function getTimeTitle(date: string, timeStamps: TimeStamps): string {
+
+  if (date === timeStamps.yesterday) {
+    return "Yesterday";
+  }
+  else if (date === timeStamps.today) {
+    return "Today";
+  }
+  else if (date === timeStamps.tomorrowEarly) {
+    return "Tomorrow Early";
+  }
+  else if (date === timeStamps.tomorrowEarlyAM) {
+    return "Tomorrow Early";
+  }
+  else if (date === timeStamps.tomorrow) {
+    return "Tomorrow";
+  }
+  else if (date === timeStamps.twoDays) {
+    return "Two Days";
+  }
+  else if (date === timeStamps.twoDaysEarly) {
+    return "Two Days Early";
+  }
+  else {
+    return "Three Days";
+  }
+}
+
+function getDeliveryServiceName(id: string, app: CarrierApp): string {
+
+  const ds = app.deliveryServices.find((ds) => {
+    if (ds.id === id) {
+      return true;
+    }
+    return false;
+  })
+
+  return ds!.name;
 }

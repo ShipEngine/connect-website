@@ -89,8 +89,8 @@ export class CreateShipmentTestSuite extends Suite {
                   deliveryService: {
                     id: deliveryService.id,
                   },
-                  shipFrom: buildAddressWithContactInfo("US"),
-                  shipTo: buildAddressWithContactInfo("US"),
+                  shipFrom: buildAddressWithContactInfo("US-from")!,
+                  shipTo: buildAddressWithContactInfo("US-to")!,
                   shipDateTime: new Date(),
                   packages: [packagePOJO],
                 };

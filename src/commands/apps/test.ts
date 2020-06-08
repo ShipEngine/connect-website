@@ -11,7 +11,7 @@ import loadAndValidateApp from "../../shipengine-core/load-and-validate-app";
 export default class Test extends BaseCommand {
   static description = "test your app";
 
-  static examples = ["$ shipengine apps:test"];
+  static examples = ["$ shipengine apps:test", "$ shipengine apps:test --grep rateShipment"];
 
   static flags = {
     help: flags.help({ char: "h" }),
