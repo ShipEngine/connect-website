@@ -106,7 +106,7 @@ export class CancelPickupsTestSuite extends Suite {
                 },
               ];
 
-              const title = `cancels a pickup with delivery service: ${deliveryService.name}, package unit: ${packageUnit}, package weight: ${packageWeight}, and reason ${reason}`;
+              const title = `cancels pickups with pickup service: ${pickupService.name}, delivery service: ${deliveryService.name}, package unit: ${packageUnit}, package weight: ${packageWeight}, and reason ${reason}`;
 
               props.push({
                 title: title,

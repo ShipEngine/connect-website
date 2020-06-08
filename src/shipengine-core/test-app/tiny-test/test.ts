@@ -25,6 +25,10 @@ export default class Test {
     return `(${this.truncatedSha()}) ${this.title}`;
   }
 
+  negatedToString(): string {
+    return `(${this.truncatedSha()}) raises when ${this.title}`;
+  }
+
   truncatedSha(): string {
     return this.sha.slice(0, 7);
   }

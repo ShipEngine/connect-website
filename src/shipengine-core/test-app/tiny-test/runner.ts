@@ -15,6 +15,7 @@ interface RunnerOptions {
   failFast: boolean;
   concurrency: number;
   debug: boolean;
+  negateTests: string[];
 }
 
 export interface RunnerResults {
@@ -30,10 +31,15 @@ export class Runner {
 
   constructor(
     suites: Suite[],
-    { failFast = false, concurrency = 1, debug = false }: RunnerOptions,
+    {
+      failFast = false,
+      concurrency = 1,
+      debug = false,
+      negateTests = [],
+    }: RunnerOptions,
   ) {
     this.suites = suites;
-    this.options = { failFast, concurrency, debug };
+    this.options = { failFast, concurrency, debug, negateTests };
     this.results = {
       passed: 0,
       skipped: 0,
@@ -69,21 +75,34 @@ export class Runner {
       return;
     }
 
-    try {
-      await test.fn();
-      this.results.passed++;
-      logPass(test.toString());
-    } catch (error) {
-      this.results.failed++;
-      // This extra check is needed when test are running concurrently
-      if (this.options.failFast && this.results.failed > 1) return;
-      logFail(test.toString());
-      if (this.options.debug) {
-        log(indentLines(chalk.red(error.stack), 4));
-        log(
-          indent(4) +
-            chalk.yellow(`re-run with --grep=${test.truncatedSha()}'`),
-        );
+    if (this.shouldTestBeNegated(test)) {
+      try {
+        await test.fn();
+        this.results.failed++;
+        // This extra check is needed when test are running concurrently
+        if (this.options.failFast && this.results.failed > 1) return;
+        logFail(test.negatedToString());
+      } catch (error) {
+        this.results.passed++;
+        logPass(test.negatedToString());
+      }
+    } else {
+      try {
+        await test.fn();
+        this.results.passed++;
+        logPass(test.toString());
+      } catch (error) {
+        this.results.failed++;
+        // This extra check is needed when test are running concurrently
+        if (this.options.failFast && this.results.failed > 1) return;
+        logFail(test.toString());
+        if (this.options.debug) {
+          log(indentLines(chalk.red(error.stack), 4));
+          log(
+            indent(4) +
+              chalk.yellow(`re-run with --grep=${test.truncatedSha()}'`),
+          );
+        }
       }
     }
   }
@@ -97,5 +116,9 @@ export class Runner {
       index += size;
     }
     return partitionedTestSuite;
+  }
+
+  private shouldTestBeNegated(test: Test) {
+    return this.options.negateTests.some((sha) => test.sha.includes(sha));
   }
 }
