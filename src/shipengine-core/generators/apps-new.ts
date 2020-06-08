@@ -241,10 +241,6 @@ class AppsNew extends Generator {
         debug: "cross-env NODE_OPTIONS=--inspect-brk shipengine apps:test",
       };
     }
-
-    if (this.ts) {
-      this.pjson.types = defaults.types || "lib/index.d.ts";
-    }
   }
 
   writing() {
@@ -258,13 +254,17 @@ class AppsNew extends Generator {
       );
     }
 
-    if (this.ts) {
-      this.fs.copyTpl(
-        this.templatePath("tsconfig.json"),
-        this.destinationPath("tsconfig.json"),
-        this,
-      );
-    }
+    this.fs.copyTpl(
+      this.templatePath(".env.test"),
+      this.destinationPath(".env.test"),
+      this,
+    );
+
+    this.fs.copyTpl(
+      this.templatePath("shipengine.config.js"),
+      this.destinationPath("shipengine.config.js"),
+      this,
+    );
 
     if (this.fs.exists(this.destinationPath("./package.json"))) {
       fixpack(
@@ -359,7 +359,7 @@ class AppsNew extends Generator {
 
           this.fs.copyTpl(
             this.templatePath(`carrier/methods/connect.${this._codeExt}`),
-            this.destinationPath(`src/connect.${this._codeExt}`),
+            this.destinationPath(`src/methods/connect.${this._codeExt}`),
             this,
           );
 
@@ -463,6 +463,7 @@ class AppsNew extends Generator {
     const devDependencies: string[] = [];
 
     devDependencies.push("@shipengine/integration-platform-sdk@0.0.21");
+    devDependencies.push("dotenv-flow@3.1.0");
     devDependencies.push("cross-env");
 
     if (this.ts) {
@@ -517,7 +518,7 @@ class AppsNew extends Generator {
         "/dist",
         "/.nyc_output",
         "/package-lock.json",
-        this.ts && "/lib",
+        ".env.test",
       ])
         .concat(existing)
         .compact()

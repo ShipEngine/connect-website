@@ -55,8 +55,6 @@ describe("apps:new generator", function () {
               "package.json",
             ]);
 
-            assert.noFile(["test/tsconfig.json", "tsconfig.json"]);
-
             assert.jsonFileContent("package.json", {
               name: "@shipengine/testname",
             });
@@ -105,7 +103,6 @@ describe("apps:new generator", function () {
               "README.md",
               "README.md",
               "package.json",
-              "tsconfig.json",
             ]);
 
             assert.jsonFileContent("package.json", {
@@ -114,7 +111,6 @@ describe("apps:new generator", function () {
             assert.jsonFileContent("package.json", {
               description: "test description",
             });
-            assert.jsonFileContent("package.json", { main: "src/index.ts" });
           });
       });
     });
