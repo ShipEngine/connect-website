@@ -1,8 +1,10 @@
+require("dotenv-flow").config();
+
 module.exports = {
   connectionFormDataProps: {
-    account_id: "123",
-    account_email: "test@test.com",
-    account_password: "testing123",
+    account_id: process.env.ACCOUNT_ID,
+    account_email: process.env.ACCOUNT_EMAIL,
+    account_password: process.env.ACCOUNT_PASSWORD,
     agree_to_eula: true,
   },
   negateTests: [],
