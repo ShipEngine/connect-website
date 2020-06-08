@@ -1,6 +1,7 @@
 import { WeightUnit, DeliveryService, FulfillmentService, RateCriteriaPOJO, PackageRateCriteriaPOJO, CarrierApp, AddressWithContactInfoPOJO, DeliveryServiceIdentifierPOJO, DeliveryServiceClass, Country } from '@shipengine/integration-platform-sdk';
 import { buildAddressWithContactInfo } from './address';
-import { DateTime } from "luxon";
+import { TimeStamps } from '../../utils/types';
+import { initializeTimeStamps } from '../../utils/time-stamps';
 
 interface RateOpts {
   deliveryServices: DeliveryServiceIdentifierPOJO[];
@@ -10,17 +11,6 @@ interface RateOpts {
   shipFrom: AddressWithContactInfoPOJO;
   shipTo: AddressWithContactInfoPOJO;
   packages: PackageRateCriteriaPOJO[];
-}
-
-export interface TimeStamps {
-  yesterday: string;
-  today: string;
-  tomorrowEarly: string;
-  tomorrowEarlyAM: string;
-  tomorrow: string;
-  twoDays: string;
-  twoDaysEarly: string;
-  threeDays: string;
 }
 
 // TODO: Refactor to make more generic for reuse
@@ -39,6 +29,9 @@ export function createRateCriteriaPOJOs(packageWeights: number[], packageUnits: 
           value: packageWeight,
           unit: packageUnit,
         },
+        // packaging: {
+        //   deliveryService && deliveryService?.packaging
+        // }
       };
 
       let rateCriteriaOpts: RateOpts = {
@@ -138,33 +131,4 @@ function parseDeliveryService(deliveryService: DeliveryService, timeStamps: Time
     case DeliveryServiceClass.ThreeDay:
       return [timeStamps.today, timeStamps.threeDays];
   }
-}
-
-// TODO: ASSUMPTION: currently all the timestamps are based off of the origin addresses' timezone, research whether that is common for most carriers?
-function initializeTimeStamps(timeZone: string): TimeStamps {
-
-  let date = new Date();
-
-  // TODO: Get more business logic and see if these time stamps are accurate 
-  let yesterday = DateTime.local(date.getFullYear(), date.getMonth() + 1, date.getDate()).setZone(timeZone).plus({ hours: 12 }).minus({ days: 1 }).toISO();
-  let today = DateTime.local(date.getFullYear(), date.getMonth() + 1, date.getDate()).setZone(timeZone).plus({ hours: 12 }).toISO();
-  let tomorrowEarly = DateTime.local(date.getFullYear(), date.getMonth() + 1, date.getDate()).setZone(timeZone).plus({ days: 1, hours: 9 }).toISO();
-  let tomorrowEarlyAM = DateTime.local(date.getFullYear(), date.getMonth() + 1, date.getDate()).setZone(timeZone).plus({ days: 1, hours: 6 }).toISO();
-  let tomorrow = DateTime.local(date.getFullYear(), date.getMonth() + 1, date.getDate()).setZone(timeZone).plus({ days: 1, hours: 12 }).toISO();
-  let twoDays = DateTime.local(date.getFullYear(), date.getMonth() + 1, date.getDate()).setZone(timeZone).plus({ days: 2, hours: 12 }).toISO();
-  let twoDaysEarly = DateTime.local(date.getFullYear(), date.getMonth() + 1, date.getDate()).setZone(timeZone).plus({ days: 2, hours: 9 }).toISO();
-  let threeDays = DateTime.local(date.getFullYear(), date.getMonth() + 1, date.getDate()).setZone(timeZone).plus({ days: 3 }).toISO();
-
-  const timeStamps: TimeStamps = {
-    yesterday,
-    today,
-    tomorrowEarly,
-    tomorrowEarlyAM,
-    tomorrow,
-    twoDays,
-    twoDaysEarly,
-    threeDays
-  }
-
-  return timeStamps;
 }
