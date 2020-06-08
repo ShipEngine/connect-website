@@ -87,8 +87,9 @@ OPTIONS
   -g, --grep=grep                only run test that match this string (e.g. method name or test SHA)
   -h, --help                     show CLI help
 
-EXAMPLE
+EXAMPLES
   $ shipengine apps:test
+  $ shipengine apps:test --grep rateShipment
 ```
 
 _See code: [src/commands/apps/test.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.1/src/commands/apps/test.ts)_

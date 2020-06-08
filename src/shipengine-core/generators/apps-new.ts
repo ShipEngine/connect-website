@@ -140,7 +140,7 @@ class AppsNew extends Generator {
           message: "what type of app are you building",
           choices: [
             { name: "carrier ", value: "carrier" },
-            { name: "order source", value: "order source" },
+            // { name: "order source", value: "order source" },
           ],
           default: defaults.type,
         },
