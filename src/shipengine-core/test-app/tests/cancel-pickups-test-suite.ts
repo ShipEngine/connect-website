@@ -87,7 +87,7 @@ export class CancelPickupsTestSuite extends Suite {
                   pickupService: pickupService,
                   cancellationID: v4(),
                   reason: reason,
-                  address: buildAddress("US"),
+                  address: buildAddress("US-from"),
                   contact: {
                     name: "John Smith",
                   },
