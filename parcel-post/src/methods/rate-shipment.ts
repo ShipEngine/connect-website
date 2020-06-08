@@ -20,13 +20,13 @@ export default async function rateShipment(
     operation: "quote_rates",
     session_id: transaction.session.id,
     service_codes: shipment.deliveryServices.map((svc) => svc.identifiers.apiCode),
-    confirmation_codes: shipment.package.deliveryConfirmations.map((conf) => conf.identifiers.apiCode),
-    parcel_codes: shipment.package.packaging.map((pkg) => pkg.identifiers.apiCode),
+    confirmation_codes: shipment.packages[0].deliveryConfirmations.map((conf) => conf.identifiers.apiCode),
+    parcel_codes: shipment.packages[0].packaging.map((pkg) => pkg.identifiers.apiCode),
     ship_date: shipment.shipDateTime.toISOString(),
     delivery_date: shipment.deliveryDateTime.toISOString(),
     from_zone: parseInt(shipment.shipFrom.postalCode, 10),
     to_zone: parseInt(shipment.shipTo.postalCode, 10),
-    total_weight: shipment.package.weight.ounces,
+    total_weight: shipment.packages[0].weight.ounces,
   };
 
   // STEP 3: Call the carrier's API
