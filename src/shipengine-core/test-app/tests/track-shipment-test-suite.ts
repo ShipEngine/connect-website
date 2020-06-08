@@ -1,4 +1,4 @@
-import { Suite, TestProp, expect } from "../tiny-test";
+import { Suite, expect } from "../tiny-test";
 import { CarrierApp, TrackingCriteriaPOJO, TransactionPOJO } from "@shipengine/integration-platform-sdk";
 import { logObject } from '../../utils/log-helpers';
 
