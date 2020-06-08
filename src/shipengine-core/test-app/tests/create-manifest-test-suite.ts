@@ -39,7 +39,7 @@ export class CreateManifestTestSuite extends Suite {
 
   private testProps(): TestProp<CreateManifestProps>[] {
     const newManifestPOJO: NewManifestPOJO = {
-      shipFrom: buildAddress("US"),
+      shipFrom: buildAddress("US-from"),
       openDateTime: new Date(),
       closeDateTime: new Date(),
       shipments: [{ trackingNumber: "test" }],

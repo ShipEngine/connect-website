@@ -3,45 +3,23 @@ import {
   AddressWithContactInfoPOJO,
   Country,
 } from "@shipengine/integration-platform-sdk";
+import { buildContactInfo } from './contact-info';
 
 export function buildAddressWithContactInfo(
   countryCode: string,
 ): AddressWithContactInfoPOJO | undefined {
   const countryMap: Record<string, AddressWithContactInfoPOJO> = {
-    "US-from": Object.assign(buildAddress("US-from"), {
-      name: "John Doe",
-      email: "john.doe@gmail.com",
-      phoneNumber: "123-456-7890",
-    }),
-    "US-to": Object.assign(buildAddress("US-to"), {
-      name: "Jane Doe",
-      email: "Jane.doe@gmail.com",
-      phoneNumber: "987-654-3210",
-    }),
-    "CA-from": Object.assign(buildAddress("CA-from"), {
-      name: "John Doe",
-      email: "john.doe@gmail.com",
-      phoneNumber: "123-456-7890",
-    }),
-    "CA-to": Object.assign(buildAddress("CA-to"), {
-      name: "Jane Doe",
-      email: "Jane.doe@gmail.com",
-      phoneNumber: "987-654-3210",
-    }),
-    "MX-from": Object.assign(buildAddress("MX-from"), {
-      name: "John Doe",
-      email: "john.doe@gmail.com",
-      phoneNumber: "123-456-7890",
-    }),
-    "MX-to": Object.assign(buildAddress("MX-to"), {
-      name: "Jane Doe",
-      email: "Jane.doe@gmail.com",
-      phoneNumber: "987-654-3210",
-    }),
+    "US-from": Object.assign(buildAddress("US-from"), buildContactInfo("US-from")),
+    "US-to": Object.assign(buildAddress("US-to"), buildContactInfo("US-to")),
+    "CA-from": Object.assign(buildAddress("CA-from"), buildContactInfo("CA-from")),
+    "CA-to": Object.assign(buildAddress("CA-to"), buildContactInfo("CA-to")),
+    "MX-from": Object.assign(buildAddress("MX-from"), buildContactInfo("MX-from")),
+    "MX-to": Object.assign(buildAddress("MX-to"), buildContactInfo("MX-to")),
   };
 
   return countryMap[countryCode];
 }
+
 
 export function buildAddress(countryCode: string): AddressPOJO {
   const countryMap: Record<string, AddressPOJO> = {
