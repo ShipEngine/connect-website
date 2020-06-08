@@ -1,6 +1,7 @@
 "use strict";
 
 module.exports = {
+  id: "ec3dc540-b733-4816-83a8-1455ee2bdadc",
   name: "FreightCo",
   description: "FreightCo is a ground freight trucking company serving Central and North America.",
   websiteURL: "https://freightco.net",

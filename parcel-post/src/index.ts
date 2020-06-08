@@ -1,6 +1,7 @@
 import { CarrierAppDefinition } from "@shipengine/integration-platform-sdk";
 
 const parcelPost: CarrierAppDefinition = {
+  id: "1cd8dc3b-3acb-4373-b32a-d59abd5ec86b",
   name: "Parcel Post",
   description: "Parcel Post provides low-cost multi-carrier delivery services within the U.S. and to major international destinations",
   websiteURL: "https://parcel-post.net",
