@@ -8,6 +8,7 @@ connect: src/connect.js
 createShipment: src/create-shipment.js
 rateShipment: src/rate-shipment.js
 trackShipment: src/track-shipment.js
+cancelShipments: src/cancel-shipments.js
 
 connectionForm: forms/connect.json
 settingsForm: forms/settings.json
