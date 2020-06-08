@@ -26,22 +26,23 @@ export class TrackShipmentTestSuite extends Suite {
   }
 
   private testProps(): TestProp<TrackShipmentProps>[] {
-    // const carrierApp = this.app as CarrierApp;
     let props: TestProp<TrackShipmentProps>[] = [];
+    generateNonDynamicTests(props, this.transaction);
 
-    const trackingPOJO: TrackingCriteriaPOJO = {
-      trackingNumber: "MJAYMC0WNI0WOFQXODOWMTOXNS41NJZA"
-    }
-
-    let title = "tracking a shipment";
-
-    title =  ` with ${trackingPOJO.trackingNumber}`;
-
-    props.push({
-      title,
-      props: [this.transaction, trackingPOJO]
-    })
-    
     return props;
   }
+}
+
+function generateNonDynamicTests(props: TestProp<TrackShipmentProps>[], transaction: TransactionPOJO): void {
+  const trackingPOJO: TrackingCriteriaPOJO = {
+    trackingNumber: "MJAYMC0WNI0WOFQXODOWMTOXNS41NJZA"
+  }
+
+  let title = "tracking a shipment";
+  title = ` with ${trackingPOJO.trackingNumber}`;
+
+  props.push({
+    title,
+    props: [transaction, trackingPOJO]
+  });
 }
