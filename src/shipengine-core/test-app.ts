@@ -9,7 +9,7 @@ import {
   // GetSalesOrdersByDateTestSuite,
   // GetSellerTestSuite,
   RateShipmentTestSuite,
-  // SchedulePickupTestSuite,
+  SchedulePickupTestSuite,
   // ShipmentCancelledTestSuite,
   // ShipmentCreatedTestSuite,
   // TrackShipmentTestSuite,
@@ -30,7 +30,7 @@ function registerTestSuiteModules(app: App): RegisteredTestSuiteModules {
     createManifest: CreateManifestTestSuite,
     createShipment: CreateShipmentTestSuite,
     rateShipment: RateShipmentTestSuite,
-    // schedulePickup: SchedulePickupTestSuite,
+    schedulePickup: SchedulePickupTestSuite,
     // trackShipment: TrackShipmentTestSuite,
   };
 
