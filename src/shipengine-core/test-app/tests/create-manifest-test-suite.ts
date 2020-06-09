@@ -1,6 +1,7 @@
 import { Suite, TestProp, expect } from "../tiny-test";
 import { buildAddress } from "../factories/address";
 import { log, logObject } from "../../utils/log-helpers";
+import { initializeTimeStamps, getTimeTitle } from "../../utils/time-stamps";
 import {
   CarrierApp,
   NewManifestPOJO,
@@ -38,16 +39,25 @@ export class CreateManifestTestSuite extends Suite {
   }
 
   private testProps(): TestProp<CreateManifestProps>[] {
+    const address = buildAddress(`US-from`);
+    const timestamps = initializeTimeStamps(address.timeZone);
+
     const newManifestPOJO: NewManifestPOJO = {
-      shipFrom: buildAddress("US-from"),
-      openDateTime: new Date(),
-      closeDateTime: new Date(),
+      shipFrom: address,
+      openDateTime: timestamps.today,
+      closeDateTime: timestamps.tomorrow,
       shipments: [{ trackingNumber: "test" }],
     };
 
     return [
       {
-        title: "creates manifest",
+        title: `creates manifest with open time: ${getTimeTitle(
+          newManifestPOJO.openDateTime.toString(),
+          timestamps,
+        )}}, and close time: ${getTimeTitle(
+          newManifestPOJO.closeDateTime.toString(),
+          timestamps,
+        )}}`,
         props: [this.transaction, newManifestPOJO],
       },
     ];
