@@ -9,7 +9,7 @@ import {
   // GetSellerTestSuite,
   RateShipmentTestSuite,
   SchedulePickupTestSuite,
-  TrackShipmentTestSuite
+  TrackShipmentTestSuite,
   // ShipmentCancelledTestSuite,
   // ShipmentCreatedTestSuite,
 } from "./test-app/tests";

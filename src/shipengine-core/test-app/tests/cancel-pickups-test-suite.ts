@@ -2,6 +2,7 @@ import { Suite, TestProp, expect } from "../tiny-test";
 import { v4 } from "uuid";
 import { buildAddress } from "../factories/address";
 import { log, logObject } from "../../utils/log-helpers";
+import { initializeTimeStamps, getTimeTitle } from "../../utils/time-stamps";
 import {
   CarrierApp,
   PickupPackagePOJO,
@@ -60,58 +61,67 @@ export class CancelPickupsTestSuite extends Suite {
       WeightUnit.Pounds,
     ];
 
-    // const dateTimes = {
-    //   now: "",
-    //   tomorrow: "",
-    //   yesterday: "",
-    // };
+    const address = buildAddress(`US-from`);
+    const timestamps = initializeTimeStamps(address.timeZone);
 
     for (let pickupService of carrierApp.pickupServices) {
       for (let reason of cancellationReasons) {
         for (let deliveryService of carrierApp.deliveryServices) {
           for (let packageUnit of packageUnits) {
             for (let packageWeight of packageWeights) {
-              const packagePOJO: PickupPackagePOJO = {
-                packaging: {
-                  id: deliveryService.packaging[0].id,
-                },
-                weight: {
-                  value: packageWeight,
-                  unit: packageUnit,
-                },
-              };
-
-              let pickupCancellations: PickupCancellationPOJO[] = [
-                {
-                  id: v4(),
-                  pickupService: pickupService,
-                  cancellationID: v4(),
-                  reason: reason,
-                  address: buildAddress("US-from"),
-                  contact: {
-                    name: "John Smith",
+              for (let pkg of deliveryService.packaging) {
+                const packagePOJO: PickupPackagePOJO = {
+                  packaging: {
+                    id: pkg.id,
                   },
-                  timeWindows: [
-                    {
-                      startDateTime: new Date(),
-                      endDateTime: new Date(),
-                    },
-                  ],
-                  shipments: [
-                    {
-                      packages: [packagePOJO],
-                      deliveryService: deliveryService,
-                    },
-                  ],
-                },
-              ];
+                  weight: {
+                    value: packageWeight,
+                    unit: packageUnit,
+                  },
+                };
 
-              const title = `cancels pickups with pickup service: ${pickupService.name}, delivery service: ${deliveryService.name}, package unit: ${packageUnit}, package weight: ${packageWeight}, and reason ${reason}`;
+                let pickupCancellations: PickupCancellationPOJO[] = [
+                  {
+                    id: v4(),
+                    pickupService: pickupService,
+                    cancellationID: v4(),
+                    reason: reason,
+                    address: address,
+                    contact: {
+                      name: "John Smith",
+                    },
+                    timeWindows: [
+                      {
+                        startDateTime: timestamps.today,
+                        endDateTime: timestamps.tomorrow,
+                      },
+                    ],
+                    shipments: [
+                      {
+                        packages: [packagePOJO],
+                        deliveryService: deliveryService,
+                      },
+                    ],
+                  },
+                ];
 
-              props.push({
-                title: title,
-                props: [this.transaction, pickupCancellations],
-              });
+                const title = `cancels pickups with pickup service: ${
+                  pickupService.name
+                }, delivery service: ${deliveryService.name}, package: ${
+                  pkg.name
+                }, package unit: ${packageUnit}, package weight: ${packageWeight}, time window start: ${getTimeTitle(
+                  pickupCancellations[0].timeWindows[0].startDateTime.toString(),
+                  timestamps,
+                )}, time window end: ${getTimeTitle(
+                  pickupCancellations[0].timeWindows[0].endDateTime.toString(),
+                  timestamps,
+                )}, and reason ${reason}`;
+
+                props.push({
+                  title: title,
+                  props: [this.transaction, pickupCancellations],
+                });
+              }
             }
           }
         }
