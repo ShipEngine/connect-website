@@ -46,73 +46,13 @@ module.exports = {
       description: "Take your package to the specified carrier location.",
     },
   ],
+  connectionForm: "connectionForm.js",
 
-  connectionForm: {
-    dataSchema: {
-      title: "Carrier One Registration",
-      description: "Login with your Carrier One account information.",
-      type: "object",
-      required: ["userName", "password"],
-      properties: {
-        userName: {
-          type: "string",
-          title: "User Name",
-        },
-        password: {
-          type: "string",
-          title: "Password",
-          minLength: 3,
-        },
-      },
-    },
-    uiSchema: {
-      userName: {
-        "ui:autofocus": true,
-        "ui:emptyValue": "Email Address",
-      },
-      password: {
-        "ui:widget": "text",
-        "ui:help": "Password for carrier account",
-      },
-    },
-  },
-
-  settingsForm: {
-    dataSchema: {
-      title: "Carrier One Settings",
-      description: "Update your Carrier One account information.",
-      type: "object",
-      required: ["userName", "password"],
-      properties: {
-        userName: {
-          type: "string",
-          title: "User Name",
-        },
-        password: {
-          type: "string",
-          title: "Password",
-          minLength: 3,
-        },
-      },
-    },
-    uiSchema: {
-      userName: {
-        "ui:autofocus": true,
-        "ui:emptyValue": "Email Address",
-      },
-      password: {
-        "ui:widget": "text",
-        "ui:help": "Password for carrier account",
-      },
-    },
-  },
-
-  cancelPickups() {},
-  cancelShipments() {},
-  connect() {},
-  createManifest() {},
-  createShipment() {},
-  rateShipment() {},
-  schedulePickup() {},
-  trackShipment() {},
+  connect () { },
+  createShipment () { },
+  cancelShipments () { },
+  createManifest () { },
+  rateShipment () { },
+  schedulePickup () { },
+  trackShipment () { },
 };

@@ -6,11 +6,13 @@ const pjson = require("../package.json");
 
 export default abstract class BaseCommand extends Base {
   base = `${pjson.name}@${pjson.version}`;
-  _client!: APIClient;
+  private _client!: APIClient;
 
-  // get client(): client {
-  //   if (this._client) return this._client;
-  //   this._client = new APIClient(this.config);
-  //   return this._client;
-  // }
+  get client(): APIClient {
+    if (this._client) return this._client;
+
+    // Potentiallly use this.config to add more metadata to API Client as features are developed
+    this._client = new APIClient();
+    return this._client;
+  }
 }

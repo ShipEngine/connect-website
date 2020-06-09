@@ -2,6 +2,9 @@
   "name": "@carrier/inline-app",
   "version": "0.0.1",
   "main": "carrier.js",
+  "dependencies": {
+    "axios": "^0.19.2"
+  },
   "devDependencies": {
     "@shipengine/integration-platform-sdk": "0.0.13"
   }
