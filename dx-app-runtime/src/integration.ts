@@ -4,7 +4,7 @@ import { getBasicAuthFromHeader } from './basic-auth';
 
 export default {
   track: async (dxApp: CarrierApp, body: any, headers: any) => {
-    const auth = getBasicAuthFromHeader(headers.authorization);
+    const auth = getBasicAuthFromHeader(headers.Authorization);
     const response = await mapFunctions.handleTrackingRequest(dxApp, body, auth);
     return response;
   },
@@ -13,13 +13,18 @@ export default {
     return response;
   },
   getRates: async (dxApp: CarrierApp, body: any, headers: any) => {
-    const auth = getBasicAuthFromHeader(headers.authorization);
+    const auth = getBasicAuthFromHeader(headers.Authorization);
     const response = await mapFunctions.handleGetRatesRequest(dxApp, body, auth);
     return response;
   },
   createLabel: async (dxApp: CarrierApp, body: any, headers: any) => {
-    const auth = getBasicAuthFromHeader(headers.authorization);
+    const auth = getBasicAuthFromHeader(headers.Authorization);
     const response = await mapFunctions.handleCreateLabelRequest(dxApp, body, auth);
+    return response;
+  },
+  voidLabels: async (dxApp: CarrierApp, body: any, headers: any) => {
+    const auth = getBasicAuthFromHeader(headers.Authorization);
+    const response = await mapFunctions.handleVoidLabelsRequest(dxApp, body, auth);
     return response;
   }
 }
