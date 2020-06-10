@@ -1,4 +1,4 @@
-import {Package, Customs, AdvancedShippingOptions, CustomsItem as CapiCustomsItem} from "@ipaas/capi/models";
+import {Package, Customs, AdvancedShippingOptions, CustomsItem as CapiCustomsItem, ShippedPackage} from "@ipaas/capi/models";
 import {capiToDxCurrencyCode} from "./currency";
 import {
   DocumentFormat,
@@ -7,7 +7,8 @@ import {
   NewPackagePOJO,
   WeightUnit,
   RatePackagePOJO,
-  PackageRateCriteriaPOJO
+  PackageRateCriteriaPOJO,
+  PickupPackagePOJO
 } from "@shipengine/integration-platform-sdk";
 import {capiToDxCustomsItem} from './customs-item';
 
@@ -122,4 +123,28 @@ export const capiToDxPackageRateCriteria = (capiPackage: Package, customs: Custo
     //contents: /*customs?.customs_items.map(mapCustomsToItemToPackageItem) ||*/ [] //TODO: how do contents differ from customs items
   };
   return mappedPackage;
+}
+
+export const capiToPickupPackagePOJO = (shippedPackage: ShippedPackage): PickupPackagePOJO => {
+  const pickupPackage: PickupPackagePOJO = {
+    trackingNumber: shippedPackage.tracking_number || '',
+    packaging: {
+     id: shippedPackage.package_code || '',
+    },
+    weight: {
+      value: shippedPackage.weight || 0,
+      unit: WeightUnit.Grams
+    },
+    dimensions: {
+      width: shippedPackage.dimensions?.width || 0,
+      height: shippedPackage.dimensions?.height || 0,
+      length: shippedPackage.dimensions?.length || 0,
+      unit: LengthUnit.Centimeters
+    },
+    identifiers: {
+      trackingNumber: shippedPackage.tracking_number ? shippedPackage.tracking_number : undefined
+    }
+  }
+
+  return pickupPackage;
 }

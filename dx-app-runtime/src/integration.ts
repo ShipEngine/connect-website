@@ -26,5 +26,10 @@ export default {
     const auth = getBasicAuthFromHeader(headers.Authorization);
     const response = await mapFunctions.handleVoidLabelsRequest(dxApp, body, auth);
     return response;
+  },
+  schedulePickup: async (dxApp: CarrierApp, body: any, headers: any) => {
+    const auth = getBasicAuthFromHeader(headers.Authorization);
+    const response = await mapFunctions.handleSchedulePickupRequest(dxApp, body, auth);
+    return response;
   }
 }

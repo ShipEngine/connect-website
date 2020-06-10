@@ -1,7 +1,7 @@
-import { ContactInfoConfig } from "@shipengine/ipaas"
-import { PickupContactDetails } from "../capi/models/pickup-contact-details"
+import { ContactInfoPOJO } from "@shipengine/integration-platform-sdk"
+import { PickupContactDetails } from "@ipaas/capi/models"
 
- export default (contact: PickupContactDetails | null | undefined): ContactInfoConfig => {
+ export default (contact: PickupContactDetails | null | undefined): ContactInfoPOJO => {
   return {
     name: `${contact?.first_name} ${contact?.last_name}`.trim(),
     email: contact?.email,

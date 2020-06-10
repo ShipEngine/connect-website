@@ -22,7 +22,7 @@ export default (implementation: any, request: Request, response: Response) => {
   implementation(dxApp, body, relevantHeaders)
     .then((result: any) => response.send(result))
     .catch((error: any) => {
-      const statusCode = error.statusCode || 520;
+      const statusCode = error.statusCode || 500;
       const responseBody = error.body || error;
       response.status(statusCode).send(responseBody);
     })
