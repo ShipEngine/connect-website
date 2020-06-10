@@ -10,11 +10,11 @@ async function cancelShipments(transaction, shipmentCancellations) {
   let data = {
     operation: "void_labels",
     session_id: transaction.session.id,
-    cancelations: shipmentCancelations.map((cancelation) => {
-      const { cancelationID, trackingNumber } = cancelation;
+    cancellations: shipmentCancellations.map((cancellation) => {
+      const { cancellationID, trackingNumber } = cancellation;
       return {
-        cancelationID: cancelationID,
-        internalReferenceID: cancelation.identifiers.internalReferenceID,
+        cancellationID: cancellationID,
+        internalReferenceID: cancellation.identifiers.internalReferenceID,
         trackingNumber: trackingNumber,
       };
     }),
@@ -31,14 +31,14 @@ async function cancelShipments(transaction, shipmentCancellations) {
  * Formats a shipment in the way ShipEngine expects
  */
 async function formatCancellationResponse(response) {
-  return response.shipmentCancelations.map((c) => {
+  return response.shipmentCancellations.map((c) => {
     return {
       cancellationID: c.id,
-      status: c.cancelationStatus,
-      confirmation: c.cancelationConfirmation,
-      code: c.cancelationCode,
-      description: c.cancelationDescription,
-      notes: c.cancelationNotes,
+      status: c.cancellationStatus,
+      confirmation: c.cancellationConfirmation,
+      code: c.cancellationCode,
+      description: c.cancellationDescription,
+      notes: c.cancellationNotes,
       metadata: {},
     };
   });
