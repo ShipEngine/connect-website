@@ -82,7 +82,7 @@ async function formatShipment(response) {
 }
 
 /**
- * Downlaods a label image
+ * Downloads a label image
  */
 async function downloadLabel(imageUrl) {
   let response = await axios.get(imageUrl);
