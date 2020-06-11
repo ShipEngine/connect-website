@@ -1,6 +1,7 @@
 import {mapFunctions} from "./mapping/index"
 import {CarrierApp} from "@shipengine/integration-platform-sdk";
 import { getBasicAuthFromHeader } from './basic-auth';
+import dxApps from "./dx-apps";
 
 export default {
   track: async (dxApp: CarrierApp, body: any, headers: any) => {
@@ -30,6 +31,11 @@ export default {
   schedulePickup: async (dxApp: CarrierApp, body: any, headers: any) => {
     const auth = getBasicAuthFromHeader(headers.Authorization);
     const response = await mapFunctions.handleSchedulePickupRequest(dxApp, body, auth);
+    return response;
+  },
+  cancelPickup: async (dxApp: CarrierApp, body: any, headers: any) => {
+    const auth = getBasicAuthFromHeader(headers.Authorization);
+    const response = await mapFunctions.handleCancelPickupRequest(dxApp, body, auth);
     return response;
   }
 }
