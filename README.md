@@ -30,7 +30,7 @@ $ npm install -g @shipengine/cli
 $ shipengine COMMAND
 running command...
 $ shipengine (-v|--version|version)
-@shipengine/cli/0.0.7 darwin-x64 node-v12.16.2
+@shipengine/cli/0.0.8 darwin-x64 node-v12.16.2
 $ shipengine --help [COMMAND]
 USAGE
   $ shipengine COMMAND
@@ -69,7 +69,7 @@ EXAMPLE
   $ shipengine apps:new
 ```
 
-_See code: [src/commands/apps/new.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.7/src/commands/apps/new.ts)_
+_See code: [src/commands/apps/new.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.8/src/commands/apps/new.ts)_
 
 ## `shipengine apps:publish`
 
@@ -80,14 +80,15 @@ USAGE
   $ shipengine apps:publish
 
 OPTIONS
-  -h, --help   show help for the apps:publish command
-  -w, --watch  check the status of the deployment until complete
+  -h, --help        show help for the apps:publish command
+  -s, --skip-tests  skip running the test before publishing
+  -w, --watch       check the status of the deployment until complete
 
 EXAMPLE
   $ shipengine apps:publish
 ```
 
-_See code: [src/commands/apps/publish.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.7/src/commands/apps/publish.ts)_
+_See code: [src/commands/apps/publish.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.8/src/commands/apps/publish.ts)_
 
 ## `shipengine apps:test`
 
@@ -109,7 +110,7 @@ EXAMPLES
   $ shipengine apps:test --grep rateShipment
 ```
 
-_See code: [src/commands/apps/test.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.7/src/commands/apps/test.ts)_
+_See code: [src/commands/apps/test.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.8/src/commands/apps/test.ts)_
 
 ## `shipengine auth:login`
 
@@ -126,7 +127,7 @@ ALIASES
   $ shipengine login
 ```
 
-_See code: [src/commands/auth/login.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.7/src/commands/auth/login.ts)_
+_See code: [src/commands/auth/login.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.8/src/commands/auth/login.ts)_
 
 ## `shipengine auth:logout`
 
@@ -143,7 +144,7 @@ ALIASES
   $ shipengine logout
 ```
 
-_See code: [src/commands/auth/logout.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.7/src/commands/auth/logout.ts)_
+_See code: [src/commands/auth/logout.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.8/src/commands/auth/logout.ts)_
 
 ## `shipengine auth:whoami`
 
@@ -160,7 +161,7 @@ ALIASES
   $ shipengine whoami
 ```
 
-_See code: [src/commands/auth/whoami.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.7/src/commands/auth/whoami.ts)_
+_See code: [src/commands/auth/whoami.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.8/src/commands/auth/whoami.ts)_
 
 ## `shipengine help [COMMAND]`
 
