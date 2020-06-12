@@ -15,6 +15,7 @@ import {
 } from "./test-app/tests";
 import { Tiny } from "./test-app/tiny-test";
 import { logResults } from "./utils/log-helpers";
+import { RunnerResults } from "./test-app/tiny-test/runner";
 
 type RegisteredTestSuiteModules = object[];
 
@@ -62,7 +63,7 @@ export default async function testApp(
     concurrency,
     debug,
   }: { grep?: string; failFast: boolean; concurrency: number; debug: boolean },
-): Promise<void> {
+): Promise<RunnerResults> {
   const registeredTestSuiteModules = registerTestSuiteModules(app);
 
   const tinyTest = Tiny(app, registeredTestSuiteModules, {
@@ -76,5 +77,5 @@ export default async function testApp(
 
   logResults(testResults);
 
-  process.exitCode = testResults.failed > 0 ? 1 : 0; // exit with non-zero status if there were failures
+  return testResults;
 }

@@ -1,9 +1,9 @@
 import * as fs from "fs";
 import FormData from "form-data";
 import ShipengineAPIClient from "..";
-import { NewDeployment, Deployment, NetworkErrorCollection } from "../../types";
+import { Deployment, NetworkErrorCollection } from "../../types";
 
-export default class Deploys {
+export default class Deployments {
   private client: ShipengineAPIClient;
 
   constructor(apiClient: ShipengineAPIClient) {
@@ -12,7 +12,7 @@ export default class Deploys {
 
   /**
    * Create a new deployment for the given appID
-   * @returns {Promise} Promise object that resolves to a NewDeployment object.
+   * @returns {Promise} Promise object that resolves to a Deployment object.
    */
   async create({
     appId,
@@ -20,7 +20,7 @@ export default class Deploys {
   }: {
     appId: string;
     pathToTarball: string;
-  }): Promise<NewDeployment> {
+  }): Promise<Deployment> {
     const form = new FormData();
     form.append("deployment", fs.createReadStream(pathToTarball));
 

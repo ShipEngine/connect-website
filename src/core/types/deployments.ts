@@ -10,17 +10,10 @@ export enum DeploymentStatus {
 export type Deployment = {
   package: {
     name: string;
-    download: string;
+    version: string | null;
   };
   deployId: string;
   status: DeploymentStatus;
   createdAt: string;
   updatedAt: string;
 };
-
-export interface NewDeployment {
-  id: string;
-  package: {
-    name: string;
-  };
-}

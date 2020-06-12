@@ -1,8 +1,13 @@
 import BaseCommand from "../../base-command";
-import { flags } from "@oclif/command";
-import testApp from "../../core/test-app";
-import { logFail, logPass, logStep } from "../../core/utils/log-helpers";
 import loadAndValidateApp from "../../core/load-and-validate-app";
+import testApp from "../../core/test-app";
+import { flags } from "@oclif/command";
+import {
+  logFail,
+  logPass,
+  logStep,
+  logResults,
+} from "../../core/utils/log-helpers";
 
 export default class Test extends BaseCommand {
   static description = "test your app";
@@ -50,12 +55,16 @@ export default class Test extends BaseCommand {
 
       logPass("app structure is valid");
 
-      await testApp(app, {
+      const results = await testApp(app, {
         concurrency: flags.concurrency,
         debug: flags.debug,
         failFast: flags["fail-fast"],
         grep: flags.grep,
       });
+
+      if (results.failed > 0) {
+        return this.exit(1);
+      }
     } catch (error) {
       switch (error.code) {
         case "INVALID_APP":
@@ -71,13 +80,11 @@ export default class Test extends BaseCommand {
           error.errors.forEach((errorMessage: string) => {
             logFail(errorMessage);
           });
-          break;
-        case "TESTS_FAILED":
-          this.error("TESTS_FAILED");
-          break;
+
+          logResults({ failed: errorsCount, passed: 0, skipped: 0 });
+          return this.exit(1);
         default:
           throw error;
-          break;
       }
     }
   }

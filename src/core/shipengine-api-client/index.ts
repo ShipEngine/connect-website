@@ -1,6 +1,6 @@
 import axios, { Method, AxiosRequestConfig } from "axios";
 import Apps from "./resources/apps";
-import Deploys from "./resources/deployments";
+import Deployments from "./resources/deployments";
 import Diagnostics from "./resources/diagnostics";
 import Users from "./resources/users";
 
@@ -18,7 +18,7 @@ export interface ApiClientParams {
  */
 export default class ShipengineAPIClient {
   apps: Apps;
-  deploys: Deploys;
+  deployments: Deployments;
   diagnostics: Diagnostics;
   users: Users;
   apiKey: string;
@@ -28,7 +28,7 @@ export default class ShipengineAPIClient {
     this.apiKey = apiKey;
 
     this.apps = new Apps(this);
-    this.deploys = new Deploys(this);
+    this.deployments = new Deployments(this);
     this.diagnostics = new Diagnostics(this);
     this.users = new Users(this);
   }

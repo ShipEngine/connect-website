@@ -1,5 +1,6 @@
 import BaseCommand from "../../base-command";
 import Login from "../auth/login";
+import Test from "./test";
 import publishApp from "../../core/publish-app";
 import { flags } from "@oclif/command";
 
@@ -19,12 +20,16 @@ export default class Publish extends BaseCommand {
       char: "w",
       description: "check the status of the deployment until complete",
     }),
+    "skip-tests": flags.boolean({
+      char: "s",
+      description: "skip running the test before publishing",
+      default: false,
+    }),
   };
 
   async run() {
     // When the -h flag is present the following line haults execution
-    // const { flags } = this.parse(Publish);
-    this.parse(Publish);
+    const { flags } = this.parse(Publish);
 
     try {
       await this.currentUser();
@@ -33,9 +38,13 @@ export default class Publish extends BaseCommand {
       await Login.run([]);
     }
 
+    if (!flags["skip-tests"]) await Test.run(["-f"]);
+
     try {
       const pathToApp = process.cwd();
-      await publishApp(pathToApp, this.client);
+      await publishApp(pathToApp, this.client, {
+        watch: flags.watch,
+      });
     } catch (error) {
       switch (error.code) {
         case "APP_FAILED_TO_PACKAGE":
@@ -50,24 +59,5 @@ export default class Publish extends BaseCommand {
           throw error;
       }
     }
-
-    // if (flags.watch) {
-    //   cli.action.start("Checking on the App publish status");
-    //   let status = await checkDeploymentStatus(
-    //     appName,
-    //     deploymentID,
-    //     apiClient,
-    //   );
-
-    //   if (status === DeploymentStatus.Error) {
-    //     cli.action.stop(`${logSymbols.error} Your app encountered an error`);
-    //   } else if (status === DeploymentStatus.Terminated) {
-    //     cli.action.stop(`${logSymbols.error} Your app was terminated`);
-    //   } else {
-    //     cli.action.stop(
-    //       `${logSymbols.success} Your app was published successfully`,
-    //     );
-    //   }
-    // }
   }
 }

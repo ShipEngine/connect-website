@@ -329,7 +329,7 @@ describe("ShipengineApiClient", () => {
         const client = new ShipengineApiClient("valid key");
         let response, errorResponse;
         try {
-          response = await client.deploys.create({
+          response = await client.deployments.create({
             appId: "test",
             pathToTarball: path.join(process.cwd(), "test/fixtures/test.tgz"),
           });
@@ -357,7 +357,7 @@ describe("ShipengineApiClient", () => {
         const client = new ShipengineApiClient("invalid");
         let response, errorResponse;
         try {
-          response = await client.deploys.create({
+          response = await client.deployments.create({
             appId: "test",
             pathToTarball: path.join(process.cwd(), "test/fixtures/test.tgz"),
           });
@@ -395,7 +395,7 @@ describe("ShipengineApiClient", () => {
         const client = new ShipengineApiClient("valid key");
         let response, errorResponse;
         try {
-          response = await client.deploys.getAllForAppId("test");
+          response = await client.deployments.getAllForAppId("test");
         } catch (error) {
           errorResponse = error;
         }
@@ -420,7 +420,7 @@ describe("ShipengineApiClient", () => {
         const client = new ShipengineApiClient("invalid");
         let response, errorResponse;
         try {
-          response = await client.deploys.getAllForAppId("test");
+          response = await client.deployments.getAllForAppId("test");
         } catch (error) {
           errorResponse = error;
         }
@@ -448,7 +448,7 @@ describe("ShipengineApiClient", () => {
         const client = new ShipengineApiClient("valid key");
         let response, errorResponse;
         try {
-          response = await client.deploys.getById({
+          response = await client.deployments.getById({
             appId: "test",
             deployId: apiResponse.deployId,
           });
@@ -476,7 +476,7 @@ describe("ShipengineApiClient", () => {
         const client = new ShipengineApiClient("invalid");
         let response, errorResponse;
         try {
-          response = await client.deploys.getById({
+          response = await client.deployments.getById({
             appId: "test",
             deployId: "1",
           });
@@ -498,7 +498,7 @@ describe("ShipengineApiClient", () => {
         let response, errorResponse;
 
         try {
-          response = await client.deploys.getLogsById({
+          response = await client.deployments.getLogsById({
             appId: "test",
             deployId: "1",
           });
@@ -528,7 +528,7 @@ describe("ShipengineApiClient", () => {
         let response, errorResponse;
 
         try {
-          response = await client.deploys.getLogsById({
+          response = await client.deployments.getLogsById({
             appId: "test",
             deployId: "1",
           });
