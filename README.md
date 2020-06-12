@@ -16,9 +16,9 @@
 ### This app is still being developed and is <u><big>not ready for public use</big></u> yet.
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
-[![Version](https://img.shields.io/npm/v/shipengine-cli.svg)](https://npmjs.org/package/shipengine-cli)
-[![Downloads/week](https://img.shields.io/npm/dw/shipengine-cli.svg)](https://npmjs.org/package/shipengine-cli)
-[![License](https://img.shields.io/npm/l/shipengine-cli.svg)](https://github.com/ShipEngine/shipengine-cli/blob/master/package.json)
+[![Version](https://img.shields.io/npm/v/@shipengine/cli.svg)](https://npmjs.org/package/shipengine-cli)
+[![Downloads/week](https://img.shields.io/npm/dw/@shipengine/cli.svg)](https://npmjs.org/package/shipengine-cli)
+[![License](https://img.shields.io/npm/l/@shipengine/cli.svg)](https://github.com/ShipEngine/shipengine-cli/blob/master/package.json)
 
 <!-- toc -->
 
