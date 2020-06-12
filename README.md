@@ -9,7 +9,7 @@
 [![Dependencies](https://david-dm.org/ShipEngine/shipengine-cli.svg)](https://david-dm.org/ShipEngine/shipengine-cli)
 
 [![npm](https://img.shields.io/npm/v/@shipengine/cli.svg)](https://www.npmjs.com/package/@shipengine/cli)
-[![License](https://img.shields.io/npm/l/@shipengine/cli.svg)](LICENSE)
+[![License](https://img.shields.io/npm/l/@shipengine/cli.svg)](https://github.com/ShipEngine/shipengine-cli/blob/HEAD/LICENSE)
 
 # 🚧 UNDER CONSTRUCTION 🚧
 
