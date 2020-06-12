@@ -17,7 +17,10 @@ export default class New extends BaseCommand {
         "skips the questions and uses the defaults (carrier|Javascript|yaml)",
       char: "y",
     }),
-    help: flags.help({ char: "h" }),
+    help: flags.help({
+      char: "h",
+      description: "show help for the apps:new command",
+    }),
   };
 
   static args = [
@@ -33,10 +36,7 @@ export default class New extends BaseCommand {
   async run() {
     const { flags, args } = this.parse(New);
     const env = createEnv();
-    env.register(
-      require.resolve("../../shipengine-core/generators/apps-new"),
-      "apps:new",
-    );
+    env.register(require.resolve("../../core/generators/apps-new"), "apps:new");
 
     const generatorOptions = {
       path: args.path,

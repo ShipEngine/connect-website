@@ -9,8 +9,6 @@
     "strict": true,
     "target": "es2017",
     "esModuleInterop": true
-
   },
-  "include": ["src/**/*"],
-  "exclude": ["src/shipengine-core/templates/**"]
+  "include": ["src/**/*"]
 }
