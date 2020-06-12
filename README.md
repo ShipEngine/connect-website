@@ -7,11 +7,8 @@
 
 [![Coverage Status](https://coveralls.io/repos/github/ShipEngine/shipengine-cli/badge.svg?branch=master)](https://coveralls.io/github/ShipEngine/shipengine-cli)
 [![Dependencies](https://david-dm.org/ShipEngine/shipengine-cli.svg)](https://david-dm.org/ShipEngine/shipengine-cli)
-
-[![npm](https://img.shields.io/npm/v/@shipengine/cli.svg)](https://www.npmjs.com/package/@shipengine/cli)
 [![License](https://img.shields.io/npm/l/@shipengine/cli.svg)](LICENSE)
-[![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
-[![Version](https://img.shields.io/npm/v/@shipengine/cli.svg)](https://npmjs.org/package/shipengine-cli)
+[![npm](https://img.shields.io/npm/v/@shipengine/cli.svg)](https://www.npmjs.com/package/@shipengine/cli)
 [![Downloads/week](https://img.shields.io/npm/dw/@shipengine/cli.svg)](https://npmjs.org/package/shipengine-cli)
 
 # 🚧 UNDER CONSTRUCTION 🚧
