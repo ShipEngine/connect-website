@@ -1,7 +1,7 @@
 {
   "name": "@shipengine/cli",
   "description": "A CLI tool for working with your ShipEngine account.",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "author": {
     "name": "ShipEngine",
     "email": "support@shipengine.com",

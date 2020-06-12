@@ -21,42 +21,38 @@
 [![License](https://img.shields.io/npm/l/@shipengine/cli.svg)](https://github.com/ShipEngine/shipengine-cli/blob/master/package.json)
 
 <!-- toc -->
-
-- [shipengine-cli](#shipengine-cli)
-- [🚧 UNDER CONSTRUCTION 🚧](#-under-construction-)
-- [Usage](#usage)
-- [Commands](#commands)
+* [shipengine-cli](#shipengine-cli)
+* [🚧 UNDER CONSTRUCTION 🚧](#-under-construction-)
+* [Usage](#usage)
+* [Commands](#commands)
 <!-- tocstop -->
 
 # Usage
 
 <!-- usage -->
-
 ```sh-session
 $ npm install -g @shipengine/cli
 $ shipengine COMMAND
 running command...
 $ shipengine (-v|--version|version)
-@shipengine/cli/0.0.5 darwin-x64 node-v12.16.2
+@shipengine/cli/0.0.6 darwin-x64 node-v12.16.2
 $ shipengine --help [COMMAND]
 USAGE
   $ shipengine COMMAND
 ...
 ```
-
 <!-- usagestop -->
 
 # Commands
 
 <!-- commands -->
-
-- [`shipengine apps:new [PATH]`](#shipengine-appsnew-path)
-- [`shipengine apps:publish`](#shipengine-appspublish)
-- [`shipengine apps:test`](#shipengine-appstest)
-- [`shipengine auth:login`](#shipengine-authlogin)
-- [`shipengine auth:logout`](#shipengine-authlogout)
-- [`shipengine auth:whoami`](#shipengine-authwhoami)
-- [`shipengine help [COMMAND]`](#shipengine-help-command)
+* [`shipengine apps:new [PATH]`](#shipengine-appsnew-path)
+* [`shipengine apps:publish`](#shipengine-appspublish)
+* [`shipengine apps:test`](#shipengine-appstest)
+* [`shipengine auth:login`](#shipengine-authlogin)
+* [`shipengine auth:logout`](#shipengine-authlogout)
+* [`shipengine auth:whoami`](#shipengine-authwhoami)
+* [`shipengine help [COMMAND]`](#shipengine-help-command)
 
 ## `shipengine apps:new [PATH]`
 
@@ -78,7 +74,7 @@ EXAMPLE
   $ shipengine apps:new
 ```
 
-_See code: [src/commands/apps/new.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.5/src/commands/apps/new.ts)_
+_See code: [src/commands/apps/new.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.6/src/commands/apps/new.ts)_
 
 ## `shipengine apps:publish`
 
@@ -96,7 +92,7 @@ EXAMPLE
   $ shipengine apps:publish
 ```
 
-_See code: [src/commands/apps/publish.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.5/src/commands/apps/publish.ts)_
+_See code: [src/commands/apps/publish.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.6/src/commands/apps/publish.ts)_
 
 ## `shipengine apps:test`
 
@@ -118,7 +114,7 @@ EXAMPLES
   $ shipengine apps:test --grep rateShipment
 ```
 
-_See code: [src/commands/apps/test.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.5/src/commands/apps/test.ts)_
+_See code: [src/commands/apps/test.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.6/src/commands/apps/test.ts)_
 
 ## `shipengine auth:login`
 
@@ -135,7 +131,7 @@ ALIASES
   $ shipengine login
 ```
 
-_See code: [src/commands/auth/login.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.5/src/commands/auth/login.ts)_
+_See code: [src/commands/auth/login.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.6/src/commands/auth/login.ts)_
 
 ## `shipengine auth:logout`
 
@@ -152,7 +148,7 @@ ALIASES
   $ shipengine logout
 ```
 
-_See code: [src/commands/auth/logout.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.5/src/commands/auth/logout.ts)_
+_See code: [src/commands/auth/logout.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.6/src/commands/auth/logout.ts)_
 
 ## `shipengine auth:whoami`
 
@@ -169,7 +165,7 @@ ALIASES
   $ shipengine whoami
 ```
 
-_See code: [src/commands/auth/whoami.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.5/src/commands/auth/whoami.ts)_
+_See code: [src/commands/auth/whoami.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.6/src/commands/auth/whoami.ts)_
 
 ## `shipengine help [COMMAND]`
 
@@ -187,5 +183,4 @@ OPTIONS
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src/commands/help.ts)_
-
 <!-- commandsstop -->
