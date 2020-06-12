@@ -4,7 +4,7 @@ The purpose of this library is to fill a similar role that CarrierApi.Common ser
 ## Building & Publishing
 To build the project use this command in the terminal from this directory.
 ```
-npm build
+npm run-script build
 ```
 
 this will generate a ```./lib``` directory which contains the JavaScript & TypeScript.
