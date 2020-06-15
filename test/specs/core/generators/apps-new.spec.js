@@ -6,7 +6,7 @@ const path = require("path");
 const pathToGenerator = "../../../../lib/core/generators/apps-new";
 const AppsNew = require(pathToGenerator);
 
-describe.only("apps:new generator", () => {
+describe("apps:new generator", () => {
   /**
    * The yeoman generator tests alter the cwd of the mocha process. Need to change it back
    * to the original otherwise could cause unintended side effects to other tests.
