@@ -1,0 +1,16 @@
+{
+  "id": "<%- _uuidv4 %>",
+  "name": "<%- _appName %>",
+  "description": "<%- pjson.description %>",
+  "websiteURL": "https://www.order-source.com",
+  "logo": "./logo.svg",
+  "connectionForm": "./forms/connect.json",
+  "settingsForm": "./forms/settings.json",
+
+  "connect": "./methods/connect.<%- _codeExt %>",
+  "getSeller": "./methods/get-seller.<%- _codeExt %>",
+  "getSalesOrder": "./methods/get-sales-order.<%- _codeExt %>",
+  "getSalesOrdersByDate": "./methods/get-sales-order-by-date.<%- _codeExt %>",
+  "shipmentCreated": "./methods/shipment-created.<%- _codeExt %>",
+  "shipmentCancelled": "./methods/shipment-cancelled.<%- _codeExt %>"
+}
