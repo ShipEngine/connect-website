@@ -4,7 +4,7 @@ module.exports = {
   id: "<%- _uuidv4 %>",
   name: "<%- _appName %>",
   description: "<%- pjson.description %>",
-  websiteURL: "http://www.order-site.com",
+  websiteURL: "https://www.order-source.com",
   logo: "./logo.svg",
   connectionForm: "./forms/connect.js",
   settingsForm: "./forms/settings.js",
