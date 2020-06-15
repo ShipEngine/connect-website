@@ -6,13 +6,13 @@ module.exports = {
   description: "<%- pjson.description %>",
   websiteURL: "http://www.order-site.com",
   logo: "./logo.svg",
-  connectionForm: "./forms/connect",
-  settingsForm: "./forms/settings",
+  connectionForm: "./forms/connect.js",
+  settingsForm: "./forms/settings.js",
 
-  connect: "./methods/connect",
-  getSeller: "./methods/get-seller",
-  getSalesOrder: "./methods/get-sales-order",
-  getSalesOrdersByDate: "./methods/get-sales-order-by-date",
-  shipmentCreated: "./methods/shipment-created",
-  shipmentCancelled: "./methods/shipment-cancelled"
+  connect: "./methods/connect.js",
+  getSeller: "./methods/get-seller.js",
+  getSalesOrder: "./methods/get-sales-order.js",
+  getSalesOrdersByDate: "./methods/get-sales-order-by-date.js",
+  shipmentCreated: "./methods/shipment-created.js",
+  shipmentCancelled: "./methods/shipment-cancelled.js"
 }
