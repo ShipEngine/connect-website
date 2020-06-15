@@ -536,7 +536,7 @@ class AppsNew extends Generator {
 
           if (this.ts) {
             this.fs.copyTpl(
-              this.templatePath(`carrier/methods/session.ts`),
+              this.templatePath(`order-source/methods/session.ts`),
               this.destinationPath(`src/methods/session.ts`),
               this,
             );
