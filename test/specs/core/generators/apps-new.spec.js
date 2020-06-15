@@ -6,7 +6,7 @@ const path = require("path");
 const pathToGenerator = "../../../../lib/core/generators/apps-new";
 const AppsNew = require(pathToGenerator);
 
-describe("apps:new generator", function () {
+describe.only("apps:new generator", () => {
   /**
    * The yeoman generator tests alter the cwd of the mocha process. Need to change it back
    * to the original otherwise could cause unintended side effects to other tests.
@@ -20,9 +20,9 @@ describe("apps:new generator", function () {
     process.chdir(currentCwd);
   });
 
-  describe("carrier apps", function () {
-    describe("when prompts are skipped", function () {
-      it("generates an app with defaults", function () {
+  describe("carrier apps", () => {
+    describe("when prompts are skipped", () => {
+      it("generates an app with defaults", () => {
         return helpers
           .run(AppsNew, {
             resolved: path.join(__dirname, pathToGenerator),
@@ -33,7 +33,7 @@ describe("apps:new generator", function () {
           .withPrompts({ description: "test description" })
           .withPrompts({ author: "test" })
           .withPrompts({ version: "0.0.0" })
-          .then(function () {
+          .then(() => {
             assert.file([
               "src/index.yaml",
               "src/methods/connect.js",
@@ -66,8 +66,8 @@ describe("apps:new generator", function () {
       });
     });
 
-    describe("when configured with TypeScript", function () {
-      it("generates a new app with TypeScript", function () {
+    describe("when configured with TypeScript", () => {
+      it("generates a new app with TypeScript and POJO description", () => {
         return helpers
           .run(AppsNew, {
             resolved: path.join(__dirname, pathToGenerator),
@@ -81,7 +81,7 @@ describe("apps:new generator", function () {
           .withPrompts({ typescript: true })
           .withPrompts({ definitions: "pojo" })
           .withArguments(["test-app"]) // Mock the arguments
-          .then(function () {
+          .then(() => {
             assert.file([
               "src/index.ts",
               "src/methods/connect.ts",
@@ -113,10 +113,104 @@ describe("apps:new generator", function () {
             });
           });
       });
+
+      it("generates a new app with TypeScript and JSON description", () => {
+        return helpers
+          .run(AppsNew, {
+            resolved: path.join(__dirname, pathToGenerator),
+            namespace: "apps:new",
+          })
+          .withArguments(["test-app"]) // Mock the arguments
+          .withPrompts({ name: "testname" })
+          .withPrompts({ description: "test description" })
+          .withPrompts({ author: "test" })
+          .withPrompts({ version: "0.0.0" })
+          .withPrompts({ typescript: true })
+          .withPrompts({ definitions: "json" })
+          .withArguments(["test-app"]) // Mock the arguments
+          .then(() => {
+            assert.file([
+              "src/index.json",
+              "src/methods/connect.ts",
+              "src/methods/cancel-pickups.ts",
+              "src/methods/create-shipment.ts",
+              "src/methods/schedule-pickup.ts",
+              "src/methods/rate-shipment.ts",
+              "src/methods/cancel-shipments.ts",
+              "src/methods/create-manifest.ts",
+              "src/methods/track-shipment.ts",
+              "src/methods/session.ts",
+              "src/definitions/example-delivery-confirmation.json",
+              "src/definitions/example-delivery-service.json",
+              "src/definitions/example-packaging.json",
+              "src/forms/connect.json",
+              "src/forms/settings.json",
+              ".editorconfig",
+              "LICENSE",
+              "README.md",
+              "README.md",
+              "package.json",
+            ]);
+
+            assert.jsonFileContent("package.json", {
+              name: "@shipengine/testname",
+            });
+            assert.jsonFileContent("package.json", {
+              description: "test description",
+            });
+          });
+      });
+
+      it("generates a new app with TypeScript and YAML description", () => {
+        return helpers
+          .run(AppsNew, {
+            resolved: path.join(__dirname, pathToGenerator),
+            namespace: "apps:new",
+          })
+          .withArguments(["test-app"]) // Mock the arguments
+          .withPrompts({ name: "testname" })
+          .withPrompts({ description: "test description" })
+          .withPrompts({ author: "test" })
+          .withPrompts({ version: "0.0.0" })
+          .withPrompts({ typescript: true })
+          .withPrompts({ definitions: "yaml" })
+          .withArguments(["test-app"]) // Mock the arguments
+          .then(() => {
+            assert.file([
+              "src/index.yaml",
+              "src/methods/connect.ts",
+              "src/methods/cancel-pickups.ts",
+              "src/methods/create-shipment.ts",
+              "src/methods/schedule-pickup.ts",
+              "src/methods/rate-shipment.ts",
+              "src/methods/cancel-shipments.ts",
+              "src/methods/create-manifest.ts",
+              "src/methods/track-shipment.ts",
+              "src/methods/session.ts",
+              "src/definitions/example-delivery-confirmation.yaml",
+              "src/definitions/example-delivery-service.yaml",
+              "src/definitions/example-packaging.yaml",
+              "src/forms/connect.yaml",
+              "src/forms/settings.yaml",
+              ".editorconfig",
+              "LICENSE",
+              "README.md",
+              "README.md",
+              "package.json",
+            ]);
+
+            assert.jsonFileContent("package.json", {
+              name: "@shipengine/testname",
+            });
+            assert.jsonFileContent("package.json", {
+              description: "test description",
+            });
+          });
+      });
     });
 
-    describe("when configured with JSON definitions", function () {
-      it("generates an app with JSON", function () {
+    describe("when configured with JSON definitions", () => {
+      it("generates an app with JSON", () => {
         return helpers
           .run(AppsNew, {
             resolved: path.join(__dirname, pathToGenerator),
@@ -128,7 +222,7 @@ describe("apps:new generator", function () {
           .withPrompts({ author: "test" })
           .withPrompts({ version: "0.0.0" })
           .withPrompts({ definitions: "json" })
-          .then(function () {
+          .then(() => {
             assert.file([
               "src/index.json",
               "src/methods/connect.js",
@@ -163,8 +257,8 @@ describe("apps:new generator", function () {
       });
     });
 
-    describe("when configured with YAML definitions", function () {
-      it("generates an app with JSON", function () {
+    describe("when configured with YAML definitions", () => {
+      it("generates an app with JSON", () => {
         return helpers
           .run(AppsNew, {
             resolved: path.join(__dirname, pathToGenerator),
@@ -176,7 +270,7 @@ describe("apps:new generator", function () {
           .withPrompts({ author: "test" })
           .withPrompts({ version: "0.0.0" })
           .withPrompts({ definitions: "yaml" })
-          .then(function () {
+          .then(() => {
             assert.file([
               "src/index.yaml",
               "src/methods/connect.js",
@@ -212,5 +306,255 @@ describe("apps:new generator", function () {
     });
   });
 
-  describe("order source apps", function () {});
+  describe("order source apps", () => {
+    describe("when prompts are skipped", () => {
+      it("generates an app with defaults", () => {
+        return helpers
+          .run(AppsNew, {
+            resolved: path.join(__dirname, pathToGenerator),
+            namespace: "apps:new",
+          })
+          .withArguments(["test-app"]) // Mock the arguments
+          .withPrompts({ name: "testname" })
+          .withPrompts({ description: "test description" })
+          .withPrompts({ author: "test" })
+          .withPrompts({ version: "0.0.0" })
+          .withPrompts({ type: "order" })
+          .then(() => {
+            assert.file([
+              "src/index.yaml",
+              "src/methods/connect.js",
+              "src/methods/get-sales-order-by-date.js",
+              "src/methods/get-sales-order.js",
+              "src/methods/get-seller.js",
+              "src/methods/shipment-cancelled.js",
+              "src/methods/shipment-created.js",
+              "src/forms/connect.yaml",
+              "src/forms/settings.yaml",
+              ".editorconfig",
+              "LICENSE",
+              "README.md",
+              "package.json",
+            ]);
+
+            assert.jsonFileContent("package.json", {
+              name: "@shipengine/testname",
+            });
+            assert.jsonFileContent("package.json", {
+              description: "test description",
+            });
+            assert.jsonFileContent("package.json", { main: "src/index.yaml" });
+          });
+      });
+    });
+
+    describe("when configured with TypeScript", () => {
+      it("generates a new app with TypeScript and POJO definitions", () => {
+        return helpers
+          .run(AppsNew, {
+            resolved: path.join(__dirname, pathToGenerator),
+            namespace: "apps:new",
+          })
+          .withArguments(["test-app"]) // Mock the arguments
+          .withPrompts({ name: "testname" })
+          .withPrompts({ description: "test description" })
+          .withPrompts({ author: "test" })
+          .withPrompts({ version: "0.0.0" })
+          .withPrompts({ type: "order" })
+          .withPrompts({ typescript: true })
+          .withPrompts({ definitions: "pojo" })
+          .withArguments(["test-app"]) // Mock the arguments
+          .then(() => {
+            assert.file([
+              "src/index.ts",
+              "src/methods/connect.ts",
+              "src/methods/get-sales-order-by-date.ts",
+              "src/methods/get-sales-order.ts",
+              "src/methods/get-seller.ts",
+              "src/methods/shipment-cancelled.ts",
+              "src/methods/shipment-created.ts",
+              "src/forms/connect.ts",
+              "src/forms/settings.ts",
+              ".editorconfig",
+              "LICENSE",
+              "README.md",
+              "package.json",
+            ]);
+
+            assert.jsonFileContent("package.json", {
+              name: "@shipengine/testname",
+            });
+            assert.jsonFileContent("package.json", {
+              description: "test description",
+            });
+          });
+      });
+
+      it("generates a new app with TypeScript and JSON definitions", () => {
+        return helpers
+          .run(AppsNew, {
+            resolved: path.join(__dirname, pathToGenerator),
+            namespace: "apps:new",
+          })
+          .withArguments(["test-app"]) // Mock the arguments
+          .withPrompts({ name: "testname" })
+          .withPrompts({ description: "test description" })
+          .withPrompts({ author: "test" })
+          .withPrompts({ version: "0.0.0" })
+          .withPrompts({ type: "order" })
+          .withPrompts({ typescript: true })
+          .withPrompts({ definitions: "json" })
+          .withArguments(["test-app"]) // Mock the arguments
+          .then(() => {
+            assert.file([
+              "src/index.json",
+              "src/methods/connect.ts",
+              "src/methods/get-sales-order-by-date.ts",
+              "src/methods/get-sales-order.ts",
+              "src/methods/get-seller.ts",
+              "src/methods/shipment-cancelled.ts",
+              "src/methods/shipment-created.ts",
+              "src/forms/connect.json",
+              "src/forms/settings.json",
+              ".editorconfig",
+              "LICENSE",
+              "README.md",
+              "package.json",
+            ]);
+
+            assert.jsonFileContent("package.json", {
+              name: "@shipengine/testname",
+            });
+            assert.jsonFileContent("package.json", {
+              description: "test description",
+            });
+          });
+      });
+
+      it("generates a new app with TypeScript and YAML definitions", () => {
+        return helpers
+          .run(AppsNew, {
+            resolved: path.join(__dirname, pathToGenerator),
+            namespace: "apps:new",
+          })
+          .withArguments(["test-app"]) // Mock the arguments
+          .withPrompts({ name: "testname" })
+          .withPrompts({ description: "test description" })
+          .withPrompts({ author: "test" })
+          .withPrompts({ version: "0.0.0" })
+          .withPrompts({ type: "order" })
+          .withPrompts({ typescript: true })
+          .withPrompts({ definitions: "yaml" })
+          .withArguments(["test-app"]) // Mock the arguments
+          .then(() => {
+            assert.file([
+              "src/index.yaml",
+              "src/methods/connect.ts",
+              "src/methods/get-sales-order-by-date.ts",
+              "src/methods/get-sales-order.ts",
+              "src/methods/get-seller.ts",
+              "src/methods/shipment-cancelled.ts",
+              "src/methods/shipment-created.ts",
+              "src/forms/connect.yaml",
+              "src/forms/settings.yaml",
+              ".editorconfig",
+              "LICENSE",
+              "README.md",
+              "package.json",
+            ]);
+
+            assert.jsonFileContent("package.json", {
+              name: "@shipengine/testname",
+            });
+            assert.jsonFileContent("package.json", {
+              description: "test description",
+            });
+          });
+      });
+    });
+
+    describe("when configured with JSON definitions", () => {
+      it("generates a new app with JSON", () => {
+        return helpers
+          .run(AppsNew, {
+            resolved: path.join(__dirname, pathToGenerator),
+            namespace: "apps:new",
+          })
+          .withArguments(["test-app"]) // Mock the arguments
+          .withPrompts({ name: "testname" })
+          .withPrompts({ description: "test description" })
+          .withPrompts({ author: "test" })
+          .withPrompts({ version: "0.0.0" })
+          .withPrompts({ type: "order" })
+          .withPrompts({ definitions: "json" })
+          .withArguments(["test-app"]) // Mock the arguments
+          .then(() => {
+            assert.file([
+              "src/index.json",
+              "src/methods/connect.js",
+              "src/methods/get-sales-order-by-date.js",
+              "src/methods/get-sales-order.js",
+              "src/methods/get-seller.js",
+              "src/methods/shipment-cancelled.js",
+              "src/methods/shipment-created.js",
+              "src/forms/connect.json",
+              "src/forms/settings.json",
+              ".editorconfig",
+              "LICENSE",
+              "README.md",
+              "package.json",
+            ]);
+
+            assert.jsonFileContent("package.json", {
+              name: "@shipengine/testname",
+            });
+            assert.jsonFileContent("package.json", {
+              description: "test description",
+            });
+          });
+      });
+    });
+
+    describe("when configured with YAML definitions", () => {
+      it("generates a new app with YAML", () => {
+        return helpers
+          .run(AppsNew, {
+            resolved: path.join(__dirname, pathToGenerator),
+            namespace: "apps:new",
+          })
+          .withArguments(["test-app"]) // Mock the arguments
+          .withPrompts({ name: "testname" })
+          .withPrompts({ description: "test description" })
+          .withPrompts({ author: "test" })
+          .withPrompts({ version: "0.0.0" })
+          .withPrompts({ type: "order" })
+          .withPrompts({ definitions: "yaml" })
+          .withArguments(["test-app"]) // Mock the arguments
+          .then(() => {
+            assert.file([
+              "src/index.yaml",
+              "src/methods/connect.js",
+              "src/methods/get-sales-order-by-date.js",
+              "src/methods/get-sales-order.js",
+              "src/methods/get-seller.js",
+              "src/methods/shipment-cancelled.js",
+              "src/methods/shipment-created.js",
+              "src/forms/connect.yaml",
+              "src/forms/settings.yaml",
+              ".editorconfig",
+              "LICENSE",
+              "README.md",
+              "package.json",
+            ]);
+
+            assert.jsonFileContent("package.json", {
+              name: "@shipengine/testname",
+            });
+            assert.jsonFileContent("package.json", {
+              description: "test description",
+            });
+          });
+      });
+    });
+  });
 });

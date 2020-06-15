@@ -140,7 +140,7 @@ class AppsNew extends Generator {
           message: "what type of app are you building",
           choices: [
             { name: "carrier ", value: "carrier" },
-            // { name: "order source", value: "order source" },
+            { name: "order source", value: "order" },
           ],
           default: defaults.type,
         },
@@ -453,6 +453,94 @@ class AppsNew extends Generator {
             this.destinationPath(`src/index.${this._definitionExt}`),
             this,
           );
+
+          this.fs.copyTpl(
+            this.templatePath(
+              `order-source/forms/connect.${this._definitionExt}`,
+            ),
+            this.destinationPath(
+              `src/forms/connect.${this._definitionExt}`,
+            ),
+            this,
+          );
+
+          this.fs.copyTpl(
+            this.templatePath(
+              `order-source/forms/settings.${this._definitionExt}`,
+            ),
+            this.destinationPath(
+              `src/forms/settings.${this._definitionExt}`,
+            ),
+            this,
+          );
+
+          this.fs.copyTpl(
+            this.templatePath(
+              `order-source/methods/connect.${this._codeExt}`,
+            ),
+            this.destinationPath(
+              `src/methods/connect.${this._codeExt}`,
+            ),
+            this,
+          );
+
+          this.fs.copyTpl(
+            this.templatePath(
+              `order-source/methods/get-sales-order-by-date.${this._codeExt}`,
+            ),
+            this.destinationPath(
+              `src/methods/get-sales-order-by-date.${this._codeExt}`,
+            ),
+            this,
+          );
+
+          this.fs.copyTpl(
+            this.templatePath(
+              `order-source/methods/get-sales-order.${this._codeExt}`,
+            ),
+            this.destinationPath(
+              `src/methods/get-sales-order.${this._codeExt}`,
+            ),
+            this,
+          );
+
+          this.fs.copyTpl(
+            this.templatePath(
+              `order-source/methods/get-seller.${this._codeExt}`,
+            ),
+            this.destinationPath(
+              `src/methods/get-seller.${this._codeExt}`,
+            ),
+            this,
+          );
+
+          this.fs.copyTpl(
+            this.templatePath(
+              `order-source/methods/shipment-cancelled.${this._codeExt}`,
+            ),
+            this.destinationPath(
+              `src/methods/shipment-cancelled.${this._codeExt}`,
+            ),
+            this,
+          );
+
+          this.fs.copyTpl(
+            this.templatePath(
+              `order-source/methods/shipment-created.${this._codeExt}`,
+            ),
+            this.destinationPath(
+              `src/methods/shipment-created.${this._codeExt}`,
+            ),
+            this,
+          );
+
+          if (this.ts) {
+            this.fs.copyTpl(
+              this.templatePath(`carrier/methods/session.ts`),
+              this.destinationPath(`src/methods/session.ts`),
+              this,
+            );
+          }
         }
         break;
     }
