@@ -1,5 +1,5 @@
-describe.skip("are these a thing?", () => {
-    test("TODO", () => {
+describe.skip('are these a thing?', () => {
+    test('TODO', () => {
 
     })
 });
@@ -10,15 +10,15 @@ import responseMapper from '../src/functions/login/response';
 describe('Login Function Maps Correclty', () => {
   test('Register Request maps to TransactionConfig', () => {
     const request = {
-      "registration_info": {
-        "client_id": "x3345xxh5",
-        "client_secret": "xxy3she34oiosdkfjo3",
-        "access_license": "1234567m"
+      'registration_info': {
+        'client_id': 'x3345xxh5',
+        'client_secret': 'xxy3she34oiosdkfjo3',
+        'access_license': '1234567m'
       },
-      "warehouses": [],
-      "transaction_id": "4af2c454-bfc9-404c-bfd4-3924b6ef611c",
-      "metadata": {
-        "example": "value"
+      'warehouses': [],
+      'transaction_id': '4af2c454-bfc9-404c-bfd4-3924b6ef611c',
+      'metadata': {
+        'example': 'value'
       }
     };
     const response = requestMapper(request);
@@ -31,12 +31,12 @@ describe('Login Function Maps Correclty', () => {
 
   test('Register Response maps to TransactionConfig', () => {
     const transaction = {
-      "id": "4af2c454-bfc9-404c-bfd4-3924b6ef611c",
-      "session": {
-        "client_id": "x3345xxh5",
-        "client_secret": "xxy3she34oiosdkfjo3",
-        "access_license": "1234567m",
-        "example": "value"
+      'id': '4af2c454-bfc9-404c-bfd4-3924b6ef611c',
+      'session': {
+        'client_id': 'x3345xxh5',
+        'client_secret': 'xxy3she34oiosdkfjo3',
+        'access_license': '1234567m',
+        'example': 'value'
       }
     };
     const response = responseMapper(transaction);

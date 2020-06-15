@@ -1,6 +1,6 @@
 interface MappingInfo {
-  fieldName: string,
-  value: string
+  fieldName: string;
+  value: string;
 }
 
 class MappingError extends Error {
@@ -25,4 +25,4 @@ class ValidationError extends Error {
   }
 }
 
-export {MappingError, ValidationError}
+export { MappingError, ValidationError };

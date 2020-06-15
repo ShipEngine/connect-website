@@ -1,7 +1,12 @@
-import {Currency, MonetaryValuePOJO} from '@shipengine/integration-platform-sdk';
-import {Currency as capiCurrency} from "@ipaas/capi/models";
+import {
+  Currency,
+  MonetaryValuePOJO
+} from '@shipengine/integration-platform-sdk';
+import { Currency as capiCurrency } from '@ipaas/capi/models';
 
-const capiToDxCurrencyCode = (currencyCode: string | null | undefined): Currency => {
+const capiToDxCurrencyCode = (
+  currencyCode: string | null | undefined
+): Currency => {
   if (!currencyCode) {
     return Currency.UnitedStatesDollar;
   }
@@ -21,8 +26,10 @@ const capiToDxCurrencyCode = (currencyCode: string | null | undefined): Currency
   }
 };
 
-const capiToDxMonetaryValue = (currency: capiCurrency | undefined) : MonetaryValuePOJO => {
-  if(!currency){
+const capiToDxMonetaryValue = (
+  currency: capiCurrency | undefined
+): MonetaryValuePOJO => {
+  if (!currency) {
     return {
       currency: Currency.UnitedStatesDollar,
       value: 0
@@ -32,6 +39,6 @@ const capiToDxMonetaryValue = (currency: capiCurrency | undefined) : MonetaryVal
     currency: capiToDxCurrencyCode(currency.currency),
     value: currency.amount
   };
-}
+};
 
-export {capiToDxMonetaryValue, capiToDxCurrencyCode};
+export { capiToDxMonetaryValue, capiToDxCurrencyCode };

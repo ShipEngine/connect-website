@@ -14,7 +14,9 @@ export default interface Carrier {
   DefaultLabelSizes?: ('Inches4x6' | 'Inches4x8')[] | null;
   LabelFormats?: ('PDF' | 'ZPL' | 'PNG')[] | null;
   DefaultConfirmationTypes?: ConfirmationType[] | null;
-  CarrierAttributes?: ('ManifestDigital' | 'ManifestPhysical' | 'Consolidator' | 'Regional')[] | null;
+  CarrierAttributes?:
+    | ('ManifestDigital' | 'ManifestPhysical' | 'Consolidator' | 'Regional')[]
+    | null;
   TrackingUrl?: string | null;
   CarrierUrl?: string | null;
   Description?: string | null;

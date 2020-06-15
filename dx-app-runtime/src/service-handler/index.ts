@@ -1,20 +1,19 @@
-import {Request, Response} from "express";
-import {IncomingHttpHeaders} from "http";
+import { Request, Response } from 'express';
+import { IncomingHttpHeaders } from 'http';
 
 const getShipstationHeaders = (headers: IncomingHttpHeaders): any => {
   return {
-    'Authorization': headers.authorization || '',
+    Authorization: headers.authorization || '',
     'ShipStation-TransactionID': headers['shipstation-transactionid'] || ''
-  }
-}
-
+  };
+};
 
 export default (implementation: any, request: Request, response: Response) => {
   if (typeof implementation !== 'function') {
     response.status(404).send('Not Supported');
     return;
   }
-  const {body, headers} = request;
+  const { body, headers } = request;
 
   const relevantHeaders = getShipstationHeaders(headers);
 
@@ -25,5 +24,5 @@ export default (implementation: any, request: Request, response: Response) => {
       const statusCode = error.statusCode || 500;
       const responseBody = error.body || error;
       response.status(statusCode).send(responseBody);
-    })
+    });
 };

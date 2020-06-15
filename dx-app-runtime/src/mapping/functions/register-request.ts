@@ -6,8 +6,8 @@ export default (request: RegisterRequest): TransactionPOJO => {
     id: request.transaction_id,
     session: {
       ...request.registration_info,
-      ...request.metadata,
-    },
+      ...request.metadata
+    }
   };
   return transaction;
 };

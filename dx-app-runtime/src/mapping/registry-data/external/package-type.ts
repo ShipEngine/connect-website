@@ -9,7 +9,7 @@ export default interface PackageType {
 }
 
 export enum PackageAttribute {
-  International = "International",
-  Domestic = "Domestic",
-  Consolidator = "Consolidator"
+  International = 'International',
+  Domestic = 'Domestic',
+  Consolidator = 'Consolidator'
 }

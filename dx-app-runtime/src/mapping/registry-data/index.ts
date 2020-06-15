@@ -1,6 +1,8 @@
 import ExternalSpec from './external/external-spec';
 import CarrierSpecification from './external/carrier';
-import ConfirmationType, {ConfirmationTypeType} from './external/confirmation-type';
+import ConfirmationType, {
+  ConfirmationTypeType
+} from './external/confirmation-type';
 import DiagnosticRoutes from './external/diagnostic-routes';
 import ShippingServiceSpecification from './external/shipping-service';
 import ProviderFunction from './external/function';
@@ -11,7 +13,7 @@ import {
   ServiceClass,
   ServiceGrade,
   ShippingServiceAttribute,
-  SupportedLabelSize,
+  SupportedLabelSize
 } from './external/enums';
 import {
   CarrierApp,
@@ -23,27 +25,27 @@ import {
   DeliveryServiceGrade,
   DocumentFormat,
   DocumentSize,
-  ServiceArea,
+  ServiceArea
 } from '@shipengine/integration-platform-sdk';
-import logger from "../../logger";
-import ShippingProviderConnector from "./external/shipping-provider-connector";
-import {MappingError} from "./errors";
-import {LabelFormat} from "@ipaas/capi/models";
-import {dxToCapiSpecPackageType} from "../../routes/loader-data/package-type";
+import logger from '../../logger';
+import ShippingProviderConnector from './external/shipping-provider-connector';
+import { MappingError } from './errors';
+import { LabelFormat } from '@ipaas/capi/models';
+import { dxToCapiSpecPackageType } from '../../routes/loader-data/package-type';
 
 const defaultDiagnosticRoutes: DiagnosticRoutes = {
   Liveness: 'diagnostics/heartbeat',
   Readiness: 'diagnostics/heartbeat',
-  Version: 'diagnostics/version',
+  Version: 'diagnostics/version'
 };
 
 const mapConnectorModule = (app: CarrierApp): ShippingProviderConnector => {
   return {
-    ApiVersion: "1.12",
-    ConnectorUrl: "https://nothing.sslocal.com",
+    ApiVersion: '1.12',
+    ConnectorUrl: 'https://nothing.sslocal.com',
     Functions: mapFunctions(app),
     DiagnosticRoutes: defaultDiagnosticRoutes
-  }
+  };
 };
 
 const mapFunctions = (app: CarrierApp): ProviderFunction[] => {
@@ -51,52 +53,52 @@ const mapFunctions = (app: CarrierApp): ProviderFunction[] => {
   if (typeof app.cancelPickups === 'function') {
     functions.push({
       Name: 'CancelPickup',
-      IsSandboxed: false,
+      IsSandboxed: false
     });
   }
 
   if (typeof app.createShipment === 'function') {
     functions.push({
       Name: 'CreateLabel',
-      IsSandboxed: false,
+      IsSandboxed: false
     });
   }
 
   if (typeof app.createManifest === 'function') {
     functions.push({
       Name: 'CreateManifest',
-      IsSandboxed: false,
+      IsSandboxed: false
     });
   }
   if (typeof app.rateShipment === 'function') {
     functions.push({
       Name: 'GetRates',
-      IsSandboxed: false,
+      IsSandboxed: false
     });
   }
 
   if (typeof app.connect === 'function') {
     functions.push({
       Name: 'Register',
-      IsSandboxed: false,
+      IsSandboxed: false
     });
   }
   if (typeof app.schedulePickup === 'function') {
     functions.push({
       Name: 'SchedulePickup',
-      IsSandboxed: false,
+      IsSandboxed: false
     });
   }
   if (typeof app.trackShipment === 'function') {
     functions.push({
       Name: 'Track',
-      IsSandboxed: false,
+      IsSandboxed: false
     });
   }
   if (typeof app.cancelShipments === 'function') {
     functions.push({
       Name: 'VoidLabels',
-      IsSandboxed: false,
+      IsSandboxed: false
     });
   }
   return functions;
@@ -123,16 +125,18 @@ const mapCarrierAttributes = (carrier: CarrierApp): CarrierAttribute[] => {
 
 const mapCountries = (countries: readonly Country[]): CountryAssociation[] => {
   const countryAssociations: CountryAssociation[] = [];
-  countries.forEach((country) => {
+  countries.forEach(country => {
     const countryAssociation: CountryAssociation = {
-      FromCountry: country.toString(),
+      FromCountry: country.toString()
     };
     countryAssociations.push(countryAssociation);
   });
   return countryAssociations;
 };
 
-const mapShippingServiceAttributes = (service: DeliveryService): ShippingServiceAttribute[] => {
+const mapShippingServiceAttributes = (
+  service: DeliveryService
+): ShippingServiceAttribute[] => {
   const shippingServiceAttributes: ShippingServiceAttribute[] = [];
   /* TODO: DX service does not have allowsReturnService?
   if (service.isReturnService) {
@@ -146,7 +150,9 @@ const mapShippingServiceAttributes = (service: DeliveryService): ShippingService
     shippingServiceAttributes.push(ShippingServiceAttribute.Tracking);
   }
   if (service.isConsolidationService) {
-    shippingServiceAttributes.push(ShippingServiceAttribute.ConsolidatorService);
+    shippingServiceAttributes.push(
+      ShippingServiceAttribute.ConsolidatorService
+    );
   }
   /* TODO: follow up on manifest type
   if (service.requiresManifest === ManifestType.Digital) {
@@ -159,28 +165,33 @@ const mapShippingServiceAttributes = (service: DeliveryService): ShippingService
    */
   return shippingServiceAttributes;
 };
-const mapSupportedLabelSize = (documentSizes: readonly DocumentSize[]): SupportedLabelSize[] => {
+const mapSupportedLabelSize = (
+  documentSizes: readonly DocumentSize[]
+): SupportedLabelSize[] => {
   const supportedLabelSizes: SupportedLabelSize[] = [];
   documentSizes.forEach((documentSize: DocumentSize) => {
     switch (documentSize) {
       case DocumentSize.Inches4x6:
-        supportedLabelSizes.push(SupportedLabelSize.Inches4x6)
+        supportedLabelSizes.push(SupportedLabelSize.Inches4x6);
         break;
       case DocumentSize.Inches4x8:
-        supportedLabelSizes.push(SupportedLabelSize.Inches4x8)
+        supportedLabelSizes.push(SupportedLabelSize.Inches4x8);
         break;
       case DocumentSize.A4:
       case DocumentSize.Letter:
       default: {
         const message = `${documentSize} is not a supported document size`;
         logger.error(message);
-        throw new MappingError(message, {
-          fieldName: "DocumentSize",
-          value: documentSize.toString()
-        }, "SupportedLabelSize");
+        throw new MappingError(
+          message,
+          {
+            fieldName: 'DocumentSize',
+            value: documentSize.toString()
+          },
+          'SupportedLabelSize'
+        );
       }
     }
-
   });
   return supportedLabelSizes;
 };
@@ -221,7 +232,9 @@ const mapGrade = (deliveryServiceGrate: DeliveryServiceGrade): ServiceGrade => {
   }
 };
 
-function dxToCapiConfirmationType(type: DeliveryConfirmationType): ConfirmationTypeType {
+function dxToCapiConfirmationType(
+  type: DeliveryConfirmationType
+): ConfirmationTypeType {
   switch (type) {
     case DeliveryConfirmationType.Delivery:
       return ConfirmationTypeType.Delivery;
@@ -236,15 +249,17 @@ function dxToCapiConfirmationType(type: DeliveryConfirmationType): ConfirmationT
       return ConfirmationTypeType.DirectSignature;
       break;
     default:
-      logger.info(`defaulting unknown type ${type} to 'none'`)
+      logger.info(`defaulting unknown type ${type} to 'none'`);
   }
 
   return ConfirmationTypeType.None;
 }
 
-const mapConfirmationTypes = (deliveryConfirmations: readonly DeliveryConfirmation[]): ConfirmationType[] => {
+const mapConfirmationTypes = (
+  deliveryConfirmations: readonly DeliveryConfirmation[]
+): ConfirmationType[] => {
   const confirmationTypes: ConfirmationType[] = [];
-  deliveryConfirmations.forEach((deliveryConfirmation) => {
+  deliveryConfirmations.forEach(deliveryConfirmation => {
     const confirmationType: ConfirmationType = {
       Name: deliveryConfirmation.name,
       Type: dxToCapiConfirmationType(deliveryConfirmation.type)
@@ -256,7 +271,9 @@ const mapConfirmationTypes = (deliveryConfirmations: readonly DeliveryConfirmati
   return confirmationTypes;
 };
 
-const mapRequiredProperties = (service: DeliveryService): RequiredProperty[] => {
+const mapRequiredProperties = (
+  service: DeliveryService
+): RequiredProperty[] => {
   const requiredProperties: RequiredProperty[] = [];
   if (service.requiresWeight) {
     requiredProperties.push(RequiredProperty.Weight);
@@ -268,7 +285,7 @@ const mapRequiredProperties = (service: DeliveryService): RequiredProperty[] => 
 };
 
 const isInternationalService = (service: DeliveryService): boolean => {
-  service.destinationCountries.forEach((destinationCountry) => {
+  service.destinationCountries.forEach(destinationCountry => {
     if (!service.originCountries.includes(destinationCountry)) {
       return false;
     }
@@ -276,7 +293,9 @@ const isInternationalService = (service: DeliveryService): boolean => {
   return true;
 };
 
-const mapShippingService = (service: DeliveryService): ShippingServiceSpecification => {
+const mapShippingService = (
+  service: DeliveryService
+): ShippingServiceSpecification => {
   const shippingService: ShippingServiceSpecification = {
     Id: service.id,
     Name: service.name,
@@ -290,25 +309,27 @@ const mapShippingService = (service: DeliveryService): ShippingServiceSpecificat
     Grade: mapGrade(service.grade),
     ConfirmationTypes: mapConfirmationTypes(service.deliveryConfirmations),
     International: isInternationalService(service),
-    RequiredProperties: mapRequiredProperties(service),
+    RequiredProperties: mapRequiredProperties(service)
   };
 
   return shippingService;
 };
 
-const mapDeliveryServices = (services: readonly DeliveryService[]): ShippingServiceSpecification[] => {
+const mapDeliveryServices = (
+  services: readonly DeliveryService[]
+): ShippingServiceSpecification[] => {
   const shippingServices: ShippingServiceSpecification[] = [];
-  services.forEach((service) => {
+  services.forEach(service => {
     shippingServices.push(mapShippingService(service));
   });
   return shippingServices;
 };
 
-
-const mapLabelFormats = (documentFormats: ReadonlyArray<DocumentFormat>): LabelFormat[] => {
+const mapLabelFormats = (
+  documentFormats: ReadonlyArray<DocumentFormat>
+): LabelFormat[] => {
   const formats: LabelFormat[] = [];
-  documentFormats.forEach((documentFormat) => {
-
+  documentFormats.forEach(documentFormat => {
     switch (documentFormat) {
       case DocumentFormat.PDF:
         formats.push(LabelFormat.PDF);
@@ -317,18 +338,22 @@ const mapLabelFormats = (documentFormats: ReadonlyArray<DocumentFormat>): LabelF
         formats.push(LabelFormat.ZPL);
         break;
       case DocumentFormat.PNG:
-        formats.push(LabelFormat.PNG)
+        formats.push(LabelFormat.PNG);
         break;
       case DocumentFormat.HTML:
       default: {
         const msg = `DocumentFormat ${documentFormat} does not map to CAPI LabelFormat`;
         logger.error(msg);
-        throw new MappingError(msg, {fieldName: "DocumentFormat", value: documentFormat}, "LabelFormat");
+        throw new MappingError(
+          msg,
+          { fieldName: 'DocumentFormat', value: documentFormat },
+          'LabelFormat'
+        );
       }
     }
   });
   return formats;
-}
+};
 
 const dxToCarrierSpecification = (app: CarrierApp): CarrierSpecification => {
   if (!app) {
@@ -342,19 +367,19 @@ const dxToCarrierSpecification = (app: CarrierApp): CarrierSpecification => {
       RegistrationFormSchema: {
         formSchema: {
           jsonSchema: app.connectionForm?.dataSchema,
-          uiSchema: JSON.stringify(app.connectionForm?.uiSchema),
+          uiSchema: JSON.stringify(app.connectionForm?.uiSchema)
         }
       },
       SettingsFormSchema: {
         formSchema: {
           jsonSchema: app.settingsForm?.dataSchema,
-          uiSchema: JSON.stringify(app.settingsForm?.uiSchema),
+          uiSchema: JSON.stringify(app.settingsForm?.uiSchema)
         }
-      },
+      }
     },
     CarrierAttributes: mapCarrierAttributes(app),
     CarrierUrl: app.websiteURL.toString(),
-    TrackingUrl: "",// app.getTrackingURL({id: ''}, {}).toString(), // TODO tracking url
+    TrackingUrl: '', // app.getTrackingURL({id: ''}, {}).toString(), // TODO tracking url
     ShippingServices: mapDeliveryServices(app.deliveryServices),
     PackageTypes: dxToCapiSpecPackageType(app.packaging, app.deliveryServices),
     LabelFormats: mapLabelFormats(app.labelFormats),
@@ -365,7 +390,7 @@ const dxToCarrierSpecification = (app: CarrierApp): CarrierSpecification => {
 
 export default (app: CarrierApp): ExternalSpec => {
   const provider: ExternalSpec = {
-    Id: "", //app-id is provided by DX WebAPI
+    Id: '', //app-id is provided by DX WebAPI
     Name: app.name,
     Carriers: [dxToCarrierSpecification(app)],
     Connector: mapConnectorModule(app)

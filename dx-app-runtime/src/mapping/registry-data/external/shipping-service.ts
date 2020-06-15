@@ -17,7 +17,15 @@ export default interface ShippingService {
   SupportedLabelSizes?: ('Inches4x6' | 'Inches4x8')[] | null;
   RequiredProperties?: ('Weight' | 'Dimensions')[] | null;
   Grade?: 'Unspecified' | 'Economy' | 'Expedited' | 'Overnight' | 'Standard';
-  Class?: 'Unspecified' | 'Ground' | 'OneDay' | 'OneDayEarly' | 'OneDayEarlyAm' | 'TwoDay' | 'TwoDayEarly' | 'ThreeDay';
+  Class?:
+    | 'Unspecified'
+    | 'Ground'
+    | 'OneDay'
+    | 'OneDayEarly'
+    | 'OneDayEarlyAm'
+    | 'TwoDay'
+    | 'TwoDayEarly'
+    | 'ThreeDay';
   LabelCode?: string | null;
   International?: boolean | null;
   Code: string;

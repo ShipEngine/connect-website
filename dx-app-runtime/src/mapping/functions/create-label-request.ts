@@ -1,16 +1,20 @@
-import { CreateLabelRequest } from "@ipaas/capi/requests";
-import { mapAddressToAddressWithContactInfoPOJO } from "./address";
-import { NewShipmentPOJO } from "@shipengine/integration-platform-sdk";
-import {capiToDxNewPackagePOJO} from "./package";
+import { CreateLabelRequest } from '@ipaas/capi/requests';
+import { mapAddressToAddressWithContactInfoPOJO } from './address';
+import { NewShipmentPOJO } from '@shipengine/integration-platform-sdk';
+import { capiToDxNewPackagePOJO } from './package';
 
-export const mapCreateLabelRequestToNewShipmentPOJO = (request: CreateLabelRequest) : NewShipmentPOJO => {
+export const mapCreateLabelRequestToNewShipmentPOJO = (
+  request: CreateLabelRequest
+): NewShipmentPOJO => {
   return {
     deliveryService: {
       id: request.service_code || ''
     },
     shipFrom: mapAddressToAddressWithContactInfoPOJO(request.ship_from),
     shipTo: mapAddressToAddressWithContactInfoPOJO(request.ship_to),
-    returnTo: request.ship_from_display ? mapAddressToAddressWithContactInfoPOJO(request.ship_from_display) : undefined,
+    returnTo: request.ship_from_display
+      ? mapAddressToAddressWithContactInfoPOJO(request.ship_from_display)
+      : undefined,
     shipDateTime: new Date(request.ship_datetime),
     returns: {
       isReturn: request.is_return_label,
@@ -22,8 +26,10 @@ export const mapCreateLabelRequestToNewShipmentPOJO = (request: CreateLabelReque
       deliveryPaidBy: undefined, // TODO: we don't send who the the delivery is paid bys
       account: undefined, // TODO: where to get billing account
       postalCode: undefined, // TODO: where to get billing postcode for shipment
-      country: undefined, // TODO: we don't send over billing country
+      country: undefined // TODO: we don't send over billing country
     },
-    packages: request.packages.map(pckg => capiToDxNewPackagePOJO(pckg, request.customs, request.advanced_options))
-  }
-}
+    packages: request.packages.map(pckg =>
+      capiToDxNewPackagePOJO(pckg, request.customs, request.advanced_options)
+    )
+  };
+};

@@ -1,14 +1,32 @@
-import { TransactionPOJO, ShipmentConfirmationPOJO, DocumentType, ChargeType } from "@shipengine/integration-platform-sdk";
-import { CreateLabelResponse } from "@ipaas/capi/responses";
+import {
+  TransactionPOJO,
+  ShipmentConfirmationPOJO,
+  DocumentType,
+  ChargeType
+} from '@shipengine/integration-platform-sdk';
+import { CreateLabelResponse } from '@ipaas/capi/responses';
 
 // TODO: we need to be able to support multiple labels coming back.
-export const mapShipmentConfirmationPOJOToCreateLabelResponse = (transaction: TransactionPOJO, response: ShipmentConfirmationPOJO): CreateLabelResponse => {
-  // TODO: we need to update the CreateLabelResponse to better handle multiple documents being returned. 
-  const labelDocument = response.packages[0].documents.find(doc => doc.type === DocumentType.Label);
-  const scanForm = response.packages[0].documents.find(doc => doc.type === DocumentType.ScanForm);
-  const customsForm = response.packages[0].documents.find(doc => doc.type === DocumentType.CustomsForm);
-  const shippingAmount = response.charges.find(charge => charge.type === ChargeType.Shipping);
-  const insuranceAmount = response.charges.find(charge => charge.type === ChargeType.Insurance);
+export const mapShipmentConfirmationPOJOToCreateLabelResponse = (
+  transaction: TransactionPOJO,
+  response: ShipmentConfirmationPOJO
+): CreateLabelResponse => {
+  // TODO: we need to update the CreateLabelResponse to better handle multiple documents being returned.
+  const labelDocument = response.packages[0].documents.find(
+    doc => doc.type === DocumentType.Label
+  );
+  const scanForm = response.packages[0].documents.find(
+    doc => doc.type === DocumentType.ScanForm
+  );
+  const customsForm = response.packages[0].documents.find(
+    doc => doc.type === DocumentType.CustomsForm
+  );
+  const shippingAmount = response.charges.find(
+    charge => charge.type === ChargeType.Shipping
+  );
+  const insuranceAmount = response.charges.find(
+    charge => charge.type === ChargeType.Insurance
+  );
   // response.deliveryWindow TODO: Support deliveryWindow on CreateLabelResposne
   // response.fulfillmentService TODO: Work on fulfillmentService CreateLabelResponse
   // response.isGuaranteed TODO: Add isGuaranteed to CreateLabelResponse
@@ -25,9 +43,19 @@ export const mapShipmentConfirmationPOJOToCreateLabelResponse = (transaction: Tr
       label_data: labelDocument?.data.toString('base64')
     },
     form_download: undefined, // Quick TODO: Fix this in typescript library
-    shipping_amount: shippingAmount ? { currency: shippingAmount.amount.currency, amount: shippingAmount.amount.value.toString()} : undefined,
-    insurance_amount: insuranceAmount ? {currency: insuranceAmount.amount.currency, amount: insuranceAmount.amount.value.toString()} : undefined,
+    shipping_amount: shippingAmount
+      ? {
+          currency: shippingAmount.amount.currency,
+          amount: shippingAmount.amount.value.toString()
+        }
+      : undefined,
+    insurance_amount: insuranceAmount
+      ? {
+          currency: insuranceAmount.amount.currency,
+          amount: insuranceAmount.amount.value.toString()
+        }
+      : undefined,
     estimated_delivery_datetime: response.deliveryDateTime?.toString()
   };
   return createLabelResponse;
-}
+};

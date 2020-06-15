@@ -5,11 +5,11 @@ export default (transaction: TransactionPOJO): RegisterResponse => {
   const response: RegisterResponse = {
     credentials: {
       username: 'N/A',
-      password: 'N/A',
+      password: 'N/A'
     },
     metadata: {
-      ...transaction.session,
-    },
+      ...transaction.session
+    }
   };
   return response;
 };

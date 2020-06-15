@@ -2,7 +2,7 @@ export enum CarrierAttribute {
   ManifestDigital = 'ManifestDigital',
   ManifestPhysical = 'ManifestPhysical',
   Consolidator = 'Consolidator',
-  Regional = 'Regional',
+  Regional = 'Regional'
 }
 
 export enum ShippingServiceAttribute {
@@ -12,12 +12,12 @@ export enum ShippingServiceAttribute {
   ConsolidatorService = 'ConsolidatorService',
   AutomatedTrackingAllowed = 'AutomatedTrackingAllowed',
   ManifestDigital = 'ManifestDigital',
-  ManifestPhysical = 'ManifestPhysical',
+  ManifestPhysical = 'ManifestPhysical'
 }
 
 export enum SupportedLabelSize {
   Inches4x6 = 'Inches4x6',
-  Inches4x8 = 'Inches4x8',
+  Inches4x8 = 'Inches4x8'
 }
 
 export enum ServiceClass {
@@ -28,7 +28,7 @@ export enum ServiceClass {
   OneDayEarlyAm = 'OneDayEarlyAm',
   TwoDay = 'TwoDay',
   TwoDayEarly = 'TwoDayEarly',
-  ThreeDay = 'ThreeDay',
+  ThreeDay = 'ThreeDay'
 }
 
 export enum ServiceGrade {
@@ -36,10 +36,10 @@ export enum ServiceGrade {
   Economy = 'Economy',
   Expedited = 'Expedited',
   Overnight = 'Overnight',
-  Standard = 'Standard',
+  Standard = 'Standard'
 }
 
 export enum RequiredProperty {
   Weight = 'Weight',
-  Dimensions = 'Dimensions',
+  Dimensions = 'Dimensions'
 }

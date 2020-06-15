@@ -1,4 +1,4 @@
-import {createLogger, transports, format, Logger} from "winston";
+import { createLogger, transports, format, Logger } from 'winston';
 
 const logger: Logger = createLogger({
   transports: [
@@ -8,8 +8,8 @@ const logger: Logger = createLogger({
           format: 'YYYY-MM-DD HH:mm:ss'
         }),
         format.cli()
-      ),
-    }),
+      )
+    })
   ]
 });
 

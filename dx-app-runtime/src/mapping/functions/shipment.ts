@@ -1,9 +1,11 @@
-import { GetRatesRequest } from "@ipaas/capi/requests";
-import { mapAddressToAddressWithContactInfoPOJO } from "./address";
-import {  NewShipmentPOJO } from "@shipengine/integration-platform-sdk";
-import {capiToDxNewPackagePOJO} from "./package";
+import { GetRatesRequest } from '@ipaas/capi/requests';
+import { mapAddressToAddressWithContactInfoPOJO } from './address';
+import { NewShipmentPOJO } from '@shipengine/integration-platform-sdk';
+import { capiToDxNewPackagePOJO } from './package';
 
-export const mapGetRatesRequestToNewShipmentPOJO =  (request: GetRatesRequest) : NewShipmentPOJO => {
+export const mapGetRatesRequestToNewShipmentPOJO = (
+  request: GetRatesRequest
+): NewShipmentPOJO => {
   return {
     deliveryService: {
       id: request.service_code || ''
@@ -21,8 +23,10 @@ export const mapGetRatesRequestToNewShipmentPOJO =  (request: GetRatesRequest) :
       deliveryPaidBy: undefined, // TODO: we don't send who the the delivery is paid bys
       account: undefined, // TODO: where to get billing account
       postalCode: undefined, // TODO: where to get billing postcode for shipment
-      country: undefined, // TODO: we don't send over billing country
+      country: undefined // TODO: we don't send over billing country
     },
-    packages: request.packages.map(pckg => capiToDxNewPackagePOJO(pckg, request.customs, request.advanced_options))
-  }
-}
+    packages: request.packages.map(pckg =>
+      capiToDxNewPackagePOJO(pckg, request.customs, request.advanced_options)
+    )
+  };
+};

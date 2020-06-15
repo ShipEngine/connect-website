@@ -1,7 +1,14 @@
-import { PickupCancellationOutcomePOJO, CancellationStatus, TransactionPOJO } from "@shipengine/integration-platform-sdk";
-import { CancelPickupResponse } from "@ipaas/capi/responses";
+import {
+  PickupCancellationOutcomePOJO,
+  CancellationStatus,
+  TransactionPOJO
+} from '@shipengine/integration-platform-sdk';
+import { CancelPickupResponse } from '@ipaas/capi/responses';
 
-export const mapPickupCancellationOutcomePOJOToCancelPickupResponse = (response: PickupCancellationOutcomePOJO, transaction: TransactionPOJO): CancelPickupResponse => {
+export const mapPickupCancellationOutcomePOJOToCancelPickupResponse = (
+  response: PickupCancellationOutcomePOJO,
+  transaction: TransactionPOJO
+): CancelPickupResponse => {
   return {
     confirmation_id: response.confirmationNumber,
     successful: response.status === CancellationStatus.Success,
@@ -12,5 +19,5 @@ export const mapPickupCancellationOutcomePOJOToCancelPickupResponse = (response:
     metadata: {
       ...transaction.session
     }
-  }
-}
+  };
+};

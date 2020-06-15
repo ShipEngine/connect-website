@@ -1,25 +1,36 @@
-import { Address, AddressResidentialIndicator } from "@ipaas/capi/models";
-import {AddressWithContactInfoPOJO, Country, PersonNamePOJO} from '@shipengine/integration-platform-sdk';
+import { Address, AddressResidentialIndicator } from '@ipaas/capi/models';
+import {
+  AddressWithContactInfoPOJO,
+  Country,
+  PersonNamePOJO
+} from '@shipengine/integration-platform-sdk';
 import convertISOCountryCodeToCountryEnum from './country-conversion';
 
-const excludeNullsFromAddressLines = (addressLines: (string | null)[] | null | undefined): string[] => {
+const excludeNullsFromAddressLines = (
+  addressLines: (string | null)[] | null | undefined
+): string[] => {
   const cleanedAddress: string[] = [];
   addressLines?.forEach(line => {
-    if(line !== null && line !== '') {
+    if (line !== null && line !== '') {
       cleanedAddress.push(line);
     }
-  })
+  });
   return cleanedAddress;
-}
+};
 
-const convertResidentialIndicatorToBoolean = (residentialIndicator: AddressResidentialIndicator | null | undefined): (boolean | undefined) => {
+const convertResidentialIndicatorToBoolean = (
+  residentialIndicator: AddressResidentialIndicator | null | undefined
+): boolean | undefined => {
   if (!residentialIndicator) {
     return undefined;
   }
-  return (residentialIndicator === AddressResidentialIndicator.Yes || residentialIndicator === AddressResidentialIndicator.Residential);
-}
+  return (
+    residentialIndicator === AddressResidentialIndicator.Yes ||
+    residentialIndicator === AddressResidentialIndicator.Residential
+  );
+};
 
-const emptyDxPersonName: PersonNamePOJO = {given: ""};
+const emptyDxPersonName: PersonNamePOJO = { given: '' };
 
 const emptyDxAddress: AddressWithContactInfoPOJO = {
   addressLines: [],
@@ -36,12 +47,14 @@ const emptyDxAddress: AddressWithContactInfoPOJO = {
   timeZone: ''
 };
 
-export const mapAddressToAddressWithContactInfoPOJO = (address: Address | null | undefined): AddressWithContactInfoPOJO => {
-  if(!address) {
+export const mapAddressToAddressWithContactInfoPOJO = (
+  address: Address | null | undefined
+): AddressWithContactInfoPOJO => {
+  if (!address) {
     return emptyDxAddress;
   }
   const dxAddress: AddressWithContactInfoPOJO = {
-    phoneNumberExtension: "",
+    phoneNumberExtension: '',
     addressLines: excludeNullsFromAddressLines(address.address_lines),
     cityLocality: address.city_locality || '',
     stateProvince: address.state_province || '',
@@ -50,15 +63,17 @@ export const mapAddressToAddressWithContactInfoPOJO = (address: Address | null |
     email: address.email || '',
     phoneNumber: address.phone_number || '',
     name: {
-      given: address.first_name ?? "",
-      family: address.last_name ?? "",
-      middle: "", // TODO: We don't send over middle names.
-      suffix: "", // TODO: We don't send over suffix
-      title: "" // TODO: We don't send over title
+      given: address.first_name ?? '',
+      family: address.last_name ?? '',
+      middle: '', // TODO: We don't send over middle names.
+      suffix: '', // TODO: We don't send over suffix
+      title: '' // TODO: We don't send over title
     },
-    isResidential: convertResidentialIndicatorToBoolean(address.address_residential_indicator),
+    isResidential: convertResidentialIndicatorToBoolean(
+      address.address_residential_indicator
+    ),
     company: address.company_name || '',
-    timeZone: "America/Chicago" // TODO: We don't send over timeZone
+    timeZone: 'America/Chicago' // TODO: We don't send over timeZone
   };
 
   return dxAddress;

@@ -1,20 +1,28 @@
-import logger from "../../logger";
-import {NextFunction, Request, Response} from "express";
-import {MappingError, ValidationError} from "../../mapping/registry-data/errors";
+import logger from '../../logger';
+import { NextFunction, Request, Response } from 'express';
+import {
+  MappingError,
+  ValidationError
+} from '../../mapping/registry-data/errors';
 
-export default (err: any, request: Request, response: Response, next: NextFunction) => {
-  logger.error("error handling middleware: ",err);
+export default (
+  err: any,
+  request: Request,
+  response: Response,
+  next: NextFunction
+) => {
+  logger.error('error handling middleware: ', err);
 
   if (err instanceof MappingError) {
     response.status(500).json({
       detailed_errors: [
         {
-          standardized_error_code: "mapping_error",
+          standardized_error_code: 'mapping_error',
           message: err.message,
-          details: {...err}
+          details: { ...err }
         }
       ]
-    })
+    });
     return;
   }
 
@@ -22,9 +30,9 @@ export default (err: any, request: Request, response: Response, next: NextFuncti
     response.status(500).json({
       detailed_errors: [
         {
-          standardized_error_code: "validation_error",
+          standardized_error_code: 'validation_error',
           message: err.message,
-          details: {...err}
+          details: { ...err }
         }
       ]
     });
@@ -34,10 +42,10 @@ export default (err: any, request: Request, response: Response, next: NextFuncti
   response.status(500).json({
     detailed_errors: [
       {
-        standardized_error_code: "unhandled_module_exception",
-        message: "There was an uncaught exception with the module.",
-        raw_external_context: err,
-      },
-    ],
+        standardized_error_code: 'unhandled_module_exception',
+        message: 'There was an uncaught exception with the module.',
+        raw_external_context: err
+      }
+    ]
   });
 };
