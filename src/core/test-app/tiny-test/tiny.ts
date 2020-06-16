@@ -31,9 +31,11 @@ function filterTests(grep: string, suites: Suite[]): Suite[] {
 }
 
 export interface TinyStaticConfig {
-  connectionFormDataProps?: object;
   negateTests?: string[];
-  getSeller?: SellerIdentifierPOJO[]
+  methods?: {
+    connectionFormDataProps?: object;
+    getSeller?: SellerIdentifierPOJO[]
+  }
 }
 
 async function loadStaticConfig(): Promise<TinyStaticConfig> {
@@ -68,8 +70,8 @@ export default function Tiny(
   return {
     run: async (): Promise<RunnerResults> => {
       const staticConfig = await loadStaticConfig();
-      const connectionFormDataProps = staticConfig.connectionFormDataProps
-        ? staticConfig.connectionFormDataProps
+      const connectionFormDataProps = (staticConfig.methods && staticConfig.methods.connectionFormDataProps)
+        ? staticConfig.methods.connectionFormDataProps
         : {};
 
       let transaction: TransactionPOJO = {
