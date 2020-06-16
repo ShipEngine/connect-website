@@ -3,7 +3,7 @@ import { SdkApp } from "../../types";
 import { Runner, RunnerResults } from "./runner";
 import { v4 } from "uuid";
 import { readFile } from "../../utils/read-file";
-import { TransactionPOJO } from "@shipengine/integration-platform-sdk";
+import { TransactionPOJO, SellerIdentifierPOJO } from "@shipengine/integration-platform-sdk";
 import {
   logFail,
   logPass,
@@ -30,9 +30,10 @@ function filterTests(grep: string, suites: Suite[]): Suite[] {
   return tempSuites;
 }
 
-interface TinyStaticConfig {
+export interface TinyStaticConfig {
   connectionFormDataProps?: object;
   negateTests?: string[];
+  getSeller?: SellerIdentifierPOJO[]
 }
 
 async function loadStaticConfig(): Promise<TinyStaticConfig> {
@@ -99,7 +100,7 @@ export default function Tiny(
       }
 
       let suites = suiteModules.map(
-        (suiteModule) => new suiteModule(app, transaction, options.debug),
+        (suiteModule) => new suiteModule(app, transaction, options.debug, staticConfig),
       ) as Suite[];
 
       if (options.grep) {
