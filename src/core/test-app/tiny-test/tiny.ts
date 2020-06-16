@@ -102,7 +102,7 @@ export default function Tiny(
       }
 
       let suites = suiteModules.map(
-        (suiteModule) => new suiteModule(app, transaction, options.debug, staticConfig),
+        (suiteModule) => new suiteModule(app, transaction, { debug: options.debug, staticConfig }),
       ) as Suite[];
 
       if (options.grep) {

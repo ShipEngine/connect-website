@@ -3,6 +3,8 @@ import { SdkApp } from "../../types";
 import { TransactionPOJO } from "@shipengine/integration-platform-sdk";
 import { TinyStaticConfig } from './tiny';
 
+type SuiteOptions = { debug: boolean, staticConfig: TinyStaticConfig };
+
 export default abstract class Suite {
   protected app: SdkApp;
   protected transaction: TransactionPOJO;
@@ -11,10 +13,12 @@ export default abstract class Suite {
   protected staticConfig: TinyStaticConfig;
   _testCache: Test[];
 
-  constructor(app: SdkApp, transaction: TransactionPOJO, debug = false, staticConfig: TinyStaticConfig) {
+  constructor(app: SdkApp, transaction: TransactionPOJO, options: SuiteOptions) {
+    const { debug, staticConfig } = options;
+    
     this.app = app;
     this.transaction = transaction;
-    this.debug = debug;
+    this.debug = debug || false;
     this.staticConfig = staticConfig;
     this._testCache = this.tests();
   }
