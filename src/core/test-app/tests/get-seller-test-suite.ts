@@ -28,6 +28,7 @@ export class GetSellerTestSuite extends Suite {
   private testProps(): TestProp<GetSellerProps>[] {
     let props: TestProp<GetSellerProps>[] = [];
 
+    // Check shipengine.config.js for props to add to the test module
     if (this.staticConfig.getSeller) {
       for (let prop of this.staticConfig.getSeller) {
         const title = composeTitle(prop);
