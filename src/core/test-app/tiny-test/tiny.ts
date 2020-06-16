@@ -3,7 +3,7 @@ import { SdkApp } from "../../types";
 import { Runner, RunnerResults } from "./runner";
 import { v4 } from "uuid";
 import { readFile } from "../../utils/read-file";
-import { TransactionPOJO, SellerIdentifierPOJO } from "@shipengine/integration-platform-sdk";
+import { TransactionPOJO, SellerIdentifierPOJO, SalesOrderIdentifierPOJO } from "@shipengine/integration-platform-sdk";
 import {
   logFail,
   logPass,
@@ -34,7 +34,8 @@ export interface TinyStaticConfig {
   negateTests?: string[];
   methods?: {
     connectionFormDataProps?: object;
-    getSeller?: SellerIdentifierPOJO[]
+    getSeller?: SellerIdentifierPOJO[];
+    getSalesOrder?: SalesOrderIdentifierPOJO[];
   }
 }
 
@@ -102,7 +103,7 @@ export default function Tiny(
       }
 
       let suites = suiteModules.map(
-        (suiteModule) => new suiteModule(app, transaction, options.debug, staticConfig),
+        (suiteModule) => new suiteModule(app, transaction, { debug: options.debug, staticConfig }),
       ) as Suite[];
 
       if (options.grep) {
