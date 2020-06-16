@@ -14,12 +14,11 @@ export default abstract class Suite {
   _testCache: Test[];
 
   constructor(app: SdkApp, transaction: TransactionPOJO, options: SuiteOptions) {
-    const { debug, staticConfig } = options;
     
     this.app = app;
     this.transaction = transaction;
-    this.debug = debug || false;
-    this.staticConfig = staticConfig;
+    this.debug = (options && options.debug) || false;
+    this.staticConfig = (options && options.staticConfig) || {};
     this._testCache = this.tests();
   }
 
