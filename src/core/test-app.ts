@@ -4,9 +4,9 @@ import {
   CancelShipmentsTestSuite,
   CreateManifestTestSuite,
   CreateShipmentTestSuite,
-  // GetSalesOrderTestSuite,
+  GetSalesOrderTestSuite,
   // GetSalesOrdersByDateTestSuite,
-  // GetSellerTestSuite,
+  GetSellerTestSuite,
   RateShipmentTestSuite,
   SchedulePickupTestSuite,
   TrackShipmentTestSuite,
@@ -35,9 +35,9 @@ function registerTestSuiteModules(app: SdkApp): RegisteredTestSuiteModules {
   };
 
   const orderAppMethods = {
-    // getSalesOrder: GetSalesOrderTestSuite,
+    getSalesOrder: GetSalesOrderTestSuite,
     // getSalesOrdersByDate: GetSalesOrdersByDateTestSuite,
-    // getSeller: GetSellerTestSuite,
+    getSeller: GetSellerTestSuite,
     // shipmentCancelled: ShipmentCancelledTestSuite,
     // shipmentCreated: ShipmentCreatedTestSuite,
   };
