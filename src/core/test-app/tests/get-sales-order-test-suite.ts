@@ -40,7 +40,7 @@ export class GetSalesOrderTestSuite extends Suite {
     }
 
     props.push({
-      title: "Handles an unknown sales order id",
+      title: "Get Sales Order: handles an unknown sales order id",
       props: [this.transaction, {
         id: "947294"
       }]
@@ -51,6 +51,6 @@ export class GetSalesOrderTestSuite extends Suite {
 }
 
 function composeTitle(prop: SalesOrderIdentifierPOJO): string {
-  let title = `Get Sales Order with an ID of ${prop.id}`;
+  let title = `Get Sales Order: with an ID of ${prop.id}`;
   return title;
 }

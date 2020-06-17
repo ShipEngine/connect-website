@@ -3,7 +3,7 @@ import { SdkApp } from "../../types";
 import { Runner, RunnerResults } from "./runner";
 import { v4 } from "uuid";
 import { readFile } from "../../utils/read-file";
-import { TransactionPOJO, SellerIdentifierPOJO, SalesOrderIdentifierPOJO, SalesOrderTimeRangePOJO } from "@shipengine/integration-platform-sdk";
+import { TransactionPOJO, SellerIdentifierPOJO, SalesOrderIdentifierPOJO, SalesOrderShipmentPOJO, SalesOrderTimeRangePOJO } from "@shipengine/integration-platform-sdk";
 import {
   logFail,
   logPass,
@@ -37,6 +37,7 @@ export interface TinyStaticConfig {
     getSeller?: SellerIdentifierPOJO[];
     getSalesOrder?: SalesOrderIdentifierPOJO[];
     getSalesOrdersByDate?: SalesOrderTimeRangePOJO[];
+    shipmentCreated?: SalesOrderShipmentPOJO[];
   }
 }
 
@@ -48,8 +49,14 @@ async function loadStaticConfig(): Promise<TinyStaticConfig> {
       `${process.cwd()}/shipengine.config.js`,
     );
     return staticConfig;
-  } catch {
-    return {};
+  } catch (error) {
+    // Check for sdk error
+    if(error.error) {
+      throw error.error;
+    }
+    else {
+      throw error;
+    }
   }
 }
 
