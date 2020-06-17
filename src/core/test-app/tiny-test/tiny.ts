@@ -3,7 +3,7 @@ import { SdkApp } from "../../types";
 import { Runner, RunnerResults } from "./runner";
 import { v4 } from "uuid";
 import { readFile } from "../../utils/read-file";
-import { TransactionPOJO, SellerIdentifierPOJO, SalesOrderIdentifierPOJO } from "@shipengine/integration-platform-sdk";
+import { TransactionPOJO, SellerIdentifierPOJO, SalesOrderIdentifierPOJO, SalesOrderTimeRangePOJO } from "@shipengine/integration-platform-sdk";
 import {
   logFail,
   logPass,
@@ -36,6 +36,7 @@ export interface TinyStaticConfig {
     connectionFormDataProps?: object;
     getSeller?: SellerIdentifierPOJO[];
     getSalesOrder?: SalesOrderIdentifierPOJO[];
+    getSalesOrderByDate?: SalesOrderTimeRangePOJO[];
   }
 }
 

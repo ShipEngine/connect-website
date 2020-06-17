@@ -44,7 +44,7 @@ export class GetSalesOrderTestSuite extends Suite {
       props: [this.transaction, {
         id: "947294"
       }]
-    })
+    });
 
     return props;
   }
