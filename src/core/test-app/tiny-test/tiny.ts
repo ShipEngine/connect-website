@@ -37,6 +37,8 @@ export interface TinyStaticConfig {
     getSeller?: SellerIdentifierPOJO[];
     getSalesOrder?: SalesOrderIdentifierPOJO[];
     shipmentCreated?: SalesOrderShipmentPOJO[];
+    shipmentCancelled?: SalesOrderShipmentPOJO[];
+
   }
 }
 

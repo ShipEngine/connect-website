@@ -7,6 +7,6 @@ export * from "./get-sales-order-test-suite";
 export * from "./get-seller-test-suite";
 export * from "./rate-shipment-test-suite";
 export * from "./schedule-pickup-test-suite";
-// export * from "./shipment-cancelled-test-suite";
+export * from "./shipment-cancelled-test-suite";
 export * from "./shipment-created-test-suite";
 export * from "./track-shipment-test-suite";
