@@ -2,15 +2,16 @@ import axios from "axios";
 import { authenticate, AuthenticateRequest } from "./authenticate";
 import { generateLabel, GenerateLabelRequest } from "./generate-label";
 import { pickUp, PickUpRequest } from "./pick-up";
-import { pickUpCancellation, PickUpCancellationRequest } from "./pick-up-cancellation";
+import {
+  pickUpCancellation,
+  PickUpCancellationRequest,
+} from "./pick-up-cancellation";
 import { quoteRates, QuoteRatesRequest } from "./quote-rates";
-
 
 // Read config values from environment variables
 const API_URL = process.env.API_URL || "https://httpbin.org/anything";
 const API_TIMEOUT = Number.parseInt(process.env.API_TIMEOUT || "5000");
 const API_KEY = process.env.API_KEY || "";
-
 
 export interface HttpRequest {
   method: string;
@@ -20,14 +21,13 @@ export interface HttpRequest {
   [key: string]: unknown;
 }
 
-
 // Create an API client, configured via environment variables
 export const apiClient = axios.create({
   method: "post",
   url: API_URL,
   timeout: API_TIMEOUT,
   headers: {
-    "API-Key": API_KEY
+    "API-Key": API_KEY,
   },
   transformResponse(data) {
     data = JSON.parse(data);
@@ -38,7 +38,7 @@ export const apiClient = axios.create({
       url: data.url,
       headers: data.headers,
       origin: data.origin,
-      ...data.json
+      ...data.json,
     };
 
     switch (request.operation) {
@@ -55,7 +55,9 @@ export const apiClient = axios.create({
         return pickUp(request as HttpRequest & PickUpRequest);
 
       case "pick_up_cancellation":
-        return pickUpCancellation(request as HttpRequest & PickUpCancellationRequest);
+        return pickUpCancellation(
+          request as HttpRequest & PickUpCancellationRequest
+        );
     }
-  }
+  },
 });
