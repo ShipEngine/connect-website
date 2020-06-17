@@ -49,11 +49,6 @@ export class CreateShipmentTestSuite extends Suite {
       WeightUnit.Ounces,
       WeightUnit.Pounds,
     ];
-    // const dateTimes = {
-    //   now: new Date(),
-    //   tomorrow: "",
-    //   yesterday: "",
-    // };
 
     for (let deliveryService of carrierApp.deliveryServices) {
       for (let labelFormat of deliveryService.labelFormats) {
@@ -61,13 +56,6 @@ export class CreateShipmentTestSuite extends Suite {
           for (let deliveryConfirmation of deliveryService.deliveryConfirmations) {
             for (let packageUnit of packageUnits) {
               for (let packageWeight of packageWeights) {
-                //   for (let originCountry of deliveryService.originCountries) {
-                //     for (let destinationCountry of deliveryService.destinationCountries) {
-                //       for (let package of deliveryService.packaging) {
-                //       }
-                //     }
-                //   }
-
                 const packagePOJO: NewPackagePOJO = {
                   deliveryConfirmation: {
                     id: deliveryConfirmation.id,

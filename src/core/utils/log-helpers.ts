@@ -46,9 +46,10 @@ function logResults(results: {
   log(
     `${chalk.green(results.passed + " passing")} , ${chalk.red(
       results.failed + " failing",
-    )}, ${chalk.white(results.skipped + " skipped")}`,
+    )}, ${results.skipped + " skipped"}`,
   );
 }
+
 export {
   indent,
   indentLines,
