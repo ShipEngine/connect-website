@@ -48,8 +48,14 @@ async function loadStaticConfig(): Promise<TinyStaticConfig> {
       `${process.cwd()}/shipengine.config.js`,
     );
     return staticConfig;
-  } catch {
-    return {};
+  } catch (error) {
+    // Check for sdk error
+    if(error.error) {
+      throw error.error;
+    }
+    else {
+      throw error;
+    }
   }
 }
 
