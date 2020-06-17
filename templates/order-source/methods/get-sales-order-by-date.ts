@@ -5,7 +5,7 @@ import { Session } from "./session";
 /**
  * Retrieve existing sales orders based on a date range.
  */
-export default async function getSalesOrderByDate(
+export default async function getSalesOrdersByDate(
   transaction: Transaction<Session>,
   range: SalesOrderTimeRange,
 ): Promise<Iterable<SalesOrderPOJO>> {

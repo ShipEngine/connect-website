@@ -36,7 +36,7 @@ export interface TinyStaticConfig {
     connectionFormDataProps?: object;
     getSeller?: SellerIdentifierPOJO[];
     getSalesOrder?: SalesOrderIdentifierPOJO[];
-    getSalesOrderByDate?: SalesOrderTimeRangePOJO[];
+    getSalesOrdersByDate?: SalesOrderTimeRangePOJO[];
   }
 }
 

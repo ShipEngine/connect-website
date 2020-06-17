@@ -33,8 +33,8 @@ export class GetSalesOrdersByDateTestSuite extends Suite {
     createStaticTests(props, this.transaction);
 
     // Check shipengine.config.js for props to add to the test module
-    if (this.staticConfig.methods && this.staticConfig.methods.getSalesOrderByDate) {
-      for (let prop of this.staticConfig.methods.getSalesOrderByDate) {
+    if (this.staticConfig.methods && this.staticConfig.methods.getSalesOrdersByDate) {
+      for (let prop of this.staticConfig.methods.getSalesOrdersByDate) {
         const title = composeTitle(prop);
         props.push({
           title,
