@@ -40,7 +40,7 @@ export class GetSellerTestSuite extends Suite {
     }
 
     props.push({
-      title: "Handles an unknown seller id",
+      title: "Get Seller: handles an unknown seller id",
       props: [this.transaction, {
         id: "947294"
       }]
@@ -51,6 +51,6 @@ export class GetSellerTestSuite extends Suite {
 }
 
 function composeTitle(prop: SellerIdentifierPOJO): string {
-  let title = `Get Seller with an ID of ${prop.id}`;
+  let title = `Get Seller: with an ID of ${prop.id}`;
   return title;
 }

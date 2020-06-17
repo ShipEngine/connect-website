@@ -11,7 +11,7 @@ import {
   SchedulePickupTestSuite,
   TrackShipmentTestSuite,
   // ShipmentCancelledTestSuite,
-  // ShipmentCreatedTestSuite,
+  ShipmentCreatedTestSuite
 } from "./test-app/tests";
 import { Tiny } from "./test-app/tiny-test";
 import { logResults } from "./utils/log-helpers";
@@ -39,7 +39,7 @@ function registerTestSuiteModules(app: SdkApp): RegisteredTestSuiteModules {
     // getSalesOrdersByDate: GetSalesOrdersByDateTestSuite,
     getSeller: GetSellerTestSuite,
     // shipmentCancelled: ShipmentCancelledTestSuite,
-    // shipmentCreated: ShipmentCreatedTestSuite,
+    shipmentCreated: ShipmentCreatedTestSuite,
   };
 
   const allMethods = { ...carrierAppMethods, ...orderAppMethods };
