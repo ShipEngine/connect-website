@@ -3,7 +3,7 @@
 /**
  * Retrieve existing sales orders based on a date range.
  */
-async function getSalesOrderByDate(transaction, range) {
+async function getSalesOrdersByDate(transaction, range) {
   throw new Error("NotImplementedError");
   // STEP 1: Validation
   // STEP 2: Create the data that the carrier's API expects
@@ -11,4 +11,4 @@ async function getSalesOrderByDate(transaction, range) {
   // Step 4: Create the output data that ShipEngine expects
 }
 
-module.exports = getSalesOrderByDate;
+module.exports = getSalesOrdersByDate;
