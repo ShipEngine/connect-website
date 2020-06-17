@@ -71,7 +71,7 @@ function createStaticTests(props: TestProp<ShipmentCancelledProps>[], transactio
     },
     salesOrderItem: {
       id: "1234556",
-      sku: "blah blah"
+      sku: "k39dkql3"
     },
     quantity: {
       value: 3,
