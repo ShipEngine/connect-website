@@ -1,6 +1,6 @@
 {
   "name": "dx-app-runtime",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "This is the app host for a carrier DX app. It provides an HTTP interface implementing the CAPI spec and does mapping CAPI -> DX -> CAPI",
   "main": "dist/server.js",
   "scripts": {
@@ -23,6 +23,7 @@
     "express": "^4.17.1",
     "express-winston": "^4.0.3",
     "fast-redact": "^2.0.0",
+    "newrelic": "^6.9.0",
     "only": "0.0.2",
     "redact-secrets": "^1.0.0",
     "winston": "^3.2.1"
