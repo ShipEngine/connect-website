@@ -6,17 +6,17 @@ description: Worldwide delivery at an affordable price
 class: ground
 grade: economy
 serviceArea: global
-isConsolidationService: true
+isConsolidationService: false
 isTrackable: false
 isInsurable: true
 
 labelFormats:
-  - html
+  - png
   - pdf
 
 labelSizes:
-  - A4
-  - letter
+  - 4x6
+  - 4x8
 
 originCountries: worldwide.yaml
 destinationCountries: worldwide.yaml

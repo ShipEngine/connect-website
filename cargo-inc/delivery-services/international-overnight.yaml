@@ -6,17 +6,17 @@ description: Overnight delivery worldwide
 class: one_day
 grade: overnight
 serviceArea: global
-isConsolidationService: true
+isConsolidationService: false
 isTrackable: true
 isInsurable: true
 
 labelFormats:
-  - html
+  - zpl
   - pdf
 
 labelSizes:
-  - A4
-  - letter
+  - 4x6
+  - 4x8
 
 originCountries: worldwide.yaml
 destinationCountries: worldwide.yaml
