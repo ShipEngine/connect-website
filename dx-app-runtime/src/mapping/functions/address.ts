@@ -62,13 +62,7 @@ export const mapAddressToAddressWithContactInfoPOJO = (
     postalCode: address.postal_code,
     email: address.email || '',
     phoneNumber: address.phone_number || '',
-    name: {
-      given: address.first_name ?? '',
-      family: address.last_name ?? '',
-      middle: '', // TODO: We don't send over middle names.
-      suffix: '', // TODO: We don't send over suffix
-      title: '' // TODO: We don't send over title
-    },
+    name: `${address.first_name} ${address.last_name}`,
     isResidential: convertResidentialIndicatorToBoolean(
       address.address_residential_indicator
     ),
