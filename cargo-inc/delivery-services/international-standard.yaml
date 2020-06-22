@@ -18,8 +18,8 @@ labelSizes:
   - 4x6
   - 4x8
 
-originCountries: worldwide.yaml
-destinationCountries: worldwide.yaml
+originCountries: countries.yaml
+destinationCountries: countries.yaml
 
 packaging:
   - ../packaging/package.yaml
