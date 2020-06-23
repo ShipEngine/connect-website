@@ -22,19 +22,19 @@ export default (rate: RatePOJO): capiRate => {
     service_code: rate.deliveryService.id,
     shipping_amount: {
       currency: shippingAmount?.amount.currency,
-      amount: shippingAmount?.amount.value.toString() || ''
+      amount: shippingAmount?.amount.value.toString() || '0'
     },
     confirmation_amount: {
       currency: confirmationAmount?.amount.currency,
-      amount: confirmationAmount?.amount.value.toString() || ''
+      amount: confirmationAmount?.amount.value.toString() || '0'
     },
     insurance_amount: {
       currency: insuranceAmount?.amount.currency,
-      amount: insuranceAmount?.amount.value.toString() || ''
+      amount: insuranceAmount?.amount.value.toString() || '0'
     },
     other_amount: {
       currency: otherAmount?.amount.currency,
-      amount: otherAmount?.amount.value.toString() || ''
+      amount: otherAmount?.amount.value.toString() || '0'
     },
     error_messages: [], // There is nothing that maps to this
     negotiated_rate: rate.isNegotiatedRate

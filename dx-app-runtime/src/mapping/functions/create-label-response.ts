@@ -46,13 +46,13 @@ export const mapShipmentConfirmationPOJOToCreateLabelResponse = (
     shipping_amount: shippingAmount
       ? {
           currency: shippingAmount.amount.currency,
-          amount: shippingAmount.amount.value.toString()
+          amount: shippingAmount.amount.value !== '' ? shippingAmount.amount.value.toString() : '0'
         }
       : undefined,
     insurance_amount: insuranceAmount
       ? {
           currency: insuranceAmount.amount.currency,
-          amount: insuranceAmount.amount.value.toString()
+          amount: insuranceAmount.amount.value !== '' ? insuranceAmount.amount.value.toString() : '0'
         }
       : undefined,
     estimated_delivery_datetime: response.deliveryDateTime?.toString()
