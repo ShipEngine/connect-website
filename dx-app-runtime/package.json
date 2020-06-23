@@ -1,6 +1,6 @@
 {
   "name": "dx-app-runtime",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "This is the app host for a carrier DX app. It provides an HTTP interface implementing the CAPI spec and does mapping CAPI -> DX -> CAPI",
   "main": "dist/server.js",
   "scripts": {
@@ -16,8 +16,8 @@
   "license": "UNLICENSED",
   "dependencies": {
     "@ipaas/capi": "0.0.5",
-    "@shipengine/integration-platform-loader": "0.0.21",
-    "@shipengine/integration-platform-sdk": "0.0.26",
+    "@shipengine/integration-platform-loader": "0.0.25",
+    "@shipengine/integration-platform-sdk": "0.0.27",
     "body-parser": "^1.19.0",
     "dotenv-flow": "^3.1.0",
     "express": "^4.17.1",
