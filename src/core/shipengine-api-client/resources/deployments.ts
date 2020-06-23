@@ -1,7 +1,11 @@
 import * as fs from "fs";
 import FormData from "form-data";
 import ShipengineAPIClient from "..";
-import { Deployment, NetworkErrorCollection } from "../../types";
+import {
+  Deployment,
+  NetworkErrorCollection,
+  PaginatedItems,
+} from "../../types";
 
 export default class Deployments {
   private client: ShipengineAPIClient;
@@ -45,7 +49,7 @@ export default class Deployments {
    * Gets all deploys for the given appID
    * @returns {Promise} Promise object that resolves to an Array of Deployment objects.
    */
-  async getAllForAppId(appId: string): Promise<Deployment[]> {
+  async getAllForAppId(appId: string): Promise<PaginatedItems<Deployment>> {
     try {
       const response = await this.client.call({
         endpoint: `apps/${appId}/deploys`,
