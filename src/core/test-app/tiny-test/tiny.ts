@@ -2,7 +2,6 @@ import Suite from "./suite";
 import { SdkApp } from "../../types";
 import { Runner, RunnerResults } from "./runner";
 import { v4 } from "uuid";
-import { readFile } from "../../utils/read-file";
 import { TransactionPOJO, SellerIdentifierPOJO, SalesOrderIdentifierPOJO, SalesOrderShipmentPOJO, SalesOrderTimeRangePOJO } from "@shipengine/integration-platform-sdk";
 import {
   logFail,
@@ -11,6 +10,7 @@ import {
   log,
   logObject,
 } from "../../utils/log-helpers";
+import { loadStaticConfig } from './load-static-config';
 
 function filterTests(grep: string, suites: Suite[]): Suite[] {
   let tempSuites = suites.filter((suite) => suite.title === grep);
@@ -39,26 +39,6 @@ export interface TinyStaticConfig {
     getSalesOrdersByDate?: SalesOrderTimeRangePOJO[];
     shipmentCreated?: SalesOrderShipmentPOJO[];
     shipmentCancelled?: SalesOrderShipmentPOJO[];
-
-  }
-}
-
-async function loadStaticConfig(): Promise<TinyStaticConfig> {
-  let staticConfig: TinyStaticConfig = {};
-
-  try {
-    staticConfig = await readFile<TinyStaticConfig>(
-      `${process.cwd()}/shipengine.config.js`,
-    );
-    return staticConfig;
-  } catch (error) {
-    // Check for sdk error
-    if(error.error) {
-      throw error.error;
-    }
-    else {
-      throw error;
-    }
   }
 }
 
@@ -131,3 +111,4 @@ export default function Tiny(
     },
   };
 }
+
