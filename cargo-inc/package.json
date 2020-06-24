@@ -9,7 +9,7 @@
     "dotenv-flow": "^3.1.0"
   },
   "scripts": {
-    "debug": "cross-env NODE_OPTIONS=--inspect-brk shipengine apps:test --grep=abe854a"
+    "debug": "cross-env NODE_OPTIONS=--inspect-brk shipengine apps:test"
   },
   "dependencies": {
     "axios": "^0.19.2",
