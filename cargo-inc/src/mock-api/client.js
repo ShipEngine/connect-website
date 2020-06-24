@@ -6,6 +6,7 @@ const generateLabel = require("./generate-label");
 const quoteRates = require("./quote-rates");
 const voidLabels = require("./void-labels");
 const locationHistory = require("./location-history")
+const { pickUpCancellation } = require("./pickup-cancellation")
 
 
 // Read config values from environment variables
@@ -49,6 +50,9 @@ const apiClient = axios.create({
 
       case "location_history":
         return locationHistory(request);
+        
+      case "pick_up_cancellation":
+        return pickUpCancellation(request);
     }
   }
 });
