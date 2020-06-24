@@ -1,5 +1,4 @@
 const apiClient = require("./mock-api/client");
-
 const yaml = require("js-yaml");
 const fs = require("fs");
 const path = require("path");

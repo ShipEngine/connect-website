@@ -1,6 +1,5 @@
 const { apiClient } = require("./mock-api/client");
 const { ONE_DAY, ONE_HOUR } = require("./mock-api/pickup-cancellation");
-
 const yaml = require("js-yaml");
 const fs = require("fs");
 const path = require("path");

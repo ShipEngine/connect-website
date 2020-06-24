@@ -6,7 +6,7 @@ const generateLabel = require("./generate-label");
 const quoteRates = require("./quote-rates");
 const voidLabels = require("./void-labels");
 const locationHistory = require("./location-history");
-const pickup = require("./pick-up");
+const pickUp = require("./pick-up");
 const { pickUpCancellation } = require("./pickup-cancellation");
 
 // Read config values from environment variables
