@@ -10,7 +10,7 @@ const sameDayPickup = yaml.safeLoad(fs.readFileSync(sameDayPath, "utf8"));
 /**
  * Cancels one or more previously-scheduled pickups
  */
-module.exports = async function cancelPickups(transaction, pickups) {
+async function cancelPickups(transaction, pickups) {
 
   let data = {
     operation: "pick_up_cancellation",
@@ -59,3 +59,5 @@ module.exports = async function cancelPickups(transaction, pickups) {
     }
   });
 }
+
+module.exports = cancelPickups;

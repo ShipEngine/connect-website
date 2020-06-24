@@ -10,6 +10,19 @@ module.exports = {
     },
   },
   negateTests: [
+    // Next Day Scheduled Pickups
+    "605caa5",
+    "8e39341",
+    "0858277",
+    "c8e4427",
+    "89085b4",
+    "3bbd9fc",
+    "3fdae94",
+    "b65b1c4",
+    "5b2aa32",
+    "04d0764",
+    "b86c550",
+    "1e5bffc",
     // Same day pickup cancellations
     "83327b3",
     "08d2696",

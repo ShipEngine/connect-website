@@ -9,6 +9,7 @@ createShipment: src/create-shipment.js
 rateShipment: src/rate-shipment.js
 trackShipment: src/track-shipment.js
 cancelShipments: src/cancel-shipments.js
+schedulePickup: src/schedule-pickup.js
 cancelPickups: src/cancel-pickups.js
 
 connectionForm: forms/connect.json

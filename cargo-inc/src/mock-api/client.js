@@ -5,9 +5,9 @@ const authenticate = require("./authenticate");
 const generateLabel = require("./generate-label");
 const quoteRates = require("./quote-rates");
 const voidLabels = require("./void-labels");
-const locationHistory = require("./location-history")
-const { pickUpCancellation } = require("./pickup-cancellation")
-
+const locationHistory = require("./location-history");
+const pickup = require("./pick-up");
+const { pickUpCancellation } = require("./pickup-cancellation");
 
 // Read config values from environment variables
 const API_URL = process.env.API_URL || "https://httpbin.org/anything";
@@ -50,7 +50,10 @@ const apiClient = axios.create({
 
       case "location_history":
         return locationHistory(request);
-        
+
+      case "pick_up":
+        return pickUp(request);
+
       case "pick_up_cancellation":
         return pickUpCancellation(request);
     }
