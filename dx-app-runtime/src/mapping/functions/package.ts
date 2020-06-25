@@ -106,7 +106,7 @@ export const capiToDxNewPackagePOJO = (
       unit: WeightUnit.Grams,
     },
     insuredValue: {
-      value: capiPackage.insured_value.amount || 0,
+      value: capiPackage.insured_value?.amount || 0,
       currency: capiToDxCurrencyCode(capiPackage.insured_value.currency),
     },
     containsAlcohol: advancedOptions?.contains_alcohol || false,

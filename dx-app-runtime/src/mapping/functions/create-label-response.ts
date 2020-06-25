@@ -5,6 +5,7 @@ import {
   ChargeType,
 } from "@shipengine/integration-platform-sdk";
 import { CreateLabelResponse } from "@ipaas/capi/responses";
+import {toCapiDateTimeString} from "./datetime";
 
 // TODO: we need to be able to support multiple labels coming back.
 export const mapShipmentConfirmationPOJOToCreateLabelResponse = (
@@ -61,7 +62,7 @@ export const mapShipmentConfirmationPOJOToCreateLabelResponse = (
               : "0",
         }
       : undefined,
-    estimated_delivery_datetime: response.deliveryDateTime?.toString(),
+    estimated_delivery_datetime: toCapiDateTimeString(response.deliveryDateTime)
   };
   return createLabelResponse;
 };

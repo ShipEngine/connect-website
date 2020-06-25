@@ -1,6 +1,6 @@
 {
   "name": "dx-app-runtime",
-  "version": "0.1.13",
+  "version": "0.1.14",
   "description": "This is the app host for a carrier DX app. It provides an HTTP interface implementing the CAPI spec and does mapping CAPI -> DX -> CAPI",
   "main": "dist/server.js",
   "scripts": {

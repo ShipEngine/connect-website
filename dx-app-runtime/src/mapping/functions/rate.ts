@@ -1,9 +1,12 @@
 import {
   Rate,
   ChargeType,
-  RatePOJO,
+  RatePOJO
 } from "@shipengine/integration-platform-sdk";
 import { Rate as capiRate } from "@ipaas/capi/responses";
+import {toCapiDateTimeString} from "./datetime";
+
+
 
 export default (rate: RatePOJO): capiRate => {
   const shippingAmount = rate.charges.find(
@@ -40,10 +43,10 @@ export default (rate: RatePOJO): capiRate => {
     negotiated_rate: rate.isNegotiatedRate,
   };
   returnRate.ship_datetime = rate.shipDateTime
-    ? rate.shipDateTime.toString()
+    ? toCapiDateTimeString(rate.shipDateTime)
     : null;
   returnRate.estimated_delivery_datetime = rate.deliveryDateTime
-    ? rate.deliveryDateTime.toString()
+    ? toCapiDateTimeString(rate.deliveryDateTime)
     : null;
   if (rate.notes) {
     if (Array.isArray(rate.notes)) {

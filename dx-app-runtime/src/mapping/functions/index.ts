@@ -84,14 +84,19 @@ export const handleCreateLabelRequest = async (
   if (!app.createShipment) {
     throw new EndpointNotSupportedError("createShipment");
   }
-  const transaction = capiRequestToDxTransaction(request, auth);
-  const dxRequest = mapCreateLabelRequestToNewShipmentPOJO(request);
-  const dxResponse = await app.createShipment(transaction, dxRequest);
-  const response = mapShipmentConfirmationPOJOToCreateLabelResponse(
-    transaction,
-    dxResponse
-  );
-  return response;
+  try {
+    const transaction = capiRequestToDxTransaction(request, auth);
+    const dxRequest = mapCreateLabelRequestToNewShipmentPOJO(request);
+    const dxResponse = await app.createShipment(transaction, dxRequest);
+    const response = mapShipmentConfirmationPOJOToCreateLabelResponse(
+      transaction,
+      dxResponse
+    );
+    return response;
+  }catch(err){
+    console.error(err);
+    throw err;
+  }
 };
 
 export const handleVoidLabelsRequest = async (
