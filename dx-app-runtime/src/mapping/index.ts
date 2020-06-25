@@ -1,2 +1,2 @@
-export * as mapFunctions from './functions';
-export * as mapRegistryData from './registry-data';
+export * as mapFunctions from "./functions";
+export * as mapRegistryData from "./registry-data";

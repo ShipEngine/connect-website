@@ -1,17 +1,17 @@
-import { Address, AddressResidentialIndicator } from '@ipaas/capi/models';
+import { Address, AddressResidentialIndicator } from "@ipaas/capi/models";
 import {
   AddressWithContactInfoPOJO,
   Country,
-  PersonNamePOJO
-} from '@shipengine/integration-platform-sdk';
-import convertISOCountryCodeToCountryEnum from './country-conversion';
+  PersonNamePOJO,
+} from "@shipengine/integration-platform-sdk";
+import convertISOCountryCodeToCountryEnum from "./country-conversion";
 
 const excludeNullsFromAddressLines = (
   addressLines: (string | null)[] | null | undefined
 ): string[] => {
   const cleanedAddress: string[] = [];
-  addressLines?.forEach(line => {
-    if (line !== null && line !== '') {
+  addressLines?.forEach((line) => {
+    if (line !== null && line !== "") {
       cleanedAddress.push(line);
     }
   });
@@ -30,21 +30,21 @@ const convertResidentialIndicatorToBoolean = (
   );
 };
 
-const emptyDxPersonName: PersonNamePOJO = { given: '' };
+const emptyDxPersonName: PersonNamePOJO = { given: "" };
 
 const emptyDxAddress: AddressWithContactInfoPOJO = {
   addressLines: [],
-  cityLocality: '',
-  stateProvince: '',
+  cityLocality: "",
+  stateProvince: "",
   country: Country.UnitedStates,
-  postalCode: '',
-  email: '',
-  phoneNumber: '',
-  phoneNumberExtension: '',
+  postalCode: "",
+  email: "",
+  phoneNumber: "",
+  phoneNumberExtension: "",
   name: emptyDxPersonName,
   isResidential: undefined,
-  company: '',
-  timeZone: ''
+  company: "",
+  timeZone: "",
 };
 
 export const mapAddressToAddressWithContactInfoPOJO = (
@@ -54,20 +54,20 @@ export const mapAddressToAddressWithContactInfoPOJO = (
     return emptyDxAddress;
   }
   const dxAddress: AddressWithContactInfoPOJO = {
-    phoneNumberExtension: '',
+    phoneNumberExtension: "",
     addressLines: excludeNullsFromAddressLines(address.address_lines),
-    cityLocality: address.city_locality || '',
-    stateProvince: address.state_province || '',
+    cityLocality: address.city_locality || "",
+    stateProvince: address.state_province || "",
     country: convertISOCountryCodeToCountryEnum(address.country_code),
     postalCode: address.postal_code,
-    email: address.email || '',
-    phoneNumber: address.phone_number || '',
+    email: address.email || "",
+    phoneNumber: address.phone_number || "",
     name: `${address.first_name} ${address.last_name}`,
     isResidential: convertResidentialIndicatorToBoolean(
       address.address_residential_indicator
     ),
-    company: address.company_name || '',
-    timeZone: 'America/Chicago' // TODO: We don't send over timeZone
+    company: address.company_name || "",
+    timeZone: "America/Chicago", // TODO: We don't send over timeZone
   };
 
   return dxAddress;

@@ -1,26 +1,26 @@
-import { TrackRequest } from '@ipaas/capi/requests';
+import { TrackRequest } from "@ipaas/capi/requests";
 import {
   IdentifiersPOJO,
   ShipmentStatus,
   TrackingCriteriaPOJO,
   TrackingInfo,
-  TransactionPOJO
-} from '@shipengine/integration-platform-sdk';
+  TransactionPOJO,
+} from "@shipengine/integration-platform-sdk";
 import {
   EventElement,
   StandardizedStatusCodes,
   TrackingInfo as CapiTrackingInfo,
-  TrackResponse
-} from '@ipaas/capi/responses';
+  TrackResponse,
+} from "@ipaas/capi/responses";
 
-import { TrackingEvent } from '@shipengine/integration-platform-sdk';
-import { dxPersonNameToString } from './person-name';
+import { TrackingEvent } from "@shipengine/integration-platform-sdk";
+import { dxPersonNameToString } from "./person-name";
 
 const capiToDxTrack = (request: TrackRequest): TrackingCriteriaPOJO => {
   const identifiers: IdentifiersPOJO = {};
 
   if (request.identifiers) {
-    request.identifiers.forEach(identifier => {
+    request.identifiers.forEach((identifier) => {
       if (identifier?.type && identifier?.value) {
         identifiers[identifier.type] = identifier.value;
       }
@@ -29,14 +29,14 @@ const capiToDxTrack = (request: TrackRequest): TrackingCriteriaPOJO => {
 
   let trackingNumber = request.tracking_number;
   if (!trackingNumber) {
-    trackingNumber = identifiers['tracking_number'];
+    trackingNumber = identifiers["tracking_number"];
   }
 
   return {
     identifiers,
     metadata: request.metadata ?? undefined,
     returns: { isReturn: request.is_return ?? false },
-    trackingNumber: trackingNumber ?? ''
+    trackingNumber: trackingNumber ?? "",
   };
 };
 
@@ -76,7 +76,7 @@ const dxToCapiTrackEvent = (event: TrackingEvent): EventElement => {
     postal_code: event.address?.postalCode,
     state: event.address?.stateProvince,
     signer: event.signer ? dxPersonNameToString(event.signer) : undefined,
-    geo: undefined // TODO: DX does not have geo for CAPI tracking event
+    geo: undefined, // TODO: DX does not have geo for CAPI tracking event
   };
 };
 
@@ -85,19 +85,19 @@ const dxToCapiTrack = (
   transaction: TransactionPOJO
 ): TrackResponse => {
   const totalWeight = trackingInfo.packages
-    .map(p => p.weight?.value ?? 0)
+    .map((p) => p.weight?.value ?? 0)
     .reduce((total, current) => {
       return total + current;
     }, 0);
 
   const errorEvent = {
-    description: '',
-    problemCode: '',
-    problemDescription: ''
+    description: "",
+    problemCode: "",
+    problemDescription: "",
   };
 
   if (trackingInfo.hasError) {
-    const error = trackingInfo.events.find(event => {
+    const error = trackingInfo.events.find((event) => {
       event.isError;
     });
     if (error) {
@@ -110,7 +110,7 @@ const dxToCapiTrack = (
   const capiInfo: CapiTrackingInfo = {
     actual_delivery_datetime: trackingInfo.deliveryDateTime?.toISOString(),
     carrierEnum: 0, //deprecated
-    carrier_name: '', //not used according to Justin
+    carrier_name: "", //not used according to Justin
     carrier_status_code: trackingInfo.latestEvent.code,
     carrier_status_description: trackingInfo.latestEvent.description,
     dimensions: undefined, //TODO: DX tracking -> CAPI response: should dimensions be the first package?
@@ -129,14 +129,14 @@ const dxToCapiTrack = (
       trackingInfo.status
     ),
     tracking_number: trackingInfo.trackingNumber,
-    weight: totalWeight //TODO: converting DX tracking -> CAPI, should CAPI weight be a sum or the first package?
+    weight: totalWeight, //TODO: converting DX tracking -> CAPI, should CAPI weight be a sum or the first package?
   };
 
   return {
     tracking_info: capiInfo,
     metadata: {
-      ...transaction.session
-    }
+      ...transaction.session,
+    },
   };
 };
 

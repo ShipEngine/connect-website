@@ -1,6 +1,6 @@
-import { mapFunctions } from './mapping/index';
-import { CarrierApp } from '@shipengine/integration-platform-sdk';
-import { getBasicAuthFromHeader } from './basic-auth';
+import { mapFunctions } from "./mapping/index";
+import { CarrierApp } from "@shipengine/integration-platform-sdk";
+import { getBasicAuthFromHeader } from "./basic-auth";
 
 export default {
   track: async (dxApp: CarrierApp, body: any, headers: any) => {
@@ -60,5 +60,5 @@ export default {
       auth
     );
     return response;
-  }
+  },
 };

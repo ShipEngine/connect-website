@@ -1,9 +1,9 @@
-import { GetRatesResponse } from '@ipaas/capi/responses';
+import { GetRatesResponse } from "@ipaas/capi/responses";
 import {
   RatePOJO,
-  TransactionPOJO
-} from '@shipengine/integration-platform-sdk';
-import mapRate from './rate';
+  TransactionPOJO,
+} from "@shipengine/integration-platform-sdk";
+import mapRate from "./rate";
 
 const mapRatePOJOToGetRatesResponse = (
   transaction: TransactionPOJO,
@@ -11,7 +11,7 @@ const mapRatePOJOToGetRatesResponse = (
 ): GetRatesResponse => {
   const rateResponse: GetRatesResponse = {
     rates: rateQuotes.map(mapRate),
-    metadata: transaction.session
+    metadata: transaction.session,
   };
   return rateResponse;
 };

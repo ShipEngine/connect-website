@@ -1,5 +1,5 @@
-import { LabelLayout } from '@ipaas/capi/models';
-import { DocumentSize } from '@shipengine/integration-platform-sdk';
+import { LabelLayout } from "@ipaas/capi/models";
+import { DocumentSize } from "@shipengine/integration-platform-sdk";
 
 export default (size: LabelLayout): DocumentSize => {
   switch (size) {

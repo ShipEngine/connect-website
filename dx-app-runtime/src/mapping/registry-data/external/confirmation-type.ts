@@ -4,9 +4,9 @@ export default interface ConfirmationType {
 }
 
 export enum ConfirmationTypeType {
-  None = 'None',
-  Delivery = 'Delivery',
-  Signature = 'Signature',
-  AdultSignature = 'AdultSignature',
-  DirectSignature = 'DirectSignature'
+  None = "None",
+  Delivery = "Delivery",
+  Signature = "Signature",
+  AdultSignature = "AdultSignature",
+  DirectSignature = "DirectSignature",
 }

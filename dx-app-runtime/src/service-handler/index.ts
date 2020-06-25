@@ -1,16 +1,16 @@
-import { Request, Response } from 'express';
-import { IncomingHttpHeaders } from 'http';
+import { Request, Response } from "express";
+import { IncomingHttpHeaders } from "http";
 
 const getShipstationHeaders = (headers: IncomingHttpHeaders): any => {
   return {
-    Authorization: headers.authorization || '',
-    'ShipStation-TransactionID': headers['shipstation-transactionid'] || ''
+    Authorization: headers.authorization || "",
+    "ShipStation-TransactionID": headers["shipstation-transactionid"] || "",
   };
 };
 
 export default (implementation: any, request: Request, response: Response) => {
-  if (typeof implementation !== 'function') {
-    response.status(404).send('Not Supported');
+  if (typeof implementation !== "function") {
+    response.status(404).send("Not Supported");
     return;
   }
   const { body, headers } = request;

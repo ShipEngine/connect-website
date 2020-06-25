@@ -1,8 +1,8 @@
 import {
   LabelFormat,
-  LabelFormat as capiLabelFormat
-} from '@ipaas/capi/models';
-import { DocumentFormat } from '@shipengine/integration-platform-sdk';
+  LabelFormat as capiLabelFormat,
+} from "@ipaas/capi/models";
+import { DocumentFormat } from "@shipengine/integration-platform-sdk";
 
 export const capiToDxLabelFormat = (
   format: capiLabelFormat
@@ -28,7 +28,7 @@ export const dxToCapiLabelFormat = (
     case DocumentFormat.PDF:
       return LabelFormat.PDF;
     case DocumentFormat.HTML:
-      throw new Error('html is not supported by CAPI');
+      throw new Error("html is not supported by CAPI");
       break;
     case DocumentFormat.ZPL:
       return capiLabelFormat.ZPL;

@@ -1,6 +1,6 @@
-import logger from "./logger";
+import logger from "./util/logger";
 
-const newRelicAppName = process.env.NEW_RELIC_APP_NAME
+const newRelicAppName = process.env.NEW_RELIC_APP_NAME;
 const enabled = !!process.env.NEW_RELIC_LICENSE_KEY;
 logger.info(`NewRelic agent enabled: ${enabled}. AppName: ${newRelicAppName}`);
 /**
@@ -12,11 +12,11 @@ logger.info(`NewRelic agent enabled: ${enabled}. AppName: ${newRelicAppName}`);
 const config = {
   app_name: newRelicAppName,
   logging: {
-    level: "info"
+    level: "info",
   },
   agent_enabled: enabled,
   error_collector: {
-    ignore_status_codes: [404, 401]
+    ignore_status_codes: [404, 401],
   },
   /**
    * When true, all request headers except for those listed in attributes.exclude
@@ -45,9 +45,9 @@ const config = {
       "response.headers.authorization",
       "response.headers.proxyAuthorization",
       "response.headers.setCookie*",
-      "response.headers.x*"
-    ]
-  }
+      "response.headers.x*",
+    ],
+  },
 };
 
 exports.config = config;

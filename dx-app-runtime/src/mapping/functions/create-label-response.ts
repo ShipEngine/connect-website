@@ -2,9 +2,9 @@ import {
   TransactionPOJO,
   ShipmentConfirmationPOJO,
   DocumentType,
-  ChargeType
-} from '@shipengine/integration-platform-sdk';
-import { CreateLabelResponse } from '@ipaas/capi/responses';
+  ChargeType,
+} from "@shipengine/integration-platform-sdk";
+import { CreateLabelResponse } from "@ipaas/capi/responses";
 
 // TODO: we need to be able to support multiple labels coming back.
 export const mapShipmentConfirmationPOJOToCreateLabelResponse = (
@@ -13,19 +13,19 @@ export const mapShipmentConfirmationPOJOToCreateLabelResponse = (
 ): CreateLabelResponse => {
   // TODO: we need to update the CreateLabelResponse to better handle multiple documents being returned.
   const labelDocument = response.packages[0].documents.find(
-    doc => doc.type === DocumentType.Label
+    (doc) => doc.type === DocumentType.Label
   );
   const scanForm = response.packages[0].documents.find(
-    doc => doc.type === DocumentType.ScanForm
+    (doc) => doc.type === DocumentType.ScanForm
   );
   const customsForm = response.packages[0].documents.find(
-    doc => doc.type === DocumentType.CustomsForm
+    (doc) => doc.type === DocumentType.CustomsForm
   );
   const shippingAmount = response.charges.find(
-    charge => charge.type === ChargeType.Shipping
+    (charge) => charge.type === ChargeType.Shipping
   );
   const insuranceAmount = response.charges.find(
-    charge => charge.type === ChargeType.Insurance
+    (charge) => charge.type === ChargeType.Insurance
   );
   // response.deliveryWindow TODO: Support deliveryWindow on CreateLabelResposne
   // response.fulfillmentService TODO: Work on fulfillmentService CreateLabelResponse
@@ -40,22 +40,28 @@ export const mapShipmentConfirmationPOJOToCreateLabelResponse = (
     transaction_id: transaction.id,
     tracking_number: response.trackingNumber,
     label_download: {
-      label_data: labelDocument?.data.toString('base64')
+      label_data: labelDocument?.data.toString("base64"),
     },
     form_download: undefined, // Quick TODO: Fix this in typescript library
     shipping_amount: shippingAmount
       ? {
           currency: shippingAmount.amount.currency,
-          amount: shippingAmount.amount.value !== '' ? shippingAmount.amount.value.toString() : '0'
+          amount:
+            shippingAmount.amount.value !== ""
+              ? shippingAmount.amount.value.toString()
+              : "0",
         }
       : undefined,
     insurance_amount: insuranceAmount
       ? {
           currency: insuranceAmount.amount.currency,
-          amount: insuranceAmount.amount.value !== '' ? insuranceAmount.amount.value.toString() : '0'
+          amount:
+            insuranceAmount.amount.value !== ""
+              ? insuranceAmount.amount.value.toString()
+              : "0",
         }
       : undefined,
-    estimated_delivery_datetime: response.deliveryDateTime?.toString()
+    estimated_delivery_datetime: response.deliveryDateTime?.toString(),
   };
   return createLabelResponse;
 };

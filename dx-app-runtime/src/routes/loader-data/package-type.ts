@@ -1,13 +1,13 @@
-import { Packaging, ServiceArea } from '@shipengine/integration-platform-sdk';
+import { Packaging, ServiceArea } from "@shipengine/integration-platform-sdk";
 import PackageType, {
-  PackageAttribute
-} from '../../mapping/registry-data/external/package-type';
+  PackageAttribute,
+} from "../../mapping/registry-data/external/package-type";
 import {
   MappingError,
-  ValidationError
-} from '../../mapping/registry-data/errors';
-import { RequiredProperty } from '../../mapping/registry-data/external/enums';
-import { DeliveryService } from '@shipengine/integration-platform-sdk/lib/public/carriers/delivery-service';
+  ValidationError,
+} from "../../mapping/registry-data/errors";
+import { RequiredProperty } from "../../mapping/registry-data/external/enums";
+import { DeliveryService } from "@shipengine/integration-platform-sdk/lib/public/carriers/delivery-service";
 
 const serviceAreaToPackageAttribute = (
   serviceArea: ServiceArea
@@ -25,10 +25,10 @@ const serviceAreaToPackageAttribute = (
       throw new MappingError(
         `unknown service area ${serviceArea}`,
         {
-          fieldName: 'ServiceArea',
-          value: serviceArea
+          fieldName: "ServiceArea",
+          value: serviceArea,
         },
-        'PackageAttribute'
+        "PackageAttribute"
       );
   }
 };
@@ -42,12 +42,12 @@ const resolvePackageAttributes = (
   const distinctServiceAreas = [
     ...new Set(
       services
-        .filter(service =>
-          service.packaging.some(pkg => pkg.id === packagingId)
+        .filter((service) =>
+          service.packaging.some((pkg) => pkg.id === packagingId)
         )
-        .map(service => service.serviceArea)
-        .filter(area => area) as ServiceArea[]
-    )
+        .map((service) => service.serviceArea)
+        .filter((area) => area) as ServiceArea[]
+    ),
   ];
 
   return distinctServiceAreas.map(serviceAreaToPackageAttribute);
@@ -58,11 +58,11 @@ const dxToCapiSpecPackageType = (
   services: ReadonlyArray<DeliveryService>
 ): PackageType[] => {
   const packageTypes: PackageType[] = [];
-  packaging.forEach(dxPackage => {
-    if (dxPackage.name.toLowerCase() === 'package') {
+  packaging.forEach((dxPackage) => {
+    if (dxPackage.name.toLowerCase() === "package") {
       throw new ValidationError(
         `PackageId ${dxPackage.id} can not be named ${dxPackage.name}`,
-        'Packaging.Name',
+        "Packaging.Name",
         dxPackage.name
       );
     }
@@ -71,7 +71,7 @@ const dxToCapiSpecPackageType = (
     if (!packageAttributes || packageAttributes.length === 0) {
       throw new ValidationError(
         `Could not resolve package attribute (domestic/int'l) for PackageId ${dxPackage.id}`,
-        'Packaging',
+        "Packaging",
         dxPackage.id
       );
     }
@@ -82,7 +82,7 @@ const dxToCapiSpecPackageType = (
       Name: dxPackage.name,
       CarrierPackageTypeCode: dxPackage.id,
       Description: dxPackage.description,
-      PackageAttributes: resolvePackageAttributes(dxPackage, services)
+      PackageAttributes: resolvePackageAttributes(dxPackage, services),
     };
     packageType.RequiredToShip = [];
     if (dxPackage.requiresDimensions) {

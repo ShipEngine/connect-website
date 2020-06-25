@@ -1,4 +1,4 @@
-import { CarrierApp } from '@shipengine/integration-platform-sdk';
+import { CarrierApp } from "@shipengine/integration-platform-sdk";
 import {
   TrackRequest,
   RegisterRequest,
@@ -6,14 +6,14 @@ import {
   CreateLabelRequest,
   VoidLabelsRequest,
   SchedulePickupRequest,
-  CancelPickupRequest
-} from '@ipaas/capi/requests';
-import { capiToDxTrack, dxToCapiTrack } from './tracking';
-import capiRequestToDxTransaction from './transaction';
-import capiToDxTransaction from './register-request';
-import { mapGetRatesRequestToRateCriteriaPOJO } from './get-rates-request';
-import { mapRatePOJOToGetRatesResponse } from './get-rates-response';
-import dxToCapiRegisterResponse from './register-response';
+  CancelPickupRequest,
+} from "@ipaas/capi/requests";
+import { capiToDxTrack, dxToCapiTrack } from "./tracking";
+import capiRequestToDxTransaction from "./transaction";
+import capiToDxTransaction from "./register-request";
+import { mapGetRatesRequestToRateCriteriaPOJO } from "./get-rates-request";
+import { mapRatePOJOToGetRatesResponse } from "./get-rates-response";
+import dxToCapiRegisterResponse from "./register-response";
 import {
   TrackResponse,
   RegisterResponse,
@@ -21,18 +21,18 @@ import {
   CreateLabelResponse,
   VoidLabelsResponse,
   SchedulePickupResponse,
-  CancelPickupResponse
-} from '@ipaas/capi/responses';
-import { BasicAuth } from '../../basic-auth';
-import { mapCreateLabelRequestToNewShipmentPOJO } from './create-label-request';
-import { mapShipmentConfirmationPOJOToCreateLabelResponse } from './create-label-response';
-import { mapVoidLabelsRequestToCancelShipmentsPOJO } from './void-labels-request';
-import { mapShipmentCancellationOutcomeToVoidLabelsResponse } from './void-labels-response';
-import { mapSchedulePickupRequestToPickupRequestPOJO } from './schedule-pickup-request';
-import { mapPickupConfirmationPOJOToSchedulePickupResponse } from './schedule-pickup-response';
-import { EndpointNotSupportedError } from '../../errors';
-import { mapCancelPickupRequestToPickupCancellationPOJO } from './cancel-pickup-request';
-import { mapPickupCancellationOutcomePOJOToCancelPickupResponse } from './cancel-pickup-response';
+  CancelPickupResponse,
+} from "@ipaas/capi/responses";
+import { BasicAuth } from "../../basic-auth";
+import { mapCreateLabelRequestToNewShipmentPOJO } from "./create-label-request";
+import { mapShipmentConfirmationPOJOToCreateLabelResponse } from "./create-label-response";
+import { mapVoidLabelsRequestToCancelShipmentsPOJO } from "./void-labels-request";
+import { mapShipmentCancellationOutcomeToVoidLabelsResponse } from "./void-labels-response";
+import { mapSchedulePickupRequestToPickupRequestPOJO } from "./schedule-pickup-request";
+import { mapPickupConfirmationPOJOToSchedulePickupResponse } from "./schedule-pickup-response";
+import { EndpointNotSupportedError } from "../../errors";
+import { mapCancelPickupRequestToPickupCancellationPOJO } from "./cancel-pickup-request";
+import { mapPickupCancellationOutcomePOJOToCancelPickupResponse } from "./cancel-pickup-response";
 
 export const handleTrackingRequest = async (
   app: CarrierApp,
@@ -40,7 +40,7 @@ export const handleTrackingRequest = async (
   auth: BasicAuth
 ): Promise<TrackResponse> => {
   if (!app.trackShipment) {
-    throw new EndpointNotSupportedError('trackShipment');
+    throw new EndpointNotSupportedError("trackShipment");
   }
 
   const dxTracking = capiToDxTrack(request);
@@ -54,7 +54,7 @@ export const handleRegisterRequest = async (
   request: RegisterRequest
 ): Promise<RegisterResponse> => {
   if (!app.connect) {
-    throw new EndpointNotSupportedError('connect');
+    throw new EndpointNotSupportedError("connect");
   }
   const transaction = capiToDxTransaction(request);
   await app.connect(transaction, request.registration_info);
@@ -67,7 +67,7 @@ export const handleGetRatesRequest = async (
   auth: BasicAuth
 ): Promise<GetRatesResponse> => {
   if (!app.rateShipment) {
-    throw new EndpointNotSupportedError('rateShipment');
+    throw new EndpointNotSupportedError("rateShipment");
   }
   const transaction = capiRequestToDxTransaction(request, auth);
   const dxRequest = mapGetRatesRequestToRateCriteriaPOJO(request);
@@ -82,7 +82,7 @@ export const handleCreateLabelRequest = async (
   auth: BasicAuth
 ): Promise<CreateLabelResponse> => {
   if (!app.createShipment) {
-    throw new EndpointNotSupportedError('createShipment');
+    throw new EndpointNotSupportedError("createShipment");
   }
   const transaction = capiRequestToDxTransaction(request, auth);
   const dxRequest = mapCreateLabelRequestToNewShipmentPOJO(request);
@@ -100,7 +100,7 @@ export const handleVoidLabelsRequest = async (
   auth: BasicAuth
 ): Promise<VoidLabelsResponse> => {
   if (!app.cancelShipments) {
-    throw new EndpointNotSupportedError('cancelShipments');
+    throw new EndpointNotSupportedError("cancelShipments");
   }
   const transaction = capiRequestToDxTransaction(request, auth);
   const dxRequest = mapVoidLabelsRequestToCancelShipmentsPOJO(request);
@@ -118,7 +118,7 @@ export const handleSchedulePickupRequest = async (
   auth: BasicAuth
 ): Promise<SchedulePickupResponse> => {
   if (!app.schedulePickup) {
-    throw new EndpointNotSupportedError('schedulePickup');
+    throw new EndpointNotSupportedError("schedulePickup");
   }
   const transaction = capiRequestToDxTransaction(request, auth);
   const dxRequest = mapSchedulePickupRequestToPickupRequestPOJO(request);
@@ -136,7 +136,7 @@ export const handleCancelPickupRequest = async (
   auth: BasicAuth
 ): Promise<CancelPickupResponse> => {
   if (!app.cancelPickups) {
-    throw new EndpointNotSupportedError('cancelPickup');
+    throw new EndpointNotSupportedError("cancelPickup");
   }
   const transaction = capiRequestToDxTransaction(request, auth);
   const dxRequest = mapCancelPickupRequestToPickupCancellationPOJO(request);

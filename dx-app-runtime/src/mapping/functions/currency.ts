@@ -1,8 +1,8 @@
 import {
   Currency,
-  MonetaryValuePOJO
-} from '@shipengine/integration-platform-sdk';
-import { Currency as capiCurrency } from '@ipaas/capi/models';
+  MonetaryValuePOJO,
+} from "@shipengine/integration-platform-sdk";
+import { Currency as capiCurrency } from "@ipaas/capi/models";
 
 const capiToDxCurrencyCode = (
   currencyCode: string | null | undefined
@@ -11,15 +11,15 @@ const capiToDxCurrencyCode = (
     return Currency.UnitedStatesDollar;
   }
   switch (currencyCode.toUpperCase().trim()) {
-    case 'AUD':
+    case "AUD":
       return Currency.AustralianDollar;
-    case 'EUR':
+    case "EUR":
       return Currency.Euro;
-    case 'CAD':
+    case "CAD":
       return Currency.CanadianDollar;
-    case 'GBP':
+    case "GBP":
       return Currency.GreatBritishPound;
-    case 'NZD':
+    case "NZD":
       return Currency.NewZealandDollar;
     default:
       return Currency.UnitedStatesDollar;
@@ -32,12 +32,12 @@ const capiToDxMonetaryValue = (
   if (!currency) {
     return {
       currency: Currency.UnitedStatesDollar,
-      value: 0
+      value: 0,
     };
   }
   return {
     currency: capiToDxCurrencyCode(currency.currency),
-    value: currency.amount
+    value: currency.amount,
   };
 };
 
