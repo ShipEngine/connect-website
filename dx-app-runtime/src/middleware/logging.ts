@@ -16,6 +16,7 @@ const expressLogger = expressWinston.logger({
     "headers.authorization",
     "body",
   ],
+  ignoredRoutes: ["/diagnostics/readiness", "/diagnostics/liveness"],
 });
 
 export default expressLogger;
