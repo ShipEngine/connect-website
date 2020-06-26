@@ -1,10 +1,7 @@
-const apiClient = require("./mock-api/client");
-const yaml = require("js-yaml");
-const fs = require("fs");
-const path = require("path");
+"use strict";
 
-const sameDayPath = path.join(__dirname, "..", "pickup-services", "same-day.yaml");
-const sameDayPickup = yaml.safeLoad(fs.readFileSync(sameDayPath, "utf8"));
+const apiClient = require("./mock-api/client");
+const sameDayPickup = require("./pickup-services/same-day");
 
 /**
  * Cancels one or more previously-scheduled pickups
