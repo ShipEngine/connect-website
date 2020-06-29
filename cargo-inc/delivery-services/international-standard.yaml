@@ -6,20 +6,20 @@ description: Standard 3-day delivery anwyere in the world
 class: three_day
 grade: standard
 serviceArea: global
-isConsolidationService: false
+isConsolidationService: true
 isTrackable: true
 isInsurable: true
 
 labelFormats:
-  - zpl
+  - html
   - pdf
 
 labelSizes:
-  - 4x6
-  - 4x8
+  - A4
+  - letter
 
-originCountries: countries.yaml
-destinationCountries: countries.yaml
+originCountries: worldwide.yaml
+destinationCountries: worldwide.yaml
 
 packaging:
   - ../packaging/package.yaml

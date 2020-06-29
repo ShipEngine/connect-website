@@ -2,24 +2,24 @@ id: 8b69c0ff-9017-4e89-82dd-0dbfab691047
 identifiers:
   apiCode: ON
 name: International Overnight
-description: Overnight international delivery
+description: Overnight delivery worldwide
 class: one_day
 grade: overnight
 serviceArea: global
-isConsolidationService: false
+isConsolidationService: true
 isTrackable: true
 isInsurable: true
 
 labelFormats:
-  - zpl
+  - html
   - pdf
 
 labelSizes:
-  - 4x6
-  - 4x8
+  - A4
+  - letter
 
-originCountries: countries.yaml
-destinationCountries: countries.yaml
+originCountries: worldwide.yaml
+destinationCountries: worldwide.yaml
 
 packaging:
   - ../packaging/package.yaml

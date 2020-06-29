@@ -1,7 +1,7 @@
 id: 03318192-3e6c-475f-a496-a4f17c1dbcae
 identifiers:
   apiCode: PAK
-name: Cargo Inc Package
+name: Package
 description: Your own packaging, up to 100 kilograms
 requiresWeight: true
 requiresDimensions: true
