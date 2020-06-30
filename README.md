@@ -24,6 +24,7 @@ You can install the ShipEngine Integration Platform App Loader via [npm](https:/
 npm install @shipengine/integration-platform-loader
 ```
 
+Please note that it requires [TypeScript](https://www.npmjs.com/package/typescript) to be installed as a peer dependency.
 
 
 Example
