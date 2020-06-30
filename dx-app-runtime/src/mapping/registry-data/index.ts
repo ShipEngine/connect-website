@@ -175,10 +175,10 @@ const mapSupportedLabelSize = (
         supportedLabelSizes.push(SupportedLabelSize.Inches4x6);
         break;
       case DocumentSize.Inches4x8:
+      case DocumentSize.Letter: // TODO: Look into whether or not this was the correct way to handle this mapping
         supportedLabelSizes.push(SupportedLabelSize.Inches4x8);
         break;
       case DocumentSize.A4:
-      case DocumentSize.Letter:
       default: {
         const message = `${documentSize} is not a supported document size`;
         logger.error(message);
@@ -238,16 +238,12 @@ function dxToCapiConfirmationType(
   switch (type) {
     case DeliveryConfirmationType.Delivery:
       return ConfirmationTypeType.Delivery;
-      break;
     case DeliveryConfirmationType.Signature:
       return ConfirmationTypeType.Signature;
-      break;
     case DeliveryConfirmationType.AdultSignature:
       return ConfirmationTypeType.AdultSignature;
-      break;
     case DeliveryConfirmationType.DirectSignature:
       return ConfirmationTypeType.DirectSignature;
-      break;
     default:
       logger.info(`defaulting unknown type ${type} to 'none'`);
   }

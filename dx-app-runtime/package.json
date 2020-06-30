@@ -17,8 +17,8 @@
   "license": "UNLICENSED",
   "dependencies": {
     "@ipaas/capi": "0.0.5",
-    "@shipengine/integration-platform-loader": "0.0.25",
-    "@shipengine/integration-platform-sdk": "0.0.27",
+    "@shipengine/integration-platform-loader": "0.0.26",
+    "@shipengine/integration-platform-sdk": "0.0.28",
     "body-parser": "^1.19.0",
     "continuation-local-storage": "^3.2.1",
     "dotenv-flow": "^3.1.0",
@@ -28,6 +28,7 @@
     "newrelic": "^6.9.0",
     "only": "0.0.2",
     "redact-secrets": "^1.0.0",
+    "typescript": "^3.9.3",
     "winston": "^3.2.1"
   },
   "devDependencies": {
