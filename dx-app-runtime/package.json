@@ -1,6 +1,6 @@
 {
   "name": "dx-app-runtime",
-  "version": "0.1.16",
+  "version": "0.1.18",
   "description": "This is the app host for a carrier DX app. It provides an HTTP interface implementing the CAPI spec and does mapping CAPI -> DX -> CAPI",
   "main": "dist/server.js",
   "scripts": {
@@ -25,11 +25,11 @@
     "express": "4.17.1",
     "express-winston": "4.0.3",
     "fast-redact": "2.0.0",
-    "newrelic": "6.9.0",
+    "newrelic": "6.10.0",
     "only": "0.0.2",
     "redact-secrets": "1.0.0",
     "typescript": "3.9.5",
-    "winston": "3.2.1"
+    "winston": "3.3.3"
   },
   "devDependencies": {
     "@types/continuation-local-storage": "3.2.2",
@@ -39,15 +39,15 @@
     "@types/node": "13.13.9",
     "@types/uuid": "8.0.0",
     "@types/winston": "2.4.4",
-    "@typescript-eslint/eslint-plugin": "3.1.0",
+    "@typescript-eslint/eslint-plugin": "3.6.0",
     "@typescript-eslint/parser": "3.1.0",
     "eslint": "6.8.0",
     "eslint-config-google": "0.14.0",
     "eslint-config-prettier": "6.10.1",
-    "eslint-plugin-jest": "23.13.1",
-    "jest": "25.5.4",
+    "eslint-plugin-jest": "23.18.0",
+    "jest": "26.1.0",
     "nodemon": "2.0.3",
     "prettier": "2.0.5",
-    "ts-jest": "25.5.1"
+    "ts-jest": "26.1.1"
   }
 }
