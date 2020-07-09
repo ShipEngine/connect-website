@@ -1,4 +1,4 @@
-import ShipengineApiClinet from "./shipengine-api-client";
+import IntegrationsAPIClient from "./integrations-api-client";
 import cli from "cli-ux";
 import fs from "fs";
 import logSymbols from "log-symbols";
@@ -37,7 +37,7 @@ interface PublishAppOptions {
 
 export default async function publishApp(
   pathToApp: string,
-  client: ShipengineApiClinet,
+  client: IntegrationsAPIClient,
   { watch = false }: PublishAppOptions,
 ): Promise<Deployment> {
   // Make a backup copy of the package.json file since we are going to add the bundledDependencies attribute

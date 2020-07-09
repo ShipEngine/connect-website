@@ -1,5 +1,5 @@
 import { Command as Base } from "@oclif/command";
-import ShipengineAPIClient from "./core/shipengine-api-client";
+import IntegrationsAPIClient from "./core/integrations-api-client";
 import { User } from "./core/types";
 import * as ApiKeyStore from "./core/api-key-store";
 
@@ -7,9 +7,9 @@ const pjson = require("../package.json");
 
 export default abstract class BaseCommand extends Base {
   base = `${pjson.name}@${pjson.version}`;
-  private _client!: ShipengineAPIClient;
+  private _client!: IntegrationsAPIClient;
 
-  get client(): ShipengineAPIClient {
+  get client(): IntegrationsAPIClient {
     // if (this._client) return this._client;
     const apiKey = ApiKeyStore.get();
 
@@ -17,7 +17,7 @@ export default abstract class BaseCommand extends Base {
       throw new Error("key not found");
     }
 
-    this._client = new ShipengineAPIClient(apiKey);
+    this._client = new IntegrationsAPIClient(apiKey);
 
     return this._client;
   }

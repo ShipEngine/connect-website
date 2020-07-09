@@ -2,12 +2,12 @@
 "use strict";
 
 const { expect } = require("chai");
-const ShipengineApiClient = require("../../../lib/core/shipengine-api-client")
+const ShipengineApiClient = require("../../../lib/core/integrations-api-client")
   .default;
 const apiMock = require("../api-mock");
 const path = require("path");
 
-describe("ShipengineApiClient", () => {
+describe("IntegrationsApiClient", () => {
   describe("apps", () => {
     describe("create", () => {
       it("returns an app", async () => {

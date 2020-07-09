@@ -13,10 +13,10 @@ export interface ApiClientParams {
 }
 
 /**
- * Create an instance of the ShipengineAPIClient.
+ * Create an instance of the IntegrationsAPIClient.
  * @param {string} apiKey A valid API key.
  */
-export default class ShipengineAPIClient {
+export default class IntegrationsAPIClient {
   apps: Apps;
   deployments: Deployments;
   diagnostics: Diagnostics;
