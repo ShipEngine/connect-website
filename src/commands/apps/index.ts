@@ -20,14 +20,14 @@ export default class AppsIndex extends BaseCommand {
     this.parse(AppsIndex);
 
     try {
-      await this.currentUser();
+      await this.currentAppUser();
     } catch {
       this.log("you need to login before you can list your apps");
       await Login.run([]);
     }
 
     try {
-      const apps = this.client.apps.getAll();
+      const apps = this.appsClient.apps.getAll();
       (await (await apps).items).forEach((app) => {
         this.log(app.name);
       });

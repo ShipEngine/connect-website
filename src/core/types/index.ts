@@ -4,4 +4,5 @@ export * from "./errors";
 export * from "./paginated-items";
 export * from "./pulse";
 export * from "./timestamps";
-export * from "./users";
+export * from "./shipengine-user";
+export * from "./app-user";

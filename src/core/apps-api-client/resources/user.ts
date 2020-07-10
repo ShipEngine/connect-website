@@ -1,10 +1,10 @@
-import ShipengineAPIClient from "..";
-import { User, NetworkErrorCollection } from "../../types";
+import { AppUser, NetworkErrorCollection } from "../../types";
+import AppsAPIClient from '..';
 
-export default class Users {
-  private client: ShipengineAPIClient;
+export default class User {
+  private client: AppsAPIClient;
 
-  constructor(apiClient: ShipengineAPIClient) {
+  constructor(apiClient: AppsAPIClient) {
     this.client = apiClient;
   }
 
@@ -12,15 +12,19 @@ export default class Users {
    * Gets the current user for the given API key.
    * @returns {Promise} Promise object that resolves to a User object.
    */
-  async getCurrent(): Promise<User> {
+  async getCurrent(): Promise<AppUser | null > {
     try {
       const response = await this.client.call({
         endpoint: "diagnostics/whoami",
         method: "GET",
       });
 
-      return Promise.resolve(response);
+      return response;
     } catch (error) {
+
+      if (error.response.status === 401) {
+        return null;
+      }
       return Promise.reject(error.response.data as NetworkErrorCollection);
     }
   }

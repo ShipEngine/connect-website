@@ -1,4 +1,4 @@
-import IntegrationsAPIClient from "../integrations-api-client";
+import IntegrationsAPIClient from "../apps-api-client";
 import { Deployment, DeploymentStatus, PlatformApp } from "../types";
 import { promisify } from "util";
 import * as readline from "readline";

@@ -1,28 +1,49 @@
 import { Command as Base } from "@oclif/command";
-import IntegrationsAPIClient from "./core/integrations-api-client";
-import { User } from "./core/types";
+import AppsAPIClient from "./core/apps-api-client";
+import { AppUser, ShipEngineUser } from "./core/types";
 import * as ApiKeyStore from "./core/api-key-store";
+import ShipEngineAPIClient from './core/shipengine-api-client';
+import { Domain } from './core/api-key-store';
 
 const pjson = require("../package.json");
 
 export default abstract class BaseCommand extends Base {
   base = `${pjson.name}@${pjson.version}`;
-  private _client!: IntegrationsAPIClient;
+  private _appsClient!: AppsAPIClient;
+  private _shipengineClient!: ShipEngineAPIClient;
 
-  get client(): IntegrationsAPIClient {
-    // if (this._client) return this._client;
-    const apiKey = ApiKeyStore.get();
+  get appsClient(): AppsAPIClient {
+    // const iAPIKey = "app_9fY2bvveoWCaSTJo4cvYBj";
+    // ApiKeyStore.set(Domain.Apps, iAPIKey);
+    const apiKey = ApiKeyStore.get(Domain.Apps);
 
     if (!apiKey) {
       throw new Error("key not found");
     }
 
-    this._client = new IntegrationsAPIClient(apiKey);
+    this._appsClient = new AppsAPIClient(apiKey);
 
-    return this._client;
+    return this._appsClient;
+  }
+  get shipengineClient(): ShipEngineAPIClient {
+    // const seAPIKey = "TEST_xIsWxsRSq8DRlqpR8Q6Hv0inBczK7vxIbyEAUeBRB5E";
+    // ApiKeyStore.set(Domain.ShipEngine, seAPIKey);
+    const apiKey = ApiKeyStore.get(Domain.ShipEngine);
+
+    if (!apiKey) {
+      throw new Error("key not found");
+    }
+
+    this._shipengineClient = new ShipEngineAPIClient(apiKey);
+
+    return this._shipengineClient;
   }
 
-  async currentUser(): Promise<User> {
-    return (await this.client.users.getCurrent()) as User;
+  async currentAppUser(): Promise<AppUser | null> {
+    return await this.appsClient.user.getCurrent();
+  }
+
+  async currentShipEngineUser(): Promise<ShipEngineUser> {
+    return await this.shipengineClient.user.getCurrent();
   }
 }

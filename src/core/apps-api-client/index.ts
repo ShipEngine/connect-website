@@ -2,7 +2,7 @@ import axios, { Method, AxiosRequestConfig } from "axios";
 import Apps from "./resources/apps";
 import Deployments from "./resources/deployments";
 import Diagnostics from "./resources/diagnostics";
-import Users from "./resources/users";
+import User from "./resources/user";
 
 export interface ApiClientParams {
   endpoint: string;
@@ -16,11 +16,11 @@ export interface ApiClientParams {
  * Create an instance of the IntegrationsAPIClient.
  * @param {string} apiKey A valid API key.
  */
-export default class IntegrationsAPIClient {
+export default class AppsAPIClient {
   apps: Apps;
   deployments: Deployments;
   diagnostics: Diagnostics;
-  users: Users;
+  user: User;
   apiKey: string;
   private _apiAuthority = "https://dip-webapi-dev.kubedev.sslocal.com/api";
 
@@ -30,7 +30,7 @@ export default class IntegrationsAPIClient {
     this.apps = new Apps(this);
     this.deployments = new Deployments(this);
     this.diagnostics = new Diagnostics(this);
-    this.users = new Users(this);
+    this.user = new User(this);
   }
 
   async call({

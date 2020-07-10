@@ -32,7 +32,7 @@ export default class Publish extends BaseCommand {
     const { flags } = this.parse(Publish);
 
     try {
-      await this.currentUser();
+      await this.currentAppUser();
     } catch {
       this.log("you need to login before you can publish your app");
       await Login.run([]);
@@ -42,7 +42,7 @@ export default class Publish extends BaseCommand {
 
     try {
       const pathToApp = process.cwd();
-      await publishApp(pathToApp, this.client, {
+      await publishApp(pathToApp, this.appsClient, {
         watch: flags.watch,
       });
     } catch (error) {

@@ -2,6 +2,7 @@ import * as ApiKeyStore from "../../core/api-key-store";
 import BaseCommand from "../../base-command";
 import cli from "cli-ux";
 import { flags } from "@oclif/command";
+import { Domain } from '../../core/api-key-store';
 
 export default class Logout extends BaseCommand {
   static description = "clears the local API key";
@@ -21,7 +22,7 @@ export default class Logout extends BaseCommand {
 
     cli.action.start("Logging out");
 
-    ApiKeyStore.clear();
+    ApiKeyStore.clear(Domain.Apps);
 
     cli.action.stop();
 

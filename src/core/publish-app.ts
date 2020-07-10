@@ -1,4 +1,4 @@
-import IntegrationsAPIClient from "./integrations-api-client";
+import IntegrationsAPIClient from "./apps-api-client";
 import cli from "cli-ux";
 import fs from "fs";
 import logSymbols from "log-symbols";

@@ -2,6 +2,7 @@ import BaseCommand from "../../base-command";
 import { flags } from "@oclif/command";
 import cli from "cli-ux";
 import * as ApiKeyStore from "../../core/api-key-store";
+import { Domain } from '../../core/api-key-store';
 
 export default class Login extends BaseCommand {
   static description = "login with your ShipEngine API key";
@@ -19,29 +20,29 @@ export default class Login extends BaseCommand {
     // When the -h flag is present the following line haults execution
     this.parse(Login);
 
-    try {
-      const currentUser = await this.currentUser();
-      this.log(`\nyou are currently logged in as: ${currentUser.email}`);
+    // try {
+    //   const currentUser = await this.currentUser();
+    //   this.log(`\nyou are currently logged in as: ${currentUser.email}`);
+      
+    //   const wishToContinue = await cli.prompt(
+    //     "\nwould you like to login as someone else? (y,n)",
+    //   );
 
-      const wishToContinue = await cli.prompt(
-        "\nwould you like to login as someone else? (y,n)",
-      );
-
-      if (wishToContinue !== "n" && wishToContinue !== "y") {
-        this.error(
-          `'${wishToContinue}' is not a valid option, please enter 'y' or 'n'`,
-          { exit: 1 },
-        );
-        return;
-      }
-      if (wishToContinue === "n") {
-        this.log(`\nyou will remained logged in as: ${currentUser.email}`);
-        return;
-      }
-    } catch {
-      // No account currently logged in
-      ApiKeyStore.clear();
-    }
+    //   // if (wishToContinue !== "n" && wishToContinue !== "y") {
+    //   //   this.error(
+    //   //     `'${wishToContinue}' is not a valid option, please enter 'y' or 'n'`,
+    //   //     { exit: 1 },
+    //   //   );
+    //   //   return;
+    //   // }
+    //   // if (wishToContinue === "n") {
+    //   //   this.log(`\nyou will remained logged in as: ${currentUser.email}`);
+    //   //   return;
+    //   // }
+    // } catch {
+    //   // No account currently logged in
+    //   ApiKeyStore.clear(Domain.Apps);
+    // }
 
     const apiKey = await cli.prompt(
       "please enter your shipengine engine API key",
@@ -50,19 +51,23 @@ export default class Login extends BaseCommand {
       },
     );
 
+    if (typeof apiKey === "string" && apiKey.includes("app_")) {
+
+    }
+
     try {
-      await ApiKeyStore.set(apiKey);
+      await ApiKeyStore.set(Domain.Apps, apiKey);
     } catch (error) {
-      ApiKeyStore.clear();
+      ApiKeyStore.clear(Domain.Apps);
       this.error(error, { exit: 1 });
     }
 
     try {
       cli.action.start("verifying account");
       // Would rather use a /ping or /status endpoint here
-      await this.currentUser();
+      // await this.currentAppUser();
     } catch {
-      ApiKeyStore.clear();
+      ApiKeyStore.clear(Domain.Apps);
       return this.error("the given API key is not valid", {
         exit: 1,
       });
