@@ -3,7 +3,7 @@
 const { expect, test } = require("@oclif/test");
 const ApiKeyStore = require("../../../../lib/core/api-key-store");
 
-describe.only("The whoami command", () => {
+describe("The auth:whoami command", () => {
   describe("when unauthenticated", () => {
     beforeEach(() => {
       ApiKeyStore.clear("apps");

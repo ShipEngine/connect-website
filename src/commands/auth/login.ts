@@ -20,54 +20,50 @@ export default class Login extends BaseCommand {
     // When the -h flag is present the following line haults execution
     this.parse(Login);
 
-    // try {
-    //   const currentUser = await this.currentUser();
-    //   this.log(`\nyou are currently logged in as: ${currentUser.email}`);
-      
-    //   const wishToContinue = await cli.prompt(
-    //     "\nwould you like to login as someone else? (y,n)",
-    //   );
-
-    //   // if (wishToContinue !== "n" && wishToContinue !== "y") {
-    //   //   this.error(
-    //   //     `'${wishToContinue}' is not a valid option, please enter 'y' or 'n'`,
-    //   //     { exit: 1 },
-    //   //   );
-    //   //   return;
-    //   // }
-    //   // if (wishToContinue === "n") {
-    //   //   this.log(`\nyou will remained logged in as: ${currentUser.email}`);
-    //   //   return;
-    //   // }
-    // } catch {
-    //   // No account currently logged in
-    //   ApiKeyStore.clear(Domain.Apps);
-    // }
-
     const apiKey = await cli.prompt(
-      "please enter your shipengine engine API key",
+      "please enter your API key",
       {
         type: "mask",
-      },
+      }
     );
 
-    if (typeof apiKey === "string" && apiKey.includes("app_")) {
+    const isShipEngine = typeof apiKey === "string" && !apiKey.includes("app_");
 
+    if (isShipEngine) {
+      // validate shipengine api key
+      try {
+        await ApiKeyStore.set(Domain.ShipEngine, apiKey);
+      } catch (error) {
+        ApiKeyStore.clear(Domain.ShipEngine);
+        this.error(error, { exit: 1 });
+      }
     }
-
-    try {
-      await ApiKeyStore.set(Domain.Apps, apiKey);
-    } catch (error) {
-      ApiKeyStore.clear(Domain.Apps);
-      this.error(error, { exit: 1 });
+    else {
+      try {
+        await ApiKeyStore.set(Domain.Apps, apiKey);
+      } catch (error) {
+        ApiKeyStore.clear(Domain.Apps);
+        this.error(error, { exit: 1 });
+      }
     }
 
     try {
       cli.action.start("verifying account");
+      if (isShipEngine) {
+        await this.currentShipEngineUser();
+      }
+      else {
+        await this.currentAppUser();
+      }
       // Would rather use a /ping or /status endpoint here
       // await this.currentAppUser();
     } catch {
-      ApiKeyStore.clear(Domain.Apps);
+      if (isShipEngine) {
+        ApiKeyStore.clear(Domain.ShipEngine);
+      }
+      else {
+        ApiKeyStore.clear(Domain.Apps);
+      }
       return this.error("the given API key is not valid", {
         exit: 1,
       });
@@ -75,6 +71,11 @@ export default class Login extends BaseCommand {
       cli.action.stop();
     }
 
-    this.log("\nyou have successfully logged in");
+    if(isShipEngine) {
+      this.log("\nyou have logged in with a shipengine ⚙ API key");
+    }
+    else {
+      this.log("\nyou have logged in with an auctane 🏎 API key");
+    }
   }
 }
