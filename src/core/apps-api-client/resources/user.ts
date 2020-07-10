@@ -12,7 +12,7 @@ export default class User {
    * Gets the current user for the given API key.
    * @returns {Promise} Promise object that resolves to a User object.
    */
-  async getCurrent(): Promise<AppUser | null > {
+  async getCurrent(): Promise<AppUser> {
     try {
       const response = await this.client.call({
         endpoint: "diagnostics/whoami",
@@ -21,10 +21,6 @@ export default class User {
 
       return response;
     } catch (error) {
-
-      if (error.response.status === 401) {
-        return null;
-      }
       return Promise.reject(error.response.data as NetworkErrorCollection);
     }
   }

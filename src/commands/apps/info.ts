@@ -29,8 +29,8 @@ export default class Info extends BaseCommand {
     const app = await loadApp(pathToApp);
 
     try {
-      const platformApp = await this.appsClient.apps.getByName(app.manifest.name);
-      const paginatedDeployments = await this.appsClient.deployments.getAllForAppId(
+      const platformApp = await this.appsClient!.apps.getByName(app.manifest.name);
+      const paginatedDeployments = await this.appsClient!.deployments.getAllForAppId(
         platformApp.id,
       );
 

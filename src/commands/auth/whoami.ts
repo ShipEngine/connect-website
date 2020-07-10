@@ -20,33 +20,25 @@ export default class Whoami extends BaseCommand {
     let appUser;
     let shipEngineUser;
 
-    try {
-      console.log("DEBUG: calling se client")
-
+    if (this.shipengineClient) {
       shipEngineUser = await this.currentShipEngineUser();
-    } catch(error) {
-      console.log("error");
     }
 
-    try {
-      console.log("DEBUG: calling app client")
+    if (this.appsClient) {
       appUser = await this.currentAppUser();
-    } catch(error) {
-      console.log("error");
     }
-
 
     if (appUser && shipEngineUser) {
       this.log(`\nyou are currently logged in as the following:\n`);
 
-      this.log(`shipengine ⚙ : ${shipEngineUser}`);
-      this.log(`auctane 🏎  🔥 : ${appUser}`);
+      this.log(`shipengine ⚙ : ${shipEngineUser.username}`);
+      this.log(`auctane 🏎  🔥 : ${appUser.name}`);
     }
     else if (appUser) {
-      this.log(`\nyou are currently logged in as: ${appUser}`);
+      this.log(`\nyou are currently logged in as: ${appUser.name}`);
     }
     else if (shipEngineUser) {
-      this.log(`\nyou are currently logged in as: ${shipEngineUser}`);
+      this.log(`\nyou are currently logged in as: ${shipEngineUser.username}`);
     }
     else {
       return this.error("\nyou are not currently logged in", {

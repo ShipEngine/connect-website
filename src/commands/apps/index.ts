@@ -27,7 +27,7 @@ export default class AppsIndex extends BaseCommand {
     }
 
     try {
-      const apps = this.appsClient.apps.getAll();
+      const apps = this.appsClient!.apps.getAll();
       (await (await apps).items).forEach((app) => {
         this.log(app.name);
       });

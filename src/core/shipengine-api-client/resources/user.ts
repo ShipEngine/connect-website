@@ -23,7 +23,6 @@ export default class User {
         username: response.data.username
       });
     } catch (error) {
-      console.log("DEBUG: error = ", error);
       return Promise.reject(error.response.data as NetworkErrorCollection);
     }
   }

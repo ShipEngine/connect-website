@@ -42,7 +42,7 @@ export default class Publish extends BaseCommand {
 
     try {
       const pathToApp = process.cwd();
-      await publishApp(pathToApp, this.appsClient, {
+      await publishApp(pathToApp, this.appsClient!, {
         watch: flags.watch,
       });
     } catch (error) {

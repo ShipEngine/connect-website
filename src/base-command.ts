@@ -12,26 +12,26 @@ export default abstract class BaseCommand extends Base {
   private _appsClient!: AppsAPIClient;
   private _shipengineClient!: ShipEngineAPIClient;
 
-  get appsClient(): AppsAPIClient {
+  get appsClient(): AppsAPIClient | undefined {
     // const iAPIKey = "app_9fY2bvveoWCaSTJo4cvYBj";
     // ApiKeyStore.set(Domain.Apps, iAPIKey);
     const apiKey = ApiKeyStore.get(Domain.Apps);
 
     if (!apiKey) {
-      throw new Error("key not found");
+      return undefined;
     }
 
     this._appsClient = new AppsAPIClient(apiKey);
 
     return this._appsClient;
   }
-  get shipengineClient(): ShipEngineAPIClient {
+  get shipengineClient(): ShipEngineAPIClient | undefined {
     // const seAPIKey = "TEST_xIsWxsRSq8DRlqpR8Q6Hv0inBczK7vxIbyEAUeBRB5E";
     // ApiKeyStore.set(Domain.ShipEngine, seAPIKey);
     const apiKey = ApiKeyStore.get(Domain.ShipEngine);
 
     if (!apiKey) {
-      throw new Error("key not found");
+      return undefined;
     }
 
     this._shipengineClient = new ShipEngineAPIClient(apiKey);
@@ -39,11 +39,11 @@ export default abstract class BaseCommand extends Base {
     return this._shipengineClient;
   }
 
-  async currentAppUser(): Promise<AppUser | null> {
-    return await this.appsClient.user.getCurrent();
+  async currentAppUser(): Promise<AppUser> {
+    return await this.appsClient!.user.getCurrent();
   }
 
   async currentShipEngineUser(): Promise<ShipEngineUser> {
-    return await this.shipengineClient.user.getCurrent();
+    return await this.shipengineClient!.user.getCurrent();
   }
 }
