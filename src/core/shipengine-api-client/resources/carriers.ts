@@ -1,6 +1,9 @@
 import ShipengineAPIClient from "..";
 import { Carrier, NetworkErrorCollection } from "../../types";
 
+/**
+ * Handles all ShipEngine API interactions with the carrier resource
+ */
 export default class Carriers {
   private client: ShipengineAPIClient;
 
@@ -9,8 +12,7 @@ export default class Carriers {
   }
 
   /**
-   * Gets the current user for the given API key.
-   * @returns {Promise} Promise object that resolves to a User object.
+   * Gets a list of carriers associated with the current ShipEngine user
    */
   async getCarriers(): Promise<Carrier[]> {
     try {
