@@ -5,7 +5,7 @@ export const ONE_DAY = ONE_HOUR * 24;
 
 export interface PickUpCancellationRequest {
   operation: "pick_up_cancellation";
-  scheduld_pick_ups: Array<{
+  scheduled_pick_ups: Array<{
     session_id: string;
     pick_up_id: string;
     service_code: string;
@@ -27,7 +27,7 @@ export interface PickUpCancellationResponse {
  */
 export function pickUpCancellation(request: HttpRequest & PickUpCancellationRequest): PickUpCancellationResponse {
   return {
-    canceled_pick_ups: request.scheduld_pick_ups.map((pickUp) => {
+    canceled_pick_ups: request.scheduled_pick_ups.map((pickUp) => {
       let pickupID = pickUp.pick_up_id;
       let serviceCode = pickUp.service_code;
 

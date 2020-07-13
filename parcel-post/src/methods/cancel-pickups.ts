@@ -12,7 +12,7 @@ export default async function cancelPickups(
 
   let data : PickUpCancellationRequest = {
     operation: "pick_up_cancellation",
-    scheduld_pick_ups: pickups.map((pickup) => {
+    scheduled_pick_ups: pickups.map((pickup) => {
       // STEP 1: Validation
       if (pickup.pickupService.id === sameDayPickup.id) {
         throw new Error(`Same-day pickups cannot be canceled`);
