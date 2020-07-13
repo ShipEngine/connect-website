@@ -1,4 +1,4 @@
-import IntegrationsAPIClient from "./apps-api-client";
+import AppsAPIClient from "./apps-api-client";
 import cli from "cli-ux";
 import fs from "fs";
 import logSymbols from "log-symbols";
@@ -37,7 +37,7 @@ interface PublishAppOptions {
 
 export default async function publishApp(
   pathToApp: string,
-  client: IntegrationsAPIClient,
+  client: AppsAPIClient,
   { watch = false }: PublishAppOptions,
 ): Promise<Deployment> {
   // Make a backup copy of the package.json file since we are going to add the bundledDependencies attribute
