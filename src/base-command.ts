@@ -13,8 +13,6 @@ export default abstract class BaseCommand extends Base {
   private _shipengineClient!: ShipEngineAPIClient;
 
   get appsClient(): AppsAPIClient | undefined {
-    // const iAPIKey = "app_9fY2bvveoWCaSTJo4cvYBj";
-    // ApiKeyStore.set(Domain.Apps, iAPIKey);
     const apiKey = ApiKeyStore.get(Domain.Apps);
 
     if (!apiKey) {
@@ -26,8 +24,6 @@ export default abstract class BaseCommand extends Base {
     return this._appsClient;
   }
   get shipengineClient(): ShipEngineAPIClient | undefined {
-    // const seAPIKey = "TEST_xIsWxsRSq8DRlqpR8Q6Hv0inBczK7vxIbyEAUeBRB5E";
-    // ApiKeyStore.set(Domain.ShipEngine, seAPIKey);
     const apiKey = ApiKeyStore.get(Domain.ShipEngine);
 
     if (!apiKey) {
