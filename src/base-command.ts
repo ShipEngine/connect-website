@@ -12,22 +12,22 @@ export default abstract class BaseCommand extends Base {
   private _appsClient!: AppsAPIClient;
   private _shipengineClient!: ShipEngineAPIClient;
 
-  get appsClient(): AppsAPIClient | undefined {
+  get appsClient(): AppsAPIClient {
     const apiKey = ApiKeyStore.get(Domain.Apps);
 
     if (!apiKey) {
-      return undefined;
+      throw new Error("Unable to find App API Key");
     }
 
     this._appsClient = new AppsAPIClient(apiKey);
 
     return this._appsClient;
   }
-  get shipengineClient(): ShipEngineAPIClient | undefined {
+  get shipengineClient(): ShipEngineAPIClient {
     const apiKey = ApiKeyStore.get(Domain.ShipEngine);
 
     if (!apiKey) {
-      return undefined;
+      throw new Error("Unable to find ShipEngine API Key");
     }
 
     this._shipengineClient = new ShipEngineAPIClient(apiKey);
