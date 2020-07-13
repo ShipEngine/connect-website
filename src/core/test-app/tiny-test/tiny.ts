@@ -81,7 +81,7 @@ export default function Tiny(
       }
 
       try {
-        // await app.connect(transaction, connectionFormDataProps);
+        await app.connect!(transaction, connectionFormDataProps);
         logPass("connect successfully set the session");
         if (options.debug) {
           log("output:");
