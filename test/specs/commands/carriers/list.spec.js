@@ -31,7 +31,7 @@ describe("The carriers:list command", () => {
       });
   });
 
-  describe.only("when the user has entered a valid ShipEngine API Key", () => {
+  describe("when the user has entered a valid ShipEngine API Key", () => {
     beforeEach(() => {
       ApiKeyStore.clear("apps");
       ApiKeyStore.clear("shipengine");
