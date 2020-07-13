@@ -3,7 +3,7 @@ import { flags } from "@oclif/command";
 import { checkShipEngineLoginStatus } from '../../core/utils/users';
 
 export default class List extends BaseCommand {
-  static description = "display the current logged in user";
+  static description = "list the carriers associated with your account";
 
   static aliases = ["list"];
 
@@ -22,6 +22,6 @@ export default class List extends BaseCommand {
 
     const carriers = await this.shipengineClient!.carriers.getCarriers();
 
-    this.log(JSON.stringify(carriers, undefined, 2));
+    this.log(`${JSON.stringify(carriers, undefined, 2)}`);
   }
 }
