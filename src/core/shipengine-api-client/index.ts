@@ -1,6 +1,7 @@
 import axios, { Method, AxiosRequestConfig } from "axios";
 import Diagnostics from "./resources/diagnostics";
 import User from "./resources/user";
+import Carriers from './resources/carriers';
 
 export interface ApiClientParams {
   endpoint: string;
@@ -18,6 +19,7 @@ export default class ShipEngineAPIClient {
   diagnostics: Diagnostics;
   user: User;
   apiKey: string;
+  carriers: Carriers;
   private _apiAuthority = "https://api.shipengine.com";
 
   constructor(apiKey: string) {
@@ -25,6 +27,7 @@ export default class ShipEngineAPIClient {
 
     this.diagnostics = new Diagnostics(this);
     this.user = new User(this);
+    this.carriers = new Carriers(this);
   }
 
   async call({

@@ -1,4 +1,5 @@
 export * from "./apps";
+export * from "./carrier";
 export * from "./deployments";
 export * from "./errors";
 export * from "./paginated-items";
