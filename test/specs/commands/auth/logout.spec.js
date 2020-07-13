@@ -24,7 +24,8 @@ describe("The auth:logout command", () => {
       .stderr()
       .command(["logout"])
       .it("clears the API key for the current ShipEngine API Key", (ctx) => {
-        expect(ctx.stderr).to.contain("logging out of shipengine  ⚙");
+        const seKey = ApiKeyStore.get("shipengine");
+        expect(seKey).to.equal(null);
       });
   });
 
@@ -45,7 +46,8 @@ describe("The auth:logout command", () => {
       .stderr()
       .command(["logout"])
       .it("clears the API key for the current Apps API Key", (ctx) => {
-        expect(ctx.stderr).to.contain("logging out of auctane 🏎  🔥 ");
+        const appsKey = ApiKeyStore.get("shipengine");
+        expect(appsKey).to.equal(null);
       });
   });
 
@@ -77,8 +79,6 @@ describe("The auth:logout command", () => {
       .it("Should only clear the ShipEngine API Key", (ctx) => {
         expect(ApiKeyStore.get("shipengine")).to.equal(null);
         expect(ApiKeyStore.get("apps")).to.equal("app_12346");
-
-        expect(ctx.stderr).to.contain("logging out of shipengine  ⚙");
       });
   });
 
@@ -110,8 +110,6 @@ describe("The auth:logout command", () => {
       .it("Should only clear the Auctage API Key", (ctx) => {
         expect(ApiKeyStore.get("shipengine")).to.equal("test_12346");
         expect(ApiKeyStore.get("apps")).to.equal(null);
-
-        expect(ctx.stderr).to.contain("logging out of auctane 🏎  🔥 ");
       });
   });
 
@@ -140,12 +138,9 @@ describe("The auth:logout command", () => {
       .stub(inquirer, "prompt", () => { return { "api-token": "both" } })
       .command(["logout"])
 
-      .it("Should only clear the Auctage API Key", (ctx) => {
+      .it("Should clear all API Keys", (ctx) => {
         expect(ApiKeyStore.get("shipengine")).to.equal(null);
         expect(ApiKeyStore.get("apps")).to.equal(null);
-
-        expect(ctx.stderr).to.contain("logging out of auctane 🏎  🔥 ");
-        expect(ctx.stderr).to.contain("logging out of shipengine  ⚙");
       });
   });
 });
