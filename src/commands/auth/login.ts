@@ -3,6 +3,7 @@ import { flags } from "@oclif/command";
 import cli from "cli-ux";
 import * as ApiKeyStore from "../../core/api-key-store";
 import { Domain } from '../../core/api-key-store';
+import { setUser } from '../../core/utils/users';
 
 export default class Login extends BaseCommand {
   static description = "login with your ShipEngine API key";
@@ -30,21 +31,10 @@ export default class Login extends BaseCommand {
     const isShipEngine = typeof apiKey === "string" && !apiKey.includes("app_");
 
     if (isShipEngine) {
-      // validate shipengine api key
-      try {
-        await ApiKeyStore.set(Domain.ShipEngine, apiKey);
-      } catch (error) {
-        ApiKeyStore.clear(Domain.ShipEngine);
-        this.error(error, { exit: 1 });
-      }
+      await setUser(Domain.ShipEngine, apiKey, this);
     }
     else {
-      try {
-        await ApiKeyStore.set(Domain.Apps, apiKey);
-      } catch (error) {
-        ApiKeyStore.clear(Domain.Apps);
-        this.error(error, { exit: 1 });
-      }
+      await setUser(Domain.Apps, apiKey, this);
     }
 
     try {

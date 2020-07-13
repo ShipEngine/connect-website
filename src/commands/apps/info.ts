@@ -18,7 +18,6 @@ export default class Info extends BaseCommand {
     this.parse(Info);
 
     try {
-      // TODO: Fix this for new multi-auth scheme
       await this.currentAppUser();
     } catch {
       this.log("you need to login before you can list your apps");

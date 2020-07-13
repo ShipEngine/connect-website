@@ -4,6 +4,7 @@ import cli from "cli-ux";
 import { flags } from "@oclif/command";
 import { Domain } from '../../core/api-key-store';
 import * as inquirer from 'inquirer'
+import { clearUser } from '../../core/utils/users';
 
 export default class Logout extends BaseCommand {
   static description = "clears the local API key";
@@ -29,7 +30,7 @@ export default class Logout extends BaseCommand {
     }
 
     if (this.appsClient) {
-      appUser = await this.currentAppUser();
+       appUser = await this.currentAppUser();
     }
 
     if (appUser && shipEngineUser) {
@@ -58,34 +59,21 @@ export default class Logout extends BaseCommand {
       }]);
 
       if (responses["api-token"] === "shipengine") {
-        cli.action.start("logging out of shipengine  ⚙ ");
-        ApiKeyStore.clear(Domain.ShipEngine);
-        cli.action.stop();
+        clearUser(Domain.ShipEngine);
       }
       else if (responses["api-token"] === "apps") {
-        cli.action.start("logging out of auctane 🏎  🔥 ");
-        ApiKeyStore.clear(Domain.Apps);
-        cli.action.stop();
+        clearUser(Domain.Apps);
       }
       else {
-        cli.action.start("logging out of auctane 🏎  🔥 ");
-        ApiKeyStore.clear(Domain.Apps);
-        cli.action.stop();
-
-        cli.action.start("logging out of shipengine  ⚙ ");
-        ApiKeyStore.clear(Domain.ShipEngine);
-        cli.action.stop();
+        clearUser(Domain.ShipEngine);
+        clearUser(Domain.Apps)
       }
     }
     else if (appUser) {
-      cli.action.start("logging out of auctane 🏎  🔥 ");
-      ApiKeyStore.clear(Domain.ShipEngine);
-      cli.action.stop();
+      clearUser(Domain.Apps);
     }
     else if (shipEngineUser) {
-      cli.action.start("logging out of shipengine  ⚙ ");
-      ApiKeyStore.clear(Domain.ShipEngine);
-      cli.action.stop();
+      clearUser(Domain.ShipEngine);
     }
   }
 }
