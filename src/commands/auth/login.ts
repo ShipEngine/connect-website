@@ -46,7 +46,6 @@ export default class Login extends BaseCommand {
         await this.currentAppUser();
       }
       // Would rather use a /ping or /status endpoint here
-      // await this.currentAppUser();
     } catch {
       if (isShipEngine) {
         ApiKeyStore.clear(Domain.ShipEngine);

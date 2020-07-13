@@ -4,7 +4,7 @@ const { expect, test } = require("@oclif/test");
 const inquirer = require("inquirer");
 const ApiKeyStore = require("../../../../lib/core/api-key-store");
 
-describe.only("The auth:logout command", () => {
+describe("The auth:logout command", () => {
 
   describe("when there is only a ShipEngine API Key", () => {
 

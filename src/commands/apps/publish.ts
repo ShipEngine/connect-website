@@ -1,8 +1,8 @@
 import BaseCommand from "../../base-command";
-import Login from "../auth/login";
 import Test from "./test";
 import publishApp from "../../core/publish-app";
 import { flags } from "@oclif/command";
+import { checkAppLoginStatus } from '../../core/utils/users';
 
 export default class Publish extends BaseCommand {
   static description = "publish your app";
@@ -31,12 +31,7 @@ export default class Publish extends BaseCommand {
     // When the -h flag is present the following line haults execution
     const { flags } = this.parse(Publish);
 
-    try {
-      await this.currentAppUser();
-    } catch {
-      this.log("you need to login before you can publish your app");
-      await Login.run([]);
-    }
+    await checkAppLoginStatus(this);
 
     if (!flags["skip-tests"]) await Test.run(["-f"]);
 

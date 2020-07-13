@@ -1,6 +1,4 @@
-import * as ApiKeyStore from "../../core/api-key-store";
 import BaseCommand from "../../base-command";
-import cli from "cli-ux";
 import { flags } from "@oclif/command";
 import { Domain } from '../../core/api-key-store';
 import * as inquirer from 'inquirer'
