@@ -1,6 +1,6 @@
 import BaseCommand from "../../base-command";
 import { flags } from "@oclif/command";
-import { checkAppLoginStatus } from '../../core/utils/users';
+import { checkAppLoginStatus } from "../../core/utils/users";
 
 export default class AppsIndex extends BaseCommand {
   static description = "list your apps";

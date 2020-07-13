@@ -1,10 +1,10 @@
-import ShipengineAPIClient from "..";
 import { Pulse, NetworkErrorCollection } from "../../types";
+import AppsAPIClient from '..';
 
 export default class Diagnostics {
-  private client: ShipengineAPIClient;
+  private client: AppsAPIClient;
 
-  constructor(apiClient: ShipengineAPIClient) {
+  constructor(apiClient: AppsAPIClient) {
     this.client = apiClient;
   }
 
