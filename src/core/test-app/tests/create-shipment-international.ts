@@ -27,18 +27,25 @@ export class CreateShipmentInternational extends Suite {
   buildTestArg(config: CreateShipmentDomesticOptions): TestArgs | undefined {
     const carrierApp = this.app as CarrierApp;
 
-    const deliveryServicesCopy = Object.assign(
-      [],
-      carrierApp.deliveryServices,
-    ) as DeliveryService[];
+    let deliveryServiceId: string;
 
-    const deliveryServices = findInternationalDeliveryServices(
-      deliveryServicesCopy,
-    );
+    if (config.deliveryServiceId) {
+      deliveryServiceId = config.deliveryServiceId;
+    } else {
+      const deliveryServicesCopy = Object.assign(
+        [],
+        carrierApp.deliveryServices,
+      ) as DeliveryService[];
 
-    const deliveryService = pickDeliveryService(deliveryServices);
+      const deliveryServices = findInternationalDeliveryServices(
+        deliveryServicesCopy,
+      );
 
-    if (!deliveryService) {
+      const deliveryService = pickDeliveryService(deliveryServices);
+      const deliveryServiceId = deliveryService.id;
+    }
+
+    if (!deliveryServiceId) {
       return undefined;
     }
 
@@ -86,7 +93,7 @@ export class CreateShipmentInternational extends Suite {
 
     let newShipmentPOJO: NewShipmentPOJO = {
       deliveryService: {
-        id: deliveryService.id,
+        id: deliveryServiceId,
       },
       shipFrom: testParams.shipFrom!,
       shipTo: testParams.shipTo!,

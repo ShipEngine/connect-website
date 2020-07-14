@@ -13,11 +13,12 @@ export interface TestOptions {
 }
 
 export interface CreateShipmentDomesticOptions extends TestOptions {
-  shipFrom: Address;
-  shipTo: Address;
-  weightValue: number;
-  weightUnit: WeightUnit;
-  shipDateTime: DateTimeZonePOJO | Date | string;
+  shipFrom?: Address;
+  shipTo?: Address;
+  weightValue?: number;
+  weightUnit?: WeightUnit;
+  shipDateTime?: DateTimeZonePOJO | Date | string;
+  deliveryServiceId?: string;
 }
 
 export interface TestsConfig {
