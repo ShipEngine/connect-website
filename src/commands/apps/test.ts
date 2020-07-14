@@ -26,40 +26,43 @@ export default class Test extends BaseCommand {
       char: "d",
       description: "logs additional debug information",
     }),
-    concurrency: flags.integer({
-      char: "c",
-      description: "specify the test concurrency",
-      default: 1,
+    timeout: flags.integer({
+      char: "t",
+      description: "specify the timeout for all the test",
+    }),
+    retries: flags.integer({
+      char: "r",
+      description: "specify the retries for all the test",
     }),
     grep: flags.string({
       char: "g",
-      description:
-        "only run test that match this string (e.g. method name or test SHA)",
+      description: "only run test that match the given string",
     }),
     "fail-fast": flags.boolean({
       char: "f",
       description: "stop running the test suite on the first failed test",
-      default: false,
     }),
   };
 
   async run() {
     this.parse(Test);
     const { flags } = this.parse(Test);
+    const { "fail-fast": failFast, debug, grep, retries, timeout } = flags;
     const pathToApp = process.cwd();
 
     try {
       logStep("validating app structure");
 
-      const app = await loadAndValidateApp(pathToApp);
+      await loadAndValidateApp(pathToApp);
 
       logPass("app structure is valid");
 
-      const results = await testApp(app, {
-        concurrency: flags.concurrency,
-        debug: flags.debug,
-        failFast: flags["fail-fast"],
-        grep: flags.grep,
+      const results = await testApp(pathToApp, {
+        debug,
+        failFast,
+        grep,
+        retries,
+        timeout,
       });
 
       if (results.failed > 0) {
