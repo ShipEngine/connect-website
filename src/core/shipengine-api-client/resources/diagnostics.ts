@@ -1,5 +1,5 @@
 import ShipengineAPIClient from "..";
-import { Pulse, NetworkErrorCollection, ShipEngineAPIErrorCollection } from "../../types";
+import { Pulse, ShipEngineAPIErrorCollection } from "../../types";
 
 export default class Diagnostics {
   private client: ShipengineAPIClient;

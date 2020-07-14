@@ -1,5 +1,5 @@
 import ShipengineAPIClient from "..";
-import { Carrier, NetworkErrorCollection, ShipEngineAPIErrorCollection } from "../../types";
+import { Carrier, ShipEngineAPIErrorCollection } from "../../types";
 
 /**
  * Handles all ShipEngine API interactions with the carrier resource
