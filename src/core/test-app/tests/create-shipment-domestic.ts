@@ -38,7 +38,7 @@ export class CreateShipmentDomestic extends Suite {
     const weightUnit = config.weightUnit ? config.weightUnit : WeightUnit.Pounds;
     const shipDateTime = new Date();
     const shipFrom = buildAddressWithContactInfo(`${country}-from`);
-    const shipTo = buildAddressWithContactInfo(`${country}-to `);
+    const shipTo = buildAddressWithContactInfo(`${country}-to`);
 
     let labelFormat = deliveryService.labelFormats[0];
     let labelSize = deliveryService.labelSizes[0];
