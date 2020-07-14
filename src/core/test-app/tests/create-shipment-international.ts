@@ -42,19 +42,27 @@ export class CreateShipmentInternational extends Suite {
         "delivery serivce can not be undefined for createShipment_international",
       );
 
+    const { tomorrow } = initializeTimeStamps("America/Chicago");
+
     const defaults = {
       labelFormat: deliveryService.labelFormats[0],
       labelSize: deliveryService.labelSizes[0],
-      shipDateTime: "tomorrow",
+      shipDateTime: tomorrow,
       shipFrom: buildAddressWithContactInfo("US-from"),
       shipTo: buildAddressWithContactInfo("US-to"),
       weightUnit: WeightUnit.Pounds,
       weightValue: 50.0,
     };
 
-    const testParams = { ...defaults, ...config };
+    let testParams = { ...defaults, ...config };
+    const whiteListKeys = Object.keys(defaults);
 
-    initializeTimeStamps("US");
+    testParams = Object.keys(testParams)
+      .filter((key) => whiteListKeys.includes(key))
+      .reduce((obj, key: string) => {
+        obj[key] = testParams[key];
+        return obj;
+      }, {});
 
     const packagePOJO: NewPackagePOJO = {
       deliveryConfirmation: {
@@ -83,16 +91,24 @@ export class CreateShipmentInternational extends Suite {
       packages: [packagePOJO],
     };
 
+    const title = config.expectedErrorMessage
+      ? `it raises an error when creating a new international shipment with ${Object.keys(
+          testParams,
+        )
+          .map(function (k: any) {
+            return `${k}: ${_getKeyValue_(k)(testParams)}`;
+          })
+          .join(", ")}`
+      : `it creates a new international shipment with ${Object.keys(testParams)
+          .map(function (k: any) {
+            return `${k}: ${_getKeyValue_(k)(testParams)}`;
+          })
+          .join(", ")}`;
+
     return {
-      title: `it creates a new international shipment with ${Object.keys(
-        testParams,
-      )
-        .map(function (k: any) {
-          return `${k}: ${_getKeyValue_(k)(testParams)}`;
-        })
-        .join(", ")}`,
+      title: title,
       methodArgs: [this.transaction, newShipmentPOJO],
-      config: this.config,
+      config: config,
     };
   }
 
