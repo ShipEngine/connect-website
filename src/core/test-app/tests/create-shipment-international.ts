@@ -52,7 +52,7 @@ export class CreateShipmentInternational extends Suite {
       weightValue: 50.0,
     };
 
-    const testParams = { ...defaults, ...this.config };
+    const testParams = { ...defaults, ...config };
 
     initializeTimeStamps("US");
 
