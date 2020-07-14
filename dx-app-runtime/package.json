@@ -28,7 +28,7 @@
     "newrelic": "6.10.0",
     "only": "0.0.2",
     "redact-secrets": "1.0.0",
-    "typescript": "3.9.5",
+    "typescript": "3.9.6",
     "uuid": "8.2.0",
     "winston": "3.3.3"
   },
