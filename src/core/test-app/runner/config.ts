@@ -2,6 +2,7 @@ import {
   Address,
   DateTimeZonePOJO,
   WeightPOJO,
+  WeightUnit,
 } from "@shipengine/integration-platform-sdk";
 
 export interface TestOptions {
@@ -15,7 +16,8 @@ export interface TestOptions {
 export interface CreateShipmentDomesticOptions extends TestOptions {
   shipFrom: Address;
   shipTo: Address;
-  weight: WeightPOJO;
+  weightValue: string;
+  weightUnit: WeightUnit;
   shipDateTime: DateTimeZonePOJO | Date | string;
 }
 

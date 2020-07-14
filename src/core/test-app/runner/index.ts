@@ -85,7 +85,7 @@ export default class Runner {
     } catch (error) {
       if (
         test.expectedErrorMessage &&
-        test.expectedErrorMessage === error.message
+        error.message.includes(test.expectedErrorMessage)
       ) {
         this.testResultsReducer("INCREMENT_PASSED");
         logPass(test.title);
