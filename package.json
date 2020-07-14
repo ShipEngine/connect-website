@@ -1,7 +1,7 @@
 {
   "name": "@shipengine/cli",
   "description": "A CLI tool for working with your ShipEngine account.",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "author": {
     "name": "ShipEngine",
     "email": "support@shipengine.com",
@@ -19,8 +19,8 @@
     "@oclif/plugin-help": "^2.2.3",
     "@oclif/plugin-not-found": "^1.2.4",
     "@shipengine/capitalization": "^1.2.0",
-    "@shipengine/integration-platform-loader": "0.0.21",
-    "@shipengine/integration-platform-sdk": "0.0.23",
+    "@shipengine/integration-platform-loader": "0.0.28",
+    "@shipengine/integration-platform-sdk": "0.0.29",
     "axios": "^0.19.2",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
@@ -137,7 +137,7 @@
     "postpack": "shx rm -rf oclif.manifest.json",
     "posttest": "eslint . --ext .ts --config .eslintrc.js",
     "prepack": "shx rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
-    "release": "npm run upgrade && npm run clean && npm run build && npm test && npm run bump",
+    "release": "npm run upgrade && npm run clean && npm test && npm run bump",
     "test": "shx rm -rf lib && npm run build && nyc --extension .ts mocha --forbid-only && npm run lint",
     "upgrade": "npm-check -u && npm audit fix",
     "version": "oclif-dev readme && git add README.md",
