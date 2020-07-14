@@ -1,7 +1,7 @@
 import BaseCommand from "../../base-command";
 import { flags } from "@oclif/command";
-import Login from "../auth/login";
 import { loadApp } from "@shipengine/integration-platform-loader";
+import { checkAppLoginStatus } from '../../core/utils/users';
 
 export default class Info extends BaseCommand {
   static description = "list info for an app";
@@ -17,19 +17,14 @@ export default class Info extends BaseCommand {
     // When the -h flag is present the following line haults execution
     this.parse(Info);
 
-    try {
-      await this.currentUser();
-    } catch {
-      this.log("you need to login before you can list your apps");
-      await Login.run([]);
-    }
-
+    await checkAppLoginStatus(this);
+    
     const pathToApp = process.cwd();
     const app = await loadApp(pathToApp);
 
     try {
-      const platformApp = await this.client.apps.getByName(app.manifest.name);
-      const paginatedDeployments = await this.client.deployments.getAllForAppId(
+      const platformApp = await this.appsClient!.apps.getByName(app.manifest.name);
+      const paginatedDeployments = await this.appsClient!.deployments.getAllForAppId(
         platformApp.id,
       );
 

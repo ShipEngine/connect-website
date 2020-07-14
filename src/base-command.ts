@@ -1,28 +1,55 @@
 import { Command as Base } from "@oclif/command";
-import ShipengineAPIClient from "./core/shipengine-api-client";
-import { User } from "./core/types";
+import AppsAPIClient from "./core/apps-api-client";
+import { AppUser, ShipEngineUser } from "./core/types";
 import * as ApiKeyStore from "./core/api-key-store";
+import ShipEngineAPIClient from './core/shipengine-api-client';
+import { Domain } from './core/api-key-store';
 
 const pjson = require("../package.json");
 
 export default abstract class BaseCommand extends Base {
   base = `${pjson.name}@${pjson.version}`;
-  private _client!: ShipengineAPIClient;
+  private _appsClient!: AppsAPIClient;
+  private _shipengineClient!: ShipEngineAPIClient;
 
-  get client(): ShipengineAPIClient {
-    // if (this._client) return this._client;
-    const apiKey = ApiKeyStore.get();
+  get appsClient(): AppsAPIClient | undefined {
+    const apiKey = ApiKeyStore.get(Domain.Apps);
 
     if (!apiKey) {
-      throw new Error("key not found");
+      return undefined;
     }
 
-    this._client = new ShipengineAPIClient(apiKey);
+    this._appsClient = new AppsAPIClient(apiKey);
 
-    return this._client;
+    return this._appsClient;
+  }
+  get shipengineClient(): ShipEngineAPIClient | undefined {
+    const apiKey = ApiKeyStore.get(Domain.ShipEngine);
+
+    if (!apiKey) {
+      return undefined;
+    }
+
+    this._shipengineClient = new ShipEngineAPIClient(apiKey);
+
+    return this._shipengineClient;
   }
 
-  async currentUser(): Promise<User> {
-    return (await this.client.users.getCurrent()) as User;
+  async currentAppUser(): Promise<AppUser> {
+    try {
+      return await this.appsClient!.user.getCurrent();
+    }
+    catch(error) {
+      this.error(error.errors[0].message);
+    }
+  }
+
+  async currentShipEngineUser(): Promise<ShipEngineUser> {
+    try {
+      return await this.shipengineClient!.user.getCurrent();
+    }
+    catch(error) {
+      this.error(error.errors[0].message);
+    }
   }
 }

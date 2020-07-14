@@ -1,17 +1,13 @@
 import netrc from "netrc";
 
-function key(): string {
-  // if (process.env.NODE_ENV === "test") {
-  //   return "shipenginetest.com";
-  // } else {
-  //   return "shipengine.com";
-  // }
-  return "shipengine.com";
+export enum Domain {
+  ShipEngine = "shipengine",
+  Apps = "apps"
 }
 
-export function get(): string | null {
+export function get(domain: Domain): string | null {
   const myNetrc = netrc();
-  let seNetRC = myNetrc[key()] as { apiKey?: string };
+  let seNetRC = myNetrc[domain] as { apiKey?: string };
 
   if (!seNetRC || !seNetRC.apiKey) {
     return null;
@@ -20,20 +16,20 @@ export function get(): string | null {
   return seNetRC.apiKey;
 }
 
-export function set(apiKey: string): string {
+export function set(domain: Domain, apiKey: string): string {
   const myNetrc = netrc();
 
-  Object.assign((myNetrc[key()] = {}), { apiKey });
+  Object.assign((myNetrc[domain] = {}), { apiKey });
 
   netrc.save(myNetrc);
 
   return apiKey;
 }
 
-export function clear(): boolean {
+export function clear(domain: Domain): boolean {
   const myNetrc = netrc();
 
-  Object.assign((myNetrc[key()] = {}), {});
+  Object.assign((myNetrc[domain] = {}), {});
 
   netrc.save(myNetrc);
 

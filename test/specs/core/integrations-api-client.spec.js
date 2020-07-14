@@ -2,7 +2,7 @@
 "use strict";
 
 const { expect } = require("chai");
-const ShipengineApiClient = require("../../../lib/core/apps-api-client")
+const AppsApiClient = require("../../../lib/core/apps-api-client")
   .default;
 const apiMock = require("../api-mock");
 const path = require("path");
@@ -18,7 +18,7 @@ describe("AppsApiClient", () => {
         };
         apiMock.post("/api/apps").reply(200, apiResponse);
 
-        const client = new ShipengineApiClient("valid key");
+        const client = new AppsApiClient("valid key");
         let response, errorResponse;
         try {
           response = await client.apps.create({
@@ -46,7 +46,7 @@ describe("AppsApiClient", () => {
         };
         apiMock.post("/api/apps").reply(401, apiResponse);
 
-        const client = new ShipengineApiClient("invalid");
+        const client = new AppsApiClient("invalid");
         let response, errorResponse;
         try {
           response = await client.apps.create({
@@ -79,7 +79,7 @@ describe("AppsApiClient", () => {
 
         apiMock.get("/api/apps?name=test-app").reply(200, apiResponse);
 
-        const client = new ShipengineApiClient("valid key");
+        const client = new AppsApiClient("valid key");
         let response, errorResponse;
         try {
           response = await client.apps.findOrCreateByName({
@@ -109,7 +109,7 @@ describe("AppsApiClient", () => {
         };
         apiMock.post("/api/apps").reply(200, apiResponseTwo);
 
-        const client = new ShipengineApiClient("valid key");
+        const client = new AppsApiClient("valid key");
         let response, errorResponse;
         try {
           response = await client.apps.findOrCreateByName({
@@ -137,7 +137,7 @@ describe("AppsApiClient", () => {
         };
         apiMock.get("/api/apps?name=test-app").reply(401, apiResponse);
 
-        const client = new ShipengineApiClient("invalid");
+        const client = new AppsApiClient("invalid");
         let response, errorResponse;
         try {
           response = await client.apps.findOrCreateByName({
@@ -170,7 +170,7 @@ describe("AppsApiClient", () => {
 
         apiMock.get("/api/apps").reply(200, apiResponse);
 
-        const client = new ShipengineApiClient("valid key");
+        const client = new AppsApiClient("valid key");
         let response, errorResponse;
         try {
           response = await client.apps.getAll();
@@ -195,7 +195,7 @@ describe("AppsApiClient", () => {
         };
         apiMock.get("/api/apps").reply(401, apiResponse);
 
-        const client = new ShipengineApiClient("invalid");
+        const client = new AppsApiClient("invalid");
         let response, errorResponse;
         try {
           response = await client.apps.getAll();
@@ -219,7 +219,7 @@ describe("AppsApiClient", () => {
           .get("/api/apps/a9a84a1c-55ce-49f3-8cd7-f088e93ccada")
           .reply(200, apiResponse);
 
-        const client = new ShipengineApiClient("valid key");
+        const client = new AppsApiClient("valid key");
         let response, errorResponse;
         try {
           response = await client.apps.getById(
@@ -246,7 +246,7 @@ describe("AppsApiClient", () => {
         };
         apiMock.get("/api/apps/test-id").reply(401, apiResponse);
 
-        const client = new ShipengineApiClient("invalid");
+        const client = new AppsApiClient("invalid");
         let response, errorResponse;
         try {
           response = await client.apps.getById("test-id");
@@ -276,7 +276,7 @@ describe("AppsApiClient", () => {
 
         apiMock.get("/api/apps?name=test-app").reply(200, apiResponse);
 
-        const client = new ShipengineApiClient("valid key");
+        const client = new AppsApiClient("valid key");
         let response, errorResponse;
         try {
           response = await client.apps.getByName("test-app");
@@ -301,7 +301,7 @@ describe("AppsApiClient", () => {
         };
         apiMock.get("/api/apps?name=test-app").reply(401, apiResponse);
 
-        const client = new ShipengineApiClient("invalid");
+        const client = new AppsApiClient("invalid");
         let response, errorResponse;
         try {
           response = await client.apps.getByName("test-app");
@@ -326,7 +326,7 @@ describe("AppsApiClient", () => {
         };
         apiMock.post("/api/apps/test/deploys").reply(200, apiResponse);
 
-        const client = new ShipengineApiClient("valid key");
+        const client = new AppsApiClient("valid key");
         let response, errorResponse;
         try {
           response = await client.deployments.create({
@@ -354,7 +354,7 @@ describe("AppsApiClient", () => {
         };
         apiMock.post("/api/apps/test/deploys").reply(401, apiResponse);
 
-        const client = new ShipengineApiClient("invalid");
+        const client = new AppsApiClient("invalid");
         let response, errorResponse;
         try {
           response = await client.deployments.create({
@@ -392,7 +392,7 @@ describe("AppsApiClient", () => {
         };
         apiMock.get("/api/apps/test/deploys").reply(200, apiResponse);
 
-        const client = new ShipengineApiClient("valid key");
+        const client = new AppsApiClient("valid key");
         let response, errorResponse;
         try {
           response = await client.deployments.getAllForAppId("test");
@@ -417,7 +417,7 @@ describe("AppsApiClient", () => {
         };
         apiMock.get("/api/apps/test/deploys").reply(401, apiResponse);
 
-        const client = new ShipengineApiClient("invalid");
+        const client = new AppsApiClient("invalid");
         let response, errorResponse;
         try {
           response = await client.deployments.getAllForAppId("test");
@@ -445,7 +445,7 @@ describe("AppsApiClient", () => {
         };
         apiMock.get("/api/apps/test/deploys/1").reply(200, apiResponse);
 
-        const client = new ShipengineApiClient("valid key");
+        const client = new AppsApiClient("valid key");
         let response, errorResponse;
         try {
           response = await client.deployments.getById({
@@ -473,7 +473,7 @@ describe("AppsApiClient", () => {
         };
         apiMock.get("/api/apps/test/deploys/1").reply(401, apiResponse);
 
-        const client = new ShipengineApiClient("invalid");
+        const client = new AppsApiClient("invalid");
         let response, errorResponse;
         try {
           response = await client.deployments.getById({
@@ -494,7 +494,7 @@ describe("AppsApiClient", () => {
         const apiResponse = "test";
         apiMock.get("/api/apps/test/deploys/1/logs").reply(200, apiResponse);
 
-        const client = new ShipengineApiClient("valid key");
+        const client = new AppsApiClient("valid key");
         let response, errorResponse;
 
         try {
@@ -524,7 +524,7 @@ describe("AppsApiClient", () => {
 
         apiMock.get("/api/apps/test/deploys/1/logs").reply(401, apiResponse);
 
-        const client = new ShipengineApiClient("invalid");
+        const client = new AppsApiClient("invalid");
         let response, errorResponse;
 
         try {
@@ -543,7 +543,7 @@ describe("AppsApiClient", () => {
   });
 
   describe("diagnostics", () => {
-    const client = new ShipengineApiClient("api key");
+    const client = new AppsApiClient("api key");
 
     describe("heartBeat", () => {
       it("returns a pulse", async () => {
@@ -571,7 +571,7 @@ describe("AppsApiClient", () => {
       it("returns a user", async () => {
         const apiResponse = { name: "test", email: "test@test.user.com" };
         apiMock.get("/api/diagnostics/whoami").reply(200, apiResponse);
-        const client = new ShipengineApiClient("valid key");
+        const client = new AppsApiClient("valid key");
         let response, errorResponse;
         try {
           response = await client.user.getCurrent();
@@ -595,7 +595,7 @@ describe("AppsApiClient", () => {
           status: 401,
         };
         apiMock.get("/api/diagnostics/whoami").reply(401, apiResponse);
-        const client = new ShipengineApiClient("invalid");
+        const client = new AppsApiClient("invalid");
         let response, errorResponse;
         try {
           response = await client.user.getCurrent();

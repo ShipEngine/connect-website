@@ -24,12 +24,10 @@
       ],
       "console": "integratedTerminal",
       "internalConsoleOptions": "openOnSessionStart",
-      "program": "${workspaceFolder}/bin/run",
+      "program": "${workspaceFolder}\\bin\\run",
       "args": [
-        "auth:whoami",
-        // "-d"
-      ],
-      // "cwd": "${workspaceFolder}/../shipengine-integration-platform-sample-apps/parcel-post/"
+        "integration"
+      ]
     }
   ]
 }

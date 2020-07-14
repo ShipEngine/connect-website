@@ -17,10 +17,30 @@ export default class Whoami extends BaseCommand {
     // When the -h flag is present the following line haults execution
     this.parse(Whoami);
 
-    try {
-      const currentUser = await this.currentUser();
-      this.log(`\nyou are currently logged in as: ${currentUser.email}`);
-    } catch {
+    let appUser;
+    let shipEngineUser;
+
+    if (this.shipengineClient) {
+      shipEngineUser = await this.currentShipEngineUser();
+    }
+
+    if (this.appsClient) {
+      appUser = await this.currentAppUser();
+    }
+
+    if (appUser && shipEngineUser) {
+      this.log(`\nyou are currently logged in as the following:\n`);
+
+      this.log(`shipengine ⚙ : ${shipEngineUser.username}`);
+      this.log(`auctane 🏎  🔥 : ${appUser.name}`);
+    }
+    else if (appUser) {
+      this.log(`\nyou are currently logged in as: ${appUser.name}`);
+    }
+    else if (shipEngineUser) {
+      this.log(`\nyou are currently logged in as: ${shipEngineUser.username}`);
+    }
+    else {
       return this.error("\nyou are not currently logged in", {
         exit: 1,
       });

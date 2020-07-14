@@ -1,6 +1,6 @@
 import BaseCommand from "../../base-command";
 import { flags } from "@oclif/command";
-import Login from "../auth/login";
+import { checkAppLoginStatus } from "../../core/utils/users";
 
 export default class AppsIndex extends BaseCommand {
   static description = "list your apps";
@@ -19,15 +19,10 @@ export default class AppsIndex extends BaseCommand {
     // When the -h flag is present the following line haults execution
     this.parse(AppsIndex);
 
-    try {
-      await this.currentUser();
-    } catch {
-      this.log("you need to login before you can list your apps");
-      await Login.run([]);
-    }
+    await checkAppLoginStatus(this);
 
     try {
-      const apps = this.client.apps.getAll();
+      const apps = this.appsClient!.apps.getAll();
       (await (await apps).items).forEach((app) => {
         this.log(app.name);
       });

@@ -1,10 +1,10 @@
-import ShipengineAPIClient from "..";
-import { Pulse, ShipEngineAPIErrorCollection } from "../../types";
+import { Pulse, NetworkErrorCollection } from "../../types";
+import AppsAPIClient from '..';
 
 export default class Diagnostics {
-  private client: ShipengineAPIClient;
+  private client: AppsAPIClient;
 
-  constructor(apiClient: ShipengineAPIClient) {
+  constructor(apiClient: AppsAPIClient) {
     this.client = apiClient;
   }
 
@@ -15,13 +15,13 @@ export default class Diagnostics {
   async heartBeat(): Promise<Pulse> {
     try {
       const response = await this.client.call({
-        endpoint: "v1/heartbeat",
+        endpoint: "diagnostics/heartbeat",
         method: "GET",
       });
 
       return Promise.resolve(response);
     } catch (error) {
-      return Promise.reject(error.response.data as ShipEngineAPIErrorCollection);
+      return Promise.reject(error.response.data as NetworkErrorCollection);
     }
   }
 }
