@@ -1,5 +1,5 @@
 import ShipengineAPIClient from "..";
-import { Carrier, NetworkErrorCollection } from "../../types";
+import { Carrier, NetworkErrorCollection, ShipEngineAPIErrorCollection } from "../../types";
 
 /**
  * Handles all ShipEngine API interactions with the carrier resource
@@ -29,7 +29,7 @@ export default class Carriers {
 
       return Promise.resolve(carrierList);
     } catch (error) {
-      return Promise.reject(error.response.data as NetworkErrorCollection);
+      return Promise.reject(error.response.data as ShipEngineAPIErrorCollection);
     }
   }
 }

@@ -12,22 +12,22 @@ export default abstract class BaseCommand extends Base {
   private _appsClient!: AppsAPIClient;
   private _shipengineClient!: ShipEngineAPIClient;
 
-  get appsClient(): AppsAPIClient {
+  get appsClient(): AppsAPIClient | undefined {
     const apiKey = ApiKeyStore.get(Domain.Apps);
 
     if (!apiKey) {
-      throw new Error("Unable to find App API Key");
+      return undefined;
     }
 
     this._appsClient = new AppsAPIClient(apiKey);
 
     return this._appsClient;
   }
-  get shipengineClient(): ShipEngineAPIClient {
+  get shipengineClient(): ShipEngineAPIClient | undefined {
     const apiKey = ApiKeyStore.get(Domain.ShipEngine);
 
     if (!apiKey) {
-      throw new Error("Unable to find ShipEngine API Key");
+      return undefined;
     }
 
     this._shipengineClient = new ShipEngineAPIClient(apiKey);
@@ -36,10 +36,20 @@ export default abstract class BaseCommand extends Base {
   }
 
   async currentAppUser(): Promise<AppUser> {
-    return await this.appsClient!.user.getCurrent();
+    try {
+      return await this.appsClient!.user.getCurrent();
+    }
+    catch(error) {
+      this.error(error.errors[0].message);
+    }
   }
 
   async currentShipEngineUser(): Promise<ShipEngineUser> {
-    return await this.shipengineClient!.user.getCurrent();
+    try {
+      return await this.shipengineClient!.user.getCurrent();
+    }
+    catch(error) {
+      this.error(error.errors[0].message);
+    }
   }
 }

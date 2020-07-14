@@ -1,5 +1,5 @@
 import ShipengineAPIClient from "..";
-import { Pulse, NetworkErrorCollection } from "../../types";
+import { Pulse, NetworkErrorCollection, ShipEngineAPIErrorCollection } from "../../types";
 
 export default class Diagnostics {
   private client: ShipengineAPIClient;
@@ -21,7 +21,7 @@ export default class Diagnostics {
 
       return Promise.resolve(response);
     } catch (error) {
-      return Promise.reject(error.response.data as NetworkErrorCollection);
+      return Promise.reject(error.response.data as ShipEngineAPIErrorCollection);
     }
   }
 }

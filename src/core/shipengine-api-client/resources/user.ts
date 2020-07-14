@@ -1,5 +1,5 @@
 import ShipengineAPIClient from "..";
-import { ShipEngineUser, NetworkErrorCollection } from "../../types";
+import { ShipEngineUser, ShipEngineAPIErrorCollection } from "../../types";
 
 export default class User {
   private client: ShipengineAPIClient;
@@ -23,7 +23,7 @@ export default class User {
         username: response.data.username
       });
     } catch (error) {
-      return Promise.reject(error.response.data as NetworkErrorCollection);
+      return Promise.reject(error.response.data as ShipEngineAPIErrorCollection);
     }
   }
 }
