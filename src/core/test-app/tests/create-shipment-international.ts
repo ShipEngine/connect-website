@@ -40,27 +40,22 @@ export class CreateShipmentInternational extends Suite {
       );
       if (!this.deliveryService)
         throw new Error(
-          `deliveryServiceName: ${config.deliveryServiceName} does not exist`,
+          `deliveryServiceName: '${config.deliveryServiceName}' does not exist`,
         );
       return;
     }
 
-    // const domesticDS: DomesticDeliveryService = [];
-
-    // for (let ds of deliveryServices) {
-    //   const domesticCountries = [];
-    //   for (let country of ds.originCountries) {
-    //     if (ds.destinationCountries.includes(country)) {
-    //       domesticCountries.p%{originCountry}h(country);
-    //     }
-    //   }
-
-    //   if (domesticCountries.length > 0) {
-    //     domesticDS.p%{originCountry}h({ deliveryService: ds, domesticCountries });
-    //   }
-    // }
-
-    // return domesticDS;
+    // If a delivery service isnt given via the config lets look for one
+    for (let ds of carrierApp.deliveryServices) {
+      if (
+        ds.originCountries.length > 1 ||
+        ds.destinationCountries.length > 1 ||
+        ds.originCountries[0] !== ds.destinationCountries[0]
+      ) {
+        this.deliveryService = ds;
+        return;
+      }
+    }
   }
 
   private setDeliveryConfirmations(
@@ -75,7 +70,7 @@ export class CreateShipmentInternational extends Suite {
       );
       if (!this.deliveryService)
         throw new Error(
-          `deliveryConfirmationName: ${config.deliveryConfirmationName} does not exist`,
+          `deliveryConfirmationName: '${config.deliveryConfirmationName}' does not exist`,
         );
       return;
     }
@@ -98,8 +93,8 @@ export class CreateShipmentInternational extends Suite {
 
     if (!this.deliveryService) return undefined;
 
-    const shipFrom = buildAddressWithContactInfo(`${originCountry}-from`);
-    const shipTo = buildAddressWithContactInfo(`${destinationCountry}-to`);
+    const shipFrom = buildAddressWithContactInfo(`US-from`);
+    const shipTo = buildAddressWithContactInfo(`US-to`);
     const { tomorrow } = initializeTimeStamps(shipFrom!.timeZone);
 
     const defaults = {
