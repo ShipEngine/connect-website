@@ -46,13 +46,13 @@ export class CreateShipmentInternational extends Suite {
     }
 
     // If a delivery service isnt given via the config lets look for one
-    for (let ds of carrierApp.deliveryServices) {
+    for (let deliveryService of carrierApp.deliveryServices) {
       if (
-        ds.originCountries.length > 1 ||
-        ds.destinationCountries.length > 1 ||
-        ds.originCountries[0] !== ds.destinationCountries[0]
+        deliveryService.originCountries.length > 1 ||
+        deliveryService.destinationCountries.length > 1 ||
+        deliveryService.originCountries[0] !== deliveryService.destinationCountries[0]
       ) {
-        this.deliveryService = ds;
+        this.deliveryService = deliveryService;
         return;
       }
     }
@@ -209,10 +209,10 @@ export class CreateShipmentInternational extends Suite {
 //   deliveryServices: DomesticDeliveryService,
 // ): { deliveryService: DeliveryService; country: Country } | undefined {
 //   for (let ds of deliveryServices) {
-//     for (let domesticCountry of ds.domesticCountries) {
+//     for (let domesticCountry of deliveryService.domesticCountries) {
 //       if (buildAddress(`${domesticCountry}-from`)) {
 //         return {
-//           deliveryService: ds.deliveryService,
+//           deliveryService: deliveryService.deliveryService,
 //           country: domesticCountry,
 //         };
 //       }
