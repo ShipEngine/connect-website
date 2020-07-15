@@ -12,11 +12,17 @@ import { MethodArgs } from "../runner/method-args";
 import { CreateShipmentDomesticOptions } from "../runner/config";
 import { DeliveryService } from '@shipengine/integration-platform-sdk/lib/internal';
 import { each } from 'lodash';
+import { initializeTimeStamps } from '../../utils/time-stamps';
 
 interface TestArgs {
+  title: string;
   methodArgs: MethodArgs<NewShipmentPOJO>;
   config: any;
 }
+
+// This code is terse. Find context/help below.
+// https://stackoverflow.com/questions/57086672/element-implicitly-has-an-any-type-because-expression-of-type-string-cant-b
+const _getKeyValue_ = (key: string) => (obj: Record<string, any>) => obj[key];
 
 export class CreateShipmentDomestic extends Suite {
   title = "createShipment_domestic";
@@ -34,14 +40,35 @@ export class CreateShipmentDomestic extends Suite {
     }
 
     const { deliveryService, country } = results;
-    const weightValue = config.weightValue ? Number(config.weightValue) : 50.0;
-    const weightUnit = config.weightUnit ? config.weightUnit : WeightUnit.Pounds;
-    const shipDateTime = new Date();
+
     const shipFrom = buildAddressWithContactInfo(`${country}-from`);
     const shipTo = buildAddressWithContactInfo(`${country}-to`);
+    const { tomorrow } = initializeTimeStamps(shipFrom!.timeZone);
 
-    let labelFormat = deliveryService.labelFormats[0];
-    let labelSize = deliveryService.labelSizes[0];
+    const defaults = {
+      labelFormat: deliveryService.labelFormats[0],
+      labelSize: deliveryService.labelSizes[0],
+      shipDateTime: tomorrow,
+      shipFrom: shipFrom,
+      shipTo: shipTo,
+      weightUnit: WeightUnit.Pounds,
+      weightValue: 50.0,
+    };
+
+    const whiteListKeys = Object.keys(defaults);
+
+    // This code is filtering any keys in the config that are not white listed
+    // and merging the values with the defaults above
+    const testParams = Object.keys(config)
+      .filter((key) => whiteListKeys.includes(key))
+      .reduce((obj, key: string) => {
+        Reflect.set(obj, key, Reflect.get(config, key));
+        return obj;
+      }, defaults);
+
+
+    // let labelFormat = deliveryService.labelFormats[0];
+    // let labelSize = deliveryService.labelSizes[0];
 
     const packagePOJO: NewPackagePOJO = {
       deliveryConfirmation: {
@@ -51,12 +78,12 @@ export class CreateShipmentDomestic extends Suite {
         id: deliveryService.packaging[0].id,
       },
       label: {
-        size: labelSize,
-        format: labelFormat,
+        size: testParams.labelSize,
+        format: testParams.labelFormat,
       },
       weight: {
-        value: weightValue,
-        unit: weightUnit,
+        value: testParams.weightValue,
+        unit: testParams.weightUnit,
       },
     };
 
@@ -64,15 +91,31 @@ export class CreateShipmentDomestic extends Suite {
       deliveryService: {
         id: deliveryService.id,
       },
-      shipFrom: shipFrom!,
-      shipTo: shipTo!,
-      shipDateTime: shipDateTime,
+      shipFrom: testParams.shipFrom!,
+      shipTo: testParams.shipTo!,
+      shipDateTime: testParams.shipDateTime,
       packages: [packagePOJO],
     };
 
+
+    const title = config.expectedErrorMessage
+      ? `it raises an error when creating a new domestic shipment with ${Object.keys(
+        testParams,
+      )
+        .map(function (k: any) {
+          return `${k}: ${_getKeyValue_(k)(testParams)}`;
+        })
+        .join(", ")}`
+      : `it creates a new domestic shipment with ${Object.keys(testParams)
+        .map(function (k: any) {
+          return `${k}: ${_getKeyValue_(k)(testParams)}`;
+        })
+        .join(", ")}`;
+
     return {
+      title,
       methodArgs: [this.transaction, newShipmentPOJO],
-      config: config
+      config
     };
   }
 
@@ -96,7 +139,7 @@ export class CreateShipmentDomestic extends Suite {
     }
     return testArgs.map((testArg) => {
       return this.test(
-        "it creates a new domestic shipment",
+        testArg!.title,
         testArg!.methodArgs,
         testArg!.config,
         async () => {
