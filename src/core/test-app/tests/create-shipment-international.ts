@@ -73,8 +73,8 @@ export class CreateShipmentInternational extends Suite {
     const { tomorrow } = initializeTimeStamps(shipFrom!.timeZone);
 
     const defaults = {
-      labelFormat: deliveryService.labelFormats[0],
-      labelSize: deliveryService.labelSizes[0],
+      labelFormat: this.deliveryService.labelFormats[0],
+      labelSize: this.deliveryService.labelSizes[0],
       shipDateTime: tomorrow,
       shipFrom: shipFrom,
       shipTo: shipTo,
