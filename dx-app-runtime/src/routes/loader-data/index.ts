@@ -3,10 +3,18 @@ import { IRouter, Router } from "express";
 const router: IRouter = Router();
 
 import spec from "../../mapping/registry-data";
+import logger from "../../util/logger";
 
 router.get("/GetRegistryData", (req, res) => {
-  const externalSpec = spec(req.app.locals.app);
-  res.send(externalSpec);
+  try {
+    const externalSpec = spec(req.app.locals.app);
+    res.send(externalSpec);
+  } catch(error) {
+    logger.error('There was an error while trying to map to the external spec.');
+    logger.error(error.message);
+    logger.error(error.stack);
+    res.status(500).send(error);
+  }
 });
 
 router.get("/app", (req, res) => {
