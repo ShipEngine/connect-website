@@ -18,7 +18,16 @@ export interface CreateShipmentDomesticOptions extends TestOptions {
   weightValue?: number;
   weightUnit?: WeightUnit;
   shipDateTime?: DateTimeZonePOJO | Date | string;
-  deliveryServiceId?: string;
+  deliveryServiceName?: string;
+}
+
+export interface CreateShipmentInternationalOptions extends TestOptions {
+  shipFrom?: Address;
+  shipTo?: Address;
+  weightValue?: number;
+  weightUnit?: WeightUnit;
+  shipDateTime?: DateTimeZonePOJO | Date | string;
+  deliveryServiceName?: string;
 }
 
 export interface TestsConfig {
@@ -28,7 +37,9 @@ export interface TestsConfig {
   createShipment_domestic?:
     | CreateShipmentDomesticOptions
     | [CreateShipmentDomesticOptions];
-  createShipment_international?: TestOptions | [TestOptions];
+  createShipment_international?:
+    | CreateShipmentInternationalOptions
+    | [CreateShipmentInternationalOptions];
   createShipment_multi_package?: TestOptions | [TestOptions];
   rateShipment?: TestOptions | [TestOptions];
   schedulePickup?: TestOptions | [TestOptions];

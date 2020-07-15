@@ -4,12 +4,13 @@ import {
   NewPackagePOJO,
   WeightUnit,
   DeliveryService,
+  Country,
 } from "@shipengine/integration-platform-sdk";
 import Suite from "../runner/suite";
 import { buildAddressWithContactInfo } from "../factories/address";
 import { MethodArgs } from "../runner/method-args";
-import { CreateShipmentDomesticOptions } from "../runner/config";
-import { initializeTimeStamps, getTimeTitle } from "../../utils/time-stamps";
+import { CreateShipmentInternationalOptions } from "../runner/config";
+import { initializeTimeStamps } from "../../utils/time-stamps";
 
 interface TestArgs {
   title: string;
@@ -17,40 +18,58 @@ interface TestArgs {
   config: any;
 }
 
-// This code is terse. Find context/help below.
-// https://stackoverflow.com/questions/57086672/element-implicitly-has-an-any-type-because-expression-of-type-string-cant-b
-const _getKeyValue_ = (key: string) => (obj: Record<string, any>) => obj[key];
+type DomesticDeliveryService = Array<{
+  deliveryService: DeliveryService;
+  domesticCountries: Country[];
+}>;
 
 export class CreateShipmentInternational extends Suite {
   title = "createShipment_international";
 
-  buildTestArg(config: CreateShipmentDomesticOptions): TestArgs | undefined {
+  private deliveryService?: DeliveryService;
+
+  private setDeliveryService(config: CreateShipmentInternationalOptions): void {
     const carrierApp = this.app as CarrierApp;
 
-    let deliveryServiceId: string;
-
-    if (config.deliveryServiceId) {
-      deliveryServiceId = config.deliveryServiceId;
-    } else {
-      const deliveryServicesCopy = Object.assign(
-        [],
-        carrierApp.deliveryServices,
-      ) as DeliveryService[];
-
-      const deliveryServices = findInternationalDeliveryServices(
-        deliveryServicesCopy,
+    if (config.deliveryServiceName) {
+      this.deliveryService = carrierApp.deliveryServices.find(
+        (deliveryService) =>
+          deliveryService.name === config.deliveryServiceName,
       );
-
-      const deliveryService = pickDeliveryService(deliveryServices);
-      const deliveryServiceId = deliveryService.id;
+      if (!this.deliveryService)
+        throw new Error(
+          `deliveryServiceName: ${config.deliveryServiceName} does not exist`,
+        );
+      return;
     }
 
-    if (!deliveryServiceId) {
-      return undefined;
-    }
+    // const domesticDS: DomesticDeliveryService = [];
 
-    const shipFrom = buildAddressWithContactInfo("US-from");
-    const shipTo = buildAddressWithContactInfo("US-to");
+    // for (let ds of deliveryServices) {
+    //   const domesticCountries = [];
+    //   for (let country of ds.originCountries) {
+    //     if (ds.destinationCountries.includes(country)) {
+    //       domesticCountries.p%{originCountry}h(country);
+    //     }
+    //   }
+
+    //   if (domesticCountries.length > 0) {
+    //     domesticDS.p%{originCountry}h({ deliveryService: ds, domesticCountries });
+    //   }
+    // }
+
+    // return domesticDS;
+  }
+
+  buildTestArg(
+    config: CreateShipmentInternationalOptions,
+  ): TestArgs | undefined {
+    this.setDeliveryService(config);
+
+    if (!this.deliveryService) return undefined;
+
+    const shipFrom = buildAddressWithContactInfo(`${originCountry}-from`);
+    const shipTo = buildAddressWithContactInfo(`${destinationCountry}-to`);
     const { tomorrow } = initializeTimeStamps(shipFrom!.timeZone);
 
     const defaults = {
@@ -75,11 +94,8 @@ export class CreateShipmentInternational extends Suite {
       }, defaults);
 
     const packagePOJO: NewPackagePOJO = {
-      deliveryConfirmation: {
-        id: deliveryService.deliveryConfirmations[0].id,
-      },
       packaging: {
-        id: deliveryService.packaging[0].id,
+        id: this.deliveryService.packaging[0].id,
       },
       label: {
         size: testParams.labelSize,
@@ -91,9 +107,18 @@ export class CreateShipmentInternational extends Suite {
       },
     };
 
+    if (
+      this.deliveryService.deliveryConfirmations.length !== 0 &&
+      this.deliveryService.deliveryConfirmations[0].id
+    ) {
+      packagePOJO.deliveryConfirmation = {
+        id: this.deliveryService.deliveryConfirmations[0].id,
+      };
+    }
+
     let newShipmentPOJO: NewShipmentPOJO = {
       deliveryService: {
-        id: deliveryServiceId,
+        id: this.deliveryService.id,
       },
       shipFrom: testParams.shipFrom!,
       shipTo: testParams.shipTo!,
@@ -106,12 +131,12 @@ export class CreateShipmentInternational extends Suite {
           testParams,
         )
           .map(function (k: any) {
-            return `${k}: ${_getKeyValue_(k)(testParams)}`;
+            return `${k}: ${Reflect.get(testParams, k)}`;
           })
           .join(", ")}`
       : `it creates a new international shipment with ${Object.keys(testParams)
           .map(function (k: any) {
-            return `${k}: ${_getKeyValue_(k)(testParams)}`;
+            return `${k}: ${Reflect.get(testParams, k)}`;
           })
           .join(", ")}`;
 
@@ -124,11 +149,11 @@ export class CreateShipmentInternational extends Suite {
 
   buildTestArgs(): Array<TestArgs | undefined> {
     if (Array.isArray(this.config)) {
-      return this.config.map((config: CreateShipmentDomesticOptions) => {
+      return this.config.map((config: CreateShipmentInternationalOptions) => {
         return this.buildTestArg(config);
       });
     } else {
-      const config = this.config as CreateShipmentDomesticOptions;
+      const config = this.config as CreateShipmentInternationalOptions;
 
       return [this.buildTestArg(config)];
     }
@@ -155,48 +180,22 @@ export class CreateShipmentInternational extends Suite {
   }
 }
 
-type DomesticDeliveryService = Array<{
-  deliveryService: DeliveryService;
-  domesticCountries: Country[];
-}>;
+// /**
+//  * Currently, j%{originCountry}t return the first valid domestic delivery service that we have an address for
+//  */
+// function pickDeliveryService(
+//   deliveryServices: DomesticDeliveryService,
+// ): { deliveryService: DeliveryService; country: Country } | undefined {
+//   for (let ds of deliveryServices) {
+//     for (let domesticCountry of ds.domesticCountries) {
+//       if (buildAddress(`${domesticCountry}-from`)) {
+//         return {
+//           deliveryService: ds.deliveryService,
+//           country: domesticCountry,
+//         };
+//       }
+//     }
+//   }
 
-function findInternationalDeliveryServices(
-  deliveryServices: DeliveryService[],
-): DomesticDeliveryService {
-  const domesticDS: DomesticDeliveryService = [];
-
-  for (let ds of deliveryServices) {
-    const domesticCountries = [];
-    for (let country of ds.originCountries) {
-      if (ds.destinationCountries.includes(country)) {
-        domesticCountries.push(country);
-      }
-    }
-
-    if (domesticCountries.length > 0) {
-      domesticDS.push({ deliveryService: ds, domesticCountries });
-    }
-  }
-
-  return domesticDS;
-}
-
-/**
- * Currently, just return the first valid domestic delivery service that we have an address for
- */
-function pickDeliveryService(
-  deliveryServices: DomesticDeliveryService,
-): { deliveryService: DeliveryService; country: Country } | undefined {
-  for (let ds of deliveryServices) {
-    for (let domesticCountry of ds.domesticCountries) {
-      if (buildAddress(`${domesticCountry}-from`)) {
-        return {
-          deliveryService: ds.deliveryService,
-          country: domesticCountry,
-        };
-      }
-    }
-  }
-
-  return undefined;
-}
+//   return undefined;
+// }
