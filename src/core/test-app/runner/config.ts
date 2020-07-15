@@ -28,6 +28,7 @@ export interface CreateShipmentInternationalOptions extends TestOptions {
   weightUnit?: WeightUnit;
   shipDateTime?: DateTimeZonePOJO | Date | string;
   deliveryServiceName?: string;
+  deliveryConfirmationName?: string;
 }
 
 export interface TestsConfig {

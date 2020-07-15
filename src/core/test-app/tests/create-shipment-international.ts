@@ -5,6 +5,7 @@ import {
   WeightUnit,
   DeliveryService,
   Country,
+  DeliveryConfirmation,
 } from "@shipengine/integration-platform-sdk";
 import Suite from "../runner/suite";
 import { buildAddressWithContactInfo } from "../factories/address";
@@ -27,6 +28,7 @@ export class CreateShipmentInternational extends Suite {
   title = "createShipment_international";
 
   private deliveryService?: DeliveryService;
+  private deliveryConfirmation?: DeliveryConfirmation;
 
   private setDeliveryService(config: CreateShipmentInternationalOptions): void {
     const carrierApp = this.app as CarrierApp;
@@ -61,10 +63,38 @@ export class CreateShipmentInternational extends Suite {
     // return domesticDS;
   }
 
+  private setDeliveryConfirmations(
+    config: CreateShipmentInternationalOptions,
+  ): void {
+    const carrierApp = this.app as CarrierApp;
+
+    if (config.deliveryConfirmationName) {
+      this.deliveryConfirmation = carrierApp.deliveryConfirmations.find(
+        (deliveryConfirmation) =>
+          deliveryConfirmation.name === config.deliveryConfirmationName,
+      );
+      if (!this.deliveryService)
+        throw new Error(
+          `deliveryConfirmationName: ${config.deliveryConfirmationName} does not exist`,
+        );
+      return;
+    }
+
+    if (
+      this.deliveryService &&
+      this.deliveryService.deliveryConfirmations.length !== 0 &&
+      this.deliveryService.deliveryConfirmations[0]
+    ) {
+      this.deliveryConfirmation = this.deliveryService.deliveryConfirmations[0];
+      return;
+    }
+  }
+
   buildTestArg(
     config: CreateShipmentInternationalOptions,
   ): TestArgs | undefined {
     this.setDeliveryService(config);
+    this.setDeliveryConfirmations(config);
 
     if (!this.deliveryService) return undefined;
 
@@ -107,12 +137,9 @@ export class CreateShipmentInternational extends Suite {
       },
     };
 
-    if (
-      this.deliveryService.deliveryConfirmations.length !== 0 &&
-      this.deliveryService.deliveryConfirmations[0].id
-    ) {
+    if (this.deliveryConfirmation) {
       packagePOJO.deliveryConfirmation = {
-        id: this.deliveryService.deliveryConfirmations[0].id,
+        id: this.deliveryConfirmation.id,
       };
     }
 
