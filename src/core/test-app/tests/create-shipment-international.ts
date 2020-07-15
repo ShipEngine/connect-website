@@ -98,11 +98,13 @@ export class CreateShipmentInternational extends Suite {
     // If we cant resolve a delivery serivice above then we dont have enough info to setup this test
     if (!this.deliveryService) return undefined;
 
-
     const originCountry = "US";
     const destinationCountry = "US";
-    const shipFrom = buildAddressWithContactInfo(`${originCountry}-from`);
-    const shipTo = buildAddressWithContactInfo(`${destinationCountry}-to`);
+
+    // We need to know if the config defines 'shipFrom' so we can set the 'shipDateTime' with the correct timezone
+    const shipFrom = config.shipFrom
+      ? config.shipFrom
+      : buildAddressWithContactInfo(`${originCountry}-from`);
     const { tomorrow } = initializeTimeStamps(shipFrom!.timeZone);
 
     const defaults = {
@@ -110,7 +112,7 @@ export class CreateShipmentInternational extends Suite {
       labelSize: this.deliveryService.labelSizes[0],
       shipDateTime: tomorrow, // It would prob be a better DX to give the user an enum of relative values "tomorrow", "nextWeek" etc.
       shipFrom: shipFrom,
-      shipTo: shipTo,
+      shipTo: buildAddressWithContactInfo(`${destinationCountry}-to`),
       weightUnit: WeightUnit.Pounds,
       weightValue: 50.0,
     };
