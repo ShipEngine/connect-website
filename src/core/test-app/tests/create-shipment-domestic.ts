@@ -3,7 +3,6 @@ import {
   NewShipmentPOJO,
   NewPackagePOJO,
   WeightUnit,
-  ServiceArea,
   Country,
 } from "@shipengine/integration-platform-sdk";
 import Suite from "../runner/suite";
@@ -11,7 +10,6 @@ import { buildAddressWithContactInfo, buildAddress } from "../factories/address"
 import { MethodArgs } from "../runner/method-args";
 import { CreateShipmentDomesticOptions } from "../runner/config";
 import { DeliveryService } from '@shipengine/integration-platform-sdk/lib/internal';
-import { each } from 'lodash';
 import { initializeTimeStamps } from '../../utils/time-stamps';
 
 interface TestArgs {
@@ -65,10 +63,6 @@ export class CreateShipmentDomestic extends Suite {
         Reflect.set(obj, key, Reflect.get(config, key));
         return obj;
       }, defaults);
-
-
-    // let labelFormat = deliveryService.labelFormats[0];
-    // let labelSize = deliveryService.labelSizes[0];
 
     const packagePOJO: NewPackagePOJO = {
       deliveryConfirmation: {

@@ -1,7 +1,6 @@
 import {
   Address,
   DateTimeZonePOJO,
-  WeightPOJO,
   WeightUnit,
 } from "@shipengine/integration-platform-sdk";
 
