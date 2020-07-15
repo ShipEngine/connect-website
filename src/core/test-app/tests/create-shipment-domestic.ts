@@ -21,6 +21,7 @@ interface TestArgs {
 
 export class CreateShipmentDomestic extends Suite {
   title = "createShipment_domestic";
+  
   private deliveryService?: DeliveryService | undefined;
 
   private setDeliveryService(config: CreateShipmentDomesticOptions): void {
@@ -54,7 +55,7 @@ export class CreateShipmentDomestic extends Suite {
 
     if (!this.deliveryService) return undefined;
 
-    const country = findCountry(this.deliveryService);
+    const country = findMatchingDomesticCountry(this.deliveryService);
     const shipFrom = buildAddressWithContactInfo(`${country}-from`);
     const shipTo = buildAddressWithContactInfo(`${country}-to`);
     const { tomorrow } = initializeTimeStamps(shipFrom!.timeZone);
@@ -215,7 +216,7 @@ function pickDomesticDeliveryService(deliveryServices: DomesticDeliveryService):
   return undefined;
 }
 
-function findCountry(ds: DeliveryService): Country | undefined {
+function findMatchingDomesticCountry(ds: DeliveryService): Country | undefined {
 
   for (let country of ds.originCountries) {
     if (ds.destinationCountries.includes(country)) {
@@ -225,7 +226,6 @@ function findCountry(ds: DeliveryService): Country | undefined {
     }
   }
 }
-
 
 function parseTitle(testParams: CreateShipmentDomesticOptions, key: any): string {
   
