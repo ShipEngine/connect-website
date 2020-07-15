@@ -18,6 +18,7 @@ describe("The create shipment domestic test suite", () => {
     });
   });
 
+
   describe("when there is not address available for a domestic services", () => {
     const { app, config, options } = generateBasicAppAndConfigs(); 
     app.deliveryServices[0].originCountries = ["AQ"]
@@ -101,6 +102,95 @@ describe("The create shipment domestic test suite", () => {
 
       expect(tests[1].title).to.include("weightValue: 22");
       expect(tests[1].title).to.include("labelSize: A6");
+    });
+  });
+
+  describe("When a user configs a delivery service that does not exist", () => {
+
+    const { app, config, options } = generateBasicAppAndConfigs(); 
+    config.createShipment_domestic = {
+      deliveryServiceName: "asdf"
+    }
+
+    const args = { app, config, options, transaction: {} };
+    const testSuite = new CreateShipmentDomestic(args);
+
+    it("should throw an error", () => {
+      try {
+        const tests = testSuite.tests();
+        expect(true).to.equal(false);
+      }
+      catch(error) {
+        expect(error.message).to.include("deliveryServiceName: asdf does not exist");
+      }
+    });
+  });
+
+  describe("When a user configs a new delivery service", () => {
+    const { app, config, options } = generateBasicAppAndConfigs(); 
+    app.deliveryServices.push({
+      id: "123455",
+      name: "Better Delivery Service",
+      class: "ground",
+      grade: "standard",
+      originCountries: ["MX"],
+      destinationCountries: ["MX"],
+      labelFormats: ["pdf"],
+      labelSizes: ["A4"],
+      packaging: [pojo.packaging()]
+    });
+
+    config.createShipment_domestic = {
+      deliveryServiceName: "Better Delivery Service"
+    }
+
+    const args = { app, config, options, transaction: {} };
+    const testSuite = new CreateShipmentDomestic(args);
+    const tests = testSuite.tests();
+
+    it("should update the title params to reflect the new properties", () => {
+      expect(tests[0].title).to.include("deliveryServiceName: Better Delivery Service");
+      expect(tests[0].title).to.include("labelFormat: pdf");
+    });
+  });
+
+  describe("When a user configures a Ship To and Ship From address", () => {
+    const { app, config, options } = generateBasicAppAndConfigs(); 
+
+    config.createShipment_domestic = {
+      shipFrom: {
+        company: "Domestic Route #1",
+        addressLines: ["123 New Street"],
+        cityLocality: "Houston",
+        stateProvince: "TX",
+        country: "US",
+        postalCode: "77422",
+        timeZone: "America/Chicago"
+      },
+      shipTo: {
+        company: "Domestic Route #2",
+        addressLines: ["123 New Street"],
+        cityLocality: "Houston",
+        stateProvince: "TX",
+        country: "US",
+        postalCode: "77422",
+        timeZone: "America/Chicago"
+      }
+    };
+
+    const args = { app, config, options, transaction: {} };
+    const testSuite = new CreateShipmentDomestic(args);
+    const tests = testSuite.tests();
+
+    it("should update the test arguments and titles", () => {
+      expect(tests[0].methodArgs[1].shipFrom.company).to.equal("Domestic Route #1");
+      expect(tests[0].methodArgs[1].shipTo.company).to.equal("Domestic Route #2");
+
+      expect(tests[0].methodArgs[1].shipTo).to.eql(config.createShipment_domestic.shipTo);
+
+      expect(tests[0].title).to.include("shipFrom: US");
+      expect(tests[0].title).to.include("shipTo: US");
+
     });
   });
 });
