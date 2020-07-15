@@ -48,9 +48,13 @@ export class CreateShipmentInternational extends Suite {
     // If a delivery service isnt given via the config lets look for one
     for (let deliveryService of carrierApp.deliveryServices) {
       if (
+        // If there is more than 1 origin country this is international
         deliveryService.originCountries.length > 1 ||
+        // If there is more than 1 destination country this is international
         deliveryService.destinationCountries.length > 1 ||
-        deliveryService.originCountries[0] !== deliveryService.destinationCountries[0]
+        // If there is only 1 origin & destination country but they are different this is international
+        deliveryService.originCountries[0] !==
+          deliveryService.destinationCountries[0]
       ) {
         this.deliveryService = deliveryService;
         return;
@@ -91,16 +95,20 @@ export class CreateShipmentInternational extends Suite {
     this.setDeliveryService(config);
     this.setDeliveryConfirmations(config);
 
+    // If we cant resolve a delivery serivice above then we dont have enough info to setup this test
     if (!this.deliveryService) return undefined;
 
-    const shipFrom = buildAddressWithContactInfo(`US-from`);
-    const shipTo = buildAddressWithContactInfo(`US-to`);
+
+    const originCountry = "US";
+    const destinationCountry = "US";
+    const shipFrom = buildAddressWithContactInfo(`${originCountry}-from`);
+    const shipTo = buildAddressWithContactInfo(`${destinationCountry}-to`);
     const { tomorrow } = initializeTimeStamps(shipFrom!.timeZone);
 
     const defaults = {
       labelFormat: this.deliveryService.labelFormats[0],
       labelSize: this.deliveryService.labelSizes[0],
-      shipDateTime: tomorrow,
+      shipDateTime: tomorrow, // It would prob be a better DX to give the user an enum of relative values "tomorrow", "nextWeek" etc.
       shipFrom: shipFrom,
       shipTo: shipTo,
       weightUnit: WeightUnit.Pounds,
@@ -201,23 +209,3 @@ export class CreateShipmentInternational extends Suite {
     });
   }
 }
-
-// /**
-//  * Currently, j%{originCountry}t return the first valid domestic delivery service that we have an address for
-//  */
-// function pickDeliveryService(
-//   deliveryServices: DomesticDeliveryService,
-// ): { deliveryService: DeliveryService; country: Country } | undefined {
-//   for (let ds of deliveryServices) {
-//     for (let domesticCountry of deliveryService.domesticCountries) {
-//       if (buildAddress(`${domesticCountry}-from`)) {
-//         return {
-//           deliveryService: deliveryService.deliveryService,
-//           country: domesticCountry,
-//         };
-//       }
-//     }
-//   }
-
-//   return undefined;
-// }
