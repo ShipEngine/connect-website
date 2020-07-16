@@ -40,7 +40,7 @@ export class CreateShipmentInternational extends Suite {
       );
       if (!this.deliveryService)
         throw new Error(
-          `deliveryServiceName: '${config.deliveryServiceName}' does not exist`,
+          `shipengine.config.js deliveryServiceName: '${config.deliveryServiceName}' does not exist`,
         );
       return;
     }
@@ -62,7 +62,7 @@ export class CreateShipmentInternational extends Suite {
     }
   }
 
-  private setDeliveryConfirmations(
+  private setDeliveryConfirmation(
     config: CreateShipmentInternationalOptions,
   ): void {
     const carrierApp = this.app as CarrierApp;
@@ -93,13 +93,14 @@ export class CreateShipmentInternational extends Suite {
     config: CreateShipmentInternationalOptions,
   ): TestArgs | undefined {
     this.setDeliveryService(config);
-    this.setDeliveryConfirmations(config);
+    this.setDeliveryConfirmation(config);
 
     // If we cant resolve a delivery serivice above then we dont have enough info to setup this test
     if (!this.deliveryService) return undefined;
 
+    // this.setOriginCountry(config);
     const originCountry = "US";
-    const destinationCountry = "US";
+    const destinationCountry = "MX";
 
     // We need to know if the config defines 'shipFrom' so we can set the 'shipDateTime' with the correct timezone
     const shipFrom = config.shipFrom
@@ -113,8 +114,10 @@ export class CreateShipmentInternational extends Suite {
       shipDateTime: tomorrow, // It would prob be a better DX to give the user an enum of relative values "tomorrow", "nextWeek" etc.
       shipFrom: shipFrom,
       shipTo: buildAddressWithContactInfo(`${destinationCountry}-to`),
-      weightUnit: WeightUnit.Pounds,
-      weightValue: 50.0,
+      weight: {
+        value: 50.0,
+        unit: WeightUnit.Pounds,
+      },
     };
 
     const whiteListKeys = Object.keys(defaults);
@@ -136,10 +139,7 @@ export class CreateShipmentInternational extends Suite {
         size: testParams.labelSize,
         format: testParams.labelFormat,
       },
-      weight: {
-        value: testParams.weightValue,
-        unit: testParams.weightUnit,
-      },
+      weight: testParams.weight,
     };
 
     if (this.deliveryConfirmation) {
@@ -211,3 +211,14 @@ export class CreateShipmentInternational extends Suite {
     });
   }
 }
+
+// function parseTitle(
+//   testParams: CreateShipmentDomesticOptions,
+//   key: any,
+// ): string {
+//   if (key === "shipFrom" || key === "shipTo") {
+//     const address = Reflect.get(testParams, key) as Address;
+//     return `${key}: ${address.country}`;
+//   }
+//   return `${key}: ${Reflect.get(testParams, key)}`;
+// }

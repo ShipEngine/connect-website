@@ -1,7 +1,9 @@
 import {
   Address,
   DateTimeZonePOJO,
-  WeightUnit,
+  WeightPOJO,
+  DocumentSize,
+  DocumentFormat,
 } from "@shipengine/integration-platform-sdk";
 
 export interface TestOptions {
@@ -15,20 +17,21 @@ export interface TestOptions {
 export interface CreateShipmentDomesticOptions extends TestOptions {
   shipFrom?: Address;
   shipTo?: Address;
-  weightValue?: number;
-  weightUnit?: WeightUnit;
+  weight: WeightPOJO;
   shipDateTime?: DateTimeZonePOJO | Date | string;
   deliveryServiceName?: string;
 }
 
 export interface CreateShipmentInternationalOptions extends TestOptions {
+  deliveryConfirmationName?: string;
+  deliveryServiceName?: string;
+  labelFormat: DocumentFormat;
+  labelSize: DocumentSize;
+  shipDateTime?: DateTimeZonePOJO | Date | string;
   shipFrom?: Address;
   shipTo?: Address;
+  weight: WeightPOJO;
   weightValue?: number;
-  weightUnit?: WeightUnit;
-  shipDateTime?: DateTimeZonePOJO | Date | string;
-  deliveryServiceName?: string;
-  deliveryConfirmationName?: string;
 }
 
 export interface TestsConfig {
