@@ -47,7 +47,7 @@ export async function loadApp(appPath: string = "."): Promise<App> {
 /**
  * Checks to make sure that an app has enough required and distinguishing properties to determine its type.
  */
-function isCarrierApp(definition: AppDefinition): boolean {
+function isCarrierApp(definition: AppDefinition): definition is CarrierAppDefinition {
   const requiredCarrierProperties = ["deliveryServices"];
   const optionalCarrierProperties = ["manifestLocations", "manifestShipments", "pickupServices", "createShipment", "cancelShipments",
                                      "rateShipment", "trackShipment", "createManifest", "schedulePickup", "cancelPickups"];
