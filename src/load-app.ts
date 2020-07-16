@@ -26,7 +26,7 @@ export async function loadApp(appPath: string = "."): Promise<App> {
     let [definition, definitionPath] = await readDefinition<AppDefinition>(appPath, ".", "ShipEngine Integration Platform app");
 
     if (isCarrierApp(definition)) {
-      let pojo = await readCarrierAppDefinition(definition as CarrierAppDefinition, definitionPath, manifest);
+      let pojo = await readCarrierAppDefinition(definition, definitionPath, manifest);
       return new sdk.CarrierApp(pojo);
     }
     else {
