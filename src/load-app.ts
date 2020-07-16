@@ -25,12 +25,12 @@ export async function loadApp(appPath: string = "."): Promise<App> {
     // Read the app's exported definition
     let [definition, definitionPath] = await readDefinition<AppDefinition>(appPath, ".", "ShipEngine Integration Platform app");
 
-    if ("deliveryServices" in definition) {
-      let pojo = await readCarrierAppDefinition(definition, definitionPath, manifest);
+    if (isCarrierApp(definition)) {
+      let pojo = await readCarrierAppDefinition(definition as CarrierAppDefinition, definitionPath, manifest);
       return new sdk.CarrierApp(pojo);
     }
     else {
-      let pojo = await readOrderAppDefinition(definition, definitionPath, manifest);
+      let pojo = await readOrderAppDefinition(definition as OrderAppDefinition, definitionPath, manifest);
       return new sdk.OrderApp(pojo);
     }
   }
@@ -42,4 +42,35 @@ export async function loadApp(appPath: string = "."): Promise<App> {
     // so the cache can be cleared to free-up memory
     fileCache.finishedLoading();
   }
+}
+
+/**
+ * Checks to make sure that an app has enough required and distinguishing properties to determine its type.
+ */
+function isCarrierApp(definition: AppDefinition): boolean {
+  const requiredCarrierProperties = ["deliveryServices"];
+  const optionalCarrierProperties = ["manifestLocations", "manifestShipments", "pickupServices", "createShipment", "cancelShipments",
+                                     "rateShipment", "trackShipment", "createManifest", "schedulePickup", "cancelPickups"];
+
+  for (let property of requiredCarrierProperties) {
+    if (property in definition) {
+      return true;
+    }
+  }
+
+  for (let property of optionalCarrierProperties) {
+    if (property in definition) {
+      throw new Error("Carrier app is missing required 'deliveryServices` property");
+    }
+  }
+
+  const optionalOrderProperties = ["getSeller", "getSalesOrder", "getSalesOrdersByDate", "shipmentCreated", "shipmentCancelled"];
+
+  for (let property of optionalOrderProperties) {
+    if (property in definition) {
+      return false;
+    }
+  }
+
+  throw new Error("Your app is missing some required fields. Please refer to the documentation.");
 }
