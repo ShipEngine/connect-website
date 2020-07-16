@@ -41,7 +41,9 @@ async function readYamlFile<T>(filePath: string): Promise<T> {
   let yaml = await readTextFile(filePath);
 
   try {
-    return jsYaml.safeLoad(yaml, { filename: path.basename(filePath) }) as T;
+    const parsedYaml = jsYaml.safeLoad(yaml, { filename: path.basename(filePath) }) as unknown;
+
+    return parsedYaml as T;
   }
   catch (originalError) {
     throw error(ErrorCode.Syntax, `Unable to parse ${path.basename(filePath)}.`, { originalError });
