@@ -281,12 +281,7 @@ const mapRequiredProperties = (
 };
 
 const isInternationalService = (service: DeliveryService): boolean => {
-  service.destinationCountries.forEach((destinationCountry) => {
-    if (!service.originCountries.includes(destinationCountry)) {
-      return false;
-    }
-  });
-  return true;
+  return service.serviceArea === ServiceArea.International || service.serviceArea === ServiceArea.Global;
 };
 
 const mapShippingService = (
