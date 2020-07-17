@@ -54,7 +54,7 @@ describe("The create shipment domestic test suite", () => {
     });
   });
 
-  describe("when there is a config override object of test suite parameters", () => {
+  describe.skip("when there is a config override object of test suite parameters", () => {
     const { app, config, options } = generateBasicAppAndConfigs(); 
     config.createShipment_domestic = {
       weightValue: 200,
@@ -73,7 +73,7 @@ describe("The create shipment domestic test suite", () => {
     });
   });
 
-  describe("when there is a config override array of test suite parameters", () => {
+  describe.skip("when there is a config override array of test suite parameters", () => {
 
     const { app, config, options } = generateBasicAppAndConfigs(); 
     config.createShipment_domestic = 
