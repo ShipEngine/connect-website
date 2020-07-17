@@ -12,6 +12,7 @@ import { buildAddress, buildAddressWithContactInfo } from "../factories/address"
 import { MethodArgs } from "../runner/method-args";
 import { CreateShipmentDomesticOptions } from "../runner/config";
 import { initializeTimeStamps } from '../../utils/time-stamps';
+import { getDeliveryServiceByName } from './utils';
 
 interface TestArgs {
   title: string;
@@ -29,10 +30,8 @@ export class CreateShipmentDomestic extends Suite {
 
     if (config.deliveryServiceName) {
 
-      this.deliveryService = carrierApp.deliveryServices.find(
-        (deliveryService) =>
-          deliveryService.name === config.deliveryServiceName,
-      );
+      this.deliveryService = getDeliveryServiceByName(config.deliveryServiceName, carrierApp);
+
       if (!this.deliveryService)
         throw new Error(
           `deliveryServiceName: ${config.deliveryServiceName} does not exist`,

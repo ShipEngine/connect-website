@@ -1,8 +1,12 @@
-import { DeliveryService, CarrierApp, Country } from '@shipengine/integration-platform-sdk';
+import { DeliveryService, CarrierApp, Country, PickupService } from '@shipengine/integration-platform-sdk';
 import { buildAddress } from '../factories/address';
 
 export function getDeliveryServiceByName(name: string, app: CarrierApp): DeliveryService | undefined {
   return app.deliveryServices.find((ds) => ds.name === name);
+}
+
+export function getPickupServiceByName(name: string, app: CarrierApp): PickupService | undefined {
+  return app.pickupServices.find((pickupService) => pickupService.name === name);
 }
 
 export function findMatchingDeliveryServiceCountries(deliveryServices: DeliveryService[])
