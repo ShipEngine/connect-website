@@ -32,7 +32,7 @@ export default class Whoami extends BaseCommand {
       this.log(`\nyou are currently logged in as the following:\n`);
 
       this.log(`shipengine ⚙ : ${shipEngineUser.username}`);
-      this.log(`auctane 🏎  🔥 : ${appUser.name}`);
+      this.log(`integrations : ${appUser.name}`);
     }
     else if (appUser) {
       this.log(`\nyou are currently logged in as: ${appUser.name}`);
