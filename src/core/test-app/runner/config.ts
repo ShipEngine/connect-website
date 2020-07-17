@@ -69,20 +69,21 @@ export interface SchedulePickupOptions extends TestOptions {
   shipments: PickupShipmentConfig[] | PickupShipmentConfig;
   shipFrom?: Address;
   shipTo?: Address;
-  weightValue?: number;
-  weightUnit?: WeightUnit;
+  weight: WeightPOJO;
   shipDateTime?: DateTimeZonePOJO | Date | string;
   deliveryServiceName?: string;
 }
 
 export interface CreateShipmentInternationalOptions extends TestOptions {
+  deliveryConfirmationName?: string;
+  deliveryServiceName?: string;
+  labelFormat: DocumentFormat;
+  labelSize: DocumentSize;
+  shipDateTime?: DateTimeZonePOJO | Date | string;
   shipFrom?: Address;
   shipTo?: Address;
+  weight: WeightPOJO;
   weightValue?: number;
-  weightUnit?: WeightUnit;
-  shipDateTime?: DateTimeZonePOJO | Date | string;
-  deliveryServiceName?: string;
-  deliveryConfirmationName?: string;
 }
 
 export interface TestsConfig {
@@ -100,11 +101,12 @@ export interface TestsConfig {
 }
 
 export default interface Config {
-  connect_credentials?: object;
   concurrency?: number;
+  connect_args?: object;
   debug?: boolean;
   failFast?: boolean;
   retries?: number;
-  timeout?: number;
+  session?: object;
   tests?: TestsConfig;
+  timeout?: number;
 }

@@ -21,8 +21,12 @@ function logPass(logLine: string) {
   log(`${indent(2)}${chalk.bgGreen.black(" PASS ")} ${chalk.green(logLine)}`);
 }
 
-function logFail(logLine: string) {
-  log(`${indent(2)}${chalk.bgRed.black(" FAIL ")} ${chalk.red(logLine)}`);
+function logFail(logLine: string, withTag = true) {
+  if (withTag) {
+    log(`${indent(2)}${chalk.bgRed.black(" FAIL ")} ${chalk.red(logLine)}`);
+  } else {
+    log(`${indent(2)}${chalk.red(logLine)}`);
+  }
 }
 
 function logSkip(logLine: string) {
@@ -39,7 +43,14 @@ function logStep(logLine: string) {
 
 function logObject(obj: object) {
   /* eslint-disable no-console */
-  console.dir(obj, { depth: null });
+  // console.dir(obj, { depth: null });
+  let jsonString = JSON.stringify([obj], null, 4).replace("[", "");
+
+  console.log(
+    jsonString.substring(0, jsonString.lastIndexOf("]")) +
+      "" +
+      jsonString.substring(jsonString.lastIndexOf("]") + 1),
+  );
 }
 
 function logResults(results: {
