@@ -7,7 +7,8 @@ import {
   TimeRangePOJO,
   AddressPOJO,
   ContactInfoPOJO,
-  PickupShipmentPOJO,
+  DimensionsPOJO,
+  WeightPOJO,
 } from "@shipengine/integration-platform-sdk";
 
 export interface TestOptions {
@@ -45,13 +46,26 @@ export interface RateShipmentOptions extends TestOptions {
   packagingName: string;
 }
 
+export type PickupPackageConfig = {
+  packagingName: string;
+  dimensions?: DimensionsPOJO;
+  weight?: WeightPOJO;
+  metadata?: object;
+}
+
+export type PickupShipmentConfig = {
+  deliveryServiceName: string;
+  metadata?: object;
+  packages: PickupPackageConfig | PickupPackageConfig[]
+}
+
 export interface SchedulePickupOptions extends TestOptions {
   pickupServiceName: string;
   timeWindow: TimeRangePOJO;
   address: AddressPOJO;
   contact: ContactInfoPOJO;
   notes: string[] | string;
-  shipments: PickupShipmentPOJO[] | PickupShipmentPOJO;
+  shipments: PickupShipmentConfig[] | PickupShipmentConfig;
 }
 
 export interface TestsConfig {

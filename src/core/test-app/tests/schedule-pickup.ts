@@ -2,19 +2,18 @@ import {
   CarrierApp,
   Address,
   DeliveryService,
-  NewShipmentPOJO,
-  NewPackagePOJO,
   WeightUnit,
-  Country,
   PickupRequestPOJO,
   PickupService,
+  PickupShipmentPOJO,
+  PickupPackagePOJO,
 } from "@shipengine/integration-platform-sdk";
 import Suite from "../runner/suite";
-import { buildAddress, buildAddressWithContactInfo } from "../factories/address";
+import { buildAddress } from "../factories/address";
 import { MethodArgs } from "../runner/method-args";
-import { SchedulePickupOptions } from "../runner/config";
+import { SchedulePickupOptions, PickupShipmentConfig, PickupPackageConfig } from "../runner/config";
 import { initializeTimeStamps } from '../../utils/time-stamps';
-import { getPickupServiceByName } from './utils';
+import { getPickupServiceByName, getDeliveryServiceByName, findMatchingDeliveryServiceCountries } from './utils';
 import { buildContactInfo } from '../factories/contact-info';
 
 interface TestArgs {
@@ -25,8 +24,9 @@ interface TestArgs {
 
 export class SchedulePickup extends Suite {
   title = "schedulePickup";
-  
+
   private pickupService?: PickupService | undefined;
+  private deliveryServices: DeliveryService[] = [];
 
   private setPickupService(config: SchedulePickupOptions): void {
     const carrierApp = this.app as CarrierApp;
@@ -51,6 +51,43 @@ export class SchedulePickup extends Suite {
     }
   }
 
+  private setDeliveryServices(config: SchedulePickupOptions): void {
+    const carrierApp = this.app as CarrierApp;
+    let deliveryServiceNames: string[] = [];
+
+    if (Array.isArray(config.shipments)) {
+      deliveryServiceNames = config.shipments.map(shipment => shipment.deliveryServiceName)
+    }
+    else {
+      deliveryServiceNames = [config.shipments.deliveryServiceName];
+    }
+
+    if (deliveryServiceNames.length !== 0) {
+      for (let name of deliveryServiceNames) {
+        const deliveryService = getDeliveryServiceByName(name, carrierApp);
+
+        if (deliveryService) {
+          deliveryServiceNames.push(deliveryService.name);
+        }
+        else {
+          throw new Error(`deliveryServiceName: ${name} does not exist`);
+        }
+      }
+    }
+    // get default delivery service
+    else {
+      this.deliveryServices.push(carrierApp.deliveryServices[0]);
+    }
+  }
+
+  /**
+   * The logic behind the default config generation is that we need to
+   * 1. Check for a pickup service
+   * 2. Check if the user has defined custom shipments because that requires setting a delivery service
+   *    which could be invalid depending on if it's defined correctly or if they share a country between them.
+   * 3. After that it is standard config merging and then generating the request based on that.
+   */
+
   buildTestArg(config: SchedulePickupOptions): TestArgs | undefined {
     const carrierApp = this.app as CarrierApp;
 
@@ -58,34 +95,46 @@ export class SchedulePickup extends Suite {
 
     if (!this.pickupService) return undefined;
 
+    this.setDeliveryServices(config);
+
+    const countries = findMatchingDeliveryServiceCountries(this.deliveryServices);
+
     // generate an address based on the first country that the carrier ships to or from.
-    const defaultCountry = carrierApp.countries.find((country) => {
-      if(buildAddress(`${country}-from`)) {
+    const defaultCountry = countries.originCountries.find((country) => {
+      if (buildAddress(`${country}-from`)) {
         return true;
       }
     });
 
-    if(!defaultCountry) return undefined;
-    
-    const address = buildAddress(`${defaultCountry}-from`);
-    
-    const { tomorrowEarlyAM, tomorrow } = initializeTimeStamps(address.timeZone);
+    if (!defaultCountry) return undefined;
 
+    const defaultAddress = buildAddress(`${defaultCountry}-from`);
+
+    const { tomorrowEarlyAM, tomorrow } = initializeTimeStamps(defaultAddress.timeZone);
+
+    // Get first packaging
+    const pickupPackageConfig: PickupPackageConfig = {
+      packagingName: carrierApp.packaging[0].name
+    }
+
+    const pickupShipment: PickupShipmentConfig = {
+      deliveryServiceName: carrierApp.deliveryServices[0].name,
+      metadata: {},
+      packages: [pickupPackageConfig]
+    }
+
+    // get default configs in place, merge with user input and then use it to populate the method args call.
     const defaults: SchedulePickupOptions = {
       pickupServiceName: this.pickupService.name,
       timeWindow: {
         startDateTime: tomorrowEarlyAM,
         endDateTime: tomorrow
       },
-      address,
+      address: defaultAddress,
       contact: buildContactInfo(`${defaultCountry}-from`),
       notes: "",
-      shipments: this.deliveryService.packaging[0].name
+      shipments: pickupShipment
     };
-
-    if (this.deliveryService.deliveryConfirmations) {
-      defaults.deliveryConfirmationName = this.deliveryService.deliveryConfirmations[0].name;
-    }
 
     const whiteListKeys = Object.keys(defaults);
 
@@ -98,42 +147,27 @@ export class SchedulePickup extends Suite {
         return obj;
       }, defaults);
 
-    const packagePOJO: NewPackagePOJO = {
-      packaging: {
-        id: this.deliveryService.packaging[0].id,
-      },
-      label: {
-        size: testParams.labelSize,
-        format: testParams.labelFormat,
-      },
-      weight: {
-        value: testParams.weight.value,
-        unit: testParams.weight.unit
-      }
-    };
+    const { pickupServiceName, timeWindow, address, contact, notes, shipments } = testParams;
 
-    if (this.deliveryService.deliveryConfirmations) {
-      packagePOJO.deliveryConfirmation = {
-        id: this.deliveryService.deliveryConfirmations[0].id
-      }
+
+    let parsedShipments: PickupShipmentPOJO[] = [];
+    if (Array.isArray(shipments)) {
+      parsedShipments = shipments.map((shipment) => {
+        return generatePickupShipment(shipment, carrierApp);
+      });
+    }
+    else {
+      parsedShipments.push(generatePickupShipment(shipments, carrierApp));
     }
 
-    if (testParams.deliveryConfirmationName) {
-      packagePOJO.deliveryConfirmation = {
-        id: this.deliveryService.deliveryConfirmations.find(dc => dc.name === testParams.deliveryConfirmationName)!.id
-      }
-    }
-
-    let newShipmentPOJO: NewShipmentPOJO = {
-      deliveryService: {
-        id: this.deliveryService.id,
-      },
-      shipFrom: testParams.shipFrom!,
-      shipTo: testParams.shipTo!,
-      shipDateTime: testParams.shipDateTime,
-      packages: [packagePOJO],
+    let newShipmentPOJO: PickupRequestPOJO = {
+      pickupService: getPickupServiceByName(pickupServiceName, carrierApp) as PickupService,
+      timeWindow,
+      address,
+      contact,
+      notes,
+      shipments: parsedShipments
     };
-
 
     const title = config.expectedErrorMessage
       ? `it raises an error when creating a new domestic shipment with ${Object.keys(
@@ -189,63 +223,46 @@ export class SchedulePickup extends Suite {
   }
 }
 
-type DomesticDeliveryService = Array<{ deliveryService: DeliveryService, domesticCountries: Country[] }>;
+function generatePickupShipment(shipment: PickupShipmentConfig, carrierApp: CarrierApp): PickupShipmentPOJO {
 
-function findDomesticDeliveryService(deliveryServices: DeliveryService[]): DomesticDeliveryService {
+  const deliveryService = getDeliveryServiceByName(shipment.deliveryServiceName, carrierApp) as DeliveryService;
+  let packages;
 
-  const domesticDS: DomesticDeliveryService = [];
-
-  for (let ds of deliveryServices) {
-    const domesticCountries = [];
-    for (let country of ds.originCountries) {
-      if (ds.destinationCountries.includes(country)) {
-        domesticCountries.push(country);
-      }
-    }
-
-    if (domesticCountries.length > 0) {
-      domesticDS.push({ deliveryService: ds, domesticCountries })
-    }
+  if (Array.isArray(shipment.packages)) {
+    packages = shipment.packages.map((pkg) => {
+      return generatePackage(pkg, carrierApp);
+    });
+  }
+  else {
+    packages = [generatePackage(shipment.packages, carrierApp)];
   }
 
-  return domesticDS;
-}
-
-/**
- * Currently, just return the first valid domestic delivery service that we have an address for
- */
-function selectPickupRequestService(pickupServices: PickupService[]): PickupService | undefined {
-
-  for (let ds of pickupServices) {
-    for (let domesticCountry of ds.domesticCountries) {
-      if (buildAddress(`${domesticCountry}-from`)) {
-        return ds.deliveryService;
-      }
-    }
-  }
-
-  return undefined;
-}
-
-function findMatchingDomesticCountry(ds: DeliveryService): Country | undefined {
-
-  for (let country of ds.originCountries) {
-    if (ds.destinationCountries.includes(country)) {
-      if (buildAddress(`${country}-from`)) {
-        return country;
-      }
-    }
+  return {
+    deliveryService: { id: deliveryService.id },
+    metadata: shipment.metadata,
+    packages
   }
 }
+
+function generatePackage(pickupPackageConfig: PickupPackageConfig, carrierApp: CarrierApp): PickupPackagePOJO {
+
+  return {
+    packaging: { id: getPickupServiceByName(pickupPackageConfig.packagingName, carrierApp)!.id },
+    dimensions: pickupPackageConfig.dimensions,
+    weight: pickupPackageConfig.weight,
+    metadata: pickupPackageConfig.metadata
+  }
+}
+
 
 function parseTitle(testParams: SchedulePickupOptions, key: any): string {
-  
-  if(key === "shipFrom" || key === "shipTo") {
+
+  if (key === "shipFrom" || key === "shipTo") {
     const address = Reflect.get(testParams, key) as Address;
     return `${key}: ${address.country}`;
   }
 
-  if(key === "weight") {
+  if (key === "weight") {
     const weight = Reflect.get(testParams, key) as { unit: WeightUnit, value: number }
     return `weightValue: ${weight.value}, weightUnit: ${weight.unit}`;
   }
