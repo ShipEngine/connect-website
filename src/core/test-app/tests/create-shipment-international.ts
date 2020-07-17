@@ -162,12 +162,12 @@ export class CreateShipmentInternational extends Suite {
           testParams,
         )
           .map(function (k: any) {
-            return `${k}: ${Reflect.get(testParams, k)}`;
+            return `${k}: ${fancyLog(Reflect.get(testParams, k))}`;
           })
           .join(", ")}`
       : `it creates a new international shipment with ${Object.keys(testParams)
           .map(function (k: any) {
-            return `${k}: ${Reflect.get(testParams, k)}`;
+            return `${k}: ${fancyLog(Reflect.get(testParams, k))}`;
           })
           .join(", ")}`;
 
@@ -213,6 +213,19 @@ export class CreateShipmentInternational extends Suite {
   }
 }
 
+function fancyLog(val: any) {
+  if (typeof val === "object") {
+    if (val.unit && val.value) {
+      return `${val.value}${val.unit} `;
+    } else if (val.country) {
+      return `${val.country}`;
+    } else {
+      return val;
+    }
+  } else {
+    return val;
+  }
+}
 // function parseTitle(
 //   testParams: CreateShipmentDomesticOptions,
 //   key: any,
