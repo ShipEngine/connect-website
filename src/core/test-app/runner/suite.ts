@@ -96,12 +96,12 @@ export default abstract class Suite {
         this.options.defaults.timeout,
     };
 
-    if (config.session) {
+    if (config.session || this.options.staticRootConfig.session) {
       const transaction: TransactionPOJO = {
         id: v4(),
         isRetry: false,
         useSandbox: false,
-        session: config.session,
+        session: config.session || this.options.staticRootConfig.session,
       };
 
       if (testConfig.debug) {
@@ -117,9 +117,8 @@ export default abstract class Suite {
         log(
           `${indent(
             2,
-          )}calling the connect method to set the session for the transaction`,
+          )}calling the connect method to set the session for the transaction with the connect_args given in shipengine.config.js`,
         );
-        log(`${indent(2)}connect_args:`);
         logObject(this.connectArgs);
       }
 
@@ -138,7 +137,7 @@ export default abstract class Suite {
       await this.app.connect!(transaction, this.connectArgs);
 
       if (testConfig.debug) {
-        log(`${indent(2)}the connect method successfully set the session`);
+        log(`${indent(2)}the connect method ran successfully`);
         logObject(transaction);
       }
 

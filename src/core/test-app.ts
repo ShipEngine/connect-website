@@ -79,6 +79,7 @@ export default async function testApp(
       debug: staticConfig.debug,
       failFast: staticConfig.failFast,
       retries: staticConfig.retries,
+      session: staticConfig.session,
       timeout: staticConfig.timeout,
     },
     cli: {

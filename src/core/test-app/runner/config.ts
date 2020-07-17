@@ -51,11 +51,12 @@ export interface TestsConfig {
 }
 
 export default interface Config {
-  connect_args?: object;
   concurrency?: number;
+  connect_args?: object;
   debug?: boolean;
   failFast?: boolean;
   retries?: number;
-  timeout?: number;
+  session?: object;
   tests?: TestsConfig;
+  timeout?: number;
 }
