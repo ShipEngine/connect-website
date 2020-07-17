@@ -21,11 +21,25 @@ export interface CreateShipmentDomesticOptions extends TestOptions {
   labelSize: DocumentSize;
   shipFrom: AddressWithContactInfoPOJO;
   shipTo: AddressWithContactInfoPOJO;
-  weightValue: number;
-  weightUnit: WeightUnit;
+  weight: {
+    value: number;
+    unit: WeightUnit;
+  };
   shipDateTime: DateTimeZonePOJO | Date | string;
   packagingName: string;
   deliveryConfirmationName?: string;
+}
+
+export interface RateShipmentOptions extends TestOptions {
+  deliveryServiceNames: string | string[];
+  shipFrom: AddressWithContactInfoPOJO;
+  shipTo: AddressWithContactInfoPOJO;
+  weight: {
+    value: number;
+    unit: WeightUnit;
+  };
+  shipDateTime: DateTimeZonePOJO | Date | string;
+  packagingName: string;
 }
 
 export interface TestsConfig {
@@ -37,7 +51,8 @@ export interface TestsConfig {
     | [CreateShipmentDomesticOptions];
   createShipment_international?: TestOptions | [TestOptions];
   createShipment_multi_package?: TestOptions | [TestOptions];
-  rateShipment?: TestOptions | [TestOptions];
+  rateShipment?: | RateShipmentOptions
+  | [RateShipmentOptions];
   schedulePickup?: TestOptions | [TestOptions];
   trackShipment?: TestOptions | [TestOptions];
 }

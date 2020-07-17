@@ -67,8 +67,10 @@ export class CreateShipmentDomestic extends Suite {
       shipDateTime: tomorrow,
       shipFrom: shipFrom!,
       shipTo: shipTo!,
-      weightUnit: WeightUnit.Pounds,
-      weightValue: 50.0,
+      weight: {
+        unit: WeightUnit.Pounds,
+        value: 50.0
+      },
       packagingName: this.deliveryService.packaging[0].name
     };
 
@@ -96,8 +98,8 @@ export class CreateShipmentDomestic extends Suite {
         format: testParams.labelFormat,
       },
       weight: {
-        value: testParams.weightValue,
-        unit: testParams.weightUnit,
+        value: testParams.weight.value,
+        unit: testParams.weight.unit
       }
     };
 
@@ -234,5 +236,10 @@ function parseTitle(testParams: CreateShipmentDomesticOptions, key: any): string
     return `${key}: ${address.country}`;
   }
 
-  return `${key}: ${Reflect.get(testParams, key)}`
+  if(key === "weight") {
+    const weight = Reflect.get(testParams, key) as { unit: WeightUnit, value: number }
+    return `weightValue: ${weight.value}, weightUnit: ${weight.unit}`;
+  }
+
+  return `${key}: ${Reflect.get(testParams, key)}`;
 }
