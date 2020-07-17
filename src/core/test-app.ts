@@ -4,8 +4,8 @@ import { SdkApp } from "./types";
 import { TestResults, useTestResults } from "./test-app/runner/test-results";
 import { TransactionPOJO } from "@shipengine/integration-platform-sdk";
 import { loadAndValidateConfig } from "./test-app/runner/load-and-validate-config";
-import { loadApp } from "@shipengine/integration-platform-loader";
-import { logFail, logPass, logStep, log, logObject } from "./utils/log-helpers";
+import { logFail, logPass, logStep } from "./utils/log-helpers";
+import loadAndValidateApp from "./load-and-validate-app";
 import { logResults } from "./utils/log-helpers";
 import { v4 } from "uuid";
 
@@ -23,14 +23,51 @@ export default async function testApp(
 ): Promise<TestResults> {
   const [testResults, testResultsReducer] = useTestResults();
 
-  // Load app. We already know it should be valid at this point.
-  const app = (await loadApp(pathToApp)) as SdkApp;
+  let app: SdkApp;
+
+  try {
+    logStep("validating app structure");
+
+    app = await loadAndValidateApp(pathToApp);
+
+    logPass("app structure is valid");
+    testResultsReducer("INCREMENT_PASSED");
+  } catch (error) {
+    switch (error.code) {
+      case "INVALID_APP":
+        // eslint-disable-next-line no-case-declarations
+        const errorsCount = error.errors.length;
+        // eslint-disable-next-line no-case-declarations
+        const errorsWithInflection = errorsCount > 1 ? "errors" : "error";
+
+        logFail(
+          `App structure is not valid - ${errorsCount} ${errorsWithInflection} found`,
+          false,
+        );
+
+        error.errors.forEach((errorMessage: string) => {
+          logFail(errorMessage);
+        });
+
+        testResultsReducer("INCREMENT_FAILED");
+        logResults(testResults);
+        return testResults;
+      default:
+        throw error;
+    }
+  }
 
   // Set NODE_ENV first because its possible that the shipengine.config
   // might key off the process.env to set environment variables
   process.env.NODE_ENV = "test";
 
-  const config = await loadAndValidateConfig(pathToApp);
+  let config = {};
+
+  try {
+    config = await loadAndValidateConfig(pathToApp);
+  } catch {
+    // Do nothing
+  }
 
   const options = {
     defaults: {
@@ -61,42 +98,12 @@ export default async function testApp(
     },
   };
 
-  const connectCredentials = config.connect_credentials
-    ? config.connect_credentials
-    : {};
-
-  logStep("calling the connect method to set the session");
-
-  if (options.debug()) {
-    log("connect_credentials:");
-    logObject(connectCredentials);
-  }
-
   const transaction: TransactionPOJO = {
     id: v4(),
     isRetry: false,
     useSandbox: false,
     session: {},
   };
-
-  // const retries = 0;
-  // TODO - handle retry and timeout logic here
-  // test.retries
-  // test.timeout
-  try {
-    // Note if the app is definitions only we should have exited before we got here
-    await app.connect!(transaction, connectCredentials);
-    logPass("connect successfully set the session");
-    testResultsReducer("INCREMENT_PASSED");
-    if (options.debug()) {
-      log("result:");
-      logObject(transaction);
-    }
-  } catch (error) {
-    logFail(error.message);
-    testResultsReducer("INCREMENT_FAILED");
-    return testResults;
-  }
 
   const registeredTestSuiteModules = registerTestSuiteModules(app);
 
@@ -125,10 +132,6 @@ export default async function testApp(
 
 type RegisteredTestSuiteModules = object[];
 
-// This code is terse. Find context/help below.
-// https://stackoverflow.com/questions/57086672/element-implicitly-has-an-any-type-because-expression-of-type-string-cant-b
-const _getKeyValue_ = (key: string) => (obj: Record<string, any>) => obj[key];
-
 function registerTestSuiteModules(app: SdkApp): RegisteredTestSuiteModules {
   const carrierAppMethods = {
     // cancelPickups: [CancelPickupsTestSuite],
@@ -155,7 +158,7 @@ function registerTestSuiteModules(app: SdkApp): RegisteredTestSuiteModules {
   for (let method in allMethods) {
     if (Reflect.get(app, method)) {
       registeredTestSuiteModules = registeredTestSuiteModules.concat(
-        _getKeyValue_(method)(allMethods),
+        Reflect.get(allMethods, method),
       );
     }
   }

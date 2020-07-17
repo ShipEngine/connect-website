@@ -74,7 +74,7 @@ export class CreateShipmentInternational extends Suite {
       );
       if (!this.deliveryService)
         throw new Error(
-          `deliveryConfirmationName: '${config.deliveryConfirmationName}' does not exist`,
+          `shipengine.config.js deliveryConfirmationName: '${config.deliveryConfirmationName}' does not exist`,
         );
       return;
     }

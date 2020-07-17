@@ -21,8 +21,12 @@ function logPass(logLine: string) {
   log(`${indent(2)}${chalk.bgGreen.black(" PASS ")} ${chalk.green(logLine)}`);
 }
 
-function logFail(logLine: string) {
-  log(`${indent(2)}${chalk.bgRed.black(" FAIL ")} ${chalk.red(logLine)}`);
+function logFail(logLine: string, withTag = true) {
+  if (withTag) {
+    log(`${indent(2)}${chalk.bgRed.black(" FAIL ")} ${chalk.red(logLine)}`);
+  } else {
+    log(`${indent(2)}${chalk.red(logLine)}`);
+  }
 }
 
 function logSkip(logLine: string) {
