@@ -1,5 +1,5 @@
 import Runner from "./test-app/runner";
-import { CreateShipmentDomestic } from "./test-app/tests";
+import { CreateShipmentInternational } from "./test-app/tests";
 import { SdkApp } from "./types";
 import { TestResults, useTestResults } from "./test-app/runner/test-results";
 import { TransactionPOJO } from "@shipengine/integration-platform-sdk";
@@ -134,7 +134,7 @@ function registerTestSuiteModules(app: SdkApp): RegisteredTestSuiteModules {
     // cancelPickups: [CancelPickupsTestSuite],
     // cancelShipments: [CancelShipmentsTestSuite],
     // createManifest: [CreateManifestTestSuite],
-    createShipment: [CreateShipmentDomestic],
+    createShipment: [CreateShipmentInternational],
     // rateShipment: [RateShipmentTestSuite],
     // schedulePickup: [SchedulePickupTestSuite],
     // trackShipment: [TrackShipmentTestSuite],

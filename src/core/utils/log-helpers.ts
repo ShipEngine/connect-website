@@ -29,6 +29,10 @@ function logSkip(logLine: string) {
   log(`${indent(2)}${chalk.bgWhite.black(" SKIP ")} ${chalk.gray(logLine)}`);
 }
 
+function logSkipStep(logLine: string) {
+  log(chalk.white(logLine));
+}
+
 function logStep(logLine: string) {
   log(chalk.yellow(logLine));
 }
@@ -59,5 +63,6 @@ export {
   logPass,
   logResults,
   logSkip,
+  logSkipStep,
   logStep,
 };
