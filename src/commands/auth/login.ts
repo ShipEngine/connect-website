@@ -64,7 +64,7 @@ export default class Login extends BaseCommand {
       this.log("\nyou have logged in with a shipengine ⚙  API key");
     }
     else {
-      this.log("\nyou have logged in with an auctane 🏎  🔥 API key");
+      this.log("\nyou have logged in with an integrations API key");
     }
   }
 }

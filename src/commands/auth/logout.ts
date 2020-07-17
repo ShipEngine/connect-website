@@ -34,7 +34,7 @@ export default class Logout extends BaseCommand {
     if (appUser && shipEngineUser) {
       this.log(`\nyou are currently logged in as the following:\n`);
       this.log(`shipengine ⚙ : ${shipEngineUser.username}`);
-      this.log(`auctane 🏎  🔥 : ${appUser.name}`);
+      this.log(`integrations : ${appUser.name}`);
 
       let responses: any = await inquirer.prompt([{
         name: "api-token",

@@ -8,7 +8,6 @@ import chalk from "chalk";
 
 interface ConstructorArgs {
   app: SdkApp;
-  connectArgs: object | undefined;
   options: any;
   staticConfigTests?: TestsConfig;
 }
@@ -16,19 +15,12 @@ interface ConstructorArgs {
 export default abstract class Suite {
   abstract title: string;
   protected app: SdkApp;
-  protected connectArgs?: object;
   protected _staticConfigTests?: TestsConfig;
   protected _rawStaticConfigTests: TestsConfig;
   protected options: any;
 
-  constructor({
-    app,
-    connectArgs,
-    staticConfigTests,
-    options,
-  }: ConstructorArgs) {
+  constructor({ app, staticConfigTests, options }: ConstructorArgs) {
     this.app = app;
-    this.connectArgs = connectArgs;
     this._rawStaticConfigTests = staticConfigTests || {};
     this.options = options;
   }
@@ -97,7 +89,10 @@ export default abstract class Suite {
         this.options.defaults.timeout,
     };
 
-    if (config.session || this.options.staticRootConfig.session) {
+    if (
+      !config.connectArgs &&
+      (config.session || this.options.staticRootConfig.session)
+    ) {
       const transaction: TransactionPOJO = {
         id: v4(),
         isRetry: false,
@@ -117,16 +112,18 @@ export default abstract class Suite {
       return transaction;
     }
 
-    if (this.connectArgs) {
+    if (config.connectArgs || this.options.staticRootConfig.connectArgs) {
       if (testConfig.debug) {
         log(
           chalk.yellow(
             `${indent(
               2,
-            )}calling the connect method to set the session for the transaction with the connect_args given in shipengine.config.js`,
+            )}calling the connect method to set the session for the transaction with the connectArgs given in shipengine.config.js`,
           ),
         );
-        logObject(this.connectArgs);
+        logObject(
+          config.connectArgs || this.options.staticRootConfig.connectArgs,
+        );
       }
 
       const transaction: TransactionPOJO = {
@@ -141,7 +138,10 @@ export default abstract class Suite {
       // test.retries
       // test.timeout
       // Note if the app is definitions only we should have exited before we got here
-      await this.app.connect!(transaction, this.connectArgs);
+      await this.app.connect!(
+        transaction,
+        config.connectArgs || this.options.staticRootConfig.connectArgs,
+      );
 
       if (testConfig.debug) {
         log(chalk.green(`${indent(2)}the connect method ran successfully`));
@@ -162,7 +162,7 @@ export default abstract class Suite {
           chalk.yellow(
             `${indent(
               2,
-            )}connect_args are not defined in shipengine.config.js the session value will be an empty object `,
+            )}connectArgs are not defined in shipengine.config.js the session value will be an empty object `,
           ),
         );
         logObject(transaction);

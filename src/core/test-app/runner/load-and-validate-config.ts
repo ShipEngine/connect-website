@@ -28,7 +28,7 @@ export async function loadAndValidateConfig(
  */
 function validate(config: Config): void {
   const rootLevelKey = [
-    "connect_args",
+    "connectArgs",
     "debug",
     "failFast",
     "retries",

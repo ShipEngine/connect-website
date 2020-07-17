@@ -91,7 +91,7 @@ describe("The auth:whoami command", () => {
       .it("runs whoami", (ctx) => {
         expect(ctx.stdout).to.include("you are currently logged in as the following:");
         expect(ctx.stdout).to.include("shipengine ⚙ : 123456");
-        expect(ctx.stdout).to.include("auctane 🏎  🔥 : test");
+        expect(ctx.stdout).to.include("integrations : test");
       });
 
     afterEach(() => {

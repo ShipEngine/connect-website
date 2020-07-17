@@ -20,7 +20,7 @@ export function clearUser(domain: Domain): void {
     cli.action.stop();
   }
   else {
-    cli.action.start("logging out of auctane 🏎  🔥 ");
+    cli.action.start("logging out of integrations");
     ApiKeyStore.clear(Domain.Apps);
     cli.action.stop();
   }
