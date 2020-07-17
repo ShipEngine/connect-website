@@ -9,14 +9,13 @@ import {
 } from "@shipengine/integration-platform-sdk";
 import Suite from "../runner/suite";
 import { buildAddress, buildAddressWithContactInfo } from "../factories/address";
-import { MethodArgs } from "../runner/method-args";
 import { CreateShipmentDomesticOptions } from "../runner/config";
 import { initializeTimeStamps } from '../../utils/time-stamps';
 import { getDeliveryServiceByName } from './utils';
 
 interface TestArgs {
   title: string;
-  methodArgs: MethodArgs<NewShipmentPOJO>;
+  methodArgs: NewShipmentPOJO;
   config: any;
 }
 
@@ -141,7 +140,7 @@ export class CreateShipmentDomestic extends Suite {
 
     return {
       title,
-      methodArgs: [this.transaction, newShipmentPOJO],
+      methodArgs: newShipmentPOJO,
       config
     };
   }
@@ -171,8 +170,11 @@ export class CreateShipmentDomestic extends Suite {
         testArg!.config,
         async () => {
           const carrierApp = this.app as CarrierApp;
+
+          const transaction = await this.transaction(testArg!.config);
+
           carrierApp.createShipment &&
-            (await carrierApp.createShipment(...testArg!.methodArgs));
+            (await carrierApp.createShipment(transaction, testArg!.methodArgs));
         },
       );
     });

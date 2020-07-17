@@ -10,7 +10,6 @@ import {
 } from "@shipengine/integration-platform-sdk";
 import Suite from "../runner/suite";
 import { buildAddress } from "../factories/address";
-import { MethodArgs } from "../runner/method-args";
 import { SchedulePickupOptions, PickupShipmentConfig, PickupPackageConfig } from "../runner/config";
 import { initializeTimeStamps } from '../../utils/time-stamps';
 import { getPickupServiceByName, getDeliveryServiceByName, findMatchingDeliveryServiceCountries } from './utils';
@@ -18,7 +17,7 @@ import { buildContactInfo } from '../factories/contact-info';
 
 interface TestArgs {
   title: string;
-  methodArgs: MethodArgs<PickupRequestPOJO>;
+  methodArgs: PickupRequestPOJO;
   config: any;
 }
 
@@ -185,7 +184,7 @@ export class SchedulePickup extends Suite {
 
     return {
       title,
-      methodArgs: [this.transaction, newShipmentPOJO],
+      methodArgs: newShipmentPOJO,
       config
     };
   }
@@ -215,8 +214,11 @@ export class SchedulePickup extends Suite {
         testArg!.config,
         async () => {
           const carrierApp = this.app as CarrierApp;
+
+          const transaction = await this.transaction(testArg!.config);
+
           carrierApp.schedulePickup &&
-            (await carrierApp.schedulePickup(...testArg!.methodArgs));
+            (await carrierApp.schedulePickup(transaction, testArg!.methodArgs));
         },
       );
     });

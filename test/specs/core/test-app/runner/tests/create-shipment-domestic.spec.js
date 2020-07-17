@@ -6,10 +6,11 @@ describe("The create shipment domestic test suite", () => {
 
   describe("when there is no domestic service", () => {
 
-    const { app, config, options } = generateBasicAppAndConfigs(); 
+    const { app, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
     app.deliveryServices[0].originCountries = ["MX"]
 
-    const args = { app, config: {}, options: {}, transaction: {} };
+    const args = { app, connectArgs, staticConfigTests, options };
+
     const testSuite = new CreateShipmentDomestic(args);
 
     it("should not generate tests", () => {
@@ -20,11 +21,11 @@ describe("The create shipment domestic test suite", () => {
 
 
   describe("when there is not address available for a domestic services", () => {
-    const { app, config, options } = generateBasicAppAndConfigs(); 
+    const { app, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
     app.deliveryServices[0].originCountries = ["AQ"]
     app.deliveryServices[0].destinationCountries = ["AQ"]
 
-    const args = { app, config, options, transaction: {} };
+    const args = { app, connectArgs, staticConfigTests, options };
     const testSuite = new CreateShipmentDomestic(args);
 
     it("should not generate tests", () => {
@@ -34,9 +35,9 @@ describe("The create shipment domestic test suite", () => {
   })
 
   describe("when there is a domestic service with an available address", () => {
-    
-    const { app, config, options } = generateBasicAppAndConfigs(); 
-    const args = { app, config, options, transaction: {} };
+
+    const { app, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+    const args = { app, connectArgs, staticConfigTests, options };
     const testSuite = new CreateShipmentDomestic(args);
 
     it("should generate a test", () => {
@@ -55,13 +56,13 @@ describe("The create shipment domestic test suite", () => {
   });
 
   describe.skip("when there is a config override object of test suite parameters", () => {
-    const { app, config, options } = generateBasicAppAndConfigs(); 
+    const { app, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
     config.createShipment_domestic = {
       weightValue: 200,
       labelFormat: "png"
     };
 
-    const args = { app, config, options, transaction: {} };
+    const args = { app, connectArgs, staticConfigTests, options };
     const testSuite = new CreateShipmentDomestic(args);
     const tests = testSuite.tests();
 
@@ -75,8 +76,8 @@ describe("The create shipment domestic test suite", () => {
 
   describe.skip("when there is a config override array of test suite parameters", () => {
 
-    const { app, config, options } = generateBasicAppAndConfigs(); 
-    config.createShipment_domestic = 
+    const { app, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+    staticConfigTests.createShipment_domestic =
       [
         {
           weightValue: 200,
@@ -88,7 +89,7 @@ describe("The create shipment domestic test suite", () => {
         }
       ];
 
-    const args = { app, config, options, transaction: {} };
+    const args = { app, connectArgs, staticConfigTests, options };
     const testSuite = new CreateShipmentDomestic(args);
     const tests = testSuite.tests();
 
@@ -107,12 +108,12 @@ describe("The create shipment domestic test suite", () => {
 
   describe("When a user configs a delivery service that does not exist", () => {
 
-    const { app, config, options } = generateBasicAppAndConfigs(); 
-    config.createShipment_domestic = {
+    const { app, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+    connectArgs.createShipment_domestic = {
       deliveryServiceName: "asdf"
     }
 
-    const args = { app, config, options, transaction: {} };
+    const args = { app, connectArgs, staticConfigTests, options };
     const testSuite = new CreateShipmentDomestic(args);
 
     it("should throw an error", () => {
@@ -120,14 +121,14 @@ describe("The create shipment domestic test suite", () => {
         const tests = testSuite.tests();
         expect(true).to.equal(false);
       }
-      catch(error) {
+      catch (error) {
         expect(error.message).to.include("deliveryServiceName: asdf does not exist");
       }
     });
   });
 
   describe("When a user configs a new delivery service", () => {
-    const { app, config, options } = generateBasicAppAndConfigs(); 
+    const { app, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
     app.deliveryServices.push({
       id: "123455",
       name: "Better Delivery Service",
@@ -140,11 +141,11 @@ describe("The create shipment domestic test suite", () => {
       packaging: [pojo.packaging()]
     });
 
-    config.createShipment_domestic = {
+    staticConfigTests.createShipment_domestic = {
       deliveryServiceName: "Better Delivery Service"
     }
 
-    const args = { app, config, options, transaction: {} };
+    const args = { app, connectArgs, staticConfigTests, options };
     const testSuite = new CreateShipmentDomestic(args);
     const tests = testSuite.tests();
 
@@ -155,9 +156,9 @@ describe("The create shipment domestic test suite", () => {
   });
 
   describe("When a user configures a Ship To and Ship From address", () => {
-    const { app, config, options } = generateBasicAppAndConfigs(); 
+    const { app, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
 
-    config.createShipment_domestic = {
+    staticConfigTests.createShipment_domestic = {
       shipFrom: {
         company: "Domestic Route #1",
         addressLines: ["123 New Street"],
@@ -178,7 +179,7 @@ describe("The create shipment domestic test suite", () => {
       }
     };
 
-    const args = { app, config, options, transaction: {} };
+    const args = { app, connectArgs, staticConfigTests, options };
     const testSuite = new CreateShipmentDomestic(args);
     const tests = testSuite.tests();
 
@@ -207,7 +208,7 @@ function generateBasicAppAndConfigs() {
     cli: {
       debug: false,
     },
-    rootConfig: {
+    staticRootConfig: {
       debug: false
     },
     defaults: {
@@ -218,9 +219,11 @@ function generateBasicAppAndConfigs() {
     timeout: undefined
   };
 
-  const config = {
+  const staticConfigTests = {
     createShipment_domestic: {}
   };
 
-  return { app, options, config };
+  const connectArgs = {};
+
+  return { app, connectArgs, staticConfigTests, options };
 }

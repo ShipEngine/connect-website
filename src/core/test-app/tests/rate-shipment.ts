@@ -10,14 +10,13 @@ import {
 } from "@shipengine/integration-platform-sdk";
 import Suite from "../runner/suite";
 import { buildAddressWithContactInfo } from "../factories/address";
-import { MethodArgs } from "../runner/method-args";
 import { RateShipmentOptions } from "../runner/config";
 import { initializeTimeStamps } from '../../utils/time-stamps';
 import { getDeliveryServiceByName, findMatchingDeliveryServiceCountries } from './utils';
 
 interface TestArgs {
   title: string;
-  methodArgs: MethodArgs<RateCriteriaPOJO>;
+  methodArgs: RateCriteriaPOJO;
   config: any;
 }
 
@@ -153,7 +152,7 @@ export class RateShipment extends Suite {
 
     return {
       title,
-      methodArgs: [this.transaction, RateCriteriaPOJO],
+      methodArgs: RateCriteriaPOJO,
       config
     };
   }
@@ -183,8 +182,11 @@ export class RateShipment extends Suite {
         testArg!.config,
         async () => {
           const carrierApp = this.app as CarrierApp;
+
+          const transaction = await this.transaction(testArg!.config);
+
           carrierApp.rateShipment! &&
-            (await carrierApp.rateShipment!(...testArg!.methodArgs));
+            (await carrierApp.rateShipment!(transaction, testArg!.methodArgs));
         },
       );
     });
