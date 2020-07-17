@@ -174,7 +174,7 @@ export class CreateShipmentInternational extends Suite {
 
     return {
       title: title,
-      methodArgs: [this.transaction, newShipmentPOJO],
+      methodArgs: [this.transaction(), newShipmentPOJO],
       config: config,
     };
   }

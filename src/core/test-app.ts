@@ -1,13 +1,11 @@
 import Runner from "./test-app/runner";
+import loadAndValidateApp from "./load-and-validate-app";
 import { CreateShipmentInternational } from "./test-app/tests";
 import { SdkApp } from "./types";
 import { TestResults, useTestResults } from "./test-app/runner/test-results";
-import { TransactionPOJO } from "@shipengine/integration-platform-sdk";
 import { loadAndValidateConfig } from "./test-app/runner/load-and-validate-config";
 import { logFail, logPass, logStep } from "./utils/log-helpers";
-import loadAndValidateApp from "./load-and-validate-app";
 import { logResults } from "./utils/log-helpers";
-import { v4 } from "uuid";
 
 interface TesOptions {
   debug?: boolean;
@@ -98,13 +96,6 @@ export default async function testApp(
     },
   };
 
-  const transaction: TransactionPOJO = {
-    id: v4(),
-    isRetry: false,
-    useSandbox: false,
-    session: {},
-  };
-
   const registeredTestSuiteModules = registerTestSuiteModules(app);
 
   const suites = registeredTestSuiteModules.map(
@@ -113,7 +104,6 @@ export default async function testApp(
         app,
         config: config.tests,
         options: options,
-        transaction,
       }),
   );
 

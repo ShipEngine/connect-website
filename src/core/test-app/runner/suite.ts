@@ -1,31 +1,24 @@
-// import Test from "./test";
-import { SdkApp } from "../../types";
-import { TransactionPOJO } from "@shipengine/integration-platform-sdk";
-import { TestsConfig } from "./config";
 import Test from "./test";
-
-// This code is terse. Find context/help below.
-// https://stackoverflow.com/questions/57086672/element-implicitly-has-an-any-type-because-expression-of-type-string-cant-b
-const _getKeyValue_ = (key: string) => (obj: Record<string, any>) => obj[key];
+import { SdkApp } from "../../types";
+import { TestsConfig } from "./config";
+import { TransactionPOJO } from "@shipengine/integration-platform-sdk";
+import { v4 } from "uuid";
 
 interface ConstructorArgs {
   app: SdkApp;
   config?: TestsConfig;
   options: any;
-  transaction: TransactionPOJO;
 }
 
 export default abstract class Suite {
   abstract title: string;
   protected app: SdkApp;
-  protected transaction: TransactionPOJO;
   protected _config?: TestsConfig;
   protected _rawConfig: TestsConfig;
   protected options: any;
 
-  constructor({ app, config, options, transaction }: ConstructorArgs) {
+  constructor({ app, config, options }: ConstructorArgs) {
     this.app = app;
-    this.transaction = transaction;
     this._rawConfig = config || {};
     this.options = options;
   }
@@ -33,7 +26,7 @@ export default abstract class Suite {
   get config(): TestsConfig {
     if (this._config) return this._config;
 
-    const config = _getKeyValue_(this.title)(this._rawConfig);
+    const config = Reflect.get(this._rawConfig, this.title);
 
     if (config) {
       this._config = config;
@@ -68,5 +61,16 @@ export default abstract class Suite {
     };
 
     return { title, fn, methodArgs, ...testConfig };
+  }
+
+  protected transaction(): TransactionPOJO {
+    const transaction: TransactionPOJO = {
+      id: v4(),
+      isRetry: false,
+      useSandbox: false,
+      session: {},
+    };
+
+    return transaction;
   }
 }
