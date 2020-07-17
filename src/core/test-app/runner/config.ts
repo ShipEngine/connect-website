@@ -2,21 +2,38 @@ import {
   Address,
   DateTimeZonePOJO,
   WeightPOJO,
+  DocumentSize,
+  DocumentFormat,
 } from "@shipengine/integration-platform-sdk";
 
 export interface TestOptions {
+  connectArgs?: object;
   debug?: boolean;
   expectedErrorMessage?: string;
   retries?: number;
+  session?: object;
   skip?: boolean;
   timeout?: number;
 }
 
 export interface CreateShipmentDomesticOptions extends TestOptions {
-  shipFrom: Address;
-  shipTo: Address;
+  shipFrom?: Address;
+  shipTo?: Address;
   weight: WeightPOJO;
-  shipDateTime: DateTimeZonePOJO | Date | string;
+  shipDateTime?: DateTimeZonePOJO | Date | string;
+  deliveryServiceName?: string;
+}
+
+export interface CreateShipmentInternationalOptions extends TestOptions {
+  deliveryConfirmationName?: string;
+  deliveryServiceName?: string;
+  labelFormat: DocumentFormat;
+  labelSize: DocumentSize;
+  shipDateTime?: DateTimeZonePOJO | Date | string;
+  shipFrom?: Address;
+  shipTo?: Address;
+  weight: WeightPOJO;
+  weightValue?: number;
 }
 
 export interface TestsConfig {
@@ -26,7 +43,9 @@ export interface TestsConfig {
   createShipment_domestic?:
     | CreateShipmentDomesticOptions
     | [CreateShipmentDomesticOptions];
-  createShipment_international?: TestOptions | [TestOptions];
+  createShipment_international?:
+    | CreateShipmentInternationalOptions
+    | [CreateShipmentInternationalOptions];
   createShipment_multi_package?: TestOptions | [TestOptions];
   rateShipment?: TestOptions | [TestOptions];
   schedulePickup?: TestOptions | [TestOptions];
@@ -34,11 +53,11 @@ export interface TestsConfig {
 }
 
 export default interface Config {
-  connect_credentials?: object;
-  concurrency?: number;
+  connectArgs?: object;
   debug?: boolean;
   failFast?: boolean;
   retries?: number;
-  timeout?: number;
+  session?: object;
   tests?: TestsConfig;
+  timeout?: number;
 }

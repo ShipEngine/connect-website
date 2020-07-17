@@ -1,47 +1,45 @@
-// import Test from "./test";
-import { SdkApp } from "../../types";
-import { TransactionPOJO } from "@shipengine/integration-platform-sdk";
-import { TestsConfig } from "./config";
 import Test from "./test";
-
-// This code is terse. Find context/help below.
-// https://stackoverflow.com/questions/57086672/element-implicitly-has-an-any-type-because-expression-of-type-string-cant-b
-const _getKeyValue_ = (key: string) => (obj: Record<string, any>) => obj[key];
+import { SdkApp } from "../../types";
+import { TestsConfig } from "./config";
+import { TransactionPOJO } from "@shipengine/integration-platform-sdk";
+import { log, logObject, indent } from "../../utils/log-helpers";
+import { v4 } from "uuid";
+import chalk from "chalk";
 
 interface ConstructorArgs {
   app: SdkApp;
-  config?: TestsConfig;
   options: any;
-  transaction: TransactionPOJO;
+  staticConfigTests?: TestsConfig;
 }
 
 export default abstract class Suite {
   abstract title: string;
   protected app: SdkApp;
-  protected transaction: TransactionPOJO;
-  protected _config?: TestsConfig;
-  protected _rawConfig: TestsConfig;
+  protected _staticConfigTests?: TestsConfig;
+  protected _rawStaticConfigTests: TestsConfig;
   protected options: any;
 
-  constructor({ app, config, options, transaction }: ConstructorArgs) {
+  constructor({ app, staticConfigTests, options }: ConstructorArgs) {
     this.app = app;
-    this.transaction = transaction;
-    this._rawConfig = config || {};
+    this._rawStaticConfigTests = staticConfigTests || {};
     this.options = options;
   }
 
   get config(): TestsConfig {
-    if (this._config) return this._config;
+    if (this._staticConfigTests) return this._staticConfigTests;
 
-    const config = _getKeyValue_(this.title)(this._rawConfig);
+    const config: TestsConfig | undefined = Reflect.get(
+      this._rawStaticConfigTests,
+      this.title,
+    );
 
     if (config) {
-      this._config = config;
-      return config;
+      this._staticConfigTests = config;
     } else {
-      this._config = {};
-      return {};
+      this._staticConfigTests = {};
     }
+
+    return this._staticConfigTests;
   }
 
   abstract tests(): Test[];
@@ -51,22 +49,126 @@ export default abstract class Suite {
       debug:
         this.options.cli.debug ||
         config.debug ||
-        this.options.rootConfig.debug ||
+        this.options.staticRootConfig.debug ||
         this.options.defaults.debug,
       expectedErrorMessage: config.expectedErrorMessage,
       retries:
         this.options.cli.retries ||
         config.retries ||
-        this.options.rootConfig.retries ||
+        this.options.staticRootConfig.retries ||
         this.options.defaults.retries,
       skip: config.skip,
       timeout:
         this.options.cli.timeout ||
         config.timeout ||
-        this.options.rootConfig.timeout ||
+        this.options.staticRootConfig.timeout ||
         this.options.defaults.timeout,
     };
 
     return { title, fn, methodArgs, ...testConfig };
+  }
+
+  protected async transaction(config: any): Promise<TransactionPOJO> {
+    const testConfig = {
+      debug:
+        this.options.cli.debug ||
+        config.debug ||
+        this.options.staticRootConfig.debug ||
+        this.options.defaults.debug,
+      expectedErrorMessage: config.expectedErrorMessage,
+      retries:
+        this.options.cli.retries ||
+        config.retries ||
+        this.options.staticRootConfig.retries ||
+        this.options.defaults.retries,
+      skip: config.skip,
+      timeout:
+        this.options.cli.timeout ||
+        config.timeout ||
+        this.options.staticRootConfig.timeout ||
+        this.options.defaults.timeout,
+    };
+
+    if (
+      !config.connectArgs &&
+      (config.session || this.options.staticRootConfig.session)
+    ) {
+      const transaction: TransactionPOJO = {
+        id: v4(),
+        isRetry: false,
+        useSandbox: false,
+        session: config.session || this.options.staticRootConfig.session,
+      };
+
+      if (testConfig.debug) {
+        log(
+          chalk.yellow(
+            `${indent(2)}using the session provided in shipengine.config.js`,
+          ),
+        );
+        logObject(transaction);
+      }
+
+      return transaction;
+    }
+
+    if (config.connectArgs || this.options.staticRootConfig.connectArgs) {
+      if (testConfig.debug) {
+        log(
+          chalk.yellow(
+            `${indent(
+              2,
+            )}calling the connect method to set the session for the transaction with the connectArgs given in shipengine.config.js`,
+          ),
+        );
+        logObject(
+          config.connectArgs || this.options.staticRootConfig.connectArgs,
+        );
+      }
+
+      const transaction: TransactionPOJO = {
+        id: v4(),
+        isRetry: false,
+        useSandbox: false,
+        session: {},
+      };
+
+      // const retries = 0;
+      // TODO - handle retry and timeout logic here
+      // test.retries
+      // test.timeout
+      // Note if the app is definitions only we should have exited before we got here
+      await this.app.connect!(
+        transaction,
+        config.connectArgs || this.options.staticRootConfig.connectArgs,
+      );
+
+      if (testConfig.debug) {
+        log(chalk.green(`${indent(2)}the connect method ran successfully`));
+        logObject(transaction);
+      }
+
+      return transaction;
+    } else {
+      const transaction: TransactionPOJO = {
+        id: v4(),
+        isRetry: false,
+        useSandbox: false,
+        session: {},
+      };
+
+      if (testConfig.debug) {
+        log(
+          chalk.yellow(
+            `${indent(
+              2,
+            )}connectArgs are not defined in shipengine.config.js the session value will be an empty object `,
+          ),
+        );
+        logObject(transaction);
+      }
+
+      return transaction;
+    }
   }
 }

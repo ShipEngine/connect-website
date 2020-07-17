@@ -28,11 +28,11 @@ export async function loadAndValidateConfig(
  */
 function validate(config: Config): void {
   const rootLevelKey = [
-    "concurrency",
-    "connect_credentials",
+    "connectArgs",
     "debug",
     "failFast",
     "retries",
+    "session",
     "tests",
     "timeout",
   ];

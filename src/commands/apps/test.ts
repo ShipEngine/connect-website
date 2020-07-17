@@ -1,5 +1,4 @@
 import BaseCommand from "../../base-command";
-import loadAndValidateApp from "../../core/load-and-validate-app";
 import testApp from "../../core/test-app";
 import { flags } from "@oclif/command";
 import {
@@ -50,45 +49,16 @@ export default class Test extends BaseCommand {
     const { "fail-fast": failFast, debug, grep, retries, timeout } = flags;
     const pathToApp = process.cwd();
 
-    try {
-      logStep("validating app structure");
+    const results = await testApp(pathToApp, {
+      debug,
+      failFast,
+      grep,
+      retries,
+      timeout,
+    });
 
-      await loadAndValidateApp(pathToApp);
-
-      logPass("app structure is valid");
-
-      const results = await testApp(pathToApp, {
-        debug,
-        failFast,
-        grep,
-        retries,
-        timeout,
-      });
-
-      if (results.failed > 0) {
-        return this.exit(1);
-      }
-    } catch (error) {
-      switch (error.code) {
-        case "INVALID_APP":
-          // eslint-disable-next-line no-case-declarations
-          const errorsCount = error.errors.length;
-          // eslint-disable-next-line no-case-declarations
-          const errorsWithInflection = errorsCount > 1 ? "errors" : "error";
-
-          logFail(
-            `App structure is not valid - ${errorsCount} ${errorsWithInflection} found`,
-          );
-
-          error.errors.forEach((errorMessage: string) => {
-            logFail(errorMessage);
-          });
-
-          logResults({ failed: errorsCount, passed: 0, skipped: 0 });
-          return this.exit(1);
-        default:
-          throw error;
-      }
+    if (results.failed > 0) {
+      return this.exit(1);
     }
   }
 }

@@ -9,6 +9,7 @@ import {
   logObject,
   logPass,
   logSkip,
+  logSkipStep,
   logStep,
 } from "../../utils/log-helpers";
 
@@ -49,6 +50,10 @@ export default class Runner {
       if (suite.tests().length === 0) {
         // If a suite doesn't have any test continue to the next suite in the array
         // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Loops_and_iteration#continue_statement
+        logSkipStep(suite.title);
+        logSkip(
+          `${suite.title} needs additional app definitions or permutations defined in the shipengine.config.js to run tests`,
+        );
         continue;
       }
 
@@ -85,16 +90,15 @@ export default class Runner {
     } catch (error) {
       if (
         test.expectedErrorMessage &&
-        test.expectedErrorMessage === error.message
+        error.message &&
+        error.message.includes(test.expectedErrorMessage)
       ) {
         this.testResultsReducer("INCREMENT_PASSED");
         logPass(test.title);
       } else {
         this.testResultsReducer("INCREMENT_FAILED");
         logFail(test.title);
-        if (test.debug) {
-          log(indentLines(chalk.red(error.stack), 4));
-        }
+        log(indentLines(chalk.red(error.stack), 4));
       }
     } finally {
       if (test.debug) {

@@ -1,7 +1,8 @@
 // export * from "./cancel-pickups-test-suite";
 // export * from "./cancel-shipments-test-suite";
 // export * from "./create-manifest-test-suite";
-export * from "./create-shipment-domestic";
+// export * from "./create-shipment-domestic";
+export * from "./create-shipment-international";
 // export * from "./get-sales-order-test-suite";
 // export * from "./get-sales-orders-by-date-test-suite";
 // export * from "./get-seller-test-suite";
