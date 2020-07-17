@@ -9,13 +9,12 @@ import {
 } from "@shipengine/integration-platform-sdk";
 import Suite from "../runner/suite";
 import { buildAddressWithContactInfo } from "../factories/address";
-import { MethodArgs } from "../runner/method-args";
 import { CreateShipmentInternationalOptions } from "../runner/config";
 import { initializeTimeStamps } from "../../utils/time-stamps";
 
 interface TestArgs {
   title: string;
-  methodArgs: MethodArgs<NewShipmentPOJO>;
+  methodArgs: NewShipmentPOJO;
   config: any;
 }
 
@@ -174,7 +173,7 @@ export class CreateShipmentInternational extends Suite {
 
     return {
       title: title,
-      methodArgs: [this.transaction(), newShipmentPOJO],
+      methodArgs: newShipmentPOJO,
       config: config,
     };
   }
@@ -204,8 +203,10 @@ export class CreateShipmentInternational extends Suite {
         async () => {
           const carrierApp = this.app as CarrierApp;
 
+          const transaction = await this.transaction(testArg!.config);
+
           carrierApp.createShipment &&
-            (await carrierApp.createShipment(...testArg!.methodArgs));
+            (await carrierApp.createShipment(transaction, testArg!.methodArgs));
         },
       );
     });

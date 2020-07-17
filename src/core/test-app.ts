@@ -1,3 +1,4 @@
+import Config from "./test-app/runner/config";
 import Runner from "./test-app/runner";
 import loadAndValidateApp from "./load-and-validate-app";
 import { CreateShipmentInternational } from "./test-app/tests";
@@ -59,10 +60,10 @@ export default async function testApp(
   // might key off the process.env to set environment variables
   process.env.NODE_ENV = "test";
 
-  let config = {};
+  let staticConfig: Config = {};
 
   try {
-    config = await loadAndValidateConfig(pathToApp);
+    staticConfig = await loadAndValidateConfig(pathToApp);
   } catch {
     // Do nothing
   }
@@ -74,11 +75,11 @@ export default async function testApp(
       retries: 1,
       timeout: 2000,
     },
-    rootConfig: {
-      debug: config.debug,
-      failFast: config.failFast,
-      retries: config.retries,
-      timeout: config.timeout,
+    staticRootConfig: {
+      debug: staticConfig.debug,
+      failFast: staticConfig.failFast,
+      retries: staticConfig.retries,
+      timeout: staticConfig.timeout,
     },
     cli: {
       debug,
@@ -86,12 +87,11 @@ export default async function testApp(
       retries,
       timeout,
     },
-    debug(): boolean {
-      return this.cli.debug || this.rootConfig.debug || this.defaults.debug;
-    },
     failFast(): boolean {
       return (
-        this.cli.failFast || this.rootConfig.failFast || this.defaults.failFast
+        this.cli.failFast ||
+        this.staticRootConfig.failFast ||
+        this.defaults.failFast
       );
     },
   };
@@ -101,8 +101,9 @@ export default async function testApp(
   const suites = registeredTestSuiteModules.map(
     (suite: any) =>
       new suite({
+        connectArgs: staticConfig.connect_args,
         app,
-        config: config.tests,
+        staticConfigTests: staticConfig.tests,
         options: options,
       }),
   );

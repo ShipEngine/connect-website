@@ -51,7 +51,7 @@ export interface TestsConfig {
 }
 
 export default interface Config {
-  connect_credentials?: object;
+  connect_args?: object;
   concurrency?: number;
   debug?: boolean;
   failFast?: boolean;
