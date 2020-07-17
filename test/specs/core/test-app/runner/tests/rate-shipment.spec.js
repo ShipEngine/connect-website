@@ -43,7 +43,7 @@ describe.only("The rate shipment test suite", () => {
     });
   });
 
-  describe("when there are multiple valid delivery services", () => {
+  describe.skip("when there are multiple valid delivery services", () => {
     const { app, config, options } = generateBasicAppAndConfigs(); 
     config.rateShipment = {
       weightValue: 200,
@@ -61,7 +61,7 @@ describe.only("The rate shipment test suite", () => {
     });
   });
 
-  describe("when there is a config override array of test suite parameters", () => {
+  describe.skip("when there is a config override array of test suite parameters", () => {
 
     const { app, config, options } = generateBasicAppAndConfigs(); 
     config.rateShipment = 
