@@ -43,7 +43,14 @@ function logStep(logLine: string) {
 
 function logObject(obj: object) {
   /* eslint-disable no-console */
-  console.dir(obj, { depth: null });
+  // console.dir(obj, { depth: null });
+  let jsonString = JSON.stringify([obj], null, 4).replace("[", "");
+
+  console.log(
+    jsonString.substring(0, jsonString.lastIndexOf("]")) +
+      "" +
+      jsonString.substring(jsonString.lastIndexOf("]") + 1),
+  );
 }
 
 function logResults(results: {

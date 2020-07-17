@@ -4,6 +4,7 @@ import { TestsConfig } from "./config";
 import { TransactionPOJO } from "@shipengine/integration-platform-sdk";
 import { log, logObject, indent } from "../../utils/log-helpers";
 import { v4 } from "uuid";
+import chalk from "chalk";
 
 interface ConstructorArgs {
   app: SdkApp;
@@ -105,7 +106,11 @@ export default abstract class Suite {
       };
 
       if (testConfig.debug) {
-        log(`${indent(2)}using the session provided in shipengine.config.js`);
+        log(
+          chalk.yellow(
+            `${indent(2)}using the session provided in shipengine.config.js`,
+          ),
+        );
         logObject(transaction);
       }
 
@@ -115,9 +120,11 @@ export default abstract class Suite {
     if (this.connectArgs) {
       if (testConfig.debug) {
         log(
-          `${indent(
-            2,
-          )}calling the connect method to set the session for the transaction with the connect_args given in shipengine.config.js`,
+          chalk.yellow(
+            `${indent(
+              2,
+            )}calling the connect method to set the session for the transaction with the connect_args given in shipengine.config.js`,
+          ),
         );
         logObject(this.connectArgs);
       }
@@ -137,7 +144,7 @@ export default abstract class Suite {
       await this.app.connect!(transaction, this.connectArgs);
 
       if (testConfig.debug) {
-        log(`${indent(2)}the connect method ran successfully`);
+        log(chalk.green(`${indent(2)}the connect method ran successfully`));
         logObject(transaction);
       }
 
@@ -152,9 +159,11 @@ export default abstract class Suite {
 
       if (testConfig.debug) {
         log(
-          `${indent(
-            2,
-          )}connect_args are not defined in shipengine.config.js the session value will be an empty object `,
+          chalk.yellow(
+            `${indent(
+              2,
+            )}connect_args are not defined in shipengine.config.js the session value will be an empty object `,
+          ),
         );
         logObject(transaction);
       }
