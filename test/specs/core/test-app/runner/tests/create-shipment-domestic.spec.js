@@ -57,8 +57,10 @@ describe("The create shipment domestic test suite", () => {
 
   describe.skip("when there is a config override object of test suite parameters", () => {
     const { app, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-    config.createShipment_domestic = {
-      weightValue: 200,
+    staticConfigTests.createShipment_domestic = {
+      weight: {
+        value: 200
+      },
       labelFormat: "png"
     };
 
@@ -80,11 +82,15 @@ describe("The create shipment domestic test suite", () => {
     staticConfigTests.createShipment_domestic =
       [
         {
-          weightValue: 200,
+          weight: {
+            value: 200
+          },
           labelFormat: "png"
         },
         {
-          weightValue: 22,
+          weight: {
+            value: 22
+          },
           labelSize: "A6"
         }
       ];
@@ -109,7 +115,7 @@ describe("The create shipment domestic test suite", () => {
   describe("When a user configs a delivery service that does not exist", () => {
 
     const { app, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-    connectArgs.createShipment_domestic = {
+    staticConfigTests.createShipment_domestic = {
       deliveryServiceName: "asdf"
     }
 
@@ -184,10 +190,10 @@ describe("The create shipment domestic test suite", () => {
     const tests = testSuite.tests();
 
     it("should update the test arguments and titles", () => {
-      expect(tests[0].methodArgs[1].shipFrom.company).to.equal("Domestic Route #1");
-      expect(tests[0].methodArgs[1].shipTo.company).to.equal("Domestic Route #2");
+      expect(tests[0].methodArgs.shipFrom.company).to.equal("Domestic Route #1");
+      expect(tests[0].methodArgs.shipTo.company).to.equal("Domestic Route #2");
 
-      expect(tests[0].methodArgs[1].shipTo).to.eql(config.createShipment_domestic.shipTo);
+      expect(tests[0].methodArgs.shipTo).to.eql(staticConfigTests.createShipment_domestic.shipTo);
 
       expect(tests[0].title).to.include("shipFrom: US");
       expect(tests[0].title).to.include("shipTo: US");

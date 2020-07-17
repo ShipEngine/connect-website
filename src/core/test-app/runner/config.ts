@@ -82,7 +82,7 @@ export interface CreateShipmentInternationalOptions extends TestOptions {
   labelFormat: DocumentFormat;
   labelSize: DocumentSize;
   shipDateTime?: DateTimeZonePOJO | Date | string;
-  shipFrom?: Address;
+  shipFrom?: AddressWithContactInfoPOJO;
   shipTo?: Address;
   weight: WeightPOJO;
   weightValue?: number;

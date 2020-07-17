@@ -2,16 +2,16 @@ const { RateShipment } = require("../../../../../../lib/core/test-app/tests/rate
 const pojo = require("../../../../utils/pojo");
 const { expect } = require("chai");
 
-describe.only("The rate shipment test suite", () => {
+describe("The rate shipment test suite", () => {
 
   describe("when the delivery services do not share origin or desination countries", () => {
-    const { app, config, options } = generateBasicAppAndConfigs(); 
+    const { app, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
     app.deliveryServices[0].originCountries = ["AQ"]
     app.deliveryServices[0].destinationCountries = ["AQ"]
 
     app.deliveryServices.push(pojo.deliveryService());
 
-    const args = { app, config, options, transaction: {} };
+    const args = { app, connectArgs, staticConfigTests, options };
     const testSuite = new RateShipment(args);
 
     it("should display an error message to the user", () => {
@@ -27,8 +27,8 @@ describe.only("The rate shipment test suite", () => {
 
   describe("when there is one delivery service", () => {
     
-    const { app, config, options } = generateBasicAppAndConfigs(); 
-    const args = { app, config, options, transaction: {} };
+    const { app, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+    const args = { app, connectArgs, staticConfigTests, options };
     const testSuite = new RateShipment(args);
 
     const tests = testSuite.tests();
@@ -44,12 +44,14 @@ describe.only("The rate shipment test suite", () => {
   });
 
   describe.skip("when there are multiple valid delivery services", () => {
-    const { app, config, options } = generateBasicAppAndConfigs(); 
-    config.rateShipment = {
-      weightValue: 200,
+    const { app, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+    staticConfigTests.rateShipment = {
+      weight: {
+        value: 200
+      }
     };
 
-    const args = { app, config, options, transaction: {} };
+    const args = { app, connectArgs, staticConfigTests, options };
     const testSuite = new RateShipment(args);
     const tests = testSuite.tests();
 
@@ -63,8 +65,8 @@ describe.only("The rate shipment test suite", () => {
 
   describe.skip("when there is a config override array of test suite parameters", () => {
 
-    const { app, config, options } = generateBasicAppAndConfigs(); 
-    config.rateShipment = 
+    const { app, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+    staticConfigTests.rateShipment = 
       [
         {
           weightValue: 200,
@@ -74,7 +76,7 @@ describe.only("The rate shipment test suite", () => {
         }
       ];
 
-    const args = { app, config, options, transaction: {} };
+    const args = { app, connectArgs, staticConfigTests, options };
     const testSuite = new RateShipment(args);
     const tests = testSuite.tests();
 
@@ -90,12 +92,12 @@ describe.only("The rate shipment test suite", () => {
 
   describe("When a user configs a delivery service that does not exist", () => {
 
-    const { app, config, options } = generateBasicAppAndConfigs(); 
-    config.rateShipment = {
+    const { app, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+    staticConfigTests.rateShipment = {
       deliveryServiceNames: "asdf"
     }
 
-    const args = { app, config, options, transaction: {} };
+    const args = { app, connectArgs, staticConfigTests, options };
     const testSuite = new RateShipment(args);
 
     it("should throw an error", () => {
@@ -110,7 +112,7 @@ describe.only("The rate shipment test suite", () => {
   });
 
   describe("When a user configs a new delivery service", () => {
-    const { app, config, options } = generateBasicAppAndConfigs(); 
+    const { app, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
     app.deliveryServices.push({
       id: "123455",
       name: "Better Delivery Service",
@@ -123,11 +125,11 @@ describe.only("The rate shipment test suite", () => {
       packaging: [pojo.packaging()]
     });
 
-    config.rateShipment = {
+    staticConfigTests.rateShipment = {
       deliveryServiceNames: ["Better Delivery Service"]
     }
 
-    const args = { app, config, options, transaction: {} };
+    const args = { app, connectArgs, staticConfigTests, options };
     const testSuite = new RateShipment(args);
     const tests = testSuite.tests();
 
@@ -137,7 +139,7 @@ describe.only("The rate shipment test suite", () => {
   });
 
   describe("When a user configs multiple new delivery services", () => {
-    const { app, config, options } = generateBasicAppAndConfigs(); 
+    const { app, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
     app.deliveryServices.push({
       id: "123455",
       name: "Better Delivery Service",
@@ -162,11 +164,11 @@ describe.only("The rate shipment test suite", () => {
       packaging: [pojo.packaging()]
     });
 
-    config.rateShipment = {
+    staticConfigTests.rateShipment = {
       deliveryServiceNames: ["Better Delivery Service", "New Delivery Service"]
     }
 
-    const args = { app, config, options, transaction: {} };
+    const args = { app, connectArgs, staticConfigTests, options };
     const testSuite = new RateShipment(args);
     const tests = testSuite.tests();
 
@@ -178,9 +180,9 @@ describe.only("The rate shipment test suite", () => {
   });
 
   describe("When a user configures a Ship To and Ship From address", () => {
-    const { app, config, options } = generateBasicAppAndConfigs(); 
+    const { app, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
 
-    config.rateShipment = {
+    staticConfigTests.rateShipment = {
       shipFrom: {
         company: "Domestic Route #1",
         addressLines: ["123 New Street"],
@@ -201,15 +203,15 @@ describe.only("The rate shipment test suite", () => {
       }
     };
 
-    const args = { app, config, options, transaction: {} };
+    const args = { app, connectArgs, staticConfigTests, options };
     const testSuite = new RateShipment(args);
     const tests = testSuite.tests();
 
     it("should update the test arguments and titles", () => {
-      expect(tests[0].methodArgs[1].shipFrom.company).to.equal("Domestic Route #1");
-      expect(tests[0].methodArgs[1].shipTo.company).to.equal("Domestic Route #2");
+      expect(tests[0].methodArgs.shipFrom.company).to.equal("Domestic Route #1");
+      expect(tests[0].methodArgs.shipTo.company).to.equal("Domestic Route #2");
 
-      expect(tests[0].methodArgs[1].shipTo).to.eql(config.rateShipment.shipTo);
+      expect(tests[0].methodArgs.shipTo).to.eql(staticConfigTests.rateShipment.shipTo);
 
       expect(tests[0].title).to.include("shipFrom: US");
       expect(tests[0].title).to.include("shipTo: US");
@@ -230,7 +232,7 @@ function generateBasicAppAndConfigs() {
     cli: {
       debug: false,
     },
-    rootConfig: {
+    staticRootConfig: {
       debug: false
     },
     defaults: {
@@ -241,9 +243,11 @@ function generateBasicAppAndConfigs() {
     timeout: undefined
   };
 
-  const config = {
-    rateShipment: {}
+  const staticConfigTests = {
+    createShipment_domestic: {}
   };
 
-  return { app, options, config };
+  const connectArgs = {};
+
+  return { app, connectArgs, staticConfigTests, options };
 }
