@@ -58,6 +58,8 @@ export class CreateShipmentDomestic extends Suite {
     const shipTo = buildAddressWithContactInfo(`${country}-to`);
     const { tomorrow } = initializeTimeStamps(shipFrom!.timeZone);
 
+    // Make a best guess at the defaults, need to resolve the default vs config based delivery service early
+    // on since that determines what address and associated timezones get generated.
     const defaults: CreateShipmentDomesticOptions = {
       deliveryServiceName: this.deliveryService.name,
       labelFormat: this.deliveryService.labelFormats[0],

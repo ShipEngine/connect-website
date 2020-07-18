@@ -1,13 +1,6 @@
 import BaseCommand from "../../base-command";
 import testApp from "../../core/test-app";
 import { flags } from "@oclif/command";
-import {
-  logFail,
-  logPass,
-  logStep,
-  logResults,
-} from "../../core/utils/log-helpers";
-
 export default class Test extends BaseCommand {
   static description = "test your app";
 

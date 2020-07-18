@@ -161,6 +161,17 @@ describe("The create shipment domestic test suite", () => {
     });
   });
 
+  describe("When the input parameters do not match the return shipment", () => {
+
+    it("should throw an error for a shipFrom mismatch");
+    it("should throw an error for a shipTo mismatch");
+    it("should throw an error for a deliveryService mismatch");
+    it("should throw an error for a packaging mismatch");
+    it("should throw an error for a weight mismatch");
+    it("should throw an error for a dimensions mismatch");
+
+  });
+
   describe("When a user configures a Ship To and Ship From address", () => {
     const { app, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
 
@@ -200,6 +211,17 @@ describe("The create shipment domestic test suite", () => {
 
     });
   });
+
+  
+  describe("When a deliveryService fulfillment property is set", () => {
+
+    it("should throw an error if the response does not match it")
+  });
+
+  describe("When a delivery service 'isTrackable' property is set", () => {
+    it("")
+  })
+
 });
 
 function generateBasicAppAndConfigs() {
