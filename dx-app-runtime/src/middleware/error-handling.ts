@@ -23,8 +23,8 @@ const handleRateLimitException =  (error: any, response: Response) => {
 }
 
 const handleOtherErrors = (error: any, response: Response) => {
-  const statusCode = mapErrorCodeToHttpStatusCode(error);
-  const errorCode = mapErrorCodeToCapiErrorCode(error.code);
+  const statusCode = mapErrorCodeToHttpStatusCode(error.originalCode);
+  const errorCode = mapErrorCodeToCapiErrorCode(error.originalCode);
   response.status(statusCode).send({
     detailed_errors: [{
       message: error.message,
@@ -39,9 +39,9 @@ export default (
   response: Response,
   next: NextFunction
 ) => {
-  logger.error(error);
-  if(error.code) {
-    if(error.code === ErrorCode.RateLimit) {
+  logger.error(error.originalCode);
+  if(error.originalCode) {
+    if(error.originalCode === ErrorCode.RateLimit) {
       handleRateLimitException(error, response);
     } else {
       handleOtherErrors(error, response);
@@ -49,4 +49,5 @@ export default (
   } else {
     handleUncaughtModuleException(error, response);
   }
+  next(error);
 };

@@ -12,26 +12,26 @@ router.use(registry);
 router.post('/CreateManifest', (req, res) => serviceHandler(integration.createManifest, req, res));
 */
 
-router.post("/Track", (req, res) =>
-  serviceHandler(integration.track, req, res)
+router.post("/Track", async (req, res, next) =>
+  await serviceHandler(integration.track, req, res, next)
 );
-router.post("/Register", (req, res) =>
-  serviceHandler(integration.register, req, res)
+router.post("/Register", async (req, res, next) =>
+  await serviceHandler(integration.register, req, res, next)
 );
-router.post("/GetRates", (req, res) =>
-  serviceHandler(integration.getRates, req, res)
+router.post("/GetRates", async (req, res, next) =>
+  await serviceHandler(integration.getRates, req, res, next)
 );
-router.post("/CreateLabel", (req, res) =>
-  serviceHandler(integration.createLabel, req, res)
+router.post("/CreateLabel", async (req, res, next) =>
+  await serviceHandler(integration.createLabel, req, res, next)
 );
-router.post("/VoidLabels", (req, res) =>
-  serviceHandler(integration.voidLabels, req, res)
+router.post("/VoidLabels", async (req, res, next) =>
+  await serviceHandler(integration.voidLabels, req, res, next)
 );
-router.post("/SchedulePickup", (req, res) =>
-  serviceHandler(integration.schedulePickup, req, res)
+router.post("/SchedulePickup", async (req, res, next) =>
+  await serviceHandler(integration.schedulePickup, req, res, next)
 );
-router.post("/CancelPickup", (req, res) =>
-  serviceHandler(integration.cancelPickup, req, res)
+router.post("/CancelPickup", async (req, res, next) =>
+  await serviceHandler(integration.cancelPickup, req, res, next)
 );
 
 export default router;
