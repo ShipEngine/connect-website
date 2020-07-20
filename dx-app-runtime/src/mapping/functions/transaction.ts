@@ -8,7 +8,6 @@ import {
   CreateLabelRequest,
 } from "@ipaas/capi/requests";
 import { TransactionPOJO } from "@shipengine/integration-platform-sdk";
-import { BasicAuth } from "../../basic-auth";
 
 export default (
   request:
@@ -18,14 +17,12 @@ export default (
     | VoidLabelsRequest
     | TrackRequest
     | SchedulePickupRequest
-    | CancelPickupRequest,
-  auth: BasicAuth | null | undefined
+    | CancelPickupRequest
 ): TransactionPOJO => {
   const transaction = {
     id: request.transaction_id || "",
     session: {
-      ...request.metadata,
-      ...auth,
+      ...request.metadata
     },
   };
   return transaction;

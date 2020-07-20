@@ -29,7 +29,7 @@ import {
 } from "@shipengine/integration-platform-sdk";
 import logger from "../../util/logger";
 import ShippingProviderConnector from "./external/shipping-provider-connector";
-import { MappingError } from "./errors";
+import { InvalidInput } from "../../errors";
 import { LabelFormat } from "@ipaas/capi/models";
 import { dxToCapiSpecPackageType } from "../../routes/loader-data/package-type";
 
@@ -180,16 +180,7 @@ const mapSupportedLabelSize = (
         break;
       case DocumentSize.A4:
       default: {
-        const message = `${documentSize} is not a supported document size`;
-        logger.error(message);
-        throw new MappingError(
-          message,
-          {
-            fieldName: "DocumentSize",
-            value: documentSize.toString(),
-          },
-          "SupportedLabelSize"
-        );
+        throw new InvalidInput(`${documentSize} is not a supported document size`);
       }
     }
   });
@@ -333,13 +324,7 @@ const mapLabelFormats = (
         break;
       case DocumentFormat.HTML:
       default: {
-        const msg = `DocumentFormat ${documentFormat} does not map to CAPI LabelFormat`;
-        logger.error(msg);
-        throw new MappingError(
-          msg,
-          { fieldName: "DocumentFormat", value: documentFormat },
-          "LabelFormat"
-        );
+        throw new InvalidInput(`DocumentFormat ${documentFormat} does not map to CAPI LabelFormat`);
       }
     }
   });
@@ -348,7 +333,7 @@ const mapLabelFormats = (
 
 const dxToCarrierSpecification = (app: CarrierApp): CarrierSpecification => {
   if (!app) {
-    throw new Error("Unable to map null CarrierApp");
+    throw new InvalidInput("Unable to map null CarrierApp");
   }
   const carrierSpecification: CarrierSpecification = {
     Id: app.id,

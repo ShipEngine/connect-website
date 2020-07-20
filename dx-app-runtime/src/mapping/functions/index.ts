@@ -23,28 +23,26 @@ import {
   SchedulePickupResponse,
   CancelPickupResponse,
 } from "@ipaas/capi/responses";
-import { BasicAuth } from "../../basic-auth";
 import { mapCreateLabelRequestToNewShipmentPOJO } from "./create-label-request";
 import { mapShipmentConfirmationPOJOToCreateLabelResponse } from "./create-label-response";
 import { mapVoidLabelsRequestToCancelShipmentsPOJO } from "./void-labels-request";
 import { mapShipmentCancellationOutcomeToVoidLabelsResponse } from "./void-labels-response";
 import { mapSchedulePickupRequestToPickupRequestPOJO } from "./schedule-pickup-request";
 import { mapPickupConfirmationPOJOToSchedulePickupResponse } from "./schedule-pickup-response";
-import { EndpointNotSupportedError } from "../../errors";
+import { NotSupported } from "../../errors";
 import { mapCancelPickupRequestToPickupCancellationPOJO } from "./cancel-pickup-request";
 import { mapPickupCancellationOutcomePOJOToCancelPickupResponse } from "./cancel-pickup-response";
 
 export const handleTrackingRequest = async (
   app: CarrierApp,
-  request: TrackRequest,
-  auth: BasicAuth
+  request: TrackRequest
 ): Promise<TrackResponse> => {
   if (!app.trackShipment) {
-    throw new EndpointNotSupportedError("trackShipment");
+    throw new NotSupported("trackShipment");
   }
 
   const dxTracking = capiToDxTrack(request);
-  const transaction = capiRequestToDxTransaction(request, auth);
+  const transaction = capiRequestToDxTransaction(request);
   const trackingInfo = await app.trackShipment(transaction, dxTracking);
   return dxToCapiTrack(trackingInfo, transaction);
 };
@@ -54,7 +52,7 @@ export const handleRegisterRequest = async (
   request: RegisterRequest
 ): Promise<RegisterResponse> => {
   if (!app.connect) {
-    throw new EndpointNotSupportedError("connect");
+    throw new NotSupported("connect");
   }
   const transaction = capiToDxTransaction(request);
   await app.connect(transaction, request.registration_info);
@@ -63,13 +61,12 @@ export const handleRegisterRequest = async (
 
 export const handleGetRatesRequest = async (
   app: CarrierApp,
-  request: GetRatesRequest,
-  auth: BasicAuth
+  request: GetRatesRequest
 ): Promise<GetRatesResponse> => {
   if (!app.rateShipment) {
-    throw new EndpointNotSupportedError("rateShipment");
+    throw new NotSupported("rateShipment");
   }
-  const transaction = capiRequestToDxTransaction(request, auth);
+  const transaction = capiRequestToDxTransaction(request);
   const dxRequest = mapGetRatesRequestToRateCriteriaPOJO(request);
   const dxResponse = await app.rateShipment(transaction, dxRequest);
   const response = mapRatePOJOToGetRatesResponse(transaction, dxResponse);
@@ -78,14 +75,13 @@ export const handleGetRatesRequest = async (
 
 export const handleCreateLabelRequest = async (
   app: CarrierApp,
-  request: CreateLabelRequest,
-  auth: BasicAuth
+  request: CreateLabelRequest
 ): Promise<CreateLabelResponse> => {
   if (!app.createShipment) {
-    throw new EndpointNotSupportedError("createShipment");
+    throw new NotSupported("createShipment");
   }
   try {
-    const transaction = capiRequestToDxTransaction(request, auth);
+    const transaction = capiRequestToDxTransaction(request);
     const dxRequest = mapCreateLabelRequestToNewShipmentPOJO(request);
     const dxResponse = await app.createShipment(transaction, dxRequest);
     const response = mapShipmentConfirmationPOJOToCreateLabelResponse(
@@ -101,13 +97,12 @@ export const handleCreateLabelRequest = async (
 
 export const handleVoidLabelsRequest = async (
   app: CarrierApp,
-  request: VoidLabelsRequest,
-  auth: BasicAuth
+  request: VoidLabelsRequest
 ): Promise<VoidLabelsResponse> => {
   if (!app.cancelShipments) {
-    throw new EndpointNotSupportedError("cancelShipments");
+    throw new NotSupported("cancelShipments");
   }
-  const transaction = capiRequestToDxTransaction(request, auth);
+  const transaction = capiRequestToDxTransaction(request);
   const dxRequest = mapVoidLabelsRequestToCancelShipmentsPOJO(request);
   const dxResponse = await app.cancelShipments(transaction, dxRequest);
   const response = mapShipmentCancellationOutcomeToVoidLabelsResponse(
@@ -119,13 +114,12 @@ export const handleVoidLabelsRequest = async (
 
 export const handleSchedulePickupRequest = async (
   app: CarrierApp,
-  request: SchedulePickupRequest,
-  auth: BasicAuth
+  request: SchedulePickupRequest
 ): Promise<SchedulePickupResponse> => {
   if (!app.schedulePickup) {
-    throw new EndpointNotSupportedError("schedulePickup");
+    throw new NotSupported("schedulePickup");
   }
-  const transaction = capiRequestToDxTransaction(request, auth);
+  const transaction = capiRequestToDxTransaction(request);
   const dxRequest = mapSchedulePickupRequestToPickupRequestPOJO(request);
   const dxResponse = await app.schedulePickup(transaction, dxRequest);
   const response = mapPickupConfirmationPOJOToSchedulePickupResponse(
@@ -137,13 +131,12 @@ export const handleSchedulePickupRequest = async (
 
 export const handleCancelPickupRequest = async (
   app: CarrierApp,
-  request: CancelPickupRequest,
-  auth: BasicAuth
+  request: CancelPickupRequest
 ): Promise<CancelPickupResponse> => {
   if (!app.cancelPickups) {
-    throw new EndpointNotSupportedError("cancelPickup");
+    throw new NotSupported("cancelPickup");
   }
-  const transaction = capiRequestToDxTransaction(request, auth);
+  const transaction = capiRequestToDxTransaction(request);
   const dxRequest = mapCancelPickupRequestToPickupCancellationPOJO(request);
   const dxResponse = await app.cancelPickups(transaction, [dxRequest]);
   const response = mapPickupCancellationOutcomePOJOToCancelPickupResponse(

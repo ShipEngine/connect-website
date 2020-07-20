@@ -4,7 +4,7 @@ require("dotenv-flow").config();
 process.env.NODE_ENV = process.env.NODE_ENV || "development";
 
 import logger from "./util/logger";
-import loadApp from "./dx-apps";
+import loadApp from "./dx-app";
 
 process.on("uncaughtException", (err) => {
   logger.error(err.message, err);

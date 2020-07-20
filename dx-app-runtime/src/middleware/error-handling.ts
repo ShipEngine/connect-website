@@ -1,51 +1,52 @@
 import logger from "../util/logger";
 import { NextFunction, Request, Response } from "express";
 import {
-  MappingError,
-  ValidationError,
-} from "../mapping/registry-data/errors";
+  ErrorHttpStatusCode,
+  mapErrorCodeToHttpStatusCode,
+  ErrorCode,
+  mapErrorCodeToCapiErrorCode
+} from "../errors";
+import e = require("express");
+
+const handleUncaughtModuleException = (error: any, response: Response) => {
+  response.status(ErrorHttpStatusCode.ServerError).send({
+    name: error.name || 'Server Error',
+    message: error.message || 'No Details Provided',
+    stack: error.stack || 'No Stack Given'
+  });
+}
+
+const handleRateLimitException =  (error: any, response: Response) => {
+  response.status(ErrorHttpStatusCode.RateLimit).send({
+    'retry_after_seconds': error.retryAfter
+  });
+}
+
+const handleOtherErrors = (error: any, response: Response) => {
+  const statusCode = mapErrorCodeToHttpStatusCode(error);
+  const errorCode = mapErrorCodeToCapiErrorCode(error.code);
+  response.status(statusCode).send({
+    detailed_errors: [{
+      message: error.message,
+      standardized_error_code: errorCode
+    }]
+  });
+}
 
 export default (
-  err: any,
+  error: any,
   request: Request,
   response: Response,
   next: NextFunction
 ) => {
-  logger.error("error handling middleware: ", err);
-
-  if (err instanceof MappingError) {
-    response.status(500).json({
-      detailed_errors: [
-        {
-          standardized_error_code: "mapping_error",
-          message: err.message,
-          details: { ...err },
-        },
-      ],
-    });
-    return;
+  logger.error(error);
+  if(error.code) {
+    if(error.code === ErrorCode.RateLimit) {
+      handleRateLimitException(error, response);
+    } else {
+      handleOtherErrors(error, response);
+    }
+  } else {
+    handleUncaughtModuleException(error, response);
   }
-
-  if (err instanceof ValidationError) {
-    response.status(500).json({
-      detailed_errors: [
-        {
-          standardized_error_code: "validation_error",
-          message: err.message,
-          details: { ...err },
-        },
-      ],
-    });
-    return;
-  }
-
-  response.status(500).json({
-    detailed_errors: [
-      {
-        standardized_error_code: "unhandled_module_exception",
-        message: "There was an uncaught exception with the module.",
-        raw_external_context: err,
-      },
-    ],
-  });
 };
