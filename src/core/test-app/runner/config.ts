@@ -37,6 +37,25 @@ export interface CreateShipmentDomesticOptions extends TestOptions {
   deliveryConfirmationName?: string;
 }
 
+export type PackageOptions = {
+  packagingName: string;
+  labelFormat: DocumentFormat;
+  labelSize: DocumentSize;
+  weight: {
+    value: number;
+    unit: WeightUnit;
+  };
+  deliveryConfirmationName?: string;
+}
+
+export interface CreateShipmentMultiPackageOptions extends TestOptions {
+  deliveryServiceName: string;
+  shipFrom: AddressWithContactInfoPOJO;
+  shipTo: AddressWithContactInfoPOJO;
+  shipDateTime: DateTimeZonePOJO | Date | string;
+  packages: Array<PackageOptions>;
+}
+
 export interface RateShipmentOptions extends TestOptions {
   deliveryServiceNames: string | string[];
   shipFrom: AddressWithContactInfoPOJO;

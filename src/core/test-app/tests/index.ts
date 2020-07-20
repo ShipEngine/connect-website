@@ -2,6 +2,7 @@
 // export * from "./cancel-shipments-test-suite";
 // export * from "./create-manifest-test-suite";
 export * from "./create-shipment-domestic";
+export * from "./create-shipment-multipackage";
 // export * from "./rate-shipment";
 // export * from "./create-shipment-domestic";
 export * from "./create-shipment-international";
