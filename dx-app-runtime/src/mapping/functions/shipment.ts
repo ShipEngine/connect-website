@@ -1,6 +1,6 @@
 import { GetRatesRequest } from "@ipaas/capi/requests";
 import { mapAddressToAddressWithContactInfoPOJO } from "./address";
-import { NewShipmentPOJO } from "@shipengine/integration-platform-sdk";
+import { NewShipmentPOJO, DocumentFormat, DocumentSize } from "@shipengine/integration-platform-sdk";
 import { capiToDxNewPackagePOJO } from "./package";
 
 export const mapGetRatesRequestToNewShipmentPOJO = (
@@ -16,7 +16,7 @@ export const mapGetRatesRequestToNewShipmentPOJO = (
     returns: {
       isReturn: request.is_return_label,
       rmaNumber: "", // TODO: RMA Number is added in 1.13
-      outboundShipment: undefined, // TODO: This is suppose to represent the original shipment associated with this return Platform doesn't sent this I don't beleive.
+      outboundShipment: undefined, // TODO: This is suppose to represent the original shipment associated with this return Platform doesn't send this I don't beleive.
     },
     billing: {
       dutiesPaidBy: undefined, // TODO: we don't send who the duties are paid by
@@ -26,7 +26,13 @@ export const mapGetRatesRequestToNewShipmentPOJO = (
       country: undefined, // TODO: we don't send over billing country
     },
     packages: request.packages.map((pckg) =>
-      capiToDxNewPackagePOJO(pckg, request.customs, request.advanced_options)
+      capiToDxNewPackagePOJO(
+        pckg, 
+        request.customs, 
+        request.advanced_options,
+        DocumentFormat.PDF,
+        DocumentSize.Inches4x6
+        )
     ),
   };
 };

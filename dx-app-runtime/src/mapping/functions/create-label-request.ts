@@ -2,6 +2,8 @@ import { CreateLabelRequest } from "@ipaas/capi/requests";
 import { mapAddressToAddressWithContactInfoPOJO } from "./address";
 import { NewShipmentPOJO } from "@shipengine/integration-platform-sdk";
 import { capiToDxNewPackagePOJO } from "./package";
+import { mapCapiToDxDocumentFormat } from "./document-format";
+import { mapCapiToDxDocumentSize } from "./document-size";
 
 export const mapCreateLabelRequestToNewShipmentPOJO = (
   request: CreateLabelRequest
@@ -29,7 +31,12 @@ export const mapCreateLabelRequestToNewShipmentPOJO = (
       country: undefined, // TODO: we don't send over billing country
     },
     packages: request.packages.map((pckg) =>
-      capiToDxNewPackagePOJO(pckg, request.customs, request.advanced_options)
+      capiToDxNewPackagePOJO(
+        pckg, 
+        request.customs, 
+        request.advanced_options, 
+        mapCapiToDxDocumentFormat(request.label_format), 
+        mapCapiToDxDocumentSize(request.label_layout))
     ),
   };
 };

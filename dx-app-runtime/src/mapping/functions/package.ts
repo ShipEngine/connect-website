@@ -21,7 +21,9 @@ import { capiToDxCustomsItem } from "./customs-item";
 export const capiToDxPackage = (
   capiPackage: Package,
   customs: Customs | null | undefined,
-  advancedOptions: AdvancedShippingOptions | null | undefined
+  advancedOptions: AdvancedShippingOptions | null | undefined,
+  documentFormat: DocumentFormat,
+  documentSize: DocumentSize
 ): NewPackagePOJO | RatePackagePOJO => {
   const nonNullCustomsItems = <CapiCustomsItem[] | undefined>(
     customs?.customs_items.filter((item) => item !== null && item !== undefined)
@@ -35,8 +37,7 @@ export const capiToDxPackage = (
         }) ?? [],
     },
     packaging: {
-      id: capiPackage.package_code ?? "unknown", // TODO: capi does not have package id
-      name: capiPackage.package_code ?? "unknown", // TODO: capi does not have package name
+      id: String(capiPackage.package_code)
     },
 
     dimensions: {
@@ -59,15 +60,15 @@ export const capiToDxPackage = (
     containsAlcohol: advancedOptions?.contains_alcohol || false,
     isNonMachinable: advancedOptions?.nonmachineable || false,
     label: {
-      format: DocumentFormat.HTML, // TODO: capi label messages have no format
-      size: DocumentSize.Inches4x6, // TODO: capi label messages have no size
+      format: documentFormat,
+      size: documentSize,
       referenceFields: [
         capiPackage.label_messages?.reference1 || "",
         capiPackage.label_messages?.reference2 || "",
         capiPackage.label_messages?.reference3 || "",
       ],
     },
-    contents: /*customs?.customs_items.map(mapCustomsToItemToPackageItem) ||*/ [], //TODO: how do contents differ from customs items
+    contents: [], /*customs?.customs_items.map(mapCustomsToItemToPackageItem) ||*/ //TODO: how do contents differ from customs items
   };
   return mappedPackage;
 };
@@ -75,7 +76,9 @@ export const capiToDxPackage = (
 export const capiToDxNewPackagePOJO = (
   capiPackage: Package,
   customs: Customs | null | undefined,
-  advancedOptions: AdvancedShippingOptions | null | undefined
+  advancedOptions: AdvancedShippingOptions | null | undefined,
+  documentFormat: DocumentFormat,
+  documentSize: DocumentSize
 ): NewPackagePOJO => {
   const nonNullCustomsItems = <CapiCustomsItem[] | undefined>(
     customs?.customs_items.filter((item) => item !== null && item !== undefined)
@@ -88,8 +91,7 @@ export const capiToDxNewPackagePOJO = (
         }) ?? [],
     },
     packaging: {
-      id: capiPackage.package_code ?? "unknown", // TODO: capi does not have package id
-      name: capiPackage.package_code ?? "unknown", // TODO: capi does not have package name
+      id: String(capiPackage.package_code)
     },
 
     dimensions: {
@@ -112,8 +114,8 @@ export const capiToDxNewPackagePOJO = (
     containsAlcohol: advancedOptions?.contains_alcohol || false,
     isNonMachinable: advancedOptions?.nonmachineable || false,
     label: {
-      format: DocumentFormat.HTML, // TODO: capi label messages have no format
-      size: DocumentSize.Inches4x6, // TODO: capi label messages have no size
+      format: documentFormat, 
+      size: documentSize,
       referenceFields: [
         capiPackage.label_messages?.reference1 || "",
         capiPackage.label_messages?.reference2 || "",
