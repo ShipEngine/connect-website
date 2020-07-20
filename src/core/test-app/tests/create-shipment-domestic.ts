@@ -74,7 +74,7 @@ export class CreateShipmentDomestic extends Suite {
       packagingName: this.deliveryService.packaging[0].name
     };
 
-    if (this.deliveryService.deliveryConfirmations) {
+    if (this.deliveryService.deliveryConfirmations.length > 0) {
       defaults.deliveryConfirmationName = this.deliveryService.deliveryConfirmations[0].name;
     }
 
@@ -103,7 +103,7 @@ export class CreateShipmentDomestic extends Suite {
       }
     };
 
-    if (this.deliveryService.deliveryConfirmations) {
+    if (this.deliveryService.deliveryConfirmations.length > 0) {
       packagePOJO.deliveryConfirmation = {
         id: this.deliveryService.deliveryConfirmations[0].id
       }
