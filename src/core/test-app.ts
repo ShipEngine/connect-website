@@ -40,8 +40,7 @@ export default async function testApp(
         const errorsWithInflection = errorsCount > 1 ? "errors" : "error";
 
         logFail(
-          `App structure is not valid - ${errorsCount} ${errorsWithInflection} found`,
-          false,
+          `App structure is not valid - ${errorsCount} ${errorsWithInflection} found`
         );
 
         error.errors.forEach((errorMessage: string) => {
