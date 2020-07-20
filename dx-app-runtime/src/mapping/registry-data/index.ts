@@ -290,7 +290,7 @@ const mapShippingService = (
   const shippingService: ShippingServiceSpecification = {
     Id: service.id,
     Name: service.name,
-    Abbreviation: service.name.substring(0, 4), // This is not sent to us, since there is no product layer that can update this, we will initialize it to be a substring
+    Abbreviation: service.name?.substring(0, 4), // This is not sent to us, since there is no product layer that can update this, we will initialize it to be a substring
     SupportedCountries: mapCountries(service.countries),
     Code: service.id, // We are mapping to the id because when the module gets called
     LabelCode: service.id, // We are mapping the LabelCode to the ServiceID, since this is hidden in the new spec
@@ -369,12 +369,12 @@ const dxToCarrierSpecification = (app: CarrierApp): CarrierSpecification => {
       },
     },
     CarrierAttributes: mapCarrierAttributes(app),
-    CarrierUrl: app.websiteURL.toString(),
+    CarrierUrl: app.websiteURL?.toString(),
     TrackingUrl: "", // app.getTrackingURL({id: ''}, {}).toString(), // TODO tracking url
-    ShippingServices: mapDeliveryServices(app.deliveryServices),
-    PackageTypes: dxToCapiSpecPackageType(app.packaging, app.deliveryServices),
-    LabelFormats: mapLabelFormats(app.labelFormats),
-    DefaultLabelSizes: mapSupportedLabelSize(app.labelSizes),
+    ShippingServices: app.deliveryServices ? mapDeliveryServices(app.deliveryServices) : [],
+    PackageTypes: app.packaging ? dxToCapiSpecPackageType(app.packaging, app.deliveryServices) : [],
+    LabelFormats: app.labelFormats ? mapLabelFormats(app.labelFormats) : [],
+    DefaultLabelSizes: app.labelSizes ? mapSupportedLabelSize(app.labelSizes) : [],
   };
   return carrierSpecification;
 };
