@@ -3,7 +3,7 @@ const { CarrierApp } = require("@shipengine/integration-platform-sdk/lib/interna
 const pojo = require("../../../../utils/pojo");
 const { expect } = require("chai");
 
-describe.only("The create shipment multipackage test suite", () => {
+describe("The create shipment multipackage test suite", () => {
 
   describe("when there is no address available for a delivery service", () => {
 
