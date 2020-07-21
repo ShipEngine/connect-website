@@ -1,8 +1,6 @@
 import {
   DateTimeZonePOJO,
   AddressWithContactInfoPOJO,
-  DocumentFormat,
-  DocumentSize,
   WeightUnit,
   NewLabelPOJO,
 } from "@shipengine/integration-platform-sdk";
