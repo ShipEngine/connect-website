@@ -1,6 +1,5 @@
 import {
   CarrierApp,
-  Address,
   DeliveryService,
   NewShipmentPOJO,
   NewPackagePOJO,
@@ -14,10 +13,14 @@ import {
 } from "../factories/address";
 import {
   CreateShipmentDomesticConfigOptions,
-  // CreateShipmentDomesticTestParams,
+  CreateShipmentDomesticTestParams,
 } from "../runner/config/create-shipment-domestic";
 import { initializeTimeStamps } from "../../utils/time-stamps";
 import { getDeliveryServiceByName } from "./utils";
+import reduceDefaultsWithConfig from '../utils/reduce-defaults-with-config';
+import objectToTestTitle from '../utils/object-to-test-title';
+import { DomesticDeliveryService, findDomesticDeliveryService } from '../utils/find-domestic-delivery-service';
+import { expect } from "chai";
 
 interface TestArgs {
   title: string;
@@ -73,7 +76,7 @@ export class CreateShipmentDomestic extends Suite {
 
     // Make a best guess at the defaults, need to resolve the default vs config based delivery service early
     // on since that determines what address and associated timezones get generated.
-    const defaults: CreateShipmentDomesticConfigOptions = {
+    const defaults: CreateShipmentDomesticTestParams = {
       deliveryServiceName: this.deliveryService.name,
       labelFormat: this.deliveryService.labelFormats[0],
       labelSize: this.deliveryService.labelSizes[0],
@@ -91,16 +94,9 @@ export class CreateShipmentDomestic extends Suite {
       defaults.deliveryConfirmationName = this.deliveryService.deliveryConfirmations[0].name;
     }
 
-    const whiteListKeys = Object.keys(defaults);
-
-    // This code is filtering any keys in the config that are not white listed
-    // and merging the values with the defaults above
-    const testParams = Object.keys(config)
-      .filter((key) => whiteListKeys.includes(key))
-      .reduce((obj, key: string) => {
-        Reflect.set(obj, key, Reflect.get(config, key));
-        return obj;
-      }, defaults);
+    const testParams = reduceDefaultsWithConfig<
+      CreateShipmentDomesticTestParams
+    >(defaults, config);
 
     const packagePOJO: NewPackagePOJO = {
       packaging: {
@@ -141,18 +137,12 @@ export class CreateShipmentDomestic extends Suite {
     };
 
     const title = config.expectedErrorMessage
-      ? `it raises an error when creating a new domestic shipment with ${Object.keys(
-          testParams,
-        )
-          .map(function (k: any) {
-            return parseTitle(testParams, k);
-          })
-          .join(", ")}`
-      : `it creates a new domestic shipment with ${Object.keys(testParams)
-          .map(function (k: any) {
-            return parseTitle(testParams, k);
-          })
-          .join(", ")}`;
+      ? `it raises an error when creating a new domestic shipment with ${objectToTestTitle(
+        testParams,
+      )}`
+      : `it creates a new domestic shipment with ${objectToTestTitle(
+        testParams,
+      )}`;
 
     return {
       title,
@@ -197,32 +187,6 @@ export class CreateShipmentDomestic extends Suite {
   }
 }
 
-type DomesticDeliveryService = Array<{
-  deliveryService: DeliveryService;
-  domesticCountries: Country[];
-}>;
-
-function findDomesticDeliveryService(
-  deliveryServices: DeliveryService[],
-): DomesticDeliveryService {
-  const domesticDS: DomesticDeliveryService = [];
-
-  for (let ds of deliveryServices) {
-    const domesticCountries = [];
-    for (let country of ds.originCountries) {
-      if (ds.destinationCountries.includes(country)) {
-        domesticCountries.push(country);
-      }
-    }
-
-    if (domesticCountries.length > 0) {
-      domesticDS.push({ deliveryService: ds, domesticCountries });
-    }
-  }
-
-  return domesticDS;
-}
-
 /**
  * Currently, just return the first valid domestic delivery service that we have an address for
  */
@@ -248,24 +212,4 @@ function findMatchingDomesticCountry(ds: DeliveryService): Country | undefined {
       }
     }
   }
-}
-
-function parseTitle(
-  testParams: CreateShipmentDomesticConfigOptions,
-  key: any,
-): string {
-  if (key === "shipFrom" || key === "shipTo") {
-    const address = Reflect.get(testParams, key) as Address;
-    return `${key}: ${address.country}`;
-  }
-
-  if (key === "weight") {
-    const weight = Reflect.get(testParams, key) as {
-      unit: WeightUnit;
-      value: number;
-    };
-    return `weightValue: ${weight.value}, weightUnit: ${weight.unit}`;
-  }
-
-  return `${key}: ${Reflect.get(testParams, key)}`;
 }

@@ -16,7 +16,7 @@ export default function reduceDefaultsWithConfig<T>(
     .reduce((obj: any, key: string) => {
       Reflect.set(obj, key, Reflect.get(configObject, key));
       return obj;
-    }, {});
+    }, defaultObject);
 
-  return merge<T>(defaultObject, filteredConfigObject);
+  return filteredConfigObject
 }

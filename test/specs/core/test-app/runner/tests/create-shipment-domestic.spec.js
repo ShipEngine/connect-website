@@ -57,12 +57,11 @@ describe("The create shipment domestic test suite", () => {
 
       expect(tests[0].title).to.include("labelFormat: pdf");
       expect(tests[0].title).to.include("labelSize: A4");
-      expect(tests[0].title).to.include("weightUnit: lb");
-      expect(tests[0].title).to.include("weightValue: 50");
+      expect(tests[0].title).to.include("weight: 50lb");
     });
   });
 
-  describe.skip("when there is a config override object of test suite parameters", () => {
+  describe("when there is a config override object of test suite parameters", () => {
 
     it("should update the test title", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
@@ -70,7 +69,8 @@ describe("The create shipment domestic test suite", () => {
 
       staticConfigTests.createShipment_domestic = {
         weight: {
-          value: 200
+          value: 200,
+          unit: "lb"
         },
         labelFormat: "png"
       };
@@ -81,12 +81,11 @@ describe("The create shipment domestic test suite", () => {
 
       expect(tests[0].title).to.include("labelFormat: png");
       expect(tests[0].title).to.include("labelSize: A4");
-      expect(tests[0].title).to.include("weightUnit: lb");
-      expect(tests[0].title).to.include("weightValue: 200");
+      expect(tests[0].title).to.include("weight: 200lb");
     });
   });
 
-  describe.skip("when there is a config override array of test suite parameters", () => {
+  describe("when there is a config override array of test suite parameters", () => {
 
     let tests;
     beforeEach(() => {
@@ -96,13 +95,15 @@ describe("The create shipment domestic test suite", () => {
         [
           {
             weight: {
-              value: 200
+              value: 200,
+              unit: "lb"
             },
             labelFormat: "png"
           },
           {
             weight: {
-              value: 22
+              value: 22,
+              unit: "lb"
             },
             labelSize: "A6"
           }
@@ -119,10 +120,10 @@ describe("The create shipment domestic test suite", () => {
     });
 
     it("should update the test titles", () => {
-      expect(tests[0].title).to.include("weightValue: 200");
+      expect(tests[0].title).to.include("weight: 200lb");
       expect(tests[0].title).to.include("labelFormat: png");
 
-      expect(tests[1].title).to.include("weightValue: 22");
+      expect(tests[1].title).to.include("weight: 22lb");
       expect(tests[1].title).to.include("labelSize: A6");
     });
   });
@@ -219,10 +220,22 @@ describe("The create shipment domestic test suite", () => {
     });
   });
 
+  describe("When a delivery service 'isTrackable' property is set", () => {
+    const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+    appDefinition.shipFrom
+    const app = new CarrierApp(appDefinition);
+
+    const args = { app, connectArgs, staticConfigTests, options };
+    const testSuite = new CreateShipmentDomestic(args);
+    const tests = testSuite.tests();
+
+    it("should throw an error if no tracking number is returned", () => {
+
+    });
+  });
+
   describe("When the input parameters do not match the return shipment", () => {
 
-    it("should throw an error for a shipFrom mismatch");
-    it("should throw an error for a shipTo mismatch");
     it("should throw an error for a deliveryService mismatch");
     it("should throw an error for a packaging mismatch");
     it("should throw an error for a weight mismatch");
@@ -235,9 +248,7 @@ describe("The create shipment domestic test suite", () => {
     it("should throw an error if the response does not match it")
   });
 
-  describe("When a delivery service 'isTrackable' property is set", () => {
-    it("")
-  })
+
 
 });
 
