@@ -78,8 +78,10 @@ export class CreateShipmentDomestic extends Suite {
     // on since that determines what address and associated timezones get generated.
     const defaults: CreateShipmentDomesticTestParams = {
       deliveryServiceName: this.deliveryService.name,
-      labelFormat: this.deliveryService.labelFormats[0],
-      labelSize: this.deliveryService.labelSizes[0],
+      label: {
+        size: this.deliveryService.labelSizes[0],
+        format: this.deliveryService.labelFormats[0]
+      },
       shipDateTime: tomorrow,
       shipFrom: shipFrom!,
       shipTo: shipTo!,
@@ -103,8 +105,8 @@ export class CreateShipmentDomestic extends Suite {
         id: this.deliveryService.packaging[0].id,
       },
       label: {
-        size: testParams.labelSize,
-        format: testParams.labelFormat,
+        size: testParams.label.size,
+        format: testParams.label.format,
       },
       weight: {
         value: testParams.weight.value,

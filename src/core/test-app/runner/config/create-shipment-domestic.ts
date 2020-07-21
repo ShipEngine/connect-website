@@ -4,13 +4,13 @@ import {
   DocumentFormat,
   DocumentSize,
   WeightUnit,
+  NewLabelPOJO,
 } from "@shipengine/integration-platform-sdk";
 import { BaseTestConfigOptions } from "./base-test-config-options";
 
 export interface CreateShipmentDomesticTestParams {
   deliveryServiceName: string;
-  labelFormat: DocumentFormat;
-  labelSize: DocumentSize;
+  label: NewLabelPOJO;
   shipFrom: AddressWithContactInfoPOJO;
   shipTo: AddressWithContactInfoPOJO;
   weight: {

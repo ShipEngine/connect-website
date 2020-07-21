@@ -56,8 +56,7 @@ describe("The create shipment domestic test suite", () => {
     it("the test params should be reflected in the title", () => {
       const tests = testSuite.tests();
 
-      expect(tests[0].title).to.include("labelFormat: pdf");
-      expect(tests[0].title).to.include("labelSize: A4");
+      expect(tests[0].title).to.include("label: A4 pdf");
       expect(tests[0].title).to.include("weight: 50lb");
     });
   });
@@ -66,6 +65,10 @@ describe("The create shipment domestic test suite", () => {
 
     it("should update the test title", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+      const newPackaging = pojo.packaging();
+      newPackaging.name = "New Package";
+      appDefinition.deliveryServices[0].packaging.push(newPackaging);
+      
       const app = new CarrierApp(appDefinition);
 
       staticConfigTests.createShipment_domestic = {
@@ -73,16 +76,22 @@ describe("The create shipment domestic test suite", () => {
           value: 200,
           unit: "lb"
         },
-        labelFormat: "png"
+
+        label: {
+          size: "A6",
+          format: "png"
+        },
+        packagingName: "New Package"
       };
 
       const args = { app, connectArgs, staticConfigTests, options };
       const testSuite = new CreateShipmentDomestic(args);
       const tests = testSuite.tests();
 
-      expect(tests[0].title).to.include("labelFormat: png");
-      expect(tests[0].title).to.include("labelSize: A4");
+      expect(tests[0].title).to.include("label: A6 png");
       expect(tests[0].title).to.include("weight: 200lb");
+      expect(tests[0].title).to.include("packagingName: New Package");
+
     });
   });
 
@@ -99,14 +108,16 @@ describe("The create shipment domestic test suite", () => {
               value: 200,
               unit: "lb"
             },
-            labelFormat: "png"
+            label: {
+              size: "A6",
+              format: "png"
+            }
           },
           {
             weight: {
               value: 22,
               unit: "lb"
-            },
-            labelSize: "A6"
+            }
           }
         ];
 
@@ -122,10 +133,9 @@ describe("The create shipment domestic test suite", () => {
 
     it("should update the test titles", () => {
       expect(tests[0].title).to.include("weight: 200lb");
-      expect(tests[0].title).to.include("labelFormat: png");
+      expect(tests[0].title).to.include("label: A6 png");
 
       expect(tests[1].title).to.include("weight: 22lb");
-      expect(tests[1].title).to.include("labelSize: A6");
     });
   });
 
@@ -175,7 +185,7 @@ describe("The create shipment domestic test suite", () => {
       const tests = testSuite.tests();
 
       expect(tests[0].title).to.include("deliveryServiceName: Better Delivery Service");
-      expect(tests[0].title).to.include("labelFormat: pdf");
+      expect(tests[0].title).to.include("label: A4 pdf");
     });
   });
 
@@ -310,6 +320,7 @@ function generateBasicAppAndConfigs() {
   deliveryService.labelFormats = ["pdf"];
   deliveryService.labelSizes = ["A4"];
   deliveryService.deliveryConfirmations = [pojo.deliveryConfirmation()];
+  deliveryService.packaging.push(pojo.packaging());
   appDefinition.deliveryServices = [deliveryService];
   appDefinition.createShipment = () => {};
 
