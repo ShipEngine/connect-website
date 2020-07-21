@@ -199,7 +199,6 @@ export class CreateShipmentInternational extends Suite {
           // If DeliveryServiceDefinition.isTrackable is true, then the shipment must have a trackingNumber set
           if (this.deliveryService?.isTrackable) {
             const customMsg = "The shipmentConfirmation.isTrackable returned from createShipment must be present when the given deliveryService.isTrackable is set to 'true'";
-
             expect(shipmentConfirmation.trackingNumber, customMsg).to.be.ok;
           }
 
