@@ -194,20 +194,25 @@ export class CreateShipmentInternational extends Suite {
           // All fields of the shipment must match the corresponding fields of the input parameters (e.g. from address, to address, delivery service, packaging, weight, dimensions, etc.)
           expect(shipmentConfirmation.package.label?.size).to.equal(
             testArg?.testParams.label.size,
+            "The shipmentConfirmation.package.label returned from createShipment does not have the correct label size",
           );
           expect(shipmentConfirmation.package.label?.format).to.equal(
             testArg?.testParams.label.format,
+            "The shipmentConfirmation.package.label returned from createShipment does not have the correct label format",
           );
           // If DeliveryServiceDefinition.fulfillmentService is set, then the shipment’s fulfillmentService must match it
           if (this.deliveryService?.fulfillmentService) {
             expect(shipmentConfirmation.fulfillmentService).to.equal(
               this.deliveryService?.fulfillmentService,
+              "The shipmentConfirmation.fulfillmentService returned from createShipment does not equal the given deliveryService.fulfillmentService",
             );
           }
 
           // If DeliveryServiceDefinition.isTrackable is true, then the shipment must have a trackingNumber set
           if (this.deliveryService?.isTrackable) {
-            expect(shipmentConfirmation.trackingNumber).to.be.ok;
+            expect(shipmentConfirmation.trackingNumber).to.be.ok(
+              "The shipmentConfirmation.isTrackable returned from createShipment must be present when the given deliveryService.isTrackable is set to 'true'",
+            );
           }
         },
       );
