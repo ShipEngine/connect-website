@@ -20,7 +20,7 @@ class MockSuite extends Suite {
   buildTestArg(localConfig) {
     return {
       title: "a mock test",
-      methodArgs: localConfig.methodArgs,
+      methodArgs: true,
       config: localConfig,
     };
   }
@@ -50,6 +50,45 @@ class MockSuite extends Suite {
   }
 }
 
+class FailingMockSuite extends Suite {
+  constructor(props) {
+    super(props);
+    this.title = "createShipment_domestic";
+  }
+
+  buildTestArg(localConfig) {
+    return {
+      title: "a mock test",
+      methodArgs: false,
+      config: localConfig,
+    };
+  }
+
+  buildTestArgs() {
+    if (Array.isArray(this.config)) {
+      return this.config.map((config) => {
+        return this.buildTestArg(config);
+      });
+    } else {
+      return [this.buildTestArg(this.config)];
+    }
+  }
+
+  tests() {
+    return this.buildTestArgs().map((testArg) => {
+      return this.test(
+        testArg.title,
+        testArg.methodArgs,
+        testArg.config,
+        () => {
+          // eslint-disable-next-line no-self-compare
+          throw new Error("test error");
+        },
+      );
+    });
+  }
+}
+
 const options = {
   defaults: {
     debug: false,
@@ -71,7 +110,7 @@ const options = {
 describe("Runner", () => {
   it("runs test suites", async () => {
     const [testResults, testResultsReducer] = useTestResults();
-    const staticConfigTests = { createShipment_domestic: { methodArgs: true } };
+    const staticConfigTests = { createShipment_domestic: {} };
     const suiteA = new MockSuite({ app, staticConfigTests, options });
     const suites = [suiteA];
     const results = await new Runner({
@@ -89,9 +128,9 @@ describe("Runner", () => {
   it("counts the failures", async () => {
     const [testResults, testResultsReducer] = useTestResults();
     const staticConfigTests = {
-      createShipment_domestic: { methodArgs: false },
+      createShipment_domestic: {},
     };
-    const suiteA = new MockSuite({
+    const suiteA = new FailingMockSuite({
       app,
       staticConfigTests,
       options,
@@ -112,7 +151,7 @@ describe("Runner", () => {
   it("counts the skips", async () => {
     const [testResults, testResultsReducer] = useTestResults();
     const staticConfigTests = {
-      createShipment_domestic: { skip: true, methodArgs: true },
+      createShipment_domestic: { skip: true },
     };
     const suiteA = new MockSuite({ app, staticConfigTests, options });
     const suites = [suiteA];
@@ -128,41 +167,75 @@ describe("Runner", () => {
     expect(results.failed).to.equal(0);
   });
 
-  // it("supports a fail fast option", async () => {
-  //   const staticConfigTests = {};
-  //   const options = { failFast: false };
-  //   const suiteA = new MockSuite({ app, staticConfigTests, options });
-  //   const suites = [suiteA];
-  //   const results = await new Runner({ suites, options }).run();
+  it("supports a fail fast option", async () => {
+    const [testResults, testResultsReducer] = useTestResults();
+    const staticConfigTests = {
+      createShipment_domestic: { methodArgs: false },
+    };
+    const suiteA = new FailingMockSuite({
+      app,
+      staticConfigTests,
+      options,
+    });
+    const suiteB = new FailingMockSuite({
+      app,
+      staticConfigTests,
+      options,
+    });
+    const suites = [suiteA, suiteB];
+    const results = await new Runner({
+      failFast: true,
+      suites,
+      testResults,
+      testResultsReducer,
+    }).run();
 
-  //   expect(results.passed).to.equal(0);
-  //   expect(results.skipped).to.equal(0);
-  //   expect(results.failed).to.equal(1);
-  // });
+    expect(results.passed).to.equal(0);
+    expect(results.skipped).to.equal(0);
+    expect(results.failed).to.equal(1);
+  });
 
-  // it("supports a debug option", async () => {
-  //   const staticConfigTests = {};
-  //   const options = { failFast: false };
-  //   const suiteA = new MockSuite({ app, staticConfigTests, options });
-  //   const suites = [suiteA];
-  //   const results = await new Runner({ suites, options }).run();
+  it("supports a debug option", async () => {
+    const [testResults, testResultsReducer] = useTestResults();
+    const staticConfigTests = {
+      createShipment_domestic: { methodArgs: true, debug: true },
+    };
+    const suiteA = new MockSuite({ app, staticConfigTests, options });
+    const suites = [suiteA];
+    const results = await new Runner({
+      failFast: false,
+      suites,
+      testResults,
+      testResultsReducer,
+    }).run();
 
-  //   expect(results.passed).to.equal(1);
-  //   expect(results.skipped).to.equal(0);
-  //   expect(results.failed).to.equal(1);
-  // });
+    expect(results.passed).to.equal(1);
+    expect(results.skipped).to.equal(0);
+    expect(results.failed).to.equal(0);
+  });
 
-  // it("supports an expectedErrorMessage option", async () => {
-  //   const staticConfigTests = {};
-  //   const options = { failFast: false };
-  //   const suiteA = new MockSuite({ app, staticConfigTests, options });
-  //   const suites = [suiteA];
-  //   const results = await new Runner({ suites, options }).run();
+  it("supports an expectedErrorMessage option", async () => {
+    const [testResults, testResultsReducer] = useTestResults();
+    const staticConfigTests = {
+      createShipment_domestic: { expectedErrorMessage: "test error" },
+    };
+    const suiteA = new FailingMockSuite({
+      app,
+      staticConfigTests,
+      options,
+    });
+    const suites = [suiteA];
+    const results = await new Runner({
+      failFast: false,
+      suites,
+      testResults,
+      testResultsReducer,
+    }).run();
 
-  //   expect(results.passed).to.equal(1);
-  //   expect(results.skipped).to.equal(0);
-  //   expect(results.failed).to.equal(1);
-  // });
+    expect(results.passed).to.equal(1);
+    expect(results.skipped).to.equal(0);
+    expect(results.failed).to.equal(0);
+  });
 
   // it("supports a grep option");
 });
