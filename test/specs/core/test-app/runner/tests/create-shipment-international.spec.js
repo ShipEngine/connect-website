@@ -1,10 +1,12 @@
+"use strict";
+
 const { CreateShipmentInternational } = require("../../../../../../lib/core/test-app/tests/create-shipment-international");
 const { CarrierApp } = require("@shipengine/integration-platform-sdk/lib/internal/carriers/carrier-app");
 const pojo = require("../../../../utils/pojo");
 const { expect } = require("chai");
 const sinon = require("sinon");
 
-describe("The create shipment international test suite", () => {
+describe.only("The create shipment international test suite", () => {
 
   describe("when there is no international service", () => {
 
@@ -163,7 +165,7 @@ describe("The create shipment international test suite", () => {
         class: "ground",
         grade: "standard",
         originCountries: ["MX"],
-        destinationCountries: ["MX"],
+        destinationCountries: ["US"],
         labelFormats: ["pdf"],
         labelSizes: ["A4"],
         packaging: [pojo.packaging()]
@@ -241,7 +243,7 @@ describe("The create shipment international test suite", () => {
         await tests[0].fn();
         expect(true).to.equal(false);
       }
-      catch(error) {
+      catch (error) {
         expect(error.message).includes("The shipmentConfirmation.isTrackable returned from createShipment must be present when the given deliveryService.isTrackable is set to 'true'");
       }
     });
@@ -268,7 +270,7 @@ describe("The create shipment international test suite", () => {
         await tests[0].fn();
         expect(true).to.equal(false);
       }
-      catch(error) {
+      catch (error) {
         expect(error.message).includes("The shipmentConfirmation.fulfillmentService returned from createShipment does not equal the given deliveryService.fulfillmentService");
       }
     });
@@ -296,7 +298,7 @@ describe("The create shipment international test suite", () => {
         await tests[0].fn();
         expect(true).to.equal(false);
       }
-      catch(error) {
+      catch (error) {
         expect(error.message).includes("The shipment confirmation packages array should have the same number of packages that were on the request");
       }
     });
@@ -315,7 +317,7 @@ function generateBasicAppAndConfigs() {
   deliveryService.labelSizes = ["A4"];
   deliveryService.destinationCountries = ["MX"];
   deliveryService.originCountries = ["US"];
-  appDefinition.createShipment = () => {};
+  appDefinition.createShipment = () => { };
 
   deliveryService.deliveryConfirmations = [pojo.deliveryConfirmation()];
   appDefinition.deliveryServices = [deliveryService];
