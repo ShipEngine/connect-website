@@ -43,9 +43,6 @@ describe("The create shipment multipackage test suite", () => {
       expect(tests[0].title).to.include("shipFrom: US");
       expect(tests[0].title).to.include("shipTo: US");
       expect(tests[0].title).to.include("Number of Packages: 2");
-
-      // expect(tests[0].title).to.include("weightUnit: lb");
-      // expect(tests[0].title).to.include("weightValue: 50");
     });
   });
 
