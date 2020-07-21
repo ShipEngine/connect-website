@@ -1,4 +1,3 @@
-import merge from "deepmerge";
 
 /**
  * Deeply merges the configObject into the defaultObject. Whitelist keys specified in the defaultObject.
