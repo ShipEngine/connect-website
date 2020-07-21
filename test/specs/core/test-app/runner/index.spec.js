@@ -58,7 +58,7 @@ class FailingMockSuite extends Suite {
 
   buildTestArg(localConfig) {
     return {
-      title: "a mock test",
+      title: "a failing mock test",
       methodArgs: false,
       config: localConfig,
     };
@@ -259,5 +259,27 @@ describe("Runner", () => {
     expect(results.skipped).to.equal(0);
     expect(results.failed).to.equal(1);
   });
-  // it("supports a grep option");
+
+  it("supports a grep option", async () => {
+    const [testResults, testResultsReducer] = useTestResults();
+    const staticConfigTests = { createShipment_domestic: {} };
+    const suiteA = new MockSuite({ app, staticConfigTests, options });
+    const suiteB = new FailingMockSuite({
+      app,
+      staticConfigTests,
+      options,
+    });
+    const suites = [suiteA, suiteB];
+    const results = await new Runner({
+      failFast: false,
+      grep: "a mock test",
+      suites,
+      testResults,
+      testResultsReducer,
+    }).run();
+
+    expect(results.passed).to.equal(1);
+    expect(results.skipped).to.equal(0);
+    expect(results.failed).to.equal(0);
+  });
 });

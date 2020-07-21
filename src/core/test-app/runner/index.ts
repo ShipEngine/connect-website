@@ -68,6 +68,8 @@ export default class Runner {
   async runTest(test: Test) {
     if (this.failFast && this.testResults.hasFailed()) return;
 
+    if (this.grep && !test.title.includes(this.grep)) return;
+
     if (test.skip) {
       this.testResultsReducer("INCREMENT_SKIPPED");
       logSkip(test.title);
