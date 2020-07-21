@@ -179,9 +179,29 @@ export class CreateShipmentDomestic extends Suite {
 
           const transaction = await this.transaction(testArg!.config);
 
-          carrierApp.createShipment &&
-            (await carrierApp.createShipment(transaction, testArg!.methodArgs));
-        },
+          if (!carrierApp.createShipment) {
+            throw new Error("createShipment is not implemented");
+          }
+
+          const shipmentConfirmation = await carrierApp.createShipment(transaction, testArg!.methodArgs);
+
+          // If DeliveryServiceDefinition.fulfillmentService is set, then the shipment’s fulfillmentService must match it
+          if (this.deliveryService?.fulfillmentService) {
+            expect(shipmentConfirmation.fulfillmentService).to.equal(
+              this.deliveryService?.fulfillmentService,
+              "The shipmentConfirmation.fulfillmentService returned from createShipment does not equal the given deliveryService.fulfillmentService",
+            );
+          }
+
+          // If DeliveryServiceDefinition.isTrackable is true, then the shipment must have a trackingNumber set
+          if (this.deliveryService?.isTrackable) {
+            const customMsg = "The shipmentConfirmation.isTrackable returned from createShipment must be present when the given deliveryService.isTrackable is set to 'true'";
+            expect(shipmentConfirmation.trackingNumber, customMsg).to.be.ok;
+          }
+
+          const customMsg = "The shipment confirmation packages array should have the same number of packages that were on the request";
+          expect(shipmentConfirmation.packages.length).to.equal(testArg!.methodArgs.packages.length, customMsg);
+        }
       );
     });
   }

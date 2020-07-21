@@ -2,8 +2,9 @@ const { CreateShipmentDomestic } = require("../../../../../../lib/core/test-app/
 const { CarrierApp } = require("@shipengine/integration-platform-sdk/lib/internal/carriers/carrier-app");
 const pojo = require("../../../../utils/pojo");
 const { expect } = require("chai");
+const sinon = require("sinon");
 
-describe("The create shipment domestic test suite", () => {
+describe.only("The create shipment domestic test suite", () => {
 
   describe("when there is no domestic service", () => {
 
@@ -221,35 +222,86 @@ describe("The create shipment domestic test suite", () => {
   });
 
   describe("When a delivery service 'isTrackable' property is set", () => {
-    const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-    appDefinition.shipFrom
-    const app = new CarrierApp(appDefinition);
+    it("should throw an error if no tracking number is returned", async () => {
+      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
 
-    const args = { app, connectArgs, staticConfigTests, options };
-    const testSuite = new CreateShipmentDomestic(args);
-    const tests = testSuite.tests();
+      appDefinition.deliveryServices[0].isTrackable = true;
+      const confirmationMock = pojo.shipmentConfirmation();
+      sinon.stub(CarrierApp.prototype, "createShipment").resolves(confirmationMock);
+      const app = new CarrierApp(appDefinition);
 
-    it("should throw an error if no tracking number is returned", () => {
-
+      const args = { app, connectArgs, staticConfigTests, options };
+      const testSuite = new CreateShipmentDomestic(args);
+      const tests = testSuite.tests();
+      try {
+        await tests[0].fn();
+        expect(true).to.equal(false);
+      }
+      catch(error) {
+        expect(error.message).includes("The shipmentConfirmation.isTrackable returned from createShipment must be present when the given deliveryService.isTrackable is set to 'true'");
+      }
     });
-  });
 
-  describe("When the input parameters do not match the return shipment", () => {
-
-    it("should throw an error for a deliveryService mismatch");
-    it("should throw an error for a packaging mismatch");
-    it("should throw an error for a weight mismatch");
-    it("should throw an error for a dimensions mismatch");
-
+    afterEach(() => {
+      CarrierApp.prototype.createShipment.restore();
+    })
   });
 
   describe("When a deliveryService fulfillment property is set", () => {
 
-    it("should throw an error if the response does not match it")
+    it("should throw an error if the response does not match it", async () => {
+      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+
+      appDefinition.deliveryServices[0].fulfillmentService = "dhl_economy_select";
+      const confirmationMock = pojo.shipmentConfirmation();
+      sinon.stub(CarrierApp.prototype, "createShipment").resolves(confirmationMock);
+      const app = new CarrierApp(appDefinition);
+
+      const args = { app, connectArgs, staticConfigTests, options };
+      const testSuite = new CreateShipmentDomestic(args);
+      const tests = testSuite.tests();
+      try {
+        await tests[0].fn();
+        expect(true).to.equal(false);
+      }
+      catch(error) {
+        expect(error.message).includes("The shipmentConfirmation.fulfillmentService returned from createShipment does not equal the given deliveryService.fulfillmentService");
+      }
+    });
+
+    afterEach(() => {
+      CarrierApp.prototype.createShipment.restore();
+    })
   });
 
 
+  describe("When the input parameters do not match the return shipment", () => {
 
+    it("should throw an error for a packaging length mismatch", async () => {
+      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+
+      const confirmationMock = pojo.shipmentConfirmation();
+      confirmationMock.packages.push(pojo.packageConfirmation());
+      sinon.stub(CarrierApp.prototype, "createShipment").resolves(confirmationMock);
+      const app = new CarrierApp(appDefinition);
+
+      const args = { app, connectArgs, staticConfigTests, options };
+      const testSuite = new CreateShipmentDomestic(args);
+      const tests = testSuite.tests();
+      try {
+        await tests[0].fn();
+        expect(true).to.equal(false);
+      }
+      catch(error) {
+        expect(error.message).includes("The shipment confirmation packages array should have the same number of packages that were on the request");
+      }
+    });
+
+    afterEach(() => {
+      CarrierApp.prototype.createShipment.restore();
+    })
+
+  });
 });
 
 function generateBasicAppAndConfigs() {
@@ -259,6 +311,7 @@ function generateBasicAppAndConfigs() {
   deliveryService.labelSizes = ["A4"];
   deliveryService.deliveryConfirmations = [pojo.deliveryConfirmation()];
   appDefinition.deliveryServices = [deliveryService];
+  appDefinition.createShipment = () => {};
 
   const options = {
     cli: {
