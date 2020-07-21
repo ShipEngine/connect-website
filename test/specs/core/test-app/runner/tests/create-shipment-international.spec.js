@@ -6,7 +6,7 @@ const pojo = require("../../../../utils/pojo");
 const { expect } = require("chai");
 const sinon = require("sinon");
 
-describe.only("The create shipment international test suite", () => {
+describe("The create shipment international test suite", () => {
 
   describe("when there is no international service", () => {
 
