@@ -1,15 +1,7 @@
-import { DeliveryService, CarrierApp, Country, PickupService, Packaging, DeliveryConfirmation } from '@shipengine/integration-platform-sdk';
-
-export function getDeliveryServiceByName(name: string, app: CarrierApp): DeliveryService | undefined {
-  return app.deliveryServices.find((ds) => ds.name === name);
-}
+import { DeliveryService, CarrierApp, Country, PickupService, DeliveryConfirmation } from '@shipengine/integration-platform-sdk';
 
 export function getPickupServiceByName(name: string, app: CarrierApp): PickupService | undefined {
   return app.pickupServices.find((pickupService) => pickupService.name === name);
-}
-
-export function getPackagingByName(name: string, app: CarrierApp): Packaging | undefined {
-  return app.packaging.find((pkg) => pkg.name === name);
 }
 
 export function getDeliveryConfirmationByName(name: string, app: CarrierApp): DeliveryConfirmation | undefined {

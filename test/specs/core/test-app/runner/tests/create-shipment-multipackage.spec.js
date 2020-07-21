@@ -2,6 +2,7 @@ const { CreateShipmentMultiPackage } = require("../../../../../../lib/core/test-
 const { CarrierApp } = require("@shipengine/integration-platform-sdk/lib/internal/carriers/carrier-app");
 const pojo = require("../../../../utils/pojo");
 const { expect } = require("chai");
+const sinon = require("sinon");
 
 describe("The create shipment multipackage test suite", () => {
 
@@ -48,8 +49,7 @@ describe("The create shipment multipackage test suite", () => {
     });
   });
 
-  describe.skip("when there is a config override object of test suite parameters", () => {
-
+  describe("when there is a config override object of test suite parameters", () => {
     it("should update the test title", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       const app = new CarrierApp(appDefinition);
@@ -57,16 +57,26 @@ describe("The create shipment multipackage test suite", () => {
       staticConfigTests.createShipment_multiPackage = {
         packages: [
           {
+            packagingName: "Dummy Packaging",
             weight: {
-              value: 200
+              value: 200,
+              unit: "lb"
             },
-            labelFormat: "png"
+            label: {
+              size: "4x6",
+              format: "png"
+            }
           },
           {
+            packagingName: "Dummy Packaging",
             weight: {
-              value: 222
+              value: 222,
+              unit: "lb"
             },
-            labelFormat: "html"
+            label: {
+              size: "4x6",
+              format: "png"
+            }
           }
         ]
       };
@@ -75,12 +85,11 @@ describe("The create shipment multipackage test suite", () => {
       const testSuite = new CreateShipmentMultiPackage(args);
       const tests = testSuite.tests();
 
-      expect(tests[0].title).to.include("labelFormat: png");
-      expect(tests[0].title).to.include("labelSize: A4");
+      expect(tests[0].title).to.include("Number of Packages: 2");
     });
   });
 
-  describe.skip("when there is a config override array of test suite parameters", () => {
+  describe("when there is a config override array of test suite parameters", () => {
 
     let tests;
     beforeEach(() => {
@@ -92,42 +101,55 @@ describe("The create shipment multipackage test suite", () => {
           {
             packages: [
               {
+                packagingName: "Dummy Packaging",
                 weight: {
-                  value: 200
+                  value: 200,
+                  unit: "lb"
                 },
-                labelFormat: "png"
+                label: {
+                  size: "4x6",
+                  format: "png"
+                }
               },
               {
+                packagingName: "Dummy Packaging",
                 weight: {
-                  value: 22
+                  value: 222,
+                  unit: "lb"
                 },
-                labelSize: "A6"
+                label: {
+                  size: "4x6",
+                  format: "png"
+                }
               }
             ]
           },
           {
             packages: [
               {
+                packagingName: "Dummy Packaging",
                 weight: {
-                  value: 200
+                  value: 200,
+                  unit: "lb"
                 },
-                labelFormat: "png"
+                label: {
+                  size: "4x6",
+                  format: "png"
+                }
               },
               {
+                packagingName: "Dummy Packaging",
                 weight: {
-                  value: 22
+                  value: 222,
+                  unit: "lb"
                 },
-                labelSize: "A6"
-              },
-              {
-                weight: {
-                  value: 11
-                },
-                labelSize: "A6"
+                label: {
+                  size: "4x6",
+                  format: "png"
+                }
               }
             ]
           }
-
         ];
 
       const args = { app, connectArgs, staticConfigTests, options };
@@ -141,11 +163,11 @@ describe("The create shipment multipackage test suite", () => {
     });
 
     it("should update the test titles", () => {
-      expect(tests[0].title).to.include("weightValue: 200");
-      expect(tests[0].title).to.include("labelFormat: png");
+      expect(tests[0].title).to.include("Number of Packages: 2");
 
-      expect(tests[1].title).to.include("weightValue: 22");
-      expect(tests[1].title).to.include("labelSize: A6");
+
+      expect(tests[1].title).to.include("Number of Packages: 2");
+
     });
   });
 
@@ -167,7 +189,7 @@ describe("The create shipment multipackage test suite", () => {
         expect(true).to.equal(false);
       }
       catch (error) {
-        expect(error.message).to.include("deliveryServiceName: asdf does not exist");
+        expect(error.message).to.include("deliveryServiceName: 'asdf' does not exist");
       }
     });
   });
@@ -243,26 +265,88 @@ describe("The create shipment multipackage test suite", () => {
     });
   });
 
-  // describe("When the input parameters do not match the return shipment", () => {
+  describe("When a delivery service 'isTrackable' property is set", () => {
+    it("should throw an error if no tracking number is returned", async () => {
+      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
 
-  //   it("should throw an error for a shipFrom mismatch");
-  //   it("should throw an error for a shipTo mismatch");
-  //   it("should throw an error for a deliveryService mismatch");
-  //   it("should throw an error for a packaging mismatch");
-  //   it("should throw an error for a weight mismatch");
-  //   it("should throw an error for a dimensions mismatch");
+      appDefinition.deliveryServices[0].isTrackable = true;
+      const confirmationMock = pojo.shipmentConfirmation();
+      sinon.stub(CarrierApp.prototype, "createShipment").resolves(confirmationMock);
+      const app = new CarrierApp(appDefinition);
 
-  // });
+      const args = { app, connectArgs, staticConfigTests, options };
+      const testSuite = new CreateShipmentMultiPackage(args);
+      const tests = testSuite.tests();
+      try {
+        await tests[0].fn();
+        expect(true).to.equal(false);
+      }
+      catch (error) {
+        expect(error.message).includes("The shipmentConfirmation.isTrackable returned from createShipment must be present when the given deliveryService.isTrackable is set to 'true'");
+      }
+    });
+
+    afterEach(() => {
+      CarrierApp.prototype.createShipment.restore();
+    })
+  });
+
+  describe("When a deliveryService fulfillment property is set", () => {
+
+    it("should throw an error if the response does not match it", async () => {
+      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+
+      appDefinition.deliveryServices[0].fulfillmentService = "dhl_economy_select";
+      const confirmationMock = pojo.shipmentConfirmation();
+      sinon.stub(CarrierApp.prototype, "createShipment").resolves(confirmationMock);
+      const app = new CarrierApp(appDefinition);
+
+      const args = { app, connectArgs, staticConfigTests, options };
+      const testSuite = new CreateShipmentMultiPackage(args);
+      const tests = testSuite.tests();
+      try {
+        await tests[0].fn();
+        expect(true).to.equal(false);
+      }
+      catch (error) {
+        expect(error.message).includes("The shipmentConfirmation.fulfillmentService returned from createShipment does not equal the given deliveryService.fulfillmentService");
+      }
+    });
+
+    afterEach(() => {
+      CarrierApp.prototype.createShipment.restore();
+    })
+  });
 
 
-  // describe("When a deliveryService fulfillment property is set", () => {
+  describe("When the input parameters do not match the return shipment", () => {
 
-  //   it("should throw an error if the response does not match it")
-  // });
+    it("should throw an error for a packaging length mismatch", async () => {
+      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
 
-  // describe("When a delivery service 'isTrackable' property is set", () => {
-  //   it("")
-  // })
+      const confirmationMock = pojo.shipmentConfirmation();
+      confirmationMock.packages.push(pojo.packageConfirmation());
+      confirmationMock.packages.push(pojo.packageConfirmation());
+      sinon.stub(CarrierApp.prototype, "createShipment").resolves(confirmationMock);
+      const app = new CarrierApp(appDefinition);
+
+      const args = { app, connectArgs, staticConfigTests, options };
+      const testSuite = new CreateShipmentMultiPackage(args);
+      const tests = testSuite.tests();
+      try {
+        await tests[0].fn();
+        expect(true).to.equal(false);
+      }
+      catch (error) {
+        expect(error.message).includes("The shipment confirmation packages array should have the same number of packages that were on the request");
+      }
+    });
+
+    afterEach(() => {
+      CarrierApp.prototype.createShipment.restore();
+    })
+
+  });
 
 });
 
@@ -273,6 +357,7 @@ function generateBasicAppAndConfigs() {
   deliveryService.labelSizes = ["A4"];
   deliveryService.deliveryConfirmations = [pojo.deliveryConfirmation()];
   appDefinition.deliveryServices = [deliveryService];
+  appDefinition.createShipment = () => { };
 
   const options = {
     cli: {

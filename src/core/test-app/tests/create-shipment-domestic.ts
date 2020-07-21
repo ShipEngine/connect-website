@@ -17,7 +17,7 @@ import {
   // CreateShipmentDomesticTestParams,
 } from "../runner/config/create-shipment-domestic";
 import { initializeTimeStamps } from "../../utils/time-stamps";
-import { getDeliveryServiceByName } from "./utils";
+import findDeliveryServiceByName from '../utils/find-delivery-service-by-name';
 
 interface TestArgs {
   title: string;
@@ -36,16 +36,10 @@ export class CreateShipmentDomestic extends Suite {
     const carrierApp = this.app as CarrierApp;
 
     if (config.deliveryServiceName) {
-      this.deliveryService = getDeliveryServiceByName(
+      this.deliveryService = findDeliveryServiceByName(
         config.deliveryServiceName,
         carrierApp,
       );
-
-      if (!this.deliveryService)
-        throw new Error(
-          `deliveryServiceName: ${config.deliveryServiceName} does not exist`,
-        );
-      return;
     } else {
       const dsCopy = Object.assign(
         [],

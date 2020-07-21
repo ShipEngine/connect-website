@@ -8,6 +8,8 @@ function formatTitleParameter(key: string, value: any) {
       return value.country;
     case "shipFrom":
       return value.country;
+    case "packages":
+      return `Number of Packages: ${value.length}`;
     default:
       return value;
   }

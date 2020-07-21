@@ -128,7 +128,7 @@ describe("The create shipment domestic test suite", () => {
         expect(true).to.equal(false);
       }
       catch (error) {
-        expect(error.message).to.include("deliveryServiceName: asdf does not exist");
+        expect(error.message).to.include("deliveryServiceName: 'asdf' does not exist");
       }
     });
   });

@@ -1,6 +1,5 @@
 import {
   CarrierApp,
-  Address,
   DeliveryService,
   NewShipmentPOJO,
   NewPackagePOJO,
@@ -8,14 +7,20 @@ import {
 } from "@shipengine/integration-platform-sdk";
 import Suite from "../runner/suite";
 import { buildAddressWithContactInfo } from "../factories/address";
-import { CreateShipmentMultiPackageOptions } from "../runner/config";
 import { initializeTimeStamps } from '../../utils/time-stamps';
-import { getDeliveryServiceByName, getPackagingByName, getDeliveryConfirmationByName } from './utils';
+import { getDeliveryConfirmationByName } from './utils';
+import { CreateShipmentMultiPackageConfigOptions, CreateShipmentMultiPackageTestParams } from '../runner/config/create-shipment-multipackage';
+import objectToTestTitle from '../utils/object-to-test-title';
+import reduceDefaultsWithConfig from '../utils/reduce-defaults-with-config';
+import { expect } from 'chai';
+import findDeliveryServiceByName from '../utils/find-delivery-service-by-name';
+import findPackagingByName from '../utils/find-packaging-by-name';
 
 interface TestArgs {
   title: string;
   methodArgs: NewShipmentPOJO;
   config: any;
+  testParams: CreateShipmentMultiPackageTestParams;
 }
 
 export class CreateShipmentMultiPackage extends Suite {
@@ -23,18 +28,11 @@ export class CreateShipmentMultiPackage extends Suite {
 
   private deliveryService?: DeliveryService | undefined;
 
-  private setDeliveryService(config: CreateShipmentMultiPackageOptions): void {
+  private setDeliveryService(config: CreateShipmentMultiPackageConfigOptions): void {
     const carrierApp = this.app as CarrierApp;
 
     if (config.deliveryServiceName) {
-
-      this.deliveryService = getDeliveryServiceByName(config.deliveryServiceName, carrierApp);
-
-      if (!this.deliveryService)
-        throw new Error(
-          `deliveryServiceName: ${config.deliveryServiceName} does not exist`,
-        );
-      return;
+      this.deliveryService = findDeliveryServiceByName(config.deliveryServiceName, carrierApp);
     }
 
     else {
@@ -45,7 +43,7 @@ export class CreateShipmentMultiPackage extends Suite {
     }
   }
 
-  buildTestArg(config: CreateShipmentMultiPackageOptions): TestArgs | undefined {
+  buildTestArg(config: CreateShipmentMultiPackageConfigOptions): TestArgs | undefined {
     const carrierApp = this.app as CarrierApp;
 
     this.setDeliveryService(config);
@@ -61,7 +59,7 @@ export class CreateShipmentMultiPackage extends Suite {
 
     // Make a best guess at the defaults, need to resolve the default vs config based delivery service early
     // on since that determines what address and associated timezones get generated.
-    const defaults: CreateShipmentMultiPackageOptions = {
+    const defaults: CreateShipmentMultiPackageTestParams = {
       deliveryServiceName: this.deliveryService.name,
 
       shipDateTime: tomorrow,
@@ -70,8 +68,10 @@ export class CreateShipmentMultiPackage extends Suite {
       packages: [
         {
           packagingName: this.deliveryService.packaging[0].name,
-          labelFormat: this.deliveryService.labelFormats[0],
-          labelSize: this.deliveryService.labelSizes[0],
+          label: {
+            format: this.deliveryService.labelFormats[0],
+            size: this.deliveryService.labelSizes[0],
+          },
           weight: {
             unit: WeightUnit.Pounds,
             value: 50.0
@@ -79,8 +79,10 @@ export class CreateShipmentMultiPackage extends Suite {
         },
         {
           packagingName: this.deliveryService.packaging[0].name,
-          labelFormat: this.deliveryService.labelFormats[0],
-          labelSize: this.deliveryService.labelSizes[0],
+          label: {
+            format: this.deliveryService.labelFormats[0],
+            size: this.deliveryService.labelSizes[0],
+          },
           weight: {
             unit: WeightUnit.Pounds,
             value: 25.0
@@ -89,32 +91,21 @@ export class CreateShipmentMultiPackage extends Suite {
       ]
     };
 
-    const whiteListKeys = Object.keys(defaults);
-
-    // This code is filtering any keys in the config that are not white listed
-    // and merging the values with the defaults above
-    const testParams = Object.keys(config)
-      .filter((key) => whiteListKeys.includes(key))
-      .reduce((obj, key: string) => {
-        Reflect.set(obj, key, Reflect.get(config, key));
-        return obj;
-      }, defaults);
+    const testParams = reduceDefaultsWithConfig<
+    CreateShipmentMultiPackageTestParams
+    >(defaults, config);
 
     // Hydrate create shipment packages
     const packages = testParams.packages.map((pkgParams) => {
-      const packaging = getPackagingByName(pkgParams.packagingName, carrierApp)
-
-      if (!packaging) {
-        throw new Error(`Unable to find a package definition for ${pkgParams.packagingName}`);
-      }
+      const packaging = findPackagingByName(pkgParams.packagingName, carrierApp)
 
       let newPackage: NewPackagePOJO = {
         packaging: {
           id: packaging.id,
         },
         label: {
-          size: pkgParams.labelSize,
-          format: pkgParams.labelFormat,
+          size: pkgParams.label.size,
+          format: pkgParams.label.format,
         },
         weight: {
           value: pkgParams.weight.value,
@@ -146,33 +137,28 @@ export class CreateShipmentMultiPackage extends Suite {
     };
 
     const title = config.expectedErrorMessage
-      ? `it raises an error when creating a new multi-package shipment with ${Object.keys(
-        testParams,
-      )
-        .map(function (k: any) {
-          return parseTitle(testParams, k);
-        })
-        .join(", ")}`
-      : `it creates a new multi-package shipment with ${Object.keys(testParams)
-        .map(function (k: any) {
-          return parseTitle(testParams, k);
-        })
-        .join(", ")}`;
+      ? `it raises an error when creating a new multi-package shipment with ${objectToTestTitle(
+          testParams,
+        )}`
+      : `it creates a new multi-package shipment with ${objectToTestTitle(
+          testParams,
+        )}`;
 
     return {
       title,
       methodArgs: newShipmentPOJO,
-      config
+      config,
+      testParams: testParams
     };
   }
 
   buildTestArgs(): Array<TestArgs | undefined> {
     if (Array.isArray(this.config)) {
-      return this.config.map((config: CreateShipmentMultiPackageOptions) => {
+      return this.config.map((config: CreateShipmentMultiPackageConfigOptions) => {
         return this.buildTestArg(config);
       });
     } else {
-      const config = this.config as CreateShipmentMultiPackageOptions;
+      const config = this.config as CreateShipmentMultiPackageConfigOptions;
 
       return [this.buildTestArg(config)];
     }
@@ -194,24 +180,33 @@ export class CreateShipmentMultiPackage extends Suite {
 
           const transaction = await this.transaction(testArg!.config);
 
-          carrierApp.createShipment &&
-            (await carrierApp.createShipment(transaction, testArg!.methodArgs));
+          // This should never actually throw because we handle this case up stream.
+          if (!carrierApp.createShipment)
+            throw new Error("createShipment is not implemented");
+
+          const shipmentConfirmation = await carrierApp.createShipment(
+            transaction,
+            testArg!.methodArgs,
+          );
+
+          // If DeliveryServiceDefinition.fulfillmentService is set, then the shipment’s fulfillmentService must match it
+          if (this.deliveryService?.fulfillmentService) {
+            expect(shipmentConfirmation.fulfillmentService).to.equal(
+              this.deliveryService?.fulfillmentService,
+              "The shipmentConfirmation.fulfillmentService returned from createShipment does not equal the given deliveryService.fulfillmentService"
+            );
+          }
+
+          // If DeliveryServiceDefinition.isTrackable is true, then the shipment must have a trackingNumber set
+          if (this.deliveryService?.isTrackable) {
+            const customMsg = "The shipmentConfirmation.isTrackable returned from createShipment must be present when the given deliveryService.isTrackable is set to 'true'";
+            expect(shipmentConfirmation.trackingNumber, customMsg).to.be.ok;
+          }
+
+          const customMsg = "The shipment confirmation packages array should have the same number of packages that were on the request";
+          expect(shipmentConfirmation.packages.length).to.equal(testArg!.methodArgs.packages.length, customMsg);
         },
       );
     });
   }
-}
-
-function parseTitle(testParams: CreateShipmentMultiPackageOptions, key: any): string {
-
-  if (key === "shipFrom" || key === "shipTo") {
-    const address = Reflect.get(testParams, key) as Address;
-    return `${key}: ${address.country}`;
-  }
-
-  if (key === "packages") {
-    return `Number of Packages: ${Reflect.get(testParams, key).length}`;
-  }
-
-  return `${key}: ${Reflect.get(testParams, key)}`;
 }
