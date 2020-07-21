@@ -68,7 +68,10 @@ export default class Runner {
   async runTest(test: Test) {
     if (this.failFast && this.testResults.hasFailed()) return;
 
-    if (this.grep && !test.title.includes(this.grep)) return;
+    console.log(this.grep);
+    const regEx = new RegExp("/" + this.grep + "/", i);
+
+    if (this.grep && !test.title.match(regEx)) return;
 
     if (test.skip) {
       this.testResultsReducer("INCREMENT_SKIPPED");
