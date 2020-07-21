@@ -15,13 +15,36 @@ class MockSuite extends Suite {
     this.title = "createShipment_domestic";
   }
 
+  buildTestArg(localConfig) {
+    return {
+      title: "a mock test",
+      methodArgs: true,
+      config: localConfig,
+    };
+  }
+
+  buildTestArgs() {
+    if (Array.isArray(this.config)) {
+      return this.config.map((config) => {
+        return this.buildTestArg(config);
+      });
+    } else {
+      return [this.buildTestArg(this.config)];
+    }
+  }
+
   tests() {
-    return [
-      this.test("a passing test", { methodArgs: true }, {}, () => {
-        // eslint-disable-next-line no-self-compare
-        expect(true).to.equal(true);
-      }),
-    ];
+    return this.buildTestArgs().map((testArg) => {
+      return this.test(
+        testArg.title,
+        testArg.methodArgs,
+        testArg.config,
+        () => {
+          // eslint-disable-next-line no-self-compare
+          expect(testArg.methodArgs).to.equal(true);
+        },
+      );
+    });
   }
 }
 
@@ -62,23 +85,33 @@ describe("Runner", () => {
   });
 
   // it("counts the failures", async () => {
+  //   const [testResults, testResultsReducer] = useTestResults();
   //   const staticConfigTests = {};
-  //   const options = { failFast: false };
-  //   const suiteA = new MockSuite({ app, staticConfigTests, options });
+  //   const suiteA = new FailingMockSuite({ app, staticConfigTests, options });
   //   const suites = [suiteA];
-  //   const results = await new Runner({ suites, options }).run();
+  //   const results = await new Runner({
+  //     failFast: false,
+  //     suites,
+  //     testResults,
+  //     testResultsReducer,
+  //   }).run();
 
-  //   expect(results.passed).to.equal(1);
+  //   expect(results.passed).to.equal(0);
   //   expect(results.skipped).to.equal(0);
   //   expect(results.failed).to.equal(1);
   // });
 
   // it("counts the skips", async () => {
-  //   const staticConfigTests = {};
-  //   const options = { failFast: false };
+  //   const [testResults, testResultsReducer] = useTestResults();
+  //   const staticConfigTests = { skip: true };
   //   const suiteA = new MockSuite({ app, staticConfigTests, options });
   //   const suites = [suiteA];
-  //   const results = await new Runner({ suites, options }).run();
+  //   const results = await new Runner({
+  //     failFast: false,
+  //     suites,
+  //     testResults,
+  //     testResultsReducer,
+  //   }).run();
 
   //   expect(results.passed).to.equal(0);
   //   expect(results.skipped).to.equal(1);
