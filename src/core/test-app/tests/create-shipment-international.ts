@@ -1,6 +1,5 @@
 import {
   CarrierApp,
-  Country,
   DeliveryConfirmation,
   DeliveryService,
   NewPackagePOJO,
@@ -27,11 +26,6 @@ interface TestArgs {
   config: any;
   testParams: CreateShipmentInternationalTestParams;
 }
-
-type DomesticDeliveryService = Array<{
-  deliveryService: DeliveryService;
-  domesticCountries: Country[];
-}>;
 
 export class CreateShipmentInternational extends Suite {
   title = "createShipment_international";
@@ -93,9 +87,12 @@ export class CreateShipmentInternational extends Suite {
     );
     // We need to know if the config defines 'shipFrom' so we can set the 'shipDateTime' with the correct timezone
     shipFrom = config.shipFrom ? config.shipFrom : shipFrom;
+    
+    if(!shipFrom) return undefined;
     const { tomorrow } = initializeTimeStamps(shipFrom!.timeZone);
 
     const defaults: CreateShipmentInternationalTestParams = {
+      deliveryServiceName: this.deliveryService.name,
       shipDateTime: tomorrow, // It would prob be a better DX to give the user an enum of relative values "tomorrow", "nextWeek" etc.
       shipFrom: shipFrom,
       shipTo: shipTo,
@@ -191,24 +188,23 @@ export class CreateShipmentInternational extends Suite {
             testArg!.methodArgs,
           );
 
-          // All fields of the shipment must match the corresponding fields of the input parameters (e.g. from address, to address, delivery service, packaging, weight, dimensions, etc.)
-          expect(shipmentConfirmation.package.label?.size).to.equal(
-            testArg?.testParams.label.size,
-          );
-          expect(shipmentConfirmation.package.label?.format).to.equal(
-            testArg?.testParams.label.format,
-          );
           // If DeliveryServiceDefinition.fulfillmentService is set, then the shipment’s fulfillmentService must match it
           if (this.deliveryService?.fulfillmentService) {
             expect(shipmentConfirmation.fulfillmentService).to.equal(
               this.deliveryService?.fulfillmentService,
+              "The shipmentConfirmation.fulfillmentService returned from createShipment does not equal the given deliveryService.fulfillmentService"
             );
           }
 
           // If DeliveryServiceDefinition.isTrackable is true, then the shipment must have a trackingNumber set
           if (this.deliveryService?.isTrackable) {
-            expect(shipmentConfirmation.trackingNumber).to.be.ok;
+            const customMsg = "The shipmentConfirmation.isTrackable returned from createShipment must be present when the given deliveryService.isTrackable is set to 'true'";
+
+            expect(shipmentConfirmation.trackingNumber, customMsg).to.be.ok;
           }
+
+          const customMsg = "The shipment confirmation packages array should have the same number of packages that were on the request";
+          expect(shipmentConfirmation.packages.length).to.equal(testArg!.methodArgs.packages.length, customMsg);
         },
       );
     });
