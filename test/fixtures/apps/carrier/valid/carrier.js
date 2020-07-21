@@ -14,7 +14,6 @@ module.exports = {
       name: "Priority Overnight",
       class: "ground",
       grade: "overnight",
-
       originCountries: ["US"],
       destinationCountries: ["US", "CA", "MX"],
       packaging: [
@@ -48,11 +47,11 @@ module.exports = {
   ],
   connectionForm: "connectionForm.js",
 
-  connect () { },
-  createShipment () { },
-  cancelShipments () { },
-  createManifest () { },
-  rateShipment () { },
-  schedulePickup () { },
-  trackShipment () { },
+  connect() {},
+  createShipment() {},
+  cancelShipments() {},
+  createManifest() {},
+  rateShipment() {},
+  schedulePickup() {},
+  trackShipment() {},
 };
