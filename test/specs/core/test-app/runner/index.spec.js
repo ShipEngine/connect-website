@@ -1,113 +1,125 @@
-// "use strict";
+"use strict";
 
-// const { expect } = require("chai");
-// const {
-//   Runner,
-// } = require("../../../../../lib/core/test-app/tiny-test/runner");
-// const {
-//   Suite,
-// } = require("../../../../../lib/core/test-app/tiny-test");
+const { expect } = require("chai");
+const Runner = require("../../../../../lib/core/test-app/runner").default;
+const Suite = require("../../../../../lib/core/test-app/runner/suite").default;
+const pojo = require("../../../utils/pojo");
+const {
+  useTestResults,
+} = require("../../../../../lib/core/test-app/runner/test-results");
+const app = pojo.carrierApp();
 
-// class MockSuite extends Suite {
-//   constructor(props) {
-//     super(props);
-//     this.title = "passing test suite";
-//   }
+class MockSuite extends Suite {
+  constructor(props) {
+    super(props);
+    this.title = "createShipment_domestic";
+  }
 
-//   tests() {
-//     return [
-//       this.test("a passing test", () => {
-//         // eslint-disable-next-line no-self-compare
-//         expect(true).to.equal(true);
-//       }),
-//     ];
-//   }
-// }
+  tests() {
+    return [
+      this.test("a passing test", { methodArgs: true }, {}, () => {
+        // eslint-disable-next-line no-self-compare
+        expect(true).to.equal(true);
+      }),
+    ];
+  }
+}
 
-// class FailingMockSuite extends Suite {
-//   constructor(props) {
-//     super(props);
-//     this.title = "failing test suite";
-//   }
+const options = {
+  defaults: {
+    debug: false,
+    failFast: false,
+    retries: 1,
+    timeout: 2000,
+  },
+  staticRootConfig: {},
+  cli: {},
+  failFast() {
+    return (
+      this.cli.failFast ||
+      this.staticRootConfig.failFast ||
+      this.defaults.failFast
+    );
+  },
+};
 
-//   tests() {
-//     return [
-//       this.test("a failing test", () => {
-//         // eslint-disable-next-line no-self-compare
-//         expect(true).to.equal(false);
-//       }),
-//       this.test("a passing test", () => {
-//         // eslint-disable-next-line no-self-compare
-//         expect(true).to.equal(true);
-//       }),
-//     ];
-//   }
-// }
+describe("Runner", () => {
+  it("runs test suites", async () => {
+    const [testResults, testResultsReducer] = useTestResults();
+    const staticConfigTests = {};
+    const suiteA = new MockSuite({ app, staticConfigTests, options });
+    const suites = [suiteA];
+    const results = await new Runner({
+      failFast: false,
+      suites,
+      testResults,
+      testResultsReducer,
+    }).run();
 
-// class SkippingMockSuite extends Suite {
-//   constructor(props) {
-//     super(props);
-//     this.title = "failing test suite";
-//   }
+    expect(results.passed).to.equal(1);
+    expect(results.skipped).to.equal(0);
+    expect(results.failed).to.equal(0);
+  });
 
-//   tests() {
-//     return [this.xtest("a failing test", () => {})];
-//   }
-// }
+  // it("counts the failures", async () => {
+  //   const staticConfigTests = {};
+  //   const options = { failFast: false };
+  //   const suiteA = new MockSuite({ app, staticConfigTests, options });
+  //   const suites = [suiteA];
+  //   const results = await new Runner({ suites, options }).run();
 
-// describe("Runner", () => {
-//   it("runs test suites", async () => {
-//     const mockApp = { type: "carrier" };
-//     const suiteA = new MockSuite(mockApp);
-//     const suites = [suiteA];
-//     const options = { failFast: false, concurrency: 1, debug: false };
-//     const results = await new Runner(suites, options).run();
-//     expect(results.passed).to.equal(1);
-//     expect(results.skipped).to.equal(0);
-//     expect(results.failed).to.equal(0);
-//   });
+  //   expect(results.passed).to.equal(1);
+  //   expect(results.skipped).to.equal(0);
+  //   expect(results.failed).to.equal(1);
+  // });
 
-//   it("counts the failures", async () => {
-//     const mockApp = { type: "carrier" };
-//     const suiteA = new FailingMockSuite(mockApp);
-//     const suites = [suiteA];
-//     const options = { failFast: false, concurrency: 1, debug: false };
-//     const results = await new Runner(suites, options).run();
-//     expect(results.passed).to.equal(1);
-//     expect(results.skipped).to.equal(0);
-//     expect(results.failed).to.equal(1);
-//   });
+  // it("counts the skips", async () => {
+  //   const staticConfigTests = {};
+  //   const options = { failFast: false };
+  //   const suiteA = new MockSuite({ app, staticConfigTests, options });
+  //   const suites = [suiteA];
+  //   const results = await new Runner({ suites, options }).run();
 
-//   it("counts the skips", async () => {
-//     const mockApp = { type: "carrier" };
-//     const suiteA = new SkippingMockSuite(mockApp);
-//     const suites = [suiteA];
-//     const options = { failFast: false, concurrency: 1, debug: false };
-//     const results = await new Runner(suites, options).run();
-//     expect(results.passed).to.equal(0);
-//     expect(results.skipped).to.equal(1);
-//     expect(results.failed).to.equal(0);
-//   });
+  //   expect(results.passed).to.equal(0);
+  //   expect(results.skipped).to.equal(1);
+  //   expect(results.failed).to.equal(0);
+  // });
 
-//   it("fails fast when given the option", async () => {
-//     const mockApp = { type: "carrier" };
-//     const suiteA = new FailingMockSuite(mockApp);
-//     const suites = [suiteA];
-//     const options = { failFast: true, concurrency: 1, debug: false };
-//     const results = await new Runner(suites, options).run();
-//     expect(results.passed).to.equal(0);
-//     expect(results.skipped).to.equal(0);
-//     expect(results.failed).to.equal(1);
-//   });
+  // it("supports a fail fast option", async () => {
+  //   const staticConfigTests = {};
+  //   const options = { failFast: false };
+  //   const suiteA = new MockSuite({ app, staticConfigTests, options });
+  //   const suites = [suiteA];
+  //   const results = await new Runner({ suites, options }).run();
 
-//   it("supports a debug option", async () => {
-//     const mockApp = { type: "carrier" };
-//     const suiteA = new FailingMockSuite(mockApp);
-//     const suites = [suiteA];
-//     const options = { failFast: false, concurrency: 1, debug: true };
-//     const results = await new Runner(suites, options).run();
-//     expect(results.passed).to.equal(1);
-//     expect(results.skipped).to.equal(0);
-//     expect(results.failed).to.equal(1);
-//   });
-// });
+  //   expect(results.passed).to.equal(0);
+  //   expect(results.skipped).to.equal(0);
+  //   expect(results.failed).to.equal(1);
+  // });
+
+  // it("supports a debug option", async () => {
+  //   const staticConfigTests = {};
+  //   const options = { failFast: false };
+  //   const suiteA = new MockSuite({ app, staticConfigTests, options });
+  //   const suites = [suiteA];
+  //   const results = await new Runner({ suites, options }).run();
+
+  //   expect(results.passed).to.equal(1);
+  //   expect(results.skipped).to.equal(0);
+  //   expect(results.failed).to.equal(1);
+  // });
+
+  // it("supports an expectedErrorMessage option", async () => {
+  //   const staticConfigTests = {};
+  //   const options = { failFast: false };
+  //   const suiteA = new MockSuite({ app, staticConfigTests, options });
+  //   const suites = [suiteA];
+  //   const results = await new Runner({ suites, options }).run();
+
+  //   expect(results.passed).to.equal(1);
+  //   expect(results.skipped).to.equal(0);
+  //   expect(results.failed).to.equal(1);
+  // });
+
+  // it("supports a grep option");
+});

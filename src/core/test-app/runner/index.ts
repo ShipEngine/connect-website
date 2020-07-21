@@ -9,7 +9,6 @@ import {
   logObject,
   logPass,
   logSkip,
-  logSkipStep,
   logStep,
 } from "../../utils/log-helpers";
 
@@ -50,10 +49,6 @@ export default class Runner {
       if (suite.tests().length === 0) {
         // If a suite doesn't have any test continue to the next suite in the array
         // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Loops_and_iteration#continue_statement
-        logSkipStep(suite.title);
-        logSkip(
-          `${suite.title} needs additional app definitions or permutations defined in the shipengine.config.js to run tests`,
-        );
         continue;
       }
 
