@@ -191,15 +191,6 @@ export class CreateShipmentInternational extends Suite {
             testArg!.methodArgs,
           );
 
-          // All fields of the shipment must match the corresponding fields of the input parameters (e.g. from address, to address, delivery service, packaging, weight, dimensions, etc.)
-          expect(shipmentConfirmation.package.label?.size).to.equal(
-            testArg?.testParams.label.size,
-            "The shipmentConfirmation.package.label returned from createShipment does not have the correct label size",
-          );
-          expect(shipmentConfirmation.package.label?.format).to.equal(
-            testArg?.testParams.label.format,
-            "The shipmentConfirmation.package.label returned from createShipment does not have the correct label format",
-          );
           // If DeliveryServiceDefinition.fulfillmentService is set, then the shipment’s fulfillmentService must match it
           if (this.deliveryService?.fulfillmentService) {
             expect(shipmentConfirmation.fulfillmentService).to.equal(
