@@ -1,6 +1,5 @@
 import {
   CarrierApp,
-  Country,
   DeliveryConfirmation,
   DeliveryService,
   NewPackagePOJO,
@@ -19,6 +18,7 @@ import {
   CreateShipmentInternationalTestParams,
 } from "../runner/config/create-shipment-international";
 import { initializeTimeStamps } from "../../utils/time-stamps";
+import { expect } from "chai";
 
 interface TestArgs {
   title: string;
@@ -26,11 +26,6 @@ interface TestArgs {
   config: any;
   testParams: CreateShipmentInternationalTestParams;
 }
-
-type DomesticDeliveryService = Array<{
-  deliveryService: DeliveryService;
-  domesticCountries: Country[];
-}>;
 
 export class CreateShipmentInternational extends Suite {
   title = "createShipment_international";
@@ -88,13 +83,16 @@ export class CreateShipmentInternational extends Suite {
     if (!this.deliveryService) return undefined;
 
     let [shipFrom, shipTo] = useInternationalShipmentAddresses(
-      this.app as CarrierApp,
+      this.deliveryService,
     );
     // We need to know if the config defines 'shipFrom' so we can set the 'shipDateTime' with the correct timezone
     shipFrom = config.shipFrom ? config.shipFrom : shipFrom;
+    
+    if(!shipFrom) return undefined;
     const { tomorrow } = initializeTimeStamps(shipFrom!.timeZone);
 
     const defaults: CreateShipmentInternationalTestParams = {
+      deliveryServiceName: this.deliveryService.name,
       shipDateTime: tomorrow, // It would prob be a better DX to give the user an enum of relative values "tomorrow", "nextWeek" etc.
       shipFrom: shipFrom,
       shipTo: shipTo,
@@ -185,13 +183,27 @@ export class CreateShipmentInternational extends Suite {
           if (!carrierApp.createShipment)
             throw new Error("createShipment is not implemented");
 
-          await carrierApp.createShipment(transaction, testArg!.methodArgs);
-
-          // All fields of the shipment must match the corresponding fields of the input parameters (e.g. from address, to address, delivery service, packaging, weight, dimensions, etc.)
+          const shipmentConfirmation = await carrierApp.createShipment(
+            transaction,
+            testArg!.methodArgs,
+          );
 
           // If DeliveryServiceDefinition.fulfillmentService is set, then the shipment’s fulfillmentService must match it
+          if (this.deliveryService?.fulfillmentService) {
+            expect(shipmentConfirmation.fulfillmentService).to.equal(
+              this.deliveryService?.fulfillmentService,
+              "The shipmentConfirmation.fulfillmentService returned from createShipment does not equal the given deliveryService.fulfillmentService"
+            );
+          }
 
           // If DeliveryServiceDefinition.isTrackable is true, then the shipment must have a trackingNumber set
+          if (this.deliveryService?.isTrackable) {
+            const customMsg = "The shipmentConfirmation.isTrackable returned from createShipment must be present when the given deliveryService.isTrackable is set to 'true'";
+            expect(shipmentConfirmation.trackingNumber, customMsg).to.be.ok;
+          }
+
+          const customMsg = "The shipment confirmation packages array should have the same number of packages that were on the request";
+          expect(shipmentConfirmation.packages.length).to.equal(testArg!.methodArgs.packages.length, customMsg);
         },
       );
     });
