@@ -237,5 +237,27 @@ describe("Runner", () => {
     expect(results.failed).to.equal(0);
   });
 
+  it("increments the failed count when an expectedErrorMessage option doesnt match the error thrown", async () => {
+    const [testResults, testResultsReducer] = useTestResults();
+    const staticConfigTests = {
+      createShipment_domestic: { expectedErrorMessage: "not the right error" },
+    };
+    const suiteA = new FailingMockSuite({
+      app,
+      staticConfigTests,
+      options,
+    });
+    const suites = [suiteA];
+    const results = await new Runner({
+      failFast: false,
+      suites,
+      testResults,
+      testResultsReducer,
+    }).run();
+
+    expect(results.passed).to.equal(0);
+    expect(results.skipped).to.equal(0);
+    expect(results.failed).to.equal(1);
+  });
   // it("supports a grep option");
 });
