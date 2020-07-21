@@ -17,5 +17,5 @@ export default function reduceDefaultsWithConfig<T>(
       return obj;
     }, defaultObject);
 
-  return filteredConfigObject
+  return filteredConfigObject;
 }

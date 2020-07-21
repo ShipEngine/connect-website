@@ -37,7 +37,7 @@ describe("reduceDefaultsWithConfig", () => {
 
     expect(reduceDefaultsWithConfig(defaultObject, configObject)).to.eql({
       label: {
-        value: 2,
+        value: 2
       },
     });
   });
