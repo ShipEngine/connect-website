@@ -19,6 +19,7 @@ import {
   CreateShipmentInternationalTestParams,
 } from "../runner/config/create-shipment-international";
 import { initializeTimeStamps } from "../../utils/time-stamps";
+import { expect } from "chai";
 
 interface TestArgs {
   title: string;
@@ -110,7 +111,7 @@ export class CreateShipmentInternational extends Suite {
 
     const testParams = reduceDefaultsWithConfig<
       CreateShipmentInternationalTestParams
-    >(defaults, this.config);
+    >(defaults, config);
 
     const packagePOJO: NewPackagePOJO = {
       packaging: {
@@ -185,16 +186,29 @@ export class CreateShipmentInternational extends Suite {
           if (!carrierApp.createShipment)
             throw new Error("createShipment is not implemented");
 
-          await carrierApp.createShipment(
+          const shipmentConfirmation = await carrierApp.createShipment(
             transaction,
             testArg!.methodArgs,
           );
 
           // All fields of the shipment must match the corresponding fields of the input parameters (e.g. from address, to address, delivery service, packaging, weight, dimensions, etc.)
-
+          expect(shipmentConfirmation.package.label?.size).to.equal(
+            testArg?.testParams.label.size,
+          );
+          expect(shipmentConfirmation.package.label?.format).to.equal(
+            testArg?.testParams.label.format,
+          );
           // If DeliveryServiceDefinition.fulfillmentService is set, then the shipment’s fulfillmentService must match it
+          if (this.deliveryService?.fulfillmentService) {
+            expect(shipmentConfirmation.fulfillmentService).to.equal(
+              this.deliveryService?.fulfillmentService,
+            );
+          }
 
           // If DeliveryServiceDefinition.isTrackable is true, then the shipment must have a trackingNumber set
+          if (this.deliveryService?.isTrackable) {
+            expect(shipmentConfirmation.trackingNumber).to.be.ok;
+          }
         },
       );
     });

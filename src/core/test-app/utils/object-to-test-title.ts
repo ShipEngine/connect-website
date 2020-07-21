@@ -2,6 +2,8 @@ function formatTitleParameter(key: string, value: any) {
   switch (key) {
     case "weight":
       return `${value.value}${value.unit}`;
+    case "label":
+      return `${value.size} ${value.format}`;
     case "shipTo":
       return value.country;
     case "shipFrom":
