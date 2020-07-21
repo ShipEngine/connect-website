@@ -37,7 +37,7 @@ export interface CreateShipmentDomesticOptions extends TestOptions {
   deliveryConfirmationName?: string;
 }
 
-export interface RateShipmentOptions extends TestOptions {
+export interface RateShipmentAllServicesOptions extends TestOptions {
   deliveryServiceNames: string | string[];
   shipFrom: AddressWithContactInfoPOJO;
   shipTo: AddressWithContactInfoPOJO;
