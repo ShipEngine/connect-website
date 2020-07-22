@@ -53,9 +53,6 @@ export default class Runner {
         continue;
       }
 
-      // TODO - apply grep logic here
-      // Algo - check to see if suite.title matches if true, run all test
-      //        else check each test title
       logStep(suite.title);
 
       for (let test of suite.tests()) {
