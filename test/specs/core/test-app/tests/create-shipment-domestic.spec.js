@@ -1,5 +1,5 @@
-const { CreateShipmentDomestic } = require("../../../../../../lib/core/test-app/tests/create-shipment-domestic");
-const pojo = require("../../../../utils/pojo");
+const { CreateShipmentDomestic } = require("../../../../../lib/core/test-app/tests/create-shipment-domestic");
+const pojo = require("../../../utils/pojo");
 const { expect } = require("chai");
 
 describe("The create shipment domestic test suite", () => {
@@ -212,7 +212,7 @@ describe("The create shipment domestic test suite", () => {
     });
   });
 
-  
+
   describe("When a deliveryService fulfillment property is set", () => {
 
     it("should throw an error if the response does not match it")
