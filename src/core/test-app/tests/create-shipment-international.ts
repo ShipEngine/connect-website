@@ -1,27 +1,31 @@
 import {
   CarrierApp,
-  NewShipmentPOJO,
-  NewPackagePOJO,
-  WeightUnit,
-  DeliveryService,
-  Country,
   DeliveryConfirmation,
+  DeliveryService,
+  NewPackagePOJO,
+  NewShipmentPOJO,
+  WeightUnit,
 } from "@shipengine/integration-platform-sdk";
 import Suite from "../runner/suite";
-import { buildAddressWithContactInfo } from "../factories/address";
-import { CreateShipmentInternationalOptions } from "../runner/config";
+import findDeliveryConfirmationByName from "../utils/find-delivery-confirmation-by-name";
+import findDeliveryServiceByName from "../utils/find-delivery-service-by-name";
+import findInternationalDeliveryService from "../utils/find-international-delivery-service";
+import objectToTestTitle from "../utils/object-to-test-title";
+import reduceDefaultsWithConfig from "../utils/reduce-defaults-with-config";
+import useInternationalShipmentAddresses from "../utils/use-international-shipment-addresses";
+import {
+  CreateShipmentInternationalConfigOptions,
+  CreateShipmentInternationalTestParams,
+} from "../runner/config/create-shipment-international";
 import { initializeTimeStamps } from "../../utils/time-stamps";
+import { expect } from "chai";
 
 interface TestArgs {
   title: string;
   methodArgs: NewShipmentPOJO;
   config: any;
+  testParams: CreateShipmentInternationalTestParams;
 }
-
-type DomesticDeliveryService = Array<{
-  deliveryService: DeliveryService;
-  domesticCountries: Country[];
-}>;
 
 export class CreateShipmentInternational extends Suite {
   title = "createShipment_international";
@@ -29,67 +33,48 @@ export class CreateShipmentInternational extends Suite {
   private deliveryService?: DeliveryService;
   private deliveryConfirmation?: DeliveryConfirmation;
 
-  private setDeliveryService(config: CreateShipmentInternationalOptions): void {
-    const carrierApp = this.app as CarrierApp;
-
+  private setDeliveryService(
+    config: CreateShipmentInternationalConfigOptions,
+  ): void {
     if (config.deliveryServiceName) {
-      this.deliveryService = carrierApp.deliveryServices.find(
-        (deliveryService) =>
-          deliveryService.name === config.deliveryServiceName,
+      // We do not want to handle the exception here if this raises. It indicates issues w/ the config provided.
+      this.deliveryService = findDeliveryServiceByName(
+        config.deliveryServiceName,
+        this.app as CarrierApp,
       );
-      if (!this.deliveryService)
-        throw new Error(
-          `shipengine.config.js deliveryServiceName: '${config.deliveryServiceName}' does not exist`,
+    } else {
+      try {
+        this.deliveryService = findInternationalDeliveryService(
+          this.app as CarrierApp,
         );
-      return;
-    }
-
-    // If a delivery service isnt given via the config lets look for one
-    for (let deliveryService of carrierApp.deliveryServices) {
-      if (
-        // If there is more than 1 origin country this is international
-        deliveryService.originCountries.length > 1 ||
-        // If there is more than 1 destination country this is international
-        deliveryService.destinationCountries.length > 1 ||
-        // If there is only 1 origin & destination country but they are different this is international
-        deliveryService.originCountries[0] !==
-          deliveryService.destinationCountries[0]
-      ) {
-        this.deliveryService = deliveryService;
-        return;
+      } catch {
+        this.deliveryService = undefined;
       }
     }
   }
 
   private setDeliveryConfirmation(
-    config: CreateShipmentInternationalOptions,
+    config: CreateShipmentInternationalConfigOptions,
   ): void {
-    const carrierApp = this.app as CarrierApp;
-
     if (config.deliveryConfirmationName) {
-      this.deliveryConfirmation = carrierApp.deliveryConfirmations.find(
-        (deliveryConfirmation) =>
-          deliveryConfirmation.name === config.deliveryConfirmationName,
+      // We do not want to handle the exception here if this raises. It indicates issues w/ the config provided.
+      this.deliveryConfirmation = findDeliveryConfirmationByName(
+        config.deliveryConfirmationName,
+        this.app as CarrierApp,
       );
-      if (!this.deliveryService)
-        throw new Error(
-          `shipengine.config.js deliveryConfirmationName: '${config.deliveryConfirmationName}' does not exist`,
-        );
-      return;
-    }
-
-    if (
+    } else if (
       this.deliveryService &&
       this.deliveryService.deliveryConfirmations.length !== 0 &&
       this.deliveryService.deliveryConfirmations[0]
     ) {
       this.deliveryConfirmation = this.deliveryService.deliveryConfirmations[0];
-      return;
+    } else {
+      this.deliveryConfirmation = undefined;
     }
   }
 
-  buildTestArg(
-    config: CreateShipmentInternationalOptions,
+  private buildTestArg(
+    config: CreateShipmentInternationalConfigOptions,
   ): TestArgs | undefined {
     this.setDeliveryService(config);
     this.setDeliveryConfirmation(config);
@@ -97,47 +82,39 @@ export class CreateShipmentInternational extends Suite {
     // If we cant resolve a delivery serivice above then we dont have enough info to setup this test
     if (!this.deliveryService) return undefined;
 
-    // this.setOriginCountry(config);
-    const originCountry = "US";
-    const destinationCountry = "MX";
-
+    let [shipFrom, shipTo] = useInternationalShipmentAddresses(
+      this.deliveryService,
+    );
     // We need to know if the config defines 'shipFrom' so we can set the 'shipDateTime' with the correct timezone
-    const shipFrom = config.shipFrom
-      ? config.shipFrom
-      : buildAddressWithContactInfo(`${originCountry}-from`);
+    shipFrom = config.shipFrom ? config.shipFrom : shipFrom;
+    
+    if(!shipFrom) return undefined;
     const { tomorrow } = initializeTimeStamps(shipFrom!.timeZone);
 
-    const defaults = {
-      labelFormat: this.deliveryService.labelFormats[0],
-      labelSize: this.deliveryService.labelSizes[0],
+    const defaults: CreateShipmentInternationalTestParams = {
+      deliveryServiceName: this.deliveryService.name,
       shipDateTime: tomorrow, // It would prob be a better DX to give the user an enum of relative values "tomorrow", "nextWeek" etc.
       shipFrom: shipFrom,
-      shipTo: buildAddressWithContactInfo(`${destinationCountry}-to`),
+      shipTo: shipTo,
+      label: {
+        size: this.deliveryService.labelSizes[0],
+        format: this.deliveryService.labelFormats[0],
+      },
       weight: {
         value: 50.0,
         unit: WeightUnit.Pounds,
       },
     };
 
-    const whiteListKeys = Object.keys(defaults);
-
-    // This code is filtering any keys in the config that are not white listed
-    // and merging the values with the defaults above
-    const testParams = Object.keys(config)
-      .filter((key) => whiteListKeys.includes(key))
-      .reduce((obj, key: string) => {
-        Reflect.set(obj, key, Reflect.get(config, key));
-        return obj;
-      }, defaults);
+    const testParams = reduceDefaultsWithConfig<
+      CreateShipmentInternationalTestParams
+    >(defaults, config);
 
     const packagePOJO: NewPackagePOJO = {
       packaging: {
         id: this.deliveryService.packaging[0].id,
       },
-      label: {
-        size: testParams.labelSize,
-        format: testParams.labelFormat,
-      },
+      label: testParams.label,
       weight: testParams.weight,
     };
 
@@ -153,38 +130,35 @@ export class CreateShipmentInternational extends Suite {
       },
       shipFrom: testParams.shipFrom!,
       shipTo: testParams.shipTo!,
-      shipDateTime: testParams.shipDateTime,
+      shipDateTime: testParams.shipDateTime!,
       packages: [packagePOJO],
     };
 
     const title = config.expectedErrorMessage
-      ? `it raises an error when creating a new international shipment with ${Object.keys(
+      ? `it raises an error when creating a new international shipment with ${objectToTestTitle(
           testParams,
-        )
-          .map(function (k: any) {
-            return `${k}: ${fancyLog(Reflect.get(testParams, k))}`;
-          })
-          .join(", ")}`
-      : `it creates a new international shipment with ${Object.keys(testParams)
-          .map(function (k: any) {
-            return `${k}: ${fancyLog(Reflect.get(testParams, k))}`;
-          })
-          .join(", ")}`;
+        )}`
+      : `it creates a new international shipment with ${objectToTestTitle(
+          testParams,
+        )}`;
 
     return {
       title: title,
       methodArgs: newShipmentPOJO,
       config: config,
+      testParams: testParams,
     };
   }
 
-  buildTestArgs(): Array<TestArgs | undefined> {
+  private buildTestArgs(): Array<TestArgs | undefined> {
     if (Array.isArray(this.config)) {
-      return this.config.map((config: CreateShipmentInternationalOptions) => {
-        return this.buildTestArg(config);
-      });
+      return this.config.map(
+        (config: CreateShipmentInternationalConfigOptions) => {
+          return this.buildTestArg(config);
+        },
+      );
     } else {
-      const config = this.config as CreateShipmentInternationalOptions;
+      const config = this.config as CreateShipmentInternationalConfigOptions;
 
       return [this.buildTestArg(config)];
     }
@@ -205,34 +179,33 @@ export class CreateShipmentInternational extends Suite {
 
           const transaction = await this.transaction(testArg!.config);
 
-          carrierApp.createShipment &&
-            (await carrierApp.createShipment(transaction, testArg!.methodArgs));
+          // This should never actually throw because we handle this case up stream.
+          if (!carrierApp.createShipment)
+            throw new Error("createShipment is not implemented");
+
+          const shipmentConfirmation = await carrierApp.createShipment(
+            transaction,
+            testArg!.methodArgs,
+          );
+
+          // If DeliveryServiceDefinition.fulfillmentService is set, then the shipment’s fulfillmentService must match it
+          if (this.deliveryService?.fulfillmentService) {
+            expect(shipmentConfirmation.fulfillmentService).to.equal(
+              this.deliveryService?.fulfillmentService,
+              "The shipmentConfirmation.fulfillmentService returned from createShipment does not equal the given deliveryService.fulfillmentService"
+            );
+          }
+
+          // If DeliveryServiceDefinition.isTrackable is true, then the shipment must have a trackingNumber set
+          if (this.deliveryService?.isTrackable) {
+            const customMsg = "The shipmentConfirmation.isTrackable returned from createShipment must be present when the given deliveryService.isTrackable is set to 'true'";
+            expect(shipmentConfirmation.trackingNumber, customMsg).to.be.ok;
+          }
+
+          const customMsg = "The shipment confirmation packages array should have the same number of packages that were on the request";
+          expect(shipmentConfirmation.packages.length).to.equal(testArg!.methodArgs.packages.length, customMsg);
         },
       );
     });
   }
 }
-
-function fancyLog(val: any) {
-  if (typeof val === "object") {
-    if (val.unit && val.value) {
-      return `${val.value}${val.unit} `;
-    } else if (val.country) {
-      return `${val.country}`;
-    } else {
-      return val;
-    }
-  } else {
-    return val;
-  }
-}
-// function parseTitle(
-//   testParams: CreateShipmentDomesticOptions,
-//   key: any,
-// ): string {
-//   if (key === "shipFrom" || key === "shipTo") {
-//     const address = Reflect.get(testParams, key) as Address;
-//     return `${key}: ${address.country}`;
-//   }
-//   return `${key}: ${Reflect.get(testParams, key)}`;
-// }
