@@ -85,7 +85,7 @@ export default class Runner {
 
   async runTest(test: Test) {
     try {
-      await callWithTimeoutAndRetries(test.fn, test.timeout);
+      await callWithTimeoutAndRetries(test.fn, test.timeout, test.retries);
       this.testResultsReducer("INCREMENT_PASSED");
       logPass(test.title);
     } catch (error) {
