@@ -6,7 +6,7 @@ import { buildAddressWithContactInfo } from "../factories/address";
  * @param {object} defaultObject - The default object.
  * @param {object} configObject - The config object. Key/values in this object receive precedence.
  */
-export default function useInternationalShipmentAddresses(
+export default function useDomesticShippingAddress(
   deliveryService: DeliveryService,
 ) {
   let destinationCountryCode: string | undefined;
@@ -15,29 +15,29 @@ export default function useInternationalShipmentAddresses(
   if (deliveryService.originCountries.length === 1) {
     originCountryCode = deliveryService.originCountries[0];
     destinationCountryCode = deliveryService.destinationCountries.find(
-      (destinationCountry) => destinationCountry !== originCountryCode,
+      (destinationCountry) => destinationCountry === originCountryCode,
     );
     if (!destinationCountryCode)
       throw new Error(
-        "useInternationalShipmentAddresses: can not resolve destination country",
+        "useDomesticShippingAddress: can not resolve destination country",
       );
   } else if (deliveryService.destinationCountries.length === 1) {
     destinationCountryCode = deliveryService.destinationCountries[0];
     originCountryCode = deliveryService.originCountries.find(
-      (originCountry) => originCountry !== destinationCountryCode,
+      (originCountry) => originCountry === destinationCountryCode,
     );
     if (!originCountryCode)
       throw new Error(
-        "useInternationalShipmentAddresses: can not resolve origin country",
+        "useDomesticShippingAddress: can not resolve origin country",
       );
   } else {
     originCountryCode = deliveryService.originCountries[0];
     destinationCountryCode = deliveryService.destinationCountries.find(
-      (destinationCountry) => destinationCountry !== originCountryCode,
+      (destinationCountry) => destinationCountry === originCountryCode,
     );
     if (!destinationCountryCode)
       throw new Error(
-        "useInternationalShipmentAddresses: can not resolve destination country",
+        "useDomesticShippingAddress: can not resolve destination country",
       );
   }
 

@@ -1,19 +1,23 @@
+"use strict";
+
 const { CreateShipmentDomestic } = require("../../../../../../lib/core/test-app/tests/create-shipment-domestic");
+const { CarrierApp } = require("@shipengine/integration-platform-sdk/lib/internal/carriers/carrier-app");
 const pojo = require("../../../../utils/pojo");
 const { expect } = require("chai");
+const sinon = require("sinon");
 
 describe("The create shipment domestic test suite", () => {
 
   describe("when there is no domestic service", () => {
 
-    const { app, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-    app.deliveryServices[0].originCountries = ["MX"]
-
-    const args = { app, connectArgs, staticConfigTests, options };
-
-    const testSuite = new CreateShipmentDomestic(args);
-
     it("should not generate tests", () => {
+      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+      appDefinition.deliveryServices[0].originCountries = ["MX"];
+
+      const app = new CarrierApp(appDefinition);
+      const args = { app, connectArgs, staticConfigTests, options };
+      const testSuite = new CreateShipmentDomestic(args);
+
       const tests = testSuite.tests();
       expect(tests.length).to.equal(0);
     });
@@ -21,24 +25,30 @@ describe("The create shipment domestic test suite", () => {
 
 
   describe("when there is not address available for a domestic services", () => {
-    const { app, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-    app.deliveryServices[0].originCountries = ["AQ"]
-    app.deliveryServices[0].destinationCountries = ["AQ"]
-
-    const args = { app, connectArgs, staticConfigTests, options };
-    const testSuite = new CreateShipmentDomestic(args);
-
     it("should not generate tests", () => {
+      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+      appDefinition.deliveryServices[0].originCountries = ["AQ"];
+      appDefinition.deliveryServices[0].destinationCountries = ["AQ"];
+
+      const app = new CarrierApp(appDefinition);
+      const args = { app, connectArgs, staticConfigTests, options };
+      const testSuite = new CreateShipmentDomestic(args);
+
       const tests = testSuite.tests();
       expect(tests.length).to.equal(0);
     });
-  })
+  });
 
   describe("when there is a domestic service with an available address", () => {
 
-    const { app, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-    const args = { app, connectArgs, staticConfigTests, options };
-    const testSuite = new CreateShipmentDomestic(args);
+    let testSuite;
+    beforeEach(() => {
+      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+      const app = new CarrierApp(appDefinition);
+      const args = { app, connectArgs, staticConfigTests, options };
+
+      testSuite = new CreateShipmentDomestic(args);
+    });
 
     it("should generate a test", () => {
       const tests = testSuite.tests();
@@ -48,83 +58,102 @@ describe("The create shipment domestic test suite", () => {
     it("the test params should be reflected in the title", () => {
       const tests = testSuite.tests();
 
-      expect(tests[0].title).to.include("labelFormat: pdf");
-      expect(tests[0].title).to.include("labelSize: A4");
-      expect(tests[0].title).to.include("weightUnit: lb");
-      expect(tests[0].title).to.include("weightValue: 50");
+      expect(tests[0].title).to.include("label: A4 pdf");
+      expect(tests[0].title).to.include("weight: 50lb");
     });
   });
 
-  describe.skip("when there is a config override object of test suite parameters", () => {
-    const { app, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-    staticConfigTests.createShipment_domestic = {
-      weight: {
-        value: 200
-      },
-      labelFormat: "png"
-    };
-
-    const args = { app, connectArgs, staticConfigTests, options };
-    const testSuite = new CreateShipmentDomestic(args);
-    const tests = testSuite.tests();
+  describe("when there is a config override object of test suite parameters", () => {
 
     it("should update the test title", () => {
-      expect(tests[0].title).to.include("labelFormat: png");
-      expect(tests[0].title).to.include("labelSize: A4");
-      expect(tests[0].title).to.include("weightUnit: lb");
-      expect(tests[0].title).to.include("weightValue: 200");
+      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+      const newPackaging = pojo.packaging();
+      newPackaging.name = "New Package";
+      appDefinition.deliveryServices[0].packaging.push(newPackaging);
+
+      const app = new CarrierApp(appDefinition);
+
+      staticConfigTests.createShipment_domestic = {
+        weight: {
+          value: 200,
+          unit: "lb"
+        },
+
+        label: {
+          size: "A6",
+          format: "png"
+        },
+        packagingName: "New Package"
+      };
+
+      const args = { app, connectArgs, staticConfigTests, options };
+      const testSuite = new CreateShipmentDomestic(args);
+      const tests = testSuite.tests();
+
+      expect(tests[0].title).to.include("label: A6 png");
+      expect(tests[0].title).to.include("weight: 200lb");
+      expect(tests[0].title).to.include("packagingName: New Package");
+
     });
   });
 
-  describe.skip("when there is a config override array of test suite parameters", () => {
+  describe("when there is a config override array of test suite parameters", () => {
 
-    const { app, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-    staticConfigTests.createShipment_domestic =
-      [
-        {
-          weight: {
-            value: 200
+    let tests;
+    beforeEach(() => {
+      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+      const app = new CarrierApp(appDefinition);
+      staticConfigTests.createShipment_domestic =
+        [
+          {
+            weight: {
+              value: 200,
+              unit: "lb"
+            },
+            label: {
+              size: "A6",
+              format: "png"
+            }
           },
-          labelFormat: "png"
-        },
-        {
-          weight: {
-            value: 22
-          },
-          labelSize: "A6"
-        }
-      ];
+          {
+            weight: {
+              value: 22,
+              unit: "lb"
+            }
+          }
+        ];
 
-    const args = { app, connectArgs, staticConfigTests, options };
-    const testSuite = new CreateShipmentDomestic(args);
-    const tests = testSuite.tests();
+      const args = { app, connectArgs, staticConfigTests, options };
+      const testSuite = new CreateShipmentDomestic(args);
+      tests = testSuite.tests();
+    });
+
 
     it("should generate additional tests", () => {
       expect(tests.length).to.equal(2);
     });
 
     it("should update the test titles", () => {
-      expect(tests[0].title).to.include("weightValue: 200");
-      expect(tests[0].title).to.include("labelFormat: png");
+      expect(tests[0].title).to.include("weight: 200lb");
+      expect(tests[0].title).to.include("label: A6 png");
 
-      expect(tests[1].title).to.include("weightValue: 22");
-      expect(tests[1].title).to.include("labelSize: A6");
+      expect(tests[1].title).to.include("weight: 22lb");
     });
   });
 
   describe("When a user configs a delivery service that does not exist", () => {
-
-    const { app, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-    staticConfigTests.createShipment_domestic = {
-      deliveryServiceName: "asdf"
-    }
-
-    const args = { app, connectArgs, staticConfigTests, options };
-    const testSuite = new CreateShipmentDomestic(args);
-
     it("should throw an error", () => {
+      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+      const app = new CarrierApp(appDefinition);
+      staticConfigTests.createShipment_domestic = {
+        deliveryServiceName: "asdf"
+      }
+
+      const args = { app, connectArgs, staticConfigTests, options };
+      const testSuite = new CreateShipmentDomestic(args);
+
       try {
-        const tests = testSuite.tests();
+        testSuite.tests();
         expect(true).to.equal(false);
       }
       catch (error) {
@@ -134,73 +163,65 @@ describe("The create shipment domestic test suite", () => {
   });
 
   describe("When a user configs a new delivery service", () => {
-    const { app, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-    app.deliveryServices.push({
-      id: "123455",
-      name: "Better Delivery Service",
-      class: "ground",
-      grade: "standard",
-      originCountries: ["MX"],
-      destinationCountries: ["MX"],
-      labelFormats: ["pdf"],
-      labelSizes: ["A4"],
-      packaging: [pojo.packaging()]
-    });
-
-    staticConfigTests.createShipment_domestic = {
-      deliveryServiceName: "Better Delivery Service"
-    }
-
-    const args = { app, connectArgs, staticConfigTests, options };
-    const testSuite = new CreateShipmentDomestic(args);
-    const tests = testSuite.tests();
-
     it("should update the title params to reflect the new properties", () => {
+      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+      appDefinition.deliveryServices.push({
+        id: "9cf1bfda-7ee4-4f03-96f6-6eab52243eee",
+        name: "Better Delivery Service",
+        class: "ground",
+        grade: "standard",
+        originCountries: ["MX"],
+        destinationCountries: ["MX"],
+        labelFormats: ["pdf"],
+        labelSizes: ["A4"],
+        packaging: [pojo.packaging()]
+      });
+
+      staticConfigTests.createShipment_domestic = {
+        deliveryServiceName: "Better Delivery Service"
+      }
+
+      const app = new CarrierApp(appDefinition);
+      const args = { app, connectArgs, staticConfigTests, options };
+      const testSuite = new CreateShipmentDomestic(args);
+      const tests = testSuite.tests();
+
       expect(tests[0].title).to.include("deliveryServiceName: Better Delivery Service");
-      expect(tests[0].title).to.include("labelFormat: pdf");
+      expect(tests[0].title).to.include("label: A4 pdf");
     });
-  });
-
-  describe("When the input parameters do not match the return shipment", () => {
-
-    it("should throw an error for a shipFrom mismatch");
-    it("should throw an error for a shipTo mismatch");
-    it("should throw an error for a deliveryService mismatch");
-    it("should throw an error for a packaging mismatch");
-    it("should throw an error for a weight mismatch");
-    it("should throw an error for a dimensions mismatch");
-
   });
 
   describe("When a user configures a Ship To and Ship From address", () => {
-    const { app, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-
-    staticConfigTests.createShipment_domestic = {
-      shipFrom: {
-        company: "Domestic Route #1",
-        addressLines: ["123 New Street"],
-        cityLocality: "Houston",
-        stateProvince: "TX",
-        country: "US",
-        postalCode: "77422",
-        timeZone: "America/Chicago"
-      },
-      shipTo: {
-        company: "Domestic Route #2",
-        addressLines: ["123 New Street"],
-        cityLocality: "Houston",
-        stateProvince: "TX",
-        country: "US",
-        postalCode: "77422",
-        timeZone: "America/Chicago"
-      }
-    };
-
-    const args = { app, connectArgs, staticConfigTests, options };
-    const testSuite = new CreateShipmentDomestic(args);
-    const tests = testSuite.tests();
-
     it("should update the test arguments and titles", () => {
+      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+
+      const app = new CarrierApp(appDefinition);
+
+      staticConfigTests.createShipment_domestic = {
+        shipFrom: {
+          company: "Domestic Route #1",
+          addressLines: ["123 New Street"],
+          cityLocality: "Houston",
+          stateProvince: "TX",
+          country: "US",
+          postalCode: "77422",
+          timeZone: "America/Chicago"
+        },
+        shipTo: {
+          company: "Domestic Route #2",
+          addressLines: ["123 New Street"],
+          cityLocality: "Houston",
+          stateProvince: "TX",
+          country: "US",
+          postalCode: "77422",
+          timeZone: "America/Chicago"
+        }
+      };
+
+      const args = { app, connectArgs, staticConfigTests, options };
+      const testSuite = new CreateShipmentDomestic(args);
+      const tests = testSuite.tests();
+
       expect(tests[0].methodArgs.shipFrom.company).to.equal("Domestic Route #1");
       expect(tests[0].methodArgs.shipTo.company).to.equal("Domestic Route #2");
 
@@ -212,25 +233,98 @@ describe("The create shipment domestic test suite", () => {
     });
   });
 
-  
-  describe("When a deliveryService fulfillment property is set", () => {
+  describe("When a delivery service 'isTrackable' property is set", () => {
+    it("should throw an error if no tracking number is returned", async () => {
+      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
 
-    it("should throw an error if the response does not match it")
+      appDefinition.deliveryServices[0].isTrackable = true;
+      const confirmationMock = pojo.shipmentConfirmation();
+      sinon.stub(CarrierApp.prototype, "createShipment").resolves(confirmationMock);
+      const app = new CarrierApp(appDefinition);
+
+      const args = { app, connectArgs, staticConfigTests, options };
+      const testSuite = new CreateShipmentDomestic(args);
+      const tests = testSuite.tests();
+      try {
+        await tests[0].fn();
+        expect(true).to.equal(false);
+      }
+      catch (error) {
+        expect(error.message).includes("The shipmentConfirmation.isTrackable returned from createShipment must be present when the given deliveryService.isTrackable is set to 'true'");
+      }
+    });
+
+    afterEach(() => {
+      CarrierApp.prototype.createShipment.restore();
+    });
   });
 
-  describe("When a delivery service 'isTrackable' property is set", () => {
-    it("")
-  })
+  describe("When a deliveryService fulfillment property is set", () => {
 
+    it("should throw an error if the response does not match it", async () => {
+      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+
+      appDefinition.deliveryServices[0].fulfillmentService = "dhl_economy_select";
+      const confirmationMock = pojo.shipmentConfirmation();
+      sinon.stub(CarrierApp.prototype, "createShipment").resolves(confirmationMock);
+      const app = new CarrierApp(appDefinition);
+
+      const args = { app, connectArgs, staticConfigTests, options };
+      const testSuite = new CreateShipmentDomestic(args);
+      const tests = testSuite.tests();
+      try {
+        await tests[0].fn();
+        expect(true).to.equal(false);
+      }
+      catch (error) {
+        expect(error.message).includes("The shipmentConfirmation.fulfillmentService returned from createShipment does not equal the given deliveryService.fulfillmentService");
+      }
+    });
+
+    afterEach(() => {
+      CarrierApp.prototype.createShipment.restore();
+    });
+  });
+
+
+  describe("When the input parameters do not match the return shipment", () => {
+
+    it("should throw an error for a packaging length mismatch", async () => {
+      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+
+      const confirmationMock = pojo.shipmentConfirmation();
+      confirmationMock.packages.push(pojo.packageConfirmation());
+      sinon.stub(CarrierApp.prototype, "createShipment").resolves(confirmationMock);
+      const app = new CarrierApp(appDefinition);
+
+      const args = { app, connectArgs, staticConfigTests, options };
+      const testSuite = new CreateShipmentDomestic(args);
+      const tests = testSuite.tests();
+      try {
+        await tests[0].fn();
+        expect(true).to.equal(false);
+      }
+      catch (error) {
+        expect(error.message).includes("The shipment confirmation packages array should have the same number of packages that were on the request");
+      }
+    });
+
+    afterEach(() => {
+      CarrierApp.prototype.createShipment.restore();
+    });
+
+  });
 });
 
 function generateBasicAppAndConfigs() {
-  const app = pojo.carrierApp();
+  const appDefinition = pojo.carrierApp();
   const deliveryService = pojo.deliveryService();
   deliveryService.labelFormats = ["pdf"];
   deliveryService.labelSizes = ["A4"];
   deliveryService.deliveryConfirmations = [pojo.deliveryConfirmation()];
-  app.deliveryServices = [deliveryService];
+  deliveryService.packaging.push(pojo.packaging());
+  appDefinition.deliveryServices = [deliveryService];
+  appDefinition.createShipment = () => { };
 
   const options = {
     cli: {
@@ -253,5 +347,5 @@ function generateBasicAppAndConfigs() {
 
   const connectArgs = {};
 
-  return { app, connectArgs, staticConfigTests, options };
+  return { appDefinition, connectArgs, staticConfigTests, options };
 }

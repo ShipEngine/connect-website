@@ -8,7 +8,6 @@ import {
 import Suite from "../runner/suite";
 import { buildAddressWithContactInfo } from "../factories/address";
 import { initializeTimeStamps } from '../../utils/time-stamps';
-import { getDeliveryConfirmationByName } from './utils';
 import { CreateShipmentMultiPackageConfigOptions, CreateShipmentMultiPackageTestParams } from '../runner/config/create-shipment-multipackage';
 import objectToTestTitle from '../utils/object-to-test-title';
 import reduceDefaultsWithConfig from '../utils/reduce-defaults-with-config';
@@ -114,7 +113,7 @@ export class CreateShipmentMultiPackage extends Suite {
       }
 
       if(pkgParams.deliveryConfirmationName) {
-        const deliveryConfirmation = getDeliveryConfirmationByName(pkgParams.deliveryConfirmationName, carrierApp);
+        const deliveryConfirmation = findDeliveryServiceByName(pkgParams.deliveryConfirmationName, carrierApp);
 
         if(!deliveryConfirmation) {
           throw new Error(`Unable to find a delivery confirmation definition for ${pkgParams.deliveryConfirmationName}`);

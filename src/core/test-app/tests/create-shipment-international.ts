@@ -83,7 +83,7 @@ export class CreateShipmentInternational extends Suite {
     if (!this.deliveryService) return undefined;
 
     let [shipFrom, shipTo] = useInternationalShipmentAddresses(
-      this.app as CarrierApp,
+      this.deliveryService,
     );
     // We need to know if the config defines 'shipFrom' so we can set the 'shipDateTime' with the correct timezone
     shipFrom = config.shipFrom ? config.shipFrom : shipFrom;
