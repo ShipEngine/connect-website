@@ -6,7 +6,6 @@ import {
   WeightUnit,
 } from "@shipengine/integration-platform-sdk";
 import Suite from "../runner/suite";
-import { buildAddressWithContactInfo } from "../factories/address";
 import { initializeTimeStamps } from '../../utils/time-stamps';
 import { CreateShipmentMultiPackageConfigOptions, CreateShipmentMultiPackageTestParams } from '../runner/config/create-shipment-multipackage';
 import objectToTestTitle from '../utils/object-to-test-title';
@@ -15,6 +14,7 @@ import { expect } from 'chai';
 import findDeliveryServiceByName from '../utils/find-delivery-service-by-name';
 import findPackagingByName from '../utils/find-packaging-by-name';
 import findMultiPackageDeliveryService from '../utils/find-multi-package-delivery-service';
+import useShipmentAddresses from '../utils/use-shipment-addresses';
 
 interface TestArgs {
   title: string;
@@ -56,8 +56,7 @@ export class CreateShipmentMultiPackage extends Suite {
 
     if (!this.deliveryService) return undefined;
 
-    const shipFrom = buildAddressWithContactInfo(`${this.deliveryService.originCountries[0]}-from`);
-    const shipTo = buildAddressWithContactInfo(`${this.deliveryService.destinationCountries[0]}-to`);
+    const [shipFrom, shipTo] = useShipmentAddresses(this.deliveryService);
 
     if (!shipFrom || !shipTo) return undefined;
 
