@@ -1,6 +1,6 @@
 "use strict";
 
-const { CreateShipmentInsured } = require("../../../../../../lib/core/test-app/tests/create-shipment-insured");
+const { CreateShipmentWithInsurance } = require("../../../../../../lib/core/test-app/tests/create-shipment-with-insurance");
 const { CarrierApp } = require("@shipengine/integration-platform-sdk/lib/internal/carriers/carrier-app");
 const pojo = require("../../../../utils/pojo");
 const { expect } = require("chai");
@@ -15,7 +15,7 @@ describe("The create shipment insured test suite", () => {
       appDefinition.deliveryServices[0].isInsurable = false;
       const app = new CarrierApp(appDefinition);
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CreateShipmentInsured(args);
+      const testSuite = new CreateShipmentWithInsurance(args);
 
       const tests = testSuite.tests();
       expect(tests.length).to.equal(0);
@@ -31,7 +31,7 @@ describe("The create shipment insured test suite", () => {
 
       const app = new CarrierApp(appDefinition);
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CreateShipmentInsured(args);
+      const testSuite = new CreateShipmentWithInsurance(args);
 
       const tests = testSuite.tests();
       expect(tests.length).to.equal(0);
@@ -46,7 +46,7 @@ describe("The create shipment insured test suite", () => {
       const app = new CarrierApp(appDefinition);
       const args = { app, connectArgs, staticConfigTests, options };
 
-      testSuite = new CreateShipmentInsured(args);
+      testSuite = new CreateShipmentWithInsurance(args);
     });
 
     it("should generate a test", () => {
@@ -72,7 +72,7 @@ describe("The create shipment insured test suite", () => {
 
       const app = new CarrierApp(appDefinition);
 
-      staticConfigTests.createShipment_insured = {
+      staticConfigTests.createShipment_with_insurance = {
         weight: {
           value: 200,
           unit: "lb"
@@ -85,7 +85,7 @@ describe("The create shipment insured test suite", () => {
       };
 
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CreateShipmentInsured(args);
+      const testSuite = new CreateShipmentWithInsurance(args);
       const tests = testSuite.tests();
 
       expect(tests[0].title).to.include("packagingName: New Package");
@@ -100,7 +100,7 @@ describe("The create shipment insured test suite", () => {
     beforeEach(() => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       const app = new CarrierApp(appDefinition);
-      staticConfigTests.createShipment_insured =
+      staticConfigTests.createShipment_with_insurance =
         [
           {
             weight: {
@@ -125,7 +125,7 @@ describe("The create shipment insured test suite", () => {
         ];
 
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CreateShipmentInsured(args);
+      const testSuite = new CreateShipmentWithInsurance(args);
       tests = testSuite.tests();
     });
 
@@ -148,12 +148,12 @@ describe("The create shipment insured test suite", () => {
     it("should throw an error", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       const app = new CarrierApp(appDefinition);
-      staticConfigTests.createShipment_insured = {
+      staticConfigTests.createShipment_with_insurance = {
         deliveryServiceName: "asdf"
       };
 
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CreateShipmentInsured(args);
+      const testSuite = new CreateShipmentWithInsurance(args);
 
       try {
         testSuite.tests();
@@ -182,11 +182,11 @@ describe("The create shipment insured test suite", () => {
       });
 
       const app = new CarrierApp(appDefinition);
-      staticConfigTests.createShipment_insured = {
+      staticConfigTests.createShipment_with_insurance = {
         deliveryServiceName: "Uninsured Delivery Service"
       };
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CreateShipmentInsured(args);
+      const testSuite = new CreateShipmentWithInsurance(args);
 
       try {
         testSuite.tests();
@@ -214,13 +214,13 @@ describe("The create shipment insured test suite", () => {
         packaging: [pojo.packaging()]
       });
 
-      staticConfigTests.createShipment_insured = {
+      staticConfigTests.createShipment_with_insurance = {
         deliveryServiceName: "Better Delivery Service"
       }
 
       const app = new CarrierApp(appDefinition);
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CreateShipmentInsured(args);
+      const testSuite = new CreateShipmentWithInsurance(args);
       const tests = testSuite.tests();
 
       expect(tests[0].title).to.include("deliveryServiceName: Better Delivery Service");
@@ -233,7 +233,7 @@ describe("The create shipment insured test suite", () => {
 
       const app = new CarrierApp(appDefinition);
 
-      staticConfigTests.createShipment_insured = {
+      staticConfigTests.createShipment_with_insurance = {
         shipFrom: {
           company: "Domestic Route #1",
           addressLines: ["123 New Street"],
@@ -255,13 +255,13 @@ describe("The create shipment insured test suite", () => {
       };
 
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CreateShipmentInsured(args);
+      const testSuite = new CreateShipmentWithInsurance(args);
       const tests = testSuite.tests();
 
       expect(tests[0].methodArgs.shipFrom.company).to.equal("Domestic Route #1");
       expect(tests[0].methodArgs.shipTo.company).to.equal("Domestic Route #2");
 
-      expect(tests[0].methodArgs.shipTo).to.eql(staticConfigTests.createShipment_insured.shipTo);
+      expect(tests[0].methodArgs.shipTo).to.eql(staticConfigTests.createShipment_with_insurance.shipTo);
 
       expect(tests[0].title).to.include("shipFrom: US");
       expect(tests[0].title).to.include("shipTo: US");
@@ -279,7 +279,7 @@ describe("The create shipment insured test suite", () => {
       const app = new CarrierApp(appDefinition);
 
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CreateShipmentInsured(args);
+      const testSuite = new CreateShipmentWithInsurance(args);
       const tests = testSuite.tests();
       try {
         await tests[0].fn();
@@ -306,7 +306,7 @@ describe("The create shipment insured test suite", () => {
       const app = new CarrierApp(appDefinition);
 
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CreateShipmentInsured(args);
+      const testSuite = new CreateShipmentWithInsurance(args);
       const tests = testSuite.tests();
       try {
         await tests[0].fn();
@@ -334,7 +334,7 @@ describe("The create shipment insured test suite", () => {
       const app = new CarrierApp(appDefinition);
 
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CreateShipmentInsured(args);
+      const testSuite = new CreateShipmentWithInsurance(args);
       const tests = testSuite.tests();
       try {
         await tests[0].fn();
@@ -379,7 +379,7 @@ function generateBasicAppAndConfigs() {
   };
 
   const staticConfigTests = {
-    createShipment_insured: {}
+    createShipment_with_insurance: {}
   };
 
   const connectArgs = {};

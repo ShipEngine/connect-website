@@ -1,7 +1,7 @@
 import Config from "./test-app/runner/config";
 import Runner from "./test-app/runner";
 import loadAndValidateApp from "./load-and-validate-app";
-import { CreateShipmentInternational, CreateShipmentDomestic, CreateShipmentMultiPackage, CreateShipmentInsured } from "./test-app/tests";
+import { CreateShipmentInternational, CreateShipmentDomestic, CreateShipmentMultiPackage, CreateShipmentWithInsurance } from "./test-app/tests";
 import { SdkApp } from "./types";
 import { TestResults, useTestResults } from "./test-app/runner/test-results";
 import { loadAndValidateConfig } from "./test-app/runner/load-and-validate-config";
@@ -137,7 +137,7 @@ function registerTestSuiteModules(app: SdkApp): RegisteredTestSuiteModules {
       CreateShipmentInternational, 
       CreateShipmentDomestic, 
       CreateShipmentMultiPackage,
-      CreateShipmentInsured
+      CreateShipmentWithInsurance
     ],
     // rateShipment: [RateShipmentTestSuite],
     // schedulePickup: [SchedulePickupTestSuite],

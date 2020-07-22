@@ -6,7 +6,7 @@ import {
 import { BaseTestConfigOptions } from "./base-test-config-options";
 import { MonetaryValue } from '@shipengine/integration-platform-sdk/lib/internal';
 
-export interface CreateShipmentInsuranceTestParams {
+export interface CreateShipmentWithInsuranceTestParams {
   deliveryServiceName: string;
   shipFrom: AddressWithContactInfoPOJO;
   shipTo: AddressWithContactInfoPOJO;
@@ -20,6 +20,6 @@ export interface CreateShipmentInsuranceTestParams {
   packageInsuredValue: MonetaryValue;
 }
 
-export interface CreateShipmentInsuranceConfigOptions
-  extends CreateShipmentInsuranceTestParams,
+export interface CreateShipmentWithInsuranceConfigOptions
+  extends CreateShipmentWithInsuranceTestParams,
     BaseTestConfigOptions {}

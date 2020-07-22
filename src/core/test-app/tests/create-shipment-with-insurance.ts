@@ -9,8 +9,8 @@ import {
 } from "@shipengine/integration-platform-sdk";
 import Suite from "../runner/suite";
 import {
-  CreateShipmentInsuranceConfigOptions,
-  CreateShipmentInsuranceTestParams,
+  CreateShipmentWithInsuranceConfigOptions,
+  CreateShipmentWithInsuranceTestParams,
 } from "../runner/config/create-shipment-insurance";
 import { initializeTimeStamps } from "../../utils/time-stamps";
 import reduceDefaultsWithConfig from '../utils/reduce-defaults-with-config';
@@ -27,17 +27,17 @@ interface TestArgs {
   title: string;
   methodArgs: NewShipmentPOJO;
   config: any;
-  testParams: CreateShipmentInsuranceTestParams;
+  testParams: CreateShipmentWithInsuranceTestParams;
 }
 
-export class CreateShipmentInsured extends Suite {
-  title = "createShipment_insured";
+export class CreateShipmentWithInsurance extends Suite {
+  title = "createShipment_with_insurance";
 
   private deliveryService?: DeliveryService;
   private deliveryConfirmation?: DeliveryConfirmation;
 
   private setDeliveryService(
-    config: CreateShipmentInsuranceConfigOptions,
+    config: CreateShipmentWithInsuranceConfigOptions,
   ): void {
     const carrierApp = this.app as CarrierApp;
 
@@ -59,7 +59,7 @@ export class CreateShipmentInsured extends Suite {
   }
 
   private setDeliveryConfirmation(
-    config: CreateShipmentInsuranceConfigOptions,
+    config: CreateShipmentWithInsuranceConfigOptions,
   ): void {
     if (config.deliveryConfirmationName) {
       // We do not want to handle the exception here if this raises. It indicates issues w/ the config provided.
@@ -79,7 +79,7 @@ export class CreateShipmentInsured extends Suite {
   }
 
   buildTestArg(
-    config: CreateShipmentInsuranceConfigOptions,
+    config: CreateShipmentWithInsuranceConfigOptions,
   ): TestArgs | undefined {
     let carrierApp = this.app as CarrierApp;
     this.setDeliveryService(config);
@@ -95,7 +95,7 @@ export class CreateShipmentInsured extends Suite {
 
     // Make a best guess at the defaults, need to resolve the default vs config based delivery service early
     // on since that determines what address and associated timezones get generated.
-    const defaults: CreateShipmentInsuranceTestParams = {
+    const defaults: CreateShipmentWithInsuranceTestParams = {
       deliveryServiceName: this.deliveryService.name,
       shipDateTime: tomorrow,
       shipFrom: shipFrom!,
@@ -116,7 +116,7 @@ export class CreateShipmentInsured extends Suite {
     }
 
     const testParams = reduceDefaultsWithConfig<
-      CreateShipmentInsuranceTestParams
+      CreateShipmentWithInsuranceTestParams
     >(defaults, config);
 
     const packagePOJO: NewPackagePOJO = {
@@ -182,11 +182,11 @@ export class CreateShipmentInsured extends Suite {
 
   buildTestArgs(): Array<TestArgs | undefined> {
     if (Array.isArray(this.config)) {
-      return this.config.map((config: CreateShipmentInsuranceConfigOptions) => {
+      return this.config.map((config: CreateShipmentWithInsuranceConfigOptions) => {
         return this.buildTestArg(config);
       });
     } else {
-      const config = this.config as CreateShipmentInsuranceConfigOptions;
+      const config = this.config as CreateShipmentWithInsuranceConfigOptions;
 
       return [this.buildTestArg(config)];
     }
