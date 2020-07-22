@@ -21,7 +21,7 @@ describe("reduceDefaultsWithConfig", () => {
     });
   });
 
-  it("deeply merges the objects", () => {
+  it("does not deeply merge the objects", () => {
     const defaultObject = {
       label: {
         unit: "lb",
@@ -37,8 +37,7 @@ describe("reduceDefaultsWithConfig", () => {
 
     expect(reduceDefaultsWithConfig(defaultObject, configObject)).to.eql({
       label: {
-        unit: "lb",
-        value: 2,
+        value: 2
       },
     });
   });

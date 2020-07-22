@@ -1,5 +1,3 @@
-import merge from "deepmerge";
-
 /**
  * Deeply merges the configObject into the defaultObject. Whitelist keys specified in the defaultObject.
  * @param {object} defaultObject - The default object.
@@ -16,7 +14,7 @@ export default function reduceDefaultsWithConfig<T>(
     .reduce((obj: any, key: string) => {
       Reflect.set(obj, key, Reflect.get(configObject, key));
       return obj;
-    }, {});
+    }, defaultObject);
 
-  return merge<T>(defaultObject, filteredConfigObject);
+  return filteredConfigObject;
 }
