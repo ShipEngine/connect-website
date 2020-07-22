@@ -13,14 +13,11 @@ describe("useInternationalShipmentAddresses", () => {
       destinationCountries,
       originCountries,
     });
-    const app = pojo.carrierApp({
-      deliveryServices: [deliveryService],
-    });
 
     const [
       originAddress,
       destinationAddress,
-    ] = useInternationalShipmentAddresses(app);
+    ] = useInternationalShipmentAddresses(deliveryService);
     expect(originAddress.country).to.equal("US");
     expect(destinationAddress.country).to.equal("MX");
   });
@@ -32,14 +29,11 @@ describe("useInternationalShipmentAddresses", () => {
       destinationCountries,
       originCountries,
     });
-    const app = pojo.carrierApp({
-      deliveryServices: [deliveryService],
-    });
 
     const [
       originAddress,
       destinationAddress,
-    ] = useInternationalShipmentAddresses(app);
+    ] = useInternationalShipmentAddresses(deliveryService);
     expect(originAddress.country).to.equal("MX");
     expect(destinationAddress.country).to.equal("US");
   });
@@ -52,14 +46,11 @@ describe("useInternationalShipmentAddresses", () => {
       destinationCountries,
       originCountries,
     });
-    const app = pojo.carrierApp({
-      deliveryServices: [deliveryService],
-    });
 
     const [
       originAddress,
       destinationAddress,
-    ] = useInternationalShipmentAddresses(app);
+    ] = useInternationalShipmentAddresses(deliveryService);
     expect(originAddress.country).to.equal("US");
     expect(destinationAddress.country).to.equal("MX");
   });
