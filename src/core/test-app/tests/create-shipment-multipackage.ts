@@ -14,6 +14,7 @@ import reduceDefaultsWithConfig from '../utils/reduce-defaults-with-config';
 import { expect } from 'chai';
 import findDeliveryServiceByName from '../utils/find-delivery-service-by-name';
 import findPackagingByName from '../utils/find-packaging-by-name';
+import findMultiPackageDeliveryService from '../utils/find-multi-package-delivery-service';
 
 interface TestArgs {
   title: string;
@@ -32,12 +33,17 @@ export class CreateShipmentMultiPackage extends Suite {
 
     if (config.deliveryServiceName) {
       this.deliveryService = findDeliveryServiceByName(config.deliveryServiceName, carrierApp);
+      if (!this.deliveryService.allowsMultiplePackages) {
+        throw new Error(`deliveryServiceName: '${config.deliveryServiceName}' does not support multi-package shipments`);
+      }
     }
 
     else {
-      const deliveryService = carrierApp.deliveryServices[0];
-      if (deliveryService) {
+      try {
+        const deliveryService = findMultiPackageDeliveryService(carrierApp);
         this.deliveryService = deliveryService;
+      } catch {
+        this.deliveryService = undefined;
       }
     }
   }
