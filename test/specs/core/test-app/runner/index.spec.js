@@ -272,7 +272,7 @@ describe("Runner", () => {
     const suites = [suiteA, suiteB];
     const results = await new Runner({
       failFast: false,
-      grep: "Scenarios for twilio|Scenarios for web",
+      grep: "a mock test",
       suites,
       testResults,
       testResultsReducer,
