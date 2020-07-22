@@ -4,8 +4,8 @@ import {
   AdvancedShippingOptions,
   CustomsItem as CapiCustomsItem,
   ShippedPackage,
-} from "@ipaas/capi/models";
-import { capiToDxCurrencyCode } from "./currency";
+} from '@ipaas/capi/models';
+import { capiToDxCurrencyCode } from './currency';
 import {
   DocumentFormat,
   DocumentSize,
@@ -15,8 +15,8 @@ import {
   RatePackagePOJO,
   PackageRateCriteriaPOJO,
   PickupPackagePOJO,
-} from "@shipengine/integration-platform-sdk";
-import { capiToDxCustomsItem } from "./customs-item";
+} from '@shipengine/integration-platform-sdk';
+import { capiToDxCustomsItem } from './customs-item';
 
 export const capiToDxPackage = (
   capiPackage: Package,
@@ -37,7 +37,7 @@ export const capiToDxPackage = (
         }) ?? [],
     },
     packaging: {
-      id: String(capiPackage.package_code)
+      id: capiPackage.package_code || '',
     },
 
     dimensions: {
@@ -63,12 +63,12 @@ export const capiToDxPackage = (
       format: documentFormat,
       size: documentSize,
       referenceFields: [
-        capiPackage.label_messages?.reference1 || "",
-        capiPackage.label_messages?.reference2 || "",
-        capiPackage.label_messages?.reference3 || "",
+        capiPackage.label_messages?.reference1 || '',
+        capiPackage.label_messages?.reference2 || '',
+        capiPackage.label_messages?.reference3 || '',
       ],
     },
-    contents: [], /*customs?.customs_items.map(mapCustomsToItemToPackageItem) ||*/ //TODO: how do contents differ from customs items
+    contents: [] /*customs?.customs_items.map(mapCustomsToItemToPackageItem) ||*/, //TODO: how do contents differ from customs items
   };
   return mappedPackage;
 };
@@ -83,7 +83,7 @@ export const capiToDxNewPackagePOJO = (
   const nonNullCustomsItems = <CapiCustomsItem[] | undefined>(
     customs?.customs_items.filter((item) => item !== null && item !== undefined)
   );
-  const mappedPackage = {
+  const mappedPackage: NewPackagePOJO = {
     customs: {
       contents:
         nonNullCustomsItems?.map((item: CapiCustomsItem) => {
@@ -91,9 +91,8 @@ export const capiToDxNewPackagePOJO = (
         }) ?? [],
     },
     packaging: {
-      id: String(capiPackage.package_code)
+      id: capiPackage.package_code || '',
     },
-
     dimensions: {
       length:
         capiPackage.dimension_details?.dimensions_in_centimeters?.length || 0,
@@ -114,12 +113,12 @@ export const capiToDxNewPackagePOJO = (
     containsAlcohol: advancedOptions?.contains_alcohol || false,
     isNonMachinable: advancedOptions?.nonmachineable || false,
     label: {
-      format: documentFormat, 
+      format: documentFormat,
       size: documentSize,
       referenceFields: [
-        capiPackage.label_messages?.reference1 || "",
-        capiPackage.label_messages?.reference2 || "",
-        capiPackage.label_messages?.reference3 || "",
+        capiPackage.label_messages?.reference1 || '',
+        capiPackage.label_messages?.reference2 || '',
+        capiPackage.label_messages?.reference3 || '',
       ],
     },
     contents: /*customs?.customs_items.map(mapCustomsToItemToPackageItem) ||*/ [], //TODO: how do contents differ from customs items
@@ -165,9 +164,9 @@ export const capiToPickupPackagePOJO = (
   shippedPackage: ShippedPackage
 ): PickupPackagePOJO => {
   const pickupPackage: PickupPackagePOJO = {
-    trackingNumber: shippedPackage.tracking_number || "",
+    trackingNumber: shippedPackage.tracking_number || '',
     packaging: {
-      id: shippedPackage.package_code || "",
+      id: shippedPackage.package_code || '',
     },
     weight: {
       value: shippedPackage.weight || 0,

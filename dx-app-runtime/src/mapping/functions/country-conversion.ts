@@ -1,4 +1,4 @@
-import { Country } from "@shipengine/integration-platform-sdk";
+import { Country } from '@shipengine/integration-platform-sdk';
 
 export default (countryCode: string | null | undefined): Country => {
   if (!countryCode) {

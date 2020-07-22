@@ -1,20 +1,20 @@
-import { TrackRequest } from "@ipaas/capi/requests";
+import { TrackRequest } from '@ipaas/capi/requests';
 import {
   IdentifiersPOJO,
   ShipmentStatus,
   TrackingCriteriaPOJO,
   TrackingInfo,
   TransactionPOJO,
-} from "@shipengine/integration-platform-sdk";
+} from '@shipengine/integration-platform-sdk';
 import {
   EventElement,
   StandardizedStatusCodes,
   TrackingInfo as CapiTrackingInfo,
   TrackResponse,
-} from "@ipaas/capi/responses";
+} from '@ipaas/capi/responses';
 
-import { TrackingEvent } from "@shipengine/integration-platform-sdk";
-import { dxPersonNameToString } from "./person-name";
+import { TrackingEvent } from '@shipengine/integration-platform-sdk';
+import { dxPersonNameToString } from './person-name';
 
 const capiToDxTrack = (request: TrackRequest): TrackingCriteriaPOJO => {
   const identifiers: IdentifiersPOJO = {};
@@ -29,14 +29,14 @@ const capiToDxTrack = (request: TrackRequest): TrackingCriteriaPOJO => {
 
   let trackingNumber = request.tracking_number;
   if (!trackingNumber) {
-    trackingNumber = identifiers["tracking_number"];
+    trackingNumber = identifiers['tracking_number'];
   }
 
   return {
     identifiers,
     metadata: request.metadata ?? undefined,
     returns: { isReturn: request.is_return ?? false },
-    trackingNumber: trackingNumber ?? "",
+    trackingNumber: trackingNumber ?? '',
   };
 };
 
@@ -91,9 +91,9 @@ const dxToCapiTrack = (
     }, 0);
 
   const errorEvent = {
-    description: "",
-    problemCode: "",
-    problemDescription: "",
+    description: '',
+    problemCode: '',
+    problemDescription: '',
   };
 
   if (trackingInfo.hasError) {
@@ -110,7 +110,7 @@ const dxToCapiTrack = (
   const capiInfo: CapiTrackingInfo = {
     actual_delivery_datetime: trackingInfo.deliveryDateTime?.toISOString(),
     carrierEnum: 0, //deprecated
-    carrier_name: "", //not used according to Justin
+    carrier_name: '', //not used according to Justin
     carrier_status_code: trackingInfo.latestEvent.code,
     carrier_status_description: trackingInfo.latestEvent.description,
     dimensions: undefined, //TODO: DX tracking -> CAPI response: should dimensions be the first package?

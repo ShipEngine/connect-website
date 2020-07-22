@@ -1,5 +1,5 @@
-import { TransactionPOJO } from "@shipengine/integration-platform-sdk";
-import { RegisterRequest } from "@ipaas/capi/requests";
+import { TransactionPOJO } from '@shipengine/integration-platform-sdk';
+import { RegisterRequest } from '@ipaas/capi/requests';
 
 export default (request: RegisterRequest): TransactionPOJO => {
   const transaction: TransactionPOJO = {

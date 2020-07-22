@@ -1,6 +1,11 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction } from 'express';
 
-export default async (implementation: any, request: Request, response: Response, next: NextFunction) => {
+export default async (
+  implementation: any,
+  request: Request,
+  response: Response,
+  next: NextFunction
+) => {
   const { body } = request;
   const dxApp = request.app.locals.app;
   try {

@@ -1,16 +1,16 @@
-import { CreateLabelRequest } from "@ipaas/capi/requests";
-import { mapAddressToAddressWithContactInfoPOJO } from "./address";
-import { NewShipmentPOJO } from "@shipengine/integration-platform-sdk";
-import { capiToDxNewPackagePOJO } from "./package";
-import { mapCapiToDxDocumentFormat } from "./document-format";
-import { mapCapiToDxDocumentSize } from "./document-size";
+import { CreateLabelRequest } from '@ipaas/capi/requests';
+import { mapAddressToAddressWithContactInfoPOJO } from './address';
+import { NewShipmentPOJO } from '@shipengine/integration-platform-sdk';
+import { capiToDxNewPackagePOJO } from './package';
+import { mapCapiToDxDocumentFormat } from './document-format';
+import { mapCapiToDxDocumentSize } from './document-size';
 
 export const mapCreateLabelRequestToNewShipmentPOJO = (
   request: CreateLabelRequest
 ): NewShipmentPOJO => {
   return {
     deliveryService: {
-      id: request.service_code || "",
+      id: request.service_code || '',
     },
     shipFrom: mapAddressToAddressWithContactInfoPOJO(request.ship_from),
     shipTo: mapAddressToAddressWithContactInfoPOJO(request.ship_to),
@@ -32,11 +32,12 @@ export const mapCreateLabelRequestToNewShipmentPOJO = (
     },
     packages: request.packages.map((pckg) =>
       capiToDxNewPackagePOJO(
-        pckg, 
-        request.customs, 
-        request.advanced_options, 
-        mapCapiToDxDocumentFormat(request.label_format), 
-        mapCapiToDxDocumentSize(request.label_layout))
+        pckg,
+        request.customs,
+        request.advanced_options,
+        mapCapiToDxDocumentFormat(request.label_format),
+        mapCapiToDxDocumentSize(request.label_layout)
+      )
     ),
   };
 };

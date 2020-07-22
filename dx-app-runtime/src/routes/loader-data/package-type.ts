@@ -1,12 +1,10 @@
-import { Packaging, ServiceArea } from "@shipengine/integration-platform-sdk";
+import { Packaging, ServiceArea } from '@shipengine/integration-platform-sdk';
 import PackageType, {
   PackageAttribute,
-} from "../../mapping/registry-data/external/package-type";
-import {
-  InvalidInput
-} from "../../errors";
-import { RequiredProperty } from "../../mapping/registry-data/external/enums";
-import { DeliveryService } from "@shipengine/integration-platform-sdk/lib/public/carriers/delivery-service";
+} from '../../mapping/registry-data/external/package-type';
+import { InvalidInput } from '../../errors';
+import { RequiredProperty } from '../../mapping/registry-data/external/enums';
+import { DeliveryService } from '@shipengine/integration-platform-sdk/lib/public/carriers/delivery-service';
 
 const serviceAreaToPackageAttribute = (
   serviceArea: ServiceArea
@@ -19,7 +17,7 @@ const serviceAreaToPackageAttribute = (
     case ServiceArea.Global:
       return PackageAttribute.International;
     default:
-      throw new InvalidInput(`Unsupported service area ${serviceArea}`)
+      throw new InvalidInput(`Unsupported service area ${serviceArea}`);
   }
 };
 
@@ -49,13 +47,17 @@ const dxToCapiSpecPackageType = (
 ): PackageType[] => {
   const packageTypes: PackageType[] = [];
   packaging.forEach((dxPackage) => {
-    if (dxPackage.name.toLowerCase() === "package") {
-      throw new InvalidInput(`PackageId ${dxPackage.id} can not be named ${dxPackage.name}`);
+    if (dxPackage.name.toLowerCase() === 'package') {
+      throw new InvalidInput(
+        `PackageId ${dxPackage.id} can not be named ${dxPackage.name}`
+      );
     }
 
     const packageAttributes = resolvePackageAttributes(dxPackage, services);
     if (!packageAttributes || packageAttributes.length === 0) {
-      throw new InvalidInput(`Could not resolve package attribute (domestic/int'l) for PackageId ${dxPackage.id}`);
+      throw new InvalidInput(
+        `Could not resolve package attribute (domestic/int'l) for PackageId ${dxPackage.id}`
+      );
     }
 
     const packageType: PackageType = {

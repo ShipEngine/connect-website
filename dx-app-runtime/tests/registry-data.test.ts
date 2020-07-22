@@ -1,3 +1,3 @@
-test("TDD?", () => {
+test('TDD?', () => {
   expect(true).toBe(true);
 });

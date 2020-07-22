@@ -6,8 +6,8 @@ import {
   GetRatesRequest,
   RegisterRequest,
   CreateLabelRequest,
-} from "@ipaas/capi/requests";
-import { TransactionPOJO } from "@shipengine/integration-platform-sdk";
+} from '@ipaas/capi/requests';
+import { TransactionPOJO } from '@shipengine/integration-platform-sdk';
 
 export default (
   request:
@@ -20,9 +20,9 @@ export default (
     | CancelPickupRequest
 ): TransactionPOJO => {
   const transaction = {
-    id: request.transaction_id || "",
+    id: request.transaction_id || '',
     session: {
-      ...request.metadata
+      ...request.metadata,
     },
   };
   return transaction;

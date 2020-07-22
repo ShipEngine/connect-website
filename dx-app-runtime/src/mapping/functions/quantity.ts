@@ -1,7 +1,7 @@
 import {
   QuantityPOJO,
   QuantityUnit,
-} from "@shipengine/integration-platform-sdk";
+} from '@shipengine/integration-platform-sdk';
 
 const capiToDxQuantity = (
   quantity: number | null | undefined

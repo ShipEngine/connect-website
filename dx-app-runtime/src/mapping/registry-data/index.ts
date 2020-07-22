@@ -1,12 +1,12 @@
-import ExternalSpec from "./external/external-spec";
-import CarrierSpecification from "./external/carrier";
+import ExternalSpec from './external/external-spec';
+import CarrierSpecification from './external/carrier';
 import ConfirmationType, {
   ConfirmationTypeType,
-} from "./external/confirmation-type";
-import DiagnosticRoutes from "./external/diagnostic-routes";
-import ShippingServiceSpecification from "./external/shipping-service";
-import ProviderFunction from "./external/function";
-import CountryAssociation from "./external/country-association";
+} from './external/confirmation-type';
+import DiagnosticRoutes from './external/diagnostic-routes';
+import ShippingServiceSpecification from './external/shipping-service';
+import ProviderFunction from './external/function';
+import CountryAssociation from './external/country-association';
 import {
   CarrierAttribute,
   RequiredProperty,
@@ -14,7 +14,7 @@ import {
   ServiceGrade,
   ShippingServiceAttribute,
   SupportedLabelSize,
-} from "./external/enums";
+} from './external/enums';
 import {
   CarrierApp,
   Country,
@@ -26,23 +26,23 @@ import {
   DocumentFormat,
   DocumentSize,
   ServiceArea,
-} from "@shipengine/integration-platform-sdk";
-import logger from "../../util/logger";
-import ShippingProviderConnector from "./external/shipping-provider-connector";
-import { InvalidInput } from "../../errors";
-import { LabelFormat } from "@ipaas/capi/models";
-import { dxToCapiSpecPackageType } from "../../routes/loader-data/package-type";
+} from '@shipengine/integration-platform-sdk';
+import logger from '../../util/logger';
+import ShippingProviderConnector from './external/shipping-provider-connector';
+import { InvalidInput } from '../../errors';
+import { LabelFormat } from '@ipaas/capi/models';
+import { dxToCapiSpecPackageType } from '../../routes/loader-data/package-type';
 
 const defaultDiagnosticRoutes: DiagnosticRoutes = {
-  Liveness: "diagnostics/heartbeat",
-  Readiness: "diagnostics/heartbeat",
-  Version: "diagnostics/version",
+  Liveness: 'diagnostics/heartbeat',
+  Readiness: 'diagnostics/heartbeat',
+  Version: 'diagnostics/version',
 };
 
 const mapConnectorModule = (app: CarrierApp): ShippingProviderConnector => {
   return {
-    ApiVersion: "1.12",
-    ConnectorUrl: "https://nothing.sslocal.com",
+    ApiVersion: '1.12',
+    ConnectorUrl: 'https://nothing.sslocal.com',
     Functions: mapFunctions(app),
     DiagnosticRoutes: defaultDiagnosticRoutes,
   };
@@ -50,54 +50,54 @@ const mapConnectorModule = (app: CarrierApp): ShippingProviderConnector => {
 
 const mapFunctions = (app: CarrierApp): ProviderFunction[] => {
   const functions: ProviderFunction[] = [];
-  if (typeof app.cancelPickups === "function") {
+  if (typeof app.cancelPickups === 'function') {
     functions.push({
-      Name: "CancelPickup",
+      Name: 'CancelPickup',
       IsSandboxed: false,
     });
   }
 
-  if (typeof app.createShipment === "function") {
+  if (typeof app.createShipment === 'function') {
     functions.push({
-      Name: "CreateLabel",
+      Name: 'CreateLabel',
       IsSandboxed: false,
     });
   }
 
-  if (typeof app.createManifest === "function") {
+  if (typeof app.createManifest === 'function') {
     functions.push({
-      Name: "CreateManifest",
+      Name: 'CreateManifest',
       IsSandboxed: false,
     });
   }
-  if (typeof app.rateShipment === "function") {
+  if (typeof app.rateShipment === 'function') {
     functions.push({
-      Name: "GetRates",
+      Name: 'GetRates',
       IsSandboxed: false,
     });
   }
 
-  if (typeof app.connect === "function") {
+  if (typeof app.connect === 'function') {
     functions.push({
-      Name: "Register",
+      Name: 'Register',
       IsSandboxed: false,
     });
   }
-  if (typeof app.schedulePickup === "function") {
+  if (typeof app.schedulePickup === 'function') {
     functions.push({
-      Name: "SchedulePickup",
+      Name: 'SchedulePickup',
       IsSandboxed: false,
     });
   }
-  if (typeof app.trackShipment === "function") {
+  if (typeof app.trackShipment === 'function') {
     functions.push({
-      Name: "Track",
+      Name: 'Track',
       IsSandboxed: false,
     });
   }
-  if (typeof app.cancelShipments === "function") {
+  if (typeof app.cancelShipments === 'function') {
     functions.push({
-      Name: "VoidLabels",
+      Name: 'VoidLabels',
       IsSandboxed: false,
     });
   }
@@ -180,7 +180,9 @@ const mapSupportedLabelSize = (
         break;
       case DocumentSize.A4:
       default: {
-        throw new InvalidInput(`${documentSize} is not a supported document size`);
+        throw new InvalidInput(
+          `${documentSize} is not a supported document size`
+        );
       }
     }
   });
@@ -272,7 +274,10 @@ const mapRequiredProperties = (
 };
 
 const isInternationalService = (service: DeliveryService): boolean => {
-  return service.serviceArea === ServiceArea.International || service.serviceArea === ServiceArea.Global;
+  return (
+    service.serviceArea === ServiceArea.International ||
+    service.serviceArea === ServiceArea.Global
+  );
 };
 
 const mapShippingService = (
@@ -324,7 +329,9 @@ const mapLabelFormats = (
         break;
       case DocumentFormat.HTML:
       default: {
-        throw new InvalidInput(`DocumentFormat ${documentFormat} does not map to CAPI LabelFormat`);
+        throw new InvalidInput(
+          `DocumentFormat ${documentFormat} does not map to CAPI LabelFormat`
+        );
       }
     }
   });
@@ -333,7 +340,7 @@ const mapLabelFormats = (
 
 const dxToCarrierSpecification = (app: CarrierApp): CarrierSpecification => {
   if (!app) {
-    throw new InvalidInput("Unable to map null CarrierApp");
+    throw new InvalidInput('Unable to map null CarrierApp');
   }
   const carrierSpecification: CarrierSpecification = {
     Id: app.id,
@@ -355,18 +362,24 @@ const dxToCarrierSpecification = (app: CarrierApp): CarrierSpecification => {
     },
     CarrierAttributes: mapCarrierAttributes(app),
     CarrierUrl: app.websiteURL?.toString(),
-    TrackingUrl: "", // app.getTrackingURL({id: ''}, {}).toString(), // TODO tracking url
-    ShippingServices: app.deliveryServices ? mapDeliveryServices(app.deliveryServices) : [],
-    PackageTypes: app.packaging ? dxToCapiSpecPackageType(app.packaging, app.deliveryServices) : [],
+    TrackingUrl: '', // app.getTrackingURL({id: ''}, {}).toString(), // TODO tracking url
+    ShippingServices: app.deliveryServices
+      ? mapDeliveryServices(app.deliveryServices)
+      : [],
+    PackageTypes: app.packaging
+      ? dxToCapiSpecPackageType(app.packaging, app.deliveryServices)
+      : [],
     LabelFormats: app.labelFormats ? mapLabelFormats(app.labelFormats) : [],
-    DefaultLabelSizes: app.labelSizes ? mapSupportedLabelSize(app.labelSizes) : [],
+    DefaultLabelSizes: app.labelSizes
+      ? mapSupportedLabelSize(app.labelSizes)
+      : [],
   };
   return carrierSpecification;
 };
 
 export default (app: CarrierApp): ExternalSpec => {
   const provider: ExternalSpec = {
-    Id: "", //app-id is provided by DX WebAPI
+    Id: '', //app-id is provided by DX WebAPI
     Name: app.name,
     Carriers: [dxToCarrierSpecification(app)],
     Connector: mapConnectorModule(app),

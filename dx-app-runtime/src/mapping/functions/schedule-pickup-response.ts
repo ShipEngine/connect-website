@@ -3,13 +3,13 @@ import {
   ShipmentIdentifierPOJO,
   NotePOJO,
   TransactionPOJO,
-} from "@shipengine/integration-platform-sdk";
-import { SchedulePickupResponse } from "@ipaas/capi/responses";
+} from '@shipengine/integration-platform-sdk';
+import { SchedulePickupResponse } from '@ipaas/capi/responses';
 import {
   ShipmentIdentifier,
   Identifier as capiIdentifier,
   PickupWindow,
-} from "@ipaas/capi/models";
+} from '@ipaas/capi/models';
 
 const mapIdentifier = (
   key: string,
@@ -24,12 +24,12 @@ const mapIdentifier = (
 const mapNotesToString = (
   notes: string | readonly (string | NotePOJO)[]
 ): string => {
-  let combinedNotes = "";
+  let combinedNotes = '';
   if (Array.isArray(notes)) {
     if (!notes.length) {
-      if (typeof notes[0] === "string") {
+      if (typeof notes[0] === 'string') {
         const strings = notes as string[];
-        combinedNotes = strings.join(" ");
+        combinedNotes = strings.join(' ');
       } else {
         const notePojo = notes as NotePOJO[];
         notePojo.forEach((note) => {
@@ -76,7 +76,7 @@ export const mapPickupConfirmationPOJOToSchedulePickupResponse = (
     },
     pickup_windows: response.timeWindows.map((timeWindow) => {
       const window: PickupWindow = {
-        time_zone_iana: "",
+        time_zone_iana: '',
         pickup_date: timeWindow.startDateTime.toString(),
         start_time: timeWindow.startDateTime.toString(),
         end_time: timeWindow.endDateTime.toString(),

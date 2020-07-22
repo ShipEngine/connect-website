@@ -1,4 +1,4 @@
-import { CarrierApp } from "@shipengine/integration-platform-sdk";
+import { CarrierApp } from '@shipengine/integration-platform-sdk';
 import {
   TrackRequest,
   RegisterRequest,
@@ -7,13 +7,13 @@ import {
   VoidLabelsRequest,
   SchedulePickupRequest,
   CancelPickupRequest,
-} from "@ipaas/capi/requests";
-import { capiToDxTrack, dxToCapiTrack } from "./tracking";
-import capiRequestToDxTransaction from "./transaction";
-import capiToDxTransaction from "./register-request";
-import { mapGetRatesRequestToRateCriteriaPOJO } from "./get-rates-request";
-import { mapRatePOJOToGetRatesResponse } from "./get-rates-response";
-import dxToCapiRegisterResponse from "./register-response";
+} from '@ipaas/capi/requests';
+import { capiToDxTrack, dxToCapiTrack } from './tracking';
+import capiRequestToDxTransaction from './transaction';
+import capiToDxTransaction from './register-request';
+import { mapGetRatesRequestToRateCriteriaPOJO } from './get-rates-request';
+import { mapRatePOJOToGetRatesResponse } from './get-rates-response';
+import dxToCapiRegisterResponse from './register-response';
 import {
   TrackResponse,
   RegisterResponse,
@@ -22,23 +22,23 @@ import {
   VoidLabelsResponse,
   SchedulePickupResponse,
   CancelPickupResponse,
-} from "@ipaas/capi/responses";
-import { mapCreateLabelRequestToNewShipmentPOJO } from "./create-label-request";
-import { mapShipmentConfirmationPOJOToCreateLabelResponse } from "./create-label-response";
-import { mapVoidLabelsRequestToCancelShipmentsPOJO } from "./void-labels-request";
-import { mapShipmentCancellationOutcomeToVoidLabelsResponse } from "./void-labels-response";
-import { mapSchedulePickupRequestToPickupRequestPOJO } from "./schedule-pickup-request";
-import { mapPickupConfirmationPOJOToSchedulePickupResponse } from "./schedule-pickup-response";
-import { NotSupported } from "../../errors";
-import { mapCancelPickupRequestToPickupCancellationPOJO } from "./cancel-pickup-request";
-import { mapPickupCancellationOutcomePOJOToCancelPickupResponse } from "./cancel-pickup-response";
+} from '@ipaas/capi/responses';
+import { mapCreateLabelRequestToNewShipmentPOJO } from './create-label-request';
+import { mapShipmentConfirmationPOJOToCreateLabelResponse } from './create-label-response';
+import { mapVoidLabelsRequestToCancelShipmentsPOJO } from './void-labels-request';
+import { mapShipmentCancellationOutcomeToVoidLabelsResponse } from './void-labels-response';
+import { mapSchedulePickupRequestToPickupRequestPOJO } from './schedule-pickup-request';
+import { mapPickupConfirmationPOJOToSchedulePickupResponse } from './schedule-pickup-response';
+import { NotSupported } from '../../errors';
+import { mapCancelPickupRequestToPickupCancellationPOJO } from './cancel-pickup-request';
+import { mapPickupCancellationOutcomePOJOToCancelPickupResponse } from './cancel-pickup-response';
 
 export const handleTrackingRequest = async (
   app: CarrierApp,
   request: TrackRequest
 ): Promise<TrackResponse> => {
   if (!app.trackShipment) {
-    throw new NotSupported("trackShipment");
+    throw new NotSupported('trackShipment');
   }
 
   const dxTracking = capiToDxTrack(request);
@@ -52,7 +52,7 @@ export const handleRegisterRequest = async (
   request: RegisterRequest
 ): Promise<RegisterResponse> => {
   if (!app.connect) {
-    throw new NotSupported("connect");
+    throw new NotSupported('connect');
   }
   const transaction = capiToDxTransaction(request);
   await app.connect(transaction, request.registration_info);
@@ -64,7 +64,7 @@ export const handleGetRatesRequest = async (
   request: GetRatesRequest
 ): Promise<GetRatesResponse> => {
   if (!app.rateShipment) {
-    throw new NotSupported("rateShipment");
+    throw new NotSupported('rateShipment');
   }
   const transaction = capiRequestToDxTransaction(request);
   const dxRequest = mapGetRatesRequestToRateCriteriaPOJO(request);
@@ -78,7 +78,7 @@ export const handleCreateLabelRequest = async (
   request: CreateLabelRequest
 ): Promise<CreateLabelResponse> => {
   if (!app.createShipment) {
-    throw new NotSupported("createShipment");
+    throw new NotSupported('createShipment');
   }
   try {
     const transaction = capiRequestToDxTransaction(request);
@@ -89,7 +89,7 @@ export const handleCreateLabelRequest = async (
       dxResponse
     );
     return response;
-  }catch(err){
+  } catch (err) {
     console.error(err);
     throw err;
   }
@@ -100,7 +100,7 @@ export const handleVoidLabelsRequest = async (
   request: VoidLabelsRequest
 ): Promise<VoidLabelsResponse> => {
   if (!app.cancelShipments) {
-    throw new NotSupported("cancelShipments");
+    throw new NotSupported('cancelShipments');
   }
   const transaction = capiRequestToDxTransaction(request);
   const dxRequest = mapVoidLabelsRequestToCancelShipmentsPOJO(request);
@@ -117,7 +117,7 @@ export const handleSchedulePickupRequest = async (
   request: SchedulePickupRequest
 ): Promise<SchedulePickupResponse> => {
   if (!app.schedulePickup) {
-    throw new NotSupported("schedulePickup");
+    throw new NotSupported('schedulePickup');
   }
   const transaction = capiRequestToDxTransaction(request);
   const dxRequest = mapSchedulePickupRequestToPickupRequestPOJO(request);
@@ -134,7 +134,7 @@ export const handleCancelPickupRequest = async (
   request: CancelPickupRequest
 ): Promise<CancelPickupResponse> => {
   if (!app.cancelPickups) {
-    throw new NotSupported("cancelPickup");
+    throw new NotSupported('cancelPickup');
   }
   const transaction = capiRequestToDxTransaction(request);
   const dxRequest = mapCancelPickupRequestToPickupCancellationPOJO(request);

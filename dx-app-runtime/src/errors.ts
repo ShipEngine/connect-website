@@ -1,18 +1,18 @@
 export enum CapiErrorCodes {
-  Generic = "generic",
-  Validation = "validation",
-  UnAuthorized = "external_unauthorized_error",
-  ExternalServerError = "external_server_error",
-  ExternalClientError = "external_client_error"
+  Generic = 'generic',
+  Validation = 'validation',
+  UnAuthorized = 'external_unauthorized_error',
+  ExternalServerError = 'external_server_error',
+  ExternalClientError = 'external_client_error',
 }
 
 export enum ErrorCode {
-  InvalidInput = "ERR_INVALID",
-  BadRequest = "ERR_BAD_REQUEST",
-  UnAuthorized = "ERR_UNAUTHORIZED",
-  RateLimit = "ERR_RATE_LIMIT",
-  ExternalServerError = "ERR_EXTERNAL_SERVER_ERROR",
-  NotSupported = "NOT_SUPPORTED"
+  InvalidInput = 'ERR_INVALID',
+  BadRequest = 'ERR_BAD_REQUEST',
+  UnAuthorized = 'ERR_UNAUTHORIZED',
+  RateLimit = 'ERR_RATE_LIMIT',
+  ExternalServerError = 'ERR_EXTERNAL_SERVER_ERROR',
+  NotSupported = 'NOT_SUPPORTED',
 }
 
 export enum ErrorHttpStatusCode {
@@ -21,11 +21,13 @@ export enum ErrorHttpStatusCode {
   NotSupported = 404,
   RateLimit = 429,
   ServerError = 500,
-  ExternalServerError = 520
+  ExternalServerError = 520,
 }
 
-export const mapErrorCodeToHttpStatusCode = (code: ErrorCode): ErrorHttpStatusCode => {
-  switch(code) {
+export const mapErrorCodeToHttpStatusCode = (
+  code: ErrorCode
+): ErrorHttpStatusCode => {
+  switch (code) {
     case ErrorCode.ExternalServerError:
       return ErrorHttpStatusCode.ExternalServerError;
     case ErrorCode.InvalidInput:
@@ -40,10 +42,12 @@ export const mapErrorCodeToHttpStatusCode = (code: ErrorCode): ErrorHttpStatusCo
     default:
       return ErrorHttpStatusCode.BadRequest;
   }
-}
+};
 
-export const mapErrorCodeToCapiErrorCode = (code: ErrorCode): CapiErrorCodes => {
-  switch(code) {
+export const mapErrorCodeToCapiErrorCode = (
+  code: ErrorCode
+): CapiErrorCodes => {
+  switch (code) {
     case ErrorCode.ExternalServerError:
       return CapiErrorCodes.ExternalServerError;
     case ErrorCode.InvalidInput:
@@ -55,7 +59,7 @@ export const mapErrorCodeToCapiErrorCode = (code: ErrorCode): CapiErrorCodes => 
     default:
       return CapiErrorCodes.Generic;
   }
-}
+};
 
 export class NotSupported extends Error {
   code: ErrorCode;

@@ -2,8 +2,8 @@ import {
   PickupCancellationOutcomePOJO,
   CancellationStatus,
   TransactionPOJO,
-} from "@shipengine/integration-platform-sdk";
-import { CancelPickupResponse } from "@ipaas/capi/responses";
+} from '@shipengine/integration-platform-sdk';
+import { CancelPickupResponse } from '@ipaas/capi/responses';
 
 export const mapPickupCancellationOutcomePOJOToCancelPickupResponse = (
   response: PickupCancellationOutcomePOJO,
