@@ -110,7 +110,7 @@ export class CreateShipmentInternational extends Suite {
 
     const testParams = reduceDefaultsWithConfig<
       CreateShipmentInternationalTestParams
-    >(defaults, this.config);
+    >(defaults, config);
 
     const packagePOJO: NewPackagePOJO = {
       packaging: {
@@ -185,10 +185,7 @@ export class CreateShipmentInternational extends Suite {
           if (!carrierApp.createShipment)
             throw new Error("createShipment is not implemented");
 
-          await carrierApp.createShipment(
-            transaction,
-            testArg!.methodArgs,
-          );
+          await carrierApp.createShipment(transaction, testArg!.methodArgs);
 
           // All fields of the shipment must match the corresponding fields of the input parameters (e.g. from address, to address, delivery service, packaging, weight, dimensions, etc.)
 
