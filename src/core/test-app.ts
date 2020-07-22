@@ -40,7 +40,7 @@ export default async function testApp(
         const errorsWithInflection = errorsCount > 1 ? "errors" : "error";
 
         logFail(
-          `App structure is not valid - ${errorsCount} ${errorsWithInflection} found`
+          `App structure is not valid - ${errorsCount} ${errorsWithInflection} found`,
         );
 
         error.errors.forEach((errorMessage: string) => {
@@ -75,7 +75,7 @@ export default async function testApp(
       connectArgs: {},
       debug: false,
       failFast: false,
-      retries: 1,
+      retries: 0,
       session: {},
       timeout: 2000,
     },
