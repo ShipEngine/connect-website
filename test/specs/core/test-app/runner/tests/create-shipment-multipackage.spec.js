@@ -1,3 +1,5 @@
+"use strict";
+
 const { CreateShipmentMultiPackage } = require("../../../../../../lib/core/test-app/tests/create-shipment-multipackage");
 const { CarrierApp } = require("@shipengine/integration-platform-sdk/lib/internal/carriers/carrier-app");
 const pojo = require("../../../../utils/pojo");
@@ -20,7 +22,7 @@ describe("The create shipment multipackage test suite", () => {
       const tests = testSuite.tests();
       expect(tests.length).to.equal(0);
     });
-  })
+  });
 
   describe("when there is a delivery service with an available address", () => {
 

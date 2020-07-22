@@ -23,7 +23,7 @@ interface TestArgs {
 }
 
 export class CreateShipmentMultiPackage extends Suite {
-  title = "createShipment_multiPackage";
+  title = "createShipment_multi_package";
 
   private deliveryService?: DeliveryService | undefined;
 
@@ -42,6 +42,7 @@ export class CreateShipmentMultiPackage extends Suite {
     }
   }
 
+
   buildTestArg(config: CreateShipmentMultiPackageConfigOptions): TestArgs | undefined {
     const carrierApp = this.app as CarrierApp;
 
@@ -51,16 +52,15 @@ export class CreateShipmentMultiPackage extends Suite {
 
     const shipFrom = buildAddressWithContactInfo(`${this.deliveryService.originCountries[0]}-from`);
     const shipTo = buildAddressWithContactInfo(`${this.deliveryService.destinationCountries[0]}-to`);
-    
-    if(!shipFrom || !shipTo) return undefined;   
-    
+
+    if (!shipFrom || !shipTo) return undefined;
+
     const { tomorrow } = initializeTimeStamps(shipFrom!.timeZone);
 
     // Make a best guess at the defaults, need to resolve the default vs config based delivery service early
     // on since that determines what address and associated timezones get generated.
     const defaults: CreateShipmentMultiPackageTestParams = {
       deliveryServiceName: this.deliveryService.name,
-
       shipDateTime: tomorrow,
       shipFrom: shipFrom!,
       shipTo: shipTo!,
@@ -91,7 +91,7 @@ export class CreateShipmentMultiPackage extends Suite {
     };
 
     const testParams = reduceDefaultsWithConfig<
-    CreateShipmentMultiPackageTestParams
+      CreateShipmentMultiPackageTestParams
     >(defaults, config);
 
     // Hydrate create shipment packages
@@ -112,10 +112,10 @@ export class CreateShipmentMultiPackage extends Suite {
         }
       }
 
-      if(pkgParams.deliveryConfirmationName) {
+      if (pkgParams.deliveryConfirmationName) {
         const deliveryConfirmation = findDeliveryServiceByName(pkgParams.deliveryConfirmationName, carrierApp);
 
-        if(!deliveryConfirmation) {
+        if (!deliveryConfirmation) {
           throw new Error(`Unable to find a delivery confirmation definition for ${pkgParams.deliveryConfirmationName}`);
         }
 
@@ -137,11 +137,11 @@ export class CreateShipmentMultiPackage extends Suite {
 
     const title = config.expectedErrorMessage
       ? `it raises an error when creating a new multi-package shipment with ${objectToTestTitle(
-          testParams,
-        )}`
+        testParams,
+      )}`
       : `it creates a new multi-package shipment with ${objectToTestTitle(
-          testParams,
-        )}`;
+        testParams,
+      )}`;
 
     return {
       title,
