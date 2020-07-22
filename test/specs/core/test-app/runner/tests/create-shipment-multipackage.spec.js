@@ -44,7 +44,7 @@ describe("The create shipment multipackage test suite", () => {
 
       expect(tests[0].title).to.include("shipFrom: US");
       expect(tests[0].title).to.include("shipTo: US");
-      expect(tests[0].title).to.include("Number of Packages: 2");
+      expect(tests[0].title).to.include("packages: 2");
     });
   });
 
@@ -84,7 +84,7 @@ describe("The create shipment multipackage test suite", () => {
       const testSuite = new CreateShipmentMultiPackage(args);
       const tests = testSuite.tests();
 
-      expect(tests[0].title).to.include("Number of Packages: 2");
+      expect(tests[0].title).to.include("packages: 2");
     });
   });
 
@@ -162,10 +162,10 @@ describe("The create shipment multipackage test suite", () => {
     });
 
     it("should update the test titles", () => {
-      expect(tests[0].title).to.include("Number of Packages: 2");
+      expect(tests[0].title).to.include("packages: 2");
 
 
-      expect(tests[1].title).to.include("Number of Packages: 2");
+      expect(tests[1].title).to.include("packages: 2");
 
     });
   });
