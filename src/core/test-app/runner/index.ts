@@ -69,29 +69,10 @@ export default class Runner {
   async runTest(test: Test) {
     if (this.failFast && this.testResults.hasFailed()) return;
 
-    // Mocha.prototype.grep = function (re) {
-    //   if (typeof re === 'string) {
-    //     // extract args if it's regex-like, i.e: [string, pattern, flag]
-    //     var arg = re.match(/^\/(.*)\/(g|i|)$|.*/);
-    //     this.options.grep = new RegExp(arg[1] || arg[0], arg[2]);
-    //   } else {
-    //     this.options.grep = re;
-    //   }
-    //   return this;
-    // };
-    // console.log(this.grep);
-    // const regEx = new RegExp("/" + this.grep + "/", i);
-
     if (this.grep) {
       const cleanGrep = escapeStringRegexp(this.grep);
 
-      //  if (typeof cleanGrep === 'string) {
-      //   // extract args if it's regex-like, i.e: [string, pattern, flag]
-      //   const arg = cleanGrep.match(/^\/(.*)\/(g|i|)$|.*/);
-      //   const grep = new RegExp(arg[1] || arg[0], arg[2]);
-      // } else {
-      //   this.options.grep = re;
-      // }
+      // extract args if it's regex-like, i.e: [string, pattern, flag]
       const arg = cleanGrep.match(/^\/(.*)\/(g|i|)$|.*/);
       const grep = new RegExp(arg![1] || arg![0], arg![2]);
 
