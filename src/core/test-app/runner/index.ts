@@ -86,9 +86,8 @@ export default class Runner {
   async runTest(test: Test) {
     try {
       // const retries = 0;
-      // TODO - handle retry and timeout logic here
+      // TODO - handle retry
       // test.retries
-      // test.timeout
       await callWithTimeout(test.fn, test.timeout);
       this.testResultsReducer("INCREMENT_PASSED");
       logPass(test.title);
