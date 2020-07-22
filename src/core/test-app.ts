@@ -1,13 +1,12 @@
 import Config from "./test-app/runner/config";
 import Runner from "./test-app/runner";
 import loadAndValidateApp from "./load-and-validate-app";
-import { CreateShipmentInternational, CreateShipmentDomestic, CreateShipmentMultiPackage } from "./test-app/tests";
+import { CreateShipmentInternational, CreateShipmentDomestic, CreateShipmentMultiPackage, CreateShipmentInsured } from "./test-app/tests";
 import { SdkApp } from "./types";
 import { TestResults, useTestResults } from "./test-app/runner/test-results";
 import { loadAndValidateConfig } from "./test-app/runner/load-and-validate-config";
 import { logFail, logPass, logStep } from "./utils/log-helpers";
 import { logResults } from "./utils/log-helpers";
-import { CreateShipmentInsured } from './test-app/tests/create-shipment-insured';
 
 interface TesOptions {
   debug?: boolean;

@@ -82,8 +82,7 @@ describe("The create shipment domestic test suite", () => {
         label: {
           size: "A6",
           format: "png"
-        },
-        packagingName: "New Package"
+        }
       };
 
       const args = { app, connectArgs, staticConfigTests, options };
@@ -92,8 +91,6 @@ describe("The create shipment domestic test suite", () => {
 
       expect(tests[0].title).to.include("label: A6 png");
       expect(tests[0].title).to.include("weight: 200lb");
-      expect(tests[0].title).to.include("packagingName: New Package");
-
     });
   });
 

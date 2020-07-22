@@ -16,7 +16,6 @@ export interface CreateShipmentDomesticTestParams {
     unit: WeightUnit;
   };
   shipDateTime: DateTimeZonePOJO | Date | string;
-  packagingName: string;
   deliveryConfirmationName?: string;
 }
 

@@ -100,8 +100,7 @@ export class CreateShipmentDomestic extends Suite {
       weight: {
         unit: WeightUnit.Pounds,
         value: 50.0,
-      },
-      packagingName: this.deliveryService.packaging[0].name
+      }
     };
 
     if (this.deliveryService.deliveryConfirmations.length > 0) {
@@ -114,7 +113,7 @@ export class CreateShipmentDomestic extends Suite {
 
     const packagePOJO: NewPackagePOJO = {
       packaging: {
-        id: this.deliveryService.packaging[0].id,
+        id: this.deliveryService.packaging[0].id
       },
       label: {
         size: testParams.label.size,

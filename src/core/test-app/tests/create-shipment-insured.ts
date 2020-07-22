@@ -21,11 +21,13 @@ import { expect } from "chai";
 import findDeliveryServiceByName from '../utils/find-delivery-service-by-name';
 import findDeliveryConfirmationByName from '../utils/find-delivery-confirmation-by-name';
 import { findInsurableDeliveryService } from '../utils/find-insurable-delivery-service';
+import findPackagingByName from '../utils/find-packaging-by-name';
 
 interface TestArgs {
   title: string;
   methodArgs: NewShipmentPOJO;
   config: any;
+  testParams: CreateShipmentInsuranceTestParams;
 }
 
 export class CreateShipmentInsured extends Suite {
@@ -45,7 +47,7 @@ export class CreateShipmentInsured extends Suite {
         carrierApp,
       );
       if(!this.deliveryService.isInsurable) {
-        throw new Error(`The configured delivery service '${this.deliveryService.name} does not support insuring packages`);
+        throw new Error(`The configured delivery service '${this.deliveryService.name}' does not support insuring packages`);
       }
     } else {
       try {
@@ -79,6 +81,7 @@ export class CreateShipmentInsured extends Suite {
   buildTestArg(
     config: CreateShipmentInsuranceConfigOptions,
   ): TestArgs | undefined {
+    let carrierApp = this.app as CarrierApp;
     this.setDeliveryService(config);
     this.setDeliveryConfirmation(config);
 
@@ -118,7 +121,7 @@ export class CreateShipmentInsured extends Suite {
 
     const packagePOJO: NewPackagePOJO = {
       packaging: {
-        id: this.deliveryService.packaging[0].id,
+        id: findPackagingByName(testParams.packagingName, carrierApp).id
       },
       label: {
         size: this.deliveryService.labelSizes[0],
@@ -173,6 +176,7 @@ export class CreateShipmentInsured extends Suite {
       title,
       methodArgs: newShipmentPOJO,
       config,
+      testParams
     };
   }
 
