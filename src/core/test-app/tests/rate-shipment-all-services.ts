@@ -10,14 +10,17 @@ import {
 } from "@shipengine/integration-platform-sdk";
 import Suite from "../runner/suite";
 import { buildAddressWithContactInfo } from "../factories/address";
-import { RateShipmentAllServicesOptions } from "../runner/config";
 import { initializeTimeStamps } from '../../utils/time-stamps';
-import { getDeliveryServiceByName, findMatchingDeliveryServiceCountries } from './utils';
+import { RateShipmentAllServicesTestParams, RateShipmentAllServicesConfigOptions } from '../runner/config/rate-shipment';
+import reduceDefaultsWithConfig from '../utils/reduce-defaults-with-config';
+import objectToTestTitle from '../utils/object-to-test-title';
+import findDeliveryServiceByName from '../utils/find-delivery-service-by-name';
 
 interface TestArgs {
   title: string;
   methodArgs: RateCriteriaPOJO;
   config: any;
+  testParams: RateShipmentAllServicesTestParams;
 }
 
 export class RateShipmentAllServices extends Suite {
@@ -27,13 +30,13 @@ export class RateShipmentAllServices extends Suite {
   private shipFrom?: AddressWithContactInfoPOJO;
   private shipTo?: AddressWithContactInfoPOJO;
 
-  private setDeliveryServices(config: RateShipmentAllServicesOptions): void {
+  private setDeliveryServices(config: RateShipmentAllServicesConfigOptions): void {
     const carrierApp = this.app as CarrierApp;
 
     if (Array.isArray(config.deliveryServiceNames)) {
 
       for (let dsName of config.deliveryServiceNames) {
-        const ds = getDeliveryServiceByName(dsName, carrierApp);
+        const ds = findDeliveryServiceByName(dsName, carrierApp);
         if (!ds) {
           throw new Error(
             `deliveryServiceName: ${dsName} does not exist`,
@@ -44,7 +47,7 @@ export class RateShipmentAllServices extends Suite {
       }
     }
     else if (typeof config.deliveryServiceNames === "string") {
-      const ds = getDeliveryServiceByName(config.deliveryServiceNames, carrierApp);
+      const ds = findDeliveryServiceByName(config.deliveryServiceNames, carrierApp);
       if (!ds) {
         throw new Error(
           `deliveryServiceName: ${config.deliveryServiceNames} does not exist`,
@@ -53,17 +56,17 @@ export class RateShipmentAllServices extends Suite {
       this.deliveryServices = [ds];
     }
     else if (carrierApp.deliveryServices) {
-      this.deliveryServices = Object.assign([],carrierApp.deliveryServices);
+      this.deliveryServices = Object.assign([], carrierApp.deliveryServices);
     }
   }
 
-  private setAddresses(config: RateShipmentAllServicesOptions, originCountries: Country[], destinationCountries: Country[]) {
+  private setAddresses(config: RateShipmentAllServicesConfigOptions, originCountries: Country[], destinationCountries: Country[]) {
     if (config.shipFrom) {
       this.shipFrom = buildAddressWithContactInfo(`${config.shipFrom.country}-from`);
     }
     else {
-      for(let oc of originCountries) {
-        if(buildAddressWithContactInfo(`${oc}-from`)) {
+      for (let oc of originCountries) {
+        if (buildAddressWithContactInfo(`${oc}-from`)) {
           this.shipFrom = buildAddressWithContactInfo(`${oc}-from`);
         }
       }
@@ -73,15 +76,15 @@ export class RateShipmentAllServices extends Suite {
       this.shipTo = buildAddressWithContactInfo(`${config.shipTo.country}-from`);
     }
     else {
-      for(let dc of destinationCountries) {
-        if(buildAddressWithContactInfo(`${dc}-from`)) {
+      for (let dc of destinationCountries) {
+        if (buildAddressWithContactInfo(`${dc}-from`)) {
           this.shipTo = buildAddressWithContactInfo(`${dc}-from`);
         }
       }
     }
   }
 
-  buildTestArg(config: RateShipmentAllServicesOptions): TestArgs | undefined {
+  buildTestArg(config: RateShipmentAllServicesConfigOptions): TestArgs | undefined {
     this.setDeliveryServices(config);
 
     if (!this.deliveryServices) return undefined;
@@ -94,7 +97,7 @@ export class RateShipmentAllServices extends Suite {
 
     const { tomorrow } = initializeTimeStamps(this.shipFrom.timeZone);
 
-    const defaults: RateShipmentAllServicesOptions = {
+    const defaults: RateShipmentAllServicesTestParams = {
       deliveryServiceNames: this.deliveryServices.map(ds => ds.name),
       shipDateTime: tomorrow,
       shipFrom: this.shipFrom,
@@ -106,16 +109,9 @@ export class RateShipmentAllServices extends Suite {
       packagingName: this.deliveryServices[0].packaging[0].name
     };
 
-    const whiteListKeys = Object.keys(defaults);
-
-    // This code is filtering any keys in the config that are not white listed
-    // and merging the values with the defaults above
-    const testParams = Object.keys(config)
-      .filter((key) => whiteListKeys.includes(key))
-      .reduce((obj, key: string) => {
-        Reflect.set(obj, key, Reflect.get(config, key));
-        return obj;
-      }, defaults);
+    const testParams = reduceDefaultsWithConfig<
+      RateShipmentAllServicesTestParams
+    >(defaults, config);
 
     const packageRateCriteriaPOJO: PackageRateCriteriaPOJO = {
       packaging: [{
@@ -128,32 +124,26 @@ export class RateShipmentAllServices extends Suite {
     };
 
     let RateCriteriaPOJO: RateCriteriaPOJO = {
-      deliveryServices: this.deliveryServices.map((ds) => { return {id: ds.id} }),
+      deliveryServices: this.deliveryServices.map((ds) => { return { id: ds.id } }),
       shipFrom: testParams.shipFrom,
       shipTo: testParams.shipTo!,
       shipDateTime: testParams.shipDateTime,
       packages: [packageRateCriteriaPOJO]
     };
 
-
     const title = config.expectedErrorMessage
-      ? `it raises an error when retrieving rates with ${Object.keys(
+      ? `it raises an error when creating a new international shipment with ${objectToTestTitle(
         testParams,
-      )
-        .map(function (k: any) {
-          return parseTitle(testParams, k);
-        })
-        .join(", ")}`
-      : `it retrieves rates with ${Object.keys(testParams)
-        .map(function (k: any) {
-          return parseTitle(testParams, k);
-        })
-        .join(", ")}`;
+      )}`
+      : `it creates a new international shipment with ${objectToTestTitle(
+        testParams,
+      )}`;
 
     return {
       title,
       methodArgs: RateCriteriaPOJO,
-      config
+      config,
+      testParams
     };
   }
 
@@ -222,7 +212,7 @@ function parseTitle(testParams: RateShipmentAllServicesOptions, key: any): strin
     return `${key}: ${address.country}`;
   }
 
-  if(key === "weight") {
+  if (key === "weight") {
     const weight = Reflect.get(testParams, key) as { unit: WeightUnit, value: number }
     return `weightValue: ${weight.value}, weightUnit: ${weight.unit}`;
   }

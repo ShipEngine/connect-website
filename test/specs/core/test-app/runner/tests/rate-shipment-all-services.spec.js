@@ -1,3 +1,5 @@
+"use strict";
+
 const { RateShipmentAllServices } = require("../../../../../../lib/core/test-app/tests/rate-shipment-all-services");
 const { CarrierApp } = require("@shipengine/integration-platform-sdk/lib/internal/carriers/carrier-app");
 const pojo = require("../../../../utils/pojo");
@@ -34,7 +36,7 @@ describe("The create shipment domestic test suite", () => {
       const tests = testSuite.tests();
       expect(tests.length).to.equal(0);
     });
-  })
+  });
 
   describe("when there is a domestic service with an available address", () => {
 
@@ -68,7 +70,7 @@ describe("The create shipment domestic test suite", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       const app = new CarrierApp(appDefinition);
 
-      staticConfigTests.createShipment_domestic = {
+      staticConfigTests.rateShipment_allServices = {
         weight: {
           value: 200
         },
@@ -92,7 +94,7 @@ describe("The create shipment domestic test suite", () => {
     beforeEach(() => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       const app = new CarrierApp(appDefinition);
-      staticConfigTests.createShipment_domestic =
+      staticConfigTests.rateShipment_allServices =
         [
           {
             weight: {
@@ -131,7 +133,7 @@ describe("The create shipment domestic test suite", () => {
     it("should throw an error", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       const app = new CarrierApp(appDefinition);
-      staticConfigTests.createShipment_domestic = {
+      staticConfigTests.rateShipment_allServices = {
         deliveryServiceName: "asdf"
       }
 
@@ -139,7 +141,7 @@ describe("The create shipment domestic test suite", () => {
       const testSuite = new RateShipmentAllServices(args);
 
       try {
-        const tests = testSuite.tests();
+        testSuite.tests();
         expect(true).to.equal(false);
       }
       catch (error) {
@@ -163,7 +165,7 @@ describe("The create shipment domestic test suite", () => {
         packaging: [pojo.packaging()]
       });
 
-      staticConfigTests.createShipment_domestic = {
+      staticConfigTests.rateShipment_allServices = {
         deliveryServiceName: "Better Delivery Service"
       }
 
@@ -183,7 +185,7 @@ describe("The create shipment domestic test suite", () => {
 
       const app = new CarrierApp(appDefinition);
 
-      staticConfigTests.createShipment_domestic = {
+      staticConfigTests.rateShipment_allServices = {
         shipFrom: {
           company: "Domestic Route #1",
           addressLines: ["123 New Street"],
@@ -211,7 +213,7 @@ describe("The create shipment domestic test suite", () => {
       expect(tests[0].methodArgs.shipFrom.company).to.equal("Domestic Route #1");
       expect(tests[0].methodArgs.shipTo.company).to.equal("Domestic Route #2");
 
-      expect(tests[0].methodArgs.shipTo).to.eql(staticConfigTests.createShipment_domestic.shipTo);
+      expect(tests[0].methodArgs.shipTo).to.eql(staticConfigTests.rateShipment_allServices.shipTo);
 
       expect(tests[0].title).to.include("shipFrom: US");
       expect(tests[0].title).to.include("shipTo: US");
@@ -265,7 +267,7 @@ function generateBasicAppAndConfigs() {
   };
 
   const staticConfigTests = {
-    createShipment_domestic: {}
+    rateShipment_allServices: {}
   };
 
   const connectArgs = {};
