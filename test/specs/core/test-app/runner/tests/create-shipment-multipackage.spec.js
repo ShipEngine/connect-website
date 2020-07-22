@@ -53,7 +53,7 @@ describe("The create shipment multipackage test suite", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       const app = new CarrierApp(appDefinition);
 
-      staticConfigTests.createShipment_multiPackage = {
+      staticConfigTests.createShipment_multi_package = {
         packages: [
           {
             packagingName: "Dummy Packaging",
@@ -95,7 +95,7 @@ describe("The create shipment multipackage test suite", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       const app = new CarrierApp(appDefinition);
 
-      staticConfigTests.createShipment_multiPackage =
+      staticConfigTests.createShipment_multi_package =
         [
           {
             packages: [
@@ -176,7 +176,7 @@ describe("The create shipment multipackage test suite", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       const app = new CarrierApp(appDefinition);
 
-      staticConfigTests.createShipment_multiPackage = {
+      staticConfigTests.createShipment_multi_package = {
         deliveryServiceName: "asdf"
       }
 
@@ -211,7 +211,7 @@ describe("The create shipment multipackage test suite", () => {
 
       const app = new CarrierApp(appDefinition);
 
-      staticConfigTests.createShipment_multiPackage = {
+      staticConfigTests.createShipment_multi_package = {
         deliveryServiceName: "Better Delivery Service"
       }
 
@@ -227,7 +227,7 @@ describe("The create shipment multipackage test suite", () => {
     it("should update the test arguments and titles", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
 
-      staticConfigTests.createShipment_multiPackage = {
+      staticConfigTests.createShipment_multi_package = {
         shipFrom: {
           company: "Domestic Route #1",
           addressLines: ["123 New Street"],
@@ -256,7 +256,7 @@ describe("The create shipment multipackage test suite", () => {
       expect(tests[0].methodArgs.shipFrom.company).to.equal("Domestic Route #1");
       expect(tests[0].methodArgs.shipTo.company).to.equal("Domestic Route #2");
 
-      expect(tests[0].methodArgs.shipTo).to.eql(staticConfigTests.createShipment_multiPackage.shipTo);
+      expect(tests[0].methodArgs.shipTo).to.eql(staticConfigTests.createShipment_multi_package.shipTo);
 
       expect(tests[0].title).to.include("shipFrom: US");
       expect(tests[0].title).to.include("shipTo: US");
@@ -343,7 +343,7 @@ describe("The create shipment multipackage test suite", () => {
 
     afterEach(() => {
       CarrierApp.prototype.createShipment.restore();
-    })
+    });
 
   });
 
@@ -374,7 +374,7 @@ function generateBasicAppAndConfigs() {
   };
 
   const staticConfigTests = {
-    createShipment_multiPackage: {}
+    createShipment_multi_package: {}
   };
 
   const connectArgs = {};
