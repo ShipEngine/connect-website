@@ -41,7 +41,7 @@ class MockSuite extends Suite {
         testArg.title,
         testArg.methodArgs,
         testArg.config,
-        () => {
+        async () => {
           // eslint-disable-next-line no-self-compare
           expect(testArg.methodArgs).to.equal(true);
         },
@@ -80,7 +80,7 @@ class FailingMockSuite extends Suite {
         testArg.title,
         testArg.methodArgs,
         testArg.config,
-        () => {
+        async () => {
           // eslint-disable-next-line no-self-compare
           throw new Error("test error");
         },
