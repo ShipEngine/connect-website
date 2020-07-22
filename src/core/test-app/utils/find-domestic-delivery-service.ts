@@ -1,8 +1,7 @@
 import { DeliveryService, CarrierApp } from '@shipengine/integration-platform-sdk';
 
 /**
- * Find a Domestic delivery service and returns a list of countries that you can use to
- * test domestic routes.
+ * Find a Domestic delivery service.
  */
 export function findDomesticDeliveryService(
   app: CarrierApp,
