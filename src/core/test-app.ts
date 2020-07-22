@@ -7,6 +7,7 @@ import { TestResults, useTestResults } from "./test-app/runner/test-results";
 import { loadAndValidateConfig } from "./test-app/runner/load-and-validate-config";
 import { logFail, logPass, logStep } from "./utils/log-helpers";
 import { logResults } from "./utils/log-helpers";
+import { CreateShipmentInsured } from './test-app/tests/create-shipment-insured';
 
 interface TesOptions {
   debug?: boolean;
@@ -133,7 +134,12 @@ function registerTestSuiteModules(app: SdkApp): RegisteredTestSuiteModules {
     // cancelPickups: [CancelPickupsTestSuite],
     // cancelShipments: [CancelShipmentsTestSuite],
     // createManifest: [CreateManifestTestSuite],
-    createShipment: [CreateShipmentInternational, CreateShipmentDomestic, CreateShipmentMultiPackage],
+    createShipment: [
+      CreateShipmentInternational, 
+      CreateShipmentDomestic, 
+      CreateShipmentMultiPackage,
+      CreateShipmentInsured
+    ],
     // rateShipment: [RateShipmentTestSuite],
     // schedulePickup: [SchedulePickupTestSuite],
     // trackShipment: [TrackShipmentTestSuite],
