@@ -2,7 +2,7 @@
 "use strict";
 
 const { expect } = require("chai");
-const callWithTimeout = require("../../../../../lib/core/test-app/runner/call-with-timeout")
+const callWithTimeoutAndRetries = require("../../../../../lib/core/test-app/runner/call-with-timeout-and-retries")
   .default;
 
 function sleep(ms) {
@@ -33,11 +33,11 @@ async function func4() {
   throw new Error("exception in func");
 }
 
-describe("callWithTimeout", () => {
+describe("callWithTimeoutAndRetries", () => {
   it("returns the function when it completes in time", async () => {
     let response, errorResponse;
     try {
-      response = await callWithTimeout(func1, 200);
+      response = await callWithTimeoutAndRetries(func1, 200);
     } catch (error) {
       errorResponse = error;
     }
@@ -49,36 +49,36 @@ describe("callWithTimeout", () => {
   it("throws a timeout error when the function does not complete in time", async () => {
     let response, errorResponse;
     try {
-      response = await callWithTimeout(func2, 200);
+      response = await callWithTimeoutAndRetries(func2, 200);
     } catch (error) {
       errorResponse = error.message;
     }
 
     expect(response).to.be.undefined;
-    expect(errorResponse).to.be.equal("test timeout");
+    expect(errorResponse).to.be.equal("test timed out after 200ms");
   });
 
   it("throws a function error when the function throws an error in time", async () => {
     let response, errorResponse;
     try {
-      response = await callWithTimeout(func3, 200);
+      response = await callWithTimeoutAndRetries(func3, 200);
     } catch (error) {
       errorResponse = error.message;
     }
 
     expect(response).to.be.undefined;
-    expect(errorResponse).to.be.equal("Error: exception in func");
+    expect(errorResponse).to.be.equal("exception in func");
   });
 
   it("throws a timeout error when the function would have thrown an error", async () => {
     let response, errorResponse;
     try {
-      response = await callWithTimeout(func4, 200);
+      response = await callWithTimeoutAndRetries(func4, 200);
     } catch (error) {
       errorResponse = error.message;
     }
 
     expect(response).to.be.undefined;
-    expect(errorResponse).to.be.equal("test timeout");
+    expect(errorResponse).to.be.equal("test timed out after 200ms");
   });
 });
