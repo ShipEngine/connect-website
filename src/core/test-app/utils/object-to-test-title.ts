@@ -9,7 +9,7 @@ function formatTitleParameter(key: string, value: any) {
     case "shipFrom":
       return value.country;
     case "packages":
-      return `Number of Packages: ${value.length}`;
+      return `${value.length}`;
     case "packageInsuredValue":
       return `${value.value} ${value.currency}`;
     default:

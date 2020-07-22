@@ -24,6 +24,21 @@ describe("The create shipment multipackage test suite", () => {
     });
   });
 
+  describe("when there is no delivery service that supports multiple packages", () => {
+
+    it("should not generate tests", () => {
+      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+      appDefinition.deliveryServices[0].allowsMultiplePackages = false;
+
+      const app = new CarrierApp(appDefinition);
+      const args = { app, connectArgs, staticConfigTests, options };
+      const testSuite = new CreateShipmentMultiPackage(args);
+
+      const tests = testSuite.tests();
+      expect(tests.length).to.equal(0);
+    });
+  });
+
   describe("when there is a delivery service with an available address", () => {
 
     let testSuite;
@@ -44,9 +59,11 @@ describe("The create shipment multipackage test suite", () => {
 
       expect(tests[0].title).to.include("shipFrom: US");
       expect(tests[0].title).to.include("shipTo: US");
-      expect(tests[0].title).to.include("Number of Packages: 2");
+      expect(tests[0].title).to.include("packages: 2");
     });
   });
+
+
 
   describe("when there is a config override object of test suite parameters", () => {
     it("should update the test title", () => {
@@ -84,7 +101,7 @@ describe("The create shipment multipackage test suite", () => {
       const testSuite = new CreateShipmentMultiPackage(args);
       const tests = testSuite.tests();
 
-      expect(tests[0].title).to.include("Number of Packages: 2");
+      expect(tests[0].title).to.include("packages: 2");
     });
   });
 
@@ -162,10 +179,10 @@ describe("The create shipment multipackage test suite", () => {
     });
 
     it("should update the test titles", () => {
-      expect(tests[0].title).to.include("Number of Packages: 2");
+      expect(tests[0].title).to.include("packages: 2");
 
 
-      expect(tests[1].title).to.include("Number of Packages: 2");
+      expect(tests[1].title).to.include("packages: 2");
 
     });
   });
@@ -174,11 +191,13 @@ describe("The create shipment multipackage test suite", () => {
 
     it("should throw an error", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+      appDefinition.deliveryServices[0].allowsMultiplePackages = false;
       const app = new CarrierApp(appDefinition);
 
       staticConfigTests.createShipment_multi_package = {
         deliveryServiceName: "asdf"
       }
+      
 
       const args = { app, connectArgs, staticConfigTests, options };
       const testSuite = new CreateShipmentMultiPackage(args);
@@ -193,6 +212,30 @@ describe("The create shipment multipackage test suite", () => {
     });
   });
 
+  describe("When a user configs a delivery service that does not support multiple packages", () => {
+
+    it("should throw an error", () => {
+      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+      appDefinition.deliveryServices[0].allowsMultiplePackages = false;
+      const app = new CarrierApp(appDefinition);
+
+      staticConfigTests.createShipment_multi_package = {
+        deliveryServiceName: "Dummy Delivery Service"
+      }
+
+      const args = { app, connectArgs, staticConfigTests, options };
+      const testSuite = new CreateShipmentMultiPackage(args);
+
+      try {
+        testSuite.tests();
+        expect(true).to.equal(false);
+      }
+      catch (error) {
+        expect(error.message).to.include("deliveryServiceName: 'Dummy Delivery Service' does not support multi-package shipments");
+      }
+    });
+  });
+
   describe("When a user configs a new delivery service", () => {
 
     it("should update the title params to reflect the new properties", () => {
@@ -202,6 +245,7 @@ describe("The create shipment multipackage test suite", () => {
         name: "Better Delivery Service",
         class: "ground",
         grade: "standard",
+        allowsMultiplePackages: true,
         originCountries: ["MX"],
         destinationCountries: ["MX"],
         labelFormats: ["pdf"],
@@ -354,6 +398,7 @@ function generateBasicAppAndConfigs() {
   const deliveryService = pojo.deliveryService();
   deliveryService.labelFormats = ["pdf"];
   deliveryService.labelSizes = ["A4"];
+  deliveryService.allowsMultiplePackages = true;
   deliveryService.deliveryConfirmations = [pojo.deliveryConfirmation()];
   appDefinition.deliveryServices = [deliveryService];
   appDefinition.createShipment = () => { };

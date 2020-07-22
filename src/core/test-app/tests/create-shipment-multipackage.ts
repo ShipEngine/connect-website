@@ -6,7 +6,6 @@ import {
   WeightUnit,
 } from "@shipengine/integration-platform-sdk";
 import Suite from "../runner/suite";
-import { buildAddressWithContactInfo } from "../factories/address";
 import { initializeTimeStamps } from '../../utils/time-stamps';
 import { CreateShipmentMultiPackageConfigOptions, CreateShipmentMultiPackageTestParams } from '../runner/config/create-shipment-multipackage';
 import objectToTestTitle from '../utils/object-to-test-title';
@@ -14,6 +13,8 @@ import reduceDefaultsWithConfig from '../utils/reduce-defaults-with-config';
 import { expect } from 'chai';
 import findDeliveryServiceByName from '../utils/find-delivery-service-by-name';
 import findPackagingByName from '../utils/find-packaging-by-name';
+import findMultiPackageDeliveryService from '../utils/find-multi-package-delivery-service';
+import useShipmentAddresses from '../utils/use-shipment-addresses';
 
 interface TestArgs {
   title: string;
@@ -32,12 +33,17 @@ export class CreateShipmentMultiPackage extends Suite {
 
     if (config.deliveryServiceName) {
       this.deliveryService = findDeliveryServiceByName(config.deliveryServiceName, carrierApp);
+      if (!this.deliveryService.allowsMultiplePackages) {
+        throw new Error(`deliveryServiceName: '${config.deliveryServiceName}' does not support multi-package shipments`);
+      }
     }
 
     else {
-      const deliveryService = carrierApp.deliveryServices[0];
-      if (deliveryService) {
+      try {
+        const deliveryService = findMultiPackageDeliveryService(carrierApp);
         this.deliveryService = deliveryService;
+      } catch {
+        this.deliveryService = undefined;
       }
     }
   }
@@ -50,8 +56,7 @@ export class CreateShipmentMultiPackage extends Suite {
 
     if (!this.deliveryService) return undefined;
 
-    const shipFrom = buildAddressWithContactInfo(`${this.deliveryService.originCountries[0]}-from`);
-    const shipTo = buildAddressWithContactInfo(`${this.deliveryService.destinationCountries[0]}-to`);
+    const [shipFrom, shipTo] = useShipmentAddresses(this.deliveryService);
 
     if (!shipFrom || !shipTo) return undefined;
 

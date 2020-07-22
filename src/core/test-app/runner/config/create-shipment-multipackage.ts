@@ -1,8 +1,8 @@
 import {
   DateTimeZonePOJO,
   AddressWithContactInfoPOJO,
-  WeightUnit,
   NewLabelPOJO,
+  WeightPOJO,
 } from "@shipengine/integration-platform-sdk";
 import { BaseTestConfigOptions } from "./base-test-config-options";
 
@@ -10,10 +10,7 @@ import { BaseTestConfigOptions } from "./base-test-config-options";
 export type PackageOptions = {
   packagingName: string;
   label: NewLabelPOJO
-  weight: {
-    value: number;
-    unit: WeightUnit;
-  };
+  weight: WeightPOJO;
   deliveryConfirmationName?: string;
 }
 
