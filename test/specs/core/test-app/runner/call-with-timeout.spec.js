@@ -12,11 +12,13 @@ function sleep(ms) {
 async function func1() {
   // test: func completes in time
   await sleep(100);
+  return "ok";
 }
 
 async function func2() {
   // test: func does not complete in time
   await sleep(300);
+  return "ok";
 }
 
 async function func3() {
@@ -35,19 +37,43 @@ describe("callWithTimeout", () => {
   it("returns the function when it completes in time", async () => {
     let response, errorResponse;
     try {
-      response = callWithTimeout(func1, 200);
+      response = await callWithTimeout(func1, 200);
     } catch (error) {
       errorResponse = error;
     }
 
-    expect(response).to.be.ok;
+    expect(response).to.be.equal("ok");
     expect(errorResponse).to.be.undefined;
   });
 
-  it("throws an error when the function does not complete in time", () => {
+  it("throws a timeout error when the function does not complete in time", async () => {
     let response, errorResponse;
     try {
-      response = callWithTimeout(func2, 200);
+      response = await callWithTimeout(func2, 200);
+    } catch (error) {
+      errorResponse = error.message;
+    }
+
+    expect(response).to.be.undefined;
+    expect(errorResponse).to.be.equal("test timeout");
+  });
+
+  it("throws a function error when the function throws an error in time", async () => {
+    let response, errorResponse;
+    try {
+      response = await callWithTimeout(func3, 200);
+    } catch (error) {
+      errorResponse = error.message;
+    }
+
+    expect(response).to.be.undefined;
+    expect(errorResponse).to.be.equal("Error: exception in func");
+  });
+
+  it("throws a timeout error when the function would have thrown an error", async () => {
+    let response, errorResponse;
+    try {
+      response = await callWithTimeout(func4, 200);
     } catch (error) {
       errorResponse = error.message;
     }

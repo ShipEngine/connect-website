@@ -12,6 +12,7 @@ import {
   logSkip,
   logStep,
 } from "../../utils/log-helpers";
+import callWithTimeout from "./call-with-timeout";
 
 interface RunnerArgs {
   failFast: boolean;
@@ -88,7 +89,7 @@ export default class Runner {
       // TODO - handle retry and timeout logic here
       // test.retries
       // test.timeout
-      await test.fn();
+      await callWithTimeout(test.fn, test.timeout);
       this.testResultsReducer("INCREMENT_PASSED");
       logPass(test.title);
     } catch (error) {

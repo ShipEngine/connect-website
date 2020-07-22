@@ -1,11 +1,11 @@
 export default async function callWithTimeout(func: any, timeout: number) {
-  const timer = setTimeout(() => new Error("test timeout"), timeout);
-
-  try {
-    func();
-  } catch (error) {
-    throw error;
-  } finally {
-    clearTimeout(timer);
-  }
+  return new Promise((resolve, reject) => {
+    const timer = setTimeout(() => reject(new Error("test timeout")), timeout);
+    func()
+      .then(
+        (response: any) => resolve(response),
+        (error: any) => reject(new Error(error)),
+      )
+      .finally(() => clearTimeout(timer));
+  });
 }

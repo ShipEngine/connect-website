@@ -7,8 +7,8 @@ export default interface Test {
   debug?: boolean;
   expectedErrorMessage?: string;
   fn: any;
-  retries?: number;
+  retries: number;
   skip?: boolean;
-  timeout?: number;
+  timeout: number;
   title: string;
 }
