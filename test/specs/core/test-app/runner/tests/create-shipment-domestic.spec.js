@@ -1,3 +1,5 @@
+"use strict";
+
 const { CreateShipmentDomestic } = require("../../../../../../lib/core/test-app/tests/create-shipment-domestic");
 const { CarrierApp } = require("@shipengine/integration-platform-sdk/lib/internal/carriers/carrier-app");
 const pojo = require("../../../../utils/pojo");
@@ -10,7 +12,7 @@ describe("The create shipment domestic test suite", () => {
 
     it("should not generate tests", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-      appDefinition.deliveryServices[0].originCountries = ["MX"]
+      appDefinition.deliveryServices[0].originCountries = ["MX"];
 
       const app = new CarrierApp(appDefinition);
       const args = { app, connectArgs, staticConfigTests, options };
@@ -25,8 +27,8 @@ describe("The create shipment domestic test suite", () => {
   describe("when there is not address available for a domestic services", () => {
     it("should not generate tests", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-      appDefinition.deliveryServices[0].originCountries = ["AQ"]
-      appDefinition.deliveryServices[0].destinationCountries = ["AQ"]
+      appDefinition.deliveryServices[0].originCountries = ["AQ"];
+      appDefinition.deliveryServices[0].destinationCountries = ["AQ"];
 
       const app = new CarrierApp(appDefinition);
       const args = { app, connectArgs, staticConfigTests, options };
@@ -35,7 +37,7 @@ describe("The create shipment domestic test suite", () => {
       const tests = testSuite.tests();
       expect(tests.length).to.equal(0);
     });
-  })
+  });
 
   describe("when there is a domestic service with an available address", () => {
 
@@ -68,7 +70,7 @@ describe("The create shipment domestic test suite", () => {
       const newPackaging = pojo.packaging();
       newPackaging.name = "New Package";
       appDefinition.deliveryServices[0].packaging.push(newPackaging);
-      
+
       const app = new CarrierApp(appDefinition);
 
       staticConfigTests.createShipment_domestic = {
@@ -151,11 +153,11 @@ describe("The create shipment domestic test suite", () => {
       const testSuite = new CreateShipmentDomestic(args);
 
       try {
-        const tests = testSuite.tests();
+        testSuite.tests();
         expect(true).to.equal(false);
       }
       catch (error) {
-        expect(error.message).to.include("deliveryServiceName: asdf does not exist");
+        expect(error.message).to.include("deliveryServiceName: 'asdf' does not exist");
       }
     });
   });
@@ -247,14 +249,14 @@ describe("The create shipment domestic test suite", () => {
         await tests[0].fn();
         expect(true).to.equal(false);
       }
-      catch(error) {
+      catch (error) {
         expect(error.message).includes("The shipmentConfirmation.isTrackable returned from createShipment must be present when the given deliveryService.isTrackable is set to 'true'");
       }
     });
 
     afterEach(() => {
       CarrierApp.prototype.createShipment.restore();
-    })
+    });
   });
 
   describe("When a deliveryService fulfillment property is set", () => {
@@ -274,14 +276,14 @@ describe("The create shipment domestic test suite", () => {
         await tests[0].fn();
         expect(true).to.equal(false);
       }
-      catch(error) {
+      catch (error) {
         expect(error.message).includes("The shipmentConfirmation.fulfillmentService returned from createShipment does not equal the given deliveryService.fulfillmentService");
       }
     });
 
     afterEach(() => {
       CarrierApp.prototype.createShipment.restore();
-    })
+    });
   });
 
 
@@ -302,14 +304,14 @@ describe("The create shipment domestic test suite", () => {
         await tests[0].fn();
         expect(true).to.equal(false);
       }
-      catch(error) {
+      catch (error) {
         expect(error.message).includes("The shipment confirmation packages array should have the same number of packages that were on the request");
       }
     });
 
     afterEach(() => {
       CarrierApp.prototype.createShipment.restore();
-    })
+    });
 
   });
 });
@@ -322,7 +324,7 @@ function generateBasicAppAndConfigs() {
   deliveryService.deliveryConfirmations = [pojo.deliveryConfirmation()];
   deliveryService.packaging.push(pojo.packaging());
   appDefinition.deliveryServices = [deliveryService];
-  appDefinition.createShipment = () => {};
+  appDefinition.createShipment = () => { };
 
   const options = {
     cli: {

@@ -4,23 +4,22 @@ import {
   NewShipmentPOJO,
   NewPackagePOJO,
   WeightUnit,
-  Country,
+  DeliveryConfirmation
 } from "@shipengine/integration-platform-sdk";
 import Suite from "../runner/suite";
-import {
-  buildAddress,
-  buildAddressWithContactInfo,
-} from "../factories/address";
 import {
   CreateShipmentDomesticConfigOptions,
   CreateShipmentDomesticTestParams,
 } from "../runner/config/create-shipment-domestic";
 import { initializeTimeStamps } from "../../utils/time-stamps";
-import { getDeliveryServiceByName } from "./utils";
 import reduceDefaultsWithConfig from '../utils/reduce-defaults-with-config';
 import objectToTestTitle from '../utils/object-to-test-title';
-import { DomesticDeliveryService, findDomesticDeliveryService } from '../utils/find-domestic-delivery-service';
+import useDomesticShippingAddress from '../utils/use-domestic-shipment-addresses';
+
+import { findDomesticDeliveryService } from '../utils/find-domestic-delivery-service';
 import { expect } from "chai";
+import findDeliveryServiceByName from '../utils/find-delivery-service-by-name';
+import findDeliveryConfirmationByName from '../utils/find-delivery-confirmation-by-name';
 
 interface TestArgs {
   title: string;
@@ -31,7 +30,8 @@ interface TestArgs {
 export class CreateShipmentDomestic extends Suite {
   title = "createShipment_domestic";
 
-  private deliveryService?: DeliveryService | undefined;
+  private deliveryService?: DeliveryService;
+  private deliveryConfirmation?: DeliveryConfirmation;
 
   private setDeliveryService(
     config: CreateShipmentDomesticConfigOptions,
@@ -39,26 +39,36 @@ export class CreateShipmentDomestic extends Suite {
     const carrierApp = this.app as CarrierApp;
 
     if (config.deliveryServiceName) {
-      this.deliveryService = getDeliveryServiceByName(
+      this.deliveryService = findDeliveryServiceByName(
         config.deliveryServiceName,
         carrierApp,
       );
-
-      if (!this.deliveryService)
-        throw new Error(
-          `deliveryServiceName: ${config.deliveryServiceName} does not exist`,
-        );
-      return;
     } else {
-      const dsCopy = Object.assign(
-        [],
-        carrierApp.deliveryServices,
-      ) as DeliveryService[];
-      const deliveryServices = findDomesticDeliveryService(dsCopy);
-      const deliveryService = pickDomesticDeliveryService(deliveryServices);
-      if (deliveryService) {
-        this.deliveryService = deliveryService;
+      try {
+        this.deliveryService = findDomesticDeliveryService(carrierApp);
+      } catch {
+        this.deliveryService = undefined;
       }
+    }
+  }
+
+  private setDeliveryConfirmation(
+    config: CreateShipmentDomesticConfigOptions,
+  ): void {
+    if (config.deliveryConfirmationName) {
+      // We do not want to handle the exception here if this raises. It indicates issues w/ the config provided.
+      this.deliveryConfirmation = findDeliveryConfirmationByName(
+        config.deliveryConfirmationName,
+        this.app as CarrierApp,
+      );
+    } else if (
+      this.deliveryService &&
+      this.deliveryService.deliveryConfirmations.length !== 0 &&
+      this.deliveryService.deliveryConfirmations[0]
+    ) {
+      this.deliveryConfirmation = this.deliveryService.deliveryConfirmations[0];
+    } else {
+      this.deliveryConfirmation = undefined;
     }
   }
 
@@ -66,12 +76,14 @@ export class CreateShipmentDomestic extends Suite {
     config: CreateShipmentDomesticConfigOptions,
   ): TestArgs | undefined {
     this.setDeliveryService(config);
+    this.setDeliveryConfirmation(config);
 
     if (!this.deliveryService) return undefined;
 
-    const country = findMatchingDomesticCountry(this.deliveryService);
-    const shipFrom = buildAddressWithContactInfo(`${country}-from`);
-    const shipTo = buildAddressWithContactInfo(`${country}-to`);
+    let [shipFrom, shipTo] = useDomesticShippingAddress(this.deliveryService);
+
+    if (!shipFrom || !shipTo) return undefined;
+
     const { tomorrow } = initializeTimeStamps(shipFrom!.timeZone);
 
     // Make a best guess at the defaults, need to resolve the default vs config based delivery service early
@@ -89,7 +101,7 @@ export class CreateShipmentDomestic extends Suite {
         unit: WeightUnit.Pounds,
         value: 50.0,
       },
-      packagingName: this.deliveryService.packaging[0].name,
+      packagingName: this.deliveryService.packaging[0].name
     };
 
     if (this.deliveryService.deliveryConfirmations.length > 0) {
@@ -113,6 +125,12 @@ export class CreateShipmentDomestic extends Suite {
         unit: testParams.weight.unit,
       },
     };
+
+    if (this.deliveryConfirmation) {
+      packagePOJO.deliveryConfirmation = {
+        id: this.deliveryConfirmation.id,
+      };
+    }
 
     if (this.deliveryService.deliveryConfirmations.length > 0) {
       packagePOJO.deliveryConfirmation = {
@@ -209,29 +227,19 @@ export class CreateShipmentDomestic extends Suite {
   }
 }
 
-/**
- * Currently, just return the first valid domestic delivery service that we have an address for
- */
-function pickDomesticDeliveryService(
-  deliveryServices: DomesticDeliveryService,
-): DeliveryService | undefined {
-  for (let ds of deliveryServices) {
-    for (let domesticCountry of ds.domesticCountries) {
-      if (buildAddress(`${domesticCountry}-from`)) {
-        return ds.deliveryService;
-      }
-    }
-  }
+// /**
+//  * Currently, just return the first valid domestic delivery service that we have an address for
+//  */
+// function pickDomesticDeliveryService(
+//   deliveryServices: DomesticDeliveryService,
+// ): DeliveryService | undefined {
+//   for (let ds of deliveryServices) {
+//     for (let domesticCountry of ds.domesticCountries) {
+//       if (buildAddress(`${domesticCountry}-from`)) {
+//         return ds.deliveryService;
+//       }
+//     }
+//   }
 
-  return undefined;
-}
-
-function findMatchingDomesticCountry(ds: DeliveryService): Country | undefined {
-  for (let country of ds.originCountries) {
-    if (ds.destinationCountries.includes(country)) {
-      if (buildAddress(`${country}-from`)) {
-        return country;
-      }
-    }
-  }
-}
+//   return undefined;
+// }
