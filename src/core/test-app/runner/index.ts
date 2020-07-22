@@ -49,13 +49,31 @@ export default class Runner {
 
       if (suite.tests().length === 0) {
         // If a suite doesn't have any test continue to the next suite in the array
-        // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Loops_and_iteration#continue_statement
         continue;
       }
 
       logStep(suite.title);
 
       for (let test of suite.tests()) {
+        if (this.failFast && this.testResults.hasFailed()) continue;
+
+        if (this.grep) {
+          const cleanGrep = escapeStringRegexp(this.grep);
+
+          // extract args if it's regex-like, i.e: [string, pattern, flag]
+          const arg = cleanGrep.match(/^\/(.*)\/(g|i|)$|.*/);
+          const grep = new RegExp(arg![1] || arg![0], arg![2]);
+
+          const suiteTitleMatch = grep.test(suite.title);
+          if (!grep.test(test.title) && !suiteTitleMatch) continue;
+        }
+
+        if (test.skip) {
+          this.testResultsReducer("INCREMENT_SKIPPED");
+          logSkip(test.title);
+          continue;
+        }
+
         await this.runTest(test);
       }
     }
@@ -64,24 +82,6 @@ export default class Runner {
   }
 
   async runTest(test: Test) {
-    if (this.failFast && this.testResults.hasFailed()) return;
-
-    if (this.grep) {
-      const cleanGrep = escapeStringRegexp(this.grep);
-
-      // extract args if it's regex-like, i.e: [string, pattern, flag]
-      const arg = cleanGrep.match(/^\/(.*)\/(g|i|)$|.*/);
-      const grep = new RegExp(arg![1] || arg![0], arg![2]);
-
-      if (!grep.test(test.title)) return;
-    }
-
-    if (test.skip) {
-      this.testResultsReducer("INCREMENT_SKIPPED");
-      logSkip(test.title);
-      return;
-    }
-
     try {
       // const retries = 0;
       // TODO - handle retry and timeout logic here
@@ -105,7 +105,6 @@ export default class Runner {
       }
     } finally {
       if (test.debug) {
-        // TODO - format w/ 4 space indentation
         logObject(test.methodArgs);
       }
     }
