@@ -1,24 +1,21 @@
-// const { CreateShipmentDomestic } = require("../../../../../lib/core/test-app/tests/create-shipment-domestic");
-// const pojo = require("../../../utils/pojo");
 "use strict";
 
-const { CreateShipmentDomestic } = require("../../../../../lib/core/test-app/tests/create-shipment-domestic");
+const { CreateShipmentWithInsurance } = require("../../../../../../lib/core/test-app/tests/create-shipment-with-insurance");
 const { CarrierApp } = require("@shipengine/integration-platform-sdk/lib/internal/carriers/carrier-app");
-const pojo = require("../../../utils/pojo");
+const pojo = require("../../../../utils/pojo");
 const { expect } = require("chai");
 const sinon = require("sinon");
 
-describe("The create shipment domestic test suite", () => {
+describe("The create shipment insured test suite", () => {
 
-  describe("when there is no domestic service", () => {
+  describe("when there is no delivery service that supports insurance", () => {
 
     it("should not generate tests", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-      appDefinition.deliveryServices[0].originCountries = ["MX"];
-
+      appDefinition.deliveryServices[0].isInsurable = false;
       const app = new CarrierApp(appDefinition);
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CreateShipmentDomestic(args);
+      const testSuite = new CreateShipmentWithInsurance(args);
 
       const tests = testSuite.tests();
       expect(tests.length).to.equal(0);
@@ -26,7 +23,7 @@ describe("The create shipment domestic test suite", () => {
   });
 
 
-  describe("when there is not address available for a domestic services", () => {
+  describe("when there is not address available for a delivery service services", () => {
     it("should not generate tests", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       appDefinition.deliveryServices[0].originCountries = ["AQ"];
@@ -34,14 +31,14 @@ describe("The create shipment domestic test suite", () => {
 
       const app = new CarrierApp(appDefinition);
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CreateShipmentDomestic(args);
+      const testSuite = new CreateShipmentWithInsurance(args);
 
       const tests = testSuite.tests();
       expect(tests.length).to.equal(0);
     });
   });
 
-  describe("when there is a domestic service with an available address", () => {
+  describe("when there is a insurable delivery service with an available address", () => {
 
     let testSuite;
     beforeEach(() => {
@@ -49,7 +46,7 @@ describe("The create shipment domestic test suite", () => {
       const app = new CarrierApp(appDefinition);
       const args = { app, connectArgs, staticConfigTests, options };
 
-      testSuite = new CreateShipmentDomestic(args);
+      testSuite = new CreateShipmentWithInsurance(args);
     });
 
     it("should generate a test", () => {
@@ -60,7 +57,7 @@ describe("The create shipment domestic test suite", () => {
     it("the test params should be reflected in the title", () => {
       const tests = testSuite.tests();
 
-      expect(tests[0].title).to.include("label: A4 pdf");
+      expect(tests[0].title).to.include("packageInsuredValue: 10 USD");
       expect(tests[0].title).to.include("weight: 50lb");
     });
   });
@@ -75,24 +72,25 @@ describe("The create shipment domestic test suite", () => {
 
       const app = new CarrierApp(appDefinition);
 
-      staticConfigTests.createShipment_domestic = {
+      staticConfigTests.createShipment_with_insurance = {
         weight: {
           value: 200,
           unit: "lb"
         },
-
-        label: {
-          size: "A6",
-          format: "png"
+        packagingName: "New Package",
+        packageInsuredValue: {
+          value: "50",
+          currency: "usd"
         }
       };
 
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CreateShipmentDomestic(args);
+      const testSuite = new CreateShipmentWithInsurance(args);
       const tests = testSuite.tests();
 
-      expect(tests[0].title).to.include("label: A6 png");
-      expect(tests[0].title).to.include("weight: 200lb");
+      expect(tests[0].title).to.include("packagingName: New Package");
+      expect(tests[0].title).to.include("packageInsuredValue: 50 usd");
+
     });
   });
 
@@ -102,28 +100,32 @@ describe("The create shipment domestic test suite", () => {
     beforeEach(() => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       const app = new CarrierApp(appDefinition);
-      staticConfigTests.createShipment_domestic =
+      staticConfigTests.createShipment_with_insurance =
         [
           {
             weight: {
               value: 200,
               unit: "lb"
             },
-            label: {
-              size: "A6",
-              format: "png"
+            packageInsuredValue: {
+              value: "50",
+              currency: "usd"
             }
           },
           {
             weight: {
               value: 22,
               unit: "lb"
+            },
+            packageInsuredValue: {
+              value: "50",
+              currency: "usd"
             }
           }
         ];
 
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CreateShipmentDomestic(args);
+      const testSuite = new CreateShipmentWithInsurance(args);
       tests = testSuite.tests();
     });
 
@@ -134,9 +136,11 @@ describe("The create shipment domestic test suite", () => {
 
     it("should update the test titles", () => {
       expect(tests[0].title).to.include("weight: 200lb");
-      expect(tests[0].title).to.include("label: A6 png");
+      expect(tests[0].title).to.include("packageInsuredValue: 50 usd");
+
 
       expect(tests[1].title).to.include("weight: 22lb");
+      expect(tests[1].title).to.include("packageInsuredValue: 50 usd");
     });
   });
 
@@ -144,12 +148,12 @@ describe("The create shipment domestic test suite", () => {
     it("should throw an error", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       const app = new CarrierApp(appDefinition);
-      staticConfigTests.createShipment_domestic = {
+      staticConfigTests.createShipment_with_insurance = {
         deliveryServiceName: "asdf"
-      }
+      };
 
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CreateShipmentDomestic(args);
+      const testSuite = new CreateShipmentWithInsurance(args);
 
       try {
         testSuite.tests();
@@ -161,11 +165,45 @@ describe("The create shipment domestic test suite", () => {
     });
   });
 
+  describe("When a user configs a delivery service that is not insurable", () => {
+    it("should throw an error", () => {
+      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+      appDefinition.deliveryServices.push({
+        id: "9cf1bfda-7ee4-4f03-96f6-6eab52243eee",
+        isInsurable: false,
+        name: "Uninsured Delivery Service",
+        class: "ground",
+        grade: "standard",
+        originCountries: ["MX"],
+        destinationCountries: ["MX"],
+        labelFormats: ["pdf"],
+        labelSizes: ["A4"],
+        packaging: [pojo.packaging()]
+      });
+
+      const app = new CarrierApp(appDefinition);
+      staticConfigTests.createShipment_with_insurance = {
+        deliveryServiceName: "Uninsured Delivery Service"
+      };
+      const args = { app, connectArgs, staticConfigTests, options };
+      const testSuite = new CreateShipmentWithInsurance(args);
+
+      try {
+        testSuite.tests();
+        expect(true).to.equal(false);
+      }
+      catch (error) {
+        expect(error.message).to.include("The configured delivery service 'Uninsured Delivery Service' does not support insuring packages");
+      }
+    });
+  });
+
   describe("When a user configs a new delivery service", () => {
     it("should update the title params to reflect the new properties", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       appDefinition.deliveryServices.push({
         id: "9cf1bfda-7ee4-4f03-96f6-6eab52243eee",
+        isInsurable: true,
         name: "Better Delivery Service",
         class: "ground",
         grade: "standard",
@@ -176,17 +214,16 @@ describe("The create shipment domestic test suite", () => {
         packaging: [pojo.packaging()]
       });
 
-      staticConfigTests.createShipment_domestic = {
+      staticConfigTests.createShipment_with_insurance = {
         deliveryServiceName: "Better Delivery Service"
       }
 
       const app = new CarrierApp(appDefinition);
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CreateShipmentDomestic(args);
+      const testSuite = new CreateShipmentWithInsurance(args);
       const tests = testSuite.tests();
 
       expect(tests[0].title).to.include("deliveryServiceName: Better Delivery Service");
-      expect(tests[0].title).to.include("label: A4 pdf");
     });
   });
 
@@ -196,7 +233,7 @@ describe("The create shipment domestic test suite", () => {
 
       const app = new CarrierApp(appDefinition);
 
-      staticConfigTests.createShipment_domestic = {
+      staticConfigTests.createShipment_with_insurance = {
         shipFrom: {
           company: "Domestic Route #1",
           addressLines: ["123 New Street"],
@@ -218,13 +255,13 @@ describe("The create shipment domestic test suite", () => {
       };
 
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CreateShipmentDomestic(args);
+      const testSuite = new CreateShipmentWithInsurance(args);
       const tests = testSuite.tests();
 
       expect(tests[0].methodArgs.shipFrom.company).to.equal("Domestic Route #1");
       expect(tests[0].methodArgs.shipTo.company).to.equal("Domestic Route #2");
 
-      expect(tests[0].methodArgs.shipTo).to.eql(staticConfigTests.createShipment_domestic.shipTo);
+      expect(tests[0].methodArgs.shipTo).to.eql(staticConfigTests.createShipment_with_insurance.shipTo);
 
       expect(tests[0].title).to.include("shipFrom: US");
       expect(tests[0].title).to.include("shipTo: US");
@@ -242,7 +279,7 @@ describe("The create shipment domestic test suite", () => {
       const app = new CarrierApp(appDefinition);
 
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CreateShipmentDomestic(args);
+      const testSuite = new CreateShipmentWithInsurance(args);
       const tests = testSuite.tests();
       try {
         await tests[0].fn();
@@ -269,7 +306,7 @@ describe("The create shipment domestic test suite", () => {
       const app = new CarrierApp(appDefinition);
 
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CreateShipmentDomestic(args);
+      const testSuite = new CreateShipmentWithInsurance(args);
       const tests = testSuite.tests();
       try {
         await tests[0].fn();
@@ -297,7 +334,7 @@ describe("The create shipment domestic test suite", () => {
       const app = new CarrierApp(appDefinition);
 
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CreateShipmentDomestic(args);
+      const testSuite = new CreateShipmentWithInsurance(args);
       const tests = testSuite.tests();
       try {
         await tests[0].fn();
@@ -320,6 +357,7 @@ function generateBasicAppAndConfigs() {
   const deliveryService = pojo.deliveryService();
   deliveryService.labelFormats = ["pdf"];
   deliveryService.labelSizes = ["A4"];
+  deliveryService.isInsurable = true;
   deliveryService.deliveryConfirmations = [pojo.deliveryConfirmation()];
   deliveryService.packaging.push(pojo.packaging());
   appDefinition.deliveryServices = [deliveryService];
@@ -341,7 +379,7 @@ function generateBasicAppAndConfigs() {
   };
 
   const staticConfigTests = {
-    createShipment_domestic: {}
+    createShipment_with_insurance: {}
   };
 
   const connectArgs = {};

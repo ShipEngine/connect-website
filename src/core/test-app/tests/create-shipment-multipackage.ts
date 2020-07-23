@@ -152,7 +152,7 @@ export class CreateShipmentMultiPackage extends Suite {
       title,
       methodArgs: newShipmentPOJO,
       config,
-      testParams: testParams
+      testParams
     };
   }
 

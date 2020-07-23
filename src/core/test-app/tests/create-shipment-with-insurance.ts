@@ -4,37 +4,40 @@ import {
   NewShipmentPOJO,
   NewPackagePOJO,
   WeightUnit,
-  DeliveryConfirmation
+  DeliveryConfirmation,
+  Currency
 } from "@shipengine/integration-platform-sdk";
 import Suite from "../runner/suite";
 import {
-  CreateShipmentDomesticConfigOptions,
-  CreateShipmentDomesticTestParams,
-} from "../runner/config/create-shipment-domestic";
+  CreateShipmentWithInsuranceConfigOptions,
+  CreateShipmentWithInsuranceTestParams,
+} from "../runner/config/create-shipment-insurance";
 import { initializeTimeStamps } from "../../utils/time-stamps";
 import reduceDefaultsWithConfig from '../utils/reduce-defaults-with-config';
 import objectToTestTitle from '../utils/object-to-test-title';
 import useDomesticShippingAddress from '../utils/use-domestic-shipment-addresses';
 
-import { findDomesticDeliveryService } from '../utils/find-domestic-delivery-service';
 import { expect } from "chai";
 import findDeliveryServiceByName from '../utils/find-delivery-service-by-name';
 import findDeliveryConfirmationByName from '../utils/find-delivery-confirmation-by-name';
+import { findInsurableDeliveryService } from '../utils/find-insurable-delivery-service';
+import findPackagingByName from '../utils/find-packaging-by-name';
 
 interface TestArgs {
   title: string;
   methodArgs: NewShipmentPOJO;
   config: any;
+  testParams: CreateShipmentWithInsuranceTestParams;
 }
 
-export class CreateShipmentDomestic extends Suite {
-  title = "createShipment_domestic";
+export class CreateShipmentWithInsurance extends Suite {
+  title = "createShipment_with_insurance";
 
   private deliveryService?: DeliveryService;
   private deliveryConfirmation?: DeliveryConfirmation;
 
   private setDeliveryService(
-    config: CreateShipmentDomesticConfigOptions,
+    config: CreateShipmentWithInsuranceConfigOptions,
   ): void {
     const carrierApp = this.app as CarrierApp;
 
@@ -43,9 +46,12 @@ export class CreateShipmentDomestic extends Suite {
         config.deliveryServiceName,
         carrierApp,
       );
+      if(!this.deliveryService.isInsurable) {
+        throw new Error(`The configured delivery service '${this.deliveryService.name}' does not support insuring packages`);
+      }
     } else {
       try {
-        this.deliveryService = findDomesticDeliveryService(carrierApp);
+        this.deliveryService = findInsurableDeliveryService(carrierApp);
       } catch {
         this.deliveryService = undefined;
       }
@@ -53,7 +59,7 @@ export class CreateShipmentDomestic extends Suite {
   }
 
   private setDeliveryConfirmation(
-    config: CreateShipmentDomesticConfigOptions,
+    config: CreateShipmentWithInsuranceConfigOptions,
   ): void {
     if (config.deliveryConfirmationName) {
       // We do not want to handle the exception here if this raises. It indicates issues w/ the config provided.
@@ -73,8 +79,9 @@ export class CreateShipmentDomestic extends Suite {
   }
 
   buildTestArg(
-    config: CreateShipmentDomesticConfigOptions,
+    config: CreateShipmentWithInsuranceConfigOptions,
   ): TestArgs | undefined {
+    let carrierApp = this.app as CarrierApp;
     this.setDeliveryService(config);
     this.setDeliveryConfirmation(config);
 
@@ -88,18 +95,19 @@ export class CreateShipmentDomestic extends Suite {
 
     // Make a best guess at the defaults, need to resolve the default vs config based delivery service early
     // on since that determines what address and associated timezones get generated.
-    const defaults: CreateShipmentDomesticTestParams = {
+    const defaults: CreateShipmentWithInsuranceTestParams = {
       deliveryServiceName: this.deliveryService.name,
-      label: {
-        size: this.deliveryService.labelSizes[0],
-        format: this.deliveryService.labelFormats[0]
-      },
       shipDateTime: tomorrow,
       shipFrom: shipFrom!,
       shipTo: shipTo!,
       weight: {
         unit: WeightUnit.Pounds,
         value: 50.0,
+      },
+      packagingName: this.deliveryService.packaging[0].name,
+      packageInsuredValue: {
+        value: "10",
+        currency: Currency.UnitedStatesDollar
       }
     };
 
@@ -108,21 +116,22 @@ export class CreateShipmentDomestic extends Suite {
     }
 
     const testParams = reduceDefaultsWithConfig<
-      CreateShipmentDomesticTestParams
+      CreateShipmentWithInsuranceTestParams
     >(defaults, config);
 
     const packagePOJO: NewPackagePOJO = {
       packaging: {
-        id: this.deliveryService.packaging[0].id
+        id: findPackagingByName(testParams.packagingName, carrierApp).id
       },
       label: {
-        size: testParams.label.size,
-        format: testParams.label.format,
+        size: this.deliveryService.labelSizes[0],
+        format: this.deliveryService.labelFormats[0],
       },
       weight: {
         value: testParams.weight.value,
         unit: testParams.weight.unit,
       },
+      insuredValue: testParams.packageInsuredValue
     };
 
     if (this.deliveryConfirmation) {
@@ -156,10 +165,10 @@ export class CreateShipmentDomestic extends Suite {
     };
 
     const title = config.expectedErrorMessage
-      ? `it raises an error when creating a new domestic shipment with ${objectToTestTitle(
+      ? `it raises an error when creating a new insured shipment with ${objectToTestTitle(
         testParams,
       )}`
-      : `it creates a new domestic shipment with ${objectToTestTitle(
+      : `it creates a new insured shipment with ${objectToTestTitle(
         testParams,
       )}`;
 
@@ -167,16 +176,17 @@ export class CreateShipmentDomestic extends Suite {
       title,
       methodArgs: newShipmentPOJO,
       config,
+      testParams
     };
   }
 
   buildTestArgs(): Array<TestArgs | undefined> {
     if (Array.isArray(this.config)) {
-      return this.config.map((config: CreateShipmentDomesticConfigOptions) => {
+      return this.config.map((config: CreateShipmentWithInsuranceConfigOptions) => {
         return this.buildTestArg(config);
       });
     } else {
-      const config = this.config as CreateShipmentDomesticConfigOptions;
+      const config = this.config as CreateShipmentWithInsuranceConfigOptions;
 
       return [this.buildTestArg(config)];
     }

@@ -2,13 +2,12 @@ import {
   DateTimeZonePOJO,
   AddressWithContactInfoPOJO,
   WeightUnit,
-  NewLabelPOJO,
 } from "@shipengine/integration-platform-sdk";
 import { BaseTestConfigOptions } from "./base-test-config-options";
+import { MonetaryValue } from '@shipengine/integration-platform-sdk/lib/internal';
 
-export interface CreateShipmentDomesticTestParams {
+export interface CreateShipmentWithInsuranceTestParams {
   deliveryServiceName: string;
-  label: NewLabelPOJO;
   shipFrom: AddressWithContactInfoPOJO;
   shipTo: AddressWithContactInfoPOJO;
   weight: {
@@ -16,9 +15,11 @@ export interface CreateShipmentDomesticTestParams {
     unit: WeightUnit;
   };
   shipDateTime: DateTimeZonePOJO | Date | string;
+  packagingName: string;
   deliveryConfirmationName?: string;
+  packageInsuredValue: MonetaryValue;
 }
 
-export interface CreateShipmentDomesticConfigOptions
-  extends CreateShipmentDomesticTestParams,
+export interface CreateShipmentWithInsuranceConfigOptions
+  extends CreateShipmentWithInsuranceTestParams,
     BaseTestConfigOptions {}

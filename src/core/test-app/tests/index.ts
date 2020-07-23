@@ -4,7 +4,7 @@
 export * from "./create-shipment-domestic";
 export * from "./create-shipment-multipackage";
 // export * from "./rate-shipment";
-// export * from "./create-shipment-domestic";
+export * from "./create-shipment-with-insurance";
 export * from "./create-shipment-international";
 // export * from "./get-sales-order-test-suite";
 // export * from "./get-sales-orders-by-date-test-suite";

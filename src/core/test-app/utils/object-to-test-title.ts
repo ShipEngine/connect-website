@@ -10,6 +10,8 @@ function formatTitleParameter(key: string, value: any) {
       return value.country;
     case "packages":
       return `${value.length}`;
+    case "packageInsuredValue":
+      return `${value.value} ${value.currency}`;
     default:
       return value;
   }
