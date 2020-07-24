@@ -1,13 +1,14 @@
-import { Country } from "@shipengine/integration-platform-sdk";
-import { CarrierApp } from "@shipengine/integration-platform-sdk";
+import { Country, DeliveryService } from "@shipengine/integration-platform-sdk";
 
 /**
  * Find the shared origin and destination countries from an array of delivery services
  */
-export function findMatchingDeliveryServicesByCountries(app: CarrierApp)
+export function findMatchingDeliveryServicesByCountries(deliveryServices: DeliveryService[])
   : { originCountries: Country[]; destinationCountries: Country[] } {
 
-  const deliveryServices = app.deliveryServices;
+  if(deliveryServices.length < 2) {
+    throw new Error("Multiple Delivery Services must be specified");
+  }
 
   const sharedOriginCountries = deliveryServices.reduce((acc, currentDS) => {
 

@@ -5,8 +5,8 @@ import {
 } from "@shipengine/integration-platform-sdk";
 import { BaseTestConfigOptions } from "./base-test-config-options";
 
-export interface RateShipmentAllServicesTestParams {
-  deliveryServiceNames: string | string[];
+export interface RateShipmentWithMultipleServicesTestParams {
+  deliveryServiceNames: string[];
   shipFrom: AddressWithContactInfoPOJO;
   shipTo: AddressWithContactInfoPOJO;
   weight: {
@@ -17,6 +17,6 @@ export interface RateShipmentAllServicesTestParams {
   packagingName: string;
 }
 
-export interface RateShipmentAllServicesConfigOptions
-  extends RateShipmentAllServicesTestParams,
+export interface RateShipmentWithMultipleServicesConfigOptions
+  extends RateShipmentWithMultipleServicesTestParams,
     BaseTestConfigOptions {}
