@@ -6,7 +6,8 @@ import {
   CreateShipmentDomestic, 
   CreateShipmentMultiPackage, 
   CreateShipmentWithInsurance, 
-  RateShipmentWithMultipleServices 
+  RateShipmentWithMultipleServices, 
+  RateShipmentWithOneService
 } from "./test-app/tests";
 import { SdkApp } from "./types";
 import { TestResults, useTestResults } from "./test-app/runner/test-results";
@@ -145,7 +146,10 @@ function registerTestSuiteModules(app: SdkApp): RegisteredTestSuiteModules {
       CreateShipmentMultiPackage,
       CreateShipmentWithInsurance
     ],
-    rateShipment: [RateShipmentWithMultipleServices],
+    rateShipment: [
+      RateShipmentWithMultipleServices,
+      RateShipmentWithOneService
+    ],
     // schedulePickup: [SchedulePickupTestSuite],
     // trackShipment: [TrackShipmentTestSuite],
   };

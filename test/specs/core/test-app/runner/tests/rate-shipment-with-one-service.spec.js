@@ -1,45 +1,29 @@
 "use strict";
 
-const { RateShipmentWithMultipleServices } = require("../../../../../../lib/core/test-app/tests/rate-shipment-with-multiple-services");
+const { RateShipmentWithOneService } = require("../../../../../../lib/core/test-app/tests/rate-shipment-with-one-service");
 const { CarrierApp } = require("@shipengine/integration-platform-sdk/lib/internal/carriers/carrier-app");
 const pojo = require("../../../../utils/pojo");
 const { expect } = require("chai");
 const sinon = require("sinon");
 
-describe("The rate shipment with multiple services test suite", () => {
+describe("The rate shipment with one service test suite", () => {
 
-  describe("when there are less than 2 delivery service definitions", () => {
-
+  describe("when there is no address available for the delivery service", () => {
     it("should not generate tests", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-      appDefinition.deliveryServices.pop();
+      appDefinition.deliveryServices[0].originCountries = ["AQ"];
+      appDefinition.deliveryServices[0].destinationCountries = ["AQ"];
 
       const app = new CarrierApp(appDefinition);
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new RateShipmentWithMultipleServices(args);
+      const testSuite = new RateShipmentWithOneService(args);
 
       const tests = testSuite.tests();
       expect(tests.length).to.equal(0);
     });
   });
 
-
-  describe("when there is no shared address between the delivery services", () => {
-    it("should not generate tests", () => {
-      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-      appDefinition.deliveryServices[0].originCountries = ["MX"];
-      appDefinition.deliveryServices[0].destinationCountries = ["MX"];
-
-      const app = new CarrierApp(appDefinition);
-      const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new RateShipmentWithMultipleServices(args);
-
-      const tests = testSuite.tests();
-      expect(tests.length).to.equal(0);
-    });
-  });
-
-  describe("when there are multiple delivery services with an available address", () => {
+  describe("when there is a delivery service with an available address", () => {
 
     let testSuite;
     beforeEach(() => {
@@ -47,7 +31,7 @@ describe("The rate shipment with multiple services test suite", () => {
       const app = new CarrierApp(appDefinition);
       const args = { app, connectArgs, staticConfigTests, options };
 
-      testSuite = new RateShipmentWithMultipleServices(args);
+      testSuite = new RateShipmentWithOneService(args);
     });
 
     it("should generate a test", () => {
@@ -59,7 +43,7 @@ describe("The rate shipment with multiple services test suite", () => {
       const tests = testSuite.tests();
 
       expect(tests[0].title).to.include("weight: 50lb");
-      expect(tests[0].title).to.include("deliveryServiceNames: Dummy Delivery Service, Better Delivery Service");
+      expect(tests[0].title).to.include("deliveryServiceName: Dummy Delivery Service");
 
     });
   });
@@ -70,7 +54,7 @@ describe("The rate shipment with multiple services test suite", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       const app = new CarrierApp(appDefinition);
 
-      staticConfigTests.rateShipment_with_multiple_services = {
+      staticConfigTests.rateShipment_with_one_service = {
         weight: {
           value: 200,
           unit: "lb"
@@ -78,11 +62,11 @@ describe("The rate shipment with multiple services test suite", () => {
       };
 
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new RateShipmentWithMultipleServices(args);
+      const testSuite = new RateShipmentWithOneService(args);
       const tests = testSuite.tests();
 
       expect(tests[0].title).to.include("weight: 200lb");
-      expect(tests[0].title).to.include("deliveryServiceNames: Dummy Delivery Service, Better Delivery Service");
+      expect(tests[0].title).to.include("deliveryServiceName: Dummy Delivery Service");
     });
   });
 
@@ -92,7 +76,7 @@ describe("The rate shipment with multiple services test suite", () => {
     beforeEach(() => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       const app = new CarrierApp(appDefinition);
-      staticConfigTests.rateShipment_with_multiple_services =
+      staticConfigTests.rateShipment_with_one_service =
         [
           {
             weight: {
@@ -109,7 +93,7 @@ describe("The rate shipment with multiple services test suite", () => {
         ];
 
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new RateShipmentWithMultipleServices(args);
+      const testSuite = new RateShipmentWithOneService(args);
       tests = testSuite.tests();
     });
 
@@ -121,10 +105,10 @@ describe("The rate shipment with multiple services test suite", () => {
     it("should update the test titles", () => {
 
       expect(tests[0].title).to.include("weight: 200lb");
-      expect(tests[0].title).to.include("deliveryServiceNames: Dummy Delivery Service, Better Delivery Service");
+      expect(tests[0].title).to.include("deliveryServiceName: Dummy Delivery Service");
 
       expect(tests[1].title).to.include("weight: 22lb");
-      expect(tests[1].title).to.include("deliveryServiceNames: Dummy Delivery Service, Better Delivery Service");
+      expect(tests[1].title).to.include("deliveryServiceName: Dummy Delivery Service");
 
     });
   });
@@ -133,12 +117,12 @@ describe("The rate shipment with multiple services test suite", () => {
     it("should throw an error", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       const app = new CarrierApp(appDefinition);
-      staticConfigTests.rateShipment_with_multiple_services = {
-        deliveryServiceNames: ["asdf", "iewojasdf"]
-      }
+      staticConfigTests.rateShipment_with_one_service = {
+        deliveryServiceName: "asdf"
+      };
 
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new RateShipmentWithMultipleServices(args);
+      const testSuite = new RateShipmentWithOneService(args);
 
       try {
         testSuite.tests();
@@ -146,40 +130,6 @@ describe("The rate shipment with multiple services test suite", () => {
       }
       catch (error) {
         expect(error.message).to.include("deliveryServiceName: 'asdf' does not exist");
-      }
-    });
-  });
-
-  describe("When a user configures delivery services that do no share an origin and destination country", () => {
-    it("should throw an error", () => {
-      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-
-      appDefinition.deliveryServices.push({
-        id: "9cf1bfda-7ee4-4f03-96f6-6eab52243eee",
-        name: "Another Delivery Service",
-        class: "ground",
-        grade: "standard",
-        originCountries: ["CA"],
-        destinationCountries: ["CA"],
-        labelFormats: ["pdf"],
-        labelSizes: ["A4"],
-        packaging: [pojo.packaging()]
-      });
-
-      const app = new CarrierApp(appDefinition);
-      staticConfigTests.rateShipment_with_multiple_services = {
-        deliveryServiceNames: ["Dummy Delivery Service", "Another Delivery Service"]
-      }
-
-      const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new RateShipmentWithMultipleServices(args);
-
-      try {
-        testSuite.tests();
-        expect(true).to.equal(false);
-      }
-      catch (error) {
-        expect(error.message).to.include("Configured delivery services must share origin and destination countries for correct rate generation");
       }
     });
   });
@@ -199,16 +149,16 @@ describe("The rate shipment with multiple services test suite", () => {
         packaging: [pojo.packaging()]
       });
 
-      staticConfigTests.rateShipment_with_multiple_services = {
-        deliveryServiceNames: ["Better Delivery Service", "Dummy Delivery Service"]
+      staticConfigTests.rateShipment_with_one_service = {
+        deliveryServiceName: "Better Delivery Service"
       }
 
       const app = new CarrierApp(appDefinition);
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new RateShipmentWithMultipleServices(args);
+      const testSuite = new RateShipmentWithOneService(args);
       const tests = testSuite.tests();
 
-      expect(tests[0].title).to.include("deliveryServiceNames: Better Delivery Service, Dummy Delivery Service");
+      expect(tests[0].title).to.include("deliveryServiceName: Better Delivery Service");
     });
   });
 
@@ -218,7 +168,7 @@ describe("The rate shipment with multiple services test suite", () => {
 
       const app = new CarrierApp(appDefinition);
 
-      staticConfigTests.rateShipment_with_multiple_services = {
+      staticConfigTests.rateShipment_with_one_service = {
         shipFrom: {
           company: "Domestic Route #1",
           addressLines: ["123 New Street"],
@@ -240,38 +190,36 @@ describe("The rate shipment with multiple services test suite", () => {
       };
 
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new RateShipmentWithMultipleServices(args);
+      const testSuite = new RateShipmentWithOneService(args);
       const tests = testSuite.tests();
 
       expect(tests[0].methodArgs.shipFrom.company).to.equal("Domestic Route #1");
       expect(tests[0].methodArgs.shipTo.company).to.equal("Domestic Route #2");
 
-      expect(tests[0].methodArgs.shipTo).to.eql(staticConfigTests.rateShipment_with_multiple_services.shipTo);
+      expect(tests[0].methodArgs.shipTo).to.eql(staticConfigTests.rateShipment_with_one_service.shipTo);
 
       expect(tests[0].title).to.include("shipFrom: US");
       expect(tests[0].title).to.include("shipTo: US");
-
     });
   });
 
-  describe("When delivery services in the request are missing in the response", () => {
+  describe("When the delivery service in the request is missing in the response", () => {
     it("should throw an error", async () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
 
-      const rate1 = pojo.rate();
-      const rateResponse = [rate1];
+      const rateResponse = [];
       sinon.stub(CarrierApp.prototype, "rateShipment").resolves(rateResponse);
       const app = new CarrierApp(appDefinition);
 
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new RateShipmentWithMultipleServices(args);
+      const testSuite = new RateShipmentWithOneService(args);
       const tests = testSuite.tests();
       try {
         await tests[0].fn();
         expect(true).to.equal(false);
       }
       catch (error) {
-        expect(error.message).includes("Rate for delivery service 'Better Delivery Service' is missing from the response");
+        expect(error.message).includes("Rate for delivery service 'Dummy Delivery Service' is missing from the response");
       }
     });
 
@@ -283,27 +231,24 @@ describe("The rate shipment with multiple services test suite", () => {
   describe("When a deliveryService fulfillment property is set", () => {
     it("should throw an error if the response does not match it", async () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-      appDefinition.deliveryServices[1].fulfillmentService = "dhl_economy_select";
+      appDefinition.deliveryServices[0].fulfillmentService = "dhl_economy_select";
 
       const rate1 = pojo.rate();
-      const rate2 = pojo.rate();
       rate1.deliveryService = appDefinition.deliveryServices[0];
 
-      rate2.deliveryService = appDefinition.deliveryServices[1];
-
       const app = new CarrierApp(appDefinition);
-      const rateResponse = [rate1, rate2];
+      const rateResponse = [rate1];
       sinon.stub(CarrierApp.prototype, "rateShipment").resolves(rateResponse);
 
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new RateShipmentWithMultipleServices(args);
+      const testSuite = new RateShipmentWithOneService(args);
       const tests = testSuite.tests();
       try {
         await tests[0].fn();
         expect(true).to.equal(false);
       }
       catch (error) {
-        expect(error.message).includes("Fulfillment Service is not set for 'Better Delivery Service' rate");
+        expect(error.message).includes("Fulfillment Service is not set for 'Dummy Delivery Service' rate");
       }
     });
 
@@ -311,7 +256,6 @@ describe("The rate shipment with multiple services test suite", () => {
       CarrierApp.prototype.rateShipment.restore();
     });
   });
-
 });
 
 function generateBasicAppAndConfigs() {
@@ -322,18 +266,6 @@ function generateBasicAppAndConfigs() {
   deliveryService.deliveryConfirmations = [pojo.deliveryConfirmation()];
   appDefinition.deliveryServices = [deliveryService];
   appDefinition.rateShipment = () => { };
-
-  appDefinition.deliveryServices.push({
-    id: "9cf1bfda-7ee4-4f03-96f6-6eab52243eee",
-    name: "Better Delivery Service",
-    class: "ground",
-    grade: "standard",
-    originCountries: ["US"],
-    destinationCountries: ["US"],
-    labelFormats: ["pdf"],
-    labelSizes: ["A4"],
-    packaging: [pojo.packaging()]
-  });
 
   const options = {
     cli: {
@@ -351,7 +283,7 @@ function generateBasicAppAndConfigs() {
   };
 
   const staticConfigTests = {
-    rateShipment_with_multiple_services: {}
+    rateShipment_with_one_service: {}
   };
 
   const connectArgs = {};

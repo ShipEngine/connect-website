@@ -48,6 +48,7 @@ function validate(config: Config): void {
     "createShipment_regional",
     "createShipment_with_insurance",
     "rateShipment_with_multiple_services",
+    "rateShipment_with_one_service",
     "schedulePickup",
     "trackShipment",
   ];
