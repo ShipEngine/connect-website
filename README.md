@@ -30,7 +30,7 @@ $ npm install -g @shipengine/cli
 $ shipengine COMMAND
 running command...
 $ shipengine (-v|--version|version)
-@shipengine/cli/0.0.11 linux-x64 node-v12.18.1
+@shipengine/cli/0.0.12 linux-x64 node-v12.18.1
 $ shipengine --help [COMMAND]
 USAGE
   $ shipengine COMMAND
@@ -48,6 +48,7 @@ USAGE
 * [`shipengine auth:login`](#shipengine-authlogin)
 * [`shipengine auth:logout`](#shipengine-authlogout)
 * [`shipengine auth:whoami`](#shipengine-authwhoami)
+* [`shipengine carriers:list`](#shipengine-carrierslist)
 * [`shipengine help [COMMAND]`](#shipengine-help-command)
 
 ## `shipengine apps:info`
@@ -62,7 +63,7 @@ OPTIONS
   -h, --help  show help for the apps:info commands
 ```
 
-_See code: [src/commands/apps/info.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.11/src/commands/apps/info.ts)_
+_See code: [src/commands/apps/info.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.12/src/commands/apps/info.ts)_
 
 ## `shipengine apps:new [PATH]`
 
@@ -84,7 +85,7 @@ EXAMPLE
   $ shipengine apps:new
 ```
 
-_See code: [src/commands/apps/new.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.11/src/commands/apps/new.ts)_
+_See code: [src/commands/apps/new.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.12/src/commands/apps/new.ts)_
 
 ## `shipengine apps:publish`
 
@@ -103,7 +104,7 @@ EXAMPLE
   $ shipengine apps:publish
 ```
 
-_See code: [src/commands/apps/publish.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.11/src/commands/apps/publish.ts)_
+_See code: [src/commands/apps/publish.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.12/src/commands/apps/publish.ts)_
 
 ## `shipengine apps:test`
 
@@ -114,18 +115,19 @@ USAGE
   $ shipengine apps:test
 
 OPTIONS
-  -c, --concurrency=concurrency  [default: 1] specify the test concurrency
-  -d, --debug                    logs additional debug information
-  -f, --fail-fast                stop running the test suite on the first failed test
-  -g, --grep=grep                only run test that match this string (e.g. method name or test SHA)
-  -h, --help                     show help for the apps:test command
+  -d, --debug            logs additional debug information
+  -f, --fail-fast        stop running the test suite on the first failed test
+  -g, --grep=grep        only run test that match the given string
+  -h, --help             show help for the apps:test command
+  -r, --retries=retries  specify the retries for all the test
+  -t, --timeout=timeout  specify the timeout for all the test
 
 EXAMPLES
   $ shipengine apps:test
   $ shipengine apps:test --grep rateShipment
 ```
 
-_See code: [src/commands/apps/test.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.11/src/commands/apps/test.ts)_
+_See code: [src/commands/apps/test.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.12/src/commands/apps/test.ts)_
 
 ## `shipengine auth:login`
 
@@ -142,7 +144,7 @@ ALIASES
   $ shipengine login
 ```
 
-_See code: [src/commands/auth/login.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.11/src/commands/auth/login.ts)_
+_See code: [src/commands/auth/login.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.12/src/commands/auth/login.ts)_
 
 ## `shipengine auth:logout`
 
@@ -159,7 +161,7 @@ ALIASES
   $ shipengine logout
 ```
 
-_See code: [src/commands/auth/logout.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.11/src/commands/auth/logout.ts)_
+_See code: [src/commands/auth/logout.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.12/src/commands/auth/logout.ts)_
 
 ## `shipengine auth:whoami`
 
@@ -176,7 +178,24 @@ ALIASES
   $ shipengine whoami
 ```
 
-_See code: [src/commands/auth/whoami.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.11/src/commands/auth/whoami.ts)_
+_See code: [src/commands/auth/whoami.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.12/src/commands/auth/whoami.ts)_
+
+## `shipengine carriers:list`
+
+list the carriers associated with your account
+
+```
+USAGE
+  $ shipengine carriers:list
+
+OPTIONS
+  -h, --help  show help for the carriers:list command
+
+ALIASES
+  $ shipengine list
+```
+
+_See code: [src/commands/carriers/list.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.12/src/commands/carriers/list.ts)_
 
 ## `shipengine help [COMMAND]`
 
@@ -193,5 +212,5 @@ OPTIONS
   --all  see all commands in CLI
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.1.0/src/commands/help.ts)_
 <!-- commandsstop -->
