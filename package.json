@@ -1,7 +1,7 @@
 {
   "name": "@shipengine/cli",
   "description": "A CLI tool for working with your ShipEngine account.",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "author": {
     "name": "ShipEngine",
     "email": "support@shipengine.com",
@@ -23,6 +23,7 @@
     "@shipengine/integration-platform-sdk": "0.0.30",
     "axios": "^0.19.2",
     "chalk": "^4.1.0",
+    "chai": "^4.2.0",
     "escape-string-regexp": "^4.0.0",
     "form-data": "^3.0.0",
     "fs-extra": "^9.0.1",
@@ -68,7 +69,6 @@
     "@types/yeoman-environment": "^2.3.3",
     "@types/yeoman-generator": "^3.1.4",
     "@types/yeoman-test": "^2.0.4",
-    "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "chai-fs": "^2.0.0",
     "eslint": "^5.16.0",
