@@ -33,14 +33,12 @@ export class RateShipmentWithOneService extends Suite {
     }
 
     else if (carrierApp.deliveryServices) {
-
       for (let ds of carrierApp.deliveryServices) {
         let [shipFrom, shipTo] = useShipmentAddresses(ds);
         if (shipFrom && shipTo) {
           this.deliveryService = ds;
         }
       }
-
     }
   }
 
