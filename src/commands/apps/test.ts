@@ -1,6 +1,7 @@
 import BaseCommand from "../../base-command";
 import testApp from "../../core/test-app";
 import { flags } from "@oclif/command";
+import { buildTypescriptApp } from '../../core/publish-app/build-typescript-app';
 export default class Test extends BaseCommand {
   static description = "test your app";
 
@@ -41,6 +42,8 @@ export default class Test extends BaseCommand {
     const { flags } = this.parse(Test);
     const { "fail-fast": failFast, debug, grep, retries, timeout } = flags;
     const pathToApp = process.cwd();
+
+    await buildTypescriptApp();
 
     const results = await testApp(pathToApp, {
       debug,
