@@ -64,7 +64,7 @@ function isCarrierApp(definition: AppDefinition): definition is CarrierAppDefini
     }
   }
 
-  const optionalOrderProperties = ["getSeller", "getSalesOrder", "getSalesOrdersByDate", "shipmentCreated", "shipmentCancelled"];
+  const optionalOrderProperties = ["getSalesOrdersByDate", "shipmentCreated", "shipmentCancelled"];
 
   for (let property of optionalOrderProperties) {
     if (property in definition) {

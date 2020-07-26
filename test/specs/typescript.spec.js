@@ -69,8 +69,6 @@ describe("TypeScript apps", () => {
     expect(app.settingsForm.dataSchema.title).to.equal("Order One Settings");
 
     expect(app.connect).to.be.a("function");
-    expect(app.getSeller).to.be.a("function");
-    expect(app.getSalesOrder).to.be.a("function");
     expect(app.getSalesOrdersByDate).to.be.a("function");
   });
 

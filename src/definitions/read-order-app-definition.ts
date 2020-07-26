@@ -11,8 +11,6 @@ definition: InlineOrReference<OrderAppDefinition>, cwd: string, manifest: AppMan
 
   return {
     ...(await readConnectionAppDefinition(definition, cwd, manifest)),
-    getSeller: await readDefinitionValue(definition.getSeller, cwd, `getSeller method`),
-    getSalesOrder: await readDefinitionValue(definition.getSalesOrder, cwd, `getSalesOrder method`),
     getSalesOrdersByDate:
       await readDefinitionValue(definition.getSalesOrdersByDate, cwd, `getSalesOrdersByDate method`),
     shipmentCreated: await readDefinitionValue(definition.shipmentCreated, cwd, `shipmentCreated method`),

@@ -12,8 +12,6 @@ const config: OrderAppDefinition = {
   settingsForm: "../../../../configs/forms/settings-form.json",
 
   connect: "../../../../modules/methods/login.js",
-  getSeller: "../../../../modules/methods/get-seller.js",
-  getSalesOrder: "../../../../modules/methods/get-sales-order.js",
   getSalesOrdersByDate: "../../../../modules/methods/get-sales-orders-by-date.js",
 
 };
