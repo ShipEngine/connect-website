@@ -1,4 +1,11 @@
-import { OrderAppDefinition } from "@shipengine/integration-platform-sdk";
+import { 
+  OrderAppDefinition, 
+  InlineOrReference, 
+  GetSalesOrdersByDate, 
+  ShipmentCreated, 
+  ShipmentCancelled, 
+  Connect 
+} from "@shipengine/integration-platform-sdk";
 
 const orderSource: OrderAppDefinition = {
   id: "<%- _uuidv4 %>",
@@ -9,12 +16,10 @@ const orderSource: OrderAppDefinition = {
   connectionForm: import("./forms/connect"),
   settingsForm: import("./forms/settings"),
 
-  connect: import("./methods/connect"),
-  getSeller: import("./methods/get-seller"),
-  getSalesOrder: import("./methods/get-sales-order"),
-  getSalesOrdersByDate: import("./methods/get-sales-order-by-date"),
-  shipmentCreated: import("./methods/shipment-created"),
-  shipmentCancelled: import("./methods/shipment-cancelled")
+  connect: import("./methods/connect") as InlineOrReference<Connect>,
+  getSalesOrdersByDate: import("./methods/get-sales-order-by-date") as InlineOrReference<GetSalesOrdersByDate>,
+  shipmentCreated: import("./methods/shipment-created") as InlineOrReference<ShipmentCreated>,
+  shipmentCancelled: import("./methods/shipment-cancelled") as InlineOrReference<ShipmentCancelled>
 }
 
 export default orderSource;

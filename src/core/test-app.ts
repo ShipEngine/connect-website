@@ -146,9 +146,7 @@ function registerTestSuiteModules(app: SdkApp): RegisteredTestSuiteModules {
   };
 
   const orderAppMethods = {
-    // getSalesOrder: [GetSalesOrderTestSuite],
     // getSalesOrdersByDate: [GetSalesOrdersByDateTestSuite],
-    // getSeller: [GetSellerTestSuite],
     // shipmentCancelled: [ShipmentCancelledTestSuite],
     // shipmentCreated: [ShipmentCreatedTestSuite],
   };
