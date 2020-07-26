@@ -1,14 +1,15 @@
 {
   "compilerOptions": {
-    "declaration": true,
-    "importHelpers": true,
-    "module": "commonjs",
-    "sourceMap": true,
-    "outDir": "lib",
-    "rootDir": "src",
-    "strict": true,
     "target": "es2017",
-    "esModuleInterop": true
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "lib",
+    "sourceMap": true
   },
-  "include": ["src/**/*"]
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

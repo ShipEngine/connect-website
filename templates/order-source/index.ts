@@ -16,10 +16,10 @@ const orderSource: OrderAppDefinition = {
   connectionForm: import("./forms/connect"),
   settingsForm: import("./forms/settings"),
 
-  connect: import("./methods/connect") as InlineOrReference<Connect>,
-  getSalesOrdersByDate: import("./methods/get-sales-order-by-date") as InlineOrReference<GetSalesOrdersByDate>,
-  shipmentCreated: import("./methods/shipment-created") as InlineOrReference<ShipmentCreated>,
-  shipmentCancelled: import("./methods/shipment-cancelled") as InlineOrReference<ShipmentCancelled>
+  connect: import("./methods/connect"),
+  getSalesOrdersByDate: import("./methods/get-sales-order-by-date"),
+  shipmentCreated: import("./methods/shipment-created"),
+  shipmentCancelled: import("./methods/shipment-cancelled")
 }
 
 export default orderSource;
