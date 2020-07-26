@@ -8,7 +8,7 @@ const pojo = require("../../../utils/pojo");
 const { expect } = require("chai");
 const sinon = require("sinon");
 
-describe("The create shipment domestic test suite", () => {
+describe.skip("The create shipment domestic test suite", () => {
 
   describe("when there is no domestic service", () => {
 
