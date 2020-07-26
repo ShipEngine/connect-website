@@ -13,7 +13,6 @@ import { readFile } from "./read-file";
  *    - a YAML file path
  *    - a JSON file path
  *    - a JavaScript file path
- *    - a TypeScript file path
  *    - a dynamic import via `require()` or `import()`
  */
 export async function readDefinitionValue<T>(definition: InlineOrReference<T>, cwd: string, fieldName: string): Promise<T> {
@@ -29,7 +28,6 @@ export async function readDefinitionValue<T>(definition: InlineOrReference<T>, c
  *    - a YAML file path
  *    - a JSON file path
  *    - a JavaScript file path
- *    - a TypeScript file path
  *    - a dynamic import via `require()` or `import()`
  *
  * @returns A tuple containing the definition value and the directory path of the definition file
@@ -48,7 +46,6 @@ export async function readDefinitions<T>(definition: InlineOrReferenceArray<T>, 
  *    - a YAML file path
  *    - a JSON file path
  *    - a JavaScript file path
- *    - a TypeScript file path
  *    - a dynamic import via `require()` or `import()`
  *
  * @returns A tuple containing the definition value and the directory path of the definition file
