@@ -2,7 +2,6 @@ import { AppManifestPOJO, ConnectionAppDefinition, ConnectionAppPOJO } from "@sh
 import * as path from "path";
 import { readDefinitionValue } from "../read-definition";
 import { readFormDefinition } from "./read-form-definition";
-import { readLocalizationDefinition } from "./read-localization-definition";
 
 /**
  * Reads a ShipEngine Integration Platform connection definition
@@ -15,7 +14,6 @@ definition: ConnectionAppDefinition, cwd: string, manifest: AppManifestPOJO): Pr
     logo: path.resolve(cwd, definition.logo),
     connectionForm: await readFormDefinition(definition.connectionForm, cwd, `connectionForm`),
     settingsForm: await readFormDefinition(definition.settingsForm, cwd, `settingsForm`),
-    connect: await readDefinitionValue(definition.connect, cwd, `connect method`),
-    localization: await readLocalizationDefinition(definition.localization, cwd, `app localization`),
+    connect: await readDefinitionValue(definition.connect, cwd, `connect method`)
   };
 }

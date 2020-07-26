@@ -30,7 +30,7 @@ export async function loadApp(appPath: string = "."): Promise<App> {
       return new sdk.CarrierApp(pojo);
     }
     else {
-      let pojo = await readOrderAppDefinition(definition as OrderAppDefinition, definitionPath, manifest);
+      let pojo = await readOrderAppDefinition(definition, definitionPath, manifest);
       return new sdk.OrderApp(pojo);
     }
   }

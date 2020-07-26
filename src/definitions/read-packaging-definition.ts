@@ -1,6 +1,5 @@
 import { InlineOrReference, InlineOrReferenceArray, PackagingDefinition, PackagingPOJO } from "@shipengine/integration-platform-sdk";
 import { readDefinitions, readDefinitionValue } from "../read-definition";
-import { readLocalizationDefinition } from "./read-localization-definition";
 
 /**
  * Reads a packaging definition
@@ -9,10 +8,7 @@ export async function readPackagingDefinition(
 definition: InlineOrReference<PackagingDefinition>, cwd: string, fieldName: string): Promise<PackagingPOJO> {
   definition = await readDefinitionValue(definition, cwd, fieldName);
 
-  return {
-    ...definition,
-    localization: await readLocalizationDefinition(definition.localization, cwd, `${fieldName}.localization`),
-  };
+  return definition;
 }
 
 /**

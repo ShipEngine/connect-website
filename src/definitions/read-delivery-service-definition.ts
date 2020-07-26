@@ -1,7 +1,6 @@
 import { DeliveryServiceDefinition, DeliveryServicePOJO, InlineOrReference, InlineOrReferenceArray } from "@shipengine/integration-platform-sdk";
 import { readDefinition, readDefinitions, readDefinitionValue } from "../read-definition";
 import { readDeliveryConfirmationArrayDefinition } from "./read-delivery-confirmation-definition";
-import { readLocalizationDefinition } from "./read-localization-definition";
 import { readPackingArrayDefinition } from "./read-packaging-definition";
 
 /**
@@ -18,8 +17,7 @@ definition: InlineOrReference<DeliveryServiceDefinition>, cwd: string, fieldName
     originCountries: await readDefinitionValue(definition.originCountries, cwd, `${fieldName}.originCountries`),
     destinationCountries: await readDefinitionValue(definition.destinationCountries, cwd, `${fieldName}.destinationCountries`),
     packaging: await readPackingArrayDefinition(definition.packaging, cwd, `${fieldName}.packaging`),
-    deliveryConfirmations: await readDeliveryConfirmationArrayDefinition(definition.deliveryConfirmations, cwd, `${fieldName}.deliveryConfirmations`),
-    localization: await readLocalizationDefinition(definition.localization, cwd, `${fieldName}.localization`),
+    deliveryConfirmations: await readDeliveryConfirmationArrayDefinition(definition.deliveryConfirmations, cwd, `${fieldName}.deliveryConfirmations`)
   };
 }
 

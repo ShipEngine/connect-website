@@ -1,6 +1,5 @@
 import { FormDefinition, FormPOJO, InlineOrReference } from "@shipengine/integration-platform-sdk";
 import { readDefinition, readDefinitionValue } from "../read-definition";
-import { readLocalizationDefinition } from "./read-localization-definition";
 
 /**
  * Reads a form definition
@@ -17,13 +16,7 @@ definition: InlineOrReference<FormDefinition> | undefined, cwd: string, fieldNam
     return {
       ...definition,
       dataSchema: await readDefinitionValue(definition.dataSchema, cwd, `${fieldName}.dataSchema`),
-      uiSchema: await readDefinitionValue(definition.uiSchema, cwd, `${fieldName}.uiSchema`),
-      localization: await readLocalizationDefinition(definition.localization, cwd, `${fieldName}.localization`,
-        async ({ dataSchema, uiSchema }, localeCWD, localeFieldName) => ({
-          dataSchema: await readDefinitionValue(dataSchema, localeCWD, `${localeFieldName}.dataSchema`),
-          uiSchema: await readDefinitionValue(uiSchema, localeCWD, `${localeFieldName}.uiSchema`),
-        })
-      ),
+      uiSchema: await readDefinitionValue(definition.uiSchema, cwd, `${fieldName}.uiSchema`)
     };
   }
 }
