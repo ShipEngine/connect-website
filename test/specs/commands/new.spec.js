@@ -11,15 +11,15 @@ const double = {
   register: () => {},
 };
 
-describe("apps:new", () => {
+describe("the new command", () => {
   beforeEach(() => {
     sinon.stub(yeomanEnv, "createEnv").returns(double);
   });
 
   test
     .stdout()
-    .command(["apps:new"])
-    .it("calls the apps:new generator with the given args and flags", (ctx) => {
+    .command(["new"])
+    .it("calls the new generator with the given args and flags", (ctx) => {
       expect(ctx.stdout).to.contain("Time to build a ShipEngine app!\n");
     });
 

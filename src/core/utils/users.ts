@@ -2,7 +2,7 @@ import { Domain } from '../api-key-store';
 import BaseCommand from '../../base-command';
 import * as ApiKeyStore from "../../core/api-key-store";
 import cli from "cli-ux";
-import Login from '../../commands/auth/login';
+import Login from '../../commands/login';
 
 export async function setUser(domain: Domain, apiKey: string, baseCommand: BaseCommand): Promise<void> {
   try {

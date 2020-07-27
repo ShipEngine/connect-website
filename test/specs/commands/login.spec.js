@@ -2,7 +2,7 @@
 
 const { expect, test } = require("@oclif/test");
 const cli = require("cli-ux").default;
-const ApiKeyStore = require("../../../../lib/core/api-key-store");
+const ApiKeyStore = require("../../../lib/core/api-key-store");
 
 describe("The auth:login command", () => {
 

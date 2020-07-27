@@ -4,7 +4,7 @@ import { flags } from "@oclif/command";
 export default class VersionsIndex extends BaseCommand {
   static description = "list versions belonging to an app";
 
-  static examples = ["$ shipengine apps:versions"];
+  static examples = ["$ shipengine versions"];
 
   static flags = {
     help: flags.help({ char: "h" }),

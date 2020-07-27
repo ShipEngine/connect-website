@@ -1,6 +1,6 @@
-import BaseCommand from "../../base-command";
+import BaseCommand from "../base-command";
 import { flags } from "@oclif/command";
-import { clearUser } from '../../core/utils/users';
+import { clearUser } from "../core/utils/users";
 
 export default class Logout extends BaseCommand {
   static description = "clears the local Integrations API key";

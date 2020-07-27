@@ -1,7 +1,7 @@
 "use strict";
 
 const { expect, test } = require("@oclif/test");
-const ApiKeyStore = require("../../../../lib/core/api-key-store");
+const ApiKeyStore = require("../../../lib/core/api-key-store");
 
 describe("The auth:logout command", () => {
 

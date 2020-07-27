@@ -1,4 +1,4 @@
-import BaseCommand from "../../base-command";
+import BaseCommand from "../base-command";
 import { flags } from "@oclif/command";
 
 export default class Whoami extends BaseCommand {

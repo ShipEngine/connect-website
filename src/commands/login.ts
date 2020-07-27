@@ -1,9 +1,9 @@
-import BaseCommand from "../../base-command";
+import BaseCommand from "../base-command";
 import { flags } from "@oclif/command";
 import cli from "cli-ux";
-import * as ApiKeyStore from "../../core/api-key-store";
-import { Domain } from '../../core/api-key-store';
-import { setUser } from '../../core/utils/users';
+import * as ApiKeyStore from "../core/api-key-store";
+import { Domain } from '../core/api-key-store';
+import { setUser } from '../core/utils/users';
 
 export default class Login extends BaseCommand {
   static description = "login with your Integrations API key";

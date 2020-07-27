@@ -6,7 +6,7 @@ const path = require("path");
 const pathToGenerator = "../../../../lib/core/generators/apps-new";
 const AppsNew = require(pathToGenerator);
 
-describe("apps:new generator", () => {
+describe("new generator", () => {
   /**
    * The yeoman generator tests alter the cwd of the mocha process. Need to change it back
    * to the original otherwise could cause unintended side effects to other tests.
@@ -26,7 +26,7 @@ describe("apps:new generator", () => {
         return helpers
           .run(AppsNew, {
             resolved: path.join(__dirname, pathToGenerator),
-            namespace: "apps:new",
+            namespace: "new",
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
@@ -71,7 +71,7 @@ describe("apps:new generator", () => {
         return helpers
           .run(AppsNew, {
             resolved: path.join(__dirname, pathToGenerator),
-            namespace: "apps:new",
+            namespace: "new",
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
@@ -125,7 +125,7 @@ describe("apps:new generator", () => {
         return helpers
           .run(AppsNew, {
             resolved: path.join(__dirname, pathToGenerator),
-            namespace: "apps:new",
+            namespace: "new",
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
@@ -179,7 +179,7 @@ describe("apps:new generator", () => {
         return helpers
           .run(AppsNew, {
             resolved: path.join(__dirname, pathToGenerator),
-            namespace: "apps:new",
+            namespace: "new",
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
@@ -235,7 +235,7 @@ describe("apps:new generator", () => {
         return helpers
           .run(AppsNew, {
             resolved: path.join(__dirname, pathToGenerator),
-            namespace: "apps:new",
+            namespace: "new",
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
@@ -283,7 +283,7 @@ describe("apps:new generator", () => {
         return helpers
           .run(AppsNew, {
             resolved: path.join(__dirname, pathToGenerator),
-            namespace: "apps:new",
+            namespace: "new",
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
@@ -333,7 +333,7 @@ describe("apps:new generator", () => {
         return helpers
           .run(AppsNew, {
             resolved: path.join(__dirname, pathToGenerator),
-            namespace: "apps:new",
+            namespace: "new",
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
@@ -372,7 +372,7 @@ describe("apps:new generator", () => {
         return helpers
           .run(AppsNew, {
             resolved: path.join(__dirname, pathToGenerator),
-            namespace: "apps:new",
+            namespace: "new",
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
@@ -419,7 +419,7 @@ describe("apps:new generator", () => {
         return helpers
           .run(AppsNew, {
             resolved: path.join(__dirname, pathToGenerator),
-            namespace: "apps:new",
+            namespace: "new",
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
@@ -466,7 +466,7 @@ describe("apps:new generator", () => {
         return helpers
           .run(AppsNew, {
             resolved: path.join(__dirname, pathToGenerator),
-            namespace: "apps:new",
+            namespace: "new",
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
@@ -515,7 +515,7 @@ describe("apps:new generator", () => {
         return helpers
           .run(AppsNew, {
             resolved: path.join(__dirname, pathToGenerator),
-            namespace: "apps:new",
+            namespace: "new",
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
@@ -555,7 +555,7 @@ describe("apps:new generator", () => {
         return helpers
           .run(AppsNew, {
             resolved: path.join(__dirname, pathToGenerator),
-            namespace: "apps:new",
+            namespace: "new",
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })

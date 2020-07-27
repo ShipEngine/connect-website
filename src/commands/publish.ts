@@ -1,20 +1,20 @@
-import BaseCommand from "../../base-command";
+import BaseCommand from "../base-command";
 import Test from "./test";
-import publishApp from "../../core/publish-app";
+import publishApp from "../core/publish-app";
 import { flags } from "@oclif/command";
-import { checkAppLoginStatus } from '../../core/utils/users';
+import { checkAppLoginStatus } from "../core/utils/users";
 
 export default class Publish extends BaseCommand {
   static description = "publish your app";
 
-  static examples = ["$ shipengine apps:publish"];
+  static examples = ["$ shipengine publish"];
 
   // TODO: come up with a convention for turning off spinners if the user desires
   // TODO: implement a quiet command?
   static flags = {
     help: flags.help({
       char: "h",
-      description: "show help for the apps:publish command",
+      description: "show help for the publish command",
     }),
     watch: flags.boolean({
       char: "w",
