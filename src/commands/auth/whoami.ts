@@ -18,27 +18,12 @@ export default class Whoami extends BaseCommand {
     this.parse(Whoami);
 
     let appUser;
-    let shipEngineUser;
-
-    if (this.shipengineClient) {
-      shipEngineUser = await this.currentShipEngineUser();
+    if(this.appsClient) {
+      appUser = await this.currentUser();
     }
 
-    if (this.appsClient) {
-      appUser = await this.currentAppUser();
-    }
-
-    if (appUser && shipEngineUser) {
-      this.log(`\nyou are currently logged in as the following:\n`);
-
-      this.log(`shipengine ⚙ : ${shipEngineUser.username}`);
-      this.log(`integrations : ${appUser.name}`);
-    }
-    else if (appUser) {
+    if (appUser) {
       this.log(`\nyou are currently logged in as: ${appUser.name}`);
-    }
-    else if (shipEngineUser) {
-      this.log(`\nyou are currently logged in as: ${shipEngineUser.username}`);
     }
     else {
       return this.error("\nyou are not currently logged in", {

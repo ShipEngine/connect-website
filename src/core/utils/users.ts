@@ -13,33 +13,18 @@ export async function setUser(domain: Domain, apiKey: string, baseCommand: BaseC
   }
 }
 
-export function clearUser(domain: Domain): void {
-  if (domain === Domain.ShipEngine) {
-    cli.action.start("logging out of shipengine  ⚙ ");
-    ApiKeyStore.clear(Domain.ShipEngine);
-    cli.action.stop();
-  }
-  else {
-    cli.action.start("logging out of integrations");
-    ApiKeyStore.clear(Domain.Apps);
-    cli.action.stop();
-  }
+export function clearUser(): void {
+  cli.action.start("logging out of integrations");
+  ApiKeyStore.clear(Domain.Apps);
+  cli.action.stop();
 }
 
 export async function checkAppLoginStatus(baseCommand: BaseCommand): Promise<void> {
   try {
-    await baseCommand.currentAppUser();
+    await baseCommand.currentUser();
   } catch {
     baseCommand.log("you need to login before you can access your apps");
     await Login.run([]);
   }
 }
 
-export async function checkShipEngineLoginStatus(baseCommand: BaseCommand): Promise<void> {
-  try {
-    await baseCommand.currentShipEngineUser();
-  } catch {
-    baseCommand.log("you need to login before you can access the ShipEngine API");
-    await Login.run([]);
-  }
-}

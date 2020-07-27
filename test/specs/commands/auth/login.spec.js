@@ -10,7 +10,6 @@ describe("The auth:login command", () => {
 
     beforeEach(() => {
       ApiKeyStore.clear("apps");
-      ApiKeyStore.clear("shipengine");
     });
 
     test
@@ -28,34 +27,6 @@ describe("The auth:login command", () => {
 
   });
 
-  describe("when a valid ShipEngine API Key is entered", () => {
-    test
-      .nock("https://api.shipengine.com", (api) =>
-        api
-          .get("/v1/environment/whoami")
-          .reply(200, { data: { username: "123456" } }),
-      )
-      .stub(cli, "prompt", () => async () => "se_123456")
-      .stdout()
-      .command(["login"])
-      .it("runs login when given a valid ShipEngine API KEY", (ctx) => {
-        expect(ctx.stdout).to.contain("\nyou have logged in with a shipengine ⚙  API key");
-      });
-  });
-
-  describe("when an invalid ShipEngine API Key is entered", () => {
-    test
-      .nock("https://api.shipengine.com", (api) =>
-        api
-          .get("/v1/environment/whoami")
-          .reply(401),
-      )
-      .stub(cli, "prompt", () => async () => "se_123455")
-      .command(["login"])
-      .exit(1)
-      .it("exits with a status code of 1");
-  });
-
   describe("when an invalid Apps API Key is entered", () => {
     test
       .nock("https://dip-webapi-dev.kubedev.sslocal.com", (api) =>
@@ -67,29 +38,6 @@ describe("The auth:login command", () => {
       .command(["login"])
       .exit(1)
       .it("exits with a status code of 1");
-  });
-
-  describe("when a re-login for a ShipEngine API Key occurs", () => {
-    beforeEach(() => {
-      ApiKeyStore.clear("apps");
-      ApiKeyStore.clear("shipengine");
-      ApiKeyStore.set("shipengine", "test_123456");
-    });
-
-    test
-      .nock("https://api.shipengine.com", (api) =>
-        api
-          .get("/v1/environment/whoami")
-          .reply(200, { data: { username: "new_123456" } })
-      )
-      .stub(cli, "prompt", () => async () => "newSE_12345")
-      .stdout()
-      .command(["login"])
-      .it("should login with the new valid ShipEngine API KEY", (ctx) => {
-        const seToken = ApiKeyStore.get("shipengine");
-        expect(seToken).to.equal("newSE_12345");
-        expect(ctx.stdout).to.contain("\nyou have logged in with a shipengine ⚙  API key");
-      });
   });
 
   describe("when a re-login for an Apps API Key occurs", () => {

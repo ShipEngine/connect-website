@@ -6,7 +6,7 @@ import { Domain } from '../../core/api-key-store';
 import { setUser } from '../../core/utils/users';
 
 export default class Login extends BaseCommand {
-  static description = "login with your ShipEngine API key";
+  static description = "login with your Integrations API key";
 
   static aliases = ["login"];
 
@@ -28,31 +28,15 @@ export default class Login extends BaseCommand {
       }
     );
 
-    const isShipEngine = typeof apiKey === "string" && !apiKey.includes("app_");
-
-    if (isShipEngine) {
-      await setUser(Domain.ShipEngine, apiKey, this);
-    }
-    else {
-      await setUser(Domain.Apps, apiKey, this);
-    }
+    await setUser(Domain.Apps, apiKey, this);
 
     try {
       cli.action.start("verifying account");
-      if (isShipEngine) {
-        await this.currentShipEngineUser();
-      }
-      else {
-        await this.currentAppUser();
-      }
+      await this.currentUser();
       // Would rather use a /ping or /status endpoint here
     } catch {
-      if (isShipEngine) {
-        ApiKeyStore.clear(Domain.ShipEngine);
-      }
-      else {
-        ApiKeyStore.clear(Domain.Apps);
-      }
+
+      ApiKeyStore.clear(Domain.Apps);
       return this.error("the given API key is not valid", {
         exit: 1,
       });
@@ -60,11 +44,6 @@ export default class Login extends BaseCommand {
       cli.action.stop();
     }
 
-    if(isShipEngine) {
-      this.log("\nyou have logged in with a shipengine ⚙  API key");
-    }
-    else {
-      this.log("\nyou have logged in with an integrations API key");
-    }
+    this.log("\nyou have logged in with an Integrations API key");
   }
 }
