@@ -23,6 +23,8 @@ export async function readFile<T>(filePath: string): Promise<T> {
     case ".js":
     case ".mjs":
       return importJavaScriptModule(filePath);
+    case ".ts":
+      throw new Error(`Invalid file reference "${filePath}. Reference the compiled Javascript file instead of the Typescript source file.`);
 
     default:
       return readTextFile(filePath) as unknown as T;
