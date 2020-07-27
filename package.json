@@ -22,8 +22,6 @@
     "@shipengine/integration-platform-loader": "0.0.28",
     "@shipengine/integration-platform-sdk": "0.0.29",
     "axios": "^0.19.2",
-    "chai": "^4.2.0",
-    "chai-as-promised": "^7.1.1",
     "chalk": "^4.1.0",
     "escape-string-regexp": "^4.0.0",
     "form-data": "^3.0.0",
