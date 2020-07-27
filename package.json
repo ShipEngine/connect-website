@@ -1,6 +1,6 @@
 {
-  "name": "@shipengine/cli",
-  "description": "A CLI tool for working with your ShipEngine account.",
+  "name": "@shipengine/integration-platform-cli",
+  "description": "A CLI tool for working with your ShipEngine Integration account.",
   "version": "0.0.14",
   "author": {
     "name": "ShipEngine",
@@ -10,7 +10,7 @@
   "bin": {
     "shipengine": "./bin/run"
   },
-  "bugs": "https://github.com/ShipEngine/shipengine-cli/issues",
+  "bugs": "https://github.com/ShipEngine/shipengine-integration-platform-cli/issues",
   "dependencies": {
     "@oclif/command": "^1.7.0",
     "@oclif/config": "^1.16.0",
