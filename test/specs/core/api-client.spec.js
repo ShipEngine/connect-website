@@ -2,7 +2,7 @@
 "use strict";
 
 const { expect } = require("chai");
-const AppsApiClient = require("../../../lib/core/apps-api-client")
+const AppsApiClient = require("../../../lib/core/api-client")
   .default;
 const apiMock = require("../api-mock");
 const path = require("path");

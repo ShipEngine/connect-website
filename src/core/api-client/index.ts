@@ -16,7 +16,7 @@ export interface ApiClientParams {
  * Create an instance of the IntegrationsAPIClient.
  * @param {string} apiKey A valid API key.
  */
-export default class AppsAPIClient {
+export default class APIClient {
   apps: Apps;
   deployments: Deployments;
   diagnostics: Diagnostics;

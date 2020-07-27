@@ -22,7 +22,7 @@ describe("The auth:login command", () => {
       .stdout()
       .command(["login"])
       .it("runs login when given a valid Apps API KEY", (ctx) => {
-        expect(ctx.stdout).to.contain("\nyou have logged in with an integrations API key\n");
+        expect(ctx.stdout).to.contain("\nyou have logged in with an Integrations API key\n");
       });
 
   });
@@ -59,7 +59,7 @@ describe("The auth:login command", () => {
       .it("should login with the new valid ShipEngine API KEY", (ctx) => {
         const appToken = ApiKeyStore.get("apps");
         expect(appToken).to.equal("app_98765");
-        expect(ctx.stdout).to.contain("\nyou have logged in with an integrations API key\n");
+        expect(ctx.stdout).to.contain("\nyou have logged in with an Integrations API key\n");
       });
   });
 });

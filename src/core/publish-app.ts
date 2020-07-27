@@ -1,4 +1,4 @@
-import AppsAPIClient from "./apps-api-client";
+import APIClient from "./api-client";
 import cli from "cli-ux";
 import fs from "fs";
 import logSymbols from "log-symbols";
@@ -38,7 +38,7 @@ interface PublishAppOptions {
 
 export default async function publishApp(
   pathToApp: string,
-  client: AppsAPIClient,
+  client: APIClient,
   { watch = false }: PublishAppOptions,
 ): Promise<Deployment> {
 
