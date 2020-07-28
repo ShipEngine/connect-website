@@ -288,8 +288,8 @@ const mapShippingService = (
     Name: service.name,
     Abbreviation: service.name?.substring(0, 4), // This is not sent to us, since there is no product layer that can update this, we will initialize it to be a substring
     SupportedCountries: mapCountries(service.countries),
-    Code: service.id, // We are mapping to the id because when the module gets called
-    LabelCode: service.id, // We are mapping the LabelCode to the ServiceID, since this is hidden in the new spec
+    Code: 'BROKEN', // TODO: Update DX Spec to work off the shipping service code and not the guid
+    LabelCode: undefined, // TODO: Update dx spec to use label code.
     ServiceAttributes: mapShippingServiceAttributes(service),
     SupportedLabelSizes: mapSupportedLabelSize(service.labelSizes),
     Class: mapClass(service.class),
