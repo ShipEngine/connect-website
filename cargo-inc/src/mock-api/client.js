@@ -8,6 +8,7 @@ const voidLabels = require("./void-labels");
 const locationHistory = require("./location-history");
 const pickUp = require("./pick-up");
 const { pickUpCancellation } = require("./pickup-cancellation");
+const { generateEOD } = require("./generate-eod");
 
 // Read config values from environment variables
 const API_URL = process.env.API_URL || "https://httpbin.org/anything";
@@ -56,6 +57,9 @@ const apiClient = axios.create({
 
       case "pick_up_cancellation":
         return pickUpCancellation(request);
+
+      case "generate_eod":
+        return generateEOD(request);
     }
   }
 });

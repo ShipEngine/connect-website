@@ -11,10 +11,12 @@ trackShipment: src/track-shipment.js
 cancelShipments: src/cancel-shipments.js
 schedulePickup: src/schedule-pickup.js
 cancelPickups: src/cancel-pickups.js
+createManifest: src/create-manifest.js
 
 connectionForm: forms/connect.json
 settingsForm: forms/settings.json
 
+manifestLocations: all_shipments
 deliveryServices:
   - delivery-services/international-standard.yaml
   - delivery-services/international-economy.yaml
@@ -25,16 +27,3 @@ pickupServices:
   - pickup-services/flex-pickup.yaml
   - pickup-services/next-day.yaml
   - pickup-services/same-day.yaml
-
-localization:
-  en-GB:
-    websiteURL: https://cargo-inc.co.uk
-
-  es:
-    description: Cargo Incorporated es el líder mundial en carga aérea.
-    websiteURL: https://cargo-inc.net/es/
-
-  zh:
-    name: 货运公司
-    description: 货运公司是航空货运的全球领导者。
-    websiteURL: https://cargo-inc.cn
