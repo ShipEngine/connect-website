@@ -1,7 +1,8 @@
 import axios, { Method, AxiosRequestConfig } from "axios";
+import Apps from "./resources/apps";
+import Deployments from "./resources/deployments";
 import Diagnostics from "./resources/diagnostics";
 import User from "./resources/user";
-import Carriers from './resources/carriers';
 
 export interface ApiClientParams {
   endpoint: string;
@@ -12,22 +13,24 @@ export interface ApiClientParams {
 }
 
 /**
- * Create an instance of the ShipEngineAPIClient.
+ * Create an instance of the IntegrationsAPIClient.
  * @param {string} apiKey A valid API key.
  */
-export default class ShipEngineAPIClient {
+export default class APIClient {
+  apps: Apps;
+  deployments: Deployments;
   diagnostics: Diagnostics;
   user: User;
   apiKey: string;
-  carriers: Carriers;
-  private _apiAuthority = "https://api.shipengine.com";
+  private _apiAuthority = "https://dip-webapi-dev.kubedev.sslocal.com/api";
 
   constructor(apiKey: string) {
     this.apiKey = apiKey;
 
+    this.apps = new Apps(this);
+    this.deployments = new Deployments(this);
     this.diagnostics = new Diagnostics(this);
     this.user = new User(this);
-    this.carriers = new Carriers(this);
   }
 
   async call({

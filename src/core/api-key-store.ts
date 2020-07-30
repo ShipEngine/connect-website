@@ -1,7 +1,6 @@
 import netrc from "netrc";
 
 export enum Domain {
-  ShipEngine = "shipengine",
   Apps = "apps"
 }
 

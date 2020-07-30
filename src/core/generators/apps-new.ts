@@ -238,7 +238,7 @@ class AppsNew extends Generator {
 
     if (this.answers.vscode) {
       this.pjson.scripts = {
-        debug: "cross-env NODE_OPTIONS=--inspect-brk shipengine apps:test",
+        debug: "cross-env NODE_OPTIONS=--inspect-brk shipengine test",
       };
     }
 

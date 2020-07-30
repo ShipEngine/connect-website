@@ -1,4 +1,4 @@
-import AppsAPIClient from "../apps-api-client";
+import APIClient from "../api-client";
 import { Deployment, DeploymentStatus, PlatformApp } from "../types";
 import { promisify } from "util";
 import * as readline from "readline";
@@ -30,7 +30,7 @@ function writeDeploymentInfo(deployment: Deployment, count: number) {
 export async function watchDeployment(
   deployment: Deployment,
   app: PlatformApp,
-  client: AppsAPIClient,
+  client: APIClient,
 ): Promise<DeploymentStatus> {
   let status = DeploymentStatus.Queued;
   let count = 0;
