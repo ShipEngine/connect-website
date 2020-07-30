@@ -19,7 +19,6 @@ async function schedulePickup(transaction, pickup) {
         session_id: transaction.session.id,
         service_code: pickup.pickupService.identifiers.apiCode,
         date_time: pickup.timeWindow.startDateTime,
-        zone: Number.parseInt(pickup.address.postalCode),
         contact_phone: pickup.contact.phoneNumber,
         total_weight: pickup.shipments.reduce((w, ship) => w + ship.package.weight.ounces, 0),
     };

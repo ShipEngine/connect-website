@@ -21,8 +21,6 @@ async function rateShipment(transaction, shipment) {
     parcel_codes: shipment.package.packaging.map((pkg) => pkg.identifiers.apiCode),
     ship_date: shipment.shipDateTime,
     delivery_date: shipment.deliveryDateTime,
-    from_zone: parseInt(shipment.shipFrom.postalCode, 10),
-    to_zone: parseInt(shipment.shipTo.postalCode, 10),
     total_weight: shipment.package.weight.ounces,
   };
 

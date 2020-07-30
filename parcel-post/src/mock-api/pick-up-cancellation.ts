@@ -9,7 +9,6 @@ export interface PickUpCancellationRequest {
     session_id: string;
     pick_up_id: string;
     service_code: string;
-    zone: number;
     reference: string;
   }>;
 }

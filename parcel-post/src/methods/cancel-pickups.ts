@@ -23,7 +23,6 @@ export default async function cancelPickups(
         session_id: transaction.session.id,
         pick_up_id: pickup.id,
         service_code: pickup.pickupService.identifiers.apiCode,
-        zone: Number.parseInt(pickup.address.postalCode),
         reference: pickup.reason,
       };
     })

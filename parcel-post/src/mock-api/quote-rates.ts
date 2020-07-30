@@ -21,13 +21,11 @@ const allConfirmations = {
 export interface QuoteRatesRequest {
   operation: "quote_rates";
   session_id: string;
-  service_codes: string[];
+  service_codes: string;
   confirmation_codes: string[];
   parcel_codes: string[];
   ship_date: string;
   delivery_date: string;
-  from_zone: number;
-  to_zone: number;
   total_weight: number;
 }
 

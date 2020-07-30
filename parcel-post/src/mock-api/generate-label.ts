@@ -8,8 +8,6 @@ export interface GenerateLabelRequest {
   service_code: string;
   confirmation_code: string;
   ship_date: string;
-  from_zone: number;
-  to_zone: number;
   total_weight: number;
 }
 
@@ -28,14 +26,13 @@ export interface GenerateLabelResponse {
 export function generateLabel(request: HttpRequest & GenerateLabelRequest): GenerateLabelResponse {
   let shipDate = new Date(request.ship_date);
   let weight = request.total_weight;
-  let zone = request.to_zone;
 
   return {
     tracking_number: Buffer.from(new Date().toISOString()).toString("base64").toUpperCase(),
     delivery_date: new Date(shipDate.setDate(shipDate.getDate() + 4)).toISOString(),
     shipment_cost: .97 * weight,
     confirmation_cost: 1.26,
-    location_cost: .000012 * zone,
+    location_cost: .000012 * Math.floor(Math.random() * (10)) + 1,
     image: fs.readFileSync(path.join(__dirname, "sample-label.pdf")).toString("base64"),
   }
 }

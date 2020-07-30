@@ -8,7 +8,6 @@ function pickUp(request) {
   let serviceCode = request.service_code;
   let dateTime = new Date(request.date_time);
   let weight = request.total_weight;
-  let zone = request.zone;
 
   switch (serviceCode) {
     case "SAMEDAY":
@@ -27,7 +26,7 @@ function pickUp(request) {
     date_time: dateTime.toISOString(),
     pickup_cost: .15 * weight,
     tax_cost: .03 * weight,
-    location_cost: .000012 * zone,
+    location_cost: .000012 * Math.floor(Math.random() * (10)) + 1,
   }
 }
 

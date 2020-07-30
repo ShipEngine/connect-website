@@ -21,8 +21,6 @@ async function createShipment(transaction, shipment) {
     service_code: shipment.deliveryService.identifiers.apiCode,
     confirmation_code: shipment.package.deliveryConfirmation.identifiers.apiCode,
     ship_date: shipment.shipDateTime,
-    from_zone: parseInt(shipment.shipFrom.postalCode, 10),
-    to_zone: parseInt(shipment.shipTo.postalCode, 10),
     total_weight: shipment.package.weight.ounces,
   };
 

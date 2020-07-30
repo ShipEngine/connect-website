@@ -6,7 +6,6 @@
 function generateEOD(request) {
   let shipDate = new Date(request.ship_date);
   let weight = request.total_weight;
-  let zone = request.to_zone;
 
   return {
     data: [
