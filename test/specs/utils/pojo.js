@@ -142,6 +142,7 @@ const pojo = module.exports = {
       ...pojo.shipmentIdentifier(),
       charges: [pojo.charge()],
       packages: [pojo.packageConfirmation()],
+      documents: [pojo.document()],
       ...props,
     };
   },
@@ -163,7 +164,7 @@ const pojo = module.exports = {
       shipFrom: pojo.addressWithContactInfo(),
       shipTo: pojo.addressWithContactInfo(),
       shipDateTime: new Date(),
-      packages: [pojo.salesOrderPackage()],
+      contents: [pojo.salesOrderPackageItem()],
       ...props,
     };
   },
@@ -185,7 +186,6 @@ const pojo = module.exports = {
   packageConfirmation (props = {}) {
     return {
       ...pojo.packageIdentifier(),
-      documents: [pojo.document()],
       ...props,
     };
   },
@@ -205,14 +205,6 @@ const pojo = module.exports = {
       packaging: {
         id: "44444444-4444-4444-4444-444444444444",
       },
-      ...props,
-    };
-  },
-
-  salesOrderPackage (props = {}) {
-    return {
-      ...pojo.packageIdentifier(),
-      contents: [pojo.salesOrderPackageItem()],
       ...props,
     };
   },
@@ -249,7 +241,6 @@ const pojo = module.exports = {
       stateProvince: "TX",
       postalCode: "78754",
       country: "US",
-      timeZone: "America/Chicago",
       ...props,
     };
   },
@@ -272,7 +263,6 @@ const pojo = module.exports = {
   quantity (props = {}) {
     return {
       value: 1,
-      unit: "ea",
       ...props,
     };
   },
@@ -342,13 +332,6 @@ const pojo = module.exports = {
     };
   },
 
-  sellerIdentifier (props = {}) {
-    return {
-      id: "DUMMY_SELLER_ID",
-      ...props,
-    };
-  },
-
   buyerIdentifier (props = {}) {
     return {
       id: "DUMMY_BUYER_ID",
@@ -397,7 +380,6 @@ const pojo = module.exports = {
       createdDateTime: "2005-05-05T05:05:05Z",
       status: "awaiting_shipment",
       shipTo: pojo.addressWithContactInfo(),
-      seller: pojo.sellerIdentifier(),
       buyer: pojo.buyer(),
       items: [pojo.salesOrderItem()],
       ...props,
@@ -410,14 +392,7 @@ const pojo = module.exports = {
       name: "My Item",
       quantity: pojo.quantity(),
       unitPrice: pojo.monetaryValue(),
-      ...props,
-    };
-  },
-
-  seller (props = {}) {
-    return {
-      ...pojo.sellerIdentifier(),
-      store: pojo.store(),
+      product: pojo.productIdentifier(),
       ...props,
     };
   },
