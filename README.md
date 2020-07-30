@@ -26,11 +26,11 @@
 
 <!-- usage -->
 ```sh-session
-$ npm install -g @shipengine/cli
+$ npm install -g @shipengine/integration-platform-cli
 $ shipengine COMMAND
 running command...
 $ shipengine (-v|--version|version)
-@shipengine/cli/0.0.14 linux-x64 node-v12.18.1
+@shipengine/integration-platform-cli/0.0.15 linux-x64 node-v12.18.1
 $ shipengine --help [COMMAND]
 USAGE
   $ shipengine COMMAND
@@ -41,161 +41,14 @@ USAGE
 # Commands
 
 <!-- commands -->
-* [`shipengine apps:info`](#shipengine-appsinfo)
-* [`shipengine apps:new [PATH]`](#shipengine-appsnew-path)
-* [`shipengine apps:publish`](#shipengine-appspublish)
-* [`shipengine apps:test`](#shipengine-appstest)
-* [`shipengine auth:login`](#shipengine-authlogin)
-* [`shipengine auth:logout`](#shipengine-authlogout)
-* [`shipengine auth:whoami`](#shipengine-authwhoami)
-* [`shipengine carriers:list`](#shipengine-carrierslist)
 * [`shipengine help [COMMAND]`](#shipengine-help-command)
-
-## `shipengine apps:info`
-
-list info for an app
-
-```
-USAGE
-  $ shipengine apps:info
-
-OPTIONS
-  -h, --help  show help for the apps:info commands
-```
-
-_See code: [src/commands/apps/info.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.14/src/commands/apps/info.ts)_
-
-## `shipengine apps:new [PATH]`
-
-create a new package to develop a custom ShipEngine app
-
-```
-USAGE
-  $ shipengine apps:new [PATH]
-
-ARGUMENTS
-  PATH  path to new package (defaults to current directory)
-
-OPTIONS
-  -f, --force  overwrite existing files
-  -h, --help   show help for the apps:new command
-  -y, --yes    skips the questions and uses the defaults (carrier|Javascript|yaml)
-
-EXAMPLE
-  $ shipengine apps:new
-```
-
-_See code: [src/commands/apps/new.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.14/src/commands/apps/new.ts)_
-
-## `shipengine apps:publish`
-
-publish your app
-
-```
-USAGE
-  $ shipengine apps:publish
-
-OPTIONS
-  -h, --help        show help for the apps:publish command
-  -s, --skip-tests  skip running the test before publishing
-  -w, --watch       check the status of the deployment until complete
-
-EXAMPLE
-  $ shipengine apps:publish
-```
-
-_See code: [src/commands/apps/publish.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.14/src/commands/apps/publish.ts)_
-
-## `shipengine apps:test`
-
-test your app
-
-```
-USAGE
-  $ shipengine apps:test
-
-OPTIONS
-  -d, --debug            logs additional debug information
-  -f, --fail-fast        stop running the test suite on the first failed test
-  -g, --grep=grep        only run test that match the given string
-  -h, --help             show help for the apps:test command
-  -r, --retries=retries  specify the retries for all the test
-  -t, --timeout=timeout  specify the timeout for all the test
-
-EXAMPLES
-  $ shipengine apps:test
-  $ shipengine apps:test --grep rateShipment
-```
-
-_See code: [src/commands/apps/test.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.14/src/commands/apps/test.ts)_
-
-## `shipengine auth:login`
-
-login with your ShipEngine API key
-
-```
-USAGE
-  $ shipengine auth:login
-
-OPTIONS
-  -h, --help  show help for the auth:login command
-
-ALIASES
-  $ shipengine login
-```
-
-_See code: [src/commands/auth/login.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.14/src/commands/auth/login.ts)_
-
-## `shipengine auth:logout`
-
-clears the local API key
-
-```
-USAGE
-  $ shipengine auth:logout
-
-OPTIONS
-  -h, --help  show help for the auth:logout command
-
-ALIASES
-  $ shipengine logout
-```
-
-_See code: [src/commands/auth/logout.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.14/src/commands/auth/logout.ts)_
-
-## `shipengine auth:whoami`
-
-display the current logged in user
-
-```
-USAGE
-  $ shipengine auth:whoami
-
-OPTIONS
-  -h, --help  show help for the auth:whoami command
-
-ALIASES
-  $ shipengine whoami
-```
-
-_See code: [src/commands/auth/whoami.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.14/src/commands/auth/whoami.ts)_
-
-## `shipengine carriers:list`
-
-list the carriers associated with your account
-
-```
-USAGE
-  $ shipengine carriers:list
-
-OPTIONS
-  -h, --help  show help for the carriers:list command
-
-ALIASES
-  $ shipengine list
-```
-
-_See code: [src/commands/carriers/list.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.14/src/commands/carriers/list.ts)_
+* [`shipengine info`](#shipengine-info)
+* [`shipengine login`](#shipengine-login)
+* [`shipengine logout`](#shipengine-logout)
+* [`shipengine new [PATH]`](#shipengine-new-path)
+* [`shipengine publish`](#shipengine-publish)
+* [`shipengine test`](#shipengine-test)
+* [`shipengine whoami`](#shipengine-whoami)
 
 ## `shipengine help [COMMAND]`
 
@@ -213,4 +66,136 @@ OPTIONS
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.1.0/src/commands/help.ts)_
+
+## `shipengine info`
+
+list info for an app
+
+```
+USAGE
+  $ shipengine info
+
+OPTIONS
+  -h, --help  show help for the info command
+```
+
+_See code: [src/commands/info.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.15/src/commands/info.ts)_
+
+## `shipengine login`
+
+login with your integrations API key
+
+```
+USAGE
+  $ shipengine login
+
+OPTIONS
+  -h, --help  show help for the auth:login command
+
+ALIASES
+  $ shipengine login
+```
+
+_See code: [src/commands/login.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.15/src/commands/login.ts)_
+
+## `shipengine logout`
+
+clears the local integrations API key
+
+```
+USAGE
+  $ shipengine logout
+
+OPTIONS
+  -h, --help  show help for the auth:logout command
+
+ALIASES
+  $ shipengine logout
+```
+
+_See code: [src/commands/logout.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.15/src/commands/logout.ts)_
+
+## `shipengine new [PATH]`
+
+create a new package to develop a custom ShipEngine app
+
+```
+USAGE
+  $ shipengine new [PATH]
+
+ARGUMENTS
+  PATH  path to new package (defaults to current directory)
+
+OPTIONS
+  -f, --force  overwrite existing files
+  -h, --help   show help for the new command
+  -y, --yes    skips the questions and uses the defaults (carrier|Javascript|yaml)
+
+ALIASES
+  $ shipengine init
+
+EXAMPLE
+  $ shipengine new
+```
+
+_See code: [src/commands/new.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.15/src/commands/new.ts)_
+
+## `shipengine publish`
+
+publish your app
+
+```
+USAGE
+  $ shipengine publish
+
+OPTIONS
+  -h, --help        show help for the publish command
+  -s, --skip-tests  skip running the test before publishing
+  -w, --watch       check the status of the deployment until complete
+
+EXAMPLE
+  $ shipengine publish
+```
+
+_See code: [src/commands/publish.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.15/src/commands/publish.ts)_
+
+## `shipengine test`
+
+test your app
+
+```
+USAGE
+  $ shipengine test
+
+OPTIONS
+  -d, --debug            logs additional debug information
+  -f, --fail-fast        stop running the test suite on the first failed test
+  -g, --grep=grep        only run test that match the given string
+  -h, --help             show help for the test command
+  -r, --retries=retries  specify the retries for all the test
+  -t, --timeout=timeout  specify the timeout for all the test
+
+EXAMPLES
+  $ shipengine test
+  $ shipengine test --grep rateShipment
+```
+
+_See code: [src/commands/test.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.15/src/commands/test.ts)_
+
+## `shipengine whoami`
+
+display the current logged in user
+
+```
+USAGE
+  $ shipengine whoami
+
+OPTIONS
+  -h, --help  show help for the auth:whoami command
+
+ALIASES
+  $ shipengine whoami
+```
+
+_See code: [src/commands/whoami.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.15/src/commands/whoami.ts)_
 <!-- commandsstop -->
