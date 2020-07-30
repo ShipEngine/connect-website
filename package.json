@@ -117,11 +117,6 @@
     ],
     "hooks": {
       "init": "./lib/hooks/init"
-    },
-    "topics": {
-      "apps": {
-        "description": "manage apps"
-      }
     }
   },
   "repository": {
