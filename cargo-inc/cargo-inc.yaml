@@ -16,7 +16,9 @@ createManifest: src/create-manifest.js
 connectionForm: forms/connect.json
 settingsForm: forms/settings.json
 
-manifestLocations: all_shipments
+manifestLocations: all_locations
+manifestShipments: all_shipments
+
 deliveryServices:
   - delivery-services/international-standard.yaml
   - delivery-services/international-economy.yaml

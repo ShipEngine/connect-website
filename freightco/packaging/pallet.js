@@ -8,16 +8,5 @@ module.exports = {
   name: "Pallet",
   description: '48" x 48" Wood Pallet',
   requiresWeight: true,
-  requiresDimensions: false,
-
-  localization: {
-    es: {
-      name: "paleta",
-      description: "Palet de madera cuadrado de 1.2 metros",
-    },
-    fr: {
-      name: "Palette",
-      description: "Palette en bois carrée de 1,2 mètre",
-    },
-  },
+  requiresDimensions: false
 };

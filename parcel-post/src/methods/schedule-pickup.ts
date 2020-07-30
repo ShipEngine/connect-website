@@ -51,7 +51,6 @@ function formatConfirmation(response: PickUpResponse): PickupConfirmationPOJO {
     charges: [
       {
         name: "Pickup Fee",
-        code: "PU2",
         type: ChargeType.Pickup,
         amount: {
           value: response.pickup_cost,
@@ -60,7 +59,6 @@ function formatConfirmation(response: PickUpResponse): PickupConfirmationPOJO {
       },
       {
         name: "Transport Tax",
-        code: "TX7",
         type: ChargeType.Tax,
         amount: {
           value: response.tax_cost,
@@ -69,7 +67,6 @@ function formatConfirmation(response: PickUpResponse): PickupConfirmationPOJO {
       },
       {
         name: "Location Fee",
-        code: "L4",
         type: ChargeType.LocationFee,
         amount: {
           value: response.location_cost,

@@ -7,16 +7,5 @@ module.exports = {
   },
   name: "Photo",
   description: "Photo proof of delivery will be emailed to the sender",
-  type: "delivery",
-
-  localization: {
-    es: {
-      name: "Foto",
-      description: "Se enviará por correo electrónico un comprobante de entrega con foto",
-    },
-    fr: {
-      name: "Photo",
-      description: "Une preuve photo de livraison sera envoyée par e-mail à l'expéditeur",
-    },
-  },
+  type: "delivery"
 };

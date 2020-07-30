@@ -7,16 +7,5 @@ module.exports = {
   },
   name: "Signature Required",
   description: "Requires a signature from any resident",
-  type: "signature",
-
-  localization: {
-    es: {
-      name: "Firma Requerida",
-      description: "Requiere una firma de cualquier residente",
-    },
-    fr: {
-      name: "Signature Requise",
-      description: "Nécessite une signature de tout résident",
-    },
-  },
+  type: "signature"
 };

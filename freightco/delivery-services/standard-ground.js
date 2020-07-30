@@ -27,16 +27,5 @@ module.exports = {
     "../delivery-confirmations/photo.js",
     "../delivery-confirmations/receipt.js",
     "../delivery-confirmations/signature.js",
-  ],
-
-  localization: {
-    es: {
-      name: "Suelo Estandard",
-      description: "Servicio terrestre de 5 a 7 días a cualquier país comercial del TLCAN",
-    },
-    fr: {
-      name: "Terrain Standard",
-      description: "Service au sol de 5 à 7 jours vers n'importe quel pays commercial de l'ALENA",
-    },
-  },
+  ]
 };

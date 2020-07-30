@@ -19,7 +19,7 @@ export default async function rateShipment(
   let data: QuoteRatesRequest = {
     operation: "quote_rates",
     session_id: transaction.session.id,
-    service_codes: shipment.deliveryServices.map((svc) => svc.identifiers.apiCode),
+    service_codes: shipment.deliveryService.identifiers.apiCode,
     confirmation_codes: shipment.packages[0].deliveryConfirmations.map((conf) => conf.identifiers.apiCode),
     parcel_codes: shipment.packages[0].packaging.map((pkg) => pkg.identifiers.apiCode),
     ship_date: shipment.shipDateTime.toISOString(),
@@ -44,8 +44,6 @@ function formatRate(rate: QuoteRateResponseItem): RatePOJO {
     deliveryService: deliveryServices.find((svc) => svc.identifiers.apiCode === rate.service_code),
     shipDateTime: new Date(rate.ship_date),
     deliveryDateTime: new Date(rate.delivery_date),
-    maximumDeliveryDays: rate.delivery_days,
-    isGuaranteed: true,
     isTrackable: true,
     packages: [{
       packaging: packaging.find((pkg) => pkg.identifiers.apiCode === rate.parcel_code),
@@ -55,7 +53,6 @@ function formatRate(rate: QuoteRateResponseItem): RatePOJO {
       {
         name: "Service Charge",
         type: ChargeType.Shipping,
-        code: "SC1",
         amount: {
           value: rate.shipment_cost,
           currency: Currency.UnitedStatesDollar,
@@ -64,7 +61,6 @@ function formatRate(rate: QuoteRateResponseItem): RatePOJO {
       {
         name: "Confirmation Fee",
         type: ChargeType.DeliveryConfirmation,
-        code: "CONF",
         amount: {
           value: rate.confirmation_cost,
           currency: Currency.UnitedStatesDollar,
@@ -73,7 +69,6 @@ function formatRate(rate: QuoteRateResponseItem): RatePOJO {
       {
         name: "Transport Tax",
         type: ChargeType.Tax,
-        code: "TX7",
         amount: {
           value: rate.tax_cost,
           currency: Currency.UnitedStatesDollar,

@@ -5,11 +5,3 @@ name: Recipient Signature
 description: Requires a signature from the person named in the delivery address
 type: direct_signature
 
-localization:
-  es:
-    name: Firma del destinatario
-    description: Requiere una firma de la persona nombrada en la dirección de entrega
-
-  zh:
-    name: 收件人签名
-    description: 需要送货地址上指定的人签名

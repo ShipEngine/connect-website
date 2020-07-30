@@ -4,12 +4,3 @@ identifiers:
 name: Adult Signature
 description: Requires a signature from a resident of at least 18 years of age
 type: adult_signature
-
-localization:
-  es:
-    name: Firma Adulta
-    description: Requiere la firma de un residente de al menos 18 años de edad
-
-  zh:
-    name: 成人签名
-    description: 需要年满18岁的居民的签名
