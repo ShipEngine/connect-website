@@ -12,6 +12,7 @@ definition: ConnectionAppDefinition, cwd: string, manifest: AppManifestPOJO): Pr
     ...definition,
     manifest,
     logo: path.resolve(cwd, definition.logo),
+    icon: path.resolve(cwd, definition.icon),
     connectionForm: await readFormDefinition(definition.connectionForm, cwd, `connectionForm`),
     settingsForm: await readFormDefinition(definition.settingsForm, cwd, `settingsForm`),
     connect: await readDefinitionValue(definition.connect, cwd, `connect method`)

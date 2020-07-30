@@ -7,6 +7,7 @@ module.exports = {
   description: "My order description goes here",
   websiteURL: "https://www.my-order.com",
   logo: "../../../logo.svg",
+  icon: "../../../logo.svg",
 
   connectionForm: {
     dataSchema: {

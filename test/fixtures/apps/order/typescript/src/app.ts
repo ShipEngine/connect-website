@@ -7,6 +7,7 @@ const config: OrderAppDefinition = {
   description: "My Order description goes here",
   websiteURL: "https://www.my-order.com",
   logo: "../../../../logo.svg",
+  icon: "../../../../logo.svg",
 
   connectionForm: "../../../../configs/forms/registration-form.json",
   settingsForm: "../../../../configs/forms/settings-form.json",

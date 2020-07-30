@@ -8,6 +8,7 @@ module.export = {
   websiteURL: "https://www.my-carrier.com",
 
   logo: "../../logo.svg",
+  icon: "../../logo.svg",
 
   deliveryServices: [
     require("../../modules/delivery-services/ground-service"),

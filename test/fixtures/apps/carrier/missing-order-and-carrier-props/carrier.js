@@ -7,6 +7,7 @@ module.exports = {
   description: "My Carrier description goes here",
   websiteURL: "https://www.my-carrier.com",
   logo: "../../../logo.svg",
+  icon: "../../../logo.svg",
 
   connectionForm: {
     dataSchema: {
