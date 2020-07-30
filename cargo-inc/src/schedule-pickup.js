@@ -23,7 +23,7 @@ async function schedulePickup(transaction, pickup) {
         operation: "pick_up",
         session_id: transaction.session.id,
         service_code: pickup.pickupService.identifiers.apiCode,
-        date_time: pickup.timeWindow.startDateTime.toISOString(),
+        date_time: pickup.timeWindow.startDateTime,
         zone: Number.parseInt(pickup.address.postalCode),
         contact_phone: pickup.contact.phoneNumber,
         total_weight: pickup.shipments.reduce((w, ship) => w + ship.package.weight.ounces, 0),
@@ -53,7 +53,6 @@ function formatConfirmation(response) {
         charges: [
             {
                 name: "Pickup Fee",
-                code: "PU2",
                 type: "pickup",
                 amount: {
                     value: response.pickup_cost,
@@ -62,7 +61,6 @@ function formatConfirmation(response) {
             },
             {
                 name: "Transport Tax",
-                code: "TX7",
                 type: "tax",
                 amount: {
                     value: response.tax_cost,
@@ -71,7 +69,6 @@ function formatConfirmation(response) {
             },
             {
                 name: "Location Fee",
-                code: "L4",
                 type: "location_fee",
                 amount: {
                     value: response.location_cost,

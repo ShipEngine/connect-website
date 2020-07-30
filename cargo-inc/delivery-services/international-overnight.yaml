@@ -29,11 +29,3 @@ deliveryConfirmations:
   - ../delivery-confirmations/adult-signature.yaml
   - ../delivery-confirmations/recipient-signature.yaml
 
-localization:
-  es:
-    name: Noche internacional
-    description: Entrega nocturna en todo el mundo
-
-  zh:
-    name: 国际隔夜
-    description: 全球隔夜交货

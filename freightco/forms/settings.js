@@ -32,35 +32,5 @@ module.exports = {
     default_currency: {
       "ui:autofocus": true
     }
-  },
-  localization: {
-    es: {
-      dataSchema: {
-        title: "Configuraciones de FreightCo",
-        description: "Actualice la configuración de su cuenta de FreightCo",
-        properties: {
-          default_currency: {
-            title: "Moneda predeterminada",
-          },
-          deliver_duties_paid: {
-            title: "Incluya aranceles e impuestos en el costo de la etiqueta"
-          }
-        }
-      }
-    },
-    fr: {
-      dataSchema: {
-        title: "Paramètres FreightCo",
-        description: "Mettez à jour les paramètres de votre compte FreightCo",
-        properties: {
-          default_currency: {
-            title: "Devise par Défaut"
-          },
-          deliver_duties_paid: {
-            title: "Inclure les droits et taxes dans le coût de l'étiquette"
-          }
-        }
-      }
-    }
   }
 };

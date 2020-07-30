@@ -5,18 +5,3 @@ name: Package
 description: Your own packaging, up to 100 kilograms
 requiresWeight: true
 requiresDimensions: true
-
-localization:
-  en-GB:
-    name: Parcel
-
-  en-US:
-    description: Your own packaging, up to 120 pounds
-
-  es:
-    name: empaquetar
-    description: Su propio embalaje, hasta 100 kilogramos
-
-  zh:
-    name: 收拾东西
-    description: 您自己的包装，最多100公斤

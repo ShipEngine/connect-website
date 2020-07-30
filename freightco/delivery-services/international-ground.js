@@ -27,16 +27,5 @@ module.exports = {
     "../delivery-confirmations/photo.js",
     "../delivery-confirmations/receipt.js",
     "../delivery-confirmations/signature.js",
-  ],
-
-  localization: {
-    es: {
-      name: "Terreno Internacional",
-      description: "Entrega terrestre de 3 días a cualquier país comercial del TLCAN",
-    },
-    fr: {
-      name: "Terrain International",
-      description: "Livraison au sol sous 3 jours dans tous les pays de l'ALENA",
-    },
-  },
+  ]
 };

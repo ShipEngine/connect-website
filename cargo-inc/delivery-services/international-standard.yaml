@@ -29,11 +29,3 @@ deliveryConfirmations:
   - ../delivery-confirmations/adult-signature.yaml
   - ../delivery-confirmations/recipient-signature.yaml
 
-localization:
-  es:
-    name: Estándar internacional
-    description: Entrega estándar de 3 días en cualquier parte del mundo
-
-  zh:
-    name: 国际标准
-    description: 世界各地的标准3天交货

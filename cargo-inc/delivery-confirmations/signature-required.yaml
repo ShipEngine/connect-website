@@ -5,11 +5,3 @@ name: Signature Required
 description: Requires a signature from any resident
 type: signature
 
-localization:
-  es:
-    name: Firma
-    description: Requiere una firma de cualquier residente
-
-  zh:
-    name: 签名
-    description: 需要任何居民签名

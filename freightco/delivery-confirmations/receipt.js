@@ -7,16 +7,5 @@ module.exports = {
   },
   name: "Mailed Receipt",
   description: "A paper receipt confirming delivery will be mailed to the sender",
-  type: "direct_signature",
-
-  localization: {
-    es: {
-      name: "Recibo Enviado por Correo",
-      description: "Se enviará por correo un recibo en papel que confirma la entrega",
-    },
-    fr: {
-      name: "Reçu Postal",
-      description: "Un reçu papier confirmant la livraison sera envoyé à l'expéditeur",
-    },
-  },
+  type: "direct_signature"
 };
