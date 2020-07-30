@@ -13,6 +13,7 @@ const orderSource: OrderAppDefinition = {
   description: "<%- pjson.description %>",
   websiteURL: "http://www.carier-site.com",
   logo: "./logo.svg",
+  icon: "./logo.svg",
   connectionForm: import("./forms/connect"),
   settingsForm: import("./forms/settings"),
 

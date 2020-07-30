@@ -3,6 +3,7 @@ name: "<%- _appName %>"
 description: "<%- pjson.description %>"
 websiteURL: http://www.carier-site.com
 logo: ./logo.svg
+icon: ./logo.svg
 manifestLocations: single_location
 manifestShipments: explicit_shipments
 connectionForm: ./forms/connect.yaml
