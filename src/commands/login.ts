@@ -6,7 +6,7 @@ import { Domain } from '../core/api-key-store';
 import { setUser } from '../core/utils/users';
 
 export default class Login extends BaseCommand {
-  static description = "login with your Integrations API key";
+  static description = "login with your integrations API key";
 
   static aliases = ["login"];
 
