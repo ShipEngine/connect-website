@@ -2,7 +2,7 @@ import { CreateShipmentInternationalConfigOptions } from "./config/create-shipme
 import { CreateShipmentDomesticConfigOptions } from "./config/create-shipment-domestic";
 import { CreateShipmentMultiPackageConfigOptions } from './config/create-shipment-multipackage';
 import { CreateShipmentWithInsuranceConfigOptions } from './config/create-shipment-insurance';
-import { RateShipmentWithOneServiceConfigOptions } from './config/rate-shipment-with-one-service';
+import { RateShipmentConfigOptions } from './config/rate-shipment';
 
 export interface TestsConfig {
   // cancelPickups?: (TestOptions & TestOptions) | [TestOptions];
@@ -19,7 +19,7 @@ export interface TestsConfig {
   // rateShipment?: RateShipmentOptions | [RateShipmentOptions];
 
   // createShipment_multi_package?: TestOptions | [TestOptions];
-  rateShipmentWithOneService?: RateShipmentWithOneServiceConfigOptions | [RateShipmentWithOneServiceConfigOptions];
+  rateShipmentWithOneService?: RateShipmentConfigOptions | [RateShipmentConfigOptions];
   // schedulePickup?: SchedulePickupOptions | [SchedulePickupOptions];
   // trackShipment?: TestOptions | [TestOptions];
 }

@@ -1,12 +1,12 @@
 "use strict";
 
-const { RateShipmentWithOneService } = require("../../../../../../lib/core/test-app/tests/rate-shipment-with-one-service");
+const { RateShipment } = require("../../../../../../lib/core/test-app/tests/rate-shipment");
 const { CarrierApp } = require("@shipengine/integration-platform-sdk/lib/internal/carriers/carrier-app");
 const pojo = require("../../../../utils/pojo");
 const { expect } = require("chai");
 const sinon = require("sinon");
 
-describe("The rate shipment with one service test suite", () => {
+describe("The rate shipment test suite", () => {
 
   describe("when there is no address available for the delivery service", () => {
     it("should not generate tests", () => {
@@ -16,7 +16,7 @@ describe("The rate shipment with one service test suite", () => {
 
       const app = new CarrierApp(appDefinition);
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new RateShipmentWithOneService(args);
+      const testSuite = new RateShipment(args);
 
       const tests = testSuite.tests();
       expect(tests.length).to.equal(0);
@@ -31,7 +31,7 @@ describe("The rate shipment with one service test suite", () => {
       const app = new CarrierApp(appDefinition);
       const args = { app, connectArgs, staticConfigTests, options };
 
-      testSuite = new RateShipmentWithOneService(args);
+      testSuite = new RateShipment(args);
     });
 
     it("should generate a test", () => {
@@ -54,7 +54,7 @@ describe("The rate shipment with one service test suite", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       const app = new CarrierApp(appDefinition);
 
-      staticConfigTests.rateShipment_with_one_service = {
+      staticConfigTests.rateShipment = {
         weight: {
           value: 200,
           unit: "lb"
@@ -62,7 +62,7 @@ describe("The rate shipment with one service test suite", () => {
       };
 
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new RateShipmentWithOneService(args);
+      const testSuite = new RateShipment(args);
       const tests = testSuite.tests();
 
       expect(tests[0].title).to.include("weight: 200lb");
@@ -76,7 +76,7 @@ describe("The rate shipment with one service test suite", () => {
     beforeEach(() => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       const app = new CarrierApp(appDefinition);
-      staticConfigTests.rateShipment_with_one_service =
+      staticConfigTests.rateShipment =
         [
           {
             weight: {
@@ -93,7 +93,7 @@ describe("The rate shipment with one service test suite", () => {
         ];
 
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new RateShipmentWithOneService(args);
+      const testSuite = new RateShipment(args);
       tests = testSuite.tests();
     });
 
@@ -117,12 +117,12 @@ describe("The rate shipment with one service test suite", () => {
     it("should throw an error", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       const app = new CarrierApp(appDefinition);
-      staticConfigTests.rateShipment_with_one_service = {
+      staticConfigTests.rateShipment = {
         deliveryServiceName: "asdf"
       };
 
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new RateShipmentWithOneService(args);
+      const testSuite = new RateShipment(args);
 
       try {
         testSuite.tests();
@@ -149,13 +149,13 @@ describe("The rate shipment with one service test suite", () => {
         packaging: [pojo.packaging()]
       });
 
-      staticConfigTests.rateShipment_with_one_service = {
+      staticConfigTests.rateShipment = {
         deliveryServiceName: "Better Delivery Service"
       }
 
       const app = new CarrierApp(appDefinition);
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new RateShipmentWithOneService(args);
+      const testSuite = new RateShipment(args);
       const tests = testSuite.tests();
 
       expect(tests[0].title).to.include("deliveryServiceName: Better Delivery Service");
@@ -168,7 +168,7 @@ describe("The rate shipment with one service test suite", () => {
 
       const app = new CarrierApp(appDefinition);
 
-      staticConfigTests.rateShipment_with_one_service = {
+      staticConfigTests.rateShipment = {
         shipFrom: {
           company: "Domestic Route #1",
           addressLines: ["123 New Street"],
@@ -190,13 +190,13 @@ describe("The rate shipment with one service test suite", () => {
       };
 
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new RateShipmentWithOneService(args);
+      const testSuite = new RateShipment(args);
       const tests = testSuite.tests();
 
       expect(tests[0].methodArgs.shipFrom.company).to.equal("Domestic Route #1");
       expect(tests[0].methodArgs.shipTo.company).to.equal("Domestic Route #2");
 
-      expect(tests[0].methodArgs.shipTo).to.eql(staticConfigTests.rateShipment_with_one_service.shipTo);
+      expect(tests[0].methodArgs.shipTo).to.eql(staticConfigTests.rateShipment.shipTo);
 
       expect(tests[0].title).to.include("shipFrom: US");
       expect(tests[0].title).to.include("shipTo: US");
@@ -212,7 +212,7 @@ describe("The rate shipment with one service test suite", () => {
       const app = new CarrierApp(appDefinition);
 
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new RateShipmentWithOneService(args);
+      const testSuite = new RateShipment(args);
       const tests = testSuite.tests();
       try {
         await tests[0].fn();
@@ -254,7 +254,7 @@ function generateBasicAppAndConfigs() {
   };
 
   const staticConfigTests = {
-    rateShipment_with_one_service: {}
+    rateShipment: {}
   };
 
   const connectArgs = {};

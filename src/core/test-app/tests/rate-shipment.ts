@@ -7,7 +7,7 @@ import {
 } from "@shipengine/integration-platform-sdk";
 import Suite from "../runner/suite";
 import { initializeTimeStamps } from "../../utils/time-stamps";
-import { RateShipmentWithOneServiceTestParams, RateShipmentWithOneServiceConfigOptions } from "../runner/config/rate-shipment-with-one-service";
+import { RateShipmentTestParams, RateShipmentConfigOptions } from "../runner/config/rate-shipment";
 import reduceDefaultsWithConfig from "../utils/reduce-defaults-with-config";
 import objectToTestTitle from "../utils/object-to-test-title";
 import useShipmentAddresses from '../utils/use-shipment-addresses';
@@ -17,15 +17,15 @@ interface TestArgs {
   title: string;
   methodArgs: RateCriteriaPOJO;
   config: any;
-  testParams: RateShipmentWithOneServiceTestParams;
+  testParams: RateShipmentTestParams;
 }
 
-export class RateShipmentWithOneService extends Suite {
-  title = "rateShipment_with_one_service";
+export class RateShipment extends Suite {
+  title = "rateShipment";
 
   private deliveryService: DeliveryService | undefined;
 
-  private setDeliveryServices(config: RateShipmentWithOneServiceConfigOptions): void {
+  private setDeliveryService(config: RateShipmentConfigOptions): void {
     const carrierApp = this.app as CarrierApp;
 
     if (config.deliveryServiceName) {
@@ -42,9 +42,9 @@ export class RateShipmentWithOneService extends Suite {
     }
   }
 
-  buildTestArg(config: RateShipmentWithOneServiceConfigOptions): TestArgs | undefined {
+  buildTestArg(config: RateShipmentConfigOptions): TestArgs | undefined {
     const carrierApp = this.app as CarrierApp;
-    this.setDeliveryServices(config);
+    this.setDeliveryService(config);
 
     if (!this.deliveryService) return undefined;
     const [shipFrom, shipTo] = useShipmentAddresses(this.deliveryService);
@@ -53,7 +53,7 @@ export class RateShipmentWithOneService extends Suite {
 
     const { tomorrow } = initializeTimeStamps();
 
-    const defaults: RateShipmentWithOneServiceTestParams = {
+    const defaults: RateShipmentTestParams = {
       deliveryServiceName: this.deliveryService.name,
       shipDateTime: tomorrow,
       shipFrom: shipFrom,
@@ -66,7 +66,7 @@ export class RateShipmentWithOneService extends Suite {
     };
 
     const testParams = reduceDefaultsWithConfig<
-      RateShipmentWithOneServiceTestParams
+      RateShipmentTestParams
     >(defaults, config);
 
     const packageRateCriteriaPOJO: PackageRateCriteriaPOJO = {
@@ -88,10 +88,10 @@ export class RateShipmentWithOneService extends Suite {
     };
 
     const title = config.expectedErrorMessage
-      ? `it raises an error when creating a new shipment rate with one service with ${objectToTestTitle(
+      ? `it raises an error when creating a new shipment rate with ${objectToTestTitle(
         testParams,
       )}`
-      : `it creates a new shipment rate with one service with ${objectToTestTitle(
+      : `it creates a new shipment rate with ${objectToTestTitle(
         testParams,
       )}`;
 
@@ -105,11 +105,11 @@ export class RateShipmentWithOneService extends Suite {
 
   buildTestArgs(): Array<TestArgs | undefined> {
     if (Array.isArray(this.config)) {
-      return this.config.map((config: RateShipmentWithOneServiceConfigOptions) => {
+      return this.config.map((config: RateShipmentConfigOptions) => {
         return this.buildTestArg(config);
       });
     } else {
-      const config = this.config as RateShipmentWithOneServiceConfigOptions;
+      const config = this.config as RateShipmentConfigOptions;
 
       return [this.buildTestArg(config)];
     }
