@@ -409,6 +409,7 @@ const pojo = module.exports = {
     return {
       ...pojo.buyerIdentifier(),
       ...pojo.contactInfo(),
+      ...pojo.address(),
       ...props,
     };
   },
