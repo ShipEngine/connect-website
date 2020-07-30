@@ -2,6 +2,16 @@ import {
   CarrierAppDefinition,
   ManifestLocation,
   ManifestShipment,
+  InlineOrReference,
+  Connect,
+  CancelPickups,
+  CancelShipments,
+  CreateManifest,
+  CreateShipment,
+  RateShipment,
+  SchedulePickup,
+  TrackShipment,
+  DeliveryServiceDefinition,
 } from "@shipengine/integration-platform-sdk";
 
 const carrier: CarrierAppDefinition = {
@@ -14,6 +24,7 @@ const carrier: CarrierAppDefinition = {
   manifestShipments: ManifestShipment.ExplicitShipments,
   connectionForm: import("./forms/connect"),
   settingsForm: import("./forms/settings"),
+  
   connect: import("./methods/connect"),
   cancelPickups: import("./methods/cancel-pickups"),
   cancelShipments: import("./methods/cancel-shipments"),

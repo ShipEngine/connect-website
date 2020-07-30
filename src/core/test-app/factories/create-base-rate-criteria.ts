@@ -82,13 +82,13 @@ function countryAndTimePermutations(originCountries: Country[], destinationCount
 
         let timeStamps;
         if (!deliveryService) {
-          timeStamps = initializeTimeStamps(rateCriteriaOpts.shipFrom.timeZone);
+          timeStamps = initializeTimeStamps();
 
           rateCriteriaOpts.shipDateTime = timeStamps.today;
           rateCriteriaOpts.deliveryDateTime = timeStamps.twoDays;
         }
         else {
-          timeStamps = initializeTimeStamps(rateCriteriaOpts.shipFrom.timeZone);
+          timeStamps = initializeTimeStamps();
 
           const results = parseDeliveryService(deliveryService, timeStamps);
           rateCriteriaOpts.shipDateTime = results[0];

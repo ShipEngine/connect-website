@@ -1,7 +1,7 @@
 {
-  "name": "@shipengine/cli",
-  "description": "A CLI tool for working with your ShipEngine account.",
-  "version": "0.0.11",
+  "name": "@shipengine/integration-platform-cli",
+  "description": "A CLI tool for working with your ShipEngine Integration account.",
+  "version": "0.0.14",
   "author": {
     "name": "ShipEngine",
     "email": "support@shipengine.com",
@@ -10,7 +10,7 @@
   "bin": {
     "shipengine": "./bin/run"
   },
-  "bugs": "https://github.com/ShipEngine/shipengine-cli/issues",
+  "bugs": "https://github.com/ShipEngine/shipengine-integration-platform-cli/issues",
   "dependencies": {
     "@oclif/command": "^1.7.0",
     "@oclif/config": "^1.16.0",
@@ -19,11 +19,10 @@
     "@oclif/plugin-help": "^3.1.0",
     "@oclif/plugin-not-found": "^1.2.4",
     "@shipengine/capitalization": "^1.2.0",
-    "@shipengine/integration-platform-loader": "0.0.28",
-    "@shipengine/integration-platform-sdk": "0.0.29",
+    "@shipengine/integration-platform-loader": "0.0.31",
+    "@shipengine/integration-platform-sdk": "0.0.33",
     "axios": "^0.19.2",
     "chai": "^4.2.0",
-    "chai-as-promised": "^7.1.1",
     "chalk": "^4.1.0",
     "escape-string-regexp": "^4.0.0",
     "form-data": "^3.0.0",
@@ -70,7 +69,6 @@
     "@types/yeoman-environment": "^2.3.3",
     "@types/yeoman-generator": "^3.1.4",
     "@types/yeoman-test": "^2.0.4",
-    "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "chai-fs": "^2.0.0",
     "eslint": "^5.16.0",
@@ -119,11 +117,6 @@
     ],
     "hooks": {
       "init": "./lib/hooks/init"
-    },
-    "topics": {
-      "apps": {
-        "description": "manage apps"
-      }
     }
   },
   "repository": {

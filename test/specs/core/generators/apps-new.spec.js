@@ -6,7 +6,7 @@ const path = require("path");
 const pathToGenerator = "../../../../lib/core/generators/apps-new";
 const AppsNew = require(pathToGenerator);
 
-describe("apps:new generator", () => {
+describe("new generator", () => {
   /**
    * The yeoman generator tests alter the cwd of the mocha process. Need to change it back
    * to the original otherwise could cause unintended side effects to other tests.
@@ -26,7 +26,7 @@ describe("apps:new generator", () => {
         return helpers
           .run(AppsNew, {
             resolved: path.join(__dirname, pathToGenerator),
-            namespace: "apps:new",
+            namespace: "new",
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
@@ -71,7 +71,7 @@ describe("apps:new generator", () => {
         return helpers
           .run(AppsNew, {
             resolved: path.join(__dirname, pathToGenerator),
-            namespace: "apps:new",
+            namespace: "new",
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
@@ -111,6 +111,13 @@ describe("apps:new generator", () => {
             assert.jsonFileContent("package.json", {
               description: "test description",
             });
+
+            assert.jsonFileContent("package.json", {
+              scripts: {
+                build: "tsc"
+              },
+              main: "lib/index.js"
+            });
           });
       });
 
@@ -118,7 +125,7 @@ describe("apps:new generator", () => {
         return helpers
           .run(AppsNew, {
             resolved: path.join(__dirname, pathToGenerator),
-            namespace: "apps:new",
+            namespace: "new",
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
@@ -158,6 +165,13 @@ describe("apps:new generator", () => {
             assert.jsonFileContent("package.json", {
               description: "test description",
             });
+
+            assert.jsonFileContent("package.json", {
+              scripts: {
+                build: "tsc"
+              },
+              main: "lib/index.js"
+            });
           });
       });
 
@@ -165,7 +179,7 @@ describe("apps:new generator", () => {
         return helpers
           .run(AppsNew, {
             resolved: path.join(__dirname, pathToGenerator),
-            namespace: "apps:new",
+            namespace: "new",
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
@@ -205,6 +219,13 @@ describe("apps:new generator", () => {
             assert.jsonFileContent("package.json", {
               description: "test description",
             });
+
+            assert.jsonFileContent("package.json", {
+              scripts: {
+                build: "tsc"
+              },
+              main: "lib/index.js"
+            });
           });
       });
     });
@@ -214,7 +235,7 @@ describe("apps:new generator", () => {
         return helpers
           .run(AppsNew, {
             resolved: path.join(__dirname, pathToGenerator),
-            namespace: "apps:new",
+            namespace: "new",
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
@@ -262,7 +283,7 @@ describe("apps:new generator", () => {
         return helpers
           .run(AppsNew, {
             resolved: path.join(__dirname, pathToGenerator),
-            namespace: "apps:new",
+            namespace: "new",
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
@@ -312,7 +333,7 @@ describe("apps:new generator", () => {
         return helpers
           .run(AppsNew, {
             resolved: path.join(__dirname, pathToGenerator),
-            namespace: "apps:new",
+            namespace: "new",
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
@@ -325,8 +346,6 @@ describe("apps:new generator", () => {
               "src/index.yaml",
               "src/methods/connect.js",
               "src/methods/get-sales-order-by-date.js",
-              "src/methods/get-sales-order.js",
-              "src/methods/get-seller.js",
               "src/methods/shipment-cancelled.js",
               "src/methods/shipment-created.js",
               "src/forms/connect.yaml",
@@ -353,7 +372,7 @@ describe("apps:new generator", () => {
         return helpers
           .run(AppsNew, {
             resolved: path.join(__dirname, pathToGenerator),
-            namespace: "apps:new",
+            namespace: "new",
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
@@ -369,8 +388,6 @@ describe("apps:new generator", () => {
               "src/index.ts",
               "src/methods/connect.ts",
               "src/methods/get-sales-order-by-date.ts",
-              "src/methods/get-sales-order.ts",
-              "src/methods/get-seller.ts",
               "src/methods/shipment-cancelled.ts",
               "src/methods/shipment-created.ts",
               "src/forms/connect.ts",
@@ -379,6 +396,7 @@ describe("apps:new generator", () => {
               "LICENSE",
               "README.md",
               "package.json",
+              "tsconfig.json"
             ]);
 
             assert.jsonFileContent("package.json", {
@@ -387,6 +405,13 @@ describe("apps:new generator", () => {
             assert.jsonFileContent("package.json", {
               description: "test description",
             });
+
+            assert.jsonFileContent("package.json", {
+              scripts: {
+                build: "tsc"
+              },
+              main: "lib/index.js"
+            });
           });
       });
 
@@ -394,7 +419,7 @@ describe("apps:new generator", () => {
         return helpers
           .run(AppsNew, {
             resolved: path.join(__dirname, pathToGenerator),
-            namespace: "apps:new",
+            namespace: "new",
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
@@ -410,8 +435,6 @@ describe("apps:new generator", () => {
               "src/index.json",
               "src/methods/connect.ts",
               "src/methods/get-sales-order-by-date.ts",
-              "src/methods/get-sales-order.ts",
-              "src/methods/get-seller.ts",
               "src/methods/shipment-cancelled.ts",
               "src/methods/shipment-created.ts",
               "src/forms/connect.json",
@@ -420,6 +443,7 @@ describe("apps:new generator", () => {
               "LICENSE",
               "README.md",
               "package.json",
+              "tsconfig.json"
             ]);
 
             assert.jsonFileContent("package.json", {
@@ -428,6 +452,13 @@ describe("apps:new generator", () => {
             assert.jsonFileContent("package.json", {
               description: "test description",
             });
+
+            assert.jsonFileContent("package.json", {
+              scripts: {
+                build: "tsc"
+              },
+              main: "lib/index.js"
+            });
           });
       });
 
@@ -435,7 +466,7 @@ describe("apps:new generator", () => {
         return helpers
           .run(AppsNew, {
             resolved: path.join(__dirname, pathToGenerator),
-            namespace: "apps:new",
+            namespace: "new",
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
@@ -451,8 +482,6 @@ describe("apps:new generator", () => {
               "src/index.yaml",
               "src/methods/connect.ts",
               "src/methods/get-sales-order-by-date.ts",
-              "src/methods/get-sales-order.ts",
-              "src/methods/get-seller.ts",
               "src/methods/shipment-cancelled.ts",
               "src/methods/shipment-created.ts",
               "src/forms/connect.yaml",
@@ -461,6 +490,7 @@ describe("apps:new generator", () => {
               "LICENSE",
               "README.md",
               "package.json",
+              "tsconfig.json"
             ]);
 
             assert.jsonFileContent("package.json", {
@@ -468,6 +498,13 @@ describe("apps:new generator", () => {
             });
             assert.jsonFileContent("package.json", {
               description: "test description",
+            });
+
+            assert.jsonFileContent("package.json", {
+              scripts: {
+                build: "tsc"
+              },
+              main: "lib/index.js"
             });
           });
       });
@@ -478,7 +515,7 @@ describe("apps:new generator", () => {
         return helpers
           .run(AppsNew, {
             resolved: path.join(__dirname, pathToGenerator),
-            namespace: "apps:new",
+            namespace: "new",
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
@@ -493,8 +530,6 @@ describe("apps:new generator", () => {
               "src/index.json",
               "src/methods/connect.js",
               "src/methods/get-sales-order-by-date.js",
-              "src/methods/get-sales-order.js",
-              "src/methods/get-seller.js",
               "src/methods/shipment-cancelled.js",
               "src/methods/shipment-created.js",
               "src/forms/connect.json",
@@ -520,7 +555,7 @@ describe("apps:new generator", () => {
         return helpers
           .run(AppsNew, {
             resolved: path.join(__dirname, pathToGenerator),
-            namespace: "apps:new",
+            namespace: "new",
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
@@ -535,8 +570,6 @@ describe("apps:new generator", () => {
               "src/index.yaml",
               "src/methods/connect.js",
               "src/methods/get-sales-order-by-date.js",
-              "src/methods/get-sales-order.js",
-              "src/methods/get-seller.js",
               "src/methods/shipment-cancelled.js",
               "src/methods/shipment-created.js",
               "src/forms/connect.yaml",

@@ -60,7 +60,7 @@ export class CreateShipmentMultiPackage extends Suite {
 
     if (!shipFrom || !shipTo) return undefined;
 
-    const { tomorrow } = initializeTimeStamps(shipFrom!.timeZone);
+    const { tomorrow } = initializeTimeStamps();
 
     // Make a best guess at the defaults, need to resolve the default vs config based delivery service early
     // on since that determines what address and associated timezones get generated.
@@ -192,14 +192,6 @@ export class CreateShipmentMultiPackage extends Suite {
             transaction,
             testArg!.methodArgs,
           );
-
-          // If DeliveryServiceDefinition.fulfillmentService is set, then the shipment’s fulfillmentService must match it
-          if (this.deliveryService?.fulfillmentService) {
-            expect(shipmentConfirmation.fulfillmentService).to.equal(
-              this.deliveryService?.fulfillmentService,
-              "The shipmentConfirmation.fulfillmentService returned from createShipment does not equal the given deliveryService.fulfillmentService"
-            );
-          }
 
           // If DeliveryServiceDefinition.isTrackable is true, then the shipment must have a trackingNumber set
           if (this.deliveryService?.isTrackable) {

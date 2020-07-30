@@ -80,8 +80,7 @@ const countryMap: Record<string, AddressPOJO> = {
     cityLocality: "Austin",
     stateProvince: "TX",
     postalCode: "78756",
-    country: Country.UnitedStates,
-    timeZone: "America/Chicago",
+    country: Country.UnitedStates
   },
   "US-to": {
     company: "Company Inc",
@@ -90,7 +89,6 @@ const countryMap: Record<string, AddressPOJO> = {
     stateProvince: "CA",
     postalCode: "94102",
     country: Country.UnitedStates,
-    timeZone: "America/Los_Angeles",
   },
   "CA-from": {
     company: "CN International",
@@ -99,7 +97,6 @@ const countryMap: Record<string, AddressPOJO> = {
     stateProvince: "ON",
     postalCode: "M5H 2L2",
     country: Country.Canada,
-    timeZone: "America/Toronto",
   },
   "CA-to": {
     company: "Company Inc",
@@ -108,7 +105,6 @@ const countryMap: Record<string, AddressPOJO> = {
     stateProvince: "BC",
     postalCode: "B5H 2W7",
     country: Country.Canada,
-    timeZone: "America/Vancouver",
   },
   "MX-from": {
     company: "MX International",
@@ -117,7 +113,6 @@ const countryMap: Record<string, AddressPOJO> = {
     stateProvince: "Q.R.",
     postalCode: "77500",
     country: Country.Mexico,
-    timeZone: "America/Cancun",
   },
   "MX-to": {
     company: "Company Inc",
@@ -126,7 +121,6 @@ const countryMap: Record<string, AddressPOJO> = {
     stateProvince: "B.C.S.",
     postalCode: "23410",
     country: Country.Mexico,
-    timeZone: "America/Chihuahua",
   },
   "GB-from": {
     company: "UK International",
@@ -135,7 +129,6 @@ const countryMap: Record<string, AddressPOJO> = {
     stateProvince: "London",
     postalCode: "EC2N 2DL",
     country: Country.UnitedKingdom,
-    timeZone: "Europe/London",
   },
   "GB-to": {
     company: "Company Inc",
@@ -144,7 +137,6 @@ const countryMap: Record<string, AddressPOJO> = {
     stateProvince: "Liverpool",
     postalCode: "L6 1BA",
     country: Country.UnitedKingdom,
-    timeZone: "Europe/London",
   },
   "PT-from": {
     company: "PT International",
@@ -153,7 +145,6 @@ const countryMap: Record<string, AddressPOJO> = {
     stateProvince: "Lisboa",
     postalCode: "1069-413",
     country: Country.Portugal,
-    timeZone: "Europe/Lisbon",
   },
   "PT-to": {
     company: "Company Inc",
@@ -162,7 +153,6 @@ const countryMap: Record<string, AddressPOJO> = {
     stateProvince: "Porto",
     postalCode: "4050-417",
     country: Country.Portugal,
-    timeZone: "Europe/Lisbon",
   },
   "ES-from": {
     company: "ES International",
@@ -171,7 +161,6 @@ const countryMap: Record<string, AddressPOJO> = {
     stateProvince: "Madrid",
     postalCode: "28005",
     country: Country.Spain,
-    timeZone: "Europe/Madrid",
   },
   "ES-to": {
     company: "Company Inc",
@@ -180,7 +169,6 @@ const countryMap: Record<string, AddressPOJO> = {
     stateProvince: "Barcelona",
     postalCode: "08039",
     country: Country.Spain,
-    timeZone: "Europe/Madrid",
   },
   "FR-from": {
     company: "FR International",
@@ -189,7 +177,6 @@ const countryMap: Record<string, AddressPOJO> = {
     stateProvince: "Paris",
     postalCode: "75001",
     country: Country.France,
-    timeZone: "Europe/Paris",
   },
   "FR-to": {
     company: "Company Inc",
@@ -198,7 +185,6 @@ const countryMap: Record<string, AddressPOJO> = {
     stateProvince: "Nice",
     postalCode: "06000",
     country: Country.France,
-    timeZone: "Europe/Paris",
   },
   "NL-from": {
     company: "NL International",
@@ -207,7 +193,6 @@ const countryMap: Record<string, AddressPOJO> = {
     stateProvince: "Amsterdam",
     postalCode: "1017 CV",
     country: Country.Netherlands,
-    timeZone: "Europe/Amsterdam",
   },
   "NL-to": {
     company: "Company Inc",
@@ -216,7 +201,6 @@ const countryMap: Record<string, AddressPOJO> = {
     stateProvince: "Rotterdam",
     postalCode: "3062 PA",
     country: Country.Netherlands,
-    timeZone: "Europe/Amsterdam",
   },
   "BE-from": {
     company: "BE International",
@@ -225,7 +209,6 @@ const countryMap: Record<string, AddressPOJO> = {
     stateProvince: "Bruxelles",
     postalCode: "1000",
     country: Country.Belgium,
-    timeZone: "Europe/Brussels",
   },
   "BE-to": {
     company: "Company Inc",
@@ -234,7 +217,6 @@ const countryMap: Record<string, AddressPOJO> = {
     stateProvince: "Brugge",
     postalCode: "8000",
     country: Country.Belgium,
-    timeZone: "Europe/Brussels",
   },
   "DE-from": {
     company: "BE International",
@@ -243,7 +225,6 @@ const countryMap: Record<string, AddressPOJO> = {
     stateProvince: "Berlin",
     postalCode: "10178",
     country: Country.Germany,
-    timeZone: "Europe/Berlin",
   },
   "DE-to": {
     company: "Company Inc",
@@ -252,7 +233,6 @@ const countryMap: Record<string, AddressPOJO> = {
     stateProvince: "Frankfurt am Main",
     postalCode: "60388",
     country: Country.Germany,
-    timeZone: "Europe/Berlin",
   },
   "IT-from": {
     company: "IT International",
@@ -261,7 +241,6 @@ const countryMap: Record<string, AddressPOJO> = {
     stateProvince: "MI",
     postalCode: "20121",
     country: Country.Italy,
-    timeZone: "Europe/Rome",
   },
   "IT-to": {
     company: "Company Inc",
@@ -270,7 +249,6 @@ const countryMap: Record<string, AddressPOJO> = {
     stateProvince: "NA",
     postalCode: "80121",
     country: Country.Italy,
-    timeZone: "Europe/Rome",
   },
   "DK-from": {
     company: "DK International",
@@ -279,7 +257,6 @@ const countryMap: Record<string, AddressPOJO> = {
     stateProvince: "København",
     postalCode: "1360",
     country: Country.Denmark,
-    timeZone: "Europe/Copenhagen",
   },
   "DK-to": {
     company: "Company Inc",
@@ -288,7 +265,6 @@ const countryMap: Record<string, AddressPOJO> = {
     stateProvince: "Slagelse",
     postalCode: "4200",
     country: Country.Denmark,
-    timeZone: "Europe/Copenhagen",
   },
   "CH-from": {
     company: "CH International",
@@ -297,7 +273,6 @@ const countryMap: Record<string, AddressPOJO> = {
     stateProvince: "Zürich",
     postalCode: "8001",
     country: Country.Switzerland,
-    timeZone: "Europe/Zurich",
   },
   "CH-to": {
     company: "Company Inc",
@@ -306,7 +281,6 @@ const countryMap: Record<string, AddressPOJO> = {
     stateProvince: "Bern",
     postalCode: "3011",
     country: Country.Switzerland,
-    timeZone: "Europe/Zurich",
   },
   "AT-from": {
     company: "AT International",
@@ -315,7 +289,6 @@ const countryMap: Record<string, AddressPOJO> = {
     stateProvince: "Wien",
     postalCode: "1010",
     country: Country.Austria,
-    timeZone: "Europe/Vienna",
   },
   "AT-to": {
     company: "Company Inc",
@@ -324,7 +297,6 @@ const countryMap: Record<string, AddressPOJO> = {
     stateProvince: "Innsbruck",
     postalCode: "6020",
     country: Country.Austria,
-    timeZone: "Europe/Vienna",
   },
   "NO-from": {
     company: "NO International",
@@ -333,7 +305,6 @@ const countryMap: Record<string, AddressPOJO> = {
     stateProvince: "Oslo",
     postalCode: "0484",
     country: Country.Norway,
-    timeZone: "Europe/Oslo",
   },
   "NO-to": {
     company: "Company Inc",
@@ -342,7 +313,6 @@ const countryMap: Record<string, AddressPOJO> = {
     stateProvince: "Bergen",
     postalCode: "5014",
     country: Country.Norway,
-    timeZone: "Europe/Oslo",
   },
   "SE-from": {
     company: "SE International",
@@ -351,7 +321,6 @@ const countryMap: Record<string, AddressPOJO> = {
     stateProvince: "Stockholm",
     postalCode: "111 42",
     country: Country.Sweden,
-    timeZone: "Europe/Stockholm",
   },
   "SE-to": {
     company: "Company Inc",
@@ -360,7 +329,6 @@ const countryMap: Record<string, AddressPOJO> = {
     stateProvince: "Göteborg",
     postalCode: "411 06",
     country: Country.Sweden,
-    timeZone: "Europe/Stockholm",
   },
   "FI-from": {
     company: "FI International",
@@ -369,7 +337,6 @@ const countryMap: Record<string, AddressPOJO> = {
     stateProvince: "Tampere",
     postalCode: "33100",
     country: Country.Finland,
-    timeZone: "Europe/Helsinki",
   },
   "FI-to": {
     company: "Company Inc",
@@ -378,7 +345,6 @@ const countryMap: Record<string, AddressPOJO> = {
     stateProvince: "Helsinki",
     postalCode: "00100",
     country: Country.Finland,
-    timeZone: "Europe/Helsinki",
   },
   "PL-from": {
     company: "PL International",
@@ -387,7 +353,6 @@ const countryMap: Record<string, AddressPOJO> = {
     stateProvince: "Warszawa",
     postalCode: "03-734",
     country: Country.Poland,
-    timeZone: "Europe/Warsaw",
   },
   "PL-to": {
     company: "Company Inc",
@@ -396,7 +361,6 @@ const countryMap: Record<string, AddressPOJO> = {
     stateProvince: "Kraków",
     postalCode: "31-010",
     country: Country.Poland,
-    timeZone: "Europe/Warsaw",
   },
   "CZ-from": {
     company: "CZ International",
@@ -405,7 +369,6 @@ const countryMap: Record<string, AddressPOJO> = {
     stateProvince: "2-Vinohrady",
     postalCode: "120 00",
     country: Country.CzechRepublic,
-    timeZone: "Europe/Prague",
   },
   "CZ-to": {
     company: "Company Inc",
@@ -414,7 +377,6 @@ const countryMap: Record<string, AddressPOJO> = {
     stateProvince: "Bohunice",
     postalCode: "625 00",
     country: Country.CzechRepublic,
-    timeZone: "Europe/Prague",
   },
   "LU-from": {
     company: "LU International",
@@ -423,7 +385,6 @@ const countryMap: Record<string, AddressPOJO> = {
     stateProvince: "Berchem",
     postalCode: "3325",
     country: Country.Luxembourg,
-    timeZone: "Europe/Luxembourg",
   },
   "LU-to": {
     company: "Company Inc",
@@ -432,7 +393,6 @@ const countryMap: Record<string, AddressPOJO> = {
     stateProvince: "Schuttrange",
     postalCode: "5365",
     country: Country.Luxembourg,
-    timeZone: "Europe/Luxembourg",
   },
   "AU-from": {
     company: "AU International",
@@ -441,7 +401,6 @@ const countryMap: Record<string, AddressPOJO> = {
     stateProvince: "NSW",
     postalCode: "2000",
     country: Country.Australia,
-    timeZone: "Australia/Sydney",
   },
   "AU-to": {
     company: "Company Inc",
@@ -450,7 +409,6 @@ const countryMap: Record<string, AddressPOJO> = {
     stateProvince: "QLD",
     postalCode: "4101",
     country: Country.Australia,
-    timeZone: "Australia/Brisbane",
   },
   "NZ-from": {
     company: "NZ International",
@@ -459,7 +417,6 @@ const countryMap: Record<string, AddressPOJO> = {
     stateProvince: "Wellington",
     postalCode: "6011",
     country: Country.NewZealand,
-    timeZone: "Pacific/Auckland",
   },
   "NZ-to": {
     company: "Company Inc",
@@ -468,7 +425,6 @@ const countryMap: Record<string, AddressPOJO> = {
     stateProvince: "Christchurch",
     postalCode: "8011",
     country: Country.NewZealand,
-    timeZone: "Pacific/Auckland",
   },
   "BR-from": {
     company: "BR International",
@@ -477,7 +433,6 @@ const countryMap: Record<string, AddressPOJO> = {
     stateProvince: "SP",
     postalCode: "04516-012",
     country: Country.Brazil,
-    timeZone: "America/Sao_Paulo",
   },
   "BR-to": {
     company: "Company Inc",
@@ -486,6 +441,5 @@ const countryMap: Record<string, AddressPOJO> = {
     stateProvince: "RJ",
     postalCode: "24020-125",
     country: Country.Brazil,
-    timeZone: "America/Sao_Paulo",
   }
 };

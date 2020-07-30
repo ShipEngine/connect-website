@@ -1,5 +1,3 @@
-// const { CreateShipmentDomestic } = require("../../../../../lib/core/test-app/tests/create-shipment-domestic");
-// const pojo = require("../../../utils/pojo");
 "use strict";
 
 const { CreateShipmentDomestic } = require("../../../../../lib/core/test-app/tests/create-shipment-domestic");
@@ -257,34 +255,6 @@ describe("The create shipment domestic test suite", () => {
       CarrierApp.prototype.createShipment.restore();
     });
   });
-
-  describe("When a deliveryService fulfillment property is set", () => {
-
-    it("should throw an error if the response does not match it", async () => {
-      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-
-      appDefinition.deliveryServices[0].fulfillmentService = "dhl_economy_select";
-      const confirmationMock = pojo.shipmentConfirmation();
-      sinon.stub(CarrierApp.prototype, "createShipment").resolves(confirmationMock);
-      const app = new CarrierApp(appDefinition);
-
-      const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CreateShipmentDomestic(args);
-      const tests = testSuite.tests();
-      try {
-        await tests[0].fn();
-        expect(true).to.equal(false);
-      }
-      catch (error) {
-        expect(error.message).includes("The shipmentConfirmation.fulfillmentService returned from createShipment does not equal the given deliveryService.fulfillmentService");
-      }
-    });
-
-    afterEach(() => {
-      CarrierApp.prototype.createShipment.restore();
-    });
-  });
-
 
   describe("When the input parameters do not match the return shipment", () => {
 

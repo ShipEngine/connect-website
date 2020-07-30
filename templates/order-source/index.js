@@ -8,10 +8,7 @@ module.exports = {
   logo: "./logo.svg",
   connectionForm: "./forms/connect.js",
   settingsForm: "./forms/settings.js",
-
   connect: "./methods/connect.js",
-  getSeller: "./methods/get-seller.js",
-  getSalesOrder: "./methods/get-sales-order.js",
   getSalesOrdersByDate: "./methods/get-sales-order-by-date.js",
   shipmentCreated: "./methods/shipment-created.js",
   shipmentCancelled: "./methods/shipment-cancelled.js"

@@ -238,8 +238,16 @@ class AppsNew extends Generator {
 
     if (this.answers.vscode) {
       this.pjson.scripts = {
-        debug: "cross-env NODE_OPTIONS=--inspect-brk shipengine apps:test",
+        debug: "cross-env NODE_OPTIONS=--inspect-brk shipengine test",
       };
+    }
+
+    if(this.ts) {
+      this.pjson.scripts = {
+        build: "tsc"
+      };
+
+      this.pjson.main = "lib/index.js";
     }
   }
 
@@ -443,6 +451,12 @@ class AppsNew extends Generator {
               this.destinationPath(`src/methods/session.ts`),
               this,
             );
+
+            this.fs.copyTpl(
+              this.templatePath(`tsconfig.json`),
+              this.destinationPath('tsconfig.json'),
+              this,
+            );
           }
         }
         break;
@@ -496,26 +510,6 @@ class AppsNew extends Generator {
 
           this.fs.copyTpl(
             this.templatePath(
-              `order-source/methods/get-sales-order.${this._codeExt}`,
-            ),
-            this.destinationPath(
-              `src/methods/get-sales-order.${this._codeExt}`,
-            ),
-            this,
-          );
-
-          this.fs.copyTpl(
-            this.templatePath(
-              `order-source/methods/get-seller.${this._codeExt}`,
-            ),
-            this.destinationPath(
-              `src/methods/get-seller.${this._codeExt}`,
-            ),
-            this,
-          );
-
-          this.fs.copyTpl(
-            this.templatePath(
               `order-source/methods/shipment-cancelled.${this._codeExt}`,
             ),
             this.destinationPath(
@@ -540,6 +534,12 @@ class AppsNew extends Generator {
               this.destinationPath(`src/methods/session.ts`),
               this,
             );
+
+            this.fs.copyTpl(
+              this.templatePath(`tsconfig.json`),
+              this.destinationPath(`tsconfig.json`),
+              this,
+            );
           }
         }
         break;
@@ -556,6 +556,7 @@ class AppsNew extends Generator {
 
     if (this.ts) {
       devDependencies.push("@types/node@^13.13.5");
+      devDependencies.push("typescript");
     }
 
     if (isWindows) devDependencies.push("rimraf");

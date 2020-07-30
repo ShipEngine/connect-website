@@ -1,55 +1,52 @@
 "use strict";
 
-const { CreateShipmentInternational } = require("../../../../../../lib/core/test-app/tests/create-shipment-international");
+const { CreateShipmentMultiPackage } = require("../../../../../lib/core/test-app/tests/create-shipment-multipackage");
 const { CarrierApp } = require("@shipengine/integration-platform-sdk/lib/internal/carriers/carrier-app");
-const pojo = require("../../../../utils/pojo");
+const pojo = require("../../../utils/pojo");
 const { expect } = require("chai");
 const sinon = require("sinon");
 
-describe("The create shipment international test suite", () => {
+describe("The create shipment multipackage test suite", () => {
 
-  describe("when there is no international service", () => {
+  describe("when there is no address available for a delivery service", () => {
 
     it("should not generate tests", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-      appDefinition.deliveryServices[0].originCountries = ["MX"];
-
-      appDefinition.deliveryServices[0].destinationCountries = ["MX"];
+      appDefinition.deliveryServices[0].originCountries = ["AQ"]
+      appDefinition.deliveryServices[0].destinationCountries = ["AQ"]
 
       const app = new CarrierApp(appDefinition);
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CreateShipmentInternational(args);
+      const testSuite = new CreateShipmentMultiPackage(args);
 
       const tests = testSuite.tests();
       expect(tests.length).to.equal(0);
     });
   });
 
+  describe("when there is no delivery service that supports multiple packages", () => {
 
-  describe("when there is not address available for international services", () => {
     it("should not generate tests", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-      appDefinition.deliveryServices[0].originCountries = ["SJ"]
-      appDefinition.deliveryServices[0].destinationCountries = ["AQ"]
+      appDefinition.deliveryServices[0].allowsMultiplePackages = false;
 
       const app = new CarrierApp(appDefinition);
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CreateShipmentInternational(args);
+      const testSuite = new CreateShipmentMultiPackage(args);
 
       const tests = testSuite.tests();
       expect(tests.length).to.equal(0);
     });
-  })
+  });
 
-  describe("when there is an international service with an available address", () => {
+  describe("when there is a delivery service with an available address", () => {
 
     let testSuite;
     beforeEach(() => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       const app = new CarrierApp(appDefinition);
       const args = { app, connectArgs, staticConfigTests, options };
-
-      testSuite = new CreateShipmentInternational(args);
+      testSuite = new CreateShipmentMultiPackage(args);
     });
 
     it("should generate a test", () => {
@@ -60,46 +57,23 @@ describe("The create shipment international test suite", () => {
     it("the test params should be reflected in the title", () => {
       const tests = testSuite.tests();
 
-      expect(tests[0].title).to.include("label: A4 pdf");
-      expect(tests[0].title).to.include("weight: 50lb");
+      expect(tests[0].title).to.include("shipFrom: US");
+      expect(tests[0].title).to.include("shipTo: US");
+      expect(tests[0].title).to.include("packages: 2");
     });
   });
 
-  describe("when there is a config override object of test suite parameters", () => {
 
+
+  describe("when there is a config override object of test suite parameters", () => {
     it("should update the test title", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       const app = new CarrierApp(appDefinition);
 
-      staticConfigTests.createShipment_international = {
-        weight: {
-          value: 200,
-          unit: "lb"
-        },
-        label: {
-          size: "4x6",
-          format: "png"
-        }
-      };
-
-      const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CreateShipmentInternational(args);
-      const tests = testSuite.tests();
-
-      expect(tests[0].title).to.include("label: 4x6 png");
-      expect(tests[0].title).to.include("weight: 200lb");
-    });
-  });
-
-  describe("when there is a config override array of test suite parameters", () => {
-
-    let tests;
-    beforeEach(() => {
-      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-      const app = new CarrierApp(appDefinition);
-      staticConfigTests.createShipment_international =
-        [
+      staticConfigTests.createShipment_multi_package = {
+        packages: [
           {
+            packagingName: "Dummy Packaging",
             weight: {
               value: 200,
               unit: "lb"
@@ -110,15 +84,92 @@ describe("The create shipment international test suite", () => {
             }
           },
           {
+            packagingName: "Dummy Packaging",
             weight: {
-              value: 22,
+              value: 222,
               unit: "lb"
+            },
+            label: {
+              size: "4x6",
+              format: "png"
             }
+          }
+        ]
+      };
+
+      const args = { app, connectArgs, staticConfigTests, options };
+      const testSuite = new CreateShipmentMultiPackage(args);
+      const tests = testSuite.tests();
+
+      expect(tests[0].title).to.include("packages: 2");
+    });
+  });
+
+  describe("when there is a config override array of test suite parameters", () => {
+
+    let tests;
+    beforeEach(() => {
+      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+      const app = new CarrierApp(appDefinition);
+
+      staticConfigTests.createShipment_multi_package =
+        [
+          {
+            packages: [
+              {
+                packagingName: "Dummy Packaging",
+                weight: {
+                  value: 200,
+                  unit: "lb"
+                },
+                label: {
+                  size: "4x6",
+                  format: "png"
+                }
+              },
+              {
+                packagingName: "Dummy Packaging",
+                weight: {
+                  value: 222,
+                  unit: "lb"
+                },
+                label: {
+                  size: "4x6",
+                  format: "png"
+                }
+              }
+            ]
+          },
+          {
+            packages: [
+              {
+                packagingName: "Dummy Packaging",
+                weight: {
+                  value: 200,
+                  unit: "lb"
+                },
+                label: {
+                  size: "4x6",
+                  format: "png"
+                }
+              },
+              {
+                packagingName: "Dummy Packaging",
+                weight: {
+                  value: 222,
+                  unit: "lb"
+                },
+                label: {
+                  size: "4x6",
+                  format: "png"
+                }
+              }
+            ]
           }
         ];
 
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CreateShipmentInternational(args);
+      const testSuite = new CreateShipmentMultiPackage(args);
       tests = testSuite.tests();
     });
 
@@ -128,26 +179,31 @@ describe("The create shipment international test suite", () => {
     });
 
     it("should update the test titles", () => {
-      expect(tests[0].title).to.include("weight: 200lb");
-      expect(tests[0].title).to.include("label: 4x6 png");
+      expect(tests[0].title).to.include("packages: 2");
 
-      expect(tests[1].title).to.include("weight: 22lb");
+
+      expect(tests[1].title).to.include("packages: 2");
+
     });
   });
 
   describe("When a user configs a delivery service that does not exist", () => {
+
     it("should throw an error", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+      appDefinition.deliveryServices[0].allowsMultiplePackages = false;
       const app = new CarrierApp(appDefinition);
-      staticConfigTests.createShipment_international = {
+
+      staticConfigTests.createShipment_multi_package = {
         deliveryServiceName: "asdf"
       }
+      
 
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CreateShipmentInternational(args);
+      const testSuite = new CreateShipmentMultiPackage(args);
 
       try {
-        const tests = testSuite.tests();
+        testSuite.tests();
         expect(true).to.equal(false);
       }
       catch (error) {
@@ -156,7 +212,32 @@ describe("The create shipment international test suite", () => {
     });
   });
 
+  describe("When a user configs a delivery service that does not support multiple packages", () => {
+
+    it("should throw an error", () => {
+      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+      appDefinition.deliveryServices[0].allowsMultiplePackages = false;
+      const app = new CarrierApp(appDefinition);
+
+      staticConfigTests.createShipment_multi_package = {
+        deliveryServiceName: "Dummy Delivery Service"
+      }
+
+      const args = { app, connectArgs, staticConfigTests, options };
+      const testSuite = new CreateShipmentMultiPackage(args);
+
+      try {
+        testSuite.tests();
+        expect(true).to.equal(false);
+      }
+      catch (error) {
+        expect(error.message).to.include("deliveryServiceName: 'Dummy Delivery Service' does not support multi-package shipments");
+      }
+    });
+  });
+
   describe("When a user configs a new delivery service", () => {
+
     it("should update the title params to reflect the new properties", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       appDefinition.deliveryServices.push({
@@ -164,24 +245,25 @@ describe("The create shipment international test suite", () => {
         name: "Better Delivery Service",
         class: "ground",
         grade: "standard",
+        allowsMultiplePackages: true,
         originCountries: ["MX"],
-        destinationCountries: ["US"],
+        destinationCountries: ["MX"],
         labelFormats: ["pdf"],
         labelSizes: ["A4"],
         packaging: [pojo.packaging()]
       });
 
-      staticConfigTests.createShipment_international = {
+      const app = new CarrierApp(appDefinition);
+
+      staticConfigTests.createShipment_multi_package = {
         deliveryServiceName: "Better Delivery Service"
       }
 
-      const app = new CarrierApp(appDefinition);
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CreateShipmentInternational(args);
+      const testSuite = new CreateShipmentMultiPackage(args);
       const tests = testSuite.tests();
 
       expect(tests[0].title).to.include("deliveryServiceName: Better Delivery Service");
-      expect(tests[0].title).to.include("label: A4 pdf");
     });
   });
 
@@ -189,9 +271,7 @@ describe("The create shipment international test suite", () => {
     it("should update the test arguments and titles", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
 
-      const app = new CarrierApp(appDefinition);
-
-      staticConfigTests.createShipment_international = {
+      staticConfigTests.createShipment_multi_package = {
         shipFrom: {
           company: "Domestic Route #1",
           addressLines: ["123 New Street"],
@@ -212,14 +292,15 @@ describe("The create shipment international test suite", () => {
         }
       };
 
+      const app = new CarrierApp(appDefinition);
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CreateShipmentInternational(args);
+      const testSuite = new CreateShipmentMultiPackage(args);
       const tests = testSuite.tests();
 
       expect(tests[0].methodArgs.shipFrom.company).to.equal("Domestic Route #1");
       expect(tests[0].methodArgs.shipTo.company).to.equal("Domestic Route #2");
 
-      expect(tests[0].methodArgs.shipTo).to.eql(staticConfigTests.createShipment_international.shipTo);
+      expect(tests[0].methodArgs.shipTo).to.eql(staticConfigTests.createShipment_multi_package.shipTo);
 
       expect(tests[0].title).to.include("shipFrom: US");
       expect(tests[0].title).to.include("shipTo: US");
@@ -237,7 +318,7 @@ describe("The create shipment international test suite", () => {
       const app = new CarrierApp(appDefinition);
 
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CreateShipmentInternational(args);
+      const testSuite = new CreateShipmentMultiPackage(args);
       const tests = testSuite.tests();
       try {
         await tests[0].fn();
@@ -253,34 +334,6 @@ describe("The create shipment international test suite", () => {
     });
   });
 
-  describe("When a deliveryService fulfillment property is set", () => {
-
-    it("should throw an error if the response does not match it", async () => {
-      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-
-      appDefinition.deliveryServices[0].fulfillmentService = "dhl_economy_select";
-      const confirmationMock = pojo.shipmentConfirmation();
-      sinon.stub(CarrierApp.prototype, "createShipment").resolves(confirmationMock);
-      const app = new CarrierApp(appDefinition);
-
-      const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CreateShipmentInternational(args);
-      const tests = testSuite.tests();
-      try {
-        await tests[0].fn();
-        expect(true).to.equal(false);
-      }
-      catch (error) {
-        expect(error.message).includes("The shipmentConfirmation.fulfillmentService returned from createShipment does not equal the given deliveryService.fulfillmentService");
-      }
-    });
-
-    afterEach(() => {
-      CarrierApp.prototype.createShipment.restore();
-    });
-  });
-
-
   describe("When the input parameters do not match the return shipment", () => {
 
     it("should throw an error for a packaging length mismatch", async () => {
@@ -288,11 +341,12 @@ describe("The create shipment international test suite", () => {
 
       const confirmationMock = pojo.shipmentConfirmation();
       confirmationMock.packages.push(pojo.packageConfirmation());
+      confirmationMock.packages.push(pojo.packageConfirmation());
       sinon.stub(CarrierApp.prototype, "createShipment").resolves(confirmationMock);
       const app = new CarrierApp(appDefinition);
 
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CreateShipmentInternational(args);
+      const testSuite = new CreateShipmentMultiPackage(args);
       const tests = testSuite.tests();
       try {
         await tests[0].fn();
@@ -308,6 +362,7 @@ describe("The create shipment international test suite", () => {
     });
 
   });
+
 });
 
 function generateBasicAppAndConfigs() {
@@ -315,12 +370,10 @@ function generateBasicAppAndConfigs() {
   const deliveryService = pojo.deliveryService();
   deliveryService.labelFormats = ["pdf"];
   deliveryService.labelSizes = ["A4"];
-  deliveryService.destinationCountries = ["MX"];
-  deliveryService.originCountries = ["US"];
-  appDefinition.createShipment = () => { };
-
+  deliveryService.allowsMultiplePackages = true;
   deliveryService.deliveryConfirmations = [pojo.deliveryConfirmation()];
   appDefinition.deliveryServices = [deliveryService];
+  appDefinition.createShipment = () => { };
 
   const options = {
     cli: {
@@ -338,7 +391,7 @@ function generateBasicAppAndConfigs() {
   };
 
   const staticConfigTests = {
-    createShipment_international: {}
+    createShipment_multi_package: {}
   };
 
   const connectArgs = {};

@@ -1,7 +1,7 @@
-import BaseCommand from "../../base-command";
+import BaseCommand from "../base-command";
 import { flags } from "@oclif/command";
 import { loadApp } from "@shipengine/integration-platform-loader";
-import { checkAppLoginStatus } from '../../core/utils/users';
+import { checkAppLoginStatus } from "../core/utils/users";
 
 export default class Info extends BaseCommand {
   static description = "list info for an app";
@@ -9,7 +9,7 @@ export default class Info extends BaseCommand {
   static flags = {
     help: flags.help({
       char: "h",
-      description: "show help for the apps:info commands",
+      description: "show help for the info command",
     }),
   };
 

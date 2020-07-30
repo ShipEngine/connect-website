@@ -4,9 +4,8 @@ import loadAndValidateApp from "./load-and-validate-app";
 import { 
   CreateShipmentInternational, 
   CreateShipmentDomestic, 
-  CreateShipmentMultiPackage, 
   CreateShipmentWithInsurance, 
-  RateShipmentWithMultipleServices, 
+  CreateShipmentMultiPackage,  
   RateShipmentWithOneService
 } from "./test-app/tests";
 import { SdkApp } from "./types";
@@ -147,7 +146,6 @@ function registerTestSuiteModules(app: SdkApp): RegisteredTestSuiteModules {
       CreateShipmentWithInsurance
     ],
     rateShipment: [
-      RateShipmentWithMultipleServices,
       RateShipmentWithOneService
     ],
     // schedulePickup: [SchedulePickupTestSuite],
@@ -155,9 +153,7 @@ function registerTestSuiteModules(app: SdkApp): RegisteredTestSuiteModules {
   };
 
   const orderAppMethods = {
-    // getSalesOrder: [GetSalesOrderTestSuite],
     // getSalesOrdersByDate: [GetSalesOrdersByDateTestSuite],
-    // getSeller: [GetSellerTestSuite],
     // shipmentCancelled: [ShipmentCancelledTestSuite],
     // shipmentCreated: [ShipmentCreatedTestSuite],
   };

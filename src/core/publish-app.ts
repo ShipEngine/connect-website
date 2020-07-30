@@ -1,4 +1,4 @@
-import AppsAPIClient from "./apps-api-client";
+import APIClient from "./api-client";
 import cli from "cli-ux";
 import fs from "fs";
 import logSymbols from "log-symbols";
@@ -8,6 +8,7 @@ import { loadApp } from "@shipengine/integration-platform-loader";
 import { packageApp } from "./publish-app/package-app";
 import { watchDeployment } from "./publish-app/watch-deployment";
 import { green, red } from "chalk";
+import { buildTypescriptApp } from './publish-app/build-typescript-app';
 
 class AppFailedToPackageError extends Error {
   code: string;
@@ -37,13 +38,17 @@ interface PublishAppOptions {
 
 export default async function publishApp(
   pathToApp: string,
-  client: AppsAPIClient,
+  client: APIClient,
   { watch = false }: PublishAppOptions,
 ): Promise<Deployment> {
+
   // Make a backup copy of the package.json file since we are going to add the bundledDependencies attribute
   const pJsonBackup = await fs.promises.readFile(
     path.join(pathToApp, "package.json"),
   );
+
+  // Build typescript app, if necessary.
+  await buildTypescriptApp();
 
   cli.action.start("packaging app");
 
