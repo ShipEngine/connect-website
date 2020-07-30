@@ -6,6 +6,8 @@ module.exports = {
   description: "My Carrier description goes here",
   websiteURL: "https://www.my-carrier.com",
   logo: "../../../logo.svg",
+  icon: "../../../logo.svg",
+
   manifestLocations: "single_location",
   manifestShipments: "explicit_shipments",
   deliveryServices: [

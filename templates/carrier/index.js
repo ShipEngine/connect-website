@@ -5,6 +5,7 @@ module.exports = {
   name: "<%- _appName %>",
   description: "<%- pjson.description %>",
   logo: "./logo.svg",
+  icon: "./logo.svg",
   websiteURL: "http://www.carier-site.com",
   manifestLocations: "single_location",
   manifestShipments: "explicit_shipments",

@@ -6,6 +6,7 @@ module.exports = {
   description: "<%- pjson.description %>",
   websiteURL: "https://www.order-source.com",
   logo: "./logo.svg",
+  icon: "./logo.svg",
   connectionForm: "./forms/connect.js",
   settingsForm: "./forms/settings.js",
   connect: "./methods/connect.js",

@@ -3,6 +3,7 @@ name: "<%- _appName %>"
 description: "<%- pjson.description %>"
 websiteURL: https://www.order-source.com
 logo: ./logo.svg
+icon: ./logo.svg
 connectionForm: ./forms/connect.yaml
 settingsForm": ./forms/settings.yaml
 

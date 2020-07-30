@@ -20,6 +20,7 @@ const carrier: CarrierAppDefinition = {
   description: "<%- pjson.description %>",
   websiteURL: "http://www.carier-site.com",
   logo: "./logo.svg",
+  icon: "./logo.svg",
   manifestLocations: ManifestLocation.SingleLocation,
   manifestShipments: ManifestShipment.ExplicitShipments,
   connectionForm: import("./forms/connect"),
