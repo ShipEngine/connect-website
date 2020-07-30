@@ -6,6 +6,7 @@ module.exports = {
   description: "FreightCo is a ground freight trucking company serving Central and North America.",
   websiteURL: "https://freightco.net",
   logo: "../logo.svg",
+  icon: "../logo.svg",
 
   connect: "connect.js",
   createShipment: "create-shipment.js",

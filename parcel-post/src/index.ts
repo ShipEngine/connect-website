@@ -6,6 +6,7 @@ const parcelPost: CarrierAppDefinition = {
   description: "Parcel Post provides low-cost multi-carrier delivery services within the U.S. and to major international destinations",
   websiteURL: "https://parcel-post.net",
   logo: "../logo.svg",
+  icon: "../logo.svg",
 
   connect: import("./methods/connect"),
   createShipment: import("./methods/create-shipment"),
