@@ -227,35 +227,6 @@ describe("The rate shipment with one service test suite", () => {
       CarrierApp.prototype.rateShipment.restore();
     });
   });
-
-  describe("When a deliveryService fulfillment property is set", () => {
-    it("should throw an error if the response does not match it", async () => {
-      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-      appDefinition.deliveryServices[0].fulfillmentService = "dhl_economy_select";
-
-      const rate1 = pojo.rate();
-      rate1.deliveryService = appDefinition.deliveryServices[0];
-
-      const app = new CarrierApp(appDefinition);
-      const rateResponse = [rate1];
-      sinon.stub(CarrierApp.prototype, "rateShipment").resolves(rateResponse);
-
-      const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new RateShipmentWithOneService(args);
-      const tests = testSuite.tests();
-      try {
-        await tests[0].fn();
-        expect(true).to.equal(false);
-      }
-      catch (error) {
-        expect(error.message).includes("Fulfillment Service is not set for 'Dummy Delivery Service' rate");
-      }
-    });
-
-    afterEach(() => {
-      CarrierApp.prototype.rateShipment.restore();
-    });
-  });
 });
 
 function generateBasicAppAndConfigs() {

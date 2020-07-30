@@ -51,7 +51,7 @@ export class RateShipmentWithOneService extends Suite {
 
     if (!shipTo || !shipFrom) return undefined;
 
-    const { tomorrow } = initializeTimeStamps(shipFrom.timeZone);
+    const { tomorrow } = initializeTimeStamps();
 
     const defaults: RateShipmentWithOneServiceTestParams = {
       deliveryServiceName: this.deliveryService.name,
@@ -80,7 +80,7 @@ export class RateShipmentWithOneService extends Suite {
     };
 
     let RateCriteriaPOJO: RateCriteriaPOJO = {
-      deliveryServices: [findDeliveryServiceByName(this.deliveryService.name, carrierApp)],
+      deliveryService: findDeliveryServiceByName(this.deliveryService.name, carrierApp),
       shipFrom: testParams.shipFrom,
       shipTo: testParams.shipTo!,
       shipDateTime: testParams.shipDateTime,
@@ -138,22 +138,13 @@ export class RateShipmentWithOneService extends Suite {
 
           const rates = await carrierApp.rateShipment!(transaction, testArg!.methodArgs);
 
-          //Check that all delivery services that were passed in are included in the response
-          for (let ds of testArg.methodArgs.deliveryServices!) {
-            if (!rates.find(rate => rate.deliveryService.id === ds.id)) {
-              const missingDS = carrierApp.deliveryServices.find(service => service.id === ds.id);
+          //Check that the delivery service that was passed in is included in the response
+          if (!rates.find(rate => rate.deliveryService.id === testArg.methodArgs!.deliveryService!.id)) {
+            const missingDS = carrierApp.deliveryServices.find(service => service.id === testArg.methodArgs!.deliveryService!.id);
 
-              throw new Error(`Rate for delivery service '${missingDS!.name}' is missing from the response`);
-            }
+            throw new Error(`Rate for delivery service '${missingDS!.name}' is missing from the response`);
           }
-
-          for (let rate of rates) {
-            //Check is fullfillment service should be set
-            if (rate.deliveryService.fulfillmentService && !rate.fulfillmentService) {
-              throw new Error(`Fulfillment Service is not set for '${rate.deliveryService.name}' rate`);
-            }
-          }
-        },
+        }
       );
     });
   }
