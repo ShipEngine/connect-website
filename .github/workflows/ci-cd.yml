@@ -2,6 +2,8 @@ name: CI-CD
 
 on:
   push:
+    branches-ignore: 
+    - master
     branches:
       - '*'
 
@@ -98,4 +100,12 @@ jobs:
         wp-prod-repo: production/shipengine.git
         wp-staging-repo: production/shipenginestag.git
         host-docs-repo-dir: shipengine-dot-com
+    
+    - name: Push Changes to ShipEngine marketing site master branch 
+      if: steps.get-branch.outputs.current-branch == 'master'
+      uses: ad-m/github-push-action@master
+      with:
+        directory: shipengine-dot-com
+        github_token: ${{ secrets.GITHUB_ACCESS_TOKEN }}
+        repository: ShipEngine/shipengine-dot-com
 
