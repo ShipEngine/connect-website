@@ -6,7 +6,7 @@ import { buildAddressWithContactInfo } from "../factories/address";
  */
 export default function useDomesticShippingAddress(
   deliveryService: DeliveryService,
-): [AddressWithContactInfoPOJO, AddressWithContactInfoPOJO] {
+): [AddressWithContactInfoPOJO | undefined, AddressWithContactInfoPOJO | undefined] {
   let destinationCountryCode: string | undefined;
   let originCountryCode: string | undefined;
 
@@ -51,7 +51,7 @@ export default function useDomesticShippingAddress(
   }
 
   return [
-    buildAddressWithContactInfo(`${originCountryCode}-from`)!,
-    buildAddressWithContactInfo(`${destinationCountryCode}-to`)!,
+    buildAddressWithContactInfo(`${originCountryCode}-from`),
+    buildAddressWithContactInfo(`${destinationCountryCode}-to`),
   ];
 }

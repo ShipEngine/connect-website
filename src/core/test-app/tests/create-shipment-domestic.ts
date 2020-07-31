@@ -81,11 +81,9 @@ export class CreateShipmentDomestic extends Suite {
     if (!this.deliveryService) return undefined;
 
     let shipFrom, shipTo;
-    if (!config.shipFrom && !config.shipTo) {
+    try {
       [shipFrom, shipTo] = useDomesticShippingAddress(this.deliveryService);
-    }
-
-    if (!shipFrom || !shipTo) return undefined;
+    } catch {}
 
     const { tomorrow } = initializeTimeStamps();
 
@@ -113,6 +111,8 @@ export class CreateShipmentDomestic extends Suite {
     const testParams = reduceDefaultsWithConfig<
       CreateShipmentDomesticTestParams
     >(defaults, config);
+
+    if(!testParams.shipFrom || !testParams.shipTo) return undefined;
 
     const packagePOJO: NewPackagePOJO = {
       packaging: {

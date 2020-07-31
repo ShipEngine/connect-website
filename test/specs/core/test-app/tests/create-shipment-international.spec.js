@@ -29,8 +29,8 @@ describe("The create shipment international test suite", () => {
   describe("when there is not address available for international services", () => {
     it("should not generate tests", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-      appDefinition.deliveryServices[0].originCountries = ["SJ"]
-      appDefinition.deliveryServices[0].destinationCountries = ["AQ"]
+      appDefinition.deliveryServices[0].originCountries = ["SJ"];
+      appDefinition.deliveryServices[0].destinationCountries = ["AQ"];
 
       const app = new CarrierApp(appDefinition);
       const args = { app, connectArgs, staticConfigTests, options };
@@ -39,10 +39,43 @@ describe("The create shipment international test suite", () => {
       const tests = testSuite.tests();
       expect(tests.length).to.equal(0);
     });
-  })
+  });
+
+  describe("When a delivery service has addresses that we don't have samples but user uses valid configs", () => {
+    it("should generate tests", () => {
+      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+      appDefinition.deliveryServices[0].originCountries = ["SJ", "US"];
+      appDefinition.deliveryServices[0].destinationCountries = ["AQ", "MX"];
+
+      staticConfigTests.createShipment_international = {
+        shipFrom: {
+          company: "International Route #1",
+          addressLines: ["123 New Street"],
+          cityLocality: "Houston",
+          stateProvince: "TX",
+          country: "US",
+          postalCode: "77422"
+        },
+        shipTo: {
+          company: "Company Inc",
+          addressLines: ["Carretera Transpeninsular", "km 10.3 Col Cabo del Sol"],
+          cityLocality: "Cabo San Lucas",
+          stateProvince: "B.C.S.",
+          postalCode: "23410",
+          country: "MX",
+        }
+      };
+
+      const app = new CarrierApp(appDefinition);
+      const args = { app, connectArgs, staticConfigTests, options };
+      const testSuite = new CreateShipmentInternational(args);
+
+      const tests = testSuite.tests();
+      expect(tests.length).to.equal(1);
+    });
+  });
 
   describe("when there is an international service with an available address", () => {
-
     let testSuite;
     beforeEach(() => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
@@ -287,8 +320,8 @@ function generateBasicAppAndConfigs() {
   const deliveryService = pojo.deliveryService();
   deliveryService.labelFormats = ["pdf"];
   deliveryService.labelSizes = ["A4"];
-  deliveryService.destinationCountries = ["MX"];
-  deliveryService.originCountries = ["US"];
+  deliveryService.destinationCountries = ["AQ","MX"];
+  deliveryService.originCountries = ["US", "MX"];
   appDefinition.createShipment = () => { };
 
   deliveryService.deliveryConfirmations = [pojo.deliveryConfirmation()];

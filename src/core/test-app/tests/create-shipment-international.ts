@@ -83,13 +83,11 @@ export class CreateShipmentInternational extends Suite {
     if (!this.deliveryService) return undefined;
 
     let shipFrom, shipTo;
-    if (!config.shipFrom && !config.shipTo) {
-      [shipFrom, shipTo] = useInternationalShipmentAddresses(
-        this.deliveryService,
-      );
+    try {
+      [shipFrom, shipTo] = useInternationalShipmentAddresses(this.deliveryService);
+    } catch {
     }
 
-    if (!shipFrom || !shipTo) return undefined;
     const { tomorrow } = initializeTimeStamps();
 
     const defaults: CreateShipmentInternationalTestParams = {
@@ -111,6 +109,8 @@ export class CreateShipmentInternational extends Suite {
       CreateShipmentInternationalTestParams
     >(defaults, config);
 
+    if (!testParams.shipFrom || !testParams.shipTo) return undefined;
+
     const packagePOJO: NewPackagePOJO = {
       packaging: {
         id: this.deliveryService.packaging[0].id,
@@ -129,8 +129,8 @@ export class CreateShipmentInternational extends Suite {
       deliveryService: {
         id: this.deliveryService.id,
       },
-      shipFrom: testParams.shipFrom!,
-      shipTo: testParams.shipTo!,
+      shipFrom: testParams.shipFrom,
+      shipTo: testParams.shipTo,
       shipDateTime: testParams.shipDateTime!,
       packages: [packagePOJO],
     };
