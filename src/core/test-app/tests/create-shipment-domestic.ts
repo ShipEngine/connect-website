@@ -4,7 +4,7 @@ import {
   NewShipmentPOJO,
   NewPackagePOJO,
   WeightUnit,
-  DeliveryConfirmation
+  DeliveryConfirmation,
 } from "@shipengine/integration-platform-sdk";
 import Suite from "../runner/suite";
 import {
@@ -80,7 +80,10 @@ export class CreateShipmentDomestic extends Suite {
 
     if (!this.deliveryService) return undefined;
 
-    let [shipFrom, shipTo] = useDomesticShippingAddress(this.deliveryService);
+    let shipFrom, shipTo;
+    if (!config.shipFrom && !config.shipTo) {
+      [shipFrom, shipTo] = useDomesticShippingAddress(this.deliveryService);
+    }
 
     if (!shipFrom || !shipTo) return undefined;
 
@@ -95,8 +98,8 @@ export class CreateShipmentDomestic extends Suite {
         format: this.deliveryService.labelFormats[0]
       },
       shipDateTime: tomorrow,
-      shipFrom: shipFrom!,
-      shipTo: shipTo!,
+      shipFrom: shipFrom,
+      shipTo: shipTo,
       weight: {
         unit: WeightUnit.Pounds,
         value: 50.0,

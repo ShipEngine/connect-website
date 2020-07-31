@@ -82,13 +82,14 @@ export class CreateShipmentInternational extends Suite {
     // If we cant resolve a delivery serivice above then we dont have enough info to setup this test
     if (!this.deliveryService) return undefined;
 
-    let [shipFrom, shipTo] = useInternationalShipmentAddresses(
-      this.deliveryService,
-    );
-    // We need to know if the config defines 'shipFrom' so we can set the 'shipDateTime' with the correct timezone
-    shipFrom = config.shipFrom ? config.shipFrom : shipFrom;
-    
-    if(!shipFrom) return undefined;
+    let shipFrom, shipTo;
+    if (!config.shipFrom && !config.shipTo) {
+      [shipFrom, shipTo] = useInternationalShipmentAddresses(
+        this.deliveryService,
+      );
+    }
+
+    if (!shipFrom || !shipTo) return undefined;
     const { tomorrow } = initializeTimeStamps();
 
     const defaults: CreateShipmentInternationalTestParams = {
@@ -136,11 +137,11 @@ export class CreateShipmentInternational extends Suite {
 
     const title = config.expectedErrorMessage
       ? `it raises an error when creating a new international shipment with ${objectToTestTitle(
-          testParams,
-        )}`
+        testParams,
+      )}`
       : `it creates a new international shipment with ${objectToTestTitle(
-          testParams,
-        )}`;
+        testParams,
+      )}`;
 
     return {
       title: title,
