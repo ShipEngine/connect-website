@@ -1,0 +1,19 @@
+#devtools .tool-list ul {
+  list-style: none;
+}
+
+#devtools .tool-list img {
+  display: inline-block;
+  height: 25px;
+  margin-top: 2rem;
+}
+
+#devtools h2 {
+  margin-top: 9rem;
+}
+
+#devtools .list-title {
+  font-weight: bold;
+  font-size: 34px;
+  padding-left: 11px;
+}

@@ -1,0 +1,4 @@
+#docs-content p > img[alt="Carrier Diagram"] {
+  background-color: transparent;
+  box-shadow: none;
+}

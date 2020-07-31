@@ -1,6 +1,6 @@
 name: CI-CD
 
-on: 
+on:
   push:
     branches:
       - '*'
@@ -12,11 +12,11 @@ jobs:
       matrix:
         node-version: [12.x]
     steps:
-    
-    - name: Checkout ShipEngine IPaaS Docs
+
+    - name: Checkout ShipEngine Integration Platform Docs
       uses: actions/checkout@v2
-      with: 
-        path: shipengine-ipaas-docs
+      with:
+        path: shipengine-integration-platform-docs
 
     - name: Clone ShipEngine Docs Generator
       uses: actions/checkout@v2
@@ -44,19 +44,19 @@ jobs:
       uses: webfactory/ssh-agent@v0.2.0
       with:
         ssh-private-key: ${{ secrets.WP_ENGINE_TOKEN }}
-    
-    - name: Create ipaas directory
-      run: mkdir -p shipengine-dot-com/docs/ipaas
 
-    - name: Get current branch 
+    - name: Create integration-platform directory
+      run: mkdir -p shipengine-dot-com/docs/integration-platform
+
+    - name: Get current branch
       id: get-branch
       uses: ./github-actions/get-current-branch
 
-    - name: Configure Git User 
+    - name: Configure Git User
       run: |
         git config --global user.email "service-github-build@shipengine.com"
         git config --global user.name "ShipEngine Bot"
-    
+
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
@@ -74,36 +74,28 @@ jobs:
         NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
 
     - name: Run Docs Generator
-      run: cd shipengine-ipaas-docs && code-engine ../generator; cd ..
+      run: cd shipengine-integration-platform-docs && code-engine ../generator; cd ..
       env:
         NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
 
     - name: Copy new generator content to site
       uses: ./github-actions/remove-and-copy
       with:
-        generator-output-dir: shipengine-ipaas-docs/dist/
-        destination-dir: shipengine-dot-com/docs/ipaas
+        generator-output-dir: shipengine-integration-platform-docs/dist/
+        destination-dir: shipengine-dot-com/docs/integration-platform
 
     - name: Git add and commit newly generator files
       uses: ./github-actions/add-and-commit
       with:
         git-repo-dir: shipengine-dot-com
         dir-to-commit: docs/
-        commit-message: Update ShipEngine IPaaS docs
+        commit-message: Update ShipEngine Integration Platform docs
 
     - name: Push Changes to wordpress engine repo
       uses: ./github-actions/wordpress-engine-push
       with:
-        docs-sitemap-url: https://www.shipengine.com/docs/ipaas/sitemap.xml
-        wp-prod-repo: shipengine
-        wp-staging-repo: shipenginestag
-        host-docs-repo-dir: shipengine-dot-com 
+        docs-sitemap-url: https://www.shipengine.com/docs/integration-platform/sitemap.xml
+        wp-prod-repo: production/shipengine.git
+        wp-staging-repo: production/shipenginestag.git
+        host-docs-repo-dir: shipengine-dot-com
 
-    - name: Push Changes to ShipEngine marketing site master branch 
-      if: steps.get-branch.outputs.current-branch == 'master'
-      uses: ad-m/github-push-action@master
-      with:
-        directory: shipengine-dot-com
-        github_token: ${{ secrets.GITHUB_ACCESS_TOKEN }}
-        repository: ShipEngine/shipengine-dot-com
-        

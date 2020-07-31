@@ -1,0 +1,112 @@
+---
+title: Pickup Service Definition
+name: Pickup Service Definition
+identifier: Pickup Service Properties
+
+description:
+  The page describes how to define a pickup service.
+
+documentation: |
+  A Pickup Service allows the sender to request that one ore more packages
+   be picked up at a specified time and location. Each pickup service that is offered must be defined
+  in its own pickup service definition file. This file can reside anywhere within your application as long as its location is specified in the [Carrier Application Definition](./carrier.md) file.
+   The definition may be specified in [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript), [TypeScript](https://www.typescriptlang.org/), [JSON](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON), or
+    [YAML](https://en.wikipedia.org/wiki/YAML).
+
+  These pickup service definitions will be used by the [ShipEngine Integration Platform](./../index.md) to display pickup service options within our suite of e-commerce applications when your carrier is used.
+
+param:
+  fields:
+     - name: id
+       type: UUID
+       required: true
+       description: UUID that uniquely identifies the pickup service. This ID should never change.
+
+     - name: identifiers
+       type: object
+       required: false
+       description: Your own identifiers for this pickup service.
+
+     - name: code
+       type: string
+       required: false
+       description: Optional code used to map to what the carrier or uses to identify the pickup service.
+
+     - name: name
+       type: string
+       required: true
+       description: The user-friendly service name (e.g. "One-Time Pickup", "Recurring Pickup", "Drop-Off").
+
+     - name: description
+       type: string
+       required: false
+       description: A short, user-friendly description of the service.
+
+     - name: hasSandbox
+       type: boolean
+       required: false
+       description: Indicates whether the carrier provides a [sandbox](./../sandbox.md) API for this pickup service.
+         A sandbox should mimic real functionality as much as possible but MUST NOT incur any actual costs or affect production data.
+---
+
+  {% from "nunjucks/imports/reference.njk" import referenceTable %}
+
+  {{name}}
+  ===============================================
+  {{documentation}}
+
+
+  ###   {{ identifier }}
+  {{referenceTable(param.fields)}}
+
+
+  Examples
+  -----------------------------------------------
+
+```typescript
+import { PickupServiceConfig } from "@shipengine/integration-platform-sdk";
+
+const pickupService:PickupServiceConfig = {
+  id: "27483200-72b4-11ea-bc55-0242ac130003",
+  identifiers: {
+        apiCode: "DO"
+  }
+  code: "DO",
+  name: "Drop Off",
+  description: "Drop-off your parcel at any Parcel Post™ kiosk or locker"
+}
+```
+
+```javascript
+const pickupService = {
+  id: "27483200-72b4-11ea-bc55-0242ac130003",
+  identifiers: {
+        apiCode: "DO"
+  },
+  code: "DO",
+  name: "Drop Off",
+  description: "Drop-off your parcel at any Parcel Post™ kiosk or locker"
+}
+```
+
+```json
+{
+  "id": "27483200-72b4-11ea-bc55-0242ac130003",
+  "identifiers": {
+        "apiCode": "DO"
+  },
+  "code": "DO",
+  "name": "Drop Off",
+  "description": "Drop-off your parcel at any Parcel Post™ kiosk or locker"
+}
+```
+
+```yaml
+id: 27483200-72b4-11ea-bc55-0242ac130003
+identifiers: {
+  apiCode: DO
+}
+code: DO
+name: Drop Off
+description: Drop-off your parcel at any Parcel Post™ kiosk or locker
+```

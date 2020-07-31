@@ -3,31 +3,72 @@
 
 Start Here:
   Overview:
-    What is ShipEngine IPaaS?
-      - from the integrator's perspective, NOT ours
-      - one integration for all ShipX products
-      - provider vs order source
-      - javascript app, hosted by us
-      - we handle all infra, scaling, etc.
+    Welcome: index.md
+    Getting Started: getting-started.md
+    # Types of Apps: app-types/index.md
+    App Structure: structure.md
+    Recommended Tools: tools/index.md
 
-    Getting Started
-    Installing the CLI
-      - prerequisites (Node, NPM)
+  Guides:
+    Installing the CLI: cli.md
+    Creating Your First App: create-first-app.md
+    Implementing Your Methods: implementation.md
+    Transactions & Retries: transactions.md
+    Error Handling: error-handling.md
+    # Logging & Debugging: debugging.md
+    # Localization: localization.md
+    Sandbox Environments: sandbox.md
+    Testing: testing/index.md
+    Publishing: publish.md
 
-    Creating your first app
-      - structure of an app
-      - package.json
-      - javascript vs Typescript
+  Reference:
+    Form Definitions: reference/forms.md
+    Transaction: reference/transaction.md
+    Address: reference/address.md
+    Common Types: reference/common-types.md
+    Country Codes: reference/country-codes.md
+    Shipping Preference: reference/shipping-preferences.md
+    Charge: reference/charge.md
+    # Glossary of Terms: glossary.md
 
-    Recommended Tools
-      - VS Code
-      - Atom
-      - Sublime
+Carrier Apps:
+  Overview:
+    Overview: carrier-app/index.md
+    How to map services: carrier-app/map-services.md
 
-Config Reference:
+  App Structure:
+    Carrier App: reference/carrier.md
+    Delivery Service: reference/delivery-service.md
+    Pickup Service: reference/pickup-service.md
+    Packaging: reference/packaging.md
+    Delivery Confirmation: reference/delivery-confirmation.md
+    Forms: reference/forms.md
 
-Class Reference:
+  Methods:
+    connect: reference/methods/connect.md
+    createShipment: reference/methods/create-shipment.md
+    cancelShipments: reference/methods/cancel-shipments.md
+    trackShipment: reference/methods/track-shipment.md
+    rateShipment: reference/methods/rate-shipment.md
+    createManifest: reference/methods/create-manifest.md
+    schedulePickup: reference/methods/schedule-pickup.md
+    cancelPickups: reference/methods/cancel-pickups.md
 
+Order Apps:
+#   Overview:
+#     Overview: order-app/index.md
+
+  App Structure:
+    Order App: reference/order.md
+    Forms: reference/forms.md
+
+  Methods:
+    connect: reference/methods/connect.md
+#    getSeller: reference/methods/get-seller.md
+#    getSalesOrder: reference/methods/get-sales-order.md
+    getSalesOrdersByDate: reference/methods/get-sales-orders-by-date.md
+    shipmentCreated: reference/methods/shipment-created.md
+    shipmentCancelled: reference/methods/shipment-cancelled.md
 
 Service:
   FAQ: https://help.shipengine.com/
