@@ -4,8 +4,6 @@ import {
   PackageRateCriteriaPOJO,
   LengthUnit,
   WeightUnit,
-  Currency,
-  FulfillmentService,
 } from '@shipengine/integration-platform-sdk';
 import { mapAddressToAddressWithContactInfoPOJO } from './address';
 import { Package } from '@ipaas/capi/models';
@@ -32,10 +30,8 @@ const mapPackage = (
       unit: WeightUnit.Ounces,
     },
     insuredValue: {
-      value: request.insured_value?.amount || 0,
-      currency:
-        (request.insured_value?.currency as Currency) ||
-        Currency.UnitedStatesDollar,
+      value: request.insured_value?.amount || '0.00',
+      currency: request.insured_value?.currency || 'USD',
     },
     containsAlcohol: request.advanced_options?.contains_alcohol || false,
     isNonMachinable: request.advanced_options?.nonmachineable || false,
@@ -46,23 +42,16 @@ export const mapGetRatesRequestToRateCriteriaPOJO = (
   request: GetRatesRequest
 ): RateCriteriaPOJO => {
   const rateCriteria: RateCriteriaPOJO = {
+    deliveryService: {
+      id: '', // TODO: This needs to get fixed, we shouldn't expect to send that id
+    },
     deliveryDateTime: undefined,
-    deliveryServices: [
-      {
-        id: request.service_code || '',
-      },
-    ],
-    fulfillmentServices: undefined, //??? Why is this happening? Why are we mapping to an enum of services?
     shipDateTime: request.ship_datetime,
     shipFrom: mapAddressToAddressWithContactInfoPOJO(request.ship_from),
     shipTo: mapAddressToAddressWithContactInfoPOJO(request.ship_to),
     packages: request.packages.map((pckg) => mapPackage(pckg, request)),
     returns: {
       isReturn: request.is_return_label || false,
-      outboundShipment: {
-        trackingNumber: undefined, // TODO: We do not send over trackingNumber for the get rates shipments
-        identifiers: undefined, // TODO: what identifiers should be used here?
-      },
     },
   };
   return rateCriteria;

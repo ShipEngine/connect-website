@@ -16,9 +16,9 @@
   "author": "",
   "license": "UNLICENSED",
   "dependencies": {
-    "@ipaas/capi": "0.0.5",
-    "@shipengine/integration-platform-loader": "0.0.28",
-    "@shipengine/integration-platform-sdk": "0.0.29",
+    "@ipaas/capi": "0.0.12",
+    "@shipengine/integration-platform-loader": "0.0.32",
+    "@shipengine/integration-platform-sdk": "0.0.34",
     "body-parser": "1.19.0",
     "continuation-local-storage": "3.2.1",
     "dotenv-flow": "3.2.0",
@@ -28,12 +28,12 @@
     "newrelic": "6.10.0",
     "only": "0.0.2",
     "redact-secrets": "1.0.0",
-    "typescript": "3.9.6",
     "uuid": "8.2.0",
     "winston": "3.3.3"
   },
   "devDependencies": {
     "@types/continuation-local-storage": "3.2.2",
+    "typescript": "3.9.6",
     "@types/express": "4.17.6",
     "@types/fast-redact": "2.0.0",
     "@types/jest": "25.2.3",

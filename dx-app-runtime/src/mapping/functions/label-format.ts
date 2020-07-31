@@ -27,14 +27,9 @@ export const dxToCapiLabelFormat = (
   switch (format) {
     case DocumentFormat.PDF:
       return LabelFormat.PDF;
-    case DocumentFormat.HTML:
-      throw new Error('html is not supported by CAPI');
-      break;
     case DocumentFormat.ZPL:
       return capiLabelFormat.ZPL;
-      break;
     case DocumentFormat.PNG:
       return capiLabelFormat.PNG;
-      break;
   }
 };

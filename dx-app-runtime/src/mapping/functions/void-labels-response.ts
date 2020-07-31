@@ -13,11 +13,6 @@ export const mapShipmentCancellationOutcomeToVoidLabelsResponse = (
     voidResponses.push({
       void_request_id: response.cancellationID,
       message: response.notes ? response.notes.toString() : '',
-      // code: response.code TODO: Add code?
-      // confirmation_number: response.confirmationNumber TODO: Add Confirmation Number?
-      // description: response.description, TODO: Add Description?
-      // metadata: response.metadata, TODO: Add metadata?
-      // status: response.status, TODO: Add Status?
     });
   });
   return {

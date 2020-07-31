@@ -8,6 +8,5 @@ export default (
     name: `${contact?.first_name} ${contact?.last_name}`.trim(),
     email: contact?.email,
     phoneNumber: contact?.phone_number,
-    phoneNumberExtension: contact?.phone_number_extension || undefined,
   };
 };

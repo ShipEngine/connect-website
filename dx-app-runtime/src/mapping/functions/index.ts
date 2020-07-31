@@ -32,6 +32,7 @@ import { mapPickupConfirmationPOJOToSchedulePickupResponse } from './schedule-pi
 import { NotSupported } from '../../errors';
 import { mapCancelPickupRequestToPickupCancellationPOJO } from './cancel-pickup-request';
 import { mapPickupCancellationOutcomePOJOToCancelPickupResponse } from './cancel-pickup-response';
+import logger from '../../util/logger';
 
 export const handleTrackingRequest = async (
   app: CarrierApp,
@@ -40,10 +41,11 @@ export const handleTrackingRequest = async (
   if (!app.trackShipment) {
     throw new NotSupported('trackShipment');
   }
-
   const dxTracking = capiToDxTrack(request);
   const transaction = capiRequestToDxTransaction(request);
+  logger.info(dxTracking);
   const trackingInfo = await app.trackShipment(transaction, dxTracking);
+  logger.info(trackingInfo);
   return dxToCapiTrack(trackingInfo, transaction);
 };
 
@@ -68,7 +70,9 @@ export const handleGetRatesRequest = async (
   }
   const transaction = capiRequestToDxTransaction(request);
   const dxRequest = mapGetRatesRequestToRateCriteriaPOJO(request);
+  logger.info(dxRequest);
   const dxResponse = await app.rateShipment(transaction, dxRequest);
+  logger.info(dxResponse);
   const response = mapRatePOJOToGetRatesResponse(transaction, dxResponse);
   return response;
 };
@@ -83,7 +87,9 @@ export const handleCreateLabelRequest = async (
   try {
     const transaction = capiRequestToDxTransaction(request);
     const dxRequest = mapCreateLabelRequestToNewShipmentPOJO(request);
+    logger.info(dxRequest);
     const dxResponse = await app.createShipment(transaction, dxRequest);
+    logger.info(dxResponse);
     const response = mapShipmentConfirmationPOJOToCreateLabelResponse(
       transaction,
       dxResponse
@@ -104,7 +110,9 @@ export const handleVoidLabelsRequest = async (
   }
   const transaction = capiRequestToDxTransaction(request);
   const dxRequest = mapVoidLabelsRequestToCancelShipmentsPOJO(request);
+  logger.info(dxRequest);
   const dxResponse = await app.cancelShipments(transaction, dxRequest);
+  logger.info(dxResponse);
   const response = mapShipmentCancellationOutcomeToVoidLabelsResponse(
     dxResponse,
     transaction
@@ -121,7 +129,9 @@ export const handleSchedulePickupRequest = async (
   }
   const transaction = capiRequestToDxTransaction(request);
   const dxRequest = mapSchedulePickupRequestToPickupRequestPOJO(request);
+  logger.info(dxRequest);
   const dxResponse = await app.schedulePickup(transaction, dxRequest);
+  logger.info(dxResponse);
   const response = mapPickupConfirmationPOJOToSchedulePickupResponse(
     dxResponse,
     transaction
@@ -138,7 +148,9 @@ export const handleCancelPickupRequest = async (
   }
   const transaction = capiRequestToDxTransaction(request);
   const dxRequest = mapCancelPickupRequestToPickupCancellationPOJO(request);
+  logger.info(dxRequest);
   const dxResponse = await app.cancelPickups(transaction, [dxRequest]);
+  logger.info(dxResponse);
   const response = mapPickupCancellationOutcomePOJOToCancelPickupResponse(
     dxResponse[0],
     transaction

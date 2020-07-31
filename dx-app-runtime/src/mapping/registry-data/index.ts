@@ -288,7 +288,7 @@ const mapShippingService = (
     Name: service.name,
     Abbreviation: service.name?.substring(0, 4), // This is not sent to us, since there is no product layer that can update this, we will initialize it to be a substring
     SupportedCountries: mapCountries(service.countries),
-    Code: 'BROKEN', // TODO: Update DX Spec to work off the shipping service code and not the guid
+    Code: service.code,
     LabelCode: undefined, // TODO: Update dx spec to use label code.
     ServiceAttributes: mapShippingServiceAttributes(service),
     SupportedLabelSizes: mapSupportedLabelSize(service.labelSizes),
@@ -327,12 +327,6 @@ const mapLabelFormats = (
       case DocumentFormat.PNG:
         formats.push(LabelFormat.PNG);
         break;
-      case DocumentFormat.HTML:
-      default: {
-        throw new InvalidInput(
-          `DocumentFormat ${documentFormat} does not map to CAPI LabelFormat`
-        );
-      }
     }
   });
   return formats;

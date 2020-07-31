@@ -5,7 +5,6 @@ import {
   CustomsItem as CapiCustomsItem,
   ShippedPackage,
 } from '@ipaas/capi/models';
-import { capiToDxCurrencyCode } from './currency';
 import {
   DocumentFormat,
   DocumentSize,
@@ -54,8 +53,8 @@ export const capiToDxPackage = (
       unit: WeightUnit.Grams,
     },
     insuredValue: {
-      value: capiPackage.insured_value.amount || 0,
-      currency: capiToDxCurrencyCode(capiPackage.insured_value.currency),
+      value: capiPackage?.insured_value?.amount || 0,
+      currency: capiPackage?.insured_value?.currency || 'USD',
     },
     containsAlcohol: advancedOptions?.contains_alcohol || false,
     isNonMachinable: advancedOptions?.nonmachineable || false,
@@ -68,7 +67,6 @@ export const capiToDxPackage = (
         capiPackage.label_messages?.reference3 || '',
       ],
     },
-    contents: [] /*customs?.customs_items.map(mapCustomsToItemToPackageItem) ||*/, //TODO: how do contents differ from customs items
   };
   return mappedPackage;
 };
@@ -107,8 +105,8 @@ export const capiToDxNewPackagePOJO = (
       unit: WeightUnit.Grams,
     },
     insuredValue: {
-      value: capiPackage.insured_value?.amount || 0,
-      currency: capiToDxCurrencyCode(capiPackage.insured_value.currency),
+      value: capiPackage?.insured_value?.amount || '0',
+      currency: capiPackage?.insured_value?.currency || 'USD',
     },
     containsAlcohol: advancedOptions?.contains_alcohol || false,
     isNonMachinable: advancedOptions?.nonmachineable || false,
@@ -121,7 +119,6 @@ export const capiToDxNewPackagePOJO = (
         capiPackage.label_messages?.reference3 || '',
       ],
     },
-    contents: /*customs?.customs_items.map(mapCustomsToItemToPackageItem) ||*/ [], //TODO: how do contents differ from customs items
   };
   return mappedPackage;
 };
@@ -134,8 +131,7 @@ export const capiToDxPackageRateCriteria = (
   const nonNullCustomsItems = <CapiCustomsItem[] | undefined>(
     customs?.customs_items.filter((item) => item !== null && item !== undefined)
   );
-
-  const mappedPackage = {
+  return {
     dimensions: {
       length:
         capiPackage.dimension_details?.dimensions_in_centimeters?.length || 0,
@@ -150,14 +146,12 @@ export const capiToDxPackageRateCriteria = (
       unit: WeightUnit.Grams,
     },
     insuredValue: {
-      value: capiPackage.insured_value.amount || 0,
-      currency: capiToDxCurrencyCode(capiPackage.insured_value.currency),
+      value: capiPackage?.insured_value?.amount || '0',
+      currency: capiPackage?.insured_value?.currency || 'USD',
     },
     containsAlcohol: advancedOptions?.contains_alcohol || false,
     isNonMachinable: advancedOptions?.nonmachineable || false,
-    //contents: /*customs?.customs_items.map(mapCustomsToItemToPackageItem) ||*/ [] //TODO: how do contents differ from customs items
   };
-  return mappedPackage;
 };
 
 export const capiToPickupPackagePOJO = (

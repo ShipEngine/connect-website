@@ -1,4 +1,4 @@
-import { Address, AddressResidentialIndicator } from '@ipaas/capi/models';
+import { Address, AddressResidentialIndicator } from '@ipaas/capi';
 import {
   AddressWithContactInfoPOJO,
   Country,
@@ -40,11 +40,9 @@ const emptyDxAddress: AddressWithContactInfoPOJO = {
   postalCode: '',
   email: '',
   phoneNumber: '',
-  phoneNumberExtension: '',
   name: emptyDxPersonName,
   isResidential: undefined,
   company: '',
-  timeZone: '',
 };
 
 export const mapAddressToAddressWithContactInfoPOJO = (
@@ -54,7 +52,6 @@ export const mapAddressToAddressWithContactInfoPOJO = (
     return emptyDxAddress;
   }
   const dxAddress: AddressWithContactInfoPOJO = {
-    phoneNumberExtension: '',
     addressLines: excludeNullsFromAddressLines(address.address_lines),
     cityLocality: address.city_locality || '',
     stateProvince: address.state_province || '',
@@ -67,7 +64,6 @@ export const mapAddressToAddressWithContactInfoPOJO = (
       address.address_residential_indicator
     ),
     company: address.company_name || '',
-    timeZone: 'America/Chicago', // TODO: We don't send over timeZone
   };
 
   return dxAddress;

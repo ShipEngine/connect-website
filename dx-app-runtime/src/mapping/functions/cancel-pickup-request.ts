@@ -3,7 +3,6 @@ import {
   PickupCancellationReason,
   TimeRangePOJO,
   PickupCancellationPOJO,
-  IdentifiersPOJO,
 } from '@shipengine/integration-platform-sdk';
 import {
   CancellationReason,
