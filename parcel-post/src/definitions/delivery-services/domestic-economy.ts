@@ -13,6 +13,7 @@ export const domesticEconomy: DeliveryServiceDefinition = {
   class: DeliveryServiceClass.Ground,
   grade: DeliveryServiceGrade.Economy,
   serviceArea: ServiceArea.Domestic,
+  supportsReturns: true,
   isTrackable: false,
   isInsurable: false,
   labelFormats: [

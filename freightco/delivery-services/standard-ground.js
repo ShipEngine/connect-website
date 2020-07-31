@@ -9,6 +9,7 @@ module.exports = {
   description: "5 - 7 day ground service to any NAFTA trade country",
   class: "ground",
   grade: "standard",
+  supportsReturns: true,
   serviceArea: "international",
   isConsolidationService: true,
   allowsMultiplePackages: true,
