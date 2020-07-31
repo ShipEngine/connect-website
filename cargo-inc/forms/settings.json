@@ -30,35 +30,5 @@
     "default_currency": {
       "ui:autofocus": true
     }
-  },
-  "localization": {
-    "es": {
-      "dataSchema": {
-        "title": "Configuraciones de Cargo Incorporated",
-        "description": "Actualice la configuración de su cuenta de Cargo Incorporated",
-        "properties": {
-          "default_currency": {
-            "title": "Moneda predeterminada",
-          },
-          "deliver_duties_paid": {
-            "title": "Incluya aranceles e impuestos en el costo de la etiqueta"
-          }
-        }
-      }
-    },
-    "zh": {
-      "dataSchema": {
-        "title": "货运公司设置",
-        "description": "更新您的Cargo Incorporated帐户设置",
-        "properties": {
-          "default_currency": {
-            "title": "预设货币"
-          },
-          "deliver_duties_paid": {
-            "title": "在标签成本中包含关税和税款"
-          }
-        }
-      }
-    }
   }
 }

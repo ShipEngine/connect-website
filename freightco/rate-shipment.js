@@ -16,11 +16,11 @@ async function rateShipment(transaction, shipment) {
   let data = {
     operation: "quote_rates",
     session_id: transaction.session.id,
-    service_codes: shipment.deliveryServices.map((svc) => svc.identifiers.apiCode),
+    service_codes: shipment.deliveryService.identifiers.apiCode,
     confirmation_codes: shipment.package.deliveryConfirmations.map((conf) => conf.identifiers.apiCode),
     parcel_codes: shipment.package.packaging.map((pkg) => pkg.identifiers.apiCode),
-    ship_date: shipment.shipDateTime.toISOString(),
-    delivery_date: shipment.deliveryDateTime.toISOString(),
+    ship_date: shipment.shipDateTime,
+    delivery_date: shipment.deliveryDateTime,
     from_zone: parseInt(shipment.shipFrom.postalCode, 10),
     to_zone: parseInt(shipment.shipTo.postalCode, 10),
     total_weight: shipment.package.weight.ounces,
@@ -41,8 +41,6 @@ function formatRate(rate) {
     deliveryService: deliveryServices.find((svc) => svc.identifiers.apiCode === rate.service_code),
     shipDateTime: new Date(rate.ship_date),
     deliveryDateTime: new Date(rate.delivery_date),
-    maximumDeliveryDays: rate.delivery_days,
-    isGuaranteed: true,
     isTrackable: true,
     packages: [{
       packaging: packaging.find((pkg) => pkg.identifiers.apiCode === rate.parcel_code),
@@ -52,7 +50,6 @@ function formatRate(rate) {
       {
         name: "Service Charge",
         type: "shipping",
-        code: "SC1",
         amount: {
           value: rate.shipment_cost,
           currency: "USD"
@@ -61,7 +58,6 @@ function formatRate(rate) {
       {
         name: "Confirmation Fee",
         type: "delivery_confirmation",
-        code: "CONF",
         amount: {
           value: rate.confirmation_cost,
           currency: "USD"
@@ -70,7 +66,6 @@ function formatRate(rate) {
       {
         name: "Transport Tax",
         type: "tax",
-        code: "TX7",
         amount: {
           value: rate.tax_cost,
           currency: "USD"

@@ -20,7 +20,7 @@ async function createShipment(transaction, shipment) {
     session_id: transaction.session.id,
     service_code: shipment.deliveryService.identifiers.apiCode,
     confirmation_code: shipment.package.deliveryConfirmation.identifiers.apiCode,
-    ship_date: shipment.shipDateTime.toISOString(),
+    ship_date: shipment.shipDateTime,
     from_zone: parseInt(shipment.shipFrom.postalCode, 10),
     to_zone: parseInt(shipment.shipTo.postalCode, 10),
     total_weight: shipment.package.weight.ounces,
@@ -63,17 +63,17 @@ function formatShipment(response) {
         }
       },
     ],
+    documents: [
+      {
+        name: "Label",
+        type: "label",
+        size: "4x8",
+        format: "pdf",
+        data: Buffer.from(response.image, "base64"),
+      }
+    ],
     packages: [{
-      trackingNumber: response.tracking_number,
-      documents: [
-        {
-          name: "Label",
-          type: "label",
-          size: "4x8",
-          format: "pdf",
-          data: Buffer.from(response.image, "base64"),
-        }
-      ]
+      trackingNumber: response.tracking_number
     }],
   };
 }

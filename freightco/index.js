@@ -27,16 +27,7 @@ module.exports = {
     "pickup-services/flex-pickup.js",
     "pickup-services/next-day.js",
     "pickup-services/same-day.js"
-  ],
+  ]
 
-  localization: {
-    es: {
-      description: "FreightCo es una compañía de transporte terrestre de carga que sirve a Centro y Norte América.",
-      websiteURL: "https://freightco.ca",
-    },
-    fr: {
-      description: "FreightCo est une entreprise de camionnage de fret terrestre desservant l'Amérique centrale et l'Amérique du Nord.",
-      websiteURL: "https://freightco.com.mx",
-    },
-  },
+
 };
