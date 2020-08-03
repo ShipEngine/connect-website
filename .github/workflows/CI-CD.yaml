@@ -45,7 +45,7 @@ jobs:
         run: npm ci
 
       - name: Run linters
-        run: npm run-script lint
+        run: npm run lint -- --fix
 
       - name: Run test
         run: npm test
