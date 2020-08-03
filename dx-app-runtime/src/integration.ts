@@ -33,4 +33,8 @@ export default {
     const response = await mapFunctions.handleCancelPickupRequest(dxApp, body);
     return response;
   },
+  createManifest: async (dxApp: CarrierApp, body: any) => {
+    const response = await mapFunctions.handleCreateManifestRequest(dxApp, body);
+    return response;
+  }
 };

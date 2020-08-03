@@ -8,10 +8,11 @@ import registry from './loader-data';
 router.use('/diagnostics', diagnostics);
 router.use(registry);
 
-/*
-router.post('/CreateManifest', (req, res) => serviceHandler(integration.createManifest, req, res));
-*/
-
+router.post(
+  '/CreateManifest', 
+  (req, res, next) => 
+    serviceHandler(integration.createManifest, req, res, next)
+);
 router.post(
   '/Track',
   async (req, res, next) =>

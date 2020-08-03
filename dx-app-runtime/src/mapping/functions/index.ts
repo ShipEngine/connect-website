@@ -7,6 +7,7 @@ import {
   VoidLabelsRequest,
   SchedulePickupRequest,
   CancelPickupRequest,
+  CreateManifestRequest,
 } from '@ipaas/capi/requests';
 import { capiToDxTrack, dxToCapiTrack } from './tracking';
 import capiRequestToDxTransaction from './transaction';
@@ -22,6 +23,7 @@ import {
   VoidLabelsResponse,
   SchedulePickupResponse,
   CancelPickupResponse,
+  CreateManifestResponse
 } from '@ipaas/capi/responses';
 import { mapCreateLabelRequestToNewShipmentPOJO } from './create-label-request';
 import { mapShipmentConfirmationPOJOToCreateLabelResponse } from './create-label-response';
@@ -33,6 +35,8 @@ import { NotSupported } from '../../errors';
 import { mapCancelPickupRequestToPickupCancellationPOJO } from './cancel-pickup-request';
 import { mapPickupCancellationOutcomePOJOToCancelPickupResponse } from './cancel-pickup-response';
 import logger from '../../util/logger';
+import { mapCreateManifestRequest } from './create-manifest-request';
+import { mapCreateManifestResponse } from './create-manifest-response';
 
 export const handleTrackingRequest = async (
   app: CarrierApp,
@@ -157,3 +161,19 @@ export const handleCancelPickupRequest = async (
   );
   return response;
 };
+
+export const handleCreateManifestRequest = async (
+  app: CarrierApp,
+  request: CreateManifestRequest
+): Promise<CreateManifestResponse> => {
+  if (!app.createManifest) {
+    throw new NotSupported('createManifest');
+  }
+  const transaction = capiRequestToDxTransaction(request);
+  const dxRequest = mapCreateManifestRequest(request);
+  logger.info(dxRequest);
+  const dxResponse = await app.createManifest(transaction, dxRequest);
+  logger.info(dxResponse);
+  const response = mapCreateManifestResponse(dxResponse, transaction.id);
+  return response;
+}
