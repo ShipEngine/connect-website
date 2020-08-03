@@ -4,6 +4,7 @@ import { SdkApp } from "./types";
 
 class InvalidAppError extends Error {
   errors: string[];
+  
   code: string;
 
   constructor(message: string, errors: string[]) {

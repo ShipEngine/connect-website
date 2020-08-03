@@ -7,7 +7,7 @@ export function findInsurableDeliveryService(
   app: CarrierApp,
 ): DeliveryService {
 
-  for (let ds of app.deliveryServices) {
+  for (const ds of app.deliveryServices) {
     if (ds.isInsurable === true) {
       return ds;
     }

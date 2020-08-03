@@ -29,7 +29,7 @@ export default function useDomesticShippingAddress(
         "useDomesticShippingAddress: can not resolve origin country",
       );
   } else {
-    for (let oc of deliveryService.originCountries) {
+    for (const oc of deliveryService.originCountries) {
       destinationCountryCode = deliveryService.destinationCountries.find(
         (destinationCountry) => destinationCountry === oc,
       );

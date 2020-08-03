@@ -9,6 +9,7 @@ module.exports = {
   icon: "../../../logo.svg",
   manifestLocations: "single_location",
   manifestShipments: "explicit_shipments",
+  manifestType: "digital",
   deliveryServices: [
     {
       id: "2a20b066-71c3-11ea-bc55-0242ac130003",

@@ -12,7 +12,7 @@ const asyncExec = util.promisify(exec);
  * and then running npm pack to create a tarball for deploying to the integration platform.
  */
 export async function buildTypescriptApp(cwd?: string): Promise<void> {
-  let currentDir = cwd ? cwd : process.cwd();
+  const currentDir = cwd ? cwd : process.cwd();
 
   const tsConfigPath = path.join(currentDir, "tsconfig.json");
 

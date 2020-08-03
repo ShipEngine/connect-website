@@ -26,9 +26,9 @@
       "internalConsoleOptions": "openOnSessionStart",
       "program": "${workspaceFolder}/bin/run",
       "args": [
-        "apps:test"
+        "test"
       ],
-      "cwd": "/home/rkrauskopf/repos/shipengine-integration-platform-sample-apps/freightco"
+      "cwd": "/home/rkrauskopf/repos/shipengine-integration-platform-sample-apps/cargo-inc"
     }
   ]
 }

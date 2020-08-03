@@ -10,7 +10,7 @@ import {
 export default function findMultiPackageDeliveryService(
   app: CarrierApp,
 ): DeliveryService {
-  for (let deliveryService of app.deliveryServices) {
+  for (const deliveryService of app.deliveryServices) {
     if(deliveryService.allowsMultiplePackages) {
       return deliveryService;
     }

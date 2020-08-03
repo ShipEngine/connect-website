@@ -33,6 +33,7 @@ export class CreateShipmentWithInsurance extends Suite {
   title = "createShipment_with_insurance";
 
   private deliveryService?: DeliveryService;
+
   private deliveryConfirmation?: DeliveryConfirmation;
 
   private setDeliveryService(
@@ -45,7 +46,7 @@ export class CreateShipmentWithInsurance extends Suite {
         config.deliveryServiceName,
         carrierApp,
       );
-      if(!this.deliveryService.isInsurable) {
+      if (!this.deliveryService.isInsurable) {
         throw new Error(`The configured delivery service '${this.deliveryService.name}' does not support insuring packages`);
       }
     } else {
@@ -80,13 +81,13 @@ export class CreateShipmentWithInsurance extends Suite {
   buildTestArg(
     config: CreateShipmentWithInsuranceConfigOptions,
   ): TestArgs | undefined {
-    let carrierApp = this.app as CarrierApp;
+    const carrierApp = this.app as CarrierApp;
     this.setDeliveryService(config);
     this.setDeliveryConfirmation(config);
 
     if (!this.deliveryService) return undefined;
 
-    let [shipFrom, shipTo] = useDomesticShippingAddress(this.deliveryService);
+    const [shipFrom, shipTo] = useDomesticShippingAddress(this.deliveryService);
 
     if (!shipFrom || !shipTo) return undefined;
 
@@ -153,7 +154,7 @@ export class CreateShipmentWithInsurance extends Suite {
       };
     }
 
-    let newShipmentPOJO: NewShipmentPOJO = {
+    const newShipmentPOJO: NewShipmentPOJO = {
       deliveryService: {
         id: this.deliveryService.id,
       },
@@ -184,11 +185,10 @@ export class CreateShipmentWithInsurance extends Suite {
       return this.config.map((config: CreateShipmentWithInsuranceConfigOptions) => {
         return this.buildTestArg(config);
       });
-    } else {
-      const config = this.config as CreateShipmentWithInsuranceConfigOptions;
-
-      return [this.buildTestArg(config)];
     }
+ 
+    const config = this.config as CreateShipmentWithInsuranceConfigOptions;
+    return [this.buildTestArg(config)];
   }
 
   tests() {

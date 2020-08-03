@@ -112,9 +112,9 @@ export default class Apps {
 
       if (response.items[0]) {
         return Promise.resolve(response.items[0]);
-      } else {
-        return Promise.reject({ statusCode: 404 });
       }
+      
+      return Promise.reject({ statusCode: 404 });
     } catch (error) {
       return Promise.reject(error.response.data as NetworkErrorCollection);
     }

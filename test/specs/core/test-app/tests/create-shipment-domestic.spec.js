@@ -167,6 +167,7 @@ describe("The create shipment domestic test suite", () => {
         name: "Better Delivery Service",
         class: "ground",
         grade: "standard",
+        manifestType: "physical",
         originCountries: ["MX"],
         destinationCountries: ["MX"],
         labelFormats: ["pdf"],
@@ -326,6 +327,7 @@ describe("The create shipment domestic test suite", () => {
 function generateBasicAppAndConfigs() {
   const appDefinition = pojo.carrierApp();
   const deliveryService = pojo.deliveryService();
+  deliveryService.manifestType = "digital";
   deliveryService.labelFormats = ["pdf"];
   deliveryService.labelSizes = ["A4"];
   deliveryService.deliveryConfirmations = [pojo.deliveryConfirmation()];

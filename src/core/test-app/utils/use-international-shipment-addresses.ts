@@ -12,7 +12,7 @@ export default function useInternationalShipmentAddresses(
 
   if (deliveryService.originCountries.length === 1) {
     originCountryCode = deliveryService.originCountries[0];
-    destinationCountryCode = deliveryService.destinationCountries.find( 
+    destinationCountryCode = deliveryService.destinationCountries.find(
       (destinationCountry) => destinationCountry !== originCountryCode,
     );
     if (!destinationCountryCode)
@@ -29,12 +29,12 @@ export default function useInternationalShipmentAddresses(
         "useInternationalShipmentAddresses: can not resolve origin country",
       );
   } else {
-    for (let oc of deliveryService.originCountries) {
-      let destinationCountryCodes = deliveryService.destinationCountries.filter(
+    for (const oc of deliveryService.originCountries) {
+      const destinationCountryCodes = deliveryService.destinationCountries.filter(
         (destinationCountry) => destinationCountry !== oc,
       );
 
-      for (let dc of destinationCountryCodes) {
+      for (const dc of destinationCountryCodes) {
         // Check to make sure that we have a sample address on file.
         if (!buildAddressWithContactInfo(`${oc}-from`)) {
           destinationCountryCode = "";
@@ -49,7 +49,7 @@ export default function useInternationalShipmentAddresses(
         }
       }
 
-      if(destinationCountryCode) {
+      if (destinationCountryCode) {
         break;
       }
     }

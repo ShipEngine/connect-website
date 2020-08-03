@@ -67,7 +67,7 @@ class AppsNew extends Generator {
       engines: {},
       devDependencies: {},
       dependencies: {},
-      ...this.fs.readJSON("package.json", {}),
+      ...this.fs.readJSON("package.json", {}) as object,
     };
 
     const scopePresentInName = (name: string): boolean => {
@@ -220,7 +220,7 @@ class AppsNew extends Generator {
     } else {
       this.pjson.name = `${this.answers.scope || defaults.scope}/${
         this.answers.name || defaults.name
-      }`;
+        }`;
     }
 
     this.pjson.description = this.answers.description || defaults.description;
@@ -242,7 +242,7 @@ class AppsNew extends Generator {
       };
     }
 
-    if(this.ts) {
+    if (this.ts) {
       this.pjson.scripts = {
         build: "tsc"
       };
@@ -576,9 +576,8 @@ class AppsNew extends Generator {
   get _definitionExt() {
     if (this.definitions === "pojo") {
       return this.ts ? "ts" : "js";
-    } else {
-      return this.definitions;
     }
+    return this.definitions;
   }
 
   get _codeExt() {
@@ -620,9 +619,8 @@ class AppsNew extends Generator {
   private pJsonMain() {
     if (this.definitions === "pojo") {
       return this.ts ? "src/index.ts" : "src/index.js";
-    } else {
-      return `src/index.${this.definitions}`;
     }
+    return `src/index.${this.definitions}`;
   }
 }
 

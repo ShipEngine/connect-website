@@ -31,6 +31,7 @@ export class CreateShipmentInternational extends Suite {
   title = "createShipment_international";
 
   private deliveryService?: DeliveryService;
+
   private deliveryConfirmation?: DeliveryConfirmation;
 
   private setDeliveryService(
@@ -82,7 +83,8 @@ export class CreateShipmentInternational extends Suite {
     // If we cant resolve a delivery serivice above then we dont have enough info to setup this test
     if (!this.deliveryService) return undefined;
 
-    let shipFrom, shipTo;
+    let shipFrom;
+    let shipTo;
     try {
       [shipFrom, shipTo] = useInternationalShipmentAddresses(this.deliveryService);
     } catch {
@@ -125,7 +127,7 @@ export class CreateShipmentInternational extends Suite {
       };
     }
 
-    let newShipmentPOJO: NewShipmentPOJO = {
+    const newShipmentPOJO: NewShipmentPOJO = {
       deliveryService: {
         id: this.deliveryService.id,
       },
@@ -158,11 +160,10 @@ export class CreateShipmentInternational extends Suite {
           return this.buildTestArg(config);
         },
       );
-    } else {
-      const config = this.config as CreateShipmentInternationalConfigOptions;
-
-      return [this.buildTestArg(config)];
     }
+
+    const config = this.config as CreateShipmentInternationalConfigOptions;
+    return [this.buildTestArg(config)];
   }
 
   tests() {

@@ -70,8 +70,8 @@ export default async function publishApp(
   cli.action.stop(`${logSymbols.success}`);
   cli.action.start("publishing app");
 
-  let newDeployment, platformApp;
-
+  let newDeployment;
+  let platformApp;
   try {
     const app = await loadApp(process.cwd());
 

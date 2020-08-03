@@ -103,7 +103,7 @@ export class CreateShipmentMultiPackage extends Suite {
     const packages = testParams.packages.map((pkgParams) => {
       const packaging = findPackagingByName(pkgParams.packagingName, carrierApp)
 
-      let newPackage: NewPackagePOJO = {
+      const newPackage: NewPackagePOJO = {
         packaging: {
           id: packaging.id,
         },
@@ -130,7 +130,7 @@ export class CreateShipmentMultiPackage extends Suite {
       return newPackage;
     });
 
-    let newShipmentPOJO: NewShipmentPOJO = {
+    const newShipmentPOJO: NewShipmentPOJO = {
       deliveryService: {
         id: this.deliveryService.id,
       },
@@ -161,11 +161,11 @@ export class CreateShipmentMultiPackage extends Suite {
       return this.config.map((config: CreateShipmentMultiPackageConfigOptions) => {
         return this.buildTestArg(config);
       });
-    } else {
-      const config = this.config as CreateShipmentMultiPackageConfigOptions;
-
-      return [this.buildTestArg(config)];
     }
+
+    const config = this.config as CreateShipmentMultiPackageConfigOptions;
+    return [this.buildTestArg(config)];
+
   }
 
   tests() {

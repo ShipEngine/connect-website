@@ -14,9 +14,13 @@ interface ConstructorArgs {
 
 export default abstract class Suite {
   abstract title: string;
+
   protected app: SdkApp;
+
   protected _staticConfigTests?: TestsConfig;
+
   protected _rawStaticConfigTests: TestsConfig;
+
   protected options: any;
 
   constructor({ app, staticConfigTests, options }: ConstructorArgs) {
@@ -149,26 +153,26 @@ export default abstract class Suite {
       }
 
       return transaction;
-    } else {
-      const transaction: TransactionPOJO = {
-        id: v4(),
-        isRetry: false,
-        useSandbox: false,
-        session: {},
-      };
-
-      if (testConfig.debug) {
-        log(
-          chalk.yellow(
-            `${indent(
-              2,
-            )}connectArgs are not defined in shipengine.config.js the session value will be an empty object `,
-          ),
-        );
-        logObject(transaction);
-      }
-
-      return transaction;
     }
+
+    const transaction: TransactionPOJO = {
+      id: v4(),
+      isRetry: false,
+      useSandbox: false,
+      session: {},
+    };
+
+    if (testConfig.debug) {
+      log(
+        chalk.yellow(
+          `${indent(
+            2,
+          )}connectArgs are not defined in shipengine.config.js the session value will be an empty object `,
+        ),
+      );
+      logObject(transaction);
+    }
+
+    return transaction;
   }
 }

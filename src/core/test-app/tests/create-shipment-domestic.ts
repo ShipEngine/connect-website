@@ -31,6 +31,7 @@ export class CreateShipmentDomestic extends Suite {
   title = "createShipment_domestic";
 
   private deliveryService?: DeliveryService;
+
   private deliveryConfirmation?: DeliveryConfirmation;
 
   private setDeliveryService(
@@ -80,10 +81,11 @@ export class CreateShipmentDomestic extends Suite {
 
     if (!this.deliveryService) return undefined;
 
-    let shipFrom, shipTo;
+    let shipFrom;
+    let shipTo;
     try {
       [shipFrom, shipTo] = useDomesticShippingAddress(this.deliveryService);
-    } catch {}
+    } catch { }
 
     const { tomorrow } = initializeTimeStamps();
 
@@ -112,7 +114,7 @@ export class CreateShipmentDomestic extends Suite {
       CreateShipmentDomesticTestParams
     >(defaults, config);
 
-    if(!testParams.shipFrom || !testParams.shipTo) return undefined;
+    if (!testParams.shipFrom || !testParams.shipTo) return undefined;
 
     const packagePOJO: NewPackagePOJO = {
       packaging: {
@@ -148,7 +150,7 @@ export class CreateShipmentDomestic extends Suite {
       };
     }
 
-    let newShipmentPOJO: NewShipmentPOJO = {
+    const newShipmentPOJO: NewShipmentPOJO = {
       deliveryService: {
         id: this.deliveryService.id,
       },
@@ -178,11 +180,9 @@ export class CreateShipmentDomestic extends Suite {
       return this.config.map((config: CreateShipmentDomesticConfigOptions) => {
         return this.buildTestArg(config);
       });
-    } else {
-      const config = this.config as CreateShipmentDomesticConfigOptions;
-
-      return [this.buildTestArg(config)];
     }
+    const config = this.config as CreateShipmentDomesticConfigOptions;
+    return [this.buildTestArg(config)];
   }
 
   tests() {

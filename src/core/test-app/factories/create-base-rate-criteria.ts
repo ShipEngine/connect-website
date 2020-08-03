@@ -22,8 +22,8 @@ type RateCriteriaWithMetdata = Array<[RateCriteriaPOJO, { timeStamps: TimeStamps
  */
 export function createRateCriteriaPOJOs(packageWeights: number[], packageUnits: WeightUnit[], app: CarrierApp, deliveryService?: DeliveryService, fulfillmentService?: FulfillmentService): RateCriteriaWithMetdata {
   const baseRateCriteria: RateCriteriaWithMetdata = [];
-  for (let packageUnit of packageUnits) {
-    for (let packageWeight of packageWeights) {
+  for (const packageUnit of packageUnits) {
+    for (const packageWeight of packageWeights) {
       // TODO: add "packaging" and delivery confirmation to the package rate criteria pojo
       const packageRateCriteriaPOJO: PackageRateCriteriaPOJO = {
         weight: {
@@ -32,7 +32,7 @@ export function createRateCriteriaPOJOs(packageWeights: number[], packageUnits: 
         },
       };
 
-      let rateCriteriaOpts: RateOpts = {
+      const rateCriteriaOpts: RateOpts = {
         deliveryServices: [],
         fulfillmentServices: [],
         shipDateTime: "",
@@ -52,7 +52,7 @@ export function createRateCriteriaPOJOs(packageWeights: number[], packageUnits: 
         // Handle combinations of packages within the
         countryAndTimePermutations(deliveryService.originCountries.slice(), deliveryService.originCountries.slice(), baseRateCriteria, rateCriteriaOpts, deliveryService);
       }
-      //If a delivery service isn't specified then get loop through all destination and origin countries
+      // If a delivery service isn't specified then get loop through all destination and origin countries
       else {
         countryAndTimePermutations(app.originCountries.slice(), app.destinationCountries.slice(), baseRateCriteria, rateCriteriaOpts);
       }
@@ -68,9 +68,9 @@ export function createRateCriteriaPOJOs(packageWeights: number[], packageUnits: 
 // TODO: Make this re-usable by having it accept generics with the `shipFrom` and `shipTo` properties, if possible.
 function countryAndTimePermutations(originCountries: Country[], destinationCountries: Country[], baseRateCriteria: RateCriteriaWithMetdata, rateCriteriaOpts: RateOpts, deliveryService?: DeliveryService): void {
 
-  let countryCombos: Array<[string, string]> = [];
-  for (let dCountry of destinationCountries) {
-    for (let oCountry of originCountries) {
+  const countryCombos: Array<[string, string]> = [];
+  for (const dCountry of destinationCountries) {
+    for (const oCountry of originCountries) {
 
       const hasCountryCombo = countryCombos.some((combo) => {
         return combo[0] === oCountry && combo[1] === dCountry;
@@ -95,7 +95,7 @@ function countryAndTimePermutations(originCountries: Country[], destinationCount
           rateCriteriaOpts.deliveryDateTime = results[1];
         }
 
-        let rateCriteriaPOJO: RateCriteriaPOJO = rateCriteriaOpts;
+        const rateCriteriaPOJO: RateCriteriaPOJO = rateCriteriaOpts;
 
         baseRateCriteria.push([Object.assign({}, rateCriteriaPOJO), { timeStamps }]);
         countryCombos.push([oCountry, dCountry]);

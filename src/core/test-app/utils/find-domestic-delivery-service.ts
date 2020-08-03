@@ -7,8 +7,8 @@ export function findDomesticDeliveryService(
   app: CarrierApp,
 ): DeliveryService {
 
-  for (let ds of app.deliveryServices) {
-    for (let country of ds.originCountries) {
+  for (const ds of app.deliveryServices) {
+    for (const country of ds.originCountries) {
       if (ds.destinationCountries.includes(country)) {
         return ds;
       }
