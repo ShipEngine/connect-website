@@ -9,6 +9,7 @@ module.exports = {
   logo: "../../../logo.svg",
   icon: "../../../logo.svg",
 
+  manifestType: "digital",
   manifestLocations: "single_location",
   manifestShipments: "explicit_shipments",
 

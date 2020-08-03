@@ -2,7 +2,7 @@
   name: Priority Overnight
   class: ground
   grade: overnight
-
+  manifestType: digital
   originCountries:
     - US
 

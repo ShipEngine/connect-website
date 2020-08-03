@@ -9,6 +9,7 @@ destinationCountries:
   - CA
   - MX
 
+manifestType: digital
 packaging:
   - id: 7c012ad2-71c3-11ea-bc55-0242ac130003
     name: Flat-Rate Box

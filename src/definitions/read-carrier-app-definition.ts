@@ -17,6 +17,7 @@ definition: InlineOrReference<CarrierAppDefinition>, cwd: string, manifest: AppM
       await readDeliveryServiceArrayDefinition(definition.deliveryServices, cwd, `deliveryServices`),
     pickupServices:
       await readPickupServiceArrayDefinition(definition.pickupServices, cwd, `pickupServices`),
+    manifestType: definition.manifestType,
     createShipment: await readDefinitionValue(definition.createShipment, cwd, `createShipment method`),
     cancelShipments: await readDefinitionValue(definition.cancelShipments, cwd, `cancelShipments method`),
     rateShipment: await readDefinitionValue(definition.rateShipment, cwd, `rateShipment method`),

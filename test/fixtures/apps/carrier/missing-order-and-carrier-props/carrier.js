@@ -8,6 +8,7 @@ module.exports = {
   websiteURL: "https://www.my-carrier.com",
   logo: "../../../logo.svg",
   icon: "../../../logo.svg",
+  manifestType: "digital",
 
   connectionForm: {
     dataSchema: {

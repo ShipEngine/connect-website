@@ -9,6 +9,7 @@ module.export = {
 
   logo: "../../logo.svg",
   icon: "../../logo.svg",
+  manifestType: "digital",
 
   deliveryServices: [
     require("../../modules/delivery-services/ground-service"),

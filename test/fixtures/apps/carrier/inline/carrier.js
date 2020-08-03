@@ -8,7 +8,7 @@ module.exports = {
   websiteURL: "https://www.my-carrier.com",
   logo: "../../../logo.svg",
   icon: "../../../logo.svg",
-
+  manifestType: "digital",
   manifestLocations: "single_location",
   manifestShipments: "explicit_shipments",
 
@@ -84,6 +84,7 @@ module.exports = {
     name: "Priority Overnight",
     class: "ground",
     grade: "overnight",
+    manifestType: "digital",
 
     originCountries: ["US"],
     destinationCountries: ["US", "CA", "MX"],
