@@ -1,23 +1,16 @@
-# shipengine-cli
+# ShipEngine Integration Platform CLI
 
-### Command-line tool for working with your [ShipEngine](https://www.shipengine.com) account
+### Command-line tool for building [ShipEngine Integration Platform](https://www.shipengine.com/docs/integration-platform/) apps
 
-[![Cross-Platform Compatibility](https://shipengine.github.io/img/badges/os-badges.svg)](https://github.com/ShipEngine/shipengine-cli/actions)
-[![Build Status](https://github.com/ShipEngine/shipengine-cli/workflows/CI-CD/badge.svg)](https://github.com/ShipEngine/shipengine-cli/actions)
-[![Coverage Status](https://coveralls.io/repos/github/ShipEngine/shipengine-cli/badge.svg?branch=master)](https://coveralls.io/github/ShipEngine/shipengine-cli)
+[![Cross-Platform Compatibility](https://shipengine.github.io/img/badges/os-badges.svg)](https://github.com/ShipEngine/shipengine-integration-platform-cli/actions)
+[![Build Status](https://github.com/ShipEngine/shipengine-integration-platform-cli/workflows/CI-CD/badge.svg)](https://github.com/ShipEngine/shipengine-integration-platform-cli/actions)
+[![Coverage Status](https://coveralls.io/repos/github/ShipEngine/shipengine-integration-platform-cli/badge.svg?branch=master)](https://coveralls.io/github/ShipEngine/shipengine-integration-platform-cli)
 
 [![npm](https://img.shields.io/npm/v/@shipengine/integration-platform-cli.svg)](https://www.npmjs.com/package/@shipengine/integration-platform-cli)
-[![Dependencies](https://david-dm.org/ShipEngine/shipengine-cli.svg)](https://david-dm.org/ShipEngine/shipengine-cli)
-[![Downloads/week](https://img.shields.io/npm/dw/@shipengine/integration-platform-cli.svg)](https://npmjs.org/package/shipengine-cli)
+[![Dependencies](https://david-dm.org/ShipEngine/shipengine-integration-platform-cli.svg)](https://david-dm.org/ShipEngine/shipengine-integration-platform-cli)
 [![License](https://img.shields.io/npm/l/@shipengine/integration-platform-cli.svg)](LICENSE)
 
-# 🚧 UNDER CONSTRUCTION 🚧
-
-### This app is still being developed and is <u><big>not ready for public use</big></u> yet.
-
 <!-- toc -->
-* [shipengine-cli](#shipengine-cli)
-* [🚧 UNDER CONSTRUCTION 🚧](#-under-construction-)
 * [Usage](#usage)
 * [Commands](#commands)
 <!-- tocstop -->
@@ -79,7 +72,7 @@ OPTIONS
   -h, --help  show help for the info command
 ```
 
-_See code: [src/commands/info.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.17/src/commands/info.ts)_
+_See code: [src/commands/info.ts](https://github.com/ShipEngine/shipengine-integration-platform-cli/blob/v0.0.17/src/commands/info.ts)_
 
 ## `shipengine login`
 
@@ -96,7 +89,7 @@ ALIASES
   $ shipengine login
 ```
 
-_See code: [src/commands/login.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.17/src/commands/login.ts)_
+_See code: [src/commands/login.ts](https://github.com/ShipEngine/shipengine-integration-platform-cli/blob/v0.0.17/src/commands/login.ts)_
 
 ## `shipengine logout`
 
@@ -113,7 +106,7 @@ ALIASES
   $ shipengine logout
 ```
 
-_See code: [src/commands/logout.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.17/src/commands/logout.ts)_
+_See code: [src/commands/logout.ts](https://github.com/ShipEngine/shipengine-integration-platform-cli/blob/v0.0.17/src/commands/logout.ts)_
 
 ## `shipengine new [PATH]`
 
@@ -138,7 +131,7 @@ EXAMPLE
   $ shipengine new
 ```
 
-_See code: [src/commands/new.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.17/src/commands/new.ts)_
+_See code: [src/commands/new.ts](https://github.com/ShipEngine/shipengine-integration-platform-cli/blob/v0.0.17/src/commands/new.ts)_
 
 ## `shipengine publish`
 
@@ -157,7 +150,7 @@ EXAMPLE
   $ shipengine publish
 ```
 
-_See code: [src/commands/publish.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.17/src/commands/publish.ts)_
+_See code: [src/commands/publish.ts](https://github.com/ShipEngine/shipengine-integration-platform-cli/blob/v0.0.17/src/commands/publish.ts)_
 
 ## `shipengine test`
 
@@ -180,7 +173,7 @@ EXAMPLES
   $ shipengine test --grep rateShipment
 ```
 
-_See code: [src/commands/test.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.17/src/commands/test.ts)_
+_See code: [src/commands/test.ts](https://github.com/ShipEngine/shipengine-integration-platform-cli/blob/v0.0.17/src/commands/test.ts)_
 
 ## `shipengine whoami`
 
@@ -197,5 +190,5 @@ ALIASES
   $ shipengine whoami
 ```
 
-_See code: [src/commands/whoami.ts](https://github.com/ShipEngine/shipengine-cli/blob/v0.0.17/src/commands/whoami.ts)_
+_See code: [src/commands/whoami.ts](https://github.com/ShipEngine/shipengine-integration-platform-cli/blob/v0.0.17/src/commands/whoami.ts)_
 <!-- commandsstop -->
