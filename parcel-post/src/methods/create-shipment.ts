@@ -1,4 +1,4 @@
-import { ChargeType, Currency, DocumentFormat, DocumentSize, DocumentType, NewShipment, ShipmentConfirmationPOJO, Transaction } from "@shipengine/integration-platform-sdk";
+import { ChargeType, DocumentFormat, DocumentSize, DocumentType, NewShipment, ShipmentConfirmationPOJO, Transaction } from "@shipengine/integration-platform-sdk";
 import { bag, box } from "../definitions/packaging/customer";
 import { apiClient } from "../mock-api/client";
 import { GenerateLabelRequest, GenerateLabelResponse } from "../mock-api/generate-label";
@@ -48,36 +48,36 @@ function formatShipment(response: GenerateLabelResponse): ShipmentConfirmationPO
       {
         type: ChargeType.Shipping,
         amount: {
-          value: response.shipment_cost,
-          currency: Currency.UnitedStatesDollar,
+          value: response.shipment_cost.toString(),
+          currency: "USD",
         }
       },
       {
         type: ChargeType.DeliveryConfirmation,
         amount: {
-          value: response.confirmation_cost,
-          currency: Currency.UnitedStatesDollar,
+          value: response.confirmation_cost.toString(),
+          currency: "USD",
         }
       },
       {
         type: ChargeType.LocationFee,
         amount: {
-          value: response.location_cost,
-          currency: Currency.UnitedStatesDollar,
+          value: response.location_cost.toString(),
+          currency: "USD",
         }
       },
     ],
+    documents: [
+      {
+        name: "Shipping Label",
+        type: DocumentType.Label,
+        size: DocumentSize.Inches4x6,
+        format: DocumentFormat.PDF,
+        data: Buffer.from(response.image, "base64"),
+      }
+    ],
     packages: [{
       trackingNumber: response.tracking_number,
-      documents: [
-        {
-          name: "Shipping Label",
-          type: DocumentType.Label,
-          size: DocumentSize.Inches4x6,
-          format: DocumentFormat.PDF,
-          data: Buffer.from(response.image, "base64"),
-        }
-      ]
-    }],
+    }]
   };
 }

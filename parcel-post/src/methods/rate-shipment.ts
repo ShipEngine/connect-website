@@ -1,4 +1,4 @@
-import { ChargeType, Currency, RateCriteria, RatePOJO, Transaction } from "@shipengine/integration-platform-sdk";
+import { ChargeType, RateCriteria, RatePOJO, Transaction } from "@shipengine/integration-platform-sdk";
 import deliveryConfirmations from "../definitions/delivery-confirmations";
 import deliveryServices from "../definitions/delivery-services";
 import packaging from "../definitions/packaging";
@@ -52,8 +52,8 @@ function formatRate(rate: QuoteRateResponseItem): RatePOJO {
         name: "Service Charge",
         type: ChargeType.Shipping,
         amount: {
-          value: rate.shipment_cost,
-          currency: Currency.UnitedStatesDollar,
+          value: rate.shipment_cost.toString(),
+          currency: "USD",
         }
       },
       {
@@ -61,15 +61,15 @@ function formatRate(rate: QuoteRateResponseItem): RatePOJO {
         type: ChargeType.DeliveryConfirmation,
         amount: {
           value: rate.confirmation_cost,
-          currency: Currency.UnitedStatesDollar,
+          currency: "USD",
         }
       },
       {
         name: "Transport Tax",
         type: ChargeType.Tax,
         amount: {
-          value: rate.tax_cost,
-          currency: Currency.UnitedStatesDollar,
+          value: rate.tax_cost.toString(),
+          currency: "USD",
         }
       },
     ],

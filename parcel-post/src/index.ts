@@ -1,4 +1,4 @@
-import { CarrierAppDefinition } from "@shipengine/integration-platform-sdk";
+import { CarrierAppDefinition, ManifestType } from "@shipengine/integration-platform-sdk";
 
 const parcelPost: CarrierAppDefinition = {
   id: "1cd8dc3b-3acb-4373-b32a-d59abd5ec86b",
@@ -7,6 +7,7 @@ const parcelPost: CarrierAppDefinition = {
   websiteURL: "https://parcel-post.net",
   logo: "../logo.svg",
   icon: "../logo.svg",
+  manifestType: ManifestType.Digital,
 
   connect: import("./methods/connect"),
   createShipment: import("./methods/create-shipment"),

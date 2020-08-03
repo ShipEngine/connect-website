@@ -1,4 +1,4 @@
-import { Country, DeliveryServiceClass, DeliveryServiceDefinition, DeliveryServiceGrade, DocumentFormat, DocumentSize, ServiceArea } from "@shipengine/integration-platform-sdk";
+import { Country, DeliveryServiceClass, DeliveryServiceDefinition, DeliveryServiceGrade, DocumentFormat, DocumentSize, ServiceArea, ManifestType } from "@shipengine/integration-platform-sdk";
 import { adultSignature, photo, receipt, recipientSignature, signature } from "../delivery-confirmations";
 import { customerPackaging } from "../packaging/customer";
 
@@ -12,6 +12,7 @@ export const sameDay: DeliveryServiceDefinition = {
   class: DeliveryServiceClass.OneDay,
   grade: DeliveryServiceGrade.Expedited,
   serviceArea: ServiceArea.Domestic,
+  manifestType: ManifestType.Digital,
   isTrackable: false,
   isInsurable: true,
   labelFormats: [

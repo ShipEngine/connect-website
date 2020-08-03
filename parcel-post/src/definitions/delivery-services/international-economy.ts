@@ -1,4 +1,4 @@
-import { Country, DeliveryServiceClass, DeliveryServiceDefinition, DeliveryServiceGrade, DocumentFormat, DocumentSize, FulfillmentService, ServiceArea } from "@shipengine/integration-platform-sdk";
+import { Country, DeliveryServiceClass, DeliveryServiceDefinition, DeliveryServiceGrade, DocumentFormat, DocumentSize, FulfillmentService, ServiceArea, ManifestType } from "@shipengine/integration-platform-sdk";
 import { adultSignature, recipientSignature, signature } from "../delivery-confirmations";
 import { customerPackaging } from "../packaging/customer";
 import { fedExFlatRatePackaging } from "../packaging/fedex-flat-rate";
@@ -15,6 +15,7 @@ export const internationalEconomy: DeliveryServiceDefinition = {
   class: DeliveryServiceClass.ThreeDay,
   grade: DeliveryServiceGrade.Economy,
   serviceArea: ServiceArea.International,
+  manifestType: ManifestType.Digital,
   fulfillmentService: FulfillmentService.FedExInternationalEconomy,
   allowsMultiplePackages: true,
   isTrackable: true,

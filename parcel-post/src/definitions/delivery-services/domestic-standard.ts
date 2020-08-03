@@ -1,4 +1,4 @@
-import { Country, DeliveryServiceClass, DeliveryServiceDefinition, DeliveryServiceGrade, DocumentFormat, DocumentSize, ServiceArea } from "@shipengine/integration-platform-sdk";
+import { Country, DeliveryServiceClass, DeliveryServiceDefinition, DeliveryServiceGrade, DocumentFormat, DocumentSize, ServiceArea, ManifestType } from "@shipengine/integration-platform-sdk";
 import { adultSignature, photo, recipientSignature, signature } from "../delivery-confirmations";
 import { customerPackaging } from "../packaging/customer";
 import { upsFlatRatePackaging } from "../packaging/ups-flat-rate";
@@ -13,6 +13,7 @@ export const domesticStandard: DeliveryServiceDefinition = {
   class: DeliveryServiceClass.Ground,
   grade: DeliveryServiceGrade.Standard,
   serviceArea: ServiceArea.Domestic,
+  manifestType: ManifestType.Digital,
   isTrackable: true,
   isInsurable: true,
   labelFormats: [
