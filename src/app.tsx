@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import logo from './assets/svgs/logo.svg';
 import './app.css';
 
-function App() {
+const App: FunctionComponent = () => {
   return (
     <div className='App'>
       <header className='App-header'>
@@ -20,6 +20,6 @@ function App() {
       </header>
     </div>
   );
-}
+};
 
 export default App;
