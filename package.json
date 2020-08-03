@@ -1,7 +1,7 @@
 {
   "name": "@shipengine/integration-platform-cli",
   "description": "A CLI tool for working with your ShipEngine Integration account.",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "author": {
     "name": "ShipEngine",
     "email": "support@shipengine.com",
