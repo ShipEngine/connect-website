@@ -33,10 +33,20 @@ As a [TypeScript](https://www.typescriptlang.org/)-based project, it contains al
 Javascript vs Typescript
 ------------------------
 The ShipEngine Integration Platform gives you the flexibility to develop your integration application in either TypeScript or JavasScript as long as it matches the required [application structure](./structure.md).
+The [ShipEngine Integration Platform SDK](sdk.md) is written in TypeScript and provides type definitions to help you build your app more easily. Many editors, such as [VSCode](https://code.visualstudio.com/) and [WebStorm](https://www.jetbrains.com/webstorm/),
+will automatically detect our type definitions and provide you with auto-completion and intellisense functionality — sometimes even if you're writing plain JavaScript.
 
-The [ShipEngine Integration Platform SDK](sdk.md) is written in TypeScript and provides type definitions to help you build your app more easily. Many editors, such as [VSCode](https://code.visualstudio.com/) and [WebStorm](https://www.jetbrains.com/webstorm/), will automatically detect our type definitions and provide you with auto-completion and intellisense functionality — sometimes even if you're writing plain JavaScript.
+[Our CLI](http://localhost:8080/docs/integration-platform/cli/) allows you to choose between JavaScript and TypeScript when you run the `shipengine init` command to create a new app.
 
-Best of all, there's no need for a TypeScript compile step. [Our CLI](http://localhost:8080/docs/integration-platform/cli/) automatically transpiles your TypeScript to JavaScript when you test or publish your app.  One less step for you.
+If you select TypeScript, some additional configuration is
+generated to facilitate your TypeScript development.
+* [tsconfig.json](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html) - This file specifies the root files and the compiler options required to compile your app. Feel
+free to modify it or use it as is to begin transpiling out of the box.
+* `build` script - The generated `package.json` file will include a `build` script that runs `tsc`.
+* `watch` - The generated `package.json` file will include a `watch` script that runs `tsc --watch`
+
+You will need to run `npm build` before running the `shipengine test` or `shipengine publish` command to ensure that the command is working
+on the latest transpiled version of your app.
 
 
 ShipEngine CLI
