@@ -1,4 +1,5 @@
 ---
+hidden: true
 title: Delivery Service Definition
 name: Delivery Service Definition
 identifier: Delivery Service Properties

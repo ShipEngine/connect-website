@@ -1,4 +1,5 @@
 ---
+hidden: true
 title: Delivery Confirmation Definition
 name: Delivery Confirmation Definition
 identifier: Delivery Confirmation Properties

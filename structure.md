@@ -1,4 +1,5 @@
 ---
+hidden: true
 title: ShipEngine Integration Platform application Overview
 description: Learn about how a ShipEngine Integration application is structured.
 ---

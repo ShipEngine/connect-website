@@ -1,4 +1,5 @@
 ---
+hidden: true
 title: Create your first ShipEngine Integration app.
 description: Learn how to use the ShipEngine CLI and the project template to being creating an Integration app.
 tags:

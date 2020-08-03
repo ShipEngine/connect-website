@@ -1,4 +1,5 @@
 ---
+hidden: true
 layout: nunjucks/layouts/object-page.njk
 title: Sales Order Item objects
 name: Sales Order Item

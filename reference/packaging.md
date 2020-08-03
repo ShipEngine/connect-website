@@ -1,4 +1,5 @@
 ---
+hidden: true
 title: Packaging Definition
 name: Packaging Definition
 identifier: Packaging Properties

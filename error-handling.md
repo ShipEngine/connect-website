@@ -1,4 +1,5 @@
 ---
+hidden: true
 title: Shipengine Integration Platform Error Handling
 description: Learn how ShipEngine App's are expected to handle errors.
 ---

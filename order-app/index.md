@@ -1,4 +1,5 @@
 ---
+hidden: true
 css: ./index.css
 ---
 

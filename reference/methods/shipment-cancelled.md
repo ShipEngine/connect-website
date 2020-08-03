@@ -1,4 +1,5 @@
 ---
+hidden: true
 layout: nunjucks/layouts/method-page.njk
 title: shipmentCancelled Method
 name: shipmentCancelled

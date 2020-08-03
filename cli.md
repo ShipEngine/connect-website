@@ -1,4 +1,5 @@
 ---
+hidden: true
 title: Install the ShipEngine CLI
 description: Learn how to install the ShipEngine CLI.
 tags:

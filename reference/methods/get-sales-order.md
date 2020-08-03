@@ -1,5 +1,5 @@
 ---
-hidden:true
+hidden: true
 layout: nunjucks/layouts/method-page.njk
 title: getSalesOrder Method
 name: getSalesOrder

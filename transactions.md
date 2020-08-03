@@ -1,4 +1,5 @@
 ---
+hidden: true
 title: ShipEngine Integration Platform Transactions and Retries
 description: Learn about the Transaction object and how to use that for call retries after unexpected errors.
 ---

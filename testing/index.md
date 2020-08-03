@@ -1,4 +1,5 @@
 ---
+hidden: true
 title: ShipEngine Integration Platform Testing
 description: Learn how to use the ShipEngine CLI to test your Integration App
 ---

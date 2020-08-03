@@ -1,4 +1,5 @@
 ---
+hidden: true
 title: Getting Started With Your ShipEngine Integration Platform Application
 description: Learn how to begin developing your ShipEngine Integration Platform application
 ---

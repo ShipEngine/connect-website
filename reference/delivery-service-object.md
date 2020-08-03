@@ -1,4 +1,5 @@
 ---
+hidden: true
 layout: nunjucks/layouts/object-page.njk
 title: Delivery Service Object
 name: Delivery Service

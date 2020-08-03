@@ -1,4 +1,5 @@
 ---
+hidden: true
 title: Carrier Application Definition
 name: Carrier Application Definition
 identifier: Carrier Application

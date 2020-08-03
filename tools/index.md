@@ -1,4 +1,5 @@
 ---
+hidden: true
 id: devtools
 title: Recommended ShipEngine Integration App Development Tools
 description: A quick overview of the recommended IDE's and Development tools that are available for your app development.

@@ -1,4 +1,5 @@
 ---
+hidden: true
 title: ShipEngine Integration Platform SDK
 ---
 

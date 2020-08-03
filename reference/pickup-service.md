@@ -1,4 +1,5 @@
 ---
+hidden: true
 title: Pickup Service Definition
 name: Pickup Service Definition
 identifier: Pickup Service Properties

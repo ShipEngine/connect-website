@@ -1,4 +1,5 @@
 ---
+hidden: true
 name: Country Codes
 description: This page lists the supported country codes
 countries:

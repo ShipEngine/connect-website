@@ -1,11 +1,12 @@
 ---
+hidden: true
 css: index.css
 ---
 
 Carrier Application Overview
 ===================
 
-The [Carrier](../reference/carrier.md) application is intended to be implemented by companies that provide shipping services (aka carriers). 
+The [Carrier](../reference/carrier.md) application is intended to be implemented by companies that provide shipping services (aka carriers).
 It consists of specifying the various [delivery](../reference/delivery-service.md) and [pickup](../reference/pickup-service.md) services that
 your carrier offers and implementing the methods that correspond to the available services.
 

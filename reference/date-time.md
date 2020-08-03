@@ -1,9 +1,10 @@
 ---
+hidden: true
 layout: nunjucks/layouts/object-page.njk
 title: DateTime object
 name: DateTime
 
-description: An object that represents a date and time in a particular time zone. 
+description: An object that represents a date and time in a particular time zone.
 
 documentation: |
   DateTime objects are used throughout the ShipEngine Integration Platform. Your app will almost certainly need to access or return DateTime objects. Examples include the delivery date and time and the date and time of a particular shipment tracking event.

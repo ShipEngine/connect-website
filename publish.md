@@ -1,4 +1,5 @@
 ---
+hidden: true
 title: Publishing Your ShipEngine Application to the Integration Platform
 description: Learn how to publish your application with the ShipEngine CLI
 ---

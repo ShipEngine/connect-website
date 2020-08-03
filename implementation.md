@@ -1,4 +1,5 @@
 ---
+hidden: true
 title: Implementing Your Application's Methods
 description: Learn some tips for implementing your applications methods and mapping your applications's services to what the ShipEngine Integration Platform expects
 ---

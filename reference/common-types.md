@@ -1,4 +1,5 @@
 ---
+hidden: true
 name: Common Types
 description: This page lists the valid values for some of the common types.
 charges:

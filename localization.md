@@ -1,4 +1,5 @@
 ---
+hidden: true
 title: Localization
 description: Language Localization
 ---

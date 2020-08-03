@@ -1,4 +1,5 @@
 ---
+hidden: true
 layout: nunjucks/layouts/method-page.njk
 title: createManifest Method
 name: createManifest

@@ -1,4 +1,5 @@
 ---
+hidden: true
 title: connect Method
 name: connect
 

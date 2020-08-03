@@ -1,4 +1,5 @@
 ---
+hidden: true
 title: v0.0.34 Change Log
 name: v0.0.34 Change Log
 

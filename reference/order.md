@@ -1,4 +1,5 @@
 ---
+hidden: true
 title: Order Application Definition
 name: Order Application Definition
 identifier: Order Application
