@@ -177,8 +177,10 @@ return:
     An _array_ of objects representing the quoted shipping rates based on the specified rate criteria.
   fields:
     - name: deliveryService
-      type: object
-      description: The [delivery service](./../delivery-service.md) this rate is for.
+      type: object | string
+      description: |
+        The [delivery service](./../delivery-service.md) this rate is for.
+        This property accepts an object or a string representing the `code`. If an object is provided, it will have the following properties.
 
     - name: deliveryService.id
       type: "[UUID](https://www.npmjs.com/package/uuid)"
@@ -189,6 +191,11 @@ return:
       type: object
       required: false
       description: Your own identifiers for this delivery service.
+
+    - name: deliveryService.code
+      type: string
+      required: false
+      description: Optional code used to map to what the carrier or marketplace uses to identify the delivery service.
 
     - name: shipDateTime
       type: |
@@ -246,9 +253,10 @@ return:
       description: An array of objects describing the list of packages in the shipment.
 
     - name: packages[].packaging
-      type: object
+      type: object | string
       required: true
-      description: The packaging this rate is for.
+      description: The packaging this rate is for. This property accepts an object or a
+        string representing the `code`. If an object is provided, it will have the following properties.
 
     - name: packages[].packaging.id
       type: "[UUID](https://www.npmjs.com/package/uuid)"
@@ -260,10 +268,16 @@ return:
       required: false
       description: Your own identifiers for this packaging.
 
+    - name: packages[].packaging.code
+      type: string
+      required: false
+      description: Optional code used to map to what the carrier or marketplace uses to identify the packaging.
+
     - name: packages[].deliveryConfirmation
-      type: object
+      type: object | string
       required: true
-      description: The [delivery confirmation](./../delivery-confirmation.md) included in this rate.
+      description: The [delivery confirmation](./../delivery-confirmation.md) included in this rate. This property accepts an object or a
+         string representing the `code`. If an object is provided, it will have the following properties.
 
     - name: packages[].deliveryConfirmation.id
       type: UUID
@@ -274,6 +288,11 @@ return:
       type: object
       required: false
       description: Your own identifiers for this delivery confirmation.
+
+    - name: packages[].deliveryConfirmation.code
+      type: string
+      required: false
+      description: Optional code used to map to what the carrier or marketplace uses to identify the packaging.
 
 
 ---

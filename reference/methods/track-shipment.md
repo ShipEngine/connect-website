@@ -74,9 +74,10 @@ return:
       description: The list of packages in the shipment.
 
     - name: packages[].packaging
-      type: object
+      type: object | string
       required: true
-      description: The actual packaging that was used, as determined by the carrier.
+      description: The actual packaging that was used, as determined by the carrier. This property accepts an object or a
+         string representing the `code`. If an object is provided, it will have the following properties.
 
     - name: packages[].packaging.id
       type: "[UUID](https://www.npmjs.com/package/uuid)"

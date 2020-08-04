@@ -240,6 +240,8 @@ websiteURL: https://cargo-inc.net
 
 logo: ./logo.svg
 
+manifestType: Digital
+
 connectionForm: src/connection-form.js
 
 connect: src/connect.js
@@ -264,6 +266,7 @@ pickupServices:
   "description": "Cargo Incorporated is the global leader in air cargo.",
   "websiteURL": "https://cargo-inc.net",
   "logo": "./logo.svg",
+  "manifestType": "Digital",
   "connectionForm": "src/connection-form.js",
   "deliveryServices": [
     "delivery-services/economy-parcel.yaml",
