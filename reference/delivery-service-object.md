@@ -106,6 +106,11 @@ fields:
     required: true
     description: Indicates whether the carrier provides a [sandbox](./../sandbox.md) API for this delivery service. A sandbox should mimic real functionality as much as possible but MUST NOT incur any actual costs or affect production data.
 
+  - name: supportsReturns
+    type: boolean
+    required: false
+    description: Indicates whether the carrier supports return shipments. Defaults to `false` if not specified.
+
   - name: labelFormats
     type: string[]
     required: true
@@ -236,6 +241,14 @@ fields:
 
       This array will contain at least one value.
 
+  - name: manifestType
+    type: string
+    required: true
+    description: |
+      Indicates whether the service supports digital or physical manifests. Valid values include the following:
+      *  `Physical` - This service will require physical documents even if the carrier default is digital transmission.
+      *  `Digital` - This service will *not* require physical documents even if the carrier default is for physical documents.
+
 ---
 
 Examples
@@ -257,6 +270,8 @@ Examples
   "allowsMultiplePackages": false,
   "isInsurable": true,
   "isTrackable": false,
+  "supportsReturns": false,
+  "manifestType": "Digital",
   "hasSandbox": false,
   "labelFormats": ["pdf", "png"],
   "labelSizes": ["4x6", "4x8"],

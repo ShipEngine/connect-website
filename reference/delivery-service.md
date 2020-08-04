@@ -105,6 +105,11 @@ param:
        required: true
        description: Indicates whether the carrier provides a sandbox/development API for this delivery service. A sandbox should mimic real functionality as much as possible but MUST NOT incur any actual costs or affect production data.
 
+     - name: supportsReturns
+       type: boolean
+       required: false
+       description:  Indicates whether the carrier supprorts return shipments. Defaults to `false` if not specified.
+
      - name: labelFormats
        type: string[]
        required: true
@@ -153,6 +158,15 @@ param:
          It may also contain a list of paths to files that define the delivery confirmations available. Defining your delivery
          confirmations inside definition files allows you to reference those delivery confirmation definitions in multiple delivery service
          definition files.
+
+     - name: manifestType
+       type: string
+       required: true
+       description: |
+         Indicates whether the service supports digital or physical manifests. Valid values include the following:
+         *  `Physical` - This service will require physical documents even if the carrier default is digital transmission.
+         *  `Digital` - This service will *not* require physical documents even if the carrier default is for physical documents.
+
 ---
 
 
@@ -174,6 +188,7 @@ param:
 id: 43fc9d24-6a89-428a-ad34-c614c14170b6
 identifiers:
   apiCode: ECO
+code: ECO
 name: International Economy
 description: Worldwide delivery at an affordable price
 class: ground
@@ -182,6 +197,8 @@ serviceArea: global
 isConsolidationService: true
 isTrackable: false
 isInsurable: true
+supportsReturns: false
+manifestType: Digital
 
 labelFormats:
   - pdf
@@ -209,6 +226,7 @@ deliveryConfirmations:
     identifiers: {
         apiCode: "ECO"
     },
+    code: "IEC",
     name: "International Economy",
     description: "Worldwide delivery at an affordable price",
     class: "ground",
@@ -217,6 +235,8 @@ deliveryConfirmations:
     isConsolidationService: true,
     isTrackable: false,
     isInsurable: true,
+    supportsReturns: false,
+    manifestType: "Digital",
     labelFormats:[
         "pdf"
     ],
@@ -251,6 +271,7 @@ import {
 
 const internationalEconomyDeliveryService: DeliveryServiceDefinition = {
   id: "43fc9d24-6a89-428a-ad34-c614c14170b6",
+  code: "IEC",
   name: "International Economy",
   description:
     "Worldwide delivery at an affordable price",
@@ -260,6 +281,8 @@ const internationalEconomyDeliveryService: DeliveryServiceDefinition = {
   grade: DeliveryServiceGrade.Expedited,
   isInsurable: true,
   isTrackable: false,
+  manifestType: Digital,
+  supportsReturns: false,
   labelFormats: [DocumentFormat.PDF, DocumentFormat.PNG],
   labelSizes: [DocumentSize.Letter, DocumentSize.Inches4x6],
   originCountries: [Country.UnitedStates],
@@ -275,12 +298,15 @@ export default internationalEconomyDeliveryService;
 {
   "id": "43fc9d24-6a89-428a-ad34-c614c14170b6",
   "name": "International Economy",
+  "code": "IEC",
   "description": "Worldwide delivery at an affordable price",
   "class": "ground",
   "deliveryConfirmations": ["./signature-delivery-confirmation.json"],
   "grade": "standard",
   "isInsurable": true,
   "isTrackable": false,
+  "supportsReturns": false,
+  "manifestType": "Digital",
   "labelFormats": ["pdf"],
   "labelSizes": ["4x8"],
   "originCountries": ["US", "CA", "MX"],

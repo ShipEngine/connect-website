@@ -77,6 +77,14 @@ param:
          * `explicit_shipments` - Only the explicitly selected shipments for the current date will be included in the manifest.
          * `exclude_shipments` - All shipments for the current date except for those explicitly excluded will be included in the manifest.
 
+     - name: manifestType
+       type: string
+       required: required
+       description: |
+         Indicates the type of manifesting supported by the carrier. Valid values include the following:
+         * `Physical` - Use this value if the carrier supports physical manifests, even if some of the delivery services only support digital manifests.
+         * `Digital` - Use this value if the carrier supports digital manifests, even if some of the delivery services only support phyiscal manifests.
+
      - name: deliveryServices
        type: object[] *or*  string[]
        required: true
@@ -175,9 +183,11 @@ const address:CarrierAppDefinition = {
   websiteURL: "https://cargo-inc.net",
   logo: "./logo.svg",
   connectionForm: "src/connection-form.js",
+  manifestType: "Digital",
   connect: "src/connect.ts",
   createShipment: "src/create-shipment.ts",
   rateShipment: "src/rate-shipment.ts",
+
   deliveryServices: [
     "delivery-services/economy-parcel.yaml",
     "delivery-services/ground-parcel.yaml",
@@ -198,6 +208,7 @@ const address = {
   description: "Cargo Incorporated is the global leader in air cargo.",
   websiteURL: "https://cargo-inc.net",
   logo: "./logo.svg",
+  manifestType: "Digital",
   connectionForm: "src/connection-form.js",
 
   connect: "src/connect.js",
