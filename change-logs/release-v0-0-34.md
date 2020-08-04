@@ -28,7 +28,8 @@ npm install @shipengine/integration-platform-cli -g
 These changes affect the [Carrier App](./../carrier-app/index.md).
 
 ### [Carrier App Definition](./../reference/carrier.md)
-Added an icon property similar to the logo property.
+* Added an `icon` property similar to the logo property.
+* Added a `manifestType` property.
 
 ### [createShipment()](./../reference/methods/create-shipment.md) Method
 #### Parameter: `NewShipment`
@@ -36,6 +37,9 @@ Added an icon property similar to the logo property.
 #### Removed properties:
      * `outboundShipment`
      * `packages.contents.quantity.unit`
+
+#### Added properties:
+    * `deliveryService.supportsReturns`
 
 #### Changes:
     * `packages.customs.contents.unitValue.value` -  now a number rather than a string
@@ -95,6 +99,10 @@ Added an icon property similar to the logo property.
     * `minimumDeliveryDays`
     * `maximumDeliveryDays`
 
+#### Added properties:
+    * `deliveryService.supportsReturns`
+    * `deliveryService.manifestType`
+
 #### Changes:
     * Renamed `deliveryServices` to `deliveryService` and changed it from an array to a single object
     * Renamed `fulfillmentServices` to `fulfillmentService` and changed it from an array to a single object
@@ -107,14 +115,35 @@ Added an icon property similar to the logo property.
     * `charges.code`
     * `charges.description`
     * `charges.notes`
+
+#### Added properties:
+    * `deliveryService.supportsReturns`
+    * `deliveryService.manifestType`
+
 #### Changes:
     * `charges.amount.value` - now accepts a number rather than a string
     * `charges.amount.value.currency` - now accepts any string rather than an enum value
+    * `deliveryService` now acceptes an object or a string containing the `code`.
 
+### [trackShipment()](./../reference/methods/track-shipment.md)
+
+
+### Return Value: `TrackingInfo`
+
+#### Added properties:
+    * `packages[].packaging.deliveryService.supportsReturns`
+    * `packages[].packaging.deliveryService.manifestType`
+
+#### Changes:
+    * `packages[].packaging` now acceptes an object or a string containing the `code`.
 
 ### [schedulePickup()](./../reference/methods/schedule-pickup.md)
 
 #### Parameter: `PickupRequest`
+
+#### Added properties:
+    * `pickupService.shipments[].deliveryService.supportsReturns`
+    * `pickupService.shipments[].deliveryService.manifestType`
 
 #### Removed properties:
     * `contact.phoneExtension`
@@ -133,17 +162,28 @@ Added an icon property similar to the logo property.
 ### [cancelPickup()](./../reference/methods/cancel-pickups.md)
 
 #### Parameter: `PickupCancellation`
+
+#### Added properties:
+    * `shipments[].deliveryService.supportsReturns`
+    * `shipments[].deliveryService.manifestType`
+
 #### Removed properties:
     * `contact.phoneExtension`
 
 ### Definition Changes
-Each of the definitions now includes a `code` property used to identify the carrier's own code for the service.
+[Delivery Service](./../reference/delivery-service.md)
+    *  Added `supportsReturns` property.
+    *  Added  `manifestType` property.
+    *  Added `code` property.
 
-* [Delivery Service](./../reference/delivery-service.md)
-* [Pickup Service](./../reference/pickup-service.md)
-* [Packaging](./../reference/packaging.md)
-* [Delivery Confirmation](./../reference/delivery-confirmation.md)
+[Pickup Service](./../reference/pickup-service.md)
+  * Added `code` property.
 
+[Packaging](./../reference/packaging.md)
+  * Added `code` property.
+
+[Delivery Confirmation](./../reference/delivery-confirmation.md)
+  * Added `code` property.
 
 ## Order  App
 These changes affect the [Order App](./../order-app/index.md).
