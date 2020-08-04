@@ -97,7 +97,7 @@ const AppLayout: FunctionComponent = () => {
         <Layout style={{ padding: '0 24px 24px' }}>
           <Breadcrumb style={{ margin: '16px 0' }}>
             <Breadcrumb.Item key='1'>
-              <Link to={routes.appsInfoPath()}>Home</Link>
+              <Link to={routes.appsInfoPath()}>App Info</Link>
             </Breadcrumb.Item>
             <Breadcrumb.Item key='2'>
               {setBreadcrumb(location.pathname)}
