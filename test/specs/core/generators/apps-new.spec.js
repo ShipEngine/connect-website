@@ -57,16 +57,12 @@ describe("new generator", () => {
 
             assert.jsonFileContent("package.json", {
               name: "@shipengine/testname",
-            });
-            assert.jsonFileContent("package.json", {
-              description: "test description",
-            });
-            assert.jsonFileContent("package.json", {
               main: "src/index.yaml",
-              scripts: {
-                start: "shipengine start",
-                test: "shipengine test"
-              }
+              description: "test description",
+              scripts: { 
+                test: "shipengine test", 
+                start: "shipengine start" 
+              },
             });
           });
       });
@@ -120,7 +116,7 @@ describe("new generator", () => {
                 start: "shipengine start",
                 test: "shipengine test"
               },
-              main: "lib/index.js"
+              main: "lib/index.js",
             });
           });
       });
@@ -165,19 +161,14 @@ describe("new generator", () => {
 
             assert.jsonFileContent("package.json", {
               name: "@shipengine/testname",
-            });
-            assert.jsonFileContent("package.json", {
               description: "test description",
-            });
-
-            assert.jsonFileContent("package.json", {
+              main: "lib/index.js",
               scripts: {
                 build: "tsc",
                 watch: "tsc --watch",
                 start: "shipengine start",
-                test: "shipengine test"
-              },
-              main: "lib/index.js"
+                test: "shipengine test",
+              }
             });
           });
       });
@@ -222,19 +213,14 @@ describe("new generator", () => {
 
             assert.jsonFileContent("package.json", {
               name: "@shipengine/testname",
-            });
-            assert.jsonFileContent("package.json", {
               description: "test description",
-            });
-
-            assert.jsonFileContent("package.json", {
+              main: "lib/index.js",
               scripts: {
                 build: "tsc",
                 watch: "tsc --watch",
                 start: "shipengine start",
                 test: "shipengine test"
               },
-              main: "lib/index.js"
             });
           });
       });
@@ -330,7 +316,7 @@ describe("new generator", () => {
                 start: "shipengine start",
                 test: "shipengine test"
               },
-              main: "src/index.yaml",
+              main: "src/index.yaml"
             });
           });
       });
@@ -408,24 +394,19 @@ describe("new generator", () => {
               "LICENSE",
               "README.md",
               "package.json",
-              "tsconfig.json"
+              "tsconfig.json",
             ]);
 
             assert.jsonFileContent("package.json", {
               name: "@shipengine/testname",
-            });
-            assert.jsonFileContent("package.json", {
               description: "test description",
-            });
-
-            assert.jsonFileContent("package.json", {
+              main: "lib/index.js",
               scripts: {
                 build: "tsc",
                 watch: "tsc --watch",
                 start: "shipengine start",
-                test: "shipengine test"
+                test: "shipengine test",
               },
-              main: "lib/index.js"
             });
           });
       });
@@ -458,7 +439,7 @@ describe("new generator", () => {
               "LICENSE",
               "README.md",
               "package.json",
-              "tsconfig.json"
+              "tsconfig.json",
             ]);
 
             assert.jsonFileContent("package.json", {
@@ -503,7 +484,7 @@ describe("new generator", () => {
               "LICENSE",
               "README.md",
               "package.json",
-              "tsconfig.json"
+              "tsconfig.json",
             ]);
 
             assert.jsonFileContent("package.json", {
@@ -515,7 +496,7 @@ describe("new generator", () => {
                 start: "shipengine start",
                 test: "shipengine test"
               },
-              main: "lib/index.js"
+              main: "lib/index.js",
             });
           });
       });
@@ -557,7 +538,8 @@ describe("new generator", () => {
               scripts: {
                 start: "shipengine start",
                 test: "shipengine test"
-              }
+              },
+              main: "src/index.json",
             });
           });
       });
@@ -599,7 +581,8 @@ describe("new generator", () => {
               scripts: {
                 start: "shipengine start",
                 test: "shipengine test"
-              }
+              },
+              main: "src/index.yaml"
             });
           });
       });

@@ -6,7 +6,6 @@ import { v4 as uuidv4 } from "uuid";
 import capitalization from "@shipengine/capitalization";
 import { AppType } from "@shipengine/integration-platform-sdk";
 import { SdkAppTypes } from "../types";
-import { exec } from 'child_process';
 
 const fixpack = require("@oclif/fixpack");
 const sortPjson = require("sort-pjson");
@@ -241,15 +240,11 @@ class AppsNew extends Generator {
       test: "shipengine test"
     }
 
-    if (this.answers.vscode) {
-      this.pjson.scripts.debug = "cross-env NODE_OPTIONS=--inspect-brk shipengine test";
-    }
-
     if (this.ts) {
       this.pjson.scripts.build = "tsc";
       this.pjson.scripts.watch = "tsc --watch";
       this.pjson.main = "lib/index.js";
-    }
+    };
   }
 
   writing() {
@@ -455,7 +450,7 @@ class AppsNew extends Generator {
 
             this.fs.copyTpl(
               this.templatePath(`tsconfig.json`),
-              this.destinationPath('tsconfig.json'),
+              this.destinationPath("tsconfig.json"),
               this,
             );
           }
@@ -473,9 +468,7 @@ class AppsNew extends Generator {
             this.templatePath(
               `order-source/forms/connect.${this._definitionExt}`,
             ),
-            this.destinationPath(
-              `src/forms/connect.${this._definitionExt}`,
-            ),
+            this.destinationPath(`src/forms/connect.${this._definitionExt}`),
             this,
           );
 
@@ -483,19 +476,13 @@ class AppsNew extends Generator {
             this.templatePath(
               `order-source/forms/settings.${this._definitionExt}`,
             ),
-            this.destinationPath(
-              `src/forms/settings.${this._definitionExt}`,
-            ),
+            this.destinationPath(`src/forms/settings.${this._definitionExt}`),
             this,
           );
 
           this.fs.copyTpl(
-            this.templatePath(
-              `order-source/methods/connect.${this._codeExt}`,
-            ),
-            this.destinationPath(
-              `src/methods/connect.${this._codeExt}`,
-            ),
+            this.templatePath(`order-source/methods/connect.${this._codeExt}`),
+            this.destinationPath(`src/methods/connect.${this._codeExt}`),
             this,
           );
 
