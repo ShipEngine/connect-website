@@ -60,8 +60,8 @@ describe("new generator", () => {
               main: "src/index.yaml",
               description: "test description",
               scripts: { 
-                test: "shipengine test", 
-                start: "shipengine start" 
+                test: "shipengine test",
+                start: "shipengine start"
               },
             });
           });
@@ -113,6 +113,7 @@ describe("new generator", () => {
               scripts: {
                 build: "tsc",
                 watch: "tsc --watch",
+                postbuild: "copyfiles -u 1 src/**/!\\(*.ts\\) lib copyfiles -u 1 src/!\\(*.ts\\) lib",
                 start: "shipengine start",
                 test: "shipengine test"
               },
@@ -162,10 +163,11 @@ describe("new generator", () => {
             assert.jsonFileContent("package.json", {
               name: "@shipengine/testname",
               description: "test description",
-              main: "lib/index.js",
+              main: "lib/index.json",
               scripts: {
                 build: "tsc",
                 watch: "tsc --watch",
+                postbuild: "copyfiles -u 1 src/**/!\\(*.ts\\) lib copyfiles -u 1 src/!\\(*.ts\\) lib",
                 start: "shipengine start",
                 test: "shipengine test",
               }
@@ -214,10 +216,11 @@ describe("new generator", () => {
             assert.jsonFileContent("package.json", {
               name: "@shipengine/testname",
               description: "test description",
-              main: "lib/index.js",
+              main: "lib/index.yaml",
               scripts: {
                 build: "tsc",
                 watch: "tsc --watch",
+                postbuild: "copyfiles -u 1 src/**/!\\(*.ts\\) lib copyfiles -u 1 src/!\\(*.ts\\) lib",
                 start: "shipengine start",
                 test: "shipengine test"
               },
@@ -451,7 +454,7 @@ describe("new generator", () => {
                 start: "shipengine start",
                 test: "shipengine test"
               },
-              main: "lib/index.js"
+              main: "lib/index.json"
             });
           });
       });
@@ -496,7 +499,7 @@ describe("new generator", () => {
                 start: "shipengine start",
                 test: "shipengine test"
               },
-              main: "lib/index.js",
+              main: "lib/index.yaml",
             });
           });
       });

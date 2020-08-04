@@ -243,8 +243,9 @@ class AppsNew extends Generator {
     if (this.ts) {
       this.pjson.scripts.build = "tsc";
       this.pjson.scripts.watch = "tsc --watch";
-      this.pjson.main = "lib/index.js";
-    };
+      this.pjson.scripts.postbuild = "copyfiles -u 1 src/**/!\\(*.ts\\) lib copyfiles -u 1 src/!\\(*.ts\\) lib";
+      this.pjson.main = `lib/index.${this._definitionExt === "ts" ? "js" : this._definitionExt}`;
+    }
   }
 
   writing() {
@@ -545,6 +546,7 @@ class AppsNew extends Generator {
     if (this.ts) {
       devDependencies.push("@types/node@^13.13.5");
       devDependencies.push("typescript");
+      devDependencies.push("copyfiles");
     }
 
     if (isWindows) devDependencies.push("rimraf");
