@@ -9,7 +9,7 @@
     "format": "prettier --write src/**/*.ts{,x}",
     "lint": "eslint src/**/*.ts{,x}",
     "release": "npm run upgrade && npm run clean && CI=true react-scripts test && npm run bump",
-    "start": "react-scripts start",
+    "start": "PORT=4000 react-scripts start",
     "test": "react-scripts test",
     "upgrade": "npm-check -u && npm audit fix"
   },
