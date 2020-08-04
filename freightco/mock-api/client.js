@@ -50,7 +50,7 @@ const apiClient = axios.create({
       case "pick_up_cancellation":
         return pickUpCancellation(request);
 
-      case: "void_label":
+      case "void_label":
         return voidLabels(request);
     }
   }

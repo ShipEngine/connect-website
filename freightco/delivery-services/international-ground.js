@@ -13,6 +13,7 @@ module.exports = {
   isConsolidationService: true,
   allowsMultiplePackages: true,
   isTrackable: true,
+  manifestType: "digital",
   labelFormats: ["pdf"],
   labelSizes: ["4x8"],
   originCountries: ["US", "CA", "MX"],

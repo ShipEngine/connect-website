@@ -9,6 +9,7 @@ serviceArea: global
 isConsolidationService: true
 isTrackable: true
 isInsurable: true
+manifestType: digital
 
 labelFormats:
   - pdf

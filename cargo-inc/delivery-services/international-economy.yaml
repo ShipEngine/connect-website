@@ -9,6 +9,7 @@ serviceArea: global
 isConsolidationService: true
 isTrackable: false
 isInsurable: true
+manifestType: digital
 
 supportsReturns: true
 
