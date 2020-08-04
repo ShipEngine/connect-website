@@ -1,3 +1,4 @@
+// Third Party
 import React, { FunctionComponent } from 'react';
 
 const AppInfoScreen: FunctionComponent = () => {
