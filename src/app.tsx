@@ -9,11 +9,6 @@ import {
   useLocation,
 } from 'react-router-dom';
 import { Layout, Menu, Breadcrumb } from 'antd';
-// import {
-//   UserOutlined,
-//   LaptopOutlined,
-//   NotificationOutlined,
-// } from '@ant-design/icons';
 
 // Utils & Types
 import routes from './routes';
@@ -28,6 +23,9 @@ import CreateShipmentMethodScreen from './screens/create-shipment-method-screen'
 import RateShipmentMethodScreen from './screens/rate-shipment-method-screen';
 import SchedulePickupMethodScreen from './screens/schedule-pickup-method-screen';
 import TrackShipmentMethodScreen from './screens/track-shipment-method-screen';
+
+// Components
+// import FullPageSpinner from './components/full-page-spinner';
 
 // Styles & Assets
 import './app.css';
