@@ -57,11 +57,10 @@ describe("new generator", () => {
 
             assert.jsonFileContent("package.json", {
               name: "@shipengine/testname",
-            });
-            assert.jsonFileContent("package.json", {
+              main: "src/index.yaml",
               description: "test description",
+              scripts: { test: "shipengine test", start: "shipengine start" },
             });
-            assert.jsonFileContent("package.json", { main: "src/index.yaml" });
           });
       });
     });
@@ -107,16 +106,13 @@ describe("new generator", () => {
 
             assert.jsonFileContent("package.json", {
               name: "@shipengine/testname",
-            });
-            assert.jsonFileContent("package.json", {
               description: "test description",
-            });
-
-            assert.jsonFileContent("package.json", {
+              main: "lib/index.js",
               scripts: {
-                build: "tsc"
+                test: "shipengine test",
+                start: "shipengine start",
+                build: "tsc",
               },
-              main: "lib/index.js"
             });
           });
       });
@@ -161,16 +157,13 @@ describe("new generator", () => {
 
             assert.jsonFileContent("package.json", {
               name: "@shipengine/testname",
-            });
-            assert.jsonFileContent("package.json", {
               description: "test description",
-            });
-
-            assert.jsonFileContent("package.json", {
+              main: "lib/index.js",
               scripts: {
-                build: "tsc"
+                test: "shipengine test",
+                start: "shipengine start",
+                build: "tsc",
               },
-              main: "lib/index.js"
             });
           });
       });
@@ -215,16 +208,13 @@ describe("new generator", () => {
 
             assert.jsonFileContent("package.json", {
               name: "@shipengine/testname",
-            });
-            assert.jsonFileContent("package.json", {
               description: "test description",
-            });
-
-            assert.jsonFileContent("package.json", {
+              main: "lib/index.js",
               scripts: {
-                build: "tsc"
+                test: "shipengine test",
+                start: "shipengine start",
+                build: "tsc",
               },
-              main: "lib/index.js"
             });
           });
       });
@@ -267,12 +257,12 @@ describe("new generator", () => {
 
             assert.jsonFileContent("package.json", {
               name: "@shipengine/testname",
-            });
-            assert.jsonFileContent("package.json", {
               description: "test description",
-            });
-            assert.jsonFileContent("package.json", {
               main: "src/index.json",
+              scripts: {
+                test: "shipengine test",
+                start: "shipengine start",
+              },
             });
           });
       });
@@ -315,12 +305,12 @@ describe("new generator", () => {
 
             assert.jsonFileContent("package.json", {
               name: "@shipengine/testname",
-            });
-            assert.jsonFileContent("package.json", {
               description: "test description",
-            });
-            assert.jsonFileContent("package.json", {
               main: "src/index.yaml",
+              scripts: {
+                test: "shipengine test",
+                start: "shipengine start",
+              },
             });
           });
       });
@@ -358,11 +348,13 @@ describe("new generator", () => {
 
             assert.jsonFileContent("package.json", {
               name: "@shipengine/testname",
-            });
-            assert.jsonFileContent("package.json", {
               description: "test description",
+              main: "src/index.yaml",
+              scripts: {
+                test: "shipengine test",
+                start: "shipengine start",
+              },
             });
-            assert.jsonFileContent("package.json", { main: "src/index.yaml" });
           });
       });
     });
@@ -396,21 +388,18 @@ describe("new generator", () => {
               "LICENSE",
               "README.md",
               "package.json",
-              "tsconfig.json"
+              "tsconfig.json",
             ]);
 
             assert.jsonFileContent("package.json", {
               name: "@shipengine/testname",
-            });
-            assert.jsonFileContent("package.json", {
               description: "test description",
-            });
-
-            assert.jsonFileContent("package.json", {
+              main: "lib/index.js",
               scripts: {
-                build: "tsc"
+                test: "shipengine test",
+                start: "shipengine start",
+                build: "tsc",
               },
-              main: "lib/index.js"
             });
           });
       });
@@ -443,21 +432,18 @@ describe("new generator", () => {
               "LICENSE",
               "README.md",
               "package.json",
-              "tsconfig.json"
+              "tsconfig.json",
             ]);
 
             assert.jsonFileContent("package.json", {
               name: "@shipengine/testname",
-            });
-            assert.jsonFileContent("package.json", {
               description: "test description",
-            });
-
-            assert.jsonFileContent("package.json", {
+              main: "lib/index.js",
               scripts: {
-                build: "tsc"
+                test: "shipengine test",
+                start: "shipengine start",
+                build: "tsc",
               },
-              main: "lib/index.js"
             });
           });
       });
@@ -490,21 +476,18 @@ describe("new generator", () => {
               "LICENSE",
               "README.md",
               "package.json",
-              "tsconfig.json"
+              "tsconfig.json",
             ]);
 
             assert.jsonFileContent("package.json", {
               name: "@shipengine/testname",
-            });
-            assert.jsonFileContent("package.json", {
               description: "test description",
-            });
-
-            assert.jsonFileContent("package.json", {
+              main: "lib/index.js",
               scripts: {
-                build: "tsc"
+                test: "shipengine test",
+                start: "shipengine start",
+                build: "tsc",
               },
-              main: "lib/index.js"
             });
           });
       });
@@ -542,9 +525,12 @@ describe("new generator", () => {
 
             assert.jsonFileContent("package.json", {
               name: "@shipengine/testname",
-            });
-            assert.jsonFileContent("package.json", {
               description: "test description",
+              main: "src/index.json",
+              scripts: {
+                test: "shipengine test",
+                start: "shipengine start",
+              },
             });
           });
       });
@@ -582,9 +568,12 @@ describe("new generator", () => {
 
             assert.jsonFileContent("package.json", {
               name: "@shipengine/testname",
-            });
-            assert.jsonFileContent("package.json", {
               description: "test description",
+              main: "src/index.yaml",
+              scripts: {
+                test: "shipengine test",
+                start: "shipengine start",
+              },
             });
           });
       });

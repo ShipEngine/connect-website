@@ -236,15 +236,16 @@ class AppsNew extends Generator {
 
     this.pjson.main = this.pJsonMain();
 
-    if (this.answers.vscode) {
-      this.pjson.scripts = {
-        debug: "cross-env NODE_OPTIONS=--inspect-brk shipengine test",
-      };
-    }
+    this.pjson.scripts = {
+      start: "shipengine start",
+      test: "shipengine test",
+    };
 
     if (this.ts) {
       this.pjson.scripts = {
-        build: "tsc"
+        build: "tsc",
+        start: "shipengine start",
+        test: "shipengine test",
       };
 
       this.pjson.main = "lib/index.js";
@@ -454,7 +455,7 @@ class AppsNew extends Generator {
 
             this.fs.copyTpl(
               this.templatePath(`tsconfig.json`),
-              this.destinationPath('tsconfig.json'),
+              this.destinationPath("tsconfig.json"),
               this,
             );
           }
@@ -472,9 +473,7 @@ class AppsNew extends Generator {
             this.templatePath(
               `order-source/forms/connect.${this._definitionExt}`,
             ),
-            this.destinationPath(
-              `src/forms/connect.${this._definitionExt}`,
-            ),
+            this.destinationPath(`src/forms/connect.${this._definitionExt}`),
             this,
           );
 
@@ -482,19 +481,13 @@ class AppsNew extends Generator {
             this.templatePath(
               `order-source/forms/settings.${this._definitionExt}`,
             ),
-            this.destinationPath(
-              `src/forms/settings.${this._definitionExt}`,
-            ),
+            this.destinationPath(`src/forms/settings.${this._definitionExt}`),
             this,
           );
 
           this.fs.copyTpl(
-            this.templatePath(
-              `order-source/methods/connect.${this._codeExt}`,
-            ),
-            this.destinationPath(
-              `src/methods/connect.${this._codeExt}`,
-            ),
+            this.templatePath(`order-source/methods/connect.${this._codeExt}`),
+            this.destinationPath(`src/methods/connect.${this._codeExt}`),
             this,
           );
 
