@@ -55,8 +55,8 @@ Carrier Apps:
     cancelPickups: reference/methods/cancel-pickups.md
 
 Order Apps:
-#   Overview:
-#     Overview: order-app/index.md
+  Overview:
+    Overview: order-app/index.md
 
   App Structure:
     Order App: reference/order.md
@@ -64,8 +64,6 @@ Order Apps:
 
   Methods:
     connect: reference/methods/connect.md
-#    getSeller: reference/methods/get-seller.md
-#    getSalesOrder: reference/methods/get-sales-order.md
     getSalesOrdersByDate: reference/methods/get-sales-orders-by-date.md
     shipmentCreated: reference/methods/shipment-created.md
     shipmentCancelled: reference/methods/shipment-cancelled.md

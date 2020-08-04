@@ -36,12 +36,12 @@ param:
      - name: websiteURL
        type: string
        required: true
-       description: The URL of this service's website.
+       description: The URL of your company's website.
 
      - name: logo
        type: string
        required: true
-       description: The file path to the third party service's logo image.
+       description: The file path to your company's logo image.
 
      - name: connectionForm
        type: "[Form](./forms.md)"
@@ -114,8 +114,6 @@ const orderSource: OrderAppDefinition = {
   settingsForm: import("./forms/settings"),
 
   connect: import("./methods/connect"),
-  getSeller: import("./methods/get-seller"),
-  getSalesOrder: import("./methods/get-sales-order"),
   getSalesOrdersByDate: import("./methods/get-sales-orders-by-date"),
   shipmentCreated: import("./methods/shipment-created"),
   shipmentCancelled: import("./methods/shipment-cancelled"),
@@ -150,8 +148,6 @@ const orderSource = {
   settingsForm: "./forms/settings.js",
 
   connect: "./methods/connect.js",
-  getSeller: "./methods/get-seller.js",
-  getSalesOrder: "./methods/get-sales-order.js",
   getSalesOrdersByDate: "./methods/get-sales-orders-by-date.js",
   shipmentCreated: "./methods/shipment-created.js",
   shipmentCancelled: "./methods/shipment-cancelled.js",
@@ -187,8 +183,6 @@ logo: ./../logo.svg
 connectionForm: forms/connection-form.js
 
 connect: methods/connect.js
-getSeller: methods/get-seller.js
-getSalesOrder: methods/get-sales-order.js
 getSalesOrdersByDate: methods/get-sales-orders-by-date.js
 shipmentCreated: methods/shipment-created.js
 shipmentCancelled: /methods/shipment-cancelled.js
@@ -206,4 +200,3 @@ localization:
     description: 货运公司是航空货运的全球领导者。
     websiteURL: https://ibuy.cn
 ```
-

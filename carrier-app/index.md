@@ -33,7 +33,7 @@ your carrier offers and implementing the methods that correspond to the availabl
 
   The types of packaging that a service offers for the pickup and delivery services.
 
-  Examples: `parcel`, `pallet`
+  Examples: `Flat Rate Box`, `Padded Envelope`, `36-inch Tube`
   </dd>
 
   <dt>
@@ -44,7 +44,7 @@ your carrier offers and implementing the methods that correspond to the availabl
 
   The various ways that your service offers delivery confirmation back to the sender.
 
-  Examples: `Adult Signature`, `Authority to Leave`
+  Examples: `Adult Signature Required`, `Authority to Leave`
   </dd>
 
   <dt>

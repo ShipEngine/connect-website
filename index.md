@@ -50,14 +50,8 @@ The ShipEngine Integration Platform supports [carrier apps](./carrier-app/index.
 ### Carrier App
 If you are a company that provides shipping services, referred to as a "shipping carrier", you can build a [Carrier Application](./carrier-app/index.md) to make your shipping services available within any of the suite of e-commerce applications mentioned above. This allows your carrier to be listed as a shipping option any time an order is placed and processed.
 
-<div id="coming-soon">
-
-  ### Order App
-  A company that provides order management, such as an online marketplace, can build an Order Application to
-  allow your sellers to import, manage and fulfill their orders using any of the products in the suite of
-  e-commerce applications mentioned above.
-
-</div>
+### Order App
+A company that provides order management, such as an online marketplace, can build an [Order Application](order-app/index.md) to allow your sellers to import, manage and fulfill their orders using any of the products in the suite of e-commerce applications mentioned above.
 
 <div class="previous-next-nav">
   <a class="button button-small button-secondary" href="./getting-started.md">Next: Getting Started</a>
