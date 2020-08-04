@@ -61,7 +61,13 @@ describe("new generator", () => {
             assert.jsonFileContent("package.json", {
               description: "test description",
             });
-            assert.jsonFileContent("package.json", { main: "src/index.yaml" });
+            assert.jsonFileContent("package.json", {
+              main: "src/index.yaml",
+              scripts: {
+                start: "shipengine start",
+                test: "shipengine test"
+              }
+            });
           });
       });
     });
@@ -107,14 +113,12 @@ describe("new generator", () => {
 
             assert.jsonFileContent("package.json", {
               name: "@shipengine/testname",
-            });
-            assert.jsonFileContent("package.json", {
               description: "test description",
-            });
-
-            assert.jsonFileContent("package.json", {
               scripts: {
-                build: "tsc"
+                build: "tsc",
+                watch: "tsc --watch",
+                start: "shipengine start",
+                test: "shipengine test"
               },
               main: "lib/index.js"
             });
@@ -168,7 +172,10 @@ describe("new generator", () => {
 
             assert.jsonFileContent("package.json", {
               scripts: {
-                build: "tsc"
+                build: "tsc",
+                watch: "tsc --watch",
+                start: "shipengine start",
+                test: "shipengine test"
               },
               main: "lib/index.js"
             });
@@ -222,7 +229,10 @@ describe("new generator", () => {
 
             assert.jsonFileContent("package.json", {
               scripts: {
-                build: "tsc"
+                build: "tsc",
+                watch: "tsc --watch",
+                start: "shipengine start",
+                test: "shipengine test"
               },
               main: "lib/index.js"
             });
@@ -267,12 +277,12 @@ describe("new generator", () => {
 
             assert.jsonFileContent("package.json", {
               name: "@shipengine/testname",
-            });
-            assert.jsonFileContent("package.json", {
               description: "test description",
-            });
-            assert.jsonFileContent("package.json", {
-              main: "src/index.json",
+              scripts: {
+                start: "shipengine start",
+                test: "shipengine test"
+              },
+              main: "src/index.json"
             });
           });
       });
@@ -315,11 +325,11 @@ describe("new generator", () => {
 
             assert.jsonFileContent("package.json", {
               name: "@shipengine/testname",
-            });
-            assert.jsonFileContent("package.json", {
               description: "test description",
-            });
-            assert.jsonFileContent("package.json", {
+              scripts: {
+                start: "shipengine start",
+                test: "shipengine test"
+              },
               main: "src/index.yaml",
             });
           });
@@ -358,11 +368,13 @@ describe("new generator", () => {
 
             assert.jsonFileContent("package.json", {
               name: "@shipengine/testname",
-            });
-            assert.jsonFileContent("package.json", {
               description: "test description",
+              scripts: {
+                start: "shipengine start",
+                test: "shipengine test"
+              },
+              main: "src/index.yaml"
             });
-            assert.jsonFileContent("package.json", { main: "src/index.yaml" });
           });
       });
     });
@@ -408,7 +420,10 @@ describe("new generator", () => {
 
             assert.jsonFileContent("package.json", {
               scripts: {
-                build: "tsc"
+                build: "tsc",
+                watch: "tsc --watch",
+                start: "shipengine start",
+                test: "shipengine test"
               },
               main: "lib/index.js"
             });
@@ -448,14 +463,12 @@ describe("new generator", () => {
 
             assert.jsonFileContent("package.json", {
               name: "@shipengine/testname",
-            });
-            assert.jsonFileContent("package.json", {
               description: "test description",
-            });
-
-            assert.jsonFileContent("package.json", {
               scripts: {
-                build: "tsc"
+                build: "tsc",
+                watch: "tsc --watch",
+                start: "shipengine start",
+                test: "shipengine test"
               },
               main: "lib/index.js"
             });
@@ -495,14 +508,12 @@ describe("new generator", () => {
 
             assert.jsonFileContent("package.json", {
               name: "@shipengine/testname",
-            });
-            assert.jsonFileContent("package.json", {
               description: "test description",
-            });
-
-            assert.jsonFileContent("package.json", {
               scripts: {
-                build: "tsc"
+                build: "tsc",
+                watch: "tsc --watch",
+                start: "shipengine start",
+                test: "shipengine test"
               },
               main: "lib/index.js"
             });
@@ -542,9 +553,11 @@ describe("new generator", () => {
 
             assert.jsonFileContent("package.json", {
               name: "@shipengine/testname",
-            });
-            assert.jsonFileContent("package.json", {
               description: "test description",
+              scripts: {
+                start: "shipengine start",
+                test: "shipengine test"
+              }
             });
           });
       });
@@ -582,9 +595,11 @@ describe("new generator", () => {
 
             assert.jsonFileContent("package.json", {
               name: "@shipengine/testname",
-            });
-            assert.jsonFileContent("package.json", {
               description: "test description",
+              scripts: {
+                start: "shipengine start",
+                test: "shipengine test"
+              }
             });
           });
       });

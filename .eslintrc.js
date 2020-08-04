@@ -20,5 +20,8 @@ module.exports = {
     "no-negated-condition": 0,
     "no-implicit-coercion": 0,
     "new-cap": 0,
+    "no-dupe-else-if": 0,
+    "no-import-assign": 0,
+    "no-setter-return": 0
   }
 };

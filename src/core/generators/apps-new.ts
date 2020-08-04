@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import capitalization from "@shipengine/capitalization";
 import { AppType } from "@shipengine/integration-platform-sdk";
 import { SdkAppTypes } from "../types";
+import { exec } from 'child_process';
 
 const fixpack = require("@oclif/fixpack");
 const sortPjson = require("sort-pjson");
@@ -235,18 +236,18 @@ class AppsNew extends Generator {
     ];
 
     this.pjson.main = this.pJsonMain();
+    this.pjson.scripts = {
+      start: "shipengine start",
+      test: "shipengine test"
+    }
 
     if (this.answers.vscode) {
-      this.pjson.scripts = {
-        debug: "cross-env NODE_OPTIONS=--inspect-brk shipengine test",
-      };
+      this.pjson.scripts.debug = "cross-env NODE_OPTIONS=--inspect-brk shipengine test";
     }
 
     if (this.ts) {
-      this.pjson.scripts = {
-        build: "tsc"
-      };
-
+      this.pjson.scripts.build = "tsc";
+      this.pjson.scripts.watch = "tsc --watch";
       this.pjson.main = "lib/index.js";
     }
   }
@@ -550,7 +551,7 @@ class AppsNew extends Generator {
     const dependencies: string[] = [];
     const devDependencies: string[] = [];
 
-    devDependencies.push("@shipengine/integration-platform-sdk@0.0.21");
+    devDependencies.push("@shipengine/integration-platform-sdk");
     devDependencies.push("dotenv-flow@3.1.0");
     devDependencies.push("cross-env");
 

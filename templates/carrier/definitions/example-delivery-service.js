@@ -7,6 +7,7 @@ module.exports = {
     "This is an example delivery service. Please remove and define your own.",
   class: "ground",
   deliveryConfirmations: ["./example-delivery-confirmation.js"],
+  manifestType: "digital",
   grade: "standard",
   isInsurable: true,
   isTrackable: false,
