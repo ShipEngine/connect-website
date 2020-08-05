@@ -6,6 +6,7 @@
   "scripts": {
     "build": "tsc",
     "watch": "tsc --watch",
+    "start": "shipengine start",
     "test": "shipengine test",
     "postbuild": "copyfiles -u 1 src/**/!\\(*.ts\\) lib; copyfiles -u 1 src/!\\(*.ts\\) lib"
   },
