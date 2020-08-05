@@ -4,7 +4,7 @@
   "description": "The FreightCo carrier app",
   "scripts": {
     "start": "shipengine start",
-    "test": "shipengine test"  
+    "test": "shipengine test"
   },
   "devDependencies": {
     "@shipengine/integration-platform-sdk": "0.0.36",

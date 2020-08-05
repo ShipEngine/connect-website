@@ -19,9 +19,9 @@ async function createShipment(transaction, shipment) {
     operation: "generate_label",
     session_id: transaction.session.id,
     service_code: shipment.deliveryService.identifiers.apiCode,
-    confirmation_code: shipment.package.deliveryConfirmation.identifiers.apiCode,
-    ship_date: shipment.shipDateTime,
+    ship_date: shipment.shipDateTime.toISOString(),
     total_weight: shipment.package.weight.ounces,
+    packageNumber: shipment.packages.length
   };
 
   // STEP 3: Call the carrier's API
@@ -70,9 +70,7 @@ function formatShipment(response) {
         data: Buffer.from(response.image, "base64"),
       }
     ],
-    packages: [{
-      trackingNumber: response.tracking_number
-    }],
+    packages: response.package_tracking_numbers.map((trackingNumber) => { return { trackingNumber: trackingNumber}})
   };
 }
 
