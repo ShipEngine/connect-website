@@ -7,6 +7,7 @@ import {
   PickUpCancellationRequest,
 } from "./pick-up-cancellation";
 import { quoteRates, QuoteRatesRequest } from "./quote-rates";
+import { generateManifest, GenerateManifestRequest } from "./generate-manifest";
 
 // Read config values from environment variables
 const API_URL = process.env.API_URL || "https://httpbin.org/anything";
@@ -47,6 +48,9 @@ export const apiClient = axios.create({
 
       case "generate_label":
         return generateLabel(request as HttpRequest & GenerateLabelRequest);
+
+      case "generate_manifest":
+        return generateManifest(request as HttpRequest & GenerateManifestRequest);
 
       case "quote_rates":
         return quoteRates(request as HttpRequest & QuoteRatesRequest);

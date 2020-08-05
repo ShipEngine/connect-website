@@ -11,10 +11,11 @@ const parcelPost: CarrierAppDefinition = {
 
   connect: import("./methods/connect"),
   createShipment: import("./methods/create-shipment"),
+  createManifest: import("./methods/create-manifest"),
   rateShipment: import("./methods/rate-shipment"),
   schedulePickup: import("./methods/schedule-pickup"),
   cancelPickups: import("./methods/cancel-pickups"),
-
+  
   connectionForm: import("./forms/connect"),
   settingsForm: import("./forms/settings"),
 
