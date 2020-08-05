@@ -16,10 +16,13 @@ documentation: |
 * Removed geo-coordinates from all Address properties
 * Removed support for Localization
 * Updated [CLI](./../cli.md) namespace. You should uninstall the old one before the latest version.
-* [CLI](./../cli.md) commands are no longer prefaced with `apps:`. The documentation has been updated.
-```npm uninstall @shipengine/cli -g
+
+
+```
+npm uninstall @shipengine/cli -g
 npm install @shipengine/integration-platform-cli -g
 ```
+* [CLI](./../cli.md) commands are no longer prefaced with `apps:`. The documentation has been updated.
 * The `shipengine test` command has changed. We are in the process of updating the documentation for this.
 
 
