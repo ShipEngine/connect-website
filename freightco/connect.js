@@ -18,7 +18,7 @@ async function connect(transaction, connectionFormData) {
     account_email: connectionFormData.account_email,
     account_password: connectionFormData.account_password,
     agree_to_eula: connectionFormData.agree_to_eula,
-    eula: connectionFormData.eula,
+    eula: connectionFormData.eula
   };
 
   // STEP 3: Call the carrier's API

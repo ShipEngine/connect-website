@@ -7,6 +7,7 @@ module.exports = {
   websiteURL: "https://freightco.net",
   logo: "../logo.svg",
   icon: "../logo.svg",
+  manifestType: "digital",
 
   connect: "connect.js",
   createShipment: "create-shipment.js",
@@ -29,6 +30,4 @@ module.exports = {
     "pickup-services/next-day.js",
     "pickup-services/same-day.js"
   ]
-
-
 };
