@@ -1,4 +1,4 @@
-import { CarrierAppDefinition, ManifestType } from "@shipengine/integration-platform-sdk";
+import { CarrierAppDefinition, ManifestType, ManifestLocation, ManifestShipment } from "@shipengine/integration-platform-sdk";
 
 const parcelPost: CarrierAppDefinition = {
   id: "1cd8dc3b-3acb-4373-b32a-d59abd5ec86b",
@@ -8,6 +8,8 @@ const parcelPost: CarrierAppDefinition = {
   logo: "../logo.svg",
   icon: "../logo.svg",
   manifestType: ManifestType.Digital,
+  manifestLocations: ManifestLocation.SingleLocation,
+  manifestShipments: ManifestShipment.AllShipments,
 
   connect: import("./methods/connect"),
   createShipment: import("./methods/create-shipment"),
@@ -15,7 +17,7 @@ const parcelPost: CarrierAppDefinition = {
   rateShipment: import("./methods/rate-shipment"),
   schedulePickup: import("./methods/schedule-pickup"),
   cancelPickups: import("./methods/cancel-pickups"),
-  
+
   connectionForm: import("./forms/connect"),
   settingsForm: import("./forms/settings"),
 

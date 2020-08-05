@@ -25,16 +25,18 @@ export default async function createShipment(
     operation: "generate_label",
     session_id: transaction.session.id,
     service_code: shipment.deliveryService.identifiers.apiCode,
-    confirmation_code: shipment.package.deliveryConfirmation.identifiers.apiCode,
+    confirmation_code: shipment.package.deliveryConfirmation?.identifiers.apiCode,
     ship_date: shipment.shipDateTime.toISOString(),
-    total_weight: shipment.package.weight.ounces,
+    total_weight: shipment.packages.reduce((totalWeight, pkg) => { return totalWeight = totalWeight + pkg.weight.ounces}, 0),
+    packageNumber: shipment.packages.length
   };
 
   // STEP 3: Call the carrier's API
   const response = await apiClient.request<GenerateLabelResponse>({ data });
 
   // STEP 4: Create the output data that ShipEngine expects
-  return formatShipment(response.data);
+  const result = formatShipment(response.data);
+  return result;
 }
 
 /**
@@ -52,6 +54,7 @@ function formatShipment(response: GenerateLabelResponse): ShipmentConfirmationPO
           currency: "USD",
         }
       },
+
       {
         type: ChargeType.DeliveryConfirmation,
         amount: {
@@ -76,8 +79,6 @@ function formatShipment(response: GenerateLabelResponse): ShipmentConfirmationPO
         data: Buffer.from(response.image, "base64"),
       }
     ],
-    packages: [{
-      trackingNumber: response.tracking_number,
-    }]
+    packages: response.package_tracking_numbers.map((trackingNumber) => { return { trackingNumber: trackingNumber}})
   };
 }

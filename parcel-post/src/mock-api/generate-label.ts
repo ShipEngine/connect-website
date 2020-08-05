@@ -9,10 +9,13 @@ export interface GenerateLabelRequest {
   confirmation_code: string;
   ship_date: string;
   total_weight: number;
+  packageNumber: number;
 }
 
-export interface GenerateLabelResponse {
+export interface GenerateLabelResponse 
+{
   tracking_number: string;
+  package_tracking_numbers: string[];
   delivery_date: string;
   shipment_cost: number;
   confirmation_cost: number;
@@ -27,8 +30,16 @@ export function generateLabel(request: HttpRequest & GenerateLabelRequest): Gene
   let shipDate = new Date(request.ship_date);
   let weight = request.total_weight;
 
+
+  const package_tracking_numbers = [];
+
+  for (let i = 0; i < request.packageNumber; i++) {
+    package_tracking_numbers.push(Buffer.from(new Date().toISOString()).toString("base64").toUpperCase());
+  }
+
   return {
     tracking_number: Buffer.from(new Date().toISOString()).toString("base64").toUpperCase(),
+    package_tracking_numbers,
     delivery_date: new Date(shipDate.setDate(shipDate.getDate() + 4)).toISOString(),
     shipment_cost: .97 * weight,
     confirmation_cost: 1.26,
