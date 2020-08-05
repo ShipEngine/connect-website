@@ -301,6 +301,21 @@ class AppsNew extends Generator {
       this,
     );
 
+    if(this.ts) {
+      this.fs.copyTpl(
+        this.templatePath(".npmignore-ts"),
+        this.destinationPath(".npmignore"),
+        this,
+      );
+    }
+    else {
+      this.fs.copyTpl(
+        this.templatePath(".npmignore-js"),
+        this.destinationPath(".npmignore"),
+        this,
+      );
+    }
+
     if (this.pjson.license === "ISC") {
       this.fs.copyTpl(
         this.templatePath("LICENSE"),

@@ -52,6 +52,7 @@ describe("new generator", () => {
               ".editorconfig",
               "LICENSE",
               "README.md",
+              ".npmignore",
               "package.json",
             ]);
 
@@ -103,7 +104,7 @@ describe("new generator", () => {
               ".editorconfig",
               "LICENSE",
               "README.md",
-              "README.md",
+              ".npmignore",
               "package.json",
             ]);
 
@@ -156,7 +157,7 @@ describe("new generator", () => {
               ".editorconfig",
               "LICENSE",
               "README.md",
-              "README.md",
+              ".npmignore",
               "package.json",
             ]);
 
@@ -209,7 +210,7 @@ describe("new generator", () => {
               ".editorconfig",
               "LICENSE",
               "README.md",
-              "README.md",
+              ".npmignore",
               "package.json",
             ]);
 
@@ -261,6 +262,7 @@ describe("new generator", () => {
               ".editorconfig",
               "LICENSE",
               "README.md",
+              ".npmignore",
               "package.json",
             ]);
 
@@ -309,6 +311,7 @@ describe("new generator", () => {
               ".editorconfig",
               "LICENSE",
               "README.md",
+              ".npmignore",
               "package.json",
             ]);
 
@@ -352,6 +355,7 @@ describe("new generator", () => {
               ".editorconfig",
               "LICENSE",
               "README.md",
+              ".npmignore",
               "package.json",
             ]);
 
@@ -396,6 +400,7 @@ describe("new generator", () => {
               ".editorconfig",
               "LICENSE",
               "README.md",
+              ".npmignore",
               "package.json",
               "tsconfig.json",
             ]);
@@ -442,6 +447,7 @@ describe("new generator", () => {
               "LICENSE",
               "README.md",
               "package.json",
+              ".npmignore",
               "tsconfig.json",
             ]);
 
@@ -487,6 +493,7 @@ describe("new generator", () => {
               "LICENSE",
               "README.md",
               "package.json",
+              ".npmignore",
               "tsconfig.json",
             ]);
 
@@ -532,6 +539,7 @@ describe("new generator", () => {
               ".editorconfig",
               "LICENSE",
               "README.md",
+              ".npmignore",
               "package.json",
             ]);
 
@@ -575,6 +583,7 @@ describe("new generator", () => {
               ".editorconfig",
               "LICENSE",
               "README.md",
+              ".npmignore",
               "package.json",
             ]);
 
