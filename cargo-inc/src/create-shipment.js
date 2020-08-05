@@ -46,6 +46,15 @@ async function formatShipment(response) {
   return {
     trackingNumber: response.tracking_number,
     deliveryDateTime: response.delivery_date,
+    documents: [
+      {
+        name: "Label",
+        type: "label",
+        size: "letter",
+        format: "pdf",
+        data: await downloadLabel(response.image_url),
+      }
+    ],
     charges: [
       {
         type: "shipping",
@@ -71,15 +80,6 @@ async function formatShipment(response) {
     ],
     packages: [{
       trackingNumber: response.tracking_number,
-      documents: [
-        {
-          name: "Label",
-          type: "label",
-          size: "letter",
-          format: "pdf",
-          data: await downloadLabel(response.image_url),
-        }
-      ]
     }],
   };
 }
