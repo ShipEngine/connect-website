@@ -1,6 +1,6 @@
 import {
   NewShipment,
-  ShipmentConfirmationPOJO,
+  ShipmentConfirmation,
   Transaction,
 } from "@shipengine/integration-platform-sdk";
 import { Session } from "./session";
@@ -14,7 +14,7 @@ import { Session } from "./session";
 export default async function createShipment(
   transaction: Transaction<Session>,
   shipment: NewShipment,
-): Promise<ShipmentConfirmationPOJO> {
+): Promise<ShipmentConfirmation> {
   throw new Error("NotImplementedError");
   // STEP 1: Validation
   // STEP 2: Create the data that the carrier's API expects

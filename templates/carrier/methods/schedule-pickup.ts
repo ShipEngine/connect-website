@@ -1,5 +1,5 @@
 import {
-  PickupConfirmationPOJO,
+  PickupConfirmation,
   PickupRequest,
   Transaction,
 } from "@shipengine/integration-platform-sdk";
@@ -14,7 +14,7 @@ import { Session } from "./session";
 export default async function schedulePickup(
   transaction: Transaction<Session>,
   pickup: PickupRequest,
-): Promise<PickupConfirmationPOJO> {
+): Promise<PickupConfirmation> {
   throw new Error("NotImplementedError");
   // STEP 1: Validation
   // STEP 2: Create the data that the carrier's API expects

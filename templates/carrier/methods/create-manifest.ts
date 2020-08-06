@@ -1,5 +1,5 @@
 import {
-  ManifestConfirmationPOJO,
+  ManifestConfirmation,
   NewManifest,
   Transaction,
 } from "@shipengine/integration-platform-sdk";
@@ -11,7 +11,7 @@ import { Session } from "./session";
 export default async function createManifest(
   transaction: Transaction<Session>,
   manifest: NewManifest,
-): Promise<ManifestConfirmationPOJO> {
+): Promise<ManifestConfirmation> {
   throw new Error("NotImplementedError");
   // STEP 1: Validation
   // STEP 2: Create the data that the carrier's API expects
