@@ -1,0 +1,56 @@
+{
+	"info": {
+		"_postman_id": "2b8d9a89-d6d7-4202-9439-712e232bc778",
+		"name": "ShipEngine Integration Platform Local Dev API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get App Info",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				},
+				"description": "Get detailed information about the structure of an app."
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "d91f6427-5bcc-4e50-85fc-5ffd33b4f015",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "2eeadb09-06bb-46f8-ac93-0870238276bd",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "7f40601c-c53e-4458-aae4-33de07055d3b",
+			"key": "port",
+			"value": "3001"
+		},
+		{
+			"id": "1a2e2ba9-ef21-4019-b62c-a018bf7f8bfd",
+			"key": "api_host",
+			"value": "http://localhost:{{port}}"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
