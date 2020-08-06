@@ -1,11 +1,12 @@
 import {
-  CarrierApp,
   DeliveryConfirmation,
   DeliveryService,
-  NewPackagePOJO,
-  NewShipmentPOJO,
   WeightUnit,
 } from "@shipengine/integration-platform-sdk";
+
+import { CarrierApp, NewShipmentPOJO, NewPackagePOJO } from "@shipengine/integration-platform-sdk/lib/internal";
+
+
 import Suite from "../runner/suite";
 import findDeliveryConfirmationByName from "../utils/find-delivery-confirmation-by-name";
 import findDeliveryServiceByName from "../utils/find-delivery-service-by-name";

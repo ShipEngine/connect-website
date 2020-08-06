@@ -1,7 +1,7 @@
 import {
   DeliveryConfirmation,
   CarrierApp,
-} from "@shipengine/integration-platform-sdk";
+} from "@shipengine/integration-platform-sdk/lib/internal";
 
 /**
  * Finds a DeliveryConfirmation by its name or raises if one is not found.

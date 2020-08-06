@@ -1,11 +1,10 @@
 import {
   DateTimeZonePOJO,
   AddressWithContactInfoPOJO,
-  NewLabelPOJO,
   WeightPOJO,
 } from "@shipengine/integration-platform-sdk";
+import { NewLabelPOJO } from "@shipengine/integration-platform-sdk/lib/internal";
 import { BaseTestConfigOptions } from "./base-test-config-options";
-
 
 export type PackageOptions = {
   packagingName: string;

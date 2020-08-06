@@ -1,11 +1,9 @@
 import {
-  CarrierApp,
   DeliveryService,
-  NewShipmentPOJO,
-  NewPackagePOJO,
   WeightUnit,
   DeliveryConfirmation
 } from "@shipengine/integration-platform-sdk";
+import { CarrierApp, NewShipmentPOJO, NewPackagePOJO } from "@shipengine/integration-platform-sdk/lib/internal";
 import Suite from "../runner/suite";
 import {
   CreateShipmentWithInsuranceConfigOptions,
@@ -106,7 +104,7 @@ export class CreateShipmentWithInsurance extends Suite {
       },
       packagingName: this.deliveryService.packaging[0].name,
       packageInsuredValue: {
-        value: "10",
+        value: 10,
         currency: "USD"
       }
     };

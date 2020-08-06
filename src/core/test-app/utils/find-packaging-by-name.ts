@@ -1,7 +1,8 @@
 import {
-  CarrierApp,
-  Packaging,
-} from "@shipengine/integration-platform-sdk";
+  CarrierApp
+} from "@shipengine/integration-platform-sdk/lib/internal";
+
+import { Packaging } from "@shipengine/integration-platform-sdk";
 
 /**
  * Finds a Packaging type by its name or raises if one is not found.
