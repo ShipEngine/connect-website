@@ -12,7 +12,7 @@ type AppDefinition = CarrierAppDefinition | OrderAppDefinition;
 /**
  * Loads a ShipEngine Integration Platform App
  */
-export async function loadApp(appPath: string = "."): Promise<App> {
+export async function loadApp(appPath = "."): Promise<App> {
   try {
     fileCache.startedLoading();
 
@@ -35,7 +35,7 @@ export async function loadApp(appPath: string = "."): Promise<App> {
     }
   }
   catch (originalError) {
-    throw error(ErrorCode.AppError, `Error loading the ShipEngine Integration Platform app:`, { originalError });
+    throw error(ErrorCode.AppError, "Error loading the ShipEngine Integration Platform app:", { originalError });
   }
   finally {
     // Let the cache know that we're done loading the app,
@@ -50,7 +50,7 @@ export async function loadApp(appPath: string = "."): Promise<App> {
 function isCarrierApp(definition: AppDefinition): definition is CarrierAppDefinition {
   const requiredCarrierProperties = ["deliveryServices"];
   const optionalCarrierProperties = ["manifestLocations", "manifestShipments", "pickupServices", "createShipment", "cancelShipments",
-                                     "rateShipment", "trackShipment", "createManifest", "schedulePickup", "cancelPickups"];
+    "rateShipment", "trackShipment", "createManifest", "schedulePickup", "cancelPickups"];
 
   for (let property of requiredCarrierProperties) {
     if (property in definition) {

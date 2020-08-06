@@ -7,8 +7,7 @@ import { readPackingArrayDefinition } from "./read-packaging-definition";
  * Reads a delivery service definition
  */
 export async function readDeliveryServiceDefinition(
-definition: InlineOrReference<DeliveryServiceDefinition>, cwd: string, fieldName: string)
-: Promise<DeliveryServicePOJO> {
+  definition: InlineOrReference<DeliveryServiceDefinition>, cwd: string, fieldName: string): Promise<DeliveryServicePOJO> {
 
   [definition, cwd] = await readDefinition(definition, cwd, fieldName);
 
@@ -25,8 +24,7 @@ definition: InlineOrReference<DeliveryServiceDefinition>, cwd: string, fieldName
  * Reads an array of delivery service definitions
  */
 export async function readDeliveryServiceArrayDefinition(
-definitions: InlineOrReferenceArray<DeliveryServiceDefinition>, cwd: string, fieldName: string)
-: Promise<DeliveryServicePOJO[]> {
+  definitions: InlineOrReferenceArray<DeliveryServiceDefinition>, cwd: string, fieldName: string): Promise<DeliveryServicePOJO[]> {
 
   let array: DeliveryServiceDefinition[] | undefined;
   [array, cwd] = await readDefinitions(definitions, cwd, fieldName);

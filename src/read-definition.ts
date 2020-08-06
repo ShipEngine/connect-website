@@ -9,49 +9,52 @@ import { readFile } from "./read-file";
  * Reads an ShipEngine Integration Platform definition that is expected to be a single value.
  * The definition can be any of:
  *
- *    - an inline value
- *    - a YAML file path
- *    - a JSON file path
- *    - a JavaScript file path
- *    - a dynamic import via `require()` or `import()`
+ * - an inline value
+ * - a YAML file path
+ * - a JSON file path
+ * - a JavaScript file path
+ * - a dynamic import via `require()` or `import()`
  */
 export async function readDefinitionValue<T>(definition: InlineOrReference<T>, cwd: string, fieldName: string): Promise<T> {
   let [value] = await readDefinition(definition, cwd, fieldName);
   return value;
 }
 
+export async function readDefinitions<T>(definition: InlineOrReferenceArray<T>, cwd: string, fieldName: string): Promise<[T[], string]>;
+export async function readDefinitions<T>(definition: InlineOrReferenceArray<T> | undefined, cwd: string, fieldName: string): Promise<[T[] | undefined, string]>;
+
 /**
  * Reads a ShipEngine Integration Platform definition that is expected to be an array of values.
  * The definition can be any of:
  *
- *    - an inline value
- *    - a YAML file path
- *    - a JSON file path
- *    - a JavaScript file path
- *    - a dynamic import via `require()` or `import()`
+ * - an inline value
+ * - a YAML file path
+ * - a JSON file path
+ * - a JavaScript file path
+ * - a dynamic import via `require()` or `import()`
  *
  * @returns A tuple containing the definition value and the directory path of the definition file
  */
-export async function readDefinitions<T>(definition: InlineOrReferenceArray<T>, cwd: string, fieldName: string): Promise<[T[], string]>;
-export async function readDefinitions<T>(definition: InlineOrReferenceArray<T> | undefined, cwd: string, fieldName: string): Promise<[T[] | undefined, string]>;
-export async function readDefinitions<T>(definition: InlineOrReferenceArray<T>, cwd: string, fieldName: string): Promise<[T[], string]> {
-  return readDefinition(definition, cwd, fieldName) as unknown as [T[], string];
+export function readDefinitions<T>(definition: InlineOrReferenceArray<T>, cwd: string, fieldName: string): Promise<[T[], string]> {
+  return readDefinition(definition, cwd, fieldName) as Promise<[T[], string]>;
 }
+
+
+export async function readDefinition<T>(definition: InlineOrReference<T>, cwd: string, fieldName: string): Promise<[T, string]>;
+export async function readDefinition<T>(definition: InlineOrReference<T> | undefined, cwd: string, fieldName: string): Promise<[T | undefined, string]>;
 
 /**
  * Reads a ShipEngine Integration Platform definition that is expected to be a single value.
  * The definition can be any of:
  *
- *    - an inline value
- *    - a YAML file path
- *    - a JSON file path
- *    - a JavaScript file path
- *    - a dynamic import via `require()` or `import()`
+ * - an inline value
+ * - a YAML file path
+ * - a JSON file path
+ * - a JavaScript file path
+ * - a dynamic import via `require()` or `import()`
  *
  * @returns A tuple containing the definition value and the directory path of the definition file
  */
-export async function readDefinition<T>(definition: InlineOrReference<T>, cwd: string, fieldName: string): Promise<[T, string]>;
-export async function readDefinition<T>(definition: InlineOrReference<T> | undefined, cwd: string, fieldName: string): Promise<[T | undefined, string]>;
 export async function readDefinition<T>(definition: InlineOrReference<T>, cwd: string, fieldName: string): Promise<[T, string]> {
   try {
     if (typeof definition === "string") {

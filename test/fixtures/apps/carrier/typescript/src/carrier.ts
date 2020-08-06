@@ -1,4 +1,4 @@
-"use strict";
+
 
 /** Test Shipping Provider */
 const config: CarrierAppDefinition = {
@@ -29,5 +29,4 @@ const config: CarrierAppDefinition = {
 
 };
 
-// tslint:disable-next-line: no-default-export
 export default config;

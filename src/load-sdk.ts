@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { App, AppManifestPOJO, CarrierAppPOJO, ErrorCode, OrderAppPOJO } from "@shipengine/integration-platform-sdk";
 import * as path from "path";
 import { error } from "./internal";
@@ -23,8 +24,7 @@ export async function loadSDK(appPath: string, manifest: AppManifestPOJO): Promi
 
     if (version >= 0 && version < 1) {
       // Import the 0.x version of the SDK
-      let { CarrierApp, OrderApp } = await import("@shipengine/integration-platform-sdk/lib/internal");   // tslint:disable-line: no-submodule-imports
-      return { version, CarrierApp, OrderApp };
+      let { CarrierApp, OrderApp } = await import("@shipengine/integration-platform-sdk/lib/internal"); return { version, CarrierApp, OrderApp };
     }
     else {
       throw error(ErrorCode.Validation, `Unsupported ${sdk} version: ${version}`);

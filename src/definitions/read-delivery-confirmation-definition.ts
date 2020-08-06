@@ -5,8 +5,7 @@ import { readDefinitions, readDefinitionValue } from "../read-definition";
  * Reads a delivery confirmation definition
  */
 export async function readDeliveryConfirmationDefinition(
-definition: InlineOrReference<DeliveryConfirmationDefinition>, cwd: string, fieldName: string)
-: Promise<DeliveryConfirmationPOJO> {
+  definition: InlineOrReference<DeliveryConfirmationDefinition>, cwd: string, fieldName: string): Promise<DeliveryConfirmationPOJO> {
 
   definition = await readDefinitionValue(definition, cwd, fieldName);
 
@@ -17,8 +16,7 @@ definition: InlineOrReference<DeliveryConfirmationDefinition>, cwd: string, fiel
  * Reads an array of delivery confirmation definitions
  */
 export async function readDeliveryConfirmationArrayDefinition(
-definitions: InlineOrReferenceArray<DeliveryConfirmationDefinition> | undefined, cwd: string, fieldName: string)
-: Promise<DeliveryConfirmationPOJO[] | undefined> {
+  definitions: InlineOrReferenceArray<DeliveryConfirmationDefinition> | undefined, cwd: string, fieldName: string): Promise<DeliveryConfirmationPOJO[] | undefined> {
 
   let array: DeliveryConfirmationDefinition[] | undefined;
   [array, cwd] = await readDefinitions(definitions, cwd, fieldName);

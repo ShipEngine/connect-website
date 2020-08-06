@@ -69,8 +69,7 @@ async function readJsonFile<T>(filePath: string): Promise<T> {
  */
 async function readTextFile(filePath: string): Promise<string> {
   try {
-    // tslint:disable-next-line: ban
-    return fs.readFile(filePath, "utf8");
+    return await fs.readFile(filePath, "utf8");
   }
   catch (originalError) {
     throw error(ErrorCode.Filesystem, `Unable to read ${filePath}.`, { originalError });

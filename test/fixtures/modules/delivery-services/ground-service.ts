@@ -28,5 +28,4 @@ const groundService: DeliveryServiceDefinition = {
 
 };
 
-// tslint:disable-next-line: no-default-export
 export default groundService;
