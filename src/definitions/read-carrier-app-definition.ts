@@ -1,4 +1,5 @@
-import { AppManifestPOJO, CarrierAppDefinition, CarrierAppPOJO, InlineOrReference } from "@shipengine/integration-platform-sdk";
+import { CarrierAppDefinition, InlineOrReference } from "@shipengine/integration-platform-sdk";
+import { AppManifestPOJO, CarrierAppPOJO } from "@shipengine/integration-platform-sdk/lib/internal";
 import { readDefinition, readDefinitionValue } from "../read-definition";
 import { readConnectionAppDefinition } from "./read-connection-app-definition";
 import { readDeliveryServiceArrayDefinition } from "./read-delivery-service-definition";

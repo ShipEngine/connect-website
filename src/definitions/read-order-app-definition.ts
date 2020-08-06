@@ -1,4 +1,5 @@
-import { AppManifestPOJO, InlineOrReference, OrderAppDefinition, OrderAppPOJO } from "@shipengine/integration-platform-sdk";
+import { InlineOrReference, OrderAppDefinition } from "@shipengine/integration-platform-sdk";
+import { AppManifestPOJO, OrderAppPOJO } from "@shipengine/integration-platform-sdk/lib/internal";
 import { readDefinition, readDefinitionValue } from "../read-definition";
 import { readConnectionAppDefinition } from "./read-connection-app-definition";
 

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { App, AppManifestPOJO, CarrierAppPOJO, ErrorCode, OrderAppPOJO } from "@shipengine/integration-platform-sdk";
+import { ErrorCode } from "@shipengine/integration-platform-sdk";
+import { App, AppManifestPOJO, CarrierAppPOJO, error, OrderAppPOJO } from "@shipengine/integration-platform-sdk/lib/internal";
 import * as path from "path";
-import { error } from "./internal";
 
 const sdk = "@shipengine/integration-platform-sdk";
 

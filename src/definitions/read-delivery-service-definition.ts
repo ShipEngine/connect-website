@@ -1,4 +1,5 @@
-import { DeliveryServiceDefinition, DeliveryServicePOJO, InlineOrReference, InlineOrReferenceArray } from "@shipengine/integration-platform-sdk";
+import { DeliveryServiceDefinition, InlineOrReference, InlineOrReferenceArray } from "@shipengine/integration-platform-sdk";
+import { DeliveryServicePOJO } from "@shipengine/integration-platform-sdk/lib/internal";
 import { readDefinition, readDefinitions, readDefinitionValue } from "../read-definition";
 import { readDeliveryConfirmationArrayDefinition } from "./read-delivery-confirmation-definition";
 import { readPackingArrayDefinition } from "./read-packaging-definition";

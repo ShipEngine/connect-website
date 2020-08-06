@@ -1,9 +1,9 @@
 import { EcmaScriptModule, ErrorCode } from "@shipengine/integration-platform-sdk";
+import { error } from "@shipengine/integration-platform-sdk/lib/internal";
 import { promises as fs } from "fs";
 import * as jsYaml from "js-yaml";
 import * as json5 from "json5";
 import * as path from "path";
-import { error } from "./internal";
 
 
 /**

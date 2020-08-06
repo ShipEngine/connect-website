@@ -1,4 +1,4 @@
-import { AppManifestPOJO } from "@shipengine/integration-platform-sdk";
+import { AppManifestPOJO } from "@shipengine/integration-platform-sdk/lib/internal";
 import * as path from "path";
 import { readDefinition } from "./read-definition";
 

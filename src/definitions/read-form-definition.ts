@@ -1,4 +1,5 @@
-import { FormDefinition, FormPOJO, InlineOrReference } from "@shipengine/integration-platform-sdk";
+import { FormDefinition, InlineOrReference } from "@shipengine/integration-platform-sdk";
+import { FormPOJO } from "@shipengine/integration-platform-sdk/lib/internal";
 import { readDefinition, readDefinitionValue } from "../read-definition";
 
 export async function readFormDefinition(definition: InlineOrReference<FormDefinition>, cwd: string, fieldName: string): Promise<FormPOJO>;

@@ -1,8 +1,8 @@
-import { App, CarrierAppDefinition, ErrorCode, OrderAppDefinition } from "@shipengine/integration-platform-sdk";
+import { CarrierAppDefinition, ErrorCode, OrderAppDefinition } from "@shipengine/integration-platform-sdk";
+import { App, error } from "@shipengine/integration-platform-sdk/lib/internal";
 import { readCarrierAppDefinition } from "./definitions/read-carrier-app-definition";
 import { readOrderAppDefinition } from "./definitions/read-order-app-definition";
 import { fileCache } from "./file-cache";
-import { error } from "./internal";
 import { loadSDK } from "./load-sdk";
 import { readAppManifest } from "./read-app-manifest";
 import { readDefinition } from "./read-definition";

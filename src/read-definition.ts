@@ -1,8 +1,8 @@
 import { DynamicImport, ErrorCode, InlineOrReference, InlineOrReferenceArray } from "@shipengine/integration-platform-sdk";
+import { error } from "@shipengine/integration-platform-sdk/lib/internal";
 import * as path from "path";
 import * as resolveFrom from "resolve-from";
 import { fileCache } from "./file-cache";
-import { error } from "./internal";
 import { readFile } from "./read-file";
 
 /**

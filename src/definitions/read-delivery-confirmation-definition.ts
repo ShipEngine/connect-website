@@ -1,4 +1,5 @@
-import { DeliveryConfirmationDefinition, DeliveryConfirmationPOJO, InlineOrReference, InlineOrReferenceArray } from "@shipengine/integration-platform-sdk";
+import { DeliveryConfirmationDefinition, InlineOrReference, InlineOrReferenceArray } from "@shipengine/integration-platform-sdk";
+import { DeliveryConfirmationPOJO } from "@shipengine/integration-platform-sdk/lib/internal";
 import { readDefinitions, readDefinitionValue } from "../read-definition";
 
 /**
