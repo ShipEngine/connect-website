@@ -2,7 +2,8 @@ import express from "express";
 import cors from "cors";
 import { loadApp } from "@shipengine/integration-platform-loader";
 import { CarrierApp } from "@shipengine/integration-platform-sdk/lib/internal";
-
+import { Request, Response, NextFunction } from "express";
+import chalk from "chalk";
 import buildAPI from "./build-api";
 import log from "./utils/logger";
 
@@ -14,28 +15,39 @@ export default async function server(
 
   server.use(cors());
 
-  const appStatus = {
+  const appState: { status: "up" | "down"; error: null | Error } = {
     status: "up",
     error: null,
   };
 
+  let startMessage = "";
+  let sdkApp: CarrierApp;
+
   try {
-    const sdkApp = (await loadApp(pathToApp)) as CarrierApp;
+    sdkApp = (await loadApp(pathToApp)) as CarrierApp;
     buildAPI(sdkApp, server);
+    startMessage = chalk.green(
+      `${sdkApp.name} is now running at http://localhost:${port}`,
+    );
   } catch (error) {
-    appStatus.status = "down";
-    appStatus.error = error;
-    // TODO - consider how this should work
-    // We want an app to have the ability to boot up even if it is not valid
-    // But I think we only want to boot up if we are in a valid app directory
-    log("Error building API from SDK");
-    log(error.stack);
+    appState.status = "down";
+    appState.error = error;
+    startMessage = chalk.yellow(
+      `View app status at http://localhost:${port}/app-status`,
+    );
+    log(chalk.red(error.stack));
   }
 
   server.get("/app-status", (_req, res) => {
-    res.status(200).send(appStatus);
+    res.status(200).send(appState);
   });
 
-  // TODO - change log message to something meaningful
-  server.listen(port, () => log(`server running at http://localhost:${port}`));
+  server.use(function (req: Request, res: Response, _next: NextFunction) {
+    const errorMessage = sdkApp
+      ? `${sdkApp.name} does not implement ${req.path}`
+      : `Endpoint ${req.path} not found`;
+    res.status(404).send({ message: errorMessage });
+  });
+
+  server.listen(port, () => log(startMessage));
 }

@@ -1,6 +1,7 @@
 import bodyParser from "body-parser";
-import { Express, Request, Response } from "express";
+import { Express, Request, Response, NextFunction } from "express";
 import { CarrierApp } from "@shipengine/integration-platform-sdk/lib/internal";
+import log from "./utils/logger";
 
 export default function buildAPI(sdkApp: CarrierApp, server: Express) {
   server.use(
@@ -9,6 +10,7 @@ export default function buildAPI(sdkApp: CarrierApp, server: Express) {
     }),
   );
   server.use(bodyParser.json());
+  server.use(logRequest);
 
   server.get("/", getApp);
 
@@ -126,5 +128,11 @@ export default function buildAPI(sdkApp: CarrierApp, server: Express) {
     } catch (error) {
       return res.status(400).send(error);
     }
+  }
+
+  function logRequest(req: Request, _res: Response, next: NextFunction) {
+    log(`${req.method} ${req.url}`);
+    log(req.body);
+    next();
   }
 }
