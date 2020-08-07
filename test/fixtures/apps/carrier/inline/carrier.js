@@ -11,7 +11,7 @@ module.exports = {
   manifestType: "digital",
   manifestLocations: "single_location",
   manifestShipments: "explicit_shipments",
-  trackingUrlTemplate: "https://trackingurl.com/{}",
+  trackingURLTemplate: "https://trackingurl.com/{}",
 
   connectionForm: {
     dataSchema: {
