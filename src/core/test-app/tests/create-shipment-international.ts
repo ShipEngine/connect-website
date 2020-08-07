@@ -122,11 +122,6 @@ export class CreateShipmentInternational extends Suite {
       weight: testParams.weight,
     };
 
-    if (this.deliveryConfirmation) {
-      packagePOJO.deliveryConfirmation = {
-        id: this.deliveryConfirmation.id,
-      };
-    }
 
     const newShipmentPOJO: NewShipmentPOJO = {
       deliveryService: {
@@ -137,6 +132,12 @@ export class CreateShipmentInternational extends Suite {
       shipDateTime: testParams.shipDateTime!,
       packages: [packagePOJO],
     };
+   
+    if (this.deliveryConfirmation) {
+      newShipmentPOJO.deliveryConfirmation = {
+        id: this.deliveryConfirmation.id,
+      };
+    }
 
     const title = config.expectedErrorMessage
       ? `it raises an error when creating a new international shipment with ${objectToTestTitle(

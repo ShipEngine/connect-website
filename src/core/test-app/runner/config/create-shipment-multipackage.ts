@@ -10,11 +10,11 @@ export type PackageOptions = {
   packagingName: string;
   label: NewLabelPOJO
   weight: WeightPOJO;
-  deliveryConfirmationName?: string;
 }
 
 export interface CreateShipmentMultiPackageTestParams {
   deliveryServiceName: string;
+  deliveryConfirmationName?: string;
   shipFrom: AddressWithContactInfoPOJO;
   shipTo: AddressWithContactInfoPOJO;
   shipDateTime: DateTimeZonePOJO | Date | string;

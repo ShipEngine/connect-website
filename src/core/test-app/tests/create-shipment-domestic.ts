@@ -124,26 +124,6 @@ export class CreateShipmentDomestic extends Suite {
       },
     };
 
-    if (this.deliveryConfirmation) {
-      packagePOJO.deliveryConfirmation = {
-        id: this.deliveryConfirmation.id,
-      };
-    }
-
-    if (this.deliveryService.deliveryConfirmations.length > 0) {
-      packagePOJO.deliveryConfirmation = {
-        id: this.deliveryService.deliveryConfirmations[0].id,
-      };
-    }
-
-    if (testParams.deliveryConfirmationName) {
-      packagePOJO.deliveryConfirmation = {
-        id: this.deliveryService.deliveryConfirmations.find(
-          (dc) => dc.name === testParams.deliveryConfirmationName,
-        )!.id,
-      };
-    }
-
     const newShipmentPOJO: NewShipmentPOJO = {
       deliveryService: {
         id: this.deliveryService.id,
@@ -161,6 +141,20 @@ export class CreateShipmentDomestic extends Suite {
       : `it creates a new domestic shipment with ${objectToTestTitle(
         testParams,
       )}`;
+
+    if (this.deliveryConfirmation) {
+      newShipmentPOJO.deliveryConfirmation = {
+        id: this.deliveryConfirmation.id,
+      };
+    }
+
+    if (testParams.deliveryConfirmationName) {
+      newShipmentPOJO.deliveryConfirmation = {
+        id: this.deliveryService.deliveryConfirmations.find(
+          (dc) => dc.name === testParams.deliveryConfirmationName,
+        )!.id,
+      };
+    }
 
     return {
       title,

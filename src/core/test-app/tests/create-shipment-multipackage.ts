@@ -112,16 +112,6 @@ export class CreateShipmentMultiPackage extends Suite {
         }
       }
 
-      if (pkgParams.deliveryConfirmationName) {
-        const deliveryConfirmation = findDeliveryServiceByName(pkgParams.deliveryConfirmationName, carrierApp);
-
-        if (!deliveryConfirmation) {
-          throw new Error(`Unable to find a delivery confirmation definition for ${pkgParams.deliveryConfirmationName}`);
-        }
-
-        newPackage.deliveryConfirmation = deliveryConfirmation;
-      }
-
       return newPackage;
     });
 
@@ -134,6 +124,16 @@ export class CreateShipmentMultiPackage extends Suite {
       shipDateTime: testParams.shipDateTime,
       packages
     };
+
+    if (testParams.deliveryConfirmationName) {
+      const deliveryConfirmation = findDeliveryServiceByName(testParams.deliveryConfirmationName, carrierApp);
+
+      if (!deliveryConfirmation) {
+        throw new Error(`Unable to find a delivery confirmation definition for ${testParams.deliveryConfirmationName}`);
+      }
+
+      newShipmentPOJO.deliveryConfirmation = deliveryConfirmation;
+    }
 
     const title = config.expectedErrorMessage
       ? `it raises an error when creating a new multi-package shipment with ${objectToTestTitle(

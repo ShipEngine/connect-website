@@ -132,26 +132,6 @@ export class CreateShipmentWithInsurance extends Suite {
       insuredValue: testParams.packageInsuredValue
     };
 
-    if (this.deliveryConfirmation) {
-      packagePOJO.deliveryConfirmation = {
-        id: this.deliveryConfirmation.id,
-      };
-    }
-
-    if (this.deliveryService.deliveryConfirmations.length > 0) {
-      packagePOJO.deliveryConfirmation = {
-        id: this.deliveryService.deliveryConfirmations[0].id,
-      };
-    }
-
-    if (testParams.deliveryConfirmationName) {
-      packagePOJO.deliveryConfirmation = {
-        id: this.deliveryService.deliveryConfirmations.find(
-          (dc) => dc.name === testParams.deliveryConfirmationName,
-        )!.id,
-      };
-    }
-
     const newShipmentPOJO: NewShipmentPOJO = {
       deliveryService: {
         id: this.deliveryService.id,
@@ -161,6 +141,20 @@ export class CreateShipmentWithInsurance extends Suite {
       shipDateTime: testParams.shipDateTime,
       packages: [packagePOJO],
     };
+
+    if (this.deliveryConfirmation) {
+      newShipmentPOJO.deliveryConfirmation = {
+        id: this.deliveryConfirmation.id,
+      };
+    }
+
+    if (testParams.deliveryConfirmationName) {
+      newShipmentPOJO.deliveryConfirmation = {
+        id: this.deliveryService.deliveryConfirmations.find(
+          (dc) => dc.name === testParams.deliveryConfirmationName,
+        )!.id,
+      };
+    }
 
     const title = config.expectedErrorMessage
       ? `it raises an error when creating a new insured shipment with ${objectToTestTitle(
