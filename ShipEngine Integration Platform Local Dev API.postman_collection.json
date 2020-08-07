@@ -341,6 +341,29 @@
 				}
 			],
 			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Get App Status",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept-Language",
+						"value": "en-US",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3001",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001"
+				},
+				"description": "Helpful status information when your app fails to load."
+			},
+			"response": []
 		}
 	],
 	"protocolProfileBehavior": {}
