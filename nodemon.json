@@ -1,0 +1,5 @@
+{
+  "watch": ["src"],
+  "ext": ".ts",
+  "exec": "ts-node ./src/start.ts 3001 /Users/pierce/Dev/ship/shipengine-integration-platform-sample-apps/cargo-inc/"
+}

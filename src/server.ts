@@ -1,16 +1,26 @@
-// import errorHandler from 'errorhandler';
-import log from './utils/logger';
-import app from './app';
+import express from "express";
+import cors from "cors";
+import { loadApp } from "@shipengine/integration-platform-loader";
+import { CarrierApp } from "@shipengine/integration-platform-sdk/lib/internal";
 
-/**
- * Error Handler. Provides full stack - remove for production
- */
-// app.use(errorHandler());
+import buildAPI from "./build-api";
+import log from "./utils/logger";
 
-const port = Number(process.argv[2]) || 3000;
-const pathToApp = process.argv[3];
+export async function server(port: number, pathToApp: string): Promise<void> {
+  const app = express();
 
-/**
- * Start Express server.
- */
-app.listen(port, () => log(`server running at http://localhost:${port}`));
+  app.use(cors());
+
+  try {
+    const sdkApp = (await loadApp(pathToApp)) as CarrierApp;
+    buildAPI(sdkApp, app);
+  } catch (error) {
+    // TODO - consider how this should work
+    // We want an app to have the ability to boot up even if it is not valid
+    // But I think we only want to boot up if we are in a valid app directory
+    console.log("Error building API from SDK");
+    console.log(error.stack);
+  }
+
+  app.listen(port, () => log(`server running at http://localhost:${port}`));
+}
