@@ -5,5 +5,6 @@ module.exports = {
     ecmaVersion: "2018",
     sourceType: "module",
     impliedStrict: true,
+    project: "./tsconfig.json",
   },
 };
