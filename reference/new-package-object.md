@@ -49,11 +49,6 @@ fields:
      type: boolean
      description: Indicates whether the dimensions must be specified when using this packaging.
 
-   - name: deliveryConfirmation
-     type: |
-       [DeliveryConfirmation](./delivery-confirmation.md)
-     description: The requested delivery [delivery confirmation](./delivery-confirmation.md) for this package.
-
    - name: dimensions
      type: object
      description: The dimensions for the package.

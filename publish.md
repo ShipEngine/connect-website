@@ -40,7 +40,15 @@ The scoped package name will be treated as a unique identifier for your applicat
 
 ### Definition IDs
 
-[Definition](structure.md#definitions) `id`s are used internally to uniquely identify your application's resources and should never be changed once the application is published to the ShipEngine Integration Platform.
+[Definition](structure.md#definitions) `id` and `code` properties are used internally to uniquely identify your application's resources.
+Each `id` and `code` property should contain a unique value. Additionally, `id` properties should
+never be changed once the application is published to the ShipEngine Integration Platform.
+
+Only one [delivery confirmation](./reference/delivery-confirmation.md) definition file should be created for
+each unique delivery confirmation `type` as this value may be used internally to lookup the specified delivery confirmation
+when no other identifiers are present.
+
+
 
 
 ### API Key

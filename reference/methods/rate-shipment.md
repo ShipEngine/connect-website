@@ -32,6 +32,11 @@ param:
 
         The [fulfillment service](./../fulfillment-service.md), that may be used to fulfill the shipment. If neither `deliveryService` nor `fulfillmentService` are specified, then rate quotes should be returned for all applicable services.
 
+    - name: deliveryConfirmation
+      type: |
+        [DeliveryConfirmation](./../delivery-confirmation.md)[]
+      description: The type of package [delivery confirmation](./../delivery-confirmation.md) to use for this rate request.
+
     - name: shipDateTime
       type: "[DateTime](./../date-time.md)"
       description: The date/time that the shipment is expected to ship. This is not guaranteed to be in the future.
@@ -98,11 +103,6 @@ param:
     - name: packages[].packaging[].requiresDimensions
       type: boolean
       description: Indicates whether the dimensions must be specified when using this packaging.
-
-    - name: packages[].deliveryConfirmations
-      type: |
-        [DeliveryConfirmation](./../delivery-confirmation.md)[]
-      description: The types of package [delivery confirmations](./../delivery-confirmation.md) offered for this package.
 
     - name: packages[].dimensions
       type: object
@@ -197,6 +197,27 @@ return:
       required: false
       description: Optional code used to map to what the carrier or marketplace uses to identify the delivery service.
 
+    - name: deliveryConfirmation
+      type: object | string
+      required: true
+      description: The [delivery confirmation](./../delivery-confirmation.md) included in this rate. This property accepts an object or a
+         string representing the `id`, `code`, or `type`. If an object is provided, it will have the following properties.
+
+    - name: deliveryConfirmation.id
+      type: UUID
+      required: true
+      description: UUID that uniquely identifies the delivery confirmation. This ID should never change.
+
+    - name: deliveryConfirmation.identifiers
+      type: object
+      required: false
+      description: Your own identifiers for this delivery confirmation.
+
+    - name: deliveryConfirmation.code
+      type: string
+      required: false
+      description: Optional code used to map to what the carrier or marketplace uses to identify the packaging.
+
     - name: shipDateTime
       type: |
         [DateTime](./../date-time.md), </br>
@@ -273,26 +294,7 @@ return:
       required: false
       description: Optional code used to map to what the carrier or marketplace uses to identify the packaging.
 
-    - name: packages[].deliveryConfirmation
-      type: object | string
-      required: true
-      description: The [delivery confirmation](./../delivery-confirmation.md) included in this rate. This property accepts an object or a
-         string representing the `code`. If an object is provided, it will have the following properties.
 
-    - name: packages[].deliveryConfirmation.id
-      type: UUID
-      required: true
-      description: UUID that uniquely identifies the delivery confirmation. This ID should never change.
-
-    - name: packages[].deliveryConfirmation.identifiers
-      type: object
-      required: false
-      description: Your own identifiers for this delivery confirmation.
-
-    - name: packages[].deliveryConfirmation.code
-      type: string
-      required: false
-      description: Optional code used to map to what the carrier or marketplace uses to identify the packaging.
 
 
 ---
@@ -310,7 +312,7 @@ module.exports = async function rateShipment(transaction, shipment) {
     operation: "quote_rates",
     session_id: transaction.session.id,
     service_codes: shipment.deliveryService.map((svc) => svc.code),
-    confirmation_codes: shipment.packages[0].deliveryConfirmations.map((conf) => conf.code),
+    confirmation_codes: shipment.deliveryConfirmations.map((conf) => conf.code),
     parcel_codes: shipment.packages[0].packaging.map((pkg) => pkg.code),
     ship_date: shipment.shipDateTime.toISOString(),
     delivery_date: shipment.deliveryDateTime.toISOString(),
@@ -346,7 +348,7 @@ export default async function rateShipment(
     operation: "quote_rates",
     session_id: transaction.session.id,
     service_codes: shipment.deliveryService.map((svc) => svc.code),
-    confirmation_codes: shipment.packages[0].deliveryConfirmations.map((conf) => conf.code),
+    confirmation_codes: shipment.deliveryConfirmations.map((conf) => conf.code),
     parcel_codes: shipment.packages[0].packaging.map((pkg) => pkg.code),
     ship_date: shipment.shipDateTime.toISOString(),
     delivery_date: shipment.deliveryDateTime.toISOString(),

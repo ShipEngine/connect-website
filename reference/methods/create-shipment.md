@@ -24,6 +24,11 @@ param:
         [DeliveryService](./../delivery-service-object.md)
       description: An object that identifies a [delivery service](./../delivery-service.md) that is offered by a carrier.
 
+    - name: deliveryConfirmation
+      type: |
+       [DeliveryConfirmation](./../delivery-confirmation.md)
+      description: The requested [delivery confirmation](./../delivery-confirmation.md) for this shipment.
+
     - name: shipFrom
       type: "[AddressWithContactInfo](./../address.md)"
       description: The address _from_ which the shipment is being shipped.
@@ -204,8 +209,8 @@ module.exports = async function createShipment(transaction, shipment) {
   let data = {
     operation: "generate_label",
     session_id: transaction.session.id,
-    service_code: shipment.deliveryService.identifiers.apiCode,
-    confirmation_code: shipment.packages[0].deliveryConfirmation.identifiers.apiCode,
+    service_code: shipment.deliveryService.code,
+    confirmation_code: shipment.deliveryConfirmation.code,
     ship_date: shipment.shipDateTime.toISOString(),
     from_zone: parseInt(shipment.shipFrom.postalCode, 10),
     to_zone: parseInt(shipment.shipTo.postalCode, 10),
@@ -249,7 +254,7 @@ export default async function createShipment(
     operation: "generate_label",
     session_id: transaction.session.id,
     service_code: shipment.deliveryService.code,
-    confirmation_code: shipment.package.deliveryConfirmation.code,
+    confirmation_code: shipment.deliveryConfirmation.code,
     ship_date: shipment.shipDateTime.toISOString(),
     from_zone: parseInt(shipment.shipFrom.postalCode, 10),
     to_zone: parseInt(shipment.shipTo.postalCode, 10),

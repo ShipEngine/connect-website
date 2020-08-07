@@ -63,6 +63,9 @@ param:
   ===============================================
   {{documentation}}
 
+  > **Info**
+  > You may define only one delivery service for each of the delivery service types. Additionally, each delivery service must
+  > have a unique `id`, `name`, and `code`.
 
   ###   {{ identifier }}
   {{referenceTable(param.fields)}}
