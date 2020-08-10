@@ -32,9 +32,7 @@ export default async function server(
   } catch (error) {
     appState.status = "down";
     appState.error = error;
-    startMessage = chalk.yellow(
-      `View app status at http://localhost:${port}/app-status`,
-    );
+    startMessage = chalk.yellow("app failed to load");
     log(chalk.red(error.stack));
   }
 
