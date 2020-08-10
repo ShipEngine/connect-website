@@ -43,6 +43,17 @@ param:
        required: true
        description: The file path to your company's logo image.
 
+     - name: sendEmail
+       type: boolean
+       required: true
+       description: Indicates whether or not emails should be sent to communicate shipping updates on behalf of the seller
+         for orders imported through this Order App.
+
+     - name: canConfigureTimeZone
+       type: boolean
+       required: true
+       description: Indicates whether or not to display time zone related settings when this app is used within one of our e-commerce applications, such as ShipStation.
+
      - name: connectionForm
        type: "[Form](./forms.md)"
        required: true
@@ -110,6 +121,7 @@ const orderSource: OrderAppDefinition = {
   description: "Welcome to iBuy, the international marketplace for all of your needs.",
   websiteURL: "https://www.iBuy.net",
   logo: "./../logo.svg",
+  canConfigureTimeZone: true,
   connectionForm: import("./forms/connect"),
   settingsForm: import("./forms/settings"),
 
@@ -144,6 +156,7 @@ const orderSource = {
   description: "Welcome to iBuy, the international marketplace for all of your needs.",
   websiteURL: "https://www.iBuy.net",
   logo: "./../logo.svg",
+  canConfigureTimeZone: true,
   connectionForm: "./forms/connect.js",
   settingsForm: "./forms/settings.js",
 
@@ -179,6 +192,8 @@ description:  Welcome to iBuy, the international marketplace for all of your nee
 websiteURL: https://www.ibuy.net
 
 logo: ./../logo.svg
+
+canConfigureTimeZone: true
 
 connectionForm: forms/connection-form.js
 

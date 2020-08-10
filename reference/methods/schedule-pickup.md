@@ -76,9 +76,7 @@ param:
       description: An object representing contact information about the person there to meet the driver.
 
     - name: notes
-      type: string, </br>
-        string[], </br>
-        or object[]
+      type: object[]
       description: An array of objects containing additional information about this pickup request.
 
     - name: notes[].type
@@ -253,7 +251,7 @@ return:
 
     - name: notes
       type: object[]
-      description: An array of objects containing additional information about this cancellation.
+      description: An array of objects containing additional information about this pickup request.
 
     - name: notes[].type
       type: |

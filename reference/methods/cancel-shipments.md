@@ -82,12 +82,9 @@ return:
         This string must be between `0` and `1000` characters and must not contain newline characters.
 
     - name: notes
-      type: string, </br>
-        string[], </br>
-        or object[]
+      type: object[]
       required: false
-      description: Additional information about this sales order item. This may be a string, an array of strings, or an
-        array of objects. The object properties are listed below.
+      description: An array of objects containing additional information about this shipment.
 
     - name: notes[].type
       type: |

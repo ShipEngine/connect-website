@@ -34,7 +34,7 @@ param:
 
     - name: deliveryConfirmation
       type: |
-        [DeliveryConfirmation](./../delivery-confirmation.md)[]
+        [DeliveryConfirmation](./../delivery-confirmation.md)
       description: The type of package [delivery confirmation](./../delivery-confirmation.md) to use for this rate request.
 
     - name: shipDateTime
@@ -61,81 +61,81 @@ param:
       type: boolean
       description: Indicates whether or not this shipment is a return shipment.
 
-    - name: packages
-      type: object[]
+    - name: package
+      type: object
       required: true
-      description: The list of packages in the shipment.
+      description: The package in the shipment.
 
-    - name: packages[].packaging
+    - name: package.packaging
       type: object[]
       required: true
       description: The packaging that may be used. If not specified, then rate quotes should be returned for all applicable packaging.
 
-    - name: packages[].packaging[].id
+    - name: package.packaging[].id
       type: "[UUID](https://www.npmjs.com/package/uuid)"
       required: false
-      description: A UUID that uniquely identifies the object. This is the UUID you used in the [Packaging Definition](./../packaging.md) file for this packaging.
+      description: A UUID that uniquely identifies the packaging. This is the UUID you used in the [Packaging Definition](./../packaging.md) file for this packaging.
 
-    - name: packages[].packaging[].identifiers
+    - name: package.packaging[].identifiers
       type: object
       required: false
-      description: Your own identifiers for this shipment.
+      description: Your own identifiers for this packaging.
 
-    - name: packages[].packaging[].code
+    - name: package.packaging[].code
       type: string
       required: false
       description: Optional code used to map to what the carrier uses to identify the packaging.
 
-    - name: packages[].packaging[].name
+    - name: package.packaging[].name
       type: string
       description: The user-friendly name for this packaging (e.g. "Flat-Rate Box", "Large Padded Envelope").
         This string will be between `1` and `100` characters and will not contain newline characters.
 
-    - name: packages[].packaging[].description
+    - name: package.packaging[].description
       type: string
       description: A short, user-friendly description of the packaging.
         This string will be between `0` and `1000` characters and will not contain newline characters.
 
-    - name: packages[].packaging[].requiresWeight
+    - name: package.packaging[].requiresWeight
       type: boolean
       description: Indicates whether the weight must be specified when using this packaging.
 
-    - name: packages[].packaging[].requiresDimensions
+    - name: package.packaging[].requiresDimensions
       type: boolean
       description: Indicates whether the dimensions must be specified when using this packaging.
 
-    - name: packages[].dimensions
+    - name: package.dimensions
       type: object
       description: The dimensions for the package.
 
-    - name: packages[].dimensions.length
+    - name: package.dimensions.length
       type: number
       description: The length of the package. This value may contain decimals.
 
-    - name: packages[].dimensions.width
+    - name: package.dimensions.width
       type: number
       description: The width of the package. This value may contain decimals.
 
-    - name: packages[].dimensions.height
+    - name: package.dimensions.height
       type: number
       description: The height of the package. This value may contain decimals.
 
-    - name: packages[].dimensions.unit
+    - name: package.dimensions.unit
       type: string
       description: |
         The unit of measurement for the dimensions. Valid values include the following:
         * `in` - inches
         * `cm` - centimeters
 
-    - name: packages[].weight
+    - name: package.weight
       type: object
       description: The weight of the package.
 
-    - name: packages[].weight.value
+    - name: package.weight.value
       type: number
       description: The weight value for this package. This value may contain decimals.
 
-    - name: packages[].weight.unit
+    - name: package.weight.unit
       type: string
       description: |
         The unit of measure for this weight. Valid values include the following:
@@ -144,31 +144,27 @@ param:
         * `kg` - kilograms
         * `lb` - pounds
 
-    - name: packages[].insuredValue
+    - name: package.insuredValue
       type: object
       description: The insured value of this shipment.
 
-    - name: packages[].insuredValue.value
+    - name: package.insuredValue.value
       type: number
       description: The value of the insured amount.
 
-    - name: packages[].insuredValue.currency
+    - name: package.insuredValue.currency
       type: string
       description: |
         The currency that the value represents.
 
-    - name: packages[].containsAlcohol
+    - name: package.containsAlcohol
       type: boolean
       description: Indicates whether the package contains alcohol.
 
-    - name: packages[].isNonMachineable
+    - name: package.isNonMachineable
       type: boolean
       description: Indicates whether the package cannot be processed automatically due to size, shape, weight, etc. and requires manual handling.
 
-    - name: package
-      type: object
-      description: Returns the first package in the `packages` array. Useful for carriers that only support single-piece shipments.
-        This object has all the same properties as the objects in the `packages` array described above.
 return:
   name: rate
   type: RatePOJO
@@ -251,10 +247,9 @@ return:
       description: The breakdown of charges for this shipment.  If the carrier does not provide a detailed breakdown, then just use a single charge of type "shipping".
 
     - name: notes
-      type: string, string[], or object[]
+      type: object[]
       required: false
-      description: Human-readable information regarding these charges, such as an explanation or reference number. This property
-        can store a string, an array of strings, or a `notes` object, whose properties are described below.
+      description: An array of objects containing additional information about this rate.
 
     - name: notes[].type
       type: |

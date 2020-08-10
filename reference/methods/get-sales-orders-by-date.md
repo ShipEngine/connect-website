@@ -31,11 +31,6 @@ param:
       type: method
       description: A method that returns the time range as a string.
 
-    - name: includeChanges
-      type: boolean
-      description: Indicates whether orders that were modified during the date/time range should be returned.
-        If `false` (the default), then only orders that were *created* during the date/time are returned.
-
     - name: paging
       type: object
       description: An object that indicates that page preferences for the items that are returned from this method.
@@ -79,13 +74,6 @@ return:
          [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date), or a string representation of a date in [ISO](https://www.w3.org/TR/NOTE-datetime) format.
       required: true
       description: The date/time that the sales order was originally placed.
-
-    - name: modifiedDateTime
-      type: |
-         [DateTime](./../date-time.md), </br>
-         [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date), or a string representation of a date in [ISO](https://www.w3.org/TR/NOTE-datetime) format.
-      required: false
-      description: The date/time that the sales order was last updated. Defaults to the `createdDateTime`.
 
     - name: status
       type: string
@@ -299,12 +287,9 @@ return:
       description: The URL of a webpage where the customer can view an image of the order item.
 
     - name: items[].notes
-      type: string, </br>
-        string[], </br>
-        or object[]
+      type: object[]
       required: false
-      description: Additional information about this sales order item. This may be a string, an array of strings, or an
-        array of objects. The object properties are listed below.
+      description: An array of objects containing additional information about this sales item.
 
     - name: items[].notes[].type
       type: |
@@ -325,12 +310,9 @@ return:
         Must be JSON serializable.
 
     - name: notes
-      type: string, </br>
-        string[], </br>
-        or object[]
+      type: object[]
       required: false
-      description: Additional information about this sales order item. This may be a string, an array of strings, or an
-        array of objects. The object properties are listed below.
+      description: An array of objects containing additional information about this sales order.
 
     - name: notes[].type
       type: |
@@ -398,7 +380,6 @@ function formatSalesOrders(salesOrders) {
   return salesOrders.map(salesOrder => {
     return {
       id: salesOrder.id,
-      createdDateTime: salesOrder.created_at,
       status: mapSalesOrderStatus(salesOrder.status),
       shipTo: {
         name: salesOrder.address.business_name,

@@ -20,13 +20,6 @@ fields:
       * `adult_signature` - A person of legal adult age for the destination jurisdiction signs for the package.
       * `direct_signature` - The person named as the recipient signs for the package.
 
-  - name: deliveryDateTime
-    type: |
-      [DateTime](./date-time.md), </br>
-      [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date), or a string representation of a date in [ISO](https://www.w3.org/TR/NOTE-datetime) format.
-    required: false
-    description: The date and time that the shipment should be delivered.
-
   - name: containsAlcohol
     type: boolean
     required: false

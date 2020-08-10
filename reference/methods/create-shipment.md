@@ -95,6 +95,7 @@ return:
   description: |
     An object that contains confirmation that a shipment has been created.
   fields:
+
     - name: trackingNumber
       type: string
       required: false
@@ -106,6 +107,96 @@ return:
       required: false
       description: Your own identifiers for this shipment.
 
+    - name: label
+      type: object
+      required: true
+      description: An object representing the shipping label details.
+
+    - name: label.name
+      type: string
+      required: false
+      description: The user-friendly name of the label. This string must be between `0` and `100` characters and must not contain newline characters.
+
+    - name: label.type
+      type: string
+      required: true
+      description: |
+        The type of document. This value should always be `label` for label objects. This object type is also used for
+        customs forms and scan forms.
+
+    - name: label.size
+      type: string
+      required: true
+      description: |
+        The size of the label. Valid values include the following:
+        * `A4`- A4 sized paper ( 8.27 inches x 11.69 inches)
+        * `letter` - Letter sized paper (8.5 inches by 11 inches)
+        * `4x6` - Paper sized 4 inches by 6 inches
+        * `4x8` - Paper sized 4 inches by 8 inches
+
+    - name: label.format
+      type: string
+      required: true
+      description: |
+        The file format of the label. Valid values include the following:
+        * `pdf` - Portable Document Format (PDF)
+        * `zpl` - Zebra Printer Label (ZPL)
+        * `png` - Portable Graphics Format (PNG)
+
+    - name: label.data
+      type: |
+        [Buffer](https://nodejs.org/api/buffer.html)
+      required: true
+      description: The label data, in the specified file format.
+
+    - name: label.referenceFields
+      type: string[]
+      required: true
+      description: The **actual** reference fields on the label, which may not match the originally-specified reference fields due to the carrier's restrictions on the number of fields or the length of each field.
+        Each string in this array must be between `0` and `100` characters and must not contain newline characters.
+
+    - name: form
+      type: object
+      required: false
+      description: An object representing a form, such as a customs form or scan form.
+
+    - name: form.name
+      type: string
+      required: false
+      description: The user-friendly name of the form (e.g. "Customs Form", "Scan Form").
+        This string must be between `0` and `100` characters and must not contain newline characters.
+
+    - name: form.type
+      type: string
+      required: true
+      description: |
+        The type of form. This value should be `customs_form` or `scan_form`.
+
+    - name: form.size
+      type: string
+      required: true
+      description: |
+        The size of the form. Valid values include the following:
+        * `A4`- A4 sized paper ( 8.27 inches x 11.69 inches)
+        * `letter` - Letter sized paper (8.5 inches by 11 inches)
+        * `4x6` - Paper sized 4 inches by 6 inches
+        * `4x8` - Paper sized 4 inches by 8 inches
+
+    - name: form.format
+      type: string
+      required: true
+      description: |
+        The file format of the form. Valid values include the following:
+        * `pdf` - Portable Document Format (PDF)
+        * `zpl` - Zebra Printer Label (ZPL)
+        * `png` - Portable Graphics Format (PNG)
+
+    - name: form.data
+      type: |
+        [Buffer](https://nodejs.org/api/buffer.html)
+      required: true
+      description: The form data, in the specified file format.
+
     - name: deliveryDateTime
       type: |
         [DateTime](./../date-time.md), </br>
@@ -116,7 +207,7 @@ return:
 
     - name: charges
       type: |
-        [Charge](./../charge.md)
+        [Charge](./../charge.md)[]
       required: true
       description: The breakdown of charges for this shipment.  If the carrier does not provide a detailed breakdown, then just use a single charge of type "shipping".
 
@@ -141,57 +232,7 @@ return:
       required: false
       description: Custom data about this package that will be persisted by the ShipEngine Integration Platform. Must be JSON serializable.
 
-    - name: documents[]
-      type: object[]
-      required: true
-      description: The documents for this package, such as shipping labels, customs forms, etc. This array can contain
-        a document or a label and must contain at least one item.
 
-    - name: documents[].name
-      type: string
-      required: false
-      description: The user-friendly name of the document (e.g. "Label", "Customs Form"). This string must be between `0` and `100` characters and must not contain newline characters.
-
-    - name: documents[].type
-      type: string
-      required: true
-      description: |
-        The type of document (e.g. label, customs form, SCAN form). Valid values include the following:
-        * `label` - label
-        * `customs_form` - customs form
-        * `scan_form` - SCAN form
-
-    - name: documents[].size
-      type: string
-      required: true
-      description: |
-        The size of document (e.g. label, customs form, SCAN form). Valid values include the following:
-        * `A4`- A4 sized paper ( 8.27 inches x 11.69 inches)
-        * `letter` - Letter sized paper (8.5 inches by 11 inches)
-        * `4x6` - Paper sized 4 inches by 6 inches
-        * `4x8` - Paper sized 4 inches by 8 inches
-
-    - name: documents[].format
-      type: string
-      required: true
-      description: |
-        The file format of the document. Valid values include the following:
-        * `pdf` - Portable Document Format (PDF)
-        * `zpl` - Zebra Printer Label (ZPL)
-        * `png` - Portable Graphics Format (PNG)
-
-    - name: documents[].data
-      type: |
-        [Buffer](https://nodejs.org/api/buffer.html)
-      required: true
-      description: The document data, in the specified file format.
-
-    - name: documents[].referenceFields
-      type: string[]
-      required: true
-      description: The **actual** reference fields on the label, which may not match the originally-specified reference fields due to the carrier's restrictions on the number of fields or the length of each field.
-        Each string in this array must be between `0` and `100` characters and must not contain newline characters.
-        _Note that this property is required *ONLY* if `document.type` is `label`._
 ---
 
 Examples

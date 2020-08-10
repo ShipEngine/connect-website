@@ -137,11 +137,9 @@ return:
       description: The document data, in the specified file format.
 
     - name: manifests[].notes
-      type: string, </br>
-        string[], </br>
-        or object[]
+      type: object[]
       required: false
-      description: Human-readable information regarding this manifest.
+      description: An array of objects containing additional information about this manifest.
 
     - name: manifests[].notes[].type
       type: |
@@ -176,11 +174,9 @@ return:
       description: The carrier's description of the error code. This description should not be specific to this particular shipment. This string must be between `0` and `1000` characters and must not contain newline characters.
 
     - name: notManifested[].notes
-      type: string, </br>
-        string[], </br>
-        or object[]
+      type: object[]
       required: false
-      description: Human-readable information regarding this manifest.
+      description: An array of objects containing additional information about those shipments not manifested.
 
     - name: notManifested[].notes[].type
       type: |

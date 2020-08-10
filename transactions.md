@@ -17,9 +17,9 @@ Retries
 -------
 API failures and failed network connections are unfortunately an unavoidable part of hosting an API.
 
-To account for this, the `Transaction` object provides the `id` property, which uniquely identifies the current transaction. It also provides the `isRetry` flag.
+To account for this, the `Transaction` object provides the `id` property, which uniquely identifies the current transaction.
 
-A combination of these two properties should be used to detect retries from the ShipEngine Integration Platform as well as used to detect and prevent duplicate operations.
+This property should be used to detect retries from the ShipEngine Integration Platform as well as used to detect and prevent duplicate operations.
 
 
 <div class="previous-next-nav">

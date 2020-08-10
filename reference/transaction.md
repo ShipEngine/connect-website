@@ -17,12 +17,6 @@ fields:
     required: true
     description: Uniquely identifies the current transaction. If the transaction is retried, then this `id` will remain the same. You can use this to detect and prevent duplicate operations.
 
-  - name: isRetry
-    type: boolean
-    required: false
-    description: Indicates whether this transaction is a retry, in which case the `id` will be the same as the original attempt. If `isRetry` is `true`, then the operation should try to continue the original transaction
-      where it left off. Efforts should be made to prevent duplicate data or double charges.
-
   - name: useSandbox
     type: boolean
     required: false
@@ -44,7 +38,6 @@ Here's an example transaction object:
 ```javascript
 {
   id: "6ad41b24-62a8-4e17-9751-a28d9688e277",
-  isRetry: false,
   useSandbox: false,
   session: {
     id: "sess_184849191484716854941017",
@@ -57,7 +50,6 @@ Here's an example transaction object:
 
 ```yaml
 id: 6ad41b24-62a8-4e17-9751-a28d9688e277
-isRetry: false
 useSandbox: false,
 session:
   id: sess_184849191484716854941017

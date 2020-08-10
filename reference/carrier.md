@@ -46,6 +46,12 @@ param:
        required: true
        description: The file path to the Carrier's icon image.
 
+     - name: trackingURLTemplate
+       type: string
+       required: true
+       description: Tracking URL format for the carrier. It must be a valid URL that contains curly braces (`{ }`) where
+         the tracking number will be inserted. For example, `http://www.parcel-post.com/tracking/{}`.
+
      - name: connectionForm
        type: "[Form](./forms.md)"
        required: true
@@ -181,6 +187,7 @@ const address:CarrierAppDefinition = {
   name: "Cargo Incorporated",
   description: "Cargo Incorporated is the global leader in air cargo.",
   websiteURL: "https://cargo-inc.net",
+  trackingURLTemplate: "https://cargo-inc.net/tracking/{}",
   logo: "./logo.svg",
   connectionForm: "src/connection-form.js",
   manifestType: "Digital",
@@ -207,6 +214,7 @@ const address = {
   name: "Cargo Incorporated",
   description: "Cargo Incorporated is the global leader in air cargo.",
   websiteURL: "https://cargo-inc.net",
+  trackingURLTemplate: "https://cargo-inc.net/tracking/{}",
   logo: "./logo.svg",
   manifestType: "Digital",
   connectionForm: "src/connection-form.js",
@@ -238,6 +246,8 @@ description:
 
 websiteURL: https://cargo-inc.net
 
+trackingURLTemplate: https://cargo-inc.net/tracking/{}
+
 logo: ./logo.svg
 
 manifestType: Digital
@@ -265,6 +275,7 @@ pickupServices:
   "name": "Cargo Incorporated",
   "description": "Cargo Incorporated is the global leader in air cargo.",
   "websiteURL": "https://cargo-inc.net",
+  "trackingURLTemplate": "https://cargo-inc.net/tracking/{}",
   "logo": "./logo.svg",
   "manifestType": "Digital",
   "connectionForm": "src/connection-form.js",

@@ -53,20 +53,6 @@ charges:
     description: The charge is for something that does not fit into any of the other categories.
 
 notes:
-  - name: error
-    description: The note is for an error.
-  - name: warning
-    description: The note is for a warning.
-  - name: info
-    description: The note contains info.
-  - name: condition
-    description: The note specifies a condition.
-  - name: back_order
-    description: The note indicates an item is on back order.
-  - name: out_of_stock
-    description: The note indicates that an item is out of stock.
-  - name: in_stock
-    description: The note indicates that the item is in stock.
   - name: gift_message
     description: The note contains a gift message.
   - name: message_to_buyer
@@ -75,16 +61,7 @@ notes:
     description: The not contains a message from the buyer.
   - name: internal
     description: The note is for internal use.
-  - name: mpn
-    description: The note contains a Manufacturer Part Number.
-  - name: reason
-    description: The note contains a reason,.
-  - name: instructions
-    description: The note contains instructions.
-  - name: feedback
-    description: The note contains feedback.
-  - name: uncategorized
-    description: The note contains data that does not fit into any of the other categories.
+
 ---
 
 {{ name }}

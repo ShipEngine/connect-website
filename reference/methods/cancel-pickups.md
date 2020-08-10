@@ -74,9 +74,7 @@ param:
       * `other` - The cancellation is for a reason not covered by any of the other categories.
 
   - name: notes
-    type: string, </br>
-        string[], </br>
-        or object[]
+    type: object[]
     description: An array of objects containing additional information about this cancellation.
 
   - name: notes[].type
@@ -260,9 +258,7 @@ return:
         This string must be between `0` and `5000` characters and must not contain newline characters.
 
     - name: notes
-      type: string, </br>
-         string[], </br>
-         or object[]
+      type: object[]
       description: An array of objects containing additional information about this cancellation.
 
     - name: notes[].type
@@ -314,10 +310,10 @@ module.exports = async function cancelPickups(transaction, pickups) {
       return {
         cancellationID: pickups[index].cancellationID,
         confirmationNumber: cancellation.id,
-        status: CancellationStatus.Error,
+        status: 'Error',
         notes: [
           {
-            type: NoteType.Error,
+            type: 'Internal',
             text: cancellation.reason,
           }
         ],
@@ -327,8 +323,13 @@ module.exports = async function cancelPickups(transaction, pickups) {
       return {
         cancellationID: pickups[index].cancellationID,
         confirmationNumber: cancellation.id,
-        status: CancellationStatus.Success,
-        notes: `Pickup ${pickups[index].id} was canceled successfully`,
+        status: 'Success',
+        notes: [
+          {
+            type: 'MessageToBuyer',
+            text: `Pickup ${pickups[index].id} was canceled successfully`,
+          }
+        ],
       };
     }
   });
@@ -378,7 +379,7 @@ export default async function cancelPickups(
         status: CancellationStatus.Error,
         notes: [
           {
-            type: NoteType.Error,
+            type: NoteType.Internal,
             text: cancellation.reason,
           }
         ],
@@ -389,7 +390,12 @@ export default async function cancelPickups(
         cancellationID: pickups[index].cancellationID,
         confirmationNumber: cancellation.id,
         status: CancellationStatus.Success,
-        notes: `Pickup ${pickups[index].id} was canceled successfully`,
+        notes: [
+          {
+            type: NoteType.MessageToBuyer,
+            text: `Pickup ${pickups[index].id} was canceled successfully`
+          }
+        ],
       };
     }
   });

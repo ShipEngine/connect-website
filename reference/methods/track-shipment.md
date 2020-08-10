@@ -241,9 +241,7 @@ return:
       description: The suffix of the signer (eg "Sr", "Jr", "IV"). This string must be between `0` and `100` characters and must not contain newline characters.
 
     - name: notes
-      type: string, </br>
-        string[], </br>
-        or object[]
+      type: object[]
       required: false
       description: An array of objects containing additional information about this shipment.
 
