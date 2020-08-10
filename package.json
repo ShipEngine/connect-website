@@ -1,7 +1,7 @@
 {
   "name": "@shipengine/integration-platform-cli",
   "description": "A CLI tool for working with your ShipEngine Integration account.",
-  "version": "0.0.21",
+  "version": "0.0.22",
   "author": {
     "name": "ShipEngine",
     "email": "support@shipengine.com",
@@ -19,8 +19,8 @@
     "@oclif/plugin-help": "^3.2.0",
     "@oclif/plugin-not-found": "^1.2.4",
     "@shipengine/capitalization": "^1.2.0",
-    "@shipengine/integration-platform-loader": "0.0.38",
-    "@shipengine/integration-platform-sdk": "0.0.39",
+    "@shipengine/integration-platform-loader": "0.0.39",
+    "@shipengine/integration-platform-sdk": "0.0.40",
     "@shipengine/shipengine-integration-platform-local-dev-ui": "0.0.2",
     "axios": "^0.19.2",
     "chai": "^4.2.0",
