@@ -32,7 +32,9 @@ export default async function server(
   } catch (error) {
     appState.status = "down";
     appState.error = error;
-    startMessage = chalk.yellow("app failed to load");
+    startMessage = chalk.yellow(
+      "App failed to load! Please address the validation issues above.",
+    );
     log(chalk.red(error.stack));
   }
 
