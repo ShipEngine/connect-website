@@ -419,7 +419,7 @@ describe("buildAPI", () => {
       })
       .end((_err, res) => {
         expect(res.status).to.equal(400);
-        expect(res.body).to.haveOwnProperty("code", "ERR_APP_ERROR");
+        expect(res.body).to.haveOwnProperty("code", "ERR_INVALID_INPUT");
       });
   });
 

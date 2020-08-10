@@ -94,7 +94,7 @@ export default function buildAPI(sdkApp: CarrierApp, server: Express) {
   async function createManifest(req: Request, res: Response) {
     try {
       let { transaction, manifest } = req.body;
-      manifest = await sdkApp.trackShipment!(transaction, manifest);
+      manifest = await sdkApp.createManifest!(transaction, manifest);
       return res.status(200).send({
         transaction,
         manifest,
