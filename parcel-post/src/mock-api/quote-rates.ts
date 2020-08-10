@@ -21,9 +21,9 @@ const allConfirmations = {
 export interface QuoteRatesRequest {
   operation: "quote_rates";
   session_id: string;
-  service_codes: string;
-  confirmation_codes: string[];
-  parcel_codes: string[];
+  service_code: string;
+  confirmation_code: string;
+  parcel_code: string;
   ship_date: string;
   delivery_date: string;
   total_weight: number;
@@ -39,7 +39,7 @@ export interface QuoteRateResponseItem {
   delivery_date: string;
   delivery_days: number;
   shipment_cost: number;
-  confirmation_cost: string;
+  confirmation_cost: number;
   tax_cost: number;
 }
 
@@ -48,9 +48,9 @@ export interface QuoteRateResponseItem {
  * This is a mock implementation of a carrier's API that returns rate quotes for a shipment
  */
 export function quoteRates(request: HttpRequest & QuoteRatesRequest): QuoteRatesResponse {
-  let services = request.service_codes.length > 0 ? request.service_codes : Object.keys(allServices);
-  let confirmations = request.confirmation_codes.length > 0 ? request.confirmation_codes : Object.keys(allConfirmations);
-  let packaging = request.parcel_codes.length > 0 ? request.parcel_codes : customerPackaging.map((pack) => pack.id);
+  let services = request.service_code ? [request.service_code] : Object.keys(allServices);
+  let confirmations = request.confirmation_code ? [request.confirmation_code] : Object.keys(allConfirmations);
+  let packaging = request.parcel_code ? [request.parcel_code] : customerPackaging.map((pack) => pack.id);
   let totalWeight = request.total_weight;
   let shipDate = new Date(request.ship_date);
   let rates: QuoteRateResponseItem[] = [];

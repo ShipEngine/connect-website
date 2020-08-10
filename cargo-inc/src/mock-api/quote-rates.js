@@ -17,9 +17,9 @@ const allConfirmations = {
  * This is a mock implementation of a carrier's API that returns rate quotes for a shipment
  */
 function quoteRates(request) {
-  let services = request.service_codes.length > 0 ? request.service_codes : Object.keys(allServices);
-  let confirmations = request.confirmation_codes.length > 0 ? request.confirmation_codes : Object.keys(allConfirmations);
-  let packaging = request.parcel_codes.length > 0 ? request.parcel_codes : ["PAK", "PAL"];
+  let services = request.service_code ? [request.service_codes] : Object.keys(allServices);
+  let confirmations = request.confirmation_code ? [request.confirmation_code] : Object.keys(allConfirmations);
+  let packaging = request.parcel_code ? [request.parcel_code] : ["PAK", "PAL"];
   let totalWeight = request.total_weight;
   let shipDate = new Date(request.ship_date);
   let rates = [];

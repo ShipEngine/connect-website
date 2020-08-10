@@ -28,8 +28,8 @@ async function createShipment(transaction, shipment) {
     total_weight: shipment.package.weight.ounces,
   };
 
-  if(shipment.packages[0].deliveryConfirmation){
-    data.confirmation_code = shipment.packages[0].deliveryConfirmation.identifiers.apiCode;
+  if (shipment.deliveryConfirmation) {
+    data.confirmation_code = shipment.deliveryConfirmation.identifiers.apiCode;
   }
 
   // STEP 3: Call the carrier's API
@@ -46,15 +46,13 @@ async function formatShipment(response) {
   return {
     trackingNumber: response.tracking_number,
     deliveryDateTime: response.delivery_date,
-    documents: [
-      {
-        name: "Label",
-        type: "label",
-        size: "letter",
-        format: "pdf",
-        data: await downloadLabel(response.image_url),
-      }
-    ],
+    label: {
+      name: "Label",
+      type: "label",
+      size: "letter",
+      format: "pdf",
+      data: await downloadLabel(response.image_url),
+    },
     charges: [
       {
         type: "shipping",
@@ -88,10 +86,10 @@ async function formatShipment(response) {
  * Downloads a label image
  */
 async function downloadLabel(imageUrl) {
-  let response = await axios.get(imageUrl,{
+  let response = await axios.get(imageUrl, {
     responseType: "arraybuffer"
   });
-  return Buffer.from(response.data,'binary');
+  return Buffer.from(response.data, 'binary');
 }
 
 module.exports = createShipment;

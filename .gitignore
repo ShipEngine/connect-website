@@ -16,7 +16,6 @@ nbproject
 # IDEs & Text Editors
 .idea
 .sublime-*
-.vscode
 .netbeans
 nbproject
 
@@ -39,7 +38,8 @@ pids
 node_modules
 
 # Build output
-/lib
+parcel-post/lib
+# iBuy/lib
 
 # Test output
 /.nyc_output

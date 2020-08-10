@@ -61,16 +61,14 @@ function formatShipment(response) {
         }
       },
     ],
-    documents: [
-      {
-        name: "Label",
-        type: "label",
-        size: "4x8",
-        format: "pdf",
-        data: Buffer.from(response.image, "base64"),
-      }
-    ],
-    packages: response.package_tracking_numbers.map((trackingNumber) => { return { trackingNumber: trackingNumber}})
+    label: {
+      name: "Label",
+      type: "label",
+      size: "4x8",
+      format: "pdf",
+      data: Buffer.from(response.image, "base64"),
+    },
+    packages: response.package_tracking_numbers.map((trackingNumber) => { return { trackingNumber } })
   };
 }
 

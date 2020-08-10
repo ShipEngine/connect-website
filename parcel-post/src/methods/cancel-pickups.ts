@@ -1,4 +1,4 @@
-import { CancellationStatus, NoteType, PickupCancellation, PickupCancellationOutcomePOJO, Transaction } from "@shipengine/integration-platform-sdk";
+import { CancellationStatus, NoteType, PickupCancellation, PickupCancellationOutcome, Transaction } from "@shipengine/integration-platform-sdk";
 import { sameDayPickup } from "../definitions/pickup-services";
 import { apiClient } from "../mock-api/client";
 import { PickUpCancellationRequest, PickUpCancellationResponse } from "../mock-api/pick-up-cancellation";
@@ -8,7 +8,7 @@ import { Session } from "./session";
  * Cancels one or more previously-scheduled pickups
  */
 export default async function cancelPickups(
-  transaction: Transaction<Session>, pickups: PickupCancellation[]): Promise<PickupCancellationOutcomePOJO[]> {
+  transaction: Transaction<Session>, pickups: PickupCancellation[]): Promise<PickupCancellationOutcome[]> {
 
   let data : PickUpCancellationRequest = {
     operation: "pick_up_cancellation",
@@ -40,7 +40,7 @@ export default async function cancelPickups(
         status: CancellationStatus.Error,
         notes: [
           {
-            type: NoteType.Error,
+            type: NoteType.MessageToBuyer,
             text: cancellation.reason,
           }
         ],
@@ -51,7 +51,10 @@ export default async function cancelPickups(
         cancellationID: pickups[index].cancellationID,
         confirmationNumber: cancellation.id,
         status: CancellationStatus.Success,
-        notes: `Pickup ${pickups[index].id} was canceled successfully`,
+        notes: [{
+          type: NoteType.MessageToBuyer,
+          text: `Pickup ${pickups[index].id} was canceled successfully`
+        }]
       };
     }
   });

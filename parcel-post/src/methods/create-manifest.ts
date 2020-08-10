@@ -1,4 +1,4 @@
-import { DocumentFormat, DocumentSize, DocumentType, Transaction, ManifestConfirmationPOJO, NewManifest } from "@shipengine/integration-platform-sdk";
+import { DocumentFormat, DocumentSize, DocumentType, Transaction, ManifestConfirmation, NewManifest } from "@shipengine/integration-platform-sdk";
 import { apiClient } from "../mock-api/client";
 import { Session } from "./session";
 import { GenerateManifestRequest, GenerateManifestResponse } from "../mock-api/generate-manifest";
@@ -7,7 +7,7 @@ import { GenerateManifestRequest, GenerateManifestResponse } from "../mock-api/g
  * Generates a shipping label and tracking number for a shipment
  */
 export default async function createManifest(
-  transaction: Transaction<Session>, shipment: NewManifest): Promise<ManifestConfirmationPOJO> {
+  transaction: Transaction<Session>, shipment: NewManifest): Promise<ManifestConfirmation> {
 
   // STEP 1: Create the data that the carrier's API expects
   let data: GenerateManifestRequest = {
@@ -30,7 +30,7 @@ export default async function createManifest(
 /**
  * Formats a shipment in the way ShipEngine expects
  */
-function formatManifest(response: GenerateManifestResponse): ManifestConfirmationPOJO {
+function formatManifest(response: GenerateManifestResponse): ManifestConfirmation {
   const returnValue = {
     manifests: [{
       shipments: response.manifested_shipments.map((shipment) => { return { trackingNumber: shipment.tracking_number } }),

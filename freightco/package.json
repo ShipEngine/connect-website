@@ -7,7 +7,7 @@
     "test": "shipengine test"
   },
   "devDependencies": {
-    "@shipengine/integration-platform-sdk": "0.0.36",
+    "@shipengine/integration-platform-sdk": "0.0.40",
     "dotenv-flow": "^3.1.0"
   },
   "dependencies": {

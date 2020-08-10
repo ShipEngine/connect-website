@@ -1,4 +1,4 @@
-import { ChargeType, PickupConfirmationPOJO, PickupRequest, Transaction } from "@shipengine/integration-platform-sdk";
+import { ChargeType, PickupConfirmation, PickupRequest, Transaction } from "@shipengine/integration-platform-sdk";
 import { nextDayPickup } from "../definitions/pickup-services";
 import { apiClient } from "../mock-api/client";
 import { ONE_DAY, ONE_HOUR, PickUpRequest, PickUpResponse } from "../mock-api/pick-up";
@@ -8,7 +8,7 @@ import { Session } from "./session";
  * Schedules a pick-up at a specific time and location
  */
 export default async function schedulePickup(
-  transaction: Transaction<Session>, pickup: PickupRequest): Promise<PickupConfirmationPOJO> {
+  transaction: Transaction<Session>, pickup: PickupRequest): Promise<PickupConfirmation> {
 
   // STEP 1: Validation
   if (pickup.pickupService.id === nextDayPickup.id
@@ -36,7 +36,7 @@ export default async function schedulePickup(
 /**
  * Formats a pickup confirmation in the way ShipEngine expects
  */
-function formatConfirmation(response: PickUpResponse): PickupConfirmationPOJO {
+function formatConfirmation(response: PickUpResponse): PickupConfirmation {
   let pickupDateTime = new Date(response.date_time);
 
   return {
@@ -52,7 +52,7 @@ function formatConfirmation(response: PickUpResponse): PickupConfirmationPOJO {
         name: "Pickup Fee",
         type: ChargeType.Pickup,
         amount: {
-          value: response.pickup_cost.toString(),
+          value: response.pickup_cost,
           currency: "USD",
         }
       },
@@ -60,7 +60,7 @@ function formatConfirmation(response: PickUpResponse): PickupConfirmationPOJO {
         name: "Transport Tax",
         type: ChargeType.Tax,
         amount: {
-          value: response.tax_cost.toString(),
+          value: response.tax_cost,
           currency: "USD",
         }
       },
@@ -68,7 +68,7 @@ function formatConfirmation(response: PickUpResponse): PickupConfirmationPOJO {
         name: "Location Fee",
         type: ChargeType.LocationFee,
         amount: {
-          value: response.location_cost.toString(),
+          value: response.location_cost,
           currency: "USD",
         }
       },

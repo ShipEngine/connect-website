@@ -1,4 +1,4 @@
-import { ChargeType, DocumentFormat, DocumentSize, DocumentType, NewShipment, ShipmentConfirmationPOJO, Transaction } from "@shipengine/integration-platform-sdk";
+import { ChargeType, DocumentFormat, DocumentSize, DocumentType, NewShipment, ShipmentConfirmation, Transaction } from "@shipengine/integration-platform-sdk";
 import { bag, box } from "../definitions/packaging/customer";
 import { apiClient } from "../mock-api/client";
 import { GenerateLabelRequest, GenerateLabelResponse } from "../mock-api/generate-label";
@@ -8,7 +8,7 @@ import { Session } from "./session";
  * Generates a shipping label and tracking number for a shipment
  */
 export default async function createShipment(
-  transaction: Transaction<Session>, shipment: NewShipment): Promise<ShipmentConfirmationPOJO> {
+  transaction: Transaction<Session>, shipment: NewShipment): Promise<ShipmentConfirmation> {
 
   // STEP 1: Validation
   for (let parcel of shipment.packages) {
@@ -25,9 +25,9 @@ export default async function createShipment(
     operation: "generate_label",
     session_id: transaction.session.id,
     service_code: shipment.deliveryService.identifiers.apiCode,
-    confirmation_code: shipment.package.deliveryConfirmation?.identifiers.apiCode,
+    confirmation_code: shipment.deliveryConfirmation?.identifiers.apiCode,
     ship_date: shipment.shipDateTime.toISOString(),
-    total_weight: shipment.packages.reduce((totalWeight, pkg) => { return totalWeight = totalWeight + pkg.weight.ounces}, 0),
+    total_weight: shipment.package.weight.ounces,
     packageNumber: shipment.packages.length
   };
 
@@ -41,7 +41,7 @@ export default async function createShipment(
 /**
  * Formats a shipment in the way ShipEngine expects
  */
-function formatShipment(response: GenerateLabelResponse): ShipmentConfirmationPOJO {
+function formatShipment(response: GenerateLabelResponse): ShipmentConfirmation {
   return {
     trackingNumber: response.tracking_number,
     deliveryDateTime: response.delivery_date,
@@ -49,35 +49,32 @@ function formatShipment(response: GenerateLabelResponse): ShipmentConfirmationPO
       {
         type: ChargeType.Shipping,
         amount: {
-          value: response.shipment_cost.toString(),
-          currency: "USD",
+          value: response.shipment_cost,
+          currency: "usd",
         }
       },
-
       {
         type: ChargeType.DeliveryConfirmation,
         amount: {
-          value: response.confirmation_cost.toString(),
-          currency: "USD",
+          value: response.confirmation_cost,
+          currency: "usd",
         }
       },
       {
         type: ChargeType.LocationFee,
         amount: {
-          value: response.location_cost.toString(),
-          currency: "USD",
+          value: response.location_cost,
+          currency: "usd",
         }
       },
     ],
-    documents: [
-      {
-        name: "Shipping Label",
-        type: DocumentType.Label,
-        size: DocumentSize.Inches4x6,
-        format: DocumentFormat.PDF,
-        data: Buffer.from(response.image, "base64"),
-      }
-    ],
-    packages: response.package_tracking_numbers.map((trackingNumber) => { return { trackingNumber: trackingNumber}})
+    packages: response.package_tracking_numbers.map((trackingNumber) => { return { trackingNumber: trackingNumber } }),
+    label: {
+      name: "Shipping Label",
+      type: DocumentType.Label,
+      size: DocumentSize.Inches4x6,
+      format: DocumentFormat.PDF,
+      data: Buffer.from(response.image, "base64"),
+    }
   };
 }

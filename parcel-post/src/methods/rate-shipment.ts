@@ -1,4 +1,4 @@
-import { ChargeType, RateCriteria, RatePOJO, Transaction } from "@shipengine/integration-platform-sdk";
+import { ChargeType, RateCriteria, Rate, Transaction } from "@shipengine/integration-platform-sdk";
 import deliveryConfirmations from "../definitions/delivery-confirmations";
 import deliveryServices from "../definitions/delivery-services";
 import packaging from "../definitions/packaging";
@@ -10,7 +10,7 @@ import { Session } from "./session";
  * Generates shipping rates for a shipment
  */
 export default async function rateShipment(
-  transaction: Transaction<Session>, shipment: RateCriteria): Promise<RatePOJO[]> {
+  transaction: Transaction<Session>, shipment: RateCriteria): Promise<Rate[]> {
 
   // STEP 1: Validation
   // TODO: add any validation logic here
@@ -19,9 +19,9 @@ export default async function rateShipment(
   let data: QuoteRatesRequest = {
     operation: "quote_rates",
     session_id: transaction.session.id,
-    service_codes: shipment.deliveryService.identifiers.apiCode,
-    confirmation_codes: shipment.packages[0].deliveryConfirmations.map((conf) => conf.identifiers.apiCode),
-    parcel_codes: shipment.packages[0].packaging.map((pkg) => pkg.identifiers.apiCode),
+    service_code: shipment.deliveryService.identifiers.apiCode,
+    confirmation_code: shipment.deliveryConfirmation.identifiers.apiCode,
+    parcel_code: shipment.packages[0].packaging.identifiers.apiCode,
     ship_date: shipment.shipDateTime.toISOString(),
     delivery_date: shipment.deliveryDateTime.toISOString(),
     total_weight: shipment.packages[0].weight.ounces,
@@ -37,7 +37,7 @@ export default async function rateShipment(
 /**
  * Formats a rate quote in the way ShipEngine expects
  */
-function formatRate(rate: QuoteRateResponseItem): RatePOJO {
+function formatRate(rate: QuoteRateResponseItem): Rate {
   return {
     deliveryService: deliveryServices.find((svc) => svc.identifiers.apiCode === rate.service_code),
     shipDateTime: new Date(rate.ship_date),
@@ -45,14 +45,14 @@ function formatRate(rate: QuoteRateResponseItem): RatePOJO {
     isTrackable: true,
     packages: [{
       packaging: packaging.find((pkg) => pkg.identifiers.apiCode === rate.parcel_code),
-      deliveryConfirmation: deliveryConfirmations.find((conf) => conf.identifiers.apiCode === rate.confirmation_code),
     }],
+    deliveryConfirmation: deliveryConfirmations.find((conf) => conf.identifiers.apiCode === rate.confirmation_code),
     charges: [
       {
         name: "Service Charge",
         type: ChargeType.Shipping,
         amount: {
-          value: rate.shipment_cost.toString(),
+          value: rate.shipment_cost,
           currency: "USD",
         }
       },
@@ -68,7 +68,7 @@ function formatRate(rate: QuoteRateResponseItem): RatePOJO {
         name: "Transport Tax",
         type: ChargeType.Tax,
         amount: {
-          value: rate.tax_cost.toString(),
+          value: rate.tax_cost,
           currency: "USD",
         }
       },

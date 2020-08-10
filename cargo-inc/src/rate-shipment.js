@@ -14,9 +14,9 @@ async function rateShipment(transaction, shipment) {
   let data = {
     operation: "quote_rates",
     session_id: transaction.session.id,
-    service_codes: shipment.deliveryService.identifiers.apiCode,
-    confirmation_codes: shipment.packages[0].deliveryConfirmations.map((conf) => conf.identifiers.apiCode),
-    parcel_codes: shipment.packages[0].packaging.map((pkg) => pkg.identifiers.apiCode),
+    service_code: shipment.deliveryService.identifiers.apiCode,
+    confirmation_code: shipment.deliveryConfirmation.identifiers.apiCode,
+    parcel_codes: shipment.packages[0].packaging.identifiers.apiCode,
     ship_date: shipment.shipDateTime.toISOString(),
     delivery_date: shipment.deliveryDateTime.toISOString(),
     from_zone: parseInt(shipment.shipFrom.postalCode, 10),
@@ -42,12 +42,12 @@ function formatRate(rate) {
     shipDateTime: new Date(rate.ship_date),
     deliveryDateTime: new Date(rate.delivery_date),
     isTrackable: rate.service_code !== "ECO",
+    deliveryConfirmation: {
+      id: codeIdMap[rate.confirmation_code],
+    },
     packages: [{
       packaging: {
         id: codeIdMap[rate.parcel_code],
-      },
-      deliveryConfirmation: {
-        id: codeIdMap[rate.confirmation_code],
       },
     }],
     charges: [
