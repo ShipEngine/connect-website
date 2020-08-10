@@ -260,6 +260,28 @@ These changes affect the [Order App](./../order-app/index.md).
     * `paging.pageCount`
     * `paging.cursor`
     * `buyer.address` (optional)
+    * `charges`
+    * `charges.subTotal`
+    * `charges.subTotal.value`
+    * `charges.subTotal.currency`
+    * `charges.taxAmount`
+    * `charges.taxAmount.value`
+    * `charges.taxAmount.currency`
+    * `charges.shippingAmount`
+    * `charges.shippingAmount.value`
+    * `charges.shippingAmount.currency`
+    * `charges.shippingCost`
+    * `charges.shippingCost.value`
+    * `charges.shippingCost.currency`
+    * `charges.confirmationCost`
+    * `charges.confirmationCost.value`
+    * `charges.confirmationCost.currency`
+    * `charges.insuranceCost`
+    * `charges.insuranceCost.value`
+    * `charges.insuranceCost.currency`
+    * `charges.otherCost`
+    * `charges.otherCost.value`
+    * `charges.otherCost.currency`
 
 #### Changes:
     * `charges.amount.value` - now accepts a number rather than a string
@@ -268,6 +290,7 @@ These changes affect the [Order App](./../order-app/index.md).
     * `totalCharges.amount.value.currency` - now accepts any string rather than an enum value
     * `shippingPreferences.insuredValue.value` - now accepts a number rather than a string
     * `shippingPreferences.insuredValue.currency` - now accepts any string rather than an enum value
+    * `charges` renamed to `adjustments` and a new `charges` property was added with a new type
 
 
 ### [shipmentCreated()](./../reference/methods/shipment-created.md)

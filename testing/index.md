@@ -13,7 +13,7 @@ There are multiple ways to test your application, and we suggest taking advantag
 
 Manual Testing
 -----------------------------
-The [`shipengine start` command](../cli.md#start) starts a local server that allows you to preview your app and invoke its methods. 
+The [`shipengine start` command](../cli.md#start) starts a local server that allows you to preview your app and invoke its methods.
 
 Automated Tests
 -----------------------------
