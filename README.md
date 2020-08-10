@@ -24,7 +24,7 @@ $ npm install -g @shipengine/integration-platform-cli
 $ shipengine COMMAND
 running command...
 $ shipengine (-v|--version|version)
-@shipengine/integration-platform-cli/0.0.22 linux-x64 node-v12.18.1
+@shipengine/integration-platform-cli/0.0.21 darwin-x64 node-v12.16.2
 $ shipengine --help [COMMAND]
 USAGE
   $ shipengine COMMAND
@@ -41,6 +41,7 @@ USAGE
 * [`shipengine logout`](#shipengine-logout)
 * [`shipengine new [PATH]`](#shipengine-new-path)
 * [`shipengine publish`](#shipengine-publish)
+* [`shipengine start`](#shipengine-start)
 * [`shipengine test`](#shipengine-test)
 * [`shipengine whoami`](#shipengine-whoami)
 
@@ -152,6 +153,21 @@ EXAMPLE
 ```
 
 _See code: [src/commands/publish.ts](https://github.com/ShipEngine/shipengine-integration-platform-cli/blob/v0.0.22/src/commands/publish.ts)_
+
+## `shipengine start`
+
+start a local web server to develop your app interactively
+
+```
+USAGE
+  $ shipengine start
+
+OPTIONS
+  -h, --help       show help for the apps:start commands
+  -p, --port=port  [default: 3000] the port that the app will run on
+```
+
+_See code: [src/commands/start.ts](https://github.com/ShipEngine/shipengine-integration-platform-cli/blob/v0.0.21/src/commands/start.ts)_
 
 ## `shipengine test`
 

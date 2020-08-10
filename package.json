@@ -21,7 +21,7 @@
     "@shipengine/capitalization": "^1.2.0",
     "@shipengine/integration-platform-loader": "0.0.39",
     "@shipengine/integration-platform-sdk": "0.0.40",
-    "@shipengine/shipengine-integration-platform-local-dev-ui": "0.0.2",
+    "@shipengine/shipengine-integration-platform-local-dev-api": "0.0.5",
     "axios": "^0.19.2",
     "chai": "^4.2.0",
     "chalk": "^4.1.0",
