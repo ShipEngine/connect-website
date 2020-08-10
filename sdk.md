@@ -5,7 +5,7 @@ title: ShipEngine Integration Platform SDK
 
 Integration Platform SDK
 ========================
-The [ShipEngine Integration Platform SDK](https://github.com/ShipEngine/shipengine-integration-platform-sdk) has everything you need to quickly and efficiently build an integration application.
+The [ShipEngine Integration Platform SDK](https://www.npmjs.com/package/@shipengine/integration-platform-sdk) has everything you need to quickly and efficiently build an integration application.
 As a [TypeScript](https://www.typescriptlang.org/)-based project, it contains all of the type definitions for every resource that will be required for your project.
 
 When combined with a source code editor that provides intellisense and auto-completion, such as [VSCode](https://code.visualstudio.com/)
