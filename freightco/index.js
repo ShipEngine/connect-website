@@ -5,6 +5,7 @@ module.exports = {
   name: "FreightCo",
   description: "FreightCo is a ground freight trucking company serving Central and North America.",
   websiteURL: "https://freightco.net",
+  trackingURLTemplate: "https://freightco.net/tracking/{}",
   logo: "../logo.svg",
   icon: "../logo.svg",
   manifestType: "digital",

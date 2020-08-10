@@ -5,6 +5,7 @@ const parcelPost: CarrierAppDefinition = {
   name: "Parcel Post",
   description: "Parcel Post provides low-cost multi-carrier delivery services within the U.S. and to major international destinations",
   websiteURL: "https://parcel-post.net",
+  trackingURLTemplate: "https://parcel-post.net/tracking/{}",
   logo: "../logo.svg",
   icon: "../logo.svg",
   manifestType: ManifestType.Digital,
