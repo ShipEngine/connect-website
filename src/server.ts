@@ -33,7 +33,7 @@ export default async function server(
     appState.status = "down";
     appState.error = error;
     startMessage = chalk.yellow(
-      "App failed to load! Please address the validation issues above.",
+      "App failed to load! Please fix the validation issues above.",
     );
     log(chalk.red(error.stack));
   }
