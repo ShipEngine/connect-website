@@ -24,6 +24,7 @@ changes have been introduced.
 * Removed support for Localization
 * Updated [CLI](./../cli.md) namespace. You should uninstall the old one before the latest version.
 * Removed [NotesType](./../reference/common-types.md#notes-types) not supported by ShipStation.
+* Removed `POJO`
 
 
 ### Transaction Object
@@ -133,7 +134,8 @@ These changes affect the [Carrier App](./../carrier-app/index.md).
     * Renamed `fulfillmentServices` to `fulfillmentService` and changed it from an array to a single object
     * ~~totalInsuredValue.value - now a number rather than a string~~
     * ~~totalInsuredValue.currency - now accepts any string rather than an enum value~~
-    * Renamed `packages` to `package` and changed it from an array to a single object
+    * ~~Renamed packages to package and changed it from an array to a single object~~
+    * Changed `packages.packaging` from an array to a string
 
 #### Return Value: `Rate`
 
@@ -258,6 +260,28 @@ These changes affect the [Order App](./../order-app/index.md).
     * `paging.pageCount`
     * `paging.cursor`
     * `buyer.address` (optional)
+    * `charges`
+    * `charges.subTotal`
+    * `charges.subTotal.value`
+    * `charges.subTotal.currency`
+    * `charges.taxAmount`
+    * `charges.taxAmount.value`
+    * `charges.taxAmount.currency`
+    * `charges.shippingAmount`
+    * `charges.shippingAmount.value`
+    * `charges.shippingAmount.currency`
+    * `charges.shippingCost`
+    * `charges.shippingCost.value`
+    * `charges.shippingCost.currency`
+    * `charges.confirmationCost`
+    * `charges.confirmationCost.value`
+    * `charges.confirmationCost.currency`
+    * `charges.insuranceCost`
+    * `charges.insuranceCost.value`
+    * `charges.insuranceCost.currency`
+    * `charges.otherCost`
+    * `charges.otherCost.value`
+    * `charges.otherCost.currency`
 
 #### Changes:
     * `charges.amount.value` - now accepts a number rather than a string
@@ -266,6 +290,7 @@ These changes affect the [Order App](./../order-app/index.md).
     * `totalCharges.amount.value.currency` - now accepts any string rather than an enum value
     * `shippingPreferences.insuredValue.value` - now accepts a number rather than a string
     * `shippingPreferences.insuredValue.currency` - now accepts any string rather than an enum value
+    * `charges` renamed to `adjustments` and a new `charges` property was added with a new type
 
 
 ### [shipmentCreated()](./../reference/methods/shipment-created.md)

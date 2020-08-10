@@ -173,11 +173,125 @@ return:
       required: false
       description: An array of preferences on how this order should be fulfilled.
 
-    - name: charges
+    - name: adjustments
       type: |
         [Charge](./../charge.md)[]
       required: false
-      description: The breakdown of charges for this order item.
+      description: The breakdown of adjustments for this sales order.
+        </br>
+        </br>
+        These adjustments will appear as line items once
+        this order is imported.
+
+    - name: charges
+      type: object
+      required: false
+      description: The breakdown of charges for this sales order.
+
+    - name: charges.subTotal
+      type: object
+      required: false
+      description: The subtotal for this sales order.
+
+    - name: charges.subTotal.value
+      type: number
+      required: true
+      description: The value for the subtotal.
+
+    - name: charges.subTotal.currency
+      type: string
+      required: true
+      description: The currency for the subtotal.
+
+    - name: charges.taxAmount
+      type: object
+      required: false
+      description: The tax amount for this sales order.
+
+    - name: charges.taxAmount.value
+      type: number
+      required: true
+      description: The value for the tax amount.
+
+    - name: charges.taxAmount.currency
+      type: string
+      required: true
+      description: The currency for the tax amount.
+
+    - name: charges.shippingAmount
+      type: object
+      required: false
+      description: The shipping amount for this sales order.
+
+    - name: charges.shippingAmount.value
+      type: number
+      required: true
+      description: The value for the shipping amount.
+
+    - name: charges.shippingAmount.currency
+      type: string
+      required: true
+      description: The currency for the shipping amount.
+
+    - name: charges.shippingCost
+      type: object
+      required: false
+      description: The shipping cost for this sales order.
+
+    - name: charges.shippingCost.value
+      type: number
+      required: true
+      description: The value of the shipping cost.
+
+    - name: charges.shippingCost.currency
+      type: string
+      required: true
+      description: The curency for the shipping cost.
+
+    - name: charges.confirmationCost
+      type: object
+      required: false
+      description: The confirmation cost for this sales order.
+
+    - name: charges.confirmationCost.value
+      type: number
+      required: true
+      description: The value for the confirmation cost.
+
+    - name: charges.confirmationCost.currency
+      type: string
+      required: true
+      description: The currency for the confirmation cost.
+
+    - name: charges.insuranceCost
+      type: object
+      required: false
+      description: The insurance cost for this sales order.
+
+    - name: charges.insuranceCost.value
+      type: number
+      required: true
+      description: The value for the insurance cost.
+
+    - name: charges.insuranceCost.currency
+      type: string
+      required: true
+      description: The currency for the insurance cost.
+
+    - name: charges.otherCost
+      type: object
+      required: false
+      description: Other costs associated with this sales order that do not fit into any of the other categories.
+
+    - name: charges.otherCost.value
+      type: number
+      required: true
+      description: The value of the cost.
+
+    - name: charges.otherCost.currency
+      type: string
+      required: true
+      description: The currency for the cost.
 
     - name: items
       type: object[]
