@@ -1,6 +1,6 @@
 {
   "name": "@shipengine/integration-platform-loader",
-  "version": "0.0.38",
+  "version": "0.0.39",
   "description": "Internal library for loading ShipEngine Integration Platform apps",
   "keywords": [
     "shipengine",
