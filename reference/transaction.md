@@ -33,6 +33,7 @@ fields:
 
 Example
 -------------------------------------------------
+
 Here's an example transaction object:
 
 ```javascript

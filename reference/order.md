@@ -128,22 +128,7 @@ const orderSource: OrderAppDefinition = {
   connect: import("./methods/connect"),
   getSalesOrdersByDate: import("./methods/get-sales-orders-by-date"),
   shipmentCreated: import("./methods/shipment-created"),
-  shipmentCancelled: import("./methods/shipment-cancelled"),
-  localization: {
-      "en-GB": {
-        websiteURL: "https://cargo-inc.co.uk"
-      },
-      es: {
-        description: iBuy MarketPlace es el líder mundial en carga aérea.
-        websiteURL: "https://ibuy.net/es/"
-      },
-      zh: {
-        name: "货运公司"
-        description: "货运公司是航空货运的全球领导者。"
-        websiteURL: "https://ibuy.cn"
-      }
-    }
-  }
+  shipmentCancelled: import("./methods/shipment-cancelled")
 }
 
 export default orderSource;
@@ -163,20 +148,7 @@ const orderSource = {
   connect: "./methods/connect.js",
   getSalesOrdersByDate: "./methods/get-sales-orders-by-date.js",
   shipmentCreated: "./methods/shipment-created.js",
-  shipmentCancelled: "./methods/shipment-cancelled.js",
-  localization: {
-    en-GB: {
-      websiteURL: https://iBuy.co.uk
-    },
-    es: {
-      description: iBuy MarketPlace es el líder mundial en carga aérea.
-      websiteURL: https://ibuy.net/es/
-   },
-    zh: {
-      name: 货运公司
-      description: 货运公司是航空货运的全球领导者。
-      websiteURL: https://ibuy.cn
-    }
+  shipmentCancelled: "./methods/shipment-cancelled.js"
 }
 
 module.exports = orderSource;
@@ -202,16 +174,4 @@ getSalesOrdersByDate: methods/get-sales-orders-by-date.js
 shipmentCreated: methods/shipment-created.js
 shipmentCancelled: /methods/shipment-cancelled.js
 
-localization:
-  en-GB:
-    websiteURL: https://iBuy.co.uk
-
-  es:
-    description: iBuy es el líder mundial en carga aérea.
-    websiteURL: https://ibuy.net/es/
-
-  zh:
-    name: 货运公司
-    description: 货运公司是航空货运的全球领导者。
-    websiteURL: https://ibuy.cn
 ```
