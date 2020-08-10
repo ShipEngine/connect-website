@@ -24,7 +24,7 @@ $ npm install -g @shipengine/integration-platform-cli
 $ shipengine COMMAND
 running command...
 $ shipengine (-v|--version|version)
-@shipengine/integration-platform-cli/0.0.21 darwin-x64 node-v12.16.2
+@shipengine/integration-platform-cli/0.0.22 darwin-x64 node-v12.16.2
 $ shipengine --help [COMMAND]
 USAGE
   $ shipengine COMMAND
@@ -167,7 +167,7 @@ OPTIONS
   -p, --port=port  [default: 3000] the port that the app will run on
 ```
 
-_See code: [src/commands/start.ts](https://github.com/ShipEngine/shipengine-integration-platform-cli/blob/v0.0.21/src/commands/start.ts)_
+_See code: [src/commands/start.ts](https://github.com/ShipEngine/shipengine-integration-platform-cli/blob/v0.0.22/src/commands/start.ts)_
 
 ## `shipengine test`
 
