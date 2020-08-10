@@ -1,7 +1,7 @@
 ---
 hidden: true
 title: Publishing Your ShipEngine Application to the Integration Platform
-description: Learn how to publish your application with the ShipEngine CLI
+description: Learn how to publish your application with the ShipEngine Integration Platform CLI
 ---
 
 Publishing Your Application
@@ -25,7 +25,7 @@ This gives the ShipEngine Integration Platform the minimum amount of information
 where you may further test and interact with your application.
 
 ### Tests
-Before publishing, you should verify that the [tests run by the ShipEngine CLI](testing/index.md) are all passing. This will tell you if you have any structural
+Before publishing, you should verify that the [tests run by the ShipEngine Integration Platform CLI](testing/index.md) are all passing. This will tell you if you have any structural
 issues with your application, such as missing the minimum implementation required for publishing. It also runs an extensive set
 of functional tests that help validate your application further.
 

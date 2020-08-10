@@ -10,7 +10,7 @@ Start Here:
     Recommended Tools: tools/index.md
 
   Guides:
-    Installing the CLI: cli.md
+    Using the CLI: cli.md
     Creating Your First App: create-first-app.md
     Implementing Your Methods: implementation.md
     Transactions & Retries: transactions.md

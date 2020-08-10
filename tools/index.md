@@ -19,7 +19,7 @@ There are many great developer tools for working with [JavaScript](https://devel
 - [![VSCode](vscode.svg)](https://code.visualstudio.com/) <a href="https://code.visualstudio.com/" class="list-title">Visual Studio Code</a><br>
 Visual Studio Code is a free source-code editor built on open-source technology and developed by Microsoft for Windows, Linux and macOS. It includes support for debugging, embedded [Git](https://git-scm.com/_) and [GitHub](https://github.com/) support, syntax highlighting, intelligent code completion, code snippets, and code refactoring.
 
-- When you run the [ShipEngine CLI](./../cli.md) to generate your application and indicate at the prompt that you are using VS Code as your development environment, the command automatically adds a debug command in the scripts section of your `package.json` file and generates
+- When you run the [ShipEngine Integration Platform CLI](./../cli.md) to generate your application and indicate at the prompt that you are using VS Code as your development environment, the command automatically adds a debug command in the scripts section of your `package.json` file and generates
 a `.vscode/launch.json` file. This allows you to set breakpoints inside of your methods within VS code, that will be hit when you run the `shipengine apps:test` command, halting test execution and allowing you to
 better debug your application and resolve test failures more quickly. You will need to set a break point inside your desired method, and run the **Launch via NPM** VS Code configuration before running the `shipengine apps:test` command.
 

@@ -1,7 +1,7 @@
 ---
 hidden: true
 title: Create your first ShipEngine Integration app.
-description: Learn how to use the ShipEngine CLI and the project template to being creating an Integration app.
+description: Learn how to use the ShipEngine Integration Platform CLI and the project template to being creating an Integration app.
 tags:
 - ShipEngine
 - Integration App
@@ -14,11 +14,11 @@ tags:
 
 Creating Your First App
 =======================
-The [ShipEngine CLI](./cli.md) provides you with everything you need to get started with your integration application.
+The [ShipEngine Integration Platform CLI](./cli.md) provides you with everything you need to get started with your integration application.
 
 
 > **Info**
-> Install the [ShipEngine CLI](./cli.md) before proceeding with this guide.
+> Install the [ShipEngine Integration Platform CLI](./cli.md) before proceeding with this guide.
 
 Using the CLI
 ------------------
@@ -47,13 +47,14 @@ application.
 1. Use the arrow keys to select `yaml`, `json`, or `pojo` as the structure of your definition files. Note that you can use a combination of
 these options when you populate your definition files. This command will create them in the specified format, but you can change them before publishing your application.
 
-1. Type `Y` or `N` to indicate whether or not you are using [Visual Studio Code](https://code.visualstudio.com/) for your development environment and press `Enter`. When you use VS Code, the ShipEngine CLI provides you with a
+1. Type `Y` or `N` to indicate whether or not you are using [Visual Studio Code](https://code.visualstudio.com/) for your development environment and press `Enter`. When you use VS Code, the ShipEngine Integration Platform CLI provides you with a
 debug command in the scripts section of your `package.json` file and generates a `.vscode/launch.json` file to faciliate [debugging](./testing/index.md#visual-studio-code).
+
+![](./../cli-screenshot.png)
+
 
 Your Application
 --------------------------
-![](./../cli-screenshot.png)
-
 All done! You now have the application structure laid out, and you are ready to provide the implementation.
 
 ### Methods
@@ -190,13 +191,13 @@ deliveryServices:
   - ./definitions/example-delivery-service.yaml
 pickupServices: []
 ```
+
 ### Implement
-Once you have generated the scaffolding for your application using the ShipEngine CLI, add your implementation for each method your application supports. Likewise, use the example service definition files to create unique definitions
+Once you have generated the scaffolding for your application using the ShipEngine Integration Platform CLI, add your implementation for each method your application supports. Likewise, use the example service definition files to create unique definitions
 for each of the services your application provides. Finally, update the application definition to include all the methods and definitions you have implemented.
 
 ### Test
-Once you have created the scaffolding using the ShipEngine CLI and implemented your methods and definitions, it is important to test your application. Luckily, the ShipEngineCLI handles much of the testing for you via the [`shipengine test`](./testing/index.md)
-command.
+As you're building your app, you'll probably want to run it periodically so you can test and debug your code. Luckily, [the ShipEngine Integration Platform CLI](cli.md) includes commands to help with this, such as `shipengine start` and `shipengine test`. You can also write your own unit tests to exercise your code. See our [testing page](testing/index.md) for more information.
 
 ### Publish
 Once all the generated tests pass, you will publish your application to the ShipEngine Integration Platform using the [`shipengine publish`](./publish.md) command. This command will publish to a development environment where your application

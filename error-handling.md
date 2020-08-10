@@ -23,7 +23,7 @@ for (let parcel of shipment.packages) {
 
 Error Codes
 -----------
-The [Shipengine SDK](sdk.md) allows for adding additional information to your application's errors, which will provide more efficient diagnostics once your application is hosted
+The [Shipengine Integration Platform SDK](sdk.md) allows for adding additional information to your application's errors, which will provide more efficient diagnostics once your application is hosted
 and administered by the ShipEngine Integration Platform.
 
 

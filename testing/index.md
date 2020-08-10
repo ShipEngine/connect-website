@@ -1,7 +1,7 @@
 ---
 hidden: true
 title: ShipEngine Integration Platform Testing
-description: Learn how to use the ShipEngine CLI to test your Integration App
+description: Learn how to use the ShipEngine Integration Platform CLI to test your Integration App
 ---
 
 
@@ -11,9 +11,13 @@ While developing your application, it's important to run tests to verify that yo
 
 There are multiple ways to test your application, and we suggest taking advantage of all of them to ensure the highest quality integration.
 
+
 Manual Testing
 -----------------------------
-The [`shipengine start` command](../cli.md#start) starts a local server that allows you to preview your app and invoke its methods. You can use [our Postman collection](#coming-soon) to call your methods with various inputs.
+The [`shipengine start` command](../cli.md#run-your-app-locally) starts a local server that allows you to invoke your app's methods using [our Postman collection](#coming-soon). The server monitors your source code and automatically reloads your app whenever changes are detected, so if you find a bug, you can fix it and immediately retry.
+
+> **PRO TIP:** You can use the [VSCode debugger](https://code.visualstudio.com/docs/editor/debugging) to set breakpoints, step through your code line-by-line, and inspect variables at runtime. Just press `F5` to start a debug session.
+
 
 Automated Tests
 -----------------------------
@@ -32,6 +36,7 @@ e-commerce applications since this suite calls your application in the same mann
 
 You can find a breakdown of tests available for the Carrier App [here](./carrier-app-tests.md).
 
+
 Unit Tests
 -----------------------------
 We recommend that in addition to using the `start` and `test` commands that you also you provide unit tests for your application. We don't include any
@@ -42,6 +47,7 @@ that we recommend, but you can choose the tools you are most familiar with.
 * [Chai](https://www.chaijs.com/)
 * [Nock](https://github.com/nock/nock)
 * [Sinon](https://sinonjs.org/)
+
 
 Live Testing
 -----------------------------
