@@ -53,6 +53,19 @@ param:
       type: "[AddressWithContactInfo](./../address.md)"
       description: The recipient's contact info and address.
 
+    - name: totalInsuredValue
+      type: object
+      description: The total insured value of all packages in the shipment.
+        If specified, then rate quotes should include carrier-provided insurance.
+
+    - name: totalInsuredValue.value
+      type: number
+      description: The amount of this value.
+
+    - name: totalInsuredValue.currency
+      type: string
+      description: The currency for this value.
+
     - name: returns
       type: object
       description: An object that indicates whether or not this shipment is a return shipment.
@@ -61,81 +74,81 @@ param:
       type: boolean
       description: Indicates whether or not this shipment is a return shipment.
 
-    - name: package
-      type: object
-      required: true
-      description: The package in the shipment.
-
-    - name: package.packaging
+    - name: packages
       type: object[]
+      required: true
+      description: The list of packages in the shipment.
+
+    - name: packages[].packaging
+      type: object
       required: true
       description: The packaging that may be used. If not specified, then rate quotes should be returned for all applicable packaging.
 
-    - name: package.packaging[].id
+    - name: packages[].packaging.id
       type: "[UUID](https://www.npmjs.com/package/uuid)"
       required: false
-      description: A UUID that uniquely identifies the packaging. This is the UUID you used in the [Packaging Definition](./../packaging.md) file for this packaging.
+      description: A UUID that uniquely identifies the object. This is the UUID you used in the [Packaging Definition](./../packaging.md) file for this packaging.
 
-    - name: package.packaging[].identifiers
+    - name: packages[].packaging.identifiers
       type: object
       required: false
-      description: Your own identifiers for this packaging.
+      description: Your own identifiers for this shipment.
 
-    - name: package.packaging[].code
+    - name: packages[].packaging.code
       type: string
       required: false
       description: Optional code used to map to what the carrier uses to identify the packaging.
 
-    - name: package.packaging[].name
+    - name: packages[].packaging.name
       type: string
       description: The user-friendly name for this packaging (e.g. "Flat-Rate Box", "Large Padded Envelope").
         This string will be between `1` and `100` characters and will not contain newline characters.
 
-    - name: package.packaging[].description
+    - name: packages[].packaging.description
       type: string
       description: A short, user-friendly description of the packaging.
         This string will be between `0` and `1000` characters and will not contain newline characters.
 
-    - name: package.packaging[].requiresWeight
+    - name: packages[].packaging.requiresWeight
       type: boolean
       description: Indicates whether the weight must be specified when using this packaging.
 
-    - name: package.packaging[].requiresDimensions
+    - name: packages[].packaging.requiresDimensions
       type: boolean
       description: Indicates whether the dimensions must be specified when using this packaging.
 
-    - name: package.dimensions
+    - name: packages[].dimensions
       type: object
       description: The dimensions for the package.
 
-    - name: package.dimensions.length
+    - name: packages[].dimensions.length
       type: number
       description: The length of the package. This value may contain decimals.
 
-    - name: package.dimensions.width
+    - name: packages[].dimensions.width
       type: number
       description: The width of the package. This value may contain decimals.
 
-    - name: package.dimensions.height
+    - name: packages[].dimensions.height
       type: number
       description: The height of the package. This value may contain decimals.
 
-    - name: package.dimensions.unit
+    - name: packages[].dimensions.unit
       type: string
       description: |
         The unit of measurement for the dimensions. Valid values include the following:
         * `in` - inches
         * `cm` - centimeters
 
-    - name: package.weight
+    - name: packages[].weight
       type: object
       description: The weight of the package.
 
-    - name: package.weight.value
+    - name: packages[].weight.value
       type: number
       description: The weight value for this package. This value may contain decimals.
 
-    - name: package.weight.unit
+    - name: packages[].weight.unit
       type: string
       description: |
         The unit of measure for this weight. Valid values include the following:
@@ -144,27 +157,31 @@ param:
         * `kg` - kilograms
         * `lb` - pounds
 
-    - name: package.insuredValue
+    - name: packages[].insuredValue
       type: object
       description: The insured value of this shipment.
 
-    - name: package.insuredValue.value
+    - name: packages[].insuredValue.value
       type: number
       description: The value of the insured amount.
 
-    - name: package.insuredValue.currency
+    - name: packages[].insuredValue.currency
       type: string
       description: |
         The currency that the value represents.
 
-    - name: package.containsAlcohol
+    - name: packages[].containsAlcohol
       type: boolean
       description: Indicates whether the package contains alcohol.
 
-    - name: package.isNonMachineable
+    - name: packages[].isNonMachineable
       type: boolean
       description: Indicates whether the package cannot be processed automatically due to size, shape, weight, etc. and requires manual handling.
 
+    - name: package
+      type: object
+      description: Returns the first package in the `packages` array. Useful for carriers that only support single-piece shipments.
+        This object has all the same properties as the objects in the `packages` array described above.
 return:
   name: rate
   type: Rate
@@ -306,9 +323,9 @@ module.exports = async function rateShipment(transaction, shipment) {
   let data = {
     operation: "quote_rates",
     session_id: transaction.session.id,
-    service_codes: shipment.deliveryService.map((svc) => svc.code),
-    confirmation_codes: shipment.deliveryConfirmations.map((conf) => conf.code),
-    parcel_codes: shipment.packages[0].packaging.map((pkg) => pkg.code),
+    service_codes: [shipment.deliveryService.code],
+    confirmation_codes: [shipment.deliveryConfirmation.code],
+    parcel_codes: [shipment.packages[0].packaging.code],
     ship_date: shipment.shipDateTime.toISOString(),
     delivery_date: shipment.deliveryDateTime.toISOString(),
     from_zone: parseInt(shipment.shipFrom.postalCode, 10),
@@ -342,9 +359,9 @@ export default async function rateShipment(
   let data: QuoteRatesRequest = {
     operation: "quote_rates",
     session_id: transaction.session.id,
-    service_codes: shipment.deliveryService.map((svc) => svc.code),
-    confirmation_codes: shipment.deliveryConfirmations.map((conf) => conf.code),
-    parcel_codes: shipment.packages[0].packaging.map((pkg) => pkg.code),
+    service_codes: [shipment.deliveryService.code],
+    confirmation_codes: [shipment.deliveryConfirmation.code],
+    parcel_codes: [shipment.packages[0].packaging.code],
     ship_date: shipment.shipDateTime.toISOString(),
     delivery_date: shipment.deliveryDateTime.toISOString(),
     from_zone: parseInt(shipment.shipFrom.postalCode, 10),

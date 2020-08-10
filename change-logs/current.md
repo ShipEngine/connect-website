@@ -24,6 +24,7 @@ changes have been introduced.
 * Removed support for Localization
 * Updated [CLI](./../cli.md) namespace. You should uninstall the old one before the latest version.
 * Removed [NotesType](./../reference/common-types.md#notes-types) not supported by ShipStation.
+* Removed `POJO`
 
 
 ### Transaction Object
@@ -133,7 +134,8 @@ These changes affect the [Carrier App](./../carrier-app/index.md).
     * Renamed `fulfillmentServices` to `fulfillmentService` and changed it from an array to a single object
     * ~~totalInsuredValue.value - now a number rather than a string~~
     * ~~totalInsuredValue.currency - now accepts any string rather than an enum value~~
-    * Renamed `packages` to `package` and changed it from an array to a single object
+    * ~~Renamed packages to package and changed it from an array to a single object~~
+    * Changed `packages.packaging` from an array to a string
 
 #### Return Value: `Rate`
 
