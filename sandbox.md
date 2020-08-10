@@ -24,12 +24,12 @@ Examples
 --------
 
 ```typescript
-import { Transaction, NewShipment, ShipmentConfirmationPOJO } from "@shipengine/integration-platform-sdk";
+import { Transaction, NewShipment, ShipmentConfirmation } from "@shipengine/integration-platform-sdk";
 
 /**
  * Requests a shipping label from the provider
  */
-async function createShipment(transaction: Transaction, { format, size, shipment }: NewShipment): Promise<ShipmentConfirmationPOJO> {
+async function createShipment(transaction: Transaction, { format, size, shipment }: NewShipment): Promise<ShipmentConfirmation> {
   // ...Code to parse the incoming data to fit the app's data model...
 
   let response;

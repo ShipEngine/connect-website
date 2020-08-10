@@ -56,8 +56,8 @@ param:
 
 return:
   name: manifestConfirmation
-  type: ManifestConfirmationPOJO
-  signature: manifestConfirmationPOJO
+  type: ManifestConfirmation
+  signature: manifestConfirmation
   description: |
     An object that contains confirmation that an end-of-day manifest has been created.
   fields:
@@ -205,11 +205,11 @@ module.exports = async function createManifest(transaction, manifest) {
 import {
   Transaction,
   NewManifest,
-  ManifestConfirmationPOJO
+  ManifestConfirmation
 } from "@shipengine/integration-platform-sdk";
 
 export default async function createManifest(
-  transaction: Transaction, manifest: NewManifest): Promise<ManifestConfirmationPOJO[]> {
+  transaction: Transaction, manifest: NewManifest): Promise<ManifestConfirmation[]> {
     // Your Carrier's code logic goes here
 }
 ```

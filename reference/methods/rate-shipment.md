@@ -167,8 +167,8 @@ param:
 
 return:
   name: rate
-  type: RatePOJO
-  signature: RatePOJO[]
+  type: Rate
+  signature: Rate[]
   description: |
     An _array_ of objects representing the quoted shipping rates based on the specified rate criteria.
   fields:
@@ -328,12 +328,12 @@ module.exports = async function rateShipment(transaction, shipment) {
 import {
   ChargeType,
   RateCriteria,
-  RatePOJO,
+  Rate,
   Transaction
 } from "@shipengine/integration-platform-sdk";
 
 export default async function rateShipment(
-  transaction: Transaction<Session>, shipment: RateCriteria): Promise<RatePOJO[]> {
+  transaction: Transaction<Session>, shipment: RateCriteria): Promise<Rate[]> {
 
   // STEP 1: Validation
   // TODO: add any validation logic here
