@@ -273,12 +273,12 @@ import {
   DocumentSize,
   DocumentType,
   NewShipment,
-  ShipmentConfirmationPOJO,
+  ShipmentConfirmation,
   Transaction
 } from "@shipengine/integration-platform-sdk";
 
 export default async function createShipment(
-  transaction: Transaction<Session>, shipment: NewShipment): Promise<ShipmentConfirmationPOJO> {
+  transaction: Transaction<Session>, shipment: NewShipment): Promise<ShipmentConfirmation> {
 
   // STEP 1: Validation
   for (let parcel of shipment.packages) {

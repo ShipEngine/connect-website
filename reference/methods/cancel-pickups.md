@@ -13,8 +13,8 @@ documentation: |
 
 param:
   name: pickups
-  type: PickupCancellationOutcomePOJO[]
-  signature: PickupCancellationOutcomePOJO[]
+  type: PickupCancellationOutcome[]
+  signature: PickupCancellationOutcome[]
   description: |
     An _array_ of objects representing a request for a carrier to cancel one or more previously scheduled pickups.
 
@@ -219,8 +219,8 @@ param:
 
 return:
   name: pickupCancellation
-  type: pickupCancellationOutcomePOJO
-  signature: pickupCancellationPOJO[]
+  type: pickupCancellationOutcome
+  signature: pickupCancellation[]
   description: |
     An object that contains information about a pickup cancellation request.
   fields:
@@ -341,12 +341,12 @@ import {
   CancellationStatus,
   NoteType,
   PickupCancellation,
-  PickupCancellationOutcomePOJO,
+  PickupCancellationOutcome,
   Transaction
 } from "@shipengine/integration-platform-sdk";
 
 export default async function cancelPickups(
-  transaction: Transaction<Session>, pickups: PickupCancellation[]): Promise<PickupCancellationOutcomePOJO[]> {
+  transaction: Transaction<Session>, pickups: PickupCancellation[]): Promise<PickupCancellationOutcome[]> {
 
   let data : PickUpCancellationRequest = {
     operation: "pick_up_cancellation",

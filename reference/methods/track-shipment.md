@@ -44,8 +44,8 @@ param:
 
 return:
   name: trackingInfo
-  type: TrackingInfoPOJO
-  signature: TrackingCriteriaPOJO
+  type: TrackingInfo
+  signature: TrackingCriteria
   description: |
     An object with tracking information for the specified shipment.
   fields:
@@ -290,11 +290,11 @@ module.exports = async function trackShipment(transaction, trackingCriteria) {
 import {
   Transaction,
   TrackingCriteria,
-  TrackingInfoPOJO
+  TrackingInfo
 } from "@shipengine/integration-platform-sdk";
 
 export default async function trackShipment(
-  transaction: Transaction, trackingCriteria: TrackingCriteria): Promise<TrackingInfoPOJO> {
+  transaction: Transaction, trackingCriteria: TrackingCriteria): Promise<TrackingInfo> {
   // STEP 1: Validation
 
 

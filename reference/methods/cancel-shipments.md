@@ -139,11 +139,11 @@ module.exports = async function cancelShipments(transaction, shipmentCancellatio
 import {
   Transaction,
   ShipmentCancellation,
-  ShipmentCancellationOutcomePOJO
+  ShipmentCancellationOutcome
 } from "@shipengine/integration-platform-sdk";
 
 export default async function cancelShipments(
-  transaction: Transaction, shipmentCancellations: ShipmentCancellation[]): Promise<void | ShipmentCancellationOutcomePOJO> {
+  transaction: Transaction, shipmentCancellations: ShipmentCancellation[]): Promise<void | ShipmentCancellationOutcome> {
   // STEP 1: Validation
 
   // STEP 2: Create the data that the carrier's API expects

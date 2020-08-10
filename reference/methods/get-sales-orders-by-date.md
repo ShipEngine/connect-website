@@ -420,7 +420,7 @@ function formatSalesOrders(salesOrders) {
 export default async function getSalesOrdersByDate(
   transaction: Transaction<Session>,
   range: SalesOrderTimeRange,
-): Promise<Iterable<SalesOrderPOJO>> {
+): Promise<Iterable<SalesOrder>> {
   // STEP 1: Validation
   // Add any desired validation here
 
