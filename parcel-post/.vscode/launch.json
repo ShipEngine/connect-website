@@ -9,7 +9,12 @@
       "args": [
         "start"
       ],
-      "cwd": "${workspaceFolder}"
+      "cwd": "${workspaceFolder}",
+      "smartStep": true,
+      "skipFiles": [
+        "<node_internals>/**/*.js"
+      ],
+      "outputCapture": "std"
     },
     {
       "type": "node",
@@ -19,7 +24,12 @@
       "args": [
         "test"
       ],
-      "cwd": "${workspaceFolder}"
+      "cwd": "${workspaceFolder}",
+      "smartStep": true,
+      "skipFiles": [
+        "<node_internals>/**/*.js"
+      ],
+      "outputCapture": "std"
     }
   ]
 }
