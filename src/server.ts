@@ -24,7 +24,8 @@ export default async function server(
 
   try {
     sdkApp = (await loadApp(pathToApp)) as CarrierApp;
-    buildAPI(sdkApp, server);
+    buildAPI(sdkApp, server, port);
+    server.use(express.static(pathToApp));
     startMessage = `${sdkApp.name} is now running at http://localhost:${port}`;
   } catch (error) {
     appState.status = "down";

@@ -3,7 +3,11 @@ import { Express, Request, Response, NextFunction } from "express";
 import { CarrierApp } from "@shipengine/integration-platform-sdk/lib/internal";
 import log from "./utils/logger";
 
-export default function buildAPI(sdkApp: CarrierApp, server: Express) {
+export default function buildAPI(
+  sdkApp: CarrierApp,
+  server: Express,
+  port: number,
+) {
   server.use(
     bodyParser.urlencoded({
       extended: false,
@@ -24,7 +28,14 @@ export default function buildAPI(sdkApp: CarrierApp, server: Express) {
   sdkApp.cancelPickups && server.put("/cancel-pickups", cancelPickups);
 
   function getApp(_req: Request, res: Response) {
-    return res.status(200).json(sdkApp);
+    const sdkAppWithLogos = {
+      ...sdkApp,
+      ...{
+        logo: buildImageUrl(sdkApp.logo, port),
+        icon: buildImageUrl(sdkApp.icon, port),
+      },
+    };
+    return res.status(200).json(sdkAppWithLogos);
   }
 
   async function connect(req: Request, res: Response) {
@@ -134,5 +145,11 @@ export default function buildAPI(sdkApp: CarrierApp, server: Express) {
     log.info(`${req.method} ${req.url}`);
     log.body(req.body);
     next();
+  }
+
+  function buildImageUrl(pathToImage: string, port: number) {
+    const fileName = pathToImage.split("/").pop();
+
+    return `http://localhost:${port}/${fileName}`;
   }
 }

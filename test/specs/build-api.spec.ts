@@ -17,7 +17,7 @@ describe("buildAPI", () => {
     const server = express();
     const app = (await loadApp("test/fixtures/carrier-app")) as CarrierApp;
 
-    buildAPI(app, server);
+    buildAPI(app, server, 3000);
 
     chai
       .request(server)
@@ -40,7 +40,7 @@ describe("buildAPI", () => {
     const server = express();
     const app = (await loadApp("test/fixtures/carrier-app")) as CarrierApp;
 
-    buildAPI(app, server);
+    buildAPI(app, server, 3000);
 
     chai
       .request(server)
@@ -75,7 +75,7 @@ describe("buildAPI", () => {
     const server = express();
     const app = (await loadApp("test/fixtures/carrier-app")) as CarrierApp;
 
-    buildAPI(app, server);
+    buildAPI(app, server, 3000);
 
     chai
       .request(server)
@@ -103,7 +103,7 @@ describe("buildAPI", () => {
       "test/fixtures/carrier-app-without-methods",
     )) as CarrierApp;
 
-    buildAPI(app, server);
+    buildAPI(app, server, 3000);
 
     chai
       .request(server)
@@ -118,7 +118,7 @@ describe("buildAPI", () => {
     const server = express();
     const app = (await loadApp("test/fixtures/carrier-app")) as CarrierApp;
 
-    buildAPI(app, server);
+    buildAPI(app, server, 3000);
 
     chai
       .request(server)
@@ -140,7 +140,7 @@ describe("buildAPI", () => {
     const server = express();
     const app = (await loadApp("test/fixtures/carrier-app")) as CarrierApp;
 
-    buildAPI(app, server);
+    buildAPI(app, server, 3000);
 
     chai
       .request(server)
@@ -164,7 +164,7 @@ describe("buildAPI", () => {
       "test/fixtures/carrier-app-without-methods",
     )) as CarrierApp;
 
-    buildAPI(app, server);
+    buildAPI(app, server, 3000);
 
     chai
       .request(server)
@@ -179,7 +179,7 @@ describe("buildAPI", () => {
     const server = express();
     const app = (await loadApp("test/fixtures/carrier-app")) as CarrierApp;
 
-    buildAPI(app, server);
+    buildAPI(app, server, 3000);
 
     chai
       .request(server)
@@ -201,7 +201,7 @@ describe("buildAPI", () => {
     const server = express();
     const app = (await loadApp("test/fixtures/carrier-app")) as CarrierApp;
 
-    buildAPI(app, server);
+    buildAPI(app, server, 3000);
 
     chai
       .request(server)
@@ -225,7 +225,7 @@ describe("buildAPI", () => {
       "test/fixtures/carrier-app-without-methods",
     )) as CarrierApp;
 
-    buildAPI(app, server);
+    buildAPI(app, server, 3000);
 
     chai
       .request(server)
@@ -240,7 +240,7 @@ describe("buildAPI", () => {
     const server = express();
     const app = (await loadApp("test/fixtures/carrier-app")) as CarrierApp;
 
-    buildAPI(app, server);
+    buildAPI(app, server, 3000);
 
     chai
       .request(server)
@@ -262,7 +262,7 @@ describe("buildAPI", () => {
     const server = express();
     const app = (await loadApp("test/fixtures/carrier-app")) as CarrierApp;
 
-    buildAPI(app, server);
+    buildAPI(app, server, 3000);
 
     chai
       .request(server)
@@ -286,7 +286,7 @@ describe("buildAPI", () => {
       "test/fixtures/carrier-app-without-methods",
     )) as CarrierApp;
 
-    buildAPI(app, server);
+    buildAPI(app, server, 3000);
 
     chai
       .request(server)
@@ -301,7 +301,7 @@ describe("buildAPI", () => {
     const server = express();
     const app = (await loadApp("test/fixtures/carrier-app")) as CarrierApp;
 
-    buildAPI(app, server);
+    buildAPI(app, server, 3000);
 
     chai
       .request(server)
@@ -323,7 +323,7 @@ describe("buildAPI", () => {
     const server = express();
     const app = (await loadApp("test/fixtures/carrier-app")) as CarrierApp;
 
-    buildAPI(app, server);
+    buildAPI(app, server, 3000);
 
     chai
       .request(server)
@@ -347,7 +347,7 @@ describe("buildAPI", () => {
       "test/fixtures/carrier-app-without-methods",
     )) as CarrierApp;
 
-    buildAPI(app, server);
+    buildAPI(app, server, 3000);
 
     chai
       .request(server)
@@ -362,7 +362,7 @@ describe("buildAPI", () => {
     const server = express();
     const app = (await loadApp("test/fixtures/carrier-app")) as CarrierApp;
 
-    buildAPI(app, server);
+    buildAPI(app, server, 3000);
 
     chai
       .request(server)
@@ -384,7 +384,7 @@ describe("buildAPI", () => {
     const server = express();
     const app = (await loadApp("test/fixtures/carrier-app")) as CarrierApp;
 
-    buildAPI(app, server);
+    buildAPI(app, server, 3000);
 
     chai
       .request(server)
@@ -408,7 +408,7 @@ describe("buildAPI", () => {
       "test/fixtures/carrier-app-without-methods",
     )) as CarrierApp;
 
-    buildAPI(app, server);
+    buildAPI(app, server, 3000);
 
     chai
       .request(server)
@@ -423,7 +423,7 @@ describe("buildAPI", () => {
     const server = express();
     const app = (await loadApp("test/fixtures/carrier-app")) as CarrierApp;
 
-    buildAPI(app, server);
+    buildAPI(app, server, 3000);
 
     chai
       .request(server)
@@ -445,7 +445,7 @@ describe("buildAPI", () => {
     const server = express();
     const app = (await loadApp("test/fixtures/carrier-app")) as CarrierApp;
 
-    buildAPI(app, server);
+    buildAPI(app, server, 3000);
 
     chai
       .request(server)
@@ -469,7 +469,7 @@ describe("buildAPI", () => {
       "test/fixtures/carrier-app-without-methods",
     )) as CarrierApp;
 
-    buildAPI(app, server);
+    buildAPI(app, server, 3000);
 
     chai
       .request(server)
@@ -484,7 +484,7 @@ describe("buildAPI", () => {
     const server = express();
     const app = (await loadApp("test/fixtures/carrier-app")) as CarrierApp;
 
-    buildAPI(app, server);
+    buildAPI(app, server, 3000);
 
     chai
       .request(server)
@@ -506,7 +506,7 @@ describe("buildAPI", () => {
     const server = express();
     const app = (await loadApp("test/fixtures/carrier-app")) as CarrierApp;
 
-    buildAPI(app, server);
+    buildAPI(app, server, 3000);
 
     chai
       .request(server)
@@ -530,7 +530,7 @@ describe("buildAPI", () => {
       "test/fixtures/carrier-app-without-methods",
     )) as CarrierApp;
 
-    buildAPI(app, server);
+    buildAPI(app, server, 3000);
 
     chai
       .request(server)
