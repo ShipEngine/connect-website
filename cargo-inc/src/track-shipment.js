@@ -66,12 +66,7 @@ async function formatTrackingResponse(response) {
           stateProvince: response.trackingEvents[0].state,
           postalCode: response.trackingEvents[0].zip,
           country: response.trackingEvents[0].country,
-          timeZone: response.trackingEvents[0].timeZone,
-          isResidential: (response.trackingEvents[0].addressType == "residential" ? true : false),
-          coordinates: {
-            latitude: response.trackingEvents[0].latitude,
-            longitude: response.trackingEvents[0].longitude
-          }
+          isResidential: (response.trackingEvents[0].addressType == "residential" ? true : false)
         },
         signer: {
           title: response.signedBy.salutation,
@@ -80,9 +75,7 @@ async function formatTrackingResponse(response) {
           family: response.signedBy.lastName,
           suffix: response.signedBy.suffix
         },
-        notes: [
-          response.notes,
-        ]
+        notes: response.notes,
       }
     ]
   }
