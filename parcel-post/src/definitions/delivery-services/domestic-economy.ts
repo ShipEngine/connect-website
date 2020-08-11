@@ -15,7 +15,7 @@ export const domesticEconomy: DeliveryServiceDefinition = {
   serviceArea: ServiceArea.Domestic,
   manifestType: ManifestType.Digital,
   supportsReturns: true,
-  isTrackable: false,
+  isTrackable: true,
   isInsurable: false,
   labelFormats: [
     DocumentFormat.PDF,

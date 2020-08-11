@@ -16,6 +16,7 @@ const parcelPost: CarrierAppDefinition = {
   createShipment: import("./methods/create-shipment"),
   createManifest: import("./methods/create-manifest"),
   rateShipment: import("./methods/rate-shipment"),
+  trackShipment: import("./methods/track-shipment"),
   schedulePickup: import("./methods/schedule-pickup"),
   cancelShipments: import("./methods/cancel-shipments"),
   cancelPickups: import("./methods/cancel-pickups"),

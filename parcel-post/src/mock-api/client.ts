@@ -9,6 +9,7 @@ import {
 import { quoteRates, QuoteRatesRequest } from "./quote-rates";
 import { generateManifest, GenerateManifestRequest } from "./generate-manifest";
 import { voidLabels, VoidLabelsRequest } from "./void-labels";
+import { LocationHistoryRequest, locationHistory } from "./location-history";
 
 // Read config values from environment variables
 const API_URL = process.env.API_URL || "https://httpbin.org/anything";
@@ -63,6 +64,12 @@ export const apiClient = axios.create({
         return pickUpCancellation(
           request as HttpRequest & PickUpCancellationRequest
         );
+
+      case "location_history":
+        return locationHistory(
+          request as HttpRequest & LocationHistoryRequest
+        );
+
 
       case "void_labels":
         return voidLabels(
