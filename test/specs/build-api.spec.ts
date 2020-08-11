@@ -4,7 +4,11 @@ import express from "express";
 import { loadApp } from "@shipengine/integration-platform-loader";
 import { CarrierApp } from "@shipengine/integration-platform-sdk/lib/internal";
 
+import logger from "../../src/utils/logger";
 import buildAPI from "../../src/build-api";
+
+// Disable the logger to make test less noisy
+logger.disable = true;
 
 chai.use(chaiHttp);
 
@@ -110,7 +114,7 @@ describe("buildAPI", () => {
       });
   });
 
-  xit("sets the PUT '/create-shipment' endpoint and returns 200 when given a valid input", async () => {
+  it("sets the PUT '/create-shipment' endpoint", async () => {
     const server = express();
     const app = (await loadApp("test/fixtures/carrier-app")) as CarrierApp;
 
@@ -127,13 +131,8 @@ describe("buildAPI", () => {
         shipment: {},
       })
       .end((_err, res) => {
-        expect(res.status).to.equal(200);
-        expect(res.body).to.eql({
-          transaction: {
-            id: "6ad41b24-62a8-4e17-9751-a28d9688e277",
-            session: {},
-          },
-        });
+        expect(res.status).to.equal(400);
+        expect(res.body).to.haveOwnProperty("code", "ERR_INVALID_INPUT");
       });
   });
 
@@ -176,7 +175,7 @@ describe("buildAPI", () => {
       });
   });
 
-  xit("sets the PUT '/cancel-shipments' endpoint and returns 200 when given a valid input", async () => {
+  it("sets the PUT '/cancel-shipments' endpoint", async () => {
     const server = express();
     const app = (await loadApp("test/fixtures/carrier-app")) as CarrierApp;
 
@@ -193,13 +192,8 @@ describe("buildAPI", () => {
         outcomes: {},
       })
       .end((_err, res) => {
-        expect(res.status).to.equal(200);
-        expect(res.body).to.eql({
-          transaction: {
-            id: "6ad41b24-62a8-4e17-9751-a28d9688e277",
-            session: {},
-          },
-        });
+        expect(res.status).to.equal(400);
+        expect(res.body).to.haveOwnProperty("code", "ERR_INVALID_INPUT");
       });
   });
 
@@ -242,7 +236,7 @@ describe("buildAPI", () => {
       });
   });
 
-  xit("sets the PUT '/rate-shipment' endpoint and returns 200 when given a valid input", async () => {
+  it("sets the PUT '/rate-shipment' endpoint", async () => {
     const server = express();
     const app = (await loadApp("test/fixtures/carrier-app")) as CarrierApp;
 
@@ -259,13 +253,8 @@ describe("buildAPI", () => {
         rates: {},
       })
       .end((_err, res) => {
-        expect(res.status).to.equal(200);
-        expect(res.body).to.eql({
-          transaction: {
-            id: "6ad41b24-62a8-4e17-9751-a28d9688e277",
-            session: {},
-          },
-        });
+        expect(res.status).to.equal(400);
+        expect(res.body).to.haveOwnProperty("code", "ERR_INVALID_INPUT");
       });
   });
 
@@ -308,7 +297,7 @@ describe("buildAPI", () => {
       });
   });
 
-  xit("sets the PUT '/track-shipment' endpoint and returns 200 when given a valid input", async () => {
+  it("sets the PUT '/track-shipment' endpoint", async () => {
     const server = express();
     const app = (await loadApp("test/fixtures/carrier-app")) as CarrierApp;
 
@@ -325,13 +314,8 @@ describe("buildAPI", () => {
         trackingInfo: {},
       })
       .end((_err, res) => {
-        expect(res.status).to.equal(200);
-        expect(res.body).to.eql({
-          transaction: {
-            id: "6ad41b24-62a8-4e17-9751-a28d9688e277",
-            session: {},
-          },
-        });
+        expect(res.status).to.equal(400);
+        expect(res.body).to.haveOwnProperty("code", "ERR_INVALID_INPUT");
       });
   });
 
@@ -374,7 +358,7 @@ describe("buildAPI", () => {
       });
   });
 
-  xit("sets the PUT '/create-manifest' endpoint and returns 200 when given a valid input", async () => {
+  it("sets the PUT '/create-manifest' endpoint", async () => {
     const server = express();
     const app = (await loadApp("test/fixtures/carrier-app")) as CarrierApp;
 
@@ -391,13 +375,8 @@ describe("buildAPI", () => {
         manifest: {},
       })
       .end((_err, res) => {
-        expect(res.status).to.equal(200);
-        expect(res.body).to.eql({
-          transaction: {
-            id: "6ad41b24-62a8-4e17-9751-a28d9688e277",
-            session: {},
-          },
-        });
+        expect(res.status).to.equal(400);
+        expect(res.body).to.haveOwnProperty("code", "ERR_INVALID_INPUT");
       });
   });
 
@@ -440,7 +419,7 @@ describe("buildAPI", () => {
       });
   });
 
-  xit("sets the PUT '/schedule-pickup' endpoint and returns 200 when given a valid input", async () => {
+  it("sets the PUT '/schedule-pickup' endpoint", async () => {
     const server = express();
     const app = (await loadApp("test/fixtures/carrier-app")) as CarrierApp;
 
@@ -457,13 +436,8 @@ describe("buildAPI", () => {
         pickup: {},
       })
       .end((_err, res) => {
-        expect(res.status).to.equal(200);
-        expect(res.body).to.eql({
-          transaction: {
-            id: "6ad41b24-62a8-4e17-9751-a28d9688e277",
-            session: {},
-          },
-        });
+        expect(res.status).to.equal(400);
+        expect(res.body).to.haveOwnProperty("code", "ERR_INVALID_INPUT");
       });
   });
 
@@ -506,7 +480,7 @@ describe("buildAPI", () => {
       });
   });
 
-  xit("sets the PUT '/cancel-pickups' endpoint and returns 200 when given a valid input", async () => {
+  it("sets the PUT '/cancel-pickups' endpoint", async () => {
     const server = express();
     const app = (await loadApp("test/fixtures/carrier-app")) as CarrierApp;
 
@@ -523,13 +497,8 @@ describe("buildAPI", () => {
         pickups: {},
       })
       .end((_err, res) => {
-        expect(res.status).to.equal(200);
-        expect(res.body).to.eql({
-          transaction: {
-            id: "6ad41b24-62a8-4e17-9751-a28d9688e277",
-            session: {},
-          },
-        });
+        expect(res.status).to.equal(400);
+        expect(res.body).to.haveOwnProperty("code", "ERR_INVALID_INPUT");
       });
   });
 

@@ -3,7 +3,6 @@ import cors from "cors";
 import { loadApp } from "@shipengine/integration-platform-loader";
 import { CarrierApp } from "@shipengine/integration-platform-sdk/lib/internal";
 import { Request, Response, NextFunction } from "express";
-import chalk from "chalk";
 import buildAPI from "./build-api";
 import log from "./utils/logger";
 
@@ -26,16 +25,13 @@ export default async function server(
   try {
     sdkApp = (await loadApp(pathToApp)) as CarrierApp;
     buildAPI(sdkApp, server);
-    startMessage = chalk.green(
-      `${sdkApp.name} is now running at http://localhost:${port}`,
-    );
+    startMessage = `${sdkApp.name} is now running at http://localhost:${port}`;
   } catch (error) {
     appState.status = "down";
     appState.error = error;
-    startMessage = chalk.yellow(
-      "App failed to load! Please fix the validation issues above.",
-    );
-    log(chalk.red(error.stack));
+    startMessage =
+      "App failed to load! Please fix the validation issues above.";
+    log.error(error.stack);
   }
 
   server.get("/app-status", (_req, res) => {
@@ -49,5 +45,11 @@ export default async function server(
     res.status(404).send({ message: errorMessage });
   });
 
-  server.listen(port, () => log(startMessage));
+  server.listen(port, () => {
+    if (appState.status === "up") {
+      log.success(startMessage);
+    } else {
+      log.warn(startMessage);
+    }
+  });
 }
