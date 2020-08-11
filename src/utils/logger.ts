@@ -27,7 +27,7 @@ class Logger {
   }
 
   /**
-   * info
+   * body
    */
   public body(val: string | Record<string, unknown>): void {
     !this._disable && console.dir(val, { depth: Infinity });
