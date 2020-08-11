@@ -1,4 +1,4 @@
-"use strict";
+import { HttpRequest } from "./client";
 
 const allStatusCodes = ["NY", "C", "IT"]
 const allStatuses = {
@@ -7,11 +7,60 @@ const allStatuses = {
   IT: "IN TRANSIT"
 }
 
+export interface LocationHistoryRequest {
+  operation: "location_history";
+  trackingNumber: string;
+  isReturn: boolean;
+}
+
+export interface LocationHistoryResponse {
+  deliveryDate: string;
+  packages: {
+    description: string;
+    length: number;
+    width: number;
+    height: number;
+    dimUnit: string;
+    weight: number;
+    weightUnit: string;
+  }[];
+
+  trackingEvents: {
+    description: string;
+    date: string;
+    status: string,
+    errors: string[],
+    statusCode: string;
+    addressLine1: string;
+    city: string;
+    state: string;
+    zip: string;
+    country: string;
+    timeZone: string;
+    addressType: string;
+    latitude: number;
+    longitude: number;
+    companyName: string;
+  }[];
+
+  signedBy: {
+    salutation: string;
+    firstName: string;
+    middleName: string;
+    lastName: string;
+    suffix: string;
+  };
+  notes: {
+    type: string;
+    text: string;
+  }[];
+}
+
 
 /**
  * This is a mock implementation of a carrier"s API that returns the location history of a shipment
  */
-function locationHistory(request) {
+export function locationHistory(request: HttpRequest & LocationHistoryRequest): LocationHistoryResponse {
   const statusCode = allStatusCodes[Math.floor(Math.random() * allStatusCodes.length)];
   const status = allStatuses[statusCode];
 
@@ -62,5 +111,3 @@ function locationHistory(request) {
     ]
   }
 }
-
-module.exports = locationHistory;

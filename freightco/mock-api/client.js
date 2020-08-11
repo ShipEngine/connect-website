@@ -6,7 +6,7 @@ const generateLabel = require("./generate-label");
 const quoteRates = require("./quote-rates");
 const { pickUpCancellation } = require("./pickup-cancellation");
 const pickUp = require("./pick-up");
-const { voidLabels } = require("./void-labels")
+const voidLabels = require("./void-labels")
 
 // Read config values from environment variables
 const API_URL = process.env.API_URL || "https://httpbin.org/anything";
@@ -50,7 +50,7 @@ const apiClient = axios.create({
       case "pick_up_cancellation":
         return pickUpCancellation(request);
 
-      case "void_label":
+      case "void_labels":
         return voidLabels(request);
     }
   }

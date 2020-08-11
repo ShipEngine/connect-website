@@ -8,7 +8,7 @@ const voidLabels = require("./void-labels");
 const locationHistory = require("./location-history");
 const pickUp = require("./pick-up");
 const { pickUpCancellation } = require("./pickup-cancellation");
-const { generateEOD } = require("./generate-eod");
+const generateEOD  = require("./generate-eod");
 
 // Read config values from environment variables
 const API_URL = process.env.API_URL || "https://httpbin.org/anything";

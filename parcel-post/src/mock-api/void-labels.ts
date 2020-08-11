@@ -1,5 +1,3 @@
-"use strict";
-
 const data = [
   {
     status: "COMPLETE",
@@ -15,10 +13,34 @@ const data = [
   }
 ]
 
+
+export interface VoidLabelsRequest {
+  operation: "void_labels";
+  session_id: string;
+  cancellations: {
+    cancellationID: string;
+    internalReferenceID: string;
+    trackingNumber: string;
+  }[]
+};
+
+export interface VoidLabelsResponse {
+  canceledShipments: VoidLabelsResponseItem[];
+}
+
+export interface VoidLabelsResponseItem {
+  id: string;
+  cancellationStatus: string;
+  cancellationCode: string;
+  cancellationDescription: string;
+  cancellationNote: string;
+  cancellationConfirmation: string;
+}
+
 /**
  * This is a mock implementation of a carrier"s API that voids one or more labels
  */
-function voidLabels(request) {
+export function voidLabels(request: VoidLabelsRequest): VoidLabelsResponse {
   return {
     canceledShipments: request.cancellations.map((cancellation) => {
       const { cancellationID } = cancellation;
@@ -37,5 +59,3 @@ function voidLabels(request) {
     })
   }
 }
-
-module.exports = voidLabels;

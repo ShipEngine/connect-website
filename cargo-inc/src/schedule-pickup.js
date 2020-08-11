@@ -1,4 +1,4 @@
-const { apiClient } = require("./mock-api/client");
+const apiClient = require("./mock-api/client");
 const { ONE_DAY, ONE_HOUR } = require("./mock-api/pickup-cancellation");
 const yaml = require("js-yaml");
 const fs = require("fs");
@@ -42,7 +42,7 @@ async function schedulePickup(transaction, pickup) {
 function formatConfirmation(response) {
     let pickupDateTime = new Date(response.date_time);
 
-    return {
+    let returnValue =  {
         id: response.id,
         timeWindows: [
             {
@@ -77,6 +77,8 @@ function formatConfirmation(response) {
             },
         ]
     };
+
+    return returnValue;
 }
 
 module.exports = schedulePickup;

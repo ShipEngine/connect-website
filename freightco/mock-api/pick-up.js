@@ -6,7 +6,7 @@ const { ONE_DAY, ONE_HOUR } = require("./pickup-cancellation");
  */
 function pickUp(request) {
   let serviceCode = request.service_code;
-  let dateTime = new Date(request.date_time);
+  let dateTime = new Date(request.date_time.value);
   let weight = request.total_weight;
 
   switch (serviceCode) {

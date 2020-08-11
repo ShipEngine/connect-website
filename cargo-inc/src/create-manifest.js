@@ -25,11 +25,10 @@ async function createManifest(transaction, manifest) {
  * Formats a shipment in the way ShipEngine expects
  */
 async function formatManifestResponse(response) {
-  const deliveryTzSplit = response.deliveryDate.split();
-  const eventTzSplit = response.trackingEvents[0].date.split();
 
   return {
-    manifests:{
+    manifests:[
+      {
       shipments: [
         {
           trackingNumber: response.data[0].trackingNumber,
@@ -40,6 +39,7 @@ async function formatManifestResponse(response) {
         }
       ]
     }
+  ]
   }
 }
 

@@ -33,7 +33,7 @@ function quoteRates(request) {
           service_code,
           confirmation_code,
           parcel_code,
-          ship_date: shipDate.toISOString(),
+          ship_date: shipDate ,
           delivery_date: new Date(shipDate.setDate(shipDate.getDate() + service.days)).toISOString(),
           delivery_days: service.days,
           shipment_cost: service.price * totalWeight,

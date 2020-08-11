@@ -1,33 +1,34 @@
-"use strict";
+import { apiClient } from "../mock-api/client";
+import { Session } from "./session";
+import { Transaction, TrackingInfo, TrackingCriteria, ShipmentStatus } from "@shipengine/integration-platform-sdk";
+import { LocationHistoryResponse, LocationHistoryRequest } from "../mock-api/location-history";
 
-const apiClient = require("./mock-api/client");
-
-async function trackShipment(transaction, trackingCriteria) {
+export default async function trackShipment(
+  transaction: Transaction<Session>, trackingCriteria: TrackingCriteria): Promise<TrackingInfo> {
   // STEP 1: Validation
-
 
   // STEP 2: Create the data that the carrier"s API expects
 
   const { trackingNumber, returns } = trackingCriteria;
 
-  const data = {
+  const data: LocationHistoryRequest = {
     operation: "location_history",
     trackingNumber,
     isReturn: returns.isReturn
   };
 
   // STEP 3: Call the carrier"s API
-  const response = await apiClient.request({ data });
+  const response = await apiClient.request<LocationHistoryResponse>({ data });
 
   // STEP 4: Create the output data that ShipEngine expects
-  return await formatTrackingResponse(response.data);
+  return formatTrackingResponse(response.data);
 
 }
 
 /**
  * Formats a shipment in the way ShipEngine expects
  */
-async function formatTrackingResponse(response) {
+function formatTrackingResponse(response): TrackingInfo {
 
   return {
     deliveryDateTime: response.deliveryDate,
@@ -35,9 +36,6 @@ async function formatTrackingResponse(response) {
       {
         packaging: {
           id: "03318192-3e6c-475f-a496-a4f17c1dbcae",
-          description: response.packages[0].description,
-          requiresWeight: true,
-          requiresDimensions: false
         },
         dimensions: {
           length: response.packages[0].length,
@@ -66,7 +64,7 @@ async function formatTrackingResponse(response) {
           stateProvince: response.trackingEvents[0].state,
           postalCode: response.trackingEvents[0].zip,
           country: response.trackingEvents[0].country,
-          isResidential: (response.trackingEvents[0].addressType == "residential" ? true : false)
+          isResidential: (response.trackingEvents[0].addressType == "residential" ? true : false),
         },
         signer: {
           title: response.signedBy.salutation,
@@ -75,22 +73,20 @@ async function formatTrackingResponse(response) {
           family: response.signedBy.lastName,
           suffix: response.signedBy.suffix
         },
-        notes: response.notes,
+        notes: response.notes
       }
     ]
   }
 }
 
-function mapStatusCodes(statusCodes) {
+function mapStatusCodes(statusCodes): ShipmentStatus {
 
   switch(statusCodes) {
     case "NY":
-      return "accepted";
+      return ShipmentStatus.Accepted;
     case "C":
-      return "delivered";
+      return ShipmentStatus.Delivered;
     case "IT":
-      return "in_transit";
+      return ShipmentStatus.InTransit;
   }
 }
-
-module.exports = trackShipment;

@@ -19,8 +19,8 @@ async function rateShipment(transaction, shipment) {
     service_codes: shipment.deliveryService.identifiers.apiCode,
     confirmation_codes: shipment.deliveryConfirmation.identifiers.apiCode,
     parcel_code: shipment.package.packaging.identifiers.apiCode,
-    ship_date: shipment.shipDateTime,
-    delivery_date: shipment.deliveryDateTime,
+    ship_date: shipment.shipDateTime.toISOString(),
+    delivery_date: shipment.deliveryDateTime.toISOString(),
     total_weight: shipment.package.weight.ounces,
   };
 
@@ -40,7 +40,7 @@ function formatRate(rate) {
     shipDateTime: new Date(rate.ship_date),
     deliveryDateTime: new Date(rate.delivery_date),
     isTrackable: true,
-    deliveryConfirmation: deliveryConfirmation.find((conf) => conf.identifiers.apiCode === rate.confirmation_code),
+    deliveryConfirmation: deliveryConfirmations.find((conf) => conf.identifiers.apiCode === rate.confirmation_code),
     packages: [{
       packaging: packaging.find((pkg) => pkg.identifiers.apiCode === rate.parcel_code),
     }],
