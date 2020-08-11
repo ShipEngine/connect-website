@@ -23,7 +23,14 @@ class Logger {
    * info
    */
   public info(val: string | Record<string, unknown>): void {
-    !this._disable && console.log(val);
+    !this._disable && console.log(chalk.cyan(val));
+  }
+
+  /**
+   * info
+   */
+  public body(val: string | Record<string, unknown>): void {
+    !this._disable && console.dir(val, { depth: Infinity });
   }
 
   /**
