@@ -30,7 +30,7 @@ async function cancelShipments(transaction, shipmentCancellations) {
  * Formats a shipment in the way ShipEngine expects
  */
 async function formatCancellationResponse(response) {
-  return response.canceledShipments.map((c) => {
+  return response.canceledShipments.map((cancellation) => {
     const status = ((status) => {
       switch (status) {
         case "COMPLETE":
@@ -38,16 +38,16 @@ async function formatCancellationResponse(response) {
         case "FAILED":
           return "error";
         default:
-          throw new Error("status unkown");
+          throw new Error("status unknown");
       }
-    })(c.cancellationStatus);
+    })(cancellation.cancellationStatus);
 
     return {
-      cancellationID: c.id,
+      cancellationID: cancellation.id,
       status: status,
-      code: c.cancellationCode,
-      description: c.cancellationDescription,
-      notes: c.cancellationNotes,
+      code: cancellation.cancellationCode,
+      description: cancellation.cancellationDescription,
+      notes: [{type: "message_to_buyer", text: cancellation.cancellationNote}],
       metadata: {},
     };
   });

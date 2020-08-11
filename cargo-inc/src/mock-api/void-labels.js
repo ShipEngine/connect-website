@@ -22,14 +22,14 @@ function voidLabels(request) {
   return {
     canceledShipments: request.cancellations.map((cancellation) => {
       const { cancellationID } = cancellation;
-      const { status, code, description, notes } = data[Math.floor(Math.random() * data.length)];
+      const { status, code, description, note } = data[Math.floor(Math.random() * data.length)];
 
       return {
         id: cancellationID,
         cancellationStatus: status,
         cancellationCode: code,
         cancellationDescription: description,
-        cancellationNotes: notes,
+        cancellationNote: note,
         cancellationConfirmation: Buffer.from(new Date().toISOString()).toString(
           "base64"
         ),

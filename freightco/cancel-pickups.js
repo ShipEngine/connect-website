@@ -38,7 +38,7 @@ async function cancelPickups(transaction, pickups) {
         status: "error",
         notes: [
           {
-            type: "error",
+            type: "message_to_buyer",
             text: cancellation.reason,
           }
         ],
@@ -49,7 +49,12 @@ async function cancelPickups(transaction, pickups) {
         cancellationID: pickups[index].cancellationID,
         confirmationNumber: cancellation.id,
         status: "success",
-        notes: `Pickup ${pickups[index].id} was canceled successfully`,
+        notes: [
+          {
+            type: "message_to_buyer",
+            text: `Pickup ${pickups[index].id} was canceled successfully`
+          }
+        ]
       };
     }
   });

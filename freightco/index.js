@@ -12,6 +12,7 @@ module.exports = {
 
   connect: "connect.js",
   createShipment: "create-shipment.js",
+  cancelShipments: "cancel-shipments.js",
   rateShipment: "rate-shipment.js",
 
   cancelPickups: "cancel-pickups.js",

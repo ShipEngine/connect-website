@@ -54,7 +54,12 @@ function locationHistory(request) {
       lastName: "Engine",
       suffix: "",
     },
-    notes: "This package was tracked successfully",
+    notes: [
+      {
+        type: "message_to_buyer",
+        text: "This package was tracked successfully"
+      }
+    ]
   }
 }
 
