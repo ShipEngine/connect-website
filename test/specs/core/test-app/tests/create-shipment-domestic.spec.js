@@ -240,8 +240,7 @@ describe("The create shipment domestic test suite", () => {
           cityLocality: "Houston",
           stateProvince: "TX",
           country: "US",
-          postalCode: "77422",
-          timeZone: "America/Chicago"
+          postalCode: "77422"
         },
         shipTo: {
           company: "Domestic Route #2",
@@ -249,8 +248,7 @@ describe("The create shipment domestic test suite", () => {
           cityLocality: "Houston",
           stateProvince: "TX",
           country: "US",
-          postalCode: "77422",
-          timeZone: "America/Chicago"
+          postalCode: "77422"
         }
       };
 
