@@ -8,6 +8,7 @@ import {
 } from "./pick-up-cancellation";
 import { quoteRates, QuoteRatesRequest } from "./quote-rates";
 import { generateManifest, GenerateManifestRequest } from "./generate-manifest";
+import { voidLabels, VoidLabelsRequest } from "./void-labels";
 
 // Read config values from environment variables
 const API_URL = process.env.API_URL || "https://httpbin.org/anything";
@@ -61,6 +62,11 @@ export const apiClient = axios.create({
       case "pick_up_cancellation":
         return pickUpCancellation(
           request as HttpRequest & PickUpCancellationRequest
+        );
+
+      case "void_labels":
+        return voidLabels(
+          request as HttpRequest & VoidLabelsRequest
         );
     }
   },
