@@ -51,6 +51,7 @@ export default function startApp({
 
   nodemon({
     watch: [cwd],
+    ext: "js,ts,json,yaml,yml,png,jpg,jpeg,PNG,JPG,JPEG,svg,SVG",
     script: startServerScript,
     args: [cwd, port.toString()],
   });
