@@ -22,7 +22,7 @@ async function schedulePickup(transaction, pickup) {
     let data = {
         operation: "pick_up",
         session_id: transaction.session.id,
-        service_code: pickup.pickupService.identifiers.apiCode,
+        service_code: pickup.pickupService.code,
         date_time: pickup.timeWindow.startDateTime,
         zone: Number.parseInt(pickup.address.postalCode),
         contact_phone: pickup.contact.phoneNumber,

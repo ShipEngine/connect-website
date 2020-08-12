@@ -21,7 +21,7 @@ async function createShipment(transaction, shipment) {
   let data = {
     operation: "generate_label",
     session_id: transaction.session.id,
-    service_code: shipment.deliveryService.identifiers.apiCode,
+    service_code: shipment.deliveryService.code,
     ship_date: shipment.shipDateTime.toISOString(),
     from_zone: parseInt(shipment.shipFrom.postalCode, 10),
     to_zone: parseInt(shipment.shipTo.postalCode, 10),
@@ -29,7 +29,7 @@ async function createShipment(transaction, shipment) {
   };
 
   if (shipment.deliveryConfirmation) {
-    data.confirmation_code = shipment.deliveryConfirmation.identifiers.apiCode;
+    data.confirmation_code = shipment.deliveryConfirmation.code;
   }
 
   // STEP 3: Call the carrier's API

@@ -1,6 +1,5 @@
 id: cc10a05a-78eb-11ea-bc55-0242ac130003
-identifiers:
-  apiCode: SIG-A
+code: SIG-A
 name: Adult Signature
 description: Requires a signature from a resident of at least 18 years of age
 type: adult_signature

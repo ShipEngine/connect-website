@@ -14,9 +14,9 @@ async function rateShipment(transaction, shipment) {
   let data = {
     operation: "quote_rates",
     session_id: transaction.session.id,
-    service_code: shipment.deliveryService.identifiers.apiCode,
-    confirmation_code: shipment.deliveryConfirmation.identifiers.apiCode,
-    parcel_codes: shipment.packages[0].packaging.identifiers.apiCode,
+    service_code: shipment.deliveryService.code,
+    confirmation_code: shipment.deliveryConfirmation.code,
+    parcel_codes: shipment.packages[0].packaging.code,
     ship_date: shipment.shipDateTime.toISOString(),
     delivery_date: shipment.deliveryDateTime.toISOString(),
     from_zone: parseInt(shipment.shipFrom.postalCode, 10),
