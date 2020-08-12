@@ -2,8 +2,11 @@ import { CancelPickupRequest } from '@ipaas/capi/requests';
 import {
   PickupCancellationReason,
   TimeRangePOJO,
-  PickupCancellationPOJO,
+  NoteType,
 } from '@shipengine/integration-platform-sdk';
+import {
+  PickupCancellationPOJO
+} from '@shipengine/integration-platform-sdk/lib/internal';
 import {
   CancellationReason,
   PickupWindow,
@@ -11,7 +14,7 @@ import {
 } from '@ipaas/capi/models';
 import { mapAddressToAddressWithContactInfoPOJO } from './address';
 import mapContact from './pickup-contact';
-import mapSemiImplementedShipment from './shipped-shipment';
+import { mapPickupShipment } from './shipped-shipment';
 
 const mapIdentifier = (result: any, identifier: capiIdentifier): any => {
   if (identifier.value && identifier.type) {
@@ -54,7 +57,7 @@ const mapPickupWindow = (
   };
 };
 
-export const mapCancelPickupRequestToPickupCancellationPOJO = (
+export const mapCancelPickupRequest = (
   request: CancelPickupRequest
 ): PickupCancellationPOJO => {
   return {
@@ -67,14 +70,17 @@ export const mapCancelPickupRequestToPickupCancellationPOJO = (
       request.confirmation?.alternate_identifiers?.reduce(mapIdentifier, {}) ||
       undefined,
     reason: mapCancellationReason(request.cancellation_details?.reason),
-    notes: request.cancellation_details?.remarks || undefined,
+    notes: [{
+      type: NoteType.Internal,
+      text: request.cancellation_details?.remarks || '',
+    }],
     address: mapAddressToAddressWithContactInfoPOJO(
       request.location?.pickup_address
     ),
     contact: mapContact(request.contact),
     timeWindows: request.pickup_windows?.map(mapPickupWindow) || [],
     shipments:
-      request.pickup_details?.shipments?.map(mapSemiImplementedShipment) || [],
+      request.pickup_details?.shipments?.map(mapPickupShipment) || [],
     metadata: request.custom_properties || undefined,
   };
 };

@@ -1,11 +1,11 @@
 import { CreateLabelRequest } from '@ipaas/capi/requests';
 import { mapAddressToAddressWithContactInfoPOJO } from './address';
-import { NewShipmentPOJO } from '@shipengine/integration-platform-sdk';
+import { NewShipmentPOJO } from '@shipengine/integration-platform-sdk/lib/internal';
 import { capiToDxNewPackagePOJO } from './package';
 import { mapCapiToDxDocumentFormat } from './document-format';
 import { mapCapiToDxDocumentSize } from './document-size';
 
-export const mapCreateLabelRequestToNewShipmentPOJO = (
+export const mapCreateLabelRequest = (
   request: CreateLabelRequest
 ): NewShipmentPOJO => {
   return {

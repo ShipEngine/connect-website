@@ -1,4 +1,4 @@
-import { ShipmentCancellationPOJO } from '@shipengine/integration-platform-sdk';
+import { ShipmentCancellationPOJO } from '@shipengine/integration-platform-sdk/lib/internal';
 import { VoidLabelsRequest, VoidRequest } from '@ipaas/capi/requests';
 
 const mapVoidLabelRequest = (
@@ -11,9 +11,7 @@ const mapVoidLabelRequest = (
       ? request.tracking_number
       : undefined,
     identifiers: {
-      carrierTransactionId: request.carrier_transaction_id
-        ? request.carrier_transaction_id
-        : undefined,
+      carrierTransactionId: request.carrier_transaction_id || ''
     },
     metadata: {
       ...metadata,
@@ -21,7 +19,7 @@ const mapVoidLabelRequest = (
   };
 };
 
-export const mapVoidLabelsRequestToCancelShipmentsPOJO = (
+export const mapVoidLabelsRequest = (
   request: VoidLabelsRequest
 ): ShipmentCancellationPOJO[] => {
   const shipmentCancellations: ShipmentCancellationPOJO[] = [];

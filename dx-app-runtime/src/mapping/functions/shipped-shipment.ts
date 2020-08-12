@@ -1,13 +1,11 @@
 import { PickupShipment } from '@ipaas/capi/models';
-import { PickupShipmentPOJO } from '@shipengine/integration-platform-sdk';
 import { capiToPickupPackagePOJO } from './package';
+import { PickupShipmentPOJO } from '@shipengine/integration-platform-sdk/lib/internal';
 
-export default (shipment: PickupShipment): PickupShipmentPOJO => {
+export const mapPickupShipment = (shipment: PickupShipment): PickupShipmentPOJO => {
   const mappedShipment: PickupShipmentPOJO = {
     trackingNumber: shipment.tracking_number || '',
-    deliveryService: {
-      id: shipment.service_code || '',
-    },
+    deliveryService: shipment.service_code || '',
     packages: shipment.packages?.map(capiToPickupPackagePOJO) || [],
   };
   return mappedShipment;

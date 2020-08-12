@@ -1,10 +1,12 @@
 import { GetRatesRequest } from '@ipaas/capi/requests';
 import {
-  RateCriteriaPOJO,
-  PackageRateCriteriaPOJO,
   LengthUnit,
   WeightUnit,
 } from '@shipengine/integration-platform-sdk';
+import {
+  RateCriteriaPOJO,
+  PackageRateCriteriaPOJO
+} from '@shipengine/integration-platform-sdk/lib/internal';
 import { mapAddressToAddressWithContactInfoPOJO } from './address';
 import { Package } from '@ipaas/capi/models';
 
@@ -13,12 +15,7 @@ const mapPackage = (
   request: GetRatesRequest
 ): PackageRateCriteriaPOJO => {
   return {
-    packaging: [
-      {
-        id: pckg.package_code || '',
-      },
-    ],
-    deliveryConfirmations: [], // TODO: We don't have a way of passing in the id associated with a delivery confirmation
+    packaging: pckg.package_code || '',
     dimensions: {
       length: pckg.dimension_details?.dimensions_in_inches?.length || 0,
       height: pckg.dimension_details?.dimensions_in_inches?.height || 0,
@@ -30,7 +27,7 @@ const mapPackage = (
       unit: WeightUnit.Ounces,
     },
     insuredValue: {
-      value: request.insured_value?.amount || '0.00',
+      value: !Number.isNaN(request.insured_value?.amount) ? Number(request.insured_value?.amount) : 0,
       currency: request.insured_value?.currency || 'USD',
     },
     containsAlcohol: request.advanced_options?.contains_alcohol || false,
@@ -38,13 +35,12 @@ const mapPackage = (
   };
 };
 
-export const mapGetRatesRequestToRateCriteriaPOJO = (
+export const mapGetRatesRequest = (
   request: GetRatesRequest
 ): RateCriteriaPOJO => {
   const rateCriteria: RateCriteriaPOJO = {
-    deliveryService: {
-      id: '', // TODO: This needs to get fixed, we shouldn't expect to send that id
-    },
+    deliveryService: request.service_code || '',
+    deliveryConfirmation: request.confirmation ? request.confirmation?.toString() : undefined,
     deliveryDateTime: undefined,
     shipDateTime: request.ship_datetime,
     shipFrom: mapAddressToAddressWithContactInfoPOJO(request.ship_from),

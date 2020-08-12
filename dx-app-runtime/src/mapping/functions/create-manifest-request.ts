@@ -1,5 +1,6 @@
 import { CreateManifestRequest } from "@ipaas/capi";
-import { NewManifestPOJO, ShipmentIdentifierPOJO } from "@shipengine/integration-platform-sdk";
+import { ShipmentIdentifierPOJO } from "@shipengine/integration-platform-sdk";
+import { NewManifestPOJO } from '@shipengine/integration-platform-sdk/lib/internal';
 import { Label } from "@ipaas/capi/models/label";
 import { mapAddressToAddressWithContactInfoPOJO } from "./address";
 

@@ -9,12 +9,15 @@ import {
   DocumentFormat,
   DocumentSize,
   LengthUnit,
-  NewPackagePOJO,
   WeightUnit,
-  RatePackagePOJO,
+  RatePackage,
+} from '@shipengine/integration-platform-sdk';
+
+import {
   PackageRateCriteriaPOJO,
   PickupPackagePOJO,
-} from '@shipengine/integration-platform-sdk';
+  NewPackagePOJO,
+} from '@shipengine/integration-platform-sdk/lib/internal';
 import { capiToDxCustomsItem } from './customs-item';
 
 export const capiToDxPackage = (
@@ -23,7 +26,7 @@ export const capiToDxPackage = (
   advancedOptions: AdvancedShippingOptions | null | undefined,
   documentFormat: DocumentFormat,
   documentSize: DocumentSize
-): NewPackagePOJO | RatePackagePOJO => {
+): NewPackagePOJO | RatePackage => {
   const nonNullCustomsItems = <CapiCustomsItem[] | undefined>(
     customs?.customs_items.filter((item) => item !== null && item !== undefined)
   );
@@ -105,7 +108,7 @@ export const capiToDxNewPackagePOJO = (
       unit: WeightUnit.Grams,
     },
     insuredValue: {
-      value: capiPackage?.insured_value?.amount || '0',
+      value: !Number.isNaN(capiPackage?.insured_value?.amount) ? Number(capiPackage?.insured_value?.amount) : 0,
       currency: capiPackage?.insured_value?.currency || 'USD',
     },
     containsAlcohol: advancedOptions?.contains_alcohol || false,
@@ -146,7 +149,7 @@ export const capiToDxPackageRateCriteria = (
       unit: WeightUnit.Grams,
     },
     insuredValue: {
-      value: capiPackage?.insured_value?.amount || '0',
+      value: !Number.isNaN(capiPackage?.insured_value?.amount) ? Number(capiPackage?.insured_value?.amount) : 0,
       currency: capiPackage?.insured_value?.currency || 'USD',
     },
     containsAlcohol: advancedOptions?.contains_alcohol || false,
@@ -173,9 +176,7 @@ export const capiToPickupPackagePOJO = (
       unit: LengthUnit.Centimeters,
     },
     identifiers: {
-      trackingNumber: shippedPackage.tracking_number
-        ? shippedPackage.tracking_number
-        : undefined,
+      trackingNumber: shippedPackage.tracking_number || ''
     },
   };
 

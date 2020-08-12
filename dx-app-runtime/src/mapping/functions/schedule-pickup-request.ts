@@ -1,10 +1,11 @@
 import { SchedulePickupRequest } from '@ipaas/capi/requests';
-import { PickupRequestPOJO } from '@shipengine/integration-platform-sdk';
+import { PickupRequestPOJO } from '@shipengine/integration-platform-sdk/lib/internal';
 import { mapAddressToAddressWithContactInfoPOJO } from './address';
-import mapSemiImplementedShipment from './shipped-shipment';
+import { mapPickupShipment } from './shipped-shipment';
 import mapContact from './pickup-contact';
+import { NoteType } from '@shipengine/integration-platform-sdk';
 
-export const mapSchedulePickupRequestToPickupRequestPOJO = (
+export const mapSchedulePickupRequest = (
   request: SchedulePickupRequest
 ): PickupRequestPOJO => {
   const mappedRequest: PickupRequestPOJO = {
@@ -18,10 +19,13 @@ export const mapSchedulePickupRequestToPickupRequestPOJO = (
     address: mapAddressToAddressWithContactInfoPOJO(
       request.location?.pickup_address
     ),
-    notes: request.location?.location_notes || '',
+    notes: [{
+      text: request.location?.location_notes || '',
+      type: NoteType.Internal
+    }],
     contact: mapContact(request.contact),
     shipments:
-      request.pickup_details?.shipments?.map(mapSemiImplementedShipment) || [],
+      request.pickup_details?.shipments?.map(mapPickupShipment) || [],
   };
   return mappedRequest;
 };

@@ -1,19 +1,19 @@
-import { CustomsItem } from '@ipaas/capi/models';
+import { CustomsItem as CapiCustomsItem } from '@ipaas/capi/models';
 import {
-  CustomsItemPOJO,
   CustomsItemType,
+  CustomsItem
 } from '@shipengine/integration-platform-sdk';
 import { capiToDxQuantity } from './quantity';
 
-const capiToDxCustomsItem = (customsItem: CustomsItem): CustomsItemPOJO => {
-  const dxCustomsItem: CustomsItemPOJO = {
+const capiToDxCustomsItem = (customsItem: CapiCustomsItem): CustomsItem => {
+  const dxCustomsItem: CustomsItem = {
     description: customsItem?.description ?? '',
     harmonizedTariffCode: customsItem?.harmonized_tariff_code ?? '',
     quantity: capiToDxQuantity(customsItem.quantity),
     type: CustomsItemType.Other, //TODO: CAPI does not have customs item type
     unitValue: {
       currency: customsItem?.value?.currency || 'USD',
-      value: customsItem?.value?.amount || '0.00',
+      value: !Number.isNaN(customsItem?.value?.amount) ? Number(customsItem?.value?.amount) : 0,
     },
     sku: customsItem?.sku || '',
   };

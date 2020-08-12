@@ -1,13 +1,16 @@
 import { GetRatesResponse } from '@ipaas/capi/responses';
 import {
-  RatePOJO,
-  TransactionPOJO,
+  Transaction,
   ChargeType,
 } from '@shipengine/integration-platform-sdk';
+import {
+  Rate,
+} from '@shipengine/integration-platform-sdk/lib/internal';
+
 import { Rate as capiRate } from '@ipaas/capi/responses';
 import { toCapiDateTimeString } from './datetime';
 
-export const mapRate = (rate: RatePOJO): capiRate => {
+export const mapRate = (rate: Rate): capiRate => {
   const shippingAmount = rate.charges.find(
     (rate) => rate.type === ChargeType.Shipping
   );
@@ -21,7 +24,7 @@ export const mapRate = (rate: RatePOJO): capiRate => {
     (rate) => rate.type === ChargeType.Uncategorized
   );
   const returnRate: capiRate = {
-    service_code: rate.deliveryService?.id,
+    service_code: rate.deliveryService.toString(),
     shipping_amount: {
       currency: shippingAmount?.amount?.currency || 'USD',
       amount: shippingAmount?.amount?.value?.toString() || '0.00',
@@ -54,15 +57,15 @@ export const mapRate = (rate: RatePOJO): capiRate => {
       ); // It is either going to be an array of strings or an array of objects.
     } else {
       // It is a string
-      returnRate.warning_messages = [rate.notes.toString()];
+      returnRate.warning_messages = []; // TODO: Do we need Warnings?
     }
   }
   return returnRate;
 };
 
-const mapRatePOJOToGetRatesResponse = (
-  transaction: TransactionPOJO,
-  rateQuotes: RatePOJO[]
+export const mapGetRatesResponse = (
+  transaction: Transaction,
+  rateQuotes: Rate[]
 ): GetRatesResponse => {
   const rateResponse: GetRatesResponse = {
     rates: rateQuotes.map(mapRate),
@@ -70,5 +73,3 @@ const mapRatePOJOToGetRatesResponse = (
   };
   return rateResponse;
 };
-
-export { mapRatePOJOToGetRatesResponse };

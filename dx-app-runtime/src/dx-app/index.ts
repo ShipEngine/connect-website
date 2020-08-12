@@ -1,4 +1,4 @@
-import { CarrierApp } from '@shipengine/integration-platform-sdk';
+import { CarrierApp } from '@shipengine/integration-platform-sdk/lib/internal';
 import logger from '../util/logger';
 import * as fs from 'fs';
 import { loadApp } from '@shipengine/integration-platform-loader';
@@ -27,7 +27,7 @@ export default async (): Promise<CarrierApp> => {
     logger.info(
       `This is a ${app.type} app that uses v${app.sdkVersion} of the SDK`
     );
-    return app as CarrierApp;
+    return app as unknown as CarrierApp;
   } catch (error) {
     logger.error(error.message, error);
     process.exit(1);

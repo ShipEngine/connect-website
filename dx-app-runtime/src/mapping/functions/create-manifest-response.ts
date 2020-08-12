@@ -1,8 +1,9 @@
 import { CreateManifestResponse } from "@ipaas/capi";
-import { ManifestConfirmationPOJO, ManifestPOJO } from "@shipengine/integration-platform-sdk";
-import { Manifest } from "@ipaas/capi/models/manifest";
+import { Manifest, ManifestConfirmation } from '@shipengine/integration-platform-sdk/lib/internal';
+import { Transaction } from '@shipengine/integration-platform-sdk';
+import { Manifest as CapiManifest } from "@ipaas/capi/models/manifest";
 
-const mapManifest = (manifest: ManifestPOJO): Manifest => {
+const mapManifest = (manifest: Manifest): CapiManifest => {
   return {
     manifest_id: manifest.id || '',
     document_download: {
@@ -14,9 +15,9 @@ const mapManifest = (manifest: ManifestPOJO): Manifest => {
   }
 }
 
-export const mapCreateManifestResponse = (response: ManifestConfirmationPOJO, transactionId: string) : CreateManifestResponse => {
+export const mapCreateManifestResponse = (response: ManifestConfirmation, transaction: Transaction) : CreateManifestResponse => {
   return {
-    transaction_id: transactionId,
+    transaction_id: transaction.id,
     manifests: response.manifests.map(mapManifest)
   }
 }

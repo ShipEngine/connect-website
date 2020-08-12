@@ -1,7 +1,7 @@
 import serviceHandler from '../service-handler';
 import { IRouter, Router } from 'express';
 const router: IRouter = Router();
-import integration from '../integration';
+import * as integration from '../integration';
 import diagnostics from './diagnostics';
 import registry from './loader-data';
 

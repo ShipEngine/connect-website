@@ -7,9 +7,9 @@ import {
   RegisterRequest,
   CreateLabelRequest,
 } from '@ipaas/capi/requests';
-import { TransactionPOJO } from '@shipengine/integration-platform-sdk';
+import { Transaction } from '@shipengine/integration-platform-sdk';
 
-export default (
+export const mapTransaction = (
   request:
     | RegisterRequest
     | GetRatesRequest
@@ -18,12 +18,12 @@ export default (
     | TrackRequest
     | SchedulePickupRequest
     | CancelPickupRequest
-): TransactionPOJO => {
-  const transaction = {
+): Transaction => {
+  return {
     id: request.transaction_id || '',
+    useSandbox: false, // TODO: Do we want to add sandbox to call?
     session: {
       ...request.metadata,
     },
   };
-  return transaction;
 };

@@ -1,9 +1,11 @@
 import {
-  PickupConfirmationPOJO,
   ShipmentIdentifierPOJO,
   NotePOJO,
-  TransactionPOJO,
+  Transaction,
 } from '@shipengine/integration-platform-sdk';
+import {
+  PickupConfirmation,
+} from '@shipengine/integration-platform-sdk/lib/internal';
 import { SchedulePickupResponse } from '@ipaas/capi/responses';
 import {
   ShipmentIdentifier,
@@ -64,9 +66,9 @@ const mapShipmentIdentifiers = (
   }
   return mappedIdentifier;
 };
-export const mapPickupConfirmationPOJOToSchedulePickupResponse = (
-  response: PickupConfirmationPOJO,
-  transaction: TransactionPOJO
+export const mapSchedulePickupResponse = (
+  response: PickupConfirmation,
+  transaction: Transaction
 ): SchedulePickupResponse => {
   const mappedResponse: SchedulePickupResponse = {
     remarks: response.notes ? mapNotesToString(response.notes) : undefined,

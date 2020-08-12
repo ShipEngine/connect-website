@@ -16,7 +16,6 @@ import {
   SupportedLabelSize,
 } from './external/enums';
 import {
-  CarrierApp,
   Country,
   DeliveryConfirmation,
   DeliveryConfirmationType,
@@ -26,7 +25,11 @@ import {
   DocumentFormat,
   DocumentSize,
   ServiceArea,
+  ManifestType,
 } from '@shipengine/integration-platform-sdk';
+import {
+  CarrierApp
+} from '@shipengine/integration-platform-sdk/lib/internal'
 import logger from '../../util/logger';
 import ShippingProviderConnector from './external/shipping-provider-connector';
 import { InvalidInput } from '../../errors';
@@ -106,14 +109,12 @@ const mapFunctions = (app: CarrierApp): ProviderFunction[] => {
 
 const mapCarrierAttributes = (carrier: CarrierApp): CarrierAttribute[] => {
   const carrierAttributes: CarrierAttribute[] = [];
-  /* TODO: follow up on manifest type
-  if (carrier.requiresManifest === ManifestType.Digital) {
+  if (carrier.manifestType === ManifestType.Digital) {
     carrierAttributes.push(CarrierAttribute.ManifestDigital);
   }
-  if (carrier.requiresManifest === ManifestType.Physical) {
+  if (carrier.manifestType === ManifestType.Physical) {
     carrierAttributes.push(CarrierAttribute.ManifestPhysical);
   }
-   */
   if (carrier.isConsolidator) {
     carrierAttributes.push(CarrierAttribute.Consolidator);
   }
@@ -138,11 +139,9 @@ const mapShippingServiceAttributes = (
   service: DeliveryService
 ): ShippingServiceAttribute[] => {
   const shippingServiceAttributes: ShippingServiceAttribute[] = [];
-  /* TODO: DX service does not have allowsReturnService?
-  if (service.isReturnService) {
-      shippingServiceAttributes.push(ShippingServiceAttribute.Returns);
-  }
-   */
+  if (service.supportsReturns) {
+    shippingServiceAttributes.push(ShippingServiceAttribute.Returns);
+}
   if (service.allowsMultiplePackages) {
     shippingServiceAttributes.push(ShippingServiceAttribute.MultiPackage);
   }
@@ -154,15 +153,12 @@ const mapShippingServiceAttributes = (
       ShippingServiceAttribute.ConsolidatorService
     );
   }
-  /* TODO: follow up on manifest type
-  if (service.requiresManifest === ManifestType.Digital) {
+  if (service.manifestType === ManifestType.Digital) {
     shippingServiceAttributes.push(ShippingServiceAttribute.ManifestDigital);
   }
-  if (service.requiresManifest === ManifestType.Physical) {
+  if (service.manifestType === ManifestType.Physical) {
     shippingServiceAttributes.push(ShippingServiceAttribute.ManifestPhysical);
   }
-
-   */
   return shippingServiceAttributes;
 };
 const mapSupportedLabelSize = (

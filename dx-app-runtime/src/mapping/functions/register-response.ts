@@ -1,7 +1,7 @@
-import { TransactionPOJO } from '@shipengine/integration-platform-sdk';
+import { Transaction } from '@shipengine/integration-platform-sdk';
 import { RegisterResponse } from '@ipaas/capi/responses';
 
-export default (transaction: TransactionPOJO): RegisterResponse => {
+export const mapRegisterResponse = (transaction: Transaction): RegisterResponse => {
   const response: RegisterResponse = {
     credentials: {
       username: 'N/A',

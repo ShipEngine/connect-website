@@ -1,19 +1,19 @@
 import { GetRatesRequest } from '@ipaas/capi/requests';
 import { mapAddressToAddressWithContactInfoPOJO } from './address';
 import {
-  NewShipmentPOJO,
   DocumentFormat,
   DocumentSize,
 } from '@shipengine/integration-platform-sdk';
+import {
+  NewShipmentPOJO,
+} from '@shipengine/integration-platform-sdk/lib/internal';
 import { capiToDxNewPackagePOJO } from './package';
 
 export const mapGetRatesRequestToNewShipmentPOJO = (
   request: GetRatesRequest
 ): NewShipmentPOJO => {
   return {
-    deliveryService: {
-      id: request.service_code || '',
-    },
+    deliveryService: request.service_code || '',
     shipFrom: mapAddressToAddressWithContactInfoPOJO(request.ship_from),
     shipTo: mapAddressToAddressWithContactInfoPOJO(request.ship_to),
     shipDateTime: new Date(request.ship_datetime),

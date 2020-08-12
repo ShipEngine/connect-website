@@ -1,11 +1,8 @@
-import { TrackRequest } from '@ipaas/capi/requests';
 import {
-  IdentifiersPOJO,
   ShipmentStatus,
-  TrackingCriteriaPOJO,
-  TrackingInfo,
-  TransactionPOJO,
+  Transaction,
 } from '@shipengine/integration-platform-sdk';
+
 import {
   EventElement,
   StandardizedStatusCodes,
@@ -13,59 +10,28 @@ import {
   TrackResponse,
 } from '@ipaas/capi/responses';
 
-import { TrackingEvent } from '@shipengine/integration-platform-sdk';
+import { TrackingEvent, TrackingInfo } from '@shipengine/integration-platform-sdk/lib/internal';
 import { dxPersonNameToString } from './person-name';
 
-const capiToDxTrack = (request: TrackRequest): TrackingCriteriaPOJO => {
-  const identifiers: IdentifiersPOJO = {};
 
-  if (request.identifiers) {
-    request.identifiers.forEach((identifier) => {
-      if (identifier?.type && identifier?.value) {
-        identifiers[identifier.type] = identifier.value;
-      }
-    });
-  }
-
-  let trackingNumber = request.tracking_number;
-  if (!trackingNumber) {
-    trackingNumber = identifiers['tracking_number'];
-  }
-
-  return {
-    identifiers,
-    metadata: request.metadata ?? undefined,
-    returns: { isReturn: request.is_return ?? false },
-    trackingNumber: trackingNumber ?? '',
-  };
-};
-
-const capiToDxStandardizedStatusCode = (
+const mapStatusCode = (
   shipmentStatus: ShipmentStatus
 ): StandardizedStatusCodes => {
   switch (shipmentStatus) {
     case ShipmentStatus.Accepted:
       return StandardizedStatusCodes.AC;
-      break;
     case ShipmentStatus.InTransit:
       return StandardizedStatusCodes.It;
-      break;
     case ShipmentStatus.DeliveryAttempted:
       return StandardizedStatusCodes.At;
-      break;
     case ShipmentStatus.Delivered:
       return StandardizedStatusCodes.De;
-      break;
     case ShipmentStatus.Exception:
       return StandardizedStatusCodes.Ex;
-      break;
   }
-  throw new Error(
-    `capi shipment status ${shipmentStatus} is not convertible to DX StandardizedStatusCode`
-  );
 };
 
-const dxToCapiTrackEvent = (event: TrackingEvent): EventElement => {
+const mapTrackEvent = (event: TrackingEvent): EventElement => {
   return {
     city: event.address?.cityLocality,
     company: event.address?.company,
@@ -80,9 +46,9 @@ const dxToCapiTrackEvent = (event: TrackingEvent): EventElement => {
   };
 };
 
-const dxToCapiTrack = (
+export const mapTrackingResponse = (
   trackingInfo: TrackingInfo,
-  transaction: TransactionPOJO
+  transaction: Transaction
 ): TrackResponse => {
   const totalWeight = trackingInfo.packages
     .map((p) => p.weight?.value ?? 0)
@@ -111,13 +77,13 @@ const dxToCapiTrack = (
     actual_delivery_datetime: trackingInfo.deliveryDateTime?.toISOString(),
     carrierEnum: 0, //deprecated
     carrier_name: '', //not used according to Justin
-    carrier_status_code: trackingInfo.latestEvent.code,
+    carrier_status_code: mapStatusCode(trackingInfo.latestEvent.status),
     carrier_status_description: trackingInfo.latestEvent.description,
     dimensions: undefined, //TODO: DX tracking -> CAPI response: should dimensions be the first package?
     error_description: errorEvent.description,
     estimated_delivery_datetime: undefined, // TODO: DX TrackingInfo doesn't seem to have estimated delivery
-    events: trackingInfo.events.map(dxToCapiTrackEvent),
-    last_event: dxToCapiTrackEvent(trackingInfo.latestEvent),
+    events: trackingInfo.events.map(mapTrackEvent),
+    last_event: mapTrackEvent(trackingInfo.latestEvent),
     package_count: trackingInfo.packages?.length ?? 0,
     packaging: undefined, //TODO: dont know what capi-tracking-info.packaging string means
     service: undefined, // TODO DX TrackingInfo does not define service
@@ -125,7 +91,7 @@ const dxToCapiTrack = (
     shipping_problem: trackingInfo.hasError,
     shipping_problem_code: errorEvent.problemCode,
     shipping_problem_description: errorEvent.problemDescription,
-    standardized_status_code: capiToDxStandardizedStatusCode(
+    standardized_status_code: mapStatusCode(
       trackingInfo.status
     ),
     tracking_number: trackingInfo.trackingNumber,
@@ -139,5 +105,3 @@ const dxToCapiTrack = (
     },
   };
 };
-
-export { capiToDxTrack, dxToCapiTrack };

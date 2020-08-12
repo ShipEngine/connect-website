@@ -1,12 +1,14 @@
 import {
-  ShipmentCancellationOutcomePOJO,
-  TransactionPOJO,
+  Transaction,
 } from '@shipengine/integration-platform-sdk';
+import {
+  ShipmentCancellationOutcome,
+} from '@shipengine/integration-platform-sdk/lib/internal';
 import { VoidLabelsResponse, VoidResponse } from '@ipaas/capi/responses';
 
-export const mapShipmentCancellationOutcomeToVoidLabelsResponse = (
-  response: ShipmentCancellationOutcomePOJO[],
-  transaction: TransactionPOJO
+export const mapVoidLabelsResponse = (
+  response: ShipmentCancellationOutcome[],
+  transaction: Transaction
 ): VoidLabelsResponse => {
   const voidResponses: VoidResponse[] = [];
   response.forEach((response) => {
