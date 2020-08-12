@@ -8,6 +8,7 @@ export const domesticEconomy: DeliveryServiceDefinition = {
   identifiers: {
     apiCode: "DOMECO",
   },
+  code: "dome_eco",
   name: "Domestic Economy",
   description: "5 - 7 day ground service within the U.S.",
   class: DeliveryServiceClass.Ground,

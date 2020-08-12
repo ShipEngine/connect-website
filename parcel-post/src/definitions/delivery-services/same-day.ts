@@ -7,6 +7,7 @@ export const sameDay: DeliveryServiceDefinition = {
   identifiers: {
     apiCode: "SAMEDY",
   },
+  code: "same_dy",
   name: "Same Day Delivery",
   description: "Same day delivery within major U.S. metropolitan areas",
   class: DeliveryServiceClass.OneDay,

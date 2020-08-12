@@ -8,6 +8,7 @@ export const internationalEconomy: DeliveryServiceDefinition = {
   identifiers: {
     apiCode: "INTECO",
   },
+  code: "int_eco",
   name: "International Economy",
   description:
     "Ship packages economically to Canada, Mexico and Puerto Rico typically in 2 to 3 business days " +

@@ -8,6 +8,7 @@ export const domesticStandard: DeliveryServiceDefinition = {
   identifiers: {
     apiCode: "DOMSTD",
   },
+  code: "dom_std",
   name: "Domestic Standard",
   description: "3 day ground service within the U.S.",
   class: DeliveryServiceClass.Ground,

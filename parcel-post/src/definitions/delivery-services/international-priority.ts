@@ -8,6 +8,7 @@ export const internationalPriority: DeliveryServiceDefinition = {
   identifiers: {
     apiCode: "INTPRI",
   },
+  code: "int_pri",
   name: "International Priority",
   description:
     "Delivery typically in 1 to 3 business days, next business day to the U.S., Canada, Mexico and the Caribbean. " +

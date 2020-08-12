@@ -24,7 +24,7 @@ export default async function createShipment(
   let data: GenerateLabelRequest = {
     operation: "generate_label",
     session_id: transaction.session.id,
-    service_code: shipment.deliveryService.identifiers.apiCode,
+    service_code: shipment.deliveryService.code,
     confirmation_code: shipment.deliveryConfirmation?.identifiers.apiCode,
     ship_date: shipment.shipDateTime.toISOString(),
     total_weight: shipment.package.weight.ounces,
