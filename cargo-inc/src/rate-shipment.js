@@ -1,7 +1,6 @@
 "use strict";
 
 const apiClient = require("./mock-api/client");
-const codeIdMap = require("./code-id-map");
 
 /**
  * Generates shipping rates for a shipment
@@ -37,17 +36,17 @@ async function rateShipment(transaction, shipment) {
 function formatRate(rate) {
   return {
     deliveryService: {
-      id: codeIdMap[rate.service_code],
+      id: rate.service_code,
     },
     shipDateTime: new Date(rate.ship_date),
     deliveryDateTime: new Date(rate.delivery_date),
     isTrackable: rate.service_code !== "ECO",
     deliveryConfirmation: {
-      id: codeIdMap[rate.confirmation_code],
+      id: rate.confirmation_code,
     },
     packages: [{
       packaging: {
-        id: codeIdMap[rate.parcel_code],
+        id: rate.parcel_code,
       },
     }],
     charges: [
