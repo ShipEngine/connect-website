@@ -24,7 +24,7 @@ $ npm install -g @shipengine/connect-cli
 $ shipengine COMMAND
 running command...
 $ shipengine (-v|--version|version)
-@shipengine/connect-cli/1.0.1 linux-x64 node-v12.18.1
+@shipengine/connect-cli/1.0.2 linux-x64 node-v12.18.1
 $ shipengine --help [COMMAND]
 USAGE
   $ shipengine COMMAND
@@ -74,7 +74,7 @@ OPTIONS
   -h, --help  show help for the info command
 ```
 
-_See code: [src/commands/info.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.1/src/commands/info.ts)_
+_See code: [src/commands/info.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.2/src/commands/info.ts)_
 
 ## `shipengine login`
 
@@ -91,7 +91,7 @@ ALIASES
   $ shipengine login
 ```
 
-_See code: [src/commands/login.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.1/src/commands/login.ts)_
+_See code: [src/commands/login.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.2/src/commands/login.ts)_
 
 ## `shipengine logout`
 
@@ -108,7 +108,7 @@ ALIASES
   $ shipengine logout
 ```
 
-_See code: [src/commands/logout.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.1/src/commands/logout.ts)_
+_See code: [src/commands/logout.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.2/src/commands/logout.ts)_
 
 ## `shipengine new [PATH]`
 
@@ -133,7 +133,7 @@ EXAMPLE
   $ shipengine new
 ```
 
-_See code: [src/commands/new.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.1/src/commands/new.ts)_
+_See code: [src/commands/new.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.2/src/commands/new.ts)_
 
 ## `shipengine publish`
 
@@ -152,7 +152,7 @@ EXAMPLE
   $ shipengine publish
 ```
 
-_See code: [src/commands/publish.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.1/src/commands/publish.ts)_
+_See code: [src/commands/publish.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.2/src/commands/publish.ts)_
 
 ## `shipengine start`
 
@@ -167,7 +167,7 @@ OPTIONS
   -p, --port=port  [default: 3000] the port that the app will run on
 ```
 
-_See code: [src/commands/start.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.1/src/commands/start.ts)_
+_See code: [src/commands/start.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.2/src/commands/start.ts)_
 
 ## `shipengine test`
 
@@ -190,7 +190,7 @@ EXAMPLES
   $ shipengine test --grep rateShipment
 ```
 
-_See code: [src/commands/test.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.1/src/commands/test.ts)_
+_See code: [src/commands/test.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.2/src/commands/test.ts)_
 
 ## `shipengine whoami`
 
@@ -207,5 +207,5 @@ ALIASES
   $ shipengine whoami
 ```
 
-_See code: [src/commands/whoami.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.1/src/commands/whoami.ts)_
+_See code: [src/commands/whoami.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.2/src/commands/whoami.ts)_
 <!-- commandsstop -->
