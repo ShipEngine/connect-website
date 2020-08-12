@@ -7,7 +7,7 @@ export default class New extends BaseCommand {
   static description =
     "create a new package to develop a custom ShipEngine app";
 
-  static aliases = ["init"];
+  static aliases = ["new"];
 
   static flags = {
     force: flags.boolean({

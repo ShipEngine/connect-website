@@ -7,7 +7,7 @@
  * https://shipenginestag:439bd542@shipenginestag.wpengine.com/docs/integration-platform/reference/methods/schedule-pickup
  * 
  * View sample implementation here:
- * https://github.com/ShipEngine/shipengine-integration-platform-sample-apps/blob/master/freightco/schedule-pickup.js
+ * https://github.com/ShipEngine/connect-samples/blob/master/freightco/schedule-pickup.js
  */
 async function schedulePickup(transaction, pickup) {
   throw new Error("NotImplementedError");
