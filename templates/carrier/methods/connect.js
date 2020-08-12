@@ -1,6 +1,9 @@
 "use strict";
 /**
  * Logs in using the username and password entered on the login form
+ * 
+ * View sample implementation here:
+ * https://github.com/ShipEngine/shipengine-integration-platform-sample-apps/blob/master/freightco/connect.js
  */
 async function connect(transaction, connectionFormData) {
   throw new Error("NotImplementedError");

@@ -3,7 +3,7 @@
 /**
  * Generates shipping rates for a shipment
  * 
- * See an example implementation below
+ * View sample implementation here:
  * https://github.com/ShipEngine/shipengine-integration-platform-sample-apps/blob/master/freightco/carrier/rate-shipment.js
  */
 async function rateShipment(transaction, shipment) {

@@ -9,7 +9,7 @@ import { Session } from "./session";
  * Cancels one or more shipments that were previously created. Depending on the carrier,
  * this may include voiding labels, refunding charges, and/or removing the shipment from the day's manifest.
  * 
- * View sample implementation here:
+ * View sample implementation here: 
  * https://github.com/ShipEngine/shipengine-integration-platform-sample-apps/blob/master/parcel-post/src/methods/cancel-shipments.ts
  */
 export default async function cancelShipments(

@@ -8,7 +8,7 @@ import { Session } from "./session";
 /**
  * Schedules a pick-up at a specific time and location
  *
- * See an example implementation below
+ * View sample implementation here:
  * https://github.com/ShipEngine/shipengine-integration-platform-sample-apps/blob/master/parcel-post/carrier/src/methods/schedule-pickup.ts
  */
 export default async function schedulePickup(

@@ -5,6 +5,9 @@ interface ConnectionFormData {}
 
 /**
  * Logs in using the username and password entered on the login form
+ * 
+ * View sample implementation here:
+ * https://github.com/ShipEngine/shipengine-integration-platform-sample-apps/blob/master/parcel-post/src/methods/connect.ts
  */
 export default async function connect(
   transaction: Transaction<Session>,

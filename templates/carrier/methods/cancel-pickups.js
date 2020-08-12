@@ -2,6 +2,9 @@
 
 /**
  * Cancels one or more previously-scheduled pickups
+ * 
+ * View sample implementation here:
+ * https://github.com/ShipEngine/shipengine-integration-platform-sample-apps/blob/master/freightco/cancel-pickups.js
  */
 async function cancelPickups(transaction, pickups) {
   throw new Error("NotImplementedError");

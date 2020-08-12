@@ -7,6 +7,9 @@ import { Session } from "./session";
 
 /**
  * Creates an end-of-day manifest
+ * 
+ * View sample implementation here:
+ * https://github.com/ShipEngine/shipengine-integration-platform-sample-apps/blob/master/parcel-post/src/methods/create-manifest.ts
  */
 export default async function createManifest(
   transaction: Transaction<Session>,

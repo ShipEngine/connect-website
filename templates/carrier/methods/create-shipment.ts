@@ -8,7 +8,7 @@ import { Session } from "./session";
 /**
  * Generates a shipping label and tracking number for a shipment
  *
- * See an example implementation below
+ * View sample implementation here:
  * https://github.com/ShipEngine/shipengine-integration-platform-sample-apps/blob/master/parcel-post/carrier/src/methods/create-shipment.ts
  */
 export default async function createShipment(

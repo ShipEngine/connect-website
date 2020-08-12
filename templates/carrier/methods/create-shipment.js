@@ -3,7 +3,7 @@
 /**
  * Generates a shipping label and tracking number for a shipment
  *
- * See an example implementation below
+ * View sample implementation here:
  * https://github.com/ShipEngine/shipengine-integration-platform-sample-apps/blob/master/freightco/carrier/create-shipment.js
  */
 async function createShipment(transaction, shipment) {

@@ -2,6 +2,9 @@
 
 /**
  * Creates an end-of-day manifest
+ * 
+ * View sample implementation here:
+ * https://github.com/ShipEngine/shipengine-integration-platform-sample-apps/blob/master/cargo-inc/src/create-manifest.js
  */
 async function createManifest(transaction, manifest) {
   throw new Error("NotImplementedError");
