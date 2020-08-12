@@ -14,7 +14,7 @@ documentation: |
    The definition may be specified in [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript), [TypeScript](https://www.typescriptlang.org/), [JSON](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON), or
     [YAML](https://en.wikipedia.org/wiki/YAML).
 
-  These pickup service definitions will be used by the [ShipEngine Integration Platform](./../index.md) to display pickup service options within our suite of e-commerce applications when your carrier is used.
+  These pickup service definitions will be used by the [ShipEngine Connect](./../index.md) to display pickup service options within our suite of e-commerce applications when your carrier is used.
 
 param:
   fields:

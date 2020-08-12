@@ -230,7 +230,7 @@ return:
     - name: packages[].metadata
       type: object
       required: false
-      description: Custom data about this package that will be persisted by the ShipEngine Integration Platform. Must be JSON serializable.
+      description: Custom data about this package that will be persisted by ShipEngine Connect. Must be JSON serializable.
 
 
 ---

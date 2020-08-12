@@ -7,7 +7,7 @@ name: Address
 description: Addresses with contact info store not only store location and contact information but also the email and phone number needed to contact the address owner.
 
 documentation: |
-  Addresses are used throughout the [ShipEngine Integration Platform](./../index.md). Your application will almost certainly need to access or return address objects. Examples include the origin and destination addresses of a shipment, a carrier pickup location, a warehouse, etc.
+  Addresses are used throughout [ShipEngine Connect](./../index.md). Your application will almost certainly need to access or return address objects. Examples include the origin and destination addresses of a shipment, a carrier pickup location, a warehouse, etc.
 
   Each address object has properties for the street, city, province, country, and postal code. Some addresses also include contact information, such as a person's name, email, and phone number.
 

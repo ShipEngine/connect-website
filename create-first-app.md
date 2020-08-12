@@ -1,7 +1,7 @@
 ---
 hidden: true
-title: Create your first ShipEngine Integration app.
-description: Learn how to use the ShipEngine CLI and the project template to being creating an Integration app.
+title: Create your first ShipEngine Connect app.
+description: Learn how to use the ShipEngine Connect CLI and the project template to being creating an Integration app.
 tags:
 - ShipEngine
 - Integration App
@@ -14,11 +14,11 @@ tags:
 
 Creating Your First App
 =======================
-The [ShipEngine Integration Platform CLI](./cli.md) provides you with everything you need to get started with your integration application.
+[ShipEngine Connect CLI](./cli.md) provides you with everything you need to get started with your integration application.
 
 
 > **Info**
-> Install the [ShipEngine Integration Platform CLI](./cli.md) before proceeding with this guide.
+> Install [ShipEngine Connect CLI](./cli.md) before proceeding with this guide.
 
 Using the CLI
 ------------------
@@ -26,7 +26,7 @@ Using the CLI
 1. To create a new project, open a terminal on your computer and navigate to the directory where you would like to add your new project
 by running the following command: `cd my-project-directory`
 
-1. Run the following command: [`shipengine init`](./cli.md#initialize-a-new-app)  </br>
+1. Run the following command: [`connect init`](./cli.md#initialize-a-new-app)  </br>
 
 1. Enter the [npm](https://www.npmjs.com/) package name you would like to give your application. The default value is the name of the directory in which you ran the command. Type a new value for the name or press `Enter` to accept the default name.
 
@@ -47,7 +47,7 @@ application.
 1. Use the arrow keys to select `yaml`, `json`, or `pojo` as the structure of your definition files. Note that you can use a combination of
 these options when you populate your definition files. This command will create them in the specified format, but you can change them before publishing your application.
 
-1. Type `Y` or `N` to indicate whether or not you are using [Visual Studio Code](https://code.visualstudio.com/) for your development environment and press `Enter`. When you use VS Code, the ShipEngine Integration Platform CLI provides you with a
+1. Type `Y` or `N` to indicate whether or not you are using [Visual Studio Code](https://code.visualstudio.com/) for your development environment and press `Enter`. When you use VS Code, ShipEngine Connect CLI provides you with a
 debug command in the scripts section of your `package.json` file and generates a `.vscode/launch.json` file to faciliate [debugging](./testing/index.md#visual-studio-code).
 
 ![](./../cli-screenshot.png)
@@ -73,7 +73,7 @@ specifies the path to a file that exports the method, the structure is up to you
  * Generates a shipping label and tracking number for a shipment
  *
  * See an example implementation below
- * https://github.com/ShipEngine/shipengine-integration-platform-sample-apps/blob/master/freightco/carrier/create-shipment.js
+ * https://github.com/ShipEngine/connect-samples/blob/master/freightco/carrier/create-shipment.js
  */
 async function createShipment(transaction, shipment) {
   throw new Error("NotImplementedError");
@@ -98,7 +98,7 @@ import { Session } from "./session";
  * Generates a shipping label and tracking number for a shipment
  *
  * See an example implementation below
- * https://github.com/ShipEngine/shipengine-integration-platform-sample-apps/blob/master/parcel-post/carrier/src/methods/create-shipment.ts
+ * https://github.com/ShipEngine/connect-samples/blob/master/parcel-post/carrier/src/methods/create-shipment.ts
  */
 export default async function createShipment(
   transaction: Transaction<Session>,
@@ -128,7 +128,7 @@ This is an example of the application definition that is generated for a Carrier
 {
   "id": "bd45f17d-e32f-43d0-b397-d627bf0dbfa5",
   "name": "@shipengine/cargo-inc",
-  "description": "Integration application for cargo-inc carrier services.",
+  "description": "ShipEngine Connect application for cargo-inc carrier services.",
   "websiteURL": "https://example-carrier.com",
   "logo": "./logo.svg",
   "icon": "./icon.svg",
@@ -146,12 +146,12 @@ This is an example of the application definition that is generated for a Carrier
 }
 ```
 ```javascript
-import { CarrierDefinition } from "@shipengine/integration-platform-sdk";
+import { CarrierDefinition } from "@shipengine/connect-sdk";
 
 const carrier: CarrierDefinition = {
   id: "ed16921d-678b-4d07-9921-1447e1847c1c",
-  name: "@shipengine/git_repos",
-  description: "dd",
+  name: "@shipengine/cargo-inc",
+  description: "ShipEngine Connect application for cargo-inc carrier services.",
   websiteURL: "https://example-carrier.com",
   logo: "./logo.svg",
   icon: "./icon.svg",
@@ -174,7 +174,7 @@ export default carrier;
 ```yaml
 id: d94500ef-f81f-43ed-b4bb-e1fd8f150c7e
 name: "@shipengine/cargo-inc"
-description: "Integration application for cargo-inc carrier services."
+description: "ShipEngine Connect application for cargo-inc carrier services."
 websiteURL: https://example-carrier.com
 logo: ./logo.svg
 icon: ./icon.svg
@@ -193,20 +193,20 @@ pickupServices: []
 ```
 
 ### Implement
-Once you have generated the scaffolding for your application using the ShipEngine Integration Platform CLI, add your implementation for each method your application supports. Likewise, use the example service definition files to create unique definitions
+Once you have generated the scaffolding for your application using ShipEngine Connect CLI, add your implementation for each method your application supports. Likewise, use the example service definition files to create unique definitions
 for each of the services your application provides. Finally, update the application definition to include all the methods and definitions you have implemented.
 
 ### Test
-As you're building your app, you'll probably want to run it periodically so you can test and debug your code. Luckily, [the ShipEngine Integration Platform CLI](cli.md) includes commands to help with this, such as `shipengine start` and `shipengine test`. You can also write your own unit tests to exercise your code. See our [testing page](testing/index.md) for more information.
+As you're building your app, you'll probably want to run it periodically so you can test and debug your code. Luckily, [ShipEngine Connect CLI](cli.md) includes commands to help with this, such as `connect start` and `connect test`. You can also write your own unit tests to exercise your code. See our [testing page](testing/index.md) for more information.
 
 ### Publish
-Once all the generated tests pass, you will publish your application to the ShipEngine Integration Platform using the [`shipengine publish`](./publish.md) command. This command will publish to a development environment where your application
+Once all the generated tests pass, you will publish your application to ShipEngine Connect using the [`connect publish`](./publish.md) command. This command will publish to a development environment where your application
 will be reviewed and further end-to-end testing may be performed before your application is published to production and made available within our suite of e-commerce solutions.
 
 
 Sample Application References
 -----------------------
-If you would like to see more examples of various ways to implement and structure your applications, please have a look at our [sample app repo](https://github.com/ShipEngine/shipengine-integration-platform-sample-apps).
+If you would like to see more examples of various ways to implement and structure your applications, please have a look at our [sample app repo](https://github.com/ShipEngine/connect-samples).
 
 
 

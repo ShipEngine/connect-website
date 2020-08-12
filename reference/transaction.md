@@ -8,7 +8,7 @@ description:
   The transaction object provides important information about a method invocation. It also allows you to pass session state between methods, which is especially important for authentication credentials.
 
 documentation: |
-  Every method in a [ShipEngine Integration Platform](./../index.md) application receives a transaction object as the first parameter. This object contains useful information about the method invocation, such as a unique `transactionID`,
+  Every method in a [ShipEngine Connect](./../index.md) application receives a transaction object as the first parameter. This object contains useful information about the method invocation, such as a unique `transactionID`,
   whether the call is a test (aka [sandbox](./../sandbox.md)) call, and session state such as authentication credentials.
 
 fields:

@@ -8,7 +8,7 @@ Language Localization
 ============
 
 Localization, also referred to as `l10n`, is the process of adapting a product or content to a specific locale or market. Language translation is one of many aspects of localizing
-your application for various markets. In anticipation of an upcoming localization feature, the structure of a [ShipEngine Integration Platform](./index.md) application
+your application for various markets. In anticipation of an upcoming localization feature, the structure of a [ShipEngine Connect](./index.md) application
  allows you to provide localization information for certain aspects of your application. This allows for
 localization of any of the [BCP 47 supported languages](https://tools.ietf.org/html/bcp47).
 
@@ -19,13 +19,13 @@ For the [Carrier Application Definition](reference/carrier.md), you may provide 
 Example
 --------
 
-The sample Carrier Application Definition below is a great example of the level of granularity that the ShipEngine Integration Platform localization model provides.
+The sample Carrier Application Definition below is a great example of the level of granularity that ShipEngine Connect localization model provides.
 
 The definition is specified in the carrier's primary language, which is US-based English. This carrier is also available in the UK, which uses `en-GB` as its locale. Localization makes it possible for a user from the UK
 to be shown the UK version of the website URL. You should provide localization data for every country in which your service is available. In the example below, we've provided a localization information for Spanish (`es`) and Chinese (`zh`).
 
 
-By providing a localized version for every language in which you perform services, the ShipEngine Integration Platform will be able to show your user's information about your service in
+By providing a localized version for every language in which you perform services, ShipEngine Connect will be able to show your user's information about your service in
 the language that is most familiar to them.
 
 ```yaml highlights="1-12"

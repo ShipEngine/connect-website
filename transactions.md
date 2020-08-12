@@ -1,17 +1,17 @@
 ---
 hidden: true
-title: ShipEngine Integration Platform Transactions and Retries
+title: ShipEngine Connect Transactions and Retries
 description: Learn about the Transaction object and how to use that for call retries after unexpected errors.
 ---
 
 Transactions and Retries
 ==================
 
-Every [ShipEngine Integration Platform](./index.md) application method accepts a [Transaction](reference/transaction.md) object as parameter. It is responsible for providing contextual information about the specific method call in regards to:
+Every [ShipEngine Connect](./index.md) application method accepts a [Transaction](reference/transaction.md) object as parameter. It is responsible for providing contextual information about the specific method call in regards to:
 
 * The user's authentication state.
 * Saved session data.
-* The specific ShipEngine Integration Platform call via the `id` property.
+* The specific ShipEngine Connect call via the `id` property.
 
 Retries
 -------
@@ -19,7 +19,7 @@ API failures and failed network connections are unfortunately an unavoidable par
 
 To account for this, the `Transaction` object provides the `id` property, which uniquely identifies the current transaction.
 
-This property should be used to detect retries from the ShipEngine Integration Platform as well as used to detect and prevent duplicate operations.
+This property should be used to detect retries from ShipEngine Connect as well as used to detect and prevent duplicate operations.
 
 
 <div class="previous-next-nav">

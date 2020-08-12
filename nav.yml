@@ -35,6 +35,7 @@ Carrier Apps:
   Overview:
     Overview: carrier-app/index.md
     How to map services: carrier-app/map-services.md
+    Automated tests: testing/carrier-app-tests.md
 
   App Structure:
     Carrier App: reference/carrier.md

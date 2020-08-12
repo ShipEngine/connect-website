@@ -1,6 +1,6 @@
 ---
 hidden: true
-title: ShipEngine Integration App Sandbox Environments
+title: ShipEngine Connect App Sandbox Environments
 description: ADD A DESCRIPTION HERE
 ---
 
@@ -9,7 +9,7 @@ Sandbox Environments
 
 Some carriers have the capability to support what is known as a [Sandbox Environment](https://en.wikipedia.org/wiki/Sandbox_(software_development)).
 
-In the context of the [ShipEngine Integration Platform](index.md), a sandbox environment is a test environment that should mimic real service functionality as much as possible but **must not** incur any actual costs or affect production data.
+In the context of [ShipEngine Connect](index.md), a sandbox environment is a test environment that should mimic real service functionality as much as possible but **must not** incur any actual costs or affect production data.
 Sandbox environments allow for easier development and testing of your application.
 
 Usage
@@ -17,14 +17,14 @@ Usage
 Support for sandbox environments can be set in the application definitions. For example, in the [Delivery Service Definition](reference/delivery-service.md), you can specify this in the `hasSandbox` property.
 
 
-Then when you implement the [createShipment method](reference/methods/create-shipment.md), the ShipEngine Integration Platform will indicate if the sandbox environment will be used by setting the `useSandbox` boolean in the [Transaction](reference/transaction.md) object that is included in every method call.
+Then when you implement the [createShipment method](reference/methods/create-shipment.md), ShipEngine Connect will indicate if the sandbox environment will be used by setting the `useSandbox` boolean in the [Transaction](reference/transaction.md) object that is included in every method call.
 
 
 Examples
 --------
 
 ```typescript
-import { Transaction, NewShipment, ShipmentConfirmation } from "@shipengine/integration-platform-sdk";
+import { Transaction, NewShipment, ShipmentConfirmation } from "@shipengine/connect-sdk";
 
 /**
  * Requests a shipping label from the provider

@@ -184,7 +184,7 @@ param:
 
     - name: shipments[].packages[].metadata
       type: object
-      description: Custom data about this package that was persisted by the ShipEngine Integration Platform. Must be JSON serializable.
+      description: Custom data about this package that was persisted by ShipEngine Connect. Must be JSON serializable.
 
     - name: shipments[].package
       type: object
@@ -269,7 +269,7 @@ return:
     - name: metadata
       type: object
       required: false
-      description: The carrier's custom data about this pickup that will be persisted by the ShipEngine Integration Platform. Must be JSON serializable.
+      description: The carrier's custom data about this pickup that will be persisted by ShipEngine Connect. Must be JSON serializable.
 ---
 Examples
 -----------------

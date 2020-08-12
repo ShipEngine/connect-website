@@ -420,7 +420,7 @@ return:
     - name: items[].metadata
       type: object
       required: false
-      description: Custom data about this order item that was persisted by the ShipEngine Integration Platform.
+      description: Custom data about this order item that was persisted by ShipEngine Connect.
         Must be JSON serializable.
 
     - name: notes
@@ -443,7 +443,7 @@ return:
     - name: metadata
       type: object
       required: false
-      description: Custom data about this sales order that was persisted by the ShipEngine Integration Platform.
+      description: Custom data about this sales order that was persisted by ShipEngine Connect.
         Must be JSON serializable.
 
     - name: paging

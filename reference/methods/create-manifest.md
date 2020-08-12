@@ -156,7 +156,7 @@ return:
     - name: manifests[].metadata
       type: object
       required: false
-      description: Your custom data about this manifest that will be persisted by the ShipEngine Integration Platform. Must be JSON serializable.
+      description: Your custom data about this manifest that will be persisted by the ShipEngine Connect. Must be JSON serializable.
 
     - name: notManifested
       type: object[]

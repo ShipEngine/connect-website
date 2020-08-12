@@ -66,7 +66,7 @@ notes:
 
 {{ name }}
 ==========================
-This page lists the valid values for some of the common types that are used throughout a [ShipEngine Integration Platform](./../index.md) application.
+This page lists the valid values for some of the common types that are used throughout a [ShipEngine Connect](./../index.md) application.
 
 Charge Types
 -----------------------------------

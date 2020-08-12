@@ -1,16 +1,18 @@
 ---
 hidden: true
-title: ShipEngine Integration Platform application Overview
-description: Learn about how a ShipEngine Integration application is structured.
+title: ShipEngine Connect application Overview
+description: Learn about how a ShipEngine Connect application is structured.
+tags:
+- ShipEngine Connect
 ---
 
 Application Structure
 ==================
-[ShipEngine Integration Platform](./index.md) applications are just [NPM](https://www.npmjs.com/) packages that meet the following requirements:
+[ShipEngine Connect](./index.md) applications are just [NPM](https://www.npmjs.com/) packages that meet the following requirements:
 
 * Have a [`package.json`](https://docs.npmjs.com/creating-a-package-json-file) file in the root directory, which specifies its name, version number, and dependencies.
 
-* List the [ShipEngine Integration Platform SDK](https://www.npmjs.com/package/@shipengine/integration-platform-sdk) (`@shipengine/integration-platform-sdk`) as a `dependency` or `devDependency` in the `package.json` file.
+* List the [ShipEngine Connect SDK](https://www.npmjs.com/package/@shipengine/connect-sdk) (`@shipengine/connect-sdk`) as a `dependency` or `devDependency` in the `package.json` file.
 
 * Export an object with properties and methods that define the app's capabilities and functionality. This must be the main export of the NPM package.
 
@@ -20,8 +22,8 @@ Other than that, everything else is up to you. We don't impose any specific fold
 
 Getting Started
 ---------------------
-The [ShipEngine Integration Platform CLI](cli.md) makes it easy to get started with your app. It comes with built-in templates for each app type.
-Just run the `shipengine new` command, answer a few questions, and it'll create all the files and pre-populate much of the basic scaffolding for you.
+The [ShipEngine Connect CLI](cli.md) makes it easy to get started with your app. It comes with built-in templates for each app type.
+Just run the `connect init` command, answer a few questions, and it'll create all the files and pre-populate much of the basic scaffolding for you.
 
 For more details, see [Creating Your First App](create-first-app.md).
 
@@ -71,13 +73,13 @@ Methods
 As mentioned above, the main export of your application package must be an [Application Definition object](#application-definition), which has properties and methods.  The properties define your app's capabilities and features, but the methods provide your app's actual implementation, such as [logging in](reference/methods/connect.md), [creating a shipment](reference/methods/create-shipment.md), or [retrieving shipping rates](reference/methods/rate-shipment.md).
 As you can imagine, the methods are probably where you'll spend most of your time when building an app.
 
-Methods are just JavaScript functions that take input from the ShipEngine Integration Platform and return results to the platform.  What happens in-between those two is entirely up to you.  But, in general, most methods will consist of the following steps:
+Methods are just JavaScript functions that take input from ShipEngine Connect and return results to the platform.  What happens in-between those two is entirely up to you.  But, in general, most methods will consist of the following steps:
 
 1) Transform the input data into whatever structure is needed by your API.
 
 2) Call your API(s) to perform whatever operations are necessary and/or to retrieve whatever data was requested.
 
-3) Transform the data from your API into the structure that's needed by the ShipEngine Integration Platform.
+3) Transform the data from your API into the structure that's needed by ShipEngine Connect.
 
 4) Return the data.
 

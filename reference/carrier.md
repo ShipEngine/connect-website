@@ -8,7 +8,7 @@ description:
   The page describes how to define a carrier service.
 
 documentation: |
-  The Carrier Application Definition file pulls all the other definitions and implementations together to tell the [ShipEngine Integration Platform](./../index.md) how your
+  The Carrier Application Definition file pulls all the other definitions and implementations together to tell the [ShipEngine Connect](./../index.md) how your
   carrier application is structured. This file can reside anywhere within your application as long as its location is specified
   in the `main` property of your `package.json` file.
   The definition may be specified in [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript), [TypeScript](https://www.typescriptlang.org/), [JSON](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON), or
@@ -19,7 +19,7 @@ param:
      - name: id
        type: UUID
        required: true
-       description: A UUID that uniquely identifies the application for internal ShipEngine Integration Platform purposes. This ID should never change.
+       description: A UUID that uniquely identifies the application for internal ShipEngine Connect purposes. This ID should never change.
 
      - name: name
        type: string

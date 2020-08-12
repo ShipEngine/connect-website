@@ -5,6 +5,20 @@ description: createShipment_domestic
 
 Params:
   fields:
+
+    - name: transaction
+      type:  |
+
+        [Transaction](./../reference/transaction.md)
+      description: An object that provides information about the method invocation and session data.
+      default: |
+
+        If you do not provide a transaction object in your `connect.config` file, you must provide valid credentials.
+
+
+        The test will then call your [`connect`](./../reference/methods/connect.md) method and use the transaction
+        returned from that method.
+
     - name: deliveryServiceName
       type: string
       description: |
@@ -163,7 +177,7 @@ Params:
 
 ### `createShipment_domestic` Parameters
 The following parameters are available for use in the `createShipment_domestic` test. You may specify one
-or more of these parameters in your `shipengine.config` file or allow the test to use the default values.
+or more of these parameters in your `connect.config` file or allow the test to use the default values.
 
 {{testParamDetails(Params.fields)}}
 

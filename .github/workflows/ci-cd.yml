@@ -2,7 +2,7 @@ name: CI-CD
 
 on:
   push:
-    branches-ignore: 
+    branches-ignore:
     - master
 jobs:
   build:
@@ -12,7 +12,7 @@ jobs:
         node-version: [12.x]
     steps:
 
-    - name: Checkout ShipEngine Integration Platform Docs
+    - name: Checkout ShipEngine Connect Docs
       uses: actions/checkout@v2
       with:
         path: shipengine-integration-platform-docs
@@ -88,7 +88,7 @@ jobs:
       with:
         git-repo-dir: shipengine-dot-com
         dir-to-commit: docs/
-        commit-message: Update ShipEngine Integration Platform docs
+        commit-message: Update ShipEngine Connect docs
 
     - name: Push Changes to wordpress engine repo
       uses: ./github-actions/wordpress-engine-push
@@ -97,8 +97,8 @@ jobs:
         wp-prod-repo: production/shipengine.git
         wp-staging-repo: production/shipenginestag.git
         host-docs-repo-dir: shipengine-dot-com
-    
-    - name: Push Changes to ShipEngine marketing site master branch 
+
+    - name: Push Changes to ShipEngine marketing site master branch
       if: steps.get-branch.outputs.current-branch == 'master'
       uses: ad-m/github-push-action@master
       with:

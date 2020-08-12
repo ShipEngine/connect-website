@@ -1,10 +1,10 @@
 ---
 hidden: true
-title: ShipEngine Integration Platform
+title: ShipEngine Connect
 description: Integrate your carrier or marketplace services with each of our world class e-commerce solutions and gain immediate access to a worldwide user base
 tags:
 - Integration
-- ShipEngine Integration
+- ShipEngine Connect
 - ShipEngine
 - ShipStation
 - ShipWorks
@@ -13,12 +13,12 @@ css: index.css
 ---
 
 
-ShipEngine Integration Platform
+ShipEngine Connect
 ======================================
-ShipEngine powers the world's leading e-commerce solutions, including [ShipStation](https://www.shipstation.com/), [ShippingEasy](https://shippingeasy.com/), and [ShipWorks](https://www.shipworks.com/). The ShipEngine Integration Platform enables developers to integrate with all of these brands at once.
+ShipEngine powers the world's leading e-commerce solutions, including [ShipStation](https://www.shipstation.com/), [ShippingEasy](https://shippingeasy.com/), and [ShipWorks](https://www.shipworks.com/). ShipEngine Connect enables developers to integrate with all of these brands at once.
 
 Whether you are a shipping carrier, an online marketplace, or another service provider,
-the ShipEngine Integration Platform makes it easy for you to make your services available within each of our
+ShipEngine Connect makes it easy for you to make your services available within each of our
 world class e-commerce solutions and gain immediate access to a worldwide user base eager to take advantage or your services.
 
 <p id="logos">
@@ -37,7 +37,7 @@ App Development Process
 
   3. [Test](./testing/index.md) your application locally using our CLI, and even debug it using your favorite JavaScript debugger, such as [VSCode](https://code.visualstudio.com/docs/nodejs/nodejs-debugging), [WebStorm](https://blog.jetbrains.com/webstorm/2017/09/debugging-node-js-apps-in-webstorm/), or [Chrome DevTools](https://medium.com/@paul_irish/debugging-node-js-nightlies-with-chrome-devtools-7c4a1b95ae27).
 
-  4. [Publish](./publish.md) your app to the ShipEngine Integration Platform, and you will have immediate access to an entire ecosystem of e-commerce customers.
+  4. [Publish](./publish.md) your app to ShipEngine Connect, and you will have immediate access to an entire ecosystem of e-commerce customers.
     Meanwhile, we will take care of hosting, scaling, and providing high-availability access to your integration application.
 
 </div>
@@ -45,7 +45,7 @@ App Development Process
 
 Types of Applications
 ---------------------------------
-The ShipEngine Integration Platform supports [carrier apps](./carrier-app/index.md) and [order apps](./order-app/index.md), with plans to offer other types of applications in the near future.
+ShipEngine Connect supports [carrier apps](./carrier-app/index.md) and [order apps](./order-app/index.md), with plans to offer other types of applications in the near future.
 
 ### Carrier App
 If you are a company that provides shipping services, referred to as a "shipping carrier", you can build a [Carrier Application](./carrier-app/index.md) to make your shipping services available within any of the suite of e-commerce applications mentioned above. This allows your carrier to be listed as a shipping option any time an order is placed and processed.

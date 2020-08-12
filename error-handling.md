@@ -1,17 +1,17 @@
 ---
 hidden: true
-title: Shipengine Integration Platform Error Handling
+title: ShipEngine Connect Error Handling
 description: Learn how ShipEngine App's are expected to handle errors.
 ---
 
 Error Handling
 =============
 
-[ShipEngine Integration Platform](./index.md) applications are designed to handle [Errors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) the same as any other [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) application. Any uncaught exception will terminate the currently executing method and generate an error log.
+[ShipEngine Connect](./index.md) applications are designed to handle [Errors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) the same as any other [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) application. Any uncaught exception will terminate the currently executing method and generate an error log.
 
 <!-- Example -->
 <!-- -------- -->
-The methods you implement will often need to validate the input from the ShipEngine Integration Platform before transforming the data and calling your backend API. If this validation fails, you would provide an error as in the example below.
+The methods you implement will often need to validate the input from ShipEngine Connect before transforming the data and calling your backend API. If this validation fails, you would provide an error as in the example below.
 
 ```javascript highlights="3"
 for (let parcel of shipment.packages) {
@@ -23,8 +23,8 @@ for (let parcel of shipment.packages) {
 
 Error Codes
 -----------
-The [Shipengine Integration Platform SDK](sdk.md) allows for adding additional information to your application's errors, which will provide more efficient diagnostics once your application is hosted
-and administered by the ShipEngine Integration Platform.
+[ShipEngine Connect SDK](sdk.md) allows for adding additional information to your application's errors, which will provide more efficient diagnostics once your application is hosted
+and administered by ShipEngine Connect.
 
 
 

@@ -7,7 +7,7 @@ description: ADD A DESCRIPTION HERE
 App Types
 =========
 
-There are currently two types of applications  you can build for the ShipEngine Integration Platform.
+There are currently two types of applications  you can build for the ShipEngine Connect.
 
 Carrier App
 -----------

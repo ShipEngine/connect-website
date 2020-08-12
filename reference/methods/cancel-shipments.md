@@ -37,7 +37,7 @@ param:
 
     - name: metadata
       type: object
-      description: Custom data about this shipment that was persisted by the ShipEngine Integration Platform when this shipment was created. Must be JSON serializable.
+      description: Custom data about this shipment that was persisted by ShipEngine Connect when this shipment was created. Must be JSON serializable.
 
 
 
@@ -100,7 +100,7 @@ return:
     - name: metadata
       type: object
       required: false
-      description: Custom data about this shipment that was persisted by the ShipEngine Integration Platform. Must be JSON serializable.
+      description: Custom data about this shipment that was persisted by ShipEngine Connect. Must be JSON serializable.
 ---
 
 

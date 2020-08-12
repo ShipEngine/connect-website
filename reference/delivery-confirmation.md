@@ -11,7 +11,7 @@ documentation: |
   Delivery Confirmation refers to any method by which a carrier might notify or confirm for the sender that a shipment has
   successfully reached its final destination. This can include special services such as obtaining a signature upon delivery.
 
-  Your delivery confirmation options are defined inside files that are then used by the [ShipEngine Integration Platform](./../index.md) to offer these
+  Your delivery confirmation options are defined inside files that are then used by the [ShipEngine Connect](./../index.md) to offer these
   delivery confirmation options to users who utilize your carrier within one of our e-commerce applications. Each delivery service that you wish to offer
   should have its own definition file. These files can reside anywhere within your application as long as their locations are specified in the [Carrier Application Definition](./carrier.md) file.
    The definition may be specified in [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript), [TypeScript](https://www.typescriptlang.org/), [JSON](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON), or

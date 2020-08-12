@@ -39,8 +39,7 @@ fields:
       The currency that the value represents.
 
 ---
-Examples
--------------------------------------------------
+
 
 
 

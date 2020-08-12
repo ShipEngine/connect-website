@@ -7,7 +7,7 @@ identifier: Order Application
 description:
   The page describes how to define an Order application.
 documentation: |
-  The Order Application Definition file tells the [ShipEngine Integration Platform](./../index.md) where to find the resources that define
+  The Order Application Definition file tells the [ShipEngine Connect](./../index.md) where to find the resources that define
   your application, such as methods and forms.
 
 
@@ -21,7 +21,7 @@ param:
      - name: id
        type: UUID
        required: true
-       description: A UUID that uniquely identifies the application for internal ShipEngine Integration Platform purposes. This ID should never change.
+       description: A UUID that uniquely identifies the application for internal ShipEngine Connect purposes. This ID should never change.
 
      - name: name
        type: string
