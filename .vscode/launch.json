@@ -33,7 +33,7 @@
       "name": "Load the Sample App",
       "runtimeArgs": [
         "-e",
-        "require('.').loadApp('../shipengine-integration-platform-sample-apps/cargo-inc').then(console.log, (e) => console.error(e.stack))",
+        "require('.').loadApp('../connect-sample-apps/cargo-inc').then(console.log, (e) => console.error(e.stack))",
       ],
       "skipFiles": [
         "<node_internals>/**"

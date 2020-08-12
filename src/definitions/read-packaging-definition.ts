@@ -1,5 +1,5 @@
-import { InlineOrReference, InlineOrReferenceArray, PackagingDefinition } from "@shipengine/integration-platform-sdk";
-import { PackagingPOJO } from "@shipengine/integration-platform-sdk/lib/internal";
+import { InlineOrReference, InlineOrReferenceArray, PackagingDefinition } from "@shipengine/connect-sdk";
+import { PackagingPOJO } from "@shipengine/connect-sdk/lib/internal";
 import { readDefinitions, readDefinitionValue } from "../read-definition";
 
 /**

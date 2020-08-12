@@ -1,11 +1,11 @@
-import { ConnectionAppDefinition } from "@shipengine/integration-platform-sdk";
-import { AppManifestPOJO, ConnectionAppPOJO } from "@shipengine/integration-platform-sdk/lib/internal";
+import { ConnectionAppDefinition } from "@shipengine/connect-sdk";
+import { AppManifestPOJO, ConnectionAppPOJO } from "@shipengine/connect-sdk/lib/internal";
 import * as path from "path";
 import { readDefinitionValue } from "../read-definition";
 import { readFormDefinition } from "./read-form-definition";
 
 /**
- * Reads a ShipEngine Integration Platform connection definition
+ * Reads a ShipEngine Connect connection definition
  */
 export async function readConnectionAppDefinition(
   definition: ConnectionAppDefinition, cwd: string, manifest: AppManifestPOJO): Promise<ConnectionAppPOJO> {

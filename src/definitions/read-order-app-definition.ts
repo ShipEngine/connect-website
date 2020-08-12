@@ -1,10 +1,10 @@
-import { InlineOrReference, OrderAppDefinition } from "@shipengine/integration-platform-sdk";
-import { AppManifestPOJO, OrderAppPOJO } from "@shipengine/integration-platform-sdk/lib/internal";
+import { InlineOrReference, OrderAppDefinition } from "@shipengine/connect-sdk";
+import { AppManifestPOJO, OrderAppPOJO } from "@shipengine/connect-sdk/lib/internal";
 import { readDefinition, readDefinitionValue } from "../read-definition";
 import { readConnectionAppDefinition } from "./read-connection-app-definition";
 
 /**
- * Reads a ShipEngine Integration Platform order app definition
+ * Reads a ShipEngine Connect order app definition
  */
 export async function readOrderAppDefinition(
   definition: InlineOrReference<OrderAppDefinition>, cwd: string, manifest: AppManifestPOJO): Promise<OrderAppPOJO> {

@@ -1,27 +1,27 @@
-ShipEngine Integration Platform App Loader
+ShipEngine Connect App Loader
 ==============================================
 
 
-[![Cross-Platform Compatibility](https://shipengine.github.io/img/badges/os-badges.svg)](https://github.com/ShipEngine/shipengine-integration-platform-loader/actions)
-[![Build Status](https://github.com/ShipEngine/shipengine-integration-platform-loader/workflows/CI-CD/badge.svg)](https://github.com/ShipEngine/shipengine-integration-platform-loader/actions)
+[![Cross-Platform Compatibility](https://shipengine.github.io/img/badges/os-badges.svg)](https://github.com/ShipEngine/connect-loader/actions)
+[![Build Status](https://github.com/ShipEngine/connect-loader/workflows/CI-CD/badge.svg)](https://github.com/ShipEngine/connect-loader/actions)
 
-[![Coverage Status](https://coveralls.io/repos/github/ShipEngine/shipengine-integration-platform-loader/badge.svg?branch=master)](https://coveralls.io/github/ShipEngine/shipengine-integration-platform-loader)
-[![Dependencies](https://david-dm.org/ShipEngine/shipengine-integration-platform-loader.svg)](https://david-dm.org/ShipEngine/shipengine-integration-platform-loader)
+[![Coverage Status](https://coveralls.io/repos/github/ShipEngine/connect-loader/badge.svg?branch=master)](https://coveralls.io/github/ShipEngine/connect-loader)
+[![Dependencies](https://david-dm.org/ShipEngine/connect-loader.svg)](https://david-dm.org/ShipEngine/connect-loader)
 
-[![npm](https://img.shields.io/npm/v/@shipengine/integration-platform-loader.svg)](https://www.npmjs.com/package/@shipengine/integration-platform-loader)
-[![License](https://img.shields.io/npm/l/@shipengine/integration-platform-loader.svg)](LICENSE)
+[![npm](https://img.shields.io/npm/v/@shipengine/connect-loader.svg)](https://www.npmjs.com/package/@shipengine/connect-loader)
+[![License](https://img.shields.io/npm/l/@shipengine/connect-loader.svg)](LICENSE)
 
 
-This library loads a [**ShipEngine Integration Platform app**](https://www.shipengine.com/docs/integration-platform/) from an NPM package. Regardless of whether the app is written in JavaScript, TypeScript, JSON, YAML, or a mix of them all, the loader reads those files, validates them, and returns the app object.
+This library loads a [**ShipEngine Connect app**](https://connect.shipengine.com/docs/) from an NPM package. Regardless of whether the app is written in JavaScript, TypeScript, JSON, YAML, or a mix of them all, the loader reads those files, validates them, and returns the app object.
 
 
 
 Installation
 --------------------------
-You can install the ShipEngine Integration Platform App Loader via [npm](https://docs.npmjs.com/about-npm/).
+You can install the ShipEngine Connect App Loader via [npm](https://docs.npmjs.com/about-npm/).
 
 ```bash
-npm install @shipengine/integration-platform-loader
+npm install @shipengine/connect-loader
 ```
 
 Example
@@ -30,10 +30,10 @@ This example shows you how to use the loader to load an app, inspect its data, a
 
 
 ```typescript
-import loader from "@shipengine/integration-platform-loader";
+import loader from "@shipengine/connect-loader";
 
 async function main() {
-  // Load the ShipEngine Integration Platform app
+  // Load the ShipEngine Connect app
   let app = await loader.loadApp("/path/to/the/app");
 
   // Display the app's info

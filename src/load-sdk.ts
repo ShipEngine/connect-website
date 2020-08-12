@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { ErrorCode } from "@shipengine/integration-platform-sdk";
-import { App, AppManifestPOJO, CarrierAppPOJO, error, OrderAppPOJO } from "@shipengine/integration-platform-sdk/lib/internal";
+import { ErrorCode } from "@shipengine/connect-sdk";
+import { App, AppManifestPOJO, CarrierAppPOJO, error, OrderAppPOJO } from "@shipengine/connect-sdk/lib/internal";
 import * as path from "path";
 
-const sdk = "@shipengine/integration-platform-sdk";
+const sdk = "@shipengine/connect-sdk";
 
 /**
  * A version of the SDK
@@ -22,9 +22,9 @@ export async function loadSDK(appPath: string, manifest: AppManifestPOJO): Promi
   try {
     let version = getSdkVersion(manifest);
 
-    if (version >= 0 && version < 1) {
+    if (version >= 1) {
       // Import the 0.x version of the SDK
-      let { CarrierApp, OrderApp } = await import("@shipengine/integration-platform-sdk/lib/internal"); return { version, CarrierApp, OrderApp };
+      let { CarrierApp, OrderApp } = await import("@shipengine/connect-sdk/lib/internal"); return { version, CarrierApp, OrderApp };
     }
     else {
       throw error(ErrorCode.Validation, `Unsupported ${sdk} version: ${version}`);
@@ -47,7 +47,7 @@ function getSdkVersion(manifest: AppManifestPOJO): number {
   let versionString = dependencies[sdk] || devDependencies[sdk];
   if (!versionString) {
     throw error(ErrorCode.Validation,
-      `The ShipEngine Integration Platform SDK (${sdk}) must be listed as a dependency or devDependency.`);
+      `The ShipEngine Connect SDK (${sdk}) must be listed as a dependency or devDependency.`);
   }
 
   let versionParts = /^\W*(\d+\.\d+)\./.exec(versionString);

@@ -1,5 +1,5 @@
-import { InlineOrReference, InlineOrReferenceArray, PickupServiceDefinition } from "@shipengine/integration-platform-sdk";
-import { PickupServicePOJO } from "@shipengine/integration-platform-sdk/lib/internal";
+import { InlineOrReference, InlineOrReferenceArray, PickupServiceDefinition } from "@shipengine/connect-sdk";
+import { PickupServicePOJO } from "@shipengine/connect-sdk/lib/internal";
 import { readDefinitions, readDefinitionValue } from "../read-definition";
 
 /**

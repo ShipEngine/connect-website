@@ -1,5 +1,5 @@
-import { CarrierAppDefinition, ErrorCode, OrderAppDefinition } from "@shipengine/integration-platform-sdk";
-import { App, error } from "@shipengine/integration-platform-sdk/lib/internal";
+import { CarrierAppDefinition, ErrorCode, OrderAppDefinition } from "@shipengine/connect-sdk";
+import { App, error } from "@shipengine/connect-sdk/lib/internal";
 import { readCarrierAppDefinition } from "./definitions/read-carrier-app-definition";
 import { readOrderAppDefinition } from "./definitions/read-order-app-definition";
 import { fileCache } from "./file-cache";
@@ -10,7 +10,7 @@ import { readDefinition } from "./read-definition";
 type AppDefinition = CarrierAppDefinition | OrderAppDefinition;
 
 /**
- * Loads a ShipEngine Integration Platform App
+ * Loads a ShipEngine Connect App
  */
 export async function loadApp(appPath = "."): Promise<App> {
   try {
@@ -23,7 +23,7 @@ export async function loadApp(appPath = "."): Promise<App> {
     let sdk = await loadSDK(appPath, manifest);
 
     // Read the app's exported definition
-    let [definition, definitionPath] = await readDefinition<AppDefinition>(appPath, ".", "ShipEngine Integration Platform app");
+    let [definition, definitionPath] = await readDefinition<AppDefinition>(appPath, ".", "ShipEngine Connect app");
 
     if (isCarrierApp(definition)) {
       let pojo = await readCarrierAppDefinition(definition, definitionPath, manifest);
@@ -35,7 +35,7 @@ export async function loadApp(appPath = "."): Promise<App> {
     }
   }
   catch (originalError) {
-    throw error(ErrorCode.AppError, "Error loading the ShipEngine Integration Platform app:", { originalError });
+    throw error(ErrorCode.AppError, "Error loading the ShipEngine Connect app:", { originalError });
   }
   finally {
     // Let the cache know that we're done loading the app,

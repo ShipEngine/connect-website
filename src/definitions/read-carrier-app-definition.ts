@@ -1,12 +1,12 @@
-import { CarrierAppDefinition, InlineOrReference } from "@shipengine/integration-platform-sdk";
-import { AppManifestPOJO, CarrierAppPOJO } from "@shipengine/integration-platform-sdk/lib/internal";
+import { CarrierAppDefinition, InlineOrReference } from "@shipengine/connect-sdk";
+import { AppManifestPOJO, CarrierAppPOJO } from "@shipengine/connect-sdk/lib/internal";
 import { readDefinition, readDefinitionValue } from "../read-definition";
 import { readConnectionAppDefinition } from "./read-connection-app-definition";
 import { readDeliveryServiceArrayDefinition } from "./read-delivery-service-definition";
 import { readPickupServiceArrayDefinition } from "./read-pickup-service-definition";
 
 /**
- * Reads a ShipEngine Integration Platform carrier app definition
+ * Reads a ShipEngine Connect carrier app definition
  */
 export async function readCarrierAppDefinition(
   definition: InlineOrReference<CarrierAppDefinition>, cwd: string, manifest: AppManifestPOJO): Promise<CarrierAppPOJO> {

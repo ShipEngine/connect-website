@@ -1,12 +1,12 @@
-import { DynamicImport, ErrorCode, InlineOrReference, InlineOrReferenceArray } from "@shipengine/integration-platform-sdk";
-import { error } from "@shipengine/integration-platform-sdk/lib/internal";
+import { DynamicImport, ErrorCode, InlineOrReference, InlineOrReferenceArray } from "@shipengine/connect-sdk";
+import { error } from "@shipengine/connect-sdk/lib/internal";
 import * as path from "path";
 import * as resolveFrom from "resolve-from";
 import { fileCache } from "./file-cache";
 import { readFile } from "./read-file";
 
 /**
- * Reads an ShipEngine Integration Platform definition that is expected to be a single value.
+ * Reads an ShipEngine Connect definition that is expected to be a single value.
  * The definition can be any of:
  *
  * - an inline value
@@ -24,7 +24,7 @@ export async function readDefinitions<T>(definition: InlineOrReferenceArray<T>, 
 export async function readDefinitions<T>(definition: InlineOrReferenceArray<T> | undefined, cwd: string, fieldName: string): Promise<[T[] | undefined, string]>;
 
 /**
- * Reads a ShipEngine Integration Platform definition that is expected to be an array of values.
+ * Reads a ShipEngine Connect definition that is expected to be an array of values.
  * The definition can be any of:
  *
  * - an inline value
@@ -44,7 +44,7 @@ export async function readDefinition<T>(definition: InlineOrReference<T>, cwd: s
 export async function readDefinition<T>(definition: InlineOrReference<T> | undefined, cwd: string, fieldName: string): Promise<[T | undefined, string]>;
 
 /**
- * Reads a ShipEngine Integration Platform definition that is expected to be a single value.
+ * Reads a ShipEngine Connect definition that is expected to be a single value.
  * The definition can be any of:
  *
  * - an inline value

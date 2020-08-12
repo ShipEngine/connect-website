@@ -3,6 +3,6 @@
   "version": "0.0.1",
   "main": "carrier.yml",
   "devDependencies": {
-    "@shipengine/integration-platform-sdk": "0.0.20"
+    "@shipengine/connect-sdk": "1.0.0"
   }
 }
