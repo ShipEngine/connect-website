@@ -7,6 +7,9 @@ import { Session } from "./session";
 
 /**
  * Returns tracking information for a shipment
+ * 
+ * View sample implementation here:
+ * https://github.com/ShipEngine/shipengine-integration-platform-sample-apps/blob/master/parcel-post/src/methods/track-shipment.ts
  */
 export default async function trackShipment(
   transaction: Transaction<Session>,
