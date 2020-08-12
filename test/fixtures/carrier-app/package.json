@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "dependencies": {},
   "devDependencies": {
-    "@shipengine/integration-platform-sdk": "0.0.36"
+    "@shipengine/connect-sdk": "1.0.0"
   },
   "main": "src/index.js"
 }

@@ -1,8 +1,8 @@
 import chai, { expect } from "chai";
 import chaiHttp from "chai-http";
 import express from "express";
-import { loadApp } from "@shipengine/integration-platform-loader";
-import { CarrierApp } from "@shipengine/integration-platform-sdk/lib/internal";
+import { loadApp } from "@shipengine/connect-loader";
+import { CarrierApp } from "@shipengine/connect-sdk/lib/internal";
 
 import logger from "../../src/utils/logger";
 import buildAPI from "../../src/build-api";

@@ -1,6 +1,6 @@
 import bodyParser from "body-parser";
 import { Express, Request, Response, NextFunction } from "express";
-import { CarrierApp } from "@shipengine/integration-platform-sdk/lib/internal";
+import { CarrierApp } from "@shipengine/connect-sdk/lib/internal";
 import log from "./utils/logger";
 
 export default function buildAPI(

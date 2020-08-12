@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
-import { loadApp } from "@shipengine/integration-platform-loader";
-import { CarrierApp } from "@shipengine/integration-platform-sdk/lib/internal";
+import { loadApp } from "@shipengine/connect-loader";
+import { CarrierApp } from "@shipengine/connect-sdk/lib/internal";
 import { Request, Response, NextFunction } from "express";
 import buildAPI from "./build-api";
 import log from "./utils/logger";
