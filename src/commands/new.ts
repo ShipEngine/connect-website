@@ -33,7 +33,7 @@ export default class New extends BaseCommand {
     },
   ];
 
-  static examples = ["$ shipengine new"];
+  static examples = ["$ connect new"];
 
   async run() {
     const { flags, args } = this.parse(New);

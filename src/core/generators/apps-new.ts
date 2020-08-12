@@ -236,8 +236,8 @@ class AppsNew extends Generator {
 
     this.pjson.main = this.pJsonMain();
     this.pjson.scripts = {
-      start: "shipengine start",
-      test: "shipengine test"
+      start: "connect start",
+      test: "connect test"
     }
 
     if (this.ts) {
