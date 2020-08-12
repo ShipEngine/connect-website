@@ -1,6 +1,6 @@
 import {
   RateCriteria,
-  RatePOJO,
+  Rate,
   Transaction,
 } from "@shipengine/integration-platform-sdk";
 import { Session } from "./session";
@@ -8,13 +8,13 @@ import { Session } from "./session";
 /**
  * Generates shipping rates for a shipment
  *
- * See an example implementation below
+ * View sample implementation here:
  * https://github.com/ShipEngine/shipengine-integration-platform-sample-apps/blob/master/parcel-post/carrier/src/methods/rate-shipment.ts
  */
 export default async function rateShipment(
   transaction: Transaction<Session>,
   shipment: RateCriteria,
-): Promise<RatePOJO[]> {
+): Promise<Rate[]> {
   throw new Error("NotImplementedError");
   // STEP 1: Validation
   // STEP 2: Create the data that the carrier's API expects

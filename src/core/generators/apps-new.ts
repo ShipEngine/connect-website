@@ -67,7 +67,7 @@ class AppsNew extends Generator {
       engines: {},
       devDependencies: {},
       dependencies: {},
-      ...this.fs.readJSON("package.json", {}),
+      ...this.fs.readJSON("package.json", {}) as object,
     };
 
     const scopePresentInName = (name: string): boolean => {
@@ -220,7 +220,7 @@ class AppsNew extends Generator {
     } else {
       this.pjson.name = `${this.answers.scope || defaults.scope}/${
         this.answers.name || defaults.name
-      }`;
+        }`;
     }
 
     this.pjson.description = this.answers.description || defaults.description;
@@ -235,19 +235,16 @@ class AppsNew extends Generator {
     ];
 
     this.pjson.main = this.pJsonMain();
-
-    if (this.answers.vscode) {
-      this.pjson.scripts = {
-        debug: "cross-env NODE_OPTIONS=--inspect-brk shipengine test",
-      };
+    this.pjson.scripts = {
+      start: "shipengine start",
+      test: "shipengine test"
     }
 
-    if(this.ts) {
-      this.pjson.scripts = {
-        build: "tsc"
-      };
-
-      this.pjson.main = "lib/index.js";
+    if (this.ts) {
+      this.pjson.scripts.build = "tsc";
+      this.pjson.scripts.watch = "tsc --watch";
+      this.pjson.scripts.postbuild = "copyfiles -u 1 src/**/!\\(*.ts\\) lib; copyfiles -u 1 src/!\\(*.ts\\) lib";
+      this.pjson.main = `lib/index.${this._definitionExt === "ts" ? "js" : this._definitionExt}`;
     }
   }
 
@@ -303,6 +300,21 @@ class AppsNew extends Generator {
       this.destinationPath("README.md"),
       this,
     );
+
+    if(this.ts) {
+      this.fs.copyTpl(
+        this.templatePath(".npmignore-ts"),
+        this.destinationPath(".npmignore"),
+        this,
+      );
+    }
+    else {
+      this.fs.copyTpl(
+        this.templatePath(".npmignore-js"),
+        this.destinationPath(".npmignore"),
+        this,
+      );
+    }
 
     if (this.pjson.license === "ISC") {
       this.fs.copyTpl(
@@ -454,7 +466,7 @@ class AppsNew extends Generator {
 
             this.fs.copyTpl(
               this.templatePath(`tsconfig.json`),
-              this.destinationPath('tsconfig.json'),
+              this.destinationPath("tsconfig.json"),
               this,
             );
           }
@@ -472,9 +484,7 @@ class AppsNew extends Generator {
             this.templatePath(
               `order-source/forms/connect.${this._definitionExt}`,
             ),
-            this.destinationPath(
-              `src/forms/connect.${this._definitionExt}`,
-            ),
+            this.destinationPath(`src/forms/connect.${this._definitionExt}`),
             this,
           );
 
@@ -482,19 +492,13 @@ class AppsNew extends Generator {
             this.templatePath(
               `order-source/forms/settings.${this._definitionExt}`,
             ),
-            this.destinationPath(
-              `src/forms/settings.${this._definitionExt}`,
-            ),
+            this.destinationPath(`src/forms/settings.${this._definitionExt}`),
             this,
           );
 
           this.fs.copyTpl(
-            this.templatePath(
-              `order-source/methods/connect.${this._codeExt}`,
-            ),
-            this.destinationPath(
-              `src/methods/connect.${this._codeExt}`,
-            ),
+            this.templatePath(`order-source/methods/connect.${this._codeExt}`),
+            this.destinationPath(`src/methods/connect.${this._codeExt}`),
             this,
           );
 
@@ -550,13 +554,14 @@ class AppsNew extends Generator {
     const dependencies: string[] = [];
     const devDependencies: string[] = [];
 
-    devDependencies.push("@shipengine/integration-platform-sdk@0.0.21");
+    devDependencies.push("@shipengine/integration-platform-sdk");
     devDependencies.push("dotenv-flow@3.1.0");
     devDependencies.push("cross-env");
 
     if (this.ts) {
       devDependencies.push("@types/node@^13.13.5");
       devDependencies.push("typescript");
+      devDependencies.push("copyfiles");
     }
 
     if (isWindows) devDependencies.push("rimraf");
@@ -576,9 +581,8 @@ class AppsNew extends Generator {
   get _definitionExt() {
     if (this.definitions === "pojo") {
       return this.ts ? "ts" : "js";
-    } else {
-      return this.definitions;
     }
+    return this.definitions;
   }
 
   get _codeExt() {
@@ -620,9 +624,8 @@ class AppsNew extends Generator {
   private pJsonMain() {
     if (this.definitions === "pojo") {
       return this.ts ? "src/index.ts" : "src/index.js";
-    } else {
-      return `src/index.${this.definitions}`;
     }
+    return `src/index.${this.definitions}`;
   }
 }
 

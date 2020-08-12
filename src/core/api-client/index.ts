@@ -18,10 +18,15 @@ export interface ApiClientParams {
  */
 export default class APIClient {
   apps: Apps;
+  
   deployments: Deployments;
+  
   diagnostics: Diagnostics;
+  
   user: User;
+  
   apiKey: string;
+  
   private _apiAuthority = "https://dip-webapi-dev.kubedev.sslocal.com/api";
 
   constructor(apiKey: string) {

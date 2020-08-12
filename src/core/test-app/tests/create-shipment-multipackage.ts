@@ -1,10 +1,5 @@
-import {
-  CarrierApp,
-  DeliveryService,
-  NewShipmentPOJO,
-  NewPackagePOJO,
-  WeightUnit,
-} from "@shipengine/integration-platform-sdk";
+import { DeliveryService, WeightUnit } from "@shipengine/integration-platform-sdk";
+import { CarrierApp, NewShipmentPOJO, NewPackagePOJO } from "@shipengine/integration-platform-sdk/lib/internal";
 import Suite from "../runner/suite";
 import { initializeTimeStamps } from '../../utils/time-stamps';
 import { CreateShipmentMultiPackageConfigOptions, CreateShipmentMultiPackageTestParams } from '../runner/config/create-shipment-multipackage';
@@ -103,7 +98,7 @@ export class CreateShipmentMultiPackage extends Suite {
     const packages = testParams.packages.map((pkgParams) => {
       const packaging = findPackagingByName(pkgParams.packagingName, carrierApp)
 
-      let newPackage: NewPackagePOJO = {
+      const newPackage: NewPackagePOJO = {
         packaging: {
           id: packaging.id,
         },
@@ -117,20 +112,10 @@ export class CreateShipmentMultiPackage extends Suite {
         }
       }
 
-      if (pkgParams.deliveryConfirmationName) {
-        const deliveryConfirmation = findDeliveryServiceByName(pkgParams.deliveryConfirmationName, carrierApp);
-
-        if (!deliveryConfirmation) {
-          throw new Error(`Unable to find a delivery confirmation definition for ${pkgParams.deliveryConfirmationName}`);
-        }
-
-        newPackage.deliveryConfirmation = deliveryConfirmation;
-      }
-
       return newPackage;
     });
 
-    let newShipmentPOJO: NewShipmentPOJO = {
+    const newShipmentPOJO: NewShipmentPOJO = {
       deliveryService: {
         id: this.deliveryService.id,
       },
@@ -139,6 +124,16 @@ export class CreateShipmentMultiPackage extends Suite {
       shipDateTime: testParams.shipDateTime,
       packages
     };
+
+    if (testParams.deliveryConfirmationName) {
+      const deliveryConfirmation = findDeliveryServiceByName(testParams.deliveryConfirmationName, carrierApp);
+
+      if (!deliveryConfirmation) {
+        throw new Error(`Unable to find a delivery confirmation definition for ${testParams.deliveryConfirmationName}`);
+      }
+
+      newShipmentPOJO.deliveryConfirmation = deliveryConfirmation;
+    }
 
     const title = config.expectedErrorMessage
       ? `it raises an error when creating a new multi-package shipment with ${objectToTestTitle(
@@ -161,11 +156,11 @@ export class CreateShipmentMultiPackage extends Suite {
       return this.config.map((config: CreateShipmentMultiPackageConfigOptions) => {
         return this.buildTestArg(config);
       });
-    } else {
-      const config = this.config as CreateShipmentMultiPackageConfigOptions;
-
-      return [this.buildTestArg(config)];
     }
+
+    const config = this.config as CreateShipmentMultiPackageConfigOptions;
+    return [this.buildTestArg(config)];
+
   }
 
   tests() {

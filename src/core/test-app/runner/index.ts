@@ -24,9 +24,13 @@ interface RunnerArgs {
 
 export default class Runner {
   private failFast: boolean;
+  
   private grep?: string;
+  
   private suites: Suite[];
+  
   private testResults: TestResults;
+  
   private testResultsReducer: TestReducer;
 
   constructor({
@@ -44,7 +48,7 @@ export default class Runner {
   }
 
   async run() {
-    for (let suite of this.suites) {
+    for (const suite of this.suites) {
       if (this.failFast && this.testResults.hasFailed())
         return this.testResults;
 
@@ -55,7 +59,7 @@ export default class Runner {
 
       logStep(suite.title);
 
-      for (let test of suite.tests()) {
+      for (const test of suite.tests()) {
         if (this.failFast && this.testResults.hasFailed()) continue;
 
         if (this.grep) {

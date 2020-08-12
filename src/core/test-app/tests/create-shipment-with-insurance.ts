@@ -1,11 +1,9 @@
 import {
-  CarrierApp,
   DeliveryService,
-  NewShipmentPOJO,
-  NewPackagePOJO,
   WeightUnit,
   DeliveryConfirmation
 } from "@shipengine/integration-platform-sdk";
+import { CarrierApp, NewShipmentPOJO, NewPackagePOJO } from "@shipengine/integration-platform-sdk/lib/internal";
 import Suite from "../runner/suite";
 import {
   CreateShipmentWithInsuranceConfigOptions,
@@ -33,6 +31,7 @@ export class CreateShipmentWithInsurance extends Suite {
   title = "createShipment_with_insurance";
 
   private deliveryService?: DeliveryService;
+
   private deliveryConfirmation?: DeliveryConfirmation;
 
   private setDeliveryService(
@@ -45,7 +44,7 @@ export class CreateShipmentWithInsurance extends Suite {
         config.deliveryServiceName,
         carrierApp,
       );
-      if(!this.deliveryService.isInsurable) {
+      if (!this.deliveryService.isInsurable) {
         throw new Error(`The configured delivery service '${this.deliveryService.name}' does not support insuring packages`);
       }
     } else {
@@ -80,13 +79,13 @@ export class CreateShipmentWithInsurance extends Suite {
   buildTestArg(
     config: CreateShipmentWithInsuranceConfigOptions,
   ): TestArgs | undefined {
-    let carrierApp = this.app as CarrierApp;
+    const carrierApp = this.app as CarrierApp;
     this.setDeliveryService(config);
     this.setDeliveryConfirmation(config);
 
     if (!this.deliveryService) return undefined;
 
-    let [shipFrom, shipTo] = useDomesticShippingAddress(this.deliveryService);
+    const [shipFrom, shipTo] = useDomesticShippingAddress(this.deliveryService);
 
     if (!shipFrom || !shipTo) return undefined;
 
@@ -105,7 +104,7 @@ export class CreateShipmentWithInsurance extends Suite {
       },
       packagingName: this.deliveryService.packaging[0].name,
       packageInsuredValue: {
-        value: "10",
+        value: 10,
         currency: "USD"
       }
     };
@@ -133,27 +132,7 @@ export class CreateShipmentWithInsurance extends Suite {
       insuredValue: testParams.packageInsuredValue
     };
 
-    if (this.deliveryConfirmation) {
-      packagePOJO.deliveryConfirmation = {
-        id: this.deliveryConfirmation.id,
-      };
-    }
-
-    if (this.deliveryService.deliveryConfirmations.length > 0) {
-      packagePOJO.deliveryConfirmation = {
-        id: this.deliveryService.deliveryConfirmations[0].id,
-      };
-    }
-
-    if (testParams.deliveryConfirmationName) {
-      packagePOJO.deliveryConfirmation = {
-        id: this.deliveryService.deliveryConfirmations.find(
-          (dc) => dc.name === testParams.deliveryConfirmationName,
-        )!.id,
-      };
-    }
-
-    let newShipmentPOJO: NewShipmentPOJO = {
+    const newShipmentPOJO: NewShipmentPOJO = {
       deliveryService: {
         id: this.deliveryService.id,
       },
@@ -162,6 +141,20 @@ export class CreateShipmentWithInsurance extends Suite {
       shipDateTime: testParams.shipDateTime,
       packages: [packagePOJO],
     };
+
+    if (this.deliveryConfirmation) {
+      newShipmentPOJO.deliveryConfirmation = {
+        id: this.deliveryConfirmation.id,
+      };
+    }
+
+    if (testParams.deliveryConfirmationName) {
+      newShipmentPOJO.deliveryConfirmation = {
+        id: this.deliveryService.deliveryConfirmations.find(
+          (dc) => dc.name === testParams.deliveryConfirmationName,
+        )!.id,
+      };
+    }
 
     const title = config.expectedErrorMessage
       ? `it raises an error when creating a new insured shipment with ${objectToTestTitle(
@@ -184,11 +177,10 @@ export class CreateShipmentWithInsurance extends Suite {
       return this.config.map((config: CreateShipmentWithInsuranceConfigOptions) => {
         return this.buildTestArg(config);
       });
-    } else {
-      const config = this.config as CreateShipmentWithInsuranceConfigOptions;
-
-      return [this.buildTestArg(config)];
     }
+ 
+    const config = this.config as CreateShipmentWithInsuranceConfigOptions;
+    return [this.buildTestArg(config)];
   }
 
   tests() {

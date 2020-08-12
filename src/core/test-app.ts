@@ -162,7 +162,7 @@ function registerTestSuiteModules(app: SdkApp): RegisteredTestSuiteModules {
 
   let registeredTestSuiteModules: RegisteredTestSuiteModules = [];
 
-  for (let method in allMethods) {
+  for (const method in allMethods) {
     if (Reflect.get(app, method)) {
       registeredTestSuiteModules = registeredTestSuiteModules.concat(
         Reflect.get(allMethods, method),

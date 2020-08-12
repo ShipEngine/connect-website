@@ -1,11 +1,5 @@
-import {
-  CarrierApp,
-  DeliveryService,
-  NewShipmentPOJO,
-  NewPackagePOJO,
-  WeightUnit,
-  DeliveryConfirmation
-} from "@shipengine/integration-platform-sdk";
+import { DeliveryService, WeightUnit, DeliveryConfirmation } from "@shipengine/integration-platform-sdk";
+import { CarrierApp, NewShipmentPOJO, NewPackagePOJO } from "@shipengine/integration-platform-sdk/lib/internal";
 import Suite from "../runner/suite";
 import {
   CreateShipmentDomesticConfigOptions,
@@ -31,6 +25,7 @@ export class CreateShipmentDomestic extends Suite {
   title = "createShipment_domestic";
 
   private deliveryService?: DeliveryService;
+
   private deliveryConfirmation?: DeliveryConfirmation;
 
   private setDeliveryService(
@@ -80,9 +75,11 @@ export class CreateShipmentDomestic extends Suite {
 
     if (!this.deliveryService) return undefined;
 
-    let [shipFrom, shipTo] = useDomesticShippingAddress(this.deliveryService);
-
-    if (!shipFrom || !shipTo) return undefined;
+    let shipFrom;
+    let shipTo;
+    try {
+      [shipFrom, shipTo] = useDomesticShippingAddress(this.deliveryService);
+    } catch { }
 
     const { tomorrow } = initializeTimeStamps();
 
@@ -95,8 +92,8 @@ export class CreateShipmentDomestic extends Suite {
         format: this.deliveryService.labelFormats[0]
       },
       shipDateTime: tomorrow,
-      shipFrom: shipFrom!,
-      shipTo: shipTo!,
+      shipFrom: shipFrom,
+      shipTo: shipTo,
       weight: {
         unit: WeightUnit.Pounds,
         value: 50.0,
@@ -110,6 +107,8 @@ export class CreateShipmentDomestic extends Suite {
     const testParams = reduceDefaultsWithConfig<
       CreateShipmentDomesticTestParams
     >(defaults, config);
+
+    if (!testParams.shipFrom || !testParams.shipTo) return undefined;
 
     const packagePOJO: NewPackagePOJO = {
       packaging: {
@@ -125,27 +124,7 @@ export class CreateShipmentDomestic extends Suite {
       },
     };
 
-    if (this.deliveryConfirmation) {
-      packagePOJO.deliveryConfirmation = {
-        id: this.deliveryConfirmation.id,
-      };
-    }
-
-    if (this.deliveryService.deliveryConfirmations.length > 0) {
-      packagePOJO.deliveryConfirmation = {
-        id: this.deliveryService.deliveryConfirmations[0].id,
-      };
-    }
-
-    if (testParams.deliveryConfirmationName) {
-      packagePOJO.deliveryConfirmation = {
-        id: this.deliveryService.deliveryConfirmations.find(
-          (dc) => dc.name === testParams.deliveryConfirmationName,
-        )!.id,
-      };
-    }
-
-    let newShipmentPOJO: NewShipmentPOJO = {
+    const newShipmentPOJO: NewShipmentPOJO = {
       deliveryService: {
         id: this.deliveryService.id,
       },
@@ -163,6 +142,20 @@ export class CreateShipmentDomestic extends Suite {
         testParams,
       )}`;
 
+    if (this.deliveryConfirmation) {
+      newShipmentPOJO.deliveryConfirmation = {
+        id: this.deliveryConfirmation.id,
+      };
+    }
+
+    if (testParams.deliveryConfirmationName) {
+      newShipmentPOJO.deliveryConfirmation = {
+        id: this.deliveryService.deliveryConfirmations.find(
+          (dc) => dc.name === testParams.deliveryConfirmationName,
+        )!.id,
+      };
+    }
+
     return {
       title,
       methodArgs: newShipmentPOJO,
@@ -175,11 +168,9 @@ export class CreateShipmentDomestic extends Suite {
       return this.config.map((config: CreateShipmentDomesticConfigOptions) => {
         return this.buildTestArg(config);
       });
-    } else {
-      const config = this.config as CreateShipmentDomesticConfigOptions;
-
-      return [this.buildTestArg(config)];
     }
+    const config = this.config as CreateShipmentDomesticConfigOptions;
+    return [this.buildTestArg(config)];
   }
 
   tests() {

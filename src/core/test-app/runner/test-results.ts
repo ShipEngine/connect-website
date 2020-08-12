@@ -32,7 +32,6 @@ export function useTestResults(): [TestResults, TestReducer] {
         return;
       case "INCREMENT_FAILED":
         testResults.failed++;
-        return;
     }
   };
 

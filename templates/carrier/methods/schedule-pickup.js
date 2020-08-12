@@ -2,6 +2,9 @@
 
 /**
  * Schedules a pick-up at a specific time and location
+ * 
+ * View sample implementation here:
+ * https://github.com/ShipEngine/shipengine-integration-platform-sample-apps/blob/master/freightco/schedule-pickup.js
  */
 async function schedulePickup(transaction, pickup) {
   throw new Error("NotImplementedError");

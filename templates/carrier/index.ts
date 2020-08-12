@@ -2,16 +2,7 @@ import {
   CarrierAppDefinition,
   ManifestLocation,
   ManifestShipment,
-  InlineOrReference,
-  Connect,
-  CancelPickups,
-  CancelShipments,
-  CreateManifest,
-  CreateShipment,
-  RateShipment,
-  SchedulePickup,
-  TrackShipment,
-  DeliveryServiceDefinition,
+  ManifestType
 } from "@shipengine/integration-platform-sdk";
 
 const carrier: CarrierAppDefinition = {
@@ -21,6 +12,7 @@ const carrier: CarrierAppDefinition = {
   websiteURL: "http://www.carier-site.com",
   logo: "./logo.svg",
   icon: "./logo.svg",
+  manifestType: ManifestType.Digital,
   manifestLocations: ManifestLocation.SingleLocation,
   manifestShipments: ManifestShipment.ExplicitShipments,
   connectionForm: import("./forms/connect"),

@@ -61,8 +61,8 @@ export function buildAddressWithContactInfo(
 }
 
 export function getSupportedCountryCodes(): Set<string> {
-  let supportedCountries = new Set<string>()
-  for(let key of Object.keys(countryMap)) {
+  const supportedCountries = new Set<string>()
+  for(const key of Object.keys(countryMap)) {
 
     supportedCountries.add(key.slice(0,2))
   }

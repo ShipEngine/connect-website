@@ -245,6 +245,7 @@ describe("The create shipment multipackage test suite", () => {
         name: "Better Delivery Service",
         class: "ground",
         grade: "standard",
+        manifestType: "digital",
         allowsMultiplePackages: true,
         originCountries: ["MX"],
         destinationCountries: ["MX"],

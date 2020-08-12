@@ -8,6 +8,7 @@ const pjson = require("../package.json");
 
 export default abstract class BaseCommand extends Base {
   base = `${pjson.name}@${pjson.version}`;
+
   private _appsClient!: APIClient;
 
   get appsClient(): APIClient | undefined {
@@ -26,7 +27,7 @@ export default abstract class BaseCommand extends Base {
     try {
       return await this.appsClient!.user.getCurrent();
     }
-    catch(error) {
+    catch (error) {
       this.error(error.message);
     }
   }

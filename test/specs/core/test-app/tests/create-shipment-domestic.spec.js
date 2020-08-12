@@ -167,6 +167,7 @@ describe("The create shipment domestic test suite", () => {
         name: "Better Delivery Service",
         class: "ground",
         grade: "standard",
+        manifestType: "physical",
         originCountries: ["MX"],
         destinationCountries: ["MX"],
         labelFormats: ["pdf"],
@@ -188,9 +189,13 @@ describe("The create shipment domestic test suite", () => {
     });
   });
 
-  describe("When a user configures a Ship To and Ship From address", () => {
-    it("should update the test arguments and titles", () => {
+  describe("When a delivery service has addresses that we don't have samples but user uses valid configs", () => {
+    it("should generate tests", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+
+      appDefinition.deliveryServices[0].originCountries = ["AQ", "US"];
+      appDefinition.deliveryServices[0].destinationCountries = ["AQ", "US"];
+
 
       const app = new CarrierApp(appDefinition);
 
@@ -212,6 +217,38 @@ describe("The create shipment domestic test suite", () => {
           country: "US",
           postalCode: "77422",
           timeZone: "America/Chicago"
+        }
+      };
+
+      const args = { app, connectArgs, staticConfigTests, options };
+      const testSuite = new CreateShipmentDomestic(args);
+      const tests = testSuite.tests();
+      expect(tests.length).to.equal(1);
+    });
+  });
+
+  describe("When a user configures a Ship To and Ship From address", () => {
+    it("should update the test arguments and titles", () => {
+      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+
+      const app = new CarrierApp(appDefinition);
+
+      staticConfigTests.createShipment_domestic = {
+        shipFrom: {
+          company: "Domestic Route #1",
+          addressLines: ["123 New Street"],
+          cityLocality: "Houston",
+          stateProvince: "TX",
+          country: "US",
+          postalCode: "77422"
+        },
+        shipTo: {
+          company: "Domestic Route #2",
+          addressLines: ["123 New Street"],
+          cityLocality: "Houston",
+          stateProvince: "TX",
+          country: "US",
+          postalCode: "77422"
         }
       };
 
@@ -288,6 +325,7 @@ describe("The create shipment domestic test suite", () => {
 function generateBasicAppAndConfigs() {
   const appDefinition = pojo.carrierApp();
   const deliveryService = pojo.deliveryService();
+  deliveryService.manifestType = "digital";
   deliveryService.labelFormats = ["pdf"];
   deliveryService.labelSizes = ["A4"];
   deliveryService.deliveryConfirmations = [pojo.deliveryConfirmation()];

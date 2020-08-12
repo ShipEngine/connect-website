@@ -30,12 +30,12 @@ async function readTextFile(absoluteFilePath: string): Promise<string> {
  * Returns the parsed contents of the specified YAML file
  */
 async function readYamlFile<T>(absoluteFilePath: string): Promise<T> {
-  let yaml = await readTextFile(absoluteFilePath);
+  const yaml = await readTextFile(absoluteFilePath);
 
   try {
-    return jsYaml.safeLoad(yaml, {
-      filename: path.basename(absoluteFilePath),
-    }) as T;
+    const parsedYaml = jsYaml.safeLoad(yaml, { filename: path.basename(absoluteFilePath) }) as unknown;
+
+    return parsedYaml as T;
   } catch (error) {
     throw sdkError(
       ErrorCode.Syntax,
@@ -49,7 +49,7 @@ async function readYamlFile<T>(absoluteFilePath: string): Promise<T> {
  * Returns the parsed contents of the specified JSON file
  */
 async function readJsonFile<T>(absoluteFilePath: string): Promise<T> {
-  let json = await readTextFile(absoluteFilePath);
+  const json = await readTextFile(absoluteFilePath);
 
   try {
     return json5.parse(json) as T;
@@ -67,14 +67,13 @@ async function readJsonFile<T>(absoluteFilePath: string): Promise<T> {
  */
 async function importJavaScriptModule<T>(absoluteFilePath: string): Promise<T> {
   try {
-    let exports = (await import(absoluteFilePath)) as EcmaScriptModule;
+    const exports = (await import(absoluteFilePath)) as EcmaScriptModule;
     if ("default" in exports) {
       // This appears to be an ECMAScript module, so return its default export
       return exports.default as T;
-    } else {
-      // This appears to be a CommonJS module, so return the module exports
-      return (exports as unknown) as T;
     }
+    // This appears to be a CommonJS module, so return the module exports
+    return (exports as unknown) as T;
   } catch (error) {
     throw sdkError(
       ErrorCode.Filesystem,

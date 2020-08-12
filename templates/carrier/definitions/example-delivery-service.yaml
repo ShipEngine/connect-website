@@ -6,6 +6,7 @@ class: ground
 deliveryConfirmations:
   - ./example-delivery-confirmation.yaml
 grade: standard
+manifestType: digital
 isInsurable: true
 isTrackable: false
 labelFormats:

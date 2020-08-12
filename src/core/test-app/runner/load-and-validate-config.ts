@@ -52,7 +52,7 @@ function validate(config: Config): void {
     "trackShipment",
   ];
 
-  for (let key of Object.keys(config)) {
+  for (const key of Object.keys(config)) {
     if (!rootLevelKey.includes(key)) {
       throw new Error(
         `Invalid shipengine.config.js file, unrecognized property: ${key}`,
@@ -60,7 +60,7 @@ function validate(config: Config): void {
     }
 
     if (config.tests) {
-      for (let [key] of Object.entries(config.tests)) {
+      for (const [key] of Object.entries(config.tests)) {
         if (!testKeys.includes(key)) {
           throw new Error(
             `Invalid shipengine.config.js file, unrecognized property: ${key}`,

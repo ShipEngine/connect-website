@@ -6,6 +6,7 @@
   "deliveryConfirmations": ["./example-delivery-confirmation.json"],
   "grade": "standard",
   "isInsurable": true,
+  "manifestType": "digital",
   "isTrackable": false,
   "labelFormats": ["pdf"],
   "labelSizes": ["4x8"],

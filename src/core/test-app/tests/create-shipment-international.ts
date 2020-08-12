@@ -1,11 +1,12 @@
 import {
-  CarrierApp,
   DeliveryConfirmation,
   DeliveryService,
-  NewPackagePOJO,
-  NewShipmentPOJO,
   WeightUnit,
 } from "@shipengine/integration-platform-sdk";
+
+import { CarrierApp, NewShipmentPOJO, NewPackagePOJO } from "@shipengine/integration-platform-sdk/lib/internal";
+
+
 import Suite from "../runner/suite";
 import findDeliveryConfirmationByName from "../utils/find-delivery-confirmation-by-name";
 import findDeliveryServiceByName from "../utils/find-delivery-service-by-name";
@@ -31,6 +32,7 @@ export class CreateShipmentInternational extends Suite {
   title = "createShipment_international";
 
   private deliveryService?: DeliveryService;
+
   private deliveryConfirmation?: DeliveryConfirmation;
 
   private setDeliveryService(
@@ -82,13 +84,13 @@ export class CreateShipmentInternational extends Suite {
     // If we cant resolve a delivery serivice above then we dont have enough info to setup this test
     if (!this.deliveryService) return undefined;
 
-    let [shipFrom, shipTo] = useInternationalShipmentAddresses(
-      this.deliveryService,
-    );
-    // We need to know if the config defines 'shipFrom' so we can set the 'shipDateTime' with the correct timezone
-    shipFrom = config.shipFrom ? config.shipFrom : shipFrom;
-    
-    if(!shipFrom) return undefined;
+    let shipFrom;
+    let shipTo;
+    try {
+      [shipFrom, shipTo] = useInternationalShipmentAddresses(this.deliveryService);
+    } catch {
+    }
+
     const { tomorrow } = initializeTimeStamps();
 
     const defaults: CreateShipmentInternationalTestParams = {
@@ -110,6 +112,8 @@ export class CreateShipmentInternational extends Suite {
       CreateShipmentInternationalTestParams
     >(defaults, config);
 
+    if (!testParams.shipFrom || !testParams.shipTo) return undefined;
+
     const packagePOJO: NewPackagePOJO = {
       packaging: {
         id: this.deliveryService.packaging[0].id,
@@ -118,29 +122,30 @@ export class CreateShipmentInternational extends Suite {
       weight: testParams.weight,
     };
 
+
+    const newShipmentPOJO: NewShipmentPOJO = {
+      deliveryService: {
+        id: this.deliveryService.id,
+      },
+      shipFrom: testParams.shipFrom,
+      shipTo: testParams.shipTo,
+      shipDateTime: testParams.shipDateTime!,
+      packages: [packagePOJO],
+    };
+   
     if (this.deliveryConfirmation) {
-      packagePOJO.deliveryConfirmation = {
+      newShipmentPOJO.deliveryConfirmation = {
         id: this.deliveryConfirmation.id,
       };
     }
 
-    let newShipmentPOJO: NewShipmentPOJO = {
-      deliveryService: {
-        id: this.deliveryService.id,
-      },
-      shipFrom: testParams.shipFrom!,
-      shipTo: testParams.shipTo!,
-      shipDateTime: testParams.shipDateTime!,
-      packages: [packagePOJO],
-    };
-
     const title = config.expectedErrorMessage
       ? `it raises an error when creating a new international shipment with ${objectToTestTitle(
-          testParams,
-        )}`
+        testParams,
+      )}`
       : `it creates a new international shipment with ${objectToTestTitle(
-          testParams,
-        )}`;
+        testParams,
+      )}`;
 
     return {
       title: title,
@@ -157,11 +162,10 @@ export class CreateShipmentInternational extends Suite {
           return this.buildTestArg(config);
         },
       );
-    } else {
-      const config = this.config as CreateShipmentInternationalConfigOptions;
-
-      return [this.buildTestArg(config)];
     }
+
+    const config = this.config as CreateShipmentInternationalConfigOptions;
+    return [this.buildTestArg(config)];
   }
 
   tests() {

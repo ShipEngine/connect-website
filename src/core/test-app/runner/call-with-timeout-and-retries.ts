@@ -7,8 +7,8 @@ export default async function callWithTimeoutAndRetries(
   retries: number,
 ) {
   const run = async () => {
-    return await pTimeout(fn(), timeout, `test timed out after ${timeout}ms`);
+    return pTimeout(fn(), timeout, `test timed out after ${timeout}ms`);
   };
 
-  return await pRetry(run, { retries: retries });
+  return pRetry(run, { retries: retries });
 }
