@@ -8,6 +8,9 @@ import { Session } from "./session";
 /**
  * Creates an end-of-day manifest
  * 
+ * View documentation here:
+ * https://shipenginestag:439bd542@shipenginestag.wpengine.com/docs/integration-platform/reference/methods/create-manifest
+ * 
  * View sample implementation here:
  * https://github.com/ShipEngine/shipengine-integration-platform-sample-apps/blob/master/parcel-post/src/methods/create-manifest.ts
  */

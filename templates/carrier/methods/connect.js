@@ -2,6 +2,9 @@
 /**
  * Logs in using the username and password entered on the login form
  * 
+ * View documentation here:
+ * https://shipenginestag:439bd542@shipenginestag.wpengine.com/docs/integration-platform/reference/methods/connect
+ * 
  * View sample implementation here:
  * https://github.com/ShipEngine/shipengine-integration-platform-sample-apps/blob/master/freightco/connect.js
  */

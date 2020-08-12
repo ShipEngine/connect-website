@@ -7,7 +7,9 @@ import { Session } from "./session";
 
 /**
  * Generates shipping rates for a shipment
- *
+ * View documentation here:
+ * https://shipenginestag:439bd542@shipenginestag.wpengine.com/docs/integration-platform/reference/methods/rate-shipment
+ * 
  * View sample implementation here:
  * https://github.com/ShipEngine/shipengine-integration-platform-sample-apps/blob/master/parcel-post/carrier/src/methods/rate-shipment.ts
  */

@@ -3,6 +3,9 @@
 /**
  * Generates a shipping label and tracking number for a shipment
  *
+ * View documentation here:
+ * https://shipenginestag:439bd542@shipenginestag.wpengine.com/docs/integration-platform/reference/methods/create-shipment
+ * 
  * View sample implementation here:
  * https://github.com/ShipEngine/shipengine-integration-platform-sample-apps/blob/master/freightco/carrier/create-shipment.js
  */
