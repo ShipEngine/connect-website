@@ -33,7 +33,7 @@ export default class New extends BaseCommand {
     },
   ];
 
-  static examples = ["$ connect new"];
+  static examples = ["$ connect init"];
 
   async run() {
     const { flags, args } = this.parse(New);
