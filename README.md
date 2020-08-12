@@ -24,7 +24,7 @@ $ npm install -g @shipengine/connect-cli
 $ connect COMMAND
 running command...
 $ connect (-v|--version|version)
-@shipengine/connect-cli/1.0.3 linux-x64 node-v12.18.1
+@shipengine/connect-cli/1.0.4 linux-x64 node-v12.18.1
 $ connect --help [COMMAND]
 USAGE
   $ connect COMMAND
@@ -37,9 +37,9 @@ USAGE
 <!-- commands -->
 * [`connect help [COMMAND]`](#connect-help-command)
 * [`connect info`](#connect-info)
+* [`connect init [PATH]`](#connect-init-path)
 * [`connect login`](#connect-login)
 * [`connect logout`](#connect-logout)
-* [`connect new [PATH]`](#connect-new-path)
 * [`connect publish`](#connect-publish)
 * [`connect start`](#connect-start)
 * [`connect test`](#connect-test)
@@ -74,7 +74,32 @@ OPTIONS
   -h, --help  show help for the info command
 ```
 
-_See code: [src/commands/info.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.3/src/commands/info.ts)_
+_See code: [src/commands/info.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.4/src/commands/info.ts)_
+
+## `connect init [PATH]`
+
+create a new package to develop a custom ShipEngine app
+
+```
+USAGE
+  $ connect init [PATH]
+
+ARGUMENTS
+  PATH  path to new package (defaults to current directory)
+
+OPTIONS
+  -f, --force  overwrite existing files
+  -h, --help   show help for the new command
+  -y, --yes    skips the questions and uses the defaults (carrier|Javascript|yaml)
+
+ALIASES
+  $ connect new
+
+EXAMPLE
+  $ connect init
+```
+
+_See code: [src/commands/init.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.4/src/commands/init.ts)_
 
 ## `connect login`
 
@@ -91,7 +116,7 @@ ALIASES
   $ connect login
 ```
 
-_See code: [src/commands/login.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.3/src/commands/login.ts)_
+_See code: [src/commands/login.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.4/src/commands/login.ts)_
 
 ## `connect logout`
 
@@ -108,32 +133,7 @@ ALIASES
   $ connect logout
 ```
 
-_See code: [src/commands/logout.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.3/src/commands/logout.ts)_
-
-## `connect new [PATH]`
-
-create a new package to develop a custom ShipEngine app
-
-```
-USAGE
-  $ connect new [PATH]
-
-ARGUMENTS
-  PATH  path to new package (defaults to current directory)
-
-OPTIONS
-  -f, --force  overwrite existing files
-  -h, --help   show help for the new command
-  -y, --yes    skips the questions and uses the defaults (carrier|Javascript|yaml)
-
-ALIASES
-  $ connect init
-
-EXAMPLE
-  $ connect new
-```
-
-_See code: [src/commands/new.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.3/src/commands/new.ts)_
+_See code: [src/commands/logout.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.4/src/commands/logout.ts)_
 
 ## `connect publish`
 
@@ -152,7 +152,7 @@ EXAMPLE
   $ connect publish
 ```
 
-_See code: [src/commands/publish.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.3/src/commands/publish.ts)_
+_See code: [src/commands/publish.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.4/src/commands/publish.ts)_
 
 ## `connect start`
 
@@ -167,7 +167,7 @@ OPTIONS
   -p, --port=port  [default: 3000] the port that the app will run on
 ```
 
-_See code: [src/commands/start.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.3/src/commands/start.ts)_
+_See code: [src/commands/start.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.4/src/commands/start.ts)_
 
 ## `connect test`
 
@@ -190,7 +190,7 @@ EXAMPLES
   $ connect test --grep rateShipment
 ```
 
-_See code: [src/commands/test.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.3/src/commands/test.ts)_
+_See code: [src/commands/test.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.4/src/commands/test.ts)_
 
 ## `connect whoami`
 
@@ -207,5 +207,5 @@ ALIASES
   $ connect whoami
 ```
 
-_See code: [src/commands/whoami.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.3/src/commands/whoami.ts)_
+_See code: [src/commands/whoami.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.4/src/commands/whoami.ts)_
 <!-- commandsstop -->
