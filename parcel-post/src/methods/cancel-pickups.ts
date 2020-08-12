@@ -22,7 +22,7 @@ export default async function cancelPickups(
       return {
         session_id: transaction.session.id,
         pick_up_id: pickup.id,
-        service_code: pickup.pickupService.identifiers.apiCode,
+        service_code: pickup.pickupService.code,
         reference: pickup.reason,
       };
     })

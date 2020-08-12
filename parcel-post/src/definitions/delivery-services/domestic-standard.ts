@@ -5,10 +5,7 @@ import { upsFlatRatePackaging } from "../packaging/ups-flat-rate";
 
 export const domesticStandard: DeliveryServiceDefinition = {
   id: "43fc9d24-6a89-428a-ad34-c614c14170b6",
-  identifiers: {
-    apiCode: "DOMSTD",
-  },
-  code: "dom_std",
+  code: "DOMSTD",
   name: "Domestic Standard",
   description: "3 day ground service within the U.S.",
   class: DeliveryServiceClass.Ground,

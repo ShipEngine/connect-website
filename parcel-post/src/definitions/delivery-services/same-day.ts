@@ -4,10 +4,7 @@ import { customerPackaging } from "../packaging/customer";
 
 export const sameDay: DeliveryServiceDefinition = {
   id: "8b69c0ff-9017-4e89-82dd-0dbfab691047",
-  identifiers: {
-    apiCode: "SAMEDY",
-  },
-  code: "same_dy",
+  code: "SAMEDY",
   name: "Same Day Delivery",
   description: "Same day delivery within major U.S. metropolitan areas",
   class: DeliveryServiceClass.OneDay,

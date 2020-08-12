@@ -25,7 +25,7 @@ export default async function createShipment(
     operation: "generate_label",
     session_id: transaction.session.id,
     service_code: shipment.deliveryService.code,
-    confirmation_code: shipment.deliveryConfirmation?.identifiers.apiCode,
+    confirmation_code: shipment.deliveryConfirmation?.code,
     ship_date: shipment.shipDateTime.toISOString(),
     total_weight: shipment.package.weight.ounces,
     packageNumber: shipment.packages.length

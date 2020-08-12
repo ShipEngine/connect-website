@@ -19,9 +19,9 @@ export default async function rateShipment(
   let data: QuoteRatesRequest = {
     operation: "quote_rates",
     session_id: transaction.session.id,
-    service_code: shipment.deliveryService.identifiers.apiCode,
-    confirmation_code: shipment.deliveryConfirmation.identifiers.apiCode,
-    parcel_code: shipment.packages[0].packaging.identifiers.apiCode,
+    service_code: shipment.deliveryService.code,
+    confirmation_code: shipment.deliveryConfirmation.code,
+    parcel_code: shipment.packages[0].packaging.code,
     ship_date: shipment.shipDateTime.toISOString(),
     delivery_date: shipment.deliveryDateTime.toISOString(),
     total_weight: shipment.packages[0].weight.ounces,
@@ -39,14 +39,14 @@ export default async function rateShipment(
  */
 function formatRate(rate: QuoteRateResponseItem): Rate {
   return {
-    deliveryService: deliveryServices.find((svc) => svc.identifiers.apiCode === rate.service_code),
+    deliveryService: deliveryServices.find((svc) => svc.code === rate.service_code),
     shipDateTime: new Date(rate.ship_date),
     deliveryDateTime: new Date(rate.delivery_date),
     isTrackable: true,
     packages: [{
-      packaging: packaging.find((pkg) => pkg.identifiers.apiCode === rate.parcel_code),
+      packaging: packaging.find((pkg) => pkg.code === rate.parcel_code),
     }],
-    deliveryConfirmation: deliveryConfirmations.find((conf) => conf.identifiers.apiCode === rate.confirmation_code),
+    deliveryConfirmation: deliveryConfirmations.find((conf) => conf.code === rate.confirmation_code),
     charges: [
       {
         name: "Service Charge",
