@@ -17,7 +17,7 @@ async function schedulePickup(transaction, pickup) {
     let data = {
         operation: "pick_up",
         session_id: transaction.session.id,
-        service_code: pickup.pickupService.identifiers.apiCode,
+        service_code: pickup.pickupService.code,
         date_time: pickup.timeWindow.startDateTime,
         contact_phone: pickup.contact.phoneNumber,
         total_weight: pickup.shipments.reduce((w, ship) => w + ship.package.weight.ounces, 0),
