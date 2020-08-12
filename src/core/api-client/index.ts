@@ -13,7 +13,7 @@ export interface ApiClientParams {
 }
 
 /**
- * Create an instance of the IntegrationsAPIClient.
+ * Create an instance of the APIClient.
  * @param {string} apiKey A valid API key.
  */
 export default class APIClient {

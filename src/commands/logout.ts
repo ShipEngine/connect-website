@@ -3,7 +3,7 @@ import { flags } from "@oclif/command";
 import { clearUser } from "../core/utils/users";
 
 export default class Logout extends BaseCommand {
-  static description = "clears the local integrations API key";
+  static description = "clears the local connect API key";
 
   static aliases = ["logout"];
 

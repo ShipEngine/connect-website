@@ -1,7 +1,7 @@
 import Test from "./test";
 import { SdkApp } from "../../types";
 import { TestsConfig } from "./config";
-import { TransactionPOJO } from "@shipengine/integration-platform-sdk/lib/internal";
+import { TransactionPOJO } from "@shipengine/connect-sdk/lib/internal";
 import { log, logObject, indent } from "../../utils/log-helpers";
 import { v4 } from "uuid";
 import chalk from "chalk";

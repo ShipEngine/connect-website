@@ -2,9 +2,9 @@ import {
   DateTimeZonePOJO,
   AddressWithContactInfoPOJO,
   WeightUnit,
-} from "@shipengine/integration-platform-sdk";
+} from "@shipengine/connect-sdk";
 import { BaseTestConfigOptions } from "./base-test-config-options";
-import { MonetaryValue } from '@shipengine/integration-platform-sdk/lib/internal';
+import { MonetaryValue } from '@shipengine/connect-sdk/lib/internal';
 
 export interface CreateShipmentWithInsuranceTestParams {
   deliveryServiceName: string;

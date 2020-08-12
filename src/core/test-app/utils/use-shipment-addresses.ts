@@ -1,7 +1,7 @@
 import {
   DeliveryService,
   AddressWithContactInfoPOJO,
-} from "@shipengine/integration-platform-sdk";
+} from "@shipengine/connect-sdk";
 import { buildAddressWithContactInfo } from '../factories/address';
 
 /**

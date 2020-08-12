@@ -5,7 +5,7 @@ import {
   ShipmentCreated, 
   ShipmentCancelled, 
   Connect 
-} from "@shipengine/integration-platform-sdk";
+} from "@shipengine/connect-sdk";
 
 const orderSource: OrderAppDefinition = {
   id: "<%- _uuidv4 %>",

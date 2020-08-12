@@ -1,4 +1,4 @@
-import { ContactInfoPOJO } from '@shipengine/integration-platform-sdk';
+import { ContactInfoPOJO } from '@shipengine/connect-sdk';
 
 export function buildContactInfo(countryCode: string): ContactInfoPOJO {
   const contactInfoMap: Record<string, ContactInfoPOJO> = {

@@ -1,6 +1,6 @@
 import ShipengineAPIClient from "..";
 import {
-  PlatformApp,
+  ConnectApp,
   PaginatedItems,
   NetworkErrorCollection,
 } from "../../types";
@@ -14,7 +14,7 @@ export default class Apps {
 
   /**
    * Creates a new App.
-   * @returns {Promise} Promise object that resolves to a PlatformApp object.
+   * @returns {Promise} Promise object that resolves to a ConnectApp object.
    */
   async create({
     name,
@@ -22,7 +22,7 @@ export default class Apps {
   }: {
     name: string;
     type: "carrier";
-  }): Promise<PlatformApp> {
+  }): Promise<ConnectApp> {
     try {
       const response = await this.client.call({
         endpoint: "apps",
@@ -38,7 +38,7 @@ export default class Apps {
 
   /**
    * Finds or creates a new app by name
-   * @returns {Promise} Promise object that resolves to a PlatformApp object.
+   * @returns {Promise} Promise object that resolves to a ConnectApp object.
    */
   async findOrCreateByName({
     name,
@@ -46,7 +46,7 @@ export default class Apps {
   }: {
     name: string;
     type: "carrier";
-  }): Promise<PlatformApp> {
+  }): Promise<ConnectApp> {
     let deployedApp;
 
     try {
@@ -67,9 +67,9 @@ export default class Apps {
 
   /**
    * Gets all Apps that belong to the given API key.
-   * @returns {Promise} Promise object that resolves to an Array of PlatformApp objects.
+   * @returns {Promise} Promise object that resolves to an Array of ConnectApp objects.
    */
-  async getAll(): Promise<PaginatedItems<PlatformApp>> {
+  async getAll(): Promise<PaginatedItems<ConnectApp>> {
     try {
       const response = await this.client.call({
         endpoint: "apps",
@@ -84,9 +84,9 @@ export default class Apps {
 
   /**
    * Get an App by its ID.
-   * @returns {Promise} Promise object that resolves to a PlatformApp object.
+   * @returns {Promise} Promise object that resolves to a ConnectApp object.
    */
-  async getById(id: string): Promise<PlatformApp> {
+  async getById(id: string): Promise<ConnectApp> {
     try {
       const response = await this.client.call({
         endpoint: `apps/${id}`,
@@ -101,9 +101,9 @@ export default class Apps {
 
   /**
    * Get an App by its name.
-   * @returns {Promise} Promise object that resolves to a PlatformApp object.
+   * @returns {Promise} Promise object that resolves to a ConnectApp object.
    */
-  async getByName(name: string): Promise<PlatformApp> {
+  async getByName(name: string): Promise<ConnectApp> {
     try {
       const response = await this.client.call({
         endpoint: `apps?name=${encodeURI(name)}`,

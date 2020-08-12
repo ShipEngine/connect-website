@@ -1,12 +1,12 @@
 import {
   EcmaScriptModule,
   ErrorCode,
-} from "@shipengine/integration-platform-sdk";
+} from "@shipengine/connect-sdk";
 import { promises as fs } from "fs";
 import * as jsYaml from "js-yaml";
 import * as json5 from "json5";
 import * as path from "path";
-import { error as sdkError } from "@shipengine/integration-platform-sdk/lib/internal";
+import { error as sdkError } from "@shipengine/connect-sdk/lib/internal";
 
 /**
  * Returns the contents of the specified UTF-8 text file

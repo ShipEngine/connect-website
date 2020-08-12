@@ -1,7 +1,7 @@
 "use strict";
 
 const { CreateShipmentDomestic } = require("../../../../../lib/core/test-app/tests/create-shipment-domestic");
-const { CarrierApp } = require("@shipengine/integration-platform-sdk/lib/internal/carriers/carrier-app");
+const { CarrierApp } = require("@shipengine/connect-sdk/lib/internal/carriers/carrier-app");
 const pojo = require("../../../utils/pojo");
 const { expect } = require("chai");
 const sinon = require("sinon");

@@ -14,7 +14,7 @@ export async function setUser(domain: Domain, apiKey: string, baseCommand: BaseC
 }
 
 export function clearUser(): void {
-  cli.action.start("logging out of integrations");
+  cli.action.start("logging out of connect");
   ApiKeyStore.clear(Domain.Apps);
   cli.action.stop();
 }

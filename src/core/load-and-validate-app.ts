@@ -1,4 +1,4 @@
-import { loadApp } from "@shipengine/integration-platform-loader";
+import { loadApp } from "@shipengine/connect-loader";
 import { ValidationErrorItem } from "joi";
 import { SdkApp } from "./types";
 

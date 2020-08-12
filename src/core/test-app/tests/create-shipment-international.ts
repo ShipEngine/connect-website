@@ -2,9 +2,9 @@ import {
   DeliveryConfirmation,
   DeliveryService,
   WeightUnit,
-} from "@shipengine/integration-platform-sdk";
+} from "@shipengine/connect-sdk";
 
-import { CarrierApp, NewShipmentPOJO, NewPackagePOJO } from "@shipengine/integration-platform-sdk/lib/internal";
+import { CarrierApp, NewShipmentPOJO, NewPackagePOJO } from "@shipengine/connect-sdk/lib/internal";
 
 
 import Suite from "../runner/suite";

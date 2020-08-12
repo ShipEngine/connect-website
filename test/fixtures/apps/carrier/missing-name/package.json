@@ -2,6 +2,6 @@
   "version": "0.0.1",
   "main": "carrier.js",
   "devDependencies": {
-    "@shipengine/integration-platform-sdk": "0.0.13"
+    "@shipengine/connect-sdk": "1.0.0"
   }
 }

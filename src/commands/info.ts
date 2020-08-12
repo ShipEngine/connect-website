@@ -1,6 +1,6 @@
 import BaseCommand from "../base-command";
 import { flags } from "@oclif/command";
-import { loadApp } from "@shipengine/integration-platform-loader";
+import { loadApp } from "@shipengine/connect-loader";
 import { checkAppLoginStatus } from "../core/utils/users";
 
 export default class Info extends BaseCommand {

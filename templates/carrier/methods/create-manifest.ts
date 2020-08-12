@@ -2,7 +2,7 @@ import {
   ManifestConfirmation,
   NewManifest,
   Transaction,
-} from "@shipengine/integration-platform-sdk";
+} from "@shipengine/connect-sdk";
 import { Session } from "./session";
 
 /**

@@ -4,7 +4,7 @@ import Generator = require("yeoman-generator");
 import _ from "lodash";
 import { v4 as uuidv4 } from "uuid";
 import capitalization from "@shipengine/capitalization";
-import { AppType } from "@shipengine/integration-platform-sdk";
+import { AppType } from "@shipengine/connect-sdk";
 import { SdkAppTypes } from "../types";
 
 const fixpack = require("@oclif/fixpack");
@@ -112,7 +112,7 @@ class AppsNew extends Generator {
               return true;
             }
 
-            return "please enter a valid npm package name (ex: shipengine-integration)";
+            return "please enter a valid npm package name (ex: shipengine-conect)";
           },
         },
         {
@@ -554,7 +554,7 @@ class AppsNew extends Generator {
     const dependencies: string[] = [];
     const devDependencies: string[] = [];
 
-    devDependencies.push("@shipengine/integration-platform-sdk");
+    devDependencies.push("@shipengine/connect-sdk");
     devDependencies.push("dotenv-flow@3.1.0");
     devDependencies.push("cross-env");
 

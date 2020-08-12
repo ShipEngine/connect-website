@@ -1,7 +1,7 @@
 import {
   DeliveryService,
   CarrierApp,
-} from "@shipengine/integration-platform-sdk/lib/internal";
+} from "@shipengine/connect-sdk/lib/internal";
 
 /**
  * Finds an international DeliveryService for a given application.

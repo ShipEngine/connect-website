@@ -1,7 +1,7 @@
 import {
   DeliveryService,
   CarrierApp,
-} from "@shipengine/integration-platform-sdk/lib/internal";
+} from "@shipengine/connect-sdk/lib/internal";
 
 /**
  * Finds a DeliveryService that supports multi-package shipments for a given application.

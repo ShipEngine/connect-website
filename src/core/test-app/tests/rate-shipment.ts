@@ -7,7 +7,7 @@
 //   Country,
 //   PackageRateCriteriaPOJO,
 //   AddressWithContactInfoPOJO,
-// } from "@shipengine/integration-platform-sdk";
+// } from "@shipengine/connect-sdk";
 // import Suite from "../runner/suite";
 // import { buildAddressWithContactInfo } from "../factories/address";
 // import { RateShipmentOptions } from "../runner/config";

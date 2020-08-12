@@ -1,4 +1,4 @@
-import { DeliveryService, CarrierApp } from "@shipengine/integration-platform-sdk/lib/internal";
+import { DeliveryService, CarrierApp } from "@shipengine/connect-sdk/lib/internal";
 
 /**
  * Find a Domestic delivery service.
