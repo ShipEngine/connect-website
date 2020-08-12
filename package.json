@@ -115,7 +115,7 @@
   "main": "lib/index.js",
   "oclif": {
     "commands": "./lib/commands",
-    "bin": "shipengine",
+    "bin": "connect",
     "plugins": [
       "@oclif/plugin-help",
       "@oclif/plugin-not-found"

@@ -21,13 +21,13 @@
 <!-- usage -->
 ```sh-session
 $ npm install -g @shipengine/connect-cli
-$ shipengine COMMAND
+$ connect COMMAND
 running command...
-$ shipengine (-v|--version|version)
-@shipengine/connect-cli/1.0.1 linux-x64 node-v12.18.1
-$ shipengine --help [COMMAND]
+$ connect (-v|--version|version)
+@shipengine/connect-cli/1.0.1 darwin-x64 node-v12.16.2
+$ connect --help [COMMAND]
 USAGE
-  $ shipengine COMMAND
+  $ connect COMMAND
 ...
 ```
 <!-- usagestop -->
@@ -35,23 +35,23 @@ USAGE
 # Commands
 
 <!-- commands -->
-* [`shipengine help [COMMAND]`](#shipengine-help-command)
-* [`shipengine info`](#shipengine-info)
-* [`shipengine login`](#shipengine-login)
-* [`shipengine logout`](#shipengine-logout)
-* [`shipengine new [PATH]`](#shipengine-new-path)
-* [`shipengine publish`](#shipengine-publish)
-* [`shipengine start`](#shipengine-start)
-* [`shipengine test`](#shipengine-test)
-* [`shipengine whoami`](#shipengine-whoami)
+* [`connect help [COMMAND]`](#connect-help-command)
+* [`connect info`](#connect-info)
+* [`connect login`](#connect-login)
+* [`connect logout`](#connect-logout)
+* [`connect new [PATH]`](#connect-new-path)
+* [`connect publish`](#connect-publish)
+* [`connect start`](#connect-start)
+* [`connect test`](#connect-test)
+* [`connect whoami`](#connect-whoami)
 
-## `shipengine help [COMMAND]`
+## `connect help [COMMAND]`
 
-display help for shipengine
+display help for connect
 
 ```
 USAGE
-  $ shipengine help [COMMAND]
+  $ connect help [COMMAND]
 
 ARGUMENTS
   COMMAND  command to show help for
@@ -62,13 +62,13 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.0/src/commands/help.ts)_
 
-## `shipengine info`
+## `connect info`
 
 list info for an app
 
 ```
 USAGE
-  $ shipengine info
+  $ connect info
 
 OPTIONS
   -h, --help  show help for the info command
@@ -76,47 +76,47 @@ OPTIONS
 
 _See code: [src/commands/info.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.1/src/commands/info.ts)_
 
-## `shipengine login`
+## `connect login`
 
 login with your connect API key
 
 ```
 USAGE
-  $ shipengine login
+  $ connect login
 
 OPTIONS
   -h, --help  show help for the auth:login command
 
 ALIASES
-  $ shipengine login
+  $ connect login
 ```
 
 _See code: [src/commands/login.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.1/src/commands/login.ts)_
 
-## `shipengine logout`
+## `connect logout`
 
 clears the local connect API key
 
 ```
 USAGE
-  $ shipengine logout
+  $ connect logout
 
 OPTIONS
   -h, --help  show help for the auth:logout command
 
 ALIASES
-  $ shipengine logout
+  $ connect logout
 ```
 
 _See code: [src/commands/logout.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.1/src/commands/logout.ts)_
 
-## `shipengine new [PATH]`
+## `connect new [PATH]`
 
 create a new package to develop a custom ShipEngine app
 
 ```
 USAGE
-  $ shipengine new [PATH]
+  $ connect new [PATH]
 
 ARGUMENTS
   PATH  path to new package (defaults to current directory)
@@ -127,7 +127,7 @@ OPTIONS
   -y, --yes    skips the questions and uses the defaults (carrier|Javascript|yaml)
 
 ALIASES
-  $ shipengine init
+  $ connect init
 
 EXAMPLE
   $ shipengine new
@@ -135,13 +135,13 @@ EXAMPLE
 
 _See code: [src/commands/new.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.1/src/commands/new.ts)_
 
-## `shipengine publish`
+## `connect publish`
 
 publish your app
 
 ```
 USAGE
-  $ shipengine publish
+  $ connect publish
 
 OPTIONS
   -h, --help        show help for the publish command
@@ -154,13 +154,13 @@ EXAMPLE
 
 _See code: [src/commands/publish.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.1/src/commands/publish.ts)_
 
-## `shipengine start`
+## `connect start`
 
 start a local web server to develop your app interactively
 
 ```
 USAGE
-  $ shipengine start
+  $ connect start
 
 OPTIONS
   -h, --help       show help for the apps:start commands
@@ -169,13 +169,13 @@ OPTIONS
 
 _See code: [src/commands/start.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.1/src/commands/start.ts)_
 
-## `shipengine test`
+## `connect test`
 
 test your app
 
 ```
 USAGE
-  $ shipengine test
+  $ connect test
 
 OPTIONS
   -d, --debug            logs additional debug information
@@ -192,19 +192,19 @@ EXAMPLES
 
 _See code: [src/commands/test.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.1/src/commands/test.ts)_
 
-## `shipengine whoami`
+## `connect whoami`
 
 display the current logged in user
 
 ```
 USAGE
-  $ shipengine whoami
+  $ connect whoami
 
 OPTIONS
   -h, --help  show help for the auth:whoami command
 
 ALIASES
-  $ shipengine whoami
+  $ connect whoami
 ```
 
 _See code: [src/commands/whoami.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.1/src/commands/whoami.ts)_
