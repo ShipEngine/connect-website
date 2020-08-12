@@ -1,7 +1,7 @@
 ---
 hidden: true
 title: Create your first ShipEngine Integration app.
-description: Learn how to use the ShipEngine Integration Platform CLI and the project template to being creating an Integration app.
+description: Learn how to use the ShipEngine CLI and the project template to being creating an Integration app.
 tags:
 - ShipEngine
 - Integration App
@@ -26,7 +26,7 @@ Using the CLI
 1. To create a new project, open a terminal on your computer and navigate to the directory where you would like to add your new project
 by running the following command: `cd my-project-directory`
 
-1. Run the following command: `shipengine new`  </br>
+1. Run the following command: [`shipengine init`](./cli.md#initialize-a-new-app)  </br>
 
 1. Enter the [npm](https://www.npmjs.com/) package name you would like to give your application. The default value is the name of the directory in which you ran the command. Type a new value for the name or press `Enter` to accept the default name.
 

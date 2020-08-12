@@ -48,17 +48,17 @@ Use the `shipengine init` command to start building a new application. Rather th
 shipengine init [OPTIONS] [PATH]
 ```
 
-### Options
+#### Options
 
-#### `--yes`
+##### `--yes`
 This option will bypass all the prompts and just use the default values. This is an easy way to quickly create a new app.
 
-#### `--force`
+##### `--force`
 This option will overwrite existing files in the output directory without prompting. Use caution with this option.
 
-### Arguments
+#### Arguments
 
-#### `path`
+##### `path`
 By default, the `shipengine init` command will create a new app in the current directory, but you can optionally specify a different path. For example, `shipengine init my-new-app` will create the app in a new sub-directory named "my-new-app".
 
 
@@ -72,9 +72,9 @@ The `shipengine start` command starts a local server that allows you to invoke y
 shipengine start [OPTIONS]
 ```
 
-### Options
+#### Options
 
-#### `--port <number>`
+##### `--port <number>`
 The local server runs on port 3000 by default, but you can use this option to change the port number.
 
 
@@ -82,27 +82,27 @@ Test Your App
 --------------------------
 The `shipengine test` command runs our end-to-end test suite against your app to confirm that it behaves as expected. These tests emulate real-world workflows that your app will experience in production, and you should make sure your app passes before publishing it.
 
-> **NOTE:** We also encourage you to [unit test your app](testing/index.md#unit-tests) in addition to these end-to-end tests.
+> **NOTE:** We also encourage you to [unit test your app](testing/index.md#unit-testing) in addition to these end-to-end tests.
 
 ```
 shipengine test [OPTIONS]
 ```
 
-### Options
+#### Options
 
-#### `--debug`
+##### `--debug`
 This option enables verbose logging, which can be useful for debugging test failures.
 
-#### `--fail-fast`
+##### `--fail-fast`
 This option aborts the test run as soon as one test fails, rather than continuing to run the rest of the tests.
 
-#### `--grep <filter>`
+##### `--grep <filter>`
 To run a specific test or set of tests, use the `--grep` option and specify a substring or regular expression. Only tests whose names contain the substring or match the regular expression will be run.
 
-#### `--retries <number>`
+##### `--retries <number>`
 You can opt to retry failed tests, which can be convenient for flaky tests or intermittent network errors.
 
-#### `--timeout <number>`
+##### `--timeout <number>`
 Use this option to allow more time for your tests to run. The timeout is specified in milliseconds.
 
 
@@ -114,12 +114,12 @@ When you're ready to see your app live on the ShipEngine Integration Platform, r
 shipengine publish [OPTIONS]
 ```
 
-### Options
+#### Options
 
-#### `--skip-tests`
+##### `--skip-tests`
 We normally run your app through our end-to-end test suite to confirm that it functions correctly before publishing it. You can skip the tests using this option.
 
-#### `--watch`
+##### `--watch`
 Publishing can take a minute or two. Use this option to show a progress indicator and a confirmation of whether the app was published successfully or failed.  If you don't use the `--watch` option, then you can run the `shipengine info` command to check the status of your app deployment.
 
 

@@ -78,9 +78,8 @@ fields:
       The service area this delivery service covers. Valid values include the following:
       * `regional` - Delivery based on the shipment's distance to its destination. Rates typically vary by zone.
       * `domestic` - Delivery with an origin address and a destination address within the same country.
-      * `international` - Delivery with an origin address and a destination address in different countries.
-      * `global`
-
+      * `international` - Delivery to a from address in at least one other country.
+      * `global` - Delivery to a from address anywhere in the world.
   - name: isConsolidatedService
     type: boolean
     required: true

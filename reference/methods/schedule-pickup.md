@@ -235,7 +235,7 @@ return:
 
     - name: shipments
       type: object[]
-      required: true
+      required: false
       description: The list of shipments to be picked-up. If not specified, the assumption is that all of the shipments will be picked up.
 
     - name: shipments[].trackingNumber
@@ -251,16 +251,19 @@ return:
 
     - name: notes
       type: object[]
+      required: false
       description: An array of objects containing additional information about this pickup request.
 
     - name: notes[].type
       type: |
         [NotesType](./../common-types.md#notes-types)
+      required: true
       description: |
         The type for this note.
 
     - name: notes[].text
       type: string
+      required: true
       description: The note text itself. This string must be between `0` and `5000` characters.
 
     - name: metadata

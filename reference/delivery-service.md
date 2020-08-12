@@ -77,8 +77,8 @@ param:
          The service area this delivery service covers. Valid values include the following:
          * `regional` - Delivery based on the shipment's distance to its destination. Rates typically vary by zone.
          * `domestic` - Delivery with an origin address and a destination address within the same country.
-         * `international` - Delivery with an origin address and a destination address in different countries.
-         * `global`
+         * `international` - Delivery to a from address in at least one other country.
+         * `global` - Delivery to a from address anywhere in the world.
 
      - name: isConsolidationService
        type: boolean
@@ -164,8 +164,8 @@ param:
        required: true
        description: |
          Indicates whether the service supports digital or physical manifests. Valid values include the following:
-         *  `Physical` - This service will require physical documents even if the carrier default is digital transmission.
-         *  `Digital` - This service will *not* require physical documents even if the carrier default is for physical documents.
+         *  `physical` - This service will require physical documents even if the carrier default is digital transmission.
+         *  `digital` - This service will *not* require physical documents even if the carrier default is for physical documents.
 
 ---
 
@@ -198,7 +198,7 @@ isConsolidationService: true
 isTrackable: false
 isInsurable: true
 supportsReturns: false
-manifestType: Digital
+manifestType: digital
 
 labelFormats:
   - pdf
@@ -236,7 +236,7 @@ deliveryConfirmations:
     isTrackable: false,
     isInsurable: true,
     supportsReturns: false,
-    manifestType: "Digital",
+    manifestType: "digital",
     labelFormats:[
         "pdf"
     ],
@@ -281,13 +281,13 @@ const internationalEconomyDeliveryService: DeliveryServiceDefinition = {
   grade: DeliveryServiceGrade.Expedited,
   isInsurable: true,
   isTrackable: false,
-  manifestType: Digital,
+  manifestType: digital,
   supportsReturns: false,
   labelFormats: [DocumentFormat.PDF, DocumentFormat.PNG],
   labelSizes: [DocumentSize.Letter, DocumentSize.Inches4x6],
   originCountries: [Country.UnitedStates],
   packaging: [import("./package-packaging")],
-  serviceArea: ServiceArea.Domestic,
+  serviceArea: ServiceArea.domestic,
 };
 
 export default internationalEconomyDeliveryService;
@@ -306,7 +306,7 @@ export default internationalEconomyDeliveryService;
   "isInsurable": true,
   "isTrackable": false,
   "supportsReturns": false,
-  "manifestType": "Digital",
+  "manifestType": "digital",
   "labelFormats": ["pdf"],
   "labelSizes": ["4x8"],
   "originCountries": ["US", "CA", "MX"],

@@ -15,7 +15,7 @@ This page lists all the changes made to the CLI and SDK over the past several re
 changes have been introduced.
 
  * **SDK** `v0.0.33` -> `v0.0.36`
- * **CLI** `0.0.15` -> `0.0.17`
+ * **CLI** `0.0.15` -> `0.0.23`
 
 
 ## Overall Changes
@@ -30,14 +30,19 @@ changes have been introduced.
 ### Transaction Object
 * Removed `isRetry`
 
+### CLI
+The name of the CLI repo has changed. You may need to run both uninstall commands to make sure you have removed all previous versions
+of the CLI before installing the latest version.
+
 ```
-npm uninstall @shipengine/cli -g
-npm install @shipengine/integration-platform-cli -g
+npm uninstall @shipengine/cli --global
+npm uninstall @shipengine/integration-platform-cli --global
+
+npm install @shipengine/integration-platform-cli --global
 ```
 
 * [CLI](./../cli.md) commands are no longer prefaced with `apps:`. The documentation has been updated.
 * The `shipengine test` command has changed. We are in the process of updating the documentation for this.
-
 
 
 ## Carrier App

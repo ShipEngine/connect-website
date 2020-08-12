@@ -30,7 +30,13 @@ Atom is a free and open-source text and source-code editor developed by GitHub f
 - [![Sublime Text](sublime-text.svg)](https://www.sublimetext.com/) <a href="https://www.sublimetext.com/" class="list-title">Sublime Text</a><br>
 Sublime Text is a shareware cross-platform source-code editor with a Python application programming interface.
 It natively supports many programming and markup languages, and functions can be added by users via plugins which are typically community-built and maintained under free-software licenses.
+
+
+- [![Postman](postman.svg)](https://www.postman.com/) <a href="https://www.postman.com/" class="list-title">Postman</a><br>
+Postman is a collaboration platform for API development. You can use our Postman collection to perform [local testing](./../testing/index.md#local-testing)
+of your application.
 </div>
+
 
 <div class="previous-next-nav">
   <a class="button button-small button-secondary" href="./../structure.md">Previous: App Structure</a>
