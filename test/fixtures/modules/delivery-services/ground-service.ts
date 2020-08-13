@@ -11,6 +11,8 @@ const groundService: DeliveryServiceDefinition = {
 
   grade: DeliveryServiceGrade.Standard,
 
+  code: "priority_overnight",
+
   originCountries: [
     Country.UnitedStates
   ],

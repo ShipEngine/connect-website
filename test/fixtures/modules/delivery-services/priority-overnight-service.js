@@ -11,6 +11,8 @@ module.export = {
 
   grade: "overnight",
 
+  code: "priority_overnight",
+
   originCountries: [
     "US"
   ],

@@ -11,6 +11,8 @@ const groundService = {
 
     class: "ground",
 
+    code: "priority_overnight",
+
     grade: "standard",
 
     originCountries: [
