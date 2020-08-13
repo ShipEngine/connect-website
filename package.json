@@ -8,7 +8,8 @@
     "url": "https://www.shipengine.com"
   },
   "bin": {
-    "connect": "./bin/run"
+    "connect": "./bin/run",
+    "sec": "./bin/run"
   },
   "bugs": "https://github.com/ShipEngine/connect-cli/issues",
   "dependencies": {
