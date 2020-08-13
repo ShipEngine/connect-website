@@ -11,7 +11,7 @@ describe("findMatchingDeliveryServicesByCountries", () => {
     const appDefinition = pojo.carrierApp();
     const deliveryService = pojo.deliveryService();
     appDefinition.deliveryServices = [deliveryService];
-  
+
     appDefinition.deliveryServices[0].originCountries = ["US", "MX", "CA"];
     appDefinition.deliveryServices[0].destinationCountries = ["US", "MX", "CA"];
 
@@ -20,6 +20,8 @@ describe("findMatchingDeliveryServicesByCountries", () => {
       name: "Another Delivery Service",
       class: "ground",
       grade: "standard",
+      code: "ad",
+      manifestType: "digital",
       originCountries: ["US", "MX", "CA"],
       destinationCountries: ["US", "MX", "CA"],
       labelFormats: ["pdf"],
@@ -30,8 +32,10 @@ describe("findMatchingDeliveryServicesByCountries", () => {
     appDefinition.deliveryServices.push({
       id: "9cf1bfda-7ee4-4f03-96f6-6eab52243eee",
       name: "Better Delivery Service",
+      code: "bd",
       class: "ground",
       grade: "standard",
+      manifestType: "digital",
       originCountries: ["US", "MX"],
       destinationCountries: ["US", "MX"],
       packaging: [pojo.packaging()]
@@ -62,7 +66,7 @@ describe("findMatchingDeliveryServicesByCountries", () => {
     const appDefinition = pojo.carrierApp();
     const deliveryService = pojo.deliveryService();
     appDefinition.deliveryServices = [deliveryService];
-  
+
     appDefinition.deliveryServices[0].originCountries = ["US", "MX", "CA"];
     appDefinition.deliveryServices[0].destinationCountries = ["US", "MX", "CA"];
 
@@ -71,6 +75,8 @@ describe("findMatchingDeliveryServicesByCountries", () => {
       name: "Another Delivery Service",
       class: "ground",
       grade: "standard",
+      code: "ad",
+      manifestType: "digital",
       originCountries: ["CA"],
       destinationCountries: ["CA"],
       packaging: [pojo.packaging()]
@@ -80,7 +86,9 @@ describe("findMatchingDeliveryServicesByCountries", () => {
       id: "9cf1bfda-7ee4-4f03-96f6-6eab52243eee",
       name: "Better Delivery Service",
       class: "ground",
+      code: "bd",
       grade: "standard",
+      manifestType: "digital",
       originCountries: ["US", "MX"],
       destinationCountries: ["US", "MX"],
       packaging: [pojo.packaging()]

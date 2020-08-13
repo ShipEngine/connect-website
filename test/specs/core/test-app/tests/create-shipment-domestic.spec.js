@@ -166,6 +166,7 @@ describe("The create shipment domestic test suite", () => {
         id: "9cf1bfda-7ee4-4f03-96f6-6eab52243eee",
         name: "Better Delivery Service",
         class: "ground",
+        code: "better_ds",
         grade: "standard",
         manifestType: "physical",
         originCountries: ["MX"],
@@ -327,6 +328,7 @@ function generateBasicAppAndConfigs() {
   const deliveryService = pojo.deliveryService();
   deliveryService.manifestType = "digital";
   deliveryService.labelFormats = ["pdf"];
+  deliveryService.code = "priority_overnight";
   deliveryService.labelSizes = ["A4"];
   deliveryService.deliveryConfirmations = [pojo.deliveryConfirmation()];
   deliveryService.packaging.push(pojo.packaging());

@@ -3,6 +3,7 @@ name: Priority Overnight
 class: ground
 grade: overnight
 manifestType: digital
+code: priority_overnight
 originCountries:
   - US
 destinationCountries:
