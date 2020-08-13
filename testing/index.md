@@ -13,30 +13,26 @@ There are multiple ways to test your application, and we suggest taking advantag
 
 Local Testing
 -----------------------------
-[The `connect start` command](./../cli.md#run-your-app-locally) starts a local server that allows you to invoke your app's methods using [our Postman collection](https://www.postman.com/collections/8bb8ab28f8469e615b3b). The server monitors your source code and automatically reloads your app whenever changes are detected, so if you find a bug, you can fix it and immediately retry.
+[The `connect start` command](./../cli.md#run-your-app-locally) starts a local server that allows you to invoke your app's methods using [our Postman collection](https://documenter.getpostman.com/view/12340335/T1LPBRJk?version=latest). The server monitors your source code and automatically reloads your app whenever changes are detected, so if you find a bug, you can fix it and immediately retry.
+
+<p>
+  Click the <b>Run in Postman</b> button to open our collection directly in Postman: &nbsp;&nbsp;
+  <span class="postman-run-button" data-postman-action="collection/import" data-postman-var-1="12340335-39b1c68e-b79c-4d34-9512-ca9a7cdf1341-T1LPBRJk" data-postman-var-2="latest" style="vertical-align: middle"></span>
+
+  <script type="text/javascript">
+    (function (p,o,s,t,m,a,n) {
+      !p[s] && (p[s] = function () { (p[t] || (p[t] = [])).push(arguments); });
+      !o.getElementById(s+t) && o.getElementsByTagName("head")[0].appendChild((
+        (n = o.createElement("script")),
+        (n.id = s+t), (n.async = 1), (n.src = m), n
+      ));
+    }(window, document, "_pm", "PostmanRunObject", "https://run.pstmn.io/button.js"));
+  </script>
+</p>
 
 > **PRO TIP:** You can use the [VSCode debugger](https://code.visualstudio.com/docs/editor/debugging) to set breakpoints, step through your code line-by-line, and inspect variables at runtime. Just press `F5` to start a debug session.
 
 <img src="vs-code-debug.png" alt="drawing" width="1000"/>
-
-</p>
-
-> **TIP:**
-> Click the **Run in Postman** button below to open our collection directly in Postman.
->
->
-<div class="postman-run-button"
-data-postman-action="collection/import"
-data-postman-var-1="5ce1c5e574e9e5c4eb8e"></div>
-<script type="text/javascript">
-  (function (p,o,s,t,m,a,n) {
-    !p[s] && (p[s] = function () { (p[t] || (p[t] = [])).push(arguments); });
-    !o.getElementById(s+t) && o.getElementsByTagName("head")[0].appendChild((
-      (n = o.createElement("script")),
-      (n.id = s+t), (n.async = 1), (n.src = m), n
-    ));
-  }(window, document, "_pm", "PostmanRunObject", "https://run.pstmn.io/button.js"));
-</script>
 
 
 ### Request Modification
