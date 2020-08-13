@@ -1,17 +1,17 @@
-# ShipEngine Integration Platform CLI
+# ShipEngine Connect CLI
 
-### Command-line tool for building [ShipEngine Integration Platform](https://www.shipengine.com/docs/integration-platform/) apps
+### Command-line tool for building [ShipEngine Connect](https://connect.shipengine.com/docs/) apps
 
-[![Cross-Platform Compatibility](https://shipengine.github.io/img/badges/os-badges.svg)](https://github.com/ShipEngine/shipengine-integration-platform-cli/actions)
-[![Build Status](https://github.com/ShipEngine/shipengine-integration-platform-cli/workflows/CI-CD/badge.svg)](https://github.com/ShipEngine/shipengine-integration-platform-cli/actions)
-[![Coverage Status](https://coveralls.io/repos/github/ShipEngine/shipengine-integration-platform-cli/badge.svg?branch=master)](https://coveralls.io/github/ShipEngine/shipengine-integration-platform-cli)
+[![Cross-Platform Compatibility](https://shipengine.github.io/img/badges/os-badges.svg)](https://github.com/ShipEngine/connect-cli/actions)
+[![Build Status](https://github.com/ShipEngine/connect-cli/workflows/CI-CD/badge.svg)](https://github.com/ShipEngine/connect-cli/actions)
+[![Coverage Status](https://coveralls.io/repos/github/ShipEngine/connect-cli/badge.svg?branch=master)](https://coveralls.io/github/ShipEngine/connect-cli)
 
-[![npm](https://img.shields.io/npm/v/@shipengine/integration-platform-cli.svg)](https://www.npmjs.com/package/@shipengine/integration-platform-cli)
-[![Dependencies](https://david-dm.org/ShipEngine/shipengine-integration-platform-cli.svg)](https://david-dm.org/ShipEngine/shipengine-integration-platform-cli)
-[![License](https://img.shields.io/npm/l/@shipengine/integration-platform-cli.svg)](LICENSE)
+[![npm](https://img.shields.io/npm/v/@shipengine/connect-cli.svg)](https://www.npmjs.com/package/@shipengine/connect-cli)
+[![Dependencies](https://david-dm.org/ShipEngine/connect-cli.svg)](https://david-dm.org/ShipEngine/connect-cli)
+[![License](https://img.shields.io/npm/l/@shipengine/connect-cli.svg)](LICENSE)
 
 <!-- toc -->
-* [ShipEngine Integration Platform CLI](#shipengine-integration-platform-cli)
+* [ShipEngine Connect CLI](#shipengine-connect-cli)
 * [Usage](#usage)
 * [Commands](#commands)
 <!-- tocstop -->
@@ -20,14 +20,14 @@
 
 <!-- usage -->
 ```sh-session
-$ npm install -g @shipengine/integration-platform-cli
-$ shipengine COMMAND
+$ npm install -g @shipengine/connect-cli
+$ connect COMMAND
 running command...
-$ shipengine (-v|--version|version)
-@shipengine/integration-platform-cli/0.0.22 darwin-x64 node-v12.16.2
-$ shipengine --help [COMMAND]
+$ connect (-v|--version|version)
+@shipengine/connect-cli/1.0.5 linux-x64 node-v12.18.1
+$ connect --help [COMMAND]
 USAGE
-  $ shipengine COMMAND
+  $ connect COMMAND
 ...
 ```
 <!-- usagestop -->
@@ -35,23 +35,23 @@ USAGE
 # Commands
 
 <!-- commands -->
-* [`shipengine help [COMMAND]`](#shipengine-help-command)
-* [`shipengine info`](#shipengine-info)
-* [`shipengine login`](#shipengine-login)
-* [`shipengine logout`](#shipengine-logout)
-* [`shipengine new [PATH]`](#shipengine-new-path)
-* [`shipengine publish`](#shipengine-publish)
-* [`shipengine start`](#shipengine-start)
-* [`shipengine test`](#shipengine-test)
-* [`shipengine whoami`](#shipengine-whoami)
+* [`connect help [COMMAND]`](#connect-help-command)
+* [`connect info`](#connect-info)
+* [`connect init [PATH]`](#connect-init-path)
+* [`connect login`](#connect-login)
+* [`connect logout`](#connect-logout)
+* [`connect publish`](#connect-publish)
+* [`connect start`](#connect-start)
+* [`connect test`](#connect-test)
+* [`connect whoami`](#connect-whoami)
 
-## `shipengine help [COMMAND]`
+## `connect help [COMMAND]`
 
-display help for shipengine
+display help for connect
 
 ```
 USAGE
-  $ shipengine help [COMMAND]
+  $ connect help [COMMAND]
 
 ARGUMENTS
   COMMAND  command to show help for
@@ -62,61 +62,27 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.0/src/commands/help.ts)_
 
-## `shipengine info`
+## `connect info`
 
 list info for an app
 
 ```
 USAGE
-  $ shipengine info
+  $ connect info
 
 OPTIONS
   -h, --help  show help for the info command
 ```
 
-_See code: [src/commands/info.ts](https://github.com/ShipEngine/shipengine-integration-platform-cli/blob/v0.0.22/src/commands/info.ts)_
+_See code: [src/commands/info.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.5/src/commands/info.ts)_
 
-## `shipengine login`
-
-login with your integrations API key
-
-```
-USAGE
-  $ shipengine login
-
-OPTIONS
-  -h, --help  show help for the auth:login command
-
-ALIASES
-  $ shipengine login
-```
-
-_See code: [src/commands/login.ts](https://github.com/ShipEngine/shipengine-integration-platform-cli/blob/v0.0.22/src/commands/login.ts)_
-
-## `shipengine logout`
-
-clears the local integrations API key
-
-```
-USAGE
-  $ shipengine logout
-
-OPTIONS
-  -h, --help  show help for the auth:logout command
-
-ALIASES
-  $ shipengine logout
-```
-
-_See code: [src/commands/logout.ts](https://github.com/ShipEngine/shipengine-integration-platform-cli/blob/v0.0.22/src/commands/logout.ts)_
-
-## `shipengine new [PATH]`
+## `connect init [PATH]`
 
 create a new package to develop a custom ShipEngine app
 
 ```
 USAGE
-  $ shipengine new [PATH]
+  $ connect init [PATH]
 
 ARGUMENTS
   PATH  path to new package (defaults to current directory)
@@ -127,21 +93,55 @@ OPTIONS
   -y, --yes    skips the questions and uses the defaults (carrier|Javascript|yaml)
 
 ALIASES
-  $ shipengine init
+  $ connect new
 
 EXAMPLE
-  $ shipengine new
+  $ connect init
 ```
 
-_See code: [src/commands/new.ts](https://github.com/ShipEngine/shipengine-integration-platform-cli/blob/v0.0.22/src/commands/new.ts)_
+_See code: [src/commands/init.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.5/src/commands/init.ts)_
 
-## `shipengine publish`
+## `connect login`
+
+login with your connect API key
+
+```
+USAGE
+  $ connect login
+
+OPTIONS
+  -h, --help  show help for the auth:login command
+
+ALIASES
+  $ connect login
+```
+
+_See code: [src/commands/login.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.5/src/commands/login.ts)_
+
+## `connect logout`
+
+clears the local connect API key
+
+```
+USAGE
+  $ connect logout
+
+OPTIONS
+  -h, --help  show help for the auth:logout command
+
+ALIASES
+  $ connect logout
+```
+
+_See code: [src/commands/logout.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.5/src/commands/logout.ts)_
+
+## `connect publish`
 
 publish your app
 
 ```
 USAGE
-  $ shipengine publish
+  $ connect publish
 
 OPTIONS
   -h, --help        show help for the publish command
@@ -149,33 +149,33 @@ OPTIONS
   -w, --watch       check the status of the deployment until complete
 
 EXAMPLE
-  $ shipengine publish
+  $ connect publish
 ```
 
-_See code: [src/commands/publish.ts](https://github.com/ShipEngine/shipengine-integration-platform-cli/blob/v0.0.22/src/commands/publish.ts)_
+_See code: [src/commands/publish.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.5/src/commands/publish.ts)_
 
-## `shipengine start`
+## `connect start`
 
 start a local web server to develop your app interactively
 
 ```
 USAGE
-  $ shipengine start
+  $ connect start
 
 OPTIONS
   -h, --help       show help for the apps:start commands
   -p, --port=port  [default: 3000] the port that the app will run on
 ```
 
-_See code: [src/commands/start.ts](https://github.com/ShipEngine/shipengine-integration-platform-cli/blob/v0.0.22/src/commands/start.ts)_
+_See code: [src/commands/start.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.5/src/commands/start.ts)_
 
-## `shipengine test`
+## `connect test`
 
 test your app
 
 ```
 USAGE
-  $ shipengine test
+  $ connect test
 
 OPTIONS
   -d, --debug            logs additional debug information
@@ -186,26 +186,26 @@ OPTIONS
   -t, --timeout=timeout  specify the timeout for all the test
 
 EXAMPLES
-  $ shipengine test
-  $ shipengine test --grep rateShipment
+  $ connect test
+  $ connect test --grep rateShipment
 ```
 
-_See code: [src/commands/test.ts](https://github.com/ShipEngine/shipengine-integration-platform-cli/blob/v0.0.22/src/commands/test.ts)_
+_See code: [src/commands/test.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.5/src/commands/test.ts)_
 
-## `shipengine whoami`
+## `connect whoami`
 
 display the current logged in user
 
 ```
 USAGE
-  $ shipengine whoami
+  $ connect whoami
 
 OPTIONS
   -h, --help  show help for the auth:whoami command
 
 ALIASES
-  $ shipengine whoami
+  $ connect whoami
 ```
 
-_See code: [src/commands/whoami.ts](https://github.com/ShipEngine/shipengine-integration-platform-cli/blob/v0.0.22/src/commands/whoami.ts)_
+_See code: [src/commands/whoami.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.5/src/commands/whoami.ts)_
 <!-- commandsstop -->

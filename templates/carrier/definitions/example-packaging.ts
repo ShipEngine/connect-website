@@ -1,4 +1,4 @@
-import { PackagingDefinition } from "@shipengine/integration-platform-sdk";
+import { PackagingDefinition } from "@shipengine/connect-sdk";
 
 const examplePackaging: PackagingDefinition = {
   id: "<%- _uuidv4 %>",

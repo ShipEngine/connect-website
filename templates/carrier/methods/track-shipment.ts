@@ -2,14 +2,17 @@ import {
   TrackingCriteria,
   TrackingInfo,
   Transaction,
-} from "@shipengine/integration-platform-sdk";
+} from "@shipengine/connect-sdk";
 import { Session } from "./session";
 
 /**
  * Returns tracking information for a shipment
  * 
+ * View documentation here:
+ * https://shipenginestag:439bd542@shipenginestag.wpengine.com/docs/integration-platform/reference/methods/track-shipment
+ * 
  * View sample implementation here:
- * https://github.com/ShipEngine/shipengine-integration-platform-sample-apps/blob/master/parcel-post/src/methods/track-shipment.ts
+ * https://github.com/ShipEngine/connect-samples/blob/master/parcel-post/src/methods/track-shipment.ts
  */
 export default async function trackShipment(
   transaction: Transaction<Session>,

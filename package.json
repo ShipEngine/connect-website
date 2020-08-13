@@ -1,16 +1,16 @@
 {
-  "name": "@shipengine/integration-platform-cli",
-  "description": "A CLI tool for working with your ShipEngine Integration account.",
-  "version": "0.0.22",
+  "name": "@shipengine/connect-cli",
+  "description": "A CLI tool for working with your ShipEngine Connect account.",
+  "version": "1.0.5",
   "author": {
     "name": "ShipEngine",
     "email": "support@shipengine.com",
     "url": "https://www.shipengine.com"
   },
   "bin": {
-    "shipengine": "./bin/run"
+    "connect": "./bin/run"
   },
-  "bugs": "https://github.com/ShipEngine/shipengine-integration-platform-cli/issues",
+  "bugs": "https://github.com/ShipEngine/connect-cli/issues",
   "dependencies": {
     "@oclif/command": "^1.8.0",
     "@oclif/config": "^1.17.0",
@@ -19,9 +19,9 @@
     "@oclif/plugin-help": "^3.2.0",
     "@oclif/plugin-not-found": "^1.2.4",
     "@shipengine/capitalization": "^1.2.0",
-    "@shipengine/integration-platform-loader": "0.0.40",
-    "@shipengine/integration-platform-sdk": "0.0.41",
-    "@shipengine/shipengine-integration-platform-local-dev-api": "0.0.8",
+    "@shipengine/connect-loader": "1.0.0",
+    "@shipengine/connect-sdk": "1.0.0",
+    "@shipengine/connect-local-dev-api": "1.0.0",
     "axios": "^0.19.2",
     "chai": "^4.2.0",
     "chalk": "^4.1.0",
@@ -64,12 +64,12 @@
     "@types/js-yaml": "^3.12.5",
     "@types/json5": "0.0.30",
     "@types/luxon": "^1.24.1",
-    "@types/mocha": "^8.0.1",
+    "@types/mocha": "^8.0.2",
     "@types/node": "^14.0.27",
     "@types/nodemon": "^1.19.0",
     "@types/recursive-readdir": "^2.2.0",
-    "@types/update-notifier": "^4.1.0",
-    "@types/uuid": "^8.0.1",
+    "@types/update-notifier": "^4.1.1",
+    "@types/uuid": "^8.3.0",
     "@types/yeoman-environment": "^2.10.0",
     "@types/yeoman-generator": "^4.11.1",
     "@types/yeoman-test": "^2.0.4",
@@ -81,11 +81,11 @@
     "eslint-config-oclif-typescript": "^0.2.0",
     "eslint-config-prettier": "^6.11.0",
     "globby": "^11.0.1",
-    "nock": "^13.0.3",
+    "nock": "^13.0.4",
     "npm-check": "^5.9.0",
     "nyc": "^15.1.0",
     "shx": "^0.3.2",
-    "sinon": "^9.0.2",
+    "sinon": "^9.0.3",
     "source-map-support": "^0.5.17",
     "ts-node": "^8.10.2",
     "typescript": "^3.9.7",
@@ -115,7 +115,7 @@
   "main": "lib/index.js",
   "oclif": {
     "commands": "./lib/commands",
-    "bin": "shipengine",
+    "bin": "connect",
     "plugins": [
       "@oclif/plugin-help",
       "@oclif/plugin-not-found"
@@ -126,7 +126,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ShipEngine/shipengine-integration-platform-cli.git"
+    "url": "https://github.com/ShipEngine/connect-cli.git"
   },
   "scripts": {
     "build": "tsc",

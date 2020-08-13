@@ -2,14 +2,17 @@ import {
   PickupConfirmation,
   PickupRequest,
   Transaction,
-} from "@shipengine/integration-platform-sdk";
+} from "@shipengine/connect-sdk";
 import { Session } from "./session";
 
 /**
  * Schedules a pick-up at a specific time and location
  *
+ * View documentation here:
+ * https://shipenginestag:439bd542@shipenginestag.wpengine.com/docs/integration-platform/reference/methods/schedule-pickup
+ * 
  * View sample implementation here:
- * https://github.com/ShipEngine/shipengine-integration-platform-sample-apps/blob/master/parcel-post/carrier/src/methods/schedule-pickup.ts
+ * https://github.com/ShipEngine/connect-samples/blob/master/parcel-post/carrier/src/methods/schedule-pickup.ts
  */
 export default async function schedulePickup(
   transaction: Transaction<Session>,

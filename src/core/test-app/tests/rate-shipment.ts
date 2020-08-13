@@ -1,10 +1,11 @@
 import {
-  CarrierApp,
   DeliveryService,
-  RateCriteriaPOJO,
   WeightUnit,
-  PackageRateCriteriaPOJO,
-} from "@shipengine/integration-platform-sdk";
+  Definition,
+} from "@shipengine/connect-sdk";
+
+import { CarrierApp, RateCriteriaPOJO, PackageRateCriteriaPOJO } from "@shipengine/connect-sdk/lib/internal";
+
 import Suite from "../runner/suite";
 import { initializeTimeStamps } from "../../utils/time-stamps";
 import { RateShipmentTestParams, RateShipmentConfigOptions } from "../runner/config/rate-shipment";
@@ -33,8 +34,8 @@ export class RateShipment extends Suite {
     }
 
     else if (carrierApp.deliveryServices) {
-      for (let ds of carrierApp.deliveryServices) {
-        let [shipFrom, shipTo] = useShipmentAddresses(ds);
+      for (const ds of carrierApp.deliveryServices) {
+        const [shipFrom, shipTo] = useShipmentAddresses(ds);
         if (shipFrom && shipTo) {
           this.deliveryService = ds;
         }
@@ -70,16 +71,16 @@ export class RateShipment extends Suite {
     >(defaults, config);
 
     const packageRateCriteriaPOJO: PackageRateCriteriaPOJO = {
-      packaging: [{
+      packaging: {
         id: this.deliveryService.packaging[0].id,
-      }],
+      },
       weight: {
         value: testParams.weight.value,
         unit: testParams.weight.unit,
       }
     };
 
-    let RateCriteriaPOJO: RateCriteriaPOJO = {
+    const RateCriteriaPOJO: RateCriteriaPOJO = {
       deliveryService: findDeliveryServiceByName(this.deliveryService.name, carrierApp),
       shipFrom: testParams.shipFrom,
       shipTo: testParams.shipTo!,
@@ -108,11 +109,10 @@ export class RateShipment extends Suite {
       return this.config.map((config: RateShipmentConfigOptions) => {
         return this.buildTestArg(config);
       });
-    } else {
-      const config = this.config as RateShipmentConfigOptions;
-
-      return [this.buildTestArg(config)];
     }
+
+    const config = this.config as RateShipmentConfigOptions;
+    return [this.buildTestArg(config)];
   }
 
   tests() {
@@ -138,14 +138,21 @@ export class RateShipment extends Suite {
 
           const rates = await carrierApp.rateShipment!(transaction, testArg!.methodArgs);
 
-          //Check that the delivery service that was passed in is included in the response
-          if (!rates.find(rate => rate.deliveryService.id === testArg.methodArgs!.deliveryService!.id)) {
-            const missingDS = carrierApp.deliveryServices.find(service => service.id === testArg.methodArgs!.deliveryService!.id);
+          // Check that the delivery service that was passed in is included in the response
+          if (isDefinition(testArg.methodArgs.deliveryService)) {
+            const configuredDeliveryServiceID = Reflect.get(testArg.methodArgs.deliveryService, "id");
+            if (!rates.find(rate => rate.deliveryService.id === configuredDeliveryServiceID)) {
+              const missingDS = carrierApp.deliveryServices.find(deliveryService => deliveryService.id === configuredDeliveryServiceID);
 
-            throw new Error(`Rate for delivery service '${missingDS!.name}' is missing from the response`);
+              throw new Error(`Rate for delivery service '${missingDS!.name}' is missing from the response`);
+            }
           }
         }
       );
     });
   }
+}
+
+function isDefinition(obj: unknown): obj is Definition {
+  return (typeof obj === "object") && ("id" in obj!);
 }

@@ -5,7 +5,7 @@
 "use strict";
 
 // eslint-disable-next-line node/no-missing-require
-const server = require("@shipengine/shipengine-integration-platform-local-dev-api")
+const server = require("@shipengine/connect-local-dev-api")
   .default;
 
 const pathToApp = process.argv[2];

@@ -29,7 +29,7 @@
         "test",
         "-g multi"
       ],
-      "cwd": "/home/rkrauskopf/repos/shipengine-integration-platform-sample-apps/parcel-post"
+      "cwd": "/home/rkrauskopf/repos/connect-sample-apps/parcel-post"
     }
   ]
 }

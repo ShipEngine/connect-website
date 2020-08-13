@@ -2,7 +2,7 @@ import {
   DateTimeZonePOJO,
   AddressWithContactInfoPOJO,
   WeightUnit,
-} from "@shipengine/integration-platform-sdk";
+} from "@shipengine/connect-sdk";
 import { BaseTestConfigOptions } from "./base-test-config-options";
 
 export interface RateShipmentTestParams {

@@ -6,7 +6,7 @@ import { Domain } from '../core/api-key-store';
 import { setUser } from '../core/utils/users';
 
 export default class Login extends BaseCommand {
-  static description = "login with your integrations API key";
+  static description = "login with your connect API key";
 
   static aliases = ["login"];
 
@@ -44,6 +44,6 @@ export default class Login extends BaseCommand {
       cli.action.stop();
     }
 
-    this.log("\nyou have logged in with an Integrations API key");
+    this.log("\nyou have logged in with a Connect API key");
   }
 }

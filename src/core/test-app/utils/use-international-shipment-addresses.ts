@@ -1,4 +1,4 @@
-import { DeliveryService, AddressWithContactInfoPOJO } from "@shipengine/integration-platform-sdk";
+import { DeliveryService, AddressWithContactInfoPOJO } from "@shipengine/connect-sdk";
 import { buildAddressWithContactInfo } from "../factories/address";
 
 /**

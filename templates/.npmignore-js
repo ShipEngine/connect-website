@@ -23,5 +23,5 @@ nbproject
 /coverage
 /test/tmp
 
-# Integration app specific
-shipengine.config.js
+# Connect app specific
+connect.config.js

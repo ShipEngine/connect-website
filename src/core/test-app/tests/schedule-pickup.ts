@@ -7,7 +7,7 @@
 //   PickupService,
 //   PickupShipmentPOJO,
 //   PickupPackagePOJO,
-// } from "@shipengine/integration-platform-sdk";
+// } from "@shipengine/connect-sdk";
 // import Suite from "../runner/suite";
 // import { buildAddress } from "../factories/address";
 // import { SchedulePickupOptions, PickupShipmentConfig, PickupPackageConfig } from "../runner/config";

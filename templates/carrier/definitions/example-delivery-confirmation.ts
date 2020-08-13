@@ -1,7 +1,7 @@
 import {
   DeliveryConfirmationDefinition,
   DeliveryConfirmationType,
-} from "@shipengine/integration-platform-sdk";
+} from "@shipengine/connect-sdk";
 
 const exampleDeliveryConfirmation: DeliveryConfirmationDefinition = {
   id: "<%- _uuidv4 %>",

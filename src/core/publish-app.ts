@@ -4,7 +4,7 @@ import fs from "fs";
 import logSymbols from "log-symbols";
 import path from "path";
 import { Deployment, DeploymentStatus } from "./types";
-import { loadApp } from "@shipengine/integration-platform-loader";
+import { loadApp } from "@shipengine/connect-loader";
 import { packageApp } from "./publish-app/package-app";
 import { watchDeployment } from "./publish-app/watch-deployment";
 import { green, red } from "chalk";
@@ -84,7 +84,7 @@ export default async function publishApp(
       pathToTarball: pathToTarball,
     });
   } catch (error) {
-    const errorMessage = `there was an error deploying your app to the integration platform: ${error}`;
+    const errorMessage = `there was an error deploying your app to the connect platform: ${error}`;
     throw new AppFailedToDeployError(errorMessage);
   } finally {
     // Delete the package tarball

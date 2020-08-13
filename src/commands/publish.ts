@@ -7,7 +7,7 @@ import { checkAppLoginStatus } from "../core/utils/users";
 export default class Publish extends BaseCommand {
   static description = "publish your app";
 
-  static examples = ["$ shipengine publish"];
+  static examples = ["$ connect publish"];
 
   // TODO: come up with a convention for turning off spinners if the user desires
   // TODO: implement a quiet command?

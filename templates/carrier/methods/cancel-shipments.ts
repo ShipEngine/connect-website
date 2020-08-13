@@ -2,15 +2,18 @@ import {
   ShipmentCancellation,
   ShipmentCancellationOutcome,
   Transaction,
-} from "@shipengine/integration-platform-sdk";
+} from "@shipengine/connect-sdk";
 import { Session } from "./session";
 
 /**
  * Cancels one or more shipments that were previously created. Depending on the carrier,
  * this may include voiding labels, refunding charges, and/or removing the shipment from the day's manifest.
  * 
+ * View documentation here:
+ * https://shipenginestag:439bd542@shipenginestag.wpengine.com/docs/integration-platform/reference/methods/cancel-shipments
+ * 
  * View sample implementation here: 
- * https://github.com/ShipEngine/shipengine-integration-platform-sample-apps/blob/master/parcel-post/src/methods/cancel-shipments.ts
+ * https://github.com/ShipEngine/connect-samples/blob/master/parcel-post/src/methods/cancel-shipments.ts
  */
 export default async function cancelShipments(
   transaction: Transaction<Session>,

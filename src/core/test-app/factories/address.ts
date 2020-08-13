@@ -2,7 +2,7 @@ import {
   AddressPOJO,
   AddressWithContactInfoPOJO,
   Country,
-} from "@shipengine/integration-platform-sdk";
+} from "@shipengine/connect-sdk";
 import { buildContactInfo } from './contact-info';
 
 export function buildAddressWithContactInfo(

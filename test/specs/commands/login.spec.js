@@ -21,7 +21,7 @@ describe("The auth:login command", () => {
       .command(["login"])
       .it("runs login when given a valid Apps API KEY", (ctx) => {
         expect(ctx.stdout).to.contain(
-          "\nyou have logged in with an Integrations API key\n",
+          "\nyou have logged in with a Connect API key\n",
         );
       });
   });
@@ -59,7 +59,7 @@ describe("The auth:login command", () => {
         const appToken = ApiKeyStore.get("apps");
         expect(appToken).to.equal("app_98765");
         expect(ctx.stdout).to.contain(
-          "\nyou have logged in with an Integrations API key\n",
+          "\nyou have logged in with a Connect API key\n",
         );
       });
   });
