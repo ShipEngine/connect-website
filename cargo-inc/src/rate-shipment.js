@@ -14,14 +14,20 @@ async function rateShipment(transaction, shipment) {
     operation: "quote_rates",
     session_id: transaction.session.id,
     service_code: shipment.deliveryService.code,
-    confirmation_code: shipment.deliveryConfirmation.code,
     parcel_codes: shipment.packages[0].packaging.code,
     ship_date: shipment.shipDateTime.toISOString(),
-    delivery_date: shipment.deliveryDateTime.toISOString(),
     from_zone: parseInt(shipment.shipFrom.postalCode, 10),
     to_zone: parseInt(shipment.shipTo.postalCode, 10),
     total_weight: shipment.packages[0].weight.ounces,
   };
+
+  if(shipment.deliveryConfirmation) {
+    data.confirmation_code = shipment.deliveryConfirmation.code;
+  }
+
+  if(shipment.deliveryDateTime) {
+    data.delivery_date = shipment.deliveryDateTime.toISOString();
+  }
 
   // STEP 3: Call the carrier's API
   const response = await apiClient.request({ data });
@@ -35,19 +41,13 @@ async function rateShipment(transaction, shipment) {
  */
 function formatRate(rate) {
   return {
-    deliveryService: {
-      id: rate.service_code,
-    },
+    deliveryService: rate.service_code,
     shipDateTime: new Date(rate.ship_date),
     deliveryDateTime: new Date(rate.delivery_date),
     isTrackable: rate.service_code !== "ECO",
-    deliveryConfirmation: {
-      id: rate.confirmation_code,
-    },
+    deliveryConfirmation: rate.confirmation_code,
     packages: [{
-      packaging: {
-        id: rate.parcel_code,
-      },
+      packaging: rate.parcel_code,
     }],
     charges: [
       {

@@ -22,10 +22,10 @@ export interface QuoteRatesRequest {
   operation: "quote_rates";
   session_id: string;
   service_code: string;
-  confirmation_code: string;
+  confirmation_code?: string;
   parcel_code: string;
   ship_date: string;
-  delivery_date: string;
+  delivery_date?: string;
   total_weight: number;
 }
 

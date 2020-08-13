@@ -17,12 +17,18 @@ async function rateShipment(transaction, shipment) {
     operation: "quote_rates",
     session_id: transaction.session.id,
     service_codes: shipment.deliveryService.code,
-    confirmation_codes: shipment.deliveryConfirmation.code,
     parcel_code: shipment.package.packaging.code,
     ship_date: shipment.shipDateTime.toISOString(),
-    delivery_date: shipment.deliveryDateTime.toISOString(),
     total_weight: shipment.package.weight.ounces,
   };
+
+  if(shipment.deliveryConfirmation) {
+    data.confirmation_code = shipment.deliveryConfirmation.code;
+  }
+
+  if(shipment.deliveryDateTime) {
+    data.delivery_date = shipment.deliveryDateTime.toISOString();
+  }
 
   // STEP 3: Call the carrier's API
   const response = await apiClient.request({ data });
