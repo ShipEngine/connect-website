@@ -140,11 +140,15 @@ in mocking out your backend API for unit testing.
 ### [Sinon](https://sinonjs.org/)
 Sinon is a standalone tool that provides test spies, stubs and mocks for JavaScript and works with any unit testing framework.
 
+
 Live Testing
 -----------------------------
 Once you have completed local development and testing of your application, you can then [publish](./../publish.md) your app to
 our development platform where you can perform live testing through one of our e-commerce applications, such as
 [ShipStation](https://www.shipstation.com/), before it is promoted to our production platform.
+
+![Adding a carrier in ShipStation](shipstation.png)
+
 
 <div class="previous-next-nav">
   <a class="button button-small button-secondary" href="./../sandbox.md">Previous: Sandbox Environments</a>
