@@ -1,10 +1,9 @@
 import {
-  CarrierApp,
   DeliveryService,
-  RateCriteriaPOJO,
   WeightUnit,
-  PackageRateCriteriaPOJO,
-} from "@shipengine/integration-platform-sdk";
+} from "@shipengine/connect-sdk";
+
+import { CarrierApp, RateCriteriaPOJO, PackageRateCriteriaPOJO} from "@shipengine/connect-sdk/lib/internal";
 import Suite from "../runner/suite";
 import { initializeTimeStamps } from "../../utils/time-stamps";
 import { RateShipmentWithMultipleServicesTestParams, RateShipmentWithMultipleServicesConfigOptions } from "../runner/config/rate-shipment-with-multiple-services";
@@ -178,12 +177,6 @@ export class RateShipmentWithMultipleServices extends Suite {
             }
           }
 
-          for(let rate of rates) {
-            //Check is fullfillment service should be set
-            if(rate.deliveryService.fulfillmentService && !rate.fulfillmentService) {
-              throw new Error(`Fulfillment Service is not set for '${rate.deliveryService.name}' rate`);
-            }
-          }
         },
       );
     });

@@ -3,7 +3,7 @@
 const { expect } = require("chai");
 const pojo = require("../../../utils/pojo");
 const { findMatchingDeliveryServicesByCountries } = require("../../../../../lib/core/test-app/utils/find-matching-delivery-services-by-countries");
-const { CarrierApp } = require("@shipengine/integration-platform-sdk/lib/internal/carriers/carrier-app");
+const { CarrierApp } = require("@shipengine/connect-sdk/lib/internal/carriers/carrier-app");
 
 describe("findMatchingDeliveryServicesByCountries", () => {
   it("returns a set of origin and destination countries that all given delivery services share", () => {
