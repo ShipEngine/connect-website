@@ -63,7 +63,7 @@ export default class Runner {
         if (this.failFast && this.testResults.hasFailed()) continue;
 
         if (this.grep) {
-          // TODO if we allow regexs to be set in the shipengine.config.js we need to check to see if this a string or not here
+          // TODO if we allow regexs to be set in the connect.config.js we need to check to see if this a string or not here
           const cleanGrep = escapeStringRegexp(this.grep);
 
           // extract args if it's regex-like, i.e: [string, pattern, flag]

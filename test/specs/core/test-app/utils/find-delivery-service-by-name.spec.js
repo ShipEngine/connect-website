@@ -17,7 +17,7 @@ describe("findDeliveryServiceByName", () => {
   it("throws an error when a delivery service does not exist for the given name", () => {
     expect(() => findDeliveryServiceByName("invalid", app)).to.throw(
       Error,
-      /shipengine.config.js deliveryServiceName:/,
+      /connect.config.js deliveryServiceName:/,
     );
   });
 });

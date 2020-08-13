@@ -17,7 +17,7 @@ export default function findDeliveryServiceByName(
   );
   if (!deliveryService)
     throw new Error(
-      `shipengine.config.js deliveryServiceName: '${name}' does not exist`,
+      `connect.config.js deliveryServiceName: '${name}' does not exist`,
     );
 
   return deliveryService;

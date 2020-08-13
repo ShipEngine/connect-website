@@ -17,7 +17,7 @@ export default function findDeliveryConfirmationByName(
   );
   if (!deliveryConfirmation)
     throw new Error(
-      `shipengine.config.js deliveryConfirmationName: '${name}' does not exist`,
+      `connect.config.js deliveryConfirmationName: '${name}' does not exist`,
     );
 
   return deliveryConfirmation;

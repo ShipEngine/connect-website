@@ -265,11 +265,11 @@ class AppsNew extends Generator {
       this,
     );
 
-    // this.fs.copyTpl(
-    //   this.templatePath("shipengine.config.js"),
-    //   this.destinationPath("shipengine.config.js"),
-    //   this,
-    // );
+    this.fs.copyTpl(
+      this.templatePath("connect.config.js"),
+      this.destinationPath("connect.config.js"),
+      this,
+    );
 
     if (this.fs.exists(this.destinationPath("./package.json"))) {
       fixpack(
@@ -289,11 +289,11 @@ class AppsNew extends Generator {
       this,
     );
 
-    // this.fs.copyTpl(
-    //   this.templatePath("shipengine.config.js"),
-    //   this.destinationPath("shipengine.config.js"),
-    //   this,
-    // );
+    this.fs.copyTpl(
+      this.templatePath("connect.config.js"),
+      this.destinationPath("connect.config.js"),
+      this,
+    );
 
     this.fs.copyTpl(
       this.templatePath("README.md.ejs"),

@@ -24,4 +24,4 @@ nbproject
 /test/tmp
 
 # Connect app specific
-shipengine.config.js
+connect.config.js

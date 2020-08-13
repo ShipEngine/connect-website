@@ -18,7 +18,7 @@ export default function findPackagingByName(
   );
   if (!packaging)
     throw new Error(
-      `shipengine.config.js packagingName: '${name}' does not exist`,
+      `connect.config.js packagingName: '${name}' does not exist`,
     );
 
   return packaging;
