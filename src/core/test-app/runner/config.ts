@@ -16,10 +16,10 @@ export interface TestsConfig {
     | [CreateShipmentInternationalConfigOptions];
   createShipment_multi_package?: CreateShipmentMultiPackageConfigOptions | [CreateShipmentMultiPackageConfigOptions];
   createShipment_with_insurance?: CreateShipmentWithInsuranceConfigOptions | [CreateShipmentWithInsuranceConfigOptions];
-  // rateShipment?: RateShipmentOptions | [RateShipmentOptions];
+  rateShipment?: RateShipmentConfigOptions | [RateShipmentConfigOptions];
 
   // createShipment_multi_package?: TestOptions | [TestOptions];
-  rateShipmentWithOneService?: RateShipmentConfigOptions | [RateShipmentConfigOptions];
+  // rateShipmentWithOneService?: RateShipmentConfigOptions | [RateShipmentConfigOptions];
   // schedulePickup?: SchedulePickupOptions | [SchedulePickupOptions];
   // trackShipment?: TestOptions | [TestOptions];
 }
