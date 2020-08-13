@@ -135,12 +135,86 @@ Chai is a Business Driven Development (BDD) / Test Driven Development (TDD) asse
 #### [Sinon](https://sinonjs.org/)
 Sinon is a standalone tool that provides test spies, stubs and mocks for JavaScript and works with any unit testing framework.
 
+#### [Nock](https://github.com/nock/nock)
 Nock is an HTTP server mocking and expectations library for Node.js. It can be used to test modules that perform HTTP requests in isolation. This can be useful
 in mocking out your backend API for unit testing.
 
+### Example
+Here's an example unit test suite using [Mocha](https://mochajs.org/) and [Chai](https://www.chaijs.com/) to test [the `createShipment` method](./../reference/methods/create-shipment.md).
 
-### [Sinon](https://sinonjs.org/)
-Sinon is a standalone tool that provides test spies, stubs and mocks for JavaScript and works with any unit testing framework.
+> **NOTE:** When creating mock parameters for your methods, you only need to populate the properties that you actually use in your code
+
+```javascript
+const createShipment = require("../src/methods/create-shipment.js");
+const { expect } = require("chai");
+
+describe("createShipment test suite", () => {
+  let transaction, shipmentCriteria;
+
+  beforeEach("Create mock parameters", () => {
+    transaction = {
+      id: "e62eff07-a9f6-4075-80d1-ca4ab788a6fe",
+      session: {
+        token: "cj8Aro60dfa4abe62erQ07"
+      }
+    };
+
+    shipmentCriteria = {
+      deliveryService: { code: "NXT_DAY" },
+      deliveryConfirmatmion: { code: "SIG" },
+      shipFrom: {
+        name: { given: "John", family: "Doe" },
+        addressLines: ["4009 Marathon Blvd"],
+        cityLocality: "Austin",
+        stateProvince: "TX",
+        postalCode: "78756",
+        country: "US"
+      },
+      shipTo: {
+        name: { given: "Amanda", family: "Miller" },
+        addressLines: ["525 S Winchester Blvd"],
+        cityLocality: "San Jose",
+        stateProvince: "CA",
+        postalCode: "95128",
+        country: "US"
+      },
+      packages: [{
+        packaging: { code: "BOX" },
+        weight: { ounces: 36 },
+        label: {
+          format: "pdf",
+          size: "4x6"
+        }
+      }]
+    };
+  });
+
+  it("should create a shipment without insurance", async () => {
+    let shipment = await createShipment(transaction, shipmentCriteria);
+
+    expect(shipment).to.be.an("object");
+    expect(shipment.deliveryDateTime).to.be.an.instanceOf(Date);
+    expect(shipment.charges).to.be.an("array").with.lengthOf(1);
+    expect(shipment.charges[0].type).to.equal("delivery");
+    expect(shipment.charges[0].name).to.equal("Delivery Charge");
+  });
+
+  it("should create a shipment with insurance", async () => {
+    shipmentCriteria.packages[0].insuredValue = { value: 500, currency: "USD" };
+    let shipment = await createShipment(transaction, shipmentCriteria);
+
+    expect(shipment).to.be.an("object");
+    expect(shipment.deliveryDateTime).to.be.an.instanceOf(Date);
+    expect(shipment.charges).to.be.an("array").with.lengthOf(2);
+    expect(shipment.charges[0].type).to.equal("delivery");
+    expect(shipment.charges[0].name).to.equal("Delivery Charge");
+    expect(shipment.charges[1].type).to.equal("insurance");
+    expect(shipment.charges[1].name).to.equal("Insurance Cost");
+    expect(shipment.packages[0].metadata.isInsured).to.equal(true);
+  });
+});
+```
+
 
 
 Live Testing
