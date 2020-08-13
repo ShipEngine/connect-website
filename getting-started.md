@@ -27,7 +27,7 @@ Your app will run in our hosted Node.js runtime environment. We take care of hos
 
 Integration Platform SDK
 ------------------------------------------
-The [ShipEngine Connect SDK](https://www.npmjs.com/package/@shipengine/integration-platform-sdk) has everything you need to quickly and efficiently build an integration application. As a [TypeScript](https://www.typescriptlang.org/)-based project, it contains all of the type definitions for every resource that will be required for your project.
+The [ShipEngine Connect SDK](https://www.npmjs.com/package/@shipengine/connect-sdk) has everything you need to quickly and efficiently build an integration application. As a [TypeScript](https://www.typescriptlang.org/)-based project, it contains all of the type definitions for every resource that will be required for your project.
 
 
 Integration Platform CLI

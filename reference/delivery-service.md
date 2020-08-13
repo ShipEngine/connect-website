@@ -267,7 +267,7 @@ import {
   DocumentFormat,
   DocumentSize,
   ServiceArea,
-} from "@shipengine/integration-platform-sdk";
+} from "@shipengine/connect-sdk";
 
 const internationalEconomyDeliveryService: DeliveryServiceDefinition = {
   id: "43fc9d24-6a89-428a-ad34-c614c14170b6",

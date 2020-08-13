@@ -105,7 +105,7 @@ requiresDimensions: true
 ```
 
 ```typescript
-import { PackagingDefinition } from "@shipengine/integration-platform-sdk";
+import { PackagingDefinition } from "@shipengine/connect-sdk";
 
 const packagePackaging: PackagingDefinition = {
   id: "03318192-3e6c-475f-a496-a4f17c1dbcae",

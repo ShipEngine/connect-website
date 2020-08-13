@@ -180,7 +180,7 @@ param:
 Examples
 ------------
 ```typescript
-import { CarrierAppDefinition } from "@shipengine/integration-platform-sdk";
+import { CarrierAppDefinition } from "@shipengine/connect-sdk";
 
 const address:CarrierAppDefinition = {
   id: "8ea1989e-d504-433f-b031-b04d5d9ace94",

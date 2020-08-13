@@ -140,7 +140,7 @@ import {
   Transaction,
   ShipmentCancellation,
   ShipmentCancellationOutcome
-} from "@shipengine/integration-platform-sdk";
+} from "@shipengine/connect-sdk";
 
 export default async function cancelShipments(
   transaction: Transaction, shipmentCancellations: ShipmentCancellation[]): Promise<void | ShipmentCancellationOutcome> {

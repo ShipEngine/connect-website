@@ -347,7 +347,7 @@ import {
   RateCriteria,
   Rate,
   Transaction
-} from "@shipengine/integration-platform-sdk";
+} from "@shipengine/connect-sdk";
 
 export default async function rateShipment(
   transaction: Transaction<Session>, shipment: RateCriteria): Promise<Rate[]> {
