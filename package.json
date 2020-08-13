@@ -1,5 +1,5 @@
 {
-  "name": "@shipengine/shipengine-integration-platform-local-dev-api",
+  "name": "@shipengine/connect-local-dev-api",
   "version": "1.0.1",
   "description": "The ShipEngine Integration Platform local development API",
   "author": {
@@ -11,10 +11,10 @@
   "homepage": "https://www.shipengine.com/docs/integration-platform/",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ShipEngine/shipengine-integration-platform-local-dev-api.git"
+    "url": "git+https://github.com/ShipEngine/connect-local-dev-api.git"
   },
   "bugs": {
-    "url": "https://github.com/ShipEngine/shipengine-integration-platform-local-dev-api/issues"
+    "url": "https://github.com/ShipEngine/connect-local-dev-api/issues"
   },
   "main": "lib/server.js",
   "files": [
