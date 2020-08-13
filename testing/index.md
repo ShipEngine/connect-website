@@ -28,15 +28,14 @@ Local Testing
       ));
     }(window, document, "_pm", "PostmanRunObject", "https://run.pstmn.io/button.js"));
   </script>
-</p>
 
 > **PRO TIP:** You can use the [VSCode debugger](https://code.visualstudio.com/docs/editor/debugging) to set breakpoints, step through your code line-by-line, and inspect variables at runtime. Just press `F5` to start a debug session.
 
-<img src="vs-code-debug.png" alt="drawing" width="1000"/>
+![VSCode debugger](vs-code-debug.png)
 
 
 ### Request Modification
-Each request in [our Postman collection](https://www.getpostman.com/collections/5ce1c5e574e9e5c4eb8e) contains sample data that matches the structure expected by one of the methods in your application. We have included placeholder text
+Each request in [our Postman collection](https://documenter.getpostman.com/view/12340335/T1LPBRJk?version=latest) contains sample data that matches the structure expected by one of the methods in your application. We have included placeholder text
 in the areas where you will need to provide values.
 
 For example, when running the `Create a shipment` request in the `Carrier Apps` folder, you will need to provide IDs for
@@ -51,9 +50,8 @@ You can begin running requests in this collection as soon as you have defined th
 It may be useful to set a breakpoint and examine the structure of the data sent to your method to assist in mapping the input
 data to the format expected by your backend service or API.
 
-<img src="postman-placeholder.png" alt="drawing" width="1000"/>
+![Postman screenshot](postman-placeholder.png)
 
-</p>
 
 ### Authentication
 
@@ -65,29 +63,26 @@ Our Postman collection uses variables to persist session data between requests. 
 property to {% raw %}`{{session}}`{% endraw %}. This is the way Postman variables are referenced within request payloads. While it is not valid
 JSON at the moment, it will be once Postman renders the request.
 
-<img src="postman-session-variable.png" alt="drawing" width="1000"/>
+![Session variable in Postman](postman-session-variable.png)
 
-</p>
 
 You can see and set the value of the variables by editing the collection. Click the ellipses icon next to the collection name
 and select `Edit`, then click the `Variables` tab.
 
-<img src="variable-menu.png" alt="drawing" width="1000"/>
+![Editing the collection in Postman](variable-menu.png)
 
-</p>
 
 When you first import the collection, the `session`
 variable will be unset.
 
-<img src="postman-empty-vars.png" alt="drawing" width="1000"/>
+![Postman collection variables](postman-empty-vars.png)
 
-</p>
 
-When beginning to work with our Postman collection, you should first run the `Connect` request in the `All Apps` folder with valid credentials to create a session. This
-will then set the `session` variable that is referenced in each of the other requests. Likewise, if you already
+When beginning to work with our Postman collection, you should first run the `Connect` request in the `All Apps` folder with valid credentials to create a session. This will then set the `session` variable that is referenced in each of the other requests. Likewise, if you already
 have a valid session you wish to use, you can edit the variable directly and skip running the `Connect` request.
 
-<img src="postman-set-variable.png" alt="drawing" width="1000"/>
+![Setting the session variable](postman-set-variable.png)
+
 
 #### Hardcoded Values
 You may wish to hardcode the session data in each of your requests rather than using Postman variables. If so, you will need to run the `Connect`
@@ -95,9 +90,8 @@ request with valid credentials and then copy the `transaction.session` value tha
 Likewise, if you already have a valid session you wish to use, you can skip running the `Connect` request and add the
 `session` data directly to the request.
 
-<img src="./postman-transaction.png" alt="drawing" width="1000"/>
+![Using hard-coded values in Postman](./postman-transaction.png)
 
-</p>
 
 
 Automated Testing
