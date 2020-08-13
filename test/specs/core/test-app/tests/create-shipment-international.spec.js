@@ -196,6 +196,7 @@ describe("The create shipment international test suite", () => {
         id: "9cf1bfda-7ee4-4f03-96f6-6eab52243eee",
         name: "Better Delivery Service",
         class: "ground",
+        code: "priority_overnight",
         grade: "standard",
         manifestType: "digital",
         originCountries: ["MX"],
@@ -322,6 +323,7 @@ function generateBasicAppAndConfigs() {
   deliveryService.manifestType = "physical";
   deliveryService.labelFormats = ["pdf"];
   deliveryService.labelSizes = ["A4"];
+  deliveryService.code = "priority_overnight";
   deliveryService.destinationCountries = ["AQ","MX"];
   deliveryService.originCountries = ["US", "MX"];
   appDefinition.createShipment = () => { };

@@ -13,6 +13,7 @@
       "internalConsoleOptions": "openOnSessionStart",
       "skipFiles": [
         "<node_internals>/**"
+        
       ]
     },
     {
@@ -22,14 +23,15 @@
       "skipFiles": [
         "<node_internals>/**"
       ],
+      "smartStep": true,
       "console": "integratedTerminal",
       "internalConsoleOptions": "openOnSessionStart",
       "program": "${workspaceFolder}/bin/run",
       "args": [
         "test",
-        "-g multi"
+        "-g rate"
       ],
-      "cwd": "/home/rkrauskopf/repos/connect-sample-apps/parcel-post"
+      "cwd": "/home/rkrauskopf/repos/connect-samples/cargo-inc"
     }
   ]
 }

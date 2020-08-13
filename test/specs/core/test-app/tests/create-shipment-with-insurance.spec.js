@@ -172,6 +172,7 @@ describe("The create shipment insured test suite", () => {
         id: "9cf1bfda-7ee4-4f03-96f6-6eab52243eee",
         isInsurable: false,
         name: "Uninsured Delivery Service",
+        code: "uninsured_ds",
         class: "ground",
         manifestType: "digital",
         grade: "standard",
@@ -208,6 +209,7 @@ describe("The create shipment insured test suite", () => {
         name: "Better Delivery Service",
         manifestType: "digital",
         class: "ground",
+        code: "priority_overnight",
         grade: "standard",
         originCountries: ["MX"],
         destinationCountries: ["MX"],
@@ -333,6 +335,7 @@ function generateBasicAppAndConfigs() {
   deliveryService.manifestType = "digital";
   deliveryService.labelSizes = ["A4"];
   deliveryService.isInsurable = true;
+  deliveryService.code = "priority_overnight";
   deliveryService.deliveryConfirmations = [pojo.deliveryConfirmation()];
   deliveryService.packaging.push(pojo.packaging());
   appDefinition.deliveryServices = [deliveryService];
