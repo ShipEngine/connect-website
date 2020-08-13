@@ -3,7 +3,7 @@
 const { expect } = require("chai");
 const pojo = require("../../../utils/pojo");
 const { findMatchingDeliveryServicesByCountries } = require("../../../../../lib/core/test-app/utils/find-matching-delivery-services-by-countries");
-const { CarrierApp } = require("@shipengine/integration-platform-sdk/lib/internal/carriers/carrier-app");
+const { CarrierApp } = require("@shipengine/connect-sdk/lib/internal/carriers/carrier-app");
 
 describe("findMatchingDeliveryServicesByCountries", () => {
   it("returns a set of origin and destination countries that all given delivery services share", () => {
@@ -11,7 +11,7 @@ describe("findMatchingDeliveryServicesByCountries", () => {
     const appDefinition = pojo.carrierApp();
     const deliveryService = pojo.deliveryService();
     appDefinition.deliveryServices = [deliveryService];
-  
+
     appDefinition.deliveryServices[0].originCountries = ["US", "MX", "CA"];
     appDefinition.deliveryServices[0].destinationCountries = ["US", "MX", "CA"];
 
@@ -20,6 +20,7 @@ describe("findMatchingDeliveryServicesByCountries", () => {
       name: "Another Delivery Service",
       class: "ground",
       grade: "standard",
+      manifestType: "digital",
       originCountries: ["US", "MX", "CA"],
       destinationCountries: ["US", "MX", "CA"],
       labelFormats: ["pdf"],
@@ -32,6 +33,7 @@ describe("findMatchingDeliveryServicesByCountries", () => {
       name: "Better Delivery Service",
       class: "ground",
       grade: "standard",
+      manifestType: "digital",
       originCountries: ["US", "MX"],
       destinationCountries: ["US", "MX"],
       packaging: [pojo.packaging()]
@@ -62,7 +64,7 @@ describe("findMatchingDeliveryServicesByCountries", () => {
     const appDefinition = pojo.carrierApp();
     const deliveryService = pojo.deliveryService();
     appDefinition.deliveryServices = [deliveryService];
-  
+
     appDefinition.deliveryServices[0].originCountries = ["US", "MX", "CA"];
     appDefinition.deliveryServices[0].destinationCountries = ["US", "MX", "CA"];
 
@@ -71,6 +73,7 @@ describe("findMatchingDeliveryServicesByCountries", () => {
       name: "Another Delivery Service",
       class: "ground",
       grade: "standard",
+      manifestType: "digital",
       originCountries: ["CA"],
       destinationCountries: ["CA"],
       packaging: [pojo.packaging()]
@@ -81,6 +84,7 @@ describe("findMatchingDeliveryServicesByCountries", () => {
       name: "Better Delivery Service",
       class: "ground",
       grade: "standard",
+      manifestType: "digital",
       originCountries: ["US", "MX"],
       destinationCountries: ["US", "MX"],
       packaging: [pojo.packaging()]

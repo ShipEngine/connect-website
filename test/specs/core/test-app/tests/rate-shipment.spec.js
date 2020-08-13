@@ -1,7 +1,7 @@
 "use strict";
 
 const { RateShipment } = require("../../../../../lib/core/test-app/tests/rate-shipment");
-const { CarrierApp } = require("@shipengine/integration-platform-sdk/lib/internal/carriers/carrier-app");
+const { CarrierApp } = require("@shipengine/connect-sdk/lib/internal/carriers/carrier-app");
 const pojo = require("../../../utils/pojo");
 const { expect } = require("chai");
 const sinon = require("sinon");
@@ -145,13 +145,14 @@ describe("The rate shipment test suite", () => {
         originCountries: ["MX"],
         destinationCountries: ["MX"],
         labelFormats: ["pdf"],
+        manifestType: "physical",
         labelSizes: ["A4"],
         packaging: [pojo.packaging()]
       });
 
       staticConfigTests.rateShipment = {
         deliveryServiceName: "Better Delivery Service"
-      }
+      };
 
       const app = new CarrierApp(appDefinition);
       const args = { app, connectArgs, staticConfigTests, options };

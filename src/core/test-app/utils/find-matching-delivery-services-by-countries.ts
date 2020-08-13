@@ -1,4 +1,4 @@
-import { Country, DeliveryService } from "@shipengine/integration-platform-sdk";
+import { Country, DeliveryService } from "@shipengine/connect-sdk";
 
 /**
  * Find the shared origin and destination countries from an array of delivery services
@@ -14,7 +14,7 @@ export function findMatchingDeliveryServicesByCountries(deliveryServices: Delive
 
     const filteredArray = [];
 
-    for (let country of acc) {
+    for (const country of acc) {
       if (currentDS.originCountries.includes(country)) {
         filteredArray.push(country);
       }
@@ -28,7 +28,7 @@ export function findMatchingDeliveryServicesByCountries(deliveryServices: Delive
 
     const filteredArray = [];
 
-    for (let country of acc) {
+    for (const country of acc) {
       if (currentDS.destinationCountries.includes(country)) {
         filteredArray.push(country);
       }
