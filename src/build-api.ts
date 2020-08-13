@@ -3,6 +3,15 @@ import { Express, Request, Response, NextFunction } from "express";
 import { CarrierApp } from "@shipengine/connect-sdk/lib/internal";
 import log from "./utils/logger";
 
+interface SdkError {
+  message: string;
+  code: string;
+  details?: string[];
+  name: string;
+  originalCode: string;
+  stack: string;
+}
+
 export default function buildAPI(
   sdkApp: CarrierApp,
   server: Express,
@@ -46,7 +55,7 @@ export default function buildAPI(
         transaction,
       });
     } catch (error) {
-      return res.status(400).send(error);
+      return res.status(400).send(formatError(error));
     }
   }
 
@@ -59,7 +68,7 @@ export default function buildAPI(
         shipment,
       });
     } catch (error) {
-      return res.status(400).send(error);
+      return res.status(400).send(formatError(error));
     }
   }
 
@@ -72,7 +81,7 @@ export default function buildAPI(
         outcomes,
       });
     } catch (error) {
-      return res.status(400).send(error);
+      return res.status(400).send(formatError(error));
     }
   }
 
@@ -85,7 +94,7 @@ export default function buildAPI(
         rates,
       });
     } catch (error) {
-      return res.status(400).send(error);
+      return res.status(400).send(formatError(error));
     }
   }
 
@@ -98,7 +107,7 @@ export default function buildAPI(
         trackingInfo,
       });
     } catch (error) {
-      return res.status(400).send(error);
+      return res.status(400).send(formatError(error));
     }
   }
 
@@ -111,7 +120,7 @@ export default function buildAPI(
         manifest,
       });
     } catch (error) {
-      return res.status(400).send(error);
+      return res.status(400).send(formatError(error));
     }
   }
 
@@ -124,7 +133,7 @@ export default function buildAPI(
         pickup,
       });
     } catch (error) {
-      return res.status(400).send(error);
+      return res.status(400).send(formatError(error));
     }
   }
 
@@ -137,7 +146,7 @@ export default function buildAPI(
         pickups,
       });
     } catch (error) {
-      return res.status(400).send(error);
+      return res.status(400).send(formatError(error));
     }
   }
 
@@ -151,5 +160,16 @@ export default function buildAPI(
     const fileName = pathToImage.split("/").pop();
 
     return `http://localhost:${port}/${fileName}`;
+  }
+
+  function formatError(error: SdkError) {
+    return {
+      name: error.name,
+      message: error.message,
+      code: error.code,
+      details: error.details || [],
+      originalCode: error.originalCode,
+      stack: error.stack,
+    };
   }
 }

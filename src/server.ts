@@ -32,7 +32,7 @@ export default async function server(
     appState.error = error;
     startMessage =
       "App failed to load! Please fix the validation issues above.";
-    log.error(error.stack);
+    log.error(error.message);
   }
 
   server.get("/app-status", (_req, res) => {
