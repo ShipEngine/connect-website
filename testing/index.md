@@ -122,17 +122,19 @@ We recommend that in addition to local and automated tests, we recommend that yo
 tooling or impose any restrictions on which tools you can use for writing unit tests. You are free to use any JavaScript tools you are comfortable with,
 such as these:
 
-### [Jest](https://jestjs.io/)
+#### [Jest](https://jestjs.io/)
 Jest is a batteries-included, zero-configuration test runner that is approachable for beginners, extensible for almost all testing use cases and scalable to large projects.
 It includes the test runner, an assertion library, and extensible matchers - everything you need to being writing unit tests.
 
-### [Mocha](https://mochajs.org/)
+#### [Mocha](https://mochajs.org/)
 Mocha is a feature-rich JavaScript test framework running on Node.js and in the browser. Mocha tests run serially, allowing for flexible and accurate reporting, while mapping uncaught exceptions to the correct test cases.
 
-### [Chai](https://www.chaijs.com/)
+#### [Chai](https://www.chaijs.com/)
 Chai is a Business Driven Development (BDD) / Test Driven Development (TDD) assertion library for node and the browser that can be depaired with any javascript testing framework, such as Mocha.
 
-### [Nock](https://github.com/nock/nock)
+#### [Sinon](https://sinonjs.org/)
+Sinon is a standalone tool that provides test spies, stubs and mocks for JavaScript and works with any unit testing framework.
+
 Nock is an HTTP server mocking and expectations library for Node.js. It can be used to test modules that perform HTTP requests in isolation. This can be useful
 in mocking out your backend API for unit testing.
 
