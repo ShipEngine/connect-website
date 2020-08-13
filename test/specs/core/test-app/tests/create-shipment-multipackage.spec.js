@@ -245,6 +245,7 @@ describe("The create shipment multipackage test suite", () => {
         name: "Better Delivery Service",
         class: "ground",
         grade: "standard",
+        code: "better_ds",
         manifestType: "digital",
         allowsMultiplePackages: true,
         originCountries: ["MX"],
@@ -371,6 +372,7 @@ function generateBasicAppAndConfigs() {
   const deliveryService = pojo.deliveryService();
   deliveryService.labelFormats = ["pdf"];
   deliveryService.labelSizes = ["A4"];
+  deliveryService.code = "priority_overnight";
   deliveryService.allowsMultiplePackages = true;
   deliveryService.deliveryConfirmations = [pojo.deliveryConfirmation()];
   appDefinition.deliveryServices = [deliveryService];
