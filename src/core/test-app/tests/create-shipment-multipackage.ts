@@ -1,10 +1,5 @@
-import {
-  CarrierApp,
-  DeliveryService,
-  NewShipmentPOJO,
-  NewPackagePOJO,
-  WeightUnit,
-} from "@shipengine/integration-platform-sdk";
+import { DeliveryService, WeightUnit } from "@shipengine/connect-sdk";
+import { CarrierApp, NewShipmentPOJO, NewPackagePOJO } from "@shipengine/connect-sdk/lib/internal";
 import Suite from "../runner/suite";
 import { initializeTimeStamps } from '../../utils/time-stamps';
 import { CreateShipmentMultiPackageConfigOptions, CreateShipmentMultiPackageTestParams } from '../runner/config/create-shipment-multipackage';
@@ -60,7 +55,7 @@ export class CreateShipmentMultiPackage extends Suite {
 
     if (!shipFrom || !shipTo) return undefined;
 
-    const { tomorrow } = initializeTimeStamps(shipFrom!.timeZone);
+    const { tomorrow } = initializeTimeStamps();
 
     // Make a best guess at the defaults, need to resolve the default vs config based delivery service early
     // on since that determines what address and associated timezones get generated.
@@ -103,7 +98,7 @@ export class CreateShipmentMultiPackage extends Suite {
     const packages = testParams.packages.map((pkgParams) => {
       const packaging = findPackagingByName(pkgParams.packagingName, carrierApp)
 
-      let newPackage: NewPackagePOJO = {
+      const newPackage: NewPackagePOJO = {
         packaging: {
           id: packaging.id,
         },
@@ -117,20 +112,10 @@ export class CreateShipmentMultiPackage extends Suite {
         }
       }
 
-      if (pkgParams.deliveryConfirmationName) {
-        const deliveryConfirmation = findDeliveryServiceByName(pkgParams.deliveryConfirmationName, carrierApp);
-
-        if (!deliveryConfirmation) {
-          throw new Error(`Unable to find a delivery confirmation definition for ${pkgParams.deliveryConfirmationName}`);
-        }
-
-        newPackage.deliveryConfirmation = deliveryConfirmation;
-      }
-
       return newPackage;
     });
 
-    let newShipmentPOJO: NewShipmentPOJO = {
+    const newShipmentPOJO: NewShipmentPOJO = {
       deliveryService: {
         id: this.deliveryService.id,
       },
@@ -139,6 +124,16 @@ export class CreateShipmentMultiPackage extends Suite {
       shipDateTime: testParams.shipDateTime,
       packages
     };
+
+    if (testParams.deliveryConfirmationName) {
+      const deliveryConfirmation = findDeliveryServiceByName(testParams.deliveryConfirmationName, carrierApp);
+
+      if (!deliveryConfirmation) {
+        throw new Error(`Unable to find a delivery confirmation definition for ${testParams.deliveryConfirmationName}`);
+      }
+
+      newShipmentPOJO.deliveryConfirmation = deliveryConfirmation;
+    }
 
     const title = config.expectedErrorMessage
       ? `it raises an error when creating a new multi-package shipment with ${objectToTestTitle(
@@ -161,11 +156,11 @@ export class CreateShipmentMultiPackage extends Suite {
       return this.config.map((config: CreateShipmentMultiPackageConfigOptions) => {
         return this.buildTestArg(config);
       });
-    } else {
-      const config = this.config as CreateShipmentMultiPackageConfigOptions;
-
-      return [this.buildTestArg(config)];
     }
+
+    const config = this.config as CreateShipmentMultiPackageConfigOptions;
+    return [this.buildTestArg(config)];
+
   }
 
   tests() {
@@ -192,14 +187,6 @@ export class CreateShipmentMultiPackage extends Suite {
             transaction,
             testArg!.methodArgs,
           );
-
-          // If DeliveryServiceDefinition.fulfillmentService is set, then the shipment’s fulfillmentService must match it
-          if (this.deliveryService?.fulfillmentService) {
-            expect(shipmentConfirmation.fulfillmentService).to.equal(
-              this.deliveryService?.fulfillmentService,
-              "The shipmentConfirmation.fulfillmentService returned from createShipment does not equal the given deliveryService.fulfillmentService"
-            );
-          }
 
           // If DeliveryServiceDefinition.isTrackable is true, then the shipment must have a trackingNumber set
           if (this.deliveryService?.isTrackable) {

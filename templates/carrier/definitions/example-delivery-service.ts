@@ -5,8 +5,9 @@ import {
   DeliveryServiceGrade,
   DocumentFormat,
   DocumentSize,
+  ManifestType,
   ServiceArea,
-} from "@shipengine/integration-platform-sdk";
+} from "@shipengine/connect-sdk";
 
 const exampleDeliveryService: DeliveryServiceDefinition = {
   id: "<%- _uuidv4 %>",
@@ -16,6 +17,7 @@ const exampleDeliveryService: DeliveryServiceDefinition = {
   class: DeliveryServiceClass.OneDay,
   deliveryConfirmations: [import("./example-delivery-confirmation")],
   destinationCountries: [Country.UnitedStates],
+  manifestType: ManifestType.Digital,
   grade: DeliveryServiceGrade.Expedited,
   isInsurable: true,
   isTrackable: false,

@@ -24,9 +24,13 @@ interface RunnerArgs {
 
 export default class Runner {
   private failFast: boolean;
+  
   private grep?: string;
+  
   private suites: Suite[];
+  
   private testResults: TestResults;
+  
   private testResultsReducer: TestReducer;
 
   constructor({
@@ -44,7 +48,7 @@ export default class Runner {
   }
 
   async run() {
-    for (let suite of this.suites) {
+    for (const suite of this.suites) {
       if (this.failFast && this.testResults.hasFailed())
         return this.testResults;
 
@@ -55,11 +59,11 @@ export default class Runner {
 
       logStep(suite.title);
 
-      for (let test of suite.tests()) {
+      for (const test of suite.tests()) {
         if (this.failFast && this.testResults.hasFailed()) continue;
 
         if (this.grep) {
-          // TODO if we allow regexs to be set in the shipengine.config.js we need to check to see if this a string or not here
+          // TODO if we allow regexs to be set in the connect.config.js we need to check to see if this a string or not here
           const cleanGrep = escapeStringRegexp(this.grep);
 
           // extract args if it's regex-like, i.e: [string, pattern, flag]

@@ -1,10 +1,10 @@
-import AppsAPIClient from "./apps-api-client";
+import APIClient from "./api-client";
 import cli from "cli-ux";
 import fs from "fs";
 import logSymbols from "log-symbols";
 import path from "path";
 import { Deployment, DeploymentStatus } from "./types";
-import { loadApp } from "@shipengine/integration-platform-loader";
+import { loadApp } from "@shipengine/connect-loader";
 import { packageApp } from "./publish-app/package-app";
 import { watchDeployment } from "./publish-app/watch-deployment";
 import { green, red } from "chalk";
@@ -37,9 +37,10 @@ interface PublishAppOptions {
 
 export default async function publishApp(
   pathToApp: string,
-  client: AppsAPIClient,
+  client: APIClient,
   { watch = false }: PublishAppOptions,
 ): Promise<Deployment> {
+
   // Make a backup copy of the package.json file since we are going to add the bundledDependencies attribute
   const pJsonBackup = await fs.promises.readFile(
     path.join(pathToApp, "package.json"),
@@ -65,8 +66,8 @@ export default async function publishApp(
   cli.action.stop(`${logSymbols.success}`);
   cli.action.start("publishing app");
 
-  let newDeployment, platformApp;
-
+  let newDeployment;
+  let platformApp;
   try {
     const app = await loadApp(process.cwd());
 
@@ -83,7 +84,7 @@ export default async function publishApp(
       pathToTarball: pathToTarball,
     });
   } catch (error) {
-    const errorMessage = `there was an error deploying your app to the integration platform: ${error}`;
+    const errorMessage = `there was an error deploying your app to the connect platform: ${error}`;
     throw new AppFailedToDeployError(errorMessage);
   } finally {
     // Delete the package tarball

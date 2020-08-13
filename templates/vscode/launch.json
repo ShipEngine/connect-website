@@ -4,11 +4,32 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch via NPM",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run-script", "debug"],
-      "port": 9229,
-      "skipFiles": ["<node_internals>/**"]
+      "name": "Start App",
+      "runtimeExecutable": "connect",
+      "args": [
+        "start"
+      ],
+      "cwd": "${workspaceFolder}",
+      "smartStep": true,
+      "skipFiles": [
+        "<node_internals>/**/*.js"
+      ],
+      "outputCapture": "std"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Run Tests",
+      "runtimeExecutable": "connect",
+      "args": [
+        "test"
+      ],
+      "cwd": "${workspaceFolder}",
+      "smartStep": true,
+      "skipFiles": [
+        "<node_internals>/**/*.js"
+      ],
+      "outputCapture": "std"
     }
   ]
 }

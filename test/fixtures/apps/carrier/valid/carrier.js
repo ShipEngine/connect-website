@@ -6,8 +6,11 @@ module.exports = {
   description: "My Carrier description goes here",
   websiteURL: "https://www.my-carrier.com",
   logo: "../../../logo.svg",
+  icon: "../../../logo.svg",
+
   manifestLocations: "single_location",
   manifestShipments: "explicit_shipments",
+  manifestType: "digital",
   deliveryServices: [
     {
       id: "2a20b066-71c3-11ea-bc55-0242ac130003",
@@ -15,6 +18,7 @@ module.exports = {
       class: "ground",
       grade: "overnight",
       originCountries: ["US"],
+      manifestType: "digital",
       destinationCountries: ["US", "CA", "MX"],
       packaging: [
         {

@@ -1,7 +1,7 @@
 import {
   DeliveryService,
   CarrierApp,
-} from "@shipengine/integration-platform-sdk";
+} from "@shipengine/connect-sdk/lib/internal";
 
 /**
  * Finds a DeliveryService by its name or raises if one is not found.
@@ -17,7 +17,7 @@ export default function findDeliveryServiceByName(
   );
   if (!deliveryService)
     throw new Error(
-      `shipengine.config.js deliveryServiceName: '${name}' does not exist`,
+      `connect.config.js deliveryServiceName: '${name}' does not exist`,
     );
 
   return deliveryService;

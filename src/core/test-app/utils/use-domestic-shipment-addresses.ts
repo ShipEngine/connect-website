@@ -1,14 +1,12 @@
-import { DeliveryService } from "@shipengine/integration-platform-sdk";
+import { DeliveryService, AddressWithContactInfoPOJO } from "@shipengine/connect-sdk";
 import { buildAddressWithContactInfo } from "../factories/address";
 
 /**
  * Returns a tuple of international shipment addresses [to, from]. Throws an error if addresses can not be resolved.
- * @param {object} defaultObject - The default object.
- * @param {object} configObject - The config object. Key/values in this object receive precedence.
  */
 export default function useDomesticShippingAddress(
   deliveryService: DeliveryService,
-) {
+): [AddressWithContactInfoPOJO | undefined, AddressWithContactInfoPOJO | undefined] {
   let destinationCountryCode: string | undefined;
   let originCountryCode: string | undefined;
 
@@ -31,14 +29,25 @@ export default function useDomesticShippingAddress(
         "useDomesticShippingAddress: can not resolve origin country",
       );
   } else {
-    originCountryCode = deliveryService.originCountries[0];
-    destinationCountryCode = deliveryService.destinationCountries.find(
-      (destinationCountry) => destinationCountry === originCountryCode,
-    );
-    if (!destinationCountryCode)
+    for (const oc of deliveryService.originCountries) {
+      destinationCountryCode = deliveryService.destinationCountries.find(
+        (destinationCountry) => destinationCountry === oc,
+      );
+
+      // Check to make sure that we have a sample address on file.
+      if (!buildAddressWithContactInfo(`${oc}-from`)) {
+        destinationCountryCode = "";
+      }
+      else {
+        originCountryCode = oc;
+        break;
+      }
+    }
+    if (!destinationCountryCode) {
       throw new Error(
         "useDomesticShippingAddress: can not resolve destination country",
       );
+    }
   }
 
   return [

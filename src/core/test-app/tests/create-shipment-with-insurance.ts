@@ -1,12 +1,9 @@
 import {
-  CarrierApp,
   DeliveryService,
-  NewShipmentPOJO,
-  NewPackagePOJO,
   WeightUnit,
-  DeliveryConfirmation,
-  Currency
-} from "@shipengine/integration-platform-sdk";
+  DeliveryConfirmation
+} from "@shipengine/connect-sdk";
+import { CarrierApp, NewShipmentPOJO, NewPackagePOJO } from "@shipengine/connect-sdk/lib/internal";
 import Suite from "../runner/suite";
 import {
   CreateShipmentWithInsuranceConfigOptions,
@@ -34,6 +31,7 @@ export class CreateShipmentWithInsurance extends Suite {
   title = "createShipment_with_insurance";
 
   private deliveryService?: DeliveryService;
+
   private deliveryConfirmation?: DeliveryConfirmation;
 
   private setDeliveryService(
@@ -46,7 +44,7 @@ export class CreateShipmentWithInsurance extends Suite {
         config.deliveryServiceName,
         carrierApp,
       );
-      if(!this.deliveryService.isInsurable) {
+      if (!this.deliveryService.isInsurable) {
         throw new Error(`The configured delivery service '${this.deliveryService.name}' does not support insuring packages`);
       }
     } else {
@@ -81,17 +79,17 @@ export class CreateShipmentWithInsurance extends Suite {
   buildTestArg(
     config: CreateShipmentWithInsuranceConfigOptions,
   ): TestArgs | undefined {
-    let carrierApp = this.app as CarrierApp;
+    const carrierApp = this.app as CarrierApp;
     this.setDeliveryService(config);
     this.setDeliveryConfirmation(config);
 
     if (!this.deliveryService) return undefined;
 
-    let [shipFrom, shipTo] = useDomesticShippingAddress(this.deliveryService);
+    const [shipFrom, shipTo] = useDomesticShippingAddress(this.deliveryService);
 
     if (!shipFrom || !shipTo) return undefined;
 
-    const { tomorrow } = initializeTimeStamps(shipFrom!.timeZone);
+    const { tomorrow } = initializeTimeStamps();
 
     // Make a best guess at the defaults, need to resolve the default vs config based delivery service early
     // on since that determines what address and associated timezones get generated.
@@ -106,8 +104,8 @@ export class CreateShipmentWithInsurance extends Suite {
       },
       packagingName: this.deliveryService.packaging[0].name,
       packageInsuredValue: {
-        value: "10",
-        currency: Currency.UnitedStatesDollar
+        value: 10,
+        currency: "USD"
       }
     };
 
@@ -134,27 +132,7 @@ export class CreateShipmentWithInsurance extends Suite {
       insuredValue: testParams.packageInsuredValue
     };
 
-    if (this.deliveryConfirmation) {
-      packagePOJO.deliveryConfirmation = {
-        id: this.deliveryConfirmation.id,
-      };
-    }
-
-    if (this.deliveryService.deliveryConfirmations.length > 0) {
-      packagePOJO.deliveryConfirmation = {
-        id: this.deliveryService.deliveryConfirmations[0].id,
-      };
-    }
-
-    if (testParams.deliveryConfirmationName) {
-      packagePOJO.deliveryConfirmation = {
-        id: this.deliveryService.deliveryConfirmations.find(
-          (dc) => dc.name === testParams.deliveryConfirmationName,
-        )!.id,
-      };
-    }
-
-    let newShipmentPOJO: NewShipmentPOJO = {
+    const newShipmentPOJO: NewShipmentPOJO = {
       deliveryService: {
         id: this.deliveryService.id,
       },
@@ -163,6 +141,20 @@ export class CreateShipmentWithInsurance extends Suite {
       shipDateTime: testParams.shipDateTime,
       packages: [packagePOJO],
     };
+
+    if (this.deliveryConfirmation) {
+      newShipmentPOJO.deliveryConfirmation = {
+        id: this.deliveryConfirmation.id,
+      };
+    }
+
+    if (testParams.deliveryConfirmationName) {
+      newShipmentPOJO.deliveryConfirmation = {
+        id: this.deliveryService.deliveryConfirmations.find(
+          (dc) => dc.name === testParams.deliveryConfirmationName,
+        )!.id,
+      };
+    }
 
     const title = config.expectedErrorMessage
       ? `it raises an error when creating a new insured shipment with ${objectToTestTitle(
@@ -185,11 +177,10 @@ export class CreateShipmentWithInsurance extends Suite {
       return this.config.map((config: CreateShipmentWithInsuranceConfigOptions) => {
         return this.buildTestArg(config);
       });
-    } else {
-      const config = this.config as CreateShipmentWithInsuranceConfigOptions;
-
-      return [this.buildTestArg(config)];
     }
+ 
+    const config = this.config as CreateShipmentWithInsuranceConfigOptions;
+    return [this.buildTestArg(config)];
   }
 
   tests() {
@@ -214,14 +205,6 @@ export class CreateShipmentWithInsurance extends Suite {
 
           const shipmentConfirmation = await carrierApp.createShipment(transaction, testArg!.methodArgs);
 
-          // If DeliveryServiceDefinition.fulfillmentService is set, then the shipment’s fulfillmentService must match it
-          if (this.deliveryService?.fulfillmentService) {
-            expect(shipmentConfirmation.fulfillmentService).to.equal(
-              this.deliveryService?.fulfillmentService,
-              "The shipmentConfirmation.fulfillmentService returned from createShipment does not equal the given deliveryService.fulfillmentService",
-            );
-          }
-
           // If DeliveryServiceDefinition.isTrackable is true, then the shipment must have a trackingNumber set
           if (this.deliveryService?.isTrackable) {
             const customMsg = "The shipmentConfirmation.isTrackable returned from createShipment must be present when the given deliveryService.isTrackable is set to 'true'";
@@ -235,20 +218,3 @@ export class CreateShipmentWithInsurance extends Suite {
     });
   }
 }
-
-// /**
-//  * Currently, just return the first valid domestic delivery service that we have an address for
-//  */
-// function pickDomesticDeliveryService(
-//   deliveryServices: DomesticDeliveryService,
-// ): DeliveryService | undefined {
-//   for (let ds of deliveryServices) {
-//     for (let domesticCountry of ds.domesticCountries) {
-//       if (buildAddress(`${domesticCountry}-from`)) {
-//         return ds.deliveryService;
-//       }
-//     }
-//   }
-
-//   return undefined;
-// }

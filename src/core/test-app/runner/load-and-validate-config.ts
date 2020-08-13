@@ -7,7 +7,7 @@ export async function loadAndValidateConfig(
   let config: Config = {};
 
   try {
-    config = await readFile<Config>(`${pathToApp}/shipengine.config.js`);
+    config = await readFile<Config>(`${pathToApp}/connect.config.js`);
 
     validate(config);
 
@@ -24,7 +24,7 @@ export async function loadAndValidateConfig(
 
 /**
  * TODO - This is probably going to be complex enough that it deserves a real validation library
- * Make sure that the shipengine.config.js file contains the expected methods
+ * Make sure that the connect.config.js file contains the expected methods
  */
 function validate(config: Config): void {
   const rootLevelKey = [
@@ -52,18 +52,18 @@ function validate(config: Config): void {
     "trackShipment",
   ];
 
-  for (let key of Object.keys(config)) {
+  for (const key of Object.keys(config)) {
     if (!rootLevelKey.includes(key)) {
       throw new Error(
-        `Invalid shipengine.config.js file, unrecognized property: ${key}`,
+        `Invalid connect.config.js file, unrecognized property: ${key}`,
       );
     }
 
     if (config.tests) {
-      for (let [key] of Object.entries(config.tests)) {
+      for (const [key] of Object.entries(config.tests)) {
         if (!testKeys.includes(key)) {
           throw new Error(
-            `Invalid shipengine.config.js file, unrecognized property: ${key}`,
+            `Invalid connect.config.js file, unrecognized property: ${key}`,
           );
         }
       }

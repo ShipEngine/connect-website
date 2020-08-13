@@ -1,10 +1,16 @@
-import { Transaction } from "@shipengine/integration-platform-sdk";
+import { Transaction } from "@shipengine/connect-sdk";
 import { Session } from "./session";
 
 interface ConnectionFormData {}
 
 /**
  * Logs in using the username and password entered on the login form
+ * 
+ * View documentation here:
+ * https://shipenginestag:439bd542@shipenginestag.wpengine.com/docs/integration-platform/reference/methods/connect
+ * 
+ * View sample implementation here:
+ * https://github.com/ShipEngine/connect-samples/blob/master/parcel-post/src/methods/connect.ts
  */
 export default async function connect(
   transaction: Transaction<Session>,

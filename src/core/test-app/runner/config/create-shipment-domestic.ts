@@ -1,16 +1,17 @@
 import {
-  DateTimeZonePOJO,
-  AddressWithContactInfoPOJO,
   WeightUnit,
-  NewLabelPOJO,
-} from "@shipengine/integration-platform-sdk";
+  DateTimeZonePOJO,
+  AddressWithContactInfoPOJO
+} from "@shipengine/connect-sdk";
+import { NewLabelPOJO } from "@shipengine/connect-sdk/lib/internal";
+
 import { BaseTestConfigOptions } from "./base-test-config-options";
 
 export interface CreateShipmentDomesticTestParams {
   deliveryServiceName: string;
   label: NewLabelPOJO;
-  shipFrom: AddressWithContactInfoPOJO;
-  shipTo: AddressWithContactInfoPOJO;
+  shipFrom?: AddressWithContactInfoPOJO;
+  shipTo?: AddressWithContactInfoPOJO;
   weight: {
     value: number;
     unit: WeightUnit;

@@ -2,8 +2,10 @@ import {
   DateTimeZonePOJO,
   AddressWithContactInfoPOJO,
   WeightPOJO,
-  NewLabelPOJO,
-} from "@shipengine/integration-platform-sdk";
+} from "@shipengine/connect-sdk";
+
+import { NewLabelPOJO } from "@shipengine/connect-sdk/lib/internal";
+
 import { BaseTestConfigOptions } from "./base-test-config-options";
 
 export interface CreateShipmentInternationalTestParams {

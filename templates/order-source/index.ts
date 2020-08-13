@@ -1,4 +1,11 @@
-import { OrderAppDefinition } from "@shipengine/integration-platform-sdk";
+import { 
+  OrderAppDefinition, 
+  InlineOrReference, 
+  GetSalesOrdersByDate, 
+  ShipmentCreated, 
+  ShipmentCancelled, 
+  Connect 
+} from "@shipengine/connect-sdk";
 
 const orderSource: OrderAppDefinition = {
   id: "<%- _uuidv4 %>",
@@ -6,12 +13,11 @@ const orderSource: OrderAppDefinition = {
   description: "<%- pjson.description %>",
   websiteURL: "http://www.carier-site.com",
   logo: "./logo.svg",
+  icon: "./logo.svg",
   connectionForm: import("./forms/connect"),
   settingsForm: import("./forms/settings"),
 
   connect: import("./methods/connect"),
-  getSeller: import("./methods/get-seller"),
-  getSalesOrder: import("./methods/get-sales-order"),
   getSalesOrdersByDate: import("./methods/get-sales-order-by-date"),
   shipmentCreated: import("./methods/shipment-created"),
   shipmentCancelled: import("./methods/shipment-cancelled")

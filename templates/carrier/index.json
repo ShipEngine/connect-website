@@ -4,6 +4,8 @@
   "description": "<%- pjson.description %>",
   "websiteURL": "http://www.carier-site.com",
   "logo": "./logo.svg",
+  "icon": "./logo.svg",
+  "manifestType": "digital",
   "manifestLocations": "single_location",
   "manifestShipments": "explicit_shipments",
   "connectionForm": "./forms/connect.json",

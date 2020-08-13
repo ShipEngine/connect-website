@@ -1,13 +1,12 @@
 import netrc from "netrc";
 
 export enum Domain {
-  ShipEngine = "shipengine",
   Apps = "apps"
 }
 
 export function get(domain: Domain): string | null {
   const myNetrc = netrc();
-  let seNetRC = myNetrc[domain] as { apiKey?: string };
+  const seNetRC = myNetrc[domain] as { apiKey?: string };
 
   if (!seNetRC || !seNetRC.apiKey) {
     return null;

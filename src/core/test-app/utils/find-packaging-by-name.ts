@@ -1,7 +1,8 @@
 import {
-  CarrierApp,
-  Packaging,
-} from "@shipengine/integration-platform-sdk";
+  CarrierApp
+} from "@shipengine/connect-sdk/lib/internal";
+
+import { Packaging } from "@shipengine/connect-sdk";
 
 /**
  * Finds a Packaging type by its name or raises if one is not found.
@@ -17,7 +18,7 @@ export default function findPackagingByName(
   );
   if (!packaging)
     throw new Error(
-      `shipengine.config.js packagingName: '${name}' does not exist`,
+      `connect.config.js packagingName: '${name}' does not exist`,
     );
 
   return packaging;

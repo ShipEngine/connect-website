@@ -2,7 +2,8 @@ import {
   CarrierAppDefinition,
   ManifestLocation,
   ManifestShipment,
-} from "@shipengine/integration-platform-sdk";
+  ManifestType
+} from "@shipengine/connect-sdk";
 
 const carrier: CarrierAppDefinition = {
   id: "<%- _uuidv4 %>",
@@ -10,10 +11,13 @@ const carrier: CarrierAppDefinition = {
   description: "<%- pjson.description %>",
   websiteURL: "http://www.carier-site.com",
   logo: "./logo.svg",
+  icon: "./logo.svg",
+  manifestType: ManifestType.Digital,
   manifestLocations: ManifestLocation.SingleLocation,
   manifestShipments: ManifestShipment.ExplicitShipments,
   connectionForm: import("./forms/connect"),
   settingsForm: import("./forms/settings"),
+  
   connect: import("./methods/connect"),
   cancelPickups: import("./methods/cancel-pickups"),
   cancelShipments: import("./methods/cancel-shipments"),

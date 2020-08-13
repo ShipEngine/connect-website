@@ -18,7 +18,7 @@ describe("findDeliveryConfirmationByName", () => {
   it("throws an error when a delivery confirmation does not exist for the given name", () => {
     expect(() => findDeliveryConfirmationByName("invalid", app)).to.throw(
       Error,
-      /shipengine.config.js deliveryConfirmationName:/,
+      /connect.config.js deliveryConfirmationName:/,
     );
   });
 });

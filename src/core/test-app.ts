@@ -151,9 +151,7 @@ function registerTestSuiteModules(app: SdkApp): RegisteredTestSuiteModules {
   };
 
   const orderAppMethods = {
-    // getSalesOrder: [GetSalesOrderTestSuite],
     // getSalesOrdersByDate: [GetSalesOrdersByDateTestSuite],
-    // getSeller: [GetSellerTestSuite],
     // shipmentCancelled: [ShipmentCancelledTestSuite],
     // shipmentCreated: [ShipmentCreatedTestSuite],
   };
@@ -162,7 +160,7 @@ function registerTestSuiteModules(app: SdkApp): RegisteredTestSuiteModules {
 
   let registeredTestSuiteModules: RegisteredTestSuiteModules = [];
 
-  for (let method in allMethods) {
+  for (const method in allMethods) {
     if (Reflect.get(app, method)) {
       registeredTestSuiteModules = registeredTestSuiteModules.concat(
         Reflect.get(allMethods, method),

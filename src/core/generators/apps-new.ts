@@ -4,7 +4,7 @@ import Generator = require("yeoman-generator");
 import _ from "lodash";
 import { v4 as uuidv4 } from "uuid";
 import capitalization from "@shipengine/capitalization";
-import { AppType } from "@shipengine/integration-platform-sdk";
+import { AppType } from "@shipengine/connect-sdk";
 import { SdkAppTypes } from "../types";
 
 const fixpack = require("@oclif/fixpack");
@@ -67,7 +67,7 @@ class AppsNew extends Generator {
       engines: {},
       devDependencies: {},
       dependencies: {},
-      ...this.fs.readJSON("package.json", {}),
+      ...this.fs.readJSON("package.json", {}) as object,
     };
 
     const scopePresentInName = (name: string): boolean => {
@@ -112,7 +112,7 @@ class AppsNew extends Generator {
               return true;
             }
 
-            return "please enter a valid npm package name (ex: shipengine-integration)";
+            return "please enter a valid npm package name (ex: shipengine-conect)";
           },
         },
         {
@@ -220,7 +220,7 @@ class AppsNew extends Generator {
     } else {
       this.pjson.name = `${this.answers.scope || defaults.scope}/${
         this.answers.name || defaults.name
-      }`;
+        }`;
     }
 
     this.pjson.description = this.answers.description || defaults.description;
@@ -235,11 +235,16 @@ class AppsNew extends Generator {
     ];
 
     this.pjson.main = this.pJsonMain();
+    this.pjson.scripts = {
+      start: "connect start",
+      test: "connect test"
+    }
 
-    if (this.answers.vscode) {
-      this.pjson.scripts = {
-        debug: "cross-env NODE_OPTIONS=--inspect-brk shipengine apps:test",
-      };
+    if (this.ts) {
+      this.pjson.scripts.build = "tsc";
+      this.pjson.scripts.watch = "tsc --watch";
+      this.pjson.scripts.postbuild = "copyfiles -u 1 src/**/!\\(*.ts\\) lib; copyfiles -u 1 src/!\\(*.ts\\) lib";
+      this.pjson.main = `lib/index.${this._definitionExt === "ts" ? "js" : this._definitionExt}`;
     }
   }
 
@@ -261,8 +266,8 @@ class AppsNew extends Generator {
     );
 
     this.fs.copyTpl(
-      this.templatePath("shipengine.config.js"),
-      this.destinationPath("shipengine.config.js"),
+      this.templatePath("connect.config.js"),
+      this.destinationPath("connect.config.js"),
       this,
     );
 
@@ -285,8 +290,8 @@ class AppsNew extends Generator {
     );
 
     this.fs.copyTpl(
-      this.templatePath("shipengine.config.js"),
-      this.destinationPath("shipengine.config.js"),
+      this.templatePath("connect.config.js"),
+      this.destinationPath("connect.config.js"),
       this,
     );
 
@@ -295,6 +300,21 @@ class AppsNew extends Generator {
       this.destinationPath("README.md"),
       this,
     );
+
+    if(this.ts) {
+      this.fs.copyTpl(
+        this.templatePath(".npmignore-ts"),
+        this.destinationPath(".npmignore"),
+        this,
+      );
+    }
+    else {
+      this.fs.copyTpl(
+        this.templatePath(".npmignore-js"),
+        this.destinationPath(".npmignore"),
+        this,
+      );
+    }
 
     if (this.pjson.license === "ISC") {
       this.fs.copyTpl(
@@ -443,6 +463,12 @@ class AppsNew extends Generator {
               this.destinationPath(`src/methods/session.ts`),
               this,
             );
+
+            this.fs.copyTpl(
+              this.templatePath(`tsconfig.json`),
+              this.destinationPath("tsconfig.json"),
+              this,
+            );
           }
         }
         break;
@@ -458,9 +484,7 @@ class AppsNew extends Generator {
             this.templatePath(
               `order-source/forms/connect.${this._definitionExt}`,
             ),
-            this.destinationPath(
-              `src/forms/connect.${this._definitionExt}`,
-            ),
+            this.destinationPath(`src/forms/connect.${this._definitionExt}`),
             this,
           );
 
@@ -468,19 +492,13 @@ class AppsNew extends Generator {
             this.templatePath(
               `order-source/forms/settings.${this._definitionExt}`,
             ),
-            this.destinationPath(
-              `src/forms/settings.${this._definitionExt}`,
-            ),
+            this.destinationPath(`src/forms/settings.${this._definitionExt}`),
             this,
           );
 
           this.fs.copyTpl(
-            this.templatePath(
-              `order-source/methods/connect.${this._codeExt}`,
-            ),
-            this.destinationPath(
-              `src/methods/connect.${this._codeExt}`,
-            ),
+            this.templatePath(`order-source/methods/connect.${this._codeExt}`),
+            this.destinationPath(`src/methods/connect.${this._codeExt}`),
             this,
           );
 
@@ -490,26 +508,6 @@ class AppsNew extends Generator {
             ),
             this.destinationPath(
               `src/methods/get-sales-order-by-date.${this._codeExt}`,
-            ),
-            this,
-          );
-
-          this.fs.copyTpl(
-            this.templatePath(
-              `order-source/methods/get-sales-order.${this._codeExt}`,
-            ),
-            this.destinationPath(
-              `src/methods/get-sales-order.${this._codeExt}`,
-            ),
-            this,
-          );
-
-          this.fs.copyTpl(
-            this.templatePath(
-              `order-source/methods/get-seller.${this._codeExt}`,
-            ),
-            this.destinationPath(
-              `src/methods/get-seller.${this._codeExt}`,
             ),
             this,
           );
@@ -540,6 +538,12 @@ class AppsNew extends Generator {
               this.destinationPath(`src/methods/session.ts`),
               this,
             );
+
+            this.fs.copyTpl(
+              this.templatePath(`tsconfig.json`),
+              this.destinationPath(`tsconfig.json`),
+              this,
+            );
           }
         }
         break;
@@ -550,12 +554,14 @@ class AppsNew extends Generator {
     const dependencies: string[] = [];
     const devDependencies: string[] = [];
 
-    devDependencies.push("@shipengine/integration-platform-sdk@0.0.21");
+    devDependencies.push("@shipengine/connect-sdk");
     devDependencies.push("dotenv-flow@3.1.0");
     devDependencies.push("cross-env");
 
     if (this.ts) {
       devDependencies.push("@types/node@^13.13.5");
+      devDependencies.push("typescript");
+      devDependencies.push("copyfiles");
     }
 
     if (isWindows) devDependencies.push("rimraf");
@@ -575,9 +581,8 @@ class AppsNew extends Generator {
   get _definitionExt() {
     if (this.definitions === "pojo") {
       return this.ts ? "ts" : "js";
-    } else {
-      return this.definitions;
     }
+    return this.definitions;
   }
 
   get _codeExt() {
@@ -619,9 +624,8 @@ class AppsNew extends Generator {
   private pJsonMain() {
     if (this.definitions === "pojo") {
       return this.ts ? "src/index.ts" : "src/index.js";
-    } else {
-      return `src/index.${this.definitions}`;
     }
+    return `src/index.${this.definitions}`;
   }
 }
 

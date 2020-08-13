@@ -1,9 +1,10 @@
-import { loadApp } from "@shipengine/integration-platform-loader";
+import { loadApp } from "@shipengine/connect-loader";
 import { ValidationErrorItem } from "joi";
 import { SdkApp } from "./types";
 
 class InvalidAppError extends Error {
   errors: string[];
+  
   code: string;
 
   constructor(message: string, errors: string[]) {

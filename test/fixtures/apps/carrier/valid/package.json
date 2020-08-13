@@ -6,6 +6,6 @@
     "axios": "^0.19.2"
   },
   "devDependencies": {
-    "@shipengine/integration-platform-sdk": "0.0.13"
+    "@shipengine/connect-sdk": "1.0.0"
   }
 }

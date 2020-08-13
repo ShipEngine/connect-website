@@ -7,10 +7,10 @@ const asyncExec = util.promisify(exec);
 
 /**
  * This function is used for add all dependencies in the package.json app to the bundled dependencies property
- * and then running npm pack to create a tarball for deploying to the integration platform.
+ * and then running npm pack to create a tarball for deploying to the connect platform.
  */
 export async function packageApp(cwd?: string): Promise<string> {
-  let currentDir = cwd ? cwd : process.cwd();
+  const currentDir = cwd ? cwd : process.cwd();
 
   const packagePath = path.join(currentDir, "package.json");
 
@@ -21,7 +21,7 @@ export async function packageApp(cwd?: string): Promise<string> {
   pjson.bundledDependencies = [];
 
   if (pjson.dependencies) {
-    for (let dependency of Object.keys(pjson.dependencies)) {
+    for (const dependency of Object.keys(pjson.dependencies)) {
       pjson.bundledDependencies.push(dependency);
     }
 

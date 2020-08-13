@@ -1,7 +1,7 @@
 import Test from "./test";
 import { SdkApp } from "../../types";
 import { TestsConfig } from "./config";
-import { TransactionPOJO } from "@shipengine/integration-platform-sdk";
+import { TransactionPOJO } from "@shipengine/connect-sdk/lib/internal";
 import { log, logObject, indent } from "../../utils/log-helpers";
 import { v4 } from "uuid";
 import chalk from "chalk";
@@ -14,9 +14,13 @@ interface ConstructorArgs {
 
 export default abstract class Suite {
   abstract title: string;
+
   protected app: SdkApp;
+
   protected _staticConfigTests?: TestsConfig;
+
   protected _rawStaticConfigTests: TestsConfig;
+
   protected options: any;
 
   constructor({ app, staticConfigTests, options }: ConstructorArgs) {
@@ -95,7 +99,6 @@ export default abstract class Suite {
     ) {
       const transaction: TransactionPOJO = {
         id: v4(),
-        isRetry: false,
         useSandbox: false,
         session: config.session || this.options.staticRootConfig.session,
       };
@@ -103,7 +106,7 @@ export default abstract class Suite {
       if (testConfig.debug) {
         log(
           chalk.yellow(
-            `${indent(2)}using the session provided in shipengine.config.js`,
+            `${indent(2)}using the session provided in connect.config.js`,
           ),
         );
         logObject(transaction);
@@ -118,7 +121,7 @@ export default abstract class Suite {
           chalk.yellow(
             `${indent(
               2,
-            )}calling the connect method to set the session for the transaction with the connectArgs given in shipengine.config.js`,
+            )}calling the connect method to set the session for the transaction with the connectArgs given in connect.config.js`,
           ),
         );
         logObject(
@@ -128,7 +131,6 @@ export default abstract class Suite {
 
       const transaction: TransactionPOJO = {
         id: v4(),
-        isRetry: false,
         useSandbox: false,
         session: {},
       };
@@ -149,26 +151,25 @@ export default abstract class Suite {
       }
 
       return transaction;
-    } else {
-      const transaction: TransactionPOJO = {
-        id: v4(),
-        isRetry: false,
-        useSandbox: false,
-        session: {},
-      };
-
-      if (testConfig.debug) {
-        log(
-          chalk.yellow(
-            `${indent(
-              2,
-            )}connectArgs are not defined in shipengine.config.js the session value will be an empty object `,
-          ),
-        );
-        logObject(transaction);
-      }
-
-      return transaction;
     }
+
+    const transaction: TransactionPOJO = {
+      id: v4(),
+      useSandbox: false,
+      session: {},
+    };
+
+    if (testConfig.debug) {
+      log(
+        chalk.yellow(
+          `${indent(
+            2,
+          )}connectArgs are not defined in connect.config.js the session value will be an empty object `,
+        ),
+      );
+      logObject(transaction);
+    }
+
+    return transaction;
   }
 }

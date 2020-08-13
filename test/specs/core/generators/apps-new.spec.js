@@ -6,7 +6,7 @@ const path = require("path");
 const pathToGenerator = "../../../../lib/core/generators/apps-new";
 const AppsNew = require(pathToGenerator);
 
-describe("apps:new generator", () => {
+describe("new generator", () => {
   /**
    * The yeoman generator tests alter the cwd of the mocha process. Need to change it back
    * to the original otherwise could cause unintended side effects to other tests.
@@ -26,7 +26,7 @@ describe("apps:new generator", () => {
         return helpers
           .run(AppsNew, {
             resolved: path.join(__dirname, pathToGenerator),
-            namespace: "apps:new",
+            namespace: "new",
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
@@ -52,16 +52,19 @@ describe("apps:new generator", () => {
               ".editorconfig",
               "LICENSE",
               "README.md",
+              ".npmignore",
               "package.json",
             ]);
 
             assert.jsonFileContent("package.json", {
               name: "@shipengine/testname",
-            });
-            assert.jsonFileContent("package.json", {
+              main: "src/index.yaml",
               description: "test description",
+              scripts: { 
+                test: "connect test",
+                start: "connect start"
+              },
             });
-            assert.jsonFileContent("package.json", { main: "src/index.yaml" });
           });
       });
     });
@@ -71,7 +74,7 @@ describe("apps:new generator", () => {
         return helpers
           .run(AppsNew, {
             resolved: path.join(__dirname, pathToGenerator),
-            namespace: "apps:new",
+            namespace: "new",
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
@@ -101,15 +104,21 @@ describe("apps:new generator", () => {
               ".editorconfig",
               "LICENSE",
               "README.md",
-              "README.md",
+              ".npmignore",
               "package.json",
             ]);
 
             assert.jsonFileContent("package.json", {
               name: "@shipengine/testname",
-            });
-            assert.jsonFileContent("package.json", {
               description: "test description",
+              scripts: {
+                build: "tsc",
+                watch: "tsc --watch",
+                postbuild: "copyfiles -u 1 src/**/!\\(*.ts\\) lib; copyfiles -u 1 src/!\\(*.ts\\) lib",
+                start: "connect start",
+                test: "connect test"
+              },
+              main: "lib/index.js",
             });
           });
       });
@@ -118,7 +127,7 @@ describe("apps:new generator", () => {
         return helpers
           .run(AppsNew, {
             resolved: path.join(__dirname, pathToGenerator),
-            namespace: "apps:new",
+            namespace: "new",
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
@@ -148,15 +157,21 @@ describe("apps:new generator", () => {
               ".editorconfig",
               "LICENSE",
               "README.md",
-              "README.md",
+              ".npmignore",
               "package.json",
             ]);
 
             assert.jsonFileContent("package.json", {
               name: "@shipengine/testname",
-            });
-            assert.jsonFileContent("package.json", {
               description: "test description",
+              main: "lib/index.json",
+              scripts: {
+                build: "tsc",
+                watch: "tsc --watch",
+                postbuild: "copyfiles -u 1 src/**/!\\(*.ts\\) lib; copyfiles -u 1 src/!\\(*.ts\\) lib",
+                start: "connect start",
+                test: "connect test",
+              }
             });
           });
       });
@@ -165,7 +180,7 @@ describe("apps:new generator", () => {
         return helpers
           .run(AppsNew, {
             resolved: path.join(__dirname, pathToGenerator),
-            namespace: "apps:new",
+            namespace: "new",
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
@@ -195,15 +210,21 @@ describe("apps:new generator", () => {
               ".editorconfig",
               "LICENSE",
               "README.md",
-              "README.md",
+              ".npmignore",
               "package.json",
             ]);
 
             assert.jsonFileContent("package.json", {
               name: "@shipengine/testname",
-            });
-            assert.jsonFileContent("package.json", {
               description: "test description",
+              main: "lib/index.yaml",
+              scripts: {
+                build: "tsc",
+                watch: "tsc --watch",
+                postbuild: "copyfiles -u 1 src/**/!\\(*.ts\\) lib; copyfiles -u 1 src/!\\(*.ts\\) lib",
+                start: "connect start",
+                test: "connect test"
+              },
             });
           });
       });
@@ -214,7 +235,7 @@ describe("apps:new generator", () => {
         return helpers
           .run(AppsNew, {
             resolved: path.join(__dirname, pathToGenerator),
-            namespace: "apps:new",
+            namespace: "new",
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
@@ -241,17 +262,18 @@ describe("apps:new generator", () => {
               ".editorconfig",
               "LICENSE",
               "README.md",
+              ".npmignore",
               "package.json",
             ]);
 
             assert.jsonFileContent("package.json", {
               name: "@shipengine/testname",
-            });
-            assert.jsonFileContent("package.json", {
               description: "test description",
-            });
-            assert.jsonFileContent("package.json", {
-              main: "src/index.json",
+              scripts: {
+                start: "connect start",
+                test: "connect test"
+              },
+              main: "src/index.json"
             });
           });
       });
@@ -262,7 +284,7 @@ describe("apps:new generator", () => {
         return helpers
           .run(AppsNew, {
             resolved: path.join(__dirname, pathToGenerator),
-            namespace: "apps:new",
+            namespace: "new",
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
@@ -289,17 +311,18 @@ describe("apps:new generator", () => {
               ".editorconfig",
               "LICENSE",
               "README.md",
+              ".npmignore",
               "package.json",
             ]);
 
             assert.jsonFileContent("package.json", {
               name: "@shipengine/testname",
-            });
-            assert.jsonFileContent("package.json", {
               description: "test description",
-            });
-            assert.jsonFileContent("package.json", {
-              main: "src/index.yaml",
+              scripts: {
+                start: "connect start",
+                test: "connect test"
+              },
+              main: "src/index.yaml"
             });
           });
       });
@@ -312,7 +335,7 @@ describe("apps:new generator", () => {
         return helpers
           .run(AppsNew, {
             resolved: path.join(__dirname, pathToGenerator),
-            namespace: "apps:new",
+            namespace: "new",
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
@@ -325,8 +348,6 @@ describe("apps:new generator", () => {
               "src/index.yaml",
               "src/methods/connect.js",
               "src/methods/get-sales-order-by-date.js",
-              "src/methods/get-sales-order.js",
-              "src/methods/get-seller.js",
               "src/methods/shipment-cancelled.js",
               "src/methods/shipment-created.js",
               "src/forms/connect.yaml",
@@ -334,16 +355,19 @@ describe("apps:new generator", () => {
               ".editorconfig",
               "LICENSE",
               "README.md",
+              ".npmignore",
               "package.json",
             ]);
 
             assert.jsonFileContent("package.json", {
               name: "@shipengine/testname",
-            });
-            assert.jsonFileContent("package.json", {
               description: "test description",
+              scripts: {
+                start: "connect start",
+                test: "connect test"
+              },
+              main: "src/index.yaml"
             });
-            assert.jsonFileContent("package.json", { main: "src/index.yaml" });
           });
       });
     });
@@ -353,7 +377,7 @@ describe("apps:new generator", () => {
         return helpers
           .run(AppsNew, {
             resolved: path.join(__dirname, pathToGenerator),
-            namespace: "apps:new",
+            namespace: "new",
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
@@ -369,8 +393,6 @@ describe("apps:new generator", () => {
               "src/index.ts",
               "src/methods/connect.ts",
               "src/methods/get-sales-order-by-date.ts",
-              "src/methods/get-sales-order.ts",
-              "src/methods/get-seller.ts",
               "src/methods/shipment-cancelled.ts",
               "src/methods/shipment-created.ts",
               "src/forms/connect.ts",
@@ -378,14 +400,21 @@ describe("apps:new generator", () => {
               ".editorconfig",
               "LICENSE",
               "README.md",
+              ".npmignore",
               "package.json",
+              "tsconfig.json",
             ]);
 
             assert.jsonFileContent("package.json", {
               name: "@shipengine/testname",
-            });
-            assert.jsonFileContent("package.json", {
               description: "test description",
+              main: "lib/index.js",
+              scripts: {
+                build: "tsc",
+                watch: "tsc --watch",
+                start: "connect start",
+                test: "connect test",
+              },
             });
           });
       });
@@ -394,7 +423,7 @@ describe("apps:new generator", () => {
         return helpers
           .run(AppsNew, {
             resolved: path.join(__dirname, pathToGenerator),
-            namespace: "apps:new",
+            namespace: "new",
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
@@ -410,8 +439,6 @@ describe("apps:new generator", () => {
               "src/index.json",
               "src/methods/connect.ts",
               "src/methods/get-sales-order-by-date.ts",
-              "src/methods/get-sales-order.ts",
-              "src/methods/get-seller.ts",
               "src/methods/shipment-cancelled.ts",
               "src/methods/shipment-created.ts",
               "src/forms/connect.json",
@@ -420,13 +447,20 @@ describe("apps:new generator", () => {
               "LICENSE",
               "README.md",
               "package.json",
+              ".npmignore",
+              "tsconfig.json",
             ]);
 
             assert.jsonFileContent("package.json", {
               name: "@shipengine/testname",
-            });
-            assert.jsonFileContent("package.json", {
               description: "test description",
+              scripts: {
+                build: "tsc",
+                watch: "tsc --watch",
+                start: "connect start",
+                test: "connect test"
+              },
+              main: "lib/index.json"
             });
           });
       });
@@ -435,7 +469,7 @@ describe("apps:new generator", () => {
         return helpers
           .run(AppsNew, {
             resolved: path.join(__dirname, pathToGenerator),
-            namespace: "apps:new",
+            namespace: "new",
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
@@ -451,8 +485,6 @@ describe("apps:new generator", () => {
               "src/index.yaml",
               "src/methods/connect.ts",
               "src/methods/get-sales-order-by-date.ts",
-              "src/methods/get-sales-order.ts",
-              "src/methods/get-seller.ts",
               "src/methods/shipment-cancelled.ts",
               "src/methods/shipment-created.ts",
               "src/forms/connect.yaml",
@@ -461,13 +493,20 @@ describe("apps:new generator", () => {
               "LICENSE",
               "README.md",
               "package.json",
+              ".npmignore",
+              "tsconfig.json",
             ]);
 
             assert.jsonFileContent("package.json", {
               name: "@shipengine/testname",
-            });
-            assert.jsonFileContent("package.json", {
               description: "test description",
+              scripts: {
+                build: "tsc",
+                watch: "tsc --watch",
+                start: "connect start",
+                test: "connect test"
+              },
+              main: "lib/index.yaml",
             });
           });
       });
@@ -478,7 +517,7 @@ describe("apps:new generator", () => {
         return helpers
           .run(AppsNew, {
             resolved: path.join(__dirname, pathToGenerator),
-            namespace: "apps:new",
+            namespace: "new",
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
@@ -493,8 +532,6 @@ describe("apps:new generator", () => {
               "src/index.json",
               "src/methods/connect.js",
               "src/methods/get-sales-order-by-date.js",
-              "src/methods/get-sales-order.js",
-              "src/methods/get-seller.js",
               "src/methods/shipment-cancelled.js",
               "src/methods/shipment-created.js",
               "src/forms/connect.json",
@@ -502,14 +539,18 @@ describe("apps:new generator", () => {
               ".editorconfig",
               "LICENSE",
               "README.md",
+              ".npmignore",
               "package.json",
             ]);
 
             assert.jsonFileContent("package.json", {
               name: "@shipengine/testname",
-            });
-            assert.jsonFileContent("package.json", {
               description: "test description",
+              scripts: {
+                start: "connect start",
+                test: "connect test"
+              },
+              main: "src/index.json",
             });
           });
       });
@@ -520,7 +561,7 @@ describe("apps:new generator", () => {
         return helpers
           .run(AppsNew, {
             resolved: path.join(__dirname, pathToGenerator),
-            namespace: "apps:new",
+            namespace: "new",
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
@@ -535,8 +576,6 @@ describe("apps:new generator", () => {
               "src/index.yaml",
               "src/methods/connect.js",
               "src/methods/get-sales-order-by-date.js",
-              "src/methods/get-sales-order.js",
-              "src/methods/get-seller.js",
               "src/methods/shipment-cancelled.js",
               "src/methods/shipment-created.js",
               "src/forms/connect.yaml",
@@ -544,14 +583,18 @@ describe("apps:new generator", () => {
               ".editorconfig",
               "LICENSE",
               "README.md",
+              ".npmignore",
               "package.json",
             ]);
 
             assert.jsonFileContent("package.json", {
               name: "@shipengine/testname",
-            });
-            assert.jsonFileContent("package.json", {
               description: "test description",
+              scripts: {
+                start: "connect start",
+                test: "connect test"
+              },
+              main: "src/index.yaml"
             });
           });
       });
