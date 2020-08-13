@@ -142,6 +142,7 @@ describe("The rate shipment test suite", () => {
         name: "Better Delivery Service",
         class: "ground",
         grade: "standard",
+        code: "better_ds",
         originCountries: ["MX"],
         destinationCountries: ["MX"],
         labelFormats: ["pdf"],
