@@ -312,7 +312,7 @@ describe("The create shipment international test suite", () => {
 
     afterEach(() => {
       CarrierApp.prototype.createShipment.restore();
-    })
+    });
 
   });
 });

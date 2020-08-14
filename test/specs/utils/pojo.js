@@ -55,6 +55,7 @@ const pojo = module.exports = {
       name: "Dummy Delivery Service",
       class: "ground",
       grade: "standard",
+      code: "dummy_code",
       originCountries: ["US"],
       destinationCountries: ["US"],
       manifestType: "physical",
