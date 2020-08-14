@@ -1,12 +1,12 @@
 import {
   CancellationStatus,
-} from '@shipengine/integration-platform-sdk';
+} from '@shipengine/connect-sdk';
 import {
   PickupCancellationOutcome,
-} from '@shipengine/integration-platform-sdk/lib/internal';
+} from '@shipengine/connect-sdk/lib/internal';
 import {
   TransactionPOJO,
-} from '@shipengine/integration-platform-sdk/lib/internal';
+} from '@shipengine/connect-sdk/lib/internal';
 
 import { CancelPickupResponse } from '@ipaas/capi/responses';
 

@@ -1,4 +1,4 @@
-import { DocumentFormat } from '@shipengine/integration-platform-sdk';
+import { DocumentFormat } from '@shipengine/connect-sdk';
 
 import { LabelFormat } from '@ipaas/capi/models';
 

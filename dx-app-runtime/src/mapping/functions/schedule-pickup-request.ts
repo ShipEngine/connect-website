@@ -1,9 +1,9 @@
 import { SchedulePickupRequest } from '@ipaas/capi/requests';
-import { PickupRequestPOJO } from '@shipengine/integration-platform-sdk/lib/internal';
+import { PickupRequestPOJO } from '@shipengine/connect-sdk/lib/internal';
 import { mapAddressToAddressWithContactInfoPOJO } from './address';
 import { mapPickupShipment } from './shipped-shipment';
 import mapContact from './pickup-contact';
-import { NoteType } from '@shipengine/integration-platform-sdk';
+import { NoteType } from '@shipengine/connect-sdk';
 
 export const mapSchedulePickupRequest = (
   request: SchedulePickupRequest

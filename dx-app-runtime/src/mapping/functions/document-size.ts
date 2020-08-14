@@ -1,4 +1,4 @@
-import { DocumentSize } from '@shipengine/integration-platform-sdk';
+import { DocumentSize } from '@shipengine/connect-sdk';
 
 import { LabelLayout } from '@ipaas/capi/models';
 

@@ -1,10 +1,10 @@
 import {
   ChargeType,
-} from '@shipengine/integration-platform-sdk';
+} from '@shipengine/connect-sdk';
 import {
   TransactionPOJO,
   ShipmentConfirmation,
-} from '@shipengine/integration-platform-sdk/lib/internal';
+} from '@shipengine/connect-sdk/lib/internal';
 import { CreateLabelResponse } from '@ipaas/capi/responses';
 import { toCapiDateTimeString } from './datetime';
 

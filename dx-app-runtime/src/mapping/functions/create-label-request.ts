@@ -1,6 +1,6 @@
 import { CreateLabelRequest } from '@ipaas/capi/requests';
 import { mapAddressToAddressWithContactInfoPOJO } from './address';
-import { NewShipmentPOJO } from '@shipengine/integration-platform-sdk/lib/internal';
+import { NewShipmentPOJO } from '@shipengine/connect-sdk/lib/internal';
 import { capiToDxNewPackagePOJO } from './package';
 import { mapCapiToDxDocumentFormat } from './document-format';
 import { mapCapiToDxDocumentSize } from './document-size';

@@ -1,7 +1,7 @@
 import {
   ShipmentStatus,
   Transaction,
-} from '@shipengine/integration-platform-sdk';
+} from '@shipengine/connect-sdk';
 
 import {
   EventElement,
@@ -10,7 +10,7 @@ import {
   TrackResponse,
 } from '@ipaas/capi/responses';
 
-import { TrackingEvent, TrackingInfo } from '@shipengine/integration-platform-sdk/lib/internal';
+import { TrackingEvent, TrackingInfo } from '@shipengine/connect-sdk/lib/internal';
 import { dxPersonNameToString } from './person-name';
 
 

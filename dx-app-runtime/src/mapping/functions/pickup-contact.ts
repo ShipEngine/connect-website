@@ -1,4 +1,4 @@
-import { ContactInfoPOJO } from '@shipengine/integration-platform-sdk';
+import { ContactInfoPOJO } from '@shipengine/connect-sdk';
 import { PickupContactDetails } from '@ipaas/capi/models';
 
 export default (

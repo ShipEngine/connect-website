@@ -1,7 +1,7 @@
-import { CarrierApp } from '@shipengine/integration-platform-sdk/lib/internal';
+import { CarrierApp } from '@shipengine/connect-sdk/lib/internal';
 import logger from '../util/logger';
 import * as fs from 'fs';
-import { loadApp } from '@shipengine/integration-platform-loader';
+import { loadApp } from '@shipengine/connect-loader';
 
 const dxAppPath = process.env.DX_APP_PATH;
 const checkAppPathExists = () => {

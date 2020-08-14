@@ -1,4 +1,4 @@
-import { QuantityPOJO } from '@shipengine/integration-platform-sdk';
+import { QuantityPOJO } from '@shipengine/connect-sdk';
 
 const capiToDxQuantity = (
   quantity: number | null | undefined

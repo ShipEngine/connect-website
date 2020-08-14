@@ -17,7 +17,7 @@ import {
   mapCancelPickupResponse,
   mapTransaction
 } from './mapping/functions';
-import { CarrierApp } from '@shipengine/integration-platform-sdk/lib/internal';
+import { CarrierApp } from '@shipengine/connect-sdk/lib/internal';
 import logger from './util/logger';
 import { NotSupported } from './errors';
 

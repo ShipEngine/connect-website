@@ -2,7 +2,7 @@ import { TrackRequest } from '@ipaas/capi/requests';
 import {
   IdentifiersPOJO,
   TrackingCriteriaPOJO
-} from '@shipengine/integration-platform-sdk/lib/internal';
+} from '@shipengine/connect-sdk/lib/internal';
 
 export const mapTrackingRequest = (request: TrackRequest): TrackingCriteriaPOJO => {
   const identifiers: IdentifiersPOJO = {};

@@ -2,10 +2,10 @@ import {
   ShipmentIdentifierPOJO,
   NotePOJO,
   Transaction,
-} from '@shipengine/integration-platform-sdk';
+} from '@shipengine/connect-sdk';
 import {
   PickupConfirmation,
-} from '@shipengine/integration-platform-sdk/lib/internal';
+} from '@shipengine/connect-sdk/lib/internal';
 import { SchedulePickupResponse } from '@ipaas/capi/responses';
 import {
   ShipmentIdentifier,

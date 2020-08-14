@@ -1,5 +1,5 @@
 import { InsuranceProvider as capiInsuranceProvider } from '@ipaas/capi/models';
-import { InsuranceProvider } from '@shipengine/integration-platform-sdk';
+import { InsuranceProvider } from '@shipengine/connect-sdk';
 
 export default (
   insuranceProvider: capiInsuranceProvider | null | undefined

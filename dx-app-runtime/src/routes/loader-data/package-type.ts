@@ -1,10 +1,10 @@
-import { Packaging, ServiceArea } from '@shipengine/integration-platform-sdk';
+import { Packaging, ServiceArea } from '@shipengine/connect-sdk';
 import PackageType, {
   PackageAttribute,
 } from '../../mapping/registry-data/external/package-type';
 import { InvalidInput } from '../../errors';
 import { RequiredProperty } from '../../mapping/registry-data/external/enums';
-import { DeliveryService } from '@shipengine/integration-platform-sdk/lib/public/carriers/delivery-service';
+import { DeliveryService } from '@shipengine/connect-sdk/lib/public/carriers/delivery-service';
 
 const serviceAreaToPackageAttribute = (
   serviceArea: ServiceArea

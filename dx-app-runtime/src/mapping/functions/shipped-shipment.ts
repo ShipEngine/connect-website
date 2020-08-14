@@ -1,6 +1,6 @@
 import { PickupShipment } from '@ipaas/capi/models';
 import { capiToPickupPackagePOJO } from './package';
-import { PickupShipmentPOJO } from '@shipengine/integration-platform-sdk/lib/internal';
+import { PickupShipmentPOJO } from '@shipengine/connect-sdk/lib/internal';
 
 export const mapPickupShipment = (shipment: PickupShipment): PickupShipmentPOJO => {
   const mappedShipment: PickupShipmentPOJO = {

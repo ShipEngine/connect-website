@@ -26,10 +26,10 @@ import {
   DocumentSize,
   ServiceArea,
   ManifestType,
-} from '@shipengine/integration-platform-sdk';
+} from '@shipengine/connect-sdk';
 import {
   CarrierApp
-} from '@shipengine/integration-platform-sdk/lib/internal'
+} from '@shipengine/connect-sdk/lib/internal'
 import logger from '../../util/logger';
 import ShippingProviderConnector from './external/shipping-provider-connector';
 import { InvalidInput } from '../../errors';

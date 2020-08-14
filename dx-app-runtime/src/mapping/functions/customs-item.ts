@@ -2,7 +2,7 @@ import { CustomsItem as CapiCustomsItem } from '@ipaas/capi/models';
 import {
   CustomsItemType,
   CustomsItem
-} from '@shipengine/integration-platform-sdk';
+} from '@shipengine/connect-sdk';
 import { capiToDxQuantity } from './quantity';
 
 const capiToDxCustomsItem = (customsItem: CapiCustomsItem): CustomsItem => {

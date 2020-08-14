@@ -1,4 +1,4 @@
-import { DateTimeZonePOJO } from '@shipengine/integration-platform-sdk';
+import { DateTimeZonePOJO } from '@shipengine/connect-sdk';
 
 const toCapiDateTimeString = (
   date: DateTimeZonePOJO | Date | string | undefined

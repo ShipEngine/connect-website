@@ -2,7 +2,7 @@ import {
   LabelFormat,
   LabelFormat as capiLabelFormat,
 } from '@ipaas/capi/models';
-import { DocumentFormat } from '@shipengine/integration-platform-sdk';
+import { DocumentFormat } from '@shipengine/connect-sdk';
 
 export const capiToDxLabelFormat = (
   format: capiLabelFormat

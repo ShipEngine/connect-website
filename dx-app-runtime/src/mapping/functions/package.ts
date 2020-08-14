@@ -11,13 +11,13 @@ import {
   LengthUnit,
   WeightUnit,
   RatePackage,
-} from '@shipengine/integration-platform-sdk';
+} from '@shipengine/connect-sdk';
 
 import {
   PackageRateCriteriaPOJO,
   PickupPackagePOJO,
   NewPackagePOJO,
-} from '@shipengine/integration-platform-sdk/lib/internal';
+} from '@shipengine/connect-sdk/lib/internal';
 import { capiToDxCustomsItem } from './customs-item';
 
 export const capiToDxPackage = (

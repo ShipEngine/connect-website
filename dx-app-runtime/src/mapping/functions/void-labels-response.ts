@@ -1,9 +1,9 @@
 import {
   Transaction,
-} from '@shipengine/integration-platform-sdk';
+} from '@shipengine/connect-sdk';
 import {
   ShipmentCancellationOutcome,
-} from '@shipengine/integration-platform-sdk/lib/internal';
+} from '@shipengine/connect-sdk/lib/internal';
 import { VoidLabelsResponse, VoidResponse } from '@ipaas/capi/responses';
 
 export const mapVoidLabelsResponse = (

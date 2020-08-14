@@ -3,10 +3,10 @@ import {
   PickupCancellationReason,
   TimeRangePOJO,
   NoteType,
-} from '@shipengine/integration-platform-sdk';
+} from '@shipengine/connect-sdk';
 import {
   PickupCancellationPOJO
-} from '@shipengine/integration-platform-sdk/lib/internal';
+} from '@shipengine/connect-sdk/lib/internal';
 import {
   CancellationReason,
   PickupWindow,

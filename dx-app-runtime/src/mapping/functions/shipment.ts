@@ -3,10 +3,10 @@ import { mapAddressToAddressWithContactInfoPOJO } from './address';
 import {
   DocumentFormat,
   DocumentSize,
-} from '@shipengine/integration-platform-sdk';
+} from '@shipengine/connect-sdk';
 import {
   NewShipmentPOJO,
-} from '@shipengine/integration-platform-sdk/lib/internal';
+} from '@shipengine/connect-sdk/lib/internal';
 import { capiToDxNewPackagePOJO } from './package';
 
 export const mapGetRatesRequestToNewShipmentPOJO = (

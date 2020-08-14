@@ -3,7 +3,7 @@ import {
   AddressWithContactInfoPOJO,
   Country,
   PersonNamePOJO,
-} from '@shipengine/integration-platform-sdk';
+} from '@shipengine/connect-sdk';
 import convertISOCountryCodeToCountryEnum from './country-conversion';
 
 const excludeNullsFromAddressLines = (

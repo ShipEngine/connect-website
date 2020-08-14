@@ -2,11 +2,11 @@ import { GetRatesRequest } from '@ipaas/capi/requests';
 import {
   LengthUnit,
   WeightUnit,
-} from '@shipengine/integration-platform-sdk';
+} from '@shipengine/connect-sdk';
 import {
   RateCriteriaPOJO,
   PackageRateCriteriaPOJO
-} from '@shipengine/integration-platform-sdk/lib/internal';
+} from '@shipengine/connect-sdk/lib/internal';
 import { mapAddressToAddressWithContactInfoPOJO } from './address';
 import { Package } from '@ipaas/capi/models';
 

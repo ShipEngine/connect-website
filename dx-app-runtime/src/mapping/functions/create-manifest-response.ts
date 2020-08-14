@@ -1,6 +1,6 @@
 import { CreateManifestResponse } from "@ipaas/capi";
-import { Manifest, ManifestConfirmation } from '@shipengine/integration-platform-sdk/lib/internal';
-import { Transaction } from '@shipengine/integration-platform-sdk';
+import { Manifest, ManifestConfirmation } from '@shipengine/connect-sdk/lib/internal';
+import { Transaction } from '@shipengine/connect-sdk';
 import { Manifest as CapiManifest } from "@ipaas/capi/models/manifest";
 
 const mapManifest = (manifest: Manifest): CapiManifest => {

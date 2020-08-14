@@ -2,10 +2,10 @@ import { GetRatesResponse } from '@ipaas/capi/responses';
 import {
   Transaction,
   ChargeType,
-} from '@shipengine/integration-platform-sdk';
+} from '@shipengine/connect-sdk';
 import {
   Rate,
-} from '@shipengine/integration-platform-sdk/lib/internal';
+} from '@shipengine/connect-sdk/lib/internal';
 
 import { Rate as capiRate } from '@ipaas/capi/responses';
 import { toCapiDateTimeString } from './datetime';

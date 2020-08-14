@@ -7,7 +7,7 @@ import {
   RegisterRequest,
   CreateLabelRequest,
 } from '@ipaas/capi/requests';
-import { Transaction } from '@shipengine/integration-platform-sdk';
+import { Transaction } from '@shipengine/connect-sdk';
 
 export const mapTransaction = (
   request:
