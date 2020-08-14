@@ -28,15 +28,14 @@ Local Testing
       ));
     }(window, document, "_pm", "PostmanRunObject", "https://run.pstmn.io/button.js"));
   </script>
-</p>
 
 > **PRO TIP:** You can use the [VSCode debugger](https://code.visualstudio.com/docs/editor/debugging) to set breakpoints, step through your code line-by-line, and inspect variables at runtime. Just press `F5` to start a debug session.
 
-<img src="vs-code-debug.png" alt="drawing" width="1000"/>
+![VSCode debugger](vs-code-debug.png)
 
 
 ### Request Modification
-Each request in [our Postman collection](https://www.getpostman.com/collections/5ce1c5e574e9e5c4eb8e) contains sample data that matches the structure expected by one of the methods in your application. We have included placeholder text
+Each request in [our Postman collection](https://documenter.getpostman.com/view/12340335/T1LPBRJk?version=latest) contains sample data that matches the structure expected by one of the methods in your application. We have included placeholder text
 in the areas where you will need to provide values.
 
 For example, when running the `Create a shipment` request in the `Carrier Apps` folder, you will need to provide IDs for
@@ -51,9 +50,8 @@ You can begin running requests in this collection as soon as you have defined th
 It may be useful to set a breakpoint and examine the structure of the data sent to your method to assist in mapping the input
 data to the format expected by your backend service or API.
 
-<img src="postman-placeholder.png" alt="drawing" width="1000"/>
+![Postman screenshot](postman-placeholder.png)
 
-</p>
 
 ### Authentication
 
@@ -65,29 +63,26 @@ Our Postman collection uses variables to persist session data between requests. 
 property to {% raw %}`{{session}}`{% endraw %}. This is the way Postman variables are referenced within request payloads. While it is not valid
 JSON at the moment, it will be once Postman renders the request.
 
-<img src="postman-session-variable.png" alt="drawing" width="1000"/>
+![Session variable in Postman](postman-session-variable.png)
 
-</p>
 
 You can see and set the value of the variables by editing the collection. Click the ellipses icon next to the collection name
 and select `Edit`, then click the `Variables` tab.
 
-<img src="variable-menu.png" alt="drawing" width="1000"/>
+![Editing the collection in Postman](variable-menu.png)
 
-</p>
 
 When you first import the collection, the `session`
 variable will be unset.
 
-<img src="postman-empty-vars.png" alt="drawing" width="1000"/>
+![Postman collection variables](postman-empty-vars.png)
 
-</p>
 
-When beginning to work with our Postman collection, you should first run the `Connect` request in the `All Apps` folder with valid credentials to create a session. This
-will then set the `session` variable that is referenced in each of the other requests. Likewise, if you already
+When beginning to work with our Postman collection, you should first run the `Connect` request in the `All Apps` folder with valid credentials to create a session. This will then set the `session` variable that is referenced in each of the other requests. Likewise, if you already
 have a valid session you wish to use, you can edit the variable directly and skip running the `Connect` request.
 
-<img src="postman-set-variable.png" alt="drawing" width="1000"/>
+![Setting the session variable](postman-set-variable.png)
+
 
 #### Hardcoded Values
 You may wish to hardcode the session data in each of your requests rather than using Postman variables. If so, you will need to run the `Connect`
@@ -95,9 +90,8 @@ request with valid credentials and then copy the `transaction.session` value tha
 Likewise, if you already have a valid session you wish to use, you can skip running the `Connect` request and add the
 `session` data directly to the request.
 
-<img src="./postman-transaction.png" alt="drawing" width="1000"/>
+![Using hard-coded values in Postman](./postman-transaction.png)
 
-</p>
 
 
 Automated Testing
@@ -128,29 +122,109 @@ We recommend that in addition to local and automated tests, we recommend that yo
 tooling or impose any restrictions on which tools you can use for writing unit tests. You are free to use any JavaScript tools you are comfortable with,
 such as these:
 
-### [Jest](https://jestjs.io/)
+#### [Jest](https://jestjs.io/)
 Jest is a batteries-included, zero-configuration test runner that is approachable for beginners, extensible for almost all testing use cases and scalable to large projects.
 It includes the test runner, an assertion library, and extensible matchers - everything you need to being writing unit tests.
 
-### [Mocha](https://mochajs.org/)
+#### [Mocha](https://mochajs.org/)
 Mocha is a feature-rich JavaScript test framework running on Node.js and in the browser. Mocha tests run serially, allowing for flexible and accurate reporting, while mapping uncaught exceptions to the correct test cases.
 
-### [Chai](https://www.chaijs.com/)
+#### [Chai](https://www.chaijs.com/)
 Chai is a Business Driven Development (BDD) / Test Driven Development (TDD) assertion library for node and the browser that can be depaired with any javascript testing framework, such as Mocha.
 
-### [Nock](https://github.com/nock/nock)
+#### [Sinon](https://sinonjs.org/)
+Sinon is a standalone tool that provides test spies, stubs and mocks for JavaScript and works with any unit testing framework.
+
+#### [Nock](https://github.com/nock/nock)
 Nock is an HTTP server mocking and expectations library for Node.js. It can be used to test modules that perform HTTP requests in isolation. This can be useful
 in mocking out your backend API for unit testing.
 
+### Example
+Here's an example unit test suite using [Mocha](https://mochajs.org/) and [Chai](https://www.chaijs.com/) to test [the `createShipment` method](./../reference/methods/create-shipment.md).
 
-### [Sinon](https://sinonjs.org/)
-Sinon is a standalone tool that provides test spies, stubs and mocks for JavaScript and works with any unit testing framework.
+> **NOTE:** When creating mock parameters for your methods, you only need to populate the properties that you actually use in your code
+
+```javascript
+const createShipment = require("../src/methods/create-shipment.js");
+const { expect } = require("chai");
+
+describe("createShipment test suite", () => {
+  let transaction, shipmentCriteria;
+
+  beforeEach("Create mock parameters", () => {
+    transaction = {
+      id: "e62eff07-a9f6-4075-80d1-ca4ab788a6fe",
+      session: {
+        token: "cj8Aro60dfa4abe62erQ07"
+      }
+    };
+
+    shipmentCriteria = {
+      deliveryService: { code: "NXT_DAY" },
+      deliveryConfirmatmion: { code: "SIG" },
+      shipFrom: {
+        name: { given: "John", family: "Doe" },
+        addressLines: ["4009 Marathon Blvd"],
+        cityLocality: "Austin",
+        stateProvince: "TX",
+        postalCode: "78756",
+        country: "US"
+      },
+      shipTo: {
+        name: { given: "Amanda", family: "Miller" },
+        addressLines: ["525 S Winchester Blvd"],
+        cityLocality: "San Jose",
+        stateProvince: "CA",
+        postalCode: "95128",
+        country: "US"
+      },
+      packages: [{
+        packaging: { code: "BOX" },
+        weight: { ounces: 36 },
+        label: {
+          format: "pdf",
+          size: "4x6"
+        }
+      }]
+    };
+  });
+
+  it("should create a shipment without insurance", async () => {
+    let shipment = await createShipment(transaction, shipmentCriteria);
+
+    expect(shipment).to.be.an("object");
+    expect(shipment.deliveryDateTime).to.be.an.instanceOf(Date);
+    expect(shipment.charges).to.be.an("array").with.lengthOf(1);
+    expect(shipment.charges[0].type).to.equal("delivery");
+    expect(shipment.charges[0].name).to.equal("Delivery Charge");
+  });
+
+  it("should create a shipment with insurance", async () => {
+    shipmentCriteria.packages[0].insuredValue = { value: 500, currency: "USD" };
+    let shipment = await createShipment(transaction, shipmentCriteria);
+
+    expect(shipment).to.be.an("object");
+    expect(shipment.deliveryDateTime).to.be.an.instanceOf(Date);
+    expect(shipment.charges).to.be.an("array").with.lengthOf(2);
+    expect(shipment.charges[0].type).to.equal("delivery");
+    expect(shipment.charges[0].name).to.equal("Delivery Charge");
+    expect(shipment.charges[1].type).to.equal("insurance");
+    expect(shipment.charges[1].name).to.equal("Insurance Cost");
+    expect(shipment.packages[0].metadata.isInsured).to.equal(true);
+  });
+});
+```
+
+
 
 Live Testing
 -----------------------------
 Once you have completed local development and testing of your application, you can then [publish](./../publish.md) your app to
 our development platform where you can perform live testing through one of our e-commerce applications, such as
 [ShipStation](https://www.shipstation.com/), before it is promoted to our production platform.
+
+![Adding a carrier in ShipStation](shipstation.png)
+
 
 <div class="previous-next-nav">
   <a class="button button-small button-secondary" href="./../sandbox.md">Previous: Sandbox Environments</a>
