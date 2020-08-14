@@ -28,4 +28,13 @@ router.get('/appinfo', (req, res) => {
   });
 });
 
+router.get('/logo', (req, res) => {
+  const app = req.app.locals.app;
+  res.sendFile(app.logo);
+});
+
+router.get('/icon', (req, res) => {
+  const app = req.app.locals.app;
+  res.sendFile(app.icon);
+});
 export default router;
