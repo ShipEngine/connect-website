@@ -294,6 +294,7 @@ module.exports = {
       packagingInsuredValue: '1000',
       packagingInsuredCurrency: 'USD'
     }
+  ]
 };
 ```
 

@@ -1,10 +1,11 @@
 ---
 hidden: true
-title: createShipment_international
-description: createShipment_international
+title: rateShipment
+description: rateShipment
 
 Params:
   fields:
+
     - name: session
       type: object
       description: |
@@ -17,7 +18,7 @@ Params:
         method.
       default: |
 
-         An empty `session` unless you provide a `connectArgs` property.
+        An empty `session` unless you provide a `connectArgs` property.
 
     - name: connectArgs
       type: object
@@ -29,7 +30,7 @@ Params:
 
       default: |
 
-         An empty `session` unless you provide a `session` property.
+        An empty `session` unless you provide a `session` property.
 
     - name: expectedErrorMessage
       type: string
@@ -45,76 +46,17 @@ Params:
       description: |
 
          The name of the [delivery service](./../reference/delivery-service.md) you wish to use in this request.
-      default: The name of the first international delivery service defined for your app.
-
-    - name: label
-      type: object
-      description: An object representing the details of the label to be produced by this method.
-      default: |
-
-        The properties and their default values are listed below.
-
-        Note that these are the default values used when no `label` parameter is specified.
-
-        If a `label` parameter is specified, it must contain values for all required properties.
-
-    - name: label.size
-      type: string
-      required: true
-      description: |
-
-        The size of the label. Valid values include the following:
-         * `A4`- A4 sized paper ( 8.27 inches x 11.69 inches)
-         * `letter` - Letter sized paper (8.5 inches by 11 inches)
-         * `4x6` - Paper sized 4 inches by 6 inches
-         * `4x8` - Paper sized 4 inches by 8 inches
-      default: |
-
-        The first `labelSize` found for the specified [delivery service](./../reference/delivery-service.md).
-
-    - name: label.format
-      type: string
-      required: true
-      description: |
-
-        The format for the label. Valid values include the following:
-        * `pdf` - Portable Document Format (PDF)
-        * `zpl` - Zebra Printer Label (ZPL)
-        * `png` - Portable Graphics Format (PNG)
-      default: |
-
-        The first `labelFormat` found for the specified [delivery service](./../reference/delivery-service.md).
-
-    - name: label.referenceFields
-      type: string[]
-      required: false
-      description: |
-        Some carriers provide general-purpose fields on their labels for custom text.
-        This is sometimes used for messages, like "Thank you for shopping with us!",
-        or may be used to store reference data, such as account numbers, warehouse codes, etc.
-
-        The exact location on the label depends on the carrier, as does the allowed number of fields
-        and the maximum length of each field. If more fields are specified than are supported by the
-        carrier, then the extra fields should be ignored. Likewise, if a field length exceeds the
-        carrier's maximum length, then it should be truncated. The *actual* values that are used
-        should be returned, so the caller can detect any differences.
-
-        NOTE: These fields should NOT be used to set *named* fields on the label,
-        such as "RMA Number" or "Order ID". Those should be set using the correspond
-        properties of the shipment.
-      default: None
+      default: The name of the first domestic delivery service defined for your app.
 
     - name: shipFrom
       type: |
 
         [AddressWithContactInfo](./../reference/address.md)
-
       description: |
 
         The address to ship _from_ in the test. Be sure to include the additional contact info properties.
       default: |
-
-        A valid international address based on the `originCountries` and `destinationCountries` of the delivery service.
+        A valid domestic address based on the `originCountries` and `destinationCountries` of the delivery service.
 
         Note that this is the default value used when no `shipFrom` parameter is specified.
 
@@ -122,32 +64,31 @@ Params:
         If a `shipFrom` parameter is specified, it must contain values for all required properties.
       required: true
 
+
     - name: shipTo
       type: |
 
         [AddressWithContactInfo](./../reference/address.md)
-
       description: |
 
         The address to ship _to_ in the test. Be sure to include the additional contact info properties.
       default: |
 
-        A valid international address based on the `originCountries` and `destinationCountries` of the delivery service.
+        A valid domestic address based on the `originCountries` and `destinationCountries` of the delivery service.
 
         Note that this is the default value used when no `shipTo` parameter is specified.
 
 
-        If a `shipTo` parameter is specified, it must contain values for all required properties.
+         If a `shipTo` parameter is specified, it must contain values for all required properties.
       required: true
+
 
     - name: weight
       type: object
       description: The weight to use for the shipment.
       default: |
 
-        The properties and their default values are listed below.
-
-        Note that these are the default values used when no `weight` parameter is specified.
+        The properties and their default values are listed below. Note that these are the default values used when no `weight` parameter is specified.
 
         If a `weight` parameter is specified, it must contain values for all required properties.
 
@@ -184,28 +125,28 @@ Params:
 
         The following date at `noon` in the local time zone.
 
-    - name: deliveryConfirmationName
+
+    - name: packagingName
       type: string
       description: |
 
-        The name of the [delivery confirmation](./../reference/delivery-confirmation.md) to use for this shipment.
+        The name of the [packaging](./../reference/packaging.md) to use for this shipment.
       default: |
 
-        The name of the first delivery confirmation defined for the specified delivery service, or `undefined` if no
-        delivery confirmations are supported for the selected delivery service.
+        The name of the first packaging defined for the specified delivery service.
 ---
 
 {% from "nunjucks/imports/reference.njk" import testParamDetails %}
 
-## `createShipment_international`
-The following parameters are available for use in the `createShipment_international` test. You may specify one
+## `createShipment_domestic`
+The following parameters are available for use in the `rateShipment` test. You may specify one
 or more of these parameters in your `connect.config.js` file or allow the test to use the default values.
 
 {{testParamDetails(Params.fields)}}
 
 ## Example
 
-This is an example of using the `connect-config.js` file to customize the `createShipment_international` test.
+This is an example of using the `connect-config.js` file to customize the `rateShipment` test.
 
 This example provides values for all parameters and uses the global `connectArgs` parameter for authentication.
 
@@ -217,48 +158,45 @@ module.exports = {
     agree_to_eula: true,
   },
   tests: {
-    createShipment_international: [
+    rateShipment: [
       deliveryServiceName: `Next Day Air`,
-      label: {
-        size: 'A4',
-        format: 'pdf',
-      },
       shipFrom: {
 	    name: 'John Doe',
 	    phoneNumber: '111-111-1111',
         company: 'Example Corp.',
 	    addressLines: [
-          '4009 Marathon Blvd',
-          'Suite 300'
+         '4009 Marathon Blvd',
+         'Suite 300'
 		],
 		cityLocality: 'Austin',
 		stateProvince: 'TX',
 		postalCode: '78756',
 		country: 'US',
 		isResidential: false
-	  },
+		},
 	  shipTo: {
 	    name: 'Amanda Miller',
-		phoneNumber': '61 2 9876 5432',
+		phoneNumber': '555-555-5555',
 		addressLines: [
-		  '223 Liverpool St'
+		  '525 S Winchester Blvd'
 		],
-		cityLocality: 'Darlinghurst',
-		stateProvince: 'NSW',
-		postalCode: '2010',
-		country: 'AU',
-		isResidential: false
+		cityLocality: 'San Jose',
+		stateProvince: 'CA',
+		postalCode: '95128',
+		country: 'US',
+		isResidential: true
 	  },
       weight: {
         value: 10,
         unit: 'lb',
       },
       shipDateTime: '2020-04-15T12:00:00-05:00',
-      deliveryConfirmationName: 'Adult Signature'
+      packagingName: 'Package'
     }
   ]
 };
 ```
+
 
 
 

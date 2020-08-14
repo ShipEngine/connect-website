@@ -308,6 +308,7 @@ module.exports = {
         }
       ]
     }
+  ]
 };
 ```
 

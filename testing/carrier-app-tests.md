@@ -19,6 +19,12 @@ createShipment:
     - name: createShipment_multipackage
       link: ./create-shipment-multipackage.md
       description: Creates a domestic shipment with multiple packages.
+
+rateShipment:
+  fields:
+    - name: rateShipment
+      link: ./rate-shipment.md
+      description: Rates a shipment.
 ---
 
 {{ title }}
@@ -52,6 +58,8 @@ a [`transaction`](./../reference/transaction.md) object in your `connect.config.
 The following tests exercise the [`rateShipment()`](./../reference/methods/cancel-shipments.md) method.
 They may also call the [`connect()`](./../reference/methods/connect.md) method if you do not provide
 a [`transaction`](./../reference/transaction.md) object in your `connect.config.js` file.
+{% from "nunjucks/imports/reference.njk" import testSuiteDetails %}
+{{testSuiteDetails(rateShipment.fields)}}
 
 ## `createManifest()` Method
 The following tests exercise the [`createManifest()`](./../reference/methods/create-manifest.md) method. They will

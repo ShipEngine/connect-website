@@ -255,6 +255,7 @@ module.exports = {
       shipDateTime: '2020-04-15T12:00:00-05:00',
       deliveryConfirmationName: 'Adult Signature'
     }
+  ]
 };
 ```
 
