@@ -32,7 +32,7 @@ async function cancelPickups(transaction, pickups) {
   // STEP 3: Call the carrier's API
   let response = await apiClient.request({ data });
 
-  // STEP 4: Create the output data that ShipEngine expects
+  // STEP 4: Create the output data that ShipEngine Connect expects
   return response.data.canceled_pick_ups.map((cancellation, index) => {
     if (cancellation.error) {
       return {

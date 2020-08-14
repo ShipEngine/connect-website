@@ -1,4 +1,4 @@
-import { Country, DeliveryServiceClass, DeliveryServiceDefinition, DeliveryServiceGrade, DocumentFormat, DocumentSize, ServiceArea, ManifestType } from "@shipengine/integration-platform-sdk";
+import { Country, DeliveryServiceClass, DeliveryServiceDefinition, DeliveryServiceGrade, DocumentFormat, DocumentSize, ServiceArea, ManifestType } from "@shipengine/connect-sdk";
 import { adultSignature, photo, recipientSignature, signature } from "../delivery-confirmations";
 import { customerPackaging } from "../packaging/customer";
 import { upsFlatRatePackaging } from "../packaging/ups-flat-rate";

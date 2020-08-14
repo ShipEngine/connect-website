@@ -5,7 +5,7 @@
       "type": "node",
       "request": "launch",
       "name": "Start App",
-      "runtimeExecutable": "shipengine",
+      "runtimeExecutable": "connect",
       "args": [
         "start"
       ],
@@ -20,7 +20,7 @@
       "type": "node",
       "request": "launch",
       "name": "Run Tests",
-      "runtimeExecutable": "shipengine",
+      "runtimeExecutable": "connect",
       "args": [
         "test"
       ],

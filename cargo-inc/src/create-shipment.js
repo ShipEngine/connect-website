@@ -35,12 +35,12 @@ async function createShipment(transaction, shipment) {
   // STEP 3: Call the carrier's API
   const response = await apiClient.request({ data });
 
-  // STEP 4: Create the output data that ShipEngine expects
+  // STEP 4: Create the output data that ShipEngine Connect expects
   return await formatShipment(response.data);
 }
 
 /**
- * Formats a shipment in the way ShipEngine expects
+ * Formats a shipment in the way ShipEngine Connect expects
  */
 async function formatShipment(response) {
   return {
