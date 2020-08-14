@@ -113,7 +113,7 @@ param:
 Examples
 ------------
 ```typescript
-import { OrderAppDefinition } from "@shipengine/integration-platform-sdk";
+import { OrderAppDefinition } from "@shipengine/connect-sdk";
 
 const orderSource: OrderAppDefinition = {
   id: "5e386891-f693-4cdf-8b0c-82d7eb7542d0",

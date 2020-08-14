@@ -63,6 +63,6 @@ throw error;
 ```
 
 <div class="previous-next-nav">
-  <a class="button button-small button-secondary" href="./transactions.md">Previous: Transactions & Retries</a>
+  <a class="button button-small button-secondary" href="./implementation.md">Previous: Implementing Your Methods</a>
   <a class="button button-small button-secondary" href="./sandbox.md">Next: Sandbox</a>
 </div>

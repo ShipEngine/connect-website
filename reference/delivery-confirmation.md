@@ -100,7 +100,7 @@ type: adult_signature
 import {
   DeliveryConfirmationDefinition,
   DeliveryConfirmationType,
-} from "@shipengine/integration-platform-sdk";
+} from "@shipengine/connect-sdk";
 
 const adultSignatureDeliveryConfirmation: DeliveryConfirmationDefinition = {
   id: "cc10a05a-78eb-11ea-bc55-0242ac130003",

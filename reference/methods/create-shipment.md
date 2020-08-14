@@ -275,7 +275,7 @@ import {
   NewShipment,
   ShipmentConfirmation,
   Transaction
-} from "@shipengine/integration-platform-sdk";
+} from "@shipengine/connect-sdk";
 
 export default async function createShipment(
   transaction: Transaction<Session>, shipment: NewShipment): Promise<ShipmentConfirmation> {

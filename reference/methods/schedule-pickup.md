@@ -304,7 +304,7 @@ import {
   PickupConfirmation,
   PickupRequest,
   Transaction
-} from "@shipengine/integration-platform-sdk";
+} from "@shipengine/connect-sdk";
 
 export default async function schedulePickup(
   transaction: Transaction<Session>, pickup: PickupRequest): Promise<PickupConfirmation> {

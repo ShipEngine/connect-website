@@ -65,7 +65,7 @@ param:
   -----------------------------------------------
 
 ```typescript
-import { PickupServiceConfig } from "@shipengine/integration-platform-sdk";
+import { PickupServiceConfig } from "@shipengine/connect-sdk";
 
 const pickupService:PickupServiceConfig = {
   id: "27483200-72b4-11ea-bc55-0242ac130003",

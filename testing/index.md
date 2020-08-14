@@ -13,6 +13,7 @@ There are multiple ways to test your application, and we suggest taking advantag
 
 Local Testing
 -----------------------------
+
 [The `connect start` command](./../cli.md#run-your-app-locally) starts a local server that allows you to invoke your app's methods using [our Postman collection](https://documenter.getpostman.com/view/12340335/T1LPBRJk?version=latest). The server monitors your source code and automatically reloads your app whenever changes are detected, so if you find a bug, you can fix it and immediately retry.
 
 <p>
@@ -91,7 +92,6 @@ Likewise, if you already have a valid session you wish to use, you can skip runn
 `session` data directly to the request.
 
 ![Using hard-coded values in Postman](./postman-transaction.png)
-
 
 
 Automated Testing

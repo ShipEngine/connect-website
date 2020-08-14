@@ -5,14 +5,41 @@ description: createShipment_insurance
 
 Params:
   fields:
-    - name: transaction
-      type:  |
+    - name: session
+      type: object
+      description: |
 
-        [Transaction](./../reference/transaction.md)
-      description: An object that provides information about the method invocation and session data.
+        An object containing session information needed to make calls to your backend API or service, such as
+        a username and password or an auth token.
+
+        The data included in this object depends on your service. You will need to
+        provide the information your methods need to make calls without calling your [`connect`](./../reference/methods/connect.md)
+        method.
       default: |
 
-        If you do not provide a transaction object in your `connect.config` file, you must provide valid credentials.
+         An empty `session` unless you provide a `connectArgs` property.
+
+    - name: connectArgs
+      type: object
+      description: |
+
+        An object containing properties with the same names as those your defined in
+        your [connection form](./../reference/forms.md#connection-form-examples). These will be used to call your
+        [`connect`](./../reference/methods/connect.md) to obtain a valid `session` object before calling other methods in the test.
+
+      default: |
+
+         An empty `session` unless you provide a `session` property.
+
+    - name: expectedErrorMessage
+      type: string
+      description: The error message that is expected when running this test.
+        </br> </br>
+
+        This property is useful in negative test cases.
+        For example, you may wish to provide invalid weights and verify that the expected error message is returned.
+      default: None
+
     - name: deliveryServiceName
       type: string
       description: |
@@ -204,11 +231,71 @@ Params:
 
 {% from "nunjucks/imports/reference.njk" import testParamDetails %}
 
-### `createShipment_insurance` Parameters
+## `createShipment_insurance`
 The following parameters are available for use in the `createShipment_insurance` test. You may specify one
-or more of these parameters in your `connect.config` file or allow the test to use the default values.
+or more of these parameters in your `connect.config.js` file or allow the test to use the default values.
 
 {{testParamDetails(Params.fields)}}
+
+
+## Example
+
+This is an example of using the `connect-config.js` file to customize the `createShipment_insurance` test.
+
+This example provides values for all parameters and uses the global `connectArgs` parameter for authentication.
+
+```javascript
+module.exports = {
+  connectArgs: {
+    account_email: 'user@example.com',
+    account_password: 'u0G#^08Ue1G!jX$mkc1',
+    agree_to_eula: true,
+  },
+  tests: {
+    createShipment_insurance: [
+      deliveryServiceName: `Next Day Air`,
+      label: {
+        size: 'A4',
+        format: 'pdf',
+      },
+      shipFrom: {
+        name: 'John Doe',
+	    phoneNumber: '111-111-1111',
+        company: 'Example Corp.',
+	    addressLines: [
+	      '4009 Marathon Blvd',
+          'Suite 300'
+		],
+		cityLocality: 'Austin',
+		stateProvince: 'TX',
+		postalCode: '78756',
+		country: 'US',
+		isResidential: false
+	  },
+	  shipTo: {
+        name: 'Amanda Miller',
+		phoneNumber': '555-555-5555',
+		addressLines: [
+		  '525 S Winchester Blvd'
+	   	],
+		cityLocality: 'San Jose',
+		stateProvince: 'CA',
+		postalCode: '95128',
+		country: 'US',
+		isResidential: true
+	  },
+      weight: {
+        value: 10,
+        unit: 'lb',
+      },
+      shipDateTime: '2020-04-15T12:00:00-05:00',
+      deliveryConfirmationName: 'Adult Signature',
+      packagingName: 'Package',
+      packagingInsuredValue: '1000',
+      packagingInsuredCurrency: 'USD'
+    }
+};
+```
 
 
 

@@ -343,7 +343,7 @@ import {
   PickupCancellation,
   PickupCancellationOutcome,
   Transaction
-} from "@shipengine/integration-platform-sdk";
+} from "@shipengine/connect-sdk";
 
 export default async function cancelPickups(
   transaction: Transaction<Session>, pickups: PickupCancellation[]): Promise<PickupCancellationOutcome[]> {

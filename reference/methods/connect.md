@@ -93,7 +93,7 @@ module.exports = async function connect(transaction, connectionFormData) {
 ```
 
 ```typescript
-import { Transaction } from "@shipengine/integration-platform-sdk";
+import { Transaction } from "@shipengine/connect-sdk";
 import { Session } from "./session";
 
 interface ConnectionFormData {

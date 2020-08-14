@@ -206,7 +206,7 @@ import {
   Transaction,
   NewManifest,
   ManifestConfirmation
-} from "@shipengine/integration-platform-sdk";
+} from "@shipengine/connect-sdk";
 
 export default async function createManifest(
   transaction: Transaction, manifest: NewManifest): Promise<ManifestConfirmation[]> {

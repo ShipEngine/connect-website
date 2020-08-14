@@ -291,7 +291,7 @@ import {
   Transaction,
   TrackingCriteria,
   TrackingInfo
-} from "@shipengine/integration-platform-sdk";
+} from "@shipengine/platform-sdk";
 
 export default async function trackShipment(
   transaction: Transaction, trackingCriteria: TrackingCriteria): Promise<TrackingInfo> {
