@@ -2,10 +2,10 @@
 
 const { expect } = require("chai");
 const pojo = require("../../../utils/pojo");
-const { findMatchingDeliveryServicesByCountries } = require("../../../../../lib/core/test-app/utils/find-matching-delivery-services-by-countries");
+const { findMatchingOriginAndDestinationCountries } = require("../../../../../lib/core/test-app/utils/find-matching-origin-and-destination-countries");
 const { CarrierApp } = require("@shipengine/connect-sdk/lib/internal/carriers/carrier-app");
 
-describe("findMatchingDeliveryServicesByCountries", () => {
+describe("findMatchingOriginAndDestinationCountries", () => {
   it("returns a set of origin and destination countries that all given delivery services share", () => {
 
     const appDefinition = pojo.carrierApp();
@@ -43,7 +43,7 @@ describe("findMatchingDeliveryServicesByCountries", () => {
 
     const app = new CarrierApp(appDefinition);
 
-    const results = findMatchingDeliveryServicesByCountries(app.deliveryServices);
+    const results = findMatchingOriginAndDestinationCountries(app.deliveryServices);
     expect(results.originCountries).to.be.eql(["US", "MX"]);
     expect(results.destinationCountries).to.be.eql(["US", "MX"]);
   });
@@ -55,7 +55,7 @@ describe("findMatchingDeliveryServicesByCountries", () => {
 
     const app = new CarrierApp(appDefinition);
 
-    expect(() => findMatchingDeliveryServicesByCountries(app.deliveryServices)).to.throw(
+    expect(() => findMatchingOriginAndDestinationCountries(app.deliveryServices)).to.throw(
       Error,
       /Multiple Delivery Services must be specified/,
     );
@@ -96,7 +96,7 @@ describe("findMatchingDeliveryServicesByCountries", () => {
 
     const app = new CarrierApp(appDefinition);
 
-    expect(() => findMatchingDeliveryServicesByCountries(app.deliveryServices)).to.throw(
+    expect(() => findMatchingOriginAndDestinationCountries(app.deliveryServices)).to.throw(
       Error,
       /Specified delivery services do not share origin and destination countries/,
     );

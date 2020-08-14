@@ -3,7 +3,7 @@ import { Country, DeliveryService } from "@shipengine/connect-sdk";
 /**
  * Find the shared origin and destination countries from an array of delivery services
  */
-export function findMatchingDeliveryServicesByCountries(deliveryServices: DeliveryService[])
+export function findMatchingOriginAndDestinationCountries(deliveryServices: DeliveryService[])
   : { originCountries: Country[]; destinationCountries: Country[] } {
 
   if(deliveryServices.length < 2) {
