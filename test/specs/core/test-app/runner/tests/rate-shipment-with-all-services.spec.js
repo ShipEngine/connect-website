@@ -5,7 +5,7 @@ const { CarrierApp } = require("@shipengine/connect-sdk/lib/internal/carriers/ca
 const pojo = require("../../../../utils/pojo");
 const { expect } = require("chai");
 
-describe.only("The rate shipment with multiple services test suite", () => {
+describe("The rate shipment with multiple services test suite", () => {
 
   describe("when there are less than 2 delivery service definitions", () => {
 
