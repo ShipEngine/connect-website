@@ -3,6 +3,7 @@ import { CreateShipmentDomesticConfigOptions } from "./config/create-shipment-do
 import { CreateShipmentMultiPackageConfigOptions } from './config/create-shipment-multipackage';
 import { CreateShipmentWithInsuranceConfigOptions } from './config/create-shipment-insurance';
 import { RateShipmentConfigOptions } from './config/rate-shipment';
+import { RateShipmentWithAllServicesConfigOptions } from './config/rate-shipment-with-all-services';
 
 export interface TestsConfig {
   // cancelPickups?: (TestOptions & TestOptions) | [TestOptions];
@@ -17,6 +18,7 @@ export interface TestsConfig {
   createShipment_multi_package?: CreateShipmentMultiPackageConfigOptions | [CreateShipmentMultiPackageConfigOptions];
   createShipment_with_insurance?: CreateShipmentWithInsuranceConfigOptions | [CreateShipmentWithInsuranceConfigOptions];
   rateShipment?: RateShipmentConfigOptions | [RateShipmentConfigOptions];
+  rateShipment_with_all_services?: RateShipmentWithAllServicesConfigOptions | [RateShipmentWithAllServicesConfigOptions];
 
   // createShipment_multi_package?: TestOptions | [TestOptions];
   // rateShipmentWithOneService?: RateShipmentConfigOptions | [RateShipmentConfigOptions];
