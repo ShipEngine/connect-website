@@ -3,12 +3,11 @@
   "version": "1.0.0",
   "description": "The FreightCo carrier app",
   "scripts": {
-    "start": "shipengine start",
-    "test": "shipengine test"
+    "start": "connect start",
+    "test": "connect test"
   },
   "devDependencies": {
-    "@shipengine/integration-platform-sdk": "0.0.40",
-    "dotenv-flow": "^3.1.0"
+    "@shipengine/connect-sdk": "1.0.0"
   },
   "dependencies": {
     "axios": "^0.19.2"

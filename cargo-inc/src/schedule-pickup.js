@@ -32,12 +32,12 @@ async function schedulePickup(transaction, pickup) {
     // STEP 3: Call the carrier's API
     const response = await apiClient.request({ data });
 
-    // STEP 4: Create the output data that ShipEngine expects
+    // STEP 4: Create the output data that ShipEngine Connect expects
     return formatConfirmation(response.data);
 }
 
 /**
- * Formats a pickup confirmation in the way ShipEngine expects
+ * Formats a pickup confirmation in the way ShipEngine Connect expects
  */
 function formatConfirmation(response) {
     let pickupDateTime = new Date(response.date_time);

@@ -32,12 +32,12 @@ async function rateShipment(transaction, shipment) {
   // STEP 3: Call the carrier's API
   const response = await apiClient.request({ data });
 
-  // STEP 4: Create the output data that ShipEngine expects
+  // STEP 4: Create the output data that ShipEngine Connect expects
   return response.data.map(formatRate);
 }
 
 /**
- * Formats a rate quote in the way ShipEngine expects
+ * Formats a rate quote in the way ShipEngine Connect expects
  */
 function formatRate(rate) {
   return {

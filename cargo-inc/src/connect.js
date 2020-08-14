@@ -3,7 +3,7 @@
 const apiClient = require("./mock-api/client");
 
 /**
- * Connects a user's Cargo Incorporated account to ShipEngine
+ * Connects a user's Cargo Incorporated account to ShipEngine Connect
  */
 async function connect(transaction, connectionFormData) {
   // STEP 1: Validation

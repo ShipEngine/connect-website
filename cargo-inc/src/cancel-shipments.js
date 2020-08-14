@@ -22,12 +22,12 @@ async function cancelShipments(transaction, shipmentCancellations) {
   // STEP 3: Call the carrier's API
   const response = await apiClient.request({ data });
 
-  // STEP 4: Create the output data that ShipEngine expects
+  // STEP 4: Create the output data that ShipEngine Connect expects
   return await formatCancellationResponse(response.data);
 }
 
 /**
- * Formats a shipment in the way ShipEngine expects
+ * Formats a shipment in the way ShipEngine Connect expects
  */
 async function formatCancellationResponse(response) {
   return response.canceledShipments.map((cancellation) => {

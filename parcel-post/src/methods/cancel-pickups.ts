@@ -1,4 +1,4 @@
-import { CancellationStatus, NoteType, PickupCancellation, PickupCancellationOutcome, Transaction } from "@shipengine/integration-platform-sdk";
+import { CancellationStatus, NoteType, PickupCancellation, PickupCancellationOutcome, Transaction } from "@shipengine/connect-sdk";
 import { sameDayPickup } from "../definitions/pickup-services";
 import { apiClient } from "../mock-api/client";
 import { PickUpCancellationRequest, PickUpCancellationResponse } from "../mock-api/pick-up-cancellation";
@@ -59,4 +59,3 @@ export default async function cancelPickups(
     }
   });
 }
-  

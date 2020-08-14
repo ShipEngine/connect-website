@@ -3,7 +3,7 @@
 
 import { apiClient } from "../mock-api/client";
 import { VoidLabelsResponse, VoidLabelsRequest } from "../mock-api/void-labels";
-import { ShipmentCancellation, ShipmentCancellationOutcome, Transaction } from "@shipengine/integration-platform-sdk";
+import { ShipmentCancellation, ShipmentCancellationOutcome, Transaction } from "@shipengine/connect-sdk";
 import { Session } from "./session";
 
 export default async function cancelShipments(
