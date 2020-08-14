@@ -85,7 +85,7 @@ param:
 
      - name: manifestType
        type: string
-       required: required
+       required: false
        description: |
          Indicates the type of manifesting supported by the carrier. Valid values include the following:
          * `Physical` - Use this value if the carrier supports physical manifests, even if some of the delivery services only support digital manifests.

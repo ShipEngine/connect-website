@@ -16,43 +16,129 @@ fields:
     description: The marketplace's unique ID for the order item. This string must be between `0` and `100` characters and
       must not contain newline characters.
 
+  - name: sku
+    type: string
+    required: false
+    description: The [Stock Keeping Unit](https://en.wikipedia.org/wiki/Stock_keeping_unit). This string must be between `0` and `100` characters and must not contain newline characters.
+
+  - name: identifiers
+    type: object
+    required: true
+    description: Your own identifiers for this sales order item.
+
+  - name: name
+    type: string
+    required: true
+    description: The user-friendly name of the item. This is often the same as the product name. This string must be between `1`' and `100` characters
+      and must not contain newline characters.
+
   - name: description
     type: string
     required: false
     description: The carrier's description of the charge, not specific to the user. This string must be between `0` and `1000` characters and
       must not contain newline characters.
 
-  - name: code
-    type: string
-    required: false
-    description: The carrier's code for this charge. This string must be between `0` and `100` characters and
-      must not contain newline characters.
-
-  - name: type
-    type: |
-      [ChargeType](./common-types.md#charge-types)
-    required: true
-    description: The type of the charge.
-
-  - name: amount
+  - name: product
     type: object
     required: true
-    description: The amount of the charge (negative amount for a credit).
+    description: The product associated with this item.
 
-  - name: amount.value
-    type: number
-    required: true
-    description: The value of the amount.
-
-  - name: amount.currency
+  - name: product.id
     type: string
     required: true
-    description: The currency that the value represents.
+    description: The marketplace's unique ID for the product. This string must be between `1` and `100` characters and
+      must not contain newline characters.
 
+  - name: product.sku
+    type: string
+    required: false
+    description: The [Stock Keeping Unit](https://en.wikipedia.org/wiki/Stock_keeping_unit). This string must be between `0` and `100` characters and must not contain newline characters.
+
+  - name: product.identifiers
+    type: object
+    required: true
+    description: Your own identifiers for this product.
+
+  - name: quantity
+    type: object
+    required: true
+    description: The quantity of this item in the sales order.
+
+  - name: quantity.value
+    type: number
+    required: true
+    description: The quantity of items in this sales order item. The minimum value for this property is `1`.
+
+  - name: unitPrice
+    type: object
+    required: true
+    description: The sale price of each item. This should NOT include additional charges or adjustments,
+       such as taxes or discounts. Use `charges` for those.
+
+  - name: unitPrice.value
+    type: number
+    required: true
+    description: The value for this amount.
+
+  - name: unitPrice.currency
+    type: string
+    required: true
+    description: The currency for this amount.
+
+  - name: unitWeight
+    type: object
+    required: false
+    description: The weight of each item.
+
+  - name: unitWeight.value
+    type: number
+    required: true
+    description: The value for the weight. The minimum value for this property is `1`.
+
+  - name: unitWeight.unit
+    type: string
+    require: true
+    description: |
+
+      The unit of measure for this weight. Valid values include the following:
+        * `g` for grams
+        * `oz` for ounces
+        * `kg` for kilograms
+        * `lb` for pounds
+
+  - name: itemURL
+    type: |
+      [URL](https://nodejs.org/api/url.html) or string
+    required: false
+    description: The URL of a webpage where the customer can view the order item. Must be a valid HTTP or HTTPS url.
+
+  - name: thumbnailURL
+    type: |
+      [URL](https://nodejs.org/api/url.html) or string
+    required: false
+    description: The URL of a webpage where the customer can view an image of the order item.
+
+  - name: notes
+    type: object[]
+    description: An array of objects containing additional information about this cancellation.
+
+  - name: notes[].type
+    type: |
+      [NotesType](./common-types.md#notes-types)
+    description: |
+       The type for this note.
+
+  - name: notes[].text
+    type: string
+    description: The note text itself. This string must be between `0` and `5000` characters.
+
+  - name: metadata
+    type: object
+    required: false
+    description: Custom data about this order item that was persisted by ShipEngine Connect.
+      Must be JSON serializable.
 
 ---
-Examples
--------------------------------------------------
 
 
 

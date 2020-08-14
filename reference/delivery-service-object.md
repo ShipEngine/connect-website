@@ -30,7 +30,7 @@ fields:
 
   - name: code
     type: string
-    required: false
+    required: true
     description: Optional code used to map to what the carrier uses to identify the delivery service.
 
   - name: name

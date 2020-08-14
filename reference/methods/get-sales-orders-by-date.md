@@ -167,12 +167,6 @@ return:
       required: false
       description: The buyer's address.
 
-    - name: shippingPreferences
-      type: |
-        [ShippingPreferences](./../shipping-preferences.md)[]
-      required: false
-      description: An array of preferences on how this order should be fulfilled.
-
     - name: adjustments
       type: |
         [Charge](./../charge.md)[]
@@ -293,135 +287,22 @@ return:
       required: true
       description: The currency for the cost.
 
-    - name: items
+    - name: requestedFulfillments
       type: object[]
+      required: true
+      description: An array of fulfillment requests.
+
+    - name: requestedFulfillments[].shippingPreferences
+      type: |
+        [ShippingPreferences](./../shipping-preferences.md)
+      required: false
+      description: Preferences on how this order should be fulfilled.
+
+    - name: requestedFulfillments[].items
+      type: |
+        [SalesOrderItem](./../sales-order-item.md)[]
       required: true
       description: The items in this sales order.
-
-    - name: items[].id
-      type: string
-      required: true
-      description: The marketplace's unique ID for the order item. This string must be between `1` and `100` characters and must not contain newline characters.
-
-    - name: items[].sku
-      type: string
-      required: false
-      description: The [Stock Keeping Unit](https://en.wikipedia.org/wiki/Stock_keeping_unit). This string must be between `0` and `100` characters and must not contain newline characters.
-
-    - name: items[].identifiers
-      type: object
-      required: false
-      description: Your own identifiers for this item.
-
-    - name: items[].name
-      type: string
-      required: true
-      description: The user-friendly name of the item. This is often the same as the product name. This string must be between `1` and `100` characters and must not contain newline characters.
-
-    - name: items[].description
-      type: string
-      required: false
-      description: A short description of the item. This is often the same as the product summary. This string must be between `0` and `100` characters and must not contain newline characters.
-
-    - name: items[].product
-      type: object
-      required: true
-      description: The product associated with this item.
-
-    - name: items[].product.id
-      type: string
-      required: true
-      description: The product catalog's unique ID for the order. This string must be between `1` and `100` characters and must not contain newline characters.
-
-    - name: items[].product.sku
-      type: string
-      required: false
-      description: The [Stock Keeping Unit](https://en.wikipedia.org/wiki/Stock_keeping_unit). This string must be between `0` and `100` characters and must not contain newline characters.
-
-    - name: items[].product.identifers
-      type: object
-      required: false
-      description: Your own identifers for this product.
-
-    - name: items[].quantity
-      type: object
-      required: true
-      description: The quantity of this item in the sales order.
-
-    - name: items[].quantity.value
-      type: number
-      required: true
-      description: The value of the quantity. (e.g. 3). The minimum value is `1`.
-
-    - name: items[].unitPrice
-      type: object
-      required: true
-      description: The sale price of each item. This should NOT include additional charges or adjustments, such as taxes or discounts. Use `charges` for those.
-
-    - name: items[].unitPrice.value
-      type: number
-      required: true
-      description: The amount of this value.
-
-    - name: items[].unitPrice.currency
-      type: string
-      required: true
-      description: |
-        The currency that the value represents.
-
-    - name: items[].unitWeight
-      type: object
-      required: false
-      description: The weight of each item.
-
-    - name: items[].unitWeight.value
-      type: number
-      description: The weight value for each item. This value may contain decimals.
-
-    - name: items[].unitWeight.unit
-      type: string
-      description: |
-        The unit of measure for this weight. Valid values include the following:
-        * `g` - grams
-        * `oz` - ounces
-        * `kg` - kilograms
-        * `lb` - pounds
-
-    - name: items[].itemURL
-      type: |
-       [URL](https://nodejs.org/api/url.html) or string
-      required: false
-      description: The URL of a webpage where the customer can view the order item. Must be a valid HTTP or HTTPS url.
-
-
-    - name: items.thumbnailURL
-      type: |
-       [URL](https://nodejs.org/api/url.html) or string
-      required: false
-      description: The URL of a webpage where the customer can view an image of the order item.
-
-    - name: items[].notes
-      type: object[]
-      required: false
-      description: An array of objects containing additional information about this sales item.
-
-    - name: items[].notes[].type
-      type: |
-        [NotesType](./../common-types.md#notes-types)
-      required: false
-      description: |
-        The type for this note.
-
-    - name: items[].notes[].text
-      type: string
-      required: false
-      description: The note text itself. This string must be between `0` and `5000` characters.
-
-    - name: items[].metadata
-      type: object
-      required: false
-      description: Custom data about this order item that was persisted by ShipEngine Connect.
-        Must be JSON serializable.
 
     - name: notes
       type: object[]

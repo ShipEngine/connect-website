@@ -188,5 +188,5 @@ async function downloadLabel(imageUrl) {
 
 <div class="previous-next-nav">
   <a class="button button-small button-secondary" href="./create-first-app.md">Previous: Creating Your First App</a>
-  <a class="button button-small button-secondary" href="./error-handling.md">Next: Error Handling</a>
+  <a class="button button-small button-secondary" href="./typescript.md">Next: Developing in TypeScript</a>
 </div>

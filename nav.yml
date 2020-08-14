@@ -13,6 +13,7 @@ Start Here:
     Using the CLI: cli.md
     Creating Your First App: create-first-app.md
     Implementing Your Methods: implementation.md
+    Developing in TypeScript: typescript.md
     # Transactions & Retries: transactions.md
     Error Handling: error-handling.md
     # Logging & Debugging: debugging.md

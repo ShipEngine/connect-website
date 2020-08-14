@@ -193,11 +193,11 @@ param:
 
   - name: shipments[].packages[].weight
     type: object
-    description: The weight of the package. This value must not contain decimals.
+    description: The weight of the package.
 
   - name: shipments[].packages[].weight.value
     type: number
-    description: The weight value for this package. This value must not contain decimals.
+    description: The weight value for this package. This value may contain decimals.
 
   - name: shipments[].packages[].weight.unit
     type: string
