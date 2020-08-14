@@ -259,11 +259,6 @@ class AppsNew extends Generator {
       );
     }
 
-    this.fs.copyTpl(
-      this.templatePath(".env.test"),
-      this.destinationPath(".env.test"),
-      this,
-    );
 
     this.fs.copyTpl(
       this.templatePath("shipengine.config.js"),
@@ -555,8 +550,6 @@ class AppsNew extends Generator {
     const devDependencies: string[] = [];
 
     devDependencies.push("@shipengine/connect-sdk");
-    devDependencies.push("dotenv-flow@3.1.0");
-    devDependencies.push("cross-env");
 
     if (this.ts) {
       devDependencies.push("@types/node@^13.13.5");
