@@ -24,7 +24,16 @@ rateShipment:
   fields:
     - name: rateShipment
       link: ./rate-shipment.md
-      description: Rates a shipment.
+      description: |
+
+        Rates a shipment for a single [`delivery service`](./../reference/delivery-service.md).
+
+    - name: rateShipment_with_all_services
+      link: ./rate-shipment-with-all-services.md
+      description: |
+
+         Rate a shipment for all [`delivery services`](./../reference/delivery-service.md). This test
+         will only be run if your app has more than one delivery service defined.
 ---
 
 {{ title }}

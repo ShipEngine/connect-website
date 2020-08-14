@@ -1,7 +1,7 @@
 ---
 hidden: true
-title: rateShipment
-description: rateShipment
+title: rateShipment_all_with_services
+description: rateShipment_all_services
 
 Params:
   fields:
@@ -40,13 +40,6 @@ Params:
         This property is useful in negative test cases.
         For example, you may wish to provide invalid weights and verify that the expected error message is returned.
       default: None
-
-    - name: deliveryServiceName
-      type: string
-      description: |
-
-         The name of the [delivery service](./../reference/delivery-service.md) you wish to use in this request.
-      default: The name of the first domestic delivery service defined for your app.
 
     - name: shipFrom
       type: |
@@ -124,29 +117,19 @@ Params:
       default: |
 
         The following date at `noon` in the local time zone.
-
-
-    - name: packagingName
-      type: string
-      description: |
-
-        The name of the [packaging](./../reference/packaging.md) to use for this shipment.
-      default: |
-
-        The name of the first packaging defined for the specified delivery service.
 ---
 
 {% from "nunjucks/imports/reference.njk" import testParamDetails %}
 
-## `rateShipment`
-The following parameters are available for use in the `rateShipment` test. You may specify one
+## `rateShipment_with_all_services`
+The following parameters are available for use in the `rateShipment_with_all_services` test. You may specify one
 or more of these parameters in your `connect.config.js` file or allow the test to use the default values.
 
 {{testParamDetails(Params.fields)}}
 
 ## Example
 
-This is an example of using the `connect-config.js` file to customize the `rateShipment` test.
+This is an example of using the `connect-config.js` file to customize the `rateShipment_with_all_services` test.
 
 This example provides values for all parameters and uses the global `connectArgs` parameter for authentication.
 
@@ -158,8 +141,7 @@ module.exports = {
     agree_to_eula: true,
   },
   tests: {
-    rateShipment: [
-      deliveryServiceName: `Next Day Air`,
+    rateShipment_with_all_services: [
       shipFrom: {
 	    name: 'John Doe',
 	    phoneNumber: '111-111-1111',
@@ -191,7 +173,6 @@ module.exports = {
         unit: 'lb',
       },
       shipDateTime: '2020-04-15T12:00:00-05:00',
-      packagingName: 'Package'
     }
   ]
 };
