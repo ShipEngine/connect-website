@@ -93,7 +93,6 @@ Likewise, if you already have a valid session you wish to use, you can skip runn
 
 ![Using hard-coded values in Postman](./postman-transaction.png)
 
-
 Automated Testing
 -----------------------------
 [The `connect test` command](./../cli.md#test-your-app) validates your application against our test suite. These tests are integration tests that represent real world, end-to-end scenarios.

@@ -25,12 +25,12 @@ Shipengine Connect applications are NPM packages that export an object matching 
 Your app will run in our hosted Node.js runtime environment. We take care of hosting, scaling, and providing high-availability access to your application, so you can just focus on the core functionality.
 
 
-Integration Platform SDK
+ShipEngine Connect SDK
 ------------------------------------------
 The [ShipEngine Connect SDK](https://www.npmjs.com/package/@shipengine/connect-sdk) has everything you need to quickly and efficiently build an integration application. As a [TypeScript](https://www.typescriptlang.org/)-based project, it contains all of the type definitions for every resource that will be required for your project.
 
 
-Integration Platform CLI
+ShipEngine Connect CLI
 ------------------------------------------
 The [ShipEngine Connect CLI](./cli.md) provides a variety of tools to aid you in your application development.
 
