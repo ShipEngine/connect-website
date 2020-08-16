@@ -1,0 +1,425 @@
+@use "variables" as *;
+
+$sticky-offset: 4rem;
+$approximate-footer-height: 47.8rem;
+
+#page-background {
+  background-color: $lighter-purple;
+  background: linear-gradient(to bottom, $lighter-purple, $white 1000px);
+  min-height: calc(100vh - #{$site-header-small-height + $approximate-footer-height});
+  padding-bottom: $large-vertical-space * 3;
+}
+
+#menu-button {
+  display: none;
+}
+
+#docs-page {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr $narrow-content-width 1fr;
+  grid-column-gap: $x-large-horizontal-space;
+  padding: $large-vertical-space $medium-horizontal-space 0 $medium-horizontal-space;
+
+  > nav {
+    grid-column: 1;
+    justify-self: right;
+  }
+
+  > main {
+    // This ensures that the content column (narrow-content-width) is centered on-screen,
+    // and that the sidebar column takes up all remaining space on the right.
+    grid-column: 2 / span 2;
+
+    > article {
+      display: grid;
+      grid-template-columns: $narrow-content-width auto;
+      grid-column-gap: $x-large-horizontal-space;
+
+      > * {
+        grid-column: 1;
+        overflow: hidden;
+      }
+
+      > .section {
+        grid-column: 1 / span 2;
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: flex-start;
+        overflow: unset;
+
+        > .section-group {
+          position: sticky;
+          top: $site-header-small-height + $sticky-offset;
+          margin-top: 5rem;
+          overflow: hidden;
+
+          > :first-child {
+            margin-top: 0;
+          }
+
+          > :last-child,
+          > .example:last-child > :last-child {
+            margin-bottom: 0;
+          }
+
+          &.left-group {
+            width: $narrow-content-width;
+            min-width: $narrow-content-width;
+            margin-right: $x-large-horizontal-space;
+          }
+
+          &.right-group {
+            max-width: $side-bar-max-width;
+            margin-right: $medium-horizontal-space;
+
+            // This is hacky, but it's necessary because of the `overflow: unset` on the parent .section.
+            // The `overflow: unset` is needed in order for the `position: sticky` behavior to work.
+            pre {
+            //   width: calc(49vw - #{($narrow-content-width / 2) + $x-large-horizontal-space + $medium-horizontal-space});
+              max-width: $side-bar-max-width;
+            }
+          }
+        }
+
+        &:first-child > .section-group {
+          margin-top: 0;
+        }
+      }
+    }
+  }
+}
+
+/**
+  * Below this screen width, we stop centering the three-column layout and start using the full screen width.
+  */
+$three-columns-med:
+  ($medium-horizontal-space * 2) +
+  ($side-bar-max-width * 2) +
+  ($x-large-horizontal-space * 2) +
+  $narrow-content-width;
+
+@media (max-width: ($three-columns-med - 1px)) {
+  #docs-page {
+    grid-template-columns: $side-bar-med-width auto;
+
+    > main {
+      grid-column: 2;
+
+      > article {
+        > .section {
+          > .section-group {
+            &.right-group {
+              pre {
+                max-width: calc(99vw - #{($medium-horizontal-space * 2) + $side-bar-med-width + ($x-large-horizontal-space * 2) + $narrow-content-width});
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+  * Below this screen width, we switch to a slightly narrower three-column layout by decreasing
+  * the gap between the columns.
+  */
+$three-columns-min:
+  ($medium-horizontal-space * 2) +
+  $side-bar-med-width +
+  ($x-large-horizontal-space * 2) +
+  $narrow-content-width +
+  $side-bar-max-width;
+
+@media (max-width: ($three-columns-min - 1px)) {
+  #docs-page {
+    grid-column-gap: $large-horizontal-space;
+
+    > main {
+      > article {
+        grid-column-gap: $large-horizontal-space;
+
+        > .section {
+          > .section-group {
+            &.left-group {
+              margin-right: $large-horizontal-space;
+            }
+
+            &.right-group {
+              pre {
+                max-width: calc(99vw - #{($medium-horizontal-space * 2) + $side-bar-med-width + ($large-horizontal-space * 2) + $narrow-content-width});
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+  * Below this screen width, we switch to the narrowest three-column layout by
+  * reducing the horizontal margin and nav bar width.
+  */
+$three-columns-micro:
+  ($medium-horizontal-space * 2) +
+  $side-bar-med-width +
+  ($large-horizontal-space * 2) +
+  $narrow-content-width +
+  $side-bar-max-width;
+
+@media (max-width: ($three-columns-micro - 1px)) {
+  #docs-page {
+    grid-template-columns: $side-bar-min-width auto;
+    padding-left: $small-horizontal-space;
+    padding-right: $small-horizontal-space;
+
+    > nav {
+      .nav-menu {
+        width: $side-bar-min-width;
+      }
+    }
+
+    > main {
+      > article {
+        > .section {
+          > .section-group {
+            &.right-group {
+              pre {
+                max-width: calc(98vw - #{($small-horizontal-space * 2) + $side-bar-min-width + ($large-horizontal-space * 2) + $narrow-content-width});
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+  * Below this screen width, we switch to a "2.5 column" layout, where the only
+  * content in the third column is the table-of-contents.  All other third-column
+  * content moves to the center column.
+  */
+$two-and-a-half-columns-max:
+  ($small-horizontal-space * 2) +
+  $side-bar-min-width +
+  ($large-horizontal-space * 2) +
+  $narrow-content-width +
+  $side-bar-med-width;
+
+$largeish-horizontal-space: $large-horizontal-space * .8;
+
+@media (max-width: ($two-and-a-half-columns-max - 1px)) {
+  #docs-page {
+    grid-column-gap: $largeish-horizontal-space;
+
+    > main {
+      > article {
+        > .section {
+          grid-column: 1;
+          flex-direction: column;
+
+          > .section-group {
+            position: static;
+
+            &.left-group {
+              margin-right: 0;
+            }
+
+            &.right-group {
+              width: $narrow-content-width;
+              max-width: $narrow-content-width;
+
+              .toc {
+                position: fixed;
+                top: $site-header-small-height + $sticky-offset + 2rem;
+                left: calc(100vw - #{$side-bar-min-width + $medium-horizontal-space});
+                overflow: hidden;
+
+                .toc-link {
+                  white-space: normal;
+                }
+              }
+
+              pre {
+                width: 100%;
+                max-width: $narrow-content-width;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+  * Below this screen width, we make the "2.5 column" layout more narrow
+  * by moving the TOC all the way to the right
+  */
+$two-and-a-half-columns-min:
+  ($small-horizontal-space * 2) +
+  ($side-bar-min-width * 2) +
+  ($largeish-horizontal-space * 2) +
+  $narrow-content-width;
+
+@media (max-width: ($two-and-a-half-columns-min - 1px)) {
+  #docs-page {
+    > main {
+      > article {
+        > .section {
+          > .section-group {
+            &.right-group {
+              .toc {
+                left: calc(100vw - #{$toc-min-width + $large-horizontal-space});
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+  * Below this screen width, we switch to a true 2-column layout.
+  */
+$two-columns-max:
+  ($medium-horizontal-space * 2) +
+  $side-bar-min-width +
+  ($largeish-horizontal-space * 2) +
+  $narrow-content-width +
+  $toc-min-width;
+
+@media (max-width: ($two-columns-max - 1px)) {
+  #docs-page {
+    padding-left: $medium-horizontal-space;
+    padding-right: $medium-horizontal-space;
+
+    > main {
+      > article {
+        display: block;
+        width: $narrow-content-width;
+
+        > .section {
+          > .section-group {
+            &.right-group {
+              .toc {
+                display: none;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+  * Below this screen width, we make the 2-column layout more narrow by reducing horizontal margins.
+  */
+$two-columns-min:
+  ($medium-horizontal-space * 2) +
+  $side-bar-min-width +
+  $largeish-horizontal-space +
+  $narrow-content-width;
+
+@media (max-width: ($two-columns-min - 1px)) {
+  #docs-page {
+    padding-left: $small-horizontal-space;
+    padding-right: $small-horizontal-space;
+  }
+}
+
+/**
+  * Below this screen width, we switch to a single-column layout
+  */
+$one-column-max:
+  ($small-horizontal-space * 2) +
+  $side-bar-min-width +
+  $large-horizontal-space +
+  $narrow-content-width;
+
+@media (max-width: ($one-column-max - 1px)) {
+  #site-logo {
+    margin-left: 6.5rem;
+  }
+
+  #menu-button {
+    display: inline-block;
+  }
+
+  #docs-page {
+    display: block;
+    width: 100%;
+    margin-top: $site-header-small-height;
+
+    > nav {
+      position: fixed;
+      top: 1.8rem;
+      left: 3%;
+      width: auto;
+      padding: 0;
+      margin: 0;
+      z-index: $docs-nav-menu-button-z-index;
+
+      > .nav-menu {
+        position: fixed;
+        top: $site-header-small-height;
+        left: -($side-bar-med-width);
+        width: $side-bar-med-width;
+        height: calc(100vh - #{$site-header-small-height});
+        padding: $medium-vertical-space $small-horizontal-space;
+        background-color: $white;
+        overflow-y: auto;
+        transition: left .3s ease;
+        z-index: $docs-nav-menu-z-index;
+
+        &.visible {
+          left: 0;
+        }
+      }
+    }
+
+    > main {
+      > article {
+        width: 100%;
+
+        > .section {
+          > .section-group {
+            &.left-group,
+            &.right-group {
+              width: 100%;
+              max-width: 100%;
+              min-width: unset;
+
+              pre {
+                max-width: 100%;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+  * Adjust the docs-nav for small phone screens
+  */
+@media (max-width: $phone-max-width) {
+  #docs-page {
+    margin-top: $site-header-large-height;
+
+    > nav {
+      > .nav-menu {
+        top: $site-header-large-height;
+        height: calc(100vh - #{$site-header-large-height});
+        width: 100vw;
+        left: -100vw;
+      }
+    }
+  }
+}

@@ -1,0 +1,167 @@
+@use "variables" as *;
+@use "mixins" as *;
+
+.code-wrapper {
+  position: relative;
+
+  .code-toolbar {
+    position: absolute;
+    top: $small-vertical-space;
+    right: $small-horizontal-space;
+
+    button {
+      margin-right: $tiny-horizontal-space;
+      background-color: $lighter-purple;
+      outline: 0;
+      opacity: 0;
+
+      &:hover {
+        background-color: $white;
+      }
+    }
+
+    .code-syntax-list {
+      display: inline-block;
+      width: auto;
+      background-color: $lighter-purple;
+
+      // These properties change when the code sample is hovered
+      border-color: $lighter-purple;
+      background-image: unset;
+      padding-right: 15px;
+      font-size: $tiny-font-size;
+      white-space: nowrap;
+
+      &:hover {
+        background-color: $white;
+      }
+
+      .option {
+        padding-left: 30px;
+        background-size: 15px 15px;
+        background-position: 5px 7px;
+        background-repeat: no-repeat;
+      }
+
+      > .select-label {
+        @include visually-hidden;
+      }
+
+      &::before {
+        content: "";
+        display: inline-block;
+        position: relative;
+        top: 3px;
+        height: 20px;
+        width: 20px;
+        background-size: 20px 20px;
+        background-repeat: no-repeat;
+      }
+
+      .option[data-value="http"],
+      &.http::before {
+        background-image: url("../public/img/logos/languages/http.svg?v=2");
+      }
+
+      .option[data-value="curl"],
+      &.curl::before {
+        background-image: url("../public/img/logos/languages/bash.svg?v=2");
+      }
+
+      .option[data-value="csharp"],
+      &.csharp::before {
+        background-image: url("../public/img/logos/languages/csharp.svg?v=2");
+      }
+
+      .option[data-value="java"],
+      &.java::before {
+        background-image: url("../public/img/logos/languages/java.svg?v=2");
+      }
+
+      .option[data-value="javascript-fetch"],
+      &.javascript-fetch::before {
+        background-image: url("../public/img/logos/languages/javascript.svg?v=2");
+      }
+
+      .option[data-value="javascript"],
+      &.javascript::before {
+        background-image: url("../public/img/logos/languages/javascript.svg?v=2");
+      }
+
+      .option[data-value="json"],
+      &.json::before {
+        background-image: url("../public/img/logos/languages/json.svg?v=2");
+      }
+
+      .option[data-value="node-request"],
+      &.node-request::before {
+        background-image: url("../public/img/logos/languages/nodejs.svg?v=2");
+      }
+
+      .option[data-value="native"],
+      &.native::before {
+        background-image: url("../public/img/logos/languages/go.svg?v=2");
+      }
+
+      .option[data-value="php"],
+      &.php::before {
+        background-image: url("../public/img/logos/languages/php.svg?v=2");
+      }
+
+      .option[data-value="objectivec"],
+      &.objectivec::before {
+        background-image: url("../public/img/logos/languages/objectivec.svg?v=2");
+      }
+
+      .option[data-value="powershell"],
+      &.powershell::before {
+        background-image: url("../public/img/logos/languages/powershell.svg?v=2");
+      }
+
+      .option[data-value="python"],
+      &.python::before {
+        background-image: url("../public/img/logos/languages/python.svg?v=2");
+      }
+
+      .option[data-value="ruby"],
+      &.ruby::before {
+        background-image: url("../public/img/logos/languages/ruby.svg?v=2");
+      }
+
+      .option[data-value="swift"],
+      &.swift::before {
+        background-image: url("../public/img/logos/languages/swift.svg?v=2");
+      }
+
+      .option[data-value="typescript"],
+      &.typescript::before {
+        background-image: url("../public/img/logos/languages/typescript.svg?v=2");
+      }
+
+      .option[data-value="yaml"],
+      &.yaml::before {
+        background-image: url("../public/img/logos/languages/yaml.svg?v=2");
+      }
+    }
+  }
+
+  &:hover {
+    .code-toolbar {
+      button {
+        opacity: 1;
+      }
+
+      .code-syntax-list {
+        border-color: transparentize($darker-blue, .85);
+        background-image: url("../public/img/icons/select-arrows.svg");
+        padding-right: 40px;
+
+        &::before {
+          height: 15px;
+          width: 15px;
+          background-size: 15px 15px;
+        }
+      }
+    }
+  }
+}

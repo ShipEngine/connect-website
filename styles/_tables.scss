@@ -1,0 +1,42 @@
+@use "variables" as *;
+
+$table-border-color: transparentize($medium-purple, .75);
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: $medium-vertical-space;
+}
+
+thead {
+  border-bottom: 2px solid $table-border-color;
+}
+
+tr {
+  border-bottom: 1px solid $table-border-color;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+td, th {
+  font-size: $small-font-size;
+  padding: $tiny-vertical-space $tiny-horizontal-space;
+  border-left: 1px solid $table-border-color;
+
+  &:first-child {
+    border-left: none;
+  }
+}
+
+th {
+  font-weight: 400;
+  text-align: left;
+  color: $medium-purple;
+  white-space: nowrap;
+}
+
+td {
+  font-weight: 300;
+}

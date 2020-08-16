@@ -1,0 +1,129 @@
+@use "variables" as *;
+@use "mixins" as *;
+
+pre, code, samp, kbd {
+  font-family: $code-font;
+  font-size: $code-font-size;
+}
+
+code, kbd {
+  display: inline-block;
+  padding: ($tiny-vertical-space / 2) ($tiny-horizontal-space / 2);
+}
+
+pre {
+  @include styled-scrollbar;
+  $pre-vertical-padding: $small-vertical-space;
+
+  line-height: 1.5;
+  display: block;
+  position: relative;
+  width: 100%;
+  min-height: 6em;
+  max-height: 45em;
+  overflow: auto;
+  margin-bottom: $medium-vertical-space;
+  padding: $pre-vertical-padding $small-horizontal-space;
+  border-radius: $small-border-radius;
+
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+
+  &.line-numbers {
+    padding-left: 3.8em;
+    counter-reset: linenumber;
+  }
+
+  > code,
+  > samp {
+    position: relative;
+    padding: 0;
+
+    span.token {
+      cursor: text;
+    }
+
+    > .line-numbers-rows {
+      position: absolute;
+      pointer-events: none;
+      top: 0;
+      font-size: 100%;
+      left: -3.8em;
+      width: 3em; /* works for line-numbers below 1000 lines */
+      letter-spacing: -1px;
+
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+
+
+      > span {
+        pointer-events: none;
+        display: block;
+        counter-increment: linenumber;
+
+        &:before {
+          content: counter(linenumber);
+          display: block;
+          padding-right: 0.8em;
+          text-align: right;
+        }
+      }
+    }
+  }
+
+  // This attribute indicates that there are highlighted lines
+  &[data-line] {
+    // padding-top: .8em;
+
+    > .line-highlight {
+      position: absolute;
+      left: 0;
+      right: 0;
+      padding: 0;
+      margin-top: $pre-vertical-padding;
+      pointer-events: none;
+      line-height: inherit;
+      white-space: pre;
+
+
+      // Temporarily remove line number tips, going to leave the styling since we might want to re-use this in the future.
+
+      // &:before,
+      // &[data-end]:after {
+      //   content: attr(data-start);
+      //   position: absolute;
+      //   top: .4em;
+      //   left: .6em;
+      //   min-width: 1em;
+      //   padding: 0 .5em;
+      //   font: bold 65%/1.5 sans-serif;
+      //   text-align: center;
+      //   vertical-align: .3em;
+      //   border-radius: 999px;
+      //   text-shadow: none;
+      // }
+
+      // &[data-end]:after {
+      //   content: attr(data-end);
+      //   top: auto;
+      //   bottom: .4em;
+      // }
+
+    }
+  }
+
+  // If both line-numbers and line-highlight are in use,
+  // then don't show the line-highlight line numbers
+  &.line-numbers .line-highlight:before,
+  &.line-numbers .line-highlight:after {
+    content: none;
+  }
+}
