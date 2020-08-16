@@ -16,15 +16,12 @@ description: Learn about TypeScript best practices for building ShipEngine Conne
 ### Build Step Required
 You will need to build your TypeScript before running commands such as `connect test` or `connect publish` to ensure that the command is using your latest code. To make this easier, we add the following scripts to your `package.json` file:
 
-- **build**<br>
+- **build**<br/>
 The "build" script compiles your TypeScript code to JavaScript so ShipEngine Connect can run it. You can run this script via `npm run build`. You can also customize the build script however you need, such as passing options to the compiler or add pre-build or post-build steps.
 
-- **watch**<br>
+- **watch**<br/>
 The "watch" script runs the TypeScript compiler in ["watch mode"](https://www.typescriptlang.org/docs/handbook/configuring-watch.html), which automatically detects source code changes and does a fast,
 differential rebuild. Note that you'll need to leave your terminal window running, and you'll need to open a new terminal window to perform any other commands, such as [`connect test`](./cli.md#test-your-app).
 
 
-<div class="previous-next-nav">
-  <a class="button button-small button-secondary" href="./implementation.md">Previous: Implementing Your Methods</a>
-  <a class="button button-small button-secondary" href="./error-handling.md">Next: Error Handling</a>
-</div>
+<Pager prev="./implementation.md" prevTitle="Implementing Your Methods" next="./error-handling.md" nextTitle="Error Handling" />

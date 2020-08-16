@@ -9,8 +9,6 @@ Error Handling
 
 [ShipEngine Connect](./index.md) applications are designed to handle [Errors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) the same as any other [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) application. Any uncaught exception will terminate the currently executing method and generate an error log.
 
-<!-- Example -->
-<!-- -------- -->
 The methods you implement will often need to validate the input from ShipEngine Connect before transforming the data and calling your backend API. If this validation fails, you would provide an error as in the example below.
 
 ```javascript highlights="3"
@@ -62,7 +60,4 @@ error.retryAfter = 2000;
 throw error;
 ```
 
-<div class="previous-next-nav">
-  <a class="button button-small button-secondary" href="./typescript.md">Previous: Developing in TypeScript</a>
-  <a class="button button-small button-secondary" href="./sandbox.md">Next: Sandbox</a>
-</div>
+<Pager prev="./typescript.md" prevTitle="Developing in TypeScript" next="./sandbox.md" nextTitle="Sandbox" />

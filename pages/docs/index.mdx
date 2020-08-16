@@ -1,9 +1,8 @@
 ---
-hidden: true
 title: Getting Started With Your ShipEngine Connect Application
 description: Learn how to begin developing your ShipEngine Connect application
 tags:
-- ShipEngine Connect
+  - ShipEngine Connect
 ---
 
 Getting Started
@@ -51,18 +50,13 @@ ShipEngine Connect gives you the flexibility to develop your integration applica
 ### Build Step Required
 You will need to build your TypeScript before running commands such as `connect test` or `connect publish` to ensure that the command is using your latest code. To make this easier, we add the following scripts to your `package.json` file:
 
-- **build**<br>
+- **build**<br/>
 The "build" script compiles your TypeScript code to JavaScript so ShipEngine Connect can run it. You can run this script via `npm run build`. You can also customize the build script however you need, such as passing options to the compiler or add pre-build or post-build steps.
 
-- **watch**<br>
+- **watch**<br/>
 The "watch" script runs the TypeScript compiler in ["watch mode"](https://www.typescriptlang.org/docs/handbook/configuring-watch.html), which automatically detects source code changes and does a fast,
 differential rebuild. Note that you'll need to leave your terminal window running, and you'll need to open a new terminal window to perform any other commands, such as `connect test`.
 
 
 
-<div class="previous-next-nav">
-  <a class="button button-small button-secondary" href="index.md">Previous: Introduction</a>
-  <a class="button button-small button-secondary" href="structure.md">Next: App Structure</a>
-
-  <!-- <a class="button button-small button-secondary" href="./app-types/index.md">Next: App Types</a> -->
-</div>
+<Pager prev="index.md" prevTitle="Introduction" next="structure.md" nextTitle="App Structure" />
