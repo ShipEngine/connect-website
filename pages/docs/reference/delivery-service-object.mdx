@@ -10,7 +10,7 @@ description:
 
 documentation: |
   A Delivery Service is a type of delivery that is offered by a carrier, such as "international" or "standard overnight".
-  You defined the delivery service options available through your company in [Delivery Service Definition](./delivery-service.md)
+  You defined the delivery service options available through your company in [Delivery Service Definition](./delivery-service.mdx)
   files.
   Arguments passed to your methods and values returned from your methods will often contain a nested delivery service object that
   mimics the format of the definition file.
@@ -21,7 +21,7 @@ fields:
     type: UUID
     required: true
     description: UUID that uniquely identifies the delivery service. This is the UUID you used in the
-      [Delivery Service Definition](./delivery-service.md) file for this delivery service.
+      [Delivery Service Definition](./delivery-service.mdx) file for this delivery service.
 
   - name: identifiers
     type: object
@@ -69,7 +69,7 @@ fields:
   - name: fulfillmentService
     type: string
     required: true
-    description: A well-known [fulfillment service](./fulfillment-service.md) that's used to fulfill this delivery service, such as "fedex_ground".
+    description: A well-known [fulfillment service](./fulfillment-service.mdx) that's used to fulfill this delivery service, such as "fedex_ground".
 
   - name: serviceArea
     type: string
@@ -103,7 +103,7 @@ fields:
   - name: hasSandbox
     type: boolean
     required: true
-    description: Indicates whether the carrier provides a [sandbox](./../sandbox.md) API for this delivery service. A sandbox should mimic real functionality as much as possible but MUST NOT incur any actual costs or affect production data.
+    description: Indicates whether the carrier provides a [sandbox](./../sandbox.mdx) API for this delivery service. A sandbox should mimic real functionality as much as possible but MUST NOT incur any actual costs or affect production data.
 
   - name: supportsReturns
     type: boolean
@@ -131,23 +131,23 @@ fields:
 
   - name: originCountries
     type: |
-      [CountryCode](./country-codes.md)[]
+      [CountryCode](./country-codes.mdx)[]
     required: true
     description: |
       The list of [ISO 3166 country codes](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) for the
-      [countries](./country-codes.md) that can be shipped _from_ using this delivery service.
+      [countries](./country-codes.mdx) that can be shipped _from_ using this delivery service.
 
   - name: destinationCountries
     type: |
-      [CountryCode](./country-codes.md)[]
+      [CountryCode](./country-codes.mdx)[]
     required: true
     description: |
        The list of [ISO 3166 country codes](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) for the
-               [countries](./country-codes.md) that can be shipped _to_ using this delivery service.
+               [countries](./country-codes.mdx) that can be shipped _to_ using this delivery service.
 
   - name: countries
     type: |
-      [CountryCode](./country-codes.md)[]
+      [CountryCode](./country-codes.mdx)[]
     required: true
     description: |
        All countries that this service ships to or from. This list includes all unique origin and destination countries.
@@ -172,7 +172,7 @@ fields:
   - name: packaging.id
     type: "[UUID](https://www.npmjs.com/package/uuid)"
     required: true
-    description: A UUID that uniquely identifies the packaging. This is the UUID you used in the [Packaging Definition](./packaging.md)
+    description: A UUID that uniquely identifies the packaging. This is the UUID you used in the [Packaging Definition](./packaging.mdx)
       file for this packaging.
 
   - name: packaging.identifiers
@@ -205,13 +205,13 @@ fields:
   - name: deliveryConfirmations
     type: object[]
     required: true
-    description: The types of package [delivery confirmations](./delivery-confirmation.md) offered for this service.
+    description: The types of package [delivery confirmations](./delivery-confirmation.mdx) offered for this service.
 
   - name: deliveryConfirmations[].id
     type: "[UUID](https://www.npmjs.com/package/uuid)"
     required: true
     description: A UUID that uniquely identifies this delivery confirmation. This is the UUID you used in the
-      [Delivery Confirmation Definition](./delivery-confirmation.md) file for this delivery confirmation.
+      [Delivery Confirmation Definition](./delivery-confirmation.mdx) file for this delivery confirmation.
 
   - name: deliveryConfirmations[].identifiers
     type: object

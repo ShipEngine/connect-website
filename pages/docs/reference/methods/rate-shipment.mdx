@@ -22,35 +22,35 @@ param:
   fields:
     - name: deliveryService
       type: |
-        [DeliveryService](./../delivery-service-object.md)
-      description: An object that indicates the [delivery service](../delivery-service.md) to get rates for. If neither `deliveryService` nor `fulfillmentService` are specified, then rate quotes should be returned for all applicable services.
+        [DeliveryService](./../delivery-service-object.mdx)
+      description: An object that indicates the [delivery service](../delivery-service.mdx) to get rates for. If neither `deliveryService` nor `fulfillmentService` are specified, then rate quotes should be returned for all applicable services.
 
     - name: fulfillmentService
       type: |
-        [FulfillmentService](./../fulfillment-service.md)
+        [FulfillmentService](./../fulfillment-service.mdx)
       description: |
 
-        The [fulfillment service](./../fulfillment-service.md), that may be used to fulfill the shipment. If neither `deliveryService` nor `fulfillmentService` are specified, then rate quotes should be returned for all applicable services.
+        The [fulfillment service](./../fulfillment-service.mdx), that may be used to fulfill the shipment. If neither `deliveryService` nor `fulfillmentService` are specified, then rate quotes should be returned for all applicable services.
 
     - name: deliveryConfirmation
       type: |
-        [DeliveryConfirmation](./../delivery-confirmation.md)
-      description: The type of package [delivery confirmation](./../delivery-confirmation.md) to use for this rate request.
+        [DeliveryConfirmation](./../delivery-confirmation.mdx)
+      description: The type of package [delivery confirmation](./../delivery-confirmation.mdx) to use for this rate request.
 
     - name: shipDateTime
-      type: "[DateTime](./../date-time.md)"
+      type: "[DateTime](./../date-time.mdx)"
       description: The date/time that the shipment is expected to ship. This is not guaranteed to be in the future.
 
     - name: deliveryDateTime
-      type: "[DateTime](./../date-time.md)"
+      type: "[DateTime](./../date-time.mdx)"
       description: The latest date and time that the shipment can be delivered.
 
     - name: shipFrom
-      type: "[AddressWithContactInfo](./../address.md)"
+      type: "[AddressWithContactInfo](./../address.mdx)"
       description: The sender's contact info and address.
 
     - name: shipTo
-      type: "[AddressWithContactInfo](./../address.md)"
+      type: "[AddressWithContactInfo](./../address.mdx)"
       description: The recipient's contact info and address.
 
     - name: totalInsuredValue
@@ -87,7 +87,7 @@ param:
     - name: packages[].packaging.id
       type: "[UUID](https://www.npmjs.com/package/uuid)"
       required: false
-      description: A UUID that uniquely identifies the object. This is the UUID you used in the [Packaging Definition](./../packaging.md) file for this packaging.
+      description: A UUID that uniquely identifies the object. This is the UUID you used in the [Packaging Definition](./../packaging.mdx) file for this packaging.
 
     - name: packages[].packaging.identifiers
       type: object
@@ -192,13 +192,13 @@ return:
     - name: deliveryService
       type: object | string
       description: |
-        The [delivery service](./../delivery-service.md) this rate is for.
+        The [delivery service](./../delivery-service.mdx) this rate is for.
         This property accepts an object or a string representing the `code`. If an object is provided, it will have the following properties.
 
     - name: deliveryService.id
       type: "[UUID](https://www.npmjs.com/package/uuid)"
       required: true
-      description: A UUID that uniquely identifies the object. This is the UUID you used in the [Delivery Service Definition](./../delivery-service.md) file for this delivery service.
+      description: A UUID that uniquely identifies the object. This is the UUID you used in the [Delivery Service Definition](./../delivery-service.mdx) file for this delivery service.
 
     - name: deliveryService.identifiers
       type: object
@@ -213,7 +213,7 @@ return:
     - name: deliveryConfirmation
       type: object | string
       required: true
-      description: The [delivery confirmation](./../delivery-confirmation.md) included in this rate. This property accepts an object or a
+      description: The [delivery confirmation](./../delivery-confirmation.mdx) included in this rate. This property accepts an object or a
          string representing the `id`, `code`, or `type`. If an object is provided, it will have the following properties.
 
     - name: deliveryConfirmation.id
@@ -233,7 +233,7 @@ return:
 
     - name: shipDateTime
       type: |
-        [DateTime](./../date-time.md), </br>
+        [DateTime](./../date-time.mdx), </br>
         [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date), </br>
         or a string representing the date and time in [ISO](https://www.w3.org/TR/NOTE-datetime) format.
       required: false
@@ -241,7 +241,7 @@ return:
 
     - name: deliveryDateTime
       type: |
-        [DateTime](./../date-time.md), </br>
+        [DateTime](./../date-time.mdx), </br>
         [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date), </br>
         or a string representing the date and time in [ISO](https://www.w3.org/TR/NOTE-datetime) format.
       required: false
@@ -259,7 +259,7 @@ return:
 
     - name: charges
       type: |
-        [Charge](./../charge.md)[]
+        [Charge](./../charge.mdx)[]
       required: true
       description: The breakdown of charges for this shipment.  If the carrier does not provide a detailed breakdown, then just use a single charge of type "shipping".
 
@@ -270,7 +270,7 @@ return:
 
     - name: notes[].type
       type: |
-              [NotesType](./../common-types.md#notes-types)
+              [NotesType](./../common-types.mdx#notes-types)
       required: false
       description: |
         The type for this note.
@@ -294,7 +294,7 @@ return:
     - name: packages[].packaging.id
       type: "[UUID](https://www.npmjs.com/package/uuid)"
       required: true
-      description: A UUID that uniquely identifies the object. This is the UUID you used in the [Packaging Definition](./../packaging.md) file for this packaging type.
+      description: A UUID that uniquely identifies the object. This is the UUID you used in the [Packaging Definition](./../packaging.mdx) file for this packaging type.
 
     - name: packages[].packaging.identifiers
       type: object
@@ -376,5 +376,3 @@ export default async function rateShipment(
   return response.data.map(formatRate);
 }
 ```
-
-

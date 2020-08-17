@@ -11,7 +11,7 @@ import Pager from "../../components/pager";
 Getting Started
 ================
 
-In order to add your service to [ShipEngine Connect](./index.md) and make it available within our suite of e-commerce applications,
+In order to add your service to [ShipEngine Connect](./index.mdx) and make it available within our suite of e-commerce applications,
 you'll need to create a JavaScript application.
 
 Our documentation assumes that you understand:
@@ -22,7 +22,7 @@ Our documentation assumes that you understand:
 
 ShipEngine Connect Application
 ------------------------
-Shipengine Connect applications are NPM packages that export an object matching a certain structure. Please see [our application structure guide](./structure.md) as well as our [sample apps](https://github.com/ShipEngine/shipengine-integration-platform-sample-apps) for more information.
+Shipengine Connect applications are NPM packages that export an object matching a certain structure. Please see [our application structure guide](./structure.mdx) as well as our [sample apps](https://github.com/ShipEngine/shipengine-integration-platform-sample-apps) for more information.
 
 Your app will run in our hosted Node.js runtime environment. We take care of hosting, scaling, and providing high-availability access to your application, so you can just focus on the core functionality.
 
@@ -34,21 +34,21 @@ The [ShipEngine Connect SDK](https://www.npmjs.com/package/@shipengine/connect-s
 
 ShipEngine Connect CLI
 ------------------------------------------
-The [ShipEngine Connect CLI](./cli.md) provides a variety of tools to aid you in your application development.
+The [ShipEngine Connect CLI](./cli.mdx) provides a variety of tools to aid you in your application development.
 
 Use it to:
-* [Scaffold a new application](create-first-app.md#create-new-project)
-* [Test your application](testing/index.md)
-* [Publish your application](publish.md)
+* [Scaffold a new application](create-first-app.mdx#create-new-project)
+* [Test your application](testing/index.mdx)
+* [Publish your application](publish.mdx)
 
 
 Using Typescript
 ------------------------
-ShipEngine Connect gives you the flexibility to develop your integration application in either TypeScript or JavasScript as long as it matches the required [application structure](./structure.md).
+ShipEngine Connect gives you the flexibility to develop your integration application in either TypeScript or JavasScript as long as it matches the required [application structure](./structure.mdx).
 
-[Our SDK](sdk.md) is written in TypeScript and provides type definitions to help you build your app more easily. Many editors, such as [VSCode](https://code.visualstudio.com/) and [WebStorm](https://www.jetbrains.com/webstorm/), will automatically detect our type definitions and provide you with auto-completion and intellisense functionality — sometimes even if you're writing plain JavaScript.
+[Our SDK](sdk.mdx) is written in TypeScript and provides type definitions to help you build your app more easily. Many editors, such as [VSCode](https://code.visualstudio.com/) and [WebStorm](https://www.jetbrains.com/webstorm/), will automatically detect our type definitions and provide you with auto-completion and intellisense functionality — sometimes even if you're writing plain JavaScript.
 
-[Our CLI](http://localhost:8080/docs/integration-platform/cli/) allows you to choose between JavaScript and TypeScript when you run the `connect init` command to [create a new app](create-first-app.md). Selecting TypeScript will generate `.ts` files that import the necessary type definitions from our SDK. It will also create a [`tsconfig.json`](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html), which allows you to adjust TypeScript's settings.
+[Our CLI](http://localhost:8080/docs/integration-platform/cli/) allows you to choose between JavaScript and TypeScript when you run the `connect init` command to [create a new app](create-first-app.mdx). Selecting TypeScript will generate `.ts` files that import the necessary type definitions from our SDK. It will also create a [`tsconfig.json`](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html), which allows you to adjust TypeScript's settings.
 
 ### Build Step Required
 You will need to build your TypeScript before running commands such as `connect test` or `connect publish` to ensure that the command is using your latest code. To make this easier, we add the following scripts to your `package.json` file:
@@ -62,4 +62,4 @@ differential rebuild. Note that you'll need to leave your terminal window runnin
 
 
 
-<Pager prev="index.md" prevTitle="Introduction" next="structure.md" nextTitle="App Structure" />
+<Pager prev="../index.mdx" prevTitle="Introduction" next="./structure.mdx" nextTitle="App Structure" />

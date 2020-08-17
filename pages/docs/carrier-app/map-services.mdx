@@ -9,7 +9,7 @@ The way your app models certain services may not always match up perfectly with 
 
 Example
 -------
-A simple example would be the [Create Shipment Confirmation](../reference/methods/create-shipment.md#return-value) that is returned in the [Create Shipment Method](../reference/methods/create-shipment.md).
+A simple example would be the [Create Shipment Confirmation](../reference/methods/create-shipment.mdx#return-value) that is returned in the [Create Shipment Method](../reference/methods/create-shipment.mdx).
 
 You can return an optional `trackingNumber` in your response to the Integration Platform request. However, your carrier may use different property names or have the information nested inside of another object. Part of the method's logic will be consolidating the data into the expected return object.
 
@@ -18,4 +18,4 @@ Sample Applications
 -------------------
 You can also look at the [ShipEngine Connect Sample Apps repository](https://github.com/ShipEngine/shipengine-integration-platform-sample-apps) to see other examples of what this might look like.
 
-For example, the [rate-shipment.js](https://github.com/ShipEngine/shipengine-integration-platform-sample-apps/blob/master/freightco/rate-shipment.js) has a `formatRate()` function that takes a carrier's rate and transforms the data to fit the [rate shipment return value](../reference/methods/rate-shipment.md#return-value).
+For example, the [rate-shipment.js](https://github.com/ShipEngine/shipengine-integration-platform-sample-apps/blob/master/freightco/rate-shipment.js) has a `formatRate()` function that takes a carrier's rate and transforms the data to fit the [rate shipment return value](../reference/methods/rate-shipment.mdx#return-value).

@@ -21,29 +21,29 @@ param:
     - name: deliveryService
       type: |
 
-        [DeliveryService](./../delivery-service-object.md)
-      description: An object that identifies a [delivery service](./../delivery-service.md) that is offered by a carrier.
+        [DeliveryService](./../delivery-service-object.mdx)
+      description: An object that identifies a [delivery service](./../delivery-service.mdx) that is offered by a carrier.
 
     - name: deliveryConfirmation
       type: |
-       [DeliveryConfirmation](./../delivery-confirmation.md)
-      description: The requested [delivery confirmation](./../delivery-confirmation.md) for this shipment.
+       [DeliveryConfirmation](./../delivery-confirmation.mdx)
+      description: The requested [delivery confirmation](./../delivery-confirmation.mdx) for this shipment.
 
     - name: shipFrom
-      type: "[AddressWithContactInfo](./../address.md)"
+      type: "[AddressWithContactInfo](./../address.mdx)"
       description: The address _from_ which the shipment is being shipped.
 
     - name: shipTo
-      type: "[AddressWithContactInfo](./../address.md)"
+      type: "[AddressWithContactInfo](./../address.mdx)"
       description: The address _to_ which the shipment is being shipped.
 
     - name: returnTo
-      type: "[AddressWithContactInfo](./../address.md)"
+      type: "[AddressWithContactInfo](./../address.mdx)"
       description: The address to which to send the shipment in the case of a return. This may be different from the `shipFrom` address if the customer uses a centralized returns processing facility.
 
     - name: shipDateTime
       type: |
-        [DateTime](./../date-time.md)
+        [DateTime](./../date-time.mdx)
       description: The date/time that the package is expected to ship. This is not guaranteed to be in the future.
 
     - name: totalInsuredValue
@@ -79,12 +79,12 @@ param:
 
     - name: packages
       type: |
-        [NewPackage](./../new-package-object.md)[]
+        [NewPackage](./../new-package-object.mdx)[]
       description: The list of packages in this shipment.
 
     - name: package
       type: |
-        [NewPackage](./../new-package-object.md)
+        [NewPackage](./../new-package-object.mdx)
       description: Returns the first package in the `packages` array. Useful for carriers that only support single-piece shipments.
 
 
@@ -199,7 +199,7 @@ return:
 
     - name: deliveryDateTime
       type: |
-        [DateTime](./../date-time.md), </br>
+        [DateTime](./../date-time.mdx), </br>
         [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date), </br>
         or a string representing the date and time in [ISO](https://www.w3.org/TR/NOTE-datetime) format.
       required: false
@@ -207,7 +207,7 @@ return:
 
     - name: charges
       type: |
-        [Charge](./../charge.md)[]
+        [Charge](./../charge.mdx)[]
       required: true
       description: The breakdown of charges for this shipment.  If the carrier does not provide a detailed breakdown, then just use a single charge of type "shipping".
 
@@ -309,5 +309,3 @@ export default async function createShipment(
   return formatShipment(response.data);
 }
 ```
-
-

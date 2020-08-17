@@ -14,7 +14,7 @@ Params:
         a username and password or an auth token.
 
         The data included in this object depends on your service. You will need to
-        provide the information your methods need to make calls without calling your [`connect`](./../reference/methods/connect.md)
+        provide the information your methods need to make calls without calling your [`connect`](./../reference/methods/connect.mdx)
         method.
       default: |
 
@@ -25,8 +25,8 @@ Params:
       description: |
 
         An object containing properties with the same names as those your defined in
-        your [connection form](./../reference/forms.md#connection-form-examples). These will be used to call your
-        [`connect`](./../reference/methods/connect.md) to obtain a valid `session` object before calling other methods in the test.
+        your [connection form](./../reference/forms.mdx#connection-form-examples). These will be used to call your
+        [`connect`](./../reference/methods/connect.mdx) to obtain a valid `session` object before calling other methods in the test.
 
       default: |
 
@@ -45,7 +45,7 @@ Params:
       type: string
       description: |
 
-         The name of the [delivery service](./../reference/delivery-service.md) you wish to use in this request.
+         The name of the [delivery service](./../reference/delivery-service.mdx) you wish to use in this request.
       default: The name of the first domestic delivery service defined for your app.
 
     - name: label
@@ -70,7 +70,7 @@ Params:
          * `4x8` - Paper sized 4 inches by 8 inches
       default: |
 
-        The first `labelSize` found for the specified [delivery service](./../reference/delivery-service.md).
+        The first `labelSize` found for the specified [delivery service](./../reference/delivery-service.mdx).
 
     - name: label.format
       type: string
@@ -83,7 +83,7 @@ Params:
         * `png` - Portable Graphics Format (PNG)
       default: |
 
-        The first `labelFormat` found for the specified [delivery service](./../reference/delivery-service.md).
+        The first `labelFormat` found for the specified [delivery service](./../reference/delivery-service.mdx).
 
     - name: label.referenceFields
       type: string[]
@@ -108,7 +108,7 @@ Params:
     - name: shipFrom
       type: |
 
-        [AddressWithContactInfo](./../reference/address.md)
+        [AddressWithContactInfo](./../reference/address.mdx)
       description: |
 
         The address to ship _from_ in the test. Be sure to include the additional contact info properties.
@@ -125,7 +125,7 @@ Params:
     - name: shipTo
       type: |
 
-        [AddressWithContactInfo](./../reference/address.md)
+        [AddressWithContactInfo](./../reference/address.mdx)
       description: |
 
         The address to ship _to_ in the test. Be sure to include the additional contact info properties.
@@ -173,7 +173,7 @@ Params:
     - name: shipDateTime
       type: |
 
-       [DateTime](./../reference/date-time.md), </br>
+       [DateTime](./../reference/date-time.mdx), </br>
        [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date), </br>
        or a string representing the date and time in [ISO](https://www.w3.org/TR/NOTE-datetime) format.
 
@@ -187,7 +187,7 @@ Params:
       type: string
       description: |
 
-        The name of the [delivery confirmation](./../reference/delivery-confirmation.md) to use for this shipment.
+        The name of the [delivery confirmation](./../reference/delivery-confirmation.mdx) to use for this shipment.
       default: |
 
         The name of the first delivery confirmation defined for the specified delivery service, or `undefined` if no
@@ -258,7 +258,3 @@ module.exports = {
   ]
 };
 ```
-
-
-
-

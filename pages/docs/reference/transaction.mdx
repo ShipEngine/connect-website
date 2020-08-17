@@ -8,8 +8,8 @@ description:
   The transaction object provides important information about a method invocation. It also allows you to pass session state between methods, which is especially important for authentication credentials.
 
 documentation: |
-  Every method in a [ShipEngine Connect](./../index.md) application receives a transaction object as the first parameter. This object contains useful information about the method invocation, such as a unique `transactionID`,
-  whether the call is a test (aka [sandbox](./../sandbox.md)) call, and session state such as authentication credentials.
+  Every method in a [ShipEngine Connect](./../index.mdx) application receives a transaction object as the first parameter. This object contains useful information about the method invocation, such as a unique `transactionID`,
+  whether the call is a test (aka [sandbox](./../sandbox.mdx)) call, and session state such as authentication credentials.
 
 fields:
   - name: id
@@ -20,7 +20,7 @@ fields:
   - name: useSandbox
     type: boolean
     required: false
-    description: Indicates whether the operation should use the carrier's [sandbox](./../sandbox.md) or development API rather than the normal production API. If `useSandbox` is `true`, then the operation MUST NOT incur any actual costs or affect
+    description: Indicates whether the operation should use the carrier's [sandbox](./../sandbox.mdx) or development API rather than the normal production API. If `useSandbox` is `true`, then the operation MUST NOT incur any actual costs or affect
       production data.
 
   - name: session

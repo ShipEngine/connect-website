@@ -10,11 +10,11 @@ description:
 documentation: |
   A Pickup Service allows the sender to request that one ore more packages
    be picked up at a specified time and location. Each pickup service that is offered must be defined
-  in its own pickup service definition file. This file can reside anywhere within your application as long as its location is specified in the [Carrier Application Definition](./carrier.md) file.
+  in its own pickup service definition file. This file can reside anywhere within your application as long as its location is specified in the [Carrier Application Definition](./carrier.mdx) file.
    The definition may be specified in [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript), [TypeScript](https://www.typescriptlang.org/), [JSON](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON), or
     [YAML](https://en.wikipedia.org/wiki/YAML).
 
-  These pickup service definitions will be used by the [ShipEngine Connect](./../index.md) to display pickup service options within our suite of e-commerce applications when your carrier is used.
+  These pickup service definitions will be used by the [ShipEngine Connect](./../index.mdx) to display pickup service options within our suite of e-commerce applications when your carrier is used.
 
 param:
   fields:
@@ -46,7 +46,7 @@ param:
      - name: hasSandbox
        type: boolean
        required: false
-       description: Indicates whether the carrier provides a [sandbox](./../sandbox.md) API for this pickup service.
+       description: Indicates whether the carrier provides a [sandbox](./../sandbox.mdx) API for this pickup service.
          A sandbox should mimic real functionality as much as possible but MUST NOT incur any actual costs or affect production data.
 ---
 

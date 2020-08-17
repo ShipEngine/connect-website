@@ -34,12 +34,12 @@ param:
 
   - name: pickupService
     type: object
-    description: The [pickup service](./../pickup-service.md) to use for this pickup request.
+    description: The [pickup service](./../pickup-service.mdx) to use for this pickup request.
 
   - name: pickupService.id
     type: "[UUID](https://www.npmjs.com/package/uuid)"
     description: A UUID that uniquely identifies the pickup service. This ID should never change.
-      This is the UUID you used in the [Pickup Service Definition](./../pickup-service.md) file for this pickup service.
+      This is the UUID you used in the [Pickup Service Definition](./../pickup-service.mdx) file for this pickup service.
 
   - name: pickupService.identifiers
     type: object
@@ -61,7 +61,7 @@ param:
 
   - name: pickupService.hasSandbox
     type: boolean
-    description: Indicates whether the carrier provides a [sandbox](./../../sandbox.md) API for this pickup service. A sandbox should mimic real functionality as much as possible but MUST NOT incur any actual costs or affect production data.
+    description: Indicates whether the carrier provides a [sandbox](./../../sandbox.mdx) API for this pickup service. A sandbox should mimic real functionality as much as possible but MUST NOT incur any actual costs or affect production data.
 
   - name: reason
     type: string
@@ -79,7 +79,7 @@ param:
 
   - name: notes[].type
     type: |
-      [NotesType](./../common-types.md#notes-types)
+      [NotesType](./../common-types.mdx#notes-types)
     description: |
       The type for this note.
 
@@ -88,12 +88,12 @@ param:
     description: The note text itself. This string must be between `0` and `5000` characters.
 
   - name: address
-    type: "[Address](./../address.md)"
+    type: "[Address](./../address.mdx)"
     description: The address where the package(s) should be picked up.
 
   - name: contact
     type: |
-      [ContactInfo](./../contact-info.md)
+      [ContactInfo](./../contact-info.mdx)
     description: An object representing contact information about the person there to meet the driver.
 
   - name: timeWindows
@@ -101,11 +101,11 @@ param:
     description: A list of dates and times when the carrier intended to pickup. This array will contain at least one value.
 
   - name: timeWindows[].startDateTime
-    type: "[DateTime](./../date-time.md)"
+    type: "[DateTime](./../date-time.mdx)"
     description: The start date/time of the request window.
 
   - name: timeWindows[].endDateTime
-    type: "[DateTime](./../date-time.md)"
+    type: "[DateTime](./../date-time.mdx)"
     description: The end date/time of the request window.
 
   - name: timeWindows[].toString()
@@ -129,7 +129,7 @@ param:
 
   - name: shipments[].deliveryService
     type: |
-      [DeliveryService](./../delivery-service.md)
+      [DeliveryService](./../delivery-service.mdx)
     description: The delivery service assigned to the original pickup request. This array will contain at least one
       value.
 
@@ -156,7 +156,7 @@ param:
 
   - name: shipments[].packages[].packaging.id
     type: "[UUID](https://www.npmjs.com/package/uuid)"
-    description: A UUID that uniquely identifies this packaging. This is the UUID you used int he [Packaging Definition](./../packaging.md)
+    description: A UUID that uniquely identifies this packaging. This is the UUID you used int he [Packaging Definition](./../packaging.mdx)
       file for this packaging.
 
   - name: shipments[].packages[].packaging.identifiers
@@ -263,7 +263,7 @@ return:
 
     - name: notes[].type
       type: |
-        [NotesType](./../common-types.md#notes-types)
+        [NotesType](./../common-types.mdx#notes-types)
       description: |
          The type for this note.
 
@@ -401,5 +401,3 @@ export default async function cancelPickups(
   });
 }
 ```
-
-

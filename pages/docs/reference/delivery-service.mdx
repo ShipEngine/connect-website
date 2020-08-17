@@ -9,11 +9,11 @@ description:
 
 documentation: |
   A Delivery Service is a type of delivery that is offered by a carrier, such as "international" or "standard overnight". Each delivery service that is offered must be defined
-  in its own delivery service definition file. This file can reside anywhere within your application as long as its location is specified in the [Carrier Application Definition](./carrier.md) file.
+  in its own delivery service definition file. This file can reside anywhere within your application as long as its location is specified in the [Carrier Application Definition](./carrier.mdx) file.
    The definition may be specified in [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript), [TypeScript](https://www.typescriptlang.org/), [JSON](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON), or
     [YAML](https://en.wikipedia.org/wiki/YAML).
 
-  These delivery service definitions will be used by the [ShipEngine Connect](./../index.md) to display delivery service options within our suite of e-commerce applications when your carrier is used.
+  These delivery service definitions will be used by the [ShipEngine Connect](./../index.mdx) to display delivery service options within our suite of e-commerce applications when your carrier is used.
 
 param:
   fields:
@@ -68,7 +68,7 @@ param:
      - name: fulfillmentService
        type: string
        required: false
-       description: A well-known [fulfillment service](./fulfillment-service.md) that's used to fulfill this delivery service, such as "fedex_ground".
+       description: A well-known [fulfillment service](./fulfillment-service.mdx) that's used to fulfill this delivery service, such as "fedex_ground".
 
      - name: serviceArea
        type: string
@@ -134,14 +134,14 @@ param:
        required: true
        description: |
          The list of [ISO 3166 country codes](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) for the
-         [countries](./country-codes.md) that can be shipped _from_ using this delivery service.
+         [countries](./country-codes.mdx) that can be shipped _from_ using this delivery service.
 
      - name: destinationCountries
        type: string[]
        required: true
        description: |
           The list of [ISO 3166 country codes](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) for the
-                  [countries](./country-codes.md)  that can be shipped _to_ using this deliveyr service. Valid values include the following:
+                  [countries](./country-codes.mdx)  that can be shipped _to_ using this deliveyr service. Valid values include the following:
 
      - name: packaging
        type: string[]
@@ -151,10 +151,10 @@ param:
 
      - name: deliveryConfirmation
        type: |
-         [Delivery Confirmation](./delivery-confirmation.md)[] or string[]
+         [Delivery Confirmation](./delivery-confirmation.mdx)[] or string[]
        required: true
-       description: The types of [delivery confirmations](./delivery-confirmation.md) offered for this delivery service. This property may define
-         the delivery confirmations directly inline, following the [delivery confirmation](./delivery-confirmation.md) format.
+       description: The types of [delivery confirmations](./delivery-confirmation.mdx) offered for this delivery service. This property may define
+         the delivery confirmations directly inline, following the [delivery confirmation](./delivery-confirmation.mdx) format.
          It may also contain a list of paths to files that define the delivery confirmations available. Defining your delivery
          confirmations inside definition files allows you to reference those delivery confirmation definitions in multiple delivery service
          definition files.
@@ -316,6 +316,3 @@ export default internationalEconomyDeliveryService;
 }
 
 ```
-
-
-

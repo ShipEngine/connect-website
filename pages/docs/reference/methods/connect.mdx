@@ -8,7 +8,7 @@ description:
 
 documentation: |
   This method is used to authenticate with your application. It is responsible for verifying the supplied user credentials and establishing or
-    renewing a session. This session will be stored in the [`transaction`](./../transaction.md) object and will be passed as an argument in every subsequent method call.
+    renewing a session. This session will be stored in the [`transaction`](./../transaction.mdx) object and will be passed as an argument in every subsequent method call.
     All applications must implement the connect method.
 
 
@@ -17,7 +17,7 @@ param:
   type: connectionFormData
   signature: connectionFormData
   description: |
-    The `connectionFormData` parameter is an object containing the authentication information gathered using the [connection form](../forms.md) you created for your application.
+    The `connectionFormData` parameter is an object containing the authentication information gathered using the [connection form](../forms.mdx) you created for your application.
      It will contain whatever fields you defined in this form. Your method must then use this data to perform authentication with your backend service.
 
 ---
@@ -46,7 +46,7 @@ Parameters
 -----------------------------------------------
 
 #### `transaction`
-A [transaction object](../transaction.md) containing information about the transaction and session state.
+A [transaction object](../transaction.mdx) containing information about the transaction and session state.
 
 #### `{{param.name}}`
 {{param.description}}
@@ -134,5 +134,3 @@ export default async function connect(
   };
 }
 ```
-
-

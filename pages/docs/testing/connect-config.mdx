@@ -10,8 +10,8 @@ GlobalParams:
       description: |
 
         An object containing properties with the same names as those your defined in
-        your [connection form](./../reference/forms.md#connection-form-examples). These will be used to call your
-        [`connect`](./../reference/methods/connect.md) to obtain a valid `session` object before calling other methods in the test.
+        your [connection form](./../reference/forms.mdx#connection-form-examples). These will be used to call your
+        [`connect`](./../reference/methods/connect.mdx) to obtain a valid `session` object before calling other methods in the test.
 
       default: |
 
@@ -25,7 +25,7 @@ GlobalParams:
         a username and password or an auth token.
 
         The data included in this object depends on your service. You will need to
-        provide the information your methods need to make calls without calling your [`connect`](./../reference/methods/connect.md)
+        provide the information your methods need to make calls without calling your [`connect`](./../reference/methods/connect.mdx)
         method.
       default: |
 
@@ -60,7 +60,7 @@ GlobalParams:
 {{ title }}
 =======================================
 
-You can provide customization for the automated tests that are run with the [`connect test` command](./index.md#automated-testing)
+You can provide customization for the automated tests that are run with the [`connect test` command](./index.mdx#automated-testing)
 using the `connect.config.js` file. This is a JavaScript file that exports the parameters expected by the automated tests.
 
 The flexible `connect.config.js` file supports the following:
@@ -101,7 +101,7 @@ module.exports = {
 The `connect.config.js` file supports overriding the default parameter values for individual tests.
 
 > *TIP*
-> You can find the available [Carrier App](./../reference/carrier.md) test parameters [here](./carrier-app-tests.md).
+> You can find the available [Carrier App](./../reference/carrier.mdx) test parameters [here](./carrier-app-tests.mdx).
 
 
 ### Example
@@ -200,7 +200,7 @@ run once for each set of parameters. This gives you the ability to extend the ca
 
 ### Example
 
-This is an example of a `connect.config.js` file that provides multiple parameters to the [`createShipment_domestic` test](./create-shipment-domestic.md).
+This is an example of a `connect.config.js` file that provides multiple parameters to the [`createShipment_domestic` test](./create-shipment-domestic.mdx).
 
 
 The first two sets of parameters provide values for all possible parameters. The last three sets of parameters only provide the

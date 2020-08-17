@@ -19,12 +19,12 @@ param:
   fields:
     - name: startDateTime
       type: |
-        [DateTime](./../date-time.md)
+        [DateTime](./../date-time.mdx)
       description: The start date/time of the range.
 
     - name: endDateTime
       type: |
-        [DateTime](./../date-time.md)
+        [DateTime](./../date-time.mdx)
       description: The end date/time of the range.
 
     - name: toString
@@ -70,7 +70,7 @@ return:
 
     - name: createdDateTime
       type: |
-         [DateTime](./../date-time.md), </br>
+         [DateTime](./../date-time.mdx), </br>
          [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date), or a string representation of a date in [ISO](https://www.w3.org/TR/NOTE-datetime) format.
       required: true
       description: The date/time that the sales order was originally placed.
@@ -105,7 +105,7 @@ return:
 
     - name: shipTo
       type: |
-        [AddressWithContactInfo](./../address.md)
+        [AddressWithContactInfo](./../address.mdx)
       required: true
       description: The buyer who bought the order. This is not necessarily the same person as the `shipTo`.
         Be sure to include the extra contact info fields as indicated in the reference doc.
@@ -163,13 +163,13 @@ return:
 
     - name: buyer.address
       type: |
-        [Address](./../address.md)
+        [Address](./../address.mdx)
       required: false
       description: The buyer's address.
 
     - name: adjustments
       type: |
-        [Charge](./../charge.md)[]
+        [Charge](./../charge.mdx)[]
       required: false
       description: The breakdown of adjustments for this sales order.
         </br>
@@ -294,13 +294,13 @@ return:
 
     - name: requestedFulfillments[].shippingPreferences
       type: |
-        [ShippingPreferences](./../shipping-preferences.md)
+        [ShippingPreferences](./../shipping-preferences.mdx)
       required: false
       description: Preferences on how this order should be fulfilled.
 
     - name: requestedFulfillments[].items
       type: |
-        [SalesOrderItem](./../sales-order-item.md)[]
+        [SalesOrderItem](./../sales-order-item.mdx)[]
       required: true
       description: The items in this sales order.
 
@@ -311,7 +311,7 @@ return:
 
     - name: notes[].type
       type: |
-        [NotesType](./../common-types.md#notes-types)
+        [NotesType](./../common-types.mdx#notes-types)
       required: false
       description: |
         The type for this note.

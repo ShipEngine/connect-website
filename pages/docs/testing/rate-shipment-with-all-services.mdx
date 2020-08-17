@@ -14,7 +14,7 @@ Params:
         a username and password or an auth token.
 
         The data included in this object depends on your service. You will need to
-        provide the information your methods need to make calls without calling your [`connect`](./../reference/methods/connect.md)
+        provide the information your methods need to make calls without calling your [`connect`](./../reference/methods/connect.mdx)
         method.
       default: |
 
@@ -25,8 +25,8 @@ Params:
       description: |
 
         An object containing properties with the same names as those your defined in
-        your [connection form](./../reference/forms.md#connection-form-examples). These will be used to call your
-        [`connect`](./../reference/methods/connect.md) to obtain a valid `session` object before calling other methods in the test.
+        your [connection form](./../reference/forms.mdx#connection-form-examples). These will be used to call your
+        [`connect`](./../reference/methods/connect.mdx) to obtain a valid `session` object before calling other methods in the test.
 
       default: |
 
@@ -44,7 +44,7 @@ Params:
     - name: shipFrom
       type: |
 
-        [AddressWithContactInfo](./../reference/address.md)
+        [AddressWithContactInfo](./../reference/address.mdx)
       description: |
 
         The address to ship _from_ in the test. Be sure to include the additional contact info properties.
@@ -61,7 +61,7 @@ Params:
     - name: shipTo
       type: |
 
-        [AddressWithContactInfo](./../reference/address.md)
+        [AddressWithContactInfo](./../reference/address.mdx)
       description: |
 
         The address to ship _to_ in the test. Be sure to include the additional contact info properties.
@@ -109,7 +109,7 @@ Params:
     - name: shipDateTime
       type: |
 
-       [DateTime](./../reference/date-time.md), </br>
+       [DateTime](./../reference/date-time.mdx), </br>
        [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date), </br>
        or a string representing the date and time in [ISO](https://www.w3.org/TR/NOTE-datetime) format.
 
@@ -177,7 +177,3 @@ module.exports = {
   ]
 };
 ```
-
-
-
-

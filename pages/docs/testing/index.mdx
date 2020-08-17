@@ -16,7 +16,7 @@ There are multiple ways to test your application, and we suggest taking advantag
 Local Testing
 -----------------------------
 
-[The `connect start` command](./../cli.md#run-your-app-locally) starts a local server that allows you to invoke your app's methods using [our Postman collection](https://documenter.getpostman.com/view/12340335/T1LPBRJk?version=latest). The server monitors your source code and automatically reloads your app whenever changes are detected, so if you find a bug, you can fix it and immediately retry.
+[The `connect start` command](./../cli.mdx#run-your-app-locally) starts a local server that allows you to invoke your app's methods using [our Postman collection](https://documenter.getpostman.com/view/12340335/T1LPBRJk?version=latest). The server monitors your source code and automatically reloads your app whenever changes are detected, so if you find a bug, you can fix it and immediately retry.
 
 <p>
   Click the <b>Run in Postman</b> button to open our collection directly in Postman: &nbsp;&nbsp;
@@ -47,7 +47,7 @@ For example, when running the `Create a shipment` request in the `Carrier Apps` 
 You may also need to modify the `shipFrom` and `shipTo` properties
 to addresses within your service area and ensure that the `shipDateTime` is in the future.
 
-Note that you will likely need to update the properties in the `Connect` request to match the names you used in your [connection form](./../reference/forms.md#connection-form-examples).
+Note that you will likely need to update the properties in the `Connect` request to match the names you used in your [connection form](./../reference/forms.mdx#connection-form-examples).
 
 You can begin running requests in this collection as soon as you have defined the corresponding method, even if it is not fully implemented.
 It may be useful to set a breakpoint and examine the structure of the data sent to your method to assist in mapping the input
@@ -97,13 +97,13 @@ Likewise, if you already have a valid session you wish to use, you can skip runn
 
 Automated Testing
 -----------------------------
-[The `connect test` command](./../cli.md#test-your-app) validates your application against our test suite. These tests are integration tests that represent real world, end-to-end scenarios.
+[The `connect test` command](./../cli.mdx#test-your-app) validates your application against our test suite. These tests are integration tests that represent real world, end-to-end scenarios.
 Rather than calling a single, individual method, these tests may make calls to multiple method in order to construct a more realistic workflow.
 
 
 For example, to cancel a shipment an end user interacting with your application would need to authenticate and create a shipment before cancelling it. Therefore a
-single test may authenticate by calling your [`connect`](./../reference/methods/connect.md) method, create a shipment using your
-[`createShipment`](./../reference/methods/create-shipment.md) method, and then use your [`cancelShipments`](./../reference/methods/cancel-shipments.md) method to
+single test may authenticate by calling your [`connect`](./../reference/methods/connect.mdx) method, create a shipment using your
+[`createShipment`](./../reference/methods/create-shipment.mdx) method, and then use your [`cancelShipments`](./../reference/methods/cancel-shipments.mdx) method to
 cancel the shipment.
 
 These tests execute the entire application, so you won't be able to run this suite until you have finished implementing all the methods
@@ -114,7 +114,7 @@ this test suite can provide a higher degree of confidence that the application w
 e-commerce applications since this suite calls your application in the same manner in which it will be used in production.
 
 > *TIP*
-> You can find a breakdown of tests available for the Carrier App [here](./carrier-app-tests.md).
+> You can find a breakdown of tests available for the Carrier App [here](./carrier-app-tests.mdx).
 
 
 Unit Testing
@@ -141,7 +141,7 @@ Nock is an HTTP server mocking and expectations library for Node.js. It can be u
 in mocking out your backend API for unit testing.
 
 ### Example
-Here's an example unit test suite using [Mocha](https://mochajs.org/) and [Chai](https://www.chaijs.com/) to test [the `createShipment` method](./../reference/methods/create-shipment.md).
+Here's an example unit test suite using [Mocha](https://mochajs.org/) and [Chai](https://www.chaijs.com/) to test [the `createShipment` method](./../reference/methods/create-shipment.mdx).
 
 > **NOTE:** When creating mock parameters for your methods, you only need to populate the properties that you actually use in your code
 
@@ -220,11 +220,11 @@ describe("createShipment test suite", () => {
 
 Live Testing
 -----------------------------
-Once you have completed local development and testing of your application, you can then [publish](./../publish.md) your app to
+Once you have completed local development and testing of your application, you can then [publish](./../publish.mdx) your app to
 our development platform where you can perform live testing through one of our e-commerce applications, such as
 [ShipStation](https://www.shipstation.com/), before it is promoted to our production platform.
 
 ![Adding a carrier in ShipStation](shipstation.png)
 
 
-<Pager prev="./../sandbox.md" prevTitle="Sandbox Environments" next="./../publish.md" nextTitle="Publishing" />
+<Pager prev="./../sandbox.mdx" prevTitle="Sandbox Environments" next="./../publish.mdx" nextTitle="Publishing" />

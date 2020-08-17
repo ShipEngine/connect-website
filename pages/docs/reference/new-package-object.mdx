@@ -19,7 +19,7 @@ fields:
 
    - name: packaging.id
      type: "[UUID](https://www.npmjs.com/package/uuid)"
-     description: A UUID that uniquely identifies this packaging. This is the UUID you used in the [Packaging Definition](./packaging.md)
+     description: A UUID that uniquely identifies this packaging. This is the UUID you used in the [Packaging Definition](./packaging.mdx)
        file for this packaging..
 
    - name: packaging.identifiers
@@ -74,7 +74,7 @@ fields:
 
    - name: weight
      type: |
-       [Weight](./weight-object.md)
+       [Weight](./weight-object.mdx)
      description: The weight of the package.
      required: false
 
@@ -222,16 +222,16 @@ fields:
 
    - name: customs.contents[].countryOfOrigin
      type: |
-       [CountryCode](./country-codes.md)
+       [CountryCode](./country-codes.mdx)
      description: The [ISO 3166 country code](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) for the
-       [country](./country-codes.md) of origin. This is usually the same as `countryOfManufacture`,
+       [country](./country-codes.mdx) of origin. This is usually the same as `countryOfManufacture`,
        but some countries distinguish between the two for certain products.
 
    - name: customs.contents[].countryOfManufacture
      type: |
-       [CountryCode](./country-codes.md)
+       [CountryCode](./country-codes.mdx)
      description: The [ISO 3166 country code](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_code) for the
-       [country](./country-codes.md) where the item was manufactured.
+       [country](./country-codes.mdx) where the item was manufactured.
 
    - name: customs.contents[].harmonizedTariffCode
      type: string
@@ -327,5 +327,3 @@ fields:
      description: |
        The currency that the value represents.
 ---
-
-

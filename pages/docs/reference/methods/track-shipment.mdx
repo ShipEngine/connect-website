@@ -62,7 +62,7 @@ return:
 
     - name: deliveryDateTime
       type: |
-        [DateTime](./../date-time.md), </br>
+        [DateTime](./../date-time.mdx), </br>
         [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date), </br>
         or a string representing the date and time in [ISO](https://www.w3.org/TR/NOTE-datetime) format.
       required: false
@@ -82,7 +82,7 @@ return:
     - name: packages[].packaging.id
       type: "[UUID](https://www.npmjs.com/package/uuid)"
       required: false
-      description: UUID that uniquely identifies the object. This is the UUID you used in the [Packaging Definition](./../packaging.md) file for this packaging.
+      description: UUID that uniquely identifies the object. This is the UUID you used in the [Packaging Definition](./../packaging.mdx) file for this packaging.
 
     - name: packages[].packaging.identifiers
       type: object
@@ -169,7 +169,7 @@ return:
 
     - name:  events[].dateTime
       type:  |
-        [DateTime](./../date-time.md), </br>
+        [DateTime](./../date-time.mdx), </br>
         [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date), </br>
         or a string representing the date and time in [ISO](https://www.w3.org/TR/NOTE-datetime) format.
       required: true
@@ -205,7 +205,7 @@ return:
 
     - name: events[].address
       type: |
-        Partial<[Address](./../address.md)>
+        Partial<[Address](./../address.mdx)>
       required: false
       description: The address (or as much of it as is known) where the event occurred.
 
@@ -247,7 +247,7 @@ return:
 
     - name: notes[].type
       type: |
-        [NotesType](./../common-types.md#notes-types)
+        [NotesType](./../common-types.mdx#notes-types)
       required: true
       description: |
         The type for this note.
@@ -315,5 +315,3 @@ export default async function trackShipment(
   return await formatTrackingResponse(response.data);
 }
 ```
-
-

@@ -19,17 +19,17 @@ param:
 
   fields:
     - name: shipFrom
-      type: "[Address](./../address.md)"
-      description: The address of the location that is performing end-of-day manifesting. This field is required if the carrier's `manifestLocations` setting is `single_location` in the [Carrier Definition](./../carrier.md) file.
+      type: "[Address](./../address.mdx)"
+      description: The address of the location that is performing end-of-day manifesting. This field is required if the carrier's `manifestLocations` setting is `single_location` in the [Carrier Definition](./../carrier.mdx) file.
 
     - name: openDateTime
       type: |
-        [DateTime](./../date-time.md)
+        [DateTime](./../date-time.mdx)
       description: The start-of-day time, or the `manifestDateTime` of the earliest manifest being manifested.
 
     - name: closeDateTime
       type: |
-        [DateTime](./../date-time.md)
+        [DateTime](./../date-time.mdx)
       description: The end-of-day time, or the `manifestDateTime` of the latest manifest being manifested.
 
     - name: shipments
@@ -143,7 +143,7 @@ return:
 
     - name: manifests[].notes[].type
       type: |
-        [NotesType](./../common-types.md#notes-types)
+        [NotesType](./../common-types.mdx#notes-types)
       required: false
       description: |
         The type for this note.
@@ -180,7 +180,7 @@ return:
 
     - name: notManifested[].notes[].type
       type: |
-        [NotesType](./../common-types.md#notes-types)
+        [NotesType](./../common-types.mdx#notes-types)
       required: false
       description: |
         Ththe type for this note.
@@ -213,5 +213,3 @@ export default async function createManifest(
     // Your Carrier's code logic goes here
 }
 ```
-
-
