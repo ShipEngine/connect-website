@@ -32,16 +32,14 @@ class AppFailedToDeployError extends Error {
 }
 
 interface PublishAppOptions {
-  watch?: boolean;
+  noWatch?: boolean;
 }
 
 export default async function publishApp(
-  pathToApp: string,
+  tarballName: string,
   client: APIClient,
-  { watch = false }: PublishAppOptions,
+  { noWatch = false }: PublishAppOptions,
 ): Promise<Deployment> {
-
-  const tarballName = await packageApp();
 
   cli.action.start("publishing app");
 
@@ -72,7 +70,7 @@ export default async function publishApp(
 
   cli.action.stop(`${logSymbols.success}`);
 
-  if (watch) {
+  if (!noWatch) {
     const status = await watchDeployment(newDeployment, platformApp, client);
 
     if (status === DeploymentStatus.Error) {

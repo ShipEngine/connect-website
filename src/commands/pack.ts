@@ -18,7 +18,7 @@ export default class Publish extends BaseCommand {
     }),
     "skip-tests": flags.boolean({
       char: "s",
-      description: "skip running the test before publishing",
+      description: "skip running the test before packing",
       default: false,
     })
   };
@@ -32,6 +32,8 @@ export default class Publish extends BaseCommand {
     if (!flags["skip-tests"]) await Test.run(["-f"]);
 
     try {
+
+      // TODO: remove path to app?
       const pathToApp = process.cwd();
       
       await packageApp(pathToApp);
