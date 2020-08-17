@@ -1,5 +1,5 @@
 {
-  "name": "@shipengine/shipengine-integration-platform-local-dev-ui",
+  "name": "@shipengine/connect-local-dev-ui",
   "version": "0.0.2",
   "main": "build/index.js",
   "scripts": {

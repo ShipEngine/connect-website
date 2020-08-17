@@ -1,4 +1,4 @@
-# ShipEngine Integration Platform Local Dev UI
+# ShipEngine Connect Local Dev UI
 
 ## Available Scripts
 
