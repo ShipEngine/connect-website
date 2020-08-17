@@ -67,7 +67,7 @@ describe("The rate shipment with multiple services test suite", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       const app = new CarrierApp(appDefinition);
 
-      staticConfigTests.rateShipment_with_multiple_services = {
+      staticConfigTests.rateShipment_with_all_services = {
         weight: {
           value: 200,
           unit: "lb"
@@ -88,7 +88,7 @@ describe("The rate shipment with multiple services test suite", () => {
     beforeEach(() => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       const app = new CarrierApp(appDefinition);
-      staticConfigTests.rateShipment_with_multiple_services =
+      staticConfigTests.rateShipment_with_all_services =
         [
           {
             weight: {
@@ -129,7 +129,7 @@ describe("The rate shipment with multiple services test suite", () => {
 
       const app = new CarrierApp(appDefinition);
 
-      staticConfigTests.rateShipment_with_multiple_services = {
+      staticConfigTests.rateShipment_with_all_services = {
         shipFrom: {
           company: "Domestic Route #1",
           addressLines: ["123 New Street"],
@@ -157,7 +157,7 @@ describe("The rate shipment with multiple services test suite", () => {
       expect(tests[0].methodArgs.shipFrom.company).to.equal("Domestic Route #1");
       expect(tests[0].methodArgs.shipTo.company).to.equal("Domestic Route #2");
 
-      expect(tests[0].methodArgs.shipTo).to.eql(staticConfigTests.rateShipment_with_multiple_services.shipTo);
+      expect(tests[0].methodArgs.shipTo).to.eql(staticConfigTests.rateShipment_with_all_services.shipTo);
 
       expect(tests[0].title).to.include("shipFrom: US");
       expect(tests[0].title).to.include("shipTo: US");
@@ -206,7 +206,7 @@ function generateBasicAppAndConfigs() {
   };
 
   const staticConfigTests = {
-    rateShipment_with_multiple_services: {}
+    rateShipment_with_all_services: {}
   };
 
   const connectArgs = {};
