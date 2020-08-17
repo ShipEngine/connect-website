@@ -5,7 +5,6 @@ import logSymbols from "log-symbols";
 import path from "path";
 import { Deployment, DeploymentStatus } from "./types";
 import { loadApp } from "@shipengine/connect-loader";
-import { packageApp } from "./package-app";
 import { watchDeployment } from "./publish-app/watch-deployment";
 import { green, red } from "chalk";
 

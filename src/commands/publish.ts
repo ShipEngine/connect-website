@@ -37,9 +37,7 @@ export default class Publish extends BaseCommand {
     if (!flags["skip-tests"]) await Test.run(["-f"]);
 
     try {
-      const pathToApp = process.cwd();
-      
-      const tarballName = await packageApp(pathToApp);
+      const tarballName = await packageApp();
       await publishApp(tarballName, this.appsClient!, {
         noWatch: flags["no-watch"],
       });
