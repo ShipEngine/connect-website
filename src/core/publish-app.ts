@@ -5,7 +5,7 @@ import logSymbols from "log-symbols";
 import path from "path";
 import { Deployment, DeploymentStatus } from "./types";
 import { loadApp } from "@shipengine/connect-loader";
-import { packageApp } from "./publish-app/package-app";
+import { packageApp } from "./package-app";
 import { watchDeployment } from "./publish-app/watch-deployment";
 import { green, red } from "chalk";
 
@@ -41,29 +41,8 @@ export default async function publishApp(
   { watch = false }: PublishAppOptions,
 ): Promise<Deployment> {
 
-  // Make a backup copy of the package.json file since we are going to add the bundledDependencies attribute
-  const pJsonBackup = await fs.promises.readFile(
-    path.join(pathToApp, "package.json"),
-  );
+  const tarballName = await packageApp();
 
-  cli.action.start("packaging app");
-
-  let tarballName: string;
-
-  try {
-    tarballName = await packageApp();
-  } catch (error) {
-    const errorMessage = `unable to bundle dependencies and package app: ${error.message}`;
-    throw new AppFailedToPackageError(errorMessage);
-  } finally {
-    // Restore the package.json backup
-    await fs.promises.writeFile(
-      path.join(pathToApp, "package.json"),
-      pJsonBackup,
-    );
-  }
-
-  cli.action.stop(`${logSymbols.success}`);
   cli.action.start("publishing app");
 
   let newDeployment;
