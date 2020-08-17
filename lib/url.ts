@@ -22,22 +22,3 @@ export const defaultImageURL = new URL("img/media/card-square.png", siteURL);
 export function getPageURL(router: NextRouter): URL {
   return new URL(router.pathname, siteURL);
 }
-
-/**
- * Resolves a URL relative to the Next.js "pages" directory. This is necessary for any URL that
- * is passed to the Next.js router or `<Link>` component.
- */
-export function resolveURL(relativeURL: string, router: NextRouter): string {
-  relativeURL = relativeURL || "";
-
-  if (relativeURL[0] === "/" || relativeURL.startsWith("https://") || relativeURL.startsWith("http://")) {
-    // This isn't a relative URL.  It's absolute.
-    return relativeURL;
-  }
-
-  let { pathname } = router;
-  if (pathname[pathname.length - 1] !== "/") {
-    pathname += "/";
-  }
-  return pathname + relativeURL;
-}
