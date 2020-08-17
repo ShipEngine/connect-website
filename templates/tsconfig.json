@@ -5,12 +5,9 @@
     "moduleResolution": "node",
     "rootDir": "src",
     "outDir": "lib",
-    "sourceMap": true
+    "sourceMap": true,
+    "outFiles": ["${workspaceFolder}/lib/**/*.js"]
   },
-  "include": [
-    "src/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
 }
