@@ -21,9 +21,9 @@ const allConfirmations = {
 export interface QuoteRatesRequest {
   operation: "quote_rates";
   session_id: string;
-  service_code: string;
+  service_code?: string;
   confirmation_code?: string;
-  parcel_code: string;
+  parcel_codes?: string[];
   ship_date: string;
   delivery_date?: string;
   total_weight: number;
@@ -34,7 +34,7 @@ export type QuoteRatesResponse = Array<QuoteRateResponseItem>;
 export interface QuoteRateResponseItem {
   service_code: string;
   confirmation_code: string;
-  parcel_code: string;
+  parcel_code?: string;
   ship_date: string;
   delivery_date: string;
   delivery_days: number;
@@ -50,7 +50,7 @@ export interface QuoteRateResponseItem {
 export function quoteRates(request: HttpRequest & QuoteRatesRequest): QuoteRatesResponse {
   let services = request.service_code ? [request.service_code] : Object.keys(allServices);
   let confirmations = request.confirmation_code ? [request.confirmation_code] : Object.keys(allConfirmations);
-  let packaging = request.parcel_code ? [request.parcel_code] : customerPackaging.map((pack) => pack.id);
+  let packaging = request.parcel_codes.length > 0 ? request.parcel_codes : customerPackaging.map((pack) => pack.id);
   let totalWeight = request.total_weight;
   let shipDate = new Date(request.ship_date);
   let rates: QuoteRateResponseItem[] = [];
@@ -61,17 +61,22 @@ export function quoteRates(request: HttpRequest & QuoteRatesRequest): QuoteRates
         let service = allServices[service_code];
         let confirmation = allConfirmations[confirmation_code];
 
-        rates.push({
+        const rate: QuoteRateResponseItem = {
           service_code,
           confirmation_code,
-          parcel_code,
           ship_date: shipDate.toISOString(),
           delivery_date: new Date(shipDate.setDate(shipDate.getDate() + service.days)).toISOString(),
           delivery_days: service.days,
           shipment_cost: service.price * totalWeight,
           confirmation_cost: confirmation.price,
           tax_cost: service.price * totalWeight * 0.08,
-        });
+        };
+
+        if (parcel_code) {
+          rate.parcel_code = parcel_code;
+        }
+
+        rates.push(rate);
       }
     }
   }
