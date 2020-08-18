@@ -107,6 +107,28 @@ You can opt to retry failed tests, which can be convenient for flaky tests or in
 ##### `--timeout <number>`
 Use this option to allow more time for your tests to run. The timeout is specified in milliseconds.
 
+Package Your App
+--------------------------
+The `connect pack` command allows you to package your application without publishing it. It moves your
+`dependencies` into `bundledDependencies`, runs `npm pack`, and creates
+a [tarball](https://en.wikipedia.org/wiki/Tar_(computing)) in the root of your project that you can inspect. 
+
+This provides you with visibility as to exactly what is being sent to ShipEngine Connect. 
+This is useful for ensuring that you are not sending us any sensitive data. It is also helpful in 
+making sure you aren't including any unnecessary files in your package. For example, this may help 
+you identify packages that are listed in your `dependencies` that should actually be listed in your
+`devDependencies`.
+
+We suggest that you use the [`files` property](https://docs.npmjs.com/files/package.json#files) of your `package.json` file to list which files to _allow_ in the package. 
+Likewise, you can create a [`.npmignore` property](https://docs.npmjs.com/using-npm/developers.html#keeping-files-out-of-your-package) to specify which files to _exclude_ from your package. 
+
+```
+connect pack 
+```
+
+#### Options
+
+There are no options for this command.
 
 Publish Your App
 --------------------------
