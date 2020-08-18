@@ -13,13 +13,22 @@ async function rateShipment(transaction, shipment) {
   let data = {
     operation: "quote_rates",
     session_id: transaction.session.id,
-    service_code: shipment.deliveryService.code,
-    parcel_codes: shipment.packages[0].packaging.code,
     ship_date: shipment.shipDateTime.toISOString(),
     from_zone: parseInt(shipment.shipFrom.postalCode, 10),
     to_zone: parseInt(shipment.shipTo.postalCode, 10),
     total_weight: shipment.packages[0].weight.ounces,
   };
+
+  if(shipment.deliveryService) {
+    data.service_code = shipment.deliveryService.code;
+  }
+
+  // TODO: re-write the code to handle multiple package codes
+  if(shipment.packages.length > 0) {
+    data.parcel_codes = shipment.packages
+      .map((packages) => packages.packaging && packages.packaging.code)
+      .filter((packageCodes) => packageCodes !== undefined);
+  }
 
   if(shipment.deliveryConfirmation) {
     data.confirmation_code = shipment.deliveryConfirmation.code;

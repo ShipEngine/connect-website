@@ -1,5 +1,17 @@
 "use strict";
 
+const yaml = require("js-yaml");
+const path = require("path");
+const fs = require("fs");
+
+const palletPath = path.join(__dirname, "..", "..", "packaging", "package.yaml");
+const packagePath = path.join(__dirname, "..", "..", "packaging", "pallet.yaml");
+
+const palletPackage = yaml.safeLoad(fs.readFileSync(palletPath, "utf8"));
+const pkg = yaml.safeLoad(fs.readFileSync(packagePath, "utf8"));
+
+const customerPackaging = [palletPackage, pkg];
+
 const allServices = {
   "ECO": { price: .27, days: 5 },
   "STD": { price: .60, days: 3 },
@@ -19,7 +31,7 @@ const allConfirmations = {
 function quoteRates(request) {
   let services = request.service_code ? [request.service_code] : Object.keys(allServices);
   let confirmations = request.confirmation_code ? [request.confirmation_code] : Object.keys(allConfirmations);
-  let packaging = request.parcel_code ? [request.parcel_code] : ["PAK", "PAL"];
+  let packaging = request.parcel_codes.length > 0 ? request.parcel_codes : customerPackaging.map((pack) => pack.id);
   let totalWeight = request.total_weight;
   let shipDate = new Date(request.ship_date);
   let rates = [];
