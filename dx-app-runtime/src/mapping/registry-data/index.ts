@@ -29,8 +29,7 @@ import {
 } from '@shipengine/connect-sdk';
 import {
   CarrierApp
-} from '@shipengine/connect-sdk/lib/internal'
-import logger from '../../util/logger';
+} from '@shipengine/connect-sdk/lib/internal';
 import ShippingProviderConnector from './external/shipping-provider-connector';
 import { InvalidInput } from '../../errors';
 import { LabelFormat } from '@ipaas/capi/models';

@@ -6,7 +6,6 @@ import {
   ErrorCode,
   mapErrorCodeToCapiErrorCode,
 } from '../errors';
-import e = require('express');
 
 const handleUncaughtModuleException = (error: any, response: Response) => {
   response.status(ErrorHttpStatusCode.ServerError).send({
