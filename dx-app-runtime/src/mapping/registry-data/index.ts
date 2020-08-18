@@ -234,10 +234,8 @@ function dxToCapiConfirmationType(
     case DeliveryConfirmationType.DirectSignature:
       return ConfirmationTypeType.DirectSignature;
     default:
-      logger.info(`defaulting unknown type ${type} to 'none'`);
+      return ConfirmationTypeType.None;
   }
-
-  return ConfirmationTypeType.None;
 }
 
 const mapConfirmationTypes = (

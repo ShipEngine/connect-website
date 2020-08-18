@@ -1,7 +1,7 @@
 import { Confirmation } from "@ipaas/capi";
 import { DeliveryConfirmationType } from "@shipengine/connect-sdk";
 
-export const mapDeliveryConfirmationToDx = (confirmation?: Confirmation | null): DeliveryConfirmationType => {
+export const mapDeliveryConfirmationToDx = (confirmation?: Confirmation | null): DeliveryConfirmationType | undefined => {
   switch (confirmation) {
     case Confirmation.AdultSignature:
       return DeliveryConfirmationType.AdultSignature;
@@ -12,7 +12,7 @@ export const mapDeliveryConfirmationToDx = (confirmation?: Confirmation | null):
     case Confirmation.Signature:
       return DeliveryConfirmationType.Signature;
     default:
-      return DeliveryConfirmationType.Delivery; // TODO: Change this to none
+      return undefined;
   }
 }
 
