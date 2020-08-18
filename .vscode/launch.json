@@ -28,8 +28,7 @@
       "internalConsoleOptions": "openOnSessionStart",
       "program": "${workspaceFolder}/bin/run",
       "args": [
-        "test",
-        "-g rate"
+        "publish"
       ],
       "cwd": "/home/rkrauskopf/repos/connect-samples/cargo-inc"
     }

@@ -24,7 +24,7 @@ $ npm install -g @shipengine/connect-cli
 $ connect COMMAND
 running command...
 $ connect (-v|--version|version)
-@shipengine/connect-cli/1.0.8 linux-x64 node-v12.18.1
+@shipengine/connect-cli/1.0.9 linux-x64 node-v12.18.1
 $ connect --help [COMMAND]
 USAGE
   $ connect COMMAND
@@ -40,6 +40,7 @@ USAGE
 * [`connect init [PATH]`](#connect-init-path)
 * [`connect login`](#connect-login)
 * [`connect logout`](#connect-logout)
+* [`connect pack`](#connect-pack)
 * [`connect publish`](#connect-publish)
 * [`connect start`](#connect-start)
 * [`connect test`](#connect-test)
@@ -74,7 +75,7 @@ OPTIONS
   -h, --help  show help for the info command
 ```
 
-_See code: [src/commands/info.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.8/src/commands/info.ts)_
+_See code: [src/commands/info.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.9/src/commands/info.ts)_
 
 ## `connect init [PATH]`
 
@@ -99,7 +100,7 @@ EXAMPLE
   $ connect init
 ```
 
-_See code: [src/commands/init.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.8/src/commands/init.ts)_
+_See code: [src/commands/init.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.9/src/commands/init.ts)_
 
 ## `connect login`
 
@@ -116,7 +117,7 @@ ALIASES
   $ connect login
 ```
 
-_See code: [src/commands/login.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.8/src/commands/login.ts)_
+_See code: [src/commands/login.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.9/src/commands/login.ts)_
 
 ## `connect logout`
 
@@ -133,7 +134,24 @@ ALIASES
   $ connect logout
 ```
 
-_See code: [src/commands/logout.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.8/src/commands/logout.ts)_
+_See code: [src/commands/logout.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.9/src/commands/logout.ts)_
+
+## `connect pack`
+
+package your app
+
+```
+USAGE
+  $ connect pack
+
+OPTIONS
+  -h, --help  show help for the pack command
+
+EXAMPLE
+  $ connect pack
+```
+
+_See code: [src/commands/pack.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.9/src/commands/pack.ts)_
 
 ## `connect publish`
 
@@ -145,14 +163,14 @@ USAGE
 
 OPTIONS
   -h, --help        show help for the publish command
+  -n, --no-watch    does not track the status of the deployment
   -s, --skip-tests  skip running the test before publishing
-  -w, --watch       check the status of the deployment until complete
 
 EXAMPLE
   $ connect publish
 ```
 
-_See code: [src/commands/publish.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.8/src/commands/publish.ts)_
+_See code: [src/commands/publish.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.9/src/commands/publish.ts)_
 
 ## `connect start`
 
@@ -167,7 +185,7 @@ OPTIONS
   -p, --port=port  [default: 3000] the port that the app will run on
 ```
 
-_See code: [src/commands/start.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.8/src/commands/start.ts)_
+_See code: [src/commands/start.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.9/src/commands/start.ts)_
 
 ## `connect test`
 
@@ -190,7 +208,7 @@ EXAMPLES
   $ connect test --grep rateShipment
 ```
 
-_See code: [src/commands/test.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.8/src/commands/test.ts)_
+_See code: [src/commands/test.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.9/src/commands/test.ts)_
 
 ## `connect whoami`
 
@@ -207,5 +225,5 @@ ALIASES
   $ connect whoami
 ```
 
-_See code: [src/commands/whoami.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.8/src/commands/whoami.ts)_
+_See code: [src/commands/whoami.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.9/src/commands/whoami.ts)_
 <!-- commandsstop -->
