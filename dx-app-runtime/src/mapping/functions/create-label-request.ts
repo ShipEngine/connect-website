@@ -4,14 +4,14 @@ import { NewShipmentPOJO } from '@shipengine/connect-sdk/lib/internal';
 import { capiToDxNewPackagePOJO } from './package';
 import { mapCapiToDxDocumentFormat } from './document-format';
 import { mapCapiToDxDocumentSize } from './document-size';
+import { mapDeliveryConfirmationToDx } from './delivery-confirmation';
 
 export const mapCreateLabelRequest = (
   request: CreateLabelRequest
 ): NewShipmentPOJO => {
   return {
-    deliveryService: {
-      id: request.service_code || '',
-    },
+    deliveryService: request.service_code || '',
+    deliveryConfirmation: mapDeliveryConfirmationToDx(request.confirmation),
     shipFrom: mapAddressToAddressWithContactInfoPOJO(request.ship_from),
     shipTo: mapAddressToAddressWithContactInfoPOJO(request.ship_to),
     returnTo: request.ship_from_display

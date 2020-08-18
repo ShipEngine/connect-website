@@ -9,6 +9,7 @@ import {
 } from '@shipengine/connect-sdk/lib/internal';
 import { mapAddressToAddressWithContactInfoPOJO } from './address';
 import { Package } from '@ipaas/capi/models';
+import { mapDeliveryConfirmationToDx } from './delivery-confirmation';
 
 const mapPackage = (
   pckg: Package,
@@ -40,7 +41,7 @@ export const mapGetRatesRequest = (
 ): RateCriteriaPOJO => {
   const rateCriteria: RateCriteriaPOJO = {
     deliveryService: request.service_code || '',
-    deliveryConfirmation: request.confirmation ? request.confirmation?.toString() : undefined,
+    deliveryConfirmation: mapDeliveryConfirmationToDx(request.confirmation),
     deliveryDateTime: undefined,
     shipDateTime: request.ship_datetime,
     shipFrom: mapAddressToAddressWithContactInfoPOJO(request.ship_from),
