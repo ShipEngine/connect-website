@@ -41,3 +41,42 @@
   max-height: 75rem;
   margin: 0 auto 45px auto;
 }
+
+// Offset heading anchors vertically to account for the fixed header height.
+// Otherwise, the heading will be hidden behind the header.
+.headingAnchor {
+  display: block;
+  position: relative;
+  top: -($site-header-small-height + $sticky-offset);
+  height: 1px;
+  width: 1px;
+}
+
+.headingAnchorLink {
+  content: "";
+  display: inline-block;
+  background: url("../../public/img/icons/link.svg") no-repeat;
+  background-size: contain;
+  vertical-align: middle;
+  height: 20px;
+  width: 20px;
+  margin-left: .4em;
+  opacity: 0;
+  transition: opacity .4s ease;
+}
+
+h2:hover,
+h3:hover {
+  > .headingAnchorLink {
+    opacity: 1;
+  }
+}
+
+/**
+  * Adjust for small phone screens
+  */
+@media (max-width: $phone-max-width) {
+  .headingAnchor {
+    top: -($site-header-large-height + $sticky-offset);
+  }
+}

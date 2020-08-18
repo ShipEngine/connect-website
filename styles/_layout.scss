@@ -1,8 +1,5 @@
 @use "variables" as *;
 
-$sticky-offset: 4rem;
-$approximate-footer-height: 47.8rem;
-
 #page-background {
   background-color: $lighter-purple;
   background: linear-gradient(to bottom, $lighter-purple, $white 1000px);
@@ -407,7 +404,7 @@ $one-column-max:
 }
 
 /**
-  * Adjust the docs-nav for small phone screens
+  * Adjust the docs nav for small phone screens
   */
 @media (max-width: $phone-max-width) {
   #docs-page {

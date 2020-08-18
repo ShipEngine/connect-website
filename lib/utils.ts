@@ -1,22 +1,13 @@
-import { ReactElement, ReactNode } from "react";
-
 export const isProd = process.env.NODE_ENV === "production";
 export const isDev = !isProd;
 
+const nonWordCharacterPattern = /\W+/g;
+
 /**
- * Returns only the child elements, not text nodes or fragments
+ * Converts the given text to a slug, which can be used in an HTML "id" attribute
  */
-export function getElements<T = unknown>(children: ReactNode): Array<ReactElement<T>> {
-  const elements: Array<ReactElement<T>> = [];
-
-  // If there's only one child, wrap it in an array
-  const nodes = Array.isArray(children) ? children : [children];
-
-  for (const child of nodes) {
-    if (typeof child === "object" && "props" in child) {
-      elements.push(child);
-    }
-  }
-
-  return elements;
+export function slugify(text: string): string {
+  text = text.toLowerCase().trim();
+  text = text.replace(nonWordCharacterPattern, "-");
+  return text;
 }

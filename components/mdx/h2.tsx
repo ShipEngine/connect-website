@@ -1,4 +1,6 @@
 import { ReactNode } from "react";
+import { getText } from "../../lib/react-nodes";
+import { slugify } from "../../lib/utils";
 import styles from "./mdx.module.scss";
 
 interface H2Props {
@@ -16,5 +18,13 @@ export default function H2({ markdown, className, children, ...props }: H2Props)
     className = styles.h2;
   }
 
-  return <h2 className={className} {...props}>{ children }</h2>;
+  const slug = slugify(getText(children));
+
+  return (
+    <h2 className={className} {...props}>
+      <a id={slug} className={styles.headingAnchor} aria-hidden></a>
+      { children }
+      <a href={`#${slug}`} className={styles.headingAnchorLink} aria-hidden></a>
+    </h2>
+  );
 }

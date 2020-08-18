@@ -93,6 +93,9 @@ $monitor-min-width: 1346px;
 $site-header-large-height: 16rem;
 $site-header-small-height: 8.2rem;
 
+// Footer height is approximate
+$approximate-footer-height: 47.8rem;
+
 // Content areas
 $narrow-content-width: 880px;
 $medium-content-width: 1185px;
@@ -103,6 +106,7 @@ $side-bar-med-width: 400px;
 $side-bar-max-width: 750px;
 
 $toc-min-width: 100px;
+$sticky-offset: 4rem;
 
 
 // Z-Indexes

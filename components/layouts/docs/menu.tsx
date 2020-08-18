@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { ReactNode, useState } from "react";
-import { getElements } from "../../../lib/utils";
+import { getElements } from "../../../lib/react-nodes";
 import styles from "./menu.module.scss";
 
 export interface MenuProps {
