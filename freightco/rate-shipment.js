@@ -16,16 +16,24 @@ async function rateShipment(transaction, shipment) {
   let data = {
     operation: "quote_rates",
     session_id: transaction.session.id,
-    service_codes: shipment.deliveryService.code,
-    parcel_code: shipment.package.packaging.code,
     ship_date: shipment.shipDateTime.toISOString(),
     total_weight: shipment.package.weight.ounces,
   };
+
+  if (shipment.deliveryService && shipment.deliveryService.code) {
+    data.service_code = shipment.deliveryService.code;
+  }
 
   if(shipment.deliveryConfirmation) {
     data.confirmation_code = shipment.deliveryConfirmation.code;
   }
 
+  if (shipment.packages.length > 0) {
+    data.parcel_codes = shipment.packages
+      .map((packages) => packages.packaging && packages.packaging.code)
+      .filter((packageCodes) => packageCodes !== undefined);
+  }
+  
   if(shipment.deliveryDateTime) {
     data.delivery_date = shipment.deliveryDateTime.toISOString();
   }
@@ -48,7 +56,7 @@ function formatRate(rate) {
     isTrackable: true,
     deliveryConfirmation: deliveryConfirmations.find((conf) => conf.code === rate.confirmation_code),
     packages: [{
-      packaging: packaging.find((pkg) => pkg.code === rate.parcel_code),
+      packaging: packaging.find((pkg) => pkg.code === rate.parcel_code || pkg.id === rate.parcel_code),
     }],
     charges: [
       {
