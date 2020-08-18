@@ -1,7 +1,5 @@
 import BaseCommand from "../base-command";
-import Test from "./test";
 import { flags } from "@oclif/command";
-import { checkAppLoginStatus } from "../core/utils/users";
 import { packageApp } from '../core/package-app';
 
 export default class Publish extends BaseCommand {
@@ -15,28 +13,16 @@ export default class Publish extends BaseCommand {
     help: flags.help({
       char: "h",
       description: "show help for the pack command",
-    }),
-    "skip-tests": flags.boolean({
-      char: "s",
-      description: "skip running the test before packing",
-      default: false,
     })
   };
 
   async run() {
     // When the -h flag is present the following line haults execution
-    const { flags } = this.parse(Publish);
-
-    await checkAppLoginStatus(this);
-
-    if (!flags["skip-tests"]) await Test.run(["-f"]);
+    this.parse(Publish);
 
     try {
-
-      // TODO: remove path to app?
-      const pathToApp = process.cwd();
       
-      await packageApp(pathToApp);
+      await packageApp();
 
     } catch (error) {
       switch (error.code) {
