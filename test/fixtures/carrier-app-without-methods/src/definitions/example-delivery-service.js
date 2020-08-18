@@ -2,6 +2,7 @@
 
 module.exports = {
   id: "b7528ebf-3169-4003-8174-c278ce353aa1",
+  code: "eds",
   name: "Example Delivery Service",
   description:
     "This is an example delivery service. Please remove and define your own.",
