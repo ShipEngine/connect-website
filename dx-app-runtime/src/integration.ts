@@ -38,11 +38,14 @@ export const getRates = async (app: CarrierApp, request: any) =>
     throw new NotSupported('rateShipment');
   }
   const transaction = mapTransaction(request);
+  logger.info(request);
   const dxRequest = mapGetRatesRequest(request);
   logger.info(dxRequest);
   const dxResponse = await app.rateShipment(transaction, dxRequest);
   logger.info(dxResponse);
-  return mapGetRatesResponse(transaction, dxResponse);
+  const response = mapGetRatesResponse(transaction, dxResponse);
+  logger.info(response);
+  return response;
 };
 
 export const createLabel = async (app: CarrierApp, request: any) =>
@@ -51,11 +54,14 @@ export const createLabel = async (app: CarrierApp, request: any) =>
     throw new NotSupported('createShipment');
   }
   const transaction = mapTransaction(request);
+  logger.info(request);
   const dxRequest = mapCreateLabelRequest(request);
   logger.info(dxRequest);
   const dxResponse = await app.createShipment(transaction, dxRequest);
   logger.info(dxResponse);
-  return mapCreateLabelResponse(transaction, dxResponse);
+  const response = mapCreateLabelResponse(transaction, dxResponse);
+  logger.info(response);
+  return response;
 };
 
 export const voidLabels = async (app: CarrierApp, request: any) =>
@@ -64,11 +70,14 @@ export const voidLabels = async (app: CarrierApp, request: any) =>
     throw new NotSupported('cancelShipment');
   }
   const transaction = mapTransaction(request);
+  logger.info(request);
   const dxRequest = mapVoidLabelsRequest(request);
   logger.info(dxRequest);
   const dxResponse = await app.cancelShipments(transaction, dxRequest);
   logger.info(dxResponse);
-  return mapVoidLabelsResponse(dxResponse, transaction);
+  const response = mapVoidLabelsResponse(dxResponse, transaction);
+  logger.info(response);
+  return response;
 };
 
 export const createManifest = async (app: CarrierApp, request: any) =>
@@ -77,11 +86,14 @@ export const createManifest = async (app: CarrierApp, request: any) =>
     throw new NotSupported('createManifest');
   }
   const transaction = mapTransaction(request);
+  logger.info(request);
   const dxRequest = mapCreateManifestRequest(request);
   logger.info(dxRequest);
   const dxResponse = await app.createManifest(transaction, dxRequest);
   logger.info(dxResponse);
-  return mapCreateManifestResponse(dxResponse, transaction);
+  const response = mapCreateManifestResponse(dxResponse, transaction);
+  logger.info(response);
+  return response;
 };
 
 export const track = async (app: CarrierApp, request: any) =>
@@ -90,11 +102,14 @@ export const track = async (app: CarrierApp, request: any) =>
     throw new NotSupported('track');
   }
   const transaction = mapTransaction(request);
+  logger.info(request);
   const dxRequest = mapTrackingRequest(request);
   logger.info(dxRequest);
   const dxResponse = await app.trackShipment(transaction, dxRequest);
   logger.info(dxResponse);
-  return mapTrackingResponse(dxResponse, transaction);
+  const response = mapTrackingResponse(dxResponse, transaction);
+  logger.info(response);
+  return response;
 };
 
 
@@ -117,11 +132,14 @@ export const cancelPickup = async (app: CarrierApp, request: any) =>
     throw new NotSupported('cancelPickups');
   }
   const transaction = mapTransaction(request);
+  logger.info(request);
   const dxRequest = [mapCancelPickupRequest(request)];
   logger.info(dxRequest);
   const dxResponse = await app.cancelPickups(transaction, dxRequest);
   logger.info(dxResponse);
-  return mapCancelPickupResponse(dxResponse[0], transaction);
+  const response = mapCancelPickupResponse(dxResponse[0], transaction);
+  logger.info(response);
+  return response;
 };
 
 

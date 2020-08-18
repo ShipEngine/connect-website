@@ -59,7 +59,7 @@ export const mapAddressToAddressWithContactInfoPOJO = (
     postalCode: address.postal_code,
     email: address.email || '',
     phoneNumber: address.phone_number || '',
-    name: `${address.first_name} ${address.last_name}`,
+    name: address.name || '',
     isResidential: convertResidentialIndicatorToBoolean(
       address.address_residential_indicator
     ),
