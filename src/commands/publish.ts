@@ -3,6 +3,7 @@ import Test from "./test";
 import publishApp from "../core/publish-app";
 import { flags } from "@oclif/command";
 import { checkAppLoginStatus } from "../core/utils/users";
+import { packageApp } from '../core/package-app';
 
 export default class Publish extends BaseCommand {
   static description = "publish your app";
@@ -16,9 +17,9 @@ export default class Publish extends BaseCommand {
       char: "h",
       description: "show help for the publish command",
     }),
-    watch: flags.boolean({
-      char: "w",
-      description: "check the status of the deployment until complete",
+    "no-watch": flags.boolean({
+      char: "n",
+      description: "does not track the status of the deployment",
     }),
     "skip-tests": flags.boolean({
       char: "s",
@@ -36,9 +37,9 @@ export default class Publish extends BaseCommand {
     if (!flags["skip-tests"]) await Test.run(["-f"]);
 
     try {
-      const pathToApp = process.cwd();
-      await publishApp(pathToApp, this.appsClient!, {
-        watch: flags.watch,
+      const tarballName = await packageApp();
+      await publishApp(tarballName, this.appsClient!, {
+        noWatch: flags["no-watch"],
       });
     } catch (error) {
       switch (error.code) {

@@ -88,6 +88,7 @@
     "shx": "^0.3.2",
     "sinon": "^9.0.3",
     "source-map-support": "^0.5.17",
+    "tar": "^6.0.5",
     "ts-node": "^8.10.2",
     "typescript": "^3.9.7",
     "yeoman-assert": "^3.1.1",
