@@ -177,6 +177,12 @@ param:
     - name: packages[].isNonMachineable
       type: boolean
       description: Indicates whether the package cannot be processed automatically due to size, shape, weight, etc. and requires manual handling.
+      
+    - name: packages[].customs
+      type: |
+      
+        [Customs](./../customs.md)
+      description: The customs associated with this package.
 
     - name: package
       type: object
