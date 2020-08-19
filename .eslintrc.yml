@@ -41,3 +41,6 @@ overrides:
       # Don't require React function components to specify a return type
       # (since it's always JSX.Element)
       "@typescript-eslint/explicit-module-boundary-types": off
+
+      # Annoying rule that makes code harder to read and undrstand
+      no-case-declarations: off

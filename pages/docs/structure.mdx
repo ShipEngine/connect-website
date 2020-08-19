@@ -7,6 +7,7 @@ tags:
 ---
 
 import Pager from "../../components/pager";
+import { Section, Left, Right } from "../../components/section";
 
 
 Application Structure
@@ -31,6 +32,8 @@ Just run the `connect init` command, answer a few questions, and it'll create al
 For more details, see [Creating Your First App](create-first-app.mdx).
 
 
+<Section>
+  <Left>
 
 Application Definition
 ---------------------
@@ -44,6 +47,8 @@ To make things even easier for you, your Application Definition object can be a 
 to plain [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript). You can even split your app definition into many separate files if you want, and each file can be any of these file types.
 You'll make this the main export by setting the `main` property of your `package.json` file to the path to your application definition file.
 
+  </Left>
+  <Right>
 
 ### Example
 Here's an example of a [Carrier Application Definition](reference/carrier.mdx) that consists of multiple files in multiple formats.  The main file is in YAML format,
@@ -70,6 +75,10 @@ deliveryServices:
 ```
 
 For more complete examples, see our [complete sample apps](https://github.com/ShipEngine/shipengine-integration-platform-sample-apps).
+
+  </Right>
+</Section>
+
 
 Methods
 ---------------------

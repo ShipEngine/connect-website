@@ -229,13 +229,13 @@ $largeish-horizontal-space: $large-horizontal-space * .8;
               width: $narrow-content-width;
               max-width: $narrow-content-width;
 
-              .toc {
+              #table-of-contents {
                 position: fixed;
                 top: $site-header-small-height + $sticky-offset + 2rem;
                 left: calc(100vw - #{$side-bar-min-width + $medium-horizontal-space});
                 overflow: hidden;
 
-                .toc-link {
+                a {
                   white-space: normal;
                 }
               }
@@ -269,7 +269,7 @@ $two-and-a-half-columns-min:
         > .section {
           > .section-group {
             &.right-group {
-              .toc {
+              #table-of-contents {
                 left: calc(100vw - #{$toc-min-width + $large-horizontal-space});
               }
             }
@@ -303,7 +303,7 @@ $two-columns-max:
         > .section {
           > .section-group {
             &.right-group {
-              .toc {
+              #table-of-contents {
                 display: none;
               }
             }
