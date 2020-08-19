@@ -1,7 +1,7 @@
 {
   "name": "@shipengine/connect-cli",
   "description": "A CLI tool for working with your ShipEngine Connect account.",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "author": {
     "name": "ShipEngine",
     "email": "support@shipengine.com",
@@ -20,9 +20,9 @@
     "@oclif/plugin-help": "^3.2.0",
     "@oclif/plugin-not-found": "^1.2.4",
     "@shipengine/capitalization": "^1.2.0",
-    "@shipengine/connect-loader": "^1.0.7",
-    "@shipengine/connect-local-dev-api": "^1.0.6",
-    "@shipengine/connect-sdk": "^1.0.5",
+    "@shipengine/connect-loader": "^1.0.8",
+    "@shipengine/connect-local-dev-api": "^1.0.7",
+    "@shipengine/connect-sdk": "^1.0.6",
     "axios": "^0.19.2",
     "chai": "^4.2.0",
     "chalk": "^4.1.0",
