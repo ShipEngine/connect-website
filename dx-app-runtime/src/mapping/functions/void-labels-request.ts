@@ -6,7 +6,7 @@ const mapVoidLabelRequest = (
   metadata: any
 ): ShipmentCancellationPOJO => {
   return {
-    cancellationID: request.void_request_id,
+    cancellationID: request.void_request_id || '',
     trackingNumber: request.tracking_number
       ? request.tracking_number
       : undefined,

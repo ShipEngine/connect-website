@@ -56,7 +56,7 @@ export const capiToDxPackage = (
       unit: WeightUnit.Grams,
     },
     insuredValue: {
-      value: capiPackage?.insured_value?.amount || 0,
+      value: Number(capiPackage?.insured_value?.amount || "0"),
       currency: capiPackage?.insured_value?.currency || 'USD',
     },
     containsAlcohol: advancedOptions?.contains_alcohol || false,
@@ -108,7 +108,7 @@ export const capiToDxNewPackagePOJO = (
       unit: WeightUnit.Grams,
     },
     insuredValue: {
-      value: !Number.isNaN(capiPackage?.insured_value?.amount) ? Number(capiPackage?.insured_value?.amount) : 0,
+      value: Number(capiPackage?.insured_value?.amount || 0),
       currency: capiPackage?.insured_value?.currency || 'USD',
     },
     containsAlcohol: advancedOptions?.contains_alcohol || false,
@@ -149,7 +149,7 @@ export const capiToDxPackageRateCriteria = (
       unit: WeightUnit.Grams,
     },
     insuredValue: {
-      value: !Number.isNaN(capiPackage?.insured_value?.amount) ? Number(capiPackage?.insured_value?.amount) : 0,
+      value: Number(capiPackage?.insured_value?.amount || '0'),
       currency: capiPackage?.insured_value?.currency || 'USD',
     },
     containsAlcohol: advancedOptions?.contains_alcohol || false,

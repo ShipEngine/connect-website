@@ -61,7 +61,7 @@ export const mapAddressToAddressWithContactInfoPOJO = (
     phoneNumber: address.phone_number || '',
     name: address.name || '',
     isResidential: convertResidentialIndicatorToBoolean(
-      address.address_residential_indicator
+      address.address_residential_indicator || AddressResidentialIndicator.Yes
     ),
     company: address.company_name || '',
   };

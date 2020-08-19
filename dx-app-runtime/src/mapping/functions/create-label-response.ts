@@ -20,24 +20,24 @@ export const mapCreateLabelResponse = (
   );
 
   const createLabelResponse: CreateLabelResponse = {
-    transaction_id: transaction.id,
-    tracking_number: response.trackingNumber,
+    transaction_id: transaction.id || '',
+    tracking_number: response.trackingNumber || '',
     label_download: {
-      label_data: response.label.data.toString('base64'),
+      label_data: response.label.data.toString('base64') || '',
     },
     form_download: {
-      label_data: response.form?.data?.toString('base64'),
+      label_data: response.form?.data?.toString('base64') || '',
     },
     shipping_amount: shippingAmount
       ? {
-        currency: shippingAmount.amount.currency,
-        amount: shippingAmount.amount.value.toString()
+        currency: shippingAmount.amount?.currency || 'USD',
+        amount: shippingAmount.amount?.value?.toString() || '0'
       }
       : undefined,
     insurance_amount: insuranceAmount
       ? {
-        currency: insuranceAmount.amount.currency,
-        amount: insuranceAmount.amount.value.toString()
+        currency: insuranceAmount.amount?.currency || 'USD',
+        amount: insuranceAmount.amount?.value?.toString() || '0'
       }
       : undefined,
     estimated_delivery_datetime: toCapiDateTimeString(

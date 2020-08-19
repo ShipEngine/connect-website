@@ -6,7 +6,7 @@ export default (
 ): ContactInfoPOJO => {
   return {
     name: `${contact?.first_name} ${contact?.last_name}`.trim(),
-    email: contact?.email,
-    phoneNumber: contact?.phone_number,
+    email: contact?.email || '',
+    phoneNumber: contact?.phone_number || '',
   };
 };

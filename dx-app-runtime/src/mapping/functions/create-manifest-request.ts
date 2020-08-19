@@ -6,7 +6,7 @@ import { mapAddressToAddressWithContactInfoPOJO } from "./address";
 
 const mapShipments = (label: Label) : ShipmentIdentifierPOJO => {
   return {
-    trackingNumber: label.tracking_number,
+    trackingNumber: label.tracking_number || '',
     identifiers: {
       carrierTransactionId: label.carrier_transaction_id
     }

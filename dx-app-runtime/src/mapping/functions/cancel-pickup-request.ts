@@ -69,7 +69,7 @@ export const mapCancelPickupRequest = (
     identifiers:
       request.confirmation?.alternate_identifiers?.reduce(mapIdentifier, {}) ||
       undefined,
-    reason: mapCancellationReason(request.cancellation_details?.reason),
+    reason: mapCancellationReason(request.cancellation_details?.reason || CancellationReason.Other),
     notes: [{
       type: NoteType.Internal,
       text: request.cancellation_details?.remarks || '',
@@ -81,6 +81,6 @@ export const mapCancelPickupRequest = (
     timeWindows: request.pickup_windows?.map(mapPickupWindow) || [],
     shipments:
       request.pickup_details?.shipments?.map(mapPickupShipment) || [],
-    metadata: request.custom_properties || undefined,
+    metadata: request.custom_properties || {},
   };
 };

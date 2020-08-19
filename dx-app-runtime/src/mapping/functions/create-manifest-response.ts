@@ -17,7 +17,7 @@ const mapManifest = (manifest: Manifest): CapiManifest => {
 
 export const mapCreateManifestResponse = (response: ManifestConfirmation, transaction: Transaction) : CreateManifestResponse => {
   return {
-    transaction_id: transaction.id,
+    transaction_id: transaction.id || '',
     manifests: response.manifests.map(mapManifest)
   }
 }

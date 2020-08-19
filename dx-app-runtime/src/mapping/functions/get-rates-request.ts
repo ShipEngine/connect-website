@@ -28,7 +28,7 @@ const mapPackage = (
       unit: WeightUnit.Ounces,
     },
     insuredValue: {
-      value: !Number.isNaN(request.insured_value?.amount) ? Number(request.insured_value?.amount) : 0,
+      value: Number(request.insured_value?.amount || '0'),
       currency: request.insured_value?.currency || 'USD',
     },
     containsAlcohol: request.advanced_options?.contains_alcohol || false,
@@ -43,7 +43,7 @@ export const mapGetRatesRequest = (
     deliveryService: request.service_code || '',
     deliveryConfirmation: mapDeliveryConfirmationToDx(request.confirmation),
     deliveryDateTime: undefined,
-    shipDateTime: request.ship_datetime,
+    shipDateTime: request.ship_datetime || '',
     shipFrom: mapAddressToAddressWithContactInfoPOJO(request.ship_from),
     shipTo: mapAddressToAddressWithContactInfoPOJO(request.ship_to),
     packages: request.packages.map((pckg) => mapPackage(pckg, request)),

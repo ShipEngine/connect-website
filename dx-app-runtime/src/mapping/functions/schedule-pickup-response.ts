@@ -49,7 +49,7 @@ const mapShipmentIdentifiers = (
   shipmentIdentifier: ShipmentIdentifierPOJO
 ): ShipmentIdentifier => {
   const mappedIdentifier: ShipmentIdentifier = {
-    tracking_number: shipmentIdentifier.trackingNumber,
+    tracking_number: shipmentIdentifier.trackingNumber || '',
     alternate_identifiers: [],
   };
   if (shipmentIdentifier.identifiers) {
