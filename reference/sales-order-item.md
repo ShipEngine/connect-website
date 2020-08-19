@@ -118,26 +118,6 @@ fields:
     required: false
     description: The URL of a webpage where the customer can view an image of the order item.
 
-  - name: notes
-    type: object[]
-    description: An array of objects containing additional information about this cancellation.
-
-  - name: notes[].type
-    type: |
-      [NotesType](./common-types.md#notes-types)
-    description: |
-       The type for this note.
-
-  - name: notes[].text
-    type: string
-    description: The note text itself. This string must be between `0` and `5000` characters.
-
-  - name: metadata
-    type: object
-    required: false
-    description: Custom data about this order item that was persisted by ShipEngine Connect.
-      Must be JSON serializable.
-
 ---
 
 

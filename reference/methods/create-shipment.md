@@ -21,70 +21,85 @@ param:
     - name: deliveryService
       type: |
 
-        [DeliveryService](./../delivery-service-object.md)
+        [DeliveryService](./../delivery-service-object.md#delivery-service-argument)
+      nullable: false
       description: An object that identifies a [delivery service](./../delivery-service.md) that is offered by a carrier.
 
     - name: deliveryConfirmation
       type: |
-       [DeliveryConfirmation](./../delivery-confirmation.md)
+       [DeliveryConfirmation](./../delivery-confirmation-object.md#delivery-confirmation-argument)
+      nullable: true
       description: The requested [delivery confirmation](./../delivery-confirmation.md) for this shipment.
 
     - name: shipFrom
-      type: "[AddressWithContactInfo](./../address.md)"
+      type: "[AddressWithContactInfo](./../address.md#address-argument)"
+      nullable: false
       description: The address _from_ which the shipment is being shipped.
 
     - name: shipTo
-      type: "[AddressWithContactInfo](./../address.md)"
+      type: "[AddressWithContactInfo](./../address.md#address-argument)"
+      nullable: false
       description: The address _to_ which the shipment is being shipped.
 
     - name: returnTo
-      type: "[AddressWithContactInfo](./../address.md)"
+      type: "[AddressWithContactInfo](./../address.md#address-argument)"
+      nullable: false
       description: The address to which to send the shipment in the case of a return. This may be different from the `shipFrom` address if the customer uses a centralized returns processing facility.
 
     - name: shipDateTime
       type: |
         [DateTime](./../date-time.md)
+      nullable: false
       description: The date/time that the package is expected to ship. This is not guaranteed to be in the future.
 
     - name: totalInsuredValue
       type: object
+      nullable: false
       description: The total insured value of all packages in the shipment.
 
     - name: totalInsuredValue.value
       type: number
+      nullable: false
       description: The value of the insured amount.
 
     - name: totalInsuredValue.currency
       type: string
+      nullable: false
       description: |
         The currency that the value represents.
 
     - name: isNonMachineable
       type: boolean
+      nullable: false
       description: Indicates whether the shipment cannot be processed automatically due to size, shape, weight, etc.
             and requires manual handling. This property is `true` if any package in the shipment is non-machinable.
 
     - name: returns
       type: object
+      nullable: false
       description: An object that indicates whether or not this shipment is a return shipment.
 
     - name: returns.isReturn
       type: boolean
+      nullable: false
       description: Indicates whether or not this shipment is a return shipment.
 
     - name: returns.rmaNumber
       type: string
+      nullable: false
       description: A [return merchandise authorization (RMA)](https://en.wikipedia.org/wiki/Return_merchandise_authorization) is an associated number assigned to process the return. This number is often printed on the label and used when the original shipper processes the inbound return.
         This string will be between `0` and `100` characters and will not contain newline characters.
 
     - name: packages
       type: |
         [NewPackage](./../new-package-object.md)[]
+      nullable: false
       description: The list of packages in this shipment.
 
     - name: package
       type: |
         [NewPackage](./../new-package-object.md)
+      nullable: false
       description: Returns the first package in the `packages` array. Useful for carriers that only support single-piece shipments.
 
 

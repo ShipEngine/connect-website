@@ -24,22 +24,24 @@ param:
   fields:
     - name: cancellationID
       type: "[UUID](https://www.npmjs.com/package/uuid)"
+      nullable: false
       description: The unique ID of this cancellation. This ID is used to correlate cancellations with outcomes.
 
     - name: trackingNumber
       type: string
+      nullable: false
       description: The master tracking number for the entire shipment. For single-piece shipments, this will be the same as the package tracking number. For multi-piece shipments, this may be a separate tracking number, or the same tracking number as one of the packages.
         This string will be between `0` and `100` characters and wo;; not contain newline characters.
 
     - name: identifiers
       type: object
+      nullable: false
       description: Your own identifiers for this shipment cancellation.
 
     - name: metadata
       type: object
+      nullable: false
       description: Custom data about this shipment that was persisted by ShipEngine Connect when this shipment was created. Must be JSON serializable.
-
-
 
 return:
   name: shipmentCancellationOutcomes
@@ -89,11 +91,13 @@ return:
     - name: notes[].type
       type: |
         [NotesType](./../common-types.md#notes-types)
+      required: true
       description: |
         The type for this note.
 
     - name: notes[].text
       type: string
+      required: true
       description: |
         The note text itself. This string must be between `0` and `5000` characters.
 

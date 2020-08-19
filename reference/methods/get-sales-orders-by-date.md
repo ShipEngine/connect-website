@@ -20,35 +20,43 @@ param:
     - name: startDateTime
       type: |
         [DateTime](./../date-time.md)
+      nullable: true
       description: The start date/time of the range.
 
     - name: endDateTime
       type: |
         [DateTime](./../date-time.md)
+      nullable: true
       description: The end date/time of the range.
 
     - name: toString
       type: method
+      nullable: false
       description: A method that returns the time range as a string.
 
     - name: paging
       type: object
+      nullable: false
       description: An object that indicates that page preferences for the items that are returned from this method.
 
     - name: paging.pageSize
       type: number
+      nullable: false
       description: The desired maximum number of items to return. This value will always be provided and will be greater than zero.
 
     - name: paging.pageNumber
       type: number
+      nullable: true
       description: The desired page number to return. This value will always be provided and will be zero or greater.
 
     - name: paging.pageCount
       type: number
+      nullable: false
       description: he desired maximum number of pages to return. This value is optional.
 
     - name: paging.cursor
       type: string
+      nullable: true
       description: Identifies the next page of results to return. This value is optional.
 
 return:
@@ -312,13 +320,13 @@ return:
     - name: notes[].type
       type: |
         [NotesType](./../common-types.md#notes-types)
-      required: false
+      required: true
       description: |
         The type for this note.
 
     - name: notes[].text
       type: string
-      required: false
+      required: true
       description: The note text itself. This string must be between `0` and `5000` characters.
 
     - name: metadata
@@ -329,22 +337,27 @@ return:
 
     - name: paging
       type: object
+      required: false
       description: An object that indicates that page preferences for the items that are returned from this method.
 
     - name: paging.pageSize
       type: number
+      required: false
       description: The desired maximum number of items to return. This value will always be provided and will be greater than zero.
 
     - name: paging.pageNumber
       type: number
+      required: false
       description: The desired page number to return. This value will always be provided and will be zero or greater.
 
     - name: paging.pageCount
       type: number
+      require: false
       description: he desired maximum number of pages to return. This value is optional.
 
     - name: paging.cursor
       type: string
+      required: false
       description: Identifies the next page of results to return. This value is optional.
 
 ---

@@ -21,50 +21,60 @@ param:
   fields:
   - name: cancellationID
     type: "[UUID](https://www.npmjs.com/package/uuid)"
+    nullable: false
     description: The unique ID of this cancellation. This ID is used to correlate cancellations with outcomes.
 
   - name: id
     type: string
+    nullable: false
     description: |
       The unique ID of the pickup to be cancelled. This string will be between `1` and `100` characters and will not contain newline characters.
 
   - name: identifiers
     type: object
+    nullable: false
     description: Your own identifiers for this pickup service.
 
   - name: pickupService
     type: object
+    nullable: false
     description: The [pickup service](./../pickup-service.md) to use for this pickup request.
 
   - name: pickupService.id
     type: "[UUID](https://www.npmjs.com/package/uuid)"
+    nullable: false
     description: A UUID that uniquely identifies the pickup service. This ID should never change.
       This is the UUID you used in the [Pickup Service Definition](./../pickup-service.md) file for this pickup service.
 
   - name: pickupService.identifiers
     type: object
+    nullable: false
     description: Your own identifiers for this pickup service.
 
   - name: pickupService.code
     type: string
-    required: false
+    nullable: false
     description: Optional code used to map to what the carrier uses to identify the pickup service.
 
   - name: pickupService.name
     type: string
+    nullable: false
     description: The user-friendly service name (e.g. "One-Time Pickup", "Recurring Pickup", "Drop-Off").
        This string will be between `1` and `100` characters and will not contain newline characters.
 
   - name: pickupService.description
     type: string
+    nullable: false
     description: A short, user-friendly description of the service. This string will be between `0` and `1000` characters and will not contain newline characters.
 
   - name: pickupService.hasSandbox
     type: boolean
+    nullable: false
     description: Indicates whether the carrier provides a [sandbox](./../../sandbox.md) API for this pickup service. A sandbox should mimic real functionality as much as possible but MUST NOT incur any actual costs or affect production data.
 
   - name: reason
     type: string
+    nullable: false
     description: |
       The reason for the cancellation. Valid values include the following:
       * `not_ready` - The package was not ready for pickup.
@@ -75,117 +85,142 @@ param:
 
   - name: notes
     type: object[]
+    nullable: false
     description: An array of objects containing additional information about this cancellation.
 
   - name: notes[].type
     type: |
       [NotesType](./../common-types.md#notes-types)
-    description: |
-      The type for this note.
+    nullable: false
+    description: The type for this note.
 
   - name: notes[].text
     type: string
+    nullable: false
     description: The note text itself. This string must be between `0` and `5000` characters.
 
   - name: address
-    type: "[Address](./../address.md)"
+    type:  |
+    
+      "[Address](./../address.md#address-argument)"
+      
+    nullable: false
     description: The address where the package(s) should be picked up.
 
   - name: contact
     type: |
       [ContactInfo](./../contact-info.md)
+    nullable: false
     description: An object representing contact information about the person there to meet the driver.
 
   - name: timeWindows
     type: object[]
+    nullable: false
     description: A list of dates and times when the carrier intended to pickup. This array will contain at least one value.
 
   - name: timeWindows[].startDateTime
     type: "[DateTime](./../date-time.md)"
+    nullable: true
     description: The start date/time of the request window.
 
   - name: timeWindows[].endDateTime
     type: "[DateTime](./../date-time.md)"
+    nullable: true
     description: The end date/time of the request window.
 
   - name: timeWindows[].toString()
     type: method
+    nullable: false
     description: A method that returns the time range as a string.
 
   - name: shipments
     type: object[]
+    nullable: false
     description: A list of shipments that were scheduled to be picked up. This array will contain at least one shipment.
 
   - name: shipments.trackingNumber
     type: string
-    required: false
+    nullable: false
     description: The master tracking number for the entire shipment. For single-piece shipments, this will be the same as the package tracking number. For multi-piece shipments, this may be a separate tracking number, or the same tracking number as one of the packages.
-                         This string must be between `0` and `100` characters and must not contain newline characters.
+      This string must be between `0` and `100` characters and must not contain newline characters.
 
   - name: shipments.identifiers
     type: object
-    required: false
+    nullable: false
     description: Your own identifiers for this shipment.
 
   - name: shipments[].deliveryService
     type: |
-      [DeliveryService](./../delivery-service.md)
+      [DeliveryService](./../delivery-service-object.md#delivery-service-argument)
+    nullable: false
     description: The delivery service assigned to the original pickup request. This array will contain at least one
       value.
 
   - name: shipments[].metadata
     type: object
+    nullable: false
     description: The carrier's custom data about this shipment that was previously persisted by the ShipEngine Platform.
 
   - name: shipments[].packages
     type: object[]
+    nullable: false
     description: The list of packages in this shipment. This array will contain at least one value.
 
   - name: shipments.packages[].trackingNumber
     type: string
+    nullable: false
     description: The master tracking number for the entire shipment. For single-piece shipments, this will be the same as the package tracking number. For multi-piece shipments, this may be a separate tracking number, or the same tracking number as one of the packages.
       This string must be between `0` and `100` characters and must not contain newline characters.
 
   - name: shipments[].packages[].identifiers
     type: object
+    nullable: false
     description: Your own identifiers for this package.
 
   - name: shipments[].packages[].packaging
     type: object
+    nullable: false
     description: The packaging used for this package.
 
   - name: shipments[].packages[].packaging.id
     type: "[UUID](https://www.npmjs.com/package/uuid)"
+    nullable: false
     description: A UUID that uniquely identifies this packaging. This is the UUID you used int he [Packaging Definition](./../packaging.md)
       file for this packaging.
 
   - name: shipments[].packages[].packaging.identifiers
     type: object
+    nullable: false
     description: Your own identifiers for this packaging.
 
   - name: shipments[].packages[].packaging[].code
     type: string
-    required: false
+    nullable: false
     description: Optional code used to map to what the carrier uses to identify the packaging.
 
   - name: shipments[].packages[].dimensions
     type: object
+    nullable: true
     description: The dimensions for the package.
 
   - name: shipments[].packages[].dimensions.length
     type: number
+    nullable: false
     description: The length of the package. This value may contain decimals.
 
   - name: shipments[].packages[].dimensions.width
     type: number
+    nullable: false
     description: The width of the package. This value may contain decimals.
 
   - name: shipments[].packages[].dimensions.height
     type: number
+    nullable: false
     description: The height of this package. This value may contain decimals.
 
   - name: shipments[].packages[].dimensions.unit
     type: string
+    nullable: false
     description: |
       The unit of measurement for the dimensions. Valid values include the following:
       * `in` for inches
@@ -193,14 +228,17 @@ param:
 
   - name: shipments[].packages[].weight
     type: object
+    nullable: true
     description: The weight of the package.
 
   - name: shipments[].packages[].weight.value
     type: number
+    nullable: false
     description: The weight value for this package. This value may contain decimals.
 
   - name: shipments[].packages[].weight.unit
     type: string
+    nullable: false
     description: |
       The unit of measure for this weight. Valid values include the following:
       * `g` for grams
@@ -210,10 +248,12 @@ param:
 
   - name: shipments[].packages[].metadata
     type: object
+    nullable: true
     description: The carrier's custom data about this package that was previously persisted by ShipEngine Connect. Must be JSON serializable.
 
   - name: shipments[].package
     type: object
+    nullable: false
     description: The first package in the `packages` array. This is useful for carriers that only support single-piece shipments.
       This object has all the same properties as the objects in the `packages` array described above.
 
@@ -259,16 +299,19 @@ return:
 
     - name: notes
       type: object[]
+      required: false
       description: An array of objects containing additional information about this cancellation.
 
     - name: notes[].type
       type: |
         [NotesType](./../common-types.md#notes-types)
+      required: true
       description: |
          The type for this note.
 
     - name: notes[].text
       type: string
+      required: true
       description: The note text itself. This string must be between `0` and `5000` characters.
 
     - name: metadata

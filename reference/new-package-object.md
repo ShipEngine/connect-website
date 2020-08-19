@@ -15,58 +15,70 @@ documentation: |
 fields:
    -  name: packaging
       type: object
+      nullable: false
       description: The packaging used for this package.
 
    - name: packaging.id
      type: "[UUID](https://www.npmjs.com/package/uuid)"
+     nullable: false     
      description: A UUID that uniquely identifies this packaging. This is the UUID you used in the [Packaging Definition](./packaging.md)
        file for this packaging..
 
    - name: packaging.identifiers
      type: object
+     nullable: false
      description: Your own identifiers for this packaging.
 
    - name: packaging.code
      type: string
-     required: false
+     nullable: false
      description: Optional code used to map to what the carrier uses to identify the packaging.
 
    - name: packaging.name
      type: string
+     nullable: false
      description: The user-friendly name for this packaging (e.g. "Flat-Rate Box", "Large Padded Envelope").
        This string will be between `1` and `100` characters and will not contain newline characters.
 
    - name: packaging.description
      type: string
+     nullable: false
      description: A short, user-friendly description of the packaging.
        This string will be between `0` and `1000` characters and will not contain newline characters.
 
    - name: packaging.requiresWeight
      type: boolean
+     nullable: false
      description: Indicates whether the weight must be specified when using this packaging.
 
    - name: packaging.requiresDimensions
      type: boolean
+     nullable: false
      description: Indicates whether the dimensions must be specified when using this packaging.
 
    - name: dimensions
      type: object
+     nullable: true
      description: The dimensions for the package.
 
    - name: dimensions.length
      type: number
+     nullable: false
      description: The length of the package. This value may contain decimals.
 
    - name: dimensions.width
      type: number
+     nullable: false
      description: The width of the package. This value may contain decimals.
 
    - name: dimensions.height
      type: number
+     nullable: false
      description: The height of the package. This value may contain decimals.
 
    - name: dimensions.unit
      type: string
+     nullable: false
      description: |
        The unit of measurement for the dimensions. Valid values include the following:
        * `in` - inches
@@ -75,36 +87,44 @@ fields:
    - name: weight
      type: |
        [Weight](./weight-object.md)
+     nullable: true
      description: The weight of the package.
      required: false
 
    - name: insuredValue
      type: object
+     nullable: 
      description: The insured value of this shipment.
 
    - name: insuredValue.value
      type: number
+     nullable: false
      description: The value of the insured amount.
 
    - name: insuredValue.currency
      type: string
+     nullable: false
      description: |
        The currency that the value represents.
 
    - name: containsAlcohol
      type: boolean
+     nullable: false
      description: Indicates whether the package contains alcohol.
 
    - name: isNonMachineable
      type: boolean
+     nullable: false
      description: Indicates whether the package cannot be processed automatically due to size, shape, weight, etc. and requires manual handling.
 
    - name: label
      type: object
+     nullable: false
      description: An object representing the information required to create a new label.
 
    - name: label.format
      type: string
+     nullable: false
      description: |
        The preferred file format of the label. The carrier should return the label in this format, if possible.
        Valid values include the following:
@@ -114,6 +134,7 @@ fields:
 
    - name: label.size
      type: string
+     nullable: false
      description: |
        The preferred label size. The carrier should return the label in this size, if possible.
        Valid values include the following:
@@ -125,6 +146,7 @@ fields:
 
    - name: label.referenceFields
      type: string[]
+     nullable: false
      description: |
        Some carriers provide general-purpose fields on their labels for custom text.
        This is sometimes used for messages, like "Thank you for shopping with us!",
@@ -146,70 +168,120 @@ fields:
      type: |
        
        [Customs](./customs.md)
+     nullable: false
      description: The customs associate with this package.
      
    - name: contents
      type: object
+     nullable: false
      description: Describes the items inside the package.
 
    - name: contents.sku
      type: string
+     nullable: false
      description: The [Stock Keeping Unit](https://en.wikipedia.org/wiki/Stock_keeping_unit). This string will be between `0` and `100` characters and will not contain newline characters.
 
    - name: contents.identifiers
      type: object
+     nullable: false
      description: Your own identifiers for this item.
 
    - name: contents.salesOrder
      type: object
+     nullable: true
      description: The sales order associated with this item.
 
    - name: contents.salesOrder.id
      type: string
+     nullable: false
      description: The marketplace's unique ID for the sales order. This string will be between `1` and `100` characters and will not contain newline characters.
 
    - name: contents.salesOrder.identifiers
      type: object
+     nullable: false
      description: Your own identifiers for this sales order.
 
    - name: contents.salesOrderItem
      type: object
+     nullable: false
      description: The sales order item associated with this item.
 
    - name: contents.salesOrderItem.id
      type: string
+     nullable: false
      description: The marketplace's unique ID for the sales order item. This string will be between `1` and `100` characters and will not contain newline characters.
 
    - name: contents.salesOrderItem.sku
      type: string
+     nullable: false
      description: The [Stock Keeping Unit](https://en.wikipedia.org/wiki/Stock_keeping_unit). This string will be between `0` and `100` characters and will not contain newline characters.
 
    - name: contents.salesOrderItem.identifiers
      type: object
+     nullable: false
      description: Your own identifiers for this sales order item.
 
-   - name: contents.product
+   - name: product
      type: object
+     nullable: false
      description: The product associated with this item.
 
-   - name: contents.product.id
+   - name: product.id
      type: string
-     description: The product catalog's unique ID for the order. This string will be between `1` and `100` characters and will not contain newline characters.
+     nullable: false
+     description: The product catalog's unique ID for the order. This string must be between `1` and `100` characters and must not contain newline characters.
 
-   - name: contents.product.sku
+   - name: product.sku
      type: string
-     description: The [Stock Keeping Unit](https://en.wikipedia.org/wiki/Stock_keeping_unit). This string will be between `0` and `100` characters and will not contain newline characters.
+     nullable: false
+     description: The [Stock Keeping Unit](https://en.wikipedia.org/wiki/Stock_keeping_unit). This string must be between `0` and `100` characters and must not contain newline characters.
+      
+   - name: product.upc
+     type: string
+     nullable: false
+     description: |
+      
+       The [Universal Product Code](https://en.wikipedia.org/wiki/Universal_Product_Code) for this item. This string must be between `0` and `100` characters and must not contain newline characters.
 
-   - name: contents.product.identifiers
+   - name: product.isbn
+     type: string
+     nullable: false
+     description: |
+      
+       The [International Standard Book Number](https://www.isbn-international.org/) for this item. This string must be between `0` and `100` characters and must not contain newline characters.
+    
+   - name: product.asin
+     type: string
+     nullable: false 
+     description: |
+      
+       The [Amazon Standard Identification Number](https://www.amazon.com/gp/seller/asin-upc-isbn-info.html) for this item. This string must be between `0` and `100` characters and must not contain newline characters.
+        
+   - name: product.fulfillmentSku
+     type: string
+     nullable: false
+     description: |
+      
+       The [Stock Keeping Unit](https://en.wikipedia.org/wiki/Stock_keeping_unit) related to the fulfillment of this item. This string must be between `0` and `100` characters and must not contain newline characters.
+
+   - name: product.inventoryID
+     type: string
+     nullable: false
+     description: The inventory ID for this item. This string must be between `0` and `100` characters and must not contain newline characters.
+
+   - name: product.identifiers
      type: object
-     description: Your own identifiers for this product.
+     nullable: false
+     description: Your own identifiers for this product.   
 
    - name: contents.quantity
      type: object
+     nullable: false
      description: The quantity of this item in the package.
 
    - name: contents.quantity.value
      type: number
+     nullable: false
      description: The quantity of items. The minimum value is `1`. This value will not contain decimals.
 
    - name: contents.unitPrice
