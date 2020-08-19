@@ -32,7 +32,7 @@ export default function BaseLayout(props: BaseLayoutProps) {
     !Array.isArray(tags) ||
     tags.length === 0
   ) {
-    throw new Error(`${router.pathname} is missing required metadata (title, description, tags)`);
+    throw new Error(`${router.pathname} is missing required frontmatter (title, description, tags)`);
   }
 
   const pageProps: PageProps = {

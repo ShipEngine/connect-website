@@ -42,5 +42,6 @@ overrides:
       # (since it's always JSX.Element)
       "@typescript-eslint/explicit-module-boundary-types": off
 
-      # Annoying rule that makes code harder to read and undrstand
+      # Annoying rules that makes code harder to read, write, and/or undrstand
       no-case-declarations: off
+      "@typescript-eslint/ban-types": off

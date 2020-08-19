@@ -1,5 +1,5 @@
-import { slugify } from "../../lib/utils";
-import styles from "./index.module.scss";
+import { slugify } from "../lib/utils";
+import styles from "./table-of-contents.module.scss";
 
 interface TableOfContentsProps {
   headings: Array<Heading>;

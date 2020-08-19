@@ -1,4 +1,4 @@
-import { JSXElementConstructor, ReactElement, ReactNode, ReactNodeArray, ReactPortal } from "react";
+import { JSXElementConstructor, ReactElement, ReactNode, ReactNodeArray } from "react";
 
 export interface Props {
   children?: ReactNode;
@@ -24,7 +24,8 @@ interface MDXElementProps {
 /**
  * If there's only one child, wraps it in an array.
  *
- * NOTE: This is different from `React.Children.toArray()`, which assigns keys to the children
+ * NOTE: This is different from `React.Children.toArray()`, which clones all the children
+ *       and assigns keys to them
  */
 export function toArray(children: ReactNode): ReactNodeArray {
   return Array.isArray(children) ? children : [children];
@@ -47,10 +48,20 @@ export function getElements<T = unknown>(children: ReactNode): Array<ReactElemen
 }
 
 /**
+ * Returns the first child of a React element, if any
+ */
+export function getFirstChild(node: ReactNode): ReactNode | undefined {
+  if (typeof node === "object") {
+    const element = node as ReactElement<Props>;
+    return toArray(element.props.children)[0];
+  }
+}
+
+/**
  * Returns the concatenated text of all descendant text nodes
  */
-export function getText(children: ReactNode): string {
-  const nodes = toArray(children);
+export function getText(node: ReactNode): string {
+  const nodes = toArray(node);
   let text = "";
 
   for (const child of nodes) {
@@ -58,8 +69,8 @@ export function getText(children: ReactNode): string {
       continue;
     }
     else if (typeof child === "object") {
-      const element = child as ReactElement;
-      text += getText((element.props as ReactPortal).children);
+      const element = child as ReactElement<Props>;
+      text += getText(element.props.children);
     }
     else {
       text += String(child);
@@ -73,7 +84,12 @@ export function getText(children: ReactNode): string {
  * Returns the type of React element. For HTML types, this will be a string (e.g. "h1", "table").
  * For React components, this will be the component function.
  */
-export function getType(element: ReactElement): string | JSXElementConstructor<unknown> {
+export function getType(node: ReactNode): string | JSXElementConstructor<unknown> {
+  if (typeof node !== "object") {
+    return typeof node;
+  }
+
+  const element = node as ReactElement;
   switch (typeof element.type) {
     case "string":
       return element.type;
@@ -90,11 +106,16 @@ export function getType(element: ReactElement): string | JSXElementConstructor<u
 /**
  * Returns the type of React element (e.g. "h1", "table", "Pager", etc.)
  */
-export function getTypeName(element: ReactElement): string {
+export function getTypeName(node: ReactNode): string {
+  if (typeof node !== "object") {
+    return typeof node;
+  }
+
+  const element = node as ReactElement;
   const typeName = getNameOfType(element.type);
 
   if (typeName === "MDXCreateElement") {
-    const mdxElement = element as unknown as MDXCreateElement;
+    const mdxElement = node as MDXCreateElement;
     return getNameOfType(mdxElement.props.originalType);
   }
 }
