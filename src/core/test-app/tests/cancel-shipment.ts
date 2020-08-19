@@ -1,5 +1,5 @@
 import { DeliveryService, WeightUnit } from "@shipengine/connect-sdk";
-import { CarrierApp, NewShipmentPOJO, NewPackagePOJO, ShipmentCancellation, ShipmentCancellationPOJO } from "@shipengine/connect-sdk/lib/internal";
+import { CarrierApp, NewShipmentPOJO, NewPackagePOJO, ShipmentCancellationPOJO } from "@shipengine/connect-sdk/lib/internal";
 import Suite from "../runner/suite";
 import { initializeTimeStamps } from "../../utils/time-stamps";
 import reduceDefaultsWithConfig from '../utils/reduce-defaults-with-config';
@@ -19,6 +19,9 @@ interface TestArgs {
   config: any;
 }
 
+/**
+ * Test an individual cancellation of one shipment.
+ */
 export class CancelShipment extends Suite {
   title = "cancelShipment";
 
@@ -159,7 +162,6 @@ export class CancelShipment extends Suite {
           }];
 
           const shipmentCancellationConfirmation = await carrierApp.cancelShipments(transaction, shipmentCancellations);
-
 
           const customMsg = `The shipmentCancellationConfirmation cancellationID does not match the one that was included in the shipmentCancellation: ${cancellationID}`;
           expect(shipmentCancellationConfirmation[0].cancellationID).to.equal(cancellationID, customMsg);

@@ -3,10 +3,11 @@ import { CreateShipmentDomesticConfigOptions } from "./config/create-shipment-do
 import { CreateShipmentMultiPackageConfigOptions } from './config/create-shipment-multipackage';
 import { CreateShipmentWithInsuranceConfigOptions } from './config/create-shipment-insurance';
 import { RateShipmentConfigOptions } from './config/rate-shipment';
+import { CancelShipmentConfigOptions } from './config/cancel-shipment';
 
 export interface TestsConfig {
   // cancelPickups?: (TestOptions & TestOptions) | [TestOptions];
-  // cancelShipments?: TestOptions | [TestOptions];
+  cancelShipment?: CancelShipmentConfigOptions | [CancelShipmentConfigOptions];
   // createManifest?: TestOptions | [TestOptions];
   createShipment_domestic?:
     | CreateShipmentDomesticConfigOptions

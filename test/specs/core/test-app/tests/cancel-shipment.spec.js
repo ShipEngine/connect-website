@@ -7,7 +7,7 @@ const { expect } = require("chai");
 const sinon = require("sinon");
 const { v4 } = require("uuid");
 
-describe.only("The cancel shipment test suite", () => {
+describe("The cancel shipment test suite", () => {
 
   describe("when there is not address available for the delivery services", () => {
     it("should not generate tests", () => {
@@ -250,12 +250,11 @@ describe.only("The cancel shipment test suite", () => {
 
       sinon.stub(CarrierApp.prototype, "createShipment").resolves(confirmationMock);
 
-
-      const shipCancelOutcomeMock = [{
+      const shipmentCancelledOutcomeMock = [{
         cancellationId: v4()
       }];
 
-      sinon.stub(CarrierApp.prototype, "cancelShipments");
+      sinon.stub(CarrierApp.prototype, "cancelShipments").resolves(shipmentCancelledOutcomeMock);
 
       const app = new CarrierApp(appDefinition);
       const args = { app, connectArgs, staticConfigTests, options };
@@ -267,8 +266,13 @@ describe.only("The cancel shipment test suite", () => {
         expect(true).to.equal(false);
       }
       catch (error) {
-        expect(error.message).includes("The shipment confirmation packages array should have the same number of packages that were on the request");
+        expect(error.message).includes("The shipmentCancellationConfirmation cancellationID does not match the one that was included in the shipmentCancellation");
       }
+    });
+
+    afterEach(() => {
+      CarrierApp.prototype.createShipment.restore();
+      CarrierApp.prototype.cancelShipments.restore();
     });
   });
 
@@ -285,6 +289,7 @@ function generateBasicAppAndConfigs() {
   deliveryService.packaging.push(pojo.packaging());
   appDefinition.deliveryServices = [deliveryService];
   appDefinition.createShipment = () => { };
+  appDefinition.cancelShipments = () => { };
 
   const options = {
     cli: {
