@@ -1,11 +1,12 @@
 import {
-  ShipmentIdentifierPOJO,
-  NotePOJO,
-  Transaction,
-} from '@shipengine/connect-sdk';
-import {
+  ShipmentIdentifier as ShipmentIdentifierPOJO,
   PickupConfirmation,
+  TimeRange
 } from '@shipengine/connect-sdk/lib/internal';
+import {
+  Transaction
+} from '@shipengine/connect-sdk'
+
 import { SchedulePickupResponse } from '@ipaas/capi/responses';
 import {
   ShipmentIdentifier,
@@ -21,28 +22,6 @@ const mapIdentifier = (
     type: key,
     value: value,
   };
-};
-
-const mapNotesToString = (
-  notes: string | readonly (string | NotePOJO)[]
-): string => {
-  let combinedNotes = '';
-  if (Array.isArray(notes)) {
-    if (!notes.length) {
-      if (typeof notes[0] === 'string') {
-        const strings = notes as string[];
-        combinedNotes = strings.join(' ');
-      } else {
-        const notePojo = notes as NotePOJO[];
-        notePojo.forEach((note) => {
-          combinedNotes += `${note.type}: ${note.text} `;
-        });
-      }
-    }
-  } else {
-    return notes as string;
-  }
-  return combinedNotes;
 };
 
 const mapShipmentIdentifiers = (
@@ -66,25 +45,26 @@ const mapShipmentIdentifiers = (
   }
   return mappedIdentifier;
 };
+export const mapTimeWindows = (range: TimeRange): PickupWindow => {
+  return {
+    time_zone_iana: range.startDateTime?.timeZone || '',
+    pickup_date: range.startDateTime?.toString() || '',
+    start_time: range.startDateTime?.toString() || '',
+    end_time: range.endDateTime?.toString() || '',
+  }
+};
+
 export const mapSchedulePickupResponse = (
   response: PickupConfirmation,
   transaction: Transaction
 ): SchedulePickupResponse => {
   const mappedResponse: SchedulePickupResponse = {
-    remarks: response.notes ? mapNotesToString(response.notes) : undefined,
+    remarks: response.notes ? response.notes.map(note => note.text).join(', ') : undefined,
     confirmation: {
       confirmation_id: response.id,
       shipment_identifiers: response.shipments?.map(mapShipmentIdentifiers),
     },
-    pickup_windows: response.timeWindows.map((timeWindow) => {
-      const window: PickupWindow = {
-        time_zone_iana: '',
-        pickup_date: timeWindow.startDateTime.toString(),
-        start_time: timeWindow.startDateTime.toString(),
-        end_time: timeWindow.endDateTime.toString(),
-      };
-      return window;
-    }),
+    pickup_windows: response.timeWindows.map(mapTimeWindows),
     metadata: {
       ...transaction.session,
     },

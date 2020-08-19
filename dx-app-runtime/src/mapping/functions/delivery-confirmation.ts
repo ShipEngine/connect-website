@@ -12,7 +12,7 @@ export const mapDeliveryConfirmationToDx = (confirmation?: Confirmation | null):
     case Confirmation.Signature:
       return DeliveryConfirmationType.Signature;
     default:
-      return undefined;
+      return DeliveryConfirmationType.None;
   }
 }
 
