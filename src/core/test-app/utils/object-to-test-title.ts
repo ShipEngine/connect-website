@@ -8,6 +8,8 @@ function formatTitleParameter(key: string, value: any) {
       return value.country;
     case "shipFrom":
       return value.country;
+    case "returnTo":
+      return value.country;
     case "packages":
       return `${value.length}`;
 
@@ -15,11 +17,12 @@ function formatTitleParameter(key: string, value: any) {
       if (Array.isArray(value)) {
         return `${value.join(", ")}`;
       }
-      
+
       return `${value}`;
 
     case "packageInsuredValue":
       return `${value.value} ${value.currency}`;
+
     default:
       return value;
   }
