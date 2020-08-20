@@ -9,9 +9,9 @@ import { Analytics, OpenGraph, PageProps, SEO, Twitter } from "./meta";
 export interface BaseLayoutProps {
   title: string;
   description: string;
-  tags: string[];
   createdAt: Date;
   modifiedAt: Date;
+  tags?: string[];
   image?: string;
   hidden?: boolean;
   children?: ReactNode;
@@ -26,22 +26,17 @@ export default function BaseLayout(props: BaseLayoutProps) {
   const router = useRouter();
   const pageURL = getPageURL(router);
 
-  if (
-    typeof title !== "string" ||
-    typeof description !== "string" ||
-    !Array.isArray(tags) ||
-    tags.length === 0
-  ) {
-    throw new Error(`${router.pathname} is missing required frontmatter (title, description, tags)`);
+  if (typeof title !== "string" || typeof description !== "string") {
+    throw new Error(`${router.pathname} is missing a title and/or description`);
   }
 
   const pageProps: PageProps = {
     title,
     description,
-    tags,
     createdAt,
     modifiedAt,
     url: pageURL,
+    tags: tags || [],
     image: image ? new URL(image, pageURL) : defaultImageURL,
     hidden: hidden || false,
   };
