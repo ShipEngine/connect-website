@@ -10,7 +10,6 @@ import reduceDefaultsWithConfig from '../utils/reduce-defaults-with-config';
 import objectToTestTitle from '../utils/object-to-test-title';
 import useDomesticShippingAddress from '../utils/use-domestic-shipment-addresses';
 
-import { findDomesticDeliveryService } from '../utils/find-domestic-delivery-service';
 import { expect } from "chai";
 import findDeliveryServiceByName from '../utils/find-delivery-service-by-name';
 import findDeliveryConfirmationByName from '../utils/find-delivery-confirmation-by-name';
