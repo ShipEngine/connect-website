@@ -35,7 +35,7 @@ param:
       nullable: false
       description: Your own identifiers for this pickup service.
 
-    - name: pickuService.code
+    - name: pickupService.code
       type: string
       required: false
       nullable: false
@@ -125,8 +125,7 @@ param:
       type: |
         [DeliveryService](./../delivery-service-object.md#delivery-service-argument)
       nullable: false
-      description: The [delivery service](./../delivery-service.md) assigned to this shipment. This array will contain at least one
-        value.
+      description: The [delivery service](./../delivery-service.md) assigned to this shipment. 
 
     - name: shipments[].metadata
       type: object

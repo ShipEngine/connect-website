@@ -46,6 +46,7 @@ fields:
        * `signature`
        * `adult_signature`
        * `direct_signature`
+       * `none` - Many carriers refer to this as _Authority to Leave_ or _No Signature Required_.
        
 returnFields:
   - name: id
