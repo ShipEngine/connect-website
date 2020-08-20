@@ -22,23 +22,28 @@ param:
   fields:
     - name: trackingNumber
       type: string
+      nullable: false
       description: The master tracking number for the entire shipment. For single-piece shipments, this will be the same as the package tracking number. For multi-piece shipments, this may be a separate tracking number, or the same tracking number as one of the packages.
         This string will be between `0` and `100` characters and will not contain newline characters.
 
     - name: identifiers
       type: object
+      nullable: false
       description: Your own identifiers for this shipment.
 
     - name: returns
       type: object
+      nullable: false
       description: An object that indicates whether or not this shipment is a return shipment.
 
     - name: returns.isReturn
       type: boolean
+      nullable: false
       description: Indicates whether or not this shipment is a return shipment.
 
     - name: metadata
       type: object
+      nullable: false
       description: Custom data about this shipment that was persisted by ShipEngine Connect. Must be JSON serializable.
 
 
@@ -69,7 +74,7 @@ return:
       description: The date and time that the shipment is now expected to be delivered. Once the shipment has been delivered, this is the actual delivery date/time.
 
     - name: packages
-      type: array
+      type: object[]
       required: true
       description: The list of packages in the shipment.
 
@@ -89,7 +94,7 @@ return:
       required: false
       description: Your own identifiers for this packaging.
 
-    - name: packages[].packging.code
+    - name: packages[].packaging.code
       type: string
       required: false
       description: Optional code used to map to what the carrier uses to identify the packaging.
@@ -205,7 +210,7 @@ return:
 
     - name: events[].address
       type: |
-        Partial<[Address](./../address.md)>
+        Partial<[Address](./../address.md#address-return-value)>
       required: false
       description: The address (or as much of it as is known) where the event occurred.
 

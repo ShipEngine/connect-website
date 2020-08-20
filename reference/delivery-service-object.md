@@ -1,51 +1,53 @@
 ---
 hidden: true
-layout: nunjucks/layouts/object-page.njk
-title: Delivery Service Object
-name: Delivery Service
-identifier: Delivery Service Properties
+title: Delivery Service Objects
+name: Delivery Service Objects
+
 
 description:
-  The page describes the delivery service object.
+  This page describes the delivery service object that is passed to a ShipEngine Connect 
+  Carrier app. For example, the [createShipment method](./methods/create-shipment.md) accepts a `shipment` parameter with
+  a `deliveryService` property that corresponds to this object. The property details include whether or not they are `required`
+  or `nullable`. These details may differ depending on whether the delivery service is part of a parameter passed to a method
+  or part of an argument returned from a method.
 
 documentation: |
-  A Delivery Service is a type of delivery that is offered by a carrier, such as "international" or "standard overnight".
-  You defined the delivery service options available through your company in [Delivery Service Definition](./delivery-service.md)
+  A Delivery Service is a type of delivery that is offered by a carrier, such as `international` or `standard overnight`.
+  You defined the delivery service options available through your app in [Delivery Service Definition](./delivery-service.md)
   files.
-  Arguments passed to your methods and values returned from your methods will often contain a nested delivery service object that
-  mimics the format of the definition file.
-  The page defines the properties required on a delivery service object.
-
+  
 fields:
   - name: id
     type: UUID
+    nullable: false
     required: true
     description: UUID that uniquely identifies the delivery service. This is the UUID you used in the
       [Delivery Service Definition](./delivery-service.md) file for this delivery service.
 
   - name: identifiers
     type: object
-    required: false
+    nullable: false
     description: Your own identifiers for this delivery service.
 
   - name: code
     type: string
-    required: true
+    nullable: false
     description: Optional code used to map to what the carrier uses to identify the delivery service.
 
   - name: name
     type: string
+    nullable: false
     required: true
     description: The user-friendly service name (e.g. "Priority Overnight", "2-Day Air").
 
   - name: description
     type: string
-    required: false
+    nullable: false
     description: A short, user-friendly description of the service.
 
   - name: class
     type: string
-    required: true
+    nullable: false
     description: |
       The class of service used by this delivery service. Valid values include the following:
       * `ground` - Delivery within a range of days, usually one to five days.
@@ -58,7 +60,7 @@ fields:
 
   - name: grade
     type: string
-    required: true
+    nullable: false
     description: |
       The grade of service used by this delivery service. Valid values include the following:
       * `economy`
@@ -68,51 +70,52 @@ fields:
 
   - name: fulfillmentService
     type: string
-    required: true
+    nullable: true
     description: A well-known [fulfillment service](./fulfillment-service.md) that's used to fulfill this delivery service, such as "fedex_ground".
 
   - name: serviceArea
     type: string
-    required: true
+    nullable: true
     description: |
       The service area this delivery service covers. Valid values include the following:
       * `regional` - Delivery based on the shipment's distance to its destination. Rates typically vary by zone.
       * `domestic` - Delivery with an origin address and a destination address within the same country.
       * `international` - Delivery to a from address in at least one other country.
       * `global` - Delivery to a from address anywhere in the world.
+      
   - name: isConsolidatedService
     type: boolean
-    required: true
+    nullable: false
     description: Indicates whether this delivery service is a consolidation of multiple carrier services.
 
   - name: allowsMultiplePackages
     type: boolean
-    required: true
+    nullable: false
     description: Indicates whether the delivery service allows multiple packages in a single shipment.
 
   - name: isInsurable
     type: boolean
-    required: true
+    nullable: false
     description: Indicates whether shippers can purchase insurance from the carrier for this delivery service.
 
   - name: isTrackable
     type: boolean
-    required: true
+    nullable: false
     description: Indicates whether tracking numbers are provided by this delivery service.
 
   - name: hasSandbox
     type: boolean
-    required: true
+    nullable: false
     description: Indicates whether the carrier provides a [sandbox](./../sandbox.md) API for this delivery service. A sandbox should mimic real functionality as much as possible but MUST NOT incur any actual costs or affect production data.
 
   - name: supportsReturns
     type: boolean
-    required: false
+    nullable: false
     description: Indicates whether the carrier supports return shipments. Defaults to `false` if not specified.
 
   - name: labelFormats
     type: string[]
-    required: true
+    nullable: false
     description: |
       The list of label formats that are offered for this delivery service. Valid values include the following:
       * `pdf` - Potable Document Format (PDF)
@@ -121,7 +124,7 @@ fields:
 
   - name: labelSizes
     type: string[]
-    required: true
+    nullable: false
     description: |
       The list of label sizes that are offered for this delivery service. Valid values include the following:
       * `A4` - A4 sized paper. 8.27 inches x 11.69 inches.
@@ -132,7 +135,7 @@ fields:
   - name: originCountries
     type: |
       [CountryCode](./country-codes.md)[]
-    required: true
+    nullable: false
     description: |
       The list of [ISO 3166 country codes](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) for the
       [countries](./country-codes.md) that can be shipped _from_ using this delivery service.
@@ -140,7 +143,7 @@ fields:
   - name: destinationCountries
     type: |
       [CountryCode](./country-codes.md)[]
-    required: true
+    nullable: false
     description: |
        The list of [ISO 3166 country codes](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) for the
                [countries](./country-codes.md) that can be shipped _to_ using this delivery service.
@@ -148,7 +151,7 @@ fields:
   - name: countries
     type: |
       [CountryCode](./country-codes.md)[]
-    required: true
+    nullable: false
     description: |
        All countries that this service ships to or from. This list includes all unique origin and destination countries.
        This list must contain [ISO 3166 country codes](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes).
@@ -165,71 +168,74 @@ fields:
 
   - name: packaging
     type: object[]
-    required: true
+    nullable: false
     description: The types of packaging that are provided or allowed for this delivery service.
       This array will contain at least one value.
 
-  - name: packaging.id
+  - name: packaging[].id
     type: "[UUID](https://www.npmjs.com/package/uuid)"
-    required: true
+    nullable: false
     description: A UUID that uniquely identifies the packaging. This is the UUID you used in the [Packaging Definition](./packaging.md)
       file for this packaging.
 
-  - name: packaging.identifiers
+  - name: packaging[].identifiers
     type: string[]
-    required: false
+    nullable: false
     description: Your own identifiers for this packaging.
 
-  - name: packaging.name
+  - name: packaging[].name
     type: string
-    required: true
+    nullable: false
     description: The user-friendly name for this packaging (e.g. "Flat-Rate Box", "Large Padded Envelope").
       This string must be between `1` and `100` characters and must not contain newline characters.
 
-  - name: packaging.description
+  - name: packaging[].description
     type: string
-    required: false
+    nullable: false
     description: A short, user-friendly description of the packaging.
       This string must be between `0` and `1000` characters and must not contain newline characters.
 
-  - name: packaging.requiresWeight
+  - name: packaging[].requiresWeight
     type: boolean
-    required: false
+    nullable: false
     description: Indicates whether the weight must be specified when using this packaging.
 
-  - name: packaging.requiresDimensions
+  - name: packaging[].requiresDimensions
     type: boolean
-    required: false
+    nullable: false
     description: Indicates whether the dimensions must be specified when using this packaging.
 
   - name: deliveryConfirmations
     type: object[]
-    required: true
+    nullable: false
     description: The types of package [delivery confirmations](./delivery-confirmation.md) offered for this service.
 
   - name: deliveryConfirmations[].id
     type: "[UUID](https://www.npmjs.com/package/uuid)"
-    required: true
+    nullable: false
     description: A UUID that uniquely identifies this delivery confirmation. This is the UUID you used in the
       [Delivery Confirmation Definition](./delivery-confirmation.md) file for this delivery confirmation.
 
   - name: deliveryConfirmations[].identifiers
     type: object
+    nullable: false
     description: Your own identifiers for this delivery confirmation.
 
   - name: deliveryConfirmations[].name
     type: string
-    required: true
+    nullable: false
     description: The user-friendly name for this delivery confirmation (e.g. "Adult Signature", "Authority to Leave").
       This string must be between `1` and `100` characters and must not contain newline characters.
 
   - name: deliveryConfirmations[].description
     type: string
+    nullable: false
     description: A short, user-friendly description of the delivery confirmation type.
       This string must be between `0` and `1000` characters and must not contain newline characters.
 
   - name: deliveryConfirmations[].type
     type: string
+    nullable: false
     required: true
     description: |
       The type of confirmation for this delivery confirmation. Valid values include the following:
@@ -242,62 +248,57 @@ fields:
 
   - name: manifestType
     type: string
-    required: true
+    nullable: true
     description: |
       Indicates whether the service supports digital or physical manifests. Valid values include the following:
       *  `Physical` - This service will require physical documents even if the carrier default is digital transmission.
       *  `Digital` - This service will *not* require physical documents even if the carrier default is for physical documents.
 
+returnFields:
+  - name: id
+    type: UUID
+    required: true
+    description: UUID that uniquely identifies the delivery service. This ID should never change.
+
+  - name: identifiers
+    type: object
+    nullable: false
+    description: Your own identifiers for this delivery service.
+
+  - name: code
+    type: string
+    nullable: false
+    description: Optional code used to map to what the carrier uses to identify the delivery service. 
 ---
 
-Examples
------------------------------------
-```javascript
-{
-  "id": "43fc9d24-6a89-428a-ad34-c614c14170b6",
-  "identifiers": {
-    "apiCode": "intlEcon"
-  },
-  "code": "IEC",
-  "name": "International Economy",
-  "description": "Worldwide delivery at an affordable price",
-  "class": "ground",
-  "grade": "standard",
-  "fulfillmentService": "ups_worldwide_express",
-  "serviceArea": "international",
-  "isConsolidatedService": false,
-  "allowsMultiplePackages": false,
-  "isInsurable": true,
-  "isTrackable": false,
-  "supportsReturns": false,
-  "manifestType": "Digital",
-  "hasSandbox": false,
-  "labelFormats": ["pdf", "png"],
-  "labelSizes": ["4x6", "4x8"],
-  "originCountries": ["US", "CA", "MX"],
-  "destinationCountries": ["US", "CA", "MX"],
-  "packaging": [
-  {
-    "id": "03318192-3e6c-475f-a496-a4f17c1dbcae",
-    "identifers": {
-      "apiCode": "pkg",
-    },
-    "code": "PKG",
-    "name": "Package",
-    "description": "Your own packaging, up to 100 kilograms",
-    "requiresWeight": true,
-    "requiresDimensions": true,
-  }],
-  "deliveryConfirmations": [
-  {
-    "id": "cc10a05a-78eb-11ea-bc55-0242ac130003",
-    "identifiers": {
-      "apiCode": "A-SIG",
-    },
-    "code": "ASIG",
-    "name": "Adult Signature",
-    "description": "Requires a signature from a resident of at least 18 years of age.",
-    "type": "adult_signature",
-  }]
-}
-```
+{{ title }}
+====================
+
+{{ documentation }}
+
+## Delivery Service Argument
+
+This table specifies the properties that may be `null` when a `Delivery Service` object is passed as an argument
+to a ShipEngine Connect Carrier App. 
+
+For example, the `shipment` argument passed to the [createShipment method](./methods/create-shipment.md) 
+includes a `deliveryService` property that corresponds to this object. 
+  
+
+{% from "nunjucks/imports/reference.njk" import parametersTable %}
+
+{{parametersTable(fields)}}
+
+## Delivery Service Return Value
+
+This table specifies the properties that are required when a delivery service object is returned from a method.
+
+In the case of a return value, only the minimum properties needed for ShipEngine Connect to look up the delivery confirmation 
+are required. You may provide an object matching the specification below. You may also simply provide the `code` as a string
+rather than providing this option.
+
+{% from "nunjucks/imports/reference.njk" import referenceTable %}
+
+{{referenceTable(returnFields)}}
+ 
+

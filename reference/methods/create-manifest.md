@@ -19,21 +19,25 @@ param:
 
   fields:
     - name: shipFrom
-      type: "[Address](./../address.md)"
+      type: "[Address](./../address.md#address-argument)"
+      nullable: true
       description: The address of the location that is performing end-of-day manifesting. This field is required if the carrier's `manifestLocations` setting is `single_location` in the [Carrier Definition](./../carrier.md) file.
 
     - name: openDateTime
       type: |
         [DateTime](./../date-time.md)
+      nullable: false
       description: The start-of-day time, or the `manifestDateTime` of the earliest manifest being manifested.
 
     - name: closeDateTime
       type: |
         [DateTime](./../date-time.md)
+      nullable: false
       description: The end-of-day time, or the `manifestDateTime` of the latest manifest being manifested.
 
     - name: shipments
       type: object[]
+      nullable: false
       description: |
         This shipments in the manifest.
         The meaning of this field varies depending on the carrier's `manifestShipments` setting.
@@ -44,16 +48,16 @@ param:
 
     - name: shipments[].trackingNumber
       type: string
+      nullable: false
       description: |
         The master tracking number for the entire shipment. For single-piece shipments, this will be the same as the package tracking number. For multi-piece shipments, this may be a separate tracking number, or the same tracking number as one of the packages.
         This string will be between `0` and `100` characters and will not contain newline characters.
 
     - name: shipments[].identifiers
       type: object
+      nullable: false
       description: Your own identifiers for this shipment.
-
-
-
+      
 return:
   name: manifestConfirmation
   type: ManifestConfirmation
@@ -104,7 +108,7 @@ return:
 
     - name: manifests[].document.type
       type: string
-      required: false
+      required: true
       description: |
         The type of document (e.g. label, customs form, SCAN form). Valid values include the following:
         * `label` - label
@@ -144,13 +148,13 @@ return:
     - name: manifests[].notes[].type
       type: |
         [NotesType](./../common-types.md#notes-types)
-      required: false
+      required: true
       description: |
         The type for this note.
 
     - name: manifests[].notes[].text
       type: string
-      required: false
+      required: true
       description: The note text itself. This string must be between `0` and `5000` characters.
 
     - name: manifests[].metadata
@@ -165,12 +169,12 @@ return:
 
     - name: notManifested[].code
       type: string
-      required: true
+      required: false
       description: The carrier's error code. This string must be between `0` and `100` characters and must not contain newline characters.
 
     - name: notManifested[].description
       type: string
-      required: true
+      required: false
       description: The carrier's description of the error code. This description should not be specific to this particular shipment. This string must be between `0` and `1000` characters and must not contain newline characters.
 
     - name: notManifested[].notes
@@ -181,15 +185,15 @@ return:
     - name: notManifested[].notes[].type
       type: |
         [NotesType](./../common-types.md#notes-types)
-      required: false
+      required: true
       description: |
         Ththe type for this note.
 
     - name: notManifested[].notes[].text
-      type: string
+      type: true
       required: false
       description: The note text itself. This string must be between `0` and `5000` characters.
-
+ 
 ---
 
 Examples

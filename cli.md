@@ -113,6 +113,8 @@ The `connect pack` command allows you to package your application without publis
 `dependencies` into `bundledDependencies`, runs `npm pack`, and creates
 a [tarball](https://en.wikipedia.org/wiki/Tar_(computing)) in the root of your project that you can inspect. 
 
+> **Note** If a tarball already exists in the root of your project, it will be overwritten.
+
 This provides you with visibility as to exactly what is being sent to ShipEngine Connect. 
 This is useful for ensuring that you are not sending us any sensitive data. It is also helpful in 
 making sure you aren't including any unnecessary files in your package. For example, this may help 
@@ -145,6 +147,9 @@ We normally run your app through our end-to-end test suite to confirm that it fu
 
 ##### `--watch`
 Publishing can take a minute or two. Use this option to show a progress indicator and a confirmation of whether the app was published successfully or failed.  If you don't use the `--watch` option, then you can run the `connect info` command to check the status of your app deployment.
+
+##### `--no-watch`
+Use this option if you do not wish to watch the publish or show a progress indicator.
 
 
 View App Info

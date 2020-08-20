@@ -21,94 +21,139 @@ param:
   fields:
     - name: trackingNumber
       type: string
+      nullable: false
       description: The master tracking number for the entire shipment. For single-piece shipments, this will be the same as the package tracking number.
         For multi-piece shipments, this may be a separate tracking number, or the same
         tracking number as one of the packages. This string will be between `0` and `100` characters and will not contain newline characters.
 
     - name: identifiers
       type: object
+      nullable: false
       description: Your own identifiers for this shipment.
+      
+    - name: trackingURL
+      type: |
+      
+        [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL/URL)
+      nullable: true
+      description: The URL of a webpage where the customer can track the shipment.
+      
+    - name: salesOrder
+      type: object
+      nullable: false
+      description: The sales order associated with this shipment.
+      
+    - name: salesOrder.id
+      type: "[UUID](https://www.npmjs.com/package/uuid)"
+      nullable: false
+      description: The marketplace's unique ID for the sales order.
+      
+    - name: salesOrder.identifiers
+      type: object
+      nullable: false
+      description: Your own identifiers for this sales order.
 
     - name: fulfillmentService
       type: string
+      nullable: true
       description: If the shipment is being fulfilled using a well-known third-party carrier, such as UPS, FedEx, DHL, etc., then this field specifies the carrier service.
 
     - name: shipFrom
       type: |
         [AddressWithContactInfo](./../address.md)
+      nullable: true
       description: The sender's contact info and address.
+      
     - name: shipTo
       type: "[AddressWithContactInfo](./../address.md)"
+      nullable: false
       description: The recipient's contact info and address.
 
     - name: shipDateTime
       type: |
         [DateTime](./../date-time.md)
-      description: The date/time that the shipment was shipped or is expected to ship. This is not guaranteed to be in the future.
+      nullable: false
+      description: The date/time that the shipment was shipped or is expected to ship. This is not guaranteed to be in the future.    
 
     - name: contents
       type: object[]
       description:  The items inside the package.
 
-    - name: contents[].salesOrder
-      type: object
-      description:  The sales order associated with this item.
-
-    - name: contents[].salesOrder.id
-      type: "[UUID](https://www.npmjs.com/package/uuid)"
-      required: true
-      description: A UUID that uniquely identifies the object. This string must be between `1` and `100` characters and must not contain newline characters.
-
-    - name: contents[].salesOrder.identifiers
-      type: object
-      required: false
-      description: Your own identifiers for this sales order.
-
     - name: contents[].salesOrderItem
       type: object
-      description: The marketplace's unique ID for the sales order.
-
+      nullable: true
+      description:  The sales order associated with this item.
+      
     - name: contents[].salesOrderItem.id
       type: string
-      required: true
-      description: The marketplace's unique ID for the order item. This string must be between `1` and `100` characters and must not contain newline characters.
-
+      nullable: false
+      description: The marketplace's unique ID for the sales order item.
+    
+    
     - name: contents[].salesOrderItem.sku
       type: string
-      required: false
+      nullable: false
       description: The [Stock Keeping Unit](https://en.wikipedia.org/wiki/Stock_keeping_unit). This string must be between `0` and `100` characters and must not contain newline characters.
-
+    
+    
     - name: contents[].salesOrderItem.identifiers
       type: object
-      required: false
-      description: Your own identifiers for this item.
+      nullable: false
+      description: Your own identifiers for this sales order item. 
 
     - name: contents[].product
       type: object
+      nullable: false
       description: The product associated with this item.
 
     - name: contents[].product.id
       type: string
-      required: true
+      nullable: false
       description: The product catalog's unique ID for the order. This string must be between `1` and `100` characters and must not contain newline characters.
 
     - name: contents[].product.sku
       type: string
-      required: false
+      nullable: false
       description: The [Stock Keeping Unit](https://en.wikipedia.org/wiki/Stock_keeping_unit). This string must be between `0` and `100` characters and must not contain newline characters.
+      
+    - name: contents[].product.upc
+      type: string
+      nullable: false
+      description: |
+      
+        The [Universal Product Code](https://en.wikipedia.org/wiki/Universal_Product_Code) for this item. This string must be between `0` and `100` characters and must not contain newline characters.
+
+    - name: contents[].product.isbn
+      type: string
+      nullable: false
+      description: |
+      
+        The [International Standard Book Number](https://www.isbn-international.org/) for this item. This string must be between `0` and `100` characters and must not contain newline characters.
+    
+    - name: contents[].product.asin
+      type: string
+      nullable: false 
+      description: |
+      
+        The [Amazon Standard Identification Number](https://www.amazon.com/gp/seller/asin-upc-isbn-info.html) for this item. This string must be between `0` and `100` characters and must not contain newline characters.
+        
+    - name: contentes[].product.fulfillmentSku
+      type: string
+      nullable: false
+      description: |
+      
+        The [Stock Keeping Unit](https://en.wikipedia.org/wiki/Stock_keeping_unit) related to the fulfillment of this item. This string must be between `0` and `100` characters and must not contain newline characters.
+
+    - name: contents[].product.inventoryID
+      type: string
+      nullable: false
+      description: The inventory ID for this item. This string must be between `0` and `100` characters and must not contain newline characters.
 
     - name: contents[].product.identifiers
       type: object
-      required: false
+      nullable: false
       description: Your own identifiers for this product.
 
-    - name: contents[].quantity
-      type: object
-      description: The quantity of this item in the package.
-
-    - name: contents[].quantity.value
-      type: number
-      description: The value of the quantity. (ie 3). The minimum value is `1`.
 
 return:
   name: void
