@@ -40,7 +40,7 @@ export class CreateShipmentReturn extends Suite {
       );
     } else {
       try {
-        this.deliveryService = findDomesticDeliveryService(carrierApp);
+        this.deliveryService = carrierApp.deliveryServices[0];
       } catch {
         this.deliveryService = undefined;
       }
