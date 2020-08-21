@@ -4,7 +4,6 @@ description: Learn how to use ShipEngine Connect CLI to test your Integration Ap
 ---
 
 
-
 Testing Your Application
 =============================
 While developing your application, it's important to run tests to verify that your project structure is in the correct format and that your code behaves as expected.
@@ -18,9 +17,8 @@ Local Testing
 
 <p>
   Click the <b>Run in Postman</b> button to open our collection directly in Postman: &nbsp;&nbsp;
-  <span className="postman-run-button" data-postman-action="collection/import" data-postman-var-1="12340335-39b1c68e-b79c-4d34-9512-ca9a7cdf1341-T1LPBRJk" data-postman-var-2="latest" style="vertical-align: middle"></span>
-
-  <script type="text/javascript">
+  <span className="postman-run-button" data-postman-action="collection/import" data-postman-var-1="12340335-39b1c68e-b79c-4d34-9512-ca9a7cdf1341-T1LPBRJk" data-postman-var-2="latest" style={{ verticalAlign: "middle" }}></span>
+  <script type="text/javascript" dangerouslySetInnerHTML={{ __html: `
     (function (p,o,s,t,m,a,n) {
       !p[s] && (p[s] = function () { (p[t] || (p[t] = [])).push(arguments); });
       !o.getElementById(s+t) && o.getElementsByTagName("head")[0].appendChild((
@@ -28,11 +26,12 @@ Local Testing
         (n.id = s+t), (n.async = 1), (n.src = m), n
       ));
     }(window, document, "_pm", "PostmanRunObject", "https://run.pstmn.io/button.js"));
-  </script>
+  `}}/>
+</p>
 
 > **PRO TIP:** You can use the [VSCode debugger](https://code.visualstudio.com/docs/editor/debugging) to set breakpoints, step through your code line-by-line, and inspect variables at runtime. Just press `F5` to start a debug session.
 
-![VSCode debugger](vs-code-debug.png)
+![VSCode debugger](/img/testing/vs-code-debug.png)
 
 
 ### Request Modification
@@ -51,7 +50,7 @@ You can begin running requests in this collection as soon as you have defined th
 It may be useful to set a breakpoint and examine the structure of the data sent to your method to assist in mapping the input
 data to the format expected by your backend service or API.
 
-![Postman screenshot](postman-placeholder.png)
+![Postman screenshot](/img/testing/postman-placeholder.png)
 
 
 ### Authentication
@@ -61,28 +60,28 @@ Once you are ready for your method to call your backend API or service, you will
 
 #### Postman Variables
 Our Postman collection uses variables to persist session data between requests. You can see in the request below that we set the `transaction.session`
-property to {% raw %}`{{session}}`{% endraw %}. This is the way Postman variables are referenced within request payloads. While it is not valid
+property to `{{session}}`. This is the way Postman variables are referenced within request payloads. While it is not valid
 JSON at the moment, it will be once Postman renders the request.
 
-![Session variable in Postman](postman-session-variable.png)
+![Session variable in Postman](/img/testing/postman-session-variable.png)
 
 
 You can see and set the value of the variables by editing the collection. Click the ellipses icon next to the collection name
 and select `Edit`, then click the `Variables` tab.
 
-![Editing the collection in Postman](variable-menu.png)
+![Editing the collection in Postman](/img/testing/variable-menu.png)
 
 
 When you first import the collection, the `session`
 variable will be unset.
 
-![Postman collection variables](postman-empty-vars.png)
+![Postman collection variables](/img/testing/postman-empty-vars.png)
 
 
 When beginning to work with our Postman collection, you should first run the `Connect` request in the `All Apps` folder with valid credentials to create a session. This will then set the `session` variable that is referenced in each of the other requests. Likewise, if you already
 have a valid session you wish to use, you can edit the variable directly and skip running the `Connect` request.
 
-![Setting the session variable](postman-set-variable.png)
+![Setting the session variable](/img/testing/postman-set-variable.png)
 
 
 #### Hardcoded Values
@@ -91,7 +90,7 @@ request with valid credentials and then copy the `transaction.session` value tha
 Likewise, if you already have a valid session you wish to use, you can skip running the `Connect` request and add the
 `session` data directly to the request.
 
-![Using hard-coded values in Postman](./postman-transaction.png)
+![Using hard-coded values in Postman](/img/testing/postman-transaction.png)
 
 Automated Testing
 -----------------------------
@@ -222,7 +221,7 @@ Once you have completed local development and testing of your application, you c
 our development platform where you can perform live testing through one of our e-commerce applications, such as
 [ShipStation](https://www.shipstation.com/), before it is promoted to our production platform.
 
-![Adding a carrier in ShipStation](shipstation.png)
+![Adding a carrier in ShipStation](/img/testing/shipstation.png)
 
 
 <Pager

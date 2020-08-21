@@ -4,8 +4,8 @@ description: Learn about TypeScript best practices for building ShipEngine Conne
 ---
 
 
-
-# {{ title }}
+Developing in TypeScript
+==================================
 
 [ShipEngine Connect](./index.mdx) gives you the flexibility to develop your integration application in either TypeScript or JavasScript as long as it matches the required [application structure](./structure.mdx).
 
@@ -13,7 +13,9 @@ description: Learn about TypeScript best practices for building ShipEngine Conne
 
 [Our CLI](./cli.mdx) allows you to choose between JavaScript and TypeScript when you run the [`connect init` command](./cli.mdx#initialize-a-new-app) to [create a new app](./create-first-app.mdx). Selecting TypeScript will generate `.ts` files that import the necessary type definitions from our SDK. It will also create a [`tsconfig.json`](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html), which allows you to adjust TypeScript's settings.
 
-### Build Step Required
+
+Build Step Required
+----------------------------
 You will need to build your TypeScript before running commands such as `connect test` or `connect publish` to ensure that the command is using your latest code. To make this easier, we add the following scripts to your `package.json` file:
 
 - **build**<br/>
