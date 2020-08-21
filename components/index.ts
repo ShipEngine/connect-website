@@ -21,6 +21,7 @@ import strong from "./mdx/strong";
 import table from "./mdx/table";
 import tbody from "./mdx/tbody";
 import td from "./mdx/td";
+import th from "./mdx/th";
 import thead from "./mdx/thead";
 import tr from "./mdx/tr";
 import ul from "./mdx/ul";
@@ -45,6 +46,7 @@ export default {
   thead,
   tbody,
   tr,
+  th,
   td,
   pre,
   code,
