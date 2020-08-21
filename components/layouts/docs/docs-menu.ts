@@ -19,6 +19,7 @@ export const menu: MenuContents = [
           { title: "Using the CLI", href: "/docs/cli" },
           { title: "Creating Your First App", href: "/docs/create-first-app" },
           { title: "Implementing Your Methods", href: "/docs/implementation" },
+          { title: "Developing in TypeScript", href: "/docs/typescript" },
           { title: "Error Handling", href: "/docs/error-handling" },
           { title: "Sandbox Environments", href: "/docs/sandbox" },
           { title: "Testing", href: "/docs/testing" },

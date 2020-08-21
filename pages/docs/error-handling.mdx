@@ -14,7 +14,7 @@ The methods you implement will often need to validate the input from ShipEngine 
 
 ```javascript highlights="3"
 for (let parcel of shipment.packages) {
-  if (parcel.packaging.id === OWN_PACKAGING && parcel.weight.grams > 100000) {
+  if (parcel.packaging.code === "BOX" && parcel.weight.grams > 100000) {
     throw new Error(`${parcel.packaging.name} cannot weigh more than 100 kilograms`);
   }
 }
