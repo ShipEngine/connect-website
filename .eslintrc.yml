@@ -5,6 +5,14 @@
 
 root: true
 
+env:
+  browser: true
+  es6: true
+
+settings:
+  react:
+    version: "detect"
+
 overrides:
   # Linter settings for JavaScript
   - files: ["**/*.js"]
@@ -29,11 +37,15 @@ overrides:
       shared-node-browser: true
     plugins:
       - "@typescript-eslint"
+      - "react"
+      - "react-hooks"
+      - "jsx-a11y"
     extends:
       - eslint:recommended
       - plugin:react/recommended
       - plugin:@typescript-eslint/recommended
       - plugin:@typescript-eslint/recommended-requiring-type-checking
+      - plugin:jsx-a11y/recommended
     rules:
       # It's not necessary to explicitly import React in every component
       react/react-in-jsx-scope: off
