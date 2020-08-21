@@ -12,7 +12,7 @@ import { EnhancedGroup, EnhancedItem, EnhancedMenu, EnhancedSubGroup, MenuConten
  * @param context - The Menu context, including the currently-selected MenuItem
  * @returns A new array of MenuGroups IDs for each MenuItem, and one MenuItem selected
  */
-export function selectCurrentPage(menu: MenuContents, pathname: string, context: MenuContext): EnhancedMenu {
+export function enhanceMenu(menu: MenuContents, pathname: string, context: MenuContext): EnhancedMenu {
   const enhancedMenu: EnhancedMenu = [];
   let id = 0, hasSelectedAMenuItem = false;
 
@@ -54,6 +54,7 @@ export function selectCurrentPage(menu: MenuContents, pathname: string, context:
       enhancedGroup.menuItems.push(menuProps);
     }
 
+    enhancedGroup.open = context.openedGroups[group.title] = (context.openedGroups[group.title] || enhancedGroup.open);
     enhancedMenu.push(enhancedGroup);
   }
 

@@ -39,5 +39,6 @@ export interface MenuContext {
   selectedMenuItem: {
     id: number;
     href: string;
-  }
+  };
+  openedGroups: Record<string, boolean>;
 }

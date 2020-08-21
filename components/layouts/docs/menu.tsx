@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useContext, useState } from "react";
+import { enhanceMenu } from "./enhance-menu";
 import { EnhancedGroup, EnhancedItem, EnhancedSubGroup, MenuContents } from "./menu-types";
 import styles from "./menu.module.scss";
-import { selectCurrentPage } from "./select-current-page";
 
 export const MenuContext = React.createContext({
-  selectedMenuItem: { id: 0, href: "" }
+  selectedMenuItem: { id: 0, href: "" },
+  openedGroups: {},
 });
 
 export interface MenuProps {
@@ -19,7 +20,7 @@ export default function Menu({ contents }: MenuProps) {
   const { pathname } = useRouter();
 
   // Assign a unique ID to each MenuItem and expand/select Groups/SubGroups
-  const menu = selectCurrentPage(contents, pathname, context);
+  const menu = enhanceMenu(contents, pathname, context);
 
   return (
     <nav className={styles.menu}>
@@ -33,9 +34,12 @@ export default function Menu({ contents }: MenuProps) {
 }
 
 function Group({ title, open, subGroups, menuItems }: EnhancedGroup) {
+  const context = useContext(MenuContext);
+
   return (
     <li key={title}>
-      <details className={styles.group} open={open}>
+      <details className={styles.group} open={open}
+        onToggle={e => context.openedGroups[title] = (e.target as HTMLDetailsElement).open}>
         <summary>{ title }</summary>
         <ul className={styles.groupList}>
           { subGroups.map(SubGroup) }
@@ -65,6 +69,7 @@ function MenuItem({ id, title, href, selected }: EnhancedItem) {
   return (
     <li key={id}>
       <Link href={href}>
+        {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
         <a className={`${styles.menuItem} ${selected ? styles.selected : ""}`}
           onClick={() => context.selectedMenuItem = { id, href }}>
           { title }
