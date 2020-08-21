@@ -16,7 +16,7 @@ import { readFile } from "./read-file";
  * - a dynamic import via `require()` or `import()`
  */
 export async function readDefinitionValue<T>(definition: InlineOrReference<T>, cwd: string, fieldName: string): Promise<T> {
-  let [value] = await readDefinition(definition, cwd, fieldName);
+  const [value] = await readDefinition(definition, cwd, fieldName);
   return value;
 }
 
@@ -59,12 +59,12 @@ export async function readDefinition<T>(definition: InlineOrReference<T>, cwd: s
   try {
     if (typeof definition === "string") {
       // The definition value is a file path, so return the file's contents
-      let filePath = resolve(definition, cwd);
-      let dir = path.dirname(filePath);
+      const filePath = resolve(definition, cwd);
+      const dir = path.dirname(filePath);
       let contents: T;
 
       // Get the file from the cache, if possible
-      let cached = fileCache.get<T>(filePath);
+      const cached = fileCache.get<T>(filePath);
       if (cached) {
         contents = await cached;
       }
@@ -77,7 +77,7 @@ export async function readDefinition<T>(definition: InlineOrReference<T>, cwd: s
     }
     else if (isDynamicImport(definition)) {
       // The definition value is a dynamic import, so return the default export
-      let exports = await definition;
+      const exports = await definition;
       return [exports.default, cwd];
     }
     else {
@@ -86,7 +86,7 @@ export async function readDefinition<T>(definition: InlineOrReference<T>, cwd: s
     }
   }
   catch (originalError) {
-    throw error(ErrorCode.Validation, `Invalid ${fieldName}: ${definition}.`, { originalError });
+    throw error(ErrorCode.Validation, `Invalid ${fieldName}: ${definition as string}.`, { originalError });
   }
 }
 
@@ -108,6 +108,6 @@ function resolve(moduleId: string, cwd: string): string {
  * Determines whether the given value is a dynamically imported JavaScript module
  */
 function isDynamicImport<T>(value: unknown): value is DynamicImport<T> {
-  let dynamicImport = value as DynamicImport<T>;
+  const dynamicImport = value as DynamicImport<T>;
   return value && typeof dynamicImport.then === "function";
 }

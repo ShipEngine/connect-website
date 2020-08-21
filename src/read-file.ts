@@ -36,7 +36,7 @@ export async function readFile<T>(filePath: string): Promise<T> {
  * Returns the parsed contents of the specified YAML file
  */
 async function readYamlFile<T>(filePath: string): Promise<T> {
-  let yaml = await readTextFile(filePath);
+  const yaml = await readTextFile(filePath);
 
   try {
     const parsedYaml = jsYaml.safeLoad(yaml, { filename: path.basename(filePath) }) as unknown;
@@ -53,7 +53,7 @@ async function readYamlFile<T>(filePath: string): Promise<T> {
  * Returns the parsed contents of the specified JSON file
  */
 async function readJsonFile<T>(filePath: string): Promise<T> {
-  let json = await readTextFile(filePath);
+  const json = await readTextFile(filePath);
 
   try {
     return json5.parse(json) as T;
@@ -82,7 +82,7 @@ async function readTextFile(filePath: string): Promise<string> {
  */
 async function importJavaScriptModule<T>(filePath: string): Promise<T> {
   try {
-    let exports = await import(filePath) as EcmaScriptModule;
+    const exports = await import(filePath) as EcmaScriptModule;
     if ("default" in exports) {
       // This appears to be an ECMAScript module, so return its default export
       return exports.default as T;

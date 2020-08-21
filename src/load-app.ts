@@ -17,20 +17,20 @@ export async function loadApp(appPath = "."): Promise<App> {
     fileCache.startedLoading();
 
     // Read the app's manifest (package.json file)
-    let manifest = await readAppManifest(appPath);
+    const manifest = await readAppManifest(appPath);
 
     // Load the SDK version that's needed for this app
-    let sdk = await loadSDK(appPath, manifest);
+    const sdk = await loadSDK(appPath, manifest);
 
     // Read the app's exported definition
-    let [definition, definitionPath] = await readDefinition<AppDefinition>(appPath, ".", "ShipEngine Connect app");
+    const [definition, definitionPath] = await readDefinition<AppDefinition>(appPath, ".", "ShipEngine Connect app");
 
     if (isCarrierApp(definition)) {
-      let pojo = await readCarrierAppDefinition(definition, definitionPath, manifest);
+      const pojo = await readCarrierAppDefinition(definition, definitionPath, manifest);
       return new sdk.CarrierApp(pojo);
     }
     else {
-      let pojo = await readOrderAppDefinition(definition, definitionPath, manifest);
+      const pojo = await readOrderAppDefinition(definition, definitionPath, manifest);
       return new sdk.OrderApp(pojo);
     }
   }
@@ -52,13 +52,13 @@ function isCarrierApp(definition: AppDefinition): definition is CarrierAppDefini
   const optionalCarrierProperties = ["manifestLocations", "manifestShipments", "pickupServices", "createShipment", "cancelShipments",
     "rateShipment", "trackShipment", "createManifest", "schedulePickup", "cancelPickups"];
 
-  for (let property of requiredCarrierProperties) {
+  for (const property of requiredCarrierProperties) {
     if (property in definition) {
       return true;
     }
   }
 
-  for (let property of optionalCarrierProperties) {
+  for (const property of optionalCarrierProperties) {
     if (property in definition) {
       throw new Error("Carrier app is missing required 'deliveryServices` property");
     }
@@ -66,7 +66,7 @@ function isCarrierApp(definition: AppDefinition): definition is CarrierAppDefini
 
   const optionalOrderProperties = ["getSalesOrdersByDate", "shipmentCreated", "shipmentCancelled"];
 
-  for (let property of optionalOrderProperties) {
+  for (const property of optionalOrderProperties) {
     if (property in definition) {
       return false;
     }

@@ -1,5 +1,3 @@
-
-
 /** Test Shipping Provider */
 const config: CarrierAppDefinition = {
 
