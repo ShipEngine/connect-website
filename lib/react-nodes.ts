@@ -5,6 +5,8 @@ export interface Props {
   [key: string]: unknown;
 }
 
+export type Children<P> = ReactElement<P> | Array<ReactElement<P>>;
+
 interface MDXCreateElement {
   type: MDXElementType;
   props: MDXElementProps;
@@ -34,9 +36,9 @@ export function toArray(children: ReactNode): ReactNodeArray {
 /**
  * Returns only the child elements, not text nodes or fragments
  */
-export function getElements<T = unknown>(children: ReactNode): Array<ReactElement<T>> {
+export function getElements<P = unknown>(children: Children<P>): Array<ReactElement<P>> {
   const nodes = toArray(children);
-  const elements: Array<ReactElement<T>> = [];
+  const elements: Array<ReactElement<P>> = [];
 
   for (const child of nodes) {
     if (child && typeof child === "object" && "props" in child) {
@@ -117,6 +119,9 @@ export function getTypeName(node: ReactNode): string {
   if (typeName === "MDXCreateElement") {
     const mdxElement = node as MDXCreateElement;
     return getNameOfType(mdxElement.props.originalType);
+  }
+  else {
+    return typeName;
   }
 }
 

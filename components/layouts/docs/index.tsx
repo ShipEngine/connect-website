@@ -3,7 +3,8 @@ import { getText, getType, getTypeName, Props, toArray } from "../../../lib/reac
 import Section, { Left, Right } from "../../section";
 import TableOfContents, { Heading } from "../../table-of-contents";
 import PageLayout, { PageLayoutProps } from "../page";
-import DocsMenu from "./docs-menu";
+import { menu } from "./docs-menu";
+import Menu from "./menu";
 
 export type DocsLayoutProps = PageLayoutProps;
 
@@ -23,7 +24,7 @@ export default function DocsLayout(props: DocsLayoutProps) {
   return (
     <PageLayout {...props}>
       <div id="docs-page">
-        <DocsMenu/>
+        <Menu contents={menu} />
         <main data-swiftype-name="body" data-swiftype-type="text">
           <article>
             <Section>

@@ -1,96 +1,74 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { ReactNode, useState } from "react";
-import { getElements } from "../../../lib/react-nodes";
+import React, { useContext, useState } from "react";
+import { EnhancedGroup, EnhancedItem, EnhancedSubGroup, MenuContents } from "./menu-types";
 import styles from "./menu.module.scss";
+import { selectCurrentPage } from "./select-current-page";
+
+export const MenuContext = React.createContext({
+  selectedMenuItem: { id: 0, href: "" }
+});
 
 export interface MenuProps {
-  children?: ReactNode;
+  contents: MenuContents;
 }
 
-export default function Menu({ children }: MenuProps) {
+export default function Menu({ contents }: MenuProps) {
   const [visible, setVisible] = useState(false);
+  const context = useContext(MenuContext);
+  const { pathname } = useRouter();
+
+  // Assign a unique ID to each MenuItem and expand/select Groups/SubGroups
+  const menu = selectCurrentPage(contents, pathname, context);
 
   return (
     <nav className={styles.menu}>
       <button id="menu-button" className={styles.menuButton}
         onClick={() => setVisible(!visible)}></button>
       <ul className={`${styles.menuList} nav-menu ${visible ? "visible" : ""}`}>
-        { children }
+        { menu.map(Group) }
       </ul>
     </nav>
   );
 }
 
-export interface GroupProps {
-  title: string;
-  open?: boolean;
-  children?: ReactNode;
-}
-
-export function Group({ title, open, children }: GroupProps) {
-  const { pathname } = useRouter();
-
-  if (!open) {
-    // Automatically expand the group if any of its menu items link to the current page
-    for (const subGroup of getElements<SubGroupProps>(children)) {
-      const menuItems = getElements<MenuItemProps>(subGroup.props.children);
-      if (menuItems.some(item => item.props.href === pathname)) {
-        open = true;
-        break;
-      }
-    }
-  }
-
+function Group({ title, open, subGroups, menuItems }: EnhancedGroup) {
   return (
-    <li>
+    <li key={title}>
       <details className={styles.group} open={open}>
         <summary>{ title }</summary>
         <ul className={styles.groupList}>
-          { children }
+          { subGroups.map(SubGroup) }
+          { menuItems.map(MenuItem) }
         </ul>
       </details>
     </li>
   );
 }
 
-export interface SubGroupProps {
-  title: string;
-  children?: ReactNode;
-}
-
-export function SubGroup({ title, children }: SubGroupProps) {
-  // Determine if any of the menu items link to the current page
-  const { pathname } = useRouter();
-  const menuItems = getElements<MenuItemProps>(children);
-  const selected = menuItems.some(item => item.props.href === pathname);
-
+function SubGroup({ title, selected, menuItems }: EnhancedSubGroup) {
   return (
-    <li>
+    <li key={title}>
       <div className={`${styles.subGroup} ${selected ? styles.selected : ""}`}>
         { title }
       </div>
       <ul className={styles.subGroupList}>
-        { children }
+        { menuItems.map(MenuItem) }
       </ul>
     </li>
   );
 }
 
-export interface MenuItemProps {
-  href: string;
-  children?: ReactNode;
-}
-
-export function MenuItem({ href, children }: MenuItemProps) {
-  // Determine if the href links to the current page
-  const { pathname } = useRouter();
-  const selected = href === pathname;
+function MenuItem({ id, title, href, selected }: EnhancedItem) {
+  const context = useContext(MenuContext);
 
   return (
-    <li>
+    <li key={id}>
       <Link href={href}>
-        <a className={`${styles.menuItem} ${selected ? styles.selected : ""}`}>{ children }</a>
+        <a className={`${styles.menuItem} ${selected ? styles.selected : ""}`}
+          onClick={() => context.selectedMenuItem = { id, href }}>
+          { title }
+        </a>
       </Link>
     </li>
   );

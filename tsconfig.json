@@ -13,6 +13,7 @@
     "strict": false,
     "newLine": "LF",
     "forceConsistentCasingInFileNames": true,
+    "suppressImplicitAnyIndexErrors": true,
     "lib": [
       "dom",
       "dom.iterable",
