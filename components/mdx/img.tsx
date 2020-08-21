@@ -14,5 +14,6 @@ export default function Img({ markdown, className, ...props }: ImgProps) {
     className = styles.img;
   }
 
+  // eslint-disable-next-line jsx-a11y/alt-text
   return <img className={className} {...props} />
 }

@@ -22,8 +22,9 @@ export default function H2({ markdown, className, children, ...props }: H2Props)
 
   return (
     <h2 className={className} {...props}>
-      <a id={slug} className={styles.headingAnchor} aria-hidden></a>
+      <span id={slug} className={styles.headingAnchor} aria-hidden></span>
       { children }
+      {/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
       <a href={`#${slug}`} className={styles.headingAnchorLink} aria-hidden></a>
     </h2>
   );

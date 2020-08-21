@@ -54,6 +54,9 @@ overrides:
       # (since it's always JSX.Element)
       "@typescript-eslint/explicit-module-boundary-types": off
 
+      # The Next.js <Link> component handles "href" for <a> elements
+      jsx-a11y/anchor-is-valid: off
+
       # Annoying rules that makes code harder to read, write, and/or undrstand
       no-case-declarations: off
       "@typescript-eslint/ban-types": off
