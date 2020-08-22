@@ -29,6 +29,7 @@ export const menu: MenuContents = [
       {
         title: "Reference",
         menuItems: [
+          { title: "Changelog", href: "/changelog" },
           { title: "Form Definitions", href: "/docs/reference/forms" },
           { title: "Transaction", href: "/docs/reference/transaction" },
           { title: "Address", href: "/docs/reference/address" },
