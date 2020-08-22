@@ -14,7 +14,7 @@
 #docs-page {
   position: relative;
   display: grid;
-  grid-template-columns: 1fr $narrow-content-width 1fr;
+  grid-template-columns: $side-bar-med-width auto;
   grid-column-gap: $x-large-horizontal-space;
   padding: $large-vertical-space $medium-horizontal-space 0 $medium-horizontal-space;
 
@@ -24,13 +24,13 @@
   }
 
   > main {
-    // This ensures that the content column (narrow-content-width) is centered on-screen,
+    // This ensures that the content column (wide-content-width) is centered on-screen,
     // and that the sidebar column takes up all remaining space on the right.
-    grid-column: 2 / span 2;
+    grid-column: 2;
 
     > article {
       display: grid;
-      grid-template-columns: $narrow-content-width auto;
+      grid-template-columns: $wide-content-width auto;
       grid-column-gap: $x-large-horizontal-space;
 
       > * {
@@ -61,8 +61,8 @@
           }
 
           &.left-group {
-            width: $narrow-content-width;
-            min-width: $narrow-content-width;
+            width: $wide-content-width;
+            min-width: $wide-content-width;
             margin-right: $x-large-horizontal-space;
           }
 
@@ -73,8 +73,7 @@
             // This is hacky, but it's necessary because of the `overflow: unset` on the parent .section.
             // The `overflow: unset` is needed in order for the `position: sticky` behavior to work.
             pre {
-            //   width: calc(49vw - #{($narrow-content-width / 2) + $x-large-horizontal-space + $medium-horizontal-space});
-              max-width: $side-bar-max-width;
+              max-width: calc(99vw - #{($medium-horizontal-space * 2) + $side-bar-med-width + ($x-large-horizontal-space * 2) + $wide-content-width});
             }
           }
         }
@@ -88,27 +87,33 @@
 }
 
 /**
-  * Below this screen width, we stop centering the three-column layout and start using the full screen width.
+  * Below this screen width, we switch to the medium content width
   */
-$three-columns-med:
-  ($medium-horizontal-space * 2) +
-  ($side-bar-max-width * 2) +
-  ($x-large-horizontal-space * 2) +
-  $narrow-content-width;
+$three-columns-x-large:
+  $side-bar-med-width +
+  $wide-content-width +
+  $side-bar-max-width +
+  ($x-large-horizontal-space * 2) +     // Gap between grid columns
+  ($medium-horizontal-space * 2);       // Margin on left/right of page
 
-@media (max-width: ($three-columns-med - 1px)) {
+@media (max-width: ($three-columns-x-large - 1px)) {
   #docs-page {
-    grid-template-columns: $side-bar-med-width auto;
+    x-breakpoint-name: "three-columns-x-large";
 
     > main {
-      grid-column: 2;
-
       > article {
+        grid-template-columns: $medium-content-width auto;
+
         > .section {
           > .section-group {
+            &.left-group {
+              width: $medium-content-width;
+              min-width: $medium-content-width;
+            }
+
             &.right-group {
               pre {
-                max-width: calc(99vw - #{($medium-horizontal-space * 2) + $side-bar-med-width + ($x-large-horizontal-space * 2) + $narrow-content-width});
+                max-width: calc(99vw - #{($medium-horizontal-space * 2) + $side-bar-med-width + ($x-large-horizontal-space * 2) + $medium-content-width});
               }
             }
           }
@@ -122,15 +127,16 @@ $three-columns-med:
   * Below this screen width, we switch to a slightly narrower three-column layout by decreasing
   * the gap between the columns.
   */
-$three-columns-min:
-  ($medium-horizontal-space * 2) +
+$three-columns-large:
   $side-bar-med-width +
-  ($x-large-horizontal-space * 2) +
-  $narrow-content-width +
-  $side-bar-max-width;
+  $medium-content-width +
+  $side-bar-max-width +
+  ($x-large-horizontal-space * 2) +     // Gap between grid columns
+  ($medium-horizontal-space * 2);       // Margin on left/right of page
 
-@media (max-width: ($three-columns-min - 1px)) {
+@media (max-width: ($three-columns-large - 1px)) {
   #docs-page {
+    x-breakpoint-name: "three-columns-large";
     grid-column-gap: $large-horizontal-space;
 
     > main {
@@ -145,7 +151,7 @@ $three-columns-min:
 
             &.right-group {
               pre {
-                max-width: calc(99vw - #{($medium-horizontal-space * 2) + $side-bar-med-width + ($large-horizontal-space * 2) + $narrow-content-width});
+                max-width: calc(99vw - #{($medium-horizontal-space * 2) + $side-bar-med-width + ($large-horizontal-space * 2) + $medium-content-width});
               }
             }
           }
@@ -156,21 +162,20 @@ $three-columns-min:
 }
 
 /**
-  * Below this screen width, we switch to the narrowest three-column layout by
-  * reducing the horizontal margin and nav bar width.
+  * Below this screen width, we switch to a slightly narrower three-column layout by
+  * reducing the nav bar width
   */
-$three-columns-micro:
-  ($medium-horizontal-space * 2) +
+$three-columns-medium:
   $side-bar-med-width +
-  ($large-horizontal-space * 2) +
-  $narrow-content-width +
-  $side-bar-max-width;
+  $medium-content-width +
+  $side-bar-med-width +
+  ($large-horizontal-space * 2) +     // Gap between grid columns
+  ($medium-horizontal-space * 2);     // Margin on left/right of page
 
-@media (max-width: ($three-columns-micro - 1px)) {
+@media (max-width: ($three-columns-medium - 1px)) {
   #docs-page {
+    x-breakpoint-name: "three-columns-medium";
     grid-template-columns: $side-bar-min-width auto;
-    padding-left: $small-horizontal-space;
-    padding-right: $small-horizontal-space;
 
     > nav {
       .nav-menu {
@@ -184,7 +189,45 @@ $three-columns-micro:
           > .section-group {
             &.right-group {
               pre {
-                max-width: calc(98vw - #{($small-horizontal-space * 2) + $side-bar-min-width + ($large-horizontal-space * 2) + $narrow-content-width});
+                max-width: calc(98vw - #{($medium-horizontal-space * 2) + $side-bar-min-width + ($large-horizontal-space * 2) + $medium-content-width});
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+  * Below this screen width, we switch to the narrowest three-column layout by
+  * reducing the content area width
+  */
+$three-columns-small:
+  $side-bar-min-width +
+  $medium-content-width +
+  $side-bar-med-width +
+  ($large-horizontal-space * 2) +     // Gap between grid columns
+  ($medium-horizontal-space * 2);     // Margin on left/right of page
+
+@media (max-width: ($three-columns-small - 1px)) {
+  #docs-page {
+    x-breakpoint-name: "three-columns-small";
+
+    > main {
+      > article {
+        grid-template-columns: $narrow-content-width auto;
+
+        > .section {
+          > .section-group {
+            &.left-group {
+              width: $narrow-content-width;
+              min-width: $narrow-content-width;
+            }
+
+            &.right-group {
+              pre {
+                max-width: calc(98vw - #{($medium-horizontal-space * 2) + $side-bar-min-width + ($large-horizontal-space * 2) + $narrow-content-width});
               }
             }
           }
@@ -199,18 +242,21 @@ $three-columns-micro:
   * content in the third column is the table-of-contents.  All other third-column
   * content moves to the center column.
   */
-$two-and-a-half-columns-max:
-  ($small-horizontal-space * 2) +
+$two-and-a-half-columns-large:
   $side-bar-min-width +
-  ($large-horizontal-space * 2) +
   $narrow-content-width +
-  $side-bar-med-width;
+  $side-bar-med-width +
+  ($large-horizontal-space * 2) +     // Gap between grid columns
+  ($medium-horizontal-space * 2);     // Margin on left/right of page
 
 $largeish-horizontal-space: $large-horizontal-space * .8;
 
-@media (max-width: ($two-and-a-half-columns-max - 1px)) {
+@media (max-width: ($two-and-a-half-columns-large - 1px)) {
   #docs-page {
+    x-breakpoint-name: "two-and-a-half-columns-large";
     grid-column-gap: $largeish-horizontal-space;
+    padding-left: $small-horizontal-space;
+    padding-right: $small-horizontal-space;
 
     > main {
       > article {
@@ -256,14 +302,17 @@ $largeish-horizontal-space: $large-horizontal-space * .8;
   * Below this screen width, we make the "2.5 column" layout more narrow
   * by moving the TOC all the way to the right
   */
-$two-and-a-half-columns-min:
-  ($small-horizontal-space * 2) +
-  ($side-bar-min-width * 2) +
-  ($largeish-horizontal-space * 2) +
-  $narrow-content-width;
+$two-and-a-half-columns-small:
+  $side-bar-min-width +
+  $narrow-content-width +
+  $side-bar-min-width +
+  ($largeish-horizontal-space * 2) +   // Gap between grid columns
+  ($small-horizontal-space * 2);       // Margin on left/right of page
 
-@media (max-width: ($two-and-a-half-columns-min - 1px)) {
+@media (max-width: ($two-and-a-half-columns-small - 1px)) {
   #docs-page {
+    x-breakpoint-name: "two-and-a-half-columns-small";
+
     > main {
       > article {
         > .section {
@@ -283,26 +332,33 @@ $two-and-a-half-columns-min:
 /**
   * Below this screen width, we switch to a true 2-column layout.
   */
-$two-columns-max:
-  ($medium-horizontal-space * 2) +
+$two-columns-large:
   $side-bar-min-width +
-  ($largeish-horizontal-space * 2) +
   $narrow-content-width +
-  $toc-min-width;
+  $toc-min-width +
+  ($largeish-horizontal-space * 2) +   // Gap between grid columns
+  ($medium-horizontal-space * 2);      // Margin on left/right of page (plus extra)
 
-@media (max-width: ($two-columns-max - 1px)) {
+@media (max-width: ($two-columns-large - 1px)) {
   #docs-page {
+    x-breakpoint-name: "two-columns-large";
     padding-left: $medium-horizontal-space;
     padding-right: $medium-horizontal-space;
 
     > main {
       > article {
         display: block;
-        width: $narrow-content-width;
+        width: auto;
 
         > .section {
           > .section-group {
+            &.left-group {
+              width: auto;
+            }
+
             &.right-group {
+              width: auto;
+
               #table-of-contents {
                 display: none;
               }
@@ -317,14 +373,16 @@ $two-columns-max:
 /**
   * Below this screen width, we make the 2-column layout more narrow by reducing horizontal margins.
   */
-$two-columns-min:
-  ($medium-horizontal-space * 2) +
+$two-columns-small:
   $side-bar-min-width +
-  $largeish-horizontal-space +
-  $narrow-content-width;
+  $narrow-content-width +
+  $largeish-horizontal-space +      // Gap between grid columns
+  ($medium-horizontal-space * 2);   // Margin on left/right of page (plus extra)
 
-@media (max-width: ($two-columns-min - 1px)) {
+@media (max-width: ($two-columns-small - 1px)) {
   #docs-page {
+    x-breakpoint-name: "two-columns-small";
+    grid-column-gap: $medium-horizontal-space;
     padding-left: $small-horizontal-space;
     padding-right: $small-horizontal-space;
   }
@@ -333,13 +391,13 @@ $two-columns-min:
 /**
   * Below this screen width, we switch to a single-column layout
   */
-$one-column-max:
-  ($small-horizontal-space * 2) +
+$one-column-large:
   $side-bar-min-width +
-  $large-horizontal-space +
-  $narrow-content-width;
+  $narrow-content-width +
+  $medium-horizontal-space +       // Gap between grid columns
+  ($small-horizontal-space * 2);   // Margin on left/right of page (plus extra)
 
-@media (max-width: ($one-column-max - 1px)) {
+@media (max-width: ($one-column-large - 1px)) {
   #site-logo {
     margin-left: 6.5rem;
   }
@@ -349,6 +407,7 @@ $one-column-max:
   }
 
   #docs-page {
+    x-breakpoint-name: "one-column-large";
     display: block;
     width: 100%;
     margin-top: $site-header-small-height;
@@ -408,6 +467,7 @@ $one-column-max:
   */
 @media (max-width: $phone-max-width) {
   #docs-page {
+    x-breakpoint-name: "one-column-small";
     margin-top: $site-header-large-height;
 
     > nav {
