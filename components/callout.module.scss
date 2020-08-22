@@ -3,10 +3,6 @@
 $badge-min-width: 70px;
 $badge-max-width: 90px;
 $badge-area-width: $badge-max-width + ($small-horizontal-space * 2);
-$info-color: $blue;
-$success-color: $dark-green;
-$warning-color: $light-red;
-$danger-color: $red;
 
 
 .callout {
@@ -16,9 +12,8 @@ $danger-color: $red;
   background-color: $light-purple;
   margin: $medium-vertical-space 0;
   padding: $small-vertical-space $small-horizontal-space $small-vertical-space $badge-area-width;
-  border: solid 1px $light-purple;
+  border: solid 1px transparentize($blue, 0.8);
   border-radius: $small-border-radius;
-  transition: all .6s ease;
 
   > p {
     // Reduce the spacing between paragraphs inside callouts
@@ -29,26 +24,19 @@ $danger-color: $red;
     margin-bottom: 0;
   }
 
-  &:hover {
-    &.info {
-      border-color: transparentize($info-color, 0.8);
-      background-color: transparentize($info-color, 0.95);
-    }
+  &.success {
+    border-color: transparentize($dark-green, 0.5);
+    background-color: transparentize($green, 0.85);
+  }
 
-    &.success {
-      border-color: transparentize($success-color, 0.8);
-      background-color: transparentize($success-color, 0.95);
-    }
+  &.warning {
+    border-color: transparentize($orange, 0.5);
+    background-color: transparentize($orange, 0.85);
+  }
 
-    &.warning {
-      border-color: transparentize($warning-color, 0.8);
-      background-color: transparentize($warning-color, 0.95);
-    }
-
-    &.danger {
-      border-color: transparentize($danger-color, 0.8);
-      background-color: transparentize($danger-color, 0.95);
-    }
+  &.danger {
+    border-color: transparentize($red, 0.8);
+    background-color: transparentize($light-red, 0.85);
   }
 }
 
@@ -73,19 +61,19 @@ $danger-color: $red;
   transition: transform .4s ease;
 
   &.info {
-    background-color: $info-color;
+    background-color: $blue;
   }
 
   &.success {
-    background-color: $success-color;
+    background-color: $dark-green;
   }
 
   &.warning {
-    background-color: $warning-color;
+    background-color: $light-red;
   }
 
   &.danger {
-    background-color: $danger-color;
+    background-color: $red;
   }
 }
 

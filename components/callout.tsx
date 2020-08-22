@@ -68,6 +68,9 @@ function getCalloutTypeClass(badge: string, type: CalloutType | undefined): stri
     case "OK":
     case "WIN":
     case "GOOD":
+    case "TIP":
+    case "PRO TIP":
+    case "PRO-TIP":
     case "GREAT":
     case "GREAT!":
     case "EXCELLENT":
@@ -78,8 +81,8 @@ function getCalloutTypeClass(badge: string, type: CalloutType | undefined): stri
     case "SUCCESS!":
       return styles.success;
 
-    case "TIP":
-    case "PRO TIP":
+    case "NOTE":
+    case "INFO":
     case "QUESTION?":
     default:
       return styles.info;
