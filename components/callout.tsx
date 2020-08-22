@@ -19,7 +19,7 @@ export default function Callout({ badge, type, title, children }: CalloutProps) 
   const typeClass = getCalloutTypeClass(badge, type);
 
   return (
-    <aside className={styles.callout}>
+    <aside className={`${styles.callout} ${typeClass}`}>
       <strong className={`${styles.badge} ${typeClass}`}>{badge}</strong>
       {
         title && <h3 className={styles.title}>{title}</h3>
@@ -42,6 +42,7 @@ function getCalloutTypeClass(badge: string, type: CalloutType | undefined): stri
   // No type was specified, so infer it from the badge text
   switch (badge) {
     case "ERROR":
+    case "ERROR!":
     case "PROBLEM":
     case "DANGER":
     case "DANGER!":

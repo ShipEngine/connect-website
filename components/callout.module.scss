@@ -3,16 +3,22 @@
 $badge-min-width: 70px;
 $badge-max-width: 90px;
 $badge-area-width: $badge-max-width + ($small-horizontal-space * 2);
+$info-color: $blue;
+$success-color: $dark-green;
+$warning-color: $light-red;
+$danger-color: $red;
+
 
 .callout {
+  position: relative;
   font-size: $small-font-size;
   font-style: normal;
   background-color: $light-purple;
   margin: $medium-vertical-space 0;
-  border: none;
-  border-radius: $small-border-radius;
   padding: $small-vertical-space $small-horizontal-space $small-vertical-space $badge-area-width;
-  position: relative;
+  border: solid 1px $light-purple;
+  border-radius: $small-border-radius;
+  transition: all .6s ease;
 
   > p {
     // Reduce the spacing between paragraphs inside callouts
@@ -21,6 +27,28 @@ $badge-area-width: $badge-max-width + ($small-horizontal-space * 2);
 
   > :last-child {
     margin-bottom: 0;
+  }
+
+  &:hover {
+    &.info {
+      border-color: transparentize($info-color, 0.8);
+      background-color: transparentize($info-color, 0.95);
+    }
+
+    &.success {
+      border-color: transparentize($success-color, 0.8);
+      background-color: transparentize($success-color, 0.95);
+    }
+
+    &.warning {
+      border-color: transparentize($warning-color, 0.8);
+      background-color: transparentize($warning-color, 0.95);
+    }
+
+    &.danger {
+      border-color: transparentize($danger-color, 0.8);
+      background-color: transparentize($danger-color, 0.95);
+    }
   }
 }
 
@@ -42,22 +70,23 @@ $badge-area-width: $badge-max-width + ($small-horizontal-space * 2);
   color: $white;
   padding: $tiny-vertical-space $tiny-horizontal-space;
   border-radius: $large-border-radius;
-}
+  transition: transform .4s ease;
 
-.info {
-  background-color: $blue;
-}
+  &.info {
+    background-color: $info-color;
+  }
 
-.success {
-  background-color: $dark-green;
-}
+  &.success {
+    background-color: $success-color;
+  }
 
-.warning {
-  background-color: $light-red;
-}
+  &.warning {
+    background-color: $warning-color;
+  }
 
-.danger {
-  background-color: $red;
+  &.danger {
+    background-color: $danger-color;
+  }
 }
 
 // Move the title up to fill-in the space from where the badge was
