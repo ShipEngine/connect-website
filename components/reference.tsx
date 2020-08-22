@@ -38,9 +38,9 @@ export function Reference({ nameHeading, children }: ReferenceProps) {
         <tr>
           { hasName && <th>{nameHeading || "Name"}</th> }
           { hasType && <th>Type</th> }
-          { hasDefault && <th>Default</th> }
           { hasRequired && <th>Required?</th> }
           { hasNullable && <th>Nullable?</th> }
+          { hasDefault && <th>Default</th> }
           { hasDescription && <th>Description</th> }
         </tr>
       </thead>
@@ -62,9 +62,9 @@ export function Field(field: FieldProps) {
     <tr key={field.name}>
       { field.name && <td><code>{ field.name }</code></td> }
       { field.type && <td>{ field.type }</td> }
-      { field.defaultValue && <td>{ field.defaultValue }</td> }
       { field.required !== undefined && <td className="centered">{ field.required ? "✔" : "" }</td> }
       { field.nullable !== undefined && <td className="centered">{ field.required ? "✔" : "" }</td> }
+      { field.defaultValue && <td>{ field.defaultValue }</td> }
       { field.description && <td>{ field.description }</td> }
     </tr>
   );

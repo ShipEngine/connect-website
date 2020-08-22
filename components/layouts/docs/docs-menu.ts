@@ -49,7 +49,7 @@ export const menu: MenuContents = [
         menuItems: [
           { title: "Overview", href: "/docs/carrier-app" },
           { title: "How to map services", href: "/docs/carrier-app/map-services" },
-          { title: "Automated tests", href: "/docs/testing/carrier-app-tests" },
+          { title: "Automated tests", href: "/docs/carrier-app/tests" },
         ]
       },
       {
@@ -85,6 +85,7 @@ export const menu: MenuContents = [
         title: "Overview",
         menuItems: [
           { title: "Overview", href: "/docs/order-app" },
+          { title: "Automated tests", href: "/docs/order-app/tests" },
         ]
       },
       {

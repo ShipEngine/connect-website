@@ -83,7 +83,8 @@ The local server runs on port 3000 by default, but you can use this option to ch
 Test Your App
 --------------------------
 The `connect test` command runs our end-to-end test suite against your app to confirm that it behaves as expected. These tests emulate real-world workflows that your app will experience in production, and you should make sure your app passes before publishing it.
-You can find a list of tests in the Carrier App suite [here](./testing/carrier-app-tests.mdx).
+
+Refer to the complete lists of tests for [Carrier Apps](carrier-app/tests/index.mdx) and [Order Apps](order-app/tests/index.mdx). Each test has many parameters that can be [configured in the `connect.config.js` file](testing/config.mdx).
 
 > **NOTE:**
 > We also encourage you to [unit test your app](testing/index.mdx#unit-testing) in addition to these end-to-end tests.
@@ -116,7 +117,7 @@ The `connect pack` command allows you to package your application without publis
 `dependencies` into `bundledDependencies`, runs `npm pack`, and creates
 a [tarball](https://en.wikipedia.org/wiki/Tar_(computing)) in the root of your project that you can inspect.
 
-> **Note** If a tarball already exists in the root of your project, it will be overwritten.
+> **NOTE:** If a tarball already exists in the root of your project, it will be overwritten.
 
 This provides you with visibility as to exactly what is being sent to ShipEngine Connect.
 This is useful for ensuring that you are not sending us any sensitive data. It is also helpful in
@@ -140,7 +141,7 @@ Publish Your App
 --------------------------
 When you're ready to see your app live on ShipEngine Connect, run the `connect publish` command. This will publish your app to our development environment for further testing and approval.  For more details see [Publishing Your Application](publish.mdx).
 
-> **NOTE:** ShipEngine Connect currently runs Node.js v12
+> **INFO:** ShipEngine Connect currently runs Node.js v12
 
 ```
 connect publish [OPTIONS]

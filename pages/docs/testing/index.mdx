@@ -1,7 +1,9 @@
 ---
 title: ShipEngine Connect Testing
-description: Learn how to use ShipEngine Connect CLI to test your Integration App
+description: There are many different ways to test your ShipEngine Connect app. We provide all the tooling and guidance you need to be confident that your app works correctly.
 ---
+
+import styles from "./index.module.scss";
 
 
 Testing Your Application
@@ -17,7 +19,7 @@ Local Testing
 
 <p>
   Click the <b>Run in Postman</b> button to open our collection directly in Postman: &nbsp;&nbsp;
-  <span className="postman-run-button" data-postman-action="collection/import" data-postman-var-1="12340335-39b1c68e-b79c-4d34-9512-ca9a7cdf1341-T1LPBRJk" data-postman-var-2="latest" style={{ verticalAlign: "middle" }}></span>
+  <span className={`${styles.runInPostman} postman-run-button`} data-postman-action="collection/import" data-postman-var-1="12340335-39b1c68e-b79c-4d34-9512-ca9a7cdf1341-T1LPBRJk" data-postman-var-2="latest"></span>
   <script type="text/javascript" dangerouslySetInnerHTML={{ __html: `
     (function (p,o,s,t,m,a,n) {
       !p[s] && (p[s] = function () { (p[t] || (p[t] = [])).push(arguments); });
@@ -110,8 +112,9 @@ Once you have completed development,
 this test suite can provide a higher degree of confidence that the application will work as expected when used from within one of our
 e-commerce applications since this suite calls your application in the same manner in which it will be used in production.
 
-> **TIP:**
-> You can find a breakdown of tests available for the Carrier App [here](./carrier-app-tests.mdx).
+> **INFO:**
+> ### What tests are run?
+> See the complete lists of tests for [Carrier Apps](../carrier-app/tests/index.mdx) and [Order Apps](../order-app/tests/index.mdx).
 
 
 Unit Testing

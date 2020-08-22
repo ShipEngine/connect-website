@@ -28,6 +28,10 @@ td, th {
   &:first-child {
     border-left: none;
   }
+
+  &.centered {
+    text-align: center;
+  }
 }
 
 th {
