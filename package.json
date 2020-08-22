@@ -10,14 +10,15 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next export",
+    "build": "next build",
+    "postbuild": "next export",
     "start": "next start",
     "test": "eslint lib components pages --ext=.ts,.tsx",
     "upgrade": "npm-check -u && npm audit fix"
   },
   "dependencies": {
     "@mdx-js/react": "^1.6.16",
-    "@shipengine/next-mdx": "^1.0.2",
+    "@shipengine/next-mdx": "^1.0.3",
     "next": "^9.5.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
