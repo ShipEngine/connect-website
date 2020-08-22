@@ -26,7 +26,9 @@ import thead from "./mdx/thead";
 import tr from "./mdx/tr";
 import ul from "./mdx/ul";
 import Pager from "./pager";
+import { DefaultValue, Description, Field, Reference, Type } from "./reference";
 import { Left, Right, Section } from "./section";
+
 
 // Customize the components that are used to render MDX pages
 export default {
@@ -61,4 +63,9 @@ export default {
   Section,
   Left,
   Right,
+  Reference,
+  Field,
+  DefaultValue,
+  Description,
+  Type,
 };

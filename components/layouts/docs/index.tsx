@@ -1,5 +1,5 @@
 import React, { ReactElement, ReactNode, ReactNodeArray } from "react";
-import { getText, getType, getTypeName, Props, toArray } from "../../../lib/react-nodes";
+import { getText, getTypeName, Props, toArray } from "../../../lib/react-nodes";
 import Section, { Left, Right } from "../../section";
 import TableOfContents, { Heading } from "../../table-of-contents";
 import PageLayout, { PageLayoutProps } from "../page";
@@ -82,7 +82,7 @@ function splitChildren(children: ReactNode): [ReactNodeArray, ReactNodeArray] {
   for (let i = 0; i < nodes.length; i++) {
     const child = nodes[i];
 
-    if (typeof child === "object" && getType(child) === Section) {
+    if (typeof child === "object" && getTypeName(child) === "Section") {
       // We found a <Section> component, so split the children here
       otherChildren = nodes.slice(i);
       break;

@@ -5,7 +5,7 @@ export interface Props {
   [key: string]: unknown;
 }
 
-export type Children<P> = ReactElement<P> | Array<ReactElement<P>>;
+export type Children<P = unknown> = ReactElement<P> | Array<ReactElement<P>>;
 
 interface MDXCreateElement {
   type: MDXElementType;
@@ -82,28 +82,6 @@ export function getText(node: ReactNode): string {
   return text;
 }
 
-/**
- * Returns the type of React element. For HTML types, this will be a string (e.g. "h1", "table").
- * For React components, this will be the component function.
- */
-export function getType(node: ReactNode): string | JSXElementConstructor<unknown> {
-  if (typeof node !== "object") {
-    return typeof node;
-  }
-
-  const element = node as ReactElement;
-  switch (typeof element.type) {
-    case "string":
-      return element.type;
-
-    case "function":
-      return element as unknown as JSXElementConstructor<unknown>;
-
-    case "object":
-      const mdxProps = element.props as MDXElementProps;
-      return mdxProps.originalType;
-  }
-}
 
 /**
  * Returns the type of React element (e.g. "h1", "table", "Pager", etc.)
@@ -114,15 +92,18 @@ export function getTypeName(node: ReactNode): string {
   }
 
   const element = node as ReactElement;
-  const typeName = getNameOfType(element.type);
+  const mdxElement = node as MDXCreateElement;
+  let typeName = getNameOfType(element.type);
 
   if (typeName === "MDXCreateElement") {
-    const mdxElement = node as MDXCreateElement;
-    return getNameOfType(mdxElement.props.originalType);
+    typeName = getNameOfType(mdxElement.props.originalType);
   }
-  else {
-    return typeName;
+
+  if (typeName === "MDXDefaultShortcode") {
+    typeName = mdxElement.props.mdxType;
   }
+
+  return typeName;
 }
 
 function getNameOfType(type: unknown): string {
