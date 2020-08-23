@@ -1,3 +1,5 @@
+![ShipEngine Connect](public/img/logos/shipengine-connect-logo.png)
+
 ShipEngine Connect Website
 ==============================================
 
