@@ -54,7 +54,6 @@
     "yeoman-generator": "^4.11.0"
   },
   "devDependencies": {
-    "@jsdevtools/eslint-config-modular": "^8.0.4",
     "@jsdevtools/version-bump-prompt": "^6.0.6",
     "@oclif/dev-cli": "^1.22.2",
     "@oclif/test": "^1.2.6",
@@ -137,10 +136,10 @@
     "bump": "bump --tag --push --all",
     "clean": "shx rm -rf .nyc_output coverage lib",
     "coverage": "nyc npm run test",
-    "lint": "eslint . --ext .ts --config .eslintrc.js",
+    "lint": "eslint src test/specs",
     "mocha": "mocha",
     "postpack": "shx rm -rf oclif.manifest.json",
-    "posttest": "eslint . --ext .ts --config .eslintrc.js",
+    "posttest": "eslint src test/specs",
     "prepack": "shx rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
     "release": "npm run upgrade && npm run clean && npm test && npm run bump",
     "test": "shx rm -rf lib && npm run build && nyc --extension .ts mocha --forbid-only && npm run lint",
