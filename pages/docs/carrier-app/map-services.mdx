@@ -5,17 +5,17 @@ description: Learn how to map your shipping services to ShipEngine Connect data 
 
 Mapping Your Services
 ====================
-The way your app models certain services may not always match up perfectly with ShipEngine Connect's data contracts. It will be your app method's job to transform your carrier's data into the format that the Integration Platform expects.
+The way your app models certain services may not always match up perfectly with ShipEngine Connect's data contracts. It will be your app method's job to transform your carrier's data into the format that ShipEngine Connect expects.
 
 Example
 -------
 A simple example would be the [Create Shipment Confirmation](../reference/methods/create-shipment.mdx#return-value) that is returned in the [Create Shipment Method](../reference/methods/create-shipment.mdx).
 
-You can return an optional `trackingNumber` in your response to the Integration Platform request. However, your carrier may use different property names or have the information nested inside of another object. Part of the method's logic will be consolidating the data into the expected return object.
+You can return an optional `trackingNumber` in your response to the ShipEngine Connect request. However, your carrier may use different property names or have the information nested inside of another object. Part of the method's logic will be consolidating the data into the expected return object.
 
 
 Sample Applications
 -------------------
-You can also look at the [ShipEngine Connect Sample Apps repository](https://github.com/ShipEngine/shipengine-integration-platform-sample-apps) to see other examples of what this might look like.
+You can also look at the [ShipEngine Connect Sample Apps repository](https://github.com/ShipEngine/connect-samples) to see other examples of what this might look like.
 
-For example, the [rate-shipment.js](https://github.com/ShipEngine/shipengine-integration-platform-sample-apps/blob/master/freightco/rate-shipment.js) has a `formatRate()` function that takes a carrier's rate and transforms the data to fit the [rate shipment return value](../reference/methods/rate-shipment.mdx#return-value).
+For example, the [rate-shipment.js](https://github.com/ShipEngine/connect-samples/blob/master/freightco/rate-shipment.js) has a `formatRate()` function that takes a carrier's rate and transforms the data to fit the [rate shipment return value](../reference/methods/rate-shipment.mdx#return-value).
