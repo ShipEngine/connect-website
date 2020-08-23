@@ -7,14 +7,14 @@ export function initializeTimeStamps(): TimeStamps {
   const date = new Date();
 
   // TODO: Get more business logic and see if these time stamps are accurate
-  const yesterday = DateTime.local(date.getFullYear(), date.getMonth() + 1, date.getDate()).plus({ hours: 12 }).minus({ days: 1 }).toISO();
-  const today = DateTime.local(date.getFullYear(), date.getMonth() + 1, date.getDate()).plus({ hours: 12 }).toISO();
-  const tomorrowEarly = DateTime.local(date.getFullYear(), date.getMonth() + 1, date.getDate()).plus({ days: 1, hours: 9 }).toISO();
-  const tomorrowEarlyAM = DateTime.local(date.getFullYear(), date.getMonth() + 1, date.getDate()).plus({ days: 1, hours: 6 }).toISO();
-  const tomorrow = DateTime.local(date.getFullYear(), date.getMonth() + 1, date.getDate()).plus({ days: 1, hours: 12 }).toISO();
-  const twoDays = DateTime.local(date.getFullYear(), date.getMonth() + 1, date.getDate()).plus({ days: 2, hours: 12 }).toISO();
-  const twoDaysEarly = DateTime.local(date.getFullYear(), date.getMonth() + 1, date.getDate()).plus({ days: 2, hours: 9 }).toISO();
-  const threeDays = DateTime.local(date.getFullYear(), date.getMonth() + 1, date.getDate()).plus({ days: 3 }).toISO();
+  const yesterday = DateTime.local(date.getFullYear(), date.getMonth() + 1, date.getDate()).plus({ hours: 12 }).minus({ days: 1 }).toISO()!;
+  const today = DateTime.local(date.getFullYear(), date.getMonth() + 1, date.getDate()).plus({ hours: 12 }).toISO()!;
+  const tomorrowEarly = DateTime.local(date.getFullYear(), date.getMonth() + 1, date.getDate()).plus({ days: 1, hours: 9 }).toISO()!;
+  const tomorrowEarlyAM = DateTime.local(date.getFullYear(), date.getMonth() + 1, date.getDate()).plus({ days: 1, hours: 6 }).toISO()!;
+  const tomorrow = DateTime.local(date.getFullYear(), date.getMonth() + 1, date.getDate()).plus({ days: 1, hours: 12 }).toISO()!;
+  const twoDays = DateTime.local(date.getFullYear(), date.getMonth() + 1, date.getDate()).plus({ days: 2, hours: 12 }).toISO()!;
+  const twoDaysEarly = DateTime.local(date.getFullYear(), date.getMonth() + 1, date.getDate()).plus({ days: 2, hours: 9 }).toISO()!;
+  const threeDays = DateTime.local(date.getFullYear(), date.getMonth() + 1, date.getDate()).plus({ days: 3 }).toISO()!;
 
   const timeStamps: TimeStamps = {
     yesterday,
