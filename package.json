@@ -5,7 +5,7 @@
   "author": {
     "name": "ShipEngine",
     "email": "support@shipengine.com",
-    "url": "https://www.shipengine.com"
+    "url": "https://connect.shipengine.com"
   },
   "bin": {
     "connect": "./bin/run",
@@ -105,7 +105,7 @@
     "/oclif.manifest.json",
     "/templates"
   ],
-  "homepage": "https://www.shipengine.com/docs/",
+  "homepage": "https://connect.shipengine.com",
   "keywords": [
     "api",
     "cli",

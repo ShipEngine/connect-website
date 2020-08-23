@@ -1,6 +1,8 @@
+![ShipEngine Connect](https://connect.shipengine.com/img/logos/shipengine-connect-logo.png)
+
 # ShipEngine Connect CLI
 
-### Command-line tool for building [ShipEngine Connect](https://connect.shipengine.com/docs/) apps
+### Command-line tool for building [ShipEngine Connect](https://connect.shipengine.com/) apps
 
 [![Cross-Platform Compatibility](https://shipengine.github.io/img/badges/os-badges.svg)](https://github.com/ShipEngine/connect-cli/actions)
 [![Build Status](https://github.com/ShipEngine/connect-cli/workflows/CI-CD/badge.svg)](https://github.com/ShipEngine/connect-cli/actions)
