@@ -27,7 +27,7 @@ interface MDXElementProps {
  * If there's only one child, wraps it in an array.
  *
  * NOTE: This is different from `React.Children.toArray()`, which clones all the children
- *       and assigns keys to them
+ *       and assigns unique keys to them
  */
 export function toArray(children: ReactNode): ReactNodeArray {
   return Array.isArray(children) ? children : [children];
@@ -85,46 +85,23 @@ export function getText(node: ReactNode): string {
 /**
  * Returns the type of React element (e.g. "h1", "table", "Pager", etc.)
  */
-export function getTypeName(node: ReactNode, debug = false): string {
+export function getTypeName(node: ReactNode): string {
   if (typeof node !== "object") {
-    debug && console.debug(`node: ${typeof node}`);
+    // This is a literal node, such as a string, boolean, null, or undefined
     return typeof node;
   }
 
   const element = node as ReactElement;
-  const mdxElement = node as MDXCreateElement;
-  let typeName = getNameOfType(element.type, debug);
-  debug && console.debug(`typeName: ${typeName}`);
 
-  if (typeName === "MDXCreateElement") {
-    typeName = getNameOfType(mdxElement.props.originalType, debug);
-    debug && console.debug(`typeName: ${typeName}`);
-  }
-
-  if (!typeName || typeName === "MDXDefaultShortcode") {
-    typeName = mdxElement.props.mdxType;
-    debug && console.debug(`typeName: ${typeName}`);
-  }
-
-  return typeName;
-}
-
-function getNameOfType(type: unknown, debug = false): string {
-  switch (typeof type) {
+  switch (typeof element.type) {
     case "string":
-      debug && console.debug(`string: ${type}`);
-      return type;
+      return element.type;
 
     case "function":
-      debug && console.debug(`function: ${type.name}`);
-      return type.name;
+      return element.type.name;
 
     case "object":
-      const mdxType = type as MDXElementType;
-      debug && console.debug(`object: ${mdxType.displayName}`);
-      return mdxType.displayName;
-
-    default:
-      debug && console.debug(`unexpected type: ${typeof type}`);
+      const mdxElement = node as MDXCreateElement;
+      return mdxElement.props.mdxType;
   }
 }
