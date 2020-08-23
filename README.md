@@ -1,6 +1,7 @@
+![ShipEngine Connect](https://connect.shipengine.com/img/logos/shipengine-connect-logo.png)
+
 ShipEngine Connect App Loader
 ==============================================
-
 
 [![Cross-Platform Compatibility](https://shipengine.github.io/img/badges/os-badges.svg)](https://github.com/ShipEngine/connect-loader/actions)
 [![Build Status](https://github.com/ShipEngine/connect-loader/workflows/CI-CD/badge.svg)](https://github.com/ShipEngine/connect-loader/actions)
@@ -12,7 +13,7 @@ ShipEngine Connect App Loader
 [![License](https://img.shields.io/npm/l/@shipengine/connect-loader.svg)](LICENSE)
 
 
-This library loads a [**ShipEngine Connect app**](https://connect.shipengine.com/docs/) from an NPM package. Regardless of whether the app is written in JavaScript, TypeScript, JSON, YAML, or a mix of them all, the loader reads those files, validates them, and returns the app object.
+This library loads a [**ShipEngine Connect app**](https://connect.shipengine.com) from an NPM package. Regardless of whether the app is written in JavaScript, TypeScript, JSON, YAML, or a mix of them all, the loader reads those files, validates them, and returns the app object.
 
 
 
