@@ -82,40 +82,49 @@ export function getText(node: ReactNode): string {
   return text;
 }
 
-
 /**
  * Returns the type of React element (e.g. "h1", "table", "Pager", etc.)
  */
-export function getTypeName(node: ReactNode): string {
+export function getTypeName(node: ReactNode, debug = false): string {
   if (typeof node !== "object") {
+    debug && console.debug(`node: ${typeof node}`);
     return typeof node;
   }
 
   const element = node as ReactElement;
   const mdxElement = node as MDXCreateElement;
-  let typeName = getNameOfType(element.type);
+  let typeName = getNameOfType(element.type, debug);
+  debug && console.debug(`typeName: ${typeName}`);
 
   if (typeName === "MDXCreateElement") {
-    typeName = getNameOfType(mdxElement.props.originalType);
+    typeName = getNameOfType(mdxElement.props.originalType, debug);
+    debug && console.debug(`typeName: ${typeName}`);
   }
 
-  if (typeName === "MDXDefaultShortcode") {
+  if (!typeName || typeName === "MDXDefaultShortcode") {
     typeName = mdxElement.props.mdxType;
+    debug && console.debug(`typeName: ${typeName}`);
   }
 
   return typeName;
 }
 
-function getNameOfType(type: unknown): string {
+function getNameOfType(type: unknown, debug = false): string {
   switch (typeof type) {
     case "string":
+      debug && console.debug(`string: ${type}`);
       return type;
 
     case "function":
+      debug && console.debug(`function: ${type.name}`);
       return type.name;
 
     case "object":
       const mdxType = type as MDXElementType;
+      debug && console.debug(`object: ${mdxType.displayName}`);
       return mdxType.displayName;
+
+    default:
+      debug && console.debug(`unexpected type: ${typeof type}`);
   }
 }

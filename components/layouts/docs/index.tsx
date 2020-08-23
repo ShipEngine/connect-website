@@ -82,7 +82,7 @@ function splitChildren(children: ReactNode): [ReactNodeArray, ReactNodeArray] {
   for (let i = 0; i < nodes.length; i++) {
     const child = nodes[i];
 
-    if (typeof child === "object" && getTypeName(child) === "Section") {
+    if (getTypeName(child) === "Section") {
       // We found a <Section> component, so split the children here
       otherChildren = nodes.slice(i);
       break;
