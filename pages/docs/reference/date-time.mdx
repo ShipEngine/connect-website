@@ -1,0 +1,53 @@
+---
+title: DateTime object
+description: An object that represents a date and time in a particular time zone.
+---
+
+DateTime Object
+===============================================
+DateTime objects are used throughout ShipEngine Connect. Your app will almost certainly need to access or return DateTime objects. Examples include the delivery date and time and the date and time of a particular shipment tracking event.
+
+Each DateTime object has properties for the date/time string as well as a timezone string that holds either the UTC offset (e.g. "+05:30") or [IANA time zone] (https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) (e.g. "America/Los_Angeles", "Asia/Tokyo").
+
+
+
+Properties
+-----------------------------------------------
+
+<Reference>
+
+  <Field name="value" type="string" required={true}>
+    <Description>
+      The date and time, without a time zone (e.g. "2005-09-23T17:30:00")
+    </Description>
+  </Field>
+
+  <Field name="timeZone" type="string" required={true}>
+    <Description>
+      The time zone represented as either the UTC offset (e.g. "+05:30") or [IANA time zone](https\:\/\/en.wikipedia.org\/wiki\/List_of_tz_database_time_zones) (e.g. "America/Los_Angeles", "Asia/Tokyo")
+    </Description>
+  </Field>
+
+</Reference>
+
+
+
+Examples
+-------------------------------------------------
+Here's an example datetime object that uses the UTC offset for the `timezone`:
+
+```javascript
+{
+  value: "2020-09-24T17:30:00",
+  timezone: "America/Los_Angeles"
+}
+```
+
+And here's an example that uses the IANA time zone for the timezone.
+
+```javascript
+{
+  value: "2020-09-24T17:30:00",
+  timezone: "+05:30"
+}
+```

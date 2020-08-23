@@ -1,0 +1,119 @@
+// Fonts
+// ===============================
+$text-font: "TT_Commons", Helvetica, Arial, sans-serif;
+$heading-font: $text-font;
+$script-font: "IBM Plex Mono", monospace, serif;
+$code-font: "IBM Plex Mono", "Source Code Pro", "Liberation Mono", "Courier New", Courier, monospace;
+
+
+// Colors
+// ===============================
+$white: #ffffff;
+$black: #000000;
+$gray: #bfc6d6;
+$aqua: #17d1cd;
+
+$green: #74e6c1;
+$dark-green: darken($green, 25%);
+$darker-green: darken($green, 35%);
+
+$orange: #fc975c;
+$light-red: #fc5c65;
+$red: #e2000e;
+
+$light-blue: #45aaf2;
+$blue: #352beb;
+$dark-blue: #544cd8;
+$darker-blue: #162948;
+
+$lightest-purple: #f4fafe;
+$lighter-purple: #eef7fe;
+$light-purple: #e9f0fb;
+$bright-purple: #8242ff;
+$medium-purple: #6027ce;
+$dark-purple: #5f27cd;
+$darker-purple: #0f1c70;
+
+$text-color: $darker-blue;
+$heading-color: $darker-blue;
+$bg-color: $white;
+
+$link-color: $dark-purple;
+$link-hover-color: $light-blue;
+
+$scrollbar-color: darken($light-purple, 5%);
+$scrollbar-bg-color: $lighter-purple;
+
+
+// Sizes
+// ===============================
+
+$text-font-size: 2rem;
+$code-font-size: 1.4rem;
+$small-font-size: 1.8rem;
+$tiny-font-size: 1.6rem;
+
+$h1-font-size: 6rem;
+$h2-font-size: 4.32rem;
+$h3-font-size: 3rem;
+$h4-font-size: 2.16rem;
+$h5-font-size: 2rem;
+$h6-font-size: 2rem;
+
+$large-vertical-space: 63px;
+$medium-vertical-space: 36px;
+$small-vertical-space: 18px;
+$tiny-vertical-space: 5px;
+
+$x-large-horizontal-space: 200px;
+$large-horizontal-space: 100px;
+$medium-horizontal-space: 40px;
+$small-horizontal-space: 22px;
+$tiny-horizontal-space: 10px;
+
+$large-border-radius: 25px;
+$medium-border-radius: 10px;
+$small-border-radius: 8px;
+$tiny-border-radius: 3px;
+
+// Responsive sizes
+$phone-max-width: 600px;
+
+$phone-landscape-min-width: 748px;
+$phone-landscape-max-width: 992px;
+
+$tablet-min-width: 993px;
+$tablet-max-width: 1199px;
+
+$laptop-min-width: 1200px;
+$laptop-max-width: 1345px;
+
+$monitor-min-width: 1346px;
+
+// Heeader heights at various responsive sizes
+$site-header-large-height: 16rem;
+$site-header-small-height: 8.2rem;
+
+// Footer height is approximate
+$approximate-footer-height: 47.8rem;
+
+// Content areas
+$narrow-content-width: 880px;
+$medium-content-width: 1185px;
+$wide-content-width: 1440px;
+
+$side-bar-min-width: 250px;
+$side-bar-med-width: 400px;
+$side-bar-max-width: 750px;
+
+$toc-min-width: 100px;
+$sticky-offset: 4rem;
+
+
+// Z-Indexes
+// ===============================
+$dialog-z-index: 5000;
+$dropdown-list-z-index: 5001;
+$header-z-index: 1000;
+$docs-nav-menu-button-z-index: 1001;
+$docs-nav-menu-z-index: 1002;

@@ -1,0 +1,327 @@
+---
+title: Delivery Service Definition
+description: The page describes how to define a delivery service.
+---
+
+
+Delivery Service Definition
+===============================================
+A Delivery Service is a type of delivery that is offered by a carrier, such as "international" or "standard overnight". Each delivery service that is offered must be defined
+in its own delivery service definition file. This file can reside anywhere within your application as long as its location is specified in the [Carrier Application Definition](./carrier.mdx) file.
+ The definition may be specified in [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript), [TypeScript](https://www.typescriptlang.org/), [JSON](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON), or
+  [YAML](https://en.wikipedia.org/wiki/YAML).
+
+These delivery service definitions will be used by the [ShipEngine Connect](./../index.mdx) to display delivery service options within our suite of e-commerce applications when your carrier is used.
+
+
+
+Delivery Service Properties
+----------------------------------------------
+<Reference>
+
+  <Field name="id" required={true}>
+    <Type>
+      UUID
+    </Type>
+    <Description>
+      UUID that uniquely identifies the delivery service. This ID should never change.
+    </Description>
+  </Field>
+
+  <Field name="identifiers" type="object" required={false}>
+    <Description>
+      Your own identifiers for this delivery service.
+    </Description>
+  </Field>
+
+  <Field name="code" type="string" required={true}>
+    <Description>
+      Optional code used to map to what the carrier uses to identify the delivery service.
+    </Description>
+  </Field>
+
+  <Field name="name" type="string" required={true}>
+    <Description>
+      The user-friendly service name (e.g. "Priority Overnight", "2-Day Air").
+    </Description>
+  </Field>
+
+  <Field name="description" type="string" required={false}>
+    <Description>
+      A short, user-friendly description of the service.
+    </Description>
+  </Field>
+
+  <Field name="class" type="string" required={true}>
+    <Description>
+      The class of service used by this delivery service. Valid values include the following:
+      * `ground` - Delivery within a range of days, usually one to five days.
+      * `one_day` - Delivery within one day.
+      * `one_day_early` - Delivery within one day with an early delivery time.
+      * `one_day_early_am` - Delivery within one day with a delivery time before noon.
+      * `two_day` - Delivery within two days.
+      * `two_day_early` - Delivery within two days with an early delivery time.
+      * `three_day` - Delivery within three days.
+    </Description>
+  </Field>
+
+  <Field name="grade" type="string" required={true}>
+    <Description>
+      The grade of service used by this delivery service. Valid values include the following:
+      * `economy`
+      * `expedited`
+      * `overnight`
+      * `standard`
+    </Description>
+  </Field>
+
+  <Field name="fulfillmentService" type="string" required={false}>
+    <Description>
+      A well-known [fulfillment service](./fulfillment-service.mdx) that's used to fulfill this delivery service, such as "fedex_ground".
+    </Description>
+  </Field>
+
+  <Field name="serviceArea" type="string" required={false}>
+    <Description>
+      The service area this delivery service covers. Valid values include the following:
+      * `regional` - Delivery based on the shipment's distance to its destination. Rates typically vary by zone.
+      * `domestic` - Delivery with an origin address and a destination address within the same country.
+      * `international` - Delivery to a from address in at least one other country.
+      * `global` - Delivery to a from address anywhere in the world.
+    </Description>
+  </Field>
+
+  <Field name="isConsolidationService" type="boolean" required={true}>
+    <Description>
+      Indicates whether this delivery service is a consolidation of multiple carrier services.
+    </Description>
+  </Field>
+
+  <Field name="allowsMultiplePackages" type="boolean" required={true}>
+    <Description>
+      Indicates whether the delivery service allows multiple packages in a single shipment.
+    </Description>
+  </Field>
+
+  <Field name="isInsurable" type="boolean" required={true}>
+    <Description>
+      Indicates whether shippers can purchase insurance from the carrier for this delivery service.
+    </Description>
+  </Field>
+
+  <Field name="isTrackable" type="boolean" required={true}>
+    <Description>
+      Indicates whether tracking numbers are provided by this delivery service.
+    </Description>
+  </Field>
+
+  <Field name="hasSandbox" type="boolean" required={true}>
+    <Description>
+      Indicates whether the carrier provides a sandbox/development API for this delivery service. A sandbox should mimic real functionality as much as possible but MUST NOT incur any actual costs or affect production data.
+    </Description>
+  </Field>
+
+  <Field name="supportsReturns" type="boolean" required={false}>
+    <Description>
+      Indicates whether the carrier supprorts return shipments. Defaults to `false` if not specified.
+    </Description>
+  </Field>
+
+  <Field name="labelFormats" type="string[]" required={true}>
+    <Description>
+      The list of label formats that are offered for this delivery service. Valid values include the following:
+      * `pdf` - Potable Document Format (PDF)
+      * `zpl` - Zebra Printer Label (ZPL)
+      * `png` - Portable Graphics Format (PNG)
+    </Description>
+  </Field>
+
+  <Field name="labelSizes" type="string[]" required={true}>
+    <Description>
+      The list of label sizes that are offered for this delivery service. Valid values include the following:
+      * `A4` - A4 sized paper. 8.27 inches x 11.69 inches.
+      * `letter` - Letter sized paper. 8.5 inches by 11 inches.
+      * `4x6` - Paper sized 4 inches by 6 inches.
+      * `4x8` - Paper sized 4 inches by 8 inches.
+    </Description>
+  </Field>
+
+  <Field name="originCountries" type="string[]" required={true}>
+    <Description>
+      The list of [ISO 3166 country codes](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) for the
+      [countries](./country-codes.mdx) that can be shipped _from_ using this delivery service.
+    </Description>
+  </Field>
+
+  <Field name="destinationCountries" type="string[]" required={true}>
+    <Description>
+      The list of [ISO 3166 country codes](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) for the
+              [countries](./country-codes.mdx)  that can be shipped _to_ using this deliveyr service. Valid values include the following:
+    </Description>
+  </Field>
+
+  <Field name="packaging" type="string[]" required={true}>
+    <Description>
+      The types of packaging that are offered for this delivery service. This property should contain the paths to the packaging definition files for the packaging types that are valid for this delivery confirmation type.
+    </Description>
+  </Field>
+
+  <Field name="deliveryConfirmation" required={true}>
+    <Type>
+      [Delivery Confirmation](./delivery-confirmation.mdx)[] or string[]
+    </Type>
+    <Description>
+      The types of [delivery confirmations](./delivery-confirmation.mdx) offered for this delivery service. This property may define the delivery confirmations directly inline, following the [delivery confirmation](./delivery-confirmation.mdx) format. It may also contain a list of paths to files that define the delivery confirmations available. Defining your delivery confirmations inside definition files allows you to reference those delivery confirmation definitions in multiple delivery service definition files.
+    </Description>
+  </Field>
+
+  <Field name="manifestType" type="string" required={true}>
+    <Description>
+      Indicates whether the service supports digital or physical manifests. Valid values include the following:
+      *  `physical` - This service will require physical documents even if the carrier default is digital transmission.
+      *  `digital` - This service will *not* require physical documents even if the carrier default is for physical documents.
+    </Description>
+  </Field>
+
+</Reference>
+
+
+
+Examples
+-----------------------------------------------
+
+```yaml
+id: 43fc9d24-6a89-428a-ad34-c614c14170b6
+identifiers:
+  apiCode: ECO
+code: ECO
+name: International Economy
+description: Worldwide delivery at an affordable price
+class: ground
+grade: economy
+serviceArea: global
+isConsolidationService: true
+isTrackable: false
+isInsurable: true
+supportsReturns: false
+manifestType: digital
+
+labelFormats:
+  - pdf
+
+labelSizes:
+  - A4
+  - letter
+
+originCountries: worldwide.yaml
+destinationCountries: worldwide.yaml
+
+packaging:
+  - ../packaging/package.yaml
+  - ../packaging/pallet.yaml
+
+deliveryConfirmations:
+  - ../delivery-confirmations/signature-required.yaml
+  - ../delivery-confirmations/adult-signature.yaml
+  - ../delivery-confirmations/recipient-signature.yaml
+```
+
+```javascript
+{
+    id: "43fc9d24-6a89-428a-ad34-c614c14170b6",
+    identifiers: {
+        apiCode: "ECO"
+    },
+    code: "IEC",
+    name: "International Economy",
+    description: "Worldwide delivery at an affordable price",
+    class: "ground",
+    grade: "economy",
+    serviceArea: "global",
+    isConsolidationService: true,
+    isTrackable: false,
+    isInsurable: true,
+    supportsReturns: false,
+    manifestType: "digital",
+    labelFormats:[
+        "pdf"
+    ],
+    labelSizes: [
+        "A4",
+        "letter"
+    ],
+    originCountries: "worldwide.yaml",
+    destinationCountries: "worldwide.yaml",
+    packaging: [
+        "../packaging/package.yaml",
+        "../packaging/pallet.yaml"
+    ],
+    deliveryConfirmations: [
+         "../delivery-confirmations/signature-required.yaml",
+         "../delivery-confirmations/adult-signature.yaml",
+         "../delivery-confirmations/recipient-signature.yaml"
+    ]
+}
+```
+
+```typescript
+import {
+  Country,
+  DeliveryServiceClass,
+  DeliveryServiceDefinition,
+  DeliveryServiceGrade,
+  DocumentFormat,
+  DocumentSize,
+  ServiceArea,
+} from "@shipengine/connect-sdk";
+
+const internationalEconomyDeliveryService: DeliveryServiceDefinition = {
+  id: "43fc9d24-6a89-428a-ad34-c614c14170b6",
+  code: "IEC",
+  name: "International Economy",
+  description:
+    "Worldwide delivery at an affordable price",
+  class: DeliveryServiceClass.OneDay,
+  deliveryConfirmations: [import("./signature-delivery-confirmation")],
+  destinationCountries: [Country.UnitedStates],
+  grade: DeliveryServiceGrade.Expedited,
+  isInsurable: true,
+  isTrackable: false,
+  manifestType: digital,
+  supportsReturns: false,
+  labelFormats: [DocumentFormat.PDF, DocumentFormat.PNG],
+  labelSizes: [DocumentSize.Letter, DocumentSize.Inches4x6],
+  originCountries: [Country.UnitedStates],
+  packaging: [import("./package-packaging")],
+  serviceArea: ServiceArea.domestic,
+};
+
+export default internationalEconomyDeliveryService;
+
+```
+
+```json
+{
+  "id": "43fc9d24-6a89-428a-ad34-c614c14170b6",
+  "name": "International Economy",
+  "code": "IEC",
+  "description": "Worldwide delivery at an affordable price",
+  "class": "ground",
+  "deliveryConfirmations": ["./signature-delivery-confirmation.json"],
+  "grade": "standard",
+  "isInsurable": true,
+  "isTrackable": false,
+  "supportsReturns": false,
+  "manifestType": "digital",
+  "labelFormats": ["pdf"],
+  "labelSizes": ["4x8"],
+  "originCountries": ["US", "CA", "MX"],
+  "destinationCountries": ["US", "CA", "MX"],
+  "packaging": ["./package-packaging.json"],
+  "serviceArea": "international"
+}
+
+```
+
+
+

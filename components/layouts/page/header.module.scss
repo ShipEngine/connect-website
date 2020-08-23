@@ -1,0 +1,59 @@
+@use "../../../styles/variables" as *;
+
+.siteHeader {
+  background-color: $white;
+  box-shadow: 0 5px 20px transparentize($darker-blue, .96);
+  position: fixed;
+  padding: 1.8rem 3% 0 3%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: $header-z-index;
+  height: $site-header-small-height;
+
+  + * {
+    margin-top: $site-header-small-height;
+  }
+}
+
+.siteLogo {
+  float: left;
+
+  > img {
+    height: 50px;
+  }
+}
+
+.siteSearchForm {
+  float: right;
+  width: 40%;
+  max-width: 400px;
+}
+
+/**
+  * Phone and Tablet screens
+  */
+@media (max-width: $phone-max-width) {
+  // Make the header twice as tall
+  .siteHeader {
+    height: $site-header-large-height;
+
+    + * {
+      margin-top: $site-header-large-height;
+    }
+  }
+
+  // Stack the logo and search form
+  .siteLogo {
+    float: none;
+    display: block;
+    padding-bottom: 2.2rem;
+  }
+
+  .siteSearchForm {
+    float: none;
+    display: block;
+    width: 100%;
+    max-width: none;
+  }
+}

@@ -1,0 +1,81 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.h1 {
+  margin-top: 0;
+
+  code {
+    font-size: $h2-font-size;
+  }
+}
+
+.h2 {
+  margin-top: 6rem;
+  margin-bottom: 2rem;
+
+  code {
+    font-size: $h2-font-size;
+  }
+}
+
+.h3 {
+  code {
+    font-size: 2.5rem;
+  }
+}
+
+.h4 {
+  code {
+    font-size: 1.8rem;
+  }
+}
+
+.h3, .h4, .h5, .h6 {
+  margin-bottom: 1rem;
+}
+
+:global p :local .img {
+  @include small-box;
+  display: block;
+  max-width: 90%;
+  max-height: 75rem;
+  margin: 0 auto 45px auto;
+}
+
+// Offset heading anchors vertically to account for the fixed header height.
+// Otherwise, the heading will be hidden behind the header.
+.headingAnchor {
+  display: block;
+  position: relative;
+  top: -($site-header-small-height + $sticky-offset);
+  height: 1px;
+  width: 1px;
+}
+
+.headingAnchorLink {
+  display: inline-block;
+  background: url("../../public/img/icons/link.svg") no-repeat;
+  background-size: contain;
+  vertical-align: middle;
+  height: 20px;
+  width: 20px;
+  margin-left: .4em;
+  opacity: 0;
+  transition: opacity .4s ease;
+}
+
+h2:hover,
+h3:hover {
+  > .headingAnchorLink {
+    opacity: 1;
+  }
+}
+
+/**
+  * Adjust for small phone screens
+  */
+@media (max-width: $phone-max-width) {
+  .headingAnchor {
+    top: -($site-header-large-height + $sticky-offset);
+  }
+}

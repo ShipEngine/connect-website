@@ -1,0 +1,65 @@
+@use "variables" as *;
+
+button,
+.button,
+input[type=button],
+input[type=submit],
+input[type=reset] {
+  font-weight: 500;
+  line-height: 1;
+  color: $dark-purple;
+  background-color: transparent;
+  border: 1px solid transparentize($dark-purple, .8);
+  border-radius: $large-border-radius;
+  display: inline-block;
+  padding: 15px 25px 12px 25px;
+  transition-property: background-color, border-color;
+  transition-duration: .4s;
+  transition-timing-function: ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    color: $dark-purple;
+    background-color: $white;
+    border-color: $dark-purple;
+  }
+
+  &.button-primary {
+    color: $white;
+    background-color: $medium-purple;
+    border: none;
+
+    &:hover {
+      color: $white;
+      background-color: $bright-purple;
+    }
+  }
+
+  &.button-small {
+    padding: 8px 15px 5px 15px;
+  }
+
+  &.button-arrow {
+    background: $medium-purple url(../public/img/icons/arrow.svg) no-repeat 90% center;
+    padding-right: 65px;
+  }
+
+  /**
+   * Tablet & Laptop screens
+   */
+  @media (min-width: $tablet-min-width) and (max-width: $laptop-max-width) {
+    padding: 15px 15px 12px 15px;
+
+    &.button-primary {
+      padding: 15px 25px 12px 25px;
+    }
+
+    &.button-small {
+      padding: 8px 15px 5px 15px;
+    }
+
+    &.button-arrow {
+      padding-right: 65px;
+    }
+  }
+}
