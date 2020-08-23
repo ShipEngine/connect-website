@@ -1,7 +1,7 @@
 {
   "name": "@shipengine/connect-cli",
   "description": "A CLI tool for working with your ShipEngine Connect account.",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "author": {
     "name": "ShipEngine",
     "email": "support@shipengine.com",
