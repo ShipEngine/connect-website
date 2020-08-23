@@ -1,9 +1,55 @@
 ---
-title: PLACEHOLDER
-description: PLACEHOLDER
+title: Charge objects
+description: An itemized charge or credit for a shipment or sales order
 ---
 
-PLACEHOLDER PAGE
-========================
+Charge Object
+===============================================
+A Charge object describes an itemized charge or credit for a shipment or sales order.
 
-To-do
+
+
+Properties
+-----------------------------------------------
+
+<Reference>
+
+  <Field name="name" type="string" required={false}>
+    <Description>
+      The user-friendly name of the charge (e.g. "Fuel Charge", "Oversize Package Fee"). This string must be between `0` and `100` characters and must not contain newline characters.
+    </Description>
+  </Field>
+
+  <Field name="type" required={true}>
+    <Type>
+      [ChargeType](./common-types.mdx#charge-types)
+    </Type>
+    <Description>
+      The type of the charge.
+    </Description>
+  </Field>
+
+  <Field name="amount" type="object" required={true}>
+    <Description>
+      The amount of the charge (negative amount for a credit).
+    </Description>
+  </Field>
+
+  <Field name="amount.value" type="number" required={true}>
+    <Description>
+      The value of the amount.
+    </Description>
+  </Field>
+
+  <Field name="amount.currency" type="string" required={true}>
+    <Description>
+      The currency that the value represents.
+    </Description>
+  </Field>
+
+</Reference>
+
+
+
+
+

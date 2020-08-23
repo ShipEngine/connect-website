@@ -1,9 +1,62 @@
 ---
-title: PLACEHOLDER
-description: PLACEHOLDER
+title: ContactInfo objects
+description: An person to contact.
 ---
 
-PLACEHOLDER PAGE
-========================
+ContactInfo Object
+===============================================
+A ContactInfo object describes contact information for a person.
 
-To-do
+
+
+Properties
+-----------------------------------------------
+
+<Reference>
+
+  <Field name="name" type="object" description="The name of the"/>
+  <Field name="name.title" type="string">
+    <Description>
+      The title of the contact (eg "Mr", "Mrs", "Dr"). This string will be between `0` and `100` characters and will not include newline characters.
+    </Description>
+  </Field>
+
+  <Field name="name.given" type="string">
+    <Description>
+      The first name of the signer. This string will be between `1` and `100` characters and will not include newline characters.
+    </Description>
+  </Field>
+
+  <Field name="name.middle" type="string">
+    <Description>
+      The middle name of the signer. This string will be between `0` and `100` characters and must not include newline characters.
+    </Description>
+  </Field>
+
+  <Field name="name.family" type="string">
+    <Description>
+      The last name or family name of the signer. This string must be between `0` and `100` characters and must not include newline characters.
+    </Description>
+  </Field>
+
+  <Field name="name.suffix" type="string">
+    <Description>
+      The suffix of the signer (eg "Sr", "Jr", "IV"). This string must be between `0` and `100` characters and must not include newline characters.
+    </Description>
+  </Field>
+
+  <Field name="email" type="string">
+    <Description>
+      The email address of the  This string must be a valid email address.
+    </Description>
+  </Field>
+
+  <Field name="phoneNumber" type="string">
+    <Description>
+      The phone number of the  This string must be between `0` and `30` characters and must not include newline characters.
+    </Description>
+  </Field>
+
+</Reference>
+
+

@@ -1,9 +1,145 @@
 ---
-title: PLACEHOLDER
-description: PLACEHOLDER
+title: Sales Order Item objects
+description: An object representing an item in a sales order.
 ---
 
-PLACEHOLDER PAGE
-========================
+Sales Order Item Object
+===============================================
+A Sales Order Item object describes a single item in a sales order.
 
-To-do
+
+
+Properties
+-----------------------------------------------
+
+<Reference>
+
+  <Field name="id" type="string" required={false}>
+    <Description>
+      The marketplace's unique ID for the order item. This string must be between `0` and `100` characters and must not contain newline characters.
+    </Description>
+  </Field>
+
+  <Field name="sku" type="string" required={false}>
+    <Description>
+      The [Stock Keeping Unit](https://en.wikipedia.org/wiki/Stock_keeping_unit). This string must be between `0` and `100` characters and must not contain newline characters.
+    </Description>
+  </Field>
+
+  <Field name="identifiers" type="object" required={true}>
+    <Description>
+      Your own identifiers for this sales order item.
+    </Description>
+  </Field>
+
+  <Field name="name" type="string" required={true}>
+    <Description>
+      The user-friendly name of the item. This is often the same as the product name. This string must be between `1`' and `100` characters and must not contain newline characters.
+    </Description>
+  </Field>
+
+  <Field name="description" type="string" required={false}>
+    <Description>
+      The carrier's description of the charge, not specific to the user. This string must be between `0` and `1000` characters and must not contain newline characters.
+    </Description>
+  </Field>
+
+  <Field name="product" type="object" required={true}>
+    <Description>
+      The product associated with this item.
+    </Description>
+  </Field>
+
+  <Field name="product.id" type="string" required={true}>
+    <Description>
+      The marketplace's unique ID for the product. This string must be between `1` and `100` characters and must not contain newline characters.
+    </Description>
+  </Field>
+
+  <Field name="product.sku" type="string" required={false}>
+    <Description>
+      The [Stock Keeping Unit](https://en.wikipedia.org/wiki/Stock_keeping_unit). This string must be between `0` and `100` characters and must not contain newline characters.
+    </Description>
+  </Field>
+
+  <Field name="product.identifiers" type="object" required={true}>
+    <Description>
+      Your own identifiers for this product.
+    </Description>
+  </Field>
+
+  <Field name="quantity" type="object" required={true}>
+    <Description>
+      The quantity of this item in the sales order.
+    </Description>
+  </Field>
+
+  <Field name="quantity.value" type="number" required={true}>
+    <Description>
+      The quantity of items in this sales order item. The minimum value for this property is `1`.
+    </Description>
+  </Field>
+
+  <Field name="unitPrice" type="object" required={true}>
+    <Description>
+      The sale price of each item. This should NOT include additional charges or adjustments, such as taxes or discounts. Use `charges` for those.
+    </Description>
+  </Field>
+
+  <Field name="unitPrice.value" type="number" required={true}>
+    <Description>
+      The value for this amount.
+    </Description>
+  </Field>
+
+  <Field name="unitPrice.currency" type="string" required={true}>
+    <Description>
+      The currency for this amount.
+    </Description>
+  </Field>
+
+  <Field name="unitWeight" type="object" required={false}>
+    <Description>
+      The weight of each item.
+    </Description>
+  </Field>
+
+  <Field name="unitWeight.value" type="number" required={true}>
+    <Description>
+      The value for the weight. The minimum value for this property is `1`.
+    </Description>
+  </Field>
+
+  <Field name="unitWeight.unit" type="string">
+    <Description>
+      The unit of measure for this weight. Valid values include the following:
+        * `g` for grams
+        * `oz` for ounces
+        * `kg` for kilograms
+        * `lb` for pounds
+    </Description>
+  </Field>
+
+  <Field name="itemURL" required={false}>
+    <Type>
+      [URL](https://nodejs.org/api/url.html) or string
+    </Type>
+    <Description>
+      The URL of a webpage where the customer can view the order item. Must be a valid HTTP or HTTPS url.
+    </Description>
+  </Field>
+
+  <Field name="thumbnailURL" required={false}>
+    <Type>
+      [URL](https://nodejs.org/api/url.html) or string
+    </Type>
+    <Description>
+      The URL of a webpage where the customer can view an image of the order item.
+    </Description>
+  </Field>
+
+</Reference>
+
+
+
+

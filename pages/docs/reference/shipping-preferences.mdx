@@ -1,9 +1,62 @@
 ---
-title: PLACEHOLDER
-description: PLACEHOLDER
+title: Shipping Preference objects
+description: Shipping preferences are conveyed using the ShippingPreference object.
 ---
 
-PLACEHOLDER PAGE
-========================
+Shipping Preferences Object
+===============================================
+Shipping preferences are conveyed using the ShippingPreference object.
 
-To-do
+
+
+Properties
+-----------------------------------------------
+
+<Reference>
+
+  <Field name="deliveryConfirmationType" type="string" required={false}>
+    <Description>
+      The requested delivery confirmation. Valid values include the following:
+      * `delivery` - Package is dropped off at the destination address.
+      * `signature` - A person at the destination address signs for the package.
+      * `adult_signature` - A person of legal adult age for the destination jurisdiction signs for the package.
+      * `direct_signature` - The person named as the recipient signs for the package.
+    </Description>
+  </Field>
+
+  <Field name="containsAlcohol" type="boolean" required={false}>
+    <Description>
+      Indicates whether the shipment needs to be marked as containing alcohol.
+    </Description>
+  </Field>
+
+  <Field name="saturdayDelivery" type="boolean" required={false}>
+    <Description>
+      Indicates whether Saturday delivery is requested.
+    </Description>
+  </Field>
+
+  <Field name="insuredValue" type="object" required={false}>
+    <Description>
+      Requests that the shipment be insured for the specified value.
+    </Description>
+  </Field>
+
+  <Field name="insuredValue.value" type="number" required={true}>
+    <Description>
+      The value of the insured amount.
+    </Description>
+  </Field>
+
+  <Field name="insuredValue.currency" type="string" required={true}>
+    <Description>
+      The currency the value represents.
+    </Description>
+  </Field>
+
+</Reference>
+
+
+
+
+

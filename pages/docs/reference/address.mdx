@@ -1,9 +1,283 @@
 ---
-title: PLACEHOLDER
-description: PLACEHOLDER
+title: Address Objects
+description: Addresses with contact info store not only store location and contact information but also the email and phone number needed to contact the address owner.
 ---
 
-PLACEHOLDER PAGE
-========================
+Address Objects
+====================
 
-To-do
+Addresses are used throughout [ShipEngine Connect](./../index.mdx). Your application will almost certainly need to access or return address objects. Examples include the origin and destination addresses of a shipment, a carrier pickup location, a warehouse, etc.
+
+Each address object has properties for the street, city, province, country, and postal code. Some addresses also include contact information, such as a person's name, email, and phone number.
+
+The properties that are required when an `AddressWithContactInfo` object is expected are included below. Only include these additional properties
+when an `AddressWithContactInfo` object is required. If an Address object is expected, the type for the property will be `Address`. In this case, only include the properties that are not marked as contact info properties.
+
+
+
+Address Argument
+--------------------------------------------
+This table lists which properties are provided when an address object is passed to a method.
+For example, the argument passed to the [createShipment method](./methods/create-shipment.mdx) in a Carrier App
+uses an `AddressWithContactInfo` object for the `shipTo` and `shipFrom` properties.
+
+The properties that are required when an `AddressWithContactInfo` object is expected are included below. Only include these additional properties
+when an `AddressWithContactInfo` object is required. If an Address object is expected, the type for the property will be `Address`. In this case, only include the properties that are not marked as contact info properties.
+
+
+<Reference>
+
+  <Field name="company" type="string" nullable={false} required={false}>
+    <Description>
+      The company name for the address, if provided. This string must be between `0` and `100` characters    and must not include newline characters and must not include newline characters.
+    </Description>
+  </Field>
+
+  <Field name="addressLines" type="string[]" nullable={false} required={true}>
+    <Description>
+      Rather than providing two or three distinct address fields, simply provide all lines of the address in a string array. Each string in the array must be between `0` and `100` characters and must not include newline characters.
+    </Description>
+  </Field>
+
+  <Field name="cityLocality" type="string" nullable={false} required={true}>
+    <Description>
+      The city or locality for this address. This string must be between `1` and `100` characters and must not include newline characters.
+    </Description>
+  </Field>
+
+  <Field name="stateProvince" type="string" nullable={false} required={true}>
+    <Description>
+      The state or province for this address. This string must be between `1` and `100` characters and must not include newline characters.
+    </Description>
+  </Field>
+
+  <Field name="postalCode" type="string" nullable={false} required={true}>
+    <Description>
+      The zip code or other postal code for this address. This string must be between `1` and `100` characters and must not include newline characters.
+    </Description>
+  </Field>
+
+  <Field name="country" nullable={false} required={true}>
+    <Type>
+      [Country](./country-codes.mdx)
+    </Type>
+    <Description>
+      The country for the address.
+    </Description>
+  </Field>
+
+  <Field name="isResidential" type="boolean" nullable={true} required={false}>
+    <Description>
+      A boolean value indicating whether or not the address is residential.
+    </Description>
+  </Field>
+
+  <Field name="contact.name" type="object" nullable={false} required={true}>
+    <Description>
+      The name of the contact.
+    </Description>
+  </Field>
+
+  <Field name="contact.name.title" type="string" nullable={false} required={false}>
+    <Description>
+      The title of the contact (eg "Mr", "Mrs", "Dr"). This string must be between `0` and `100` characters and must not include newline characters.
+    </Description>
+  </Field>
+
+  <Field name="contact.name.given" type="string" nullable={false} required={true}>
+    <Description>
+      The first name of the signer. This string must be between `1` and `100` characters and must not include newline characters.
+    </Description>
+  </Field>
+
+  <Field name="contact.name.middle" type="string" nullable={false} required={false}>
+    <Description>
+      The middle name of the signer. This string must be between `0` and `100` characters and must not include newline characters.
+    </Description>
+  </Field>
+
+  <Field name="contact.name.family" type="string" nullable={false} required={false}>
+    <Description>
+      The last name or family name of the signer. This string must be between `0` and `100` characters and must not include newline characters.
+    </Description>
+  </Field>
+
+  <Field name="contact.name.suffix" type="string" nullable={false} required={false}>
+    <Description>
+      The suffix of the signer (eg "Sr", "Jr", "IV"). This string must be between `0` and `100` characters and must not include newline characters.
+    </Description>
+  </Field>
+
+  <Field name="email" type="string" nullable={false} required={false}>
+    <Description>
+      The email address of the contact. This string must be a valid email address. <br/> <br/>
+      _Only include this property if an AddressWithContactInfo object is required._
+    </Description>
+  </Field>
+
+  <Field name="phoneNumber" type="string" nullable={false} required={false}>
+    <Description>
+      The phone number of the contact. This string must be between `0` and `30` characters
+          and must not include newline characters. <br/> <br/>
+      _Only include this property if an AddressWithContactInfo object is required._
+    </Description>
+  </Field>
+
+</Reference>
+
+
+
+Address Return Value
+--------------------------------------------
+This table specifies the properties that are required when an address object is returned from a method.
+For example, the [getSalesOrdersByDate method](./methods/get-sales-orders-by-date.mdx) in an Order app
+returns an `AddressWithContactInfo` object as its `shipTo` property for each sales order returned.
+
+The properties that are required when an `AddressWithContactInfo` object is expected are included below. Only include these additional properties
+when an `AddressWithContactInfo` object is required. If an Address object is expected, the type for the property will be `Address`. In this case, only include the properties that are not marked as contact info properties.
+
+
+<Reference>
+
+  <Field name="company" type="string" nullable={false} required={false}>
+    <Description>
+      The company name for the address, if provided. This string must be between `0` and `100` characters    and must not include newline characters and must not include newline characters.
+    </Description>
+  </Field>
+
+  <Field name="addressLines" type="string[]" nullable={false} required={true}>
+    <Description>
+      Rather than providing two or three distinct address fields, simply provide all lines of the address in a string array. Each string in the array must be between `0` and `100` characters and must not include newline characters.
+    </Description>
+  </Field>
+
+  <Field name="cityLocality" type="string" nullable={false} required={true}>
+    <Description>
+      The city or locality for this address. This string must be between `1` and `100` characters and must not include newline characters.
+    </Description>
+  </Field>
+
+  <Field name="stateProvince" type="string" nullable={false} required={true}>
+    <Description>
+      The state or province for this address. This string must be between `1` and `100` characters and must not include newline characters.
+    </Description>
+  </Field>
+
+  <Field name="postalCode" type="string" nullable={false} required={true}>
+    <Description>
+      The zip code or other postal code for this address. This string must be between `1` and `100` characters and must not include newline characters.
+    </Description>
+  </Field>
+
+  <Field name="country" nullable={false} required={true}>
+    <Type>
+      [Country](./country-codes.mdx)
+    </Type>
+    <Description>
+      The country for the address.
+    </Description>
+  </Field>
+
+  <Field name="isResidential" type="boolean" nullable={true} required={false}>
+    <Description>
+      A boolean value indicating whether or not the address is residential.
+    </Description>
+  </Field>
+
+  <Field name="contact.name" type="object" nullable={false} required={true}>
+    <Description>
+      The name of the contact.
+    </Description>
+  </Field>
+
+  <Field name="contact.name.title" type="string" nullable={false} required={false}>
+    <Description>
+      The title of the contact (eg "Mr", "Mrs", "Dr"). This string must be between `0` and `100` characters and must not include newline characters.
+    </Description>
+  </Field>
+
+  <Field name="contact.name.given" type="string" nullable={false} required={true}>
+    <Description>
+      The first name of the signer. This string must be between `1` and `100` characters and must not include newline characters.
+    </Description>
+  </Field>
+
+  <Field name="contact.name.middle" type="string" nullable={false} required={false}>
+    <Description>
+      The middle name of the signer. This string must be between `0` and `100` characters and must not include newline characters.
+    </Description>
+  </Field>
+
+  <Field name="contact.name.family" type="string" nullable={false} required={false}>
+    <Description>
+      The last name or family name of the signer. This string must be between `0` and `100` characters and must not include newline characters.
+    </Description>
+  </Field>
+
+  <Field name="contact.name.suffix" type="string" nullable={false} required={false}>
+    <Description>
+      The suffix of the signer (eg "Sr", "Jr", "IV"). This string must be between `0` and `100` characters and must not include newline characters.
+    </Description>
+  </Field>
+
+  <Field name="email" type="string" nullable={false} required={false}>
+    <Description>
+      The email address of the contact. This string must be a valid email address. <br/> <br/>
+      _Only include this property if an AddressWithContactInfo object is required._
+    </Description>
+  </Field>
+
+  <Field name="phoneNumber" type="string" nullable={false} required={false}>
+    <Description>
+      The phone number of the contact. This string must be between `0` and `30` characters
+          and must not include newline characters. <br/> <br/>
+      _Only include this property if an AddressWithContactInfo object is required._
+    </Description>
+  </Field>
+
+</Reference>
+
+
+
+Examples
+-------------------------------------------------
+Here's an example address object:
+
+```javascript
+{
+  company: "Example Corp",
+  addressLines: [
+    "4009 Marathon Blvd",
+    "Suite 310",
+  ],
+  cityLocality: "Austin",
+  stateProvince: "TX",
+  postalCode: "78756",
+  country: "US",
+  isResidential: false
+}
+```
+
+And here's an example address with contact info:
+
+```javascript
+{
+  name: {
+    title: "Mr.",
+    given: "John",
+    family: "Doe",
+  },
+  email: "johndoe@example.com",
+  phoneNumber: "555-555-5555",
+  company: "Example Corp",
+  addressLines: [
+    "4009 Marathon Blvd",
+    "Suite 310",
+  ],
+  cityLocality: "Austin",
+  stateProvince: "TX",
+  postalCode: "78756",
+  country: "US",
+  isResidential: false
+}
+```
