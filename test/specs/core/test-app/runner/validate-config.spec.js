@@ -2968,4 +2968,1262 @@ describe("validateConfig", () => {
       expect(errorResult.message).to.be.equal("tests.rateShipment[0].shipDateTime must be a complete ISO 8601 date/time with a time zone, like 2005-09-23T17:30:00+05:30");
     });
   });
+
+  describe("tests.cancelShipment when given an object", () => {
+    it("validates that retries is a number", () => {
+      const config = {
+        tests: {
+          cancelShipment: {
+            retries: "invalid"
+          }
+        },
+      };
+
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.cancelShipment.retries must be a number");
+    });
+
+    it("validates that timeout is a number", () => {
+      const config = {
+        tests: {
+          cancelShipment: {
+            timeout: "invalid"
+          }
+        },
+      };
+
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.cancelShipment.timeout must be a number");
+    });
+
+    it("validates that skip is a boolean", () => {
+      const config = {
+        tests: {
+          cancelShipment: {
+            skip: "invalid"
+          }
+        },
+      };
+
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.cancelShipment.skip must be a boolean");
+    });
+
+    it("validates that session is an object", () => {
+      const config = {
+        tests: {
+          cancelShipment: {
+            session: "invalid"
+          }
+        },
+      };
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.cancelShipment.session must be of type object");
+    });
+
+    it("validates that connectArgs is an object", () => {
+      const config = {
+        tests: {
+          cancelShipment: {
+            connectArgs: "invalid"
+          }
+        },
+      };
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.cancelShipment.connectArgs must be of type object");
+    });
+
+    it("validates that retries is a number", () => {
+      const config = {
+        tests: {
+          cancelShipment: {
+            retries: "invalid"
+          }
+        },
+      };
+
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.cancelShipment.retries must be a number");
+    });
+
+    it("validates that timeout is a number", () => {
+      const config = {
+        tests: {
+          cancelShipment: {
+            timeout: "invalid"
+          }
+        },
+      };
+
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.cancelShipment.timeout must be a number");
+    });
+
+    it("validates that skip is a boolean", () => {
+      const config = {
+        tests: {
+          cancelShipment: {
+            skip: "invalid"
+          }
+        },
+      };
+
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.cancelShipment.skip must be a boolean");
+    });
+
+    it("validates that session is an object", () => {
+      const config = {
+        tests: {
+          cancelShipment: {
+            session: "invalid"
+          }
+        },
+      };
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.cancelShipment.session must be of type object");
+    });
+
+    it("validates that connectArgs is an object", () => {
+      const config = {
+        tests: {
+          cancelShipment: {
+            connectArgs: "invalid"
+          }
+        },
+      };
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.cancelShipment.connectArgs must be of type object");
+    });
+
+    it("validates that deliveryServiceName is a string", () => {
+      const config = {
+        tests: {
+          cancelShipment: {
+            deliveryServiceName: 123
+          },
+        },
+      };
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.cancelShipment.deliveryServiceName must be a string");
+    });
+
+    it("validates that shipFrom is an address object", () => {
+      const config = {
+        tests: {
+          cancelShipment: {
+            shipFrom: "invalid"
+          },
+        },
+      };
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.cancelShipment.shipFrom must be of type object");
+    });
+
+    it("validates that shipTo is an address object", () => {
+      const config = {
+        tests: {
+          cancelShipment: {
+            shipTo: "invalid"
+          },
+        },
+      };
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.cancelShipment.shipTo must be of type object");
+    });
+
+    it("validates that weight is a weight object", () => {
+      const config = {
+        tests: {
+          cancelShipment: {
+            weight: "invalid"
+          },
+        },
+      };
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.cancelShipment.weight must be of type object");
+    });
+
+    it("validates that shipDateTime is a valid date time string", () => {
+      const config = {
+        tests: {
+          cancelShipment: {
+            shipDateTime: "invalid"
+          },
+        },
+      };
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.cancelShipment.shipDateTime must be a complete ISO 8601 date/time with a time zone, like 2005-09-23T17:30:00+05:30");
+    });
+  });
+
+  describe("tests.cancelShipment when given an array", () => {
+    it("validates that retries is a number", () => {
+      const config = {
+        tests: {
+          cancelShipment: [{
+            retries: "invalid"
+          }]
+        },
+      };
+
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.cancelShipment[0].retries must be a number");
+    });
+
+    it("validates that timeout is a number", () => {
+      const config = {
+        tests: {
+          cancelShipment: [{
+            timeout: "invalid"
+          }]
+        },
+      };
+
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.cancelShipment[0].timeout must be a number");
+    });
+
+    it("validates that skip is a boolean", () => {
+      const config = {
+        tests: {
+          cancelShipment: [{
+            skip: "invalid"
+          }]
+        },
+      };
+
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.cancelShipment[0].skip must be a boolean");
+    });
+
+    it("validates that session is an object", () => {
+      const config = {
+        tests: {
+          cancelShipment: [{
+            session: "invalid"
+          }]
+        },
+      };
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.cancelShipment[0].session must be of type object");
+    });
+
+    it("validates that connectArgs is an object", () => {
+      const config = {
+        tests: {
+          cancelShipment: [{
+            connectArgs: "invalid"
+          }]
+        },
+      };
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.cancelShipment[0].connectArgs must be of type object");
+    });
+
+    it("validates that deliveryServiceName is a string", () => {
+      const config = {
+        tests: {
+          cancelShipment: [{
+            deliveryServiceName: 123
+          }],
+        },
+      };
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.cancelShipment[0].deliveryServiceName must be a string");
+    });
+
+    it("validates that shipFrom is an address object", () => {
+      const config = {
+        tests: {
+          cancelShipment: [{
+            shipFrom: "invalid"
+          }],
+        },
+      };
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.cancelShipment[0].shipFrom must be of type object");
+    });
+
+    it("validates that shipTo is an address object", () => {
+      const config = {
+        tests: {
+          cancelShipment: [{
+            shipTo: "invalid"
+          }],
+        },
+      };
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.cancelShipment[0].shipTo must be of type object");
+    });
+
+    it("validates that weight is a weight object", () => {
+      const config = {
+        tests: {
+          cancelShipment: [{
+            weight: "invalid"
+          }],
+        },
+      };
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.cancelShipment[0].weight must be of type object");
+    });
+
+    it("validates that shipDateTime is a valid date time string", () => {
+      const config = {
+        tests: {
+          cancelShipment: [{
+            shipDateTime: "invalid"
+          }],
+        },
+      };
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.cancelShipment[0].shipDateTime must be a complete ISO 8601 date/time with a time zone, like 2005-09-23T17:30:00+05:30");
+    });
+  });
+
+  describe("tests.createShipment_return when given an object", () => {
+    it("validates that retries is a number", () => {
+      const config = {
+        tests: {
+          createShipment_return: {
+            retries: "invalid"
+          }
+        },
+      };
+
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.createShipment_return.retries must be a number");
+    });
+
+    it("validates that timeout is a number", () => {
+      const config = {
+        tests: {
+          createShipment_return: {
+            timeout: "invalid"
+          }
+        },
+      };
+
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.createShipment_return.timeout must be a number");
+    });
+
+    it("validates that skip is a boolean", () => {
+      const config = {
+        tests: {
+          createShipment_return: {
+            skip: "invalid"
+          }
+        },
+      };
+
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.createShipment_return.skip must be a boolean");
+    });
+
+    it("validates that session is an object", () => {
+      const config = {
+        tests: {
+          createShipment_return: {
+            session: "invalid"
+          }
+        },
+      };
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.createShipment_return.session must be of type object");
+    });
+
+    it("validates that connectArgs is an object", () => {
+      const config = {
+        tests: {
+          createShipment_return: {
+            connectArgs: "invalid"
+          }
+        },
+      };
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.createShipment_return.connectArgs must be of type object");
+    });
+
+    it("validates that retries is a number", () => {
+      const config = {
+        tests: {
+          createShipment_return: {
+            retries: "invalid"
+          }
+        },
+      };
+
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.createShipment_return.retries must be a number");
+    });
+
+    it("validates that timeout is a number", () => {
+      const config = {
+        tests: {
+          createShipment_return: {
+            timeout: "invalid"
+          }
+        },
+      };
+
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.createShipment_return.timeout must be a number");
+    });
+
+    it("validates that skip is a boolean", () => {
+      const config = {
+        tests: {
+          createShipment_return: {
+            skip: "invalid"
+          }
+        },
+      };
+
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.createShipment_return.skip must be a boolean");
+    });
+
+    it("validates that session is an object", () => {
+      const config = {
+        tests: {
+          createShipment_return: {
+            session: "invalid"
+          }
+        },
+      };
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.createShipment_return.session must be of type object");
+    });
+
+    it("validates that connectArgs is an object", () => {
+      const config = {
+        tests: {
+          createShipment_return: {
+            connectArgs: "invalid"
+          }
+        },
+      };
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.createShipment_return.connectArgs must be of type object");
+    });
+
+    it("validates that deliveryServiceName is a string", () => {
+      const config = {
+        tests: {
+          createShipment_return: {
+            deliveryServiceName: 123
+          },
+        },
+      };
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.createShipment_return.deliveryServiceName must be a string");
+    });
+
+    it("validates that deliveryConfirmationName is a string", () => {
+      const config = {
+        tests: {
+          createShipment_return: {
+            deliveryConfirmationName: 123
+          },
+        },
+      };
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.createShipment_return.deliveryConfirmationName must be a string");
+    });
+
+    it("validates that rmaNumber is a string", () => {
+      const config = {
+        tests: {
+          createShipment_return: {
+            rmaNumber: 123
+          },
+        },
+      };
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.createShipment_return.rmaNumber must be a string");
+    });
+
+    it("validates that shipFrom is an address object", () => {
+      const config = {
+        tests: {
+          createShipment_return: {
+            shipFrom: "invalid"
+          },
+        },
+      };
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.createShipment_return.shipFrom must be of type object");
+    });
+
+    it("validates that shipTo is an address object", () => {
+      const config = {
+        tests: {
+          createShipment_return: {
+            shipTo: "invalid"
+          },
+        },
+      };
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.createShipment_return.shipTo must be of type object");
+    });
+
+    it("validates that label is a label object", () => {
+      const config = {
+        tests: {
+          createShipment_return: {
+            label: "invalid"
+          },
+        },
+      };
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.createShipment_return.label must be of type object");
+    });
+
+    it("validates that weight is a weight object", () => {
+      const config = {
+        tests: {
+          createShipment_return: {
+            weight: "invalid"
+          },
+        },
+      };
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.createShipment_return.weight must be of type object");
+    });
+
+    it("validates that shipDateTime is a valid date time string", () => {
+      const config = {
+        tests: {
+          createShipment_return: {
+            shipDateTime: "invalid"
+          },
+        },
+      };
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.createShipment_return.shipDateTime must be a complete ISO 8601 date/time with a time zone, like 2005-09-23T17:30:00+05:30");
+    });
+  });
+
+  describe("tests.createShipment_return when given an array", () => {
+    it("validates that retries is a number", () => {
+      const config = {
+        tests: {
+          createShipment_return: [{
+            retries: "invalid"
+          }]
+        },
+      };
+
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.createShipment_return[0].retries must be a number");
+    });
+
+    it("validates that timeout is a number", () => {
+      const config = {
+        tests: {
+          createShipment_return: [{
+            timeout: "invalid"
+          }]
+        },
+      };
+
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.createShipment_return[0].timeout must be a number");
+    });
+
+    it("validates that skip is a boolean", () => {
+      const config = {
+        tests: {
+          createShipment_return: [{
+            skip: "invalid"
+          }]
+        },
+      };
+
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.createShipment_return[0].skip must be a boolean");
+    });
+
+    it("validates that session is an object", () => {
+      const config = {
+        tests: {
+          createShipment_return: [{
+            session: "invalid"
+          }]
+        },
+      };
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.createShipment_return[0].session must be of type object");
+    });
+
+    it("validates that connectArgs is an object", () => {
+      const config = {
+        tests: {
+          createShipment_return: [{
+            connectArgs: "invalid"
+          }]
+        },
+      };
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.createShipment_return[0].connectArgs must be of type object");
+    });
+
+    it("validates that deliveryServiceName is a string", () => {
+      const config = {
+        tests: {
+          createShipment_return: [{
+            deliveryServiceName: 123
+          }],
+        },
+      };
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.createShipment_return[0].deliveryServiceName must be a string");
+    });
+
+    it("validates that deliveryConfirmationName is a string", () => {
+      const config = {
+        tests: {
+          createShipment_return: [{
+            deliveryConfirmationName: 123
+          }],
+        },
+      };
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.createShipment_return[0].deliveryConfirmationName must be a string");
+    });
+
+    it("validates that rmaNumber is a string", () => {
+      const config = {
+        tests: {
+          createShipment_return: [{
+            rmaNumber: 123
+          }],
+        },
+      };
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.createShipment_return[0].rmaNumber must be a string");
+    });
+
+    it("validates that shipFrom is an address object", () => {
+      const config = {
+        tests: {
+          createShipment_return: [{
+            shipFrom: "invalid"
+          }],
+        },
+      };
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.createShipment_return[0].shipFrom must be of type object");
+    });
+
+    it("validates that shipTo is an address object", () => {
+      const config = {
+        tests: {
+          createShipment_return: [{
+            shipTo: "invalid"
+          }],
+        },
+      };
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.createShipment_return[0].shipTo must be of type object");
+    });
+
+    it("validates that label is a label object", () => {
+      const config = {
+        tests: {
+          createShipment_return: [{
+            label: "invalid"
+          }],
+        },
+      };
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.createShipment_return[0].label must be of type object");
+    });
+
+    it("validates that weight is a weight object", () => {
+      const config = {
+        tests: {
+          createShipment_return: [{
+            weight: "invalid"
+          }],
+        },
+      };
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.createShipment_return[0].weight must be of type object");
+    });
+
+    it("validates that shipDateTime is a valid date time string", () => {
+      const config = {
+        tests: {
+          createShipment_return: [{
+            shipDateTime: "invalid"
+          }],
+        },
+      };
+      let result;
+      let errorResult;
+
+      try {
+        result = validateConfig(config);
+      }
+      catch (error) {
+        errorResult = error;
+      }
+
+      expect(result).to.be.undefined;
+      expect(errorResult.message).to.be.equal("tests.createShipment_return[0].shipDateTime must be a complete ISO 8601 date/time with a time zone, like 2005-09-23T17:30:00+05:30");
+    });
+  });
 });

@@ -31,6 +31,31 @@ const baseTestParamValidations = {
   skip: Joi.boolean().optional(),
 };
 
+const createShipmentReturnTestParamsSchema = Joi.object({
+  ...baseTestParamValidations,
+  ...{
+    rmaNumber: Joi.string().optional(),
+    deliveryConfirmationName: Joi.string().optional(),
+    deliveryServiceName: Joi.string().optional(),
+    shipDateTime: DateTimeZone[_internal].schema.optional(),
+    shipFrom: AddressWithContactInfo[_internal].schema.optional(),
+    shipTo: AddressWithContactInfo[_internal].schema.optional(),
+    weight: Weight[_internal].schema.optional(),
+    label: NewLabel[_internal].schema.optional(),
+  }
+});
+
+const cancelShipmentTestParamsSchema = Joi.object({
+  ...baseTestParamValidations,
+  ...{
+    deliveryServiceName: Joi.string().optional(),
+    shipDateTime: DateTimeZone[_internal].schema.optional(),
+    shipFrom: AddressWithContactInfo[_internal].schema.optional(),
+    shipTo: AddressWithContactInfo[_internal].schema.optional(),
+    weight: Weight[_internal].schema.optional(),
+  }
+});
+
 const createShipmentDomesticTestParamsSchema = Joi.object({
   ...baseTestParamValidations,
   ...{
@@ -97,6 +122,14 @@ const RateShipmentTestParamsSchema = Joi.object({
 })
 
 const testsSchema = Joi.object({
+  createShipment_return: Joi.alternatives().conditional(Joi.array(), {
+    then: Joi.array().items(createShipmentReturnTestParamsSchema),
+    otherwise: createShipmentReturnTestParamsSchema,
+  }),
+  cancelShipment: Joi.alternatives().conditional(Joi.array(), {
+    then: Joi.array().items(cancelShipmentTestParamsSchema),
+    otherwise: cancelShipmentTestParamsSchema,
+  }),
   createShipment_domestic: Joi.alternatives().conditional(Joi.array(), {
     then: Joi.array().items(createShipmentDomesticTestParamsSchema),
     otherwise: createShipmentDomesticTestParamsSchema,
