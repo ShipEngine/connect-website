@@ -31,7 +31,8 @@ describe("validateConfig", () => {
   it("runs all validations", () => {
     const config = { timeout: "invalid", debug: "invalid" };
 
-    let result, errorResult;
+    let result;
+    let errorResult;
 
     try {
       result = validateConfig(config);
@@ -47,7 +48,8 @@ describe("validateConfig", () => {
   it("validates that debug is a boolean", () => {
     const config = { debug: "invalid" };
 
-    let result, errorResult;
+    let result;
+    let errorResult;
 
     try {
       result = validateConfig(config);
@@ -63,7 +65,8 @@ describe("validateConfig", () => {
   it("validates that failFast is a boolean", () => {
     const config = { failFast: "invalid" };
 
-    let result, errorResult;
+    let result;
+    let errorResult;
 
     try {
       result = validateConfig(config);
@@ -79,7 +82,8 @@ describe("validateConfig", () => {
   it("validates that retries is a number", () => {
     const config = { retries: "invalid" };
 
-    let result, errorResult;
+    let result;
+    let errorResult;
 
     try {
       result = validateConfig(config);
@@ -95,7 +99,8 @@ describe("validateConfig", () => {
   it("validates that timeout is a timeout", () => {
     const config = { timeout: "invalid" };
 
-    let result, errorResult;
+    let result;
+    let errorResult;
 
     try {
       result = validateConfig(config);
@@ -111,7 +116,8 @@ describe("validateConfig", () => {
   it("validates that session is an object", () => {
     const config = { session: "invalid" };
 
-    let result, errorResult;
+    let result;
+    let errorResult;
 
     try {
       result = validateConfig(config);
@@ -127,7 +133,8 @@ describe("validateConfig", () => {
   it("validates that connectArgs is an object", () => {
     const config = { connectArgs: "invalid" };
 
-    let result, errorResult;
+    let result;
+    let errorResult;
 
     try {
       result = validateConfig(config);
@@ -145,7 +152,8 @@ describe("validateConfig", () => {
   it("validates that tests keys", () => {
     const config = { tests: { invalid: "invalid" } };
 
-    let result, errorResult;
+    let result;
+    let errorResult;
 
     try {
       result = validateConfig(config);
@@ -168,7 +176,8 @@ describe("validateConfig", () => {
         },
       };
 
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -190,7 +199,8 @@ describe("validateConfig", () => {
         },
       };
 
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -212,7 +222,8 @@ describe("validateConfig", () => {
         },
       };
 
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -233,7 +244,8 @@ describe("validateConfig", () => {
           },
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -254,7 +266,8 @@ describe("validateConfig", () => {
           },
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -275,7 +288,8 @@ describe("validateConfig", () => {
           },
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -296,7 +310,8 @@ describe("validateConfig", () => {
           },
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -317,7 +332,8 @@ describe("validateConfig", () => {
           },
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -338,7 +354,8 @@ describe("validateConfig", () => {
           },
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -359,7 +376,8 @@ describe("validateConfig", () => {
           },
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -380,7 +398,8 @@ describe("validateConfig", () => {
           },
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -401,7 +420,8 @@ describe("validateConfig", () => {
           },
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -425,7 +445,8 @@ describe("validateConfig", () => {
         },
       };
 
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -447,7 +468,8 @@ describe("validateConfig", () => {
         },
       };
 
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -469,7 +491,8 @@ describe("validateConfig", () => {
         },
       };
 
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -490,7 +513,8 @@ describe("validateConfig", () => {
           }]
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -511,7 +535,8 @@ describe("validateConfig", () => {
           }]
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -532,7 +557,8 @@ describe("validateConfig", () => {
           }],
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -553,7 +579,8 @@ describe("validateConfig", () => {
           }],
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -574,7 +601,8 @@ describe("validateConfig", () => {
           }],
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -595,7 +623,8 @@ describe("validateConfig", () => {
           }],
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -616,7 +645,8 @@ describe("validateConfig", () => {
           }],
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -637,7 +667,8 @@ describe("validateConfig", () => {
           }],
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -658,7 +689,8 @@ describe("validateConfig", () => {
           }],
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -682,7 +714,8 @@ describe("validateConfig", () => {
         },
       };
 
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -704,7 +737,8 @@ describe("validateConfig", () => {
         },
       };
 
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -726,7 +760,8 @@ describe("validateConfig", () => {
         },
       };
 
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -747,7 +782,8 @@ describe("validateConfig", () => {
           }
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -768,7 +804,8 @@ describe("validateConfig", () => {
           }
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -789,7 +826,8 @@ describe("validateConfig", () => {
           }
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -810,7 +848,8 @@ describe("validateConfig", () => {
           }
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -831,7 +870,8 @@ describe("validateConfig", () => {
           }
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -852,7 +892,8 @@ describe("validateConfig", () => {
           }
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -873,7 +914,8 @@ describe("validateConfig", () => {
           }
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -894,7 +936,8 @@ describe("validateConfig", () => {
           }
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -915,7 +958,8 @@ describe("validateConfig", () => {
           }
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -939,7 +983,8 @@ describe("validateConfig", () => {
         },
       };
 
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -961,7 +1006,8 @@ describe("validateConfig", () => {
         },
       };
 
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -983,7 +1029,8 @@ describe("validateConfig", () => {
         },
       };
 
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -1004,7 +1051,8 @@ describe("validateConfig", () => {
           }]
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -1025,7 +1073,8 @@ describe("validateConfig", () => {
           }]
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -1046,7 +1095,8 @@ describe("validateConfig", () => {
           }],
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -1067,7 +1117,8 @@ describe("validateConfig", () => {
           }],
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -1088,7 +1139,8 @@ describe("validateConfig", () => {
           }],
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -1109,7 +1161,8 @@ describe("validateConfig", () => {
           }],
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -1130,7 +1183,8 @@ describe("validateConfig", () => {
           }],
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -1151,7 +1205,8 @@ describe("validateConfig", () => {
           }],
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -1172,7 +1227,8 @@ describe("validateConfig", () => {
           }],
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -1196,7 +1252,8 @@ describe("validateConfig", () => {
         },
       };
 
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -1218,7 +1275,8 @@ describe("validateConfig", () => {
         },
       };
 
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -1240,7 +1298,8 @@ describe("validateConfig", () => {
         },
       };
 
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -1261,7 +1320,8 @@ describe("validateConfig", () => {
           }
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -1282,7 +1342,8 @@ describe("validateConfig", () => {
           }
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -1303,7 +1364,8 @@ describe("validateConfig", () => {
           }
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -1324,7 +1386,8 @@ describe("validateConfig", () => {
           }
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -1345,7 +1408,8 @@ describe("validateConfig", () => {
           }
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -1366,7 +1430,8 @@ describe("validateConfig", () => {
           }
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -1387,7 +1452,8 @@ describe("validateConfig", () => {
           }
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -1408,7 +1474,8 @@ describe("validateConfig", () => {
           },
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -1432,7 +1499,8 @@ describe("validateConfig", () => {
         },
       };
 
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -1454,7 +1522,8 @@ describe("validateConfig", () => {
         },
       };
 
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -1476,7 +1545,8 @@ describe("validateConfig", () => {
         },
       };
 
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -1497,7 +1567,8 @@ describe("validateConfig", () => {
           }]
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -1518,7 +1589,8 @@ describe("validateConfig", () => {
           }]
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -1539,7 +1611,8 @@ describe("validateConfig", () => {
           }],
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -1560,7 +1633,8 @@ describe("validateConfig", () => {
           }],
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -1581,7 +1655,8 @@ describe("validateConfig", () => {
           }],
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -1602,7 +1677,8 @@ describe("validateConfig", () => {
           }],
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -1623,7 +1699,8 @@ describe("validateConfig", () => {
           }],
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -1644,7 +1721,8 @@ describe("validateConfig", () => {
           }],
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -1668,7 +1746,8 @@ describe("validateConfig", () => {
         },
       };
 
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -1690,7 +1769,8 @@ describe("validateConfig", () => {
         },
       };
 
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -1712,7 +1792,8 @@ describe("validateConfig", () => {
         },
       };
 
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -1733,7 +1814,8 @@ describe("validateConfig", () => {
           }
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -1754,7 +1836,8 @@ describe("validateConfig", () => {
           }
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -1776,7 +1859,8 @@ describe("validateConfig", () => {
         },
       };
 
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -1798,7 +1882,8 @@ describe("validateConfig", () => {
         },
       };
 
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -1820,7 +1905,8 @@ describe("validateConfig", () => {
         },
       };
 
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -1841,7 +1927,8 @@ describe("validateConfig", () => {
           }
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -1862,7 +1949,8 @@ describe("validateConfig", () => {
           }
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -1883,7 +1971,8 @@ describe("validateConfig", () => {
           },
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -1904,7 +1993,8 @@ describe("validateConfig", () => {
           },
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -1925,7 +2015,8 @@ describe("validateConfig", () => {
           },
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -1946,7 +2037,8 @@ describe("validateConfig", () => {
           },
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -1967,7 +2059,8 @@ describe("validateConfig", () => {
           },
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -1988,7 +2081,8 @@ describe("validateConfig", () => {
           },
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -2009,7 +2103,8 @@ describe("validateConfig", () => {
           },
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -2030,7 +2125,8 @@ describe("validateConfig", () => {
           },
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -2051,7 +2147,8 @@ describe("validateConfig", () => {
           },
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -2075,7 +2172,8 @@ describe("validateConfig", () => {
         },
       };
 
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -2097,7 +2195,8 @@ describe("validateConfig", () => {
         },
       };
 
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -2119,7 +2218,8 @@ describe("validateConfig", () => {
         },
       };
 
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -2140,7 +2240,8 @@ describe("validateConfig", () => {
           }]
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -2161,7 +2262,8 @@ describe("validateConfig", () => {
           }]
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -2182,7 +2284,8 @@ describe("validateConfig", () => {
           }],
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -2203,7 +2306,8 @@ describe("validateConfig", () => {
           }],
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -2224,7 +2328,8 @@ describe("validateConfig", () => {
           }],
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -2245,7 +2350,8 @@ describe("validateConfig", () => {
           }],
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -2266,7 +2372,8 @@ describe("validateConfig", () => {
           }],
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -2287,7 +2394,8 @@ describe("validateConfig", () => {
           }],
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -2308,7 +2416,8 @@ describe("validateConfig", () => {
           }],
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -2329,7 +2438,8 @@ describe("validateConfig", () => {
           }],
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -2350,7 +2460,8 @@ describe("validateConfig", () => {
           }],
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -2374,7 +2485,8 @@ describe("validateConfig", () => {
         },
       };
 
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -2396,7 +2508,8 @@ describe("validateConfig", () => {
         },
       };
 
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -2418,7 +2531,8 @@ describe("validateConfig", () => {
         },
       };
 
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -2439,7 +2553,8 @@ describe("validateConfig", () => {
           }
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -2460,7 +2575,8 @@ describe("validateConfig", () => {
           }
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -2481,7 +2597,8 @@ describe("validateConfig", () => {
           },
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -2502,7 +2619,8 @@ describe("validateConfig", () => {
           },
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -2523,7 +2641,8 @@ describe("validateConfig", () => {
           },
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -2544,7 +2663,8 @@ describe("validateConfig", () => {
           },
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -2565,7 +2685,8 @@ describe("validateConfig", () => {
           },
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -2586,7 +2707,8 @@ describe("validateConfig", () => {
           },
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -2610,7 +2732,8 @@ describe("validateConfig", () => {
         },
       };
 
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -2632,7 +2755,8 @@ describe("validateConfig", () => {
         },
       };
 
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -2654,7 +2778,8 @@ describe("validateConfig", () => {
         },
       };
 
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -2675,7 +2800,8 @@ describe("validateConfig", () => {
           }]
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -2696,7 +2822,8 @@ describe("validateConfig", () => {
           }]
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -2717,7 +2844,8 @@ describe("validateConfig", () => {
           }],
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -2738,7 +2866,8 @@ describe("validateConfig", () => {
           }],
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -2759,7 +2888,8 @@ describe("validateConfig", () => {
           }],
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -2780,7 +2910,8 @@ describe("validateConfig", () => {
           }],
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -2801,7 +2932,8 @@ describe("validateConfig", () => {
           }],
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
@@ -2822,7 +2954,8 @@ describe("validateConfig", () => {
           }],
         },
       };
-      let result, errorResult;
+      let result;
+      let errorResult;
 
       try {
         result = validateConfig(config);
