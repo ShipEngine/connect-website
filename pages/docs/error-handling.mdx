@@ -12,7 +12,7 @@ Error Handling
 
 The methods you implement will often need to validate the input from ShipEngine Connect before transforming the data and calling your backend API. If this validation fails, you would provide an error as in the example below.
 
-```javascript highlights="3"
+```javascript highlight="3"
 for (let parcel of shipment.packages) {
   if (parcel.packaging.code === "BOX" && parcel.weight.grams > 100000) {
     throw new Error(`${parcel.packaging.name} cannot weigh more than 100 kilograms`);
