@@ -152,13 +152,10 @@ function registerTestSuiteModules(app: SdkApp): RegisteredTestSuiteModules {
       CreateShipmentDomestic,
       CreateShipmentMultiPackage,
       CreateShipmentWithInsurance,
-<<<<<<< HEAD
       CreateShipmentReturn
     ],
     rateShipment: [
       RateShipment
-=======
->>>>>>> 635349f... refactor connect validation
     ],
     rateShipment: [RateShipment],
     // schedulePickup: [SchedulePickupTestSuite],
