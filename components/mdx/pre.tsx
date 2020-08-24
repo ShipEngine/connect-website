@@ -1,6 +1,6 @@
-import React, { ReactElement, ReactNode } from "react";
+import React, { ReactNode } from "react";
 import { getTypeName, toArray } from "../../lib/react-nodes";
-import CodeBlock, { CodeBlockProps } from "../code-block";
+import CodeWrapper from "../code-blocks/code-wrapper";
 
 interface PreProps {
   markdown?: boolean;
@@ -15,9 +15,8 @@ export default function Pre({ markdown, children, ...props }: PreProps) {
   if (markdown) {
     // This is probably a Markdown code fence.
     // If so, then we'll render it as a rich <CodeBlock> component instead
-    const code = getCodeProps(children);
-    if (code) {
-      return <CodeBlock {...code}/>;
+    if (isCodeBlock(children)) {
+      return <CodeWrapper><pre {...props}>{children}</pre></CodeWrapper>;
     }
   }
 
@@ -26,16 +25,11 @@ export default function Pre({ markdown, children, ...props }: PreProps) {
 
 
 /**
- * If the only child is a `<code>` element, then this function returns its props so they can
- * be pased to a `<CodeBlock>` component.
+ * Determines if the only child is a `<code>` element
  */
-function getCodeProps(children: ReactNode): CodeBlockProps | undefined {
-  const [code, ...otherChildren] = toArray(children) as ReactElement<CodeBlockProps>[];
+function isCodeBlock(children: ReactNode): boolean {
+  const [code, ...otherChildren] = toArray(children);
   const isCodeElement = code && getTypeName(code) === "code";
   const isOnlyChild = otherChildren.length === 0;
-
-  // Only return the props if the <code> element is the only child
-  if (isCodeElement && isOnlyChild) {
-    return code.props;
-  }
+  return isCodeElement && isOnlyChild;
 }

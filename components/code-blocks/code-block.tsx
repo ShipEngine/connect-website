@@ -19,19 +19,16 @@ export interface CodeBlockProps {
  */
 export default function CodeBlock({ className, metastring, children }: CodeBlockProps) {
   // Get the programming langauge from the CSS class name (e.g. "language-javascript")
-  const [, language] = languageClassNamePattern.exec(className) || [];
+  const language = getLanguage(className);
 
   // Parse any extra properties on the MDX code fence, such as which lines to highlight
   const meta = parseMetaString(metastring);
 
   return (
-    <Highlight Prism={Prism} code={children} language={language as Language}>
+    <Highlight Prism={Prism} code={children} language={language}>
       {({ tokens: lines, ...getProps }) => {
-        // Remove the last line if it's empty
-        const lastLine = lines[lines.length - 1] || [];
-        if (lastLine.length === 0 || (lastLine.length === 1 && lastLine[0].empty)) {
-          lines.pop();
-        }
+        // Remove leading/trailing empty lines
+        lines = trimLines(lines);
 
         // Default to showing line numbers if there are more than 3 lines
         if (meta.lineNumbers === undefined) {
@@ -39,7 +36,7 @@ export default function CodeBlock({ className, metastring, children }: CodeBlock
         }
 
         return (
-          <pre className={styles.pre}>
+          <pre className={`${className} ${styles.pre}`}>
             <code className={styles.codeBlock}>
               { lines.map((tokens, i) => Line(toLineProps(tokens, i, meta, getProps))) }
             </code>
@@ -143,6 +140,15 @@ function toTokenProps(token: Token, index: number, getTokenProps: Function): Tok
 
 
 /**
+ * Determines the programming language based on the CSS class name (e.g. "language-javascript")
+ */
+export function getLanguage(className: string): Language {
+  const [, language] = languageClassNamePattern.exec(className) || [];
+  return language as Language;
+}
+
+
+/**
  * Parse any extra properties on the MDX code fence.
  *
  * @example
@@ -206,6 +212,41 @@ function parseLineNumbers(numbers: string): number[] {
   return lineNumbers;
 }
 
+
 function trim(str: string): string {
   return str.trim();
+}
+
+
+/**
+ * Removes blank lines from the beginning and end of a code block
+ */
+function trimLines(lines: Token[][]): Token[][] {
+  let startIndex: number, endIndex: number;
+
+  // Find the first non-empty line
+  for (let i = 0; i < lines.length; i++) {
+    if (hasText(lines[i])) {
+      startIndex = i;
+      break;
+    }
+  }
+
+  // Find the last non-empty line
+  for (let i = lines.length - 1; i >= 0; i--) {
+    if (hasText(lines[i])) {
+      endIndex = i;
+      break;
+    }
+  }
+
+  return lines.slice(startIndex, endIndex + 1);
+}
+
+
+/**
+ * Determines whether a line contains any text.
+ */
+function hasText(line: Token[]): boolean {
+  return line.length > 1 || (line.length === 1 && !line[0].empty);
 }

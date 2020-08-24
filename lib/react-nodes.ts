@@ -1,6 +1,7 @@
 import { JSXElementConstructor, ReactElement, ReactNode, ReactNodeArray } from "react";
 
 export interface Props {
+  className?: string;
   children?: ReactNode;
   [key: string]: unknown;
 }

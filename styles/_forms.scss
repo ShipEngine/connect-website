@@ -94,41 +94,6 @@ form {
     }
   }
 
-  // This is a progressively-enhanced select list. (see enhanced-select.ts)
-  .select {
-    position: relative;
-    padding-bottom: 5px;
-
-    > .select-label {
-      display: inline-block;
-      max-height: 1em;
-      line-height: 1;
-      white-space: nowrap;
-    }
-
-    > .select-options {
-      position: absolute;
-      right: 0;
-      min-width: 100%;
-      background-color: $white;
-      border: 1px solid transparentize($darker-blue, .85);
-      border-radius: $tiny-border-radius;
-      z-index: $dropdown-list-z-index;
-      display: none;
-
-      &.open {
-        display: block;
-      }
-
-      .option {
-        padding: $tiny-vertical-space $tiny-horizontal-space;
-
-        &:hover {
-          background-color: $light-purple;
-        }
-      }
-    }
-  }
 
   input[type="checkbox"] {
     opacity: 0;

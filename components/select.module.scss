@@ -1,0 +1,38 @@
+@use "../styles/variables" as *;
+
+.select {
+  position: relative;
+  display: inline-block;
+  width: min-content;
+}
+
+.selectLabel {
+  display: inline-block;
+  max-height: 1em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.selectOptions {
+  position: absolute;
+  right: 0;
+  min-width: 100%;
+  background-color: $white;
+  border: 1px solid transparentize($darker-blue, .85);
+  border-radius: $tiny-border-radius;
+  z-index: $dropdown-list-z-index;
+  display: none;
+
+  &.open {
+    display: block;
+  }
+}
+
+.option {
+  padding: $tiny-vertical-space $small-horizontal-space;
+  white-space: nowrap;
+
+  &:hover {
+    background-color: $light-purple;
+  }
+}

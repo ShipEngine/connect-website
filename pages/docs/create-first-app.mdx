@@ -63,7 +63,7 @@ required to [implement each method](./implementation.mdx). You aren't required t
 can choose to implement all your methods in one file or choose a different directory structure. As long as your [application definition](./structure.mdx#application-definition)
 specifies the path to a file that exports the method, the structure is up to you. This is an example of the method stub that is generated for the `createShipment` method of a [Carrier Application](./carrier-app/index.mdx).
 
-
+<CodeWrapper>
 ```javascript
 "use strict";
 
@@ -108,8 +108,8 @@ export default async function createShipment(
   // STEP 3: Call the carrier's API
   // STEP 4: Create the output data that ShipEngine expects
 }
-
 ```
+</CodeWrapper>
 
 ### Definitions
 In the `src/definitions` directory, you will find a sample file with the required properties for each type of [definition](./structure.mdx#definitions) you can provide for your application. For example,

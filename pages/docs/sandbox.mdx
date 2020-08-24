@@ -13,6 +13,7 @@ Some carriers have the capability to support what is known as a [Sandbox Environ
 In the context of [ShipEngine Connect](index.mdx), a sandbox environment is a test environment that should mimic real service functionality as much as possible but **must not** incur any actual costs or affect production data.
 Sandbox environments allow for easier development and testing of your application.
 
+
 Usage
 -----
 Support for sandbox environments can be set in the application definitions. For example, in the [Delivery Service Definition](reference/delivery-service.mdx), you can specify this in the `hasSandbox` property.
@@ -24,6 +25,7 @@ Then when you implement the [createShipment method](reference/methods/create-shi
 Examples
 --------
 
+<CodeWrapper>
 ```typescript
 import { Transaction, NewShipment, ShipmentConfirmation } from "@shipengine/connect-sdk";
 
@@ -65,6 +67,9 @@ async function createShipment(transaction, { format, size, shipment }) {
   return await formatShipment(response.data);
 }
 ```
+</CodeWrapper>
+
+
 <Pager
   prev="./error-handling.mdx" prevTitle="Error Handling"
   next="./testing/index.mdx" nextTitle="Testing"

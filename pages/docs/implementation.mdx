@@ -36,6 +36,7 @@ We extract this value from the `package.deliveryConfirmation.code` property of t
 3. Takes the response from the backend API and calls the `formatShipment` method to transform the carrier's label creation response into the format that ShipEngine Connect expects. For example, ShipEngine Connect requires
 the return object to contain a property called `trackingNumber` which we extract from the `tracking_number` property of the `response` object returned from the backend API call performed in step 2.
 
+<CodeWrapper>
 ```typescript
 /**
  * Generates a shipping label and tracking number for a shipment
@@ -185,6 +186,7 @@ async function downloadLabel(imageUrl) {
   return Buffer.from(response.data, "utf-8")
 }
 ```
+</CodeWrapper>
 
 <Pager
   prev="./create-first-app.mdx" prevTitle="Creating Your First App"

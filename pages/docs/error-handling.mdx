@@ -44,6 +44,7 @@ Here are a list of the error codes that can be added to a normal Javascript Erro
 
 ### Example
 
+<CodeWrapper>
 ```javascript
 let error = new Error(`${parcel.packaging.name} cannot weigh more than 100 kilograms`);
 error.code = "ERR_RATE_LIMIT";
@@ -59,6 +60,7 @@ error.retryAfter = 2000;
 
 throw error;
 ```
+</CodeWrapper>
 
 <Pager
   prev="./typescript.mdx" prevTitle="Developing in TypeScript"

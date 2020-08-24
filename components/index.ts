@@ -1,5 +1,4 @@
-import Callout from "./callout";
-import CodeBlock from "./code-block";
+import CodeWrapper from "./code-blocks/code-wrapper";
 import a from "./mdx/a";
 import blockquote from "./mdx/blockquote";
 import { H1, H2, H3, H4, H5, H6 } from "./mdx/headings";
@@ -38,8 +37,7 @@ export default {
   strong: passThru("strong"),
   del: passThru("del"),
   hr: passThru("hr"),
-  Callout,
-  CodeBlock,
+  CodeWrapper,
   Pager,
   Section,
   Left,
