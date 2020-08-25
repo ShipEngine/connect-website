@@ -6,6 +6,7 @@
 root: true
 
 env:
+  es6: true
   node: true
 
 overrides:
@@ -17,6 +18,20 @@ overrides:
       es6: true
     extends:
       - eslint:recommended
+    # extends:
+    #   - oclif
+    #   - eslint:recommended
+    #   - prettier
+    # rules:
+    #   one-var: warn
+    #   camelcase: warn
+    #   no-else-return: warn
+    #   node/no-missing-require: warn
+    #   no-unused-expressions: warn
+    #   no-unused-vars: warn
+    #   no-multi-assign: warn
+    #   node/no-extraneous-require: warn
+
 
   # Linter settings for TypeScript
   - files: ["**/*.ts"]
@@ -40,3 +55,41 @@ overrides:
       "@typescript-eslint/no-unsafe-assignment": warn
       
     excludedFiles: ["**/fixtures/**/*.ts"]
+    #   - oclif
+    #   - oclif-typescript
+    #   - eslint:recommended
+    #   - prettier
+    #   - prettier/@typescript-eslint
+    #   - plugin:@typescript-eslint/recommended
+    #   - plugin:@typescript-eslint/recommended-requiring-type-checking
+    # rules:
+    #   no-console: off
+    #   valid-jsdoc: off
+    #   no-warning-comments: off
+    #   no-use-before-define: off
+    #   prefer-promise-reject-errors: off
+    #   no-await-in-loop: off
+    #   no-negated-condition: off
+    #   no-implicit-coercion: off
+    #   new-cap: off
+    #   no-dupe-else-if: off
+    #   no-import-assign: off
+    #   no-setter-return: off
+    #   camelcase: warn
+    #   no-case-declarations: warn
+    #   "@typescript-eslint/ban-types": off
+    #   "@typescript-eslint/no-use-before-define": off
+    #   "@typescript-eslint/unbound-method": warn
+    #   "@typescript-eslint/ban-ts-comment": warn
+    #   "@typescript-eslint/prefer-regexp-exec": warn
+    #   "@typescript-eslint/no-non-null-assertion": warn
+    #   "@typescript-eslint/no-unsafe-call": warn
+    #   "@typescript-eslint/no-unsafe-return": warn
+    #   "@typescript-eslint/no-unsafe-member-access": warn
+    #   "@typescript-eslint/no-unsafe-assignment": warn
+    #   "@typescript-eslint/restrict-plus-operands": warn
+    #   "@typescript-eslint/restrict-template-expressions": warn
+    #   "@typescript-eslint/no-unnecessary-type-assertion": warn
+    #   "@typescript-eslint/await-thenable": warn
+    #   "@typescript-eslint/require-await": warn
+    #   "@typescript-eslint/no-var-requires": warn
