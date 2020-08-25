@@ -16,27 +16,14 @@ overrides:
       ecmaVersion: 2020
     env:
       es6: true
-    # extends:
-    #   - eslint:recommended
     extends:
       - oclif
       - eslint:recommended
       - prettier
       - "plugin:chai-friendly/recommended"
-    # plugins:
-    #   - chai-friendly
     rules:
       no-unused-expressions: 0
-      # chai-friendly/no-unused-expressins: 2
-    #   one-var: warn
-      # camelcase: warn
-    #   no-else-return: warn
-    #   node/no-missing-require: warn
-    #   no-unused-expressions: warn
-    #   no-unused-vars: warn
       no-multi-assign: warn
-    #   node/no-extraneous-require: warn
-
 
   # Linter settings for TypeScript
   - files: ["**/*.ts"]
@@ -47,18 +34,7 @@ overrides:
       project: tsconfig.json
     plugins:
       - "@typescript-eslint"
-    # extends:
-    #   - eslint:recommended
-    #   - plugin:@typescript-eslint/recommended
-    #   - plugin:@typescript-eslint/recommended-requiring-type-checking
-    # rules:
-    #   no-case-declarations: warn
-    #   "@typescript-eslint/ban-types": off
-    #   "@typescript-eslint/ban-ts-comment": warn
-    #   "@typescript-eslint/no-non-null-assertion": warn
-    #   "@typescript-eslint/no-unsafe-member-access": warn
-    #   "@typescript-eslint/no-unsafe-assignment": warn
-      
+
     excludedFiles: ["**/fixtures/**/*.ts"]
     extends: 
       - oclif
@@ -69,22 +45,22 @@ overrides:
       - plugin:@typescript-eslint/recommended
       - plugin:@typescript-eslint/recommended-requiring-type-checking
     rules:
-      no-console: off
-      valid-jsdoc: off
-      no-warning-comments: off
-      no-use-before-define: off
-      prefer-promise-reject-errors: off
-      no-await-in-loop: off
-      no-negated-condition: off
-      no-implicit-coercion: off
-      new-cap: off
-      no-dupe-else-if: off
-      no-import-assign: off
-      no-setter-return: off
+      no-console: 0
+      valid-jsdoc: 0
+      no-warning-comments: 0
+      no-use-before-define: 0
+      prefer-promise-reject-errors: 0
+      no-await-in-loop: 0
+      no-negated-condition: 0
+      no-implicit-coercion: 0
+      new-cap: 0
+      no-dupe-else-if: 0
+      no-import-assign: 0
+      no-setter-return: 0
       camelcase: warn
       no-case-declarations: warn
-      "@typescript-eslint/ban-types": off
-      "@typescript-eslint/no-use-before-define": off
+      "@typescript-eslint/ban-types": 0
+      "@typescript-eslint/no-use-before-define": 0
       "@typescript-eslint/unbound-method": warn
       "@typescript-eslint/ban-ts-comment": warn
       "@typescript-eslint/prefer-regexp-exec": warn
