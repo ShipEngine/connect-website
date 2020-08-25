@@ -4,7 +4,7 @@ import { loadApp } from "@shipengine/connect-loader";
 import { checkAppLoginStatus } from "../core/utils/users";
 
 export default class Info extends BaseCommand {
-  static description = "list info for an app";
+  public static description = "list info for an app";
 
   static flags = {
     help: flags.help({

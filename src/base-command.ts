@@ -2,16 +2,23 @@ import { Command as Base } from "@oclif/command";
 import APIClient from "./core/api-client";
 import { AppUser } from "./core/types";
 import * as ApiKeyStore from "./core/api-key-store";
-import { Domain } from './core/api-key-store';
+import { Domain } from "./core/api-key-store";
+import fs from "fs";
+import path from "path";
 
-const pjson = require("../package.json");
+interface PackageJSON {
+  name: string;
+  version: string;
+}
+
+const pjson = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "package.json"), "utf8")) as PackageJSON;
 
 export default abstract class BaseCommand extends Base {
-  base = `${pjson.name}@${pjson.version}`;
+  public base = `${pjson.name}@${pjson.version}`;
 
   private _appsClient!: APIClient;
 
-  get appsClient(): APIClient | undefined {
+  public get appsClient(): APIClient | undefined {
     const apiKey = ApiKeyStore.get(Domain.Apps);
 
     if (!apiKey) {
@@ -23,12 +30,13 @@ export default abstract class BaseCommand extends Base {
     return this._appsClient;
   }
 
-  async currentUser(): Promise<AppUser> {
+  public async currentUser(): Promise<AppUser> {
     try {
       return await this.appsClient!.user.getCurrent();
     }
     catch (error) {
-      this.error(error.message);
+      const err = error as Error;
+      this.error(err.message);
     }
   }
 }

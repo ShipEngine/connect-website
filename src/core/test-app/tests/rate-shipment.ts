@@ -83,7 +83,7 @@ export class RateShipment extends Suite {
     const RateCriteriaPOJO: RateCriteriaPOJO = {
       deliveryService: findDeliveryServiceByName(this.deliveryService.name, carrierApp),
       shipFrom: testParams.shipFrom,
-      shipTo: testParams.shipTo!,
+      shipTo: testParams.shipTo,
       shipDateTime: testParams.shipDateTime,
       packages: [packageRateCriteriaPOJO]
     };

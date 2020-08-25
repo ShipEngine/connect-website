@@ -13,14 +13,14 @@ import { error as sdkError } from "@shipengine/connect-sdk/lib/internal";
  */
 async function readTextFile(absoluteFilePath: string): Promise<string> {
   try {
-    // tslint:disable-next-line: ban
-    return fs.readFile(absoluteFilePath, "utf8");
+    return await fs.readFile(absoluteFilePath, "utf8");
   } catch (error) {
+    const err = error as Error;
     throw sdkError(
       ErrorCode.Filesystem,
       `Unable to read ${absoluteFilePath}.`,
       {
-        error,
+        err,
       },
     );
   }
@@ -37,10 +37,11 @@ async function readYamlFile<T>(absoluteFilePath: string): Promise<T> {
 
     return parsedYaml as T;
   } catch (error) {
+    const err = error as Error;
     throw sdkError(
       ErrorCode.Syntax,
       `Unable to parse ${path.basename(absoluteFilePath)}.`,
-      { error },
+      { err },
     );
   }
 }
@@ -54,10 +55,11 @@ async function readJsonFile<T>(absoluteFilePath: string): Promise<T> {
   try {
     return json5.parse(json) as T;
   } catch (error) {
+    const err = error as Error;
     throw sdkError(
       ErrorCode.Syntax,
       `Unable to parse ${path.basename(absoluteFilePath)}.`,
-      { error },
+      { err },
     );
   }
 }
@@ -75,10 +77,11 @@ async function importJavaScriptModule<T>(absoluteFilePath: string): Promise<T> {
     // This appears to be a CommonJS module, so return the module exports
     return (exports as unknown) as T;
   } catch (error) {
+    const err = error as Error;
     throw sdkError(
       ErrorCode.Filesystem,
       `Unable to import ${path.basename(absoluteFilePath)}.`,
-      { error },
+      { err },
     );
   }
 }

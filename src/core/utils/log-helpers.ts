@@ -17,11 +17,11 @@ function indentLines(str: string, n: number): string {
   return indent(n) + str.replace(/\n/g, `\n${indent(n)}`);
 }
 
-function logPass(logLine: string) {
+function logPass(logLine: string): void {
   log(`${indent(2)}${chalk.bgGreen.black(" PASS ")} ${chalk.green(logLine)}`);
 }
 
-function logFail(logLine: string, withTag = true) {
+function logFail(logLine: string, withTag = true): void {
   if (withTag) {
     log(`${indent(2)}${chalk.bgRed.black(" FAIL ")} ${chalk.red(logLine)}`);
   } else {
@@ -29,19 +29,19 @@ function logFail(logLine: string, withTag = true) {
   }
 }
 
-function logSkip(logLine: string) {
+function logSkip(logLine: string): void {
   log(`${indent(2)}${chalk.bgWhite.black(" SKIP ")} ${chalk.gray(logLine)}`);
 }
 
-function logSkipStep(logLine: string) {
+function logSkipStep(logLine: string): void {
   log(chalk.white(logLine));
 }
 
-function logStep(logLine: string) {
+function logStep(logLine: string): void {
   log(chalk.yellow(logLine));
 }
 
-function logObject(obj: object) {
+function logObject(obj: object): void {
   /* eslint-disable no-console */
   // console.dir(obj, { depth: null });
   const jsonString = JSON.stringify([obj], null, 4).replace("[", "");
@@ -57,7 +57,7 @@ function logResults(results: {
   failed: number;
   passed: number;
   skipped: number;
-}) {
+}): void {
   log(
     `${chalk.green(results.passed + " passing")} , ${chalk.red(
       results.failed + " failing",

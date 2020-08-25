@@ -2,14 +2,14 @@ import { DeliveryService, WeightUnit } from "@shipengine/connect-sdk";
 import { CarrierApp, NewShipmentPOJO, NewPackagePOJO, ShipmentCancellationPOJO } from "@shipengine/connect-sdk/lib/internal";
 import Suite from "../runner/suite";
 import { initializeTimeStamps } from "../../utils/time-stamps";
-import reduceDefaultsWithConfig from '../utils/reduce-defaults-with-config';
-import objectToTestTitle from '../utils/object-to-test-title';
-import useDomesticShippingAddress from '../utils/use-domestic-shipment-addresses';
+import reduceDefaultsWithConfig from "../utils/reduce-defaults-with-config";
+import objectToTestTitle from "../utils/object-to-test-title";
+import useDomesticShippingAddress from "../utils/use-domestic-shipment-addresses";
 
-import { findDomesticDeliveryService } from '../utils/find-domestic-delivery-service';
+import { findDomesticDeliveryService } from "../utils/find-domestic-delivery-service";
 import { expect } from "chai";
-import findDeliveryServiceByName from '../utils/find-delivery-service-by-name';
-import { CancelShipmentConfigOptions, CancelShipmentTestParams } from '../runner/config/cancel-shipment';
+import findDeliveryServiceByName from "../utils/find-delivery-service-by-name";
+import { CancelShipmentConfigOptions, CancelShipmentTestParams } from "../runner/config/cancel-shipment";
 import { v4 } from "uuid";
 
 
@@ -130,20 +130,20 @@ export class CancelShipment extends Suite {
   }
 
   tests() {
-    const testArgs = this.buildTestArgs().filter((args) => args !== undefined);
+    const testArgs = this.buildTestArgs().filter((args) => args !== undefined) as TestArgs[];
 
     if (testArgs.length === 0) {
       return [];
     }
     return testArgs.map((testArg) => {
       return this.test(
-        testArg!.title,
-        testArg!.methodArgs,
-        testArg!.config,
+        testArg.title,
+        testArg.methodArgs,
+        testArg.config,
         async () => {
           const carrierApp = this.app as CarrierApp;
 
-          const transaction = await this.transaction(testArg!.config);
+          const transaction = await this.transaction(testArg.config);
 
           if (!carrierApp.createShipment) {
             throw new Error("createShipment is not implemented");
@@ -153,7 +153,7 @@ export class CancelShipment extends Suite {
             throw new Error("cancelShipment is not implemented");
           }
 
-          const shipmentConfirmation = await carrierApp.createShipment(transaction, testArg!.methodArgs);
+          const shipmentConfirmation = await carrierApp.createShipment(transaction, testArg.methodArgs);
 
           const cancellationID = v4();
           const shipmentCancellations: ShipmentCancellationPOJO[] = [{

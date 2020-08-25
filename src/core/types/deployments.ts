@@ -7,7 +7,7 @@ export enum DeploymentStatus {
   Error = "error",
 }
 
-export type Deployment = {
+export interface Deployment {
   package: {
     name: string;
     version: string | null;

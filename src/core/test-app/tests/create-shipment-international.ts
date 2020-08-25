@@ -29,7 +29,7 @@ interface TestArgs {
 }
 
 export class CreateShipmentInternational extends Suite {
-  title = "createShipment_international";
+  public title = "createShipment_international";
 
   private deliveryService?: DeliveryService;
 
@@ -44,7 +44,8 @@ export class CreateShipmentInternational extends Suite {
         config.deliveryServiceName,
         this.app as CarrierApp,
       );
-    } else {
+    }
+    else {
       try {
         this.deliveryService = findInternationalDeliveryService(
           this.app as CarrierApp,
@@ -89,6 +90,7 @@ export class CreateShipmentInternational extends Suite {
     try {
       [shipFrom, shipTo] = useInternationalShipmentAddresses(this.deliveryService);
     } catch {
+      return undefined;
     }
 
     const { tomorrow } = initializeTimeStamps();
@@ -132,7 +134,7 @@ export class CreateShipmentInternational extends Suite {
       shipDateTime: testParams.shipDateTime!,
       packages: [packagePOJO],
     };
-   
+
     if (this.deliveryConfirmation) {
       newShipmentPOJO.deliveryConfirmation = {
         id: this.deliveryConfirmation.id,
@@ -169,39 +171,41 @@ export class CreateShipmentInternational extends Suite {
   }
 
   tests() {
-    const testArgs = this.buildTestArgs().filter((args) => args !== undefined);
+    const testArgs = this.buildTestArgs().filter((args) => args !== undefined) as TestArgs[];
 
     if (testArgs.length === 0) return [];
 
-    return testArgs.map((testArg) => {
-      return this.test(
-        testArg!.title,
-        testArg!.methodArgs,
-        testArg!.config,
-        async () => {
-          const carrierApp = this.app as CarrierApp;
 
-          const transaction = await this.transaction(testArg!.config);
+    return testArgs
+      .map((testArg) => {
+        return this.test(
+          testArg.title,
+          testArg.methodArgs,
+          testArg.config,
+          async () => {
+            const carrierApp = this.app as CarrierApp;
 
-          // This should never actually throw because we handle this case up stream.
-          if (!carrierApp.createShipment)
-            throw new Error("createShipment is not implemented");
+            const transaction = await this.transaction(testArg.config);
 
-          const shipmentConfirmation = await carrierApp.createShipment(
-            transaction,
-            testArg!.methodArgs,
-          );
+            // This should never actually throw because we handle this case up stream.
+            if (!carrierApp.createShipment)
+              throw new Error("createShipment is not implemented");
 
-          // If DeliveryServiceDefinition.isTrackable is true, then the shipment must have a trackingNumber set
-          if (this.deliveryService?.isTrackable) {
-            const customMsg = "The shipmentConfirmation.isTrackable returned from createShipment must be present when the given deliveryService.isTrackable is set to 'true'";
-            expect(shipmentConfirmation.trackingNumber, customMsg).to.be.ok;
-          }
+            const shipmentConfirmation = await carrierApp.createShipment(
+              transaction,
+              testArg.methodArgs,
+            );
 
-          const customMsg = "The shipment confirmation packages array should have the same number of packages that were on the request";
-          expect(shipmentConfirmation.packages.length).to.equal(testArg!.methodArgs.packages.length, customMsg);
-        },
-      );
-    });
+            // If DeliveryServiceDefinition.isTrackable is true, then the shipment must have a trackingNumber set
+            if (this.deliveryService?.isTrackable) {
+              const customMsg = "The shipmentConfirmation.isTrackable returned from createShipment must be present when the given deliveryService.isTrackable is set to 'true'";
+              expect(shipmentConfirmation.trackingNumber, customMsg).to.be.ok;
+            }
+
+            const customMsg = "The shipment confirmation packages array should have the same number of packages that were on the request";
+            expect(shipmentConfirmation.packages.length).to.equal(testArg.methodArgs.packages.length, customMsg);
+          },
+        );
+      });
   }
 }

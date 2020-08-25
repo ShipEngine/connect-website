@@ -19,5 +19,5 @@ export interface ShipEngineAPIError {
 
 export interface ShipEngineAPIErrorCollection {
   request_id: string;
-  errors: ShipEngineAPIError[]
+  errors: ShipEngineAPIError[];
 }

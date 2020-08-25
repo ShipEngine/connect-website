@@ -174,26 +174,26 @@ export class CreateShipmentDomestic extends Suite {
   }
 
   tests() {
-    const testArgs = this.buildTestArgs().filter((args) => args !== undefined);
+    const testArgs = this.buildTestArgs().filter((args) => args !== undefined) as TestArgs[];
 
     if (testArgs.length === 0) {
       return [];
     }
     return testArgs.map((testArg) => {
       return this.test(
-        testArg!.title,
-        testArg!.methodArgs,
-        testArg!.config,
+        testArg.title,
+        testArg.methodArgs,
+        testArg.config,
         async () => {
           const carrierApp = this.app as CarrierApp;
 
-          const transaction = await this.transaction(testArg!.config);
+          const transaction = await this.transaction(testArg.config);
 
           if (!carrierApp.createShipment) {
             throw new Error("createShipment is not implemented");
           }
 
-          const shipmentConfirmation = await carrierApp.createShipment(transaction, testArg!.methodArgs);
+          const shipmentConfirmation = await carrierApp.createShipment(transaction, testArg.methodArgs);
 
           // If DeliveryServiceDefinition.isTrackable is true, then the shipment must have a trackingNumber set
           if (this.deliveryService?.isTrackable) {

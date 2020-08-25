@@ -10,15 +10,15 @@ import {
   CreateShipmentWithInsuranceTestParams,
 } from "../runner/config/create-shipment-insurance";
 import { initializeTimeStamps } from "../../utils/time-stamps";
-import reduceDefaultsWithConfig from '../utils/reduce-defaults-with-config';
-import objectToTestTitle from '../utils/object-to-test-title';
-import useDomesticShippingAddress from '../utils/use-domestic-shipment-addresses';
+import reduceDefaultsWithConfig from "../utils/reduce-defaults-with-config";
+import objectToTestTitle from "../utils/object-to-test-title";
+import useDomesticShippingAddress from "../utils/use-domestic-shipment-addresses";
 
 import { expect } from "chai";
-import findDeliveryServiceByName from '../utils/find-delivery-service-by-name';
-import findDeliveryConfirmationByName from '../utils/find-delivery-confirmation-by-name';
-import { findInsurableDeliveryService } from '../utils/find-insurable-delivery-service';
-import findPackagingByName from '../utils/find-packaging-by-name';
+import findDeliveryServiceByName from "../utils/find-delivery-service-by-name";
+import findDeliveryConfirmationByName from "../utils/find-delivery-confirmation-by-name";
+import { findInsurableDeliveryService } from "../utils/find-insurable-delivery-service";
+import findPackagingByName from "../utils/find-packaging-by-name";
 
 interface TestArgs {
   title: string;
@@ -96,8 +96,8 @@ export class CreateShipmentWithInsurance extends Suite {
     const defaults: CreateShipmentWithInsuranceTestParams = {
       deliveryServiceName: this.deliveryService.name,
       shipDateTime: tomorrow,
-      shipFrom: shipFrom!,
-      shipTo: shipTo!,
+      shipFrom: shipFrom,
+      shipTo: shipTo,
       weight: {
         unit: WeightUnit.Pounds,
         value: 50.0,
@@ -184,26 +184,26 @@ export class CreateShipmentWithInsurance extends Suite {
   }
 
   tests() {
-    const testArgs = this.buildTestArgs().filter((args) => args !== undefined);
+    const testArgs = this.buildTestArgs().filter((args) => args !== undefined) as TestArgs[];
 
     if (testArgs.length === 0) {
       return [];
     }
     return testArgs.map((testArg) => {
       return this.test(
-        testArg!.title,
-        testArg!.methodArgs,
-        testArg!.config,
+        testArg.title,
+        testArg.methodArgs,
+        testArg.config,
         async () => {
           const carrierApp = this.app as CarrierApp;
 
-          const transaction = await this.transaction(testArg!.config);
+          const transaction = await this.transaction(testArg.config);
 
           if (!carrierApp.createShipment) {
             throw new Error("createShipment is not implemented");
           }
 
-          const shipmentConfirmation = await carrierApp.createShipment(transaction, testArg!.methodArgs);
+          const shipmentConfirmation = await carrierApp.createShipment(transaction, testArg.methodArgs);
 
           // If DeliveryServiceDefinition.isTrackable is true, then the shipment must have a trackingNumber set
           if (this.deliveryService?.isTrackable) {
@@ -212,7 +212,7 @@ export class CreateShipmentWithInsurance extends Suite {
           }
 
           const customMsg = "The shipment confirmation packages array should have the same number of packages that were on the request";
-          expect(shipmentConfirmation.packages.length).to.equal(testArg!.methodArgs.packages.length, customMsg);
+          expect(shipmentConfirmation.packages.length).to.equal(testArg.methodArgs.packages.length, customMsg);
         }
       );
     });
