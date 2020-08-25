@@ -144,6 +144,7 @@ package your app
 
 ```
 USAGE
+
   $ connect pack
 
 OPTIONS
