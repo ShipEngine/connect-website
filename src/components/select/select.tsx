@@ -55,7 +55,7 @@ export function Option({ label, value, className, children, selected, changeSele
   return (
     <div className={`${className} ${styles.option}`} role="option" aria-selected={selected} tabIndex={0}
       onClick={selectOption} onKeyPress={selectOption} data-value={value}>
-      { label || children }
+      {label || children}
     </div>
   );
 }

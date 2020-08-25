@@ -83,5 +83,5 @@ export function JsonLD({ title, description, createdAt, modifiedAt, tags, url, i
         }
       }
     ])
-  }}/>;
+  }} />;
 }

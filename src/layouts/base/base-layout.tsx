@@ -44,16 +44,16 @@ export default function BaseLayout(props: BaseLayoutProps) {
   return <>
     <Head>
       <title>{title.includes("ShipEngine Connect") ? title : `${title} | ShipEngine Connect`}</title>
-      <meta content="utf-8" httpEquiv="encoding"/>
-      <meta content="text/html;charset=utf-8" httpEquiv="Content-Type"/>
-      <meta name="viewport" content="width=device-width, initial-scale=1"/>
-      <SEO {...pageProps}/>
-      <Twitter {...pageProps}/>
-      <OpenGraph {...pageProps}/>
-      <JsonLD {...pageProps}/>
-      <Favicons/>
-      <Analytics/>
+      <meta content="utf-8" httpEquiv="encoding" />
+      <meta content="text/html;charset=utf-8" httpEquiv="Content-Type" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <SEO {...pageProps} />
+      <Twitter {...pageProps} />
+      <OpenGraph {...pageProps} />
+      <JsonLD {...pageProps} />
+      <Favicons />
+      <Analytics />
     </Head>
-    { children }
+    {children}
   </>;
 }

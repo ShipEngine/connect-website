@@ -19,7 +19,7 @@ export function H1({ markdown, className, children, ...props }: HeadingProps) {
     className = styles.h1;
   }
 
-  return <h1 className={className} {...props}>{ children }</h1>;
+  return <h1 className={className} {...props}>{children}</h1>;
 }
 
 
@@ -36,7 +36,7 @@ export function H2({ markdown, className, children, ...props }: HeadingProps) {
   return (
     <h2 className={className} {...props}>
       <span id={slug} className={styles.headingAnchor} aria-hidden></span>
-      { children }
+      {children}
       {/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
       <a href={`#${slug}`} className={styles.headingAnchorLink} aria-hidden></a>
     </h2>
@@ -57,7 +57,7 @@ export function H3({ markdown, className, children, ...props }: HeadingProps) {
   return (
     <h3 className={className} {...props}>
       <span id={slug} className={styles.headingAnchor} aria-hidden></span>
-      { children }
+      {children}
       {/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
       <a href={`#${slug}`} className={styles.headingAnchorLink} aria-hidden></a>
     </h3>
@@ -73,7 +73,7 @@ export function H4({ markdown, className, children, ...props }: HeadingProps) {
     className = styles.h4;
   }
 
-  return <h4 className={className} {...props}>{ children }</h4>;
+  return <h4 className={className} {...props}>{children}</h4>;
 }
 
 
@@ -85,7 +85,7 @@ export function H5({ markdown, className, children, ...props }: HeadingProps) {
     className = styles.h5;
   }
 
-  return <h5 className={className} {...props}>{ children }</h5>;
+  return <h5 className={className} {...props}>{children}</h5>;
 }
 
 
@@ -97,5 +97,5 @@ export function H6({ markdown, className, children, ...props }: HeadingProps) {
     className = styles.h6;
   }
 
-  return <h6 className={className} {...props}>{ children }</h6>;
+  return <h6 className={className} {...props}>{children}</h6>;
 }

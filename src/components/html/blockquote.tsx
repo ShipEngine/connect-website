@@ -36,11 +36,11 @@ export function Blockquote({ markdown, children, ...props }: BlockquoteProps) {
     const calloutProps = getCalloutProps(children);
     if (calloutProps) {
       // Render this blockquote as a Callout
-      return <Callout {...calloutProps}/>;
+      return <Callout {...calloutProps} />;
     }
   }
 
-  return <blockquote {...props}>{ children }</blockquote>;
+  return <blockquote {...props}>{children}</blockquote>;
 }
 
 

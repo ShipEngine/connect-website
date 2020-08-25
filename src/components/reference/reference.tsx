@@ -28,16 +28,16 @@ export function Reference({ nameHeading, children }: ReferenceProps) {
     <table>
       <thead>
         <tr>
-          { hasName && <th>{nameHeading || "Name"}</th> }
-          { hasType && <th>Type</th> }
-          { hasRequired && <th>Required?</th> }
-          { hasNullable && <th>Nullable?</th> }
-          { hasDefault && <th>Default</th> }
-          { hasDescription && <th>Description</th> }
+          {hasName && <th>{nameHeading || "Name"}</th>}
+          {hasType && <th>Type</th>}
+          {hasRequired && <th>Required?</th>}
+          {hasNullable && <th>Nullable?</th>}
+          {hasDefault && <th>Default</th>}
+          {hasDescription && <th>Description</th>}
         </tr>
       </thead>
       <tbody>
-        { fields.map(Field) }
+        {fields.map(Field)}
       </tbody>
     </table>
   );

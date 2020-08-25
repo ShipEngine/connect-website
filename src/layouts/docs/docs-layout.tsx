@@ -28,10 +28,10 @@ export default function DocsLayout(props: DocsLayoutProps) {
         <main data-swiftype-name="body" data-swiftype-type="text">
           <article>
             <Section>
-              <Left>{ firstSectionChildren }</Left>
+              <Left>{firstSectionChildren}</Left>
               <Right><TableOfContents headings={headings} /></Right>
             </Section>
-            { otherChildren }
+            {otherChildren}
           </article>
         </main>
       </div>

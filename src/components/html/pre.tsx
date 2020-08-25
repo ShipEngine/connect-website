@@ -20,7 +20,7 @@ export function Pre({ markdown, children, ...props }: PreProps) {
     }
   }
 
-  return <pre {...props}>{ children }</pre>;
+  return <pre {...props}>{children}</pre>;
 }
 
 
