@@ -11,7 +11,7 @@ interface AProps {
 /**
  * Renders Next.js `<Link>` components instead of standard `<a>` elements
  */
-export default function A({ markdown, href, children, ...props }: AProps) {
+export function A({ markdown, href, children, ...props }: AProps) {
   if (markdown) {
     // Convert Markdown links to Next.js Link elements
     return <Link href={href}><a {...props}>{ children }</a></Link>;

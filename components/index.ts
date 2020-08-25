@@ -1,20 +1,23 @@
-import CodeWrapper from "./code-blocks/code-wrapper";
-import a from "./mdx/a";
-import blockquote from "./mdx/blockquote";
-import { H1, H2, H3, H4, H5, H6 } from "./mdx/headings";
-import img from "./mdx/img";
-import passThru from "./mdx/pass-thru";
-import pre from "./mdx/pre";
-import Pager from "./pager";
-import { DefaultValue, Description, Field, Reference, Type } from "./reference";
-import { Left, Right, Section } from "./section";
+import { CodeWrapper } from "./code-wrapper/code-wrapper";
+import { A } from "./html/a";
+import { Blockquote } from "./html/blockquote";
+import { H1, H2, H3, H4, H5, H6 } from "./html/headings";
+import { Img } from "./html/img";
+import { passThru } from "./html/pass-thru";
+import { Pre } from "./html/pre";
+import { Pager } from "./pager/pager";
+import { DefaultValue, Description, Field, Type } from "./reference/field";
+import { Reference } from "./reference/reference";
+import { Left, Right, Section } from "./section/section";
 
-// Customize the components that are used to render MDX pages
-export default {
-  a,
-  blockquote,
-  img,
-  pre,
+/**
+ * Components that are used on MDX pages
+ */
+export const components = {
+  a: A,
+  blockquote: Blockquote,
+  img: Img,
+  pre: Pre,
   h1: H1,
   h2: H2,
   h3: H3,

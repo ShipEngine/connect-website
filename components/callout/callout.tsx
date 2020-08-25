@@ -15,7 +15,7 @@ export interface CalloutProps {
  * A short piece of information that's important and deserves extra attention.
  * This can be used for warnings, tips, notes, etc.
  */
-export default function Callout({ badge, type, title, children }: CalloutProps) {
+export function Callout({ badge, type, title, children }: CalloutProps) {
   const typeClass = getCalloutTypeClass(badge, type);
 
   return (

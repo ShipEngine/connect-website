@@ -1,5 +1,5 @@
 import { ChangeEvent, ChangeEventHandler, FocusEvent, OptionHTMLAttributes, ReactElement, SelectHTMLAttributes, SyntheticEvent, useState } from "react";
-import { toArray } from "../lib/react-nodes";
+import { toArray } from "../../lib/react-nodes";
 import styles from "./select.module.scss";
 
 

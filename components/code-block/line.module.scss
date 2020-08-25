@@ -2,17 +2,6 @@
 
 $highlight-color: transparentize($medium-purple, .9);
 
-
-.pre {
-  padding: 0;
-}
-
-.codeBlock {
-  display: block;
-  cursor: text;
-  padding: $small-vertical-space 0;
-}
-
 .lineNumber {
   &::before {
     content: attr(data-line-number);

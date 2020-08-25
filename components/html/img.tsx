@@ -9,7 +9,7 @@ interface ImgProps {
 /**
  * Applies default styling to images in Markdown
  */
-export default function Img({ markdown, className, ...props }: ImgProps) {
+export function Img({ markdown, className, ...props }: ImgProps) {
   if (markdown) {
     className = styles.img;
   }

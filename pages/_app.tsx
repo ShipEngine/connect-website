@@ -2,8 +2,8 @@ import { MDXProvider } from "@mdx-js/react";
 import { AppProps } from "next/app";
 import { NextRouter, useRouter } from "next/router";
 import { useEffect } from "react";
-import components from "../components";
-import { BaseLayoutProps } from "../components/layouts/base";
+import { components } from "../components";
+import { BaseLayoutProps } from "../layouts/base/base-layout";
 import "../styles/global.scss";
 
 /**

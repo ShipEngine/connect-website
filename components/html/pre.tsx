@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import { getTypeName, toArray } from "../../lib/react-nodes";
-import CodeWrapper from "../code-blocks/code-wrapper";
+import { CodeWrapper } from "../code-wrapper/code-wrapper";
 
 interface PreProps {
   markdown?: boolean;
@@ -11,7 +11,7 @@ interface PreProps {
 /**
  * Custom rendering for `<pre>` elements in MDX pages
  */
-export default function Pre({ markdown, children, ...props }: PreProps) {
+export function Pre({ markdown, children, ...props }: PreProps) {
   if (markdown) {
     // This is probably a Markdown code fence.
     // If so, then we'll render it as a rich <CodeBlock> component instead

@@ -1,8 +1,9 @@
 import { Language } from "prism-react-renderer";
-import { MouseEvent, ReactElement, ReactNode, useState } from "react";
+import React, { MouseEvent, ReactElement, ReactNode, useState } from "react";
 import { getTypeName, Props, toArray } from "../../lib/react-nodes";
-import CodeBlock, { CodeBlockProps, getLanguage } from "./code-block";
-import CodeToolbar from "./code-toolbar";
+import { CodeBlock, CodeBlockProps } from "../code-block/code-block";
+import { getLanguage } from "../code-block/get-language";
+import { CodeToolbar } from "../code-toolbar/code-toolbar";
 import styles from "./code-wrapper.module.scss";
 
 interface CodeWrapperProps {
@@ -12,7 +13,7 @@ interface CodeWrapperProps {
 /**
  * Wraps multiple code blocks and displays a drop-down language picker to switch between them
  */
-export default function CodeWrapper({ children }: CodeWrapperProps) {
+export function CodeWrapper({ children }: CodeWrapperProps) {
   const codeBlocks = getCodeBlocks(children);
   const languages = getLanguages(codeBlocks);
 
@@ -49,7 +50,7 @@ export default function CodeWrapper({ children }: CodeWrapperProps) {
         languages={languages}
         selectedLanguage={selectedLanguage}
         onLanguageChange={(lang) => setSelectedLanguage(lang)}
-        onCopy={() => copyCode(codeBlocks, selectedLanguage)}
+        getCode={() => findCodeBlock(codeBlocks, selectedLanguage).children}
       />
     </div>
   );
@@ -85,18 +86,12 @@ function getLanguages(codeBlocks: CodeBlockProps[]): Language[] {
 
 
 /**
- * Copies the current code block to the clipboard
+ * Returns the code block for the selected language
  */
-function copyCode(codeBlocks: CodeBlockProps[], selectedLanguage: Language): void {
-  // <><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
-  // <><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
-  // <><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
-  //
-  //        TODO: Implement copy-to-clipboard
-  //
-  // <><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
-  // <><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
-  // <><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
-  // eslint-disable-next-line prefer-const
-  console.warn("not implemented yet");
+function findCodeBlock(codeBlocks: CodeBlockProps[], selectedLanguage: Language): CodeBlockProps {
+  for (const codeBlock of codeBlocks) {
+    if (codeBlock.className.includes(`language-${selectedLanguage}`)) {
+      return codeBlock;
+    }
+  }
 }

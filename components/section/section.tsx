@@ -4,7 +4,7 @@ interface SectionProps {
   children?: ReactNode;
 }
 
-export default function Section({ children }: SectionProps) {
+export function Section({ children }: SectionProps) {
   return <div className="section">{ children }</div>;
 }
 
@@ -15,6 +15,3 @@ export function Left({ children }: SectionProps) {
 export function Right({ children }: SectionProps) {
   return <div className="section-group right-group">{ children }</div>;
 }
-
-// Also export as a named export
-export { Section };

@@ -11,7 +11,7 @@ interface PagerProps {
 /**
  * Shows "Previous" and/or "Next" buttons that link to other docs pages
  */
-export default function Pager({ prev, prevTitle, next, nextTitle }: PagerProps) {
+export function Pager({ prev, prevTitle, next, nextTitle }: PagerProps) {
   prevTitle = prevTitle ? `Previous: ${prevTitle}` : "Previous Page";
   nextTitle = nextTitle ? `Next: ${nextTitle}` : "Next Page";
 

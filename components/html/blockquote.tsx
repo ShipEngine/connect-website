@@ -1,6 +1,6 @@
 import React, { ReactElement, ReactNode, ReactNodeArray } from "react";
 import { getFirstChild, getText, getTypeName, Props } from "../../lib/react-nodes";
-import Callout, { CalloutProps } from "../callout";
+import { Callout, CalloutProps } from "../callout/callout";
 
 const badgePattern = /^[A-Z0-9 _-]+[:!?]$/;
 
@@ -31,7 +31,7 @@ interface BlockquoteProps {
  *    > And this is the body of the callout
  *
  */
-export default function Blockquote({ markdown, children, ...props }: BlockquoteProps) {
+export function Blockquote({ markdown, children, ...props }: BlockquoteProps) {
   if (markdown) {
     const calloutProps = getCalloutProps(children);
     if (calloutProps) {
