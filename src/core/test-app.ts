@@ -1,6 +1,6 @@
 import Config from "./test-app/runner/config";
 import Runner from "./test-app/runner";
-import loadAndValidateApp from "./load-and-validate-app";
+import loadAndValidateApp, { isInvalidAppError } from "./load-and-validate-app";
 import {
   CreateShipmentInternational,
   CreateShipmentDomestic,
