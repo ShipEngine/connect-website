@@ -12,7 +12,7 @@ import { Session } from "./session";
  * https://shipenginestag:439bd542@shipenginestag.wpengine.com/docs/integration-platform/reference/methods/create-shipment
  * 
  * View sample implementation here:
- * https://github.com/ShipEngine/shipengine-integration-platform-sample-apps/blob/master/parcel-post/carrier/src/methods/create-shipment.ts
+ * https://github.com/ShipEngine/connect-samples/blob/master/parcel-post/carrier/src/methods/create-shipment.ts
  */
 export default async function createShipment(
   transaction: Transaction<Session>,

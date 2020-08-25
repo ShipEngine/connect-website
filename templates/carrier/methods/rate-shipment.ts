@@ -11,7 +11,7 @@ import { Session } from "./session";
  * https://shipenginestag:439bd542@shipenginestag.wpengine.com/docs/integration-platform/reference/methods/rate-shipment
  * 
  * View sample implementation here:
- * https://github.com/ShipEngine/shipengine-integration-platform-sample-apps/blob/master/parcel-post/carrier/src/methods/rate-shipment.ts
+ * https://github.com/ShipEngine/connect-samples/blob/master/parcel-post/carrier/src/methods/rate-shipment.ts
  */
 export default async function rateShipment(
   transaction: Transaction<Session>,

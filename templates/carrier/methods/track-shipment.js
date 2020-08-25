@@ -7,7 +7,7 @@
  * https://shipenginestag:439bd542@shipenginestag.wpengine.com/docs/integration-platform/reference/methods/track-shipment
  * 
  * View sample implementation here:
- * https://github.com/ShipEngine/shipengine-integration-platform-sample-apps/blob/d89b926db889a6d1051f0d8fb3934b79b1f2b757/cargo-inc/src/track-shipment.js
+ * https://github.com/ShipEngine/connect-samples/blob/cargo-inc/src/track-shipment.js
  */
 async function trackShipment(transaction, shipment) {
   throw new Error("NotImplementedError");

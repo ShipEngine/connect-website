@@ -7,7 +7,7 @@
  * https://shipenginestag:439bd542@shipenginestag.wpengine.com/docs/integration-platform/reference/methods/create-manifest
  * 
  * View sample implementation here:
- * https://github.com/ShipEngine/shipengine-integration-platform-sample-apps/blob/master/cargo-inc/src/create-manifest.js
+ * https://github.com/ShipEngine/connect-samples/blob/master/cargo-inc/src/create-manifest.js
  */
 async function createManifest(transaction, manifest) {
   throw new Error("NotImplementedError");

@@ -1,6 +1,8 @@
+![ShipEngine Connect](https://connect.shipengine.com/img/logos/shipengine-connect-logo.png)
+
 # ShipEngine Connect CLI
 
-### Command-line tool for building [ShipEngine Connect](https://connect.shipengine.com/docs/) apps
+### Command-line tool for building [ShipEngine Connect](https://connect.shipengine.com/) apps
 
 [![Cross-Platform Compatibility](https://shipengine.github.io/img/badges/os-badges.svg)](https://github.com/ShipEngine/connect-cli/actions)
 [![Build Status](https://github.com/ShipEngine/connect-cli/workflows/CI-CD/badge.svg)](https://github.com/ShipEngine/connect-cli/actions)
@@ -24,7 +26,7 @@ $ npm install -g @shipengine/connect-cli
 $ connect COMMAND
 running command...
 $ connect (-v|--version|version)
-@shipengine/connect-cli/1.0.1 darwin-x64 node-v12.16.2
+@shipengine/connect-cli/1.0.14 win32-x64 node-v14.7.0
 $ connect --help [COMMAND]
 USAGE
   $ connect COMMAND
@@ -37,9 +39,10 @@ USAGE
 <!-- commands -->
 * [`connect help [COMMAND]`](#connect-help-command)
 * [`connect info`](#connect-info)
+* [`connect init [PATH]`](#connect-init-path)
 * [`connect login`](#connect-login)
 * [`connect logout`](#connect-logout)
-* [`connect new [PATH]`](#connect-new-path)
+* [`connect pack`](#connect-pack)
 * [`connect publish`](#connect-publish)
 * [`connect start`](#connect-start)
 * [`connect test`](#connect-test)
@@ -60,7 +63,7 @@ OPTIONS
   --all  see all commands in CLI
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.0/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.0/src\commands\help.ts)_
 
 ## `connect info`
 
@@ -74,7 +77,32 @@ OPTIONS
   -h, --help  show help for the info command
 ```
 
-_See code: [src/commands/info.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.1/src/commands/info.ts)_
+_See code: [src\commands\info.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.14/src\commands\info.ts)_
+
+## `connect init [PATH]`
+
+create a new package to develop a custom ShipEngine app
+
+```
+USAGE
+  $ connect init [PATH]
+
+ARGUMENTS
+  PATH  path to new package (defaults to current directory)
+
+OPTIONS
+  -f, --force  overwrite existing files
+  -h, --help   show help for the new command
+  -y, --yes    skips the questions and uses the defaults (carrier|Javascript|yaml)
+
+ALIASES
+  $ connect new
+
+EXAMPLE
+  $ connect init
+```
+
+_See code: [src\commands\init.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.14/src\commands\init.ts)_
 
 ## `connect login`
 
@@ -91,7 +119,7 @@ ALIASES
   $ connect login
 ```
 
-_See code: [src/commands/login.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.1/src/commands/login.ts)_
+_See code: [src\commands\login.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.14/src\commands\login.ts)_
 
 ## `connect logout`
 
@@ -108,32 +136,25 @@ ALIASES
   $ connect logout
 ```
 
-_See code: [src/commands/logout.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.1/src/commands/logout.ts)_
+_See code: [src\commands\logout.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.14/src\commands\logout.ts)_
 
-## `connect new [PATH]`
+## `connect pack`
 
-create a new package to develop a custom ShipEngine app
+package your app
 
 ```
 USAGE
-  $ connect new [PATH]
 
-ARGUMENTS
-  PATH  path to new package (defaults to current directory)
+  $ connect pack
 
 OPTIONS
-  -f, --force  overwrite existing files
-  -h, --help   show help for the new command
-  -y, --yes    skips the questions and uses the defaults (carrier|Javascript|yaml)
-
-ALIASES
-  $ connect init
+  -h, --help  show help for the pack command
 
 EXAMPLE
-  $ shipengine new
+  $ connect pack
 ```
 
-_See code: [src/commands/new.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.1/src/commands/new.ts)_
+_See code: [src\commands\pack.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.14/src\commands\pack.ts)_
 
 ## `connect publish`
 
@@ -145,14 +166,14 @@ USAGE
 
 OPTIONS
   -h, --help        show help for the publish command
+  -n, --no-watch    does not track the status of the deployment
   -s, --skip-tests  skip running the test before publishing
-  -w, --watch       check the status of the deployment until complete
 
 EXAMPLE
-  $ shipengine publish
+  $ connect publish
 ```
 
-_See code: [src/commands/publish.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.1/src/commands/publish.ts)_
+_See code: [src\commands\publish.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.14/src\commands\publish.ts)_
 
 ## `connect start`
 
@@ -167,7 +188,7 @@ OPTIONS
   -p, --port=port  [default: 3000] the port that the app will run on
 ```
 
-_See code: [src/commands/start.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.1/src/commands/start.ts)_
+_See code: [src\commands\start.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.14/src\commands\start.ts)_
 
 ## `connect test`
 
@@ -186,11 +207,11 @@ OPTIONS
   -t, --timeout=timeout  specify the timeout for all the test
 
 EXAMPLES
-  $ shipengine test
-  $ shipengine test --grep rateShipment
+  $ connect test
+  $ connect test --grep rateShipment
 ```
 
-_See code: [src/commands/test.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.1/src/commands/test.ts)_
+_See code: [src\commands\test.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.14/src\commands\test.ts)_
 
 ## `connect whoami`
 
@@ -207,5 +228,5 @@ ALIASES
   $ connect whoami
 ```
 
-_See code: [src/commands/whoami.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.1/src/commands/whoami.ts)_
+_See code: [src\commands\whoami.ts](https://github.com/ShipEngine/connect-cli/blob/v1.0.14/src\commands\whoami.ts)_
 <!-- commandsstop -->

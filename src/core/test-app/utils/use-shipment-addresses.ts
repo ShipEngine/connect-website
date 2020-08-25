@@ -9,8 +9,18 @@ import { buildAddressWithContactInfo } from '../factories/address';
  */
 export default function useShipmentAddresses(deliveryService: DeliveryService): [AddressWithContactInfoPOJO | undefined, AddressWithContactInfoPOJO | undefined] {
 
-  const shipFrom = buildAddressWithContactInfo(`${deliveryService.originCountries[0]}-from`);
-  const shipTo = buildAddressWithContactInfo(`${deliveryService.destinationCountries[0]}-to`)
 
-  return [shipFrom, shipTo];
+  for(const oc of deliveryService.originCountries) {
+    const shipFrom = buildAddressWithContactInfo(`${oc}-from`);
+    
+    for(const dc of deliveryService.destinationCountries) {
+      const shipTo = buildAddressWithContactInfo(`${dc}-to`);
+
+      if (shipFrom && shipTo) {
+        return [shipFrom, shipTo];
+      } 
+    }
+  }
+
+  return [undefined, undefined];
 }

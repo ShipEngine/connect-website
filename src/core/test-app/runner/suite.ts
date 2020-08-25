@@ -106,7 +106,7 @@ export default abstract class Suite {
       if (testConfig.debug) {
         log(
           chalk.yellow(
-            `${indent(2)}using the session provided in shipengine.config.js`,
+            `${indent(2)}using the session provided in connect.config.js`,
           ),
         );
         logObject(transaction);
@@ -121,7 +121,7 @@ export default abstract class Suite {
           chalk.yellow(
             `${indent(
               2,
-            )}calling the connect method to set the session for the transaction with the connectArgs given in shipengine.config.js`,
+            )}calling the connect method to set the session for the transaction with the connectArgs given in connect.config.js`,
           ),
         );
         logObject(
@@ -164,7 +164,7 @@ export default abstract class Suite {
         chalk.yellow(
           `${indent(
             2,
-          )}connectArgs are not defined in shipengine.config.js the session value will be an empty object `,
+          )}connectArgs are not defined in connect.config.js the session value will be an empty object `,
         ),
       );
       logObject(transaction);

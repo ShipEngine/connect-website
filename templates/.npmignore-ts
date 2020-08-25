@@ -25,4 +25,4 @@ nbproject
 
 # Connect app specific
 src
-shipengine.config.js
+connect.config.js

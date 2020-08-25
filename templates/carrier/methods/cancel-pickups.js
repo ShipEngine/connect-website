@@ -7,7 +7,7 @@
  * https://shipenginestag:439bd542@shipenginestag.wpengine.com/docs/integration-platform/reference/methods/cancel-pickups
  * 
  * View sample implementation here:
- * https://github.com/ShipEngine/shipengine-integration-platform-sample-apps/blob/master/freightco/cancel-pickups.js
+ * https://github.com/ShipEngine/connect-samples/blob/master/freightco/cancel-pickups.js
  */
 async function cancelPickups(transaction, pickups) {
   throw new Error("NotImplementedError");

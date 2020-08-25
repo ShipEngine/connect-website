@@ -5,8 +5,8 @@ export default class Test extends BaseCommand {
   static description = "test your app";
 
   static examples = [
-    "$ shipengine test",
-    "$ shipengine test --grep rateShipment",
+    "$ connect test",
+    "$ connect test --grep rateShipment",
   ];
 
   static flags = {

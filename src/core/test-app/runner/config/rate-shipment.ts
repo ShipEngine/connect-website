@@ -1,18 +1,19 @@
 import {
   DateTimeZonePOJO,
   AddressWithContactInfoPOJO,
-  WeightUnit,
+  WeightPOJO,
 } from "@shipengine/connect-sdk";
 import { BaseTestConfigOptions } from "./base-test-config-options";
 
-export interface RateShipmentOptions extends BaseTestConfigOptions {
-  deliveryServiceNames: string | string[];
+export interface RateShipmentTestParams {
+  deliveryServiceName: string;
   shipFrom: AddressWithContactInfoPOJO;
   shipTo: AddressWithContactInfoPOJO;
-  weight: {
-    value: number;
-    unit: WeightUnit;
-  };
+  weight: WeightPOJO;
   shipDateTime: DateTimeZonePOJO | Date | string;
   packagingName: string;
 }
+
+export interface RateShipmentConfigOptions
+  extends RateShipmentTestParams,
+    BaseTestConfigOptions {}

@@ -1,253 +1,265 @@
-// const { RateShipment } = require("../../../../../../lib/core/test-app/tests/rate-shipment");
-// const pojo = require("../../../../utils/pojo");
-// const { expect } = require("chai");
+"use strict";
 
-// describe("The rate shipment test suite", () => {
+const { RateShipment } = require("../../../../../lib/core/test-app/tests/rate-shipment");
+const { CarrierApp } = require("@shipengine/connect-sdk/lib/internal/carriers/carrier-app");
+const pojo = require("../../../utils/pojo");
+const { expect } = require("chai");
+const sinon = require("sinon");
 
-//   describe("when the delivery services do not share origin or desination countries", () => {
-//     const { app, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-//     app.deliveryServices[0].originCountries = ["AQ"]
-//     app.deliveryServices[0].destinationCountries = ["AQ"]
+describe("The rate shipment test suite", () => {
 
-//     app.deliveryServices.push(pojo.deliveryService());
+  describe("when there is no address available for the delivery service", () => {
+    it("should not generate tests", () => {
+      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+      appDefinition.deliveryServices[0].originCountries = ["AQ"];
+      appDefinition.deliveryServices[0].destinationCountries = ["AQ"];
 
-//     const args = { app, connectArgs, staticConfigTests, options };
-//     const testSuite = new RateShipment(args);
+      const app = new CarrierApp(appDefinition);
+      const args = { app, connectArgs, staticConfigTests, options };
+      const testSuite = new RateShipment(args);
 
-//     it("should display an error message to the user", () => {
-//       try {
-//         testSuite.tests()
-//         expect(true).to.equal(false);
-//       }
-//       catch(error) {
-//         expect(error.message).to.include("Specified delivery services do not share origin and destination countries");
-//       }
-//     });
-//   })
+      const tests = testSuite.tests();
+      expect(tests.length).to.equal(0);
+    });
+  });
 
-//   describe("when there is one delivery service", () => {
-    
-//     const { app, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-//     const args = { app, connectArgs, staticConfigTests, options };
-//     const testSuite = new RateShipment(args);
+  describe("when there is a delivery service with an available address", () => {
 
-//     const tests = testSuite.tests();
+    let testSuite;
+    beforeEach(() => {
+      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+      const app = new CarrierApp(appDefinition);
+      const args = { app, connectArgs, staticConfigTests, options };
 
-//     it("should generate a test", () => {
-//       expect(tests.length).to.equal(1);
-//     });
+      testSuite = new RateShipment(args);
+    });
 
-//     it("the test params should be reflected in the title", () => {
-//       expect(tests[0].title).to.include("weightUnit: lb");
-//       expect(tests[0].title).to.include("weightValue: 50");
-//     });
-//   });
+    it("should generate a test", () => {
+      const tests = testSuite.tests();
+      expect(tests.length).to.equal(1);
+    });
 
-//   describe.skip("when there are multiple valid delivery services", () => {
-//     const { app, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-//     staticConfigTests.rateShipment = {
-//       weight: {
-//         value: 200
-//       }
-//     };
+    it("the test params should be reflected in the title", () => {
+      const tests = testSuite.tests();
 
-//     const args = { app, connectArgs, staticConfigTests, options };
-//     const testSuite = new RateShipment(args);
-//     const tests = testSuite.tests();
+      expect(tests[0].title).to.include("weight: 50lb");
+      expect(tests[0].title).to.include("deliveryServiceName: Dummy Delivery Service");
 
-//     it("should generate tests and reflect that in the title", () => {
-//       expect(tests.length).to.equal(1);
+    });
+  });
 
-//       expect(tests[0].title).to.include("weightUnit: lb");
-//       expect(tests[0].title).to.include("weightValue: 200");
-//     });
-//   });
+  describe("when there is a config override object of test suite parameters", () => {
 
-//   describe.skip("when there is a config override array of test suite parameters", () => {
+    it("should update the test title", () => {
+      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+      const app = new CarrierApp(appDefinition);
 
-//     const { app, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-//     staticConfigTests.rateShipment = 
-//       [
-//         {
-//           weightValue: 200,
-//         },
-//         {
-//           weightValue: 22,
-//         }
-//       ];
+      staticConfigTests.rateShipment = {
+        weight: {
+          value: 200,
+          unit: "lb"
+        }
+      };
 
-//     const args = { app, connectArgs, staticConfigTests, options };
-//     const testSuite = new RateShipment(args);
-//     const tests = testSuite.tests();
+      const args = { app, connectArgs, staticConfigTests, options };
+      const testSuite = new RateShipment(args);
+      const tests = testSuite.tests();
 
-//     it("should generate additional tests", () => {
-//       expect(tests.length).to.equal(2);
-//     });
+      expect(tests[0].title).to.include("weight: 200lb");
+      expect(tests[0].title).to.include("deliveryServiceName: Dummy Delivery Service");
+    });
+  });
 
-//     it("should update the test titles", () => {
-//       expect(tests[0].title).to.include("weightValue: 200");
-//       expect(tests[1].title).to.include("weightValue: 22");
-//     });
-//   });
+  describe("when there is a config override array of test suite parameters", () => {
 
-//   describe("When a user configs a delivery service that does not exist", () => {
+    let tests;
+    beforeEach(() => {
+      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+      const app = new CarrierApp(appDefinition);
+      staticConfigTests.rateShipment =
+        [
+          {
+            weight: {
+              value: 200,
+              unit: "lb"
+            }
+          },
+          {
+            weight: {
+              value: 22,
+              unit: "lb"
+            }
+          }
+        ];
 
-//     const { app, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-//     staticConfigTests.rateShipment = {
-//       deliveryServiceNames: "asdf"
-//     }
+      const args = { app, connectArgs, staticConfigTests, options };
+      const testSuite = new RateShipment(args);
+      tests = testSuite.tests();
+    });
 
-//     const args = { app, connectArgs, staticConfigTests, options };
-//     const testSuite = new RateShipment(args);
 
-//     it("should throw an error", () => {
-//       try {
-//         testSuite.tests();
-//         expect(true).to.equal(false);
-//       }
-//       catch(error) {
-//         expect(error.message).to.include("deliveryServiceName: asdf does not exist");
-//       }
-//     });
-//   });
+    it("should generate additional tests", () => {
+      expect(tests.length).to.equal(2);
+    });
 
-//   describe("When a user configs a new delivery service", () => {
-//     const { app, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-//     app.deliveryServices.push({
-//       id: "123455",
-//       name: "Better Delivery Service",
-//       class: "ground",
-//       grade: "standard",
-//       originCountries: ["MX"],
-//       destinationCountries: ["MX"],
-//       labelFormats: ["pdf"],
-//       labelSizes: ["A4"],
-//       packaging: [pojo.packaging()]
-//     });
+    it("should update the test titles", () => {
 
-//     staticConfigTests.rateShipment = {
-//       deliveryServiceNames: ["Better Delivery Service"]
-//     }
+      expect(tests[0].title).to.include("weight: 200lb");
+      expect(tests[0].title).to.include("deliveryServiceName: Dummy Delivery Service");
 
-//     const args = { app, connectArgs, staticConfigTests, options };
-//     const testSuite = new RateShipment(args);
-//     const tests = testSuite.tests();
+      expect(tests[1].title).to.include("weight: 22lb");
+      expect(tests[1].title).to.include("deliveryServiceName: Dummy Delivery Service");
 
-//     it("should update the title params to reflect the new properties", () => {
-//       expect(tests[0].title).to.include("deliveryServiceNames: Better Delivery Service");
-//     });
-//   });
+    });
+  });
 
-//   describe("When a user configs multiple new delivery services", () => {
-//     const { app, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-//     app.deliveryServices.push({
-//       id: "123455",
-//       name: "Better Delivery Service",
-//       class: "ground",
-//       grade: "standard",
-//       originCountries: ["MX"],
-//       destinationCountries: ["MX"],
-//       labelFormats: ["pdf"],
-//       labelSizes: ["A4"],
-//       packaging: [pojo.packaging()]
-//     });
+  describe("When a user configs a delivery service that does not exist", () => {
+    it("should throw an error", () => {
+      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+      const app = new CarrierApp(appDefinition);
+      staticConfigTests.rateShipment = {
+        deliveryServiceName: "asdf"
+      };
 
-//     app.deliveryServices.push({
-//       id: "123455",
-//       name: "New Delivery Service",
-//       class: "ground",
-//       grade: "standard",
-//       originCountries: ["MX"],
-//       destinationCountries: ["MX"],
-//       labelFormats: ["pdf"],
-//       labelSizes: ["A4"],
-//       packaging: [pojo.packaging()]
-//     });
+      const args = { app, connectArgs, staticConfigTests, options };
+      const testSuite = new RateShipment(args);
 
-//     staticConfigTests.rateShipment = {
-//       deliveryServiceNames: ["Better Delivery Service", "New Delivery Service"]
-//     }
+      try {
+        testSuite.tests();
+        expect(true).to.equal(false);
+      }
+      catch (error) {
+        expect(error.message).to.include("deliveryServiceName: 'asdf' does not exist");
+      }
+    });
+  });
 
-//     const args = { app, connectArgs, staticConfigTests, options };
-//     const testSuite = new RateShipment(args);
-//     const tests = testSuite.tests();
+  describe("When a user configs a new delivery service", () => {
+    it("should update the title params to reflect the new properties", () => {
+      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+      appDefinition.deliveryServices.push({
+        id: "9cf1bfda-7ee4-4f03-96f6-6eab52243eee",
+        name: "Better Delivery Service",
+        class: "ground",
+        grade: "standard",
+        code: "better_ds",
+        originCountries: ["MX"],
+        destinationCountries: ["MX"],
+        labelFormats: ["pdf"],
+        manifestType: "physical",
+        labelSizes: ["A4"],
+        packaging: [pojo.packaging()]
+      });
 
-//     it("should update the title params to reflect the new properties", () => {
-//       expect(tests[0].title).to.include("deliveryServiceNames: Better Delivery Service");
-//       expect(tests[0].title).to.include("New Delivery Service");
+      staticConfigTests.rateShipment = {
+        deliveryServiceName: "Better Delivery Service"
+      };
 
-//     });
-//   });
+      const app = new CarrierApp(appDefinition);
+      const args = { app, connectArgs, staticConfigTests, options };
+      const testSuite = new RateShipment(args);
+      const tests = testSuite.tests();
 
-//   describe("When a user configures a Ship To and Ship From address", () => {
-//     const { app, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+      expect(tests[0].title).to.include("deliveryServiceName: Better Delivery Service");
+    });
+  });
 
-//     staticConfigTests.rateShipment = {
-//       shipFrom: {
-//         company: "Domestic Route #1",
-//         addressLines: ["123 New Street"],
-//         cityLocality: "Houston",
-//         stateProvince: "TX",
-//         country: "US",
-//         postalCode: "77422",
-//         timeZone: "America/Chicago"
-//       },
-//       shipTo: {
-//         company: "Domestic Route #2",
-//         addressLines: ["123 New Street"],
-//         cityLocality: "Houston",
-//         stateProvince: "TX",
-//         country: "US",
-//         postalCode: "77422",
-//         timeZone: "America/Chicago"
-//       }
-//     };
+  describe("When a user configures a Ship To and Ship From address", () => {
+    it("should update the test arguments and titles", () => {
+      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
 
-//     const args = { app, connectArgs, staticConfigTests, options };
-//     const testSuite = new RateShipment(args);
-//     const tests = testSuite.tests();
+      const app = new CarrierApp(appDefinition);
 
-//     it("should update the test arguments and titles", () => {
-//       expect(tests[0].methodArgs.shipFrom.company).to.equal("Domestic Route #1");
-//       expect(tests[0].methodArgs.shipTo.company).to.equal("Domestic Route #2");
+      staticConfigTests.rateShipment = {
+        shipFrom: {
+          company: "Domestic Route #1",
+          addressLines: ["123 New Street"],
+          cityLocality: "Houston",
+          stateProvince: "TX",
+          country: "US",
+          postalCode: "77422",
+          timeZone: "America/Chicago"
+        },
+        shipTo: {
+          company: "Domestic Route #2",
+          addressLines: ["123 New Street"],
+          cityLocality: "Houston",
+          stateProvince: "TX",
+          country: "US",
+          postalCode: "77422",
+          timeZone: "America/Chicago"
+        }
+      };
 
-//       expect(tests[0].methodArgs.shipTo).to.eql(staticConfigTests.rateShipment.shipTo);
+      const args = { app, connectArgs, staticConfigTests, options };
+      const testSuite = new RateShipment(args);
+      const tests = testSuite.tests();
 
-//       expect(tests[0].title).to.include("shipFrom: US");
-//       expect(tests[0].title).to.include("shipTo: US");
+      expect(tests[0].methodArgs.shipFrom.company).to.equal("Domestic Route #1");
+      expect(tests[0].methodArgs.shipTo.company).to.equal("Domestic Route #2");
 
-//     });
-//   });
-// });
+      expect(tests[0].methodArgs.shipTo).to.eql(staticConfigTests.rateShipment.shipTo);
 
-// function generateBasicAppAndConfigs() {
-//   const app = pojo.carrierApp();
-//   const deliveryService = pojo.deliveryService();
-//   deliveryService.labelFormats = ["pdf"];
-//   deliveryService.labelSizes = ["A4"];
-//   deliveryService.deliveryConfirmations = [pojo.deliveryConfirmation()];
-//   app.deliveryServices = [deliveryService];
+      expect(tests[0].title).to.include("shipFrom: US");
+      expect(tests[0].title).to.include("shipTo: US");
+    });
+  });
 
-//   const options = {
-//     cli: {
-//       debug: false,
-//     },
-//     staticRootConfig: {
-//       debug: false
-//     },
-//     defaults: {
-//       debug: false
-//     },
-//     failFast: false,
-//     retries: undefined,
-//     timeout: undefined
-//   };
+  describe("When the delivery service in the request is missing in the response", () => {
+    it("should throw an error", async () => {
+      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
 
-//   const staticConfigTests = {
-//     createShipment_domestic: {}
-//   };
+      const rateResponse = [];
+      sinon.stub(CarrierApp.prototype, "rateShipment").resolves(rateResponse);
+      const app = new CarrierApp(appDefinition);
 
-//   const connectArgs = {};
+      const args = { app, connectArgs, staticConfigTests, options };
+      const testSuite = new RateShipment(args);
+      const tests = testSuite.tests();
+      try {
+        await tests[0].fn();
+        expect(true).to.equal(false);
+      }
+      catch (error) {
+        expect(error.message).includes("Rate for delivery service 'Dummy Delivery Service' is missing from the response");
+      }
+    });
 
-//   return { app, connectArgs, staticConfigTests, options };
-// }
+    afterEach(() => {
+      CarrierApp.prototype.rateShipment.restore();
+    });
+  });
+});
+
+function generateBasicAppAndConfigs() {
+  const appDefinition = pojo.carrierApp();
+  const deliveryService = pojo.deliveryService();
+  deliveryService.labelFormats = ["pdf"];
+  deliveryService.labelSizes = ["A4"];
+  deliveryService.deliveryConfirmations = [pojo.deliveryConfirmation()];
+  appDefinition.deliveryServices = [deliveryService];
+  appDefinition.rateShipment = () => { };
+
+  const options = {
+    cli: {
+      debug: false,
+    },
+    staticRootConfig: {
+      debug: false
+    },
+    defaults: {
+      debug: false
+    },
+    failFast: false,
+    retries: undefined,
+    timeout: undefined
+  };
+
+  const staticConfigTests = {
+    rateShipment: {}
+  };
+
+  const connectArgs = {};
+
+  return { appDefinition, connectArgs, staticConfigTests, options };
+}

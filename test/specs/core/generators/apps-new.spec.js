@@ -61,8 +61,8 @@ describe("new generator", () => {
               main: "src/index.yaml",
               description: "test description",
               scripts: { 
-                test: "shipengine test",
-                start: "shipengine start"
+                test: "connect test",
+                start: "connect start"
               },
             });
           });
@@ -115,8 +115,8 @@ describe("new generator", () => {
                 build: "tsc",
                 watch: "tsc --watch",
                 postbuild: "copyfiles -u 1 src/**/!\\(*.ts\\) lib; copyfiles -u 1 src/!\\(*.ts\\) lib",
-                start: "shipengine start",
-                test: "shipengine test"
+                start: "connect start",
+                test: "connect test"
               },
               main: "lib/index.js",
             });
@@ -169,8 +169,8 @@ describe("new generator", () => {
                 build: "tsc",
                 watch: "tsc --watch",
                 postbuild: "copyfiles -u 1 src/**/!\\(*.ts\\) lib; copyfiles -u 1 src/!\\(*.ts\\) lib",
-                start: "shipengine start",
-                test: "shipengine test",
+                start: "connect start",
+                test: "connect test",
               }
             });
           });
@@ -222,8 +222,8 @@ describe("new generator", () => {
                 build: "tsc",
                 watch: "tsc --watch",
                 postbuild: "copyfiles -u 1 src/**/!\\(*.ts\\) lib; copyfiles -u 1 src/!\\(*.ts\\) lib",
-                start: "shipengine start",
-                test: "shipengine test"
+                start: "connect start",
+                test: "connect test"
               },
             });
           });
@@ -270,8 +270,8 @@ describe("new generator", () => {
               name: "@shipengine/testname",
               description: "test description",
               scripts: {
-                start: "shipengine start",
-                test: "shipengine test"
+                start: "connect start",
+                test: "connect test"
               },
               main: "src/index.json"
             });
@@ -319,8 +319,8 @@ describe("new generator", () => {
               name: "@shipengine/testname",
               description: "test description",
               scripts: {
-                start: "shipengine start",
-                test: "shipengine test"
+                start: "connect start",
+                test: "connect test"
               },
               main: "src/index.yaml"
             });
@@ -363,8 +363,8 @@ describe("new generator", () => {
               name: "@shipengine/testname",
               description: "test description",
               scripts: {
-                start: "shipengine start",
-                test: "shipengine test"
+                start: "connect start",
+                test: "connect test"
               },
               main: "src/index.yaml"
             });
@@ -412,8 +412,8 @@ describe("new generator", () => {
               scripts: {
                 build: "tsc",
                 watch: "tsc --watch",
-                start: "shipengine start",
-                test: "shipengine test",
+                start: "connect start",
+                test: "connect test",
               },
             });
           });
@@ -457,8 +457,8 @@ describe("new generator", () => {
               scripts: {
                 build: "tsc",
                 watch: "tsc --watch",
-                start: "shipengine start",
-                test: "shipengine test"
+                start: "connect start",
+                test: "connect test"
               },
               main: "lib/index.json"
             });
@@ -503,8 +503,8 @@ describe("new generator", () => {
               scripts: {
                 build: "tsc",
                 watch: "tsc --watch",
-                start: "shipengine start",
-                test: "shipengine test"
+                start: "connect start",
+                test: "connect test"
               },
               main: "lib/index.yaml",
             });
@@ -547,8 +547,8 @@ describe("new generator", () => {
               name: "@shipengine/testname",
               description: "test description",
               scripts: {
-                start: "shipengine start",
-                test: "shipengine test"
+                start: "connect start",
+                test: "connect test"
               },
               main: "src/index.json",
             });
@@ -591,8 +591,8 @@ describe("new generator", () => {
               name: "@shipengine/testname",
               description: "test description",
               scripts: {
-                start: "shipengine start",
-                test: "shipengine test"
+                start: "connect start",
+                test: "connect test"
               },
               main: "src/index.yaml"
             });

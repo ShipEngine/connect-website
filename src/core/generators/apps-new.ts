@@ -86,7 +86,7 @@ class AppsNew extends Generator {
       dependencies: {},
       ...this.pjson,
       engines: {
-        node: ">=8.0.0",
+        node: ">=12.8.0",
         ...this.pjson.engines,
       },
       typescript: false,
@@ -236,8 +236,8 @@ class AppsNew extends Generator {
 
     this.pjson.main = this.pJsonMain();
     this.pjson.scripts = {
-      start: "shipengine start",
-      test: "shipengine test"
+      start: "connect start",
+      test: "connect test"
     }
 
     if (this.ts) {
@@ -259,15 +259,10 @@ class AppsNew extends Generator {
       );
     }
 
-    this.fs.copyTpl(
-      this.templatePath(".env.test"),
-      this.destinationPath(".env.test"),
-      this,
-    );
 
     this.fs.copyTpl(
-      this.templatePath("shipengine.config.js"),
-      this.destinationPath("shipengine.config.js"),
+      this.templatePath("connect.config.js"),
+      this.destinationPath("connect.config.js"),
       this,
     );
 
@@ -290,8 +285,8 @@ class AppsNew extends Generator {
     );
 
     this.fs.copyTpl(
-      this.templatePath("shipengine.config.js"),
-      this.destinationPath("shipengine.config.js"),
+      this.templatePath("connect.config.js"),
+      this.destinationPath("connect.config.js"),
       this,
     );
 
@@ -555,8 +550,6 @@ class AppsNew extends Generator {
     const devDependencies: string[] = [];
 
     devDependencies.push("@shipengine/connect-sdk");
-    devDependencies.push("dotenv-flow@3.1.0");
-    devDependencies.push("cross-env");
 
     if (this.ts) {
       devDependencies.push("@types/node@^13.13.5");

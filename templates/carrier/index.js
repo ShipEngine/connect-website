@@ -6,7 +6,7 @@ module.exports = {
   description: "<%- pjson.description %>",
   logo: "./logo.svg",
   icon: "./logo.svg",
-  websiteURL: "http://www.carier-site.com",
+  websiteURL: "http://www.carrier-site.com",
   manifestType: "digital",
   manifestLocations: "single_location",
   manifestShipments: "explicit_shipments",

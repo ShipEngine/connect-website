@@ -1,12 +1,20 @@
 import Config from "./test-app/runner/config";
 import Runner from "./test-app/runner";
 import loadAndValidateApp from "./load-and-validate-app";
-import { CreateShipmentWithInsurance, CreateShipmentInternational, CreateShipmentMultiPackage, CreateShipmentDomestic } from "./test-app/tests";
+import { 
+  CreateShipmentInternational, 
+  CreateShipmentDomestic, 
+  CreateShipmentWithInsurance, 
+  CreateShipmentMultiPackage,  
+  RateShipment,
+  CreateShipmentReturn
+} from "./test-app/tests";
 import { SdkApp } from "./types";
 import { TestResults, useTestResults } from "./test-app/runner/test-results";
 import { loadAndValidateConfig } from "./test-app/runner/load-and-validate-config";
 import { logFail, logPass, logStep } from "./utils/log-helpers";
 import { logResults } from "./utils/log-helpers";
+import { CancelShipment } from './test-app/tests/cancel-shipment';
 
 interface TesOptions {
   debug?: boolean;
@@ -131,15 +139,18 @@ type RegisteredTestSuiteModules = object[];
 function registerTestSuiteModules(app: SdkApp): RegisteredTestSuiteModules {
   const carrierAppMethods = {
     // cancelPickups: [CancelPickupsTestSuite],
-    // cancelShipments: [CancelShipmentsTestSuite],
+    cancelShipments: [CancelShipment],
     // createManifest: [CreateManifestTestSuite],
     createShipment: [
       CreateShipmentInternational, 
       CreateShipmentDomestic, 
       CreateShipmentMultiPackage,
-      CreateShipmentWithInsurance
+      CreateShipmentWithInsurance,
+      CreateShipmentReturn
     ],
-    // rateShipment: [RateShipmentTestSuite],
+    rateShipment: [
+      RateShipment
+    ],
     // schedulePickup: [SchedulePickupTestSuite],
     // trackShipment: [TrackShipmentTestSuite],
   };
