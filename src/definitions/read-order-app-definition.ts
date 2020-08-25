@@ -14,7 +14,6 @@ export async function readOrderAppDefinition(
     ...(await readConnectionAppDefinition(definition, cwd, manifest)),
     getSalesOrdersByDate:
       await readDefinitionValue(definition.getSalesOrdersByDate, cwd, "getSalesOrdersByDate method"),
-    shipmentCreated: await readDefinitionValue(definition.shipmentCreated, cwd, "shipmentCreated method"),
-    shipmentCancelled: await readDefinitionValue(definition.shipmentCancelled, cwd, "shipmentCancelled method"),
+    shipmentCreated: await readDefinitionValue(definition.shipmentCreated, cwd, "shipmentCreated method")
   };
 }
