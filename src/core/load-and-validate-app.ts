@@ -38,3 +38,15 @@ export default async function loadAndValidateApp(
     return Promise.reject(new InvalidAppError(err.message, errors));
   }
 }
+
+export function isInvalidAppError(obj: unknown): obj is InvalidAppError {
+
+  if(typeof obj === "object" && obj !== null) {
+    const code = Reflect.get(obj, "code") as string | undefined;
+    if(code === "INVALID_APP") {
+      return true;
+    }
+  }
+  return false
+
+}

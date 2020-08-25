@@ -30,6 +30,24 @@ class AppFailedToDeployError extends Error {
   }
 }
 
+export function isAppFailedToPackageError(obj: unknown): obj is AppFailedToPackageError {
+  if (typeof obj === "object" && obj !== null) {
+    const code = Reflect.get(obj, "code") as string | undefined;
+    return code === "APP_FAILED_TO_PACKAGE";
+  }
+
+  return false;
+}
+
+export function isAppFailedToDeployError(obj: unknown): obj is AppFailedToDeployError {
+  if (typeof obj === "object" && obj !== null) {
+    const code = Reflect.get(obj, "code") as string | undefined;
+    return code === "APP_FAILED_TO_DEPLOY";
+  }
+
+  return false;
+}
+
 interface PublishAppOptions {
   noWatch?: boolean;
 }

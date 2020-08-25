@@ -6,7 +6,7 @@ export default interface Test {
   methodArgs: any;
   debug?: boolean;
   expectedErrorMessage?: string;
-  fn: any;
+  fn: () => {};
   retries: number;
   skip?: boolean;
   timeout: number;

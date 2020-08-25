@@ -6,6 +6,7 @@ import {
   NetworkErrorCollection,
   PaginatedItems,
 } from "../../types";
+import { AxiosError } from 'axios';
 
 export default class Deployments {
   private client: ShipengineAPIClient;
@@ -41,8 +42,11 @@ export default class Deployments {
 
       return Promise.resolve(response);
     } catch (error) {
-      return Promise.reject(error.response.data as NetworkErrorCollection);
-    }
+      const err = error as AxiosError;
+      if (err.response) {
+        return Promise.reject(err.response.data as NetworkErrorCollection);
+      }
+      return Promise.reject(err.message);    }
   }
 
   /**
@@ -58,8 +62,11 @@ export default class Deployments {
 
       return Promise.resolve(response);
     } catch (error) {
-      return Promise.reject(error.response.data as NetworkErrorCollection);
-    }
+      const err = error as AxiosError;
+      if (err.response) {
+        return Promise.reject(err.response.data as NetworkErrorCollection);
+      }
+      return Promise.reject(err.message);    }
   }
 
   /**
@@ -81,8 +88,11 @@ export default class Deployments {
 
       return Promise.resolve(response);
     } catch (error) {
-      return Promise.reject(error.response.data as NetworkErrorCollection);
-    }
+      const err = error as AxiosError;
+      if (err.response) {
+        return Promise.reject(err.response.data as NetworkErrorCollection);
+      }
+      return Promise.reject(err.message);    }
   }
 
   /**
@@ -104,7 +114,11 @@ export default class Deployments {
 
       return Promise.resolve(response);
     } catch (error) {
-      return Promise.reject(error.response.data as NetworkErrorCollection);
+      const err = error as AxiosError;
+      if (err.response) {
+        return Promise.reject(err.response.data as NetworkErrorCollection);
+      }
+      return Promise.reject(err.message);
     }
   }
 }

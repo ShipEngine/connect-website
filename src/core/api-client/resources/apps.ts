@@ -4,6 +4,7 @@ import {
   PaginatedItems,
   NetworkErrorCollection,
 } from "../../types";
+import { AxiosError } from 'axios';
 
 export default class Apps {
   private client: ShipengineAPIClient;
@@ -32,7 +33,11 @@ export default class Apps {
 
       return Promise.resolve(response);
     } catch (error) {
-      return Promise.reject(error.response.data as NetworkErrorCollection);
+      const err = error as AxiosError;
+      if (err.response) {
+        return Promise.reject(err.response.data as NetworkErrorCollection);
+      }
+      return Promise.reject(err.message);
     }
   }
 
@@ -52,7 +57,9 @@ export default class Apps {
     try {
       deployedApp = await this.getByName(name);
     } catch (error) {
-      if (error.statusCode === 401) {
+      const err = error as NetworkErrorCollection;
+
+      if (err.statusCode === 401) {
         return Promise.reject(error);
       }
 
@@ -78,7 +85,11 @@ export default class Apps {
 
       return Promise.resolve(response);
     } catch (error) {
-      return Promise.reject(error.response.data as NetworkErrorCollection);
+      const err = error as AxiosError;
+      if (err.response) {
+        return Promise.reject(err.response.data as NetworkErrorCollection);
+      }
+      return Promise.reject(err.message);
     }
   }
 
@@ -95,7 +106,11 @@ export default class Apps {
 
       return Promise.resolve(response);
     } catch (error) {
-      return Promise.reject(error.response.data as NetworkErrorCollection);
+      const err = error as AxiosError;
+      if (err.response) {
+        return Promise.reject(err.response.data as NetworkErrorCollection);
+      }
+      return Promise.reject(err.message);
     }
   }
 
@@ -108,15 +123,19 @@ export default class Apps {
       const response = await this.client.call({
         endpoint: `apps?name=${encodeURI(name)}`,
         method: "GET",
-      }) as { items: ConnectApp[]};
+      }) as { items: ConnectApp[] };
 
       if (response.items[0]) {
         return Promise.resolve(response.items[0]);
       }
-      
+
       return Promise.reject({ statusCode: 404 });
     } catch (error) {
-      return Promise.reject(error.response.data as NetworkErrorCollection);
+      const err = error as AxiosError;
+      if (err.response) {
+        return Promise.reject(err.response.data as NetworkErrorCollection);
+      }
+      return Promise.reject(err.message);
     }
   }
 }

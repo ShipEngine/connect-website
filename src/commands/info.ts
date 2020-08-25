@@ -18,26 +18,28 @@ export default class Info extends BaseCommand {
     this.parse(Info);
 
     await checkAppLoginStatus(this);
-    
+
     const pathToApp = process.cwd();
     const app = await loadApp(pathToApp);
 
     try {
-      const platformApp = await this.appsClient!.apps.getByName(app.manifest.name);
-      const paginatedDeployments = await this.appsClient!.deployments.getAllForAppId(
-        platformApp.id,
-      );
+      if (this.appsClient) {
+        const platformApp = await this.appsClient.apps.getByName(app.manifest.name);
+        const paginatedDeployments = await this.appsClient.deployments.getAllForAppId(
+          platformApp.id,
+        );
 
-      this.log(
-        `{
-  name: ${platformApp.name},
-  status: ${
-    paginatedDeployments.items[0]
-      ? paginatedDeployments.items[0].status
-      : "none"
-  }
-}`,
-      );
+        this.log(
+          `{
+              name: ${platformApp.name},
+              status: ${
+          paginatedDeployments.items[0]
+            ? paginatedDeployments.items[0].status
+            : "none"
+          }
+            }`,
+        );
+      }
     } catch (error) {
       this.error(`error fetching info for ${app.manifest.name}`);
     }

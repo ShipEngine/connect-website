@@ -67,7 +67,8 @@ export default class Runner {
           const cleanGrep = escapeStringRegexp(this.grep);
 
           // extract args if it's regex-like, i.e: [string, pattern, flag]
-          const arg = cleanGrep.match(/^\/(.*)\/(g|i|)$|.*/);
+          const regex = new RegExp(/^\/(.*)\/(g|i|)$|.*/);
+          const arg = regex.exec(cleanGrep);
           const grep = new RegExp(arg![1] || arg![0], arg![2]);
 
           const suiteTitleMatch = grep.test(suite.title);

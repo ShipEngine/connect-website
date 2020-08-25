@@ -1,5 +1,6 @@
 import { Pulse, NetworkErrorCollection } from "../../types";
 import AppsAPIClient from '..';
+import { AxiosError } from 'axios';
 
 export default class Diagnostics {
   private client: AppsAPIClient;
@@ -21,7 +22,11 @@ export default class Diagnostics {
 
       return Promise.resolve(response);
     } catch (error) {
-      return Promise.reject(error.response.data as NetworkErrorCollection);
+      const err = error as AxiosError;
+      if (err.response) {
+        return Promise.reject(err.response.data as NetworkErrorCollection);
+      }
+      return Promise.reject(err.message);
     }
   }
 }

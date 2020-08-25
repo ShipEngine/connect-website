@@ -1,6 +1,6 @@
 import BaseCommand from "../base-command";
 import { flags } from "@oclif/command";
-import { packageApp } from '../core/package-app';
+import { packageApp, isAppFailedToPackageError } from '../core/package-app';
 
 export default class Publish extends BaseCommand {
   static description = "package your app";
@@ -21,18 +21,17 @@ export default class Publish extends BaseCommand {
     this.parse(Publish);
 
     try {
-      
+
       await packageApp();
 
     } catch (error) {
-      switch (error.code) {
-        case "APP_FAILED_TO_PACKAGE":
-          return this.error(error.message, {
-            exit: 1,
-          });
-        default:
-          throw error;
+
+      if (isAppFailedToPackageError(error)) {
+        return this.error(error.message, {
+          exit: 1,
+        });
       }
+      throw error;
     }
   }
 } 
