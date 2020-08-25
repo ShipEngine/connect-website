@@ -59,9 +59,9 @@ function logResults(results: {
   skipped: number;
 }): void {
   log(
-    `${chalk.green(results.passed + " passing")} , ${chalk.red(
-      results.failed + " failing",
-    )}, ${results.skipped + " skipped"}`,
+    `${chalk.green(results.passed.toString() + " passing")} , ${chalk.red(
+      results.failed.toString() + " failing",
+    )}, ${results.skipped.toString() + " skipped"}`,
   );
 }
 

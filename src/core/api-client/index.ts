@@ -44,7 +44,7 @@ export default class APIClient {
     body = {},
     headers = {},
     isFileUpload = false,
-  }: ApiClientParams): Promise<any> {
+  }: ApiClientParams): Promise<unknown> {
     const defaultHeaders = {
       "content-type": "application/json",
       "api-key": this.apiKey,
@@ -57,7 +57,7 @@ export default class APIClient {
 
     const request: AxiosRequestConfig = {
       headers: mergedHeaders,
-      method: method as Method,
+      method: method,
       url: `${this._apiAuthority}/${endpoint}`,
       ...(isFileUpload && { maxContentLength: Infinity }),
     };

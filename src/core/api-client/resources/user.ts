@@ -17,7 +17,7 @@ export default class User {
       const response = await this.client.call({
         endpoint: "diagnostics/whoami",
         method: "GET",
-      });
+      }) as AppUser;
 
       return response;
     } catch (error) {

@@ -1,3 +1,4 @@
+/* eslint-disable max-nested-callbacks */
 "use strict";
 
 const helpers = require("yeoman-test");
@@ -60,7 +61,7 @@ describe("new generator", () => {
               name: "@shipengine/testname",
               main: "src/index.yaml",
               description: "test description",
-              scripts: { 
+              scripts: {
                 test: "connect test",
                 start: "connect start"
               },

@@ -13,11 +13,11 @@ export default class Whoami extends BaseCommand {
     }),
   };
 
-  async run() {
+  async run(): Promise<void> {
     // When the -h flag is present the following line haults execution
     this.parse(Whoami);
 
-    let appUser;
+    let appUser;  
     if(this.appsClient) {
       appUser = await this.currentUser();
     }

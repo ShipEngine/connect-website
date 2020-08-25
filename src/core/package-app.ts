@@ -4,7 +4,7 @@ import util from "util";
 import { exec } from "child_process";
 import cli from "cli-ux";
 import logSymbols from "log-symbols";
-
+import { PackageJSON } from './types/package-json';
 
 const asyncExec = util.promisify(exec);
 
@@ -23,7 +23,7 @@ export async function packageApp(cwd?: string): Promise<string> {
   cli.action.start("packaging app");
 
   const results = await fs.promises.readFile(packagePath, "utf-8");
-  const pjson = JSON.parse(results);
+  const pjson = JSON.parse(results) as PackageJSON;
 
   // take dependencies and move them to bundledDependencies
   pjson.bundledDependencies = [];

@@ -34,7 +34,7 @@ overrides:
     #   node/no-missing-require: warn
     #   no-unused-expressions: warn
     #   no-unused-vars: warn
-    #   no-multi-assign: warn
+      no-multi-assign: warn
     #   node/no-extraneous-require: warn
 
 

@@ -18,7 +18,7 @@ export default class Start extends BaseCommand {
     }),
   };
 
-  async run() {
+  async run(): Promise<void> {
     const { flags } = this.parse(Start);
     const { port } = flags;
 

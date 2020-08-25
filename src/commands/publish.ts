@@ -28,7 +28,7 @@ export default class Publish extends BaseCommand {
     }),
   };
 
-  async run() {
+  async run(): Promise<void> {
     // When the -h flag is present the following line haults execution
     const { flags } = this.parse(Publish);
 

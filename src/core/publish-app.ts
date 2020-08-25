@@ -60,7 +60,8 @@ export default async function publishApp(
       pathToTarball: pathToTarball,
     });
   } catch (error) {
-    const errorMessage = `there was an error deploying your app to the connect platform: ${error}`;
+    const err = error as Error;
+    const errorMessage = `there was an error deploying your app to the connect platform: ${err.message}`;
     throw new AppFailedToDeployError(errorMessage);
   } finally {
     // Delete the package tarball

@@ -17,7 +17,7 @@ export default class Diagnostics {
       const response = await this.client.call({
         endpoint: "diagnostics/heartbeat",
         method: "GET",
-      });
+      }) as Promise<Pulse>;
 
       return Promise.resolve(response);
     } catch (error) {
