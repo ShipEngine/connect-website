@@ -16,6 +16,9 @@
   &:hover {
     background-color: $white;
     border-color: $dark-purple !important;
+    transition-property: background-color, border-color;
+    transition-duration: .4s;
+    transition-timing-function: ease-in-out;
   }
 
   &::before {

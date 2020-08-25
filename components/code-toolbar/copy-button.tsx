@@ -25,7 +25,10 @@ function copyCode(event: MouseEvent, code: string): void {
   event.preventDefault();
   copyToClipboard(code);
 
-  // TODO: Temporarily change the button text to "Copied!"
+  // Temporarily changes the button text to signal that the code sample was copied
+  const button = event.currentTarget;
+  button.textContent = "Copied!";
+  setTimeout(() => button.textContent = "Copy", 2500);
 }
 
 
