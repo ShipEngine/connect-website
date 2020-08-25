@@ -13,11 +13,12 @@ export async function loadAndValidateConfig(
 
     return config;
   } catch (error) {
+    const err = error as Error & { error: object};
     // Check for sdk error
-    if (error.error) {
-      throw error.error;
+    if (err.error) {
+      throw err.error;
     } else {
-      throw error;
+      throw err;
     }
   }
 }

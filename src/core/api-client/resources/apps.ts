@@ -4,6 +4,8 @@ import {
   PaginatedItems,
   NetworkErrorCollection,
 } from "../../types";
+import { AxiosError } from 'axios';
+import { Connect } from '@shipengine/connect-sdk';
 
 export default class Apps {
   private client: ShipengineAPIClient;
@@ -28,7 +30,7 @@ export default class Apps {
         endpoint: "apps",
         method: "POST",
         body: { name, type },
-      });
+      }) as ConnectApp;
 
       return Promise.resolve(response);
     } catch (error) {
@@ -74,7 +76,7 @@ export default class Apps {
       const response = await this.client.call({
         endpoint: "apps",
         method: "GET",
-      });
+      }) as PaginatedItems<ConnectApp>;
 
       return Promise.resolve(response);
     } catch (error) {

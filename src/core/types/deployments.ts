@@ -16,4 +16,4 @@ export interface Deployment {
   status: DeploymentStatus;
   createdAt: string;
   updatedAt: string;
-};
+}

@@ -37,7 +37,7 @@ export default class Deployments {
           "content-type": `multipart/form-data; boundary=${form.getBoundary()}`,
         },
         isFileUpload: true,
-      });
+      }) as Deployment;
 
       return Promise.resolve(response);
     } catch (error) {
@@ -54,7 +54,7 @@ export default class Deployments {
       const response = await this.client.call({
         endpoint: `apps/${appId}/deploys`,
         method: "GET",
-      });
+      }) as PaginatedItems<Deployment>;
 
       return Promise.resolve(response);
     } catch (error) {
@@ -77,7 +77,7 @@ export default class Deployments {
       const response = await this.client.call({
         endpoint: `apps/${appId}/deploys/${deployId}`,
         method: "GET",
-      });
+      }) as Deployment;
 
       return Promise.resolve(response);
     } catch (error) {
@@ -100,7 +100,7 @@ export default class Deployments {
       const response = await this.client.call({
         endpoint: `apps/${appId}/deploys/${deployId}/logs`,
         method: "GET",
-      });
+      }) as string;
 
       return Promise.resolve(response);
     } catch (error) {

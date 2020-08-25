@@ -33,7 +33,8 @@ describe("readFile", () => {
   });
 
   it("throws an error when an absolute path is not given", async () => {
-    let response, errorResponse;
+    let response;
+    let errorResponse;
 
     try {
       response = await subject.readFile(

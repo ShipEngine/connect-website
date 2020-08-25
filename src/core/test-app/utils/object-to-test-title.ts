@@ -1,3 +1,9 @@
+/* eslint-disable 
+@typescript-eslint/no-explicit-any, 
+@typescript-eslint/no-unsafe-member-access, 
+@typescript-eslint/restrict-template-expressions,
+@typescript-eslint/no-unsafe-return 
+*/
 function formatTitleParameter(key: string, value: any) {
   switch (key) {
     case "weight":

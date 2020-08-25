@@ -11,12 +11,13 @@ import { expect } from "chai";
 import findDeliveryServiceByName from "../utils/find-delivery-service-by-name";
 import { CancelShipmentConfigOptions, CancelShipmentTestParams } from "../runner/config/cancel-shipment";
 import { v4 } from "uuid";
+import Test from '../runner/test';
 
 
 interface TestArgs {
   title: string;
   methodArgs: NewShipmentPOJO;
-  config: any;
+  config: unknown;
 }
 
 /**
@@ -98,8 +99,8 @@ export class CancelShipment extends Suite {
       deliveryService: {
         id: this.deliveryService.id,
       },
-      shipFrom: testParams.shipFrom!,
-      shipTo: testParams.shipTo!,
+      shipFrom: testParams.shipFrom,
+      shipTo: testParams.shipTo,
       shipDateTime: testParams.shipDateTime,
       packages: [packagePOJO],
     };
@@ -129,7 +130,7 @@ export class CancelShipment extends Suite {
     return [this.buildTestArg(config)];
   }
 
-  tests() {
+  tests(): Test[] {
     const testArgs = this.buildTestArgs().filter((args) => args !== undefined) as TestArgs[];
 
     if (testArgs.length === 0) {

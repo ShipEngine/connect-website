@@ -30,9 +30,12 @@ export default abstract class BaseCommand extends Base {
     return this._appsClient;
   }
 
-  public async currentUser(): Promise<AppUser> {
+  public async currentUser(): Promise<AppUser | undefined> {
     try {
-      return await this.appsClient!.user.getCurrent();
+      if (this.appsClient) {
+        return await this.appsClient.user.getCurrent();
+      }
+      return undefined;
     }
     catch (error) {
       const err = error as Error;

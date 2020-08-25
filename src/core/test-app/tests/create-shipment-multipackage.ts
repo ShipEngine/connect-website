@@ -10,11 +10,12 @@ import findDeliveryServiceByName from "../utils/find-delivery-service-by-name";
 import findPackagingByName from "../utils/find-packaging-by-name";
 import findMultiPackageDeliveryService from "../utils/find-multi-package-delivery-service";
 import useShipmentAddresses from "../utils/use-shipment-addresses";
+import Test from '../runner/test';
 
 interface TestArgs {
   title: string;
   methodArgs: NewShipmentPOJO;
-  config: any;
+  config: unknown;
   testParams: CreateShipmentMultiPackageTestParams;
 }
 
@@ -163,7 +164,7 @@ export class CreateShipmentMultiPackage extends Suite {
 
   }
 
-  tests() {
+  tests(): Test[] {
     const testArgs = this.buildTestArgs().filter(args => args !== undefined) as TestArgs[];
 
     if (testArgs.length === 0) {

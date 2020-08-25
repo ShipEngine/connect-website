@@ -47,7 +47,7 @@ export default class Runner {
     this.testResultsReducer = testResultsReducer;
   }
 
-  async run() {
+  async run(): Promise<TestResults> {
     for (const suite of this.suites) {
       if (this.failFast && this.testResults.hasFailed())
         return this.testResults;
@@ -87,23 +87,24 @@ export default class Runner {
     return this.testResults;
   }
 
-  async runTest(test: Test) {
+  async runTest(test: Test): Promise<void> {
     try {
       await callWithTimeoutAndRetries(test.fn, test.timeout, test.retries);
       this.testResultsReducer("INCREMENT_PASSED");
       logPass(test.title);
     } catch (error) {
+      const err = error as Error;
       if (
         test.expectedErrorMessage &&
-        error.message &&
-        error.message.includes(test.expectedErrorMessage)
+        err.message &&
+        err.message.includes(test.expectedErrorMessage)
       ) {
         this.testResultsReducer("INCREMENT_PASSED");
         logPass(test.title);
       } else {
         this.testResultsReducer("INCREMENT_FAILED");
         logFail(test.title);
-        log(indentLines(chalk.red(error.stack), 4));
+        log(indentLines(chalk.red(err.stack), 4));
       }
     } finally {
       if (test.debug) {

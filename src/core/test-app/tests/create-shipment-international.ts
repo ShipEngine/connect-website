@@ -6,7 +6,6 @@ import {
 
 import { CarrierApp, NewShipmentPOJO, NewPackagePOJO } from "@shipengine/connect-sdk/lib/internal";
 
-
 import Suite from "../runner/suite";
 import findDeliveryConfirmationByName from "../utils/find-delivery-confirmation-by-name";
 import findDeliveryServiceByName from "../utils/find-delivery-service-by-name";
@@ -20,11 +19,12 @@ import {
 } from "../runner/config/create-shipment-international";
 import { initializeTimeStamps } from "../../utils/time-stamps";
 import { expect } from "chai";
+import Test from '../runner/test';
 
 interface TestArgs {
   title: string;
   methodArgs: NewShipmentPOJO;
-  config: any;
+  config: unknown;
   testParams: CreateShipmentInternationalTestParams;
 }
 
@@ -125,15 +125,18 @@ export class CreateShipmentInternational extends Suite {
     };
 
 
-    const newShipmentPOJO: NewShipmentPOJO = {
+    const newShipmentPOJO: Partial<NewShipmentPOJO> = {
       deliveryService: {
         id: this.deliveryService.id,
       },
       shipFrom: testParams.shipFrom,
       shipTo: testParams.shipTo,
-      shipDateTime: testParams.shipDateTime!,
       packages: [packagePOJO],
     };
+
+    if(testParams.shipDateTime) {
+      newShipmentPOJO.shipDateTime = testParams.shipDateTime;
+    }
 
     if (this.deliveryConfirmation) {
       newShipmentPOJO.deliveryConfirmation = {
@@ -151,7 +154,7 @@ export class CreateShipmentInternational extends Suite {
 
     return {
       title: title,
-      methodArgs: newShipmentPOJO,
+      methodArgs: newShipmentPOJO as NewShipmentPOJO,
       config: config,
       testParams: testParams,
     };
@@ -170,7 +173,7 @@ export class CreateShipmentInternational extends Suite {
     return [this.buildTestArg(config)];
   }
 
-  tests() {
+  tests(): Test[] {
     const testArgs = this.buildTestArgs().filter((args) => args !== undefined) as TestArgs[];
 
     if (testArgs.length === 0) return [];

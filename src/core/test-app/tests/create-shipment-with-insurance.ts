@@ -19,11 +19,12 @@ import findDeliveryServiceByName from "../utils/find-delivery-service-by-name";
 import findDeliveryConfirmationByName from "../utils/find-delivery-confirmation-by-name";
 import { findInsurableDeliveryService } from "../utils/find-insurable-delivery-service";
 import findPackagingByName from "../utils/find-packaging-by-name";
+import Test from '../runner/test';
 
 interface TestArgs {
   title: string;
   methodArgs: NewShipmentPOJO;
-  config: any;
+  config: unknown;
   testParams: CreateShipmentWithInsuranceTestParams;
 }
 
@@ -136,8 +137,8 @@ export class CreateShipmentWithInsurance extends Suite {
       deliveryService: {
         id: this.deliveryService.id,
       },
-      shipFrom: testParams.shipFrom!,
-      shipTo: testParams.shipTo!,
+      shipFrom: testParams.shipFrom,
+      shipTo: testParams.shipTo,
       shipDateTime: testParams.shipDateTime,
       packages: [packagePOJO],
     };
@@ -149,11 +150,16 @@ export class CreateShipmentWithInsurance extends Suite {
     }
 
     if (testParams.deliveryConfirmationName) {
-      newShipmentPOJO.deliveryConfirmation = {
-        id: this.deliveryService.deliveryConfirmations.find(
-          (dc) => dc.name === testParams.deliveryConfirmationName,
-        )!.id,
-      };
+
+      const deliveryConfirmation = this.deliveryService.deliveryConfirmations.find(
+        (dc) => dc.name === testParams.deliveryConfirmationName
+      );
+
+      if (deliveryConfirmation) {
+        newShipmentPOJO.deliveryConfirmation = {
+          id: deliveryConfirmation.id,
+        };
+      }
     }
 
     const title = config.expectedErrorMessage
@@ -178,12 +184,12 @@ export class CreateShipmentWithInsurance extends Suite {
         return this.buildTestArg(config);
       });
     }
- 
+
     const config = this.config as CreateShipmentWithInsuranceConfigOptions;
     return [this.buildTestArg(config)];
   }
 
-  tests() {
+  tests(): Test[] {
     const testArgs = this.buildTestArgs().filter((args) => args !== undefined) as TestArgs[];
 
     if (testArgs.length === 0) {

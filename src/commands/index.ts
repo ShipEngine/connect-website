@@ -15,17 +15,19 @@ export default class AppsIndex extends BaseCommand {
   // hide the command from help
   public static hidden = true;
 
-  async run() {
+  async run(): Promise<void> {
     // When the -h flag is present the following line haults execution
     this.parse(AppsIndex);
 
     await checkAppLoginStatus(this);
 
     try {
-      const apps = this.appsClient!.apps.getAll();
-      (await (await apps).items).forEach((app) => {
-        this.log(app.name);
-      });
+      if (this.appsClient) {
+        const apps = this.appsClient.apps.getAll();
+        (await (await apps).items).forEach((app) => {
+          this.log(app.name);
+        });
+      }
     } catch (error) {
       this.error(error);
     }

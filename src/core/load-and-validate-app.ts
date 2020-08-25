@@ -4,7 +4,7 @@ import { SdkApp } from "./types";
 
 class InvalidAppError extends Error {
   errors: string[];
-  
+
   code: string;
 
   constructor(message: string, errors: string[]) {
@@ -23,17 +23,18 @@ export default async function loadAndValidateApp(
     const app = (await loadApp(pathToApp)) as SdkApp;
     return app;
   } catch (error) {
+    const err = error as Error & { details?: ValidationErrorItem[] };
     let errors = [];
 
-    if (error.details) {
-      const errorItems = error.details as ValidationErrorItem[];
+    if (err.details) {
+      const errorItems = err.details;
       errors = errorItems.map((item) => {
         return item.message;
       });
     } else {
-      errors.push(error.message);
+      errors.push(err.message);
     }
 
-    return Promise.reject(new InvalidAppError(error.message, errors));
+    return Promise.reject(new InvalidAppError(err.message, errors));
   }
 }
