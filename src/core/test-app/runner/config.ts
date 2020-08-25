@@ -13,11 +13,11 @@ export interface TestsConfig {
   cancelShipment?: CancelShipmentConfigOptions | [CancelShipmentConfigOptions];
   // createManifest?: TestOptions | [TestOptions];
   createShipment_domestic?:
-    | CreateShipmentDomesticConfigOptions
-    | [CreateShipmentDomesticConfigOptions];
+  | CreateShipmentDomesticConfigOptions
+  | [CreateShipmentDomesticConfigOptions];
   createShipment_international?:
-    | CreateShipmentInternationalConfigOptions
-    | [CreateShipmentInternationalConfigOptions];
+  | CreateShipmentInternationalConfigOptions
+  | [CreateShipmentInternationalConfigOptions];
   createShipment_multi_package?: CreateShipmentMultiPackageConfigOptions | [CreateShipmentMultiPackageConfigOptions];
   createShipment_with_insurance?: CreateShipmentWithInsuranceConfigOptions | [CreateShipmentWithInsuranceConfigOptions];
   createShipment_return?: CreateShipmentReturnConfigOptions | [CreateShipmentReturnConfigOptions];

@@ -1,6 +1,6 @@
 import Config from "./test-app/runner/config";
 import Runner from "./test-app/runner";
-import loadAndValidateApp, { isInvalidAppError } from "./load-and-validate-app";
+import loadAndValidateApp from "./load-and-validate-app";
 import {
   CreateShipmentInternational,
   CreateShipmentDomestic,
@@ -29,6 +29,24 @@ export default async function testApp(
   { debug, failFast, grep, retries, timeout }: TesOptions,
 ): Promise<TestResults> {
   const [testResults, testResultsReducer] = useTestResults();
+
+  // Set NODE_ENV first because its possible that the shipengine.config
+  // might key off the process.env to set environment variables
+  process.env.NODE_ENV = "test";
+
+  let staticConfig: Config = {};
+
+  try {
+    staticConfig = await loadAndValidateConfig(pathToApp);
+  } catch (error) {
+    switch (error.code) {
+      case "ERR_CONNECT_CONFIG_SCHEMA":
+        throw error;
+
+      default:
+        break;
+    }
+  }
 
   let app: SdkApp;
 
@@ -62,18 +80,6 @@ export default async function testApp(
     }
 
     throw error;
-  }
-
-  // Set NODE_ENV first because its possible that the shipengine.config
-  // might key off the process.env to set environment variables
-  process.env.NODE_ENV = "test";
-
-  let staticConfig: Config = {};
-
-  try {
-    staticConfig = await loadAndValidateConfig(pathToApp);
-  } catch {
-    // Do nothing
   }
 
   const options = {
@@ -146,9 +152,7 @@ function registerTestSuiteModules(app: SdkApp): RegisteredTestSuiteModules {
       CreateShipmentWithInsurance,
       CreateShipmentReturn
     ],
-    rateShipment: [
-      RateShipment
-    ],
+    rateShipment: [RateShipment],
     // schedulePickup: [SchedulePickupTestSuite],
     // trackShipment: [TrackShipmentTestSuite],
   };
