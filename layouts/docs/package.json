@@ -1,0 +1,4 @@
+{
+  "description": "Specifying `layout: docs` in MDX frontmatter will load this file",
+  "main": "docs-layout.tsx"
+}

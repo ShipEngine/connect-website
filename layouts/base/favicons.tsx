@@ -1,4 +1,4 @@
-import { siteURL } from "../../../lib/url";
+import { siteURL } from "../../lib/url";
 
 /**
  * Favicons

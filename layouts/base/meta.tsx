@@ -1,4 +1,4 @@
-import { isDev } from "../../../lib/utils";
+import { isDev } from "../../lib/utils";
 
 export interface PageProps {
   title: string;

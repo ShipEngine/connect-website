@@ -1,6 +1,6 @@
-import BaseLayout, { BaseLayoutProps } from "../base";
-import Footer from "./footer";
-import Header from "./header";
+import BaseLayout, { BaseLayoutProps } from "../base/base-layout";
+import { Footer } from "./footer";
+import { Header } from "./header";
 
 export type PageLayoutProps = BaseLayoutProps;
 

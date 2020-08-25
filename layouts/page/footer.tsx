@@ -1,6 +1,6 @@
 import styles from "./footer.module.scss";
 
-export default function Footer() {
+export function Footer() {
   return (
     <footer className={styles.siteFooter}>
       <div className="centered-content">

@@ -14,7 +14,7 @@ export interface MenuProps {
   contents: MenuContents;
 }
 
-export default function Menu({ contents }: MenuProps) {
+export function Menu({ contents }: MenuProps) {
   const [visible, setVisible] = useState(false);
   const context = useContext(MenuContext);
   const { pathname } = useRouter();

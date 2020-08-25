@@ -1,4 +1,4 @@
-@use "../../../styles/variables" as *;
+@use "../../styles/variables" as *;
 
 .menu {
   font-size: $small-font-size;
@@ -17,7 +17,7 @@
     display: block;
     height: 100%;
     width: 100%;
-    background: url("../../../public/img/icons/menu-dots.svg") no-repeat center center;
+    background: url("../../public/img/icons/menu-dots.svg") no-repeat center center;
     background-size: contain;
     background-clip: content-box;
   }

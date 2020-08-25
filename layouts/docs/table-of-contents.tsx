@@ -1,4 +1,4 @@
-import { slugify } from "../lib/utils";
+import { slugify } from "../../lib/utils";
 import styles from "./table-of-contents.module.scss";
 
 interface TableOfContentsProps {
@@ -13,7 +13,7 @@ export interface Heading {
 /**
  * Links to the major sections on the page
  */
-export default function TableOfContents({ headings }: TableOfContentsProps) {
+export function TableOfContents({ headings }: TableOfContentsProps) {
   return (
     <nav id="table-of-contents" className={styles.toc}>
       {

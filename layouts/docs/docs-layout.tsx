@@ -1,10 +1,10 @@
 import React, { ReactElement, ReactNode, ReactNodeArray } from "react";
-import { getText, getTypeName, Props, toArray } from "../../../lib/react-nodes";
-import Section, { Left, Right } from "../../section";
-import TableOfContents, { Heading } from "../../table-of-contents";
-import PageLayout, { PageLayoutProps } from "../page";
-import { menu } from "./docs-menu";
-import Menu from "./menu";
+import { Left, Right, Section } from "../../components/section/section";
+import { getText, getTypeName, Props, toArray } from "../../lib/react-nodes";
+import PageLayout, { PageLayoutProps } from "../page/page-layout";
+import { Menu } from "./menu";
+import { menu } from "./menu-contents";
+import { Heading, TableOfContents } from "./table-of-contents";
 
 export type DocsLayoutProps = PageLayoutProps;
 

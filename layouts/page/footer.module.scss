@@ -1,4 +1,4 @@
-@use "../../../styles/variables" as *;
+@use "../../styles/variables" as *;
 
 $social-media-icon-size: 28px;
 
@@ -74,19 +74,19 @@ $social-media-icon-size: 28px;
     }
 
     &.instagram {
-      background-image: url("../../../public/img/logos/social/instagram.svg");
+      background-image: url("../../public/img/logos/social/instagram.svg");
     }
 
     &.facebook {
-      background-image: url("../../../public/img/logos/social/facebook.svg");
+      background-image: url("../../public/img/logos/social/facebook.svg");
     }
 
     &.twitter {
-      background-image: url("../../../public/img/logos/social/twitter.svg");
+      background-image: url("../../public/img/logos/social/twitter.svg");
     }
 
     &.linkedin {
-      background-image: url("../../../public/img/logos/social/linkedin.svg");
+      background-image: url("../../public/img/logos/social/linkedin.svg");
     }
   }
 }

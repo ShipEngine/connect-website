@@ -1,4 +1,4 @@
-import { defaultImageURL, logoURL, siteURL } from "../../../lib/url";
+import { defaultImageURL, logoURL, siteURL } from "../../lib/url";
 import { PageProps } from "./meta";
 
 /**

@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { ReactNode } from "react";
-import { defaultImageURL, getPageURL } from "../../../lib/url";
+import { defaultImageURL, getPageURL } from "../../lib/url";
 import { Favicons } from "./favicons";
 import { JsonLD } from "./json-ld";
 import { Analytics, OpenGraph, PageProps, SEO, Twitter } from "./meta";
