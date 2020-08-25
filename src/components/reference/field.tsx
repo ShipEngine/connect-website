@@ -19,25 +19,25 @@ export interface FieldProps {
 export function Field(field: FieldProps) {
   return (
     <tr key={field.name}>
-      { field.name && <td><code>{ field.name }</code></td> }
-      { field.type && <td>{ field.type }</td> }
-      { field.required !== undefined && <td className="centered">{ field.required ? "✔" : "" }</td> }
-      { field.nullable !== undefined && <td className="centered">{ field.required ? "✔" : "" }</td> }
-      { field.defaultValue && <td>{ field.defaultValue }</td> }
-      { field.description && <td>{ field.description }</td> }
+      {field.name && <td><code>{field.name}</code></td>}
+      {field.type && <td>{field.type}</td>}
+      {field.required !== undefined && <td className="centered">{field.required ? "✔" : ""}</td>}
+      {field.nullable !== undefined && <td className="centered">{field.required ? "✔" : ""}</td>}
+      {field.defaultValue && <td>{field.defaultValue}</td>}
+      {field.description && <td>{field.description}</td>}
     </tr>
   );
 }
 
 
 export function Type({ children }: { children: Children }) {
-  return <>{ children }</>;
+  return <>{children}</>;
 }
 
 export function DefaultValue({ children }: { children: Children }) {
-  return <>{ children }</>;
+  return <>{children}</>;
 }
 
 export function Description({ children }: { children: Children }) {
-  return <>{ children }</>;
+  return <>{children}</>;
 }

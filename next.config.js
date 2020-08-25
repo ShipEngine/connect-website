@@ -6,4 +6,6 @@ const withMDX = require("@shipengine/next-mdx")();
 // Enable MDX in Next.js
 module.exports = withMDX({
   pageExtensions: ["tsx", "mdx"],
+  layoutsDir: "./src/layouts",
+  pagesDir: "./src/pages",
 });

@@ -75,7 +75,7 @@ form {
   select,
   .select {
     color: $placeholder-color;
-    background: $white url("../public/img/icons/select-arrows.svg") no-repeat 95% center;
+    background: $white url("../../public/img/icons/select-arrows.svg") no-repeat 95% center;
     background-position-x: calc(100% - #{$tiny-horizontal-space});
     padding-right: 40px;
     cursor: pointer;
