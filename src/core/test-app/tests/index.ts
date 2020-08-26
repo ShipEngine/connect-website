@@ -11,6 +11,5 @@ export * from "./create-shipment-return";
 // export * from "./get-seller-test-suite";
 export * from "./rate-shipment";
 // export * from "./schedule-pickup-test-suite";
-// export * from "./shipment-cancelled-test-suite";
 // export * from "./shipment-created-test-suite";
 // export * from "./track-shipment-test-suite";
