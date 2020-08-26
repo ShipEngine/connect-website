@@ -62,7 +62,7 @@ export function buildAddressWithContactInfo(
 
 export function getSupportedCountryCodes(): Set<string> {
   const supportedCountries = new Set<string>()
-  for(const key of Object.keys(countryMap)) {
+  for(const key of Object.keys(addressCountryMap)) {
 
     supportedCountries.add(key.slice(0,2))
   }
@@ -70,10 +70,11 @@ export function getSupportedCountryCodes(): Set<string> {
 }
 
 export function buildAddress(countryCode: string): AddressPOJO {
-  return countryMap[countryCode];
+  // return a copy of the original so mutations don't occur on the original
+  return Object.assign({}, addressCountryMap[countryCode]);
 }
 
-const countryMap: Record<string, AddressPOJO> = {
+const addressCountryMap: Record<string, AddressPOJO> = {
   "US-from": {
     company: "US International",
     addressLines: ["3800 N Lamar Blvd #220"],

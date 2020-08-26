@@ -1,5 +1,5 @@
 import { DeliveryService, PickupService } from "@shipengine/connect-sdk";
-import { CarrierApp, PickupRequestPOJO, PickupShipmentPOJO } from "@shipengine/connect-sdk/lib/internal";
+import { CarrierApp, PickupRequestPOJO } from "@shipengine/connect-sdk/lib/internal";
 import Suite from "../runner/suite";
 import { initializeTimeStamps } from "../../utils/time-stamps";
 import { SameDayPickupTestParams, SameDayPickupConfigOptions } from "../runner/config/same-day-pickup";
@@ -9,6 +9,8 @@ import useShipmentAddresses from '../utils/use-shipment-addresses';
 import findDeliveryServiceByName from '../utils/find-delivery-service-by-name';
 import findPickupServiceByName from '../utils/find-pickup-service-by-name';
 import { findDomesticDeliveryService } from '../utils/find-domestic-delivery-service';
+import Test from '../runner/test';
+import { buildAddress } from '../factories/address';
 
 interface TestArgs {
   title: string;
@@ -18,7 +20,7 @@ interface TestArgs {
 }
 
 export class SameDayPickup extends Suite {
-  title = "pickup_same_day";
+  title = "same_day_pickup";
 
   private deliveryService: DeliveryService | undefined;
 
@@ -50,13 +52,8 @@ export class SameDayPickup extends Suite {
       this.pickupService = findPickupServiceByName(config.pickupServiceName, carrierApp);
     }
 
-    else if (carrierApp.deliveryServices) {
-      for (const ds of carrierApp.deliveryServices) {
-        const [shipFrom, shipTo] = useShipmentAddresses(ds);
-        if (shipFrom && shipTo) {
-          this.deliveryService = ds;
-        }
-      }
+    else if (carrierApp.pickupServices.length > 0) {
+      this.pickupService = carrierApp.pickupServices[0];
     }
   }
 
@@ -70,50 +67,52 @@ export class SameDayPickup extends Suite {
 
     if (!shipTo || !shipFrom) return undefined;
 
+    const address = buildAddress(`${shipFrom.country}-from`);
+
     const { todayEarly, todayEvening } = initializeTimeStamps();
 
     const defaults: SameDayPickupTestParams = {
       pickupServiceName: this.pickupService.name,
       deliveryServiceName: this.deliveryService.name,
-      address: shipFrom,
+      address,
       contact: { name: "John Doe" },
       timeWindow: {
         startDateTime: todayEarly,
         endDateTime: todayEvening
       },
-      shipments: []
+      shipments: [{
+        deliveryService: this.deliveryService.code,
+        packages: [
+          {
+            packaging: this.deliveryService.packaging[0].code
+          }
+        ]
+      }]
     };
 
     const testParams = reduceDefaultsWithConfig<
       SameDayPickupTestParams
     >(defaults, config);
 
-    const pickupShipmentPOJO: PickupShipmentPOJO = {
-      deliveryService: findDeliveryServiceByName(testParams.deliveryServiceName, carrierApp),
-      packages: [{
-        packaging: this.deliveryService.packaging[0].code
-      }]
-    };
-
-    const RateCriteriaPOJO: PickupRequestPOJO = {
+    const rateCriteriaPOJO: PickupRequestPOJO = {
       pickupService: findPickupServiceByName(testParams.pickupServiceName, carrierApp),
       address: testParams.address,
       timeWindow: testParams.timeWindow,
       contact: testParams.contact,
-      shipments: [pickupShipmentPOJO]
+      shipments: testParams.shipments
     };
 
     const title = config.expectedErrorMessage
-      ? `it raises an error when creating a new shipment rate with ${objectToTestTitle(
+      ? `it raises an error when scheduling a pickup with ${objectToTestTitle(
         testParams,
       )}`
-      : `it creates a new shipment rate with ${objectToTestTitle(
+      : `it schedules a pickup with ${objectToTestTitle(
         testParams,
       )}`;
 
     return {
       title,
-      methodArgs: RateCriteriaPOJO,
+      methodArgs: rateCriteriaPOJO,
       config,
       testParams
     };
@@ -130,7 +129,7 @@ export class SameDayPickup extends Suite {
     return [this.buildTestArg(config)];
   }
 
-  tests() {
+  tests(): Test[] {
     const testArgs = this.buildTestArgs().filter(args => args !== undefined) as TestArgs[];
 
     if (testArgs.length === 0) {

@@ -4,9 +4,8 @@ const { SameDayPickup } = require("../../../../../lib/core/test-app/tests/same-d
 const { CarrierApp } = require("@shipengine/connect-sdk/lib/internal/carriers/carrier-app");
 const pojo = require("../../../utils/pojo");
 const { expect } = require("chai");
-const sinon = require("sinon");
 
-describe.only("The schedule same day pickup test suite", () => {
+describe("The schedule same day pickup test suite", () => {
 
   describe("when there is no address available for the delivery service", () => {
     it("should not generate tests", () => {
@@ -42,8 +41,8 @@ describe.only("The schedule same day pickup test suite", () => {
     it("the test params should be reflected in the title", () => {
       const tests = testSuite.tests();
 
-      expect(tests[0].title).to.include("weight: 50lb");
       expect(tests[0].title).to.include("deliveryServiceName: Dummy Delivery Service");
+      expect(tests[0].title).to.include("pickupServiceName: Dummy Pickup Service");
 
     });
   });
@@ -54,18 +53,15 @@ describe.only("The schedule same day pickup test suite", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       const app = new CarrierApp(appDefinition);
 
-      staticConfigTests.rateShipment = {
-        weight: {
-          value: 200,
-          unit: "lb"
-        }
+      staticConfigTests.same_day_pickup = {
+        contact: { name: "Jane Doe" }
       };
 
       const args = { app, connectArgs, staticConfigTests, options };
       const testSuite = new SameDayPickup(args);
       const tests = testSuite.tests();
 
-      expect(tests[0].title).to.include("weight: 200lb");
+      expect(tests[0].title).to.include("contact: Jane Doe");
       expect(tests[0].title).to.include("deliveryServiceName: Dummy Delivery Service");
     });
   });
@@ -76,19 +72,13 @@ describe.only("The schedule same day pickup test suite", () => {
     beforeEach(() => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       const app = new CarrierApp(appDefinition);
-      staticConfigTests.rateShipment =
+      staticConfigTests.same_day_pickup =
         [
           {
-            weight: {
-              value: 200,
-              unit: "lb"
-            }
+            contact: { name: "Jane Doe" }
           },
           {
-            weight: {
-              value: 22,
-              unit: "lb"
-            }
+            contact: { name: "Doe Jane" }
           }
         ];
 
@@ -104,12 +94,33 @@ describe.only("The schedule same day pickup test suite", () => {
 
     it("should update the test titles", () => {
 
-      expect(tests[0].title).to.include("weight: 200lb");
+      expect(tests[0].title).to.include("contact: Jane Doe");
       expect(tests[0].title).to.include("deliveryServiceName: Dummy Delivery Service");
 
-      expect(tests[1].title).to.include("weight: 22lb");
+      expect(tests[1].title).to.include("contact: Doe Jane");
       expect(tests[1].title).to.include("deliveryServiceName: Dummy Delivery Service");
 
+    });
+  });
+
+  describe("When a user configs a pickup service that does not exist", () => {
+    it("should throw an error", () => {
+      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+      const app = new CarrierApp(appDefinition);
+      staticConfigTests.same_day_pickup = {
+        deliveryServiceName: "asdf"
+      };
+
+      const args = { app, connectArgs, staticConfigTests, options };
+      const testSuite = new SameDayPickup(args);
+
+      try {
+        testSuite.tests();
+        expect(true).to.equal(false);
+      }
+      catch (error) {
+        expect(error.message).to.include("deliveryServiceName: 'asdf' does not exist");
+      }
     });
   });
 
@@ -117,7 +128,7 @@ describe.only("The schedule same day pickup test suite", () => {
     it("should throw an error", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       const app = new CarrierApp(appDefinition);
-      staticConfigTests.rateShipment = {
+      staticConfigTests.same_day_pickup = {
         deliveryServiceName: "asdf"
       };
 
@@ -151,7 +162,7 @@ describe.only("The schedule same day pickup test suite", () => {
         packaging: [pojo.packaging()]
       });
 
-      staticConfigTests.rateShipment = {
+      staticConfigTests.same_day_pickup = {
         deliveryServiceName: "Better Delivery Service"
       };
 
@@ -164,24 +175,45 @@ describe.only("The schedule same day pickup test suite", () => {
     });
   });
 
-  describe("When a user configures a Ship To and Ship From address", () => {
+  describe("When a user configs a new pickup service", () => {
+    it("should update the title params to reflect the new properties", () => {
+      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+      appDefinition.deliveryServices.push({
+        id: "9cf1bfda-7ee4-4f03-96f6-6eab52243eee",
+        name: "Better Delivery Service",
+        class: "ground",
+        grade: "standard",
+        code: "better_ds",
+        originCountries: ["MX"],
+        destinationCountries: ["MX"],
+        labelFormats: ["pdf"],
+        manifestType: "physical",
+        labelSizes: ["A4"],
+        packaging: [pojo.packaging()]
+      });
+
+      staticConfigTests.same_day_pickup = {
+        deliveryServiceName: "Better Delivery Service"
+      };
+
+      const app = new CarrierApp(appDefinition);
+      const args = { app, connectArgs, staticConfigTests, options };
+      const testSuite = new SameDayPickup(args);
+      const tests = testSuite.tests();
+
+      expect(tests[0].title).to.include("deliveryServiceName: Better Delivery Service");
+    });
+  });
+
+  describe("When a user configures an address", () => {
     it("should update the test arguments and titles", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
 
       const app = new CarrierApp(appDefinition);
 
-      staticConfigTests.rateShipment = {
-        shipFrom: {
+      staticConfigTests.same_day_pickup = {
+        address: {
           company: "Domestic Route #1",
-          addressLines: ["123 New Street"],
-          cityLocality: "Houston",
-          stateProvince: "TX",
-          country: "US",
-          postalCode: "77422",
-          timeZone: "America/Chicago"
-        },
-        shipTo: {
-          company: "Domestic Route #2",
           addressLines: ["123 New Street"],
           cityLocality: "Houston",
           stateProvince: "TX",
@@ -195,38 +227,11 @@ describe.only("The schedule same day pickup test suite", () => {
       const testSuite = new SameDayPickup(args);
       const tests = testSuite.tests();
 
-      expect(tests[0].methodArgs.shipFrom.company).to.equal("Domestic Route #1");
-      expect(tests[0].methodArgs.shipTo.company).to.equal("Domestic Route #2");
+      expect(tests[0].methodArgs.address.company).to.equal("Domestic Route #1");
 
-      expect(tests[0].methodArgs.shipTo).to.eql(staticConfigTests.rateShipment.shipTo);
+      expect(tests[0].methodArgs.address).to.eql(staticConfigTests.same_day_pickup.address);
 
-      expect(tests[0].title).to.include("shipFrom: US");
-      expect(tests[0].title).to.include("shipTo: US");
-    });
-  });
-
-  describe("When the delivery service in the request is missing in the response", () => {
-    it("should throw an error", async () => {
-      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-
-      const rateResponse = [];
-      sinon.stub(CarrierApp.prototype, "rateShipment").resolves(rateResponse);
-      const app = new CarrierApp(appDefinition);
-
-      const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new SameDayPickup(args);
-      const tests = testSuite.tests();
-      try {
-        await tests[0].fn();
-        expect(true).to.equal(false);
-      }
-      catch (error) {
-        expect(error.message).includes("Rate for delivery service 'Dummy Delivery Service' is missing from the response");
-      }
-    });
-
-    afterEach(() => {
-      CarrierApp.prototype.rateShipment.restore();
+      expect(tests[0].title).to.include("address: US");
     });
   });
 });
@@ -257,7 +262,7 @@ function generateBasicAppAndConfigs() {
   };
 
   const staticConfigTests = {
-    rateShipment: {}
+    same_day_pickup: {}
   };
 
   const connectArgs = {};

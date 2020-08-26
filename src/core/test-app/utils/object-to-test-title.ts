@@ -12,6 +12,10 @@ function formatTitleParameter(key: string, value: any) {
       return value.country;
     case "packages":
       return `${value.length}`;
+    case "contact": 
+      return `${value.name}`
+    case "address": 
+      return value.country;
 
     case "deliveryServiceNames":
       if (Array.isArray(value)) {
@@ -22,6 +26,11 @@ function formatTitleParameter(key: string, value: any) {
 
     case "packageInsuredValue":
       return `${value.value} ${value.currency}`;
+
+    case "timeWindow": 
+      return `${value.startDateTime} - ${value.endDateTime}`;
+    case "shipments":
+      return `${value.length}`;
 
     default:
       return value;

@@ -15,6 +15,7 @@ import { loadAndValidateConfig } from "./test-app/runner/load-and-validate-confi
 import { logFail, logPass, logStep } from "./utils/log-helpers";
 import { logResults } from "./utils/log-helpers";
 import { CancelShipment } from './test-app/tests/cancel-shipment';
+import { SameDayPickup } from './test-app/tests/same-day-pickup';
 
 interface TesOptions {
   debug?: boolean;
@@ -153,7 +154,7 @@ function registerTestSuiteModules(app: SdkApp): RegisteredTestSuiteModules {
       CreateShipmentReturn
     ],
     rateShipment: [RateShipment],
-    // schedulePickup: [SchedulePickupTestSuite],
+    schedulePickup: [SameDayPickup],
     // trackShipment: [TrackShipmentTestSuite],
   };
 

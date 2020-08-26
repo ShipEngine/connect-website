@@ -5,10 +5,13 @@ import {
   AddressWithContactInfo,
   Weight,
   DateTimeZone,
+  ContactInfo,
+  TimeRange,
 } from "@shipengine/connect-sdk/lib/internal/common";
 import { NewLabel } from "@shipengine/connect-sdk/lib/internal/carriers/documents/new-label";
 import { _internal, MonetaryValue } from "@shipengine/connect-sdk/lib/internal/common";
 import { NewPackage } from "@shipengine/connect-sdk/lib/internal/carriers/packages/new-package";
+import { PickupShipment } from '@shipengine/connect-sdk/lib/internal';
 
 const joiOptions = {
   abortEarly: false,
@@ -121,6 +124,18 @@ const RateShipmentTestParamsSchema = Joi.object({
   }
 })
 
+const SameDayPickupTestParamsSchema = Joi.object({
+  ...baseTestParamValidations,
+  ...{
+    pickupServiceName: Joi.string().optional(),
+    deliveryServiceName: Joi.string().optional(),
+    address: AddressWithContactInfo[_internal].schema.optional(),
+    contact: ContactInfo[_internal].schema.optional(),
+    timeWindow: TimeRange[_internal].schema.optional(),
+    shipments: PickupShipment[_internal].schema.optional()
+  }
+})
+
 const testsSchema = Joi.object({
   createShipment_return: Joi.alternatives().conditional(Joi.array(), {
     then: Joi.array().items(createShipmentReturnTestParamsSchema),
@@ -152,6 +167,11 @@ const testsSchema = Joi.object({
     then: Joi.array().items(RateShipmentTestParamsSchema),
     otherwise: RateShipmentTestParamsSchema,
   }),
+
+  same_day_pickup: Joi.alternatives().conditional(Joi.array(), {
+    then: Joi.array().items(SameDayPickupTestParamsSchema),
+    otherwise: SameDayPickupTestParamsSchema,
+  })
 }).optional();
 
 const schema = Joi.object().keys({
