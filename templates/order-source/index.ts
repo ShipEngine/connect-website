@@ -1,10 +1,5 @@
 import { 
   OrderAppDefinition, 
-  InlineOrReference, 
-  GetSalesOrdersByDate, 
-  ShipmentCreated, 
-  ShipmentCancelled, 
-  Connect 
 } from "@shipengine/connect-sdk";
 
 const orderSource: OrderAppDefinition = {
@@ -20,7 +15,6 @@ const orderSource: OrderAppDefinition = {
   connect: import("./methods/connect"),
   getSalesOrdersByDate: import("./methods/get-sales-order-by-date"),
   shipmentCreated: import("./methods/shipment-created"),
-  shipmentCancelled: import("./methods/shipment-cancelled")
 }
 
 export default orderSource;
