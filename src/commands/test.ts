@@ -35,7 +35,7 @@ export default class Test extends BaseCommand {
     }),
   };
 
-  async run() {
+  async run(): Promise<void> {
     this.parse(Test);
     const { flags } = this.parse(Test);
     const { "fail-fast": failFast, debug, grep, retries, timeout } = flags;

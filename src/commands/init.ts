@@ -35,7 +35,7 @@ export default class New extends BaseCommand {
 
   static examples = ["$ connect init"];
 
-  async run() {
+  async run(): Promise<void> {
     const { flags, args } = this.parse(New);
     const env = createEnv();
     env.register(require.resolve("../core/generators/apps-new"), "new");

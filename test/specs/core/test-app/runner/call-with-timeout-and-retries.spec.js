@@ -35,7 +35,8 @@ async function func4() {
 
 describe("callWithTimeoutAndRetries", () => {
   it("returns the function when it completes in time", async () => {
-    let response, errorResponse;
+    let response;
+    let errorResponse;
     try {
       response = await callWithTimeoutAndRetries(func1, 200, 0);
     } catch (error) {
@@ -47,7 +48,8 @@ describe("callWithTimeoutAndRetries", () => {
   });
 
   it("throws a timeout error when the function does not complete in time", async () => {
-    let response, errorResponse;
+    let response;
+    let errorResponse;
     try {
       response = await callWithTimeoutAndRetries(func2, 200, 0);
     } catch (error) {
@@ -59,7 +61,8 @@ describe("callWithTimeoutAndRetries", () => {
   });
 
   it("throws a function error when the function throws an error in time", async () => {
-    let response, errorResponse;
+    let response;
+    let errorResponse;
     try {
       response = await callWithTimeoutAndRetries(func3, 200, 0);
     } catch (error) {
@@ -71,7 +74,8 @@ describe("callWithTimeoutAndRetries", () => {
   });
 
   it("throws a timeout error when the function would have thrown an error", async () => {
-    let response, errorResponse;
+    let response;
+    let errorResponse;
     try {
       response = await callWithTimeoutAndRetries(func4, 200, 0);
     } catch (error) {
@@ -83,7 +87,8 @@ describe("callWithTimeoutAndRetries", () => {
   });
 
   it("throws a function error when the function throws an error in time after a retry", async () => {
-    let response, errorResponse;
+    let response;
+    let errorResponse;
     try {
       response = await callWithTimeoutAndRetries(func3, 200, 1);
     } catch (error) {

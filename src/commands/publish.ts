@@ -1,9 +1,9 @@
 import BaseCommand from "../base-command";
 import Test from "./test";
-import publishApp from "../core/publish-app";
+import publishApp, { isAppFailedToDeployError } from "../core/publish-app";
 import { flags } from "@oclif/command";
 import { checkAppLoginStatus } from "../core/utils/users";
-import { packageApp } from '../core/package-app';
+import { packageApp, isAppFailedToPackageError } from '../core/package-app';
 
 export default class Publish extends BaseCommand {
   static description = "publish your app";
@@ -28,7 +28,7 @@ export default class Publish extends BaseCommand {
     }),
   };
 
-  async run() {
+  async run(): Promise<void> {
     // When the -h flag is present the following line haults execution
     const { flags } = this.parse(Publish);
 
@@ -38,22 +38,26 @@ export default class Publish extends BaseCommand {
 
     try {
       const tarballName = await packageApp();
-      await publishApp(tarballName, this.appsClient!, {
-        noWatch: flags["no-watch"],
-      });
-    } catch (error) {
-      switch (error.code) {
-        case "APP_FAILED_TO_PACKAGE":
-          return this.error(error.message, {
-            exit: 1,
-          });
-        case "APP_FAILED_TO_DEPLOY":
-          return this.error(error.message, {
-            exit: 1,
-          });
-        default:
-          throw error;
+      if(this.appsClient) {
+        await publishApp(tarballName, this.appsClient, {
+          noWatch: flags["no-watch"],
+        });
       }
+    } catch (error) {
+
+      if (isAppFailedToPackageError(error)) {
+        return this.error(error.message, {
+          exit: 1,
+        });
+      }
+
+      if (isAppFailedToDeployError(error)) {
+        return this.error(error.message, {
+          exit: 1,
+        });
+      }
+
+      throw error;
     }
   }
 }

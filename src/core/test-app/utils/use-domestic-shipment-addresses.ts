@@ -15,10 +15,11 @@ export default function useDomesticShippingAddress(
     destinationCountryCode = deliveryService.destinationCountries.find(
       (destinationCountry) => destinationCountry === originCountryCode,
     );
-    if (!destinationCountryCode)
+    if (!destinationCountryCode) {
       throw new Error(
         "useDomesticShippingAddress: can not resolve destination country",
       );
+    }
   } else if (deliveryService.destinationCountries.length === 1) {
     destinationCountryCode = deliveryService.destinationCountries[0];
     originCountryCode = deliveryService.originCountries.find(

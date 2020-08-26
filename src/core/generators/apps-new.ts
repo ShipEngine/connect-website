@@ -50,7 +50,7 @@ class AppsNew extends Generator {
     this.type = AppType.Carrier;
   }
 
-  async prompting() {
+  async prompting(): Promise<void> {
     if (this.path) {
       this.destinationRoot(path.resolve(this.path));
       process.chdir(this.destinationRoot());

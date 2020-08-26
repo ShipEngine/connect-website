@@ -30,6 +30,24 @@ class AppFailedToDeployError extends Error {
   }
 }
 
+export function isAppFailedToPackageError(obj: unknown): obj is AppFailedToPackageError {
+  if (typeof obj === "object" && obj !== null) {
+    const code = Reflect.get(obj, "code") as string | undefined;
+    return code === "APP_FAILED_TO_PACKAGE";
+  }
+
+  return false;
+}
+
+export function isAppFailedToDeployError(obj: unknown): obj is AppFailedToDeployError {
+  if (typeof obj === "object" && obj !== null) {
+    const code = Reflect.get(obj, "code") as string | undefined;
+    return code === "APP_FAILED_TO_DEPLOY";
+  }
+
+  return false;
+}
+
 interface PublishAppOptions {
   noWatch?: boolean;
 }
@@ -60,7 +78,8 @@ export default async function publishApp(
       pathToTarball: pathToTarball,
     });
   } catch (error) {
-    const errorMessage = `there was an error deploying your app to the connect platform: ${error}`;
+    const err = error as Error;
+    const errorMessage = `there was an error deploying your app to the connect platform: ${err.message}`;
     throw new AppFailedToDeployError(errorMessage);
   } finally {
     // Delete the package tarball

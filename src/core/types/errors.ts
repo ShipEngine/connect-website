@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 export interface NetworkError {
   message: string;
   error: Error;
@@ -19,5 +20,5 @@ export interface ShipEngineAPIError {
 
 export interface ShipEngineAPIErrorCollection {
   request_id: string;
-  errors: ShipEngineAPIError[]
+  errors: ShipEngineAPIError[];
 }

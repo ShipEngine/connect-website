@@ -13,8 +13,8 @@ export default class Logout extends BaseCommand {
       description: "show help for the auth:logout command",
     }),
   };
-
-  async run() {
+  
+  async run(): Promise<void> {
     // When the -h flag is present the following line haults execution
     this.parse(Logout);
 

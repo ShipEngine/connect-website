@@ -15,7 +15,7 @@ describe("The auth:logout command", () => {
       .stdout()
       .stderr()
       .command(["logout"])
-      .it("clears the API key for the current Apps API Key", (ctx) => {
+      .it("clears the API key for the current Apps API Key", () => {
         const appsKey = ApiKeyStore.get("apps");
         expect(appsKey).to.equal(null);
       });

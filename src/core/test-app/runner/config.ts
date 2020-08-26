@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+
 import { CreateShipmentInternationalConfigOptions } from "./config/create-shipment-international";
 import { CreateShipmentDomesticConfigOptions } from "./config/create-shipment-domestic";
 import { CreateShipmentMultiPackageConfigOptions } from './config/create-shipment-multipackage';

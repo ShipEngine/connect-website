@@ -47,7 +47,7 @@ export default class Runner {
     this.testResultsReducer = testResultsReducer;
   }
 
-  async run() {
+  async run(): Promise<TestResults> {
     for (const suite of this.suites) {
       if (this.failFast && this.testResults.hasFailed())
         return this.testResults;
@@ -67,7 +67,8 @@ export default class Runner {
           const cleanGrep = escapeStringRegexp(this.grep);
 
           // extract args if it's regex-like, i.e: [string, pattern, flag]
-          const arg = cleanGrep.match(/^\/(.*)\/(g|i|)$|.*/);
+          const regex = new RegExp(/^\/(.*)\/(g|i|)$|.*/);
+          const arg = regex.exec(cleanGrep);
           const grep = new RegExp(arg![1] || arg![0], arg![2]);
 
           const suiteTitleMatch = grep.test(suite.title);
@@ -87,23 +88,24 @@ export default class Runner {
     return this.testResults;
   }
 
-  async runTest(test: Test) {
+  async runTest(test: Test): Promise<void> {
     try {
       await callWithTimeoutAndRetries(test.fn, test.timeout, test.retries);
       this.testResultsReducer("INCREMENT_PASSED");
       logPass(test.title);
     } catch (error) {
+      const err = error as Error;
       if (
         test.expectedErrorMessage &&
-        error.message &&
-        error.message.includes(test.expectedErrorMessage)
+        err.message &&
+        err.message.includes(test.expectedErrorMessage)
       ) {
         this.testResultsReducer("INCREMENT_PASSED");
         logPass(test.title);
       } else {
         this.testResultsReducer("INCREMENT_FAILED");
         logFail(test.title);
-        log(indentLines(chalk.red(error.stack), 4));
+        log(indentLines(chalk.red(err.stack), 4));
       }
     } finally {
       if (test.debug) {

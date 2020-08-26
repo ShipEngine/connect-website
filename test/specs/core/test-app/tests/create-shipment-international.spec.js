@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 "use strict";
 
 const { CreateShipmentInternational } = require("../../../../../lib/core/test-app/tests/create-shipment-international");
@@ -180,7 +181,7 @@ describe("The create shipment international test suite", () => {
       const testSuite = new CreateShipmentInternational(args);
 
       try {
-        const tests = testSuite.tests();
+        testSuite.tests();
         expect(true).to.equal(false);
       }
       catch (error) {
