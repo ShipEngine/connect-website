@@ -24,6 +24,7 @@ overrides:
     rules:
       no-unused-expressions: 0
       no-multi-assign: warn
+      "node/no-missing-require": 0
 
   # Linter settings for TypeScript
   - files: ["**/*.ts"]
