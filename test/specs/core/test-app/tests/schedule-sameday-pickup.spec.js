@@ -53,7 +53,7 @@ describe("The schedule same day pickup test suite", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       const app = new CarrierApp(appDefinition);
 
-      staticConfigTests.same_day_pickup = {
+      staticConfigTests.schedulePickup_same_day = {
         contact: { name: "Jane Doe" }
       };
 
@@ -72,7 +72,7 @@ describe("The schedule same day pickup test suite", () => {
     beforeEach(() => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       const app = new CarrierApp(appDefinition);
-      staticConfigTests.same_day_pickup =
+      staticConfigTests.schedulePickup_same_day =
         [
           {
             contact: { name: "Jane Doe" }
@@ -107,7 +107,7 @@ describe("The schedule same day pickup test suite", () => {
     it("should throw an error", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       const app = new CarrierApp(appDefinition);
-      staticConfigTests.same_day_pickup = {
+      staticConfigTests.schedulePickup_same_day = {
         deliveryServiceName: "asdf"
       };
 
@@ -128,7 +128,7 @@ describe("The schedule same day pickup test suite", () => {
     it("should throw an error", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       const app = new CarrierApp(appDefinition);
-      staticConfigTests.same_day_pickup = {
+      staticConfigTests.schedulePickup_same_day = {
         deliveryServiceName: "asdf"
       };
 
@@ -162,7 +162,7 @@ describe("The schedule same day pickup test suite", () => {
         packaging: [pojo.packaging()]
       });
 
-      staticConfigTests.same_day_pickup = {
+      staticConfigTests.schedulePickup_same_day = {
         deliveryServiceName: "Better Delivery Service"
       };
 
@@ -192,7 +192,7 @@ describe("The schedule same day pickup test suite", () => {
         packaging: [pojo.packaging()]
       });
 
-      staticConfigTests.same_day_pickup = {
+      staticConfigTests.schedulePickup_same_day = {
         deliveryServiceName: "Better Delivery Service"
       };
 
@@ -211,7 +211,7 @@ describe("The schedule same day pickup test suite", () => {
 
       const app = new CarrierApp(appDefinition);
 
-      staticConfigTests.same_day_pickup = {
+      staticConfigTests.schedulePickup_same_day = {
         address: {
           company: "Domestic Route #1",
           addressLines: ["123 New Street"],
@@ -229,7 +229,7 @@ describe("The schedule same day pickup test suite", () => {
 
       expect(tests[0].methodArgs.address.company).to.equal("Domestic Route #1");
 
-      expect(tests[0].methodArgs.address).to.eql(staticConfigTests.same_day_pickup.address);
+      expect(tests[0].methodArgs.address).to.eql(staticConfigTests.schedulePickup_same_day.address);
 
       expect(tests[0].title).to.include("address: US");
     });
@@ -262,7 +262,7 @@ function generateBasicAppAndConfigs() {
   };
 
   const staticConfigTests = {
-    same_day_pickup: {}
+    schedulePickup_same_day: {}
   };
 
   const connectArgs = {};

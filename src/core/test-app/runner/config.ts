@@ -23,7 +23,7 @@ export interface TestsConfig {
   createShipment_with_insurance?: CreateShipmentWithInsuranceConfigOptions | [CreateShipmentWithInsuranceConfigOptions];
   createShipment_return?: CreateShipmentReturnConfigOptions | [CreateShipmentReturnConfigOptions];
   rateShipment?: RateShipmentConfigOptions | [RateShipmentConfigOptions];
-  same_day_pickup?: SameDayPickupConfigOptions | [SameDayPickupConfigOptions];
+  schedulePickup_same_day?: SameDayPickupConfigOptions | [SameDayPickupConfigOptions];
 
   // createShipment_multi_package?: TestOptions | [TestOptions];
   // rateShipmentWithOneService?: RateShipmentConfigOptions | [RateShipmentConfigOptions];

@@ -168,7 +168,7 @@ const testsSchema = Joi.object({
     otherwise: RateShipmentTestParamsSchema,
   }),
 
-  same_day_pickup: Joi.alternatives().conditional(Joi.array(), {
+  schedulePickup_same_day: Joi.alternatives().conditional(Joi.array(), {
     then: Joi.array().items(SameDayPickupTestParamsSchema),
     otherwise: SameDayPickupTestParamsSchema,
   })

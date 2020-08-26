@@ -20,7 +20,7 @@ interface TestArgs {
 }
 
 export class SameDayPickup extends Suite {
-  title = "same_day_pickup";
+  title = "schedulePickup_same_day";
 
   private deliveryService: DeliveryService | undefined;
 
