@@ -8,7 +8,7 @@ export function findInsurableDeliveryService(
 ): DeliveryService {
 
   for (const ds of app.deliveryServices) {
-    if (ds.isInsurable === true) {
+    if (ds.isInsurable) {
       return ds;
     }
   }

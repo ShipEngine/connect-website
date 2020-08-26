@@ -1,5 +1,6 @@
 import { AppUser, NetworkErrorCollection } from "../../types";
 import AppsAPIClient from '..';
+import { AxiosError } from 'axios';
 
 export default class User {
   private client: AppsAPIClient;
@@ -17,11 +18,15 @@ export default class User {
       const response = await this.client.call({
         endpoint: "diagnostics/whoami",
         method: "GET",
-      });
+      }) as AppUser;
 
       return response;
     } catch (error) {
-      return Promise.reject(error.response.data as NetworkErrorCollection);
+      const err = error as AxiosError;
+      if (err.response) {
+        return Promise.reject(err.response.data as NetworkErrorCollection);
+      }
+      return Promise.reject(err.message);
     }
   }
 }

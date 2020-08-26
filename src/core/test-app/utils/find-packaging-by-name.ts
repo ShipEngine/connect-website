@@ -16,10 +16,11 @@ export default function findPackagingByName(
   const packaging = app.packaging.find(
     (packaging) => packaging.name === name,
   );
-  if (!packaging)
+  if (!packaging) {
     throw new Error(
       `connect.config.js packagingName: '${name}' does not exist`,
     );
+  }
 
   return packaging;
 }

@@ -1,5 +1,8 @@
 import * as fs from "fs";
 
+/**
+ * Check to see if a file exists
+ */
 export async function fileExists(path: string): Promise<boolean> {
 
   try {

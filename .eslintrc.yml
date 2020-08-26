@@ -14,20 +14,17 @@ overrides:
   - files: ["**/*.js"]
     parserOptions:
       ecmaVersion: 2020
+    env:
+      es6: true
     extends:
       - oclif
       - eslint:recommended
       - prettier
+      - "plugin:chai-friendly/recommended"
     rules:
-      one-var: warn
-      camelcase: warn
-      no-else-return: warn
-      node/no-missing-require: warn
-      no-unused-expressions: warn
-      no-unused-vars: warn
+      no-unused-expressions: 0
       no-multi-assign: warn
-      node/no-extraneous-require: warn
-
+      "node/no-missing-require": 0
 
   # Linter settings for TypeScript
   - files: ["**/*.ts"]
@@ -38,7 +35,9 @@ overrides:
       project: tsconfig.json
     plugins:
       - "@typescript-eslint"
-    extends:
+
+    excludedFiles: ["**/fixtures/**/*.ts"]
+    extends: 
       - oclif
       - oclif-typescript
       - eslint:recommended
@@ -47,22 +46,22 @@ overrides:
       - plugin:@typescript-eslint/recommended
       - plugin:@typescript-eslint/recommended-requiring-type-checking
     rules:
-      no-console: off
-      valid-jsdoc: off
-      no-warning-comments: off
-      no-use-before-define: off
-      prefer-promise-reject-errors: off
-      no-await-in-loop: off
-      no-negated-condition: off
-      no-implicit-coercion: off
-      new-cap: off
-      no-dupe-else-if: off
-      no-import-assign: off
-      no-setter-return: off
+      no-console: 0
+      valid-jsdoc: 0
+      no-warning-comments: 0
+      no-use-before-define: 0
+      prefer-promise-reject-errors: 0
+      no-await-in-loop: 0
+      no-negated-condition: 0
+      no-implicit-coercion: 0
+      new-cap: 0
+      no-dupe-else-if: 0
+      no-import-assign: 0
+      no-setter-return: 0
       camelcase: warn
       no-case-declarations: warn
-      "@typescript-eslint/ban-types": off
-      "@typescript-eslint/no-use-before-define": off
+      "@typescript-eslint/ban-types": 0
+      "@typescript-eslint/no-use-before-define": 0
       "@typescript-eslint/unbound-method": warn
       "@typescript-eslint/ban-ts-comment": warn
       "@typescript-eslint/prefer-regexp-exec": warn

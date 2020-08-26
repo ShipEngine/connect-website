@@ -6,7 +6,6 @@ import {
 
 import { CarrierApp, NewShipmentPOJO, NewPackagePOJO } from "@shipengine/connect-sdk/lib/internal";
 
-
 import Suite from "../runner/suite";
 import findDeliveryConfirmationByName from "../utils/find-delivery-confirmation-by-name";
 import findDeliveryServiceByName from "../utils/find-delivery-service-by-name";
@@ -20,16 +19,17 @@ import {
 } from "../runner/config/create-shipment-international";
 import { initializeTimeStamps } from "../../utils/time-stamps";
 import { expect } from "chai";
+import Test from '../runner/test';
 
 interface TestArgs {
   title: string;
   methodArgs: NewShipmentPOJO;
-  config: any;
+  config: unknown;
   testParams: CreateShipmentInternationalTestParams;
 }
 
 export class CreateShipmentInternational extends Suite {
-  title = "createShipment_international";
+  public title = "createShipment_international";
 
   private deliveryService?: DeliveryService;
 
@@ -44,7 +44,8 @@ export class CreateShipmentInternational extends Suite {
         config.deliveryServiceName,
         this.app as CarrierApp,
       );
-    } else {
+    }
+    else {
       try {
         this.deliveryService = findInternationalDeliveryService(
           this.app as CarrierApp,
@@ -89,6 +90,7 @@ export class CreateShipmentInternational extends Suite {
     try {
       [shipFrom, shipTo] = useInternationalShipmentAddresses(this.deliveryService);
     } catch {
+      return undefined;
     }
 
     const { tomorrow } = initializeTimeStamps();
@@ -123,16 +125,19 @@ export class CreateShipmentInternational extends Suite {
     };
 
 
-    const newShipmentPOJO: NewShipmentPOJO = {
+    const newShipmentPOJO: Partial<NewShipmentPOJO> = {
       deliveryService: {
         id: this.deliveryService.id,
       },
       shipFrom: testParams.shipFrom,
       shipTo: testParams.shipTo,
-      shipDateTime: testParams.shipDateTime!,
       packages: [packagePOJO],
     };
-   
+
+    if(testParams.shipDateTime) {
+      newShipmentPOJO.shipDateTime = testParams.shipDateTime;
+    }
+
     if (this.deliveryConfirmation) {
       newShipmentPOJO.deliveryConfirmation = {
         id: this.deliveryConfirmation.id,
@@ -149,7 +154,7 @@ export class CreateShipmentInternational extends Suite {
 
     return {
       title: title,
-      methodArgs: newShipmentPOJO,
+      methodArgs: newShipmentPOJO as NewShipmentPOJO,
       config: config,
       testParams: testParams,
     };
@@ -168,40 +173,42 @@ export class CreateShipmentInternational extends Suite {
     return [this.buildTestArg(config)];
   }
 
-  tests() {
-    const testArgs = this.buildTestArgs().filter((args) => args !== undefined);
+  tests(): Test[] {
+    const testArgs = this.buildTestArgs().filter((args) => args !== undefined) as TestArgs[];
 
     if (testArgs.length === 0) return [];
 
-    return testArgs.map((testArg) => {
-      return this.test(
-        testArg!.title,
-        testArg!.methodArgs,
-        testArg!.config,
-        async () => {
-          const carrierApp = this.app as CarrierApp;
 
-          const transaction = await this.transaction(testArg!.config);
+    return testArgs
+      .map((testArg) => {
+        return this.test(
+          testArg.title,
+          testArg.methodArgs,
+          testArg.config,
+          async () => {
+            const carrierApp = this.app as CarrierApp;
 
-          // This should never actually throw because we handle this case up stream.
-          if (!carrierApp.createShipment)
-            throw new Error("createShipment is not implemented");
+            const transaction = await this.transaction(testArg.config);
 
-          const shipmentConfirmation = await carrierApp.createShipment(
-            transaction,
-            testArg!.methodArgs,
-          );
+            // This should never actually throw because we handle this case up stream.
+            if (!carrierApp.createShipment)
+              throw new Error("createShipment is not implemented");
 
-          // If DeliveryServiceDefinition.isTrackable is true, then the shipment must have a trackingNumber set
-          if (this.deliveryService?.isTrackable) {
-            const customMsg = "The shipmentConfirmation.isTrackable returned from createShipment must be present when the given deliveryService.isTrackable is set to 'true'";
-            expect(shipmentConfirmation.trackingNumber, customMsg).to.be.ok;
-          }
+            const shipmentConfirmation = await carrierApp.createShipment(
+              transaction,
+              testArg.methodArgs,
+            );
 
-          const customMsg = "The shipment confirmation packages array should have the same number of packages that were on the request";
-          expect(shipmentConfirmation.packages.length).to.equal(testArg!.methodArgs.packages.length, customMsg);
-        },
-      );
-    });
+            // If DeliveryServiceDefinition.isTrackable is true, then the shipment must have a trackingNumber set
+            if (this.deliveryService?.isTrackable) {
+              const customMsg = "The shipmentConfirmation.isTrackable returned from createShipment must be present when the given deliveryService.isTrackable is set to 'true'";
+              expect(shipmentConfirmation.trackingNumber, customMsg).to.be.ok;
+            }
+
+            const customMsg = "The shipment confirmation packages array should have the same number of packages that were on the request";
+            expect(shipmentConfirmation.packages.length).to.equal(testArg.methodArgs.packages.length, customMsg);
+          },
+        );
+      });
   }
 }

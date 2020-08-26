@@ -4,7 +4,7 @@ import util from "util";
 import { exec } from "child_process";
 import cli from "cli-ux";
 import logSymbols from "log-symbols";
-
+import { PackageJSON } from './types/package-json';
 
 const asyncExec = util.promisify(exec);
 
@@ -23,7 +23,7 @@ export async function packageApp(cwd?: string): Promise<string> {
   cli.action.start("packaging app");
 
   const results = await fs.promises.readFile(packagePath, "utf-8");
-  const pjson = JSON.parse(results);
+  const pjson = JSON.parse(results) as PackageJSON;
 
   // take dependencies and move them to bundledDependencies
   pjson.bundledDependencies = [];
@@ -46,7 +46,8 @@ export async function packageApp(cwd?: string): Promise<string> {
     stdout = results.stdout;
 
   } catch (error) {
-    const errorMessage = `unable to bundle dependencies and package app: ${error.message}`;
+    const err = error as Error;
+    const errorMessage = `unable to bundle dependencies and package app: ${err.message}`;
     throw new AppFailedToPackageError(errorMessage);
   } finally {
     // Restore the package.json backup
@@ -70,4 +71,14 @@ export class AppFailedToPackageError extends Error {
     this.name = AppFailedToPackageError.name; // stack traces display correctly now
     this.code = "APP_FAILED_TO_PACKAGE";
   }
+}
+
+export function isAppFailedToPackageError(obj: unknown): obj is AppFailedToPackageError {
+
+  if (typeof obj === "object" && obj !== null) {
+    const code = Reflect.get(obj, "code") as string | undefined;
+    return code === "APP_FAILED_TO_PACKAGE";
+  }
+
+  return false;
 }

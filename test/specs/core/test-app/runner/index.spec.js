@@ -30,9 +30,8 @@ class MockSuite extends Suite {
       return this.config.map((config) => {
         return this.buildTestArg(config);
       });
-    } else {
-      return [this.buildTestArg(this.config)];
     }
+    return [this.buildTestArg(this.config)];
   }
 
   tests() {
@@ -69,9 +68,8 @@ class FailingMockSuite extends Suite {
       return this.config.map((config) => {
         return this.buildTestArg(config);
       });
-    } else {
-      return [this.buildTestArg(this.config)];
     }
+    return [this.buildTestArg(this.config)];
   }
 
   tests() {

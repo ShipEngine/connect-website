@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 "use strict";
 
 const { CreateShipmentWithInsurance } = require("../../../../../lib/core/test-app/tests/create-shipment-with-insurance");

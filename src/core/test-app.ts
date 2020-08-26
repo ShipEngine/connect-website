@@ -1,6 +1,6 @@
 import Config from "./test-app/runner/config";
 import Runner from "./test-app/runner";
-import loadAndValidateApp from "./load-and-validate-app";
+import loadAndValidateApp, { isInvalidAppError } from "./load-and-validate-app";
 import {
   CreateShipmentInternational,
   CreateShipmentDomestic,
@@ -58,30 +58,28 @@ export default async function testApp(
     logPass("app structure is valid");
     testResultsReducer("INCREMENT_PASSED");
   } catch (error) {
-    switch (error.code) {
-      case "INVALID_APP":
-        // eslint-disable-next-line no-case-declarations
-        const errorsCount = error.errors.length;
-        // eslint-disable-next-line no-case-declarations
-        const errorsWithInflection = errorsCount > 1 ? "errors" : "error";
 
-        logFail(
-          `App structure is not valid - ${errorsCount} ${errorsWithInflection} found`,
-        );
+    if (isInvalidAppError(error)) {
+      const errorsCount = error.errors.length;
+      const errorsWithInflection = errorsCount > 1 ? "errors" : "error";
 
-        error.errors.forEach((errorMessage: string) => {
-          logFail(errorMessage);
-        });
+      logFail(
+        `App structure is not valid - ${errorsCount} ${errorsWithInflection} found`,
+      );
 
-        for (let i = 0; i < errorsCount; i++) {
-          testResultsReducer("INCREMENT_FAILED");
-        }
+      error.errors.forEach((errorMessage: string) => {
+        logFail(errorMessage);
+      });
 
-        logResults(testResults);
-        return testResults;
-      default:
-        throw error;
+      for (let i = 0; i < errorsCount; i++) {
+        testResultsReducer("INCREMENT_FAILED");
+      }
+
+      logResults(testResults);
+      return testResults;
     }
+
+    throw error;
   }
 
   const options = {

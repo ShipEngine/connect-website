@@ -19,7 +19,8 @@ describe("AppsApiClient", () => {
         apiMock.post("/api/apps").reply(200, apiResponse);
 
         const client = new AppsApiClient("valid key");
-        let response, errorResponse;
+        let response;
+        let errorResponse;
         try {
           response = await client.apps.create({
             name: "test app",
@@ -47,7 +48,8 @@ describe("AppsApiClient", () => {
         apiMock.post("/api/apps").reply(401, apiResponse);
 
         const client = new AppsApiClient("invalid");
-        let response, errorResponse;
+        let response;
+        let errorResponse;
         try {
           response = await client.apps.create({
             name: "test app",
@@ -80,7 +82,8 @@ describe("AppsApiClient", () => {
         apiMock.get("/api/apps?name=test-app").reply(200, apiResponse);
 
         const client = new AppsApiClient("valid key");
-        let response, errorResponse;
+        let response;
+        let errorResponse;
         try {
           response = await client.apps.findOrCreateByName({
             name: "test-app",
@@ -110,7 +113,8 @@ describe("AppsApiClient", () => {
         apiMock.post("/api/apps").reply(200, apiResponseTwo);
 
         const client = new AppsApiClient("valid key");
-        let response, errorResponse;
+        let response;
+        let errorResponse;
         try {
           response = await client.apps.findOrCreateByName({
             name: "test-app",
@@ -138,7 +142,8 @@ describe("AppsApiClient", () => {
         apiMock.get("/api/apps?name=test-app").reply(401, apiResponse);
 
         const client = new AppsApiClient("invalid");
-        let response, errorResponse;
+        let response;
+        let errorResponse;
         try {
           response = await client.apps.findOrCreateByName({
             name: "test-app",
@@ -171,7 +176,8 @@ describe("AppsApiClient", () => {
         apiMock.get("/api/apps").reply(200, apiResponse);
 
         const client = new AppsApiClient("valid key");
-        let response, errorResponse;
+        let response;
+        let errorResponse;
         try {
           response = await client.apps.getAll();
         } catch (error) {
@@ -196,7 +202,8 @@ describe("AppsApiClient", () => {
         apiMock.get("/api/apps").reply(401, apiResponse);
 
         const client = new AppsApiClient("invalid");
-        let response, errorResponse;
+        let response;
+        let errorResponse;
         try {
           response = await client.apps.getAll();
         } catch (error) {
@@ -220,7 +227,8 @@ describe("AppsApiClient", () => {
           .reply(200, apiResponse);
 
         const client = new AppsApiClient("valid key");
-        let response, errorResponse;
+        let response;
+        let errorResponse;
         try {
           response = await client.apps.getById(
             "a9a84a1c-55ce-49f3-8cd7-f088e93ccada",
@@ -247,7 +255,8 @@ describe("AppsApiClient", () => {
         apiMock.get("/api/apps/test-id").reply(401, apiResponse);
 
         const client = new AppsApiClient("invalid");
-        let response, errorResponse;
+        let response;
+        let errorResponse;
         try {
           response = await client.apps.getById("test-id");
         } catch (error) {
@@ -277,7 +286,8 @@ describe("AppsApiClient", () => {
         apiMock.get("/api/apps?name=test-app").reply(200, apiResponse);
 
         const client = new AppsApiClient("valid key");
-        let response, errorResponse;
+        let response;
+        let errorResponse;
         try {
           response = await client.apps.getByName("test-app");
         } catch (error) {
@@ -302,7 +312,8 @@ describe("AppsApiClient", () => {
         apiMock.get("/api/apps?name=test-app").reply(401, apiResponse);
 
         const client = new AppsApiClient("invalid");
-        let response, errorResponse;
+        let response;
+        let errorResponse;
         try {
           response = await client.apps.getByName("test-app");
         } catch (error) {
@@ -327,7 +338,8 @@ describe("AppsApiClient", () => {
         apiMock.post("/api/apps/test/deploys").reply(200, apiResponse);
 
         const client = new AppsApiClient("valid key");
-        let response, errorResponse;
+        let response;
+        let errorResponse;
         try {
           response = await client.deployments.create({
             appId: "test",
@@ -355,7 +367,8 @@ describe("AppsApiClient", () => {
         apiMock.post("/api/apps/test/deploys").reply(401, apiResponse);
 
         const client = new AppsApiClient("invalid");
-        let response, errorResponse;
+        let response;
+        let errorResponse;
         try {
           response = await client.deployments.create({
             appId: "test",
@@ -393,7 +406,8 @@ describe("AppsApiClient", () => {
         apiMock.get("/api/apps/test/deploys").reply(200, apiResponse);
 
         const client = new AppsApiClient("valid key");
-        let response, errorResponse;
+        let response;
+        let errorResponse;
         try {
           response = await client.deployments.getAllForAppId("test");
         } catch (error) {
@@ -418,7 +432,8 @@ describe("AppsApiClient", () => {
         apiMock.get("/api/apps/test/deploys").reply(401, apiResponse);
 
         const client = new AppsApiClient("invalid");
-        let response, errorResponse;
+        let response;
+        let errorResponse;
         try {
           response = await client.deployments.getAllForAppId("test");
         } catch (error) {
@@ -446,7 +461,8 @@ describe("AppsApiClient", () => {
         apiMock.get("/api/apps/test/deploys/1").reply(200, apiResponse);
 
         const client = new AppsApiClient("valid key");
-        let response, errorResponse;
+        let response;
+        let errorResponse;
         try {
           response = await client.deployments.getById({
             appId: "test",
@@ -474,7 +490,8 @@ describe("AppsApiClient", () => {
         apiMock.get("/api/apps/test/deploys/1").reply(401, apiResponse);
 
         const client = new AppsApiClient("invalid");
-        let response, errorResponse;
+        let response;
+        let errorResponse;
         try {
           response = await client.deployments.getById({
             appId: "test",
@@ -495,7 +512,8 @@ describe("AppsApiClient", () => {
         apiMock.get("/api/apps/test/deploys/1/logs").reply(200, apiResponse);
 
         const client = new AppsApiClient("valid key");
-        let response, errorResponse;
+        let response;
+        let errorResponse;
 
         try {
           response = await client.deployments.getLogsById({
@@ -525,7 +543,8 @@ describe("AppsApiClient", () => {
         apiMock.get("/api/apps/test/deploys/1/logs").reply(401, apiResponse);
 
         const client = new AppsApiClient("invalid");
-        let response, errorResponse;
+        let response;
+        let errorResponse;
 
         try {
           response = await client.deployments.getLogsById({
@@ -551,7 +570,8 @@ describe("AppsApiClient", () => {
           pulse: "yes",
         });
 
-        let response, errorResponse;
+        let response;
+        let errorResponse;
         try {
           response = await client.diagnostics.heartBeat();
         } catch (error) {
@@ -572,7 +592,8 @@ describe("AppsApiClient", () => {
         const apiResponse = { name: "test", email: "test@test.user.com" };
         apiMock.get("/api/diagnostics/whoami").reply(200, apiResponse);
         const client = new AppsApiClient("valid key");
-        let response, errorResponse;
+        let response;
+        let errorResponse;
         try {
           response = await client.user.getCurrent();
         } catch (error) {
@@ -596,7 +617,8 @@ describe("AppsApiClient", () => {
         };
         apiMock.get("/api/diagnostics/whoami").reply(401, apiResponse);
         const client = new AppsApiClient("invalid");
-        let response, errorResponse;
+        let response;
+        let errorResponse;
         try {
           response = await client.user.getCurrent();
         } catch (error) {
