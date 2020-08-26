@@ -6,7 +6,7 @@ const pojo = require("../../../utils/pojo");
 const { expect } = require("chai");
 const sinon = require("sinon");
 
-describe("The schedule same day pickup test suite", () => {
+describe.only("The schedule same day pickup test suite", () => {
 
   describe("when there is no address available for the delivery service", () => {
     it("should not generate tests", () => {
@@ -236,9 +236,10 @@ function generateBasicAppAndConfigs() {
   const deliveryService = pojo.deliveryService();
   deliveryService.labelFormats = ["pdf"];
   deliveryService.labelSizes = ["A4"];
-  deliveryService.deliveryConfirmations = [pojo.deliveryConfirmation()];
+  // deliveryService.deliveryConfirmations = [pojo.deliveryConfirmation()];
   appDefinition.deliveryServices = [deliveryService];
-  appDefinition.rateShipment = () => { };
+  appDefinition.pickupServices = [pojo.pickupService()];
+  appDefinition.schedulePickup = () => { };
 
   const options = {
     cli: {

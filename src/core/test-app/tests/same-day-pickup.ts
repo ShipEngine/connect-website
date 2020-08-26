@@ -1,12 +1,5 @@
-import {
-  DeliveryService,
-  WeightUnit,
-  Definition,
-  PickupService,
-} from "@shipengine/connect-sdk";
-
-import { CarrierApp, RateCriteriaPOJO, PackageRateCriteriaPOJO, PickupRequestPOJO } from "@shipengine/connect-sdk/lib/internal";
-
+import { DeliveryService, PickupService } from "@shipengine/connect-sdk";
+import { CarrierApp, PickupRequestPOJO, PickupShipmentPOJO } from "@shipengine/connect-sdk/lib/internal";
 import Suite from "../runner/suite";
 import { initializeTimeStamps } from "../../utils/time-stamps";
 import { SameDayPickupTestParams, SameDayPickupConfigOptions } from "../runner/config/same-day-pickup";
@@ -15,11 +8,12 @@ import objectToTestTitle from "../utils/object-to-test-title";
 import useShipmentAddresses from '../utils/use-shipment-addresses';
 import findDeliveryServiceByName from '../utils/find-delivery-service-by-name';
 import findPickupServiceByName from '../utils/find-pickup-service-by-name';
+import { findDomesticDeliveryService } from '../utils/find-domestic-delivery-service';
 
 interface TestArgs {
   title: string;
   methodArgs: PickupRequestPOJO;
-  config: any;
+  config: unknown;
   testParams: SameDayPickupTestParams;
 }
 
@@ -27,6 +21,7 @@ export class SameDayPickup extends Suite {
   title = "pickup_same_day";
 
   private deliveryService: DeliveryService | undefined;
+
   private pickupService: PickupService | undefined;
 
   private setDeliveryService(
@@ -47,7 +42,6 @@ export class SameDayPickup extends Suite {
       }
     }
   }
-
 
   private setPickupService(config: SameDayPickupConfigOptions): void {
     const carrierApp = this.app as CarrierApp;
@@ -76,36 +70,37 @@ export class SameDayPickup extends Suite {
 
     if (!shipTo || !shipFrom) return undefined;
 
-    const { tomorrow } = initializeTimeStamps();
+    const { todayEarly, todayEvening } = initializeTimeStamps();
 
     const defaults: SameDayPickupTestParams = {
+      pickupServiceName: this.pickupService.name,
       deliveryServiceName: this.deliveryService.name,
-      timeWindow: tomorrow,
-      shipFrom: shipFrom,
-      shipTo: shipTo,
-      packagingName: this.deliveryService.packaging[0].name
+      address: shipFrom,
+      contact: { name: "John Doe" },
+      timeWindow: {
+        startDateTime: todayEarly,
+        endDateTime: todayEvening
+      },
+      shipments: []
     };
 
     const testParams = reduceDefaultsWithConfig<
       SameDayPickupTestParams
     >(defaults, config);
 
-    const packageRateCriteriaPOJO: PackageRateCriteriaPOJO = {
-      packaging: {
-        id: this.deliveryService.packaging[0].id,
-      },
-      weight: {
-        value: testParams.weight.value,
-        unit: testParams.weight.unit,
-      }
+    const pickupShipmentPOJO: PickupShipmentPOJO = {
+      deliveryService: findDeliveryServiceByName(testParams.deliveryServiceName, carrierApp),
+      packages: [{
+        packaging: this.deliveryService.packaging[0].code
+      }]
     };
 
     const RateCriteriaPOJO: PickupRequestPOJO = {
-      deliveryService: findDeliveryServiceByName(this.deliveryService.name, carrierApp),
-      shipFrom: testParams.shipFrom,
-      shipTo: testParams.shipTo!,
-      shipDateTime: testParams.shipDateTime,
-      packages: [packageRateCriteriaPOJO]
+      pickupService: findPickupServiceByName(testParams.pickupServiceName, carrierApp),
+      address: testParams.address,
+      timeWindow: testParams.timeWindow,
+      contact: testParams.contact,
+      shipments: [pickupShipmentPOJO]
     };
 
     const title = config.expectedErrorMessage
@@ -152,27 +147,14 @@ export class SameDayPickup extends Suite {
           const transaction = await this.transaction(testArg.config);
 
           // This should never actually throw because we handle this case up stream.
-          if (!carrierApp.rateShipment) {
-            throw new Error("rateShipment is not implemented");
+          if (!carrierApp.schedulePickup) {
+            throw new Error("schedulePickup is not implemented");
           }
 
-          const rates = await carrierApp.rateShipment!(transaction, testArg!.methodArgs);
+          await carrierApp.schedulePickup(transaction, testArg.methodArgs);
 
-          // Check that the delivery service that was passed in is included in the response
-          if (isDefinition(testArg.methodArgs.deliveryService)) {
-            const configuredDeliveryServiceID = Reflect.get(testArg.methodArgs.deliveryService, "id");
-            if (!rates.find(rate => rate.deliveryService.id === configuredDeliveryServiceID)) {
-              const missingDS = carrierApp.deliveryServices.find(deliveryService => deliveryService.id === configuredDeliveryServiceID);
-
-              throw new Error(`Rate for delivery service '${missingDS!.name}' is missing from the response`);
-            }
-          }
         }
       );
     });
   }
-}
-
-function isDefinition(obj: unknown): obj is Definition {
-  return (typeof obj === "object") && ("id" in obj!);
 }
