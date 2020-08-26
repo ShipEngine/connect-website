@@ -28,7 +28,8 @@ export default async function createShipment(
     confirmation_code: shipment.deliveryConfirmation?.code,
     ship_date: shipment.shipDateTime.toISOString(),
     total_weight: shipment.package.weight.ounces,
-    packageNumber: shipment.packages.length
+    packageNumber: shipment.packages.length,
+    isReturn: shipment.returns.isReturn,
   };
 
   // STEP 3: Call the carrier's API

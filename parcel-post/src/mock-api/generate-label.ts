@@ -10,6 +10,7 @@ export interface GenerateLabelRequest {
   ship_date: string;
   total_weight: number;
   packageNumber: number;
+  isReturn: boolean;
 }
 
 export interface GenerateLabelResponse 
