@@ -1,11 +1,11 @@
 import Config from "./test-app/runner/config";
 import Runner from "./test-app/runner";
 import loadAndValidateApp from "./load-and-validate-app";
-import { 
-  CreateShipmentInternational, 
-  CreateShipmentDomestic, 
-  CreateShipmentWithInsurance, 
-  CreateShipmentMultiPackage,  
+import {
+  CreateShipmentInternational,
+  CreateShipmentDomestic,
+  CreateShipmentWithInsurance,
+  CreateShipmentMultiPackage,
   RateShipment,
   CreateShipmentReturn
 } from "./test-app/tests";
@@ -14,6 +14,7 @@ import { TestResults, useTestResults } from "./test-app/runner/test-results";
 import { loadAndValidateConfig } from "./test-app/runner/load-and-validate-config";
 import { logFail, logPass, logStep } from "./utils/log-helpers";
 import { logResults } from "./utils/log-helpers";
+import { CancelShipment } from './test-app/tests/cancel-shipment';
 
 interface TesOptions {
   debug?: boolean;
@@ -28,6 +29,24 @@ export default async function testApp(
   { debug, failFast, grep, retries, timeout }: TesOptions,
 ): Promise<TestResults> {
   const [testResults, testResultsReducer] = useTestResults();
+
+  // Set NODE_ENV first because its possible that the shipengine.config
+  // might key off the process.env to set environment variables
+  process.env.NODE_ENV = "test";
+
+  let staticConfig: Config = {};
+
+  try {
+    staticConfig = await loadAndValidateConfig(pathToApp);
+  } catch (error) {
+    switch (error.code) {
+      case "ERR_CONNECT_CONFIG_SCHEMA":
+        throw error;
+
+      default:
+        break;
+    }
+  }
 
   let app: SdkApp;
 
@@ -63,18 +82,6 @@ export default async function testApp(
       default:
         throw error;
     }
-  }
-
-  // Set NODE_ENV first because its possible that the shipengine.config
-  // might key off the process.env to set environment variables
-  process.env.NODE_ENV = "test";
-
-  let staticConfig: Config = {};
-
-  try {
-    staticConfig = await loadAndValidateConfig(pathToApp);
-  } catch {
-    // Do nothing
   }
 
   const options = {
@@ -138,18 +145,16 @@ type RegisteredTestSuiteModules = object[];
 function registerTestSuiteModules(app: SdkApp): RegisteredTestSuiteModules {
   const carrierAppMethods = {
     // cancelPickups: [CancelPickupsTestSuite],
-    // cancelShipments: [CancelShipmentsTestSuite],
+    cancelShipments: [CancelShipment],
     // createManifest: [CreateManifestTestSuite],
     createShipment: [
-      CreateShipmentInternational, 
-      CreateShipmentDomestic, 
+      CreateShipmentInternational,
+      CreateShipmentDomestic,
       CreateShipmentMultiPackage,
       CreateShipmentWithInsurance,
       CreateShipmentReturn
     ],
-    rateShipment: [
-      RateShipment
-    ],
+    rateShipment: [RateShipment],
     // schedulePickup: [SchedulePickupTestSuite],
     // trackShipment: [TrackShipmentTestSuite],
   };

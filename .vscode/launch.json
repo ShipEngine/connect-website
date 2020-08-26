@@ -13,7 +13,6 @@
       "internalConsoleOptions": "openOnSessionStart",
       "skipFiles": [
         "<node_internals>/**"
-        
       ]
     },
     {

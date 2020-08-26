@@ -3,18 +3,19 @@ import { CreateShipmentDomesticConfigOptions } from "./config/create-shipment-do
 import { CreateShipmentMultiPackageConfigOptions } from './config/create-shipment-multipackage';
 import { CreateShipmentWithInsuranceConfigOptions } from './config/create-shipment-insurance';
 import { RateShipmentConfigOptions } from './config/rate-shipment';
+import { CancelShipmentConfigOptions } from './config/cancel-shipment';
 import { CreateShipmentReturnConfigOptions } from './config/create-shipment-return';
 
 export interface TestsConfig {
   // cancelPickups?: (TestOptions & TestOptions) | [TestOptions];
-  // cancelShipments?: TestOptions | [TestOptions];
+  cancelShipment?: CancelShipmentConfigOptions | [CancelShipmentConfigOptions];
   // createManifest?: TestOptions | [TestOptions];
   createShipment_domestic?:
-    | CreateShipmentDomesticConfigOptions
-    | [CreateShipmentDomesticConfigOptions];
+  | CreateShipmentDomesticConfigOptions
+  | [CreateShipmentDomesticConfigOptions];
   createShipment_international?:
-    | CreateShipmentInternationalConfigOptions
-    | [CreateShipmentInternationalConfigOptions];
+  | CreateShipmentInternationalConfigOptions
+  | [CreateShipmentInternationalConfigOptions];
   createShipment_multi_package?: CreateShipmentMultiPackageConfigOptions | [CreateShipmentMultiPackageConfigOptions];
   createShipment_with_insurance?: CreateShipmentWithInsuranceConfigOptions | [CreateShipmentWithInsuranceConfigOptions];
   createShipment_return?: CreateShipmentReturnConfigOptions | [CreateShipmentReturnConfigOptions];
