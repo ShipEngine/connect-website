@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 "use strict";
 
 const { SameDayPickup } = require("../../../../../lib/core/test-app/tests/same-day-pickup");
