@@ -28,11 +28,11 @@ async function schedulePickup(transaction, pickup) {
         contact_phone: pickup.contact.phoneNumber,
         total_weight: pickup.shipments.reduce((weight, ship) => {
             if(ship.package.weight) {
-                return weight + ship.package.weight.ounces, 0
+                return weight + ship.package.weight.ounces
             }
 
             return weight;
-        })
+        }, 0)
     };
 
     // STEP 3: Call the carrier's API

@@ -20,7 +20,13 @@ async function schedulePickup(transaction, pickup) {
         service_code: pickup.pickupService.code,
         date_time: pickup.timeWindow.startDateTime,
         contact_phone: pickup.contact.phoneNumber,
-        total_weight: pickup.shipments.reduce((w, ship) => w + ship.package.weight.ounces, 0),
+        total_weight: pickup.shipments.reduce((weight, ship) => {
+            if(ship.package.weight) {
+                return weight + ship.package.weight.ounces
+            }
+
+            return weight;
+        }, 0)
     };
 
     // STEP 3: Call the carrier's API
