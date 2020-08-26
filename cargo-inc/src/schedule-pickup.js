@@ -26,7 +26,13 @@ async function schedulePickup(transaction, pickup) {
         date_time: pickup.timeWindow.startDateTime,
         zone: Number.parseInt(pickup.address.postalCode),
         contact_phone: pickup.contact.phoneNumber,
-        total_weight: pickup.shipments.reduce((w, ship) => w + ship.package.weight.ounces, 0),
+        total_weight: pickup.shipments.reduce((weight, ship) => {
+            if(ship.package.weight) {
+                return weight + ship.package.weight.ounces, 0
+            }
+
+            return weight;
+        })
     };
 
     // STEP 3: Call the carrier's API
@@ -55,7 +61,7 @@ function formatConfirmation(response) {
                 name: "Pickup Fee",
                 type: "pickup",
                 amount: {
-                    value: response.pickup_cost,
+                    value: Number(response.pickup_cost),
                     currency: "USD",
                 }
             },
@@ -63,7 +69,7 @@ function formatConfirmation(response) {
                 name: "Transport Tax",
                 type: "tax",
                 amount: {
-                    value: response.tax_cost,
+                    value: Number(response.tax_cost),
                     currency: "USD",
                 }
             },
