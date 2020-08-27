@@ -1,6 +1,6 @@
 {
   "name": "@shipengine/connect-local-dev-api",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "description": "The ShipEngine Integration Platform local development API",
   "author": {
     "name": "ShipEngine",
