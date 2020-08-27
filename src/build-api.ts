@@ -23,6 +23,9 @@ export default function buildAPI(
     }),
   );
   server.use(bodyParser.json());
+
+  server.get("/app-info-quiet", getApp);
+
   server.use(logRequest);
 
   server.get("/", getApp);

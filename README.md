@@ -1,3 +1,5 @@
+![ShipEngine Connect](https://connect.shipengine.com/img/logos/shipengine-connect-logo.png)
+
 # ShipEngine Connect Local Dev API
 
 This package makes ShipEngine Connect apps callable via an API. It can be used as a standalone tool, or via the [ShipEngine Connect CLI](https://www.npmjs.com/package/@shipengine/connect-local-dev-api).
