@@ -109,7 +109,7 @@ describe("The schedule same day pickup test suite", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       const app = new CarrierApp(appDefinition);
       staticConfigTests.schedulePickup_same_day = {
-        deliveryServiceName: "asdf"
+        pickupServiceName: "asdf"
       };
 
       const args = { app, connectArgs, staticConfigTests, options };
@@ -120,7 +120,7 @@ describe("The schedule same day pickup test suite", () => {
         expect(true).to.equal(false);
       }
       catch (error) {
-        expect(error.message).to.include("deliveryServiceName: 'asdf' does not exist");
+        expect(error.message).to.include("pickupServiceName: 'asdf' does not exist");
       }
     });
   });
