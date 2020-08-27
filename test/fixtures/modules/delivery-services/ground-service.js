@@ -9,11 +9,7 @@ const groundService = {
 
     name: "Ground",
 
-    class: "ground",
-
     code: "priority_overnight",
-
-    grade: "standard",
 
     originCountries: [
       "US"

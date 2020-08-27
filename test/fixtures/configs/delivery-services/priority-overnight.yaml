@@ -1,7 +1,5 @@
 id: 4bb41067-076c-4b8f-b96f-cec21fbf65ef
 name: Priority Overnight
-class: ground
-grade: overnight
 code: priority_overnight
 originCountries:
   - US

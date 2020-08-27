@@ -7,10 +7,6 @@ module.export = {
 
   name: "Priority Overnight",
 
-  class: "ground",
-
-  grade: "overnight",
-
   code: "priority_overnight",
 
   originCountries: [
