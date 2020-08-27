@@ -22,7 +22,7 @@
     "@oclif/plugin-not-found": "^1.2.4",
     "@shipengine/capitalization": "^1.2.1",
     "@shipengine/connect-loader": "^1.0.16",
-    "@shipengine/connect-local-dev-api": "^1.0.12",
+    "@shipengine/connect-local-dev-api": "^1.0.14",
     "@shipengine/connect-sdk": "^1.0.14",
     "@typescript-eslint/eslint-plugin": "^3.10.1",
     "@typescript-eslint/parser": "^3.10.1",
