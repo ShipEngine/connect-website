@@ -2,10 +2,8 @@
 id: "<%- _uuidv4 %>"
 name: Example Delivery Service
 description: This is an example delivery service. Please remove and define your own.
-class: ground
 deliveryConfirmations:
   - ./example-delivery-confirmation.yaml
-grade: standard
 manifestType: digital
 isInsurable: true
 isTrackable: false

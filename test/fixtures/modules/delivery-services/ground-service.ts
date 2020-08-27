@@ -7,10 +7,6 @@ const groundService: DeliveryServiceDefinition = {
 
   name: "Ground",
 
-  class: DeliveryServiceClass.Ground,
-
-  grade: DeliveryServiceGrade.Standard,
-
   originCountries: [
     Country.UnitedStates
   ],
