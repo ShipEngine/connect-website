@@ -179,22 +179,14 @@ describe("The schedule same day pickup test suite", () => {
   describe("When a user configs a new pickup service", () => {
     it("should update the title params to reflect the new properties", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-      appDefinition.deliveryServices.push({
+      appDefinition.pickupServices.push({
         id: "9cf1bfda-7ee4-4f03-96f6-6eab52243eee",
-        name: "Better Delivery Service",
-        class: "ground",
-        grade: "standard",
-        code: "better_ds",
-        originCountries: ["MX"],
-        destinationCountries: ["MX"],
-        labelFormats: ["pdf"],
-        manifestType: "physical",
-        labelSizes: ["A4"],
-        packaging: [pojo.packaging()]
+        name: "Better Pickup Service",
+        code: "better_ds"
       });
 
       staticConfigTests.schedulePickup_same_day = {
-        deliveryServiceName: "Better Delivery Service"
+        pickupServiceName: "Better Pickup Service"
       };
 
       const app = new CarrierApp(appDefinition);
@@ -202,7 +194,7 @@ describe("The schedule same day pickup test suite", () => {
       const testSuite = new SameDayPickup(args);
       const tests = testSuite.tests();
 
-      expect(tests[0].title).to.include("deliveryServiceName: Better Delivery Service");
+      expect(tests[0].title).to.include("pickupServiceName: Better Pickup Service");
     });
   });
 
