@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 "use strict";
 
 const { RateShipmentWithAllServices } = require("../../../../../../lib/core/test-app/tests/rate-shipment-with-all-services");
@@ -21,7 +22,6 @@ describe("The rate shipment with multiple services test suite", () => {
       expect(tests.length).to.equal(0);
     });
   });
-
 
   describe("when there is no shared address between the delivery services", () => {
     it("should not generate tests", () => {

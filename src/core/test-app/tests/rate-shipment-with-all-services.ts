@@ -10,11 +10,12 @@ import reduceDefaultsWithConfig from "../utils/reduce-defaults-with-config";
 import objectToTestTitle from "../utils/object-to-test-title";
 import { findMatchingOriginAndDestinationCountries } from '../utils/find-matching-origin-and-destination-countries';
 import { buildAddressWithContactInfo } from '../factories/address';
+import Test from '../runner/test';
 
 interface TestArgs {
   title: string;
   methodArgs: RateCriteriaPOJO;
-  config: any;
+  config: unknown;
   testParams: RateShipmentWithAllServicesTestParams;
 }
 
@@ -63,7 +64,7 @@ export class RateShipmentWithAllServices extends Suite {
     const RateCriteriaPOJO: RateCriteriaPOJO = {
       deliveryService: undefined,
       shipFrom: testParams.shipFrom,
-      shipTo: testParams.shipTo!,
+      shipTo: testParams.shipTo,
       shipDateTime: testParams.shipDateTime,
       packages: [packageRateCriteriaPOJO]
     };
@@ -94,7 +95,7 @@ export class RateShipmentWithAllServices extends Suite {
     return [this.buildTestArg(config)];
   }
 
-  tests() {
+  tests(): Test[] {
     const testArgs = this.buildTestArgs().filter(args => args !== undefined) as TestArgs[];
 
     if (testArgs.length === 0) {
@@ -115,7 +116,7 @@ export class RateShipmentWithAllServices extends Suite {
             throw new Error("rateShipment is not implemented");
           }
 
-          await carrierApp.rateShipment!(transaction, testArg!.methodArgs);
+          await carrierApp.rateShipment(transaction, testArg.methodArgs);
         },
       );
     });
