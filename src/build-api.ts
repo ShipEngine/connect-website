@@ -24,11 +24,9 @@ export default function buildAPI(
   );
   server.use(bodyParser.json());
 
-  server.get("/app-info-quiet", getApp);
+  server.get("/", getApp);
 
   server.use(logRequest);
-
-  server.get("/", getApp);
 
   sdkApp.connect && server.put("/connect", connect);
   sdkApp.createShipment && server.put("/create-shipment", createShipment);
