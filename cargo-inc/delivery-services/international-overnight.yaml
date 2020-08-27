@@ -2,8 +2,6 @@ id: 8b69c0ff-9017-4e89-82dd-0dbfab691047
 code: ON
 name: International Overnight
 description: Overnight delivery worldwide
-class: one_day
-grade: overnight
 serviceArea: global
 isConsolidationService: true
 isTrackable: true

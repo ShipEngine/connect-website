@@ -5,8 +5,6 @@ module.exports = {
   code: "INTL",
   name: "International Ground",
   description: "3-day ground delivery to any NAFTA trade country",
-  class: "three_day",
-  grade: "expedited",
   serviceArea: "international",
   isConsolidationService: true,
   allowsMultiplePackages: true,

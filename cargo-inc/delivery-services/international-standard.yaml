@@ -2,8 +2,6 @@ id: 2c24a88f-a6ab-4082-9761-674e9280d5f8
 code: STD
 name: International Standard
 description: Standard 3-day delivery anwyere in the world
-class: three_day
-grade: standard
 serviceArea: global
 isConsolidationService: true
 isTrackable: true

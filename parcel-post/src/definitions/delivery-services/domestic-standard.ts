@@ -1,4 +1,4 @@
-import { Country, DeliveryServiceClass, DeliveryServiceDefinition, DeliveryServiceGrade, DocumentFormat, DocumentSize, ServiceArea, ManifestType } from "@shipengine/connect-sdk";
+import { Country, DeliveryServiceDefinition, DocumentFormat, DocumentSize, ServiceArea, ManifestType } from "@shipengine/connect-sdk";
 import { adultSignature, photo, recipientSignature, signature } from "../delivery-confirmations";
 import { customerPackaging } from "../packaging/customer";
 import { upsFlatRatePackaging } from "../packaging/ups-flat-rate";
@@ -8,8 +8,6 @@ export const domesticStandard: DeliveryServiceDefinition = {
   code: "DOMSTD",
   name: "Domestic Standard",
   description: "3 day ground service within the U.S.",
-  class: DeliveryServiceClass.Ground,
-  grade: DeliveryServiceGrade.Standard,
   serviceArea: ServiceArea.Domestic,
   manifestType: ManifestType.Digital,
   isTrackable: true,

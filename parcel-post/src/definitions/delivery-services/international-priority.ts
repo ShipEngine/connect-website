@@ -1,4 +1,4 @@
-import { Country, DeliveryServiceClass, DeliveryServiceDefinition, DeliveryServiceGrade, DocumentFormat, DocumentSize, FulfillmentService, ServiceArea, ManifestType } from "@shipengine/connect-sdk";
+import { Country, DeliveryServiceDefinition, DocumentFormat, DocumentSize, FulfillmentService, ServiceArea, ManifestType } from "@shipengine/connect-sdk";
 import { adultSignature, recipientSignature, signature } from "../delivery-confirmations";
 import { customerPackaging } from "../packaging/customer";
 import { fedExFlatRatePackaging } from "../packaging/fedex-flat-rate";
@@ -10,8 +10,6 @@ export const internationalPriority: DeliveryServiceDefinition = {
   description:
     "Delivery typically in 1 to 3 business days, next business day to the U.S., Canada, Mexico and the Caribbean. " +
     "Reach major cities in Europe by 10:30 am typically in two business days.",
-  class: DeliveryServiceClass.ThreeDay,
-  grade: DeliveryServiceGrade.Expedited,
   serviceArea: ServiceArea.International,
   manifestType: ManifestType.Digital,
   fulfillmentService: FulfillmentService.FedExInternationalPriority,

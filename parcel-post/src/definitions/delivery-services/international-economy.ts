@@ -1,4 +1,4 @@
-import { Country, DeliveryServiceClass, DeliveryServiceDefinition, DeliveryServiceGrade, DocumentFormat, DocumentSize, FulfillmentService, ServiceArea, ManifestType } from "@shipengine/connect-sdk";
+import { Country, DeliveryServiceDefinition, DocumentFormat, DocumentSize, FulfillmentService, ServiceArea, ManifestType } from "@shipengine/connect-sdk";
 import { adultSignature, recipientSignature, signature } from "../delivery-confirmations";
 import { customerPackaging } from "../packaging/customer";
 import { fedExFlatRatePackaging } from "../packaging/fedex-flat-rate";
@@ -10,8 +10,6 @@ export const internationalEconomy: DeliveryServiceDefinition = {
   description:
     "Ship packages economically to Canada, Mexico and Puerto Rico typically in 2 to 3 business days " +
     "and to other major international destinations in 2 to 5 business days.",
-  class: DeliveryServiceClass.ThreeDay,
-  grade: DeliveryServiceGrade.Economy,
   serviceArea: ServiceArea.International,
   manifestType: ManifestType.Digital,
   fulfillmentService: FulfillmentService.FedExInternationalEconomy,

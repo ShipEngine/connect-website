@@ -1,4 +1,4 @@
-import { Country, DeliveryServiceClass, DeliveryServiceDefinition, DeliveryServiceGrade, DocumentFormat, DocumentSize, ServiceArea, ManifestType } from "@shipengine/connect-sdk";
+import { Country, DeliveryServiceDefinition, DocumentFormat, DocumentSize, ServiceArea, ManifestType } from "@shipengine/connect-sdk";
 import { adultSignature, photo, receipt, recipientSignature, signature } from "../delivery-confirmations";
 import { customerPackaging } from "../packaging/customer";
 
@@ -7,8 +7,6 @@ export const sameDay: DeliveryServiceDefinition = {
   code: "SAMEDY",
   name: "Same Day Delivery",
   description: "Same day delivery within major U.S. metropolitan areas",
-  class: DeliveryServiceClass.OneDay,
-  grade: DeliveryServiceGrade.Expedited,
   serviceArea: ServiceArea.Domestic,
   manifestType: ManifestType.Digital,
   isTrackable: false,
