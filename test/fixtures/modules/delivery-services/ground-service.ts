@@ -1,4 +1,4 @@
-import { Country, DeliveryServiceClass, DeliveryServiceDefinition, DeliveryServiceGrade } from "@shipengine/connect-sdk";
+import { Country, DeliveryServiceDefinition } from "@shipengine/connect-sdk";
 import { flatRatePackaging, largePaddedEnvelope } from "../packaging";
 
 /** Sample Ground Service  */

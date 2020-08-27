@@ -1,8 +1,6 @@
 import {
   Country,
-  DeliveryServiceClass,
   DeliveryServiceDefinition,
-  DeliveryServiceGrade,
   DocumentFormat,
   DocumentSize,
   ManifestType,
