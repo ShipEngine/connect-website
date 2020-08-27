@@ -17,7 +17,7 @@ export default class Login extends BaseCommand {
     }),
   };
 
-  async run() {
+  async run(): Promise<void> {
     // When the -h flag is present the following line haults execution
     this.parse(Login);
 
@@ -26,9 +26,9 @@ export default class Login extends BaseCommand {
       {
         type: "mask",
       }
-    );
+    ) as string;
 
-    await setUser(Domain.Apps, apiKey, this);
+    setUser(Domain.Apps, apiKey, this);
 
     try {
       cli.action.start("verifying account");

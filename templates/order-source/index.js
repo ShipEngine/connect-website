@@ -11,6 +11,5 @@ module.exports = {
   settingsForm: "./forms/settings.js",
   connect: "./methods/connect.js",
   getSalesOrdersByDate: "./methods/get-sales-order-by-date.js",
-  shipmentCreated: "./methods/shipment-created.js",
-  shipmentCancelled: "./methods/shipment-cancelled.js"
+  shipmentCreated: "./methods/shipment-created.js"
 }

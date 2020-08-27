@@ -1,8 +1,9 @@
 
 /**
  * Deeply merges the configObject into the defaultObject. Whitelist keys specified in the defaultObject.
- * @param {object} defaultObject - The default object.
- * @param {object} configObject - The config object. Key/values in this object receive precedence.
+
+ * @param defaultObject - The default object.
+ * @param configObject - The config object. Key/values in this object receive precedence.
  */
 export default function reduceDefaultsWithConfig<T>(
   defaultObject: T,

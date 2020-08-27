@@ -1,13 +1,12 @@
 import BaseCommand from "../base-command";
 import testApp from "../core/test-app";
 import { flags } from "@oclif/command";
+import chalk from "chalk";
+
 export default class Test extends BaseCommand {
   static description = "test your app";
 
-  static examples = [
-    "$ connect test",
-    "$ connect test --grep rateShipment",
-  ];
+  static examples = ["$ connect test", "$ connect test --grep rateShipment"];
 
   static flags = {
     help: flags.help({
@@ -36,22 +35,35 @@ export default class Test extends BaseCommand {
     }),
   };
 
-  async run() {
+  async run(): Promise<void> {
     this.parse(Test);
     const { flags } = this.parse(Test);
     const { "fail-fast": failFast, debug, grep, retries, timeout } = flags;
     const pathToApp = process.cwd();
 
-    const results = await testApp(pathToApp, {
-      debug,
-      failFast,
-      grep,
-      retries,
-      timeout,
-    });
+    try {
+      const results = await testApp(pathToApp, {
+        debug,
+        failFast,
+        grep,
+        retries,
+        timeout,
+      });
 
-    if (results.failed > 0) {
-      return this.exit(1);
+      if (results.failed > 0) {
+        return this.exit(1);
+      }
+    } catch (error) {
+      switch (error.code) {
+        case "ERR_CONNECT_CONFIG_SCHEMA":
+          this.log(chalk.red("connect.config.js is not valid"));
+          error.details.map((detail: any) =>
+            this.log(chalk.red(`    - ${detail.message}`)),
+          );
+          return this.exit(1);
+        default:
+          throw error;
+      }
     }
   }
 }

@@ -5,7 +5,6 @@ import logSymbols from "log-symbols";
 import path from "path";
 import { Deployment, DeploymentStatus } from "./types";
 import { loadApp } from "@shipengine/connect-loader";
-import { packageApp } from "./publish-app/package-app";
 import { watchDeployment } from "./publish-app/watch-deployment";
 import { green, red } from "chalk";
 
@@ -31,39 +30,34 @@ class AppFailedToDeployError extends Error {
   }
 }
 
+export function isAppFailedToPackageError(obj: unknown): obj is AppFailedToPackageError {
+  if (typeof obj === "object" && obj !== null) {
+    const code = Reflect.get(obj, "code") as string | undefined;
+    return code === "APP_FAILED_TO_PACKAGE";
+  }
+
+  return false;
+}
+
+export function isAppFailedToDeployError(obj: unknown): obj is AppFailedToDeployError {
+  if (typeof obj === "object" && obj !== null) {
+    const code = Reflect.get(obj, "code") as string | undefined;
+    return code === "APP_FAILED_TO_DEPLOY";
+  }
+
+  return false;
+}
+
 interface PublishAppOptions {
-  watch?: boolean;
+  noWatch?: boolean;
 }
 
 export default async function publishApp(
-  pathToApp: string,
+  tarballName: string,
   client: APIClient,
-  { watch = false }: PublishAppOptions,
+  { noWatch = false }: PublishAppOptions,
 ): Promise<Deployment> {
 
-  // Make a backup copy of the package.json file since we are going to add the bundledDependencies attribute
-  const pJsonBackup = await fs.promises.readFile(
-    path.join(pathToApp, "package.json"),
-  );
-
-  cli.action.start("packaging app");
-
-  let tarballName: string;
-
-  try {
-    tarballName = await packageApp();
-  } catch (error) {
-    const errorMessage = `unable to bundle dependencies and package app: ${error.message}`;
-    throw new AppFailedToPackageError(errorMessage);
-  } finally {
-    // Restore the package.json backup
-    await fs.promises.writeFile(
-      path.join(pathToApp, "package.json"),
-      pJsonBackup,
-    );
-  }
-
-  cli.action.stop(`${logSymbols.success}`);
   cli.action.start("publishing app");
 
   let newDeployment;
@@ -84,7 +78,8 @@ export default async function publishApp(
       pathToTarball: pathToTarball,
     });
   } catch (error) {
-    const errorMessage = `there was an error deploying your app to the connect platform: ${error}`;
+    const err = error as Error;
+    const errorMessage = `there was an error deploying your app to the connect platform: ${err.message}`;
     throw new AppFailedToDeployError(errorMessage);
   } finally {
     // Delete the package tarball
@@ -93,7 +88,7 @@ export default async function publishApp(
 
   cli.action.stop(`${logSymbols.success}`);
 
-  if (watch) {
+  if (!noWatch) {
     const status = await watchDeployment(newDeployment, platformApp, client);
 
     if (status === DeploymentStatus.Error) {

@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 "use strict";
 
 const { CreateShipmentDomestic } = require("../../../../../lib/core/test-app/tests/create-shipment-domestic");

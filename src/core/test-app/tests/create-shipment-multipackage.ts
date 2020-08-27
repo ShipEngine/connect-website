@@ -1,20 +1,21 @@
 import { DeliveryService, WeightUnit } from "@shipengine/connect-sdk";
 import { CarrierApp, NewShipmentPOJO, NewPackagePOJO } from "@shipengine/connect-sdk/lib/internal";
 import Suite from "../runner/suite";
-import { initializeTimeStamps } from '../../utils/time-stamps';
-import { CreateShipmentMultiPackageConfigOptions, CreateShipmentMultiPackageTestParams } from '../runner/config/create-shipment-multipackage';
-import objectToTestTitle from '../utils/object-to-test-title';
-import reduceDefaultsWithConfig from '../utils/reduce-defaults-with-config';
-import { expect } from 'chai';
-import findDeliveryServiceByName from '../utils/find-delivery-service-by-name';
-import findPackagingByName from '../utils/find-packaging-by-name';
-import findMultiPackageDeliveryService from '../utils/find-multi-package-delivery-service';
-import useShipmentAddresses from '../utils/use-shipment-addresses';
+import { initializeTimeStamps } from "../../utils/time-stamps";
+import { CreateShipmentMultiPackageConfigOptions, CreateShipmentMultiPackageTestParams } from "../runner/config/create-shipment-multipackage";
+import objectToTestTitle from "../utils/object-to-test-title";
+import reduceDefaultsWithConfig from "../utils/reduce-defaults-with-config";
+import { expect } from "chai";
+import findDeliveryServiceByName from "../utils/find-delivery-service-by-name";
+import findPackagingByName from "../utils/find-packaging-by-name";
+import findMultiPackageDeliveryService from "../utils/find-multi-package-delivery-service";
+import useShipmentAddresses from "../utils/use-shipment-addresses";
+import Test from '../runner/test';
 
 interface TestArgs {
   title: string;
   methodArgs: NewShipmentPOJO;
-  config: any;
+  config: unknown;
   testParams: CreateShipmentMultiPackageTestParams;
 }
 
@@ -62,8 +63,8 @@ export class CreateShipmentMultiPackage extends Suite {
     const defaults: CreateShipmentMultiPackageTestParams = {
       deliveryServiceName: this.deliveryService.name,
       shipDateTime: tomorrow,
-      shipFrom: shipFrom!,
-      shipTo: shipTo!,
+      shipFrom: shipFrom,
+      shipTo: shipTo,
       packages: [
         {
           packagingName: this.deliveryService.packaging[0].name,
@@ -119,8 +120,8 @@ export class CreateShipmentMultiPackage extends Suite {
       deliveryService: {
         id: this.deliveryService.id,
       },
-      shipFrom: testParams.shipFrom!,
-      shipTo: testParams.shipTo!,
+      shipFrom: testParams.shipFrom,
+      shipTo: testParams.shipTo,
       shipDateTime: testParams.shipDateTime,
       packages
     };
@@ -163,21 +164,21 @@ export class CreateShipmentMultiPackage extends Suite {
 
   }
 
-  tests() {
-    const testArgs = this.buildTestArgs().filter(args => args !== undefined);
+  tests(): Test[] {
+    const testArgs = this.buildTestArgs().filter(args => args !== undefined) as TestArgs[];
 
     if (testArgs.length === 0) {
       return [];
     }
     return testArgs.map((testArg) => {
       return this.test(
-        testArg!.title,
-        testArg!.methodArgs,
-        testArg!.config,
+        testArg.title,
+        testArg.methodArgs,
+        testArg.config,
         async () => {
           const carrierApp = this.app as CarrierApp;
 
-          const transaction = await this.transaction(testArg!.config);
+          const transaction = await this.transaction(testArg.config);
 
           // This should never actually throw because we handle this case up stream.
           if (!carrierApp.createShipment)
@@ -185,7 +186,7 @@ export class CreateShipmentMultiPackage extends Suite {
 
           const shipmentConfirmation = await carrierApp.createShipment(
             transaction,
-            testArg!.methodArgs,
+            testArg.methodArgs,
           );
 
           // If DeliveryServiceDefinition.isTrackable is true, then the shipment must have a trackingNumber set
@@ -195,7 +196,7 @@ export class CreateShipmentMultiPackage extends Suite {
           }
 
           const customMsg = "The shipment confirmation packages array should have the same number of packages that were on the request";
-          expect(shipmentConfirmation.packages.length).to.equal(testArg!.methodArgs.packages.length, customMsg);
+          expect(shipmentConfirmation.packages.length).to.equal(testArg.methodArgs.packages.length, customMsg);
         },
       );
     });

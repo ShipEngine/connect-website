@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 "use strict";
 
 const { CreateShipmentMultiPackage } = require("../../../../../lib/core/test-app/tests/create-shipment-multipackage");
@@ -197,7 +198,7 @@ describe("The create shipment multipackage test suite", () => {
       staticConfigTests.createShipment_multi_package = {
         deliveryServiceName: "asdf"
       }
-      
+
 
       const args = { app, connectArgs, staticConfigTests, options };
       const testSuite = new CreateShipmentMultiPackage(args);

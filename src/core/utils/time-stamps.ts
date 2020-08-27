@@ -16,7 +16,8 @@ export function initializeTimeStamps(): TimeStamps {
   const twoDaysEarly = DateTime.local(date.getFullYear(), date.getMonth() + 1, date.getDate()).plus({ days: 2, hours: 9 }).toISO();
   const threeDays = DateTime.local(date.getFullYear(), date.getMonth() + 1, date.getDate()).plus({ days: 3 }).toISO();
 
-  const timeStamps: TimeStamps = {
+
+  const timeStamps = {
     yesterday,
     today,
     tomorrowEarly,
@@ -27,7 +28,13 @@ export function initializeTimeStamps(): TimeStamps {
     threeDays
   }
 
-  return timeStamps;
+  for (const key of Object.keys(timeStamps)) {
+    if (Reflect.get(timeStamps, key) === null) {
+      throw new Error(`Unable to properly instantiate ${key} time stamp`);
+    }
+  }
+
+  return timeStamps as TimeStamps;
 }
 
 
@@ -54,5 +61,5 @@ export function getTimeTitle(date: string, timeStamps: TimeStamps): string {
   if (date === timeStamps.twoDaysEarly) {
     return "Two Days Early";
   }
-    return "Three Days";
+  return "Three Days";
 }

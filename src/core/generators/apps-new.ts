@@ -50,7 +50,7 @@ class AppsNew extends Generator {
     this.type = AppType.Carrier;
   }
 
-  async prompting() {
+  async prompting(): Promise<void> {
     if (this.path) {
       this.destinationRoot(path.resolve(this.path));
       process.chdir(this.destinationRoot());
@@ -86,7 +86,7 @@ class AppsNew extends Generator {
       dependencies: {},
       ...this.pjson,
       engines: {
-        node: ">=8.0.0",
+        node: ">=12.8.0",
         ...this.pjson.engines,
       },
       typescript: false,
@@ -503,16 +503,6 @@ class AppsNew extends Generator {
             ),
             this.destinationPath(
               `src/methods/get-sales-order-by-date.${this._codeExt}`,
-            ),
-            this,
-          );
-
-          this.fs.copyTpl(
-            this.templatePath(
-              `order-source/methods/shipment-cancelled.${this._codeExt}`,
-            ),
-            this.destinationPath(
-              `src/methods/shipment-cancelled.${this._codeExt}`,
             ),
             this,
           );

@@ -1,3 +1,4 @@
+/* eslint-disable max-nested-callbacks */
 "use strict";
 
 const helpers = require("yeoman-test");
@@ -60,7 +61,7 @@ describe("new generator", () => {
               name: "@shipengine/testname",
               main: "src/index.yaml",
               description: "test description",
-              scripts: { 
+              scripts: {
                 test: "connect test",
                 start: "connect start"
               },
@@ -348,7 +349,6 @@ describe("new generator", () => {
               "src/index.yaml",
               "src/methods/connect.js",
               "src/methods/get-sales-order-by-date.js",
-              "src/methods/shipment-cancelled.js",
               "src/methods/shipment-created.js",
               "src/forms/connect.yaml",
               "src/forms/settings.yaml",
@@ -393,7 +393,6 @@ describe("new generator", () => {
               "src/index.ts",
               "src/methods/connect.ts",
               "src/methods/get-sales-order-by-date.ts",
-              "src/methods/shipment-cancelled.ts",
               "src/methods/shipment-created.ts",
               "src/forms/connect.ts",
               "src/forms/settings.ts",
@@ -439,7 +438,6 @@ describe("new generator", () => {
               "src/index.json",
               "src/methods/connect.ts",
               "src/methods/get-sales-order-by-date.ts",
-              "src/methods/shipment-cancelled.ts",
               "src/methods/shipment-created.ts",
               "src/forms/connect.json",
               "src/forms/settings.json",
@@ -485,7 +483,6 @@ describe("new generator", () => {
               "src/index.yaml",
               "src/methods/connect.ts",
               "src/methods/get-sales-order-by-date.ts",
-              "src/methods/shipment-cancelled.ts",
               "src/methods/shipment-created.ts",
               "src/forms/connect.yaml",
               "src/forms/settings.yaml",
@@ -532,7 +529,6 @@ describe("new generator", () => {
               "src/index.json",
               "src/methods/connect.js",
               "src/methods/get-sales-order-by-date.js",
-              "src/methods/shipment-cancelled.js",
               "src/methods/shipment-created.js",
               "src/forms/connect.json",
               "src/forms/settings.json",
@@ -576,7 +572,6 @@ describe("new generator", () => {
               "src/index.yaml",
               "src/methods/connect.js",
               "src/methods/get-sales-order-by-date.js",
-              "src/methods/shipment-cancelled.js",
               "src/methods/shipment-created.js",
               "src/forms/connect.yaml",
               "src/forms/settings.yaml",

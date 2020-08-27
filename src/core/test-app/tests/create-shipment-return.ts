@@ -2,18 +2,17 @@ import { DeliveryService, WeightUnit, DeliveryConfirmation } from "@shipengine/c
 import { CarrierApp, NewShipmentPOJO, NewPackagePOJO } from "@shipengine/connect-sdk/lib/internal";
 import Suite from "../runner/suite";
 import {
-  CreateShipmentDomesticConfigOptions,
-  CreateShipmentDomesticTestParams,
-} from "../runner/config/create-shipment-domestic";
+  CreateShipmentReturnConfigOptions,
+  CreateShipmentReturnTestParams,
+} from "../runner/config/create-shipment-return";
 import { initializeTimeStamps } from "../../utils/time-stamps";
-import reduceDefaultsWithConfig from '../utils/reduce-defaults-with-config';
-import objectToTestTitle from '../utils/object-to-test-title';
-import useDomesticShippingAddress from '../utils/use-domestic-shipment-addresses';
+import reduceDefaultsWithConfig from "../utils/reduce-defaults-with-config";
+import objectToTestTitle from "../utils/object-to-test-title";
+import useDomesticShippingAddress from "../utils/use-domestic-shipment-addresses";
 
-import { findDomesticDeliveryService } from '../utils/find-domestic-delivery-service';
 import { expect } from "chai";
-import findDeliveryServiceByName from '../utils/find-delivery-service-by-name';
-import findDeliveryConfirmationByName from '../utils/find-delivery-confirmation-by-name';
+import findDeliveryServiceByName from "../utils/find-delivery-service-by-name";
+import findDeliveryConfirmationByName from "../utils/find-delivery-confirmation-by-name";
 import Test from '../runner/test';
 
 interface TestArgs {
@@ -22,15 +21,15 @@ interface TestArgs {
   config: unknown;
 }
 
-export class CreateShipmentDomestic extends Suite {
-  title = "createShipment_domestic";
+export class CreateShipmentReturn extends Suite {
+  title = "createShipment_return";
 
   private deliveryService?: DeliveryService;
 
   private deliveryConfirmation?: DeliveryConfirmation;
 
   private setDeliveryService(
-    config: CreateShipmentDomesticConfigOptions,
+    config: CreateShipmentReturnConfigOptions,
   ): void {
     const carrierApp = this.app as CarrierApp;
 
@@ -41,7 +40,7 @@ export class CreateShipmentDomestic extends Suite {
       );
     } else {
       try {
-        this.deliveryService = findDomesticDeliveryService(carrierApp);
+        this.deliveryService = carrierApp.deliveryServices[0];
       } catch {
         this.deliveryService = undefined;
       }
@@ -49,7 +48,7 @@ export class CreateShipmentDomestic extends Suite {
   }
 
   private setDeliveryConfirmation(
-    config: CreateShipmentDomesticConfigOptions,
+    config: CreateShipmentReturnConfigOptions,
   ): void {
     if (config.deliveryConfirmationName) {
       // We do not want to handle the exception here if this raises. It indicates issues w/ the config provided.
@@ -69,7 +68,7 @@ export class CreateShipmentDomestic extends Suite {
   }
 
   buildTestArg(
-    config: CreateShipmentDomesticConfigOptions,
+    config: CreateShipmentReturnConfigOptions,
   ): TestArgs | undefined {
     this.setDeliveryService(config);
     this.setDeliveryConfirmation(config);
@@ -77,16 +76,18 @@ export class CreateShipmentDomestic extends Suite {
     if (!this.deliveryService) return undefined;
 
     let shipFrom;
-    let shipTo;
+    let returnTo;
     try {
-      [shipFrom, shipTo] = useDomesticShippingAddress(this.deliveryService);
-    } catch { }
+      [shipFrom, returnTo] = useDomesticShippingAddress(this.deliveryService);
+    } catch {
+      return undefined;
+    }
 
     const { tomorrow } = initializeTimeStamps();
 
     // Make a best guess at the defaults, need to resolve the default vs config based delivery service early
     // on since that determines what address and associated timezones get generated.
-    const defaults: CreateShipmentDomesticTestParams = {
+    const defaults: CreateShipmentReturnTestParams = {
       deliveryServiceName: this.deliveryService.name,
       label: {
         size: this.deliveryService.labelSizes[0],
@@ -94,11 +95,12 @@ export class CreateShipmentDomestic extends Suite {
       },
       shipDateTime: tomorrow,
       shipFrom: shipFrom,
-      shipTo: shipTo,
+      returnTo: returnTo,
       weight: {
         unit: WeightUnit.Pounds,
         value: 50.0,
-      }
+      },
+      rmaNumber: `RMA-${Buffer.from(new Date().toISOString()).toString("base64").toUpperCase()}`
     };
 
     if (this.deliveryService.deliveryConfirmations.length > 0) {
@@ -106,10 +108,10 @@ export class CreateShipmentDomestic extends Suite {
     }
 
     const testParams = reduceDefaultsWithConfig<
-      CreateShipmentDomesticTestParams
+      CreateShipmentReturnTestParams
     >(defaults, config);
 
-    if (!testParams.shipFrom || !testParams.shipTo) return undefined;
+    if (!testParams.shipFrom || !testParams.returnTo) return undefined;
 
     const packagePOJO: NewPackagePOJO = {
       packaging: {
@@ -130,16 +132,20 @@ export class CreateShipmentDomestic extends Suite {
         id: this.deliveryService.id,
       },
       shipFrom: testParams.shipFrom,
-      shipTo: testParams.shipTo,
+      shipTo: testParams.returnTo,
       shipDateTime: testParams.shipDateTime,
       packages: [packagePOJO],
+      returns: {
+        isReturn: true,
+        rmaNumber: testParams.rmaNumber
+      }
     };
 
     const title = config.expectedErrorMessage
-      ? `it raises an error when creating a new domestic shipment with ${objectToTestTitle(
+      ? `it raises an error when creating a new return shipment with ${objectToTestTitle(
         testParams,
       )}`
-      : `it creates a new domestic shipment with ${objectToTestTitle(
+      : `it creates a new return shipment with ${objectToTestTitle(
         testParams,
       )}`;
 
@@ -153,10 +159,11 @@ export class CreateShipmentDomestic extends Suite {
       const deliveryConfirmation = this.deliveryService.deliveryConfirmations.find(
         (dc) => dc.name === testParams.deliveryConfirmationName,
       );
-      if(deliveryConfirmation) {
+
+      if (deliveryConfirmation) {
         newShipmentPOJO.deliveryConfirmation = {
           id: deliveryConfirmation.id,
-        };
+        }
       }
     }
 
@@ -169,11 +176,11 @@ export class CreateShipmentDomestic extends Suite {
 
   buildTestArgs(): Array<TestArgs | undefined> {
     if (Array.isArray(this.config)) {
-      return this.config.map((config: CreateShipmentDomesticConfigOptions) => {
+      return this.config.map((config: CreateShipmentReturnConfigOptions) => {
         return this.buildTestArg(config);
       });
     }
-    const config = this.config as CreateShipmentDomesticConfigOptions;
+    const config = this.config as CreateShipmentReturnConfigOptions;
     return [this.buildTestArg(config)];
   }
 
