@@ -39,6 +39,7 @@ node_modules
 /.next/
 /out/
 /build
+/public/sitemap.xml
 
 # Testing
 /.nyc_output

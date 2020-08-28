@@ -1,9 +1,12 @@
 /// <reference path="./next-env.d.ts" />
 "use strict";
 
-const withMDX = require("@shipengine/next-mdx")({
+const nextMDX = require("@shipengine/next-mdx");
+
+const withMDX = nextMDX({
   layoutsDir: "./src/layouts",
   pagesDir: "./src/pages",
+  siteURL: "https://connect.shipengine.com",
 });
 
 // Enable MDX in Next.js
