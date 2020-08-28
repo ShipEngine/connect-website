@@ -4,7 +4,8 @@ import { ReactNode } from "react";
 import { defaultImageURL, getPageURL } from "../../lib/url";
 import { Favicons } from "./favicons";
 import { JsonLD } from "./json-ld";
-import { Analytics, OpenGraph, PageProps, SEO, Twitter } from "./meta";
+import { OpenGraph, PageProps, SEO, Twitter } from "./meta";
+import { AnalyticsScript, SearchScript } from "./scripts";
 
 export interface BaseLayoutProps {
   title: string;
@@ -52,8 +53,11 @@ export default function BaseLayout(props: BaseLayoutProps) {
       <OpenGraph {...pageProps} />
       <JsonLD {...pageProps} />
       <Favicons />
-      <Analytics />
+      <AnalyticsScript />
     </Head>
+
     {children}
+
+    <SearchScript />
   </>;
 }
