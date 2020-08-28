@@ -73,7 +73,8 @@
   line-height: 1.3;
   box-sizing: border-box;
   height: auto;
+  width: 100%;
   padding: 7px 15px 7px 44px;
   border: 1px solid transparentize($darker-blue, .85);
-  border-radius: 3px;
+  border-radius: $tiny-border-radius;
 }

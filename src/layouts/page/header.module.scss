@@ -33,8 +33,6 @@
   :global(.st-default-search-input) {
     @include reset-swiftype;
     background: $white url("../../../public/img/icons/search.svg") no-repeat 13px 11px;
-    line-height: 1.5;
-    border-radius: $small-border-radius;
   }
 }
 
