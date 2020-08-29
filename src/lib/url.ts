@@ -9,7 +9,7 @@ export const siteURL = new URL(isDev ? "http://localhost:3000" : "https://connec
 /**
  * The ShipEngine Connect logo image URL
  */
-export const logoURL = new URL("img/media/logo-square.png", siteURL);
+export const logoURL = new URL("img/logos/shipengine-connect-logo.png", siteURL);
 
 /**
  * The default image that's used when a page is shared on social media
