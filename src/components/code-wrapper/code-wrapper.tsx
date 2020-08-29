@@ -1,9 +1,10 @@
 import { Language } from "prism-react-renderer";
-import React, { MouseEvent, ReactElement, ReactNode, useState } from "react";
+import React, { MouseEvent, ReactElement, ReactNode, useContext } from "react";
 import { getTypeName, Props, toArray } from "../../lib/react-nodes";
 import { CodeBlock, CodeBlockProps } from "../code-block/code-block";
 import { getLanguage } from "../code-block/get-language";
 import { CodeToolbar } from "../code-toolbar/code-toolbar";
+import { UserSettingsContext } from "../user-settings/user-settings-context";
 import styles from "./code-wrapper.module.scss";
 
 interface CodeWrapperProps {
@@ -17,20 +18,11 @@ export function CodeWrapper({ children }: CodeWrapperProps) {
   const codeBlocks = getCodeBlocks(children);
   const languages = getLanguages(codeBlocks);
 
-  // <><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
-  // <><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
-  // <><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
-  //
-  //        TODO: Store the user's language selection in localStorage
-  //
-  // <><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
-  // <><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
-  // <><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
   // eslint-disable-next-line prefer-const
-  let [selectedLanguage, setSelectedLanguage] = useState(languages[0]);
+  const userSettings = useContext(UserSettingsContext)
+  let selectedLanguage = userSettings.preferredLanguage;
   if (!languages.includes(selectedLanguage)) {
     selectedLanguage = languages[0];
-    setSelectedLanguage(selectedLanguage);
   }
 
   // Closes the language selector dropdown list when the mouse leaves the code block
@@ -49,7 +41,7 @@ export function CodeWrapper({ children }: CodeWrapperProps) {
       <CodeToolbar
         languages={languages}
         selectedLanguage={selectedLanguage}
-        onLanguageChange={(lang) => setSelectedLanguage(lang)}
+        onLanguageChange={(preferredLanguage) => userSettings.update({ preferredLanguage })}
         getCode={() => findCodeBlock(codeBlocks, selectedLanguage).children}
       />
     </div>

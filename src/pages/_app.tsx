@@ -3,6 +3,7 @@ import { AppProps } from "next/app";
 import { NextRouter, useRouter } from "next/router";
 import { useEffect } from "react";
 import { components } from "../components";
+import { UserSettingsProvider } from "../components/user-settings/user-settings-provider";
 import { BaseLayoutProps } from "../layouts/base/base-layout";
 import "../styles/global.scss";
 
@@ -20,9 +21,10 @@ export default function App({ Component, pageProps }: AppProps<BaseLayoutProps>)
   useEffect(() => disableSmoothScrollingOnRouteChange(router));
 
   return (
-    // Wrap all pages in MDXProvider, which enables our custom MDX components
-    <MDXProvider components={components} >
-      <Component {...pageProps} />
+    <MDXProvider components={components}>
+      <UserSettingsProvider>
+        <Component {...pageProps} />
+      </UserSettingsProvider>
     </MDXProvider>
   );
 }
