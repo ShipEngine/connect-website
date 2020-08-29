@@ -416,6 +416,7 @@ An object that contains confirmation that a package has been scheduled for picku
 
 Example
 -----------------------------------------------
+<CodeWrapper>
 ```javascript
 module.exports = async function schedulePickup(transaction, pickup) {
 
@@ -471,3 +472,4 @@ export default async function schedulePickup(
   return formatConfirmation(response.data);
 }
 ```
+</CodeWrapper>

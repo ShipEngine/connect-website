@@ -351,6 +351,7 @@ An object with tracking information for the specified shipment.
 
 Example
 -----------------------------------------------
+<CodeWrapper>
 ```javascript
 module.exports = async function trackShipment(transaction, trackingCriteria) {
   // STEP 1: Validation
@@ -404,3 +405,4 @@ export default async function trackShipment(
   return await formatTrackingResponse(response.data);
 }
 ```
+</CodeWrapper>

@@ -473,6 +473,7 @@ An array of sales orders matching the date range.
 
 Example
 -----------------------------------------------
+<CodeWrapper>
 ```javascript
 async function getSalesOrdersByDate(transaction, range) {
   // STEP 1: Validation
@@ -557,3 +558,4 @@ export default async function getSalesOrdersByDate(
   return formatSalesOrders(response.data);
 }
 ```
+</CodeWrapper>

@@ -13,6 +13,7 @@ Most carrier applications should implement this method, unless you don't allow s
 
 Syntax
 -----------------------------------------------
+<CodeWrapper>
 ```javascript
 module.exports = async function cancelShipments(transaction, shipments) {
   // Your code here
@@ -31,6 +32,7 @@ export default async function cancelShipments(
   // Your code here
 }
 ```
+</CodeWrapper>
 
 
 
@@ -156,6 +158,7 @@ An array of objects that indicate the outcome of cancelling the shipments. This 
 
 Example
 -----------------------------------------------
+<CodeWrapper>
 ```javascript
 module.exports = async function cancelShipments(transaction, shipmentCancellations) {
   // STEP 1: Validation
@@ -216,3 +219,4 @@ export default async function cancelShipments(
   return await formatCancellationResponse(response.data);
 }
 ```
+</CodeWrapper>

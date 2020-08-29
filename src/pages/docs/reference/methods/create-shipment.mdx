@@ -329,6 +329,7 @@ An object that contains confirmation that a shipment has been created.
 
 Example
 -----------------------------------------------
+<CodeWrapper>
 ```javascript
 module.exports = async function createShipment(transaction, shipment) {
   // STEP 1: Validation
@@ -401,3 +402,4 @@ export default async function createShipment(
   return formatShipment(response.data);
 }
 ```
+</CodeWrapper>
