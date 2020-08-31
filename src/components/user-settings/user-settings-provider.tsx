@@ -13,7 +13,7 @@ export interface UserSettingProviderProps {
  * and persists them to local storage.
  */
 export function UserSettingsProvider({ children }: UserSettingProviderProps) {
-  const [settings, setSettings] = useState(undefined as UserSettings);
+  const [settings, setSettings] = useState(undefined as unknown as UserSettings);
 
   // Allow settings to be patch-updated
   const update = (patch: Partial<UserSettings>) => {

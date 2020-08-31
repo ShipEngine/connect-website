@@ -37,7 +37,7 @@ export function toArray(children: ReactNode): ReactNodeArray {
 /**
  * Returns only the child elements, not text nodes or fragments
  */
-export function getElements<P = unknown>(children: Children<P>): Array<ReactElement<P>> {
+export function getElements<P = unknown>(children?: Children<P>): Array<ReactElement<P>> {
   const nodes = toArray(children);
   const elements: Array<ReactElement<P>> = [];
 

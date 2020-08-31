@@ -5,7 +5,7 @@ import { Token } from "./token";
  * Removes blank lines from the beginning and end of a code block
  */
 export function trimLines(lines: Token[][]): Token[][] {
-  let startIndex: number, endIndex: number;
+  let startIndex = 0, endIndex = 0;
 
   // Find the first non-empty line
   for (let i = 0; i < lines.length; i++) {

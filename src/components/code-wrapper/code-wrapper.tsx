@@ -21,7 +21,7 @@ export function CodeWrapper({ children }: CodeWrapperProps) {
   // eslint-disable-next-line prefer-const
   const userSettings = useContext(UserSettingsContext)
   let selectedLanguage = userSettings.preferredLanguage;
-  if (!languages.includes(selectedLanguage)) {
+  if (!selectedLanguage || !languages.includes(selectedLanguage)) {
     selectedLanguage = languages[0];
   }
 
@@ -73,17 +73,21 @@ function getCodeBlocks(children: ReactNode): CodeBlockProps[] {
  * Returns the programming languages of the code blocks
  */
 function getLanguages(codeBlocks: CodeBlockProps[]): Language[] {
-  return codeBlocks.map(codeBlock => getLanguage(codeBlock.className));
+  return codeBlocks.map(codeBlock => getLanguage(codeBlock.className)).filter(Boolean) as Language[];
 }
 
 
 /**
  * Returns the code block for the selected language
  */
-function findCodeBlock(codeBlocks: CodeBlockProps[], selectedLanguage: Language): CodeBlockProps {
-  for (const codeBlock of codeBlocks) {
-    if (codeBlock.className.includes(`language-${selectedLanguage}`)) {
-      return codeBlock;
+function findCodeBlock(codeBlocks: CodeBlockProps[], selectedLanguage: Language | undefined): CodeBlockProps {
+  if (selectedLanguage) {
+    for (const codeBlock of codeBlocks) {
+      if (codeBlock.className && codeBlock.className.includes(`language-${selectedLanguage}`)) {
+        return codeBlock;
+      }
     }
   }
+
+  return {};
 }

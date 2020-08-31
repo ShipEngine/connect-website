@@ -5,13 +5,13 @@ import React from "react";
 /**
  * A React Context that contains user preferences
  */
-export const UserSettingsContext = React.createContext(null as UserSettings);
+export const UserSettingsContext = React.createContext({} as UserSettings);
 
 
 /**
  * The user's stored preferences
  */
 export interface UserSettings {
-  preferredLanguage: Language;
+  preferredLanguage?: Language;
   update(settings: Partial<UserSettings>): void;
 }

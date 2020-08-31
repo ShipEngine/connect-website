@@ -26,7 +26,7 @@ export function CodeBlock({ className, metastring, children }: CodeBlockProps) {
   const meta = parseMetaString(metastring);
 
   return (
-    <Highlight Prism={Prism} code={children} language={language}>
+    <Highlight Prism={Prism} code={children || ""} language={language || "bash"}>
       {({ tokens: lines, ...props }) => {
         // Remove leading/trailing empty lines
         lines = trimLines(lines);
@@ -37,7 +37,7 @@ export function CodeBlock({ className, metastring, children }: CodeBlockProps) {
         }
 
         return (
-          <pre className={`${className} ${styles.pre}`}>
+          <pre className={`${className || ""} ${styles.pre}`}>
             <code className={styles.codeBlock}>
               { lines.map((tokens, i) => Line(toLineProps(tokens, i, meta, props))) }
             </code>

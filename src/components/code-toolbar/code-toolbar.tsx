@@ -5,10 +5,10 @@ import { LanguageList } from "./language-list";
 
 
 export interface CodeToolbarProps {
-  languages?: Language[];
-  selectedLanguage?: Language;
+  languages: Language[];
+  selectedLanguage: Language;
   onLanguageChange(language: Language): void;
-  getCode(): string;
+  getCode(): string | undefined;
 }
 
 

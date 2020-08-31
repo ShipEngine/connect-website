@@ -31,5 +31,5 @@ function isCodeBlock(children: ReactNode): boolean {
   const [code, ...otherChildren] = toArray(children);
   const isCodeElement = code && getTypeName(code) === "code";
   const isOnlyChild = otherChildren.length === 0;
-  return isCodeElement && isOnlyChild;
+  return Boolean(isCodeElement && isOnlyChild);
 }

@@ -6,8 +6,8 @@ const languageOrder = ["javascript", "typescript", "json", "yaml"];
 
 
 export interface LanguageListProps {
-  languages?: Language[];
-  selectedLanguage?: Language;
+  languages: Language[];
+  selectedLanguage: Language;
   onLanguageChange(language: Language): void;
 }
 
@@ -16,7 +16,7 @@ export interface LanguageListProps {
  * A dropdown list of programming languages
  */
 export function LanguageList({ languages, selectedLanguage, onLanguageChange }: LanguageListProps) {
- if (!languages || languages.length < 2) {
+ if (languages.length < 2) {
    return null;
  }
 

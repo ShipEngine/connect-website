@@ -18,14 +18,14 @@ export interface Meta {
  * ```javascript highlight="1-5, 22, 28" lineNumbers=false
  * ```
  */
-export function parseMetaString(metastring: string): Meta {
+export function parseMetaString(metastring: string | undefined): Meta {
   const meta: Meta = {
     highlight: [],
     lineNumbers: undefined,
   };
-  let match: RegExpExecArray;
+  let match: RegExpExecArray | null;
 
-  while ((match = metastringAttributePattern.exec(metastring)) !== null) {
+  while ((match = metastringAttributePattern.exec(metastring || "")) !== null) {
     const propName = match[1];
     const value = match[2] || match[3];
 

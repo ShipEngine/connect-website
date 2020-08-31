@@ -2,7 +2,7 @@ import { MouseEvent } from "react";
 
 
 export interface CopyButtonProps {
-  getCode(): string;
+  getCode(): string | undefined;
 }
 
 
@@ -21,7 +21,7 @@ export function CopyButton({ getCode }: CopyButtonProps) {
 /**
  * Copies the current code block to the clipboard
  */
-function copyCode(event: MouseEvent, code: string): void {
+function copyCode(event: MouseEvent, code = ""): void {
   event.preventDefault();
   copyToClipboard(code);
 
