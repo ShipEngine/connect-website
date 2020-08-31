@@ -1,5 +1,6 @@
 import { Language } from "prism-react-renderer";
 import React from "react";
+import { ReferenceLayout } from "../reference/reference";
 
 
 /**
@@ -13,5 +14,6 @@ export const UserSettingsContext = React.createContext({} as UserSettings);
  */
 export interface UserSettings {
   preferredLanguage?: Language;
+  referenceLayout?: ReferenceLayout;
   update(settings: Partial<UserSettings>): void;
 }

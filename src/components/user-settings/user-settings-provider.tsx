@@ -2,6 +2,7 @@ import React, { ReactNode, useEffect, useState } from "react";
 import { localStorage } from "../../lib/local-storage";
 import { UserSettings, UserSettingsContext } from "./user-settings-context";
 
+const settingsKey = "se_connect_settings";
 
 export interface UserSettingProviderProps {
   children?: ReactNode;
@@ -23,11 +24,11 @@ export function UserSettingsProvider({ children }: UserSettingProviderProps) {
   useEffect(() => {
     if (settings) {
       // The user settings have changed, so persist them to local storage
-      localStorage.setItem("settings", JSON.stringify(settings));
+      localStorage.setItem(settingsKey, JSON.stringify(settings));
     }
     else {
       // There are no settings yet, so read them from local storage
-      const persisted = localStorage.getItem("settings");
+      const persisted = localStorage.getItem(settingsKey);
       if (persisted) {
         setSettings(JSON.parse(persisted));
       }

@@ -6,8 +6,7 @@ import { Img } from "./html/img";
 import { passThru } from "./html/pass-thru";
 import { Pre } from "./html/pre";
 import { Pager } from "./pager/pager";
-import { DefaultValue, Description, Field, Type } from "./reference/field";
-import { Reference } from "./reference/reference";
+import { DefaultValue, Description, Field, Reference, Type } from "./reference/reference";
 import { Left, Right, Section } from "./section/section";
 
 /**
