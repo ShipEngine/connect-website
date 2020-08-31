@@ -1,5 +1,5 @@
 ---
-title: Automated Tests | createShipment_insurance
+title: Automated Tests | createShipment_with_insurance
 description: This test is part of the ShipEngine Connect carrier app test suite. It tests your app's ability to create a shipment with insurance.
 ---
 
@@ -7,45 +7,50 @@ description: This test is part of the ShipEngine Connect carrier app test suite.
 Carrier App Tests
 ==================================
 
-### `createShipment_insurance`
+### `createShipment_with_insurance`
 This test exercises your app's ability to successfully create a shipment with insurance.
 
 
 
 Test Parameters
 -------------------------
-This test has many parameters [that can be customized](#customizing-parameters) in your [`connect.config.js` file](../../testing/config.mdx). Any parameters you don't override will use their default values.
+This test has many parameters [that can be customized](#customizing-parameters) in your [`connect.config.js` file](../../testing/config.mdx).
+Any parameters you don't override will use their default values.
 
 <Reference>
 
-  <Field name="session" type="object" required={false}>
+  <Field name="session" type="object">
     <Description>
         An object containing session information needed to make calls to your backend API or service, such as
         a username and password or an auth token.
 
         The data included in this object depends on your service. You will need to
-        provide the information your methods need to make calls without calling your [`connect`](../../reference/methods/connect.mdx)
-        method.
+        provide the information your methods need to make calls without calling your [`connect()` method](../../reference/methods/connect.mdx).
+
+        If both a `connectArgs` parameter and a `session` parameter are provided, the `session` parameter will be used.
     </Description>
     <DefaultValue>
-         An empty `session` unless you provide a `connectArgs` property.
+        An empty `session` unless you provide a `connectArgs` property.
     </DefaultValue>
   </Field>
 
-  <Field name="connectArgs" type="object" required={false}>
+  <Field name="connectArgs" type="object">
     <Description>
-        An object containing properties with the same names as those your defined in
+        An object containing properties with the same names as those you defined in
         your [connection form](../../reference/forms.mdx#connection-form-examples). These will be used to call your
-        [`connect`](../../reference/methods/connect.mdx) to obtain a valid `session` object before calling other methods in the test.
+        [`connect()` method](../../reference/methods/connect.mdx) to obtain a valid `session` object before calling other methods in the test.
+
+        If both a `connectArgs` parameter and a `session` parameter are provided, the `session` parameter will be used.
     </Description>
     <DefaultValue>
-         An empty `session` unless you provide a `session` property.
+        An empty `session` unless you provide a `session` property.
     </DefaultValue>
   </Field>
 
-  <Field name="expectedErrorMessage" type="string" required={false}>
+  <Field name="expectedErrorMessage" type="string">
     <Description>
       The error message that is expected when running this test.
+      <br/> <br/>
 
       This property is useful in negative test cases.
       For example, you may wish to provide invalid weights and verify that the expected error message is returned.
@@ -55,7 +60,70 @@ This test has many parameters [that can be customized](#customizing-parameters) 
     </DefaultValue>
   </Field>
 
-  <Field name="deliveryServiceName" type="string" required={false}>
+  <Field name="debug" type="boolean">
+    <Description>
+      Whether or not to run in `debug` mode.
+    </Description>
+    <DefaultValue>
+      `false`
+    </DefaultValue>
+  </Field>
+
+  <Field name="timeout" type="number">
+    <Description>
+      The number of of milliseconds to wait before timing out an asynchronous operation.
+    </Description>
+    <DefaultValue>
+      `3000`
+    </DefaultValue>
+  </Field>
+
+  <Field name="skip" type="boolean">
+    <Description>
+      Whether or not to skip this test.
+    </Description>
+    <DefaultValue>
+      `false`
+    </DefaultValue>
+  </Field>
+
+  <Field name="debug" type="boolean">
+    <Description>
+      Indicates whether or not to run the test in `debug` mode, which provides more insight into test failures.
+    </Description>
+    <DefaultValue>
+      `false`
+    </DefaultValue>
+  </Field>
+
+  <Field name="retries" type="number">
+    <Description>
+      Indicates the number of times to retry the test when a failure is encountered.
+    </Description>
+    <DefaultValue>
+      `0`
+    </DefaultValue>
+  </Field>
+
+  <Field name="skip" type="boolean">
+    <Description>
+      Indicates whether or not to skip this test.
+    </Description>
+    <DefaultValue>
+      `false`
+    </DefaultValue>
+  </Field>
+
+  <Field name="timeout" type="number">
+    <Description>
+      Indicates whether or not to run the test in `debug` mode, which provides more insight into test failures.
+    </Description>
+    <DefaultValue>
+      `false`
+    </DefaultValue>
+  </Field>
+
+  <Field name="deliveryServiceName" type="string">
     <Description>
          The name of the [delivery service](../../reference/delivery-service.mdx) you wish to use in this request.
     </Description>
@@ -64,7 +132,7 @@ This test has many parameters [that can be customized](#customizing-parameters) 
     </DefaultValue>
   </Field>
 
-  <Field name="label" type="object" required={false}>
+  <Field name="label" type="object">
     <Description>
       An object representing the details of the label to be produced by this method.
     </Description>
@@ -73,11 +141,11 @@ This test has many parameters [that can be customized](#customizing-parameters) 
 
         Note that these are the default values used when no `label` parameter is specified.
 
-        If a `label` parameter is specified, it must contain values for all required properties.
+        If a `label` parameter is specified, it must contain values for all properties.
     </DefaultValue>
   </Field>
 
-  <Field name="label.size" type="string" required={true}>
+  <Field name="label.size" type="string">
     <Description>
         The size of the label. Valid values include the following:
          * `A4`- A4 sized paper ( 8.27 inches x 11.69 inches)
@@ -90,7 +158,7 @@ This test has many parameters [that can be customized](#customizing-parameters) 
     </DefaultValue>
   </Field>
 
-  <Field name="label.format" type="string" required={true}>
+  <Field name="label.format" type="string">
     <Description>
         The format for the label. Valid values include the following:
         * `pdf` - Portable Document Format (PDF)
@@ -102,7 +170,7 @@ This test has many parameters [that can be customized](#customizing-parameters) 
     </DefaultValue>
   </Field>
 
-  <Field name="label.referenceFields" type="string[]" required={false}>
+  <Field name="label.referenceFields" type="string[]">
     <Description>        Some carriers provide general-purpose fields on their labels for custom text.
         This is sometimes used for messages, like "Thank you for shopping with us!",
         or may be used to store reference data, such as account numbers, warehouse codes, etc.
@@ -122,7 +190,7 @@ This test has many parameters [that can be customized](#customizing-parameters) 
     </DefaultValue>
   </Field>
 
-  <Field name="shipFrom" required={true}>
+  <Field name="shipFrom">
     <Type>
       [address + contact object](../../reference/address.mdx)
     </Type>
@@ -134,11 +202,11 @@ This test has many parameters [that can be customized](#customizing-parameters) 
 
         Note that this is the default value used when no `shipFrom` parameter is specified.
 
-        If a `shipFrom` parameter is specified, it must contain values for all required properties.
+        If a `shipFrom` parameter is specified, it must contain values for all properties.
     </DefaultValue>
   </Field>
 
-  <Field name="shipTo" required={true}>
+  <Field name="shipTo">
     <Type>
       [address + contact object](../../reference/address.mdx)
     </Type>
@@ -150,11 +218,11 @@ This test has many parameters [that can be customized](#customizing-parameters) 
 
         Note that this is the default value used when no `shipTo` parameter is specified.
 
-        If a `shipTo` parameter is specified, it must contain values for all required properties.
+        If a `shipTo` parameter is specified, it must contain values for all properties.
     </DefaultValue>
   </Field>
 
-  <Field name="weight" type="object" required={false}>
+  <Field name="weight" type="object">
     <Description>
       The weight to use for the shipment.
     </Description>
@@ -163,11 +231,11 @@ This test has many parameters [that can be customized](#customizing-parameters) 
 
         Note that these are the default values used when no `weight` parameter is specified.
 
-        If a `weight` parameter is specified, it must contain values for all required properties.
+        If a `weight` parameter is specified, it must contain values for all properties.
     </DefaultValue>
   </Field>
 
-  <Field name="weight.unit" type="string" required={false}>
+  <Field name="weight.unit" type="string">
     <Description>
         The unit of measure for this weight. Valid values include the following:
         * `g` - grams
@@ -181,7 +249,7 @@ This test has many parameters [that can be customized](#customizing-parameters) 
     </DefaultValue>
   </Field>
 
-  <Field name="weight.value" type="number" required={false}>
+  <Field name="weight.value" type="number">
     <Description>
       The value for this weight.
     </Description>
@@ -190,7 +258,7 @@ This test has many parameters [that can be customized](#customizing-parameters) 
     </DefaultValue>
   </Field>
 
-  <Field name="shipDateTime" required={false}>
+  <Field name="shipDateTime">
     <Type>
       [DateTime](../../reference/date-time.mdx), <br/>
       [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date), <br/>
@@ -204,7 +272,7 @@ This test has many parameters [that can be customized](#customizing-parameters) 
     </DefaultValue>
   </Field>
 
-  <Field name="deliveryConfirmationName" type="string" required={false}>
+  <Field name="deliveryConfirmationName" type="string">
     <Description>
         The name of the [delivery confirmation](../../reference/delivery-confirmation.mdx) to use for this shipment.
     </Description>
@@ -214,7 +282,7 @@ This test has many parameters [that can be customized](#customizing-parameters) 
     </DefaultValue>
   </Field>
 
-  <Field name="packagingName" type="string" required={false}>
+  <Field name="packagingName" type="string">
     <Description>
         The name of the [packaging](../../reference/packaging.mdx) to use for this shipment.
     </Description>
@@ -223,7 +291,7 @@ This test has many parameters [that can be customized](#customizing-parameters) 
     </DefaultValue>
   </Field>
 
-  <Field name="packageInsuredValue" type="object" required={false}>
+  <Field name="packageInsuredValue" type="object">
     <Description>
       An object representing the insured value for the package.
     </Description>
@@ -232,11 +300,11 @@ This test has many parameters [that can be customized](#customizing-parameters) 
 
         Note that these are the default values used when no `packageInsuredValue` parameter is specified.
 
-        If a `packageInsuredValue` parameter is specified, it must contain values for all required properties.
+        If a `packageInsuredValue` parameter is specified, it must contain values for all properties.
     </DefaultValue>
   </Field>
 
-  <Field name="packageInsuredValue.value" type="number" required={false}>
+  <Field name="packageInsuredValue.value" type="number">
     <Description>
       The value of the insured amount.
     </Description>
@@ -245,7 +313,7 @@ This test has many parameters [that can be customized](#customizing-parameters) 
     </DefaultValue>
   </Field>
 
-  <Field name="packageInsuredValue.currency" type="string" required={false}>
+  <Field name="packageInsuredValue.currency" type="string">
     <Description>
       The currency for the insured amount.
     </Description>
@@ -259,7 +327,8 @@ This test has many parameters [that can be customized](#customizing-parameters) 
 
 Customizing Parameters
 ------------------------------
-Here's an example of using the `connect.config.js` file to customize the `createShipment_insurance` test. This example provides values for all parameters and uses the global `connectArgs` parameter for authentication.
+Here's an example of using the [`connect.config.js` file](./../../testing/config.mdx) to customize the `createShipment_with_insurance` test.
+This example provides values for all parameters and uses the global `connectArgs` parameter for authentication.
 
 ```javascript
 module.exports = {
@@ -269,48 +338,51 @@ module.exports = {
     agree_to_eula: true,
   },
   tests: {
-    createShipment_insurance: [
-      deliveryServiceName: `Next Day Air`,
-      label: {
-        size: 'A4',
-        format: 'pdf',
-      },
-      shipFrom: {
-        name: 'John Doe',
-      phoneNumber: '111-111-1111',
-        company: 'Example Corp.',
-      addressLines: [
-        '4009 Marathon Blvd',
-          'Suite 300'
-    ],
-    cityLocality: 'Austin',
-    stateProvince: 'TX',
-    postalCode: '78756',
-    country: 'US',
-    isResidential: false
-    },
-    shipTo: {
-        name: 'Amanda Miller',
-    phoneNumber': '555-555-5555',
-    addressLines: [
-      '525 S Winchester Blvd'
-       ],
-    cityLocality: 'San Jose',
-    stateProvince: 'CA',
-    postalCode: '95128',
-    country: 'US',
-    isResidential: true
-    },
-      weight: {
-        value: 10,
-        unit: 'lb',
-      },
-      shipDateTime: '2020-04-15T12:00:00-05:00',
-      deliveryConfirmationName: 'Adult Signature',
-      packagingName: 'Package',
-      packagingInsuredValue: '1000',
-      packagingInsuredCurrency: 'USD'
-    }
-  ]
-};
+    createShipment_with_insurance: [
+      {
+        deliveryServiceName: `Domestic Standard`,
+        label: {
+          size: 'A4',
+          format: 'pdf',
+        },
+        shipFrom: {
+          name: 'John Doe',
+          phoneNumber: '111-111-1111',
+          company: 'Example Corp.',
+          addressLines: [
+            '4009 Marathon Blvd',
+            'Suite 300'
+          ],
+         cityLocality: 'Austin',
+         stateProvince: 'TX',
+         postalCode: '78756',
+         country: 'US',
+         isResidential: false
+        },
+        shipTo: {
+          name: 'Amanda Miller',
+          phoneNumber: '555-555-5555',
+          addressLines: [
+            '525 S Winchester Blvd'
+          ],
+          cityLocality: 'San Jose',
+          stateProvince: 'CA',
+          postalCode: '95128',
+          country: 'US',
+        },
+        weight: {
+          value: 10,
+          unit: 'lb',
+        },
+        shipDateTime: '2020-04-15T12:00:00-05:00',
+        packagingName: 'Package',
+        deliveryConfirmationName: 'Adult Signature',
+        packageInsuredValue: {
+          value: 150,
+          currency: 'USD'
+        }
+      }
+    ]
+  }
+}
 ```

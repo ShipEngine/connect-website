@@ -57,29 +57,6 @@ includes a `deliveryService` property that corresponds to this object.
     </Description>
   </Field>
 
-  <Field name="class" type="string" nullable={false}>
-    <Description>
-      The class of service used by this delivery service. Valid values include the following:
-      * `ground` - Delivery within a range of days, usually one to five days.
-      * `one_day` - Delivery within one day.
-      * `one_day_early` - Delivery within one day with an early delivery time.
-      * `one_day_early_am` - Delivery within one day with a delivery time before noon.
-      * `two_day` - Delivery within two days.
-      * `two_day_early` - Delivery within two days with an early delivery time.
-      * `three_day` - Delivery within three days.
-    </Description>
-  </Field>
-
-  <Field name="grade" type="string" nullable={false}>
-    <Description>
-      The grade of service used by this delivery service. Valid values include the following:
-      * `economy`
-      * `expedited`
-      * `overnight`
-      * `standard`
-    </Description>
-  </Field>
-
   <Field name="fulfillmentService" type="string" nullable={true}>
     <Description>
       A well-known [fulfillment service](./fulfillment-service.mdx) that's used to fulfill this delivery service, such as "fedex_ground".
@@ -278,7 +255,7 @@ includes a `deliveryService` property that corresponds to this object.
       * `signature` - A person at the destination address signs for the package.
       * `adult_signer` - A person over 18 at the destination address signs for the package.
       * `direct_signature` - The person named as the recipient signs for the package.
-      
+
       This array will contain at least one value.
     </Description>
   </Field>
