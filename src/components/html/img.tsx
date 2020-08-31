@@ -1,4 +1,4 @@
-import styles from "./mdx.module.scss";
+import styles from "./html.module.scss";
 
 interface ImgProps {
   markdown?: boolean;
