@@ -19,7 +19,7 @@ export function CodeWrapper({ children }: CodeWrapperProps) {
   const languages = getLanguages(codeBlocks);
 
   // eslint-disable-next-line prefer-const
-  const userSettings = useContext(UserSettingsContext)
+  const userSettings = useContext(UserSettingsContext);
   let selectedLanguage = userSettings.preferredLanguage;
   if (!selectedLanguage || !languages.includes(selectedLanguage)) {
     selectedLanguage = languages[0];
