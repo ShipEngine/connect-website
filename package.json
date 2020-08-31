@@ -1,6 +1,6 @@
 {
   "name": "@shipengine/connect-local-dev-ui",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "The ShipEngine Integration Platform local development UI",
   "author": {
     "name": "ShipEngine",
