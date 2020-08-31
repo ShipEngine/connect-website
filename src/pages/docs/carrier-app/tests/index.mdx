@@ -13,37 +13,37 @@ The following automated tests are available for the [Carrier App](../../referenc
 
 `createShipment()` Method
 ------------------------------------
-The following tests exercise the [`createShipment()`](../../reference/methods/create-shipment.mdx) method.
-They may also call the [`connect()`](../../reference/methods/connect.mdx) method if you do not provide
-a [`transaction`](../../reference/transaction.mdx) object in your `connect.config.js` file.
+The following tests exercise the [`createShipment()` method](../../reference/methods/create-shipment.mdx).
+They may also call the [`connect() method`](../../reference/methods/connect.mdx) if you do not provide
+a `session` object in your [`connect.config.js` file](./../../testing/config.mdx).
 
 | Test Name | Description
 |-----------|------------------------------------------
 |[`createShipment_domestic`](./create-shipment-domestic.mdx) | Creates a domestic shipment.
 |[`createShipment_international`](./create-shipment-international.mdx) | Creates an international shipment.
-|[`createShipment_insurance`](./create-shipment-insurance.mdx) | Creates a domestic shipment with insurance.
-|[`createShipment_multipackage`](./create-shipment-multipackage.mdx) | Creates a domestic shipment with multiple packages.
+|[`createShipment_with_insurance`](./create-shipment-with-insurance.mdx) | Creates a domestic shipment with insurance.
+|[`createShipment_multi_package`](./create-shipment-multi-package.mdx) | Creates a domestic shipment with multiple packages.
 
 
 `cancelShipments` Method
 ------------------------------------
-The following tests exercise the [`cancelShipments()`](../../reference/methods/cancel-shipments.mdx) method. They will
-also utilize the [`createShipment()`](../../reference/methods/create-shipment.mdx) method to create the shipment(s) that will
-be cancelled in the test. They may also call the [`connect()`](../../reference/methods/connect.mdx) method if you do not provide
- a [`transaction`](../../reference/transaction.mdx) object in your `connect.config.js` file.
+The following tests exercise the [`cancelShipments()` method](../../reference/methods/cancel-shipments.mdx). They will
+also utilize the [`createShipment()` method](../../reference/methods/create-shipment.mdx) to create the shipment(s) that will
+be cancelled in the test. They may also call the [`connect()` method](../../reference/methods/connect.mdx) if you do not provide
+ a `session` object in your [`connect.config.js` file](./../../testing/config.mdx).
 
 | Test Name | Description
 |-----------|------------------------------------------
-| **COMING SOON!** | We're still working on building-out the test suite for ShipEngine Connect
+| [`cancelShipment`](./cancel-shipment.mdx) | Creates a shipment and cancels it.
 
 
 
 `trackShipments()` Method
 ------------------------------------
-The following tests exercise the [`trackShipment()`](../../reference/methods/track-shipment.mdx) method. They will
-also utilize the [`createShipment()`](../../reference/methods/create-shipment.mdx) method to create the shipment(s) that will
-be tracked in the test. They may also call the [`connect()`](../../reference/methods/connect.mdx) method if you do not provide
-a [`transaction`](../../reference/transaction.mdx) object in your `connect.config.js` file.
+The following tests exercise the [`trackShipment()` method](../../reference/methods/track-shipment.mdx). They will
+also utilize the [`createShipment()` method](../../reference/methods/create-shipment.mdx) to create the shipment(s) that will
+be tracked in the test. They may also call the [`connect()` method](../../reference/methods/connect.mdx) if you do not provide
+a `session` object in your [`connect.config.js` file](./../../testing/config.mdx).
 
 | Test Name | Description
 |-----------|------------------------------------------
@@ -53,9 +53,9 @@ a [`transaction`](../../reference/transaction.mdx) object in your `connect.confi
 
 `rateShipment()` Method
 ------------------------------------
-The following tests exercise the [`rateShipment()`](../../reference/methods/cancel-shipments.mdx) method.
-They may also call the [`connect()`](../../reference/methods/connect.mdx) method if you do not provide
-a [`transaction`](../../reference/transaction.mdx) object in your `connect.config.js` file.
+The following tests exercise the [`rateShipment()` method](../../reference/methods/cancel-shipments.mdx).
+They may also call the [`connect()` method](../../reference/methods/connect.mdx) if you do not provide
+a `session` object in your [`connect.config.js` file](./../../testing/config.mdx).
 
 | Test Name | Description
 |-----------|------------------------------------------
@@ -65,10 +65,10 @@ a [`transaction`](../../reference/transaction.mdx) object in your `connect.confi
 
 `createManifest()` Method
 ------------------------------------
-The following tests exercise the [`createManifest()`](../../reference/methods/create-manifest.mdx) method. They will
-also utilize the [`createShipment()`](../../reference/methods/create-shipment.mdx) method to create the shipment(s) that will
-be in the manifest in the test. They may also call the [`connect()`](../../reference/methods/connect.mdx) method if you do not provide
-a [`transaction`](../../reference/transaction.mdx) object in your `connect.config.js` file.
+The following tests exercise the [`createManifest()` method](../../reference/methods/create-manifest.mdx). They will
+also utilize the [`createShipment()` method](../../reference/methods/create-shipment.mdx) to create the shipment(s) that will
+be in the manifest in the test. They may also call the [`connect()` method](../../reference/methods/connect.mdx) if you do not provide
+a `session` object in your [`connect.config.js` file](./../../testing/config.mdx).
 
 | Test Name | Description
 |-----------|------------------------------------------
@@ -78,10 +78,10 @@ a [`transaction`](../../reference/transaction.mdx) object in your `connect.confi
 
 `schedulePickup()` Method
 ------------------------------------
-The following tests exercise the [`schedulePickup()`](../../reference/methods/schedule-pickup.mdx) method. They will
-also utilize the [`createShipment()`](../../reference/methods/create-shipment.mdx) method to create the shipment(s) that will
-be picked up in the test. They may also call the [`connect()`](../../reference/methods/connect.mdx) method if you do not provide
-a [`transaction`](../../reference/transaction.mdx) object in your `connect.config.js` file.
+The following tests exercise the [`schedulePickup()` method](../../reference/methods/schedule-pickup.mdx). They will
+also utilize the [`createShipment()` method](../../reference/methods/create-shipment.mdx) to create the shipment(s) that will
+be picked up in the test. They may also call the [`connect()` method](../../reference/methods/connect.mdx) if you do not provide
+a `session` object in your [`connect.config.js` file](./../../testing/config.mdx).
 
 | Test Name | Description
 |-----------|------------------------------------------
@@ -91,11 +91,11 @@ a [`transaction`](../../reference/transaction.mdx) object in your `connect.confi
 
 `cancelPickups()` Method
 ------------------------------------
-The following tests exercise the [`cancelPickup()`](../../reference/methods/cancel-pickups.mdx) method. They will
-also utilize the [`createShipment()`](../../reference/methods/create-shipment.mdx) method to create shipment(s) and the
- [`schedulePickup()`](../../reference/methods/schedule-pickup.mdx) method to schedule the pickup that will
-be cancelled in the test. They may also call the [`connect()`](../../reference/methods/connect.mdx) method if you do not provide
-a [`transaction`](../../reference/transaction.mdx) object in your `connect.config.js` file.
+The following tests exercise the [`cancelPickup()` method](../../reference/methods/cancel-pickups.mdx). They will
+also utilize the [`createShipment()` method](../../reference/methods/create-shipment.mdx) to create shipment(s) and the
+ [`schedulePickup()` method](../../reference/methods/schedule-pickup.mdx) to schedule the pickup that will
+be cancelled in the test. They may also call the [`connect()` method](../../reference/methods/connect.mdx) if you do not provide
+a `session` object in your [`connect.config.js` file](./../../testing/config.mdx).
 
 | Test Name | Description
 |-----------|------------------------------------------

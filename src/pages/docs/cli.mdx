@@ -135,35 +135,13 @@ connect pack
 
 There are no options for this command.
 
-Package Your App
---------------------------
-The `connect pack` command allows you to package your application without publishing it. It moves your
-`dependencies` into `bundledDependencies`, runs `npm pack`, and creates
-a [tarball](https://en.wikipedia.org/wiki/Tar_(computing)) in the root of your project that you can inspect.
-
-> **NOTE:** If a tarball already exists in the root of your project, it will be overwritten.
-
-This provides you with visibility as to exactly what is being sent to ShipEngine Connect.
-This is useful for ensuring that you are not sending us any sensitive data. It is also helpful in
-making sure you aren't including any unnecessary files in your package. For example, this may help
-you identify packages that are listed in your `dependencies` that should actually be listed in your
-`devDependencies`.
-
-We suggest that you use the [`files` property](https://docs.npmjs.com/files/package.json#files) of your `package.json` file to list which files to _allow_ in the package.
-Likewise, you can create a [`.npmignore` property](https://docs.npmjs.com/using-npm/developers.html#keeping-files-out-of-your-package) to specify which files to _exclude_ from your package.
-
-```
-connect pack
-```
-
-#### Options
-
-There are no options for this command.
-
 
 Publish Your App
 --------------------------
-When you're ready to see your app live on ShipEngine Connect, run the `connect publish` command. This will publish your app to our development environment for further testing and approval.  For more details see [Publishing Your Application](publish.mdx).
+When you're ready to see your app live on ShipEngine Connect, run the `connect publish` command.
+This will publish your app to our development environment for further testing and approval.  For more details see [Publishing Your Application](publish.mdx).
+This command fist calls the `connect pack` command to package your app, creates a new deployment to Shipengine Connect, deletes the tarball created
+by `connect pack`, and polls ShipEngine Connect for status changes.
 
 > **INFO:** ShipEngine Connect currently runs Node.js v12
 
@@ -178,9 +156,6 @@ We normally run your app through our end-to-end test suite to confirm that it fu
 
 ##### `--no-watch`
 Use this option if you do not wish to watch the publish or show a progress indicator.  You can run the `connect info` command to check the status of your app deployment.
-
-##### `--no-watch`
-Use this option if you do not wish to watch the publish or show a progress indicator.
 
 
 View App Info

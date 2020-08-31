@@ -13,7 +13,8 @@ using the `connect.config.js` file. This is a JavaScript file that exports the p
 Global Parameters
 ---------------------------
 The `connect.config.js` file gives you the ability to provide global parameters that are applied to each test in the suite.
-These are the parameters available at the global level.
+These are the parameters available at the global level. Most of these parameters can be overridden with
+[test-level parameters](#test-level-parameters) unless otherwise noted.
 
 <Reference>
   <Field name="connectArgs" type="object">
@@ -24,6 +25,8 @@ These are the parameters available at the global level.
       An object containing properties with the same names as those your defined in
       your [connection form](./../reference/forms.mdx#connection-form-examples). These will be used to call your
       [`connect`](./../reference/methods/connect.mdx) to obtain a valid `session` object before calling other methods in the test.
+
+      If both a `connectArgs` parameter and a `session` parameter are provided, the `session` parameter will be used.
     </Description>
   </Field>
 
@@ -38,6 +41,8 @@ These are the parameters available at the global level.
       The data included in this object depends on your service. You will need to
       provide the information your methods need to make calls without calling your [`connect`](./../reference/methods/connect.mdx)
       method.
+
+      If both a `connectArgs` parameter and a `session` parameter are provided, the `session` parameter will be used.
     </Description>
   </Field>
 
@@ -45,6 +50,9 @@ These are the parameters available at the global level.
     <DefaultValue>`false`</DefaultValue>
     <Description>
       Indicates whether or not the test suite should stop execution as soon as the first test failures is encountered.
+
+
+      This parameter is only available as a global parameter and cannot be overridden by a test.
     </Description>
   </Field>
 
@@ -80,10 +88,10 @@ module.exports = {
 
 Test-Level Parameters
 ------------------------------
-The `connect.config.js` file supports overriding the default parameter values for individual tests.
+The `connect.config.js` file supports overriding the default parameter values for individual tests as well
+as [overriding global parameters](#overriding-global-parameters).
 
 Refer to the list of tests for [Carrier Apps](../carrier-app/tests/index.mdx) and [Order Apps](../order-app/tests/index.mdx) to see all the parameters that are available to override for each test.
-
 
 ### Example
 This is an example of providing test-level parameters. Notice that we also provide the `connectArgs` parameter at the global
@@ -148,6 +156,50 @@ Overriding Global Parameters
 The `connnect.config.js` file allows you to override the global parameters with test-level parameters.
 For example, you may wish to set a longer `timeout` parameter for a test known to take longer.
 
+The following [global parameters](#global-parameters) may be overwritten by test-level parameters.
+
+<Reference>
+  <Field name="connectArgs" type="object">
+    <DefaultValue>
+      An empty `session` unless you provide a `connectArgs` property.
+    </DefaultValue>
+    <Description>
+      An object containing properties with the same names as those your defined in
+      your [connection form](./../reference/forms.mdx#connection-form-examples). These will be used to call your
+      [`connect`](./../reference/methods/connect.mdx) to obtain a valid `session` object before calling other methods in the test.
+
+      If both a `connectArgs` parameter and a `session` parameter are provided, the `session` parameter will be used.
+    </Description>
+  </Field>
+
+  <Field name="session" type="object">
+    <DefaultValue>
+      An empty `session` unless you provide a `connectArgs` property.
+    </DefaultValue>
+    <Description>
+      An object containing session information needed to make calls to your backend API or service, such as
+      a username and password or an auth token.
+
+      The data included in this object depends on your service. You will need to
+      provide the information your methods need to make calls without calling your [`connect`](./../reference/methods/connect.mdx)
+      method.
+
+      If both a `connectArgs` parameter and a `session` parameter are provided, the `session` parameter will be used.
+    </Description>
+  </Field>
+
+  <Field name="retries" type="number">
+    <DefaultValue>`0`</DefaultValue>
+    <Description>The number of times to retry failed tests.</Description>
+  </Field>
+
+  <Field name="timeout" type="number">
+    <DefaultValue>`2000`</DefaultValue>
+    <Description>The number of milliseconds to wait on an asynchronous call before timing out.</Description>
+  </Field>
+</Reference>
+
+
 ### Example
 This is an example of overriding global parameters in the `createShipment_domestic` test.
 
@@ -166,7 +218,7 @@ module.exports = {
       createShipment_domestic: [
       {
         timeout: 4000
-    }
+      }
     ]
   }
 }

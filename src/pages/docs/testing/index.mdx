@@ -94,23 +94,25 @@ Likewise, if you already have a valid session you wish to use, you can skip runn
 
 ![Using hard-coded values in Postman](/img/testing/postman-transaction.png)
 
-Automated Testing
+Acceptance Testing
 -----------------------------
-[The `connect test` command](./../cli.mdx#test-your-app) validates your application against our test suite. These tests are integration tests that represent real world, end-to-end scenarios.
-Rather than calling a single, individual method, these tests may make calls to multiple method in order to construct a more realistic workflow.
+[The `connect test` command](./../cli.mdx#test-your-app) validates your application against acceptance our test suite. These tests are integration tests that represent real world, end-to-end scenarios.
+Rather than calling a single, individual method, these tests may make calls to multiple methods in order to construct a more realistic workflow.
 
 
-For example, to cancel a shipment an end user interacting with your application would need to authenticate and create a shipment before cancelling it. Therefore a
-single test may authenticate by calling your [`connect`](./../reference/methods/connect.mdx) method, create a shipment using your
-[`createShipment`](./../reference/methods/create-shipment.mdx) method, and then use your [`cancelShipments`](./../reference/methods/cancel-shipments.mdx) method to
+For example, to cancel a shipment, an end user interacting with your application would need to authenticate and create a shipment before cancelling it. Therefore a
+single test may authenticate by calling your [`connect` method](./../reference/methods/connect.mdx), create a shipment using your
+[`createShipment` method](./../reference/methods/create-shipment.mdx), and then use your [`cancelShipments` method](./../reference/methods/cancel-shipments.mdx) to
 cancel the shipment.
 
 These tests execute the entire application, so you won't be able to run this suite until you have finished implementing all the methods
-in your application. For this reason, we recommend using the `connect start` command to perform testing during iterative development.
+in your application. For this reason, we recommend using the [`connect start` command](#local-testing) to perform testing during iterative development.
 
 Once you have completed development,
 this test suite can provide a higher degree of confidence that the application will work as expected when used from within one of our
 e-commerce applications since this suite calls your application in the same manner in which it will be used in production.
+
+The acceptance test suite is both customizable and extendable via the [`connect.config.js` file](./config.mdx).
 
 > **INFO:**
 > ### What tests are run?

@@ -18,44 +18,75 @@ This test has many parameters [that can be customized](#customizing-parameters) 
 
 <Reference>
 
-  <Field name="session" type="object" required={false}>
+  <Field name="session" type="object">
     <Description>
         An object containing session information needed to make calls to your backend API or service, such as
         a username and password or an auth token.
 
         The data included in this object depends on your service. You will need to
-        provide the information your methods need to make calls without calling your [`connect`](../../reference/methods/connect.mdx)
-        method.
+        provide the information your methods need to make calls without calling your [`connect()` method](../../reference/methods/connect.mdx).
+
+        If both a `connectArgs` parameter and a `session` parameter are provided, the `session` parameter will be used.
     </Description>
     <DefaultValue>
         An empty `session` unless you provide a `connectArgs` property.
     </DefaultValue>
   </Field>
 
-  <Field name="connectArgs" type="object" required={false}>
+  <Field name="connectArgs" type="object">
     <Description>
-        An object containing properties with the same names as those your defined in
+        An object containing properties with the same names as those you defined in
         your [connection form](../../reference/forms.mdx#connection-form-examples). These will be used to call your
-        [`connect`](../../reference/methods/connect.mdx) to obtain a valid `session` object before calling other methods in the test.
+        [`connect()` method](../../reference/methods/connect.mdx) to obtain a valid `session` object before calling other methods in the test.
+
+        If both a `connectArgs` parameter and a `session` parameter are provided, the `session` parameter will be used.
     </Description>
     <DefaultValue>
         An empty `session` unless you provide a `session` property.
     </DefaultValue>
   </Field>
 
-  <Field name="expectedErrorMessage" type="string" required={false}>
+  <Field name="expectedErrorMessage" type="string">
     <Description>
       The error message that is expected when running this test.
+      <br/> <br/>
 
-        This property is useful in negative test cases.
-        For example, you may wish to provide invalid weights and verify that the expected error message is returned.
+      This property is useful in negative test cases.
+      For example, you may wish to provide invalid weights and verify that the expected error message is returned.
     </Description>
     <DefaultValue>
       None
     </DefaultValue>
   </Field>
 
-  <Field name="deliveryServiceName" type="string" required={false}>
+  <Field name="debug" type="boolean">
+    <Description>
+      Whether or not to run in `debug` mode.
+    </Description>
+    <DefaultValue>
+      `false`
+    </DefaultValue>
+  </Field>
+
+  <Field name="timeout" type="number">
+    <Description>
+      The number of of milliseconds to wait before timing out an asynchronous operation.
+    </Description>
+    <DefaultValue>
+      `3000`
+    </DefaultValue>
+  </Field>
+
+  <Field name="skip" type="boolean">
+    <Description>
+      Whether or not to skip this test.
+    </Description>
+    <DefaultValue>
+      `false`
+    </DefaultValue>
+  </Field>
+
+  <Field name="deliveryServiceName" type="string">
     <Description>
          The name of the [delivery service](../../reference/delivery-service.mdx) you wish to use in this request.
     </Description>
@@ -76,11 +107,11 @@ This test has many parameters [that can be customized](#customizing-parameters) 
 
         Note that this is the default value used when no `shipFrom` parameter is specified.
 
-        If a `shipFrom` parameter is specified, it must contain values for all required properties.
+        If a `shipFrom` parameter is specified, it must contain values for all properties.
     </DefaultValue>
   </Field>
 
-  <Field name="shipTo" required={true}>
+  <Field name="shipTo">
     <Type>
         [address + contact object](../../reference/address.mdx)
     </Type>
@@ -93,22 +124,22 @@ This test has many parameters [that can be customized](#customizing-parameters) 
 
         Note that this is the default value used when no `shipTo` parameter is specified.
 
-         If a `shipTo` parameter is specified, it must contain values for all required properties.
+         If a `shipTo` parameter is specified, it must contain values for all properties.
     </DefaultValue>
   </Field>
 
-  <Field name="weight" type="object" required={false}>
+  <Field name="weight" type="object">
     <Description>
       The weight to use for the shipment.
     </Description>
     <DefaultValue>
         The properties and their default values are listed below. Note that these are the default values used when no `weight` parameter is specified.
 
-        If a `weight` parameter is specified, it must contain values for all required properties.
+        If a `weight` parameter is specified, it must contain values for all properties.
     </DefaultValue>
   </Field>
 
-  <Field name="weight.unit" type="string" required={false}>
+  <Field name="weight.unit" type="string">
     <Description>
         The unit of measure for this weight. Valid values include the following:
         * `g` - grams
@@ -121,7 +152,7 @@ This test has many parameters [that can be customized](#customizing-parameters) 
     </DefaultValue>
   </Field>
 
-  <Field name="weight.value" type="number" required={false}>
+  <Field name="weight.value" type="number">
     <Description>
       The value for this weight.
     </Description>
@@ -130,7 +161,7 @@ This test has many parameters [that can be customized](#customizing-parameters) 
     </DefaultValue>
   </Field>
 
-  <Field name="shipDateTime" required={false}>
+  <Field name="shipDateTime">
     <Type>
        [DateTime](../../reference/date-time.mdx), <br/>
        [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date), <br/>
@@ -144,7 +175,7 @@ This test has many parameters [that can be customized](#customizing-parameters) 
     </DefaultValue>
   </Field>
 
-  <Field name="packagingName" type="string" required={false}>
+  <Field name="packagingName" type="string">
     <Description>
         The name of the [packaging](../../reference/packaging.mdx) to use for this shipment.
     </Description>
@@ -158,7 +189,8 @@ This test has many parameters [that can be customized](#customizing-parameters) 
 
 Customizing Parameters
 ------------------------------
-Here's an example of using the `connect.config.js` file to customize the `rateShipment` test. This example provides values for all parameters and uses the global `connectArgs` parameter for authentication.
+Here's an example of using the [`connect.config.js` file](./../../testing/config.mdx) to customize the `rateShipment` test.
+This example provides values for all parameters and uses the global `connectArgs` parameter for authentication.
 
 ```javascript
 module.exports = {
@@ -167,42 +199,44 @@ module.exports = {
     account_password: 'u0G#^08Ue1G!jX$mkc1',
     agree_to_eula: true,
   },
+  timeout: 4000,
   tests: {
     rateShipment: [
-      deliveryServiceName: `Next Day Air`,
-      shipFrom: {
-      name: 'John Doe',
-      phoneNumber: '111-111-1111',
-        company: 'Example Corp.',
-      addressLines: [
-         '4009 Marathon Blvd',
-         'Suite 300'
-    ],
-    cityLocality: 'Austin',
-    stateProvince: 'TX',
-    postalCode: '78756',
-    country: 'US',
-    isResidential: false
-    },
-    shipTo: {
-      name: 'Amanda Miller',
-    phoneNumber': '555-555-5555',
-    addressLines: [
-      '525 S Winchester Blvd'
-    ],
-    cityLocality: 'San Jose',
-    stateProvince: 'CA',
-    postalCode: '95128',
-    country: 'US',
-    isResidential: true
-    },
-      weight: {
-        value: 10,
-        unit: 'lb',
-      },
-      shipDateTime: '2020-04-15T12:00:00-05:00',
-      packagingName: 'Package'
-    }
-  ]
-};
+      {
+        deliveryServiceName: `Domestic Standard`,
+        shipFrom: {
+          name: 'John Doe',
+          phoneNumber: '111-111-1111',
+          company: 'Example Corp.',
+          addressLines: [
+            '4009 Marathon Blvd',
+            'Suite 300'
+          ],
+         cityLocality: 'Austin',
+         stateProvince: 'TX',
+         postalCode: '78756',
+         country: 'US',
+         isResidential: false
+        },
+        shipTo: {
+          name: 'Amanda Miller',
+          phoneNumber: '555-555-5555',
+          addressLines: [
+            '525 S Winchester Blvd'
+          ],
+          cityLocality: 'San Jose',
+          stateProvince: 'CA',
+          postalCode: '95128',
+          country: 'US',
+        },
+        weight: {
+          value: 10,
+          unit: 'lb',
+        },
+        shipDateTime: '2020-04-15T12:00:00-05:00',
+        packagingName: 'Package'
+      }
+    ]
+  }
+}
 ```
