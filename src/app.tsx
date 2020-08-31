@@ -8,10 +8,13 @@ import {
   Switch,
   useLocation,
 } from 'react-router-dom';
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Affix, Button, Layout, Menu, Breadcrumb, Modal } from 'antd';
+import { ExclamationOutlined } from '@ant-design/icons';
 
 // Utils & Types
 import routes from './routes';
+import { AppProvider } from './contexts/app-context';
+import { AppStatusProvider, useAppStatus } from './contexts/app-status-context';
 
 // Screens
 import AppInfoScreen from './screens/app-info-screen';
@@ -32,22 +35,23 @@ import './app.css';
 
 const App: FunctionComponent = () => {
   return (
-    <Router>
-      <AppLayout />
-    </Router>
+    <AppProvider>
+      <AppStatusProvider>
+        <Router>
+          <AppLayout />
+        </Router>
+      </AppStatusProvider>
+    </AppProvider>
   );
 };
 
 const AppLayout: FunctionComponent = () => {
   const location = useLocation();
+  const { appStatus } = useAppStatus();
+  const [modalVisible, setModalVisible] = React.useState(false);
+
   return (
     <Layout>
-      {/* <Layout.Header>
-          <Menu
-            theme='light'
-            mode='horizontal'
-            defaultSelectedKeys={['2']}></Menu>
-        </Layout.Header> */}
       <Layout>
         <Layout.Sider
           width={220}
@@ -63,7 +67,7 @@ const AppLayout: FunctionComponent = () => {
             <Menu.Item key={routes.connectMethodPath()}>
               <Link to={routes.connectMethodPath()}>Connect</Link>
             </Menu.Item>
-            <Menu.Item key={routes.createShipmentMethodPath()}>
+            {/* <Menu.Item key={routes.createShipmentMethodPath()}>
               <Link to={routes.createShipmentMethodPath()}>
                 Create Shipment
               </Link>
@@ -91,7 +95,7 @@ const AppLayout: FunctionComponent = () => {
             </Menu.Item>
             <Menu.Item key={routes.cancelPickupsMethodPath()}>
               <Link to={routes.cancelPickupsMethodPath()}>Cancel Pickups</Link>
-            </Menu.Item>
+            </Menu.Item> */}
           </Menu>
         </Layout.Sider>
         <Layout style={{ padding: '0 24px 24px' }}>
@@ -108,7 +112,7 @@ const AppLayout: FunctionComponent = () => {
               background: '#fff',
               padding: 24,
               margin: 0,
-              height: '100vh',
+              minHeight: '95vh',
             }}>
             <Switch>
               <Route exact path={routes.appsInfoPath()}>
@@ -149,6 +153,32 @@ const AppLayout: FunctionComponent = () => {
 
               <Redirect to={routes.appsInfoPath()}></Redirect>
             </Switch>
+            <Modal
+              title='App Error'
+              footer={null}
+              visible={modalVisible}
+              closable={true}
+              onCancel={() => {
+                setModalVisible(false);
+              }}>
+              <code>{appStatus?.error?.message}</code>
+            </Modal>
+            {appStatus && appStatus.status === 'down' && (
+              <Affix
+                style={{ position: 'absolute', bottom: '25px', right: '40px' }}>
+                <Button
+                  onClick={() => {
+                    setModalVisible(!modalVisible);
+                  }}
+                  type='primary'
+                  style={{
+                    backgroundColor: 'red',
+                    borderColor: 'darkred',
+                    boxShadow: '2px 2px 2px 0px rgba(0,0,0,0.75)',
+                  }}
+                  icon={<ExclamationOutlined />}></Button>
+              </Affix>
+            )}
           </Layout.Content>
         </Layout>
       </Layout>
@@ -156,7 +186,7 @@ const AppLayout: FunctionComponent = () => {
   );
 };
 
-const setBreadcrumb = (pathname: string): string | undefined => {
+const setBreadcrumb = (pathname: string): string => {
   switch (pathname) {
     case routes.appsInfoPath():
       return '';
@@ -176,6 +206,8 @@ const setBreadcrumb = (pathname: string): string | undefined => {
       return 'Schedule Pickup';
     case routes.cancelPickupsMethodPath():
       return 'Cancel Pickups';
+    default:
+      return '';
   }
 };
 

@@ -1,3 +1,5 @@
+![ShipEngine Connect](https://connect.shipengine.com/img/logos/shipengine-connect-logo.png)
+
 # ShipEngine Connect Local Dev UI
 
 ## Available Scripts

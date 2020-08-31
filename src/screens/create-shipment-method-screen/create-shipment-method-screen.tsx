@@ -2,21 +2,22 @@
 import React, { FunctionComponent } from 'react';
 
 // Components
-import MethodNotImplementedMessage from '../../components/method-not-implemented-message';
+import CalloutWithMessage from '../../components/callout-with-message';
 
 const CreateShipmentMethodScreen: FunctionComponent = () => {
   return (
-    <MethodNotImplementedMessage
+    <CalloutWithMessage
       message={
         <span>
-          Your app does not implement the <code>createShipment</code> method.{' '}
+          We are working on something awesome for this page! If you woul like to
+          learn more about the <code>createShipment</code> method{' '}
           <a
             href='https://shipenginestag.wpengine.com/docs/integration-platform/reference/methods/create-shipment/'
             target='_blank'
             rel='noopener noreferrer'>
-            Read the documentation
-          </a>{' '}
-          to learn how to implement it.
+            you can find the docs here
+          </a>
+          .
         </span>
       }
     />

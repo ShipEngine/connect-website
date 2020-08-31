@@ -1,11 +1,11 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import MethodNotImplementedMessage from '../../../components/method-not-implemented-message';
+import CallOutWithMessage from '../../../components/callout-with-message';
 
-describe('MethodNotImplementedMessage', () => {
+describe('CallOutWithMessage', () => {
   it('renders the given message', () => {
     const { getByText } = render(
-      <MethodNotImplementedMessage message={<span>test</span>} />,
+      <CallOutWithMessage message={<span>test</span>} />,
     );
     expect(getByText(/test/i).innerHTML).toEqual('test');
   });

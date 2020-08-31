@@ -1,38 +1,73 @@
 {
   "name": "@shipengine/connect-local-dev-ui",
   "version": "1.0.0",
+  "description": "The ShipEngine Integration Platform local development UI",
+  "author": {
+    "name": "ShipEngine",
+    "email": "support@shipengine.com",
+    "url": "https://connect.shipengine.com"
+  },
+  "license": "Apache-2.0",
+  "homepage": "https://connect.shipengine.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShipEngine/connect-local-dev-ui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ShipEngine/connect-local-dev-ui/issues"
+  },
   "main": "build/index.js",
   "scripts": {
     "build": "react-scripts build && tsc -p ./scripts/post-build/tsconfig.json",
+    "bundlesize": "bundlesize --config ./bundlesize.config.js",
     "bump": "bump --tag --push --all",
     "clean": "shx rm -rf coverage build",
     "format": "prettier --write src/**/*.ts{,x}",
     "lint": "eslint src/**/*.ts{,x}",
     "release": "npm run upgrade && npm run clean && CI=true react-scripts test && npm run bump",
+    "prestart": "react-env --env /path/to/.env",
     "start": "PORT=4000 react-scripts start",
     "test": "react-scripts test",
     "upgrade": "npm-check -u && npm audit fix"
   },
   "dependencies": {
-    "antd": "^4.5.2",
+    "@ant-design/icons": "^4.2.2",
+    "@rjsf/antd": "^2.3.0",
+    "@rjsf/core": "^2.3.0",
+    "@shipengine/connect-sdk": "^1.0.15",
+    "antd": "^4.6.1",
+    "axios": "^0.19.2",
+    "dayjs": "^1.8.34",
+    "json-schema": "^0.2.5",
+    "lodash": "^4.17.20",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-json-pretty": "^2.2.0",
+    "react-query": "^2.12.1",
+    "react-query-devtools": "^2.4.4",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^3.4.3"
+    "react-scripts": "^3.4.3",
+    "uuid": "^8.3.0"
   },
   "devDependencies": {
+    "@beam-australia/react-env": "^2.1.2",
     "@jsdevtools/version-bump-prompt": "^6.0.6",
     "@testing-library/jest-dom": "^5.11.2",
     "@testing-library/react": "^10.4.7",
     "@testing-library/user-event": "^12.1.0",
     "@types/jest": "^26.0.8",
+    "@types/lodash": "^4.14.160",
     "@types/node": "^14.0.27",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
+    "@types/react-jsonschema-form": "^1.7.4",
     "@types/react-router-dom": "^5.1.5",
+    "@types/react-syntax-highlighter": "^11.0.4",
+    "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^3.8.0",
     "@typescript-eslint/parser": "^3.8.0",
+    "bundlesize": "^0.18.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-jest": "^23.20.0",
     "eslint-plugin-prettier": "^3.1.4",
@@ -41,6 +76,10 @@
     "shx": "^0.3.2",
     "typescript": "^3.9.7"
   },
+  "engines": {
+    "node": ">=10"
+  },
+  "engineStrict": true,
   "eslintConfig": {
     "extends": "react-app"
   },

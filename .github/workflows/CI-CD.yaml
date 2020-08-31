@@ -8,12 +8,12 @@ name: CI-CD
 on:
   push:
     branches:
-      - '*'
+      - "*"
     tags-ignore:
-      - '*'
+      - "*"
 
   schedule:
-    - cron: '0 0 1 * *'
+    - cron: "0 0 1 * *"
 
 jobs:
   test:
@@ -52,6 +52,9 @@ jobs:
 
       - name: Build the code
         run: npm run build
+
+      - name: Bundle size check
+        run: npm run-script bundlesize
 
   deploy:
     name: Publish to NPM
