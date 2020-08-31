@@ -10,8 +10,6 @@ import CountryAssociation from './external/country-association';
 import {
   CarrierAttribute,
   RequiredProperty,
-  ServiceClass,
-  ServiceGrade,
   ShippingServiceAttribute,
   SupportedLabelSize,
 } from './external/enums';
@@ -20,8 +18,6 @@ import {
   DeliveryConfirmation,
   DeliveryConfirmationType,
   DeliveryService,
-  DeliveryServiceClass,
-  DeliveryServiceGrade,
   DocumentFormat,
   DocumentSize,
   ServiceArea,
@@ -184,42 +180,6 @@ const mapSupportedLabelSize = (
   return supportedLabelSizes;
 };
 
-const mapClass = (deliveryServiceClass: DeliveryServiceClass): ServiceClass => {
-  switch (deliveryServiceClass) {
-    case DeliveryServiceClass.Ground:
-      return ServiceClass.Ground;
-    case DeliveryServiceClass.OneDay:
-      return ServiceClass.OneDay;
-    case DeliveryServiceClass.OneDayEarly:
-      return ServiceClass.OneDayEarly;
-    case DeliveryServiceClass.OneDayEarlyAm:
-      return ServiceClass.OneDayEarlyAm;
-    case DeliveryServiceClass.TwoDay:
-      return ServiceClass.TwoDay;
-    case DeliveryServiceClass.TwoDayEarly:
-      return ServiceClass.TwoDayEarly;
-    case DeliveryServiceClass.ThreeDay:
-      return ServiceClass.ThreeDay;
-    default:
-      return ServiceClass.Unspecified;
-  }
-};
-
-const mapGrade = (deliveryServiceGrate: DeliveryServiceGrade): ServiceGrade => {
-  switch (deliveryServiceGrate) {
-    case DeliveryServiceGrade.Economy:
-      return ServiceGrade.Economy;
-    case DeliveryServiceGrade.Expedited:
-      return ServiceGrade.Expedited;
-    case DeliveryServiceGrade.Overnight:
-      return ServiceGrade.Overnight;
-    case DeliveryServiceGrade.Standard:
-      return ServiceGrade.Standard;
-    default:
-      return ServiceGrade.Unspecified;
-  }
-};
-
 function dxToCapiConfirmationType(
   type: DeliveryConfirmationType
 ): ConfirmationTypeType {
@@ -285,8 +245,8 @@ const mapShippingService = (
     LabelCode: undefined, // TODO: Update dx spec to use label code.
     ServiceAttributes: mapShippingServiceAttributes(service),
     SupportedLabelSizes: mapSupportedLabelSize(service.labelSizes),
-    Class: mapClass(service.class),
-    Grade: mapGrade(service.grade),
+    Class: "Unspecified",
+    Grade: "Unspecified",
     ConfirmationTypes: mapConfirmationTypes(service.deliveryConfirmations),
     International: isInternationalService(service),
     RequiredProperties: mapRequiredProperties(service),

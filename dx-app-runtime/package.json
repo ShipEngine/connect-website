@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "This is the app host for a carrier DX app. It provides an HTTP interface implementing the CAPI spec and does mapping CAPI -> DX -> CAPI",
   "main": "dist/server.js",
+  "engines": {
+    "node": "12.18.3"
+  },
   "scripts": {
     "build": "tsc",
     "start": "node dist/server.js",
@@ -17,8 +20,8 @@
   "license": "UNLICENSED",
   "dependencies": {
     "@ipaas/capi": "0.0.12",
-    "@shipengine/connect-loader": "^1.0.9",
-    "@shipengine/connect-sdk": "^1.0.7",
+    "@shipengine/connect-loader": "^1.0.18",
+    "@shipengine/connect-sdk": "^1.0.16",
     "body-parser": "1.19.0",
     "continuation-local-storage": "3.2.1",
     "dotenv-flow": "3.2.0",
