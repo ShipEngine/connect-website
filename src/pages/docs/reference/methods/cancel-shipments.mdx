@@ -39,10 +39,10 @@ export default async function cancelShipments(
 Parameters
 -----------------------------------------------
 
-#### `transaction`
+### `transaction`
 A [transaction object](../transaction.mdx) containing information about the transaction and session state.
 
-#### `shipments`
+### `shipments`
 An array of objects that indicate which shipments to cancel. This array will always contain at least one object.
 
 Each object has the `trackingNumber` and `identifiers` of the shipment being canceled. It also has a `cancellationID` property, which is the ID of the cancellation request. You'll use this `cancellationID` to return the outcome of each cancellation, such as whether it was successful, failed, or could not be completed.
@@ -82,7 +82,7 @@ Each object has the `trackingNumber` and `identifiers` of the shipment being can
 
 Return Value
 -----------------------------------------------
-#### `cancellationOutcomes`
+### `cancellationOutcomes`
 An array of objects that indicate the outcome of cancelling the shipments. This array will always contain at least one object. You may also choose not to return a value from this method.
 
 <Reference>

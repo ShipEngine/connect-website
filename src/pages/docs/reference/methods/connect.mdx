@@ -37,10 +37,10 @@ export default async function connect(
 Parameters
 -----------------------------------------------
 
-#### `transaction`
+### `transaction`
 A [transaction object](../transaction.mdx) containing information about the transaction and session state.
 
-#### `connectionFormData`
+### `connectionFormData`
 The `connectionFormData` parameter is an object containing the authentication information gathered using the [connection form](../forms.mdx) you created for your application.
  It will contain whatever fields you defined in this form. Your method must then use this data to perform authentication with your backend service.
 
@@ -49,7 +49,7 @@ The `connectionFormData` parameter is an object containing the authentication in
 
 Return Value
 -----------------------------------------------
-#### `void`
+### `void`
 The `connect` method does not return a value. Instead, the data that is returned in the response from calling your backend
 service is used to create a `session` object that is stored in the `transaction` object that was passed as a parameter. This
 `transaction` object will then be passed to every subsequent call to your application to enable your application.
