@@ -1,5 +1,5 @@
 import { Children, getElements, getTypeName } from "../../lib/react-nodes";
-import { FieldProps } from "./field";
+import { FieldProps } from "./reference";
 
 /**
  * The `type`, `defaultValue`, and `description` can be specified as string props
