@@ -26,10 +26,11 @@ const joiOptions = {
 const baseTestParamValidations = {
   connectArgs: Joi.object().keys().unknown(),
   debug: Joi.boolean().optional(),
+  expectedErrorMessage: Joi.string().optional(),
   retries: Joi.number().optional(),
   session: Joi.object().keys().unknown(),
-  timeout: Joi.number().optional(),
   skip: Joi.boolean().optional(),
+  timeout: Joi.number().optional(),
 };
 
 const createShipmentReturnTestParamsSchema = Joi.object({
