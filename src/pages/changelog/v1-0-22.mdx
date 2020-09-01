@@ -7,3 +7,19 @@ description: This page describes the changes that occurred for CLI `v1.0.22`.
 
 ## Bug Fixes
  * Fixed support for the `expectedErrorMessage` attribute within the [`connect.config.js`](../docs/testing/config).
+
+## Carrier App
+These changes affect the [Carrier App](../docs/carrier-app/index.mdx).
+
+### [createShipment()](../docs/reference/methods/create-shipment.mdx) Method
+#### Return Value: `ShipmentConfirmation`
+  * `packages` is now optional
+
+
+###  [rateShipment()](../docs/reference/methods/rate-shipment.mdx) Method
+#### Return Value: `Rate`
+  * `packages` is now optional
+
+### [trackShipment()](../docs/reference/methods/track-shipment.mdx)
+### Return Value: `TrackingInfo`
+  * `packages` is now optional
