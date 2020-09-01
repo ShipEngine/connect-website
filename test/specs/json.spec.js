@@ -13,7 +13,7 @@ describe("JSON apps", () => {
     expect(app.manifest.description).to.equal("");
 
     expect(app.type).to.equal("carrier");
-    expect(app.sdkVersion).to.equal(1.1);
+    expect(app.sdkVersion).to.be.greaterThan(1);
     expect(app.id).to.be.a("string");
     expect(app.name).to.equal("My Carrier");
     expect(app.description).to.equal("My Carrier description goes here");
@@ -56,7 +56,7 @@ describe("JSON apps", () => {
     expect(app.manifest.description).to.equal("");
 
     expect(app.type).to.equal("order");
-    expect(app.sdkVersion).to.equal(1.1);
+    expect(app.sdkVersion).to.be.greaterThan(1);
     expect(app.id).to.be.a("string");
     expect(app.name).to.equal("My Order");
     expect(app.description).to.equal("My Order description goes here");
