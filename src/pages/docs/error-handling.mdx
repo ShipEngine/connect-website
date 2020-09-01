@@ -8,7 +8,8 @@ description: Learn how ShipEngine App's are expected to handle errors.
 Error Handling
 =============
 
-[ShipEngine Connect](./index.mdx) applications are designed to handle [Errors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) the same as any other [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) application. Any uncaught exception will terminate the currently executing method and generate an error log.
+[ShipEngine Connect](./index.mdx) applications are designed to handle [Errors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) in the the same way as any other [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) application.
+  Any uncaught exception will terminate the currently executing method and generate an error log.
 
 The methods you implement will often need to validate the input from ShipEngine Connect before transforming the data and calling your backend API. If this validation fails, you would provide an error as in the example below.
 
@@ -20,48 +21,333 @@ for (let parcel of shipment.packages) {
 }
 ```
 
-Error Codes
------------
-[ShipEngine Connect SDK](sdk.mdx) allows for adding additional information to your application's errors, which will provide more efficient diagnostics once your application is hosted
-and administered by ShipEngine Connect.
+## Additional Error Properties
+
+Your application may throw a normal JavaScript error as well as provide any of these additional properties that facilitate propagating your errors upwards to the end user.
+
+<Reference>
+  <Field name="code" type="string">
+    <Description>
+        A valid [error code](#error-codes) providing more information about the problem that was encountered.
+    </Description>
+  </Field>
+
+  <Field name="message" type="string">
+    <Description>
+        A human-readable message about the error.
+    </Description>
+  </Field>
+
+  <Field name="originalError">
+    <Type>
+      [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)
+    </Type>
+    <Description>
+        The original error that was thrown.
+    </Description>
+  </Field>
+
+  <Field name="source" type="string">
+    <Description>
+        The source of the error. Valid values include `external` and `internal`.
+    </Description>
+  </Field>
+
+  <Field name="statusCode" type="number">
+    <Description>
+        The HTTP status code associated with this error.
+    </Description>
+  </Field>
+
+  <Field name="transactionID" type="string">
+    <Description>
+        The [`transactionID`](./reference/transaction) of the request that encountered the error.
+    </Description>
+  </Field>
 
 
+</Reference>
 
 
-### Error Code Properties
+### Error Codes
 
-> **INFO:** There are private error codes available in the SDK. However, those are subject to internal changes and should not be used in your application.
+The following is a list of valid error codes for use in the `code` property described above.
 
-Here are a list of the error codes that can be added to a normal Javascript Error object.
+<Reference>
+  <Field name="ERR_APP_ERROR">
+    <Description>
+      Indicates that an application error has occurred.
+    </Description>
+  </Field>
 
-| Code                        | Description |
-| -----                       | ----------- |
-| `ERR_INVALID`               | Indicates an issue with validating inputs. |
-| `ERR_BAD_REQUEST`           | Indicates that a resource request failed because of an issue with the app's request. |
-| `ERR_UNAUTHORIZED`          | Indicates that an action failed because of invalid credentials. |
-| `ERR_RATE_LIMIT`            | Indicates that the maximum number of calls were exceeded. Add the `retryAfter` property to the error object to indicate when the request should be resent. |
-| `ERR_EXTERNAL_SERVER_ERROR` | Indicates that an external resource encountered an unexpected condition that prevented the resource from being retrieved. |
+  <Field name="ERR_BAD_REQUEST">
+    <Description>
+      The backend server cannot or will not process the request due to something that is perceived to be a client error (e.g., malformed request syntax, invalid request message framing, or deceptive request routing).
+    </Description>
+  </Field>
 
+  <Field name="ERR_CURRENCY_MISMATCH">
+    <Description>
+      A set of charges includes mismatched currency values.
+    </Description>
+  </Field>
+
+  <Field name="ERR_EXTERNAL_SERVICE_ERROR">
+    <Description>
+      An error occurred that is external to the app, such as a problem with the backend API.
+    </Description>
+  </Field>
+
+  <Field name="ERR_FILESYSTEM">
+    <Description>
+        An error occurred while accessing the file system.
+    </Description>
+  </Field>
+
+  <Field name="ERR_INVALID_INPUT">
+    <Description>
+      The input is invalid.
+    </Description>
+  </Field>
+
+  <Field name="ERR_NOT_FOUND">
+    <Description>
+      A requested resource was not found.
+    </Description>
+  </Field>
+
+  <Field name="ERR_RATE_LIMIT">
+    <Description>
+      The [rate limit](https://nordicapis.com/everything-you-need-to-know-about-api-rate-limiting/) for the backend API has been exceeded.
+    </Description>
+  </Field>
+
+  <Field name="ERR_SYNTAX">
+    <Description>
+      The request contains a syntax error.
+    </Description>
+  </Field>
+
+  <Field name="ERR_UNAUTHORIZED">
+    <Description>
+      A login attempt failed or a `session` became invalid and could not be renewed.
+    </Description>
+  </Field>
+
+  <Field name="ERR_INVALID">
+    <Description>
+      The request was invalid.
+    </Description>
+  </Field>
+
+</Reference>
 ### Example
 
-<CodeWrapper>
-```javascript
-let error = new Error(`${parcel.packaging.name} cannot weigh more than 100 kilograms`);
-error.code = "ERR_RATE_LIMIT";
-error.retryAfter = 2000;
+This example catches an error thrown by a method and overrides the `code` and `message` properties with custom values.
 
-throw error;
+```javascript highlight="5"
+let response;
+try {
+  response = await apiClient.request({ data });
+} catch (error) {
+	throw Object.assign(error, {code: "ERR_EXTERNAL_SERVICE_ERROR", message: "There was an error calling the backend API."} );
+}
 ```
 
-```typescript
-let error = new Error(`${parcel.packaging.name} cannot weigh more than 100 kilograms`) as ShipEngineError;
-error.code = "ERR_RATE_LIMIT";
-error.retryAfter = 2000;
+## Error Helper Classes
+ShipEngine Connect SDK exports several helper classes for use in common error scenarios. Each class wraps a specific
+[`error code`](#error-codes) and allows you to provide a custom `message` and `transactionID`, at a minimum.
 
-throw error;
-```
-</CodeWrapper>
+### Bad Request Error
+This error type is useful in communicating validation issues with a request. For example, there may be properties that are optional for
+ShipEngine Connect but are required by your backend API. Your methods will need to test for the presence of required
+properties and throw an error that includes the missing or invalid properties.
 
+
+
+<Reference>
+  <Field name="message" type="string" required={true}>
+    <Description>
+      The error message that should be communicated back to the end user.
+    </Description>
+  </Field>
+
+  <Field name="originalError">
+    <Type>
+    [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)
+    </Type>
+    <Description>
+        The original error message, if one exists.
+    </Description>
+  </Field>
+
+ <Field name="fieldErrors">
+    <Type>
+      object[]
+    </Type>
+    <Description>
+        An array of objects describing the issues with the request.
+    </Description>
+  </Field>
+
+  <Field name="fieldErrors.attemptedValue" type="string">
+    <Description>
+        The attempted value that caused the error.
+    </Description>
+  </Field>
+
+  <Field name="fieldErrors.errorCode" type="string">
+    <Description>
+        The error code associated with the error.
+    </Description>
+  </Field>
+
+  <Field name="fieldErrors.errorMessage" type="string">
+    <Description>
+        A human-readable error message associated with the error.
+    </Description>
+  </Field>
+
+  <Field name="fieldErrors.fieldName" type="string">
+    <Description>
+        The name of the field that encountered the error.
+    </Description>
+  </Field>
+
+  <Field name="transactionID" type="string">
+    <Description>
+      The transactionID associated with the method call that encountered this error.
+    </Description>
+  </Field>
+</Reference>
+
+### Unauthorized Error
+This error type is used to communicate issues regarding authorization with the backend API or service, such as a failed
+login attempt or an invalid session that cannot be renewed.
+
+<Reference>
+  <Field name="message" type="string" required={true}>
+    <Description>
+      The error message that should be communicated back to the end user.
+    </Description>
+  </Field>
+
+  <Field name="originalError">
+    <Type>
+    [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)
+    </Type>
+    <Description>
+        The original error message, if one exists.
+    </Description>
+  </Field>
+
+  <Field name="transactionID" type="string">
+    <Description>
+      The transactionID associated with the method call that encountered this error.
+    </Description>
+  </Field>
+</Reference>
+
+### NotFoundError
+This error type is used to communicate that a requested resource was not found.
+
+<Reference>
+  <Field name="message" type="string" required={true}>
+    <Description>
+      The error message that should be communicated back to the end user.
+    </Description>
+  </Field>
+
+  <Field name="originalError">
+    <Type>
+    [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)
+    </Type>
+    <Description>
+        The original error message, if one exists.
+    </Description>
+  </Field>
+
+  <Field name="transactionID" type="string">
+    <Description>
+      The transactionID associated with the method call that encountered this error.
+    </Description>
+  </Field>
+</Reference>
+
+
+### RateLimitError
+This error type is used to communicate that the [rate limit](https://nordicapis.com/everything-you-need-to-know-about-api-rate-limiting/) for the backend API has been exceeded.
+
+<Reference>
+
+  <Field name="message" type="string" required={true}>
+    <Description>
+      The error message that should be communicated back to the end user.
+    </Description>
+  </Field>
+
+  <Field name="originalError">
+    <Type>
+    [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)
+    </Type>
+    <Description>
+        The original error message, if one exists.
+    </Description>
+  </Field>
+
+  <Field name="transactionID" type="string">
+    <Description>
+      The transactionID associated with the method call that encountered this error.
+    </Description>
+  </Field>
+
+</Reference>
+
+
+### ExternalServiceError
+This error type is used to communicate that an external service error has occurred.
+
+<Reference>
+
+  <Field name="message" type="string" required={true}>
+    <Description>
+      The error message that should be communicated back to the end user.
+    </Description>
+  </Field>
+
+  <Field name="originalError">
+    <Type>
+    [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)
+    </Type>
+    <Description>
+        The original error message, if one exists.
+    </Description>
+  </Field>
+
+  <Field name="externalErrors">
+    <Type>
+      string[]
+    </Type>
+    <Description>
+        An array of external errors.
+    </Description>
+  </Field>
+
+  <Field name="externalWarnings">
+    <Type>
+      string[]
+    </Type>
+    <Description>
+        An array of external warnings.
+    </Description>
+  </Field>
+
+  <Field name="transactionID" type="string">
+    <Description>
+      The transactionID associated with the method call that encountered this error.
+    </Description>
+  </Field>
+</Reference>
 <Pager
   prev="./typescript.mdx" prevTitle="Developing in TypeScript"
   next="./sandbox.mdx" nextTitle="Sandbox"
