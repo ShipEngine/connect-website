@@ -60,7 +60,7 @@
     "typescript": "^4.0.2"
   },
   "dependencies": {
-    "@shipengine/connect-sdk": "^1.0.16",
+    "@shipengine/connect-sdk": "^1.1.0",
     "js-yaml": "^3.14.0",
     "json5": "^2.1.3",
     "resolve-from": "^5.0.0",
