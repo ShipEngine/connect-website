@@ -1,0 +1,24 @@
+---
+title: Changelog v2.0.0
+description: This page describes the changes that occurred for CLI `v2.0.0`.
+---
+
+# Changelog `v2.0.0` <small>(2020-09-02)</small>
+
+## CLI Features
+* Allow setting `dimensions` configuration for most acceptance tests. Allows you to further customize package data.
+* Updated the Order App scaffolding to conform to the latest SDK changes.
+* Added better validation for `connect.config.js` files.
+* Added acceptance tests for
+  * Scheduling same day pickups
+  * Getting rates for all delivery services
+
+## Order App
+These changes affect the [Order App](../docs/order-app/index.mdx).
+
+### AcknowledgeOrders()
+Added a new method to the Order App Definition, documentation updates to follow soon.
+
+### [getSalesOrdersByDate](../docs/reference/methods/get-sales-orders-by-date.mdx)
+#### Return Value: `SalesOrder[]`
+  * Moved `shipTo` property into `requestedFulfillments`.
