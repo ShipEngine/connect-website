@@ -19,6 +19,10 @@ export default async function server(
     error: null,
   };
 
+  server.get("/app-status", (_req, res) => {
+    res.status(200).send(appState);
+  });
+
   let startMessage = "";
   let sdkApp: CarrierApp;
 
@@ -34,10 +38,6 @@ export default async function server(
       "App failed to load! Please fix the validation issues above.";
     log.error(error.message);
   }
-
-  server.get("/app-status", (_req, res) => {
-    res.status(200).send(appState);
-  });
 
   server.use(function (req: Request, res: Response, _next: NextFunction) {
     const errorMessage = sdkApp
