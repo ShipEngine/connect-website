@@ -6,7 +6,7 @@ const { CarrierApp } = require("@shipengine/connect-sdk/lib/internal/carriers/ca
 const pojo = require("../../../utils/pojo");
 const { expect } = require("chai");
 
-describe.only("The schedule same day pickup test suite", () => {
+describe("The schedule same day pickup test suite", () => {
 
   describe("when there is no address available for the delivery service", () => {
     it("should not generate tests", () => {
@@ -50,7 +50,7 @@ describe.only("The schedule same day pickup test suite", () => {
 
   describe("when there is a config override object of test suite parameters", () => {
 
-    it.only("should update the test title", () => {
+    it("should update the test title", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       const app = new CarrierApp(appDefinition);
 
