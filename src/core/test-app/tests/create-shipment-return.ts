@@ -47,7 +47,7 @@ export class CreateShipmentReturn extends Suite {
 
       for (const ds of carrierApp.deliveryServices) {
         if (ds.supportsReturns) {
-          this.deliveryService = carrierApp.deliveryServices[0];
+          this.deliveryService = ds;
         }
       }
     }
