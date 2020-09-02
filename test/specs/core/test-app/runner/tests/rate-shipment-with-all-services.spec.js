@@ -180,8 +180,6 @@ function generateBasicAppAndConfigs() {
     id: "9cf1bfda-7ee4-4f03-96f6-6eab52243eee",
     name: "Better Delivery Service",
     code: "bd_code",
-    class: "ground",
-    grade: "standard",
     manifestType: "digital",
     originCountries: ["US"],
     destinationCountries: ["US"],
