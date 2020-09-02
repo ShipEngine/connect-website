@@ -18,8 +18,6 @@ describe("findMatchingOriginAndDestinationCountries", () => {
     appDefinition.deliveryServices.push({
       id: "9df1bfda-7ee4-4f03-96f6-6eab52243eee",
       name: "Another Delivery Service",
-      class: "ground",
-      grade: "standard",
       code: "ad",
       manifestType: "digital",
       originCountries: ["US", "MX", "CA"],
@@ -33,8 +31,6 @@ describe("findMatchingOriginAndDestinationCountries", () => {
       id: "9cf1bfda-7ee4-4f03-96f6-6eab52243eee",
       name: "Better Delivery Service",
       code: "bd",
-      class: "ground",
-      grade: "standard",
       manifestType: "digital",
       originCountries: ["US", "MX"],
       destinationCountries: ["US", "MX"],
@@ -73,8 +69,6 @@ describe("findMatchingOriginAndDestinationCountries", () => {
     appDefinition.deliveryServices.push({
       id: "9df1bfda-7ee4-4f03-96f6-6eab52243eee",
       name: "Another Delivery Service",
-      class: "ground",
-      grade: "standard",
       code: "ad",
       manifestType: "digital",
       originCountries: ["CA"],
@@ -85,9 +79,7 @@ describe("findMatchingOriginAndDestinationCountries", () => {
     appDefinition.deliveryServices.push({
       id: "9cf1bfda-7ee4-4f03-96f6-6eab52243eee",
       name: "Better Delivery Service",
-      class: "ground",
       code: "bd",
-      grade: "standard",
       manifestType: "digital",
       originCountries: ["US", "MX"],
       destinationCountries: ["US", "MX"],

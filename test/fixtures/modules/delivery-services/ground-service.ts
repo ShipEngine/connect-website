@@ -1,4 +1,4 @@
-import { Country, DeliveryServiceClass, DeliveryServiceDefinition, DeliveryServiceGrade } from "@shipengine/connect-sdk";
+import { Country, DeliveryServiceDefinition } from "@shipengine/connect-sdk";
 import { flatRatePackaging, largePaddedEnvelope } from "../packaging";
 
 /** Sample Ground Service  */
@@ -6,10 +6,6 @@ const groundService: DeliveryServiceDefinition = {
   id: "2a20b066-71c3-11ea-bc55-0242ac130003",
 
   name: "Ground",
-
-  class: DeliveryServiceClass.Ground,
-
-  grade: DeliveryServiceGrade.Standard,
 
   originCountries: [
     Country.UnitedStates

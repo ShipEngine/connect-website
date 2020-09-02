@@ -1,4 +1,5 @@
 import { Country, DeliveryService } from "@shipengine/connect-sdk";
+import { buildAddressWithContactInfo } from '../factories/address';
 
 /**
  * Find the shared origin and destination countries from an array of delivery services
@@ -40,7 +41,10 @@ export function findMatchingOriginAndDestinationCountries(deliveryServices: Deli
 
   if (sharedOriginCountries.length > 0 && sharedDestinationCountries.length > 0) {
 
-    return { originCountries: Object.assign([], sharedOriginCountries), destinationCountries: Object.assign([], sharedDestinationCountries) };
+    const originCountries = sharedOriginCountries.filter((oc) => buildAddressWithContactInfo(`${oc}-from`));
+    const destinationCountries = sharedDestinationCountries.filter((dc) => buildAddressWithContactInfo(`${dc}-to`));
+
+    return { originCountries, destinationCountries };
   }
 
   throw new Error("Specified delivery services do not share origin and destination countries");

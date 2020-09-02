@@ -16,8 +16,6 @@ module.exports = {
       id: "2a20b066-71c3-11ea-bc55-0242ac130003",
       name: "Priority Overnight",
       code: "priority_overnight",
-      class: "ground",
-      grade: "overnight",
       originCountries: ["US"],
       manifestType: "digital",
       destinationCountries: ["US", "CA", "MX"],
