@@ -8,6 +8,7 @@ import {
   DateTimeZone,
   ContactInfo,
   TimeRange,
+  Dimensions,
 } from "@shipengine/connect-sdk/lib/internal/common";
 import { NewLabel } from "@shipengine/connect-sdk/lib/internal/carriers/documents/new-label";
 import { _internal, MonetaryValue } from "@shipengine/connect-sdk/lib/internal/common";
@@ -46,6 +47,7 @@ const createShipmentReturnTestParamsSchema = Joi.object({
     shipFrom: AddressWithContactInfo[_internal].schema.optional(),
     shipTo: AddressWithContactInfo[_internal].schema.optional(),
     weight: Weight[_internal].schema.optional(),
+    dimensions: Dimensions[_internal].schema.optional(),
     label: NewLabel[_internal].schema.optional(),
   }
 });
@@ -58,6 +60,7 @@ const cancelShipmentTestParamsSchema = Joi.object({
     shipFrom: AddressWithContactInfo[_internal].schema.optional(),
     shipTo: AddressWithContactInfo[_internal].schema.optional(),
     weight: Weight[_internal].schema.optional(),
+    dimensions: Dimensions[_internal].schema.optional()
   }
 });
 
@@ -71,6 +74,7 @@ const createShipmentDomesticTestParamsSchema = Joi.object({
     shipFrom: AddressWithContactInfo[_internal].schema.optional(),
     shipTo: AddressWithContactInfo[_internal].schema.optional(),
     weight: Weight[_internal].schema.optional(),
+    dimensions: Dimensions[_internal].schema.optional()
   }
 });
 
@@ -84,6 +88,7 @@ const createShipmentInternationalTestParamsSchema = Joi.object({
     shipFrom: AddressWithContactInfo[_internal].schema.optional(),
     shipTo: AddressWithContactInfo[_internal].schema.optional(),
     weight: Weight[_internal].schema.optional(),
+    dimensions: Dimensions[_internal].schema.optional()
   }
 });
 
@@ -91,6 +96,7 @@ const CreateShipmentMultiPackageTestParamsSchemaPackage = Joi.object({
   packagingName: Joi.string().optional(),
   label: NewLabel[_internal].schema.optional(),
   weight: Weight[_internal].schema.optional(),
+  dimensions: Dimensions[_internal].schema.optional()
 })
 
 const CreateShipmentMultiPackageTestParamsSchema = Joi.object({
@@ -117,6 +123,7 @@ const CreateShipmentWithInsuranceTestParamsSchema = Joi.object({
     shipFrom: AddressWithContactInfo[_internal].schema.optional(),
     shipTo: AddressWithContactInfo[_internal].schema.optional(),
     weight: Weight[_internal].schema.optional(),
+    dimensions: Dimensions[_internal].schema.optional()
   }
 })
 
@@ -129,6 +136,7 @@ const RateShipmentTestParamsSchema = Joi.object({
     shipFrom: AddressWithContactInfo[_internal].schema.optional(),
     shipTo: AddressWithContactInfo[_internal].schema.optional(),
     weight: Weight[_internal].schema.optional(),
+    dimensions: Dimensions[_internal].schema.optional(),
   }
 });
 
@@ -138,6 +146,7 @@ const RateShipmentWithAllServicesTestParamsSchema = Joi.object({
     shipFrom: AddressWithContactInfo[_internal].schema.optional(),
     shipTo: AddressWithContactInfo[_internal].schema.optional(),
     weight: Weight[_internal].schema.optional(),
+    dimensions: Dimensions[_internal].schema.optional(),
     shipDateTime: DateTimeZone[_internal].schema.optional(),
   }
 })
@@ -150,7 +159,14 @@ const SameDayPickupTestParamsSchema = Joi.object({
     address: AddressWithContactInfo[_internal].schema.optional(),
     contact: ContactInfo[_internal].schema.optional(),
     timeWindow: TimeRange[_internal].schema.optional(),
-    shipments: PickupShipment[_internal].schema.optional()
+    shipments: Joi.object({
+      deliveryServiceName: Joi.string(),
+      packages: Joi.array().items(Joi.object({
+        packagingName: Joi.string(),
+        dimensions: Dimensions[_internal].schema.optional(),
+        weight: Weight[_internal].schema.optional()
+      }))
+    })
   }
 })
 

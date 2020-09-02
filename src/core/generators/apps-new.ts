@@ -509,6 +509,16 @@ class AppsNew extends Generator {
 
           this.fs.copyTpl(
             this.templatePath(
+              `order-source/methods/acknowledge-orders.${this._codeExt}`,
+            ),
+            this.destinationPath(
+              `src/methods/acknowledge-orders.${this._codeExt}`,
+            ),
+            this,
+          );
+
+          this.fs.copyTpl(
+            this.templatePath(
               `order-source/methods/shipment-created.${this._codeExt}`,
             ),
             this.destinationPath(
