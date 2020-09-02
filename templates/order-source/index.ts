@@ -15,7 +15,7 @@ const orderSource: OrderAppDefinition = {
   connect: import("./methods/connect"),
   getSalesOrdersByDate: import("./methods/get-sales-order-by-date"),
   shipmentCreated: import("./methods/shipment-created"),
-  acknowldgeOrders: import("./methods/acknowledge-orders")
+  acknowledgeOrders: import("./methods/acknowledge-orders")
 
 }
 

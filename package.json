@@ -23,7 +23,7 @@
     "@shipengine/capitalization": "^1.2.1",
     "@shipengine/connect-loader": "^2.0.1",
     "@shipengine/connect-local-dev-api": "^2.0.1",
-    "@shipengine/connect-sdk": "^3.0.0",
+    "@shipengine/connect-sdk": "^3.0.1",
     "@typescript-eslint/eslint-plugin": "^3.10.1",
     "@typescript-eslint/parser": "^3.10.1",
     "axios": "^0.20.0",
