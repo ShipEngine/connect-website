@@ -3,7 +3,9 @@
  */
 export interface TimeStamps {
   yesterday: string;
+  todayEarly: string;
   today: string;
+  todayEvening: string;
   tomorrowEarly: string;
   tomorrowEarlyAM: string;
   tomorrow: string;

@@ -70,7 +70,8 @@ export function getSupportedCountryCodes(): Set<string> {
 }
 
 export function buildAddress(countryCode: string): AddressPOJO {
-  return countryMap[countryCode];
+  // return a copy of the original so mutations don't occur on the original
+  return Object.assign({}, countryMap[countryCode]);
 }
 
 const countryMap: Record<string, AddressPOJO> = {
