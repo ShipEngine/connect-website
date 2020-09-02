@@ -7,7 +7,8 @@ import {
   CreateShipmentWithInsurance,
   CreateShipmentMultiPackage,
   RateShipment,
-  CreateShipmentReturn
+  CreateShipmentReturn,
+  TrackShipment
 } from "./test-app/tests";
 import { SdkApp } from "./types";
 import { TestResults, useTestResults } from "./test-app/runner/test-results";
@@ -161,7 +162,7 @@ function registerTestSuiteModules(app: SdkApp): RegisteredTestSuiteModules {
       RateShipmentWithAllServices
     ],
     // schedulePickup: [SchedulePickupTestSuite],
-    // trackShipment: [TrackShipmentTestSuite],
+    trackShipment: [TrackShipment],
   };
 
   const orderAppMethods = {

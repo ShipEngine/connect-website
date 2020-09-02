@@ -10,6 +10,7 @@ export * from "./create-shipment-return";
 // export * from "./get-sales-orders-by-date-test-suite";
 // export * from "./get-seller-test-suite";
 export * from "./rate-shipment";
+export * from "./track-shipment";
 // export * from "./schedule-pickup-test-suite";
 // export * from "./shipment-created-test-suite";
 // export * from "./track-shipment-test-suite";

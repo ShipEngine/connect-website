@@ -9,6 +9,7 @@ import {
   ContactInfo,
   TimeRange,
   Dimensions,
+  Address,
 } from "@shipengine/connect-sdk/lib/internal/common";
 import { NewLabel } from "@shipengine/connect-sdk/lib/internal/carriers/documents/new-label";
 import { _internal, MonetaryValue } from "@shipengine/connect-sdk/lib/internal/common";
@@ -149,14 +150,14 @@ const RateShipmentWithAllServicesTestParamsSchema = Joi.object({
     dimensions: Dimensions[_internal].schema.optional(),
     shipDateTime: DateTimeZone[_internal].schema.optional(),
   }
-})
+});
 
 const SameDayPickupTestParamsSchema = Joi.object({
   ...baseTestParamValidations,
   ...{
     pickupServiceName: Joi.string().optional(),
     deliveryServiceName: Joi.string().optional(),
-    address: AddressWithContactInfo[_internal].schema.optional(),
+    address: Address[_internal].schema.optional(),
     contact: ContactInfo[_internal].schema.optional(),
     timeWindow: TimeRange[_internal].schema.optional(),
     shipments: Joi.object({
@@ -168,7 +169,22 @@ const SameDayPickupTestParamsSchema = Joi.object({
       }))
     })
   }
-})
+});
+
+const TrackShipmentSchema = Joi.object({
+  ...baseTestParamValidations,
+  ...{
+    rmaNumber: Joi.string().optional(),
+    deliveryConfirmationName: Joi.string().optional(),
+    deliveryServiceName: Joi.string().optional(),
+    shipDateTime: DateTimeZone[_internal].schema.optional(),
+    shipFrom: AddressWithContactInfo[_internal].schema.optional(),
+    shipTo: AddressWithContactInfo[_internal].schema.optional(),
+    weight: Weight[_internal].schema.optional(),
+    dimensions: Dimensions[_internal].schema.optional(),
+    label: NewLabel[_internal].schema.optional(),
+  }
+});
 
 const testsSchema = Joi.object({
   createShipment_return: Joi.alternatives().conditional(Joi.array(), {
@@ -209,6 +225,10 @@ const testsSchema = Joi.object({
   schedulePickup_same_day: Joi.alternatives().conditional(Joi.array(), {
     then: Joi.array().items(SameDayPickupTestParamsSchema),
     otherwise: SameDayPickupTestParamsSchema,
+  }),
+  trackShipment: Joi.alternatives().conditional(Joi.array(), {
+    then: Joi.array().items(TrackShipmentSchema),
+    otherwise: TrackShipmentSchema,
   })
 
 }).optional();
