@@ -79,10 +79,15 @@ describe("The create shipment domestic test suite", () => {
           value: 200,
           unit: "lb"
         },
-
         label: {
           size: "A6",
           format: "png"
+        },
+        dimensions: {
+          length: 5,
+          width: 5,
+          height: 5,
+          unit: "cm"
         }
       };
 
@@ -92,6 +97,7 @@ describe("The create shipment domestic test suite", () => {
 
       expect(tests[0].title).to.include("label: A6 png");
       expect(tests[0].title).to.include("weight: 200lb");
+      expect(tests[0].title).to.include("dimensions: 5 x 5 x 5 cm");
     });
   });
 

@@ -55,7 +55,26 @@ describe("The schedule same day pickup test suite", () => {
       const app = new CarrierApp(appDefinition);
 
       staticConfigTests.schedulePickup_same_day = {
-        contact: { name: "Jane Doe" }
+        contact: { name: "Jane Doe" },
+        shipments: [{
+          deliveryServiceName: "Dummy Delivery Service",
+          packages: [
+            {
+              packagingName: "Dummy Packaging",
+              dimensions: {
+                length: 5,
+                width: 5,
+                height: 5,
+                unit: "in"
+              },
+              weight: {
+                value: 1,
+                unit: "lb"
+              }
+            }
+          ]
+        }]
+        
       };
 
       const args = { app, connectArgs, staticConfigTests, options };

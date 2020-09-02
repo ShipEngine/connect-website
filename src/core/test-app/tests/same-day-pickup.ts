@@ -1,5 +1,5 @@
-import { DeliveryService, PickupService } from "@shipengine/connect-sdk";
-import { CarrierApp, PickupRequestPOJO } from "@shipengine/connect-sdk/lib/internal";
+import { DeliveryService, PickupService, LengthUnit, WeightUnit } from "@shipengine/connect-sdk";
+import { CarrierApp, PickupRequestPOJO, PickupShipmentPOJO, PickupPackagePOJO } from "@shipengine/connect-sdk/lib/internal";
 import Suite from "../runner/suite";
 import { initializeTimeStamps } from "../../utils/time-stamps";
 import { SameDayPickupTestParams, SameDayPickupConfigOptions } from "../runner/config/same-day-pickup";
@@ -11,6 +11,7 @@ import findPickupServiceByName from '../utils/find-pickup-service-by-name';
 import { findDomesticDeliveryService } from '../utils/find-domestic-delivery-service';
 import Test from '../runner/test';
 import { buildAddress } from '../factories/address';
+import findPackagingByName from '../utils/find-packaging-by-name';
 
 interface TestArgs {
   title: string;
@@ -81,10 +82,20 @@ export class SameDayPickup extends Suite {
         endDateTime: todayEvening
       },
       shipments: [{
-        deliveryService: this.deliveryService.code,
+        deliveryServiceName: this.deliveryService.name,
         packages: [
           {
-            packaging: this.deliveryService.packaging[0].code
+            packagingName: this.deliveryService.packaging[0].name,
+            dimensions: {
+              length: 12,
+              width: 12,
+              height: 12,
+              unit: LengthUnit.Inches
+            },
+            weight: {
+              unit: WeightUnit.Pounds,
+              value: 5.0
+            }
           }
         ]
       }]
@@ -94,12 +105,31 @@ export class SameDayPickup extends Suite {
       SameDayPickupTestParams
     >(defaults, config);
 
+    const shipments: PickupShipmentPOJO[] = testParams.shipments.map((shipmentParams) => {
+      const shipment: PickupShipmentPOJO = {
+        deliveryService: findDeliveryServiceByName(shipmentParams.deliveryServiceName, carrierApp),
+        packages: shipmentParams.packages.map((pkgParams) => {
+          const pkg: PickupPackagePOJO = {
+            packaging: findPackagingByName(pkgParams.packagingName, carrierApp),
+            dimensions: pkgParams.dimensions,
+            weight: pkgParams.weight
+          };
+
+          return pkg;
+        })
+      }
+
+      return shipment;
+    });
+    
+
+
     const rateCriteriaPOJO: PickupRequestPOJO = {
       pickupService: findPickupServiceByName(testParams.pickupServiceName, carrierApp),
       address: testParams.address,
       timeWindow: testParams.timeWindow,
       contact: testParams.contact,
-      shipments: testParams.shipments
+      shipments
     };
 
     const title = config.expectedErrorMessage

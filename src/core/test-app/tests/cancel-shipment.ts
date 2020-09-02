@@ -1,4 +1,4 @@
-import { DeliveryService, WeightUnit } from "@shipengine/connect-sdk";
+import { DeliveryService, WeightUnit, LengthUnit } from "@shipengine/connect-sdk";
 import { CarrierApp, NewShipmentPOJO, NewPackagePOJO, ShipmentCancellationPOJO } from "@shipengine/connect-sdk/lib/internal";
 import Suite from "../runner/suite";
 import { initializeTimeStamps } from "../../utils/time-stamps";
@@ -72,6 +72,12 @@ export class CancelShipment extends Suite {
       weight: {
         unit: WeightUnit.Pounds,
         value: 50.0,
+      },
+      dimensions: {
+        length: 12,
+        width: 12,
+        height: 12,
+        unit: LengthUnit.Inches
       }
     };
 
@@ -93,6 +99,12 @@ export class CancelShipment extends Suite {
         value: testParams.weight.value,
         unit: testParams.weight.unit,
       },
+      dimensions: {
+        length: testParams.dimensions.length,
+        width: testParams.dimensions.width,
+        height: testParams.dimensions.height,
+        unit: testParams.dimensions.unit
+      }
     };
 
     const newShipmentPOJO: NewShipmentPOJO = {

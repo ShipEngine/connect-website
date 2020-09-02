@@ -1,4 +1,4 @@
-import { DeliveryService, WeightUnit, DeliveryConfirmation } from "@shipengine/connect-sdk";
+import { DeliveryService, WeightUnit, DeliveryConfirmation, LengthUnit } from "@shipengine/connect-sdk";
 import { CarrierApp, NewShipmentPOJO, NewPackagePOJO } from "@shipengine/connect-sdk/lib/internal";
 import Suite from "../runner/suite";
 import {
@@ -100,6 +100,12 @@ export class CreateShipmentReturn extends Suite {
         unit: WeightUnit.Pounds,
         value: 50.0,
       },
+      dimensions: {
+        length: 12,
+        width: 12,
+        height: 12,
+        unit: LengthUnit.Inches
+      },
       rmaNumber: `RMA-${Buffer.from(new Date().toISOString()).toString("base64").toUpperCase()}`
     };
 
@@ -125,6 +131,12 @@ export class CreateShipmentReturn extends Suite {
         value: testParams.weight.value,
         unit: testParams.weight.unit,
       },
+      dimensions: {
+        length: testParams.dimensions.length,
+        width: testParams.dimensions.width,
+        height: testParams.dimensions.height,
+        unit: testParams.dimensions.unit
+      }
     };
 
     const newShipmentPOJO: NewShipmentPOJO = {

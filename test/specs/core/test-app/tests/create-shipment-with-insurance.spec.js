@@ -78,6 +78,12 @@ describe("The create shipment insured test suite", () => {
           value: 200,
           unit: "lb"
         },
+        dimensions: {
+          length: 5,
+          width: 5,
+          height: 5,
+          unit: "cm"
+        },
         packagingName: "New Package",
         packageInsuredValue: {
           value: "50",
@@ -91,6 +97,8 @@ describe("The create shipment insured test suite", () => {
 
       expect(tests[0].title).to.include("packagingName: New Package");
       expect(tests[0].title).to.include("packageInsuredValue: 50 usd");
+      expect(tests[0].title).to.include("dimensions: 5 x 5 x 5 cm");
+
 
     });
   });
@@ -118,6 +126,12 @@ describe("The create shipment insured test suite", () => {
               value: 22,
               unit: "lb"
             },
+            dimensions: {
+              length: 5,
+              width: 5,
+              height: 5,
+              unit: "cm"
+            },
             packageInsuredValue: {
               value: "50",
               currency: "usd"
@@ -142,6 +156,8 @@ describe("The create shipment insured test suite", () => {
 
       expect(tests[1].title).to.include("weight: 22lb");
       expect(tests[1].title).to.include("packageInsuredValue: 50 usd");
+      expect(tests[1].title).to.include("dimensions: 5 x 5 x 5 cm");
+
     });
   });
 
