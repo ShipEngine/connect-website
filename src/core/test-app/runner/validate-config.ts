@@ -127,6 +127,16 @@ const RateShipmentTestParamsSchema = Joi.object({
     shipTo: AddressWithContactInfo[_internal].schema.optional(),
     weight: Weight[_internal].schema.optional(),
   }
+});
+
+const RateShipmentWithAllServicesTestParamsSchema = Joi.object({
+  ...baseTestParamValidations,
+  ...{
+    shipFrom: AddressWithContactInfo[_internal].schema.optional(),
+    shipTo: AddressWithContactInfo[_internal].schema.optional(),
+    weight: Weight[_internal].schema.optional(),
+    shipDateTime: DateTimeZone[_internal].schema.optional(),
+  }
 })
 
 const testsSchema = Joi.object({
@@ -160,6 +170,12 @@ const testsSchema = Joi.object({
     then: Joi.array().items(RateShipmentTestParamsSchema),
     otherwise: RateShipmentTestParamsSchema,
   }),
+
+  rateShipment_with_all_services: Joi.alternatives().conditional(Joi.array(), {
+    then: Joi.array().items(RateShipmentWithAllServicesTestParamsSchema),
+    otherwise: RateShipmentWithAllServicesTestParamsSchema,
+  })
+
 }).optional();
 
 const schema = Joi.object().keys({

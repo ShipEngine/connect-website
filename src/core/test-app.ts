@@ -14,6 +14,7 @@ import { TestResults, useTestResults } from "./test-app/runner/test-results";
 import { loadAndValidateConfig } from "./test-app/runner/load-and-validate-config";
 import { logFail, logPass, logStep } from "./utils/log-helpers";
 import { logResults } from "./utils/log-helpers";
+import { RateShipmentWithAllServices } from './test-app/tests/rate-shipment-with-all-services';
 import { CancelShipment } from './test-app/tests/cancel-shipment';
 
 interface TesOptions {
@@ -150,9 +151,13 @@ function registerTestSuiteModules(app: SdkApp): RegisteredTestSuiteModules {
       CreateShipmentDomestic,
       CreateShipmentMultiPackage,
       CreateShipmentWithInsurance,
+      CreateShipmentWithInsurance,
       CreateShipmentReturn
     ],
-    rateShipment: [RateShipment],
+    rateShipment: [
+      RateShipment,
+      RateShipmentWithAllServices
+    ],
     // schedulePickup: [SchedulePickupTestSuite],
     // trackShipment: [TrackShipmentTestSuite],
   };
