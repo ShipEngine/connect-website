@@ -24,13 +24,13 @@ interface RunnerArgs {
 
 export default class Runner {
   private failFast: boolean;
-  
+
   private grep?: string;
-  
+
   private suites: Suite[];
-  
+
   private testResults: TestResults;
-  
+
   private testResultsReducer: TestReducer;
 
   constructor({
@@ -91,8 +91,14 @@ export default class Runner {
   async runTest(test: Test): Promise<void> {
     try {
       await callWithTimeoutAndRetries(test.fn, test.timeout, test.retries);
-      this.testResultsReducer("INCREMENT_PASSED");
-      logPass(test.title);
+
+      if (test.expectedErrorMessage) {
+        this.testResultsReducer("INCREMENT_FAILED");
+        logFail(test.title);
+      } else {
+        this.testResultsReducer("INCREMENT_PASSED");
+        logPass(test.title);
+      }
     } catch (error) {
       const err = error as Error;
       if (

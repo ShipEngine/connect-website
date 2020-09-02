@@ -140,8 +140,6 @@ describe("The rate shipment test suite", () => {
       appDefinition.deliveryServices.push({
         id: "9cf1bfda-7ee4-4f03-96f6-6eab52243eee",
         name: "Better Delivery Service",
-        class: "ground",
-        grade: "standard",
         code: "better_ds",
         originCountries: ["MX"],
         destinationCountries: ["MX"],

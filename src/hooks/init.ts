@@ -9,7 +9,7 @@ const pjson = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "..", "packa
 const hook: Hook<"init"> = () => {
   const settings: Settings = {
     pkg: pjson,
-    updateCheckInterval: 1000 * 60 * 60 * 24 * 7 // 1 week
+    updateCheckInterval: 1000 * 60 * 60 * 24 * 1 // 1 day
   };
 
   updateNotifier(settings).notify();

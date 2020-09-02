@@ -1,8 +1,6 @@
 import {
   Country,
-  DeliveryServiceClass,
   DeliveryServiceDefinition,
-  DeliveryServiceGrade,
   DocumentFormat,
   DocumentSize,
   ManifestType,
@@ -14,11 +12,9 @@ const exampleDeliveryService: DeliveryServiceDefinition = {
   name: "Example Delivery Service",
   description:
     "This is an example delivery service. Please remove and define your own.",
-  class: DeliveryServiceClass.OneDay,
   deliveryConfirmations: [import("./example-delivery-confirmation")],
   destinationCountries: [Country.UnitedStates],
   manifestType: ManifestType.Digital,
-  grade: DeliveryServiceGrade.Expedited,
   isInsurable: true,
   isTrackable: false,
   labelFormats: [DocumentFormat.PDF, DocumentFormat.PNG],

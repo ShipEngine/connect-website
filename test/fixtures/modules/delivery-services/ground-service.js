@@ -9,10 +9,6 @@ const groundService = {
 
     name: "Ground",
 
-    class: "ground",
-
-    grade: "standard",
-
     originCountries: [
       "US"
     ],

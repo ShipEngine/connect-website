@@ -196,9 +196,7 @@ describe("The create shipment international test suite", () => {
       appDefinition.deliveryServices.push({
         id: "9cf1bfda-7ee4-4f03-96f6-6eab52243eee",
         name: "Better Delivery Service",
-        class: "ground",
         code: "priority_overnight",
-        grade: "standard",
         manifestType: "digital",
         originCountries: ["MX"],
         destinationCountries: ["US"],
