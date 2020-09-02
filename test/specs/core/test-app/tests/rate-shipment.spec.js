@@ -58,6 +58,12 @@ describe("The rate shipment test suite", () => {
         weight: {
           value: 200,
           unit: "lb"
+        },
+        dimensions: {
+          length: 5,
+          width: 5,
+          height: 5,
+          unit: "cm"
         }
       };
 
@@ -67,6 +73,7 @@ describe("The rate shipment test suite", () => {
 
       expect(tests[0].title).to.include("weight: 200lb");
       expect(tests[0].title).to.include("deliveryServiceName: Dummy Delivery Service");
+      expect(tests[0].title).to.include("dimensions: 5 x 5 x 5 cm");
     });
   });
 

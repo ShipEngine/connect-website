@@ -1,7 +1,8 @@
 import {
   WeightUnit,
   DateTimeZonePOJO,
-  AddressWithContactInfoPOJO
+  AddressWithContactInfoPOJO,
+  DimensionsPOJO
 } from "@shipengine/connect-sdk";
 
 import { BaseTestConfigOptions } from "./base-test-config-options";
@@ -14,6 +15,7 @@ export interface CancelShipmentTestParams {
     value: number;
     unit: WeightUnit;
   };
+  dimensions: DimensionsPOJO;
   shipDateTime: DateTimeZonePOJO | Date | string;
 }
 

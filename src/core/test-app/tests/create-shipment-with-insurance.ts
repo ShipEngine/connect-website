@@ -1,7 +1,8 @@
 import {
   DeliveryService,
   WeightUnit,
-  DeliveryConfirmation
+  DeliveryConfirmation,
+  LengthUnit
 } from "@shipengine/connect-sdk";
 import { CarrierApp, NewShipmentPOJO, NewPackagePOJO } from "@shipengine/connect-sdk/lib/internal";
 import Suite from "../runner/suite";
@@ -103,6 +104,12 @@ export class CreateShipmentWithInsurance extends Suite {
         unit: WeightUnit.Pounds,
         value: 50.0,
       },
+      dimensions: {
+        length: 12,
+        width: 12,
+        height: 12,
+        unit: LengthUnit.Inches
+      },
       packagingName: this.deliveryService.packaging[0].name,
       packageInsuredValue: {
         value: 10,
@@ -129,6 +136,12 @@ export class CreateShipmentWithInsurance extends Suite {
       weight: {
         value: testParams.weight.value,
         unit: testParams.weight.unit,
+      },
+      dimensions: {
+        length: testParams.dimensions.length,
+        width: testParams.dimensions.width,
+        height: testParams.dimensions.height,
+        unit: testParams.dimensions.unit
       },
       insuredValue: testParams.packageInsuredValue
     };

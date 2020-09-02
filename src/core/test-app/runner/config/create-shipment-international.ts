@@ -2,6 +2,7 @@ import {
   DateTimeZonePOJO,
   AddressWithContactInfoPOJO,
   WeightPOJO,
+  DimensionsPOJO,
 } from "@shipengine/connect-sdk";
 
 import { NewLabelPOJO } from "@shipengine/connect-sdk/lib/internal";
@@ -16,6 +17,7 @@ export interface CreateShipmentInternationalTestParams {
   shipFrom?: AddressWithContactInfoPOJO;
   shipTo?: AddressWithContactInfoPOJO;
   weight: WeightPOJO;
+  dimensions: DimensionsPOJO;
 }
 
 export interface CreateShipmentInternationalConfigOptions

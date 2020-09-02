@@ -1,5 +1,5 @@
 import {
-  WeightUnit,
+  WeightUnit, LengthUnit,
 } from "@shipengine/connect-sdk";
 
 import { CarrierApp, RateCriteriaPOJO, PackageRateCriteriaPOJO } from "@shipengine/connect-sdk/lib/internal";
@@ -47,7 +47,13 @@ export class RateShipmentWithAllServices extends Suite {
       weight: {
         unit: WeightUnit.Pounds,
         value: 50.0
-      }
+      },
+      dimensions: {
+        length: 12,
+        width: 12,
+        height: 12,
+        unit: LengthUnit.Inches
+      },
     };
 
     const testParams = reduceDefaultsWithConfig<
@@ -58,6 +64,12 @@ export class RateShipmentWithAllServices extends Suite {
       weight: {
         value: testParams.weight.value,
         unit: testParams.weight.unit,
+      },
+      dimensions: {
+        length: testParams.dimensions.length,
+        width: testParams.dimensions.width,
+        height: testParams.dimensions.height,
+        unit: testParams.dimensions.unit
       }
     };
 

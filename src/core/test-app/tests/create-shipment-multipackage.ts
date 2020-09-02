@@ -1,4 +1,4 @@
-import { DeliveryService, WeightUnit } from "@shipengine/connect-sdk";
+import { DeliveryService, WeightUnit, LengthUnit } from "@shipengine/connect-sdk";
 import { CarrierApp, NewShipmentPOJO, NewPackagePOJO } from "@shipengine/connect-sdk/lib/internal";
 import Suite from "../runner/suite";
 import { initializeTimeStamps } from "../../utils/time-stamps";
@@ -75,6 +75,12 @@ export class CreateShipmentMultiPackage extends Suite {
           weight: {
             unit: WeightUnit.Pounds,
             value: 50.0
+          },
+          dimensions: {
+            length: 12,
+            width: 12,
+            height: 12,
+            unit: LengthUnit.Inches
           }
         },
         {
@@ -86,6 +92,12 @@ export class CreateShipmentMultiPackage extends Suite {
           weight: {
             unit: WeightUnit.Pounds,
             value: 25.0
+          },
+          dimensions: {
+            length: 12,
+            width: 12,
+            height: 12,
+            unit: LengthUnit.Inches
           }
         }
       ]
@@ -110,6 +122,15 @@ export class CreateShipmentMultiPackage extends Suite {
         weight: {
           value: pkgParams.weight.value,
           unit: pkgParams.weight.unit
+        }
+      }
+
+      if (pkgParams.dimensions) {
+        newPackage.dimensions = {
+          length: pkgParams.dimensions.length,
+          width: pkgParams.dimensions.width,
+          height: pkgParams.dimensions.height,
+          unit: pkgParams.dimensions.unit
         }
       }
 
