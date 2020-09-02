@@ -167,6 +167,40 @@ describe("The create shipment return test suite", () => {
     });
   });
 
+  describe("When a user configs a delivery service that does not support returns", () => {
+    it("should throw an error", () => {
+      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+
+      appDefinition.deliveryServices.push({
+        id: "9cf1bfda-7ee4-4f03-96f6-6eab52243eee",
+        name: "Better Delivery Service",
+        code: "better_ds",
+        manifestType: "physical",
+        originCountries: ["MX"],
+        destinationCountries: ["MX"],
+        labelFormats: ["pdf"],
+        labelSizes: ["A4"],
+        packaging: [pojo.packaging()]
+      });
+      
+      const app = new CarrierApp(appDefinition);
+      staticConfigTests.createShipment_return = {
+        deliveryServiceName: "Better Delivery Service"
+      }
+
+      const args = { app, connectArgs, staticConfigTests, options };
+      const testSuite = new CreateShipmentReturn(args);
+
+      try {
+        testSuite.tests();
+        expect(true).to.equal(false);
+      }
+      catch (error) {
+        expect(error.message).to.include(`Configured delivery service "Better Delivery Service" does not support return shipments`);
+      }
+    });
+  });
+
   describe("When a user configs a new delivery service", () => {
     it("should update the title params to reflect the new properties", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
@@ -176,6 +210,7 @@ describe("The create shipment return test suite", () => {
         code: "better_ds",
         manifestType: "physical",
         originCountries: ["MX"],
+        supportsReturns: true,
         destinationCountries: ["MX"],
         labelFormats: ["pdf"],
         labelSizes: ["A4"],
@@ -337,6 +372,7 @@ function generateBasicAppAndConfigs() {
   deliveryService.code = "priority_overnight";
   deliveryService.labelSizes = ["A4"];
   deliveryService.deliveryConfirmations = [pojo.deliveryConfirmation()];
+  deliveryService.supportsReturns = true;
   deliveryService.packaging.push(pojo.packaging());
   appDefinition.deliveryServices = [deliveryService];
   appDefinition.createShipment = () => { };

@@ -38,11 +38,17 @@ export class CreateShipmentReturn extends Suite {
         config.deliveryServiceName,
         carrierApp,
       );
+
+      if (!this.deliveryService.supportsReturns) {
+        throw new Error(`Configured delivery service "${config.deliveryServiceName}" does not support return shipments`);
+      }
     } else {
-      try {
-        this.deliveryService = carrierApp.deliveryServices[0];
-      } catch {
-        this.deliveryService = undefined;
+      this.deliveryService = undefined;
+
+      for (const ds of carrierApp.deliveryServices) {
+        if (ds.supportsReturns) {
+          this.deliveryService = carrierApp.deliveryServices[0];
+        }
       }
     }
   }
