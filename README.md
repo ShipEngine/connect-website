@@ -26,7 +26,7 @@ $ npm install -g @shipengine/connect-cli
 $ connect COMMAND
 running command...
 $ connect (-v|--version|version)
-@shipengine/connect-cli/2.0.0 linux-x64 node-v12.18.1
+@shipengine/connect-cli/2.0.1 linux-x64 node-v12.18.1
 $ connect --help [COMMAND]
 USAGE
   $ connect COMMAND
@@ -77,7 +77,7 @@ OPTIONS
   -h, --help  show help for the info command
 ```
 
-_See code: [src/commands/info.ts](https://github.com/ShipEngine/connect-cli/blob/v2.0.0/src/commands/info.ts)_
+_See code: [src/commands/info.ts](https://github.com/ShipEngine/connect-cli/blob/v2.0.1/src/commands/info.ts)_
 
 ## `connect init [PATH]`
 
@@ -102,7 +102,7 @@ EXAMPLE
   $ connect init
 ```
 
-_See code: [src/commands/init.ts](https://github.com/ShipEngine/connect-cli/blob/v2.0.0/src/commands/init.ts)_
+_See code: [src/commands/init.ts](https://github.com/ShipEngine/connect-cli/blob/v2.0.1/src/commands/init.ts)_
 
 ## `connect login`
 
@@ -119,7 +119,7 @@ ALIASES
   $ connect login
 ```
 
-_See code: [src/commands/login.ts](https://github.com/ShipEngine/connect-cli/blob/v2.0.0/src/commands/login.ts)_
+_See code: [src/commands/login.ts](https://github.com/ShipEngine/connect-cli/blob/v2.0.1/src/commands/login.ts)_
 
 ## `connect logout`
 
@@ -136,7 +136,7 @@ ALIASES
   $ connect logout
 ```
 
-_See code: [src/commands/logout.ts](https://github.com/ShipEngine/connect-cli/blob/v2.0.0/src/commands/logout.ts)_
+_See code: [src/commands/logout.ts](https://github.com/ShipEngine/connect-cli/blob/v2.0.1/src/commands/logout.ts)_
 
 ## `connect pack`
 
@@ -153,7 +153,7 @@ EXAMPLE
   $ connect pack
 ```
 
-_See code: [src/commands/pack.ts](https://github.com/ShipEngine/connect-cli/blob/v2.0.0/src/commands/pack.ts)_
+_See code: [src/commands/pack.ts](https://github.com/ShipEngine/connect-cli/blob/v2.0.1/src/commands/pack.ts)_
 
 ## `connect publish`
 
@@ -172,7 +172,7 @@ EXAMPLE
   $ connect publish
 ```
 
-_See code: [src/commands/publish.ts](https://github.com/ShipEngine/connect-cli/blob/v2.0.0/src/commands/publish.ts)_
+_See code: [src/commands/publish.ts](https://github.com/ShipEngine/connect-cli/blob/v2.0.1/src/commands/publish.ts)_
 
 ## `connect start`
 
@@ -187,7 +187,7 @@ OPTIONS
   -p, --port=port  [default: 3000] the port that the app will run on
 ```
 
-_See code: [src/commands/start.ts](https://github.com/ShipEngine/connect-cli/blob/v2.0.0/src/commands/start.ts)_
+_See code: [src/commands/start.ts](https://github.com/ShipEngine/connect-cli/blob/v2.0.1/src/commands/start.ts)_
 
 ## `connect test`
 
@@ -210,7 +210,7 @@ EXAMPLES
   $ connect test --grep rateShipment
 ```
 
-_See code: [src/commands/test.ts](https://github.com/ShipEngine/connect-cli/blob/v2.0.0/src/commands/test.ts)_
+_See code: [src/commands/test.ts](https://github.com/ShipEngine/connect-cli/blob/v2.0.1/src/commands/test.ts)_
 
 ## `connect whoami`
 
@@ -227,5 +227,5 @@ ALIASES
   $ connect whoami
 ```
 
-_See code: [src/commands/whoami.ts](https://github.com/ShipEngine/connect-cli/blob/v2.0.0/src/commands/whoami.ts)_
+_See code: [src/commands/whoami.ts](https://github.com/ShipEngine/connect-cli/blob/v2.0.1/src/commands/whoami.ts)_
 <!-- commandsstop -->
