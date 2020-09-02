@@ -82,6 +82,12 @@ describe("The create shipment multipackage test suite", () => {
             label: {
               size: "4x6",
               format: "png"
+            },
+            dimensions: {
+              length: 5,
+              width: 5,
+              height: 5,
+              unit: "cm"
             }
           },
           {

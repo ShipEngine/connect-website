@@ -110,6 +110,12 @@ describe("The create shipment international test suite", () => {
           value: 200,
           unit: "lb"
         },
+        dimensions: {
+          length: 5,
+          width: 5,
+          height: 5,
+          unit: "cm"
+        },
         label: {
           size: "4x6",
           format: "png"
@@ -122,6 +128,8 @@ describe("The create shipment international test suite", () => {
 
       expect(tests[0].title).to.include("label: 4x6 png");
       expect(tests[0].title).to.include("weight: 200lb");
+      expect(tests[0].title).to.include("dimensions: 5 x 5 x 5 cm");
+
     });
   });
 
@@ -147,6 +155,12 @@ describe("The create shipment international test suite", () => {
             weight: {
               value: 22,
               unit: "lb"
+            },
+            dimensions: {
+              length: 5,
+              width: 5,
+              height: 5,
+              unit: "cm"
             }
           }
         ];
@@ -166,6 +180,8 @@ describe("The create shipment international test suite", () => {
       expect(tests[0].title).to.include("label: 4x6 png");
 
       expect(tests[1].title).to.include("weight: 22lb");
+      expect(tests[1].title).to.include("dimensions: 5 x 5 x 5 cm");
+
     });
   });
 

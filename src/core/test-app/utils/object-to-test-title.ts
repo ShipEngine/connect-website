@@ -2,6 +2,8 @@ function formatTitleParameter(key: string, value: any) {
   switch (key) {
     case "weight":
       return `${value.value}${value.unit}`;
+    case "dimensions":
+      return `${value.length} x ${value.width} x ${value.height} ${value.unit}`;
     case "label":
       return `${value.size} ${value.format}`;
     case "shipTo":
@@ -12,9 +14,9 @@ function formatTitleParameter(key: string, value: any) {
       return value.country;
     case "packages":
       return `${value.length}`;
-    case "contact": 
+    case "contact":
       return `${value.name}`
-    case "address": 
+    case "address":
       return value.country;
 
     case "deliveryServiceNames":
@@ -27,7 +29,7 @@ function formatTitleParameter(key: string, value: any) {
     case "packageInsuredValue":
       return `${value.value} ${value.currency}`;
 
-    case "timeWindow": 
+    case "timeWindow":
       return `${value.startDateTime} - ${value.endDateTime}`;
     case "shipments":
       return `${value.length}`;

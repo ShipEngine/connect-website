@@ -1,9 +1,9 @@
 /* eslint-disable camelcase */
 "use strict";
 
-const { RateShipmentWithAllServices } = require("../../../../../../lib/core/test-app/tests/rate-shipment-with-all-services");
+const { RateShipmentWithAllServices } = require("../../../../../lib/core/test-app/tests/rate-shipment-with-all-services");
 const { CarrierApp } = require("@shipengine/connect-sdk/lib/internal/carriers/carrier-app");
-const pojo = require("../../../../utils/pojo");
+const pojo = require("../../../utils/pojo");
 const { expect } = require("chai");
 
 describe("The rate shipment with multiple services test suite", () => {
@@ -71,6 +71,12 @@ describe("The rate shipment with multiple services test suite", () => {
         weight: {
           value: 200,
           unit: "lb"
+        },
+        dimensions: {
+          length: 5,
+          width: 5,
+          height: 5,
+          unit: "cm"
         }
       };
 
@@ -79,6 +85,7 @@ describe("The rate shipment with multiple services test suite", () => {
       const tests = testSuite.tests();
 
       expect(tests[0].title).to.include("weight: 200lb");
+      expect(tests[0].title).to.include("dimensions: 5 x 5 x 5 cm");
     });
   });
 

@@ -2,6 +2,7 @@ import {
   DeliveryConfirmation,
   DeliveryService,
   WeightUnit,
+  LengthUnit,
 } from "@shipengine/connect-sdk";
 
 import { CarrierApp, NewShipmentPOJO, NewPackagePOJO } from "@shipengine/connect-sdk/lib/internal";
@@ -108,6 +109,12 @@ export class CreateShipmentInternational extends Suite {
         value: 50.0,
         unit: WeightUnit.Pounds,
       },
+      dimensions: {
+        length: 12,
+        width: 12,
+        height: 12,
+        unit: LengthUnit.Inches
+      }
     };
 
     const testParams = reduceDefaultsWithConfig<
@@ -122,6 +129,12 @@ export class CreateShipmentInternational extends Suite {
       },
       label: testParams.label,
       weight: testParams.weight,
+      dimensions: {
+        length: testParams.dimensions.length,
+        width: testParams.dimensions.width,
+        height: testParams.dimensions.height,
+        unit: testParams.dimensions.unit
+      }
     };
 
 

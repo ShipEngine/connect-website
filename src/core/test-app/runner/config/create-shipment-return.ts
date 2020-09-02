@@ -1,7 +1,8 @@
 import {
   WeightUnit,
   DateTimeZonePOJO,
-  AddressWithContactInfoPOJO
+  AddressWithContactInfoPOJO,
+  DimensionsPOJO
 } from "@shipengine/connect-sdk";
 import { NewLabelPOJO } from "@shipengine/connect-sdk/lib/internal";
 
@@ -16,6 +17,7 @@ export interface CreateShipmentReturnTestParams {
     value: number;
     unit: WeightUnit;
   };
+  dimensions: DimensionsPOJO;
   shipDateTime: DateTimeZonePOJO | Date | string;
   deliveryConfirmationName?: string;
   rmaNumber?: string;
