@@ -1,6 +1,6 @@
 ---
 title: Automated Tests | rateShipment_with_all_services
-description: This test is part of the ShipEngine Connect carrier app test suite. It tests your app's ability to return rate quotes for all of your app's delivery services.
+description: This test is part of the ShipEngine Connect carrier app test suite.
 ---
 
 
@@ -8,13 +8,13 @@ Carrier App Tests
 ==================================
 
 ### `rateShipment_with_all_services`
-This test exercises your app's ability to successfully return rate quotes for all of your app's [delivery services](../../reference/delivery-service.mdx).
+This test exercises your app's ability to successfully return rate quotes for all of your app's [delivery services](./../../../reference/delivery-service.mdx).
 
 
 
 Test Parameters
 -------------------------
-This test has many parameters [that can be customized](#customizing-parameters) in your [`connect.config.js` file](../../testing/config.mdx). Any parameters you don't override will use their default values.
+This test has many parameters [that can be customized](#customizing-parameters) in your [`connect.config.js` file](./../../../testing/config.mdx). Any parameters you don't override will use their default values.
 
 <Reference>
 
@@ -24,7 +24,7 @@ This test has many parameters [that can be customized](#customizing-parameters) 
         a username and password or an auth token.
 
         The data included in this object depends on your service. You will need to
-        provide the information your methods need to make calls without calling your [`connect()` method](../../reference/methods/connect.mdx).
+        provide the information your methods need to make calls without calling your [`connect()` method](./../../../reference/methods/connect.mdx).
 
         If both a `connectArgs` parameter and a `session` parameter are provided, the `session` parameter will be used.
     </Description>
@@ -36,8 +36,8 @@ This test has many parameters [that can be customized](#customizing-parameters) 
   <Field name="connectArgs" type="object">
     <Description>
         An object containing properties with the same names as those you defined in
-        your [connection form](../../reference/forms.mdx#connection-form-examples). These will be used to call your
-        [`connect()` method](../../reference/methods/connect.mdx) to obtain a valid `session` object before calling other methods in the test.
+        your [connection form](./../../../reference/forms.mdx#connection-form-examples). These will be used to call your
+        [`connect()` method](./../../../reference/methods/connect.mdx) to obtain a valid `session` object before calling other methods in the test.
 
         If both a `connectArgs` parameter and a `session` parameter are provided, the `session` parameter will be used.
     </Description>
@@ -88,7 +88,7 @@ This test has many parameters [that can be customized](#customizing-parameters) 
 
   <Field name="shipFrom">
     <Type>
-        [address + contact object](../../reference/address.mdx)
+        [address + contact object](./../../../reference/address.mdx)
     </Type>
     <Description>
         The address to ship _from_ in the test. Be sure to include the additional contact info properties.
@@ -104,7 +104,7 @@ This test has many parameters [that can be customized](#customizing-parameters) 
 
   <Field name="shipTo">
     <Type>
-        [address + contact object](../../reference/address.mdx)
+        [address + contact object](./../../../reference/address.mdx)
     </Type>
     <Description>
         The address to ship _to_ in the test. Be sure to include the additional contact info properties.
@@ -151,9 +151,58 @@ This test has many parameters [that can be customized](#customizing-parameters) 
     </DefaultValue>
   </Field>
 
+  <Field name="dimensions" type="object">
+      <Description>
+        The dimensions for the package.
+      </Description>
+      <DefaultValue>
+         The properties and their default values are listed below. Note that these are the default values used when no `dimensions` parameter is specified.
+
+         If a `dimensions` parameter is specified, it must contain values for all properties.
+      </DefaultValue>
+    </Field>
+
+    <Field name="dimensions.length" type="number">
+      <Description>
+        The length of the to use for the shipment.
+      </Description>
+      <DefaultValue>
+        `12`
+      </DefaultValue>
+    </Field>
+
+    <Field name="dimensions.width" type="number">
+      <Description>
+        The width to use for the shipment.
+      </Description>
+      <DefaultValue>
+        `12`
+      </DefaultValue>
+    </Field>
+
+    <Field name="dimensions.height" type="number">
+      <Description>
+        The height to use for the shipment.
+      </Description>
+      <DefaultValue>
+        `12`
+      </DefaultValue>
+    </Field>
+
+    <Field name="dimensions.unit" type="string">
+      <Description>
+        The unit of measurement for the dimensions. Valid values include the following:
+          * `in` - inches
+          * `cm` - centimeters
+      </Description>
+      <DefaultValue>
+        `in`
+      </DefaultValue>
+    </Field>
+
   <Field name="shipDateTime">
     <Type>
-       [DateTime](../../reference/date-time.mdx), <br/>
+       [DateTime](./../../../reference/date-time.mdx), <br/>
        [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date), <br/>
        or a string representing the date and time in [ISO](https://www.w3.org/TR/NOTE-datetime) format.
     </Type>
@@ -170,7 +219,7 @@ This test has many parameters [that can be customized](#customizing-parameters) 
 
 Customizing Parameters
 ------------------------------
-Here's an example of using the [`connect.config.js` file](./../../testing/config.mdx) to customize the `rateShipment_with_all_services` test. This example provides values for all parameters and uses the global `connectArgs` parameter for authentication.
+Here's an example of using the [`connect.config.js` file](./../../../testing/config.mdx) to customize the `rateShipment_with_all_services` test. This example provides values for all parameters and uses the global `connectArgs` parameter for authentication.
 
 ```javascript
 module.exports = {
@@ -210,6 +259,12 @@ module.exports = {
         weight: {
           value: 10,
           unit: 'lb',
+        },
+        dimensions: {
+          width: 10,
+          height: 10,
+          length: 10,
+          unit: 'in'
         },
         shipDateTime: '2020-04-15T12:00:00-05:00'
       }

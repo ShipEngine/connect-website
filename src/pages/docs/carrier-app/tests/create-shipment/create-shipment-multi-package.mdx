@@ -1,6 +1,6 @@
 ---
 title: Automated Tests | createShipment_multipackage
-description: This test is part of the ShipEngine Connect carrier app test suite. It tests your app's ability to create a shipment that has multiple packages.
+description: This test is part of the ShipEngine Connect carrier app test suite.
 ---
 
 
@@ -8,13 +8,13 @@ Carrier App Tests
 ==================================
 
 ### `createShipment_multi_package`
-This test exercises your app's ability to successfully create a shipment that has multiple packages. If your app does not have any multi-package [delivery services](../../reference/delivery-service.mdx), then this test will be skipped by [the `connect test` command](../../cli.mdx#test-your-app).
+This test exercises your app's ability to successfully create a shipment that has multiple packages. If your app does not have any multi-package [delivery services](./../../../reference/delivery-service.mdx), then this test will be skipped by [the `connect test` command](./../../../cli.mdx#test-your-app).
 
 
 
 Test Parameters
 -------------------------
-This test has many parameters [that can be customized](#customizing-parameters) in your [`connect.config.js` file](../../testing/config.mdx). Any parameters you don't override will use their default values.
+This test has many parameters [that can be customized](#customizing-parameters) in your [`connect.config.js` file](./../../../testing/config.mdx). Any parameters you don't override will use their default values.
 
 <Reference>
 
@@ -24,7 +24,7 @@ This test has many parameters [that can be customized](#customizing-parameters) 
         a username and password or an auth token.
 
         The data included in this object depends on your service. You will need to
-        provide the information your methods need to make calls without calling your [`connect()` method](../../reference/methods/connect.mdx).
+        provide the information your methods need to make calls without calling your [`connect()` method](./../../../reference/methods/connect.mdx).
 
         If both a `connectArgs` parameter and a `session` parameter are provided, the `session` parameter will be used.
     </Description>
@@ -36,8 +36,8 @@ This test has many parameters [that can be customized](#customizing-parameters) 
   <Field name="connectArgs" type="object">
     <Description>
         An object containing properties with the same names as those you defined in
-        your [connection form](../../reference/forms.mdx#connection-form-examples). These will be used to call your
-        [`connect()` method](../../reference/methods/connect.mdx) to obtain a valid `session` object before calling other methods in the test.
+        your [connection form](./../../../reference/forms.mdx#connection-form-examples). These will be used to call your
+        [`connect()` method](./../../../reference/methods/connect.mdx) to obtain a valid `session` object before calling other methods in the test.
 
         If both a `connectArgs` parameter and a `session` parameter are provided, the `session` parameter will be used.
     </Description>
@@ -86,15 +86,6 @@ This test has many parameters [that can be customized](#customizing-parameters) 
     </DefaultValue>
   </Field>
 
-  <Field name="debug" type="boolean">
-    <Description>
-      Indicates whether or not to run the test in `debug` mode, which provides more insight into test failures.
-    </Description>
-    <DefaultValue>
-      `false`
-    </DefaultValue>
-  </Field>
-
   <Field name="retries" type="number">
     <Description>
       Indicates the number of times to retry the test when a failure is encountered.
@@ -104,27 +95,9 @@ This test has many parameters [that can be customized](#customizing-parameters) 
     </DefaultValue>
   </Field>
 
-  <Field name="skip" type="boolean">
-    <Description>
-      Indicates whether or not to skip this test.
-    </Description>
-    <DefaultValue>
-      `false`
-    </DefaultValue>
-  </Field>
-
-  <Field name="timeout" type="number">
-    <Description>
-      Indicates whether or not to run the test in `debug` mode, which provides more insight into test failures.
-    </Description>
-    <DefaultValue>
-      `false`
-    </DefaultValue>
-  </Field>
-
   <Field name="deliveryServiceName" type="string">
     <Description>
-         The name of the [delivery service](../../reference/delivery-service.mdx) you wish to use in this request.
+         The name of the [delivery service](./../../../reference/delivery-service.mdx) you wish to use in this request.
     </Description>
     <DefaultValue>
       The name of first domestic delivery service defined for your app.
@@ -133,7 +106,7 @@ This test has many parameters [that can be customized](#customizing-parameters) 
 
   <Field name="shipFrom">
     <Type>
-        [address + contact object](../../reference/address.mdx)
+        [address + contact object](./../../../reference/address.mdx)
     </Type>
     <Description>
         The address to ship _from_ in the test. Be sure to include the additional contact info properties.
@@ -149,7 +122,7 @@ This test has many parameters [that can be customized](#customizing-parameters) 
 
   <Field name="shipTo">
     <Type>
-        [address + contact object](../../reference/address.mdx)
+        [address + contact object](./../../../reference/address.mdx)
     </Type>
     <Description>
         The address to ship _to_ in the test. Be sure to include the additional contact info properties.
@@ -165,7 +138,7 @@ This test has many parameters [that can be customized](#customizing-parameters) 
 
   <Field name="shipDateTime">
     <Type>
-       [DateTime](../../reference/date-time.mdx), <br/>
+       [DateTime](./../../../reference/date-time.mdx), <br/>
        [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date), <br/>
        or a string representing the date and time in [ISO](https://www.w3.org/TR/NOTE-datetime) format.
     </Type>
@@ -190,7 +163,7 @@ This test has many parameters [that can be customized](#customizing-parameters) 
 
   <Field name="packages[].packagingName" type="string">
     <Description>
-        The [delivery confirmation](../../reference/delivery-confirmation.mdx) to use for this package.
+        The [delivery confirmation](./../../../reference/delivery-confirmation.mdx) to use for this package.
     </Description>
   </Field>
 
@@ -214,7 +187,7 @@ This test has many parameters [that can be customized](#customizing-parameters) 
          * `4x8` - Paper sized 4 inches by 8 inches
     </Description>
     <DefaultValue>
-        The first `labelSize` found for the specified [delivery service](../../reference/delivery-service.mdx).
+        The first `labelSize` found for the specified [delivery service](./../../../reference/delivery-service.mdx).
     </DefaultValue>
   </Field>
 
@@ -226,7 +199,7 @@ This test has many parameters [that can be customized](#customizing-parameters) 
         * `png` - Portable Graphics Format (PNG)
     </Description>
     <DefaultValue>
-        The first `labelFormat` found for the specified [delivery service](../../reference/delivery-service.mdx).
+        The first `labelFormat` found for the specified [delivery service](./../../../reference/delivery-service.mdx).
     </DefaultValue>
   </Field>
 
@@ -284,9 +257,58 @@ This test has many parameters [that can be customized](#customizing-parameters) 
     </DefaultValue>
   </Field>
 
+  <Field name="packages[].dimensions" type="object">
+    <Description>
+      The dimensions for the package.
+    </Description>
+    <DefaultValue>
+       The properties and their default values are listed below. Note that these are the default values used when no `dimensions` parameter is specified.
+
+       If a `dimensions` parameter is specified, it must contain values for all properties.
+    </DefaultValue>
+  </Field>
+
+  <Field name="packages[].dimensions.length" type="number">
+    <Description>
+      The length of the to use for the shipment.
+    </Description>
+    <DefaultValue>
+      `12`
+    </DefaultValue>
+  </Field>
+
+  <Field name="packages[].dimensions.width" type="number">
+    <Description>
+      The width to use for the shipment.
+    </Description>
+    <DefaultValue>
+      `12`
+    </DefaultValue>
+  </Field>
+
+  <Field name="packages[].dimensions.height" type="number">
+    <Description>
+      The height to use for the shipment.
+    </Description>
+    <DefaultValue>
+      `12`
+    </DefaultValue>
+  </Field>
+
+  <Field name="packages[].dimensions.unit" type="string">
+    <Description>
+      The unit of measurement for the dimensions. Valid values include the following:
+        * `in` - inches
+        * `cm` - centimeters
+    </Description>
+    <DefaultValue>
+      `in`
+    </DefaultValue>
+  </Field>
+
   <Field name="packages[].deliveryConfirmationName" type="string">
     <Description>
-        The name of the [delivery confirmation](../../reference/delivery-confirmation.mdx) to use for this shipment.
+        The name of the [delivery confirmation](./../../../reference/delivery-confirmation.mdx) to use for this shipment.
     </Description>
     <DefaultValue>
         The first delivery confirmation defined for the specified delivery service, or `undefined` if no
@@ -299,7 +321,7 @@ This test has many parameters [that can be customized](#customizing-parameters) 
 
 Customizing Parameters
 ------------------------------
-Here's an example of using the [`connect.config.js` file](./../../testing/config.mdx] to customize the `createShipment_multi_package` test.
+Here's an example of using the [`connect.config.js` file](./../../../testing/config.mdx) to customize the `createShipment_multi_package` test.
 This example provides values for all parameters and uses the global `connectArgs` parameter for authentication.
 
 ```javascript
@@ -350,7 +372,13 @@ module.exports = {
             weight: {
               value: 100,
               unit: 'lb'
-            }
+            },
+            dimensions: {
+              width: 10,
+              height: 10,
+              length: 10,
+              unit: 'in'
+            },
           },
           {
             packagingName: 'Package',
@@ -362,6 +390,12 @@ module.exports = {
               value: 75,
               unit: 'lb'
             },
+            dimensions: {
+              width: 15,
+              height: 15,
+              length: 15,
+              unit: 'in'
+            },
           },
           {
             packagingName: 'Package',
@@ -370,9 +404,15 @@ module.exports = {
               format: 'pdf'
             },
             weight: {
-              value: '100',
+              value: 100
               unit: 'lb'
-            }
+            },
+            dimensions: {
+              width: 5,
+              height: 5,
+              length: 5,
+              unit: 'in'
+            },
           }
         ]
       }

@@ -19,10 +19,12 @@ a `session` object in your [`connect.config.js` file](./../../testing/config.mdx
 
 | Test Name | Description
 |-----------|------------------------------------------
-|[`createShipment_domestic`](./create-shipment-domestic.mdx) | Creates a domestic shipment.
-|[`createShipment_international`](./create-shipment-international.mdx) | Creates an international shipment.
-|[`createShipment_with_insurance`](./create-shipment-with-insurance.mdx) | Creates a domestic shipment with insurance.
-|[`createShipment_multi_package`](./create-shipment-multi-package.mdx) | Creates a domestic shipment with multiple packages.
+|[`createShipment_domestic`](./create-shipment/create-shipment-domestic.mdx) | Creates a domestic shipment.
+|[`createShipment_international`](./create-shipment/create-shipment-international.mdx) | Creates an international shipment.
+|[`createShipment_with_insurance`](./create-shipment/create-shipment-with-insurance.mdx) | Creates a domestic shipment with insurance.
+|[`createShipment_multi_package`](./create-shipment/create-shipment-multi-package.mdx) | Creates a domestic shipment with multiple packages.
+|[`createShipment_return`](./create-shipment/create-shipment-return.mdx) | Creates a return shipment.
+
 
 
 `cancelShipments` Method
@@ -34,7 +36,7 @@ be cancelled in the test. They may also call the [`connect()` method](../../refe
 
 | Test Name | Description
 |-----------|------------------------------------------
-| [`cancelShipment`](./cancel-shipment.mdx) | Creates a shipment and cancels it.
+| [`cancelShipment`](./cancel-shipment/cancel-shipment.mdx) | Creates a shipment and cancels it.
 
 
 
@@ -59,8 +61,8 @@ a `session` object in your [`connect.config.js` file](./../../testing/config.mdx
 
 | Test Name | Description
 |-----------|------------------------------------------
-|[`rateShipment`](./rate-shipment.mdx) | Rates a shipment for a single [`delivery service`](../../reference/delivery-service.mdx).
-|[`rateShipment_with_all_services`](./rate-shipment-with-all-services.mdx) | Rate a shipment for all [`delivery services`](../../reference/delivery-service.mdx). This test will only be run if your app has more than one delivery service defined.
+|[`rateShipment`](./rate-shipment/rate-shipment.mdx) | Rates a shipment for a single [`delivery service`](../../reference/delivery-service.mdx).
+|[`rateShipment_with_all_services`](./rate-shipment/rate-shipment-with-all-services.mdx) | Rate a shipment for all [`delivery services`](../../reference/delivery-service.mdx). This test will only be run if your app has more than one delivery service defined.
 
 
 `createManifest()` Method
