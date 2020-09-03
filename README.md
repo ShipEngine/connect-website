@@ -26,7 +26,7 @@ $ npm install -g @shipengine/connect-cli
 $ connect COMMAND
 running command...
 $ connect (-v|--version|version)
-@shipengine/connect-cli/2.0.1 linux-x64 node-v12.18.1
+@shipengine/connect-cli/2.1.0 darwin-x64 node-v12.16.2
 $ connect --help [COMMAND]
 USAGE
   $ connect COMMAND
@@ -37,16 +37,32 @@ USAGE
 # Commands
 
 <!-- commands -->
+* [`connect apps`](#connect-apps)
 * [`connect help [COMMAND]`](#connect-help-command)
 * [`connect info`](#connect-info)
 * [`connect init [PATH]`](#connect-init-path)
 * [`connect login`](#connect-login)
 * [`connect logout`](#connect-logout)
+* [`connect logs`](#connect-logs)
 * [`connect pack`](#connect-pack)
 * [`connect publish`](#connect-publish)
 * [`connect start`](#connect-start)
 * [`connect test`](#connect-test)
 * [`connect whoami`](#connect-whoami)
+
+## `connect apps`
+
+List your apps
+
+```
+USAGE
+  $ connect apps
+
+OPTIONS
+  -h, --help  Show help for the apps commands
+```
+
+_See code: [src/commands/apps.ts](https://github.com/ShipEngine/connect-cli/blob/v2.1.0/src/commands/apps.ts)_
 
 ## `connect help [COMMAND]`
 
@@ -67,33 +83,33 @@ _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.0
 
 ## `connect info`
 
-list info for an app
+Get the current information about your app
 
 ```
 USAGE
   $ connect info
 
 OPTIONS
-  -h, --help  show help for the info command
+  -h, --help  Show help for the info command
 ```
 
-_See code: [src/commands/info.ts](https://github.com/ShipEngine/connect-cli/blob/v2.0.1/src/commands/info.ts)_
+_See code: [src/commands/info.ts](https://github.com/ShipEngine/connect-cli/blob/v2.1.0/src/commands/info.ts)_
 
 ## `connect init [PATH]`
 
-create a new package to develop a custom ShipEngine app
+Create a new package to develop a custom ShipEngine app
 
 ```
 USAGE
   $ connect init [PATH]
 
 ARGUMENTS
-  PATH  path to new package (defaults to current directory)
+  PATH  Path to new package (defaults to current directory)
 
 OPTIONS
-  -f, --force  overwrite existing files
-  -h, --help   show help for the new command
-  -y, --yes    skips the questions and uses the defaults (carrier|Javascript|yaml)
+  -f, --force  Overwrite existing files
+  -h, --help   Show help for the new command
+  -y, --yes    Skips the questions and uses the defaults (carrier|Javascript|yaml)
 
 ALIASES
   $ connect new
@@ -102,130 +118,144 @@ EXAMPLE
   $ connect init
 ```
 
-_See code: [src/commands/init.ts](https://github.com/ShipEngine/connect-cli/blob/v2.0.1/src/commands/init.ts)_
+_See code: [src/commands/init.ts](https://github.com/ShipEngine/connect-cli/blob/v2.1.0/src/commands/init.ts)_
 
 ## `connect login`
 
-login with your connect API key
+Login with your connect API key
 
 ```
 USAGE
   $ connect login
 
 OPTIONS
-  -h, --help  show help for the auth:login command
+  -h, --help  Show help for the login command
 
 ALIASES
   $ connect login
 ```
 
-_See code: [src/commands/login.ts](https://github.com/ShipEngine/connect-cli/blob/v2.0.1/src/commands/login.ts)_
+_See code: [src/commands/login.ts](https://github.com/ShipEngine/connect-cli/blob/v2.1.0/src/commands/login.ts)_
 
 ## `connect logout`
 
-clears the local connect API key
+Clears the local connect API key
 
 ```
 USAGE
   $ connect logout
 
 OPTIONS
-  -h, --help  show help for the auth:logout command
+  -h, --help  Show help for the auth:logout command
 
 ALIASES
   $ connect logout
 ```
 
-_See code: [src/commands/logout.ts](https://github.com/ShipEngine/connect-cli/blob/v2.0.1/src/commands/logout.ts)_
+_See code: [src/commands/logout.ts](https://github.com/ShipEngine/connect-cli/blob/v2.1.0/src/commands/logout.ts)_
+
+## `connect logs`
+
+Get the logs for your app
+
+```
+USAGE
+  $ connect logs
+
+OPTIONS
+  -h, --help  Show help for the logs command
+```
+
+_See code: [src/commands/logs.ts](https://github.com/ShipEngine/connect-cli/blob/v2.1.0/src/commands/logs.ts)_
 
 ## `connect pack`
 
-package your app
+Package your app
 
 ```
 USAGE
   $ connect pack
 
 OPTIONS
-  -h, --help  show help for the pack command
+  -h, --help  Show help for the pack command
 
 EXAMPLE
   $ connect pack
 ```
 
-_See code: [src/commands/pack.ts](https://github.com/ShipEngine/connect-cli/blob/v2.0.1/src/commands/pack.ts)_
+_See code: [src/commands/pack.ts](https://github.com/ShipEngine/connect-cli/blob/v2.1.0/src/commands/pack.ts)_
 
 ## `connect publish`
 
-publish your app
+Packages and publishes your app to the dev server
 
 ```
 USAGE
   $ connect publish
 
 OPTIONS
-  -h, --help        show help for the publish command
-  -n, --no-watch    does not track the status of the deployment
-  -s, --skip-tests  skip running the test before publishing
+  -h, --help        Show help for the publish command
+  -n, --no-watch    Does not track the status of the deployment
+  -s, --skip-tests  Skip running the test before publishing
 
 EXAMPLE
   $ connect publish
 ```
 
-_See code: [src/commands/publish.ts](https://github.com/ShipEngine/connect-cli/blob/v2.0.1/src/commands/publish.ts)_
+_See code: [src/commands/publish.ts](https://github.com/ShipEngine/connect-cli/blob/v2.1.0/src/commands/publish.ts)_
 
 ## `connect start`
 
-start a local web server to develop your app interactively
+Start a local web server to develop your app interactively
 
 ```
 USAGE
   $ connect start
 
 OPTIONS
-  -h, --help       show help for the apps:start commands
-  -p, --port=port  [default: 3000] the port that the app will run on
+  -h, --help       Show help for the start commands
+  -p, --port=port  [default: 3000] The port that the app will run on
 ```
 
-_See code: [src/commands/start.ts](https://github.com/ShipEngine/connect-cli/blob/v2.0.1/src/commands/start.ts)_
+_See code: [src/commands/start.ts](https://github.com/ShipEngine/connect-cli/blob/v2.1.0/src/commands/start.ts)_
 
 ## `connect test`
 
-test your app
+Test your app
 
 ```
 USAGE
   $ connect test
 
 OPTIONS
-  -d, --debug            logs additional debug information
-  -f, --fail-fast        stop running the test suite on the first failed test
-  -g, --grep=grep        only run test that match the given string
-  -h, --help             show help for the test command
-  -r, --retries=retries  specify the retries for all the test
-  -t, --timeout=timeout  specify the timeout for all the test
+  -d, --debug            Logs additional debug information
+  -f, --fail-fast        Stop running the test suite on the first failed test
+  -g, --grep=grep        Only run test that match the given string
+  -h, --help             Show help for the test command
+  -r, --retries=retries  Specify the retries for all the test
+  -t, --timeout=timeout  Specify the timeout for all the test
 
 EXAMPLES
   $ connect test
   $ connect test --grep rateShipment
 ```
 
-_See code: [src/commands/test.ts](https://github.com/ShipEngine/connect-cli/blob/v2.0.1/src/commands/test.ts)_
+_See code: [src/commands/test.ts](https://github.com/ShipEngine/connect-cli/blob/v2.1.0/src/commands/test.ts)_
 
 ## `connect whoami`
 
-display the current logged in user
+Display the current logged in user
 
 ```
 USAGE
   $ connect whoami
 
 OPTIONS
-  -h, --help  show help for the auth:whoami command
+  -h, --help  Show help for the whoami command
 
 ALIASES
   $ connect whoami
 ```
 
-_See code: [src/commands/whoami.ts](https://github.com/ShipEngine/connect-cli/blob/v2.0.1/src/commands/whoami.ts)_
+_See code: [src/commands/whoami.ts](https://github.com/ShipEngine/connect-cli/blob/v2.1.0/src/commands/whoami.ts)_
 <!-- commandsstop -->
