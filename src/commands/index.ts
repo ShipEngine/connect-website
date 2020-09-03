@@ -1,35 +1,15 @@
+import Help, { HelpBase } from '@oclif/plugin-help';
 import BaseCommand from "../base-command";
-import { flags } from "@oclif/command";
-import { checkAppLoginStatus } from "../core/utils/users";
 
-export default class AppsIndex extends BaseCommand {
-  public static description = "list your apps";
-
-  public static flags = {
-    help: flags.help({
-      char: "h",
-      description: "show help for the apps commands",
-    }),
-  };
+export default class Index extends BaseCommand {
+  public static description = "Connect CLI";
 
   // hide the command from help
   public static hidden = true;
 
   async run(): Promise<void> {
-    // When the -h flag is present the following line haults execution
-    this.parse(AppsIndex);
+    const help: HelpBase = new Help(this.config)
 
-    await checkAppLoginStatus(this);
-
-    try {
-      if (this.appsClient) {
-        const apps = this.appsClient.apps.getAll();
-        (await apps).items.forEach((app) => {
-          this.log(app.name);
-        });
-      }
-    } catch (error) {
-      this.error(error);
-    }
+    help.showHelp([])
   }
 }

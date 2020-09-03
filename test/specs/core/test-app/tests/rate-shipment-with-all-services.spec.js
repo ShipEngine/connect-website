@@ -3,7 +3,7 @@
 
 const { RateShipmentWithAllServices } = require("../../../../../lib/core/test-app/tests/rate-shipment-with-all-services");
 const { CarrierApp } = require("@shipengine/connect-sdk/lib/internal/carriers/carrier-app");
-const pojo = require("../../../utils/pojo");
+const pojo = require("../../../../utils/pojo");
 const { expect } = require("chai");
 
 describe("The rate shipment with multiple services test suite", () => {

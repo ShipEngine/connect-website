@@ -1,12 +1,12 @@
 import BaseCommand from "../base-command";
+import Login from './login';
 import Test from "./test";
 import publishApp, { isAppFailedToDeployError } from "../core/publish-app";
 import { flags } from "@oclif/command";
-import { checkAppLoginStatus } from "../core/utils/users";
 import { packageApp, isAppFailedToPackageError } from '../core/package-app';
 
 export default class Publish extends BaseCommand {
-  static description = "publish your app";
+  static description = "Packages and publishes your app to the dev server";
 
   static examples = ["$ connect publish"];
 
@@ -15,15 +15,15 @@ export default class Publish extends BaseCommand {
   static flags = {
     help: flags.help({
       char: "h",
-      description: "show help for the publish command",
+      description: "Show help for the publish command",
     }),
     "no-watch": flags.boolean({
       char: "n",
-      description: "does not track the status of the deployment",
+      description: "Does not track the status of the deployment",
     }),
     "skip-tests": flags.boolean({
       char: "s",
-      description: "skip running the test before publishing",
+      description: "Skip running the test before publishing",
       default: false,
     }),
   };
@@ -32,17 +32,24 @@ export default class Publish extends BaseCommand {
     // When the -h flag is present the following line haults execution
     const { flags } = this.parse(Publish);
 
-    await checkAppLoginStatus(this);
+    // Verify user is logged in
+    try {
+      await this.getCurrentUser();
+    } catch {
+      await Login.run([])
+    }
 
+    const apiClient = await this.apiClient()
+
+    // Run test in fail fast mode unless skipped
     if (!flags["skip-tests"]) await Test.run(["-f"]);
 
     try {
       const tarballName = await packageApp();
-      if(this.appsClient) {
-        await publishApp(tarballName, this.appsClient, {
-          noWatch: flags["no-watch"],
-        });
-      }
+
+      await publishApp(tarballName, apiClient, {
+        noWatch: flags["no-watch"],
+      });
     } catch (error) {
 
       if (isAppFailedToPackageError(error)) {

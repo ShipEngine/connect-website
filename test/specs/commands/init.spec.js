@@ -8,10 +8,10 @@ const double = {
   run: (namespace, options, callback) => {
     callback();
   },
-  register: () => {},
+  register: () => { },
 };
 
-describe("the new command", () => {
+describe("connect init", () => {
   beforeEach(() => {
     sinon.stub(yeomanEnv, "createEnv").returns(double);
   });
@@ -20,7 +20,7 @@ describe("the new command", () => {
     .stdout()
     .command(["new"])
     .it("calls the new generator with the given args and flags", (ctx) => {
-      expect(ctx.stdout).to.contain("Time to build a ShipEngine app!\n");
+      expect(ctx.stdout).to.contain("Time to build a Connect app!\n");
     });
 
   afterEach(() => {

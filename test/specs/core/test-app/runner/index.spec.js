@@ -5,7 +5,7 @@
 const { expect } = require("chai");
 const Runner = require("../../../../../lib/core/test-app/runner").default;
 const Suite = require("../../../../../lib/core/test-app/runner/suite").default;
-const pojo = require("../../../utils/pojo");
+const pojo = require("../../../../utils/pojo");
 const {
   useTestResults,
 } = require("../../../../../lib/core/test-app/runner/test-results");

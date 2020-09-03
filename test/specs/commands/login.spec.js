@@ -1,65 +1,50 @@
 "use strict";
 
-const { expect, test } = require("@oclif/test");
+const ApiKeyStore = require("../../../lib/core/utils/api-key-store");
 const cli = require("cli-ux").default;
-const ApiKeyStore = require("../../../lib/core/api-key-store");
+const { expect, test } = require("@oclif/test");
+const { testApiKey } = require('../../utils/test-api-key')
 
-describe("The auth:login command", () => {
+describe("connect login @integration", () => {
   describe("when a valid Apps API Key is entered", () => {
-    beforeEach(() => {
-      ApiKeyStore.clear("apps");
+    beforeEach(async () => {
+      await ApiKeyStore.clear();
     });
 
     test
-      .nock("https://dip-webapi-dev.kubedev.sslocal.com", (api) =>
-        api
-          .get("/api/diagnostics/whoami")
-          .reply(200, { name: "test", email: "test@test.user.com" }),
-      )
-      .stub(cli, "prompt", () => async () => "app_123456")
+      .stub(cli, "prompt", () => async () => testApiKey)
       .stdout()
       .command(["login"])
       .it("runs login when given a valid Apps API KEY", (ctx) => {
         expect(ctx.stdout).to.contain(
-          "\nyou have logged in with a Connect API key\n",
+          "You have logged in with a Connect API key\n",
         );
       });
   });
 
   describe("when an invalid Apps API Key is entered", () => {
     test
-      .nock("https://dip-webapi-dev.kubedev.sslocal.com", (api) =>
-        api
-          .get("/api/diagnostics/whoami")
-          .reply(401, { name: "test", email: "test@test.user.com" }),
-      )
-      .stub(cli, "prompt", () => async () => "app_123456")
+      .stub(cli, "prompt", () => async () => "invalid")
       .command(["login"])
       .exit(1)
       .it("exits with a status code of 1");
   });
 
   describe("when a re-login for an Apps API Key occurs", () => {
-    beforeEach(() => {
-      ApiKeyStore.clear("apps");
-      ApiKeyStore.clear("shipengine");
-      ApiKeyStore.set("apps", "app_123465");
+    beforeEach(async () => {
+      await ApiKeyStore.clear();
+      await ApiKeyStore.set(testApiKey);
     });
 
     test
-      .nock("https://dip-webapi-dev.kubedev.sslocal.com", (api) =>
-        api
-          .get("/api/diagnostics/whoami")
-          .reply(200, { name: "test", email: "test@test.user.com" }),
-      )
-      .stub(cli, "prompt", () => async () => "app_98765")
+      .stub(cli, "prompt", () => async () => testApiKey)
       .stdout()
       .command(["login"])
-      .it("should login with the new valid ShipEngine API KEY", (ctx) => {
-        const appToken = ApiKeyStore.get("apps");
-        expect(appToken).to.equal("app_98765");
+      .it("should login with the new valid ShipEngine API KEY", async (ctx) => {
+        const appToken = await ApiKeyStore.get("apps");
+        expect(appToken).to.equal(testApiKey);
         expect(ctx.stdout).to.contain(
-          "\nyou have logged in with a Connect API key\n",
+          "You have logged in with a Connect API key\n",
         );
       });
   });

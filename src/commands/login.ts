@@ -1,19 +1,18 @@
 import BaseCommand from "../base-command";
 import { flags } from "@oclif/command";
 import cli from "cli-ux";
-import * as ApiKeyStore from "../core/api-key-store";
-import { Domain } from '../core/api-key-store';
-import { setUser } from '../core/utils/users';
+import * as ApiKeyStore from "../core/utils/api-key-store";
+import { ApiClientErrors, ApiClientError } from '../core/api-client'
 
 export default class Login extends BaseCommand {
-  static description = "login with your connect API key";
+  static description = "Login with your connect API key";
 
   static aliases = ["login"];
 
   static flags = {
     help: flags.help({
       char: "h",
-      description: "show help for the auth:login command",
+      description: "Show help for the login command",
     }),
   };
 
@@ -22,28 +21,38 @@ export default class Login extends BaseCommand {
     this.parse(Login);
 
     const apiKey = await cli.prompt(
-      "please enter your API key",
+      "Please enter your API key",
       {
         type: "mask",
       }
     ) as string;
 
-    setUser(Domain.Apps, apiKey, this);
+    await ApiKeyStore.set(apiKey)
 
     try {
-      cli.action.start("verifying account");
-      await this.currentUser();
-      // Would rather use a /ping or /status endpoint here
-    } catch {
+      cli.action.start("Verifying account");
+      await this.getCurrentUser();
+    } catch (error) {
+      await ApiKeyStore.clear();
+      const err = error as ApiClientError;
 
-      ApiKeyStore.clear(Domain.Apps);
-      return this.error("the given API key is not valid", {
-        exit: 1,
-      });
+      switch (err.code) {
+        case ApiClientErrors.UnhandledError:
+          return this.error(err.message, {
+            exit: 1,
+          });
+        case ApiClientErrors.Unauthorized:
+          return this.error("The given API key is not valid", {
+            exit: 1,
+          });
+        default:
+          throw error;
+      }
+
     } finally {
       cli.action.stop();
     }
 
-    this.log("\nyou have logged in with a Connect API key");
+    this.log("You have logged in with a Connect API key");
   }
 }

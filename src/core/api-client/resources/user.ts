@@ -1,6 +1,5 @@
-import { AppUser, NetworkErrorCollection } from "../../types";
+import { AppUser } from "../../types";
 import AppsAPIClient from '..';
-import { AxiosError } from 'axios';
 
 export default class User {
   private client: AppsAPIClient;
@@ -11,22 +10,14 @@ export default class User {
 
   /**
    * Gets the current user for the given API key.
-   * @returns {Promise} Promise object that resolves to a User object.
+   * @returns {Promise<AppUser>} Promise that resolves to an AppUser.
    */
   async getCurrent(): Promise<AppUser> {
-    try {
-      const response = await this.client.call({
-        endpoint: "diagnostics/whoami",
-        method: "GET",
-      }) as AppUser;
+    const response = await this.client.call<AppUser>({
+      endpoint: "diagnostics/whoami",
+      method: "GET",
+    });
 
-      return response;
-    } catch (error) {
-      const err = error as AxiosError;
-      if (err.response) {
-        return Promise.reject(err.response.data as NetworkErrorCollection);
-      }
-      return Promise.reject(err.message);
-    }
+    return response;
   }
 }

@@ -4,15 +4,15 @@ import startApp from "../core/start-app";
 
 export default class Start extends BaseCommand {
   static description =
-    "start a local web server to develop your app interactively";
+    "Start a local web server to develop your app interactively";
 
   static flags = {
     help: flags.help({
       char: "h",
-      description: "show help for the apps:start commands",
+      description: "Show help for the start commands",
     }),
     port: flags.integer({
-      description: "the port that the app will run on",
+      description: "The port that the app will run on",
       char: "p",
       default: 3000,
     }),

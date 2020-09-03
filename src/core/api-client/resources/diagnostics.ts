@@ -1,6 +1,5 @@
-import { Pulse, NetworkErrorCollection } from "../../types";
+import { Pulse } from "../../types";
 import AppsAPIClient from '..';
-import { AxiosError } from 'axios';
 
 export default class Diagnostics {
   private client: AppsAPIClient;
@@ -11,22 +10,14 @@ export default class Diagnostics {
 
   /**
    * Check the API for a heart beat.
-   * @returns {Promise} Promise object that resolves to a Pulse object.
+   * @returns {Promise<Pulse>} Promise object that resolves to a Pulse object.
    */
   async heartBeat(): Promise<Pulse> {
-    try {
-      const response = await this.client.call({
-        endpoint: "diagnostics/heartbeat",
-        method: "GET",
-      }) as Promise<Pulse>;
+    const response = await this.client.call<Pulse>({
+      endpoint: "diagnostics/heartbeat",
+      method: "GET",
+    });
 
-      return Promise.resolve(response);
-    } catch (error) {
-      const err = error as AxiosError;
-      if (err.response) {
-        return Promise.reject(err.response.data as NetworkErrorCollection);
-      }
-      return Promise.reject(err.message);
-    }
+    return response;
   }
 }
