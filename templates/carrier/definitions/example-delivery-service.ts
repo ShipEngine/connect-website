@@ -10,6 +10,7 @@ import {
 const exampleDeliveryService: DeliveryServiceDefinition = {
   id: "<%- _uuidv4 %>",
   name: "Example Delivery Service",
+  code: "eds",
   description:
     "This is an example delivery service. Please remove and define your own.",
   deliveryConfirmations: [import("./example-delivery-confirmation")],
