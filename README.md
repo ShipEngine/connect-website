@@ -12,8 +12,8 @@
 
 <p><br></p>
 
-> #### ⚠ WARNING: This is an internal package
-> Using this package directly is not advised or supported. Instead, you should install
+> ### ⚠ WARNING: This is an internal package
+> Using this package directly is discouraged and unsupported. Instead, you should install
 > [**@shipengine/connect**](https://www.npmjs.com/package/@shipengine/connect) which uses this package under the hood.
 > See [our documentation](https://connect.shipengine.com/docs/cli) for more information.
 
