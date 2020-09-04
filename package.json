@@ -1,6 +1,6 @@
 {
   "name": "@shipengine/shipengine-integration-platform-local-dev-ui",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "build/index.js",
   "scripts": {
     "build": "react-scripts build && tsc -p ./scripts/post-build/tsconfig.json",
