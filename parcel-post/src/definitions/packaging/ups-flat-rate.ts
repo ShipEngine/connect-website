@@ -1,4 +1,4 @@
-import { PackagingDefinition } from "@shipengine/connect-sdk";
+import { PackagingDefinition } from "@shipengine/connect";
 
 export const upsFlatRatePackaging: PackagingDefinition[] = [
   {

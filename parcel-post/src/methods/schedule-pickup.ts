@@ -1,4 +1,4 @@
-import { ChargeType, PickupConfirmation, PickupRequest, Transaction } from "@shipengine/connect-sdk";
+import { ChargeType, PickupConfirmation, PickupRequest, Transaction } from "@shipengine/connect";
 import { nextDayPickup } from "../definitions/pickup-services";
 import { apiClient } from "../mock-api/client";
 import { ONE_DAY, ONE_HOUR, PickUpRequest, PickUpResponse } from "../mock-api/pick-up";

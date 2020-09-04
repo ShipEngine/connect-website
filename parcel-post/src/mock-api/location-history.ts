@@ -1,4 +1,5 @@
 import { HttpRequest } from "./client";
+import { LengthUnit, Country, WeightUnit, NoteType } from "@shipengine/connect";
 
 const allStatusCodes = ["NY", "C", "IT"]
 const allStatuses = {
@@ -14,15 +15,16 @@ export interface LocationHistoryRequest {
 }
 
 export interface LocationHistoryResponse {
+  trackingNumber: string;
   deliveryDate: string;
   packages: {
     description: string;
     length: number;
     width: number;
     height: number;
-    dimUnit: string;
+    dimUnit: LengthUnit;
     weight: number;
-    weightUnit: string;
+    weightUnit: WeightUnit;
   }[];
 
   trackingEvents: {
@@ -35,7 +37,7 @@ export interface LocationHistoryResponse {
     city: string;
     state: string;
     zip: string;
-    country: string;
+    country: Country;
     timeZone: string;
     addressType: string;
     latitude: number;
@@ -51,7 +53,7 @@ export interface LocationHistoryResponse {
     suffix: string;
   };
   notes: {
-    type: string;
+    type: NoteType;
     text: string;
   }[];
 }
@@ -65,6 +67,7 @@ export function locationHistory(request: HttpRequest & LocationHistoryRequest): 
   const status = allStatuses[statusCode];
 
   return {
+    trackingNumber: request.trackingNumber,
     deliveryDate: "2020-06-08T19:40:42.522Z",
     packages: [
       {
@@ -72,9 +75,9 @@ export function locationHistory(request: HttpRequest & LocationHistoryRequest): 
         length: 4,
         width: 4,
         height: 4,
-        dimUnit: "in",
+        dimUnit: LengthUnit.Inches,
         weight: 4,
-        weightUnit: "lb"
+        weightUnit: WeightUnit.Pounds
       }
     ],
     trackingEvents: [
@@ -88,7 +91,7 @@ export function locationHistory(request: HttpRequest & LocationHistoryRequest): 
         city: "Austin",
         state: "TX",
         zip: "78756",
-        country: "US",
+        country: Country.UnitedStates,
         timeZone: "America/Chicago",
         addressType: "residential",
         latitude: 30.308740,
@@ -105,7 +108,7 @@ export function locationHistory(request: HttpRequest & LocationHistoryRequest): 
     },
     notes: [
       {
-        type: "message_to_buyer",
+        type: NoteType.MessageToBuyer,
         text: "This package was tracked successfully"
       }
     ]

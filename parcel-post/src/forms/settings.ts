@@ -1,4 +1,4 @@
-import { FormDefinition } from "@shipengine/connect-sdk";
+import { FormDefinition } from "@shipengine/connect";
 
 const settingsForm: FormDefinition = {
   dataSchema: {

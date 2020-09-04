@@ -1,4 +1,4 @@
-import { Country, DeliveryServiceDefinition, DocumentFormat, DocumentSize, FulfillmentService, ServiceArea, ManifestType } from "@shipengine/connect-sdk";
+import { Country, DeliveryServiceDefinition, DocumentFormat, DocumentSize, FulfillmentService, ServiceArea, ManifestType } from "@shipengine/connect";
 import { adultSignature, recipientSignature, signature } from "../delivery-confirmations";
 import { customerPackaging } from "../packaging/customer";
 import { fedExFlatRatePackaging } from "../packaging/fedex-flat-rate";

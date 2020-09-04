@@ -1,4 +1,4 @@
-import { ChargeType, DocumentFormat, DocumentSize, DocumentType, NewShipment, ShipmentConfirmation, Transaction } from "@shipengine/connect-sdk";
+import { ChargeType, DocumentFormat, DocumentSize, DocumentType, NewShipment, ShipmentConfirmation, Transaction } from "@shipengine/connect";
 import { bag, box } from "../definitions/packaging/customer";
 import { apiClient } from "../mock-api/client";
 import { GenerateLabelRequest, GenerateLabelResponse } from "../mock-api/generate-label";

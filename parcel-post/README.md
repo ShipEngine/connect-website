@@ -15,7 +15,7 @@ About ShipEngine Connect Apps
 --------------------------------------------
 Apps are just [NPM packages](https://docs.npmjs.com/about-packages-and-modules) that export an object with properties and methods that define the application's functionality.
 
-An app must have a [`package.json` file](https://docs.npmjs.com/files/package.json) in its root directory, which specifies its name, version number, and dependencies. The [ShipEngine Connect SDK](https://www.npmjs.com/package/@shipengine/connect-sdk) (`@shipengine/connect-sdk`) must be listed as a dependency or devDependency.
+An app must have a [`package.json` file](https://docs.npmjs.com/files/package.json) in its root directory, which specifies its name, version number, and dependencies. The [ShipEngine Connect SDK](https://www.npmjs.com/package/@shipengine/connect) (`@shipengine/connect`) must be listed as a dependency or devDependency.
 
 Other than that, the folder structure and file names are entirely up to you.  As long as your app exports an object with the right structure, it doesn't matter whether that object is defined in a single file or spread across many files.
 

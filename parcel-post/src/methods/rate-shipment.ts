@@ -1,4 +1,4 @@
-import { ChargeType, RateCriteria, Rate, Transaction } from "@shipengine/connect-sdk";
+import { ChargeType, RateCriteria, Rate, Transaction } from "@shipengine/connect";
 import deliveryConfirmations from "../definitions/delivery-confirmations";
 import deliveryServices from "../definitions/delivery-services";
 import packaging from "../definitions/packaging";

@@ -1,6 +1,6 @@
 import { apiClient } from "../mock-api/client";
 import { Session } from "./session";
-import { Transaction, TrackingInfo, TrackingCriteria, ShipmentStatus } from "@shipengine/connect-sdk";
+import { Transaction, TrackingInfo, TrackingCriteria, ShipmentStatus, LengthUnit, Country, NoteType } from "@shipengine/connect";
 import { LocationHistoryResponse, LocationHistoryRequest } from "../mock-api/location-history";
 
 export default async function trackShipment(
@@ -21,40 +21,42 @@ export default async function trackShipment(
   const response = await apiClient.request<LocationHistoryResponse>({ data });
 
   // STEP 4: Create the output data that ShipEngine expects
-  return formatTrackingResponse(response.data);
+  const formattedTracking = formatTrackingResponse(response.data);
+  return formattedTracking;
 
 }
 
 /**
  * Formats a shipment in the way ShipEngine expects
  */
-function formatTrackingResponse(response): TrackingInfo {
+function formatTrackingResponse(response: LocationHistoryResponse): TrackingInfo {
 
   return {
+    trackingNumber: response.trackingNumber,
     deliveryDateTime: response.deliveryDate,
-    packages: [
-      {
+    packages: response.packages.map((pkg) => {
+      return {
         packaging: {
-          id: "03318192-3e6c-475f-a496-a4f17c1dbcae",
+          id: "03318192-3e6c-475f-a496-a4f17c1dbcae"
         },
         dimensions: {
-          length: response.packages[0].length,
-          width: response.packages[0].width,
-          height: response.packages[0].height,
-          unit: response.packages[0].dimUnit,
+          length: pkg.length,
+          width: pkg.width,
+          height: pkg.height,
+          unit: pkg.dimUnit
         },
         weight: {
-          value: response.packages[0].weight,
-          unit: response.packages[0].weightUnit,
+          value: pkg.weight,
+          unit: pkg.weightUnit
         }
       }
-    ],
+    }),
     events: [
       {
         name: response.trackingEvents[0].description,
         dateTime: response.deliveryDate,
         status: mapStatusCodes(response.trackingEvents[0].statusCode),
-        isError: (response.trackingEvents[0].length == 0 ? false : true),
+        isError: (response.trackingEvents.length == 0 ? false : true),
         code: response.trackingEvents[0].statusCode,
         description: response.trackingEvents[0].description,
         address: {
@@ -73,7 +75,12 @@ function formatTrackingResponse(response): TrackingInfo {
           family: response.signedBy.lastName,
           suffix: response.signedBy.suffix
         },
-        notes: response.notes
+        notes: response.notes.map((note) => {
+          return {
+            type: note.type,
+            text: note.text
+          }
+        })
       }
     ]
   }
@@ -81,7 +88,7 @@ function formatTrackingResponse(response): TrackingInfo {
 
 function mapStatusCodes(statusCodes): ShipmentStatus {
 
-  switch(statusCodes) {
+  switch (statusCodes) {
     case "NY":
       return ShipmentStatus.Accepted;
     case "C":
