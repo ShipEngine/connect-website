@@ -6,3 +6,4 @@ spec: test/specs/**/*.spec.js
 bail: true
 recursive: true
 require: source-map-support/register
+timeout: 10000
