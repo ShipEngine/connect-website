@@ -16,6 +16,7 @@ function locationHistory(request) {
   const status = allStatuses[statusCode];
 
   return {
+    trackingNumber: request.trackingNumber,
     deliveryDate: "2020-06-08T19:40:42.522Z",
     packages: [
       {

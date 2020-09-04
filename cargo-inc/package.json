@@ -4,7 +4,7 @@
   "description": "The Cargo Incorporated carrier app",
   "main": "cargo-inc.yaml",
   "devDependencies": {
-    "@shipengine/connect-sdk": "^1.0.0"
+    "@shipengine/connect": "^1.0.6"
   },
   "scripts": {
     "start": "connect start",

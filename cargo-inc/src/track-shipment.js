@@ -30,6 +30,7 @@ async function trackShipment(transaction, trackingCriteria) {
 async function formatTrackingResponse(response) {
 
   return {
+    trackingNumber: response.trackingNumber,
     deliveryDateTime: response.deliveryDate,
     packages: [
       {
