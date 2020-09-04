@@ -1,4 +1,4 @@
-![ShipEngine Connect](https://connect.shipengine.com/img/logos/shipengine-connect-logo.png)
+[![ShipEngine Connect](https://connect.shipengine.com/img/logos/shipengine-connect-logo.png)](https://connect.shipengine.com)
 
 [![npm](https://img.shields.io/npm/v/@shipengine/connect.svg)](https://www.npmjs.com/package/@shipengine/connect)
 [![License](https://img.shields.io/npm/l/@shipengine/connect.svg)](LICENSE)
