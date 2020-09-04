@@ -1,16 +1,24 @@
-![ShipEngine Connect](https://connect.shipengine.com/img/logos/shipengine-connect-logo.png)
+[![ShipEngine Connect](https://connect.shipengine.com/img/logos/shipengine-connect-logo.png)](https://connect.shipengine.com)
 
 # ShipEngine Connect CLI
 
-### Command-line tool for building [ShipEngine Connect](https://connect.shipengine.com/) apps
-
+[![npm](https://img.shields.io/npm/v/@shipengine/connect-cli.svg)](https://www.npmjs.com/package/@shipengine/connect-cli)
+[![License](https://img.shields.io/npm/l/@shipengine/connect-cli.svg)](LICENSE)
+[![Coverage Status](https://coveralls.io/repos/github/ShipEngine/connect-cli/badge.svg?branch=master)](https://coveralls.io/github/ShipEngine/connect-cli)
+[![Dependencies](https://david-dm.org/ShipEngine/connect-cli.svg)](https://david-dm.org/ShipEngine/connect-cli)
 [![Cross-Platform Compatibility](https://shipengine.github.io/img/badges/os-badges.svg)](https://github.com/ShipEngine/connect-cli/actions)
 [![Build Status](https://github.com/ShipEngine/connect-cli/workflows/CI-CD/badge.svg)](https://github.com/ShipEngine/connect-cli/actions)
-[![Coverage Status](https://coveralls.io/repos/github/ShipEngine/connect-cli/badge.svg?branch=master)](https://coveralls.io/github/ShipEngine/connect-cli)
 
-[![npm](https://img.shields.io/npm/v/@shipengine/connect-cli.svg)](https://www.npmjs.com/package/@shipengine/connect-cli)
-[![Dependencies](https://david-dm.org/ShipEngine/connect-cli.svg)](https://david-dm.org/ShipEngine/connect-cli)
-[![License](https://img.shields.io/npm/l/@shipengine/connect-cli.svg)](LICENSE)
+
+<p><br></p>
+
+> #### ⚠ WARNING: This is an internal package
+> Using this package directly is not advised or supported. Instead, you should install
+> [**@shipengine/connect**](https://www.npmjs.com/package/@shipengine/connect) which uses this package under the hood.
+> See [our documentation](https://connect.shipengine.com/docs/cli) for more information.
+
+<p><br></p>
+
 
 <!-- toc -->
 * [ShipEngine Connect CLI](#shipengine-connect-cli)
