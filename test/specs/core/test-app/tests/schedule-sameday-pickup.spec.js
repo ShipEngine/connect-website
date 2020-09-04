@@ -3,7 +3,7 @@
 
 const { SameDayPickup } = require("../../../../../lib/core/test-app/tests/same-day-pickup");
 const { CarrierApp } = require("@shipengine/connect-sdk/lib/internal/carriers/carrier-app");
-const pojo = require("../../../utils/pojo");
+const pojo = require("../../../../utils/pojo");
 const { expect } = require("chai");
 
 describe("The schedule same day pickup test suite", () => {
@@ -74,7 +74,7 @@ describe("The schedule same day pickup test suite", () => {
             }
           ]
         }]
-        
+
       };
 
       const args = { app, connectArgs, staticConfigTests, options };

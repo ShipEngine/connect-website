@@ -6,8 +6,8 @@
 
 // let cwd;
 // let projectPath;
-// describe("apps:publish", () => {
 
+// describe("connect publish", () => {
 //   test
 //     .stdout()
 //     .command(["apps:publish", "-h"])

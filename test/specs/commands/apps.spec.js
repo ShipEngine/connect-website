@@ -1,10 +1,11 @@
 "use strict";
 
 const ApiKeyStore = require("../../../lib/core/utils/api-key-store");
-const { expect, test } = require("@oclif/test");
+const cli = require("cli-ux").default;
+const { test } = require("@oclif/test");
 const { testApiKey } = require('../../utils/test-api-key')
 
-describe("connect whoami @integration", () => {
+describe("connect apps @integration", () => {
   describe("when authenticated", () => {
     beforeEach(async () => {
       await ApiKeyStore.clear();
@@ -13,10 +14,8 @@ describe("connect whoami @integration", () => {
 
     test
       .stdout()
-      .command(["whoami"])
-      .it("runs whoami", (ctx) => {
-        expect(ctx.stdout).to.include("You are currently logged in as: pierce");
-      });
+      .command(["apps"])
+      .it("runs apps");
 
     afterEach(async () => {
       await ApiKeyStore.clear();
@@ -29,8 +28,9 @@ describe("connect whoami @integration", () => {
     });
 
     test
+      .stub(cli, "prompt", () => async () => "invalid")
       .stdout()
-      .command(["whoami"])
+      .command(["apps"])
       .exit(1)
       .it("exits with status 1 when the user is not logged in");
   });

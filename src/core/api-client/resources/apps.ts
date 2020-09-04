@@ -1,10 +1,7 @@
-import ShipengineAPIClient from "..";
-import {
-  ConnectApp,
-  PaginatedItems,
-  NetworkErrorCollection,
-} from "../../types";
-import { AxiosError } from 'axios';
+import ono from '@jsdevtools/ono';
+import ShipengineAPIClient, { ApiClientErrors } from "..";
+import { ConnectApp, PaginatedItems } from "../../types";
+import { AppType } from '@shipengine/connect-sdk'
 
 export default class Apps {
   private client: ShipengineAPIClient;
@@ -15,127 +12,94 @@ export default class Apps {
 
   /**
    * Creates a new App.
-   * @returns {Promise} Promise object that resolves to a ConnectApp object.
+   * @returns {Promise<ConnectApp>} Promise object that resolves to a ConnectApp object.
    */
   async create({
     name,
     type,
   }: {
     name: string;
-    type: "carrier";
+    type: AppType;
   }): Promise<ConnectApp> {
-    try {
-      const response = await this.client.call({
-        endpoint: "apps",
-        method: "POST",
-        body: { name, type },
-      }) as ConnectApp;
+    const response = await this.client.call<ConnectApp>({
+      endpoint: "apps",
+      method: "POST",
+      body: { name, type },
+    });
 
-      return Promise.resolve(response);
-    } catch (error) {
-      const err = error as AxiosError;
-      if (err.response) {
-        return Promise.reject(err.response.data as NetworkErrorCollection);
-      }
-      return Promise.reject(err.message);
-    }
+    return response;
   }
 
   /**
    * Finds or creates a new app by name
-   * @returns {Promise} Promise object that resolves to a ConnectApp object.
+   * @returns {Promise<ConnectApp>} Promise object that resolves to a ConnectApp object.
    */
   async findOrCreateByName({
     name,
     type,
   }: {
     name: string;
-    type: "carrier";
+    type: AppType;
   }): Promise<ConnectApp> {
-    let deployedApp;
+    let app;
 
     try {
-      deployedApp = await this.getByName(name);
+      app = await this.getByName(name);
+      return app;
     } catch (error) {
-      const err = error as NetworkErrorCollection;
+      const code = Reflect.get(error, "code") as string | undefined;
 
-      if (err.statusCode === 401) {
-        return Promise.reject(error);
+      if (code === ApiClientErrors.NotFound) {
+        app = await this.create({
+          name: name,
+          type: type,
+        });
+        return app;
       }
-
-      deployedApp = await this.create({
-        name: name,
-        type: type,
-      });
+      throw error;
     }
-
-    return Promise.resolve(deployedApp);
   }
 
   /**
    * Gets all Apps that belong to the given API key.
-   * @returns {Promise} Promise object that resolves to an Array of ConnectApp objects.
+   * @returns {Promise<PaginatedItems<ConnectApp>>} Promise object that resolves to an Array of ConnectApp objects.
    */
   async getAll(): Promise<PaginatedItems<ConnectApp>> {
-    try {
-      const response = await this.client.call({
-        endpoint: "apps",
-        method: "GET",
-      }) as PaginatedItems<ConnectApp>;
+    const response = await this.client.call<PaginatedItems<ConnectApp>>({
+      endpoint: "apps",
+      method: "GET",
+    });
 
-      return Promise.resolve(response);
-    } catch (error) {
-      const err = error as AxiosError;
-      if (err.response) {
-        return Promise.reject(err.response.data as NetworkErrorCollection);
-      }
-      return Promise.reject(err.message);
-    }
+    return response;
   }
 
   /**
    * Get an App by its ID.
-   * @returns {Promise} Promise object that resolves to a ConnectApp object.
+   * @returns {Promise<ConnectApp>} Promise object that resolves to a ConnectApp object.
    */
   async getById(id: string): Promise<ConnectApp> {
-    try {
-      const response = await this.client.call({
-        endpoint: `apps/${id}`,
-        method: "GET",
-      }) as ConnectApp;
+    const response = await this.client.call<ConnectApp>({
+      endpoint: `apps/${id}`,
+      method: "GET",
+    });
 
-      return Promise.resolve(response);
-    } catch (error) {
-      const err = error as AxiosError;
-      if (err.response) {
-        return Promise.reject(err.response.data as NetworkErrorCollection);
-      }
-      return Promise.reject(err.message);
-    }
+    return response;
   }
 
   /**
    * Get an App by its name.
-   * @returns {Promise} Promise object that resolves to a ConnectApp object.
+   * @returns {Promise<ConnectApp>} Promise object that resolves to a ConnectApp object.
    */
   async getByName(name: string): Promise<ConnectApp> {
-    try {
-      const response = await this.client.call({
-        endpoint: `apps?name=${encodeURI(name)}`,
-        method: "GET",
-      }) as { items: ConnectApp[] };
+    const response = await this.client.call<PaginatedItems<ConnectApp>>({
+      endpoint: `apps?name=${encodeURI(name)}`,
+      method: "GET",
+    });
 
-      if (response.items[0]) {
-        return Promise.resolve(response.items[0]);
-      }
-
-      return Promise.reject({ statusCode: 404 });
-    } catch (error) {
-      const err = error as AxiosError;
-      if (err.response) {
-        return Promise.reject(err.response.data as NetworkErrorCollection);
-      }
-      return Promise.reject(err.message);
+    if (response.items[0]) {
+      return response.items[0];
     }
+
+    throw ono({ code: ApiClientErrors.NotFound }, "The record could not be found");
   }
 }

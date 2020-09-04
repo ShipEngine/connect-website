@@ -1,11 +1,11 @@
-import * as fs from "fs";
-import * as path from "path";
-import Generator = require("yeoman-generator");
-import _ from "lodash";
-import { v4 as uuidv4 } from "uuid";
 import capitalization from "@shipengine/capitalization";
 import { AppType } from "@shipengine/connect-sdk";
+import * as fs from "fs";
+import _ from "lodash";
+import * as path from "path";
+import { v4 as uuidv4 } from "uuid";
 import { SdkAppTypes } from "../types";
+import Generator = require("yeoman-generator");
 
 const fixpack = require("@oclif/fixpack");
 const sortPjson = require("sort-pjson");
@@ -33,7 +33,6 @@ class AppsNew extends Generator {
     version: string;
     github: { repo: string; user: string };
     author: string;
-    license: string;
     typescript: boolean;
     definitions: DefinitionTypes;
     vscode: boolean;
@@ -63,6 +62,7 @@ class AppsNew extends Generator {
     }
 
     this.pjson = {
+      private: true,
       scripts: {},
       engines: {},
       devDependencies: {},
@@ -70,16 +70,15 @@ class AppsNew extends Generator {
       ...this.fs.readJSON("package.json", {}) as object,
     };
 
-    const scopePresentInName = (name: string): boolean => {
+    const scopePresentInName = (name = ""): boolean => {
       return !!name.match(/^@[a-z0-9-*~][a-z0-9-*._~]*/);
     };
 
     const defaults = {
       name: this.determineAppname().replace(/ /g, "-"),
-      scope: "@shipengine",
+      scope: "@your-company-name",
       type: "carrier",
-      version: "0.0.0",
-      license: "ISC",
+      version: "1.0.0",
       author: this.githubUser
         ? `${this.user.git.name()} @${this.githubUser}`
         : this.user.git.name(),
@@ -112,15 +111,14 @@ class AppsNew extends Generator {
               return true;
             }
 
-            return "please enter a valid npm package name (ex: shipengine-conect)";
+            return "please enter a valid npm package name";
           },
         },
         {
           type: "input",
           name: "scope",
-          message: "npm package scope (e.g. @shipengine)",
-          default: defaults.scope,
-          when: (answers: any) => {
+          message: "npm package scope (e.g. @your-company-name)",
+          when: (answers: Generator.Answers) => {
             return !scopePresentInName(answers.name);
           },
           validate: (value: string) => {
@@ -131,7 +129,7 @@ class AppsNew extends Generator {
               return true;
             }
 
-            return "please enter a valid npm scope (ex: @shipengine)";
+            return "please enter a valid npm scope (ex: @your-company-name)";
           },
         },
         {
@@ -139,8 +137,8 @@ class AppsNew extends Generator {
           name: "type",
           message: "what type of app are you building",
           choices: [
-            { name: "carrier ", value: "carrier" },
-            { name: "order source", value: "order" },
+            { name: "Carrier app ", value: "carrier" },
+            { name: "Order app", value: "order" },
           ],
           default: defaults.type,
         },
@@ -171,7 +169,7 @@ class AppsNew extends Generator {
           message: "which language would you like to use",
           choices: [
             {
-              name: "Javascript",
+              name: "JavaScript",
               value: false,
             },
             {
@@ -185,22 +183,24 @@ class AppsNew extends Generator {
           type: "list",
           name: "definitions",
           message: "app definitions file type",
-          choices: [
+          choices: (answers: Generator.Answers) => [
             {
-              name: "yaml",
+              name: "YAML",
               value: "yaml",
             },
             {
-              name: "json",
+              name: "JSON",
               value: "json",
             },
             {
-              name: "pojo (TypeScript or Javascript objects)",
+              name: answers.typescript ? "TypeScript" : "JavaScript",
               value: "pojo",
             },
           ],
 
-          default: defaults.definitions,
+          default(answers: Generator.Answers) {
+            return answers.typescript ? "pojo" : defaults.definitions;
+          },
         },
         {
           type: "confirm",
@@ -227,7 +227,6 @@ class AppsNew extends Generator {
     this.pjson.version = this.answers.version || defaults.version;
     this.pjson.engines.node = defaults.engines.node;
     this.pjson.author = this.answers.author || defaults.author;
-    this.pjson.license = defaults.license;
 
     this.pjson.keywords = defaults.keywords || [
       "ShipEngine",
@@ -279,12 +278,6 @@ class AppsNew extends Generator {
     );
 
     this.fs.copyTpl(
-      this.templatePath("editorconfig"),
-      this.destinationPath(".editorconfig"),
-      this,
-    );
-
-    this.fs.copyTpl(
       this.templatePath("connect.config.js"),
       this.destinationPath("connect.config.js"),
       this,
@@ -307,14 +300,6 @@ class AppsNew extends Generator {
       this.fs.copyTpl(
         this.templatePath(".npmignore-js"),
         this.destinationPath(".npmignore"),
-        this,
-      );
-    }
-
-    if (this.pjson.license === "ISC") {
-      this.fs.copyTpl(
-        this.templatePath("LICENSE"),
-        this.destinationPath("LICENSE"),
         this,
       );
     }
@@ -549,15 +534,13 @@ class AppsNew extends Generator {
     const dependencies: string[] = [];
     const devDependencies: string[] = [];
 
-    devDependencies.push("@shipengine/connect-sdk");
+    devDependencies.push("@shipengine/connect");
 
     if (this.ts) {
       devDependencies.push("@types/node@^13.13.5");
       devDependencies.push("typescript");
       devDependencies.push("copyfiles");
     }
-
-    if (isWindows) devDependencies.push("rimraf");
 
     await this.npmInstall(devDependencies, {
       "save-dev": true,
@@ -603,7 +586,6 @@ class AppsNew extends Generator {
         "/tmp",
         "/dist",
         "/.nyc_output",
-        "/package-lock.json",
         ".env.test",
       ])
         .concat(existing)

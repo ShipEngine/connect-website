@@ -1,7 +1,7 @@
 "use strict";
 
 const { expect } = require("chai");
-const pojo = require("../../../utils/pojo");
+const pojo = require("../../../../utils/pojo");
 const { findMatchingOriginAndDestinationCountries } = require("../../../../../lib/core/test-app/utils/find-matching-origin-and-destination-countries");
 const { CarrierApp } = require("@shipengine/connect-sdk/lib/internal/carriers/carrier-app");
 

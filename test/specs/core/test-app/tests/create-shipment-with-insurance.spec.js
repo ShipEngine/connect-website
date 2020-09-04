@@ -3,7 +3,7 @@
 
 const { CreateShipmentWithInsurance } = require("../../../../../lib/core/test-app/tests/create-shipment-with-insurance");
 const { CarrierApp } = require("@shipengine/connect-sdk/lib/internal/carriers/carrier-app");
-const pojo = require("../../../utils/pojo");
+const pojo = require("../../../../utils/pojo");
 const { expect } = require("chai");
 const sinon = require("sinon");
 

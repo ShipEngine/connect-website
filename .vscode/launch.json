@@ -9,6 +9,10 @@
       "request": "launch",
       "name": "Mocha Tests",
       "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
+      "args": [
+        "--timeout=60000",
+        "--retries=0"
+      ],
       "console": "integratedTerminal",
       "internalConsoleOptions": "openOnSessionStart",
       "skipFiles": [

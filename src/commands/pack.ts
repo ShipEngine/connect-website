@@ -3,7 +3,7 @@ import { flags } from "@oclif/command";
 import { packageApp, isAppFailedToPackageError } from '../core/package-app';
 
 export default class Publish extends BaseCommand {
-  static description = "package your app";
+  static description = "Package your app";
 
   static examples = ["$ connect pack"];
 
@@ -12,7 +12,7 @@ export default class Publish extends BaseCommand {
   static flags = {
     help: flags.help({
       char: "h",
-      description: "show help for the pack command",
+      description: "Show help for the pack command",
     })
   };
 
@@ -21,9 +21,7 @@ export default class Publish extends BaseCommand {
     this.parse(Publish);
 
     try {
-
       await packageApp();
-
     } catch (error) {
 
       if (isAppFailedToPackageError(error)) {
@@ -34,4 +32,4 @@ export default class Publish extends BaseCommand {
       throw error;
     }
   }
-} 
+}

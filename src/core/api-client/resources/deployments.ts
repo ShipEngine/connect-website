@@ -1,12 +1,7 @@
 import * as fs from "fs";
 import FormData from "form-data";
 import ShipengineAPIClient from "..";
-import {
-  Deployment,
-  NetworkErrorCollection,
-  PaginatedItems,
-} from "../../types";
-import { AxiosError } from 'axios';
+import { Deployment, PaginatedItems } from "../../types";
 
 export default class Deployments {
   private client: ShipengineAPIClient;
@@ -17,7 +12,7 @@ export default class Deployments {
 
   /**
    * Create a new deployment for the given appID
-   * @returns {Promise} Promise object that resolves to a Deployment object.
+   * @returns {Promise<Deployment>} Promise object that resolves to a Deployment object.
    */
   async create({
     appId,
@@ -27,51 +22,38 @@ export default class Deployments {
     pathToTarball: string;
   }): Promise<Deployment> {
     const form = new FormData();
+
     form.append("deployment", fs.createReadStream(pathToTarball));
 
-    try {
-      const response = await this.client.call({
-        endpoint: `apps/${appId}/deploys`,
-        method: "POST",
-        body: form,
-        headers: {
-          "content-type": `multipart/form-data; boundary=${form.getBoundary()}`,
-        },
-        isFileUpload: true,
-      }) as Deployment;
+    const response = await this.client.call<Deployment>({
+      endpoint: `apps/${appId}/deploys`,
+      method: "POST",
+      body: form,
+      headers: {
+        "content-type": `multipart/form-data; boundary=${form.getBoundary()}`,
+      },
+      isFileUpload: true,
+    });
 
-      return Promise.resolve(response);
-    } catch (error) {
-      const err = error as AxiosError;
-      if (err.response) {
-        return Promise.reject(err.response.data as NetworkErrorCollection);
-      }
-      return Promise.reject(err.message);    }
+    return response;
   }
 
   /**
    * Gets all deploys for the given appID
-   * @returns {Promise} Promise object that resolves to an Array of Deployment objects.
+   * @returns {Promise<PaginatedItems<Deployment>>} Promise object that resolves to an Array of Deployment objects.
    */
   async getAllForAppId(appId: string): Promise<PaginatedItems<Deployment>> {
-    try {
-      const response = await this.client.call({
-        endpoint: `apps/${appId}/deploys`,
-        method: "GET",
-      }) as PaginatedItems<Deployment>;
+    const response = await this.client.call<PaginatedItems<Deployment>>({
+      endpoint: `apps/${appId}/deploys`,
+      method: "GET",
+    });
 
-      return Promise.resolve(response);
-    } catch (error) {
-      const err = error as AxiosError;
-      if (err.response) {
-        return Promise.reject(err.response.data as NetworkErrorCollection);
-      }
-      return Promise.reject(err.message);    }
+    return response;
   }
 
   /**
    * Gets the deploy for the given appId and deployID
-   * @returns {Promise} Promise object that resolves to a Deployment object.
+   * @returns {Promise<Deployment>} Promise object that resolves to a Deployment object.
    */
   async getById({
     appId,
@@ -80,24 +62,17 @@ export default class Deployments {
     deployId: string;
     appId: string;
   }): Promise<Deployment> {
-    try {
-      const response = await this.client.call({
-        endpoint: `apps/${appId}/deploys/${deployId}`,
-        method: "GET",
-      }) as Deployment;
+    const response = await this.client.call<Deployment>({
+      endpoint: `apps/${appId}/deploys/${deployId}`,
+      method: "GET",
+    });
 
-      return Promise.resolve(response);
-    } catch (error) {
-      const err = error as AxiosError;
-      if (err.response) {
-        return Promise.reject(err.response.data as NetworkErrorCollection);
-      }
-      return Promise.reject(err.message);    }
+    return response;
   }
 
   /**
    * Gets the logs for a deployment for the given appId and deployID
-   * @returns {Promise} Promise object that resolves to a Deployment object.
+   * @returns {Promise<string>} Promise object that resolves to a Deployment object.
    */
   async getLogsById({
     appId,
@@ -106,19 +81,11 @@ export default class Deployments {
     deployId: string;
     appId: string;
   }): Promise<string> {
-    try {
-      const response = await this.client.call({
-        endpoint: `apps/${appId}/deploys/${deployId}/logs`,
-        method: "GET",
-      }) as string;
+    const response = await this.client.call<string>({
+      endpoint: `apps/${appId}/deploys/${deployId}/logs`,
+      method: "GET",
+    });
 
-      return Promise.resolve(response);
-    } catch (error) {
-      const err = error as AxiosError;
-      if (err.response) {
-        return Promise.reject(err.response.data as NetworkErrorCollection);
-      }
-      return Promise.reject(err.message);
-    }
+    return response;
   }
 }

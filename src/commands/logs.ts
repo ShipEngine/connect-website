@@ -3,15 +3,14 @@ import { flags } from "@oclif/command";
 import { loadApp } from "@shipengine/connect-loader";
 import Login from './login';
 import { ApiClientErrors } from '../core/api-client'
-import Table from 'cli-table';
 
 export default class Info extends BaseCommand {
-  public static description = "Get the current information about your app";
+  public static description = "Get the logs for your app";
 
   static flags = {
     help: flags.help({
       char: "h",
-      description: "Show help for the info command",
+      description: "Show help for the logs command",
     }),
   };
 
@@ -36,15 +35,12 @@ export default class Info extends BaseCommand {
       const paginatedDeployments = await apiClient.deployments.getAllForAppId(
         platformApp.id,
       );
-
       const latestDeployment = paginatedDeployments.items[0];
 
-      const table = new Table({
-        head: ['ID', 'Name', "Type", "Status", "Created At"]
-      });
+      const logs = await apiClient.deployments.getLogsById({ deployId: latestDeployment.deployId, appId: platformApp.id })
 
-      table.push([platformApp.id, platformApp.name, platformApp.type, latestDeployment.status, latestDeployment.createdAt])
-      this.log(table.toString());
+      this.log(logs);
+
     } catch (error) {
       switch (error.code) {
         case "ERR_APP_ERROR":
@@ -63,3 +59,4 @@ export default class Info extends BaseCommand {
     }
   }
 }
+

@@ -1,23 +1,30 @@
 "use strict";
 
+const ApiKeyStore = require("../../../lib/core/utils/api-key-store");
 const { expect, test } = require("@oclif/test");
-const ApiKeyStore = require("../../../lib/core/api-key-store");
 
-describe("The auth:logout command", () => {
-
-  describe("when there is only an Apps API Key", () => {
-    before(() => {
-      ApiKeyStore.clear("apps");
-      ApiKeyStore.set("apps", "app_12346");
+describe("connect logout", () => {
+  describe("when authenticated", () => {
+    before(async () => {
+      await ApiKeyStore.set("test");
     });
 
     test
       .stdout()
       .stderr()
       .command(["logout"])
-      .it("clears the API key for the current Apps API Key", () => {
-        const appsKey = ApiKeyStore.get("apps");
-        expect(appsKey).to.equal(null);
+      .it("clears the API key for the current Apps API Key", async () => {
+        let result;
+        let errorResult;
+
+        try {
+          result = await ApiKeyStore.get();
+        } catch (error) {
+          errorResult = error;
+        }
+
+        expect(result).to.be.undefined;
+        expect(errorResult.code).equal("ERR_API_KEY_NOT_FOUND");
       });
   });
 });

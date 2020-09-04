@@ -1,7 +1,7 @@
 "use strict";
 
 const { expect } = require("chai");
-const pojo = require("../../../utils/pojo");
+const pojo = require("../../../../utils/pojo");
 const findDeliveryConfirmationByName = require("../../../../../lib/core/test-app/utils/find-delivery-confirmation-by-name")
   .default;
 

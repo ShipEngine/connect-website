@@ -1,10 +1,9 @@
-import { Command as Base } from "@oclif/command";
+import * as ApiKeyStore from "./core/utils/api-key-store";
 import APIClient from "./core/api-client";
-import { AppUser } from "./core/types";
-import * as ApiKeyStore from "./core/api-key-store";
-import { Domain } from "./core/api-key-store";
 import fs from "fs";
 import path from "path";
+import { AppUser } from "./core/types";
+import { Command as Base } from "@oclif/command";
 
 interface PackageJSON {
   name: string;
@@ -16,30 +15,20 @@ const pjson = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "package.jso
 export default abstract class BaseCommand extends Base {
   public base = `${pjson.name}@${pjson.version}`;
 
-  private _appsClient!: APIClient;
-
-  public get appsClient(): APIClient | undefined {
-    const apiKey = ApiKeyStore.get(Domain.Apps);
-
-    if (!apiKey) {
-      return undefined;
-    }
-
-    this._appsClient = new APIClient(apiKey);
-
-    return this._appsClient;
+  public async apiClient(): Promise<APIClient> {
+    const apiKey = await ApiKeyStore.get()
+    return new APIClient(apiKey);
   }
 
-  public async currentUser(): Promise<AppUser | undefined> {
-    try {
-      if (this.appsClient) {
-        return await this.appsClient.user.getCurrent();
-      }
-      return undefined;
-    }
-    catch (error) {
-      const err = error as Error;
-      this.error(err.message);
-    }
+  /**
+   * Get the current user logged into the CLI
+   * @returns {Promise<AppUser>} A promise w/ the user object
+   */
+  public async getCurrentUser(): Promise<AppUser> {
+    const apiKey = await ApiKeyStore.get()
+    const apiClient = new APIClient(apiKey);
+    const user = await apiClient.user.getCurrent()
+
+    return user;
   }
 }

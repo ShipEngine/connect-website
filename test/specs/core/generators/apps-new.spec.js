@@ -31,6 +31,7 @@ describe("new generator", () => {
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
+          .withPrompts({ scope: "@my-company" })
           .withPrompts({ description: "test description" })
           .withPrompts({ author: "test" })
           .withPrompts({ version: "0.0.0" })
@@ -50,15 +51,13 @@ describe("new generator", () => {
               "src/definitions/example-packaging.yaml",
               "src/forms/connect.yaml",
               "src/forms/settings.yaml",
-              ".editorconfig",
-              "LICENSE",
               "README.md",
               ".npmignore",
               "package.json",
             ]);
 
             assert.jsonFileContent("package.json", {
-              name: "@shipengine/testname",
+              name: "@my-company/testname",
               main: "src/index.yaml",
               description: "test description",
               scripts: {
@@ -79,6 +78,7 @@ describe("new generator", () => {
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
+          .withPrompts({ scope: "@my-company" })
           .withPrompts({ description: "test description" })
           .withPrompts({ author: "test" })
           .withPrompts({ version: "0.0.0" })
@@ -102,15 +102,13 @@ describe("new generator", () => {
               "src/definitions/example-packaging.ts",
               "src/forms/connect.ts",
               "src/forms/settings.ts",
-              ".editorconfig",
-              "LICENSE",
               "README.md",
               ".npmignore",
               "package.json",
             ]);
 
             assert.jsonFileContent("package.json", {
-              name: "@shipengine/testname",
+              name: "@my-company/testname",
               description: "test description",
               scripts: {
                 build: "tsc",
@@ -132,6 +130,7 @@ describe("new generator", () => {
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
+          .withPrompts({ scope: "@my-company" })
           .withPrompts({ description: "test description" })
           .withPrompts({ author: "test" })
           .withPrompts({ version: "0.0.0" })
@@ -155,15 +154,13 @@ describe("new generator", () => {
               "src/definitions/example-packaging.json",
               "src/forms/connect.json",
               "src/forms/settings.json",
-              ".editorconfig",
-              "LICENSE",
               "README.md",
               ".npmignore",
               "package.json",
             ]);
 
             assert.jsonFileContent("package.json", {
-              name: "@shipengine/testname",
+              name: "@my-company/testname",
               description: "test description",
               main: "lib/index.json",
               scripts: {
@@ -185,6 +182,7 @@ describe("new generator", () => {
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
+          .withPrompts({ scope: "@my-company" })
           .withPrompts({ description: "test description" })
           .withPrompts({ author: "test" })
           .withPrompts({ version: "0.0.0" })
@@ -208,15 +206,13 @@ describe("new generator", () => {
               "src/definitions/example-packaging.yaml",
               "src/forms/connect.yaml",
               "src/forms/settings.yaml",
-              ".editorconfig",
-              "LICENSE",
               "README.md",
               ".npmignore",
               "package.json",
             ]);
 
             assert.jsonFileContent("package.json", {
-              name: "@shipengine/testname",
+              name: "@my-company/testname",
               description: "test description",
               main: "lib/index.yaml",
               scripts: {
@@ -240,6 +236,7 @@ describe("new generator", () => {
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
+          .withPrompts({ scope: "@my-company" })
           .withPrompts({ description: "test description" })
           .withPrompts({ author: "test" })
           .withPrompts({ version: "0.0.0" })
@@ -260,15 +257,13 @@ describe("new generator", () => {
               "src/definitions/example-packaging.json",
               "src/forms/connect.json",
               "src/forms/settings.json",
-              ".editorconfig",
-              "LICENSE",
               "README.md",
               ".npmignore",
               "package.json",
             ]);
 
             assert.jsonFileContent("package.json", {
-              name: "@shipengine/testname",
+              name: "@my-company/testname",
               description: "test description",
               scripts: {
                 start: "connect start",
@@ -289,6 +284,7 @@ describe("new generator", () => {
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
+          .withPrompts({ scope: "@my-company" })
           .withPrompts({ description: "test description" })
           .withPrompts({ author: "test" })
           .withPrompts({ version: "0.0.0" })
@@ -309,15 +305,13 @@ describe("new generator", () => {
               "src/definitions/example-packaging.yaml",
               "src/forms/connect.yaml",
               "src/forms/settings.yaml",
-              ".editorconfig",
-              "LICENSE",
               "README.md",
               ".npmignore",
               "package.json",
             ]);
 
             assert.jsonFileContent("package.json", {
-              name: "@shipengine/testname",
+              name: "@my-company/testname",
               description: "test description",
               scripts: {
                 start: "connect start",
@@ -340,6 +334,7 @@ describe("new generator", () => {
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
+          .withPrompts({ scope: "@my-company" })
           .withPrompts({ description: "test description" })
           .withPrompts({ author: "test" })
           .withPrompts({ version: "0.0.0" })
@@ -353,15 +348,13 @@ describe("new generator", () => {
               "src/methods/acknowledge-orders.js",
               "src/forms/connect.yaml",
               "src/forms/settings.yaml",
-              ".editorconfig",
-              "LICENSE",
               "README.md",
               ".npmignore",
               "package.json",
             ]);
 
             assert.jsonFileContent("package.json", {
-              name: "@shipengine/testname",
+              name: "@my-company/testname",
               description: "test description",
               scripts: {
                 start: "connect start",
@@ -382,6 +375,7 @@ describe("new generator", () => {
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
+          .withPrompts({ scope: "@my-company" })
           .withPrompts({ description: "test description" })
           .withPrompts({ author: "test" })
           .withPrompts({ version: "0.0.0" })
@@ -398,8 +392,6 @@ describe("new generator", () => {
               "src/methods/acknowledge-orders.ts",
               "src/forms/connect.ts",
               "src/forms/settings.ts",
-              ".editorconfig",
-              "LICENSE",
               "README.md",
               ".npmignore",
               "package.json",
@@ -407,7 +399,7 @@ describe("new generator", () => {
             ]);
 
             assert.jsonFileContent("package.json", {
-              name: "@shipengine/testname",
+              name: "@my-company/testname",
               description: "test description",
               main: "lib/index.js",
               scripts: {
@@ -428,6 +420,7 @@ describe("new generator", () => {
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
+          .withPrompts({ scope: "@my-company" })
           .withPrompts({ description: "test description" })
           .withPrompts({ author: "test" })
           .withPrompts({ version: "0.0.0" })
@@ -444,8 +437,6 @@ describe("new generator", () => {
               "src/methods/acknowledge-orders.ts",
               "src/forms/connect.json",
               "src/forms/settings.json",
-              ".editorconfig",
-              "LICENSE",
               "README.md",
               "package.json",
               ".npmignore",
@@ -453,7 +444,7 @@ describe("new generator", () => {
             ]);
 
             assert.jsonFileContent("package.json", {
-              name: "@shipengine/testname",
+              name: "@my-company/testname",
               description: "test description",
               scripts: {
                 build: "tsc",
@@ -474,6 +465,7 @@ describe("new generator", () => {
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
+          .withPrompts({ scope: "@my-company" })
           .withPrompts({ description: "test description" })
           .withPrompts({ author: "test" })
           .withPrompts({ version: "0.0.0" })
@@ -490,8 +482,6 @@ describe("new generator", () => {
               "src/methods/acknowledge-orders.ts",
               "src/forms/connect.yaml",
               "src/forms/settings.yaml",
-              ".editorconfig",
-              "LICENSE",
               "README.md",
               "package.json",
               ".npmignore",
@@ -499,7 +489,7 @@ describe("new generator", () => {
             ]);
 
             assert.jsonFileContent("package.json", {
-              name: "@shipengine/testname",
+              name: "@my-company/testname",
               description: "test description",
               scripts: {
                 build: "tsc",
@@ -522,6 +512,7 @@ describe("new generator", () => {
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
+          .withPrompts({ scope: "@my-company" })
           .withPrompts({ description: "test description" })
           .withPrompts({ author: "test" })
           .withPrompts({ version: "0.0.0" })
@@ -537,15 +528,13 @@ describe("new generator", () => {
               "src/methods/acknowledge-orders.js",
               "src/forms/connect.json",
               "src/forms/settings.json",
-              ".editorconfig",
-              "LICENSE",
               "README.md",
               ".npmignore",
               "package.json",
             ]);
 
             assert.jsonFileContent("package.json", {
-              name: "@shipengine/testname",
+              name: "@my-company/testname",
               description: "test description",
               scripts: {
                 start: "connect start",
@@ -566,6 +555,7 @@ describe("new generator", () => {
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
+          .withPrompts({ scope: "@my-company" })
           .withPrompts({ description: "test description" })
           .withPrompts({ author: "test" })
           .withPrompts({ version: "0.0.0" })
@@ -581,15 +571,13 @@ describe("new generator", () => {
               "src/methods/acknowledge-orders.js",
               "src/forms/connect.yaml",
               "src/forms/settings.yaml",
-              ".editorconfig",
-              "LICENSE",
               "README.md",
               ".npmignore",
               "package.json",
             ]);
 
             assert.jsonFileContent("package.json", {
-              name: "@shipengine/testname",
+              name: "@my-company/testname",
               description: "test description",
               scripts: {
                 start: "connect start",

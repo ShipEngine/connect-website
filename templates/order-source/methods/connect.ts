@@ -1,4 +1,4 @@
-import { Transaction } from "@shipengine/connect-sdk";
+import { Transaction } from "@shipengine/connect";
 import { Session } from "./session";
 
 interface ConnectionFormData {}

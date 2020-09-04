@@ -2,28 +2,27 @@
 "use strict";
 
 const { expect } = require("chai");
+const { testApiKey } = require('../../utils/test-api-key');
 const AppsApiClient = require("../../../lib/core/api-client")
   .default;
-const apiMock = require("../api-mock");
+const uuid = require("uuid");
 const path = require("path");
 
-describe("AppsApiClient", () => {
+const validClient = new AppsApiClient(testApiKey);
+const invalidClient = new AppsApiClient("invalid");
+
+describe("AppsApiClient @integration", () => {
   describe("apps", () => {
     describe("create", () => {
       it("returns an app", async () => {
-        const apiResponse = {
-          id: "a9a84a1c-55ce-49f3-8cd7-f088e93ccada",
-          name: "test app",
-          type: "carrier",
-        };
-        apiMock.post("/api/apps").reply(200, apiResponse);
-
-        const client = new AppsApiClient("valid key");
         let response;
         let errorResponse;
+
+        const appName = `test app ${uuid.v4()}`;
+
         try {
-          response = await client.apps.create({
-            name: "test app",
+          response = await validClient.apps.create({
+            name: appName,
             type: "carrier",
           });
         } catch (error) {
@@ -31,27 +30,60 @@ describe("AppsApiClient", () => {
         }
 
         expect(errorResponse).to.be.undefined;
-        expect(response).to.eql(apiResponse);
+        expect(response.name).equal(appName);
+      });
+
+      it("returns an error when an app already exist for the given name", async () => {
+        let response;
+        let errorResponse;
+
+        const appName = `test app ${uuid.v4()}`;
+
+        await validClient.apps.create({
+          name: appName,
+          type: "carrier",
+        });
+
+        try {
+          response = await validClient.apps.create({
+            name: appName,
+            type: "carrier",
+          });
+        } catch (error) {
+          errorResponse = error;
+        }
+
+        expect(response).to.be.undefined;
+        expect(errorResponse.code).equal("ERR_BAD_REQUEST");
+        expect(errorResponse.message).equal(`An app named '${appName}' already exists`);
+      });
+
+      it("returns an error when given invalid params", async () => {
+        let response;
+        let errorResponse;
+
+        const appName = `test app ${uuid.v4()}`;
+
+        try {
+          response = await validClient.apps.create({
+            name: appName,
+            type: "invalid",
+          });
+        } catch (error) {
+          errorResponse = error;
+        }
+
+        expect(response).to.be.undefined;
+        expect(errorResponse.code).equal("ERR_BAD_REQUEST");
+        expect(errorResponse.message).equal("The request was invalid");
       });
 
       it("returns an error when given an invalid API key", async () => {
-        const apiResponse = {
-          statusCode: 401,
-          name: "unauthorized",
-          errors: [
-            {
-              message: "invalid auth",
-            },
-          ],
-          status: 401,
-        };
-        apiMock.post("/api/apps").reply(401, apiResponse);
-
-        const client = new AppsApiClient("invalid");
         let response;
         let errorResponse;
+
         try {
-          response = await client.apps.create({
+          response = await invalidClient.apps.create({
             name: "test app",
             type: "carrier",
           });
@@ -60,93 +92,61 @@ describe("AppsApiClient", () => {
         }
 
         expect(response).to.be.undefined;
-        expect(errorResponse).to.be.eql(apiResponse);
+        expect(errorResponse.code).equal("ERR_UNAUTHORIZED");
+        expect(errorResponse.message).equal("The given API key is not valid");
       });
     });
 
     describe("findOrCreateByName", () => {
       it("finds an app when one already exists", async () => {
-        const apiResponse = {
-          items: [
-            {
-              id: "a9a84a1c-55ce-49f3-8cd7-f088e93ccada",
-              name: "test-app",
-              type: "carrier",
-            },
-          ],
-          itemsPerPage: 100000,
-          totalPages: 1,
-          pageNumber: 0,
-        };
+        const appName = `test app ${uuid.v4()}`;
 
-        apiMock.get("/api/apps?name=test-app").reply(200, apiResponse);
+        await validClient.apps.create({
+          name: appName,
+          type: "carrier",
+        });
 
-        const client = new AppsApiClient("valid key");
         let response;
         let errorResponse;
         try {
-          response = await client.apps.findOrCreateByName({
-            name: "test-app",
+          response = await validClient.apps.findOrCreateByName({
+            name: appName,
             type: "carrier",
           });
         } catch (error) {
           errorResponse = error;
         }
 
+        expect(response.name).to.eql(appName);
         expect(errorResponse).to.be.undefined;
-        expect(response).to.eql(apiResponse.items[0]);
       });
 
       it("creates an app when one does not already exists", async () => {
-        const apiResponseOne = {
-          items: [],
-          itemsPerPage: 100000,
-          totalPages: 1,
-          pageNumber: 0,
-        };
-        apiMock.get("/api/apps?name=test-app").reply(200, apiResponseOne);
-        const apiResponseTwo = {
-          id: "a9a84a1c-55ce-49f3-8cd7-f088e93ccada",
-          name: "test app",
-          type: "carrier",
-        };
-        apiMock.post("/api/apps").reply(200, apiResponseTwo);
+        const appName = `test app ${uuid.v4()}`;
 
-        const client = new AppsApiClient("valid key");
         let response;
         let errorResponse;
+
         try {
-          response = await client.apps.findOrCreateByName({
-            name: "test-app",
+          response = await validClient.apps.findOrCreateByName({
+            name: appName,
             type: "carrier",
           });
         } catch (error) {
           errorResponse = error;
         }
 
+        expect(response.name).to.eql(appName);
         expect(errorResponse).to.be.undefined;
-        expect(response).to.eql(apiResponseTwo);
       });
 
       it("returns an error when given an invalid API key", async () => {
-        const apiResponse = {
-          statusCode: 401,
-          name: "unauthorized",
-          errors: [
-            {
-              message: "invalid auth",
-            },
-          ],
-          status: 401,
-        };
-        apiMock.get("/api/apps?name=test-app").reply(401, apiResponse);
-
-        const client = new AppsApiClient("invalid");
         let response;
         let errorResponse;
+
         try {
-          response = await client.apps.findOrCreateByName({
-            name: "test-app",
+          response = await invalidClient.apps.findOrCreateByName({
+            name: "app",
             type: "carrier",
           });
         } catch (error) {
@@ -154,174 +154,148 @@ describe("AppsApiClient", () => {
         }
 
         expect(response).to.be.undefined;
-        expect(errorResponse).to.be.eql(apiResponse);
+        expect(errorResponse.code).equal("ERR_UNAUTHORIZED");
+        expect(errorResponse.message).equal("The given API key is not valid");
       });
     });
 
     describe("getAll", () => {
-      it("returns an array of apps", async () => {
-        const apiResponse = {
-          items: [
-            {
-              id: "a9a84a1c-55ce-49f3-8cd7-f088e93ccada",
-              name: "test-app",
-              type: "carrier",
-            },
-          ],
-          itemsPerPage: 100000,
-          totalPages: 1,
-          pageNumber: 0,
-        };
-
-        apiMock.get("/api/apps").reply(200, apiResponse);
-
-        const client = new AppsApiClient("valid key");
+      it("returns an array of apps w/ pagination data", async () => {
         let response;
         let errorResponse;
+
         try {
-          response = await client.apps.getAll();
+          response = await validClient.apps.getAll();
         } catch (error) {
           errorResponse = error;
         }
 
         expect(errorResponse).to.be.undefined;
-        expect(response).to.eql(apiResponse);
+        expect(response.items).to.be.an('array')
+        expect(response.itemsPerPage).to.be.an('number')
+        expect(response.totalPages).to.be.an('number')
+        expect(response.pageNumber).to.be.an('number')
       });
 
       it("returns an error when given an invalid API key", async () => {
-        const apiResponse = {
-          statusCode: 401,
-          name: "unauthorized",
-          errors: [
-            {
-              message: "invalid auth",
-            },
-          ],
-          status: 401,
-        };
-        apiMock.get("/api/apps").reply(401, apiResponse);
-
-        const client = new AppsApiClient("invalid");
         let response;
         let errorResponse;
+
         try {
-          response = await client.apps.getAll();
+          response = await invalidClient.apps.getAll();
         } catch (error) {
           errorResponse = error;
         }
 
         expect(response).to.be.undefined;
-        expect(errorResponse).to.be.eql(apiResponse);
+        expect(errorResponse.code).equal("ERR_UNAUTHORIZED");
+        expect(errorResponse.message).equal("The given API key is not valid");
       });
     });
 
     describe("getById", () => {
       it("returns an app", async () => {
-        const apiResponse = {
-          id: "a9a84a1c-55ce-49f3-8cd7-f088e93ccada",
-          name: "test app",
-          type: "carrier",
-        };
-        apiMock
-          .get("/api/apps/a9a84a1c-55ce-49f3-8cd7-f088e93ccada")
-          .reply(200, apiResponse);
+        const appName = `test app ${uuid.v4()}`;
 
-        const client = new AppsApiClient("valid key");
+        const app = await validClient.apps.create({
+          name: appName,
+          type: "carrier",
+        });
+
         let response;
         let errorResponse;
+
         try {
-          response = await client.apps.getById(
-            "a9a84a1c-55ce-49f3-8cd7-f088e93ccada",
-          );
+          response = await validClient.apps.getById(app.id);
         } catch (error) {
           errorResponse = error;
         }
 
         expect(errorResponse).to.be.undefined;
-        expect(response).to.eql(apiResponse);
+        expect(response.id).to.eql(app.id);
       });
 
-      it("returns an error when given an invalid API key", async () => {
-        const apiResponse = {
-          statusCode: 401,
-          name: "unauthorized",
-          errors: [
-            {
-              message: "invalid auth",
-            },
-          ],
-          status: 401,
-        };
-        apiMock.get("/api/apps/test-id").reply(401, apiResponse);
-
-        const client = new AppsApiClient("invalid");
+      it("returns an error when given an invalid app name", async () => {
         let response;
         let errorResponse;
+
         try {
-          response = await client.apps.getById("test-id");
+          response = await validClient.apps.getById("invalid");
         } catch (error) {
           errorResponse = error;
         }
 
         expect(response).to.be.undefined;
-        expect(errorResponse).to.be.eql(apiResponse);
+        expect(errorResponse.code).equal("ERR_NOT_FOUND");
+        expect(errorResponse.message).equal("The record could not be found");
+      });
+
+      it("returns an error when given an invalid API key", async () => {
+        let response;
+        let errorResponse;
+
+        try {
+          response = await invalidClient.apps.getById("invalid");
+        } catch (error) {
+          errorResponse = error;
+        }
+
+        expect(response).to.be.undefined;
+        expect(errorResponse.code).equal("ERR_UNAUTHORIZED");
+        expect(errorResponse.message).equal("The given API key is not valid");
       });
     });
 
     describe("getByName", () => {
       it("returns an app", async () => {
-        const apiResponse = {
-          items: [
-            {
-              id: "a9a84a1c-55ce-49f3-8cd7-f088e93ccada",
-              name: "test-app",
-              type: "carrier",
-            },
-          ],
-          itemsPerPage: 100000,
-          totalPages: 1,
-          pageNumber: 0,
-        };
+        const appName = `test app ${uuid.v4()}`;
 
-        apiMock.get("/api/apps?name=test-app").reply(200, apiResponse);
+        const app = await validClient.apps.create({
+          name: appName,
+          type: "carrier",
+        });
 
-        const client = new AppsApiClient("valid key");
         let response;
         let errorResponse;
+
         try {
-          response = await client.apps.getByName("test-app");
+          response = await validClient.apps.getByName(app.name);
         } catch (error) {
           errorResponse = error;
         }
 
         expect(errorResponse).to.be.undefined;
-        expect(response).to.eql(apiResponse.items[0]);
+        expect(response.name).to.eql(app.name);
       });
 
-      it("returns an error when given an invalid API key", async () => {
-        const apiResponse = {
-          statusCode: 401,
-          name: "unauthorized",
-          errors: [
-            {
-              message: "invalid auth",
-            },
-          ],
-          status: 401,
-        };
-        apiMock.get("/api/apps?name=test-app").reply(401, apiResponse);
-
-        const client = new AppsApiClient("invalid");
+      it("returns an error when given an invalid app name", async () => {
         let response;
         let errorResponse;
+
         try {
-          response = await client.apps.getByName("test-app");
+          response = await validClient.apps.getByName("invalid");
         } catch (error) {
           errorResponse = error;
         }
 
         expect(response).to.be.undefined;
-        expect(errorResponse).to.be.eql(apiResponse);
+        expect(errorResponse.code).equal("ERR_NOT_FOUND");
+        expect(errorResponse.message).equal("The record could not be found");
+      });
+
+      it("returns an error when given an invalid API key", async () => {
+        let response;
+        let errorResponse;
+
+        try {
+          response = await invalidClient.apps.getByName("invalid");
+        } catch (error) {
+          errorResponse = error;
+        }
+
+        expect(response).to.be.undefined;
+        expect(errorResponse.code).equal("ERR_UNAUTHORIZED");
+        expect(errorResponse.message).equal("The given API key is not valid");
       });
     });
   });
@@ -329,48 +303,35 @@ describe("AppsApiClient", () => {
   describe("deployments", () => {
     describe("create", () => {
       it("creates a deployment", async () => {
-        const apiResponse = {
-          id: "a9a84a1c-55ce-49f3-8cd7-f088e93ccada",
-          package: {
-            name: "test app",
-          },
-        };
-        apiMock.post("/api/apps/test/deploys").reply(200, apiResponse);
+        const app = await validClient.apps.findOrCreateByName({
+          name: "test app",
+          type: "carrier",
+        });
 
-        const client = new AppsApiClient("valid key");
         let response;
         let errorResponse;
+
+        const packageName = 'test.tgz';
+
         try {
-          response = await client.deployments.create({
-            appId: "test",
-            pathToTarball: path.join(process.cwd(), "test/fixtures/test.tgz"),
+          response = await validClient.deployments.create({
+            appId: app.id,
+            pathToTarball: path.join(process.cwd(), `test/fixtures/${packageName}`),
           });
         } catch (error) {
           errorResponse = error;
         }
 
         expect(errorResponse).to.be.undefined;
-        expect(response).to.eql(apiResponse);
+        expect(response.package.name).to.eql(packageName);
       });
 
       it("returns an error when given an invalid API key", async () => {
-        const apiResponse = {
-          statusCode: 401,
-          name: "unauthorized",
-          errors: [
-            {
-              message: "invalid auth",
-            },
-          ],
-          status: 401,
-        };
-        apiMock.post("/api/apps/test/deploys").reply(401, apiResponse);
-
-        const client = new AppsApiClient("invalid");
         let response;
         let errorResponse;
+
         try {
-          response = await client.deployments.create({
+          response = await invalidClient.deployments.create({
             appId: "test",
             pathToTarball: path.join(process.cwd(), "test/fixtures/test.tgz"),
           });
@@ -379,201 +340,195 @@ describe("AppsApiClient", () => {
         }
 
         expect(response).to.be.undefined;
-        expect(errorResponse).to.be.eql(apiResponse);
+        expect(errorResponse.code).equal("ERR_UNAUTHORIZED");
+        expect(errorResponse.message).equal("The given API key is not valid");
       });
     });
 
     describe("getAllForAppId", () => {
       it("returns an array of deployments for the given app ID", async () => {
-        const apiResponse = {
-          items: [
-            {
-              deployId: "1",
-              package: {
-                name: "test-1.0.0.tgz",
-                version: null,
-              },
-              createdAt: "2020-06-11T22:48:46.555Z",
-              updatedAt: "2020-06-11T22:50:54.109Z",
-              status: "error",
-              definitionErrors: null,
-            },
-          ],
-          itemsPerPage: 100000,
-          totalPages: 1,
-          pageNumber: 0,
-        };
-        apiMock.get("/api/apps/test/deploys").reply(200, apiResponse);
+        const app = await validClient.apps.findOrCreateByName({
+          name: "test app",
+          type: "carrier",
+        });
 
-        const client = new AppsApiClient("valid key");
+        const packageName = 'test.tgz';
+
+        await validClient.deployments.create({
+          appId: app.id,
+          pathToTarball: path.join(process.cwd(), `test/fixtures/${packageName}`),
+        });
+
         let response;
         let errorResponse;
+
         try {
-          response = await client.deployments.getAllForAppId("test");
+          response = await validClient.deployments.getAllForAppId(app.id);
         } catch (error) {
           errorResponse = error;
         }
 
         expect(errorResponse).to.be.undefined;
-        expect(response).to.eql(apiResponse);
+        expect(response.items).to.be.an('array')
+        expect(response.itemsPerPage).to.be.an('number')
+        expect(response.totalPages).to.be.an('number')
+        expect(response.pageNumber).to.be.an('number')
       });
 
-      it("returns an error when given an invalid API key", async () => {
-        const apiResponse = {
-          statusCode: 401,
-          name: "unauthorized",
-          errors: [
-            {
-              message: "invalid auth",
-            },
-          ],
-          status: 401,
-        };
-        apiMock.get("/api/apps/test/deploys").reply(401, apiResponse);
-
-        const client = new AppsApiClient("invalid");
+      it("returns an error when given an invalid ID", async () => {
         let response;
         let errorResponse;
+
         try {
-          response = await client.deployments.getAllForAppId("test");
+          response = await validClient.deployments.getAllForAppId("invalid");
         } catch (error) {
           errorResponse = error;
         }
 
         expect(response).to.be.undefined;
-        expect(errorResponse).to.be.eql(apiResponse);
+        expect(errorResponse.code).equal("ERR_NOT_FOUND");
+        expect(errorResponse.message).equal("The record could not be found");
+      });
+
+      it("returns an error when given an invalid API key", async () => {
+        let response;
+        let errorResponse;
+
+        try {
+          response = await invalidClient.deployments.getAllForAppId("id");
+        } catch (error) {
+          errorResponse = error;
+        }
+
+        expect(response).to.be.undefined;
+        expect(errorResponse.code).equal("ERR_UNAUTHORIZED");
+        expect(errorResponse.message).equal("The given API key is not valid");
       });
     });
 
     describe("getById", () => {
-      it("returns an array of deployments for the given app ID", async () => {
-        const apiResponse = {
-          deployId: "1",
-          package: {
-            name: "test-1.0.0.tgz",
-            version: null,
-          },
-          createdAt: "2020-06-11T22:48:46.555Z",
-          updatedAt: "2020-06-11T22:50:54.109Z",
-          status: "error",
-          definitionErrors: null,
-        };
-        apiMock.get("/api/apps/test/deploys/1").reply(200, apiResponse);
+      it("returns a deployment for a given ID", async () => {
+        const app = await validClient.apps.findOrCreateByName({
+          name: "test app",
+          type: "carrier",
+        });
 
-        const client = new AppsApiClient("valid key");
+        const packageName = 'test.tgz';
+        const deployment = await validClient.deployments.create({
+          appId: app.id,
+          pathToTarball: path.join(process.cwd(), `test/fixtures/${packageName}`),
+        });
+
         let response;
         let errorResponse;
+
         try {
-          response = await client.deployments.getById({
-            appId: "test",
-            deployId: apiResponse.deployId,
-          });
+          response = await validClient.deployments.getById({ appId: app.id, deployId: deployment.deployId });
         } catch (error) {
           errorResponse = error;
         }
 
         expect(errorResponse).to.be.undefined;
-        expect(response).to.eql(apiResponse);
+        expect(response.package.name).to.eql(packageName);
       });
 
-      it("returns an error when given an invalid API key", async () => {
-        const apiResponse = {
-          statusCode: 401,
-          name: "unauthorized",
-          errors: [
-            {
-              message: "invalid auth",
-            },
-          ],
-          status: 401,
-        };
-        apiMock.get("/api/apps/test/deploys/1").reply(401, apiResponse);
-
-        const client = new AppsApiClient("invalid");
+      it("returns an error when given an invalid ID", async () => {
         let response;
         let errorResponse;
+
         try {
-          response = await client.deployments.getById({
-            appId: "test",
-            deployId: "1",
-          });
+          response = await validClient.deployments.getById("invalid", "invalid");
         } catch (error) {
           errorResponse = error;
         }
 
         expect(response).to.be.undefined;
-        expect(errorResponse).to.be.eql(apiResponse);
+        expect(errorResponse.code).equal("ERR_NOT_FOUND");
+        expect(errorResponse.message).equal("The record could not be found");
+      });
+
+      it("returns an error when given an invalid API key", async () => {
+        let response;
+        let errorResponse;
+
+        try {
+          response = await invalidClient.deployments.getById("appId", "deploymentId");
+        } catch (error) {
+          errorResponse = error;
+        }
+
+        expect(response).to.be.undefined;
+        expect(errorResponse.code).equal("ERR_UNAUTHORIZED");
+        expect(errorResponse.message).equal("The given API key is not valid");
       });
     });
 
     describe("getLogsById", () => {
-      it("returns an array of deployments for the given app ID", async () => {
-        const apiResponse = "test";
-        apiMock.get("/api/apps/test/deploys/1/logs").reply(200, apiResponse);
+      it("returns logs for a given ID", async () => {
+        const app = await validClient.apps.findOrCreateByName({
+          name: "test app",
+          type: "carrier",
+        });
 
-        const client = new AppsApiClient("valid key");
+        const packageName = 'test.tgz';
+        const deployment = await validClient.deployments.create({
+          appId: app.id,
+          pathToTarball: path.join(process.cwd(), `test/fixtures/${packageName}`),
+        });
+
         let response;
         let errorResponse;
 
         try {
-          response = await client.deployments.getLogsById({
-            appId: "test",
-            deployId: "1",
-          });
+          response = await validClient.deployments.getLogsById({ appId: app.id, deployId: deployment.deployId });
         } catch (error) {
           errorResponse = error;
         }
 
         expect(errorResponse).to.be.undefined;
-        expect(response).to.eql(apiResponse);
+        expect(response).to.be.a('string');
       });
 
-      it("returns an error when given an invalid API key", async () => {
-        const apiResponse = {
-          statusCode: 401,
-          name: "unauthorized",
-          errors: [
-            {
-              message: "invalid auth",
-            },
-          ],
-          status: 401,
-        };
-
-        apiMock.get("/api/apps/test/deploys/1/logs").reply(401, apiResponse);
-
-        const client = new AppsApiClient("invalid");
+      it("returns an error when given an invalid ID", async () => {
         let response;
         let errorResponse;
 
         try {
-          response = await client.deployments.getLogsById({
-            appId: "test",
-            deployId: "1",
-          });
+          response = await validClient.deployments.getLogsById("invalid", "invalid");
         } catch (error) {
           errorResponse = error;
         }
 
         expect(response).to.be.undefined;
-        expect(errorResponse).to.be.eql(apiResponse);
+        expect(errorResponse.code).equal("ERR_NOT_FOUND");
+        expect(errorResponse.message).equal("The record could not be found");
+      });
+
+      it("returns an error when given an invalid API key", async () => {
+        let response;
+        let errorResponse;
+
+        try {
+          response = await invalidClient.deployments.getLogsById("appId", "deploymentId");
+        } catch (error) {
+          errorResponse = error;
+        }
+
+        expect(response).to.be.undefined;
+        expect(errorResponse.code).equal("ERR_UNAUTHORIZED");
+        expect(errorResponse.message).equal("The given API key is not valid");
       });
     });
   });
 
   describe("diagnostics", () => {
-    const client = new AppsApiClient("api key");
-
     describe("heartBeat", () => {
       it("returns a pulse", async () => {
-        apiMock.get("/api/diagnostics/heartbeat").reply(200, {
-          pulse: "yes",
-        });
-
         let response;
         let errorResponse;
+
         try {
-          response = await client.diagnostics.heartBeat();
+          response = await validClient.diagnostics.heartBeat();
         } catch (error) {
           errorResponse = error;
         }
@@ -584,49 +539,53 @@ describe("AppsApiClient", () => {
         });
       });
     });
+
+    it("returns a pulse when given an invalid API key", async () => {
+      let response;
+      let errorResponse;
+
+      try {
+        response = await validClient.diagnostics.heartBeat();
+      } catch (error) {
+        errorResponse = error;
+      }
+
+      expect(errorResponse).to.be.undefined;
+      expect(response).to.eql({
+        pulse: "yes",
+      });
+    });
   });
 
   describe("users", () => {
     describe("getCurrent", () => {
       it("returns a user", async () => {
-        const apiResponse = { name: "test", email: "test@test.user.com" };
-        apiMock.get("/api/diagnostics/whoami").reply(200, apiResponse);
-        const client = new AppsApiClient("valid key");
         let response;
         let errorResponse;
+
         try {
-          response = await client.user.getCurrent();
+          response = await validClient.user.getCurrent();
         } catch (error) {
           errorResponse = error;
         }
 
         expect(errorResponse).to.be.undefined;
-        expect(response).to.eql(apiResponse);
+        expect(response).to.eql({ name: "pierce", email: "pierce.harmon@shipengine.com" });
       });
 
-      it("returns an error when given an invalid API key", async () => {
-        const apiResponse = {
-          statusCode: 401,
-          name: "unauthorized",
-          errors: [
-            {
-              message: "invalid auth",
-            },
-          ],
-          status: 401,
-        };
-        apiMock.get("/api/diagnostics/whoami").reply(401, apiResponse);
-        const client = new AppsApiClient("invalid");
+      it("returns an ERR_UNAUTHORIZED when given an invalid API key", async () => {
         let response;
         let errorResponse;
+
         try {
-          response = await client.user.getCurrent();
+          response = await invalidClient.user.getCurrent();
         } catch (error) {
           errorResponse = error;
         }
 
         expect(response).to.be.undefined;
-        expect(errorResponse).to.be.eql(apiResponse);
+        expect(errorResponse.code).equal("ERR_UNAUTHORIZED");
+        expect(errorResponse.message).equal("The given API key is not valid");
       });
     });
   });

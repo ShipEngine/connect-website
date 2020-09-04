@@ -1,12 +1,11 @@
 import {
-  EcmaScriptModule,
-  ErrorCode,
+  EcmaScriptModule
 } from "@shipengine/connect-sdk";
+import { error as sdkError, SystemErrorCode } from "@shipengine/connect-sdk/lib/internal";
 import { promises as fs } from "fs";
 import * as jsYaml from "js-yaml";
 import * as json5 from "json5";
 import * as path from "path";
-import { error as sdkError } from "@shipengine/connect-sdk/lib/internal";
 
 /**
  * Returns the contents of the specified UTF-8 text file
@@ -17,7 +16,7 @@ async function readTextFile(absoluteFilePath: string): Promise<string> {
   } catch (error) {
     const err = error as Error;
     throw sdkError(
-      ErrorCode.Filesystem,
+      SystemErrorCode.Filesystem,
       `Unable to read ${absoluteFilePath}.`,
       {
         err,
@@ -39,7 +38,7 @@ async function readYamlFile<T>(absoluteFilePath: string): Promise<T> {
   } catch (error) {
     const err = error as Error;
     throw sdkError(
-      ErrorCode.Syntax,
+      SystemErrorCode.Syntax,
       `Unable to parse ${path.basename(absoluteFilePath)}.`,
       { err },
     );
@@ -57,7 +56,7 @@ async function readJsonFile<T>(absoluteFilePath: string): Promise<T> {
   } catch (error) {
     const err = error as Error;
     throw sdkError(
-      ErrorCode.Syntax,
+      SystemErrorCode.Syntax,
       `Unable to parse ${path.basename(absoluteFilePath)}.`,
       { err },
     );
@@ -79,7 +78,7 @@ async function importJavaScriptModule<T>(absoluteFilePath: string): Promise<T> {
   } catch (error) {
     const err = error as Error;
     throw sdkError(
-      ErrorCode.Filesystem,
+      SystemErrorCode.Filesystem,
       `Unable to import ${path.basename(absoluteFilePath)}.`,
       { err },
     );
@@ -91,7 +90,7 @@ async function importJavaScriptModule<T>(absoluteFilePath: string): Promise<T> {
  */
 export async function readFile<T>(absoluteFilePath: string): Promise<T> {
   if (!(path.resolve(absoluteFilePath) === path.normalize(absoluteFilePath))) {
-    throw sdkError(ErrorCode.Filesystem, "Path must be absolute.");
+    throw sdkError(SystemErrorCode.Filesystem, "Path must be absolute.");
   }
 
   switch (path.extname(absoluteFilePath)) {

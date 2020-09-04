@@ -1,8 +1,8 @@
 import {
-  PickupCancellation,
-  PickupCancellationOutcome,
-  Transaction,
-} from "@shipengine/connect-sdk";
+    PickupCancellation,
+    PickupCancellationOutcome,
+    Transaction
+} from "@shipengine/connect";
 import { Session } from "./session";
 
 /**
@@ -10,8 +10,8 @@ import { Session } from "./session";
  *
  * See an example implementation below
  * https://github.com/ShipEngine/connect-samples/blob/master/parcel-post/carrier/src/methods/cancel-pickups.ts
- 
- * View sample implementation here: 
+
+ * View sample implementation here:
  * https://github.com/ShipEngine/connect-samples/blob/master/parcel-post/src/methods/cancel-pickups.ts
 
  */

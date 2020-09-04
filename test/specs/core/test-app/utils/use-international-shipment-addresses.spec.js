@@ -1,7 +1,7 @@
 "use strict";
 
 const { expect } = require("chai");
-const pojo = require("../../../utils/pojo");
+const pojo = require("../../../../utils/pojo");
 const useInternationalShipmentAddresses = require("../../../../../lib/core/test-app/utils/use-international-shipment-addresses")
   .default;
 

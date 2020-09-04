@@ -1,6 +1,6 @@
-import { 
-  OrderAppDefinition, 
-} from "@shipengine/connect-sdk";
+import {
+    OrderAppDefinition
+} from "@shipengine/connect";
 
 const orderSource: OrderAppDefinition = {
   id: "<%- _uuidv4 %>",
