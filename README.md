@@ -63,7 +63,7 @@ $ npm test
 
 Releasing
 -----------------------
-To release a new version of the SDK, use the command below.
+To release a new version, use the command below.
 
 ```sh-session
 npm run release
