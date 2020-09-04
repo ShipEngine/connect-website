@@ -66,26 +66,26 @@ const ConnectFrom: FunctionComponent<Props> = ({ schema, uiSchema }) => {
             {!response ? (
               <Spinner />
             ) : (
-                <>
-                  <h4>Connect Args</h4>
-                  <JSONPretty
-                    id='json-pretty'
-                    data={request}
-                    style={{
-                      maxWidth: '850px',
-                    }}></JSONPretty>
+              <>
+                <h4>Connect Args</h4>
+                <JSONPretty
+                  id='json-pretty'
+                  data={request}
+                  style={{
+                    maxWidth: '850px',
+                  }}></JSONPretty>
 
-                  <Divider plain />
+                <Divider plain />
 
-                  <h4>Connect Return Value</h4>
-                  <JSONPretty
-                    id='json-pretty'
-                    data={response}
-                    style={{
-                      maxWidth: '850px',
-                    }}></JSONPretty>
-                </>
-              )}
+                <h4>Connect Return Value</h4>
+                <JSONPretty
+                  id='json-pretty'
+                  data={response}
+                  style={{
+                    maxWidth: '850px',
+                  }}></JSONPretty>
+              </>
+            )}
           </div>
         </Card>
       </Col>
