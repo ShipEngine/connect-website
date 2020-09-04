@@ -2,7 +2,8 @@ import chai, { expect } from "chai";
 import chaiHttp from "chai-http";
 import express from "express";
 import { loadApp } from "@shipengine/connect-loader";
-import { CarrierApp } from "@shipengine/connect-sdk/lib/internal";
+import { AppPOJO } from "@shipengine/connect-sdk/lib/internal";
+import { SdkApp } from '../../src/types'
 
 import logger from "../../src/utils/logger";
 import buildAPI from "../../src/build-api";
@@ -15,7 +16,7 @@ chai.use(chaiHttp);
 describe("buildAPI", () => {
   it("sets the GET '/' endpoint", async () => {
     const server = express();
-    const app = (await loadApp("test/fixtures/carrier-app")) as CarrierApp;
+    const app = (await loadApp("test/fixtures/carrier-app")) as unknown as SdkApp;
 
     buildAPI(app, server, 3000);
 
@@ -38,7 +39,7 @@ describe("buildAPI", () => {
 
   it("sets the PUT '/connect' endpoint and returns 200 when given a valid input", async () => {
     const server = express();
-    const app = (await loadApp("test/fixtures/carrier-app")) as CarrierApp;
+    const app = (await loadApp("test/fixtures/carrier-app")) as unknown as SdkApp;
 
     buildAPI(app, server, 3000);
 
@@ -73,7 +74,7 @@ describe("buildAPI", () => {
 
   it("sets the PUT '/connect' endpoint and returns 400 when given an invalid input", async () => {
     const server = express();
-    const app = (await loadApp("test/fixtures/carrier-app")) as CarrierApp;
+    const app = (await loadApp("test/fixtures/carrier-app")) as unknown as SdkApp;
 
     buildAPI(app, server, 3000);
 
@@ -101,7 +102,7 @@ describe("buildAPI", () => {
     const server = express();
     const app = (await loadApp(
       "test/fixtures/carrier-app-without-methods",
-    )) as CarrierApp;
+    )) as unknown as SdkApp;
 
     buildAPI(app, server, 3000);
 
@@ -116,7 +117,7 @@ describe("buildAPI", () => {
 
   it("sets the PUT '/create-shipment' endpoint", async () => {
     const server = express();
-    const app = (await loadApp("test/fixtures/carrier-app")) as CarrierApp;
+    const app = (await loadApp("test/fixtures/carrier-app")) as unknown as SdkApp;
 
     buildAPI(app, server, 3000);
 
@@ -138,7 +139,7 @@ describe("buildAPI", () => {
 
   it("sets the PUT '/create-shipment' endpoint and returns 400 when given an invalid input", async () => {
     const server = express();
-    const app = (await loadApp("test/fixtures/carrier-app")) as CarrierApp;
+    const app = (await loadApp("test/fixtures/carrier-app")) as unknown as SdkApp;
 
     buildAPI(app, server, 3000);
 
@@ -162,7 +163,7 @@ describe("buildAPI", () => {
     const server = express();
     const app = (await loadApp(
       "test/fixtures/carrier-app-without-methods",
-    )) as CarrierApp;
+    )) as unknown as SdkApp;
 
     buildAPI(app, server, 3000);
 
@@ -177,7 +178,7 @@ describe("buildAPI", () => {
 
   it("sets the PUT '/cancel-shipments' endpoint", async () => {
     const server = express();
-    const app = (await loadApp("test/fixtures/carrier-app")) as CarrierApp;
+    const app = (await loadApp("test/fixtures/carrier-app")) as unknown as SdkApp;
 
     buildAPI(app, server, 3000);
 
@@ -199,7 +200,7 @@ describe("buildAPI", () => {
 
   it("sets the PUT '/cancel-shipments' endpoint and returns 400 when given an invalid input", async () => {
     const server = express();
-    const app = (await loadApp("test/fixtures/carrier-app")) as CarrierApp;
+    const app = (await loadApp("test/fixtures/carrier-app")) as unknown as SdkApp;
 
     buildAPI(app, server, 3000);
 
@@ -223,7 +224,7 @@ describe("buildAPI", () => {
     const server = express();
     const app = (await loadApp(
       "test/fixtures/carrier-app-without-methods",
-    )) as CarrierApp;
+    )) as unknown as SdkApp;
 
     buildAPI(app, server, 3000);
 
@@ -238,7 +239,7 @@ describe("buildAPI", () => {
 
   it("sets the PUT '/rate-shipment' endpoint", async () => {
     const server = express();
-    const app = (await loadApp("test/fixtures/carrier-app")) as CarrierApp;
+    const app = (await loadApp("test/fixtures/carrier-app")) as unknown as SdkApp;
 
     buildAPI(app, server, 3000);
 
@@ -260,7 +261,7 @@ describe("buildAPI", () => {
 
   it("sets the PUT '/rate-shipment' endpoint and returns 400 when given an invalid input", async () => {
     const server = express();
-    const app = (await loadApp("test/fixtures/carrier-app")) as CarrierApp;
+    const app = (await loadApp("test/fixtures/carrier-app")) as unknown as SdkApp;
 
     buildAPI(app, server, 3000);
 
@@ -284,7 +285,7 @@ describe("buildAPI", () => {
     const server = express();
     const app = (await loadApp(
       "test/fixtures/carrier-app-without-methods",
-    )) as CarrierApp;
+    )) as unknown as SdkApp;
 
     buildAPI(app, server, 3000);
 
@@ -299,7 +300,7 @@ describe("buildAPI", () => {
 
   it("sets the PUT '/track-shipment' endpoint", async () => {
     const server = express();
-    const app = (await loadApp("test/fixtures/carrier-app")) as CarrierApp;
+    const app = (await loadApp("test/fixtures/carrier-app")) as unknown as SdkApp;
 
     buildAPI(app, server, 3000);
 
@@ -321,7 +322,7 @@ describe("buildAPI", () => {
 
   it("sets the PUT '/track-shipment' endpoint and returns 400 when given an invalid input", async () => {
     const server = express();
-    const app = (await loadApp("test/fixtures/carrier-app")) as CarrierApp;
+    const app = (await loadApp("test/fixtures/carrier-app")) as unknown as SdkApp;
 
     buildAPI(app, server, 3000);
 
@@ -345,7 +346,7 @@ describe("buildAPI", () => {
     const server = express();
     const app = (await loadApp(
       "test/fixtures/carrier-app-without-methods",
-    )) as CarrierApp;
+    )) as unknown as SdkApp;
 
     buildAPI(app, server, 3000);
 
@@ -360,7 +361,7 @@ describe("buildAPI", () => {
 
   it("sets the PUT '/create-manifest' endpoint", async () => {
     const server = express();
-    const app = (await loadApp("test/fixtures/carrier-app")) as CarrierApp;
+    const app = (await loadApp("test/fixtures/carrier-app")) as unknown as SdkApp;
 
     buildAPI(app, server, 3000);
 
@@ -382,7 +383,7 @@ describe("buildAPI", () => {
 
   it("sets the PUT '/create-manifest' endpoint and returns 400 when given an invalid input", async () => {
     const server = express();
-    const app = (await loadApp("test/fixtures/carrier-app")) as CarrierApp;
+    const app = (await loadApp("test/fixtures/carrier-app")) as unknown as SdkApp;
 
     buildAPI(app, server, 3000);
 
@@ -406,7 +407,7 @@ describe("buildAPI", () => {
     const server = express();
     const app = (await loadApp(
       "test/fixtures/carrier-app-without-methods",
-    )) as CarrierApp;
+    )) as unknown as SdkApp;
 
     buildAPI(app, server, 3000);
 
@@ -421,7 +422,7 @@ describe("buildAPI", () => {
 
   it("sets the PUT '/schedule-pickup' endpoint", async () => {
     const server = express();
-    const app = (await loadApp("test/fixtures/carrier-app")) as CarrierApp;
+    const app = (await loadApp("test/fixtures/carrier-app")) as unknown as SdkApp;
 
     buildAPI(app, server, 3000);
 
@@ -443,7 +444,7 @@ describe("buildAPI", () => {
 
   it("sets the PUT '/schedule-pickup' endpoint and returns 400 when given an invalid input", async () => {
     const server = express();
-    const app = (await loadApp("test/fixtures/carrier-app")) as CarrierApp;
+    const app = (await loadApp("test/fixtures/carrier-app")) as unknown as SdkApp;
 
     buildAPI(app, server, 3000);
 
@@ -467,7 +468,7 @@ describe("buildAPI", () => {
     const server = express();
     const app = (await loadApp(
       "test/fixtures/carrier-app-without-methods",
-    )) as CarrierApp;
+    )) as unknown as SdkApp;
 
     buildAPI(app, server, 3000);
 
@@ -482,7 +483,7 @@ describe("buildAPI", () => {
 
   it("sets the PUT '/cancel-pickups' endpoint", async () => {
     const server = express();
-    const app = (await loadApp("test/fixtures/carrier-app")) as CarrierApp;
+    const app = (await loadApp("test/fixtures/carrier-app")) as unknown as SdkApp;
 
     buildAPI(app, server, 3000);
 
@@ -504,7 +505,7 @@ describe("buildAPI", () => {
 
   it("sets the PUT '/cancel-pickups' endpoint and returns 400 when given an invalid input", async () => {
     const server = express();
-    const app = (await loadApp("test/fixtures/carrier-app")) as CarrierApp;
+    const app = (await loadApp("test/fixtures/carrier-app")) as unknown as SdkApp;
 
     buildAPI(app, server, 3000);
 
@@ -528,7 +529,7 @@ describe("buildAPI", () => {
     const server = express();
     const app = (await loadApp(
       "test/fixtures/carrier-app-without-methods",
-    )) as CarrierApp;
+    )) as unknown as SdkApp;
 
     buildAPI(app, server, 3000);
 
