@@ -50,7 +50,6 @@
     "recursive-readdir": "^2.2.2",
     "sort-pjson": "^1.0.3",
     "tslib": "^2.0.1",
-    "update-notifier": "^4.1.1",
     "uuid": "^8.3.0",
     "yeoman-environment": "^2.10.3",
     "yeoman-generator": "^4.12.0"
@@ -127,10 +126,7 @@
     "plugins": [
       "@oclif/plugin-help",
       "@oclif/plugin-not-found"
-    ],
-    "hooks": {
-      "init": "./lib/hooks/init"
-    }
+    ]
   },
   "repository": {
     "type": "git",
