@@ -6,7 +6,7 @@ const chaiExec = require("@jsdevtools/chai-exec");
 const manifest = require("../../package.json");
 
 chai.use(chaiExec);
-chaiExec.defaults = { command: "bin/connect.js" };
+chaiExec.defaults = { command: "node", args: "bin/connect.js" };
 
 describe("CLI", () => {
 
