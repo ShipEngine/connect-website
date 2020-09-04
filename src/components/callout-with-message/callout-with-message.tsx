@@ -3,13 +3,13 @@ import React, { FunctionComponent } from 'react';
 import { Empty } from 'antd';
 
 // Styles & Assets
-import logo from '../../assets/svgs/logo.svg';
+import logo from '../../assets/svgs/logo-with-brackets.svg';
 
 interface Props {
   message: JSX.Element;
 }
 
-const MethodNotImplementedMessage: FunctionComponent<Props> = ({ message }) => {
+const CalloutWithMessage: FunctionComponent<Props> = ({ message }) => {
   return (
     <Empty
       image={logo}
@@ -21,4 +21,4 @@ const MethodNotImplementedMessage: FunctionComponent<Props> = ({ message }) => {
   );
 };
 
-export default MethodNotImplementedMessage;
+export default CalloutWithMessage;
