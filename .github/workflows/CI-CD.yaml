@@ -49,6 +49,9 @@ jobs:
       - name: Build the code
         run: npm run build
 
+      - name: Run TypeScript tests
+        run: npm run test:typescript
+
       - name: Run tests
         run: npm run coverage
 
