@@ -54,7 +54,7 @@ describe("The track shipment test suite", () => {
     });
   });
 
-  describe("when there is a delivery service with an available address", () => {
+  describe("when there is a delivery service with an available address that supports tracking", () => {
 
     let testSuite;
     beforeEach(() => {
@@ -184,9 +184,22 @@ describe("The track shipment test suite", () => {
   describe("When a user configs a delivery service that does not support tracking", () => {
     it("should throw an error", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+      
+      appDefinition.deliveryServices.push({
+        id: "9cf1bfda-7ee4-4f03-96f6-6eab52243eee",
+        name: "Better Delivery Service",
+        code: "better_ds",
+        manifestType: "physical",
+        originCountries: ["MX"],
+        destinationCountries: ["MX"],
+        labelFormats: ["pdf"],
+        labelSizes: ["A4"],
+        packaging: [pojo.packaging()]
+      });
+
       const app = new CarrierApp(appDefinition);
       staticConfigTests.trackShipment = {
-        deliveryServiceName: "asdf"
+        deliveryServiceName: "Better Delivery Service"
       }
 
       const args = { app, connectArgs, staticConfigTests, options };
@@ -197,7 +210,7 @@ describe("The track shipment test suite", () => {
         expect(true).to.equal(false);
       }
       catch (error) {
-        expect(error.message).to.include("deliveryServiceName: 'asdf' does not exist");
+        expect(error.message).to.include(`connect.config.js deliveryServiceName: "Better Delivery Service" does not support tracking`);
       }
     });
   });

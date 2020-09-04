@@ -1,8 +1,8 @@
 import {
-  WeightUnit,
   DateTimeZonePOJO,
   AddressWithContactInfoPOJO,
-  DimensionsPOJO
+  DimensionsPOJO,
+  WeightPOJO
 } from "@shipengine/connect-sdk";
 import { NewLabelPOJO } from "@shipengine/connect-sdk/lib/internal";
 
@@ -13,10 +13,7 @@ export interface TrackShipmentTestParams {
   label: NewLabelPOJO;
   shipFrom?: AddressWithContactInfoPOJO;
   returnTo?: AddressWithContactInfoPOJO;
-  weight: {
-    value: number;
-    unit: WeightUnit;
-  };
+  weight: WeightPOJO;
   dimensions: DimensionsPOJO;
   shipDateTime: DateTimeZonePOJO | Date | string;
   deliveryConfirmationName?: string;

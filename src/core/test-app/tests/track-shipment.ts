@@ -40,7 +40,7 @@ export class TrackShipment extends Suite {
       );
 
       if (!this.deliveryService.isTrackable) {
-        throw new Error(`Configured delivery service "${config.deliveryServiceName}" does not support tracking`);
+        throw new Error(`connect.config.js deliveryServiceName: "${config.deliveryServiceName}" does not support tracking`);
       }
     } else {
       this.deliveryService = undefined;
