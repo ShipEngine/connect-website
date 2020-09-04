@@ -1,23 +1,27 @@
-ShipEngine Connect Sample Apps
+![ShipEngine Connect](https://connect.shipengine.com/img/logos/shipengine-connect-logo.png)
+
+Sample Apps
 ===============================================
 
-This repo contains sample ShipEngine Connect apps to demonstrate and test various features of ShipEngine Connect.
+This repo contains sample ShipEngine Connect apps to demonstrate and test various features of [ShipEngine Connect](https://connect.shipengine.com).
 
 
-
-About ShipEngine Connect Apps
+About ShipEngine Connect
 --------------------------------------------
-Apps are just [NPM packages](https://docs.npmjs.com/about-packages-and-modules) that export an object with properties and methods that define the app's functionality.
+ShipEngine Connect powers the world's leading e-commerce solutions, including [ShipStation](https://www.shipstation.com/), [ShipEngine](https://www.shipengine.com), [ShippingEasy](https://shippingeasy.com/), and [ShipWorks](https://www.shipworks.com/). ShipEngine Connect enables developers to integrate with all of these brands at once.
 
-An app must have a [`package.json` file](https://docs.npmjs.com/files/package.json) in its root directory, which specifies its name, version number, and dependencies. The [ShipEngine Connect SDK](https://www.npmjs.com/package/@shipengine/connect-sdk) (`@shipengine/connect-sdk`) must be listed as a dependency or devDependency.
+Whether you are a shipping carrier, an online marketplace, or another service provider, ShipEngine Connect makes it easy for you to make your services available within each of our world class e-commerce solutions and gain immediate access to a worldwide user base eager to take advantage or your services.
 
-Other than that, the folder structure and file names are entirely up to you.  As long as your app exports an object with the right structure, it doesn't matter whether that object is defined in a single file or spread across many files.
+<br>
+
+![ShipStation ShipEngine ShippingEasy ShipWorks](https://connect.shipengine.com/img/logos/auctane.svg)
 
 
 
 Supported File Types
 ----------------------------
 To make things even easier for you, ShipEngine Connect supports JSON, JSON5, YAML, and even TypeScript files in addition to plain JavaScript. You can use any combination of these file types for different parts of your app.
+
 
 
 Sample Apps
