@@ -27,7 +27,7 @@ export default function useApp(): UseApp {
   } = useQuery<CarrierApp>(
     'app',
     async () => {
-      const { data } = await axios.get(API.getAppInfo);
+      const { data } = await axios.get<CarrierApp>(API.getAppInfo);
       return data;
     },
     {

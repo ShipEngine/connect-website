@@ -27,7 +27,7 @@ export default function useAppStatus(): UseApp {
   } = useQuery<AppStatus>(
     'app-status',
     async () => {
-      const { data } = await axios.get(API.getAppStatus);
+      const { data } = await axios.get<AppStatus>(API.getAppStatus);
       return data;
     },
     {

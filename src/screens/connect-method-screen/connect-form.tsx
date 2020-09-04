@@ -9,6 +9,7 @@ import { isEqual } from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
 import { withTheme, FormSubmit } from '@rjsf/core';
 import API from '../../utils/api';
+import { TransactionPOJO } from "@shipengine/connect-sdk/lib/internal";
 
 // Components
 import Spinner from '../../components/spinner';
@@ -22,11 +23,12 @@ interface Props {
   schema: JSONSchema7;
   uiSchema: JSONSchema7;
 }
+
 const ConnectFrom: FunctionComponent<Props> = ({ schema, uiSchema }) => {
   const [request, setRequest] = React.useState({});
-  const [response, setResponse] = React.useState(undefined);
+  const [response, setResponse] = React.useState<TransactionPOJO | undefined>(undefined);
 
-  const handleSubmit = async (formSubmit: FormSubmit) => {
+  const handleSubmit = async (formSubmit: FormSubmit<Record<string, unknown>>) => {
     const body = {
       transaction: {
         id: uuidv4(),
@@ -37,12 +39,12 @@ const ConnectFrom: FunctionComponent<Props> = ({ schema, uiSchema }) => {
     setRequest(body);
     let response;
     try {
-      const { data } = await axios.put(API.putConnect, body);
+      const { data } = await axios.put<TransactionPOJO>(API.putConnect, body);
       response = data;
     } catch (error) {
-      const errorWithType = error as AxiosError;
+      const errorWithType = error as AxiosError<TransactionPOJO>;
 
-      response = errorWithType.response?.data;
+      response = errorWithType.response?.data as TransactionPOJO;
     }
 
     setResponse(response);
@@ -66,26 +68,26 @@ const ConnectFrom: FunctionComponent<Props> = ({ schema, uiSchema }) => {
             {!response ? (
               <Spinner />
             ) : (
-              <>
-                <h4>Connect Args</h4>
-                <JSONPretty
-                  id='json-pretty'
-                  data={request}
-                  style={{
-                    maxWidth: '850px',
-                  }}></JSONPretty>
+                <>
+                  <h4>Connect Args</h4>
+                  <JSONPretty
+                    id='json-pretty'
+                    data={request}
+                    style={{
+                      maxWidth: '850px',
+                    }}></JSONPretty>
 
-                <Divider plain />
+                  <Divider plain />
 
-                <h4>Connect Return Value</h4>
-                <JSONPretty
-                  id='json-pretty'
-                  data={response}
-                  style={{
-                    maxWidth: '850px',
-                  }}></JSONPretty>
-              </>
-            )}
+                  <h4>Connect Return Value</h4>
+                  <JSONPretty
+                    id='json-pretty'
+                    data={response}
+                    style={{
+                      maxWidth: '850px',
+                    }}></JSONPretty>
+                </>
+              )}
           </div>
         </Card>
       </Col>
