@@ -1,11 +1,12 @@
 [![ShipEngine Connect](https://connect.shipengine.com/img/logos/shipengine-connect-logo.png)](https://connect.shipengine.com)
 
-[![npm](https://img.shields.io/npm/v/@shipengine/connect.svg)](https://www.npmjs.com/package/@shipengine/connect)
-[![License](https://img.shields.io/npm/l/@shipengine/connect.svg)](LICENSE)
-[![Coverage Status](https://coveralls.io/repos/github/ShipEngine/connect/badge.svg?branch=master)](https://coveralls.io/github/ShipEngine/connect)
-[![Dependencies](https://david-dm.org/ShipEngine/connect.svg)](https://david-dm.org/ShipEngine/connect)
 [![Cross-Platform Compatibility](https://shipengine.github.io/img/badges/os-badges.svg)](https://github.com/ShipEngine/connect/actions)
 [![Build Status](https://github.com/ShipEngine/connect/workflows/CI-CD/badge.svg)](https://github.com/ShipEngine/connect/actions)
+
+[![Coverage Status](https://coveralls.io/repos/github/ShipEngine/connect/badge.svg?branch=master)](https://coveralls.io/github/ShipEngine/connect)
+[![Dependencies](https://david-dm.org/ShipEngine/connect.svg)](https://david-dm.org/ShipEngine/connect)
+[![npm](https://img.shields.io/npm/v/@shipengine/connect.svg)](https://www.npmjs.com/package/@shipengine/connect)
+[![License](https://img.shields.io/npm/l/@shipengine/connect.svg)](LICENSE)
 
 
 
