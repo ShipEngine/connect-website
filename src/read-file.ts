@@ -43,7 +43,7 @@ async function readYamlFile<T>(filePath: string): Promise<T> {
 
     return parsedYaml as T;
   }
-  catch (originalError) {
+  catch (originalError: unknown) {
     throw error(ErrorCode.Syntax, `Unable to parse ${path.basename(filePath)}.`, { originalError });
   }
 }
@@ -58,7 +58,7 @@ async function readJsonFile<T>(filePath: string): Promise<T> {
   try {
     return json5.parse(json) as T;
   }
-  catch (originalError) {
+  catch (originalError: unknown) {
     throw error(ErrorCode.Syntax, `Unable to parse ${path.basename(filePath)}.`, { originalError });
   }
 }
@@ -71,7 +71,7 @@ async function readTextFile(filePath: string): Promise<string> {
   try {
     return await fs.readFile(filePath, "utf8");
   }
-  catch (originalError) {
+  catch (originalError: unknown) {
     throw error(ErrorCode.Filesystem, `Unable to read ${filePath}.`, { originalError });
   }
 }
@@ -92,7 +92,7 @@ async function importJavaScriptModule<T>(filePath: string): Promise<T> {
       return exports as unknown as T;
     }
   }
-  catch (originalError) {
+  catch (originalError: unknown) {
     throw error(ErrorCode.Filesystem, `Unable to import ${path.basename(filePath)}.`, { originalError });
   }
 }

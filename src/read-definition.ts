@@ -85,7 +85,7 @@ export async function readDefinition<T>(definition: InlineOrReference<T>, cwd: s
       return [definition, cwd];
     }
   }
-  catch (originalError) {
+  catch (originalError: unknown) {
     throw error(ErrorCode.Validation, `Invalid ${fieldName}: ${definition as string}.`, { originalError });
   }
 }

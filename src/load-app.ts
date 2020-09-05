@@ -34,7 +34,7 @@ export async function loadApp(appPath = "."): Promise<App> {
       return new sdk.OrderApp(pojo);
     }
   }
-  catch (originalError) {
+  catch (originalError: unknown) {
     throw error(ErrorCode.AppError, "Error loading the ShipEngine Connect app:", { originalError });
   }
   finally {

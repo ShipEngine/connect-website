@@ -30,7 +30,7 @@ export async function loadSDK(appPath: string, manifest: AppManifestPOJO): Promi
       throw error(ErrorCode.Validation, `Unsupported ${sdk} version: ${version}`);
     }
   }
-  catch (originalError) {
+  catch (originalError: unknown) {
     const manifestPath = path.join(appPath, "package.json");
     throw error(ErrorCode.AppError, `Error in ${manifestPath}:`, { originalError });
   }
