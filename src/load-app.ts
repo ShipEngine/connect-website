@@ -1,9 +1,8 @@
 import { CarrierAppDefinition, ErrorCode, OrderAppDefinition } from "@shipengine/connect-sdk";
-import { App, error } from "@shipengine/connect-sdk/lib/internal";
+import { App, CarrierApp, error, OrderApp } from "@shipengine/connect-sdk/lib/internal";
 import { readCarrierAppDefinition } from "./definitions/read-carrier-app-definition";
 import { readOrderAppDefinition } from "./definitions/read-order-app-definition";
 import { fileCache } from "./file-cache";
-import { loadSDK } from "./load-sdk";
 import { readAppManifest } from "./read-app-manifest";
 import { readDefinition } from "./read-definition";
 
@@ -19,19 +18,16 @@ export async function loadApp(appPath = "."): Promise<App> {
     // Read the app's manifest (package.json file)
     const manifest = await readAppManifest(appPath);
 
-    // Load the SDK version that's needed for this app
-    const sdk = await loadSDK(appPath, manifest);
-
     // Read the app's exported definition
     const [definition, definitionPath] = await readDefinition<AppDefinition>(appPath, ".", "ShipEngine Connect app");
 
     if (isCarrierApp(definition)) {
       const pojo = await readCarrierAppDefinition(definition, definitionPath, manifest);
-      return new sdk.CarrierApp(pojo);
+      return new CarrierApp(pojo);
     }
     else {
       const pojo = await readOrderAppDefinition(definition, definitionPath, manifest);
-      return new sdk.OrderApp(pojo);
+      return new OrderApp(pojo);
     }
   }
   catch (originalError: unknown) {
