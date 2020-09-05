@@ -1,6 +1,6 @@
 {
   "name": "@shipengine/connect",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "The official developer tooling for building ShipEngine connect apps",
   "keywords": [
     "shipengine",
@@ -43,7 +43,7 @@
     "test:typescript": "tsc --noEmit test/specs/typescript.spec.ts",
     "coverage": "nyc node_modules/mocha/bin/mocha",
     "upgrade": "npm-check -u && npm audit fix",
-    "bump": "bump --tag --push --all",
+    "bump": "bump patch --tag --push --all",
     "release": "npm run upgrade && npm run clean && npm run build && npm test && npm run bump"
   },
   "engines": {
@@ -71,8 +71,8 @@
   "dependencies": {
     "@oclif/command": "^1.8.0",
     "@oclif/errors": "^1.3.3",
-    "@shipengine/connect-cli": "^2.1.0",
-    "@shipengine/connect-sdk": "^3.0.1",
+    "@shipengine/connect-cli": "^1.0.21",
+    "@shipengine/connect-sdk": "^1.0.16",
     "resolve-from": "^5.0.0",
     "update-notifier": "^4.1.1"
   }
