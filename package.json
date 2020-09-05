@@ -1,6 +1,6 @@
 {
   "name": "@shipengine/connect",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "The official developer tooling for building ShipEngine connect apps",
   "keywords": [
     "shipengine",
@@ -71,7 +71,7 @@
   "dependencies": {
     "@oclif/command": "^1.8.0",
     "@oclif/errors": "^1.3.3",
-    "@shipengine/connect-cli": "^2.0.0",
+    "@shipengine/connect-cli": "^2.1.0",
     "@shipengine/connect-sdk": "^3.0.1",
     "resolve-from": "^5.0.0",
     "update-notifier": "^4.1.1"
