@@ -3,12 +3,13 @@
 ShipEngine Connect App Loader
 ==============================================
 
-[![npm](https://img.shields.io/npm/v/@shipengine/connect-loader.svg)](https://www.npmjs.com/package/@shipengine/connect-loader)
-[![License](https://img.shields.io/npm/l/@shipengine/connect-loader.svg)](LICENSE)
-[![Coverage Status](https://coveralls.io/repos/github/ShipEngine/connect-loader/badge.svg?branch=master)](https://coveralls.io/github/ShipEngine/connect-loader)
-[![Dependencies](https://david-dm.org/ShipEngine/connect-loader.svg)](https://david-dm.org/ShipEngine/connect-loader)
 [![Cross-Platform Compatibility](https://shipengine.github.io/img/badges/os-badges.svg)](https://github.com/ShipEngine/connect-loader/actions)
 [![Build Status](https://github.com/ShipEngine/connect-loader/workflows/CI-CD/badge.svg)](https://github.com/ShipEngine/connect-loader/actions)
+
+[![Coverage Status](https://coveralls.io/repos/github/ShipEngine/connect-loader/badge.svg?branch=master)](https://coveralls.io/github/ShipEngine/connect-loader)
+[![Dependencies](https://david-dm.org/ShipEngine/connect-loader.svg)](https://david-dm.org/ShipEngine/connect-loader)
+[![npm](https://img.shields.io/npm/v/@shipengine/connect-loader.svg)](https://www.npmjs.com/package/@shipengine/connect-loader)
+[![License](https://img.shields.io/npm/l/@shipengine/connect-loader.svg)](LICENSE)
 
 
 <p><br></p>
