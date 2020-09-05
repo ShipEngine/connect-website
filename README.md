@@ -1,29 +1,29 @@
-![ShipEngine Connect](https://connect.shipengine.com/img/logos/shipengine-connect-logo.png)
+[![ShipEngine Connect](https://connect.shipengine.com/img/logos/shipengine-connect-logo.png)](https://connect.shipengine.com)
 
 ShipEngine Connect App Loader
 ==============================================
 
+[![npm](https://img.shields.io/npm/v/@shipengine/connect-loader.svg)](https://www.npmjs.com/package/@shipengine/connect-loader)
+[![License](https://img.shields.io/npm/l/@shipengine/connect-loader.svg)](LICENSE)
+[![Coverage Status](https://coveralls.io/repos/github/ShipEngine/connect-loader/badge.svg?branch=master)](https://coveralls.io/github/ShipEngine/connect-loader)
+[![Dependencies](https://david-dm.org/ShipEngine/connect-loader.svg)](https://david-dm.org/ShipEngine/connect-loader)
 [![Cross-Platform Compatibility](https://shipengine.github.io/img/badges/os-badges.svg)](https://github.com/ShipEngine/connect-loader/actions)
 [![Build Status](https://github.com/ShipEngine/connect-loader/workflows/CI-CD/badge.svg)](https://github.com/ShipEngine/connect-loader/actions)
 
-[![Coverage Status](https://coveralls.io/repos/github/ShipEngine/connect-loader/badge.svg?branch=master)](https://coveralls.io/github/ShipEngine/connect-loader)
-[![Dependencies](https://david-dm.org/ShipEngine/connect-loader.svg)](https://david-dm.org/ShipEngine/connect-loader)
 
-[![npm](https://img.shields.io/npm/v/@shipengine/connect-loader.svg)](https://www.npmjs.com/package/@shipengine/connect-loader)
-[![License](https://img.shields.io/npm/l/@shipengine/connect-loader.svg)](LICENSE)
+<p><br></p>
+
+> ### ⚠ WARNING: This is an internal package
+> Using this package directly is discouraged and unsupported. Instead, you should install
+> [**@shipengine/connect**](https://www.npmjs.com/package/@shipengine/connect) which uses this package under the hood.
+> See [our documentation](https://connect.shipengine.com/docs/cli) for more information.
+
+<p><br></p>
 
 
-This library loads a [**ShipEngine Connect app**](https://connect.shipengine.com) from an NPM package. Regardless of whether the app is written in JavaScript, TypeScript, JSON, YAML, or a mix of them all, the loader reads those files, validates them, and returns the app object.
+This library loads a [**ShipEngine Connect**](https://connect.shipengine.com) app from an NPM package. Regardless of whether the app is written in JavaScript, TypeScript, JSON, YAML, or a mix of them all, the loader reads those files, validates them, and returns the app object.
 
 
-
-Installation
---------------------------
-You can install the ShipEngine Connect App Loader via [npm](https://docs.npmjs.com/about-npm/).
-
-```bash
-npm install @shipengine/connect-loader
-```
 
 Example
 --------------------------
@@ -133,3 +133,40 @@ async function createShipment(app) {
 
 main();
 ```
+
+
+
+Local Development
+--------------------------
+To build/test the library locally on your computer:
+
+1. __Install dependencies__<br>
+`npm install`
+
+2. __Run the build script__<br>
+`npm run build` or `npm run watch`
+
+3. __Run the tests__<br>
+`npm test`
+
+
+
+Releasing
+--------------------------
+To release a new version, use the command below.
+
+```bash
+npm run release
+```
+
+This will do the following:
+
+- Display any outdated dependencies and prompt you to update them
+- Run a security vulnerability audit
+- Do a clean re-build
+- Run all tests
+- Run linter checks
+- Prompt you for the version number to bump to
+- Tag, commit, and push to GitHub
+
+Once the commit is merged to the `master` branch, the [CI/CD script](.github/workflows/CI-CD.yaml) will publish it to NPM.
