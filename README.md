@@ -3,11 +3,12 @@
 ShipEngine Connect Local Dev UI
 =======================================
 
-[![npm](https://img.shields.io/npm/v/@shipengine/connect-local-dev-ui.svg)](https://www.npmjs.com/package/@shipengine/connect-local-dev-ui)
-[![License](https://img.shields.io/npm/l/@shipengine/connect-local-dev-ui.svg)](LICENSE)
-[![Dependencies](https://david-dm.org/ShipEngine/connect-local-dev-ui.svg)](https://david-dm.org/ShipEngine/connect-local-dev-ui)
 [![Cross-Platform Compatibility](https://shipengine.github.io/img/badges/os-badges.svg)](https://github.com/ShipEngine/connect-local-dev-ui/actions)
 [![Build Status](https://github.com/ShipEngine/connect-local-dev-ui/workflows/CI-CD/badge.svg)](https://github.com/ShipEngine/connect-local-dev-ui/actions)
+
+[![Dependencies](https://david-dm.org/ShipEngine/connect-local-dev-ui.svg)](https://david-dm.org/ShipEngine/connect-local-dev-ui)
+[![npm](https://img.shields.io/npm/v/@shipengine/connect-local-dev-ui.svg)](https://www.npmjs.com/package/@shipengine/connect-local-dev-ui)
+[![License](https://img.shields.io/npm/l/@shipengine/connect-local-dev-ui.svg)](LICENSE)
 
 
 <p><br></p>
