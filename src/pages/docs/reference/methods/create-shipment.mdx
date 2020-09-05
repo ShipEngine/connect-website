@@ -19,7 +19,7 @@ module.exports = async function createShipment(transaction, shipment) {
 ```
 
 ```typescript
-import { Transaction, NewShipment, ShipmentConfirmation } from "@shipengine/connect-sdk";
+import { Transaction, NewShipment, ShipmentConfirmation } from "@shipengine/connect";
 
 export default async function createShipment(
   transaction: Transaction,
@@ -368,7 +368,7 @@ import {
   NewShipment,
   ShipmentConfirmation,
   Transaction
-} from "@shipengine/connect-sdk";
+} from "@shipengine/connect";
 
 export default async function createShipment(
   transaction: Transaction<Session>, shipment: NewShipment): Promise<ShipmentConfirmation> {

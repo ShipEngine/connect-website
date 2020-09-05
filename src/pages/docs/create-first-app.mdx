@@ -85,11 +85,7 @@ module.exports = createShipment;
 ```
 
 ```typescript
-import {
-  NewShipment,
-  ShipmentConfirmationPOJO,
-  Transaction,
-} from "@shipengine/connect-sdk";
+import { NewShipment, ShipmentConfirmation, Transaction } from "@shipengine/connect";
 import { Session } from "./session";
 
 /**
@@ -101,7 +97,7 @@ import { Session } from "./session";
 export default async function createShipment(
   transaction: Transaction<Session>,
   shipment: NewShipment,
-): Promise<ShipmentConfirmationPOJO> {
+): Promise<ShipmentConfirmation> {
   throw new Error("NotImplementedError");
   // STEP 1: Validation
   // STEP 2: Create the data that the carrier's API expects
@@ -145,7 +141,7 @@ This is an example of the application definition that is generated for a Carrier
 }
 ```
 ```javascript
-import { CarrierDefinition } from "@shipengine/connect-sdk";
+import { CarrierDefinition } from "@shipengine/connect";
 
 const carrier: CarrierDefinition = {
   id: "ed16921d-678b-4d07-9921-1447e1847c1c",

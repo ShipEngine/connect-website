@@ -23,7 +23,7 @@ module.exports = async function cancelShipments(transaction, shipments) {
 ```typescript
 import {
   Transaction, ShipmentCancellation, ShipmentCancellationOutcome
-} from "@shipengine/connect-sdk";
+} from "@shipengine/connect";
 
 export default async function cancelShipments(
   transaction: Transaction,
@@ -191,7 +191,7 @@ import {
   Transaction,
   ShipmentCancellation,
   ShipmentCancellationOutcome
-} from "@shipengine/connect-sdk";
+} from "@shipengine/connect";
 
 export default async function cancelShipments(
   transaction: Transaction, shipmentCancellations: ShipmentCancellation[]): Promise<void | ShipmentCancellationOutcome> {

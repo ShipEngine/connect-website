@@ -19,7 +19,7 @@ module.exports = async function createManifest(transaction, manifest) {
 ```
 
 ```typescript
-import { Transaction, NewManifest, ManifestConfirmation } from "@shipengine/connect-sdk";
+import { Transaction, NewManifest, ManifestConfirmation } from "@shipengine/connect";
 
 export default async function createManifest(
   transaction: Transaction,
@@ -274,7 +274,7 @@ import {
   Transaction,
   NewManifest,
   ManifestConfirmation
-} from "@shipengine/connect-sdk";
+} from "@shipengine/connect";
 
 export default async function createManifest(
   transaction: Transaction, manifest: NewManifest): Promise<ManifestConfirmation[]> {

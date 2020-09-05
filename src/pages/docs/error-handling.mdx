@@ -8,7 +8,7 @@ description: Learn how ShipEngine App's are expected to handle errors.
 Error Handling
 =============
 
-[ShipEngine Connect](./index.mdx) applications are designed to handle [Errors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) in the the same way as any other [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) application.
+ShipEngine Connect applications are designed to handle [Errors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) in the the same way as any other [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) application.
   Any uncaught exception will terminate the currently executing method and generate an error log.
 
 The methods you implement will often need to validate the input from ShipEngine Connect before transforming the data and calling your backend API. If this validation fails, you would provide an error as in the example below.
@@ -155,7 +155,7 @@ try {
 ```
 
 ## Error Helper Classes
-ShipEngine Connect SDK exports several helper classes for use in common error scenarios. Each class wraps a specific
+ShipEngine Connect exports several helper classes for use in common error scenarios. Each class wraps a specific
 [`error code`](#error-codes) and allows you to provide a custom `message` and `transactionID`, at a minimum.
 
 ### Bad Request Error

@@ -22,7 +22,7 @@ module.exports = async function cancelPickups(transaction, pickups) {
 ```typescript
 import {
   Transaction, PickupCancellation, PickupCancellationOutcome
-} from "@shipengine/connect-sdk";
+} from "@shipengine/connect";
 
 export default async function cancelPickups(
   transaction: Transaction,
@@ -486,7 +486,7 @@ import {
   PickupCancellation,
   PickupCancellationOutcome,
   Transaction
-} from "@shipengine/connect-sdk";
+} from "@shipengine/connect";
 
 export default async function cancelPickups(
   transaction: Transaction<Session>, pickups: PickupCancellation[]): Promise<PickupCancellationOutcome[]> {

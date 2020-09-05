@@ -8,11 +8,11 @@ tags:
 
 Application Structure
 ==================
-[ShipEngine Connect](./index.mdx) applications are just [NPM](https://www.npmjs.com/) packages that meet the following requirements:
+ShipEngine Connect applications are just [NPM](https://www.npmjs.com/) packages that meet the following requirements:
 
 * Have a [`package.json`](https://docs.npmjs.com/creating-a-package-json-file) file in the root directory, which specifies its name, version number, and dependencies.
 
-* List the [ShipEngine Connect SDK](https://www.npmjs.com/package/@shipengine/connect-sdk) (`@shipengine/connect-sdk`) as a `dependency` or `devDependency` in the `package.json` file.
+* Have the [`@shipengine/connect`](https://www.npmjs.com/package/@shipengine/connect) package as a `dependency` or `devDependency` in the `package.json` file.
 
 * Export an object with properties and methods that define the app's capabilities and functionality. This must be the main export of the NPM package.
 

@@ -20,7 +20,7 @@ module.exports = async function schedulePickup(transaction, pickup) {
 ```
 
 ```typescript
-import { Transaction, PickupRequest, PickupConfirmation } from "@shipengine/connect-sdk";
+import { Transaction, PickupRequest, PickupConfirmation } from "@shipengine/connect";
 
 export default async function schedulePickup(
   transaction: Transaction,
@@ -447,7 +447,7 @@ import {
   PickupConfirmation,
   PickupRequest,
   Transaction
-} from "@shipengine/connect-sdk";
+} from "@shipengine/connect";
 
 export default async function schedulePickup(
   transaction: Transaction<Session>, pickup: PickupRequest): Promise<PickupConfirmation> {

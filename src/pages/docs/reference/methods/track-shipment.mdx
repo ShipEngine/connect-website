@@ -21,7 +21,7 @@ module.exports = async function trackShipment(transaction, shipment) {
 ```
 
 ```typescript
-import { Transaction, TrackingCriteria, TrackingInfo } from "@shipengine/connect-sdk";
+import { Transaction, TrackingCriteria, TrackingInfo } from "@shipengine/connect";
 
 export default async function trackShipment(
   transaction: Transaction,
@@ -381,7 +381,7 @@ import {
   Transaction,
   TrackingCriteria,
   TrackingInfo
-} from "@shipengine/platform-sdk";
+} from "@shipengine/connect";
 
 export default async function trackShipment(
   transaction: Transaction, trackingCriteria: TrackingCriteria): Promise<TrackingInfo> {
