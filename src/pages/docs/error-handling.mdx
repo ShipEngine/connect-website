@@ -1,40 +1,57 @@
 ---
-title: ShipEngine Connect Error Handling
-description: Learn how ShipEngine App's are expected to handle errors.
+title: Error Handling
+description: ShipEngine Connect applications can throw errors just like any other JavaScript application. We also support custom error properties and classes to make things easier.
 ---
 
 
 
 Error Handling
-=============
+=================
 
-ShipEngine Connect applications are designed to handle [Errors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) in the the same way as any other [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) application.
-  Any uncaught exception will terminate the currently executing method and generate an error log.
+ShipEngine Connect applications can throw [Errors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) just like any other JavaScript application.  Any uncaught exception will terminate the currently executing method and generate an error log.
 
-The methods you implement will often need to validate the input from ShipEngine Connect before transforming the data and calling your backend API. If this validation fails, you would provide an error as in the example below.
+For example, the methods you implement will often need to perform input validation. If this validation fails, you can throw an error as in the example below.
 
 ```javascript highlight="3"
 for (let parcel of shipment.packages) {
   if (parcel.packaging.code === "BOX" && parcel.weight.grams > 100000) {
-    throw new Error(`${parcel.packaging.name} cannot weigh more than 100 kilograms`);
+    throw new RangeError(`${parcel.packaging.name} cannot weigh more than 100 kilograms`);
   }
 }
 ```
 
-## Additional Error Properties
+> **TIP:** In addition to [JavaScript's built-in error classes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects#Error_objects), ShipEngine Connect includes several [error classes](#error-classes) you can use in your app.
 
-Your application may throw a normal JavaScript error as well as provide any of these additional properties that facilitate propagating your errors upwards to the end user.
+
+<Section>
+  <Left>
+
+Additional Error Properties
+----------------------------------------
+Before throwing an error, you can set additional properties that provide more context, enabling our platform to respond appropriately and provide meaningful feedback to users.
 
 <Reference>
   <Field name="code" type="string">
     <Description>
-        A valid [error code](#error-codes) providing more information about the problem that was encountered.
+      A string that identifies the type of error. Most errors that occur in Node.js already have a code, but if you're throwing a new error, then we recommend that you use one of our pre-defined [Error Codes](#error-codes) below
     </Description>
   </Field>
 
-  <Field name="message" type="string">
+  <Field name="statusCode" type="number">
     <Description>
-        A human-readable message about the error.
+      The numeric status code associated with the error, if any. For errors that originate from an HTTP response, this should be the HTTP status code (e.g. 400, 404, 500)
+    </Description>
+  </Field>
+
+  <Field name="externalErrors" type="string[]">
+    <Description>
+      If the error is the result of calling an external service, then put any error messages that were returned by the service here.
+    </Description>
+  </Field>
+
+  <Field name="externalWarnings" type="string[]">
+    <Description>
+      If the error is the result of calling an external service, then put any warning messages that were returned by the service here.
     </Description>
   </Field>
 
@@ -43,311 +60,244 @@ Your application may throw a normal JavaScript error as well as provide any of t
       [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)
     </Type>
     <Description>
-        The original error that was thrown.
+      The original error that occurred, if any. This is especially useful for debugging, since it will allow you to see the error message and stack trace where the problem occurred.
     </Description>
   </Field>
 
-  <Field name="source" type="string">
+  <Field name="*" type="any value">
     <Description>
-        The source of the error. Valid values include `external` and `internal`.
+      Any additional properties you add to the error will be logged, which is useful for debugging.
     </Description>
   </Field>
-
-  <Field name="statusCode" type="number">
-    <Description>
-        The HTTP status code associated with this error.
-    </Description>
-  </Field>
-
-  <Field name="transactionID" type="string">
-    <Description>
-        The [`transactionID`](./reference/transaction) of the request that encountered the error.
-    </Description>
-  </Field>
-
-
 </Reference>
 
 
-### Error Codes
-
-The following is a list of valid error codes for use in the `code` property described above.
+Error Codes
+---------------------
+Most errors that occur in Node.js have a `code` property. When throwing your own errors, we encourage you to include a `code` as well. Using one of the following codes will help the ShipEngine Connect platform know how to handle your error appropriately.
 
 <Reference>
-  <Field name="ERR_APP_ERROR">
+  <Field name="ERR_INVALID">
     <Description>
-      Indicates that an application error has occurred.
-    </Description>
-  </Field>
-
-  <Field name="ERR_BAD_REQUEST">
-    <Description>
-      The backend server cannot or will not process the request due to something that is perceived to be a client error (e.g., malformed request syntax, invalid request message framing, or deceptive request routing).
-    </Description>
-  </Field>
-
-  <Field name="ERR_CURRENCY_MISMATCH">
-    <Description>
-      A set of charges includes mismatched currency values.
-    </Description>
-  </Field>
-
-  <Field name="ERR_EXTERNAL_SERVICE_ERROR">
-    <Description>
-      An error occurred that is external to the app, such as a problem with the backend API.
-    </Description>
-  </Field>
-
-  <Field name="ERR_FILESYSTEM">
-    <Description>
-        An error occurred while accessing the file system.
-    </Description>
-  </Field>
-
-  <Field name="ERR_INVALID_INPUT">
-    <Description>
-      The input is invalid.
-    </Description>
-  </Field>
-
-  <Field name="ERR_NOT_FOUND">
-    <Description>
-      A requested resource was not found.
-    </Description>
-  </Field>
-
-  <Field name="ERR_RATE_LIMIT">
-    <Description>
-      The [rate limit](https://nordicapis.com/everything-you-need-to-know-about-api-rate-limiting/) for the backend API has been exceeded.
-    </Description>
-  </Field>
-
-  <Field name="ERR_SYNTAX">
-    <Description>
-      The request contains a syntax error.
+      You should use this code to indicate a validation error. For example, your app may only allow certain values under specific conditions, or a field may be conditionally required.
     </Description>
   </Field>
 
   <Field name="ERR_UNAUTHORIZED">
     <Description>
-      A login attempt failed or a `session` became invalid and could not be renewed.
+      Use this code to indicate an authentication or authorization error. For example, if the `transaction.session` object is missing some required data or the session has expired.
     </Description>
   </Field>
 
-  <Field name="ERR_INVALID">
+  <Field name="ERR_EXTERNAL">
     <Description>
-      The request was invalid.
+      You should use this code for any error that is the result of calling an external service, such as an API. This lets ShipEngine Connect know that the error came from a downstream service rather than directly in your app.
+
+      You should also set the `statusCode` property if possible to indicate the type of external error that occurred. For HTTP errors, you can use the HTTP status code (e.g. 400, 404, 500). For APIs that don't use HTTP status codes, we recomend using the most appropriate [HTTP status code](https://httpstatuses.com/) and also put the raw error/warning messages in `externalErrors` or `externalWarnings`.
     </Description>
   </Field>
 
+  <Field name="ERR_APP_ERROR">
+    <Description>
+      This is a generic error code that simply indicates that the error was _intentionally_ thrown by your app, as opposed to an unexpected error that occurred due to a bug or runtime exception.
+    </Description>
+  </Field>
 </Reference>
-### Example
 
-This example catches an error thrown by a method and overrides the `code` and `message` properties with custom values.
+  </Left>
+  <Right>
 
-```javascript highlight="5"
-let response;
-try {
-  response = await apiClient.request({ data });
-} catch (error) {
-	throw Object.assign(error, {code: "ERR_EXTERNAL_SERVICE_ERROR", message: "There was an error calling the backend API."} );
+### Validation Error Example
+This example demonstrates throwing a validation error with additional properties.
+
+```javascript
+if (package.weight.grams > 100000) {
+  throw Object.assign(
+    new Error("Weight cannot exceed 100 kilograms"),
+    {
+      code: "ERR_INVALID",
+      actualWeight: package.weight.grams,
+      maxWeight: 100000,
+    }
+  );
 }
 ```
 
-## Error Helper Classes
-ShipEngine Connect exports several helper classes for use in common error scenarios. Each class wraps a specific
-[`error code`](#error-codes) and allows you to provide a custom `message` and `transactionID`, at a minimum.
+### External Error Example
+This example rethrows an error from an external service, but first it adds additional properties.
 
-### Bad Request Error
-This error type is useful in communicating validation issues with a request. For example, there may be properties that are optional for
-ShipEngine Connect but are required by your backend API. Your methods will need to test for the presence of required
-properties and throw an error that includes the missing or invalid properties.
+```javascript
+try {
+  // Some code that makes an HTTP call
+}
+catch (error) {
+  error.code = "ERR_EXTERNAL";
+  error.statusCode = httpResponse.status;
+  error.externalErrors = [httpResponse.body.errorMessage];
+  error.headers = httpResponse.headers;
+  throw error;
+}
+```
 
-
-
-<Reference>
-  <Field name="message" type="string" required={true}>
-    <Description>
-      The error message that should be communicated back to the end user.
-    </Description>
-  </Field>
-
-  <Field name="originalError">
-    <Type>
-    [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)
-    </Type>
-    <Description>
-        The original error message, if one exists.
-    </Description>
-  </Field>
-
- <Field name="fieldErrors">
-    <Type>
-      object[]
-    </Type>
-    <Description>
-        An array of objects describing the issues with the request.
-    </Description>
-  </Field>
-
-  <Field name="fieldErrors.attemptedValue" type="string">
-    <Description>
-        The attempted value that caused the error.
-    </Description>
-  </Field>
-
-  <Field name="fieldErrors.errorCode" type="string">
-    <Description>
-        The error code associated with the error.
-    </Description>
-  </Field>
-
-  <Field name="fieldErrors.errorMessage" type="string">
-    <Description>
-        A human-readable error message associated with the error.
-    </Description>
-  </Field>
-
-  <Field name="fieldErrors.fieldName" type="string">
-    <Description>
-        The name of the field that encountered the error.
-    </Description>
-  </Field>
-
-  <Field name="transactionID" type="string">
-    <Description>
-      The transactionID associated with the method call that encountered this error.
-    </Description>
-  </Field>
-</Reference>
-
-### Unauthorized Error
-This error type is used to communicate issues regarding authorization with the backend API or service, such as a failed
-login attempt or an invalid session that cannot be renewed.
-
-<Reference>
-  <Field name="message" type="string" required={true}>
-    <Description>
-      The error message that should be communicated back to the end user.
-    </Description>
-  </Field>
-
-  <Field name="originalError">
-    <Type>
-    [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)
-    </Type>
-    <Description>
-        The original error message, if one exists.
-    </Description>
-  </Field>
-
-  <Field name="transactionID" type="string">
-    <Description>
-      The transactionID associated with the method call that encountered this error.
-    </Description>
-  </Field>
-</Reference>
-
-### NotFoundError
-This error type is used to communicate that a requested resource was not found.
-
-<Reference>
-  <Field name="message" type="string" required={true}>
-    <Description>
-      The error message that should be communicated back to the end user.
-    </Description>
-  </Field>
-
-  <Field name="originalError">
-    <Type>
-    [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)
-    </Type>
-    <Description>
-        The original error message, if one exists.
-    </Description>
-  </Field>
-
-  <Field name="transactionID" type="string">
-    <Description>
-      The transactionID associated with the method call that encountered this error.
-    </Description>
-  </Field>
-</Reference>
+  </Right>
+</Section>
 
 
-### RateLimitError
-This error type is used to communicate that the [rate limit](https://nordicapis.com/everything-you-need-to-know-about-api-rate-limiting/) for the backend API has been exceeded.
-
-<Reference>
-
-  <Field name="message" type="string" required={true}>
-    <Description>
-      The error message that should be communicated back to the end user.
-    </Description>
-  </Field>
-
-  <Field name="originalError">
-    <Type>
-    [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)
-    </Type>
-    <Description>
-        The original error message, if one exists.
-    </Description>
-  </Field>
-
-  <Field name="transactionID" type="string">
-    <Description>
-      The transactionID associated with the method call that encountered this error.
-    </Description>
-  </Field>
-
-</Reference>
+Error Classes
+--------------------------
+In addition to [JavaScript's built-in error classes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects#Error_objects), ShipEngine Connect includes several [error classes](#error-classes) you can use in your app. Each class corresponds to one of the [error codes](#error-codes) listed above and automatically sets the `code` property for you. You can also pass [additional error properties](#additional-error-properties) to the constructor.
 
 
-### ExternalServiceError
-This error type is used to communicate that an external service error has occurred.
+### `ValidationError`
+You should use this class for validation errors. For example, your app may only allow certain values under specific conditions, or a field may be conditionally required.
 
-<Reference>
+#### `constructor(message | props)`
+The `ValidationError` constructor can accept a string (the error message) or an object containing [additional error properties](#additional-error-properties).
 
-  <Field name="message" type="string" required={true}>
-    <Description>
-      The error message that should be communicated back to the end user.
-    </Description>
-  </Field>
+<CodeWrapper>
+```javascript
+const { ValidationError } = require("@shipengine/connect");
 
-  <Field name="originalError">
-    <Type>
-    [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)
-    </Type>
-    <Description>
-        The original error message, if one exists.
-    </Description>
-  </Field>
+// This only sets the `code` and `message` properties
+throw new ValidationError("The package weight exceeds the maximum allowed");
 
-  <Field name="externalErrors">
-    <Type>
-      string[]
-    </Type>
-    <Description>
-        An array of external errors.
-    </Description>
-  </Field>
+// This sets the `code`, `message`, and additional properties
+throw new ValidationError({
+  message: "The package weight exceeds the maximum allowed",
+  actualWeight: package.weight.ounces,
+  maxWeight: 2400,
+});
+```
 
-  <Field name="externalWarnings">
-    <Type>
-      string[]
-    </Type>
-    <Description>
-        An array of external warnings.
-    </Description>
-  </Field>
+```typescript
+import { ValidationError } from "@shipengine/connect";
 
-  <Field name="transactionID" type="string">
-    <Description>
-      The transactionID associated with the method call that encountered this error.
-    </Description>
-  </Field>
-</Reference>
+// This only sets the `code` and `message` properties
+throw new ValidationError("The package weight exceeds the maximum allowed");
+
+// This sets the `code`, `message`, and additional properties
+throw new ValidationError({
+  message: "The package weight exceeds the maximum allowed",
+  actualWeight: package.weight.ounces,
+  maxWeight: 2400,
+});
+```
+</CodeWrapper>
+
+
+### `UnauthorizedError`
+You should use this class to indicate an authentication or authorization error. For example, if the `transaction.session` object is missing some required data or the session has expired.
+
+#### `constructor(message | props)`
+The `UnauthorizedError` constructor can accept a string (the error message) or an object containing [additional error properties](#additional-error-properties).
+
+<CodeWrapper>
+```javascript
+const { UnauthorizedError } = require("@shipengine/connect");
+
+// This only sets the `code` and `message` properties
+throw new UnauthorizedError("Your session has expired");
+
+// This sets the `code`, `message`, and additional properties
+throw new UnauthorizedError({
+  message: "Your session has expired",
+  sessionID: session.id,
+  expiredAt: ession.expireDateTime,
+});
+```
+
+```typescript
+import { UnauthorizedError } from "@shipengine/connect";
+
+// This only sets the `code` and `message` properties
+throw new UnauthorizedError("Your session has expired");
+
+// This sets the `code`, `message`, and additional properties
+throw new UnauthorizedError({
+  message: "Your session has expired",
+  sessionID: session.id,
+  expiredAt: ession.expireDateTime,
+});
+```
+</CodeWrapper>
+
+
+### `ExternalError`
+You should use this class when the error is the result of calling an external service, such as an API. This lets ShipEngine Connect know that the error came from a downstream service rather than directly in your app.
+
+You should also set the `statusCode` property if possible to indicate the type of external error that occurred. For HTTP errors, you can use the HTTP status code (e.g. 400, 404, 500). For APIs that don't use HTTP status codes, we recomend using the most appropriate [HTTP status code](https://httpstatuses.com/) and also put the raw error/warning messages in `externalErrors` or `externalWarnings`.
+
+#### `constructor(message | props)`
+The `ExternalError` constructor can accept a string (the error message) or an object containing [additional error properties](#additional-error-properties).
+
+<CodeWrapper>
+```javascript
+const { ExternalError } = require("@shipengine/connect");
+
+// This only sets the `code` and `message` properties
+throw new ExternalError("The request exceeded the rate limit");
+
+// This sets the `code`, `message`, and additional properties
+throw new ExternalError({
+  message: "The request exceeded the rate limit",
+  statusCode: 429,
+  externalErrors: [httpResponse.body.errorMessage],
+});
+```
+
+```typescript
+import { ExternalError } from "@shipengine/connect";
+
+// This only sets the `code` and `message` properties
+throw new ExternalError("The request exceeded the rate limit");
+
+// This sets the `code`, `message`, and additional properties
+throw new ExternalError({
+  message: "The request exceeded the rate limit",
+  statusCode: 429,
+  externalErrors: [httpResponse.body.errorMessage],
+});
+```
+</CodeWrapper>
+
+
+### `AppError`
+This is a generic error class that simply distinguishes errors that are _intentionally_ thrown by your app, as opposed to an unexpected error that occurred due to a bug or runtime exception.
+
+#### `constructor(message | props)`
+The `AppError` constructor can accept a string (the error message) or an object containing [additional error properties](#additional-error-properties).
+
+<CodeWrapper>
+```javascript
+const { AppError } = require("@shipengine/connect");
+
+// This only sets the `code` and `message` properties
+throw new AppError("Unable to load app data");
+
+// This sets the `code`, `message`, and additional properties
+throw new AppError({
+  message: "Unable to load app data",
+  dataSource: "./app-data.xml",
+});
+```
+
+```typescript
+import { AppError } from "@shipengine/connect";
+
+// This only sets the `code` and `message` properties
+throw new AppError("Unable to load app data");
+
+// This sets the `code`, `message`, and additional properties
+throw new AppError({
+  message: "Unable to load app data",
+  dataSource: "./app-data.xml",
+});
+```
+</CodeWrapper>
+
+
+
+
 <Pager
   prev="./typescript.mdx" prevTitle="Developing in TypeScript"
   next="./sandbox.mdx" nextTitle="Sandbox"
