@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment */
 import capitalization from "@shipengine/capitalization";
 import { AppType } from "@shipengine/connect-sdk";
 import * as fs from "fs";
