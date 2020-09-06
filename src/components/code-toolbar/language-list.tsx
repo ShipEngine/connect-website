@@ -15,14 +15,39 @@ export interface LanguageListProps {
 /**
  * A dropdown list of programming languages
  */
-export function LanguageList({ languages, selectedLanguage, onLanguageChange }: LanguageListProps) {
- if (languages.length < 2) {
-   return null;
- }
+export function LanguageList(props: LanguageListProps) {
+  switch (props.languages.length) {
+    case 0:
+      return null;
 
-languages.sort(sortLanguages);
+    case 1:
+      return LanguageIcon(props);
 
- return (
+    default:
+      return LanguageSelectList(props);
+  }
+}
+
+
+/**
+ * When there's only one language, simply display the language icon
+ */
+export function LanguageIcon({ languages: [language] }: LanguageListProps) {
+  return (
+    <img src={`/img/logos/languages/${language}.svg`} alt={humanizeLanguage(language)}
+    className={`${styles.languageIcon} ${styles[language]}`} />
+  );
+}
+
+
+
+/**
+ * A dropdown list of programming languages
+ */
+export function LanguageSelectList({ languages, selectedLanguage, onLanguageChange }: LanguageListProps) {
+  languages.sort(sortLanguages);
+
+  return (
     <Select className={`${styles.languageList} ${styles[selectedLanguage]}`} value={selectedLanguage}
       onChange={e => onLanguageChange(e.target.value as Language)}>
       {
@@ -32,7 +57,7 @@ languages.sort(sortLanguages);
         )
       }
     </Select>
- );
+  );
 }
 
 
