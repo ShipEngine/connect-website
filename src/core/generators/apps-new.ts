@@ -1,11 +1,11 @@
-import * as fs from "fs";
-import * as path from "path";
-import Generator = require("yeoman-generator");
-import _ from "lodash";
-import { v4 as uuidv4 } from "uuid";
 import capitalization from "@shipengine/capitalization";
 import { AppType } from "@shipengine/connect-sdk";
+import * as fs from "fs";
+import _ from "lodash";
+import * as path from "path";
+import { v4 as uuidv4 } from "uuid";
 import { SdkAppTypes } from "../types";
+import Generator = require("yeoman-generator");
 
 const fixpack = require("@oclif/fixpack");
 const sortPjson = require("sort-pjson");
@@ -76,7 +76,7 @@ class AppsNew extends Generator {
 
     const defaults = {
       name: this.determineAppname().replace(/ /g, "-"),
-      scope: "@shipengine",
+      scope: undefined,
       type: "carrier",
       version: "0.0.0",
       license: "ISC",
@@ -112,13 +112,13 @@ class AppsNew extends Generator {
               return true;
             }
 
-            return "please enter a valid npm package name (ex: shipengine-conect)";
+            return "please enter a valid npm package name";
           },
         },
         {
           type: "input",
           name: "scope",
-          message: "npm package scope (e.g. @shipengine)",
+          message: "npm package scope (e.g. @your-company-name)",
           default: defaults.scope,
           when: (answers: any) => {
             return !scopePresentInName(answers.name);
@@ -131,7 +131,7 @@ class AppsNew extends Generator {
               return true;
             }
 
-            return "please enter a valid npm scope (ex: @shipengine)";
+            return "please enter a valid npm scope (ex: @your-company-name)";
           },
         },
         {
@@ -208,7 +208,7 @@ class AppsNew extends Generator {
           message: "are you using vscode",
           default: defaults.vscode,
         },
-      ])) as any;
+      ]));
     }
 
     this.type = this.answers.type;
