@@ -6,6 +6,7 @@ require:
   - source-map-support/register
 
 bail: true
+retries: 5
 recusive: true
 timeout: 10000
 spec:
