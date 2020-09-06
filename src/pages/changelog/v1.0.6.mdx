@@ -4,7 +4,7 @@ description: This page describes what changed in @shipengine/connect v1.0.6
 image: /img/changelog/card.png
 ---
 
-Changelog `v1.0.6` <small>(2020-09-08)</small>
+Changelog `v1.0.6` <small>(2020-09-06)</small>
 =========================================================
 
 Previously, app developers needed to install `@shipengine/connect-cli` globally and `@shipengine/connect-sdk` locally as an app dependency. They then had to keep them both up-to-date and in-sync with each other, which also required them to be aware of which SDK versions were compatible with which CLI versions.
@@ -33,7 +33,15 @@ npm install --save-dev @shipengine/connect
 
 CLI
 ---------------------------------------
-- No changes (other than the rename)
+- Several changes to the [`connect init`](../docs/cli.mdx#initialize-a-new-app) command:
+  - It now scaffolds new apps with a dependency on `@shipengine/connect` instead of `@shipengine/connect-sdk`
+  - The NPM scope no longer defaults to `@shipengine`, which was confusing
+  - The version number defaults to `1.0.0` instead of `0.0.0`, just like `npm init`
+  - If TypeScript is selected, then it is also the default for app definitions
+  - The `package.json` file now includes `private: true` to prevent accidentally publishing to NPM
+  - The `package-lock.json` file is no longer included in the `.gitignore`, since it should be check-in to source control
+  - The `.editorconfig` or `LICENSE` files are no longer generated
+  - Fixed an error that occurred when running `connect init` in an existing app directory
 
 
 
