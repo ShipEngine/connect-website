@@ -1,9 +1,9 @@
 import {
-  CarrierAppDefinition,
-  ManifestLocation,
-  ManifestShipment,
-  ManifestType
-} from "@shipengine/connect-sdk";
+    CarrierAppDefinition,
+    ManifestLocation,
+    ManifestShipment,
+    ManifestType
+} from "@shipengine/connect";
 
 const carrier: CarrierAppDefinition = {
   id: "<%- _uuidv4 %>",
@@ -17,7 +17,7 @@ const carrier: CarrierAppDefinition = {
   manifestShipments: ManifestShipment.ExplicitShipments,
   connectionForm: import("./forms/connect"),
   settingsForm: import("./forms/settings"),
-  
+
   connect: import("./methods/connect"),
   cancelPickups: import("./methods/cancel-pickups"),
   cancelShipments: import("./methods/cancel-shipments"),

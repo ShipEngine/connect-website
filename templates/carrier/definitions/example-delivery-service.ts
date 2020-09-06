@@ -1,11 +1,11 @@
 import {
-  Country,
-  DeliveryServiceDefinition,
-  DocumentFormat,
-  DocumentSize,
-  ManifestType,
-  ServiceArea,
-} from "@shipengine/connect-sdk";
+    Country,
+    DeliveryServiceDefinition,
+    DocumentFormat,
+    DocumentSize,
+    ManifestType,
+    ServiceArea
+} from "@shipengine/connect";
 
 const exampleDeliveryService: DeliveryServiceDefinition = {
   id: "<%- _uuidv4 %>",

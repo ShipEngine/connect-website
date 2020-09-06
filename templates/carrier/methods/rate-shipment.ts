@@ -1,15 +1,15 @@
 import {
-  RateCriteria,
-  Rate,
-  Transaction,
-} from "@shipengine/connect-sdk";
+    Rate, RateCriteria,
+
+    Transaction
+} from "@shipengine/connect";
 import { Session } from "./session";
 
 /**
  * Generates shipping rates for a shipment
  * View documentation here:
  * https://shipenginestag:439bd542@shipenginestag.wpengine.com/docs/integration-platform/reference/methods/rate-shipment
- * 
+ *
  * View sample implementation here:
  * https://github.com/ShipEngine/connect-samples/blob/master/parcel-post/carrier/src/methods/rate-shipment.ts
  */
