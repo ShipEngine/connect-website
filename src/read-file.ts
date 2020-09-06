@@ -1,5 +1,5 @@
-import { EcmaScriptModule, ErrorCode } from "@shipengine/connect-sdk";
-import { error } from "@shipengine/connect-sdk/lib/internal";
+import { EcmaScriptModule } from "@shipengine/connect-sdk";
+import { error, SystemErrorCode } from "@shipengine/connect-sdk/lib/internal";
 import { promises as fs } from "fs";
 import * as jsYaml from "js-yaml";
 import * as json5 from "json5";
@@ -44,7 +44,7 @@ async function readYamlFile<T>(filePath: string): Promise<T> {
     return parsedYaml as T;
   }
   catch (originalError: unknown) {
-    throw error(ErrorCode.Syntax, `Unable to parse ${path.basename(filePath)}.`, { originalError });
+    throw error(SystemErrorCode.Syntax, `Unable to parse ${path.basename(filePath)}.`, { originalError });
   }
 }
 
@@ -59,7 +59,7 @@ async function readJsonFile<T>(filePath: string): Promise<T> {
     return json5.parse(json) as T;
   }
   catch (originalError: unknown) {
-    throw error(ErrorCode.Syntax, `Unable to parse ${path.basename(filePath)}.`, { originalError });
+    throw error(SystemErrorCode.Syntax, `Unable to parse ${path.basename(filePath)}.`, { originalError });
   }
 }
 
@@ -72,7 +72,7 @@ async function readTextFile(filePath: string): Promise<string> {
     return await fs.readFile(filePath, "utf8");
   }
   catch (originalError: unknown) {
-    throw error(ErrorCode.Filesystem, `Unable to read ${filePath}.`, { originalError });
+    throw error(SystemErrorCode.Filesystem, `Unable to read ${filePath}.`, { originalError });
   }
 }
 
@@ -93,6 +93,6 @@ async function importJavaScriptModule<T>(filePath: string): Promise<T> {
     }
   }
   catch (originalError: unknown) {
-    throw error(ErrorCode.Filesystem, `Unable to import ${path.basename(filePath)}.`, { originalError });
+    throw error(SystemErrorCode.Filesystem, `Unable to import ${path.basename(filePath)}.`, { originalError });
   }
 }
