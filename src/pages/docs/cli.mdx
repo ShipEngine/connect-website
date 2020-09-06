@@ -17,6 +17,7 @@ ShipEngine Connect CLI
 The [ShipEngine Connect CLI](https://www.npmjs.com/package/@shipengine/connect) is a powerful tool that makes it easier for you to create, run, test, and publish your application.
 
 
+
 Prerequisites
 ------------------------
 
@@ -25,6 +26,7 @@ You'll need [NodeJS](https://nodejs.org) version 12.0.0 or greater.  You can ver
 
 **NPM v6+**<br/>
 Node comes with [npm](https://www.npmjs.com/). Verify that you have version 6.0.0 or greater by running `npm --version`.
+
 
 
 Installation
@@ -40,6 +42,7 @@ Verify that the CLI was installed correctly:
 ```
 connect --version
 ```
+
 
 
 Initialize a New App
@@ -64,6 +67,7 @@ This option will overwrite existing files in the output directory without prompt
 By default, the `connect init` command will create a new app in the current directory, but you can optionally specify a different path. For example, `connect init my-new-app` will create the app in a new sub-directory named "my-new-app".
 
 
+
 Run Your App Locally
 --------------------------
 The `connect start` command starts a local server that allows you to invoke your app's methods using [our Postman collection](#coming-soon). The server monitors your source code and automatically reloads your app whenever changes are detected, so if you find a bug, you can fix it and immediately retry.
@@ -78,6 +82,7 @@ connect start [OPTIONS]
 
 ##### `--port <number>`
 The local server runs on port 3000 by default, but you can use this option to change the port number.
+
 
 
 Test Your App
@@ -110,6 +115,8 @@ You can opt to retry failed tests, which can be convenient for flaky tests or in
 ##### `--timeout <number>`
 Use this option to allow more time for your tests to run. The timeout is specified in milliseconds.
 
+
+
 Package Your App
 --------------------------
 The `connect pack` command allows you to package your application without publishing it. It moves your
@@ -132,8 +139,8 @@ connect pack
 ```
 
 #### Options
-
 There are no options for this command.
+
 
 
 Publish Your App
@@ -158,6 +165,20 @@ We normally run your app through our end-to-end test suite to confirm that it fu
 Use this option if you do not wish to watch the publish or show a progress indicator.  You can run the `connect info` command to check the status of your app deployment.
 
 
+
+List Your Apps
+--------------------------
+This command lists all of your apps
+
+```
+connect apps
+```
+
+#### Options
+There are no options for this command.
+
+
+
 View App Info
 --------------------------
 This command shows information about your app, such as its ID, deployed version, deployment status, etc.
@@ -166,6 +187,20 @@ This command shows information about your app, such as its ID, deployed version,
 connect info
 ```
 
+#### Options
+There are no options for this command.
+
+
+
+Print App Logs
+--------------------------
+This command prints retrieves your app's logs from the server and prints them to the console
+
+```
+connect logs
+```
+
+#### Options
 There are no options for this command.
 
 
