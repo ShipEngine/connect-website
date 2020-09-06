@@ -24,8 +24,7 @@ for (let parcel of shipment.packages) {
 
 
 <Section>
-  <Left>
-
+<Left>
 Additional Error Properties
 ----------------------------------------
 Before throwing an error, you can set additional properties that provide more context, enabling our platform to respond appropriately and provide meaningful feedback to users.
@@ -103,10 +102,8 @@ Most errors that occur in Node.js have a `code` property. When throwing your own
     </Description>
   </Field>
 </Reference>
-
-  </Left>
-  <Right>
-
+</Left>
+<Right>
 ### Validation Error Example
 This example demonstrates throwing a validation error with additional properties.
 
@@ -138,8 +135,7 @@ catch (error) {
   throw error;
 }
 ```
-
-  </Right>
+</Right>
 </Section>
 
 
@@ -147,13 +143,15 @@ Error Classes
 --------------------------
 In addition to [JavaScript's built-in error classes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects#Error_objects), ShipEngine Connect includes several [error classes](#error-classes) you can use in your app. Each class corresponds to one of the [error codes](#error-codes) listed above and automatically sets the `code` property for you. You can also pass [additional error properties](#additional-error-properties) to the constructor.
 
-
+<Section>
+<Left>
 ### `ValidationError`
 You should use this class for validation errors. For example, your app may only allow certain values under specific conditions, or a field may be conditionally required.
 
 #### `constructor(message | props)`
 The `ValidationError` constructor can accept a string (the error message) or an object containing [additional error properties](#additional-error-properties).
-
+</Left>
+<Right>
 <CodeWrapper>
 ```javascript
 const { ValidationError } = require("@shipengine/connect");
@@ -183,14 +181,18 @@ throw new ValidationError({
 });
 ```
 </CodeWrapper>
+</Right>
+</Section>
 
-
+<Section>
+<Left>
 ### `UnauthorizedError`
 You should use this class to indicate an authentication or authorization error. For example, if the `transaction.session` object is missing some required data or the session has expired.
 
 #### `constructor(message | props)`
 The `UnauthorizedError` constructor can accept a string (the error message) or an object containing [additional error properties](#additional-error-properties).
-
+</Left>
+<Right>
 <CodeWrapper>
 ```javascript
 const { UnauthorizedError } = require("@shipengine/connect");
@@ -220,8 +222,11 @@ throw new UnauthorizedError({
 });
 ```
 </CodeWrapper>
+</Right>
+</Section>
 
-
+<Section>
+<Left>
 ### `ExternalError`
 You should use this class when the error is the result of calling an external service, such as an API. This lets ShipEngine Connect know that the error came from a downstream service rather than directly in your app.
 
@@ -229,7 +234,8 @@ You should also set the `statusCode` property if possible to indicate the type o
 
 #### `constructor(message | props)`
 The `ExternalError` constructor can accept a string (the error message) or an object containing [additional error properties](#additional-error-properties).
-
+</Left>
+<Right>
 <CodeWrapper>
 ```javascript
 const { ExternalError } = require("@shipengine/connect");
@@ -259,14 +265,18 @@ throw new ExternalError({
 });
 ```
 </CodeWrapper>
+</Right>
+</Section>
 
-
+<Section>
+<Left>
 ### `AppError`
 This is a generic error class that simply distinguishes errors that are _intentionally_ thrown by your app, as opposed to an unexpected error that occurred due to a bug or runtime exception.
 
 #### `constructor(message | props)`
 The `AppError` constructor can accept a string (the error message) or an object containing [additional error properties](#additional-error-properties).
-
+</Left>
+<Right>
 <CodeWrapper>
 ```javascript
 const { AppError } = require("@shipengine/connect");
@@ -294,7 +304,8 @@ throw new AppError({
 });
 ```
 </CodeWrapper>
-
+</Right>
+</Section>
 
 
 
