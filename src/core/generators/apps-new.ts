@@ -549,7 +549,7 @@ class AppsNew extends Generator {
     const dependencies: string[] = [];
     const devDependencies: string[] = [];
 
-    devDependencies.push("@shipengine/connect-sdk");
+    devDependencies.push("@shipengine/connect");
 
     if (this.ts) {
       devDependencies.push("@types/node@^13.13.5");
