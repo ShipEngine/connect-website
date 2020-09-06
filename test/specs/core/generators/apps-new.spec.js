@@ -31,6 +31,7 @@ describe("new generator", () => {
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
+          .withPrompts({ scope: "@my-company" })
           .withPrompts({ description: "test description" })
           .withPrompts({ author: "test" })
           .withPrompts({ version: "0.0.0" })
@@ -58,7 +59,7 @@ describe("new generator", () => {
             ]);
 
             assert.jsonFileContent("package.json", {
-              name: "@shipengine/testname",
+              name: "@my-company/testname",
               main: "src/index.yaml",
               description: "test description",
               scripts: {
@@ -79,6 +80,7 @@ describe("new generator", () => {
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
+          .withPrompts({ scope: "@my-company" })
           .withPrompts({ description: "test description" })
           .withPrompts({ author: "test" })
           .withPrompts({ version: "0.0.0" })
@@ -110,7 +112,7 @@ describe("new generator", () => {
             ]);
 
             assert.jsonFileContent("package.json", {
-              name: "@shipengine/testname",
+              name: "@my-company/testname",
               description: "test description",
               scripts: {
                 build: "tsc",
@@ -132,6 +134,7 @@ describe("new generator", () => {
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
+          .withPrompts({ scope: "@my-company" })
           .withPrompts({ description: "test description" })
           .withPrompts({ author: "test" })
           .withPrompts({ version: "0.0.0" })
@@ -163,7 +166,7 @@ describe("new generator", () => {
             ]);
 
             assert.jsonFileContent("package.json", {
-              name: "@shipengine/testname",
+              name: "@my-company/testname",
               description: "test description",
               main: "lib/index.json",
               scripts: {
@@ -185,6 +188,7 @@ describe("new generator", () => {
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
+          .withPrompts({ scope: "@my-company" })
           .withPrompts({ description: "test description" })
           .withPrompts({ author: "test" })
           .withPrompts({ version: "0.0.0" })
@@ -216,7 +220,7 @@ describe("new generator", () => {
             ]);
 
             assert.jsonFileContent("package.json", {
-              name: "@shipengine/testname",
+              name: "@my-company/testname",
               description: "test description",
               main: "lib/index.yaml",
               scripts: {
@@ -240,6 +244,7 @@ describe("new generator", () => {
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
+          .withPrompts({ scope: "@my-company" })
           .withPrompts({ description: "test description" })
           .withPrompts({ author: "test" })
           .withPrompts({ version: "0.0.0" })
@@ -268,7 +273,7 @@ describe("new generator", () => {
             ]);
 
             assert.jsonFileContent("package.json", {
-              name: "@shipengine/testname",
+              name: "@my-company/testname",
               description: "test description",
               scripts: {
                 start: "connect start",
@@ -289,6 +294,7 @@ describe("new generator", () => {
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
+          .withPrompts({ scope: "@my-company" })
           .withPrompts({ description: "test description" })
           .withPrompts({ author: "test" })
           .withPrompts({ version: "0.0.0" })
@@ -317,7 +323,7 @@ describe("new generator", () => {
             ]);
 
             assert.jsonFileContent("package.json", {
-              name: "@shipengine/testname",
+              name: "@my-company/testname",
               description: "test description",
               scripts: {
                 start: "connect start",
@@ -340,6 +346,7 @@ describe("new generator", () => {
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
+          .withPrompts({ scope: "@my-company" })
           .withPrompts({ description: "test description" })
           .withPrompts({ author: "test" })
           .withPrompts({ version: "0.0.0" })
@@ -361,7 +368,7 @@ describe("new generator", () => {
             ]);
 
             assert.jsonFileContent("package.json", {
-              name: "@shipengine/testname",
+              name: "@my-company/testname",
               description: "test description",
               scripts: {
                 start: "connect start",
@@ -382,6 +389,7 @@ describe("new generator", () => {
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
+          .withPrompts({ scope: "@my-company" })
           .withPrompts({ description: "test description" })
           .withPrompts({ author: "test" })
           .withPrompts({ version: "0.0.0" })
@@ -407,7 +415,7 @@ describe("new generator", () => {
             ]);
 
             assert.jsonFileContent("package.json", {
-              name: "@shipengine/testname",
+              name: "@my-company/testname",
               description: "test description",
               main: "lib/index.js",
               scripts: {
@@ -428,6 +436,7 @@ describe("new generator", () => {
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
+          .withPrompts({ scope: "@my-company" })
           .withPrompts({ description: "test description" })
           .withPrompts({ author: "test" })
           .withPrompts({ version: "0.0.0" })
@@ -453,7 +462,7 @@ describe("new generator", () => {
             ]);
 
             assert.jsonFileContent("package.json", {
-              name: "@shipengine/testname",
+              name: "@my-company/testname",
               description: "test description",
               scripts: {
                 build: "tsc",
@@ -474,6 +483,7 @@ describe("new generator", () => {
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
+          .withPrompts({ scope: "@my-company" })
           .withPrompts({ description: "test description" })
           .withPrompts({ author: "test" })
           .withPrompts({ version: "0.0.0" })
@@ -499,7 +509,7 @@ describe("new generator", () => {
             ]);
 
             assert.jsonFileContent("package.json", {
-              name: "@shipengine/testname",
+              name: "@my-company/testname",
               description: "test description",
               scripts: {
                 build: "tsc",
@@ -522,6 +532,7 @@ describe("new generator", () => {
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
+          .withPrompts({ scope: "@my-company" })
           .withPrompts({ description: "test description" })
           .withPrompts({ author: "test" })
           .withPrompts({ version: "0.0.0" })
@@ -545,7 +556,7 @@ describe("new generator", () => {
             ]);
 
             assert.jsonFileContent("package.json", {
-              name: "@shipengine/testname",
+              name: "@my-company/testname",
               description: "test description",
               scripts: {
                 start: "connect start",
@@ -566,6 +577,7 @@ describe("new generator", () => {
           })
           .withArguments(["test-app"]) // Mock the arguments
           .withPrompts({ name: "testname" })
+          .withPrompts({ scope: "@my-company" })
           .withPrompts({ description: "test description" })
           .withPrompts({ author: "test" })
           .withPrompts({ version: "0.0.0" })
@@ -589,7 +601,7 @@ describe("new generator", () => {
             ]);
 
             assert.jsonFileContent("package.json", {
-              name: "@shipengine/testname",
+              name: "@my-company/testname",
               description: "test description",
               scripts: {
                 start: "connect start",
