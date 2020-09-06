@@ -8,10 +8,10 @@ export function testEnumerations() {
 }
 
 export function testErrorClasses() {
-  let notFound = new Connect.NotFoundError("not found");
-  let badRequest = new Connect.BadRequestError("bad request");
+  let appError = new Connect.AppError("app error");
+  let validation = new Connect.ValidationError("bad input");
   let unauthorizied = new Connect.UnauthorizedError("unauthorized");
-  let external = new Connect.ExternalServiceError("external error");
+  let external = new Connect.ExternalError("external error");
 }
 
 export function testInterfaces() {
