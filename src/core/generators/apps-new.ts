@@ -70,7 +70,7 @@ class AppsNew extends Generator {
       ...this.fs.readJSON("package.json", {}) as object,
     };
 
-    const scopePresentInName = (name: string): boolean => {
+    const scopePresentInName = (name = ""): boolean => {
       return !!name.match(/^@[a-z0-9-*~][a-z0-9-*._~]*/);
     };
 
