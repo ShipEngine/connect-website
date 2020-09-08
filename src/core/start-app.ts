@@ -2,9 +2,10 @@ import nodemon from "nodemon";
 import path from "path";
 import chalk from "chalk";
 import cliBanner from './utils/cli-banner';
+import { spawn } from 'cross-spawn';
 
 const startServerScript = path.join(__dirname, "./start-app/server.js");
-// const startClientScript = path.join(__dirname, "./start-app/client.js");
+const startClientScript = path.join(__dirname, "./start-app/client.js");
 
 export default function startApp({
   cwd,
@@ -13,27 +14,34 @@ export default function startApp({
   cwd: string;
   port: number;
 }): void {
-  // TODO - consider if this should set the NODE_ENV
   process.on("SIGINT", process.exit);
   process.on("SIGTERM", process.exit);
 
   console.log(cliBanner());
 
-  // const clientServer = spawn(
-  //   "node",
-  //   [startClientScript, clientPort.toString()],
-  //   { cwd },
-  // );
+  const serverPort = port;
+  const clientPort = port + 1;
 
-  // clientServer.stdout.on("data", function (data) {
-  //   console.log(chalk.green(data.toString()));
-  // });
+  const clientServer = spawn(
+    "node",
+    [startClientScript, clientPort.toString(), serverPort.toString()],
+    { cwd },
+  );
+
+  clientServer.stderr.on("data", function (data) {
+    console.log(data.toString());
+  });
+
+
+  clientServer.stdout.on("data", function (data) {
+    console.log(chalk.green(data.toString()));
+  });
 
   nodemon({
     watch: [cwd],
     ext: "js,ts,json,yaml,yml,png,jpg,jpeg,PNG,JPG,JPEG,svg,SVG",
     script: startServerScript,
-    args: [cwd, port.toString()],
+    args: [cwd, serverPort.toString()],
   });
 
   nodemon
