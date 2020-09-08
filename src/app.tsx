@@ -27,11 +27,9 @@ import RateShipmentMethodScreen from './screens/rate-shipment-method-screen';
 import SchedulePickupMethodScreen from './screens/schedule-pickup-method-screen';
 import TrackShipmentMethodScreen from './screens/track-shipment-method-screen';
 
-// Components
-// import FullPageSpinner from './components/full-page-spinner';
-
 // Styles & Assets
 import './app.css';
+import logo from './assets/svgs/shipengine-connect-logo.svg';
 
 const App: FunctionComponent = () => {
   return (
@@ -52,6 +50,11 @@ const AppLayout: FunctionComponent = () => {
 
   return (
     <Layout>
+      <Layout.Header style={{ backgroundColor: "#fff", height: "82px", boxShadow: "0 5px 20px rgba(22,41,72,.1)", zIndex: 1 }}>
+        <a href='https://connect.shipengine.com/' target='_blank' rel="noopener noreferrer" style={{ margin: "0 0 0 9px" }}>
+          <img src={logo} alt='logo' style={{ height: '40px' }} />
+        </a>
+      </Layout.Header>
       <Layout>
         <Layout.Sider
           width={220}
@@ -61,7 +64,7 @@ const AppLayout: FunctionComponent = () => {
             mode='inline'
             selectedKeys={[location.pathname]}
             style={{ height: '100%', borderRight: 0 }}>
-            <Menu.Item key={routes.appsInfoPath()}>
+            <Menu.Item key={routes.appsInfoPath()} style={{ marginTop: '0px' }}>
               <Link to={routes.appsInfoPath()}>App Info</Link>
             </Menu.Item>
             <Menu.Item key={routes.connectMethodPath()}>

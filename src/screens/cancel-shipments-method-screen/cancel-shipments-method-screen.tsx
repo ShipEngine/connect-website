@@ -12,7 +12,7 @@ const CancelShipmenstMethodScreen: FunctionComponent = () => {
           We are working on something awesome for this page! If you woul like to
           learn more about the <code>cancelShipments</code> method{' '}
           <a
-            href='https://shipenginestag.wpengine.com/docs/integration-platform/reference/methods/cancel-shipments/'
+            href='https://connect.shipengine.com/docs/reference/methods/cancel-shipments'
             target='_blank'
             rel='noopener noreferrer'>
             you can find the docs here

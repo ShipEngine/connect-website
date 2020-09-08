@@ -1,6 +1,7 @@
 // Third Party
 import React, { FunctionComponent } from 'react';
 import { JSONSchema7 } from 'json-schema';
+import { Alert } from 'antd'
 
 // Utils & Types
 import { useApp } from '../../contexts/app-context';
@@ -28,10 +29,19 @@ const ConnectMethodScreen: FunctionComponent = () => {
     );
 
   return (
-    <ConnectForm
-      schema={app?.connectionForm.dataSchema as JSONSchema7}
-      uiSchema={app?.connectionForm.uiSchema as JSONSchema7}
-    />
+    <>
+      <Alert
+        message="Help"
+        description={<span>View the <a href="https://connect.shipengine.com/docs/reference/forms" target="_blank" rel="noopener noreferrer">docs</a> to learn more about connect forms.</span>}
+        type="info"
+        closable
+        style={{ margin: '5px' }}
+      />
+      <ConnectForm
+        schema={app?.connectionForm.dataSchema as JSONSchema7}
+        uiSchema={app?.connectionForm.uiSchema as JSONSchema7}
+      />
+    </>
   );
 };
 

@@ -1,7 +1,7 @@
 {
   "name": "ShipEngine Connect Local Dev UI",
   "short_name": "Connect",
-  "description": "Test your ShipEngine Connect integration locally.",
+  "description": "Test your ShipEngine Connect App locally.",
   "start_url": "https://connect.shipengine.com/",
   "theme_color": "#FFFFFF",
   "background_color": "#FFFFFF",
