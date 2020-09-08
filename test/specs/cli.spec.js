@@ -60,7 +60,8 @@ describe("CLI", () => {
 
       expect(cli).to.have.exitCode(0);
       expect(cli).to.have.stderr("");
-      expect(cli).to.have.stdout.that.contains(`@shipengine/connect-cli/${cliVersion} `);
+      expect(cli).to.have.stdout.that.contains(`@shipengine/connect-cli`);
+      expect(cli).to.have.stdout.that.contains(cliVersion);
     });
 
     it("should support -v shorthand", () => {
@@ -68,7 +69,17 @@ describe("CLI", () => {
 
       expect(cli).to.have.exitCode(0);
       expect(cli).to.have.stderr("");
-      expect(cli).to.have.stdout.that.contains(`@shipengine/connect-cli/${cliVersion} `);
+      expect(cli).to.have.stdout.that.contains(`@shipengine/connect-cli`);
+      expect(cli).to.have.stdout.that.contains(cliVersion);
+    });
+
+    it("should support 'version' command", () => {
+      let cli = chaiExec("version");
+
+      expect(cli).to.have.exitCode(0);
+      expect(cli).to.have.stderr("");
+      expect(cli).to.have.stdout.that.contains(`@shipengine/connect-cli`);
+      expect(cli).to.have.stdout.that.contains(cliVersion);
     });
   });
 });
