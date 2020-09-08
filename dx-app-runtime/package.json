@@ -20,8 +20,8 @@
   "license": "UNLICENSED",
   "dependencies": {
     "@ipaas/capi": "0.0.12",
-    "@shipengine/connect-loader": "^1.0.18",
-    "@shipengine/connect-sdk": "^1.0.16",
+    "@shipengine/connect-loader": "^2.0.2",
+    "@shipengine/connect-sdk": "^4.0.2",
     "body-parser": "1.19.0",
     "continuation-local-storage": "3.2.1",
     "dotenv-flow": "3.2.0",
