@@ -164,15 +164,6 @@ An array of sales orders matching the date range.
     </Description>
   </Field>
 
-  <Field name="shipTo" required={true}>
-    <Type>
-      [address + contact object](./../address.mdx)
-    </Type>
-    <Description>
-      The buyer who bought the order. This is not necessarily the same person as the `shipTo`. Be sure to include the extra contact info fields as indicated in the reference doc.
-    </Description>
-  </Field>
-
   <Field name="buyer" type="object" required={true}>
     <Description>
       The buyer who bought the order. This is not necessarily the same person as the `shipTo`.
@@ -245,144 +236,12 @@ An array of sales orders matching the date range.
     </Description>
   </Field>
 
-  <Field name="adjustments" required={false}>
+  <Field name="charges" required={true}>
     <Type>
       [Charge](./../charge.mdx)[]
     </Type>
     <Description>
-      The breakdown of adjustments for this sales order. <br/> <br/> These adjustments will appear as line items once this order is imported.
-    </Description>
-  </Field>
-
-  <Field name="charges" type="object" required={false}>
-    <Description>
       The breakdown of charges for this sales order.
-    </Description>
-  </Field>
-
-  <Field name="charges.subTotal" type="object" required={false}>
-    <Description>
-      The subtotal for this sales order.
-    </Description>
-  </Field>
-
-  <Field name="charges.subTotal.value" type="number" required={true}>
-    <Description>
-      The value for the subtotal.
-    </Description>
-  </Field>
-
-  <Field name="charges.subTotal.currency" type="string" required={true}>
-    <Description>
-      The currency for the subtotal.
-    </Description>
-  </Field>
-
-  <Field name="charges.taxAmount" type="object" required={false}>
-    <Description>
-      The tax amount for this sales order.
-    </Description>
-  </Field>
-
-  <Field name="charges.taxAmount.value" type="number" required={true}>
-    <Description>
-      The value for the tax amount.
-    </Description>
-  </Field>
-
-  <Field name="charges.taxAmount.currency" type="string" required={true}>
-    <Description>
-      The currency for the tax amount.
-    </Description>
-  </Field>
-
-  <Field name="charges.shippingAmount" type="object" required={false}>
-    <Description>
-      The shipping amount for this sales order.
-    </Description>
-  </Field>
-
-  <Field name="charges.shippingAmount.value" type="number" required={true}>
-    <Description>
-      The value for the shipping amount.
-    </Description>
-  </Field>
-
-  <Field name="charges.shippingAmount.currency" type="string" required={true}>
-    <Description>
-      The currency for the shipping amount.
-    </Description>
-  </Field>
-
-  <Field name="charges.shippingCost" type="object" required={false}>
-    <Description>
-      The shipping cost for this sales order.
-    </Description>
-  </Field>
-
-  <Field name="charges.shippingCost.value" type="number" required={true}>
-    <Description>
-      The value of the shipping cost.
-    </Description>
-  </Field>
-
-  <Field name="charges.shippingCost.currency" type="string" required={true}>
-    <Description>
-      The curency for the shipping cost.
-    </Description>
-  </Field>
-
-  <Field name="charges.confirmationCost" type="object" required={false}>
-    <Description>
-      The confirmation cost for this sales order.
-    </Description>
-  </Field>
-
-  <Field name="charges.confirmationCost.value" type="number" required={true}>
-    <Description>
-      The value for the confirmation cost.
-    </Description>
-  </Field>
-
-  <Field name="charges.confirmationCost.currency" type="string" required={true}>
-    <Description>
-      The currency for the confirmation cost.
-    </Description>
-  </Field>
-
-  <Field name="charges.insuranceCost" type="object" required={false}>
-    <Description>
-      The insurance cost for this sales order.
-    </Description>
-  </Field>
-
-  <Field name="charges.insuranceCost.value" type="number" required={true}>
-    <Description>
-      The value for the insurance cost.
-    </Description>
-  </Field>
-
-  <Field name="charges.insuranceCost.currency" type="string" required={true}>
-    <Description>
-      The currency for the insurance cost.
-    </Description>
-  </Field>
-
-  <Field name="charges.otherCost" type="object" required={false}>
-    <Description>
-      Other costs associated with this sales order that do not fit into any of the other categories.
-    </Description>
-  </Field>
-
-  <Field name="charges.otherCost.value" type="number" required={true}>
-    <Description>
-      The value of the cost.
-    </Description>
-  </Field>
-
-  <Field name="charges.otherCost.currency" type="string" required={true}>
-    <Description>
-      The currency for the cost.
     </Description>
   </Field>
 
@@ -407,6 +266,15 @@ An array of sales orders matching the date range.
     </Type>
     <Description>
       The items in this sales order.
+    </Description>
+  </Field>
+
+  <Field name="requestedFulfillments[].shipTo" required={true}>
+    <Type>
+      [address + contact object](./../address.mdx)
+    </Type>
+    <Description>
+      The address where the sales order should be shipped. Be sure to include the extra contact info fields as indicated in the reference doc.
     </Description>
   </Field>
 
@@ -499,38 +367,31 @@ function formatSalesOrders(salesOrders) {
   return salesOrders.map(salesOrder => {
     return {
       id: salesOrder.id,
+      createdDateTime: salesOrder.createdDateTime,
       status: mapSalesOrderStatus(salesOrder.status),
-      shipTo: {
-        name: salesOrder.address.business_name,
-        addressLines: salesOrder.address.lines,
-        cityLocality: salesOrder.address.city,
-        stateProvince: salesOrder.address.state,
-        postalCode: salesOrder.address.postalCode,
-        country: mapCountryCode(salesOrder.address.country),
-      },
-      paymentStatus: mapPaymentStatus(salesOrder.payment.status),
       paymentMethod: mapPaymentMethod(salesOrder.payment.method),
-      seller: {
-        id: salesOrder.seller_id,
-      },
       buyer: {
         id: salesOrder.buyer.id,
         name: salesOrder.buyer.name
       },
-      items: salesOrder.shipping_items.map((item) => {
-        return {
-          id: item.id,
-          name: item.name,
-          quantity: {
-            value: item.quantity,
-            unit: "ea"
-          },
-          unitPrice: {
-            value: item.price_per_unit,
-            currency: "USD"
-          }
-        }
-      })
+      requestedFulfillments: [
+        {
+          items: salesOrder.shipping_items.map((item) => {
+            return {
+              id: item.id,
+              name: item.name,
+              quantity: {
+                value: item.quantity,
+                unit: "ea"
+              },
+              unitPrice: {
+                value: item.price_per_unit,
+                currency: "USD"
+              }
+            }
+        }),
+        shipTo: salesOrder.ship_to
+      }]
     }
   });
 }

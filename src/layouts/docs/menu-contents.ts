@@ -100,7 +100,8 @@ export const menu: MenuContents = [
         menuItems: [
           { title: "connect", href: "/docs/reference/methods/connect" },
           { title: "getSalesOrdersByDate", href: "/docs/reference/methods/get-sales-orders-by-date" },
-          { title: "shipmentCreated", href: "/docs/reference/methods/shipment-created" }
+          { title: "shipmentCreated", href: "/docs/reference/methods/shipment-created" },
+          { title: "acknowledgeOrders", href: "/docs/reference/methods/acknowledge-orders"}
         ]
       },
     ]
