@@ -77,5 +77,6 @@ module.exports = {
 
   connect () {},
   getSalesOrdersByDate () {},
+  acknowledgeOrders () {}
 
 };

@@ -14,7 +14,7 @@ const config: OrderAppDefinition = {
 
   connect: "../../../../modules/methods/login.js",
   getSalesOrdersByDate: "../../../../modules/methods/get-sales-orders-by-date.js",
-
+  acknowledgeOrders: "../../../../modules/methods/acknowledge-orders.js"
 };
 
 export default config;
