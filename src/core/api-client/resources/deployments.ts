@@ -2,6 +2,7 @@ import * as fs from "fs";
 import FormData from "form-data";
 import ShipengineAPIClient from "..";
 import { Deployment, PaginatedItems } from "../../types";
+import getVersions from '../../utils/get-versions';
 
 export default class Deployments {
   private client: ShipengineAPIClient;
@@ -24,6 +25,7 @@ export default class Deployments {
     const form = new FormData();
 
     form.append("deployment", fs.createReadStream(pathToTarball));
+    form.append("versions", JSON.stringify(getVersions()))
 
     const response = await this.client.call<Deployment>({
       endpoint: `apps/${appId}/deploys`,
