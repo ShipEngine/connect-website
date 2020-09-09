@@ -20,10 +20,10 @@ export default function getVersions(): Record<string, string> {
 
   return {
     "node": process.version,
-    "@shipengine/connect-cli": cliPjson.version,
-    "@shipengine/connect-sdk": sdkPjson.version,
-    "@shipengine/connect-loader": loaderPjson.version,
-    "@shipengine/connect-local-dev-api": localDevApiPjson.version,
-    "@shipengine/connect-local-dev-ui": localDevUiPjson.version
+    "@shipengine/connect-cli": `v${cliPjson.version}`,
+    "@shipengine/connect-sdk": `v${sdkPjson.version}`,
+    "@shipengine/connect-loader": `v${loaderPjson.version}`,
+    "@shipengine/connect-local-dev-api": `v${localDevApiPjson.version}`,
+    "@shipengine/connect-local-dev-ui": `v${localDevUiPjson.version}`
   }
 }
