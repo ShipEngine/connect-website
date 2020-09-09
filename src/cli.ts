@@ -1,7 +1,7 @@
 import * as flush from "@oclif/command/flush";
-import { handle } from "@oclif/errors";
 import * as resolveFrom from "resolve-from";
 import * as updateNotifier from "update-notifier";
+import { handle } from "@oclif/errors";
 
 type ConnectCLI = typeof import("@shipengine/connect-cli");
 
@@ -12,6 +12,11 @@ export async function main(args: string[]): Promise<void> {
   try {
     // Check for a new version in the background.
     checkForUpdate();
+
+    // Intercept the version command/flags and re-route to the CLI versions command
+    if (['-v', '--version', 'version'].includes(args[0])) {
+      args = ['versions']
+    }
 
     // Run the CLI
     const cli = await importCLI();
