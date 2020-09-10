@@ -23,7 +23,7 @@ Order Application
 
   <Field name="id" required={true}>
     <Type>
-      UUID
+      [UUID](https://www.npmjs.com/package/uuid)
     </Type>
     <Description>
       A UUID that uniquely identifies the application for internal ShipEngine Connect purposes. This ID should never change.
@@ -54,13 +54,19 @@ Order Application
     </Description>
   </Field>
 
-  <Field name="sendEmail" type="boolean" required={true}>
+  <Field name="icon" type="string" required={true}>
+    <Description>
+      The file path to the Carrier's icon image.
+    </Description>
+  </Field>
+
+  <Field name="sendMail" type="boolean" required={false}>
     <Description>
       Indicates whether or not emails should be sent to communicate shipping updates on behalf of the seller for orders imported through this Order App.
     </Description>
   </Field>
 
-  <Field name="canConfigureTimeZone" type="boolean" required={true}>
+  <Field name="canConfigureTimeZone" type="boolean" required={false}>
     <Description>
       Indicates whether or not to display time zone related settings when this app is used within one of our e-commerce applications, such as ShipStation.
     </Description>
@@ -75,7 +81,7 @@ Order Application
     </Description>
   </Field>
 
-  <Field name="settingsForm" required={false} description="A form that allows the user to configure connection settings">
+  <Field name="settingsForm" required={true} description="A form that allows the user to configure connection settings">
     <Type>
       [Form](./forms.mdx)
     </Type>
@@ -113,7 +119,7 @@ Order Application
     </Description>
   </Field>
 
-  <Field name="shipmentCancelled" required={false}>
+  <Field name="acknowledgeOrders" required={false}>
     <Type>
       method *or* string
     </Type>
@@ -137,14 +143,16 @@ const orderSource: OrderAppDefinition = {
   description: "Welcome to iBuy, the international marketplace for all of your needs.",
   websiteURL: "https://www.iBuy.net",
   logo: "./../logo.svg",
-  canConfigureTimeZone: true,
+  icon: "./../icon.svg",
   connectionForm: import("./forms/connect"),
   settingsForm: import("./forms/settings"),
 
   connect: import("./methods/connect"),
   getSalesOrdersByDate: import("./methods/get-sales-orders-by-date"),
   shipmentCreated: import("./methods/shipment-created"),
-  shipmentCancelled: import("./methods/shipment-cancelled")
+  acknowledgeOrders: import("./methods/acknowledge-orders"),
+  sendMail: false,
+  canConfigureTimeZone, false
 }
 
 export default orderSource;
@@ -157,14 +165,16 @@ const orderSource = {
   description: "Welcome to iBuy, the international marketplace for all of your needs.",
   websiteURL: "https://www.iBuy.net",
   logo: "./../logo.svg",
-  canConfigureTimeZone: true,
+  icon: "./../icon.svg",
   connectionForm: "./forms/connect.js",
   settingsForm: "./forms/settings.js",
 
   connect: "./methods/connect.js",
   getSalesOrdersByDate: "./methods/get-sales-orders-by-date.js",
   shipmentCreated: "./methods/shipment-created.js",
-  shipmentCancelled: "./methods/shipment-cancelled.js"
+  acknowledgeOrders: "./methods/acknowledge-orders.js",
+  sendMail: false,
+  canConfigureTimeZone: false
 }
 
 module.exports = orderSource;
@@ -181,13 +191,17 @@ websiteURL: https://www.ibuy.net
 
 logo: ./../logo.svg
 
-canConfigureTimeZone: true
+icon: ./../icon.svg
 
 connectionForm: forms/connection-form.js
+settingsForm: forms/settings-form.js
 
 connect: methods/connect.js
 getSalesOrdersByDate: methods/get-sales-orders-by-date.js
 shipmentCreated: methods/shipment-created.js
-shipmentCancelled: /methods/shipment-cancelled.js
+acknowledgeOrders: /methods/acknowledge-orders.js
+
+sendMail: false
+canConfigureTimeZone: false
 ```
 </CodeWrapper>

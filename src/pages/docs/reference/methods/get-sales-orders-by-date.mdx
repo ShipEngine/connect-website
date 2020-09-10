@@ -70,7 +70,7 @@ Specifies a date/time range to retrieve sales orders for.
     </Description>
   </Field>
 
-  <Field name="paging" type="object" nullable={false}>
+  <Field name="paging" type="object" nullable={true}>
     <Description>
       An object that indicates that page preferences for the items that are returned from this method.
     </Description>
@@ -236,7 +236,7 @@ An array of sales orders matching the date range.
     </Description>
   </Field>
 
-  <Field name="charges" required={true}>
+  <Field name="charges" required={false}>
     <Type>
       [Charge](./../charge.mdx)[]
     </Type>

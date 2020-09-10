@@ -55,7 +55,7 @@ An array of notifications regarding sales orders that have been imported.
     </Description>
   </Field>
 
-  <Field name="orderNumber" nullable={true} type="string">
+  <Field name="orderNumber" nullable={false} type="string">
     <Description>
       The customer facing identifier of the sales order.
     </Description>
@@ -80,25 +80,25 @@ Return Value
 
 <Reference>
 
-  <Field name="id" type="string" nullable={false}>
+  <Field name="id" type="string" required={true}>
     <Description>
       The marketplace's unique ID for the sales order. This string must be between `1` and `100` characters and must not contain newline characters.
     </Description>
   </Field>
 
-  <Field name="identifiers" type="object" nullable={false}>
+  <Field name="identifiers" type="object" required={false}>
     <Description>
       Your own identifiers for this sales order.
     </Description>
   </Field>
 
-  <Field name="succeeded" type="boolean" nullable={false}>
+  <Field name="succeeded" type="boolean" required={true}>
     <Description>
       Indicate whether the sales order's import was successfully processed.
     </Description>
   </Field>
 
-  <Field name="failureReason" type="string" nullable={true}>
+  <Field name="failureReason" type="string" required={false}>
     <Description>
       Additional context for why the acknowledgement failed.
     </Description>
