@@ -20,6 +20,7 @@
   "license": "UNLICENSED",
   "dependencies": {
     "@ipaas/capi": "0.0.12",
+    "@shipengine/connect": "^1.0.6",
     "@shipengine/connect-loader": "^2.0.2",
     "@shipengine/connect-sdk": "^4.0.2",
     "body-parser": "1.19.0",
