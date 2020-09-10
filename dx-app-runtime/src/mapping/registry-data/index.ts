@@ -166,15 +166,13 @@ const mapSupportedLabelSize = (
         supportedLabelSizes.push(SupportedLabelSize.Inches4x6);
         break;
       case DocumentSize.Inches4x8:
-      case DocumentSize.Letter: // TODO: Look into whether or not this was the correct way to handle this mapping
+      case DocumentSize.Letter:
         supportedLabelSizes.push(SupportedLabelSize.Inches4x8);
         break;
-      case DocumentSize.A4:
-      default: {
-        throw new InvalidInput(
-          `${documentSize} is not a supported document size`
-        );
-      }
+      default:
+        console.warn(`${documentSize} is currently not supported by the platform. We will be mapping it to a letter until it is. In Shipstation please select letter as your default size.`);
+        supportedLabelSizes.push(SupportedLabelSize.Inches4x8);
+        break;
     }
   });
   return supportedLabelSizes;
@@ -309,7 +307,7 @@ const dxToCarrierSpecification = (app: CarrierApp): CarrierSpecification => {
     },
     CarrierAttributes: mapCarrierAttributes(app),
     CarrierUrl: app.websiteURL?.toString(),
-    TrackingUrl: '', // app.getTrackingURL({id: ''}, {}).toString(), // TODO tracking url
+    TrackingUrl: app.trackingURLTemplate,
     ShippingServices: app.deliveryServices
       ? mapDeliveryServices(app.deliveryServices)
       : [],
