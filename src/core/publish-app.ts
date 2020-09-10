@@ -80,7 +80,7 @@ export default async function publishApp(
     });
   } catch (error) {
     const err = error as Error;
-    const errorMessage = `there was an error deploying your app to the connect platform: ${err.message}`;
+    const errorMessage = `There was an error deploying your app to the connect platform: ${err.message}`;
     throw new AppFailedToDeployError(errorMessage);
   } finally {
     // Delete the package tarball
@@ -95,14 +95,24 @@ export default async function publishApp(
     if (status === DeploymentStatus.Error) {
       console.log(
         red(
-          `your app encountered an error ${logSymbols.error} `,
+          `Your app encountered an error during deployment ${logSymbols.error} `,
+        ),
+      );
+      console.log(
+        red(
+          `- This error was most likely caused by an issue in the Connect Platform and not your application`,
+        ),
+      );
+      console.log(
+        red(
+          `- If the error persist please contact Connect Support at support@shipengine.com and include the logs provided by the 'connect logs' command`,
         ),
       );
     } else if (status === DeploymentStatus.Terminated) {
       console.log(red(`your app was terminated `));
     } else {
       console.log(
-        green(`your app was published successfully ${logSymbols.success} `),
+        green(`Your app was published successfully ${logSymbols.success} `),
       );
     }
   }
