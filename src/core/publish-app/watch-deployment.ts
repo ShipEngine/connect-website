@@ -31,14 +31,14 @@ export async function watchDeployment(
   deployment: Deployment,
   app: ConnectApp,
   client: APIClient,
-): Promise<DeploymentStatus> {
-  let status = DeploymentStatus.Queued;
+): Promise<Deployment> {
+  let watchDeployment = deployment;
   let count = 0;
 
   while (
-    status === DeploymentStatus.Queued ||
-    status === DeploymentStatus.Building ||
-    status === DeploymentStatus.Deploying
+    watchDeployment.status === DeploymentStatus.Queued ||
+    watchDeployment.status === DeploymentStatus.Building ||
+    watchDeployment.status === DeploymentStatus.Deploying
   ) {
     const updatedDeployment = await client.deployments.getById({
       deployId: deployment.deployId,
@@ -46,9 +46,9 @@ export async function watchDeployment(
     });
     writeDeploymentInfo(updatedDeployment, count);
     count++;
-    status = updatedDeployment.status;
+    watchDeployment = updatedDeployment;
     await sleep(5000);
   }
 
-  return status;
+  return watchDeployment;
 }
