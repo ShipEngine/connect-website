@@ -52,7 +52,7 @@ function ReferenceTableRow(field: FieldProps) {
       {field.name && <td><code>{field.name}</code></td>}
       {field.type && <td>{field.type}</td>}
       {field.required !== undefined && <td className="centered">{field.required ? "✔" : ""}</td>}
-      {field.nullable !== undefined && <td className="centered">{field.required ? "✔" : ""}</td>}
+      {field.nullable !== undefined && <td className="centered">{field.nullable ? "✔" : ""}</td>}
       {field.defaultValue && <td>{field.defaultValue}</td>}
       {field.description && <td>{field.description}</td>}
     </tr>

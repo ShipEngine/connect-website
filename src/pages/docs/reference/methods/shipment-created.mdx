@@ -120,7 +120,7 @@ The shipment that was created.
     </Description>
   </Field>
 
-  <Field name="contents" type="object[]">
+  <Field name="contents" type="object[]" nullable={false}>
     <Description>
       The items inside the package.
     </Description>
@@ -215,8 +215,6 @@ The shipment that was created.
       The quantity of items in this sales order item. The minimum value for this property is `1`.
     </Description>
   </Field>
-
-
 </Reference>
 
 

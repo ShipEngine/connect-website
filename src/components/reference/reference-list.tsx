@@ -29,6 +29,28 @@ export function ReferenceList({ nameHeading, fields }: ReferenceTableProps) {
   )
 }
 
+function humanizeType(field: FieldProps): string {
+  const isSimpleType = typeof field.type === "string";
+  const definition = [];
+
+  if (field.required) {
+    definition.push("required");
+  }
+
+  if (field.nullable) {
+    definition.push("nullable");
+  }
+
+  if(isSimpleType) {
+    definition.push(field.type);
+  }
+
+  if(definition.length === 0) {
+    return "";
+  } else {
+    return "(" + definition.join(" ") + ")";
+  }
+}
 
 function ReferenceListItem(field: FieldProps) {
   const isSimpleType = typeof field.type === "string";
@@ -38,11 +60,7 @@ function ReferenceListItem(field: FieldProps) {
       <code>{field.name}</code>
       {` `}
       <small className={styles.small}>
-        {
-          isSimpleType
-          ? `(${field.required ? "required" : field.nullable ? "nullable" : "optional"} ${field.type as string})`
-          : `(${field.required ? "required" : field.nullable ? "nullable" : "optional"})`
-        }
+        {humanizeType(field)}
       </small>
     </H3>
     <div className={styles.listItemBody}>
