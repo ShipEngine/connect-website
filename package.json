@@ -22,7 +22,7 @@
     "@oclif/plugin-not-found": "^1.2.4",
     "@shipengine/capitalization": "^1.2.1",
     "@shipengine/connect-loader": "^2.1.0",
-    "@shipengine/connect-local-dev-api": "^2.0.3",
+    "@shipengine/connect-local-dev-api": "^2.1.0",
     "@shipengine/connect-local-dev-ui": "^2.0.3",
     "@shipengine/connect-sdk": "^4.0.2",
     "axios": "^0.20.0",
