@@ -541,4 +541,92 @@ describe("buildAPI", () => {
         expect(res.body).to.eqls({});
       });
   });
+
+  // it("sets the PUT '/shipment-created' endpoint", async () => {
+  //   const server = express();
+  //   const app = (await loadApp("test/fixtures/order-app")) as unknown as SdkApp;
+
+  //   buildAPI(app, server, 3000);
+
+  //   chai
+  //     .request(server)
+  //     .put("/shipment-created")
+  //     .send({
+  //       transaction: {
+  //         id: "6ad41b24-62a8-4e17-9751-a28d9688e277",
+  //         session: {},
+  //       },
+  //       shipment: {},
+  //     })
+  //     .end((_err, res) => {
+  //       expect(res.status).to.equal(400);
+  //       expect(res.body).to.haveOwnProperty("code", "ERR_INVALID_INPUT");
+  //     });
+  // });
+
+  // it("sets the PUT '/shipment-created' endpoint and returns 400 when given an invalid input", async () => {
+  //   const server = express();
+  //   const app = (await loadApp("test/fixtures/order-app")) as unknown as SdkApp;
+
+  //   buildAPI(app, server, 3000);
+
+  //   chai
+  //     .request(server)
+  //     .put("/shipment-created")
+  //     .send({
+  //       transaction: {
+  //         id: "6ad41b24-62a8-4e17-9751-a28d9688e277",
+  //         session: {},
+  //       },
+  //       shipment: {},
+  //     })
+  //     .end((_err, res) => {
+  //       expect(res.status).to.equal(400);
+  //       expect(res.body).to.haveOwnProperty("code", "ERR_INVALID_INPUT");
+  //     });
+  // });
+
+  // it("sets the PUT '/get-sales-orders-by-date' endpoint", async () => {
+  //   const server = express();
+  //   const app = (await loadApp("test/fixtures/order-app")) as unknown as SdkApp;
+
+  //   buildAPI(app, server, 3000);
+
+  //   chai
+  //     .request(server)
+  //     .put("/get-sales-orders-by-date")
+  //     .send({
+  //       transaction: {
+  //         id: "6ad41b24-62a8-4e17-9751-a28d9688e277",
+  //         session: {},
+  //       },
+  //       range: {},
+  //     })
+  //     .end((_err, res) => {
+  //       expect(res.status).to.equal(400);
+  //       expect(res.body).to.haveOwnProperty("code", "ERR_INVALID_INPUT");
+  //     });
+  // });
+
+  // it("sets the PUT '/get-sales-orders-by-date' endpoint and returns 400 when given an invalid input", async () => {
+  //   const server = express();
+  //   const app = (await loadApp("test/fixtures/order-app")) as unknown as SdkApp;
+
+  //   buildAPI(app, server, 3000);
+
+  //   chai
+  //     .request(server)
+  //     .put("/get-sales-orders-by-date")
+  //     .send({
+  //       transaction: {
+  //         id: "6ad41b24-62a8-4e17-9751-a28d9688e277",
+  //         session: {},
+  //       },
+  //       range: {},
+  //     })
+  //     .end((_err, res) => {
+  //       expect(res.status).to.equal(400);
+  //       expect(res.body).to.haveOwnProperty("code", "ERR_INVALID_INPUT");
+  //     });
+  // });
 });

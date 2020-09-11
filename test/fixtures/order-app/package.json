@@ -1,5 +1,5 @@
 {
-  "name": "@test/carrier-app",
+  "name": "@test/order-app",
   "description": "test app",
   "version": "0.0.0",
   "dependencies": {

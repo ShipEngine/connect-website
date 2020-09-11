@@ -11,6 +11,9 @@ import {
   PickupCancellationPOJO,
   PickupRequestPOJO,
   RateCriteriaPOJO,
+  SalesOrderNotification,
+  SalesOrderShipmentPOJO,
+  SalesOrderTimeRange,
   ShipmentCancellationPOJO,
   TrackingCriteriaPOJO,
 } from "@shipengine/connect-sdk/lib/internal";
@@ -58,6 +61,21 @@ interface SchedulePickupArgs {
 interface CancelPickupsArgs {
   transaction: TransactionPOJO;
   pickups: PickupCancellationPOJO[];
+}
+
+interface GetSalesOrdersByDateArgs {
+  transaction: TransactionPOJO;
+  range: SalesOrderTimeRange;
+}
+
+interface ShipmentCreatedArgs {
+  transaction: TransactionPOJO;
+  shipment: SalesOrderShipmentPOJO;
+}
+
+interface AcknowledgeOrdersArgs {
+  transaction: TransactionPOJO;
+  notifications: SalesOrderNotification[];
 }
 
 interface SdkError {
@@ -195,9 +213,50 @@ function buildCarrierAppApi(sdkApp: CarrierApp, server: Express) {
   }
 }
 
-// function buildOrderAppApi(sdkApp: OrderApp, server: Express) {
-//   // TODO
-// }
+function buildOrderAppApi(sdkApp: OrderApp, server: Express) {
+  sdkApp.getSalesOrdersByDate && server.put("/get-sales-orders-by-date", getSalesOrdersByDate);
+  sdkApp.shipmentCreated && server.put("/shipment-created", shipmentCreated);
+  sdkApp.acknowledgeOrders && server.put("/acknowledge-orders", acknowledgeOrders);
+
+  async function getSalesOrdersByDate(req: Request, res: Response) {
+    try {
+      const { transaction, range } = req.body as GetSalesOrdersByDateArgs;
+      const response = await sdkApp.getSalesOrdersByDate!(transaction, range);
+      return res.status(200).send({
+        transaction,
+        response,
+      });
+    } catch (error) {
+      return res.status(400).send(formatError(error));
+    }
+  }
+
+  async function shipmentCreated(req: Request, res: Response) {
+    try {
+      const { transaction, shipment } = req.body as ShipmentCreatedArgs;
+      const response = await sdkApp.shipmentCreated!(transaction, shipment);
+      return res.status(200).send({
+        transaction,
+        response,
+      });
+    } catch (error) {
+      return res.status(400).send(formatError(error));
+    }
+  }
+
+  async function acknowledgeOrders(req: Request, res: Response) {
+    try {
+      const { transaction, notifications } = req.body as AcknowledgeOrdersArgs;
+      const response = await sdkApp.acknowledgeOrders!(transaction, notifications);
+      return res.status(200).send({
+        transaction,
+        response,
+      });
+    } catch (error) {
+      return res.status(400).send(formatError(error));
+    }
+  }
+}
 
 export default function buildAPI(sdkApp: App, server: Express, port: number): void {
   server.use(
@@ -218,8 +277,8 @@ export default function buildAPI(sdkApp: App, server: Express, port: number): vo
   if (sdkApp.type === AppType.Carrier)
     buildCarrierAppApi(sdkApp as CarrierApp, server);
 
-  // if (sdkApp.type === AppType.Order)
-  //   buildOrderAppApi(sdkApp as OrderApp, server);
+  if (sdkApp.type === AppType.Order)
+    buildOrderAppApi(sdkApp as OrderApp, server);
 
   function getApp(_req: Request, res: Response) {
     const sdkAppWithLogos = {
