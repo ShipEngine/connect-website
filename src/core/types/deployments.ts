@@ -16,4 +16,5 @@ export interface Deployment {
   status: DeploymentStatus;
   createdAt: string;
   updatedAt: string;
+  errors: Record<string, unknown>[];
 }

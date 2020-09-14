@@ -20,7 +20,7 @@ export default async function loadAndValidateApp(
   pathToApp: string,
 ): Promise<SdkApp> {
   try {
-    const app = (await loadApp(pathToApp)) as SdkApp;
+    const app = (await loadApp(pathToApp)) as unknown as SdkApp;
     return app;
   } catch (error) {
     const err = error as Error & { details?: ValidationErrorItem[] };
@@ -41,9 +41,9 @@ export default async function loadAndValidateApp(
 
 export function isInvalidAppError(obj: unknown): obj is InvalidAppError {
 
-  if(typeof obj === "object" && obj !== null) {
+  if (typeof obj === "object" && obj !== null) {
     const code = Reflect.get(obj, "code") as string | undefined;
-    if(code === "INVALID_APP") {
+    if (code === "INVALID_APP") {
       return true;
     }
   }

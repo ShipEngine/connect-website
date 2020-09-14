@@ -1,15 +1,11 @@
 {
   "name": "@shipengine/connect-cli",
   "description": "A CLI tool for working with your ShipEngine Connect account.",
-  "version": "2.1.2",
+  "version": "2.5.0",
   "author": {
     "name": "ShipEngine",
     "email": "support@shipengine.com",
     "url": "https://connect.shipengine.com"
-  },
-  "bin": {
-    "connect": "./bin/run",
-    "sec": "./bin/run"
   },
   "bugs": "https://github.com/ShipEngine/connect-cli/issues",
   "dependencies": {
@@ -21,14 +17,16 @@
     "@oclif/plugin-help": "^3.2.0",
     "@oclif/plugin-not-found": "^1.2.4",
     "@shipengine/capitalization": "^1.2.1",
-    "@shipengine/connect-loader": "^2.0.2",
-    "@shipengine/connect-local-dev-api": "^2.0.2",
-    "@shipengine/connect-sdk": "^4.0.2",
+    "@shipengine/connect-loader": "^2.1.0",
+    "@shipengine/connect-local-dev-api": "^2.1.0",
+    "@shipengine/connect-local-dev-ui": "^2.0.3",
+    "@shipengine/connect-sdk": "^5.0.0",
     "axios": "^0.20.0",
     "chai": "^4.2.0",
     "chalk": "^4.1.0",
     "cli-table": "^0.3.1",
     "cli-ux": "^5.5.0",
+    "cross-spawn": "^7.0.3",
     "escape-string-regexp": "^4.0.0",
     "express": "^4.17.1",
     "form-data": "^3.0.0",
@@ -43,6 +41,7 @@
     "nodemon": "^2.0.4",
     "nps": "^5.10.0",
     "object-hash": "^2.0.3",
+    "open": "^7.2.1",
     "p-retry": "^4.2.0",
     "p-timeout": "^3.2.0",
     "recursive-readdir": "^2.2.2",
@@ -58,6 +57,7 @@
     "@oclif/test": "^1.2.7",
     "@types/chai": "^4.2.12",
     "@types/cli-table": "^0.3.0",
+    "@types/cross-spawn": "^6.0.2",
     "@types/form-data": "^2.5.0",
     "@types/fs-extra": "^9.0.1",
     "@types/hapi__joi": "^17.1.4",
@@ -66,7 +66,7 @@
     "@types/json5": "0.0.30",
     "@types/luxon": "^1.24.4",
     "@types/mocha": "^8.0.3",
-    "@types/node": "^14.6.4",
+    "@types/node": "^14.10.1",
     "@types/nodemon": "^1.19.0",
     "@types/recursive-readdir": "^2.2.0",
     "@types/update-notifier": "^4.1.1",
@@ -102,7 +102,6 @@
     "node": ">=10.5.0"
   },
   "files": [
-    "/bin",
     "/lib",
     "/npm-shrinkwrap.json",
     "/oclif.manifest.json",

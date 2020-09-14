@@ -7,6 +7,7 @@ import { Deployment, DeploymentStatus } from "./types";
 import { loadApp } from "@shipengine/connect-loader";
 import { watchDeployment } from "./publish-app/watch-deployment";
 import { green, red } from "chalk";
+import parseDeploymentErrors from './utils/parse-deployment-errors';
 
 class AppFailedToPackageError extends Error {
   code: string;
@@ -80,7 +81,7 @@ export default async function publishApp(
     });
   } catch (error) {
     const err = error as Error;
-    const errorMessage = `there was an error deploying your app to the connect platform: ${err.message}`;
+    const errorMessage = `There was an error deploying your app to the connect platform: ${err.message}`;
     throw new AppFailedToDeployError(errorMessage);
   } finally {
     // Delete the package tarball
@@ -90,19 +91,42 @@ export default async function publishApp(
   cli.action.stop(`${logSymbols.success}`);
 
   if (!noWatch) {
-    const status = await watchDeployment(newDeployment, platformApp, client);
+    const deployment = await watchDeployment(newDeployment, platformApp, client);
 
-    if (status === DeploymentStatus.Error) {
+    if (deployment.status === DeploymentStatus.Error) {
       console.log(
         red(
-          `your app encountered an error ${logSymbols.error} `,
+          `Your app encountered an error during deployment ${logSymbols.error} `,
         ),
       );
-    } else if (status === DeploymentStatus.Terminated) {
+      const errors = parseDeploymentErrors(deployment);
+      if (errors.length === 0) {
+        console.log(
+          red(
+            `- This error was most likely caused by an issue in the Connect Platform and not your application`,
+          ),
+        );
+        console.log(
+          red(
+            `- If the error persist please contact Connect Support at support@shipengine.com and include the logs provided by the 'connect logs' command`,
+          ),
+        );
+      } else {
+        errors.forEach((error) => {
+          console.log(
+            red(
+              `- ${error}`,
+            ),
+          );
+        })
+      }
+
+
+    } else if (deployment.status === DeploymentStatus.Terminated) {
       console.log(red(`your app was terminated `));
     } else {
       console.log(
-        green(`your app was published successfully ${logSymbols.success} `),
+        green(`Your app was published successfully ${logSymbols.success} `),
       );
     }
   }
