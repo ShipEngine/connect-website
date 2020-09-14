@@ -4,11 +4,11 @@
   "description": "The National Marketplace App",
   "main": "src/index.js",
   "scripts": {
-    "start": "shipengine start",
-    "test": "shipengine test"
+    "start": "connect start",
+    "test": "connect test"
   },
   "devDependencies": {
-    "@shipengine/connect": "^1.0.6",
+    "@shipengine/connect": "1.0.7",
     "@types/node": "^14.0.5",
     "dotenv-flow": "^3.1.0"
   },

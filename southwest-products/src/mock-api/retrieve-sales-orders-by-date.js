@@ -4,7 +4,6 @@ const { orderStatus, paymentStatus, paymentMethod } = require("../status-and-map
  * This is a mock implementation of a carrier's API that generates a label for a shipment
  */
 function retrieveSalesOrdersByDate(request) {
-
   return [
     {
       id: Buffer.from(new Date().toISOString()).toString("base64").toUpperCase(),
