@@ -1,4 +1,4 @@
-const { apiClient } = require("../mock-api/client");
+const apiClient = require("../mock-api/client");
 
 /**
  * Logs in using the username and password entered on the login form
@@ -11,7 +11,7 @@ async function acknowledgeOrders(transaction, notifications) {
   const data = {
     operation: "verify_orders",
     session_id: transaction.session.id,
-    sales_order_id: notifications.map(notification => notification.id)
+    sales_order_ids: notifications.map(notification => notification.id)
   };
 
   // STEP 3: Call the order source's API
@@ -22,7 +22,6 @@ async function acknowledgeOrders(transaction, notifications) {
 }
 
 function formatAcknowledgedSalesOrders(verifiedSalesOrders) {
-
   return verifiedSalesOrders.map((acknowledgedOrder) => {
     if (acknowledgedOrder.succeeded) {
       return {

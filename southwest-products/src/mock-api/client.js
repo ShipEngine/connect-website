@@ -35,7 +35,7 @@ const apiClient = axios.create({
       case "retrieve_sales_orders_by_date":
         return retrieveSalesOrdersByDate(request);
 
-      case "verify_order":
+      case "verify_orders":
         return verifyOrders(request);
     }
   }
