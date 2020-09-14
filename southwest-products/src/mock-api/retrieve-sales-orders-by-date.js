@@ -36,13 +36,15 @@ function retrieveSalesOrdersByDate(request) {
           id: Buffer.from(new Date().toISOString()).toString("base64").toUpperCase(),
           name: "Item 1",
           quantity: 2,
-          price_per_unit: 10
+          price_per_unit: 10,
+          product_id: Buffer.from(new Date().toISOString()).toString("base64").toUpperCase(),
         },
         {
           id: Buffer.from(new Date().toISOString()).toString("base64").toUpperCase(),
           name: "Item 2",
           quantity: 4,
-          price_per_unit: 2
+          price_per_unit: 2,
+          product_id: Buffer.from(new Date().toISOString()).toString("base64").toUpperCase(),
         }
       ],
       shipping_notes: "Please ring doorbell during dropoff"
@@ -78,13 +80,15 @@ function retrieveSalesOrdersByDate(request) {
           id: Buffer.from(new Date().toISOString()).toString("base64").toUpperCase(),
           name: "Item 1",
           quantity: 2,
-          price_per_unit: 10
+          price_per_unit: 10,
+          product_id: Buffer.from(new Date().toISOString()).toString("base64").toUpperCase(),
         },
         {
           id: Buffer.from(new Date().toISOString()).toString("base64").toUpperCase(),
           name: "Item 2",
           quantity: 4,
-          price_per_unit: 2
+          price_per_unit: 2,
+          product_id: Buffer.from(new Date().toISOString()).toString("base64").toUpperCase(),
         }
       ],
       shipping_notes: "Please ring doorbell during dropoff"

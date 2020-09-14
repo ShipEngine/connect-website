@@ -32,20 +32,34 @@ function formatSalesOrders(salesOrders) {
       paymentMethod: mapPaymentMethod(salesOrder.payment.method),
       requestedFulfillments: [
         {
+          items: salesOrder.shipping_items.map((item) => {
+            return {
+              id: item.id,
+              name: item.name,
+              product: { id: item.product_id },
+              quantity: {
+                value: item.quantity
+              },
+              unitPrice: {
+                value: item.price_per_unit,
+                currency: "usd"
+              },
+            }
+          }),
           shipTo: {
             name: salesOrder.address.business_name,
             addressLines: salesOrder.address.lines,
             cityLocality: salesOrder.address.city,
             stateProvince: salesOrder.address.state,
             postalCode: salesOrder.address.postalCode,
-            country: mapCountryCode(salesOrder.address.country)
+            country: salesOrder.address.country
           }
         }
       ],
       buyer: {
         id: salesOrder.buyer.id,
         name: salesOrder.buyer.name
-      }
+      },
     }
   });
 }
