@@ -26,19 +26,16 @@ export default async function getSalesOrdersByDate(
   const response = await apiClient.request<RetrieveSalesOrdersByDateResponse>({ data });
 
   // Step 4: Create the output data that ShipEngine expects
-  return formatSalesOrders(response.data);
+  return { salesOrders: formatSalesOrders(response.data) };
 }
 
-function formatSalesOrders(unformattedSalesOrders: RetrieveSalesOrdersByDateResponse): SalesOrders {
-
-  const salesOrders: SalesOrder[] = [];
-
-  for (let salesOrder of unformattedSalesOrders) {
-
-    salesOrders.push({
+function formatSalesOrders(salesOrders: RetrieveSalesOrdersByDateResponse): SalesOrder[] {
+  return salesOrders.map(salesOrder => {
+    return {
       id: salesOrder.id,
       createdDateTime: salesOrder.created_at,
       status: mapSalesOrderStatus(salesOrder.status),
+      paymentMethod: mapPaymentMethod(salesOrder.payment.method),
       requestedFulfillments: [
         {
           items: salesOrder.shipping_items.map((item) => {
@@ -61,17 +58,14 @@ function formatSalesOrders(unformattedSalesOrders: RetrieveSalesOrdersByDateResp
             cityLocality: salesOrder.address.city,
             stateProvince: salesOrder.address.state,
             postalCode: salesOrder.address.postalCode,
-            country: mapCountryCode(salesOrder.address.country)
+            country: salesOrder.address.country
           }
         }
       ],
-      paymentMethod: mapPaymentMethod(salesOrder.payment.method),
       buyer: {
         id: salesOrder.buyer.id,
         name: salesOrder.buyer.name
-      }
-    });
-  };
-
-  return { salesOrders };
+      },
+    }
+  }) as SalesOrder[];
 }
