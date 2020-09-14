@@ -11,8 +11,8 @@ const orderSource = {
     settingsForm: Promise.resolve().then(() => require("./forms/settings")),
     connect: Promise.resolve().then(() => require("./methods/connect")),
     getSalesOrdersByDate: Promise.resolve().then(() => require("./methods/get-sales-orders-by-date")),
-    shipmentCreated: Promise.resolve().then(() => require("./methods/shipment-created"))
-    // acknowledgeOrders: import("./methods/acknowledge-orders")
+    shipmentCreated: Promise.resolve().then(() => require("./methods/shipment-created")),
+    acknowledgeOrders: Promise.resolve().then(() => require("./methods/acknowledge-orders"))
 };
 exports.default = orderSource;
 //# sourceMappingURL=index.js.map

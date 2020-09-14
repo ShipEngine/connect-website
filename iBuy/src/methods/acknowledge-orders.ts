@@ -17,7 +17,7 @@ export default async function acknowledgeOrders(
   const data = {
     operation: "verify_orders",
     session_id: transaction.session.id,
-    sales_order_id: notifications.map(notification => notification.id)
+    sales_order_ids: notifications.map(notification => notification.id)
   };
 
   // STEP 3: Call the order source's API
@@ -28,7 +28,6 @@ export default async function acknowledgeOrders(
 }
 
 function formatAcknowledgedSalesOrders(verifiedSalesOrders: VerifyOrdersResponse): AcknowledgedSalesOrder[] {
-
   return verifiedSalesOrders.map((acknowledgedOrder) => {
     if (acknowledgedOrder.succeeded) {
       return {

@@ -26,7 +26,7 @@ exports.apiClient = axios_1.default.create({
                 return authenticate_1.authenticate(request);
             case "retrieve_sales_orders_by_date":
                 return retrieve_sales_orders_by_date_1.retrieveSalesOrdersByDate(request);
-            case "verify_order":
+            case "verify_orders":
                 return verify_orders_1.verifyOrders(request);
         }
     }
