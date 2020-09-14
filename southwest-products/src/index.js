@@ -11,7 +11,7 @@ const orderSource = {
   connect: "./methods/connect.js",
   getSalesOrdersByDate: "./methods/get-sales-orders-by-date.js",
   shipmentCreated: "./methods/shipment-created.js",
-  // acknowledgeOrders: "./methods/acknowledge-orders.js"
+  acknowledgeOrders: "./methods/acknowledge-orders.js"
 }
 
 module.exports = orderSource;

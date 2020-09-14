@@ -18,16 +18,16 @@ async function getSalesOrdersByDate(transaction, range) {
     // STEP 3: Call the order source's API
     const response = await client_1.apiClient.request({ data });
     // Step 4: Create the output data that ShipEngine expects
-    return formatSalesOrders(response.data);
+    return { salesOrders: formatSalesOrders(response.data) };
 }
 exports.default = getSalesOrdersByDate;
-function formatSalesOrders(unformattedSalesOrders) {
-    const salesOrders = [];
-    for (let salesOrder of unformattedSalesOrders) {
-        salesOrders.push({
+function formatSalesOrders(salesOrders) {
+    return salesOrders.map(salesOrder => {
+        return {
             id: salesOrder.id,
             createdDateTime: salesOrder.created_at,
             status: status_and_mappings_1.mapSalesOrderStatus(salesOrder.status),
+            paymentMethod: status_and_mappings_1.mapPaymentMethod(salesOrder.payment.method),
             requestedFulfillments: [
                 {
                     items: salesOrder.shipping_items.map((item) => {
@@ -50,18 +50,15 @@ function formatSalesOrders(unformattedSalesOrders) {
                         cityLocality: salesOrder.address.city,
                         stateProvince: salesOrder.address.state,
                         postalCode: salesOrder.address.postalCode,
-                        country: status_and_mappings_1.mapCountryCode(salesOrder.address.country)
+                        country: salesOrder.address.country
                     }
                 }
             ],
-            paymentMethod: status_and_mappings_1.mapPaymentMethod(salesOrder.payment.method),
             buyer: {
                 id: salesOrder.buyer.id,
                 name: salesOrder.buyer.name
-            }
-        });
-    }
-    ;
-    return { salesOrders };
+            },
+        };
+    });
 }
 //# sourceMappingURL=get-sales-orders-by-date.js.map
