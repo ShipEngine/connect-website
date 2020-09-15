@@ -123,7 +123,7 @@ export default async function publishApp(
 
 
     } else if (deployment.status === DeploymentStatus.Terminated) {
-      console.log(red(`your app was terminated `));
+      console.log(red("Your app was terminated "));
     } else {
       console.log(
         green(`Your app was published successfully ${logSymbols.success} `),
