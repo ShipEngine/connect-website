@@ -26,6 +26,12 @@ export default class Publish extends BaseCommand {
       description: "Skip running the test before publishing",
       default: false,
     }),
+    debug: flags.boolean({
+      char: "d",
+      description: "Show network debugging information",
+      default: false,
+      hidden: true
+    }),
   };
 
   async run(): Promise<void> {
@@ -34,12 +40,12 @@ export default class Publish extends BaseCommand {
 
     // Verify user is logged in
     try {
-      await this.getCurrentUser();
+      await this.getCurrentUser(flags.debug);
     } catch {
       await Login.run([])
     }
 
-    const apiClient = await this.apiClient()
+    const apiClient = await this.apiClient(flags.debug)
 
     // Run test in fail fast mode unless skipped
     if (!flags["skip-tests"]) await Test.run(["-f"]);

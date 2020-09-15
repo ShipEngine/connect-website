@@ -14,11 +14,17 @@ export default class Login extends BaseCommand {
       char: "h",
       description: "Show help for the login command",
     }),
+    debug: flags.boolean({
+      char: "d",
+      description: "Show network debugging information",
+      default: false,
+      hidden: true
+    }),
   };
 
   async run(): Promise<void> {
     // When the -h flag is present the following line haults execution
-    this.parse(Login);
+    const { flags } = this.parse(Login);
 
     const apiKey = await cli.prompt(
       "Please enter your API key",
@@ -31,7 +37,7 @@ export default class Login extends BaseCommand {
 
     try {
       cli.action.start("Verifying account");
-      await this.getCurrentUser();
+      await this.getCurrentUser(flags.debug);
     } catch (error) {
       await ApiKeyStore.clear();
       const err = error as ApiClientError;

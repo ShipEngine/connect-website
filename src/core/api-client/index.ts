@@ -41,15 +41,18 @@ export default class APIClient {
 
   apiKey: string;
 
+  private debug: boolean;
+
   private _apiAuthority = "https://dip-webapi-dev.kubedev.sslocal.com/api";
 
-  constructor(apiKey: string) {
+  constructor(apiKey: string, debug = false) {
     this.apiKey = apiKey;
 
     this.apps = new Apps(this);
     this.deployments = new Deployments(this);
     this.diagnostics = new Diagnostics(this);
     this.user = new User(this);
+    this.debug = debug;
   }
 
   async call<T>({
@@ -64,6 +67,18 @@ export default class APIClient {
       "api-key": this.apiKey,
     };
 
+    if (this.debug) {
+      axios.interceptors.request.use(request => {
+        console.log('Starting Request', request)
+        return request
+      })
+
+      axios.interceptors.response.use(response => {
+        console.log('Response:', response)
+        return response
+      })
+    }
+
     const mergedHeaders = {
       ...defaultHeaders,
       ...headers,
@@ -75,6 +90,7 @@ export default class APIClient {
       url: `${this._apiAuthority}/${endpoint}`,
       ...(isFileUpload && { maxContentLength: Infinity }),
     };
+
 
     if (body) request.data = body;
 
