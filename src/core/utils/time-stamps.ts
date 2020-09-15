@@ -11,9 +11,10 @@ export function initializeTimeStamps(): TimeStamps {
   const todayEarly = DateTime.local(date.getFullYear(), date.getMonth() + 1, date.getDate()).plus({ hours: 6 }).toISO();
   const today = DateTime.local(date.getFullYear(), date.getMonth() + 1, date.getDate()).plus({ hours: 12 }).toISO();
   const todayEvening = DateTime.local(date.getFullYear(), date.getMonth() + 1, date.getDate()).plus({ hours: 18 }).toISO();
-  const tomorrowEarly = DateTime.local(date.getFullYear(), date.getMonth() + 1, date.getDate()).plus({ days: 1, hours: 9 }).toISO();
   const tomorrowEarlyAM = DateTime.local(date.getFullYear(), date.getMonth() + 1, date.getDate()).plus({ days: 1, hours: 6 }).toISO();
+  const tomorrowEarly = DateTime.local(date.getFullYear(), date.getMonth() + 1, date.getDate()).plus({ days: 1, hours: 9 }).toISO();
   const tomorrow = DateTime.local(date.getFullYear(), date.getMonth() + 1, date.getDate()).plus({ days: 1, hours: 12 }).toISO();
+  const tomorrowEvening = DateTime.local(date.getFullYear(), date.getMonth() + 1, date.getDate()).plus({ days: 1, hours: 18 }).toISO();
   const twoDays = DateTime.local(date.getFullYear(), date.getMonth() + 1, date.getDate()).plus({ days: 2, hours: 12 }).toISO();
   const twoDaysEarly = DateTime.local(date.getFullYear(), date.getMonth() + 1, date.getDate()).plus({ days: 2, hours: 9 }).toISO();
   const threeDays = DateTime.local(date.getFullYear(), date.getMonth() + 1, date.getDate()).plus({ days: 3 }).toISO();
@@ -26,6 +27,7 @@ export function initializeTimeStamps(): TimeStamps {
     tomorrowEarly,
     tomorrowEarlyAM,
     tomorrow,
+    tomorrowEvening,
     twoDays,
     twoDaysEarly,
     threeDays
