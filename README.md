@@ -33,5 +33,5 @@ This repo contains several sample ShipEngine Connect apps that demonstrate vario
 | [![Cargo Incorporated](./cargo-inc/logo.svg)](./cargo-inc) | This is a carrier integration, written in **JavaScript**. It uses **YAML** to define service offerings and **JSON** for form definitions.
 | [![FreightCo](./freightco/logo.svg)](./freightco) | This is a carrier integration written entirely in **JavaScript**, including its service offerings and form definitions.
 | [![Parcel Post](./parcel-post/logo.svg)](./parcel-post) | This is a carrier integration written entirely in **TypeScript**, including its service offerings and form definitions.
-| [![iBuy](./iBuy/logo.svg)](./iBuy) | This is an order service integration written entirely in **TypeScript**.
-| [![SouthWest Products](./southwest-products/logo.svg)](./southwest-products) | This is an order service integration written entirely in **JavaScript**.
+| [![iBuy](./iBuy/logo.svg)](./iBuy) | This is an order source integration written entirely in **TypeScript**.
+| [![SouthWest Products](./southwest-products/logo.svg)](./southwest-products) | This is an order source integration written entirely in **JavaScript**.
