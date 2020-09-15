@@ -11,7 +11,7 @@ The app implements the following functionality:
 * [Create shipment](./shipment-created.js), get notified when a shipment is created.
 * [Acknowledge Orders](./acknowledge-orders.js), receive notifications when a sales order is imported into one of our e-commerce applications.
 
-About ShipEngine Integration Platform Apps
+About ShipEngine Connect Apps
 --------------------------------------------
 Apps are just [NPM packages](https://docs.npmjs.com/about-packages-and-modules) that export an object with properties and methods that define the application's functionality.
 

@@ -13,7 +13,7 @@ The app implements the following functionality:
 
 
 
-About ShipEngine Integration Platform Apps
+About ShipEngine Connect Apps
 --------------------------------------------
 Apps are just [NPM packages](https://docs.npmjs.com/about-packages-and-modules) that export an object with properties and methods that define the application's functionality.
 
