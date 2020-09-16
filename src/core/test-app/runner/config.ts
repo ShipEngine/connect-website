@@ -6,7 +6,7 @@ import { CreateShipmentMultiPackageConfigOptions } from './config/create-shipmen
 import { CreateShipmentWithInsuranceConfigOptions } from './config/create-shipment-insurance';
 import { RateShipmentConfigOptions } from './config/rate-shipment';
 import { RateShipmentWithAllServicesConfigOptions } from './config/rate-shipment-with-all-services';
-import { CancelShipmentConfigOptions } from './config/cancel-shipment';
+import { CancelShipmentConfigOptions } from './config/cancel-shipments';
 import { CreateShipmentReturnConfigOptions } from './config/create-shipment-return';
 import { SameDayPickupConfigOptions } from './config/same-day-pickup';
 import { NextDayPickupConfigOptions } from './config/next-day-pickup';

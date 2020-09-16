@@ -29,7 +29,7 @@ export class CancelShipment extends Suite {
   private deliveryService?: DeliveryService;
 
   private setDeliveryService(
-    config: CancelShipmentConfigOptions,
+    config: CancelShipmentsConfigOptions,
   ): void {
     const carrierApp = this.app as CarrierApp;
 
@@ -48,7 +48,7 @@ export class CancelShipment extends Suite {
   }
 
   buildTestArg(
-    config: CancelShipmentConfigOptions,
+    config: CancelShipmentsConfigOptions,
   ): TestArgs | undefined {
     this.setDeliveryService(config);
 
@@ -64,7 +64,7 @@ export class CancelShipment extends Suite {
 
     // Make a best guess at the defaults, need to resolve the default vs config based delivery service early
     // on since that determines what address and associated timezones get generated.
-    const defaults: CancelShipmentTestParams = {
+    const defaults: CancelShipmentsTestParams = {
       deliveryServiceName: this.deliveryService.name,
       shipDateTime: tomorrow,
       shipFrom: shipFrom,
@@ -82,7 +82,7 @@ export class CancelShipment extends Suite {
     };
 
     const testParams = reduceDefaultsWithConfig<
-      CancelShipmentTestParams
+      CancelShipmentsTestParams
     >(defaults, config);
 
     if (!testParams.shipFrom || !testParams.shipTo) return undefined;
@@ -134,11 +134,11 @@ export class CancelShipment extends Suite {
 
   buildTestArgs(): Array<TestArgs | undefined> {
     if (Array.isArray(this.config)) {
-      return this.config.map((config: CancelShipmentConfigOptions) => {
+      return this.config.map((config: CancelShipmentsConfigOptions) => {
         return this.buildTestArg(config);
       });
     }
-    const config = this.config as CancelShipmentConfigOptions;
+    const config = this.config as CancelShipmentsConfigOptions;
     return [this.buildTestArg(config)];
   }
 
