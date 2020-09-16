@@ -2969,11 +2969,11 @@ describe("validateConfig", () => {
     });
   });
 
-  describe("tests.cancelShipment when given an object", () => {
+  describe("tests.cancelShipments_single_shipment when given an object", () => {
     it("validates that retries is a number", () => {
       const config = {
         tests: {
-          cancelShipment: {
+          cancelShipments_single_shipment: {
             retries: "invalid"
           }
         },
@@ -2990,13 +2990,13 @@ describe("validateConfig", () => {
       }
 
       expect(result).to.be.undefined;
-      expect(errorResult.message).to.be.equal("tests.cancelShipment.retries must be a number");
+      expect(errorResult.message).to.be.equal("tests.cancelShipments_single_shipment.retries must be a number");
     });
 
     it("validates that timeout is a number", () => {
       const config = {
         tests: {
-          cancelShipment: {
+          cancelShipments_single_shipment: {
             timeout: "invalid"
           }
         },
@@ -3013,13 +3013,13 @@ describe("validateConfig", () => {
       }
 
       expect(result).to.be.undefined;
-      expect(errorResult.message).to.be.equal("tests.cancelShipment.timeout must be a number");
+      expect(errorResult.message).to.be.equal("tests.cancelShipments_single_shipment.timeout must be a number");
     });
 
     it("validates that skip is a boolean", () => {
       const config = {
         tests: {
-          cancelShipment: {
+          cancelShipments_single_shipment: {
             skip: "invalid"
           }
         },
@@ -3036,13 +3036,13 @@ describe("validateConfig", () => {
       }
 
       expect(result).to.be.undefined;
-      expect(errorResult.message).to.be.equal("tests.cancelShipment.skip must be a boolean");
+      expect(errorResult.message).to.be.equal("tests.cancelShipments_single_shipment.skip must be a boolean");
     });
 
     it("validates that session is an object", () => {
       const config = {
         tests: {
-          cancelShipment: {
+          cancelShipments_single_shipment: {
             session: "invalid"
           }
         },
@@ -3058,13 +3058,13 @@ describe("validateConfig", () => {
       }
 
       expect(result).to.be.undefined;
-      expect(errorResult.message).to.be.equal("tests.cancelShipment.session must be of type object");
+      expect(errorResult.message).to.be.equal("tests.cancelShipments_single_shipment.session must be of type object");
     });
 
     it("validates that connectArgs is an object", () => {
       const config = {
         tests: {
-          cancelShipment: {
+          cancelShipments_single_shipment: {
             connectArgs: "invalid"
           }
         },
@@ -3080,13 +3080,13 @@ describe("validateConfig", () => {
       }
 
       expect(result).to.be.undefined;
-      expect(errorResult.message).to.be.equal("tests.cancelShipment.connectArgs must be of type object");
+      expect(errorResult.message).to.be.equal("tests.cancelShipments_single_shipment.connectArgs must be of type object");
     });
 
     it("validates that retries is a number", () => {
       const config = {
         tests: {
-          cancelShipment: {
+          cancelShipments_single_shipment: {
             retries: "invalid"
           }
         },
@@ -3103,13 +3103,13 @@ describe("validateConfig", () => {
       }
 
       expect(result).to.be.undefined;
-      expect(errorResult.message).to.be.equal("tests.cancelShipment.retries must be a number");
+      expect(errorResult.message).to.be.equal("tests.cancelShipments_single_shipment.retries must be a number");
     });
 
     it("validates that timeout is a number", () => {
       const config = {
         tests: {
-          cancelShipment: {
+          cancelShipments_single_shipment: {
             timeout: "invalid"
           }
         },
@@ -3126,13 +3126,13 @@ describe("validateConfig", () => {
       }
 
       expect(result).to.be.undefined;
-      expect(errorResult.message).to.be.equal("tests.cancelShipment.timeout must be a number");
+      expect(errorResult.message).to.be.equal("tests.cancelShipments_single_shipment.timeout must be a number");
     });
 
     it("validates that skip is a boolean", () => {
       const config = {
         tests: {
-          cancelShipment: {
+          cancelShipments_single_shipment: {
             skip: "invalid"
           }
         },
@@ -3149,13 +3149,13 @@ describe("validateConfig", () => {
       }
 
       expect(result).to.be.undefined;
-      expect(errorResult.message).to.be.equal("tests.cancelShipment.skip must be a boolean");
+      expect(errorResult.message).to.be.equal("tests.cancelShipments_single_shipment.skip must be a boolean");
     });
 
     it("validates that session is an object", () => {
       const config = {
         tests: {
-          cancelShipment: {
+          cancelShipments_single_shipment: {
             session: "invalid"
           }
         },
@@ -3171,13 +3171,13 @@ describe("validateConfig", () => {
       }
 
       expect(result).to.be.undefined;
-      expect(errorResult.message).to.be.equal("tests.cancelShipment.session must be of type object");
+      expect(errorResult.message).to.be.equal("tests.cancelShipments_single_shipment.session must be of type object");
     });
 
     it("validates that connectArgs is an object", () => {
       const config = {
         tests: {
-          cancelShipment: {
+          cancelShipments_single_shipment: {
             connectArgs: "invalid"
           }
         },
@@ -3193,13 +3193,13 @@ describe("validateConfig", () => {
       }
 
       expect(result).to.be.undefined;
-      expect(errorResult.message).to.be.equal("tests.cancelShipment.connectArgs must be of type object");
+      expect(errorResult.message).to.be.equal("tests.cancelShipments_single_shipment.connectArgs must be of type object");
     });
 
     it("validates that deliveryServiceName is a string", () => {
       const config = {
         tests: {
-          cancelShipment: {
+          cancelShipments_single_shipment: {
             deliveryServiceName: 123
           },
         },
@@ -3215,13 +3215,13 @@ describe("validateConfig", () => {
       }
 
       expect(result).to.be.undefined;
-      expect(errorResult.message).to.be.equal("tests.cancelShipment.deliveryServiceName must be a string");
+      expect(errorResult.message).to.be.equal("tests.cancelShipments_single_shipment.deliveryServiceName must be a string");
     });
 
     it("validates that shipFrom is an address object", () => {
       const config = {
         tests: {
-          cancelShipment: {
+          cancelShipments_single_shipment: {
             shipFrom: "invalid"
           },
         },
@@ -3237,13 +3237,13 @@ describe("validateConfig", () => {
       }
 
       expect(result).to.be.undefined;
-      expect(errorResult.message).to.be.equal("tests.cancelShipment.shipFrom must be of type object");
+      expect(errorResult.message).to.be.equal("tests.cancelShipments_single_shipment.shipFrom must be of type object");
     });
 
     it("validates that shipTo is an address object", () => {
       const config = {
         tests: {
-          cancelShipment: {
+          cancelShipments_single_shipment: {
             shipTo: "invalid"
           },
         },
@@ -3259,13 +3259,13 @@ describe("validateConfig", () => {
       }
 
       expect(result).to.be.undefined;
-      expect(errorResult.message).to.be.equal("tests.cancelShipment.shipTo must be of type object");
+      expect(errorResult.message).to.be.equal("tests.cancelShipments_single_shipment.shipTo must be of type object");
     });
 
     it("validates that weight is a weight object", () => {
       const config = {
         tests: {
-          cancelShipment: {
+          cancelShipments_single_shipment: {
             weight: "invalid"
           },
         },
@@ -3281,13 +3281,13 @@ describe("validateConfig", () => {
       }
 
       expect(result).to.be.undefined;
-      expect(errorResult.message).to.be.equal("tests.cancelShipment.weight must be of type object");
+      expect(errorResult.message).to.be.equal("tests.cancelShipments_single_shipment.weight must be of type object");
     });
 
     it("validates that shipDateTime is a valid date time string", () => {
       const config = {
         tests: {
-          cancelShipment: {
+          cancelShipments_single_shipment: {
             shipDateTime: "invalid"
           },
         },
@@ -3303,15 +3303,15 @@ describe("validateConfig", () => {
       }
 
       expect(result).to.be.undefined;
-      expect(errorResult.message).to.be.equal("tests.cancelShipment.shipDateTime must be a complete ISO 8601 date/time with a time zone, like 2005-09-23T17:30:00+05:30");
+      expect(errorResult.message).to.be.equal("tests.cancelShipments_single_shipment.shipDateTime must be a complete ISO 8601 date/time with a time zone, like 2005-09-23T17:30:00+05:30");
     });
   });
 
-  describe("tests.cancelShipment when given an array", () => {
+  describe("tests.cancelShipments_single_shipment when given an array", () => {
     it("validates that retries is a number", () => {
       const config = {
         tests: {
-          cancelShipment: [{
+          cancelShipments_single_shipment: [{
             retries: "invalid"
           }]
         },
@@ -3328,13 +3328,13 @@ describe("validateConfig", () => {
       }
 
       expect(result).to.be.undefined;
-      expect(errorResult.message).to.be.equal("tests.cancelShipment[0].retries must be a number");
+      expect(errorResult.message).to.be.equal("tests.cancelShipments_single_shipment[0].retries must be a number");
     });
 
     it("validates that timeout is a number", () => {
       const config = {
         tests: {
-          cancelShipment: [{
+          cancelShipments_single_shipment: [{
             timeout: "invalid"
           }]
         },
@@ -3351,13 +3351,13 @@ describe("validateConfig", () => {
       }
 
       expect(result).to.be.undefined;
-      expect(errorResult.message).to.be.equal("tests.cancelShipment[0].timeout must be a number");
+      expect(errorResult.message).to.be.equal("tests.cancelShipments_single_shipment[0].timeout must be a number");
     });
 
     it("validates that skip is a boolean", () => {
       const config = {
         tests: {
-          cancelShipment: [{
+          cancelShipments_single_shipment: [{
             skip: "invalid"
           }]
         },
@@ -3374,13 +3374,13 @@ describe("validateConfig", () => {
       }
 
       expect(result).to.be.undefined;
-      expect(errorResult.message).to.be.equal("tests.cancelShipment[0].skip must be a boolean");
+      expect(errorResult.message).to.be.equal("tests.cancelShipments_single_shipment[0].skip must be a boolean");
     });
 
     it("validates that session is an object", () => {
       const config = {
         tests: {
-          cancelShipment: [{
+          cancelShipments_single_shipment: [{
             session: "invalid"
           }]
         },
@@ -3396,13 +3396,13 @@ describe("validateConfig", () => {
       }
 
       expect(result).to.be.undefined;
-      expect(errorResult.message).to.be.equal("tests.cancelShipment[0].session must be of type object");
+      expect(errorResult.message).to.be.equal("tests.cancelShipments_single_shipment[0].session must be of type object");
     });
 
     it("validates that connectArgs is an object", () => {
       const config = {
         tests: {
-          cancelShipment: [{
+          cancelShipments_single_shipment: [{
             connectArgs: "invalid"
           }]
         },
@@ -3418,13 +3418,13 @@ describe("validateConfig", () => {
       }
 
       expect(result).to.be.undefined;
-      expect(errorResult.message).to.be.equal("tests.cancelShipment[0].connectArgs must be of type object");
+      expect(errorResult.message).to.be.equal("tests.cancelShipments_single_shipment[0].connectArgs must be of type object");
     });
 
     it("validates that deliveryServiceName is a string", () => {
       const config = {
         tests: {
-          cancelShipment: [{
+          cancelShipments_single_shipment: [{
             deliveryServiceName: 123
           }],
         },
@@ -3440,13 +3440,13 @@ describe("validateConfig", () => {
       }
 
       expect(result).to.be.undefined;
-      expect(errorResult.message).to.be.equal("tests.cancelShipment[0].deliveryServiceName must be a string");
+      expect(errorResult.message).to.be.equal("tests.cancelShipments_single_shipment[0].deliveryServiceName must be a string");
     });
 
     it("validates that shipFrom is an address object", () => {
       const config = {
         tests: {
-          cancelShipment: [{
+          cancelShipments_single_shipment: [{
             shipFrom: "invalid"
           }],
         },
@@ -3462,13 +3462,13 @@ describe("validateConfig", () => {
       }
 
       expect(result).to.be.undefined;
-      expect(errorResult.message).to.be.equal("tests.cancelShipment[0].shipFrom must be of type object");
+      expect(errorResult.message).to.be.equal("tests.cancelShipments_single_shipment[0].shipFrom must be of type object");
     });
 
     it("validates that shipTo is an address object", () => {
       const config = {
         tests: {
-          cancelShipment: [{
+          cancelShipments_single_shipment: [{
             shipTo: "invalid"
           }],
         },
@@ -3484,13 +3484,13 @@ describe("validateConfig", () => {
       }
 
       expect(result).to.be.undefined;
-      expect(errorResult.message).to.be.equal("tests.cancelShipment[0].shipTo must be of type object");
+      expect(errorResult.message).to.be.equal("tests.cancelShipments_single_shipment[0].shipTo must be of type object");
     });
 
     it("validates that weight is a weight object", () => {
       const config = {
         tests: {
-          cancelShipment: [{
+          cancelShipments_single_shipment: [{
             weight: "invalid"
           }],
         },
@@ -3506,13 +3506,13 @@ describe("validateConfig", () => {
       }
 
       expect(result).to.be.undefined;
-      expect(errorResult.message).to.be.equal("tests.cancelShipment[0].weight must be of type object");
+      expect(errorResult.message).to.be.equal("tests.cancelShipments_single_shipment[0].weight must be of type object");
     });
 
     it("validates that shipDateTime is a valid date time string", () => {
       const config = {
         tests: {
-          cancelShipment: [{
+          cancelShipments_single_shipment: [{
             shipDateTime: "invalid"
           }],
         },
@@ -3528,7 +3528,7 @@ describe("validateConfig", () => {
       }
 
       expect(result).to.be.undefined;
-      expect(errorResult.message).to.be.equal("tests.cancelShipment[0].shipDateTime must be a complete ISO 8601 date/time with a time zone, like 2005-09-23T17:30:00+05:30");
+      expect(errorResult.message).to.be.equal("tests.cancelShipments_single_shipment[0].shipDateTime must be a complete ISO 8601 date/time with a time zone, like 2005-09-23T17:30:00+05:30");
     });
   });
 

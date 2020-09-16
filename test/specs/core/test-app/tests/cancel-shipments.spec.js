@@ -1,6 +1,6 @@
 "use strict";
 
-const { CancelShipment } = require("../../../../../lib/core/test-app/tests/cancel-shipment");
+const { CancelShipments } = require("../../../../../lib/core/test-app/tests/cancel-shipments");
 const { CarrierApp } = require("@shipengine/connect-sdk/lib/internal/carriers/carrier-app");
 const pojo = require("../../../../utils/pojo");
 const { expect } = require("chai");
@@ -17,7 +17,7 @@ describe("The cancel shipment test suite", () => {
 
       const app = new CarrierApp(appDefinition);
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CancelShipment(args);
+      const testSuite = new CancelShipments(args);
 
       const tests = testSuite.tests();
       expect(tests.length).to.equal(0);
@@ -32,7 +32,7 @@ describe("The cancel shipment test suite", () => {
       const app = new CarrierApp(appDefinition);
       const args = { app, connectArgs, staticConfigTests, options };
 
-      testSuite = new CancelShipment(args);
+      testSuite = new CancelShipments(args);
     });
 
     it("should generate a test", () => {
@@ -57,7 +57,7 @@ describe("The cancel shipment test suite", () => {
 
       const app = new CarrierApp(appDefinition);
 
-      staticConfigTests.cancelShipment = {
+      staticConfigTests.cancelShipments = {
         weight: {
           value: 200,
           unit: "lb"
@@ -71,7 +71,7 @@ describe("The cancel shipment test suite", () => {
       };
 
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CancelShipment(args);
+      const testSuite = new CancelShipments(args);
       const tests = testSuite.tests();
 
       expect(tests[0].title).to.include("weight: 200lb");
@@ -85,7 +85,7 @@ describe("The cancel shipment test suite", () => {
     beforeEach(() => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       const app = new CarrierApp(appDefinition);
-      staticConfigTests.cancelShipment =
+      staticConfigTests.cancelShipments =
         [
           {
             weight: {
@@ -102,7 +102,7 @@ describe("The cancel shipment test suite", () => {
         ];
 
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CancelShipment(args);
+      const testSuite = new CancelShipments(args);
       tests = testSuite.tests();
     });
 
@@ -122,12 +122,12 @@ describe("The cancel shipment test suite", () => {
     it("should throw an error", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       const app = new CarrierApp(appDefinition);
-      staticConfigTests.cancelShipment = {
+      staticConfigTests.cancelShipments = {
         deliveryServiceName: "asdf"
       };
 
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CancelShipment(args);
+      const testSuite = new CancelShipments(args);
 
       try {
         testSuite.tests();
@@ -154,13 +154,13 @@ describe("The cancel shipment test suite", () => {
         packaging: [pojo.packaging()]
       });
 
-      staticConfigTests.cancelShipment = {
+      staticConfigTests.cancelShipments = {
         deliveryServiceName: "Better Delivery Service"
       };
 
       const app = new CarrierApp(appDefinition);
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CancelShipment(args);
+      const testSuite = new CancelShipments(args);
       const tests = testSuite.tests();
 
       expect(tests[0].title).to.include("deliveryServiceName: Better Delivery Service");
@@ -177,7 +177,7 @@ describe("The cancel shipment test suite", () => {
 
       const app = new CarrierApp(appDefinition);
 
-      staticConfigTests.cancelShipment = {
+      staticConfigTests.cancelShipments = {
         shipFrom: {
           company: "Domestic Route #1",
           addressLines: ["123 New Street"],
@@ -199,7 +199,7 @@ describe("The cancel shipment test suite", () => {
       };
 
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CancelShipment(args);
+      const testSuite = new CancelShipments(args);
       const tests = testSuite.tests();
       expect(tests.length).to.equal(1);
     });
@@ -211,7 +211,7 @@ describe("The cancel shipment test suite", () => {
 
       const app = new CarrierApp(appDefinition);
 
-      staticConfigTests.cancelShipment = {
+      staticConfigTests.cancelShipments = {
         shipFrom: {
           company: "Domestic Route #1",
           addressLines: ["123 New Street"],
@@ -231,13 +231,13 @@ describe("The cancel shipment test suite", () => {
       };
 
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CancelShipment(args);
+      const testSuite = new CancelShipments(args);
       const tests = testSuite.tests();
 
       expect(tests[0].methodArgs.shipFrom.company).to.equal("Domestic Route #1");
       expect(tests[0].methodArgs.shipTo.company).to.equal("Domestic Route #2");
 
-      expect(tests[0].methodArgs.shipTo).to.eql(staticConfigTests.cancelShipment.shipTo);
+      expect(tests[0].methodArgs.shipTo).to.eql(staticConfigTests.cancelShipments.shipTo);
 
       expect(tests[0].title).to.include("shipFrom: US");
       expect(tests[0].title).to.include("shipTo: US");
@@ -263,7 +263,7 @@ describe("The cancel shipment test suite", () => {
 
       const app = new CarrierApp(appDefinition);
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CancelShipment(args);
+      const testSuite = new CancelShipments(args);
       const tests = testSuite.tests();
 
       try {
@@ -312,7 +312,7 @@ function generateBasicAppAndConfigs() {
   };
 
   const staticConfigTests = {
-    cancelShipment: {}
+    cancelShipments: {}
   };
 
   const connectArgs = {};
