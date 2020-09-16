@@ -23,7 +23,7 @@ interface TestArgs {
 /**
  * Test an individual cancellation of one shipment.
  */
-export class CancelShipment extends Suite {
+export class CancelShipments extends Suite {
   title = "cancelShipment";
 
   private deliveryService?: DeliveryService;

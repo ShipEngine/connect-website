@@ -1,6 +1,11 @@
 import Config from "./test-app/runner/config";
 import Runner from "./test-app/runner";
 import loadAndValidateApp, { isInvalidAppError } from "./load-and-validate-app";
+import { SdkApp } from "./types";
+import { TestResults, useTestResults } from "./test-app/runner/test-results";
+import { loadAndValidateConfig } from "./test-app/runner/load-and-validate-config";
+import { logFail, logPass, logStep } from "./utils/log-helpers";
+import { logResults } from "./utils/log-helpers";
 import {
   CreateShipmentInternational,
   CreateShipmentDomestic,
@@ -8,17 +13,13 @@ import {
   CreateShipmentMultiPackage,
   RateShipment,
   CreateShipmentReturn,
-  TrackShipment
+  TrackShipment,
+  RateShipmentWithAllServices,
+  CancelShipments,
+  CancelShipmentsMultiple,
+  SameDayPickup,
+  NextDayPickup,
 } from "./test-app/tests";
-import { SdkApp } from "./types";
-import { TestResults, useTestResults } from "./test-app/runner/test-results";
-import { loadAndValidateConfig } from "./test-app/runner/load-and-validate-config";
-import { logFail, logPass, logStep } from "./utils/log-helpers";
-import { logResults } from "./utils/log-helpers";
-import { RateShipmentWithAllServices } from './test-app/tests/rate-shipment-with-all-services';
-import { CancelShipments } from './test-app/tests/cancel-shipments';
-import { SameDayPickup } from './test-app/tests/same-day-pickup';
-import { NextDayPickup } from './test-app/tests/next-day-pickup';
 
 interface TesOptions {
   debug?: boolean;
@@ -147,7 +148,7 @@ type RegisteredTestSuiteModules = object[];
 function registerTestSuiteModules(app: SdkApp): RegisteredTestSuiteModules {
   const carrierAppMethods = {
     // cancelPickups: [CancelPickupsTestSuite],
-    cancelShipments: [CancelShipment],
+    cancelShipments: [CancelShipments, CancelShipmentsMultiple],
     // createManifest: [CreateManifestTestSuite],
     createShipment: [
       CreateShipmentInternational,
