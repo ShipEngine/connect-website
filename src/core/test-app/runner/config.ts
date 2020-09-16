@@ -6,14 +6,14 @@ import { CreateShipmentMultiPackageConfigOptions } from './config/create-shipmen
 import { CreateShipmentWithInsuranceConfigOptions } from './config/create-shipment-insurance';
 import { RateShipmentConfigOptions } from './config/rate-shipment';
 import { RateShipmentWithAllServicesConfigOptions } from './config/rate-shipment-with-all-services';
-import { CancelShipmentConfigOptions } from './config/cancel-shipments';
+import { CancelShipmentsConfigOptions } from './config/cancel-shipments';
 import { CreateShipmentReturnConfigOptions } from './config/create-shipment-return';
 import { SameDayPickupConfigOptions } from './config/same-day-pickup';
 import { NextDayPickupConfigOptions } from './config/next-day-pickup';
 
 export interface TestsConfig {
   // cancelPickups?: (TestOptions & TestOptions) | [TestOptions];
-  cancelShipment?: CancelShipmentConfigOptions | [CancelShipmentConfigOptions];
+  cancelShipment?: CancelShipmentsConfigOptions | [CancelShipmentsConfigOptions];
   // createManifest?: TestOptions | [TestOptions];
   createShipment_domestic?:
   | CreateShipmentDomesticConfigOptions
@@ -28,7 +28,6 @@ export interface TestsConfig {
   rateShipment_with_all_services?: RateShipmentWithAllServicesConfigOptions | [RateShipmentWithAllServicesConfigOptions];
   schedulePickup_same_day?: SameDayPickupConfigOptions | [SameDayPickupConfigOptions];
   schedulePickup_next_day?: NextDayPickupConfigOptions | [NextDayPickupConfigOptions];
-
   // createShipment_multi_package?: TestOptions | [TestOptions];
   // rateShipmentWithOneService?: RateShipmentConfigOptions | [RateShipmentConfigOptions];
   // trackShipment?: TestOptions | [TestOptions];
