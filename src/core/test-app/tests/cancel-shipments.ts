@@ -9,7 +9,7 @@ import useDomesticShippingAddress from "../utils/use-domestic-shipment-addresses
 import { findDomesticDeliveryService } from "../utils/find-domestic-delivery-service";
 import { expect } from "chai";
 import findDeliveryServiceByName from "../utils/find-delivery-service-by-name";
-import { CancelShipmentConfigOptions, CancelShipmentTestParams } from "../runner/config/cancel-shipment";
+import { CancelShipmentsConfigOptions, CancelShipmentsTestParams } from "../runner/config/cancel-shipments";
 import { v4 } from "uuid";
 import Test from '../runner/test';
 
@@ -163,7 +163,7 @@ export class CancelShipment extends Suite {
           }
 
           if (!carrierApp.cancelShipments) {
-            throw new Error("cancelShipment is not implemented");
+            throw new Error("CancelShipments is not implemented");
           }
 
           const shipmentConfirmation = await carrierApp.createShipment(transaction, testArg.methodArgs);

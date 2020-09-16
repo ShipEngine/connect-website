@@ -51,7 +51,7 @@ const createShipmentReturnTestParamsSchema = Joi.object({
   }
 });
 
-const cancelShipmentTestParamsSchema = Joi.object({
+const cancelShipmentsTestParamsSchema = Joi.object({
   ...baseTestParamValidations,
   ...{
     deliveryServiceName: Joi.string().optional(),
@@ -208,9 +208,13 @@ const testsSchema = Joi.object({
     then: Joi.array().items(createShipmentReturnTestParamsSchema),
     otherwise: createShipmentReturnTestParamsSchema,
   }),
-  cancelShipment: Joi.alternatives().conditional(Joi.array(), {
-    then: Joi.array().items(cancelShipmentTestParamsSchema),
-    otherwise: cancelShipmentTestParamsSchema,
+  cancelShipments_single_shipment: Joi.alternatives().conditional(Joi.array(), {
+    then: Joi.array().items(cancelShipmentsTestParamsSchema),
+    otherwise: cancelShipmentsTestParamsSchema,
+  }),
+  cancelShipments_multiple_shipments: Joi.alternatives().conditional(Joi.array(), {
+    then: Joi.array().items(cancelShipmentsTestParamsSchema),
+    otherwise: cancelShipmentsTestParamsSchema,
   }),
   createShipment_domestic: Joi.alternatives().conditional(Joi.array(), {
     then: Joi.array().items(createShipmentDomesticTestParamsSchema),
@@ -224,17 +228,14 @@ const testsSchema = Joi.object({
     then: Joi.array().items(CreateShipmentMultiPackageTestParamsSchema),
     otherwise: CreateShipmentMultiPackageTestParamsSchema,
   }),
-
   createShipment_with_insurance: Joi.alternatives().conditional(Joi.array(), {
     then: Joi.array().items(CreateShipmentWithInsuranceTestParamsSchema),
     otherwise: CreateShipmentWithInsuranceTestParamsSchema,
   }),
-
   rateShipment: Joi.alternatives().conditional(Joi.array(), {
     then: Joi.array().items(RateShipmentTestParamsSchema),
     otherwise: RateShipmentTestParamsSchema,
   }),
-
   rateShipment_with_all_services: Joi.alternatives().conditional(Joi.array(), {
     then: Joi.array().items(RateShipmentWithAllServicesTestParamsSchema),
     otherwise: RateShipmentWithAllServicesTestParamsSchema,
@@ -251,7 +252,6 @@ const testsSchema = Joi.object({
     then: Joi.array().items(TrackShipmentSchema),
     otherwise: TrackShipmentSchema,
   })
-
 }).optional();
 
 const schema = Joi.object().keys({

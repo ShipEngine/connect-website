@@ -7,7 +7,7 @@ import {
 
 import { BaseTestConfigOptions } from "./base-test-config-options";
 
-export interface CancelShipmentTestParams {
+export interface CancelShipmentsTestParams {
   deliveryServiceName: string;
   shipFrom?: AddressWithContactInfoPOJO;
   shipTo?: AddressWithContactInfoPOJO;
@@ -19,6 +19,6 @@ export interface CancelShipmentTestParams {
   shipDateTime: DateTimeZonePOJO | Date | string;
 }
 
-export interface CancelShipmentConfigOptions
-  extends CancelShipmentTestParams,
+export interface CancelShipmentsConfigOptions
+  extends CancelShipmentsTestParams,
   BaseTestConfigOptions { }

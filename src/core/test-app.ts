@@ -16,7 +16,7 @@ import { loadAndValidateConfig } from "./test-app/runner/load-and-validate-confi
 import { logFail, logPass, logStep } from "./utils/log-helpers";
 import { logResults } from "./utils/log-helpers";
 import { RateShipmentWithAllServices } from './test-app/tests/rate-shipment-with-all-services';
-import { CancelShipment } from './test-app/tests/cancel-shipment';
+import { CancelShipments } from './test-app/tests/cancel-shipments';
 import { SameDayPickup } from './test-app/tests/same-day-pickup';
 import { NextDayPickup } from './test-app/tests/next-day-pickup';
 
