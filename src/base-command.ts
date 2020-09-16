@@ -27,7 +27,7 @@ export default abstract class BaseCommand extends Base {
   public async getCurrentUser(debug = false): Promise<AppUser> {
     const apiKey = await ApiKeyStore.get()
     const apiClient = new APIClient(apiKey, debug);
-    const user = await apiClient.user.getCurrent()
+    const user = await apiClient.users.getCurrent()
 
     return user;
   }

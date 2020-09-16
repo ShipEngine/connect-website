@@ -3,7 +3,8 @@ import ono from '@jsdevtools/ono';
 import Apps from "./resources/apps";
 import Deployments from "./resources/deployments";
 import Diagnostics from "./resources/diagnostics";
-import User from "./resources/user";
+import Sellers from "./resources/sellers";
+import Users from "./resources/users";
 
 export interface ApiClientParams {
   endpoint: string;
@@ -37,7 +38,9 @@ export default class APIClient {
 
   diagnostics: Diagnostics;
 
-  user: User;
+  sellers: Sellers;
+
+  users: Users;
 
   apiKey: string;
 
@@ -51,7 +54,8 @@ export default class APIClient {
     this.apps = new Apps(this);
     this.deployments = new Deployments(this);
     this.diagnostics = new Diagnostics(this);
-    this.user = new User(this);
+    this.sellers = new Sellers(this);
+    this.users = new Users(this);
     this.debug = debug;
   }
 
@@ -99,6 +103,10 @@ export default class APIClient {
       return response.data as T;
     } catch (error) {
       const err = error as AxiosError;
+
+      if (this.debug) {
+        console.log('Response:', err.response)
+      }
 
       switch (err.response?.status) {
         case 400:

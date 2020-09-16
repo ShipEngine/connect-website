@@ -20,7 +20,7 @@ export async function packageApp(cwd?: string): Promise<string> {
   // Make a backup copy of the package.json file since we are going to add the bundledDependencies attribute
   const pJsonBackup = await fs.promises.readFile(packagePath);
 
-  cli.action.start("packaging app");
+  cli.action.start("Packaging app");
 
   const results = await fs.promises.readFile(packagePath, "utf-8");
   const pjson = JSON.parse(results) as PackageJSON;
@@ -47,7 +47,7 @@ export async function packageApp(cwd?: string): Promise<string> {
 
   } catch (error) {
     const err = error as Error;
-    const errorMessage = `unable to bundle dependencies and package app: ${err.message}`;
+    const errorMessage = `Unable to bundle dependencies and package app: ${err.message}`;
     throw new AppFailedToPackageError(errorMessage);
   } finally {
     // Restore the package.json backup

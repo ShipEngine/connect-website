@@ -45,11 +45,15 @@ export default class Info extends BaseCommand {
 
       const latestDeployment = paginatedDeployments.items[0];
 
-      const table = new Table({
-        head: ['ID', 'Name', "Type", "Status", "Created At"]
-      });
+      const table = new Table();
 
-      table.push([platformApp.id, platformApp.name, platformApp.type, latestDeployment.status, latestDeployment.createdAt])
+      table.push(
+        { 'ID': [platformApp.id] },
+        { 'Name': [platformApp.name] },
+        { 'Type': [platformApp.type] },
+        { 'Status': [latestDeployment.status] },
+        { 'Created At': [latestDeployment.createdAt] },
+      );
       this.log(table.toString());
     } catch (error) {
       switch (error.code) {
