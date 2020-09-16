@@ -42,7 +42,6 @@ const mapTrackEvent = (event: TrackingEvent): EventElement => {
     postal_code: event.address?.postalCode,
     state: event.address?.stateProvince,
     signer: event.signer ? dxPersonNameToString(event.signer) : undefined,
-    geo: undefined, // TODO: DX does not have geo for CAPI tracking event
   };
 };
 
@@ -50,11 +49,6 @@ export const mapTrackingResponse = (
   trackingInfo: TrackingInfo,
   transaction: Transaction
 ): TrackResponse => {
-  const totalWeight = trackingInfo.packages
-    .map((p) => p.weight?.value ?? 0)
-    .reduce((total, current) => {
-      return total + current;
-    }, 0);
 
   const errorEvent = {
     description: '',
@@ -75,18 +69,12 @@ export const mapTrackingResponse = (
 
   const capiInfo: CapiTrackingInfo = {
     actual_delivery_datetime: trackingInfo.deliveryDateTime?.toISOString(),
-    carrierEnum: 0, //deprecated
-    carrier_name: '', //not used according to Justin
-    carrier_status_code: mapStatusCode(trackingInfo.latestEvent.status),
+    carrier_status_code: trackingInfo.latestEvent.code,
     carrier_status_description: trackingInfo.latestEvent.description,
-    dimensions: undefined, //TODO: DX tracking -> CAPI response: should dimensions be the first package?
     error_description: errorEvent.description,
-    estimated_delivery_datetime: undefined, // TODO: DX TrackingInfo doesn't seem to have estimated delivery
     events: trackingInfo.events.map(mapTrackEvent),
     last_event: mapTrackEvent(trackingInfo.latestEvent),
     package_count: trackingInfo.packages?.length ?? 0,
-    packaging: undefined, //TODO: dont know what capi-tracking-info.packaging string means
-    service: undefined, // TODO DX TrackingInfo does not define service
     shipped_datetime: trackingInfo.shipDateTime?.toISOString(),
     shipping_problem: trackingInfo.hasError,
     shipping_problem_code: errorEvent.problemCode,
@@ -95,7 +83,6 @@ export const mapTrackingResponse = (
       trackingInfo.status
     ),
     tracking_number: trackingInfo.trackingNumber,
-    weight: totalWeight, //TODO: converting DX tracking -> CAPI, should CAPI weight be a sum or the first package?
   };
 
   return {
