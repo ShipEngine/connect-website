@@ -1,5 +1,4 @@
 /* eslint-disable camelcase */
-import Joi from "joi";
 import Config from "./config";
 import ono from "@jsdevtools/ono";
 import {
@@ -9,10 +8,12 @@ import {
   ContactInfo,
   TimeRange,
   Dimensions,
-  Address,
+  Address, Joi
 } from "@shipengine/connect-sdk/lib/internal/common";
 import { NewLabel } from "@shipengine/connect-sdk/lib/internal/carriers/documents/new-label";
 import { _internal, MonetaryValue } from "@shipengine/connect-sdk/lib/internal/common";
+import { PickupCancellationReason } from '@shipengine/connect-sdk';
+import { ValidationOptions } from 'joi';
 
 const joiOptions = {
   abortEarly: false,
@@ -169,6 +170,26 @@ const SameDayPickupTestParamsSchema = Joi.object({
   }
 });
 
+const CancelPickupsSamedayTestParamsSchema = Joi.object({
+  ...baseTestParamValidations,
+  ...{
+    pickupServiceName: Joi.string().optional(),
+    deliveryServiceName: Joi.string().optional(),
+    address: Address[_internal].schema.optional(),
+    contact: ContactInfo[_internal].schema.optional(),
+    timeWindow: TimeRange[_internal].schema.optional(),
+    shipments: Joi.object({
+      deliveryServiceName: Joi.string(),
+      packages: Joi.array().items(Joi.object({
+        packagingName: Joi.string(),
+        dimensions: Dimensions[_internal].schema.optional(),
+        weight: Weight[_internal].schema.optional()
+      }))
+    }),
+    cancellationReason: Joi.string().enum(PickupCancellationReason)
+  }
+});
+
 const NextDayPickupTestParamsSchema = Joi.object({
   ...baseTestParamValidations,
   ...{
@@ -239,6 +260,12 @@ const testsSchema = Joi.object({
     then: Joi.array().items(RateShipmentWithAllServicesTestParamsSchema),
     otherwise: RateShipmentWithAllServicesTestParamsSchema,
   }),
+
+  cancelPickups_same_day: Joi.alternatives().conditional(Joi.array(), {
+    then: Joi.array().items(CancelPickupsSamedayTestParamsSchema),
+    otherwise: CancelPickupsSamedayTestParamsSchema,
+  }),
+
   schedulePickup_same_day: Joi.alternatives().conditional(Joi.array(), {
     then: Joi.array().items(SameDayPickupTestParamsSchema),
     otherwise: SameDayPickupTestParamsSchema,
@@ -265,7 +292,7 @@ const schema = Joi.object().keys({
 });
 
 const validateConfig = (config: Config): Config => {
-  const { error, value } = schema.validate(config, joiOptions as Joi.ValidationOptions);
+  const { error, value } = schema.validate(config, joiOptions as ValidationOptions);
 
   if (error) {
     throw ono(error, { code: "ERR_CONNECT_CONFIG_SCHEMA" });
