@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 "use strict";
 
 const { RateShipmentReturn } = require("../../../../../lib/core/test-app/tests/rate-return-shipment");
