@@ -231,7 +231,7 @@ const testsSchema = Joi.object({
     otherwise: RateShipmentTestParamsSchema,
   }),
 
-  RateShipmentReturn: Joi.alternatives().conditional(Joi.array(), {
+  rateShipment_return: Joi.alternatives().conditional(Joi.array(), {
     then: Joi.array().items(RateShipmentReturnTestParamsSchema),
     otherwise: RateShipmentReturnTestParamsSchema,
   }),

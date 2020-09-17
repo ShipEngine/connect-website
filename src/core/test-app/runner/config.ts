@@ -26,7 +26,7 @@ export interface TestsConfig {
   createShipment_return?: CreateShipmentReturnConfigOptions | [CreateShipmentReturnConfigOptions];
   rateShipment?: RateShipmentConfigOptions | [RateShipmentConfigOptions];
   rateShipment_with_all_services?: RateShipmentWithAllServicesConfigOptions | [RateShipmentWithAllServicesConfigOptions];
-  RateShipmentReturn?: RateShipmentReturnConfigOptions | [RateShipmentReturnConfigOptions];
+  rateShipment_return?: RateShipmentReturnConfigOptions | [RateShipmentReturnConfigOptions];
   schedulePickup_same_day?: SameDayPickupConfigOptions | [SameDayPickupConfigOptions];
 
   // createShipment_multi_package?: TestOptions | [TestOptions];

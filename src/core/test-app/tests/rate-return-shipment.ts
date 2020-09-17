@@ -106,7 +106,10 @@ export class RateShipmentReturn extends Suite {
       shipFrom: testParams.shipFrom,
       shipTo: testParams.shipTo,
       shipDateTime: testParams.shipDateTime,
-      packages: [packageRateCriteriaPOJO]
+      packages: [packageRateCriteriaPOJO],
+      returns: {
+        isReturn: true
+      }
     };
 
     const title = config.expectedErrorMessage
