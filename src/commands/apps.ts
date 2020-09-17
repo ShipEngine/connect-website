@@ -11,11 +11,17 @@ export default class Apps extends BaseCommand {
       char: "h",
       description: "Show help for the apps commands",
     }),
+    debug: flags.boolean({
+      char: "d",
+      description: "Show network debugging information",
+      default: false,
+      hidden: true
+    }),
   };
 
   async run(): Promise<void> {
     // When the -h flag is present the following line haults execution
-    this.parse(Apps);
+    const { flags } = this.parse(Apps);
 
     // Verify user is logged in
     try {
@@ -28,7 +34,7 @@ export default class Apps extends BaseCommand {
       head: ['ID', 'Name', "Type"]
     });
 
-    const apiClient = await this.apiClient()
+    const apiClient = await this.apiClient(flags.debug)
     const apps = apiClient.apps.getAll();
 
     (await apps).items.forEach((app) => {

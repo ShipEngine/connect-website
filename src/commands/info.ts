@@ -13,15 +13,21 @@ export default class Info extends BaseCommand {
       char: "h",
       description: "Show help for the info command",
     }),
+    debug: flags.boolean({
+      char: "d",
+      description: "Show network debugging information",
+      default: false,
+      hidden: true
+    }),
   };
 
   async run(): Promise<void> {
     // When the -h flag is present the following line haults execution
-    this.parse(Info);
+    const { flags } = this.parse(Info);
 
     // Verify user is logged in
     try {
-      await this.getCurrentUser();
+      await this.getCurrentUser(flags.debug);
     } catch {
       await Login.run([])
     }
@@ -30,7 +36,7 @@ export default class Info extends BaseCommand {
       const pathToApp = process.cwd();
       const app = await loadApp(pathToApp);
 
-      const apiClient = await this.apiClient()
+      const apiClient = await this.apiClient(flags.debug)
 
       const platformApp = await apiClient.apps.getByName(app.manifest.name);
       const paginatedDeployments = await apiClient.deployments.getAllForAppId(
@@ -39,11 +45,15 @@ export default class Info extends BaseCommand {
 
       const latestDeployment = paginatedDeployments.items[0];
 
-      const table = new Table({
-        head: ['ID', 'Name', "Type", "Status", "Created At"]
-      });
+      const table = new Table();
 
-      table.push([platformApp.id, platformApp.name, platformApp.type, latestDeployment.status, latestDeployment.createdAt])
+      table.push(
+        { 'ID': [platformApp.id] },
+        { 'Name': [platformApp.name] },
+        { 'Type': [platformApp.type] },
+        { 'Status': [latestDeployment.status] },
+        { 'Created At': [latestDeployment.createdAt] },
+      );
       this.log(table.toString());
     } catch (error) {
       switch (error.code) {

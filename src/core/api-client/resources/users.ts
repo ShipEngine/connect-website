@@ -1,7 +1,7 @@
 import { AppUser } from "../../types";
 import AppsAPIClient from '..';
 
-export default class User {
+export default class Users {
   private client: AppsAPIClient;
 
   constructor(apiClient: AppsAPIClient) {

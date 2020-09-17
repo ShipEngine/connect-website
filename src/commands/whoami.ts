@@ -11,14 +11,20 @@ export default class Whoami extends BaseCommand {
       char: "h",
       description: "Show help for the whoami command",
     }),
+    debug: flags.boolean({
+      char: "d",
+      description: "Show network debugging information",
+      default: false,
+      hidden: true
+    }),
   };
 
   async run(): Promise<void> {
     // When the -h flag is present the following line haults execution
-    this.parse(Whoami);
+    const { flags } = this.parse(Whoami);
 
     try {
-      const appUser = await this.getCurrentUser();
+      const appUser = await this.getCurrentUser(flags.debug);
 
       this.log(`You are currently logged in as: ${appUser.name}`);
     } catch (error) {
