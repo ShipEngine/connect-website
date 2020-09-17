@@ -6,7 +6,7 @@ const pojo = require("../../../../utils/pojo");
 const { expect } = require("chai");
 const sinon = require("sinon");
 
-describe.only("The rate return shipment test suite", () => {
+describe("The rate return shipment test suite", () => {
 
   describe("when there is no address available for the delivery service", () => {
     it("should not generate tests", () => {
