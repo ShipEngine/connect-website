@@ -8,7 +8,10 @@ import {
   CreateShipmentMultiPackage,
   RateShipment,
   CreateShipmentReturn,
-  TrackShipment
+  TrackShipment,
+  TrackShipmentReturn,
+  SameDayPickup,
+  NextDayPickup
 } from "./test-app/tests";
 import { SdkApp } from "./types";
 import { TestResults, useTestResults } from "./test-app/runner/test-results";
@@ -17,8 +20,6 @@ import { logFail, logPass, logStep } from "./utils/log-helpers";
 import { logResults } from "./utils/log-helpers";
 import { RateShipmentWithAllServices } from './test-app/tests/rate-shipment-with-all-services';
 import { CancelShipment } from './test-app/tests/cancel-shipment';
-import { SameDayPickup } from './test-app/tests/same-day-pickup';
-import { NextDayPickup } from './test-app/tests/next-day-pickup';
 
 interface TesOptions {
   debug?: boolean;
@@ -162,8 +163,7 @@ function registerTestSuiteModules(app: SdkApp): RegisteredTestSuiteModules {
       RateShipment,
       RateShipmentWithAllServices
     ],
-    // schedulePickup: [SchedulePickupTestSuite],
-    trackShipment: [TrackShipment],
+    trackShipment: [TrackShipment, TrackShipmentReturn],
   };
 
   const orderAppMethods = {

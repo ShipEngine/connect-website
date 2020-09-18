@@ -11,6 +11,9 @@ export * from "./create-shipment-return";
 // export * from "./get-seller-test-suite";
 export * from "./rate-shipment";
 export * from "./track-shipment";
+export * from "./track-shipment-return"
+export * from "./same-day-pickup";
+export * from "./next-day-pickup";
 // export * from "./schedule-pickup-test-suite";
 // export * from "./shipment-created-test-suite";
 // export * from "./track-shipment-test-suite";

@@ -10,6 +10,8 @@ import { CancelShipmentConfigOptions } from './config/cancel-shipment';
 import { CreateShipmentReturnConfigOptions } from './config/create-shipment-return';
 import { SameDayPickupConfigOptions } from './config/same-day-pickup';
 import { NextDayPickupConfigOptions } from './config/next-day-pickup';
+import { TrackShipmentConfigOptions } from './config/track-shipment';
+import { TrackShipmentReturnConfigOptions } from './config/track-shipment-return';
 
 export interface TestsConfig {
   // cancelPickups?: (TestOptions & TestOptions) | [TestOptions];
@@ -28,10 +30,11 @@ export interface TestsConfig {
   rateShipment_with_all_services?: RateShipmentWithAllServicesConfigOptions | [RateShipmentWithAllServicesConfigOptions];
   schedulePickup_same_day?: SameDayPickupConfigOptions | [SameDayPickupConfigOptions];
   schedulePickup_next_day?: NextDayPickupConfigOptions | [NextDayPickupConfigOptions];
+  trackShipment?: TrackShipmentConfigOptions | [TrackShipmentConfigOptions];
+  trackReturnShipment?: TrackShipmentReturnConfigOptions | [TrackShipmentReturnConfigOptions];
 
   // createShipment_multi_package?: TestOptions | [TestOptions];
   // rateShipmentWithOneService?: RateShipmentConfigOptions | [RateShipmentConfigOptions];
-  // trackShipment?: TestOptions | [TestOptions];
 }
 
 export default interface Config {
