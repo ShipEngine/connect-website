@@ -8,7 +8,8 @@ import {
   CreateShipmentMultiPackage,
   RateShipment,
   CreateShipmentReturn,
-  TrackShipment
+  TrackShipment, 
+  CancelPickupsNextDay
 } from "./test-app/tests";
 import { SdkApp } from "./types";
 import { TestResults, useTestResults } from "./test-app/runner/test-results";
@@ -157,7 +158,7 @@ function registerTestSuiteModules(app: SdkApp): RegisteredTestSuiteModules {
       CreateShipmentWithInsurance,
       CreateShipmentReturn
     ],
-    cancelPickups: [CancelPickupsSameDay],
+    cancelPickups: [CancelPickupsSameDay, CancelPickupsNextDay],
     schedulePickup: [SameDayPickup, NextDayPickup],
     rateShipment: [
       RateShipment,
