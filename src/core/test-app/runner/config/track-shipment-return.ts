@@ -17,6 +17,7 @@ export interface TrackShipmentReturnTestParams {
   dimensions: DimensionsPOJO;
   shipDateTime: DateTimeZonePOJO | Date | string;
   deliveryConfirmationName?: string;
+  rmaNumber?: string;
 }
 
 export interface TrackShipmentReturnConfigOptions

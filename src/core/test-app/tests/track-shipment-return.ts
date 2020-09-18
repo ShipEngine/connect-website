@@ -152,6 +152,10 @@ export class TrackShipmentReturn extends Suite {
       deliveryService: {
         id: this.deliveryService.id,
       },
+      returns: {
+        isReturn: true,
+        rmaNumber: testParams.rmaNumber
+      },
       shipFrom: testParams.shipFrom,
       shipTo: testParams.shipTo,
       shipDateTime: testParams.shipDateTime,
