@@ -12,7 +12,7 @@ export interface TrackShipmentTestParams {
   deliveryServiceName: string;
   label: NewLabelPOJO;
   shipFrom?: AddressWithContactInfoPOJO;
-  returnTo?: AddressWithContactInfoPOJO;
+  shipTo?: AddressWithContactInfoPOJO;
   weight: WeightPOJO;
   dimensions: DimensionsPOJO;
   shipDateTime: DateTimeZonePOJO | Date | string;
