@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 "use strict";
 
-const { CancelSameDayPickup } = require("../../../../../lib/core/test-app/tests/cancel-same-day-pickup");
+const { CancelPickupsSameDay } = require("../../../../../lib/core/test-app/tests/cancel-pickups-same-day");
 const { CarrierApp } = require("@shipengine/connect-sdk/lib/internal/carriers/carrier-app");
 const pojo = require("../../../../utils/pojo");
 const { expect } = require("chai");
@@ -18,7 +18,7 @@ describe("The cancel same day pickup test suite", () => {
 
       const app = new CarrierApp(appDefinition);
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CancelSameDayPickup(args);
+      const testSuite = new CancelPickupsSameDay(args);
 
       const tests = testSuite.tests();
       expect(tests.length).to.equal(0);
@@ -32,7 +32,7 @@ describe("The cancel same day pickup test suite", () => {
       const app = new CarrierApp(appDefinition);
       const args = { app, connectArgs, staticConfigTests, options };
 
-      testSuite = new CancelSameDayPickup(args);
+      testSuite = new CancelPickupsSameDay(args);
     });
 
     it("should generate a test", () => {
@@ -78,7 +78,7 @@ describe("The cancel same day pickup test suite", () => {
       };
 
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CancelSameDayPickup(args);
+      const testSuite = new CancelPickupsSameDay(args);
       const tests = testSuite.tests();
 
       expect(tests[0].title).to.include("contact: Jane Doe");
@@ -103,7 +103,7 @@ describe("The cancel same day pickup test suite", () => {
         ];
 
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CancelSameDayPickup(args);
+      const testSuite = new CancelPickupsSameDay(args);
       tests = testSuite.tests();
     });
 
@@ -132,7 +132,7 @@ describe("The cancel same day pickup test suite", () => {
       };
 
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CancelSameDayPickup(args);
+      const testSuite = new CancelPickupsSameDay(args);
 
       try {
         testSuite.tests();
@@ -153,7 +153,7 @@ describe("The cancel same day pickup test suite", () => {
       };
 
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CancelSameDayPickup(args);
+      const testSuite = new CancelPickupsSameDay(args);
 
       try {
         testSuite.tests();
@@ -186,7 +186,7 @@ describe("The cancel same day pickup test suite", () => {
 
       const app = new CarrierApp(appDefinition);
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CancelSameDayPickup(args);
+      const testSuite = new CancelPickupsSameDay(args);
       const tests = testSuite.tests();
 
       expect(tests[0].title).to.include("deliveryServiceName: Better Delivery Service");
@@ -208,7 +208,7 @@ describe("The cancel same day pickup test suite", () => {
 
       const app = new CarrierApp(appDefinition);
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CancelSameDayPickup(args);
+      const testSuite = new CancelPickupsSameDay(args);
       const tests = testSuite.tests();
 
       expect(tests[0].title).to.include("pickupServiceName: Better Pickup Service");
@@ -234,7 +234,7 @@ describe("The cancel same day pickup test suite", () => {
       };
 
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CancelSameDayPickup(args);
+      const testSuite = new CancelPickupsSameDay(args);
       const tests = testSuite.tests();
 
       expect(tests[0].methodArgs.address.company).to.equal("Domestic Route #1");
@@ -262,7 +262,7 @@ describe("The cancel same day pickup test suite", () => {
 
       const app = new CarrierApp(appDefinition);
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CancelSameDayPickup(args);
+      const testSuite = new CancelPickupsSameDay(args);
       const tests = testSuite.tests();
 
       try {

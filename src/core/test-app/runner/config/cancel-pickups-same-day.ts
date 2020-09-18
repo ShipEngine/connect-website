@@ -20,7 +20,7 @@ export type PickupShipmentConfig = {
   packages: PickupPackageConfig[];
 };
 
-export interface CancelSameDayPickupTestParams {
+export interface CancelPickupsSameDayTestParams {
   pickupServiceName: string;
   deliveryServiceName: string;
   address: AddressPOJO;
@@ -30,6 +30,6 @@ export interface CancelSameDayPickupTestParams {
   cancellationReason: PickupCancellationReason;
 }
 
-export interface CancelSameDayPickupConfigOptions
-  extends CancelSameDayPickupTestParams,
+export interface CancelPickupsSameDayConfigOptions
+  extends CancelPickupsSameDayTestParams,
     BaseTestConfigOptions {}

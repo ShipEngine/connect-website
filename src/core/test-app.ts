@@ -19,7 +19,7 @@ import { RateShipmentWithAllServices } from './test-app/tests/rate-shipment-with
 import { CancelShipment } from './test-app/tests/cancel-shipment';
 import { SameDayPickup } from './test-app/tests/same-day-pickup';
 import { NextDayPickup } from './test-app/tests/next-day-pickup';
-import { CancelSameDayPickup } from './test-app/tests/cancel-same-day-pickup';
+import { CancelPickupsSameDay } from './test-app/tests/cancel-pickups-same-day';
 
 interface TesOptions {
   debug?: boolean;
@@ -157,7 +157,7 @@ function registerTestSuiteModules(app: SdkApp): RegisteredTestSuiteModules {
       CreateShipmentWithInsurance,
       CreateShipmentReturn
     ],
-    cancelPickups: [CancelSameDayPickup],
+    cancelPickups: [CancelPickupsSameDay],
     schedulePickup: [SameDayPickup, NextDayPickup],
     rateShipment: [
       RateShipment,

@@ -2,7 +2,7 @@ import { DeliveryService, PickupService, LengthUnit, WeightUnit, PickupCancellat
 import { CarrierApp, PickupRequestPOJO, PickupShipmentPOJO, PickupPackagePOJO, PickupCancellationPOJO } from "@shipengine/connect-sdk/lib/internal";
 import Suite from "../runner/suite";
 import { initializeTimeStamps } from "../../utils/time-stamps";
-import { CancelSameDayPickupTestParams, CancelSameDayPickupConfigOptions } from "../runner/config/cancel-same-day-pickup";
+import { CancelPickupsSameDayTestParams, CancelPickupsSameDayConfigOptions } from "../runner/config/cancel-pickups-same-day";
 import reduceDefaultsWithConfig from "../utils/reduce-defaults-with-config";
 import objectToTestTitle from "../utils/object-to-test-title";
 import useShipmentAddresses from '../utils/use-shipment-addresses';
@@ -19,10 +19,10 @@ interface TestArgs {
   title: string;
   methodArgs: PickupRequestPOJO;
   config: unknown;
-  testParams: CancelSameDayPickupTestParams;
+  testParams: CancelPickupsSameDayTestParams;
 }
 
-export class CancelSameDayPickup extends Suite {
+export class CancelPickupsSameDay extends Suite {
   title = "cancelPickups_same_day";
 
   private deliveryService: DeliveryService | undefined;
@@ -30,7 +30,7 @@ export class CancelSameDayPickup extends Suite {
   private pickupService: PickupService | undefined;
 
   private setDeliveryService(
-    config: CancelSameDayPickupConfigOptions,
+    config: CancelPickupsSameDayConfigOptions,
   ): void {
     const carrierApp = this.app as CarrierApp;
 
@@ -48,7 +48,7 @@ export class CancelSameDayPickup extends Suite {
     }
   }
 
-  private setPickupService(config: CancelSameDayPickupConfigOptions): void {
+  private setPickupService(config: CancelPickupsSameDayConfigOptions): void {
     const carrierApp = this.app as CarrierApp;
 
     if (config.pickupServiceName) {
@@ -60,7 +60,7 @@ export class CancelSameDayPickup extends Suite {
     }
   }
 
-  buildTestArg(config: CancelSameDayPickupConfigOptions): TestArgs | undefined {
+  buildTestArg(config: CancelPickupsSameDayConfigOptions): TestArgs | undefined {
     const carrierApp = this.app as CarrierApp;
     this.setPickupService(config);
     this.setDeliveryService(config);
@@ -74,7 +74,7 @@ export class CancelSameDayPickup extends Suite {
 
     const { todayEarly, todayEvening } = initializeTimeStamps();
 
-    const defaults: CancelSameDayPickupTestParams = {
+    const defaults: CancelPickupsSameDayTestParams = {
       pickupServiceName: this.pickupService.name,
       deliveryServiceName: this.deliveryService.name,
       address,
@@ -105,7 +105,7 @@ export class CancelSameDayPickup extends Suite {
     };
 
     const testParams = reduceDefaultsWithConfig<
-    CancelSameDayPickupTestParams
+    CancelPickupsSameDayTestParams
     >(defaults, config);
 
     const shipments: PickupShipmentPOJO[] = testParams.shipments.map((shipmentParams) => {
@@ -151,12 +151,12 @@ export class CancelSameDayPickup extends Suite {
 
   buildTestArgs(): Array<TestArgs | undefined> {
     if (Array.isArray(this.config)) {
-      return this.config.map((config: CancelSameDayPickupConfigOptions) => {
+      return this.config.map((config: CancelPickupsSameDayConfigOptions) => {
         return this.buildTestArg(config);
       });
     }
 
-    const config = this.config as CancelSameDayPickupConfigOptions;
+    const config = this.config as CancelPickupsSameDayConfigOptions;
     return [this.buildTestArg(config)];
   }
 
