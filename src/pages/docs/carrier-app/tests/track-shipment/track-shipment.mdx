@@ -1,21 +1,18 @@
 ---
-title: Acceptance Tests | createShipment_with_insurance
+title: Acceptance Tests | trackShipment
 description: This test is part of the ShipEngine Connect carrier app test suite.
 ---
-
 
 Carrier App Tests
 ==================================
 
-### `createShipment_with_insurance`
-This test exercises your app's ability to successfully create a shipment with insurance.
+### `trackShipment`
 
-
+This test exercises your app's ability to successfully track a shipment.
 
 Test Parameters
 -------------------------
-This test has many parameters [that can be customized](#customizing-parameters) in your [`connect.config.js` file](./../../../testing/config.mdx).
-Any parameters you don't override will use their default values.
+This test has many parameters [that can be customized](#customizing-parameters) in your [`connect.config.js` file](../../../testing/config.mdx). Any parameters you don't override will use their default values.
 
 <Reference>
 
@@ -25,7 +22,7 @@ Any parameters you don't override will use their default values.
         a username and password or an auth token.
 
         The data included in this object depends on your service. You will need to
-        provide the information your methods need to make calls without calling your [`connect()` method](./../../../reference/methods/connect.mdx).
+        provide the information your methods need to make calls without calling your [`connect()` method](../../../reference/methods/connect.mdx).
 
         If both a `connectArgs` parameter and a `session` parameter are provided, the `session` parameter will be used.
     </Description>
@@ -37,8 +34,8 @@ Any parameters you don't override will use their default values.
   <Field name="connectArgs" type="object">
     <Description>
         An object containing properties with the same names as those you defined in
-        your [connection form](./../../../reference/forms.mdx#connection-form-examples). These will be used to call your
-        [`connect()` method](./../../../reference/methods/connect.mdx) to obtain a valid `session` object before calling other methods in the test.
+        your [connection form](../../../reference/forms.mdx#connection-form-examples). These will be used to call your
+        [`connect()` method](../../../reference/methods/connect.mdx) to obtain a valid `session` object before calling other methods in the test.
 
         If both a `connectArgs` parameter and a `session` parameter are provided, the `session` parameter will be used.
     </Description>
@@ -87,18 +84,9 @@ Any parameters you don't override will use their default values.
     </DefaultValue>
   </Field>
 
-  <Field name="retries" type="number">
-    <Description>
-      Indicates the number of times to retry the test when a failure is encountered.
-    </Description>
-    <DefaultValue>
-      `0`
-    </DefaultValue>
-  </Field>
-
   <Field name="deliveryServiceName" type="string">
     <Description>
-         The name of the [delivery service](./../../../reference/delivery-service.mdx) you wish to use in this request.
+         The name of the [delivery service](../../../reference/delivery-service.mdx) you wish to use in this request.
     </Description>
     <DefaultValue>
       The name of the first domestic delivery service defined for your app.
@@ -110,9 +98,7 @@ Any parameters you don't override will use their default values.
       An object representing the details of the label to be produced by this method.
     </Description>
     <DefaultValue>
-        The properties and their default values are listed below.
-
-        Note that these are the default values used when no `label` parameter is specified.
+        The properties and their default values are listed below. Note that these are the default values used when no `label` parameter is specified.
 
         If a `label` parameter is specified, it must contain values for all properties.
     </DefaultValue>
@@ -127,7 +113,7 @@ Any parameters you don't override will use their default values.
          * `4x8` - Paper sized 4 inches by 8 inches
     </Description>
     <DefaultValue>
-        The first `labelSize` found for the specified [delivery service](./../../../reference/delivery-service.mdx).
+        The first `labelSize` found for the specified [delivery service](../../../reference/delivery-service.mdx).
     </DefaultValue>
   </Field>
 
@@ -139,12 +125,12 @@ Any parameters you don't override will use their default values.
         * `png` - Portable Graphics Format (PNG)
     </Description>
     <DefaultValue>
-        The first `labelFormat` found for the specified [delivery service](./../../../reference/delivery-service.mdx).
+        The first `labelFormat` found for the specified [delivery service](../../../reference/delivery-service.mdx).
     </DefaultValue>
   </Field>
 
   <Field name="label.referenceFields" type="string[]">
-    <Description>        Some carriers provide general-purpose fields on their labels for custom text.
+      <Description>Some carriers provide general-purpose fields on their labels for custom text.
         This is sometimes used for messages, like "Thank you for shopping with us!",
         or may be used to store reference data, such as account numbers, warehouse codes, etc.
 
@@ -168,7 +154,7 @@ Any parameters you don't override will use their default values.
       [address + contact object](./../../../reference/address.mdx#address-contact-info-properties)
     </Type>
     <Description>
-        The address to ship _from_ in the test. Be sure to include the additional contact info properties.
+        The address to ship _from_ in the test.
     </Description>
     <DefaultValue>
         A valid domestic address based on the `originCountries` and `destinationCountries` of the delivery service.
@@ -184,14 +170,14 @@ Any parameters you don't override will use their default values.
       [address + contact object](./../../../reference/address.mdx#address-contact-info-properties)
     </Type>
     <Description>
-        The address to ship _to_ in the test. Be sure to include the additional contact info properties.
+       The address to ship _to_ in the test.
     </Description>
     <DefaultValue>
         A valid domestic address based on the `originCountries` and `destinationCountries` of the delivery service.
 
-        Note that this is the default value used when no `shipTo` parameter is specified.
+        Note that this is the default value used when no `returnTo` parameter is specified.
 
-        If a `shipTo` parameter is specified, it must contain values for all properties.
+         If a `returnTo` parameter is specified, it must contain values for all properties.
     </DefaultValue>
   </Field>
 
@@ -200,9 +186,7 @@ Any parameters you don't override will use their default values.
       The weight to use for the shipment.
     </Description>
     <DefaultValue>
-        The properties and their default values are listed below.
-
-        Note that these are the default values used when no `weight` parameter is specified.
+        The properties and their default values are listed below. Note that these are the default values used when no `weight` parameter is specified.
 
         If a `weight` parameter is specified, it must contain values for all properties.
     </DefaultValue>
@@ -215,10 +199,9 @@ Any parameters you don't override will use their default values.
         * `oz` - ounces
         * `kg` - kilograms
         * `lb` - pounds
-
     </Description>
     <DefaultValue>
-        `lb`
+      `lb`
     </DefaultValue>
   </Field>
 
@@ -233,7 +216,7 @@ Any parameters you don't override will use their default values.
 
   <Field name="dimensions" type="object">
     <Description>
-      The dimensions for the package.
+      The dimensions to use for the shipment.
     </Description>
     <DefaultValue>
        The properties and their default values are listed below. Note that these are the default values used when no `dimensions` parameter is specified.
@@ -244,7 +227,7 @@ Any parameters you don't override will use their default values.
 
   <Field name="dimensions.length" type="number">
     <Description>
-      The length of the to use for the shipment.
+      The length to use for the shipment.
     </Description>
     <DefaultValue>
       `12`
@@ -281,11 +264,11 @@ Any parameters you don't override will use their default values.
   </Field>
 
   <Field name="shipDateTime">
-   <Type>
-     [date/time object](./../../../reference/date-time.mdx), <br/>
-     or [Date object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) object, <br/>
-     or a string representing the date and time in [ISO](https://www.w3.org/TR/NOTE-datetime) format.
-   </Type>
+    <Type>
+      [date/time object](./../../../reference/date-time.mdx), <br/>
+      or [Date object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) object, <br/>
+      or a string representing the date and time in [ISO](https://www.w3.org/TR/NOTE-datetime) format.
+    </Type>
     <Description>
       The date/time that the package is expected to ship. This is not guaranteed to be in the future.
     </Description>
@@ -296,51 +279,11 @@ Any parameters you don't override will use their default values.
 
   <Field name="deliveryConfirmationName" type="string">
     <Description>
-        The name of the [delivery confirmation](./../../../reference/delivery-confirmation.mdx) to use for this shipment.
+      The name of the [delivery confirmation](./../../../reference/delivery-confirmation.mdx) to use for this shipment.
     </Description>
     <DefaultValue>
-        The name of the first delivery confirmation defined for the specified delivery service, or `undefined` if no
-        delivery confirmations are supported for the selected delivery service.
-    </DefaultValue>
-  </Field>
-
-  <Field name="packagingName" type="string">
-    <Description>
-        The name of the [packaging](./../../../reference/packaging.mdx) to use for this shipment.
-    </Description>
-    <DefaultValue>
-      The name of the first packaging defined for the specified delivery service.
-    </DefaultValue>
-  </Field>
-
-  <Field name="packageInsuredValue" type="object">
-    <Description>
-      An object representing the insured value for the package.
-    </Description>
-    <DefaultValue>
-        The properties and their default values are listed below.
-
-        Note that these are the default values used when no `packageInsuredValue` parameter is specified.
-
-        If a `packageInsuredValue` parameter is specified, it must contain values for all properties.
-    </DefaultValue>
-  </Field>
-
-  <Field name="packageInsuredValue.value" type="number">
-    <Description>
-      The value of the insured amount.
-    </Description>
-    <DefaultValue>
-        `50`
-    </DefaultValue>
-  </Field>
-
-  <Field name="packageInsuredValue.currency" type="string">
-    <Description>
-      The currency for the insured amount.
-    </Description>
-    <DefaultValue>
-        `USD`
+      The name of the first delivery confirmation defined for the specified delivery service, or `undefined` if no
+      delivery confirmations are supported for the selected delivery service.
     </DefaultValue>
   </Field>
 
@@ -349,8 +292,7 @@ Any parameters you don't override will use their default values.
 
 Customizing Parameters
 ------------------------------
-Here's an example of using the [`connect.config.js` file](./../../../testing/config.mdx) to customize the `createShipment_with_insurance` test.
-This example provides values for all parameters and uses the global `connectArgs` parameter for authentication.
+Here's an example of using the [`connect.config.js` file](./../../../testing/config.mdx) to customize the `createShipment_domestic` test. This example provides values for all parameters and uses the global `connectArgs` parameter for authentication.
 
 ```javascript
 module.exports = {
@@ -360,9 +302,9 @@ module.exports = {
     agree_to_eula: true,
   },
   tests: {
-    createShipment_with_insurance: [
+    trackShipment: [
       {
-        deliveryServiceName: `Domestic Standard`,
+        deliveryServiceName: `Next Day Air`,
         label: {
           size: 'A4',
           format: 'pdf',
@@ -381,7 +323,7 @@ module.exports = {
          country: 'US',
          isResidential: false
         },
-        shipTo: {
+        returnTo: {
           name: 'Amanda Miller',
           phoneNumber: '555-555-5555',
           addressLines: [
@@ -397,18 +339,13 @@ module.exports = {
           unit: 'lb',
         },
         dimensions: {
-          length: 5,
-          width: 5,
-          height: 5,
+          width: 10,
+          height: 10,
+          length: 10,
           unit: 'in'
-        }
+        },
         shipDateTime: '2020-04-15T12:00:00-05:00',
-        packagingName: 'Package',
-        deliveryConfirmationName: 'Adult Signature',
-        packageInsuredValue: {
-          value: 150,
-          currency: 'USD'
-        }
+        deliveryConfirmationName: 'Adult Signature'
       }
     ]
   }

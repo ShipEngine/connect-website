@@ -23,6 +23,7 @@ export const menu: MenuContents = [
           { title: "Error Handling", href: "/docs/error-handling" },
           { title: "Sandbox Environments", href: "/docs/sandbox" },
           { title: "Testing", href: "/docs/testing" },
+          { title: "Local Dev Tooling", href: "/docs/local-dev-tooling"},
           { title: "Publishing", href: "/docs/publish" },
         ]
       },

@@ -1,5 +1,5 @@
 ---
-title: Automated Tests | cancelShipment
+title: Acceptance Tests | cancelShipment
 description: This test is part of the ShipEngine Connect carrier app test suite.
 ---
 
@@ -97,8 +97,8 @@ Any parameters you don't override will use their default values.
 
   <Field name="shipDateTime">
     <Type>
-      [DateTime](./../../../reference/date-time.mdx), <br/>
-      [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date), <br/>
+      [date/time object](./../../../reference/date-time.mdx), <br/>
+      or [Date object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) object, <br/>
       or a string representing the date and time in [ISO](https://www.w3.org/TR/NOTE-datetime) format.
     </Type>
     <Description>
@@ -111,7 +111,7 @@ Any parameters you don't override will use their default values.
 
   <Field name="shipFrom">
     <Type>
-      [address + contact object](./../../../reference/address.mdx)
+      [address + contact object](./../../../reference/address.mdx#address-contact-info-properties)
     </Type>
     <Description>
         The address to ship _from_ in the test. Be sure to include the additional contact info properties.
@@ -127,7 +127,7 @@ Any parameters you don't override will use their default values.
 
   <Field name="shipTo">
     <Type>
-      [address + contact object](./../../../reference/address.mdx)
+      [address + contact object](./../../../reference/address.mdx#address-contact-info-properties)
     </Type>
     <Description>
         The address to ship _to_ in the test. Be sure to include the additional contact info properties.

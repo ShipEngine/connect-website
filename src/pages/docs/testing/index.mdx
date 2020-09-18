@@ -14,10 +14,19 @@ There are multiple ways to test your application, and we suggest taking advantag
 
 Local Testing
 -------------------------------------------------------
-[The `connect start` command](./../cli.mdx#run-your-app-locally) provides tooling for testing your app locally during development.
+[ShipEngine Connect](./../../index.mdx) provides local tooling that makes it easier to develop your application.
+The [`connect start` command](./../cli.mdx#run-your-app-locally) starts two local web servers. One server exposes your
+app as a [REST API](#rest-api) and the other provides a [web UI](#ui) that allows you to view
+information about your app and interact with it.
+
+Our tools allow you to start with an application that is runnable, out-of-the-box. You can then debug in real-time as you implement
+your methods. When you generate a new application using the [`connect init` command](./../cli.mdx#initialize-a-new-app),
+ you will have access to these tools before you even implement your first method.
+
+
 
 > **INFO:**
-> Checkout out or [local testing guide](./../local-tooling/index.mdx) to learn more.
+> Checkout out or [local tooling guide](./../local-dev-tooling/index.mdx) to learn more.
 
 Acceptance Testing
 -----------------------------
@@ -156,5 +165,5 @@ our development platform where you can perform live testing through one of our e
 
 <Pager
   prev="./../sandbox.mdx" prevTitle="Sandbox Environments"
-  next="./../publish.mdx" nextTitle="Publishing"
+  next="./../local-dev-tooling/index.mdx" nextTitle="Local Dev Tooling"
 />

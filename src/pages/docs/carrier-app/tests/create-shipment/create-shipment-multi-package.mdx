@@ -1,5 +1,5 @@
 ---
-title: Automated Tests | createShipment_multipackage
+title: Acceptance Tests | createShipment_multipackage
 description: This test is part of the ShipEngine Connect carrier app test suite.
 ---
 
@@ -138,9 +138,9 @@ This test has many parameters [that can be customized](#customizing-parameters) 
 
   <Field name="shipDateTime">
     <Type>
-       [DateTime](./../../../reference/date-time.mdx), <br/>
-       [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date), <br/>
-       or a string representing the date and time in [ISO](https://www.w3.org/TR/NOTE-datetime) format.
+      [date/time object](./../../../reference/date-time.mdx), <br/>
+      or [Date object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) object, <br/>
+      or a string representing the date and time in [ISO](https://www.w3.org/TR/NOTE-datetime) format.
     </Type>
     <Description>
       The date/time that the package is expected to ship. This is not guaranteed to be in the future.
