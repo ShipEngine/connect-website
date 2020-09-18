@@ -5,12 +5,13 @@ description: Shipping preferences are conveyed using the ShippingPreference obje
 
 Shipping Preferences Object
 ===============================================
-Shipping preferences are conveyed using the ShippingPreference object.
-
-
+Shipping preference objects are used in [ShipEngine Connect](./../../index.mdx) to convey shipping preferences
+for a sales order.
 
 Properties
 -----------------------------------------------
+This table lists the properties of a shipping preference object and identifies those properties that are required when
+it is returned from a method.
 
 <Reference>
 
@@ -39,6 +40,8 @@ Properties
   <Field name="insuredValue" type="object" required={false}>
     <Description>
       Requests that the shipment be insured for the specified value.
+
+      This property is not required. If it is provided, it must contain all of its required properties, listed below.
     </Description>
   </Field>
 

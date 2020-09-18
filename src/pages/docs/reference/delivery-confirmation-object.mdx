@@ -7,57 +7,56 @@ description: The page describes how to define a delivery confirmation.
 Delivery Confirmation Object
 ====================
 
-A Delivery Confirmation is a way of ensuring that the shipment reaches its final destination, such as obtaining
+A delivery confirmation is a way of ensuring that the shipment reaches its final destination, such as obtaining
 a signature upon delivery. You defined the delivery confirmation options available through your app in [Delivery Confirmation Definition](./delivery-confirmation.mdx)
 files.
 
+Properties
+-----------------------------
 
-
-Delivery Confirmation Argument
---------------------------------------------
-This table describes the delivery confirmation object that is passed as part of an argument to a ShipEngine Connect
-Carrier App.
-
-For example, the [createShipment method](./methods/create-shipment.mdx) accepts a `shipment` parameter with
-a `deliveryConfirmation` property that corresponds to this object.
-
+This table lists the properties of a delivery confirmation object and identifies those properties that are required. The `nullable`
+column indicates which properties may be null when the object is provided as an argument to one of your methods, and the `required`
+column indicates which properties are required when the object is returned from one of your methods.
 
 <Reference>
 
-  <Field name="id" nullable={false}>
+  <Field name="id" nullable={false} required={true}>
     <Type>
-      UUID
+      [UUID](https://www.npmjs.com/package/uuid)
     </Type>
     <Description>
       UUID that uniquely identifies the delivery confirmation. This ID should never change.
     </Description>
   </Field>
 
-  <Field name="identifiers" type="object" nullable={false}>
+  <Field name="identifiers" nullable={true} required={false}>
     <Description>
       Your own identifiers for this delivery confirmation.
     </Description>
+    <Type>
+      [identifiers object](./identifiers-object.mdx)
+    </Type>
   </Field>
 
-  <Field name="code" type="string" nullable={false}>
+  <Field name="code" type="string" nullable={true}>
     <Description>
       Optional code used to map to what the carrier uses to identify the delivery confirmation.
     </Description>
   </Field>
 
-  <Field name="name" type="string" nullable={false}>
+  <Field name="name" type="string" nullable={true}>
     <Description>
       The user-friendly name for this delivery confirmation (e.g. "Adult Signature", "Authority to Leave").
     </Description>
   </Field>
 
-  <Field name="description" type="string" nullable={false}>
+  <Field name="description" type="string" nullable={true}>
     <Description>
       A short, user-friendly description of this delivery confirmation type.
     </Description>
   </Field>
 
-  <Field name="type" type="string" nullable={false}>
+  <Field name="type" type="string" nullable={true}>
     <Description>
       The type of the delivery confirmation. Valid values include the following:
       * `delivery`
@@ -70,41 +69,6 @@ a `deliveryConfirmation` property that corresponds to this object.
 
 </Reference>
 
-
-
-Delivery Confirmation Return Value
---------------------------------------------
-This table specifies the properties that are required when a delivery confirmation object is returned from a method.
-
-In the case of a return value, only the minimum properties needed for ShipEngine Connect to look up the delivery confirmation
-are required. You may provide an object matching the specification below. You may also simply provide the `code` as a string
-rather than providing this option.
-
-
-<Reference>
-
-  <Field name="id" required={true}>
-    <Type>
-      UUID
-    </Type>
-    <Description>
-      UUID that uniquely identifies the delivery confirmation. This ID should never change.
-    </Description>
-  </Field>
-
-  <Field name="identifiers" type="object" nullable={false}>
-    <Description>
-      Your own identifiers for this delivery confirmation.
-    </Description>
-  </Field>
-
-  <Field name="code" type="string" nullable={false}>
-    <Description>
-      Optional code used to map to what the carrier uses to identify the delivery confirmation.
-    </Description>
-  </Field>
-
-</Reference>
 
 
 

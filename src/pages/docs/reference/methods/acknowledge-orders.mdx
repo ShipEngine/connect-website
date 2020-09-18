@@ -13,7 +13,7 @@ Syntax
 -----------------------------------------------
 <CodeWrapper>
 ```javascript
-module.exports = async function acknowledgeOrders(transaction, salesOrderNotifications[] {
+module.exports = async function acknowledgeOrders(transaction, notifications[] {
   // Your code here
 }
 ```
@@ -49,10 +49,13 @@ An array of notifications regarding sales orders that have been imported.
     </Description>
   </Field>
 
-  <Field name="identifiers" type="object" nullable={false}>
+  <Field name="identifiers" nullable={false}>
     <Description>
       Your own identifiers for this sales order.
     </Description>
+    <Type>
+      [identifiers object](./../identifiers-object.mdx)
+    </Type>
   </Field>
 
   <Field name="orderNumber" nullable={false} type="string">
@@ -63,7 +66,7 @@ An array of notifications regarding sales orders that have been imported.
 
   <Field name="importedDate" nullable={false}>
     <Type>
-      [DateTime](./../date-time.mdx)
+      [date/time object](./../date-time.mdx)
     </Type>
     <Description>
       The sales order associated with this shipment.
@@ -86,10 +89,13 @@ Return Value
     </Description>
   </Field>
 
-  <Field name="identifiers" type="object" required={false}>
+  <Field name="identifiers" required={false}>
     <Description>
       Your own identifiers for this sales order.
     </Description>
+    <Type>
+      [identifiers object](./../identifiers-object.mdx)
+    </Type>
   </Field>
 
   <Field name="succeeded" type="boolean" required={true}>

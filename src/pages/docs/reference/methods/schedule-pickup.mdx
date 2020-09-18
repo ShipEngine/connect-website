@@ -59,13 +59,16 @@ An object representing a request for a carrier to pickup one or more packages at
     </Description>
   </Field>
 
-  <Field name="pickupService.identifiers" type="object" nullable={false}>
+  <Field name="pickupService.identifiers" nullable={false}>
     <Description>
       Your own identifiers for this pickup service.
     </Description>
+    <Type>
+      [identifiers object](./../identifiers-object.mdx)
+    </Type>
   </Field>
 
-  <Field name="pickupService.code" type="string" nullable={false} required={false}>
+  <Field name="pickupService.code" type="string" nullable={false}>
     <Description>
       Optional code used to map to what the carrier uses to identify the pickup service.
     </Description>
@@ -97,7 +100,7 @@ An object representing a request for a carrier to pickup one or more packages at
 
   <Field name="timeWindow.startDateTime" nullable={true}>
     <Type>
-      [DateTime](./../date-time.mdx)
+      [date/time object](./../date-time.mdx)
     </Type>
     <Description>
       The start date/time of the request window.
@@ -106,7 +109,7 @@ An object representing a request for a carrier to pickup one or more packages at
 
   <Field name="timeWindow.endDateTime" nullable={true}>
     <Type>
-      [DateTime](./../date-time.mdx)
+      [date/time object](./../date-time.mdx)
     </Type>
     <Description>
       The end date/time of the request window.
@@ -124,7 +127,7 @@ An object representing a request for a carrier to pickup one or more packages at
 
   <Field name="address" nullable={false}>
     <Type>
-      [Address](./../address.mdx#address-argument)
+      [address object](./../address.mdx#address-properties)
     </Type>
     <Description>
       The address where the package(s) should be picked up.
@@ -133,7 +136,7 @@ An object representing a request for a carrier to pickup one or more packages at
 
   <Field name="contact" nullable={false}>
     <Type>
-      [Contact](./../contact-info.mdx)
+      [contact info object](./../address.mdx#contact-info-properties)
     </Type>
     <Description>
       An object representing contact information about the person there to meet the driver.
@@ -148,7 +151,7 @@ An object representing a request for a carrier to pickup one or more packages at
 
   <Field name="notes[].type" nullable={false}>
     <Type>
-      [NotesType](./../common-types.mdx#notes-types)
+      [notes type string](./../common-types.mdx#notes-types)
     </Type>
     <Description>
       The type for this note.
@@ -173,15 +176,18 @@ An object representing a request for a carrier to pickup one or more packages at
     </Description>
   </Field>
 
-  <Field name="shipments[].identifiers" type="object" nullable={false}>
+  <Field name="shipments[].identifiers" nullable={false}>
     <Description>
       Your own identifiers for this shipment.
     </Description>
+    <Type>
+      [identifiers object](./../identifiers-object.mdx)
+    </Type>
   </Field>
 
   <Field name="shipments[].deliveryService" nullable={false}>
     <Type>
-      [DeliveryService](./../delivery-service-object.mdx#delivery-service-argument)
+      [delivery service object](./../delivery-service-object.mdx#delivery-service-argument)
     </Type>
     <Description>
       The [delivery service](./../delivery-service.mdx) assigned to this shipment.
@@ -206,10 +212,13 @@ An object representing a request for a carrier to pickup one or more packages at
     </Description>
   </Field>
 
-  <Field name="shipments[].packages[].identifiers" type="object" nullable={false}>
+  <Field name="shipments[].packages[].identifiers" nullable={false}>
     <Description>
       Your own identifiers for this package.
     </Description>
+    <Type>
+      [identifiers object](./../identifiers-object.mdx)
+    </Type>
   </Field>
 
   <Field name="shipments[].packages[].packaging" type="object" nullable={false}>
@@ -227,10 +236,13 @@ An object representing a request for a carrier to pickup one or more packages at
     </Description>
   </Field>
 
-  <Field name="shipments[].packages[].packaging.identifiers" type="object" nullable={false}>
+  <Field name="shipments[].packages[].packaging.identifiers" nullable={false}>
     <Description>
       Your own identifiers for this packaging.
     </Description>
+    <Type>
+      [identifiers object](./../identifiers-object.mdx)
+    </Type>
   </Field>
 
   <Field name="shipments[].packages[].packaging[].code" type="string" nullable={false}>
@@ -242,6 +254,8 @@ An object representing a request for a carrier to pickup one or more packages at
   <Field name="shipments[].packages[].dimensions" type="object" nullable={true}>
     <Description>
       The dimensions for the package.
+
+      This property is not required. If it is provided, it must contain all of its required properties, listed below.
     </Description>
   </Field>
 
@@ -271,9 +285,11 @@ An object representing a request for a carrier to pickup one or more packages at
     </Description>
   </Field>
 
-  <Field name="shipments[].packages[].weight" type="object" nullable={false}>
+  <Field name="shipments[].packages[].weight" type="object" nullable={true}>
     <Description>
       The weight of the package.
+
+      This property is not required. If it is provided, it must contain all of its required properties, listed below.
     </Description>
   </Field>
 
@@ -293,7 +309,7 @@ An object representing a request for a carrier to pickup one or more packages at
     </Description>
   </Field>
 
-  <Field name="shipments[].packages[].metadata" type="object" nullable={false}>
+  <Field name="shipments[].packages[].metadata" type="object" nullable={true}>
     <Description>
       Custom data about this package that was persisted by ShipEngine Connect. Must be JSON serializable.
     </Description>
@@ -322,10 +338,13 @@ An object that contains confirmation that a package has been scheduled for picku
     </Description>
   </Field>
 
-  <Field name="identifiers" type="object" required={false}>
+  <Field name="identifiers" required={false}>
     <Description>
       Your own identifiers for this pickup.
     </Description>
+    <Type>
+      [identifiers object](./../identifiers-object.mdx)
+    </Type>
   </Field>
 
   <Field name="timeWindows" type="object[]" required={true}>
@@ -335,11 +354,11 @@ An object that contains confirmation that a package has been scheduled for picku
   </Field>
 
   <Field name="timeWindows[].startDateTime" required={false}>
-    <Type>
-      [DateTime](./../date-time.mdx), <br/>
-      [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date), <br/>
-      or a string representing the date and time in [ISO](https://www.w3.org/TR/NOTE-datetime) format.
-    </Type>
+   <Type>
+     [date/time object](./../date-time.mdx), <br/>
+     or [Date object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) object, <br/>
+     or a string representing the date and time in [ISO](https://www.w3.org/TR/NOTE-datetime) format.
+   </Type>
     <Description>
       The start date/time of the request window.
     </Description>
@@ -347,8 +366,8 @@ An object that contains confirmation that a package has been scheduled for picku
 
   <Field name="timeWindows[].endDateTime" required={false}>
     <Type>
-      [DateTime](./../date-time.mdx), <br/>
-      [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date), <br/>
+      [date/time object](./../date-time.mdx), <br/>
+      or [Date object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) object, <br/>
       or a string representing the date and time in [ISO](https://www.w3.org/TR/NOTE-datetime) format.
     </Type>
     <Description>
@@ -358,10 +377,11 @@ An object that contains confirmation that a package has been scheduled for picku
 
   <Field name="charges" required={true}>
     <Type>
-      [Charge](./../charge.mdx)[]
+      [charge object](./../charge.mdx)[]
     </Type>
     <Description>
-      The breakdown of charges for this shipment. If the carrier does not provide a detailed breakdown, then just use a single charge of type "shipping".
+      The breakdown of charges for this shipment. If the carrier does not provide a detailed breakdown, then just use a
+      single charge of type "shipping".
     </Description>
   </Field>
 
@@ -373,25 +393,32 @@ An object that contains confirmation that a package has been scheduled for picku
 
   <Field name="shipments[].trackingNumber" type="string" required={false}>
     <Description>
-      The master tracking number for the entire shipment. For single-piece shipments, this will be the same as the package tracking number. For multi-piece shipments, this may be a separate tracking number, or the same tracking number as one of the packages.  This string must be between `0` and `100` characters and must not contain newline characters.
+      The master tracking number for the entire shipment. For single-piece shipments, this will be the same as the package
+      tracking number. For multi-piece shipments, this may be a separate tracking number, or the same tracking number as
+      one of the packages.  This string must be between `0` and `100` characters and must not contain newline characters.
     </Description>
   </Field>
 
-  <Field name="shipments[].identifiers" type="object" required={false}>
+  <Field name="shipments[].identifiers" required={false}>
     <Description>
       Your own identifiers for this shipment.
     </Description>
+    <Type>
+      [identifiers object](./../identifiers-object.mdx)
+    </Type>
   </Field>
 
   <Field name="notes" type="object[]" required={false}>
     <Description>
       An array of objects containing additional information about this pickup request.
+
+      This property is not required. If it is provided, it must contain all of its required properties, listed below.
     </Description>
   </Field>
 
   <Field name="notes[].type" required={true}>
     <Type>
-      [NotesType](./../common-types.mdx#notes-types)
+      [notes type string](./../common-types.mdx#notes-types)
     </Type>
     <Description>
       The type for this note.

@@ -51,19 +51,13 @@ The shipment that was created.
     </Description>
   </Field>
 
-  <Field name="identifiers" type="object" nullable={false}>
+  <Field name="identifiers" nullable={false}>
     <Description>
       Your own identifiers for this shipment.
     </Description>
-  </Field>
-
-  <Field name="trackingURL" nullable={true}>
     <Type>
-      [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL/URL)
+      [identifiers object](./../identifiers-object.mdx)
     </Type>
-    <Description>
-      The URL of a webpage where the customer can track the shipment.
-    </Description>
   </Field>
 
   <Field name="salesOrder" type="object" nullable={false}>
@@ -77,29 +71,17 @@ The shipment that was created.
       [UUID](https://www.npmjs.com/package/uuid)
     </Type>
     <Description>
-      The marketplace's unique ID for the sales order.
+      The marketplace's unique ID for the sales order. This string must be between `0` and `100` characters and must not contain newline characters.
     </Description>
   </Field>
 
-  <Field name="salesOrder.identifiers" type="object" nullable={false}>
+  <Field name="salesOrder.identifiers" nullable={false}>
     <Description>
       Your own identifiers for this sales order.
     </Description>
-  </Field>
-
-  <Field name="fulfillmentService" type="string" nullable={true}>
-    <Description>
-      If the shipment is being fulfilled using a well-known third-party carrier, such as UPS, FedEx, DHL, etc., then this field specifies the carrier service.
-    </Description>
-  </Field>
-
-  <Field name="shipFrom" nullable={true}>
     <Type>
-      [address + contact object](./../address.mdx)
+      [identifiers object](./../identifiers-object.mdx)
     </Type>
-    <Description>
-      The sender's contact info and address.
-    </Description>
   </Field>
 
   <Field name="shipTo" nullable={false}>
@@ -113,7 +95,7 @@ The shipment that was created.
 
   <Field name="shipDateTime" nullable={false}>
     <Type>
-      [DateTime](./../date-time.mdx)
+      [date/time object](./../date-time.mdx)
     </Type>
     <Description>
       The date/time that the shipment was shipped or is expected to ship. This is not guaranteed to be in the future.
@@ -126,15 +108,29 @@ The shipment that was created.
     </Description>
   </Field>
 
+  <Field name="contents[].quantity" type="object" nullable={false}>
+      <Description>
+        The quantity of this item in the sales order.
+      </Description>
+    </Field>
+
+    <Field name="contents[].quantity.value" type="number" nullable={false}>
+      <Description>
+        The quantity of items in this sales order item. The minimum value for this property is `1`.
+      </Description>
+    </Field>
+
   <Field name="contents[].salesOrderItem" type="object" nullable={true}>
     <Description>
       The sales order associated with this item.
+
+      This property may be null. If it is provided, all its required properties, listed below, will be included.
     </Description>
   </Field>
 
   <Field name="contents[].salesOrderItem.id" type="string" nullable={false}>
     <Description>
-      The marketplace's unique ID for the sales order item.
+      The marketplace's unique ID for the sales order item. This string must be between `0` and `100` characters and must not contain newline characters.
     </Description>
   </Field>
 
@@ -144,15 +140,20 @@ The shipment that was created.
     </Description>
   </Field>
 
-  <Field name="contents[].salesOrderItem.identifiers" type="object" nullable={false}>
+  <Field name="contents[].salesOrderItem.identifiers" nullable={false}>
     <Description>
       Your own identifiers for this sales order item.
     </Description>
+    <Type>
+      [identifiers object](./../identifiers-object.mdx)
+    </Type>
   </Field>
 
-  <Field name="contents[].product" type="object" nullable={false}>
+  <Field name="contents[].product" type="object" nullable={true}>
     <Description>
       The product associated with this item.
+
+      This property may be null. If it is provided, all its required properties, listed below, will be included.
     </Description>
   </Field>
 
@@ -198,23 +199,43 @@ The shipment that was created.
     </Description>
   </Field>
 
-  <Field name="contents[].product.identifiers" type="object" nullable={false}>
+  <Field name="contents[].product.identifiers" nullable={false}>
     <Description>
       Your own identifiers for this product.
     </Description>
+    <Type>
+      [identifiers object](./../identifiers-object.mdx)
+    </Type>
   </Field>
 
- <Field name="contents[].quantity" type="object" nullable={true}>
+  <Field name="trackingURL" nullable={true}>
+    <Type>
+      [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL/URL)
+    </Type>
     <Description>
-      The quantity of this item in the sales order.
+      The URL of a webpage where the customer can track the shipment.
     </Description>
   </Field>
 
-  <Field name="contents[].quantity.value" type="number" nullable={true}>
+<Field name="fulfillmentService" nullable={true}>
     <Description>
-      The quantity of items in this sales order item. The minimum value for this property is `1`.
+      If the shipment is being fulfilled using a well-known third-party carrier, such as UPS, FedEx, DHL, etc., then this field specifies the carrier service.
     </Description>
+    <Type>
+      [fulfillment service string](./../fulfillment-service.mdx)
+    </Type>
   </Field>
+
+  <Field name="shipFrom" nullable={true}>
+      <Type>
+        [address + contact object](./../address.mdx)
+      </Type>
+      <Description>
+        The sender's contact info and address.
+      </Description>
+    </Field>
+
+
 </Reference>
 
 

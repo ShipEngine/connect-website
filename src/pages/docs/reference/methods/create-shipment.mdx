@@ -45,25 +45,16 @@ An object containing information about the new shipment to create.
 
   <Field name="deliveryService" nullable={false}>
     <Type>
-      [DeliveryService](./../delivery-service-object.mdx#delivery-service-argument)
+      [delivery service object](./../delivery-service-object.mdx#delivery-service-argument)
     </Type>
     <Description>
       An object that identifies a [delivery service](./../delivery-service.mdx) that is offered by a carrier.
     </Description>
   </Field>
 
-  <Field name="deliveryConfirmation" nullable={true}>
-    <Type>
-      [DeliveryConfirmation](./../delivery-confirmation-object.mdx#delivery-confirmation-argument)
-    </Type>
-    <Description>
-      The requested [delivery confirmation](./../delivery-confirmation.mdx) for this shipment.
-    </Description>
-  </Field>
-
   <Field name="shipFrom" nullable={false}>
     <Type>
-      [address + contact object](./../address.mdx#address-argument)
+      [address + contact info object](./../address.mdx#address-contact-info-properties)
     </Type>
     <Description>
       The address _from_ which the shipment is being shipped.
@@ -72,7 +63,7 @@ An object containing information about the new shipment to create.
 
   <Field name="shipTo" nullable={false}>
     <Type>
-      [address + contact object](./../address.mdx#address-argument)
+      [address + contact info object](./../address.mdx#address-contact-info-properties)
     </Type>
     <Description>
       The address _to_ which the shipment is being shipped.
@@ -81,7 +72,7 @@ An object containing information about the new shipment to create.
 
   <Field name="returnTo" nullable={false}>
     <Type>
-      [address + contact object](./../address.mdx#address-argument)
+      [address + contact info object](./../address.mdx#address-contact-info-properties)
     </Type>
     <Description>
       The address to which to send the shipment in the case of a return. This may be different from the `shipFrom` address if the customer uses a centralized returns processing facility.
@@ -90,7 +81,7 @@ An object containing information about the new shipment to create.
 
   <Field name="shipDateTime" nullable={false}>
     <Type>
-      [DateTime](./../date-time.mdx)
+      [date/time object](./../date-time.mdx)
     </Type>
     <Description>
       The date/time that the package is expected to ship. This is not guaranteed to be in the future.
@@ -141,7 +132,7 @@ An object containing information about the new shipment to create.
 
   <Field name="packages" nullable={false}>
     <Type>
-      [NewPackage](./../new-package-object.mdx)[]
+      [new package object[]](./../new-package-object.mdx)
     </Type>
     <Description>
       The list of packages in this shipment.
@@ -150,10 +141,19 @@ An object containing information about the new shipment to create.
 
   <Field name="package" nullable={false}>
     <Type>
-      [NewPackage](./../new-package-object.mdx)
+      [new package object](./../new-package-object.mdx)
     </Type>
     <Description>
       Returns the first package in the `packages` array. Useful for carriers that only support single-piece shipments.
+    </Description>
+  </Field>
+
+ <Field name="deliveryConfirmation" nullable={true}>
+    <Type>
+      [delivery confirmation object](./../delivery-confirmation-object.mdx#delivery-confirmation-argument)
+    </Type>
+    <Description>
+      The requested [delivery confirmation](./../delivery-confirmation.mdx) for this shipment.
     </Description>
   </Field>
 
@@ -167,18 +167,6 @@ Return Value
 An object that contains confirmation that a shipment has been created.
 
 <Reference>
-
-  <Field name="trackingNumber" type="string" required={false}>
-    <Description>
-      The master tracking number for the entire shipment. For single-piece shipments, this will be the same as the package tracking number. For multi-piece shipments, this may be a separate tracking number, or the same tracking number as one of the packages. This string must be between `0` and `100` characters and must not contain newline characters.
-    </Description>
-  </Field>
-
-  <Field name="identifiers" type="object" required={false}>
-    <Description>
-      Your own identifiers for this shipment.
-    </Description>
-  </Field>
 
   <Field name="label" type="object" required={true}>
     <Description>
@@ -220,7 +208,7 @@ An object that contains confirmation that a shipment has been created.
 
   <Field name="label.data" required={true}>
     <Type>
-      [Buffer](https://nodejs.org/api/buffer.html)
+      [Buffer object](https://nodejs.org/api/buffer.html)
     </Type>
     <Description>
       The label data, in the specified file format.
@@ -233,9 +221,20 @@ An object that contains confirmation that a shipment has been created.
     </Description>
   </Field>
 
+  <Field name="charges" required={true}>
+    <Type>
+      [charge object[]](./../charge.mdx)
+    </Type>
+    <Description>
+      The breakdown of charges for this shipment.  If the carrier does not provide a detailed breakdown, then just use a single charge of type "shipping".
+    </Description>
+  </Field>
+
   <Field name="form" type="object" required={false}>
     <Description>
       An object representing a form, such as a customs form or scan form.
+
+      This property is not required. If it is provided, it must contain all of its required properties, listed below.
     </Description>
   </Field>
 
@@ -272,30 +271,36 @@ An object that contains confirmation that a shipment has been created.
 
   <Field name="form.data" required={true}>
     <Type>
-      [Buffer](https://nodejs.org/api/buffer.html)
+      [Buffer object](https://nodejs.org/api/buffer.html)
     </Type>
     <Description>
       The form data, in the specified file format.
     </Description>
   </Field>
 
+  <Field name="trackingNumber" type="string" required={false}>
+    <Description>
+      The master tracking number for the entire shipment. For single-piece shipments, this will be the same as the package tracking number. For multi-piece shipments, this may be a separate tracking number, or the same tracking number as one of the packages. This string must be between `0` and `100` characters and must not contain newline characters.
+    </Description>
+  </Field>
+
+  <Field name="identifiers" required={false}>
+    <Type>
+      [identifiers object](./../identifiers-object.mdx)
+    </Type>
+    <Description>
+      Your own identifiers for this shipment.
+    </Description>
+  </Field>
+
   <Field name="deliveryDateTime" required={false}>
     <Type>
-      [DateTime](./../date-time.mdx), <br/>
-      [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date), <br/>
+      [date/time object](./../date-time.mdx), <br/>
+      or [Date object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) object, <br/>
       or a string representing the date and time in [ISO](https://www.w3.org/TR/NOTE-datetime) format.
     </Type>
     <Description>
       The estimated date and time the shipment will be delivered.
-    </Description>
-  </Field>
-
-  <Field name="charges" required={true}>
-    <Type>
-      [Charge](./../charge.mdx)[]
-    </Type>
-    <Description>
-      The breakdown of charges for this shipment.  If the carrier does not provide a detailed breakdown, then just use a single charge of type "shipping".
     </Description>
   </Field>
 
@@ -311,10 +316,13 @@ An object that contains confirmation that a shipment has been created.
     </Description>
   </Field>
 
-  <Field name="packages[].identifiers" type="object" required={false}>
+  <Field name="packages[].identifiers" required={false}>
     <Description>
       Your own identifiers for this package.
     </Description>
+    <Type>
+      [identifiers object](./../identifiers-object.mdx)
+    </Type>
   </Field>
 
   <Field name="packages[].metadata" type="object" required={false}>

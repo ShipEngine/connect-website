@@ -5,12 +5,16 @@ description: An object representing customs for international shipments.
 
 Customs Object
 ===============================================
-An object representing customs for international shipments.
-
+A customs object is used to represent customs information for international shipments.
 
 
 Properties
------------------------------------------------
+--------------------------------
+
+This table lists the properties of a customs object and identifies those properties that are required. The `nullable`
+column indicates which properties may be null when the object is provided as an argument to one of your methods, and the `required`
+column indicates which properties are required when the object is returned from one of your methods.
+
 
 <Reference>
 
@@ -33,7 +37,7 @@ Properties
   <Field name="customs.contents" type="object[]" nullable={false}>
     <Description>
       Describes the contents of the package for customs purposes.
-      
+
       Note that Customs contents may not correspond one-to-one with the package contents.
       Package contents usually include one item per unique merchandise SKU
       e.g. one red t-shirt and one blue t-shirt), whereas customs contents are often grouped by
@@ -99,7 +103,7 @@ Properties
 
   <Field name="customs.contents[].countryOfOrigin" nullable={true}>
     <Type>
-      [CountryCode](./country-codes.mdx)
+      [country code string](./country-codes.mdx)
     </Type>
     <Description>
       The [ISO 3166 country code](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) for the [country](./country-codes.mdx) of origin. This is usually the same as `countryOfManufacture`, but some countries distinguish between the two for certain products.
@@ -108,7 +112,7 @@ Properties
 
   <Field name="customs.contents[].countryOfManufacture" nullable={true}>
     <Type>
-      [CountryCode](./country-codes.mdx)
+      [country code string](./country-codes.mdx)
     </Type>
     <Description>
       The [ISO 3166 country code](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_code) for the [country](./country-codes.mdx) where the item was manufactured.

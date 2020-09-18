@@ -61,10 +61,14 @@ An _array_ of objects representing a request for a carrier to cancel one or more
     </Description>
   </Field>
 
-  <Field name="identifiers" type="object" nullable={false}>
+  <Field name="identifiers" nullable={false}>
     <Description>
       Your own identifiers for this pickup service.
     </Description>
+    <Type>
+      [identifiers object](./../identifiers-object.mdx)
+    </Type>
+
   </Field>
 
   <Field name="pickupService" type="object" nullable={false}>
@@ -82,10 +86,13 @@ An _array_ of objects representing a request for a carrier to cancel one or more
     </Description>
   </Field>
 
-  <Field name="pickupService.identifiers" type="object" nullable={false}>
+  <Field name="pickupService.identifiers" nullable={false}>
     <Description>
       Your own identifiers for this pickup service.
     </Description>
+    <Type>
+      [identifiers object](./../identifiers-object.mdx)
+    </Type>
   </Field>
 
   <Field name="pickupService.code" type="string" nullable={false}>
@@ -131,7 +138,7 @@ An _array_ of objects representing a request for a carrier to cancel one or more
 
   <Field name="notes[].type" nullable={false}>
     <Type>
-      [NotesType](./../common-types.mdx#notes-types)
+      [notes type string](./../common-types.mdx#notes-types)
     </Type>
     <Description>
       The type for this note.
@@ -146,7 +153,7 @@ An _array_ of objects representing a request for a carrier to cancel one or more
 
   <Field name="address" nullable={false}>
     <Type>
-      "[Address](./../address.mdx#address-argument)"
+      [address object](./../address.mdx#address-properties)
     </Type>
     <Description>
       The address where the package(s) should be picked up.
@@ -155,7 +162,7 @@ An _array_ of objects representing a request for a carrier to cancel one or more
 
   <Field name="contact" nullable={false}>
     <Type>
-      [ContactInfo](./../contact-info.mdx)
+      [contact info object](./../contact-info.mdx)
     </Type>
     <Description>
       An object representing contact information about the person there to meet the driver.
@@ -170,7 +177,7 @@ An _array_ of objects representing a request for a carrier to cancel one or more
 
   <Field name="timeWindows[].startDateTime" nullable={true}>
     <Type>
-      [DateTime](./../date-time.mdx)
+      [date/time object](./../date-time.mdx)
     </Type>
     <Description>
       The start date/time of the request window.
@@ -179,7 +186,7 @@ An _array_ of objects representing a request for a carrier to cancel one or more
 
   <Field name="timeWindows[].endDateTime" nullable={true}>
     <Type>
-      [DateTime](./../date-time.mdx)
+      [date/time object](./../date-time.mdx)
     </Type>
     <Description>
       The end date/time of the request window.
@@ -207,15 +214,18 @@ An _array_ of objects representing a request for a carrier to cancel one or more
     </Description>
   </Field>
 
-  <Field name="shipments.identifiers" type="object" nullable={false}>
+  <Field name="shipments.identifiers" nullable={false}>
     <Description>
       Your own identifiers for this shipment.
     </Description>
+    <Type>
+      [identifiers object](./../identifiers-object.mdx)
+    </Type>
   </Field>
 
   <Field name="shipments[].deliveryService" nullable={false}>
     <Type>
-      [DeliveryService](./../delivery-service-object.mdx#delivery-service-argument)
+      [delivery service object](./../delivery-service-object.mdx#delivery-service-argument)
     </Type>
     <Description>
       The delivery service assigned to the original pickup request. This array will contain at least one value.
@@ -240,10 +250,13 @@ An _array_ of objects representing a request for a carrier to cancel one or more
     </Description>
   </Field>
 
-  <Field name="shipments[].packages[].identifiers" type="object" nullable={false}>
+  <Field name="shipments[].packages[].identifiers" nullable={false}>
     <Description>
       Your own identifiers for this package.
     </Description>
+    <Type>
+      [identifiers object](./../identifiers-object.mdx)
+    </Type>
   </Field>
 
   <Field name="shipments[].packages[].packaging" type="object" nullable={false}>
@@ -261,10 +274,13 @@ An _array_ of objects representing a request for a carrier to cancel one or more
     </Description>
   </Field>
 
-  <Field name="shipments[].packages[].packaging.identifiers" type="object" nullable={false}>
+  <Field name="shipments[].packages[].packaging.identifiers" nullable={false}>
     <Description>
       Your own identifiers for this packaging.
     </Description>
+    <Type>
+      [identifiers object](./../identifiers-object.mdx)
+    </Type>
   </Field>
 
   <Field name="shipments[].packages[].packaging[].code" type="string" nullable={false}>
@@ -396,7 +412,7 @@ An object that contains information about a pickup cancellation request.
 
   <Field name="notes[].type" required={true}>
     <Type>
-      [NotesType](./../common-types.mdx#notes-types)
+      [notes type string](./../common-types.mdx#notes-types)
     </Type>
     <Description>
       The type for this note.

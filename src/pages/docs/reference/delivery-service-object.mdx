@@ -7,36 +7,34 @@ description: This page describes the delivery service object that is passed to a
 Delivery Service Objects
 ====================
 
-A Delivery Service is a type of delivery that is offered by a carrier, such as `international` or `standard overnight`.
+A delivery service is a type of delivery that is offered by a carrier, such as `international` or `standard overnight`.
 You defined the delivery service options available through your app in [Delivery Service Definition](./delivery-service.mdx)
 files.
 
-
-
-Delivery Service Argument
---------------------------------------------
-This table specifies the properties that may be `null` when a `Delivery Service` object is passed as an argument
-to a ShipEngine Connect Carrier App.
-
-For example, the `shipment` argument passed to the [createShipment method](./methods/create-shipment.mdx)
-includes a `deliveryService` property that corresponds to this object.
-
+Properties
+-------------------------------------
+This table lists the properties of a delivery service object and identifies those properties that are required. The `nullable`
+column indicates which properties may be null when the object is provided as an argument to one of your methods, and the `required`
+column indicates which properties are required when the object is returned from one of your methods.
 
 <Reference>
 
-  <Field name="id" nullable={false} required={true}>
+  <Field name="id" nullable={false} required={true} >
     <Type>
-      UUID
+      [UUID](https://www.npmjs.com/package/uuid)
     </Type>
     <Description>
       UUID that uniquely identifies the delivery service. This is the UUID you used in the [Delivery Service Definition](./delivery-service.mdx) file for this delivery service.
     </Description>
   </Field>
 
-  <Field name="identifiers" type="object" nullable={false}>
+  <Field name="identifiers" nullable={false}>
     <Description>
       Your own identifiers for this delivery service.
     </Description>
+    <Type>
+      [identifiers object](./identifiers-object.mdx)
+    </Type>
   </Field>
 
   <Field name="code" type="string" nullable={false}>
@@ -130,7 +128,7 @@ includes a `deliveryService` property that corresponds to this object.
 
   <Field name="originCountries" nullable={false}>
     <Type>
-      [CountryCode](./country-codes.mdx)[]
+      [country code](./country-codes.mdx)[]
     </Type>
     <Description>
       The list of [ISO 3166 country codes](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) for the
@@ -140,7 +138,7 @@ includes a `deliveryService` property that corresponds to this object.
 
   <Field name="destinationCountries" nullable={false}>
     <Type>
-      [CountryCode](./country-codes.mdx)[]
+      [country code](./country-codes.mdx)[]
     </Type>
     <Description>
       The list of [ISO 3166 country codes](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) for the
@@ -150,7 +148,7 @@ includes a `deliveryService` property that corresponds to this object.
 
   <Field name="countries" nullable={false}>
     <Type>
-      [CountryCode](./country-codes.mdx)[]
+      [country code](./country-codes.mdx)[]
     </Type>
     <Description>
       All countries that this service ships to or from. This list includes all unique origin and destination countries.
@@ -269,42 +267,4 @@ includes a `deliveryService` property that corresponds to this object.
   </Field>
 
 </Reference>
-
-
-
-Delivery Service Return Value
---------------------------------------------
-This table specifies the properties that are required when a delivery service object is returned from a method.
-
-In the case of a return value, only the minimum properties needed for ShipEngine Connect to look up the delivery confirmation
-are required. You may provide an object matching the specification below. You may also simply provide the `code` as a string
-rather than providing this option.
-
-
-<Reference>
-
-  <Field name="id" required={true}>
-    <Type>
-      UUID
-    </Type>
-    <Description>
-      UUID that uniquely identifies the delivery service. This ID should never change.
-    </Description>
-  </Field>
-
-  <Field name="identifiers" type="object" nullable={false}>
-    <Description>
-      Your own identifiers for this delivery service.
-    </Description>
-  </Field>
-
-  <Field name="code" type="string" nullable={false}>
-    <Description>
-      Optional code used to map to what the carrier uses to identify the delivery service.
-    </Description>
-  </Field>
-
-</Reference>
-
-
 

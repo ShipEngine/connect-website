@@ -43,18 +43,9 @@ An object containing information needed to create a new end-of-day manifest.
 
 <Reference>
 
-  <Field name="shipFrom" nullable={true}>
-    <Type>
-      [Address](./../address.mdx#address-argument)
-    </Type>
-    <Description>
-      The address of the location that is performing end-of-day manifesting. This field is required if the carrier's `manifestLocations` setting is `single_location` in the [Carrier Definition](./../carrier.mdx) file.
-    </Description>
-  </Field>
-
   <Field name="openDateTime" nullable={false}>
     <Type>
-      [DateTime](./../date-time.mdx)
+      [date/time object](./../date-time.mdx)
     </Type>
     <Description>
       The start-of-day time, or the `manifestDateTime` of the earliest manifest being manifested.
@@ -63,7 +54,7 @@ An object containing information needed to create a new end-of-day manifest.
 
   <Field name="closeDateTime" nullable={false}>
     <Type>
-      [DateTime](./../date-time.mdx)
+      [date/time object](./../date-time.mdx)
     </Type>
     <Description>
       The end-of-day time, or the `manifestDateTime` of the latest manifest being manifested.
@@ -88,11 +79,25 @@ An object containing information needed to create a new end-of-day manifest.
     </Description>
   </Field>
 
-  <Field name="shipments[].identifiers" type="object" nullable={false}>
+  <Field name="shipments[].identifiers" nullable={false}>
     <Description>
       Your own identifiers for this shipment.
     </Description>
+    <Type>
+      [identifiers object](./../identifiers-object.mdx)
+    </Type>
   </Field>
+
+  <Field name="shipFrom" nullable={true}>
+      <Type>
+        [address object](./../address.mdx#address-properties)
+      </Type>
+      <Description>
+        The address of the location that is performing end-of-day manifesting. This field is required if the carrier's `manifestLocations` setting is `single_location` in the [Carrier Definition](./../carrier.mdx) file.
+      </Description>
+    </Field>
+
+
 
 </Reference>
 
@@ -111,18 +116,6 @@ An object that contains confirmation that an end-of-day manifest has been create
     </Description>
   </Field>
 
-  <Field name="manifests[].id" type="string" required={false}>
-    <Description>
-      The carrier's manifest ID, if any. This string must be between `0` and `100` characters and must not contain newline characters.
-    </Description>
-  </Field>
-
-  <Field name="manifests[].identifiers" type="object" required={false}>
-    <Description>
-      Your own identifers for this manifest.
-    </Description>
-  </Field>
-
   <Field name="manifests[].shipments" type="object[]" required={true}>
     <Description>
       The shipments that are included in this manifest.
@@ -135,15 +128,35 @@ An object that contains confirmation that an end-of-day manifest has been create
     </Description>
   </Field>
 
-  <Field name="manifests[].shipments[].identifiers" type="object" required={false}>
+  <Field name="manifests[].shipments[].identifiers" required={false}>
     <Description>
-      Your own identifers for this shipment.
+      Your own identifiers for this shipment.
     </Description>
+  <Type>
+    [identifiers object](./../identifiers-object.mdx)
+  </Type>
+  </Field>
+
+  <Field name="manifests[].id" type="string" required={false}>
+    <Description>
+      The carrier's manifest ID, if any. This string must be between `0` and `100` characters and must not contain newline characters.
+    </Description>
+  </Field>
+
+  <Field name="manifests[].identifiers" required={false}>
+    <Description>
+      Your own identifiers for this manifest.
+    </Description>
+    <Type>
+      [identifiers object](./../identifiers-object.mdx)
+    </Type>
   </Field>
 
   <Field name="manifests[].document" type="object" required={false}>
     <Description>
       The digital manifest document, such as a PDF SCAN form.
+
+      This property is not required. If it is provided, it must contain all of its required properties, listed below.
     </Description>
   </Field>
 
@@ -183,7 +196,7 @@ An object that contains confirmation that an end-of-day manifest has been create
 
   <Field name="manifests[].document.data" required={true}>
     <Type>
-      [Buffer](https://nodejs.org/api/buffer.html)
+      [Buffer object](https://nodejs.org/api/buffer.html)
     </Type>
     <Description>
       The document data, in the specified file format.
@@ -193,12 +206,14 @@ An object that contains confirmation that an end-of-day manifest has been create
   <Field name="manifests[].notes" type="object[]" required={false}>
     <Description>
       An array of objects containing additional information about this manifest.
+
+      This property is not required. If it is provided, it must contain all of its required properties, listed below.
     </Description>
   </Field>
 
   <Field name="manifests[].notes[].type" required={true}>
     <Type>
-      [NotesType](./../common-types.mdx#notes-types)
+      [notes type string](./../common-types.mdx#notes-types)
     </Type>
     <Description>
       The type for this note.
@@ -217,10 +232,45 @@ An object that contains confirmation that an end-of-day manifest has been create
     </Description>
   </Field>
 
-  <Field name="notManifested" type="object[]" required={true}>
+  <Field name="manifests[].id" type="string" required={false}>
+      <Description>
+        The carrier's manifest ID, if any. This string must be between `0` and `100` characters and must not contain newline characters.
+      </Description>
+    </Field>
+
+    <Field name="manifests[].identifiers" required={false}>
+      <Description>
+        Your own identifiers for this manifest.
+      </Description>
+      <Type>
+        [identifiers object](./../identifiers-object.mdx)
+      </Type>
+    </Field>
+
+  <Field name="notManifested" type="object[]" required={false}>
     <Description>
       An array of the shipments that could not be manifested, and the reason each shipment was not manifested.
+
+      This property is not required. If it is provided, it must contain all of its required properties, listed below.
     </Description>
+  </Field>
+
+  <Field name="notManifested[].trackingNumber" type="string" required={false}>
+    <Description>
+      The master tracking number for the entire shipment. For single-piece shipments, this will be the same as the package
+      tracking number. For multi-piece shipments, this may be a separate tracking number,
+      or the same tracking number as one of the packages. This string will be between `0` and `100` characters and will
+      not contain newline characters.
+    </Description>
+  </Field>
+
+  <Field name="notManifested[].identifiers" required={false}>
+    <Description>
+      Your own identifiers for this manifest.
+    </Description>
+    <Type>
+      [identifiers object](./../identifiers-object.mdx)
+   </Type>
   </Field>
 
   <Field name="notManifested[].code" type="string" required={false}>
@@ -243,18 +293,19 @@ An object that contains confirmation that an end-of-day manifest has been create
 
   <Field name="notManifested[].notes[].type" required={true}>
     <Type>
-      [NotesType](./../common-types.mdx#notes-types)
+      [notes type string](./../common-types.mdx#notes-types)
     </Type>
     <Description>
-      Ththe type for this note.
+      The type for this note.
     </Description>
   </Field>
 
-  <Field name="notManifested[].notes[].text" type="string" required={false}>
+  <Field name="notManifested[].notes[].text" type="string" required={true}>
     <Description>
       The note text itself. This string must be between `0` and `5000` characters.
     </Description>
   </Field>
+
 
 </Reference>
 

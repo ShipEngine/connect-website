@@ -73,6 +73,8 @@ Specifies a date/time range to retrieve sales orders for.
   <Field name="paging" type="object" nullable={true}>
     <Description>
       An object that indicates that page preferences for the items that are returned from this method.
+
+      This property may be null. If it is provided, all its required properties, listed below, will be included.
     </Description>
   </Field>
 
@@ -82,15 +84,15 @@ Specifies a date/time range to retrieve sales orders for.
     </Description>
   </Field>
 
-  <Field name="paging.pageNumber" type="number" nullable={true}>
-    <Description>
-      The desired page number to return. This value will always be provided and will be zero or greater.
-    </Description>
-  </Field>
-
   <Field name="paging.pageCount" type="number" nullable={false}>
     <Description>
       he desired maximum number of pages to return. This value is optional.
+    </Description>
+  </Field>
+
+  <Field name="paging.pageNumber" type="number" nullable={true}>
+    <Description>
+      The desired page number to return. This value will always be provided and will be zero or greater.
     </Description>
   </Field>
 
@@ -117,16 +119,11 @@ An array of sales orders matching the date range.
     </Description>
   </Field>
 
-  <Field name="identifiers" type="object" required={false}>
-    <Description>
-      Your own identifiers for this sales order.
-    </Description>
-  </Field>
-
   <Field name="createdDateTime" required={true}>
     <Type>
-      [DateTime](./../date-time.mdx), <br/>
-      [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date), or a string representation of a date in [ISO](https://www.w3.org/TR/NOTE-datetime) format.
+      [Date Time](./../date-time.mdx), <br/>
+      or [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) object, <br/>
+      or a string representing the date and time in [ISO](https://www.w3.org/TR/NOTE-datetime) format.
     </Type>
     <Description>
       The date/time that the sales order was originally placed.
@@ -139,28 +136,8 @@ An array of sales orders matching the date range.
       * `awaiting_payment` - The sales order is awaiting payment.
       * `awaiting_shipment` - This sales order is awaiting shipment.
       * `on_hold` - This sales order is on hold.
-      * `completed` - Thie sales order is completed.
+      * `completed` - This sales order is completed.
       * `cancelled` - This sales order has been cancelled.
-    </Description>
-  </Field>
-
-  <Field name="paymentMethod" type="string" required={false}>
-    <Description>
-      Indicates how the customer has paid for the order. Valid values include the following:
-      * `cash` - The sales order was paid for with cash.
-      * `cash_equivalent` - The sales order was paid for with guaranteed funds, such as a cashier's check or money order.
-      * `check` - This sales order was paid for with a check.
-      * `credit_card` - This sales order was paid for with a credit card.
-      * `bank_transfer` - This sales order was paid for with a bank transfer.
-    </Description>
-  </Field>
-
-  <Field name="orderURL" required={false}>
-    <Type>
-      [URL](https://nodejs.org/api/url.html) or string
-    </Type>
-    <Description>
-      The URL of a webpage where the customer can view the order.  Must be a valid HTTP or HTTPS url.
     </Description>
   </Field>
 
@@ -170,80 +147,71 @@ An array of sales orders matching the date range.
     </Description>
   </Field>
 
-  <Field name="buyer.id" type="string" required={true}>
+ <Field name="buyer.id" type="string" required={true}>
     <Description>
-      The marketplace's unique ID for the buyer. This string must be between `1` and `100` characters and must not contain newline characters.
+      The marketplace's unique ID for the buyer. This string must be between `0` and `100` characters and must not contain newline characters.
     </Description>
   </Field>
 
-  <Field name="buyer.name" required={true}>
+ <Field name="buyer.address" required={false}>
+    <Description>
+      The address of the buyer.
+    </Description>
     <Type>
-      string or object
+      [address object](./../address.mdx#address-properties)
     </Type>
-    <Description>
-      The name of the buyer. This property can be set with a string or an object. The additional properties that must be included in the object are described below.
-    </Description>
   </Field>
 
-  <Field name="buyer.name.title" type="string" required={false}>
-    <Description>
-      The title of the buyer (eg "Mr", "Mrs", "Dr"). This string must be between `0` and `100` characters and must not include newline characters.
-    </Description>
-  </Field>
+ <Field name="buyer.name" type="object"  required={true}>
+     <Description>
+       The name of the contact.
+     </Description>
+   </Field>
 
-  <Field name="buyer.name.given" type="string" required={true}>
-    <Description>
-      The first name of the buyer. This string must be between `1` and `100` characters and must not include newline characters.
-    </Description>
-  </Field>
+   <Field name="buyer.name.title" type="string" nullablerequired={false}>
+     <Description>
+       The title of the contact (eg "Mr", "Mrs", "Dr"). This string must be between `0` and `100` characters and must not include newline characters.
+     </Description>
+   </Field>
 
-  <Field name="buyer.name.middle" type="string" required={false}>
-    <Description>
-      The middle name of the signer. This string must be between `0` and `100` characters and must not include newline characters.
-    </Description>
-  </Field>
+   <Field name="buyer.name.given" type="string" required={true}>
+     <Description>
+       The first name of the signer. This string must be between `1` and `100` characters and must not include newline characters.
+     </Description>
+   </Field>
 
-  <Field name="buyer.name.family" type="string" required={false}>
-    <Description>
-      The last name or family name of the buyer. This string must be between `0` and `100` characters and must not include newline characters.
-    </Description>
-  </Field>
+   <Field name="buyer.name.middle" type="string"  required={false}>
+     <Description>
+       The middle name of the signer. This string must be between `0` and `100` characters and must not include newline characters.
+     </Description>
+   </Field>
 
-  <Field name="buyer.name.suffix" type="string" required={false}>
-    <Description>
-      The suffix of the buyer (eg "Sr", "Jr", "IV"). This string must be between `0` and `100` characters and must not include newline characters.
-    </Description>
-  </Field>
+   <Field name="buyer.name.family" type="string"  required={false}>
+     <Description>
+       The last name or family name of the signer. This string must be between `0` and `100` characters and must not include newline characters.
+     </Description>
+   </Field>
 
-  <Field name="buyer.email" type="string" required={false}>
-    <Description>
-      The email address of the buyer. This string must be a valid email address.
-    </Description>
-  </Field>
+   <Field name="buyer.name.suffix" type="string" required={false}>
+     <Description>
+       The suffix of the signer (eg "Sr", "Jr", "IV"). This string must be between `0` and `100` characters and must not include newline characters.
+     </Description>
+   </Field>
 
-  <Field name="buyer.phoneNumber" type="string" required={false}>
-    <Description>
-      The phone number of the buyer. This string must be between `0` and `30` characters and must not include newline characters.
-    </Description>
-  </Field>
+   <Field name="buyer.email" type="string" required={false}>
+     <Description>
+       The email address of the contact. This string must be a valid email address.
+     </Description>
+   </Field>
 
-  <Field name="buyer.address" required={false}>
-    <Type>
-      [Address](./../address.mdx)
-    </Type>
-    <Description>
-      The buyer's address.
-    </Description>
-  </Field>
+   <Field name="buyer.phoneNumber" type="string" required={false}>
+     <Description>
+       The phone number of the contact. This string must be between `0` and `30` characters
+           and must not include newline characters.
+     </Description>
+   </Field>
 
-  <Field name="charges" required={false}>
-    <Type>
-      [Charge](./../charge.mdx)[]
-    </Type>
-    <Description>
-      The breakdown of charges for this sales order.
-    </Description>
-  </Field>
+
 
   <Field name="requestedFulfillments" type="object[]" required={true}>
     <Description>
@@ -251,18 +219,9 @@ An array of sales orders matching the date range.
     </Description>
   </Field>
 
-  <Field name="requestedFulfillments[].shippingPreferences" required={false}>
-    <Type>
-      [ShippingPreferences](./../shipping-preferences.mdx)
-    </Type>
-    <Description>
-      Preferences on how this order should be fulfilled.
-    </Description>
-  </Field>
-
   <Field name="requestedFulfillments[].items" required={true}>
     <Type>
-      [SalesOrderItem](./../sales-order-item.mdx)[]
+      [sales order item object[]](./../sales-order-item.mdx)
     </Type>
     <Description>
       The items in this sales order.
@@ -271,10 +230,19 @@ An array of sales orders matching the date range.
 
   <Field name="requestedFulfillments[].shipTo" required={true}>
     <Type>
-      [address + contact object](./../address.mdx)
+      [address + contact object](./../address.mdx#address-contact-info-properties)
     </Type>
     <Description>
       The address where the sales order should be shipped. Be sure to include the extra contact info fields as indicated in the reference doc.
+    </Description>
+  </Field>
+
+  <Field name="requestedFulfillments[].shippingPreferences" required={false}>
+    <Type>
+      [shipping preferences object](./../shipping-preferences.mdx)
+    </Type>
+    <Description>
+      Preferences on how this order should be fulfilled.
     </Description>
   </Field>
 
@@ -286,7 +254,7 @@ An array of sales orders matching the date range.
 
   <Field name="notes[].type" required={true}>
     <Type>
-      [NotesType](./../common-types.mdx#notes-types)
+      [notes type string](./../common-types.mdx#notes-types)
     </Type>
     <Description>
       The type for this note.
@@ -323,7 +291,7 @@ An array of sales orders matching the date range.
     </Description>
   </Field>
 
-  <Field name="paging.pageCount" type="number">
+  <Field name="paging.pageCount" type="number" required={false}>
     <Description>
       he desired maximum number of pages to return. This value is optional.
     </Description>
@@ -332,6 +300,44 @@ An array of sales orders matching the date range.
   <Field name="paging.cursor" type="string" required={false}>
     <Description>
       Identifies the next page of results to return. This value is optional.
+    </Description>
+  </Field>
+
+  <Field name="identifiers"required={false}>
+    <Description>
+      Your own identifiers for this sales order.
+    </Description>
+    <Type>
+      [identifiers object](./../identifiers-object.mdx)
+    </Type>
+  </Field>
+
+  <Field name="paymentMethod" type="string" required={false}>
+    <Description>
+      Indicates how the customer has paid for the order. Valid values include the following:
+      * `cash` - The sales order was paid for with cash.
+      * `cash_equivalent` - The sales order was paid for with guaranteed funds, such as a cashier's check or money order.
+      * `check` - This sales order was paid for with a check.
+      * `credit_card` - This sales order was paid for with a credit card.
+      * `bank_transfer` - This sales order was paid for with a bank transfer.
+    </Description>
+  </Field>
+
+  <Field name="orderURL" required={false}>
+    <Type>
+      [URL](https://nodejs.org/api/url.html) or string
+    </Type>
+    <Description>
+      The URL of a webpage where the customer can view the order.  Must be a valid HTTP or HTTPS url.
+    </Description>
+  </Field>
+
+ <Field name="charges" required={false}>
+    <Type>
+      [charge object[]](./../charge.mdx)
+    </Type>
+    <Description>
+      The breakdown of charges for this sales order.
     </Description>
   </Field>
 
