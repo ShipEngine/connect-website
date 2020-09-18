@@ -20,6 +20,7 @@ import { logFail, logPass, logStep } from "./utils/log-helpers";
 import { logResults } from "./utils/log-helpers";
 import { RateShipmentWithAllServices } from './test-app/tests/rate-shipment-with-all-services';
 import { CancelShipment } from './test-app/tests/cancel-shipment';
+import { CancelPickupsSameDay } from './test-app/tests/cancel-pickups-same-day';
 
 interface TesOptions {
   debug?: boolean;
@@ -155,9 +156,9 @@ function registerTestSuiteModules(app: SdkApp): RegisteredTestSuiteModules {
       CreateShipmentDomestic,
       CreateShipmentMultiPackage,
       CreateShipmentWithInsurance,
-      CreateShipmentWithInsurance,
       CreateShipmentReturn
     ],
+    cancelPickups: [CancelPickupsSameDay],
     schedulePickup: [SameDayPickup, NextDayPickup],
     rateShipment: [
       RateShipment,
