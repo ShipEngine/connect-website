@@ -1,8 +1,9 @@
 import { ConnectionAppDefinition } from "@shipengine/connect-sdk";
-import { AppManifestPOJO, ConnectionAppPOJO } from "@shipengine/connect-sdk/lib/internal";
+import { AppManifestPOJO, ConnectionAppPOJO, OAuthConfigPOJO } from "@shipengine/connect-sdk/lib/internal";
 import * as path from "path";
 import { readDefinitionValue } from "../read-definition";
 import { readFormDefinition } from "./read-form-definition";
+import { readOAuthConfigDefinition } from "./read-oauth-config-definition";
 
 /**
  * Reads a ShipEngine Connect connection definition
@@ -16,6 +17,7 @@ export async function readConnectionAppDefinition(
     icon: path.resolve(cwd, definition.icon),
     connectionForm: await readFormDefinition(definition.connectionForm, cwd, "connectionForm"),
     settingsForm: await readFormDefinition(definition.settingsForm, cwd, "settingsForm"),
-    connect: await readDefinitionValue(definition.connect, cwd, "connect method")
+    connect: await readDefinitionValue(definition.connect, cwd, "connect method"),
+    oauthConfig: await readOAuthConfigDefinition(definition.oauthConfig, cwd, "oauthConfig")
   };
 }
