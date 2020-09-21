@@ -22,12 +22,12 @@ import {
   DocumentSize,
   ServiceArea,
   ManifestType,
+  ValidationError
 } from '@shipengine/connect-sdk';
 import {
   CarrierApp
 } from '@shipengine/connect-sdk/lib/internal';
 import ShippingProviderConnector from './external/shipping-provider-connector';
-import { InvalidInput } from '../../errors';
 import { LabelFormat } from '@ipaas/capi/models';
 import { dxToCapiSpecPackageType } from '../../routes/loader-data/package-type';
 
@@ -285,7 +285,7 @@ const mapLabelFormats = (
 
 const dxToCarrierSpecification = (app: CarrierApp): CarrierSpecification => {
   if (!app) {
-    throw new InvalidInput('Unable to map null CarrierApp');
+    throw new ValidationError('Unable to map null CarrierApp');
   }
   const carrierSpecification: CarrierSpecification = {
     Id: app.id,

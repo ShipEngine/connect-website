@@ -1,8 +1,7 @@
-import { Packaging, ServiceArea } from '@shipengine/connect-sdk';
+import { Packaging, ServiceArea, ValidationError } from '@shipengine/connect-sdk';
 import PackageType, {
   PackageAttribute,
 } from '../../mapping/registry-data/external/package-type';
-import { InvalidInput } from '../../errors';
 import { RequiredProperty } from '../../mapping/registry-data/external/enums';
 import { DeliveryService } from '@shipengine/connect-sdk/lib/public/carriers/delivery-service';
 
@@ -17,7 +16,7 @@ const serviceAreaToPackageAttribute = (
     case ServiceArea.Global:
       return PackageAttribute.International;
     default:
-      throw new InvalidInput(`Unsupported service area ${serviceArea}`);
+      throw new ValidationError(`Unsupported service area ${serviceArea}`);
   }
 };
 
@@ -48,14 +47,14 @@ const dxToCapiSpecPackageType = (
   const packageTypes: PackageType[] = [];
   packaging.forEach((dxPackage) => {
     if (dxPackage.name.toLowerCase() === 'package') {
-      throw new InvalidInput(
+      throw new ValidationError(
         `PackageId ${dxPackage.id} can not be named ${dxPackage.name}`
       );
     }
 
     const packageAttributes = resolvePackageAttributes(dxPackage, services);
     if (!packageAttributes || packageAttributes.length === 0) {
-      throw new InvalidInput(
+      throw new ValidationError(
         `Could not resolve package attribute (domestic/int'l) for PackageId ${dxPackage.id}`
       );
     }
