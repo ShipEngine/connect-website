@@ -1,6 +1,6 @@
 {
   "name": "@shipengine/connect-local-dev-ui",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "The ShipEngine Integration Platform local development UI",
   "author": {
     "name": "ShipEngine",
@@ -33,19 +33,19 @@
   "dependencies": {
     "@ant-design/icons": "^4.2.2",
     "@beam-australia/react-env": "^2.1.2",
-    "@rjsf/antd": "^2.3.0",
-    "@rjsf/core": "^2.3.0",
-    "@shipengine/connect-sdk": "^4.0.2",
-    "antd": "^4.6.3",
+    "@rjsf/antd": "^2.4.0",
+    "@rjsf/core": "^2.4.0",
+    "@shipengine/connect-sdk": "^5.1.0",
+    "antd": "^4.6.5",
     "axios": "^0.20.0",
-    "dayjs": "^1.8.35",
+    "dayjs": "^1.8.36",
     "json-schema": "^0.2.5",
     "lodash": "^4.17.20",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-json-pretty": "^2.2.0",
-    "react-query": "^2.15.4",
+    "react-query": "^2.23.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.3",
     "uuid": "^8.3.0"
@@ -53,12 +53,12 @@
   "devDependencies": {
     "@jsdevtools/version-bump-prompt": "^6.1.0",
     "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.0.2",
-    "@testing-library/user-event": "^12.1.3",
+    "@testing-library/react": "^11.0.4",
+    "@testing-library/user-event": "^12.1.5",
     "@types/eslint": "^7.2.2",
-    "@types/jest": "^26.0.13",
+    "@types/jest": "^26.0.14",
     "@types/lodash": "^4.14.161",
-    "@types/node": "^14.6.3",
+    "@types/node": "^14.11.1",
     "@types/react": "^16.9.49",
     "@types/react-dom": "^16.9.0",
     "@types/react-jsonschema-form": "^1.7.4",
@@ -68,11 +68,11 @@
     "@typescript-eslint/eslint-plugin": "4.0.1",
     "@typescript-eslint/parser": "4.0.1",
     "bundlesize": "^0.18.0",
-    "eslint-plugin-jest": "^24.0.0",
+    "eslint-plugin-jest": "^24.0.2",
     "npm-check": "^5.9.2",
-    "react-query-devtools": "^2.4.7",
+    "react-query-devtools": "^2.5.0",
     "shx": "^0.3.2",
-    "typescript": "^4.0.2"
+    "typescript": "^4.0.3"
   },
   "engines": {
     "node": ">=10"
