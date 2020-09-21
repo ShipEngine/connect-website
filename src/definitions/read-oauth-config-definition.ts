@@ -1,15 +1,21 @@
-import { OAuthConfigDefinition, InlineOrReference, InlineOrReferenceArray } from "@shipengine/connect-sdk";
-import { OAuthConfigPOJO } from "@shipengine/connect-sdk/lib/internal";
+import { OAuthConfigDefinition, InlineOrReference, OAuthAuthorizationProcessDefinition, OAuthRefreshTokenProcessDefinition } from "@shipengine/connect-sdk";
+import { OAuthConfigPOJO, OAuthAuthorizationProcessPOJO, OAuthRefreshTokenProcessPOJO } from "@shipengine/connect-sdk/lib/internal";
 import { readDefinition, readDefinitionValue } from "../read-definition";
 
-/**
- * Reads a packaging definition
- */
-export async function readPackagingDefinition(
-  definition: InlineOrReference<PackagingDefinition>, cwd: string, fieldName: string): Promise<PackagingPOJO> {
+export async function readAuthorizationProcessDefinition(
+  definition: InlineOrReference<OAuthAuthorizationProcessDefinition>, cwd: string, fieldName: string): Promise<OAuthAuthorizationProcessPOJO> {
   definition = await readDefinitionValue(definition, cwd, fieldName);
 
-  return definition;
+  return definition as OAuthAuthorizationProcessPOJO;
+}
+
+export async function readRefreshTokenProcessDefinition(
+  definition: InlineOrReference<OAuthRefreshTokenProcessDefinition> | undefined, cwd: string, fieldName: string): Promise<OAuthRefreshTokenProcessPOJO | undefined> {
+  definition = await readDefinitionValue(definition, cwd, fieldName);
+
+  if (!definition) return;
+
+  return definition as OAuthRefreshTokenProcessPOJO;
 }
 
 /**
@@ -25,7 +31,7 @@ export async function readOAuthConfigDefinition(
   return {
     ...definition,
     tokenProperties: await readDefinitionValue(definition.tokenProperties, cwd, `${fieldName}.tokenProperties`),
-    authorizationProcess: await readDefinitionValue(definition.authorizationProcess, cwd, `${fieldName}.authorizationProcess`),
-    refreshTokenProcess: await readDefinitionValue(definition.refreshTokenProcess, cwd, `${fieldName}.refreshTokenProcess`)
+    authorizationProcess: await readAuthorizationProcessDefinition(definition.authorizationProcess, cwd, `${fieldName}.authorizationProcess`),
+    refreshTokenProcess: await readRefreshTokenProcessDefinition(definition.refreshTokenProcess, cwd, `${fieldName}.refreshTokenProcess`)
   };
 }
