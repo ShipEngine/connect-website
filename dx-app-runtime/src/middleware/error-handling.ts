@@ -28,12 +28,12 @@ const formatErrorMessage = (error: any, standardErrorCode: StandardizedErrorCode
     return value.join(', ');
   }
   return {
-    "errors": [error?.originalError?.message],
+    "errors": [error.message || error?.originalError?.message],
     "detailed_errors": [
       {
         "standardized_error_code": standardErrorCode,
         "external_error_code": mergeStringArray(error?.originalError?.externalErrors),
-        "message": error?.originalError?.message,
+        "message": error.message || error?.originalError?.message,
         "external_http_status_code": error?.originalError?.statusCode,
         "raw_external_context": error?.originalError
       }
