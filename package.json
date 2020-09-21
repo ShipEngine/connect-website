@@ -45,8 +45,8 @@
     "@types/js-yaml": "^3.12.5",
     "@types/json5": "0.0.30",
     "@types/mocha": "^8.0.3",
-    "@types/node": "^14.6.4",
-    "@types/source-map-support": "^0.5.2",
+    "@types/node": "^14.11.1",
+    "@types/source-map-support": "^0.5.3",
     "@typescript-eslint/eslint-plugin": "^4.0.1",
     "@typescript-eslint/parser": "^4.0.1",
     "chai": "^4.2.0",
@@ -57,10 +57,10 @@
     "npm-check": "^5.9.0",
     "nyc": "^15.1.0",
     "shx": "^0.3.2",
-    "typescript": "^4.0.2"
+    "typescript": "^4.0.3"
   },
   "dependencies": {
-    "@shipengine/connect-sdk": "^4.0.2",
+    "@shipengine/connect-sdk": "^5.1.0",
     "js-yaml": "^3.14.0",
     "json5": "^2.1.3",
     "resolve-from": "^5.0.0",
