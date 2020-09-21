@@ -1,5 +1,5 @@
 import { ConnectionAppDefinition } from "@shipengine/connect-sdk";
-import { AppManifestPOJO, ConnectionAppPOJO, OAuthConfigPOJO } from "@shipengine/connect-sdk/lib/internal";
+import { AppManifestPOJO, ConnectionAppPOJO } from "@shipengine/connect-sdk/lib/internal";
 import * as path from "path";
 import { readDefinitionValue } from "../read-definition";
 import { readFormDefinition } from "./read-form-definition";
