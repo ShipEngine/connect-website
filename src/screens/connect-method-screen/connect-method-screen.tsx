@@ -38,8 +38,10 @@ const ConnectMethodScreen: FunctionComponent = () => {
         style={{ margin: '5px' }}
       />
       <ConnectForm
-        schema={app?.connectionForm.dataSchema as JSONSchema7}
-        uiSchema={app?.connectionForm.uiSchema as JSONSchema7}
+        connectSchema={app?.connectionForm.dataSchema as JSONSchema7}
+        connectUiSchema={app?.connectionForm.uiSchema as JSONSchema7}
+        settingsSchema={app?.settingsForm?.dataSchema as JSONSchema7}
+        settingsUiSchema={app?.settingsForm?.uiSchema as JSONSchema7}
       />
     </>
   );

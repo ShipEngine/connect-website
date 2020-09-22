@@ -2,7 +2,7 @@
 import JSONPretty from 'react-json-pretty';
 import React, { FunctionComponent } from 'react';
 import axios, { AxiosError } from 'axios';
-import { Divider, Card, Row, Col } from 'antd';
+import { Alert, Divider, Card, Row, Col, Spin } from 'antd';
 import { JSONSchema7 } from 'json-schema';
 import { Theme as AntDTheme } from '@rjsf/antd';
 import { isEqual } from 'lodash';
@@ -11,20 +11,19 @@ import { withTheme, FormSubmit } from '@rjsf/core';
 import API from '../../utils/api';
 import { TransactionPOJO } from "@shipengine/connect-sdk/lib/internal";
 
-// Components
-import Spinner from '../../components/spinner';
-
 // Styles & Assets
 import 'react-json-pretty/themes/adventure_time.css';
 
 const Form = withTheme(AntDTheme);
 
 interface Props {
-  schema: JSONSchema7;
-  uiSchema: JSONSchema7;
+  connectSchema: JSONSchema7;
+  connectUiSchema: JSONSchema7;
+  settingsSchema: JSONSchema7;
+  settingsUiSchema: JSONSchema7;
 }
 
-const ConnectFrom: FunctionComponent<Props> = ({ schema, uiSchema }) => {
+const ConnectFrom: FunctionComponent<Props> = ({ connectSchema, connectUiSchema, settingsSchema, settingsUiSchema }) => {
   const [request, setRequest] = React.useState({});
   const [response, setResponse] = React.useState<TransactionPOJO | undefined>(undefined);
 
@@ -51,53 +50,72 @@ const ConnectFrom: FunctionComponent<Props> = ({ schema, uiSchema }) => {
   };
 
   return (
-    <Row>
-      <Col span={12}>
-        <Card title='Connect Form' style={{ margin: '0 5px' }}>
-          <Form schema={schema} onSubmit={handleSubmit} uiSchema={uiSchema} />
-        </Card>
-      </Col>
-      <Col span={12}>
-        <Card title='Connect Inputs/Outputs' style={{ margin: '0 5px' }}>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              flexDirection: 'column',
-            }}>
-            {!response ? (
-              <Spinner />
-            ) : (
-                <>
-                  <h4>Connect Args</h4>
-                  <JSONPretty
-                    id='json-pretty'
-                    data={request}
-                    style={{
-                      maxWidth: '850px',
-                    }}></JSONPretty>
+    <>
+      <Row>
+        <Col span={12}>
+          <Card title='Connect Form' style={{ margin: '0 5px' }}>
+            <Form schema={connectSchema} onSubmit={handleSubmit} uiSchema={connectUiSchema} />
+          </Card>
+        </Col>
+        <Col span={12}>
+          <Card title='Connect Inputs/Outputs' style={{ margin: '0 5px' }}>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                flexDirection: 'column',
+              }}>
+              {!response ? (
+                <Spin />
+              ) : (
+                  <>
+                    <h4>Connect Args</h4>
+                    <JSONPretty
+                      id='json-pretty'
+                      data={request}
+                      style={{
+                        maxWidth: '850px',
+                      }}></JSONPretty>
 
-                  <Divider plain />
+                    <Divider plain />
 
-                  <h4>Connect Return Value</h4>
-                  <JSONPretty
-                    id='json-pretty'
-                    data={response}
-                    style={{
-                      maxWidth: '850px',
-                    }}></JSONPretty>
-                </>
-              )}
-          </div>
-        </Card>
-      </Col>
-    </Row>
+                    <h4>Connect Return Value</h4>
+                    <JSONPretty
+                      id='json-pretty'
+                      data={response}
+                      style={{
+                        maxWidth: '850px',
+                      }}></JSONPretty>
+                  </>
+                )}
+            </div>
+          </Card>
+        </Col>
+      </Row>
+      <Row>
+        <Col span={24}><Divider /></Col>
+      </Row>
+      <Row>
+        <Col span={12}>
+          <Alert
+            message="Note"
+            description={"Submitting the form below currently does not trigger any actions."}
+            type="warning"
+            closable
+            style={{ margin: '5px' }}
+          />
+          <Card title='Settings Form' style={{ margin: '0 5px' }}>
+            <Form schema={settingsSchema} uiSchema={settingsUiSchema} />
+          </Card>
+        </Col>
+      </Row>
+    </>
   );
 };
 
 export default React.memo(ConnectFrom, function compare(
-  { schema: prevSchema },
-  { schema: newSchema },
+  { connectSchema: prevConnectSchema, connectUiSchema: prevConnectUiSchema, settingsSchema: prevSettingsSchema, settingsUiSchema: prevSettingsUiSchema },
+  { connectSchema: newConnectSchema, connectUiSchema: newConnectUiSchema, settingsSchema: newSettingsSchema, settingsUiSchema: newSettingsUiSchema },
 ) {
-  return isEqual(prevSchema, newSchema);
+  return isEqual(prevConnectSchema, newConnectSchema) || isEqual(prevSettingsSchema, newSettingsSchema) || isEqual(prevConnectUiSchema, newConnectUiSchema) || isEqual(prevSettingsUiSchema, newSettingsUiSchema);
 });

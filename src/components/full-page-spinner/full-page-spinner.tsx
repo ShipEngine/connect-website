@@ -1,8 +1,6 @@
 // Third Party
 import React, { FunctionComponent } from 'react';
-
-// Components
-import Spinner from '../spinner';
+import { Spin } from 'antd';
 
 // Styles & Assets
 import styles from './full-page-spinner.module.scss';
@@ -10,7 +8,7 @@ import styles from './full-page-spinner.module.scss';
 const FullPageSpinner: FunctionComponent = () => {
   return (
     <div className={styles.center}>
-      <Spinner />
+      <Spin size='large' />
     </div>
   );
 };
