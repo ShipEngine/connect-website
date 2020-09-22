@@ -35,7 +35,7 @@ const formatErrorMessage = (error: any, standardErrorCode: StandardizedErrorCode
         "external_error_code": mergeStringArray(error?.originalError?.externalErrors),
         "message": error.message || error?.originalError?.message,
         "external_http_status_code": error?.originalError?.statusCode,
-        "raw_external_context": error?.originalError
+        "raw_external_context": JSON.stringify(error)
       }
     ]
   }
