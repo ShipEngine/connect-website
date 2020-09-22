@@ -18,7 +18,7 @@
   },
   "main": "build/index.js",
   "scripts": {
-    "build": "react-scripts build && tsc -p ./scripts/post-build/tsconfig.json",
+    "build": "react-scripts build && tsc -p ./scripts/post-build/tsconfig.json && node ./scripts/remove-deps.js",
     "bundlesize": "bundlesize --config ./bundlesize.config.js",
     "bump": "bump --tag --push --all",
     "clean": "shx rm -rf coverage build",
