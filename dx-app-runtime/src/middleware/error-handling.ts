@@ -76,7 +76,6 @@ export default (
   response: Response,
   next: NextFunction
 ) => {
-  logger.error(error);
   const statusCode = getStatusCode(error.originalError?.code, error.originalError?.statusCode);
   const standartizedErrorCode = getStandardizedErrorCode(error.originalError?.code, error.originalError?.statusCode);
   const errorMessage = formatErrorMessage(error, standartizedErrorCode);

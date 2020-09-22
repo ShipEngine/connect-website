@@ -28,6 +28,12 @@ const mapStatusCode = (
       return StandardizedStatusCodes.De;
     case ShipmentStatus.Exception:
       return StandardizedStatusCodes.Ex;
+    case ShipmentStatus.Unknown:
+      return StandardizedStatusCodes.Un;
+    case ShipmentStatus.NotYetInSystem:
+      return StandardizedStatusCodes.Ny;
+    default:
+      return StandardizedStatusCodes.Un;
   }
 };
 

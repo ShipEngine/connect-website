@@ -9,7 +9,7 @@ logger.info(`NewRelic agent enabled: ${enabled}. AppName: ${newRelicAppName}`);
  * See lib/config/default.js in the agent distribution for a more complete
  * description of configuration variables and their potential values.
  */
-const config = {
+exports.config = {
   app_name: newRelicAppName,
   logging: {
     level: 'info',
@@ -49,5 +49,3 @@ const config = {
     ],
   },
 };
-
-exports.config = config;
