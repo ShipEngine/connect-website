@@ -21,6 +21,7 @@ const initializeEnvironmentVariables = (app: any) => {
   process.env.PORT = process.env.PORT || '3005';
   process.env.HOST = process.env.NODE_ENV?.startsWith('prod') ? 'k8s' : hostname();
   process.env.NEW_RELIC_APP_NAME = `dip-${app.name.replace(/\s/, '-')} [${process.env.HOST}],dx-carrier-runtime`;
+  process.env.LOG_LEVEL = process.env.LOG_LEVEL || 'info';
 }
 
 const logEnvironmentVariables = () => {
@@ -38,6 +39,7 @@ const logEnvironmentVariables = () => {
   logger.info(`PORT: ${PORT}`);
   logger.info(`HOST: ${HOST}`);
   logger.info(`NEW_RELIC_APP_NAME: ${NEW_RELIC_APP_NAME}`);
+  logger.info(`LOG_LEVEL: ${process.env.LOG_LEVEL}`);
   logger.info('----------------------');
 }
 

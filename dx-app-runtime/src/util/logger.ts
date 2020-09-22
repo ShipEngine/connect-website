@@ -3,7 +3,7 @@ import { getTransactionId } from './storage';
 import { TransformableInfo } from 'logform';
 import * as redact from 'fast-redact';
 
-const LOG_LEVEL = 'debug';
+const LOG_LEVEL = process.env.LOG_LEVEL || 'info';
 const LOG_FORMAT = process.env.NODE_ENV === 'production' ? 'json' : 'console';
 
 const redactor = redact({

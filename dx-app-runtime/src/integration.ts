@@ -38,13 +38,13 @@ export const getRates = async (app: CarrierApp, request: any) =>
     throw new NotSupported('rateShipment');
   }
   const transaction = mapTransaction(request);
-  logger.info(request);
+  logger.debug(request);
   const dxRequest = mapGetRatesRequest(request);
-  logger.info(dxRequest);
+  logger.debug(dxRequest);
   const dxResponse = await app.rateShipment(transaction, dxRequest);
-  logger.info(dxResponse);
+  logger.debug(dxResponse);
   const response = mapGetRatesResponse(transaction, dxResponse);
-  logger.info(response);
+  logger.debug(response);
   return response;
 };
 
@@ -54,13 +54,13 @@ export const createLabel = async (app: CarrierApp, request: any) =>
     throw new NotSupported('createShipment');
   }
   const transaction = mapTransaction(request);
-  logger.info(request);
+  logger.debug(request);
   const dxRequest = mapCreateLabelRequest(request);
-  logger.info(dxRequest);
+  logger.debug(dxRequest);
   const dxResponse = await app.createShipment(transaction, dxRequest);
-  logger.info(dxResponse);
+  logger.debug(dxResponse);
   const response = mapCreateLabelResponse(transaction, dxResponse);
-  logger.info(response);
+  logger.debug(response);
   return response;
 };
 
@@ -70,13 +70,13 @@ export const voidLabels = async (app: CarrierApp, request: any) =>
     throw new NotSupported('cancelShipment');
   }
   const transaction = mapTransaction(request);
-  logger.info(request);
+  logger.debug(request);
   const dxRequest = mapVoidLabelsRequest(request);
-  logger.info(dxRequest);
+  logger.debug(dxRequest);
   const dxResponse = await app.cancelShipments(transaction, dxRequest);
-  logger.info(dxResponse);
+  logger.debug(dxResponse);
   const response = mapVoidLabelsResponse(dxResponse, transaction);
-  logger.info(response);
+  logger.debug(response);
   return response;
 };
 
@@ -86,13 +86,13 @@ export const createManifest = async (app: CarrierApp, request: any) =>
     throw new NotSupported('createManifest');
   }
   const transaction = mapTransaction(request);
-  logger.info(request);
+  logger.debug(request);
   const dxRequest = mapCreateManifestRequest(request);
-  logger.info(dxRequest);
+  logger.debug(dxRequest);
   const dxResponse = await app.createManifest(transaction, dxRequest);
-  logger.info(dxResponse);
+  logger.debug(dxResponse);
   const response = mapCreateManifestResponse(dxResponse, transaction);
-  logger.info(response);
+  logger.debug(response);
   return response;
 };
 
@@ -102,13 +102,13 @@ export const track = async (app: CarrierApp, request: any) =>
     throw new NotSupported('track');
   }
   const transaction = mapTransaction(request);
-  logger.info(request);
+  logger.debug(request);
   const dxRequest = mapTrackingRequest(request);
-  logger.info(dxRequest);
+  logger.debug(dxRequest);
   const dxResponse = await app.trackShipment(transaction, dxRequest);
-  logger.info(dxResponse);
+  logger.debug(dxResponse);
   const response = mapTrackingResponse(dxResponse, transaction);
-  logger.info(response);
+  logger.debug(response);
   return response;
 };
 
@@ -120,9 +120,9 @@ export const schedulePickup = async (app: CarrierApp, request: any) =>
   }
   const transaction = mapTransaction(request);
   const dxRequest = mapSchedulePickupRequest(request);
-  logger.info(dxRequest);
+  logger.debug(dxRequest);
   const dxResponse = await app.schedulePickup(transaction, dxRequest);
-  logger.info(dxResponse);
+  logger.debug(dxResponse);
   return mapSchedulePickupResponse(dxResponse, transaction);
 };
 
@@ -132,13 +132,13 @@ export const cancelPickup = async (app: CarrierApp, request: any) =>
     throw new NotSupported('cancelPickups');
   }
   const transaction = mapTransaction(request);
-  logger.info(request);
+  logger.debug(request);
   const dxRequest = [mapCancelPickupRequest(request)];
-  logger.info(dxRequest);
+  logger.debug(dxRequest);
   const dxResponse = await app.cancelPickups(transaction, dxRequest);
-  logger.info(dxResponse);
+  logger.debug(dxResponse);
   const response = mapCancelPickupResponse(dxResponse[0], transaction);
-  logger.info(response);
+  logger.debug(response);
   return response;
 };
 
