@@ -1,6 +1,6 @@
 {
   "name": "@shipengine/connect-local-dev-ui",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "description": "The ShipEngine Integration Platform local development UI",
   "author": {
     "name": "ShipEngine",
@@ -35,7 +35,7 @@
     "@beam-australia/react-env": "^2.1.2",
     "@rjsf/antd": "^2.4.0",
     "@rjsf/core": "^2.4.0",
-    "@shipengine/connect-sdk": "^6.0.0",
+    "@shipengine/connect-sdk": "^6.0.4",
     "antd": "^4.6.5",
     "axios": "^0.20.0",
     "dayjs": "^1.8.36",
