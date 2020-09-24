@@ -28,25 +28,25 @@ column indicates which properties are required when the object is returned from 
 
 <Reference>
 
-  <Field name="company" type="string" nullable={false} required={true}>
+  <Field name="company" type="string" nullable={true} required={false}>
     <Description>
       The company name for the address, if provided. This string must be between `0` and `100` characters and must not include newline characters and must not include newline characters.
     </Description>
   </Field>
 
-  <Field name="addressLines" type="string[]" nullable={false} required={true}>
+  <Field name="addressLines" type="string[]" nullable={true} required={false}>
     <Description>
       Rather than providing two or three distinct address fields, simply provide all lines of the address in a string array. Each string in the array must be between `0` and `100` characters and must not include newline characters.
     </Description>
   </Field>
 
-  <Field name="cityLocality" type="string" nullable={false} required={true}>
+  <Field name="cityLocality" type="string" nullable={true} required={false}>
     <Description>
       The city or locality for this address. This string must be between `1` and `100` characters and must not include newline characters.
     </Description>
   </Field>
 
-  <Field name="stateProvince" type="string" nullable={false} required={true}>
+  <Field name="stateProvince" type="string" nullable={true} required={false}>
     <Description>
       The state or province for this address. This string must be between `1` and `100` characters and must not include newline characters.
     </Description>
