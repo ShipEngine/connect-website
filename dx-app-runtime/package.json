@@ -21,8 +21,8 @@
   "dependencies": {
     "@ipaas/capi": "0.0.12",
     "@sentry/node": "^5.24.2",
-    "@shipengine/connect": "npm:@shipengine/connect-sdk@^6.0.4",
-    "@shipengine/connect-loader": "^2.4.1",
+    "@shipengine/connect": "npm:@shipengine/connect-sdk@^6.0.8",
+    "@shipengine/connect-loader": "^2.4.3",
     "body-parser": "1.19.0",
     "continuation-local-storage": "3.2.1",
     "dotenv-flow": "3.2.0",

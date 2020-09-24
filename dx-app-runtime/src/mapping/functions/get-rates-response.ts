@@ -24,7 +24,7 @@ export const mapRate = (rate: Rate): capiRate => {
     (rate) => rate.type === ChargeType.Uncategorized
   );
   const returnRate: capiRate = {
-    service_code: rate.deliveryService.code,
+    service_code: rate?.deliveryService?.code || '',
     shipping_amount: {
       currency: shippingAmount?.amount?.currency || 'USD',
       amount: shippingAmount?.amount?.value?.toString() || '0.00',
