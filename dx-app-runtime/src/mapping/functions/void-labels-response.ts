@@ -14,7 +14,7 @@ export const mapVoidLabelsResponse = (
   response.forEach((response) => {
     voidResponses.push({
       void_request_id: response.cancellationID,
-      message: response.notes ? response.notes.toString() : '',
+      message: response.notes ? response.notes.map(p => p.text).join(', ') : '',
     });
   });
   return {

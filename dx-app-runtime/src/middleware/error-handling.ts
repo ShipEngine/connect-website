@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from 'express';
 import {
   ErrorCode,
 } from '../errors';
-import logger from '../util/logger';
 
 export enum HttpStatusCode {
   BadRequest = 400,
