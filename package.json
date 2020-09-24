@@ -1,6 +1,6 @@
 {
   "name": "@shipengine/connect-local-dev-api",
-  "version": "2.1.3",
+  "version": "2.1.4",
   "description": "The ShipEngine Integration Platform local development API",
   "author": {
     "name": "ShipEngine",
@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "@jsdevtools/version-bump-prompt": "^6.1.0",
-    "@shipengine/connect-sdk": "^6.0.0",
+    "@shipengine/connect-sdk": "^6.0.4",
     "@types/chai": "^4.2.12",
     "@types/cors": "^2.8.7",
     "@types/eslint": "^7.2.2",
