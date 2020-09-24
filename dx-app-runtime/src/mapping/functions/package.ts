@@ -91,9 +91,7 @@ export const capiToDxNewPackagePOJO = (
           return capiToDxCustomsItem(item);
         }) ?? [],
     },
-    packaging: {
-      id: capiPackage.package_code || '',
-    },
+    packaging: capiPackage.package_code || '',
     dimensions: {
       length:
         capiPackage.dimension_details?.dimensions_in_centimeters?.length || 0,
