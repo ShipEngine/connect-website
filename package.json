@@ -1,6 +1,6 @@
 {
   "name": "@shipengine/connect-loader",
-  "version": "2.2.1",
+  "version": "2.3.0",
   "description": "Internal library for loading ShipEngine Connect apps",
   "keywords": [
     "shipengine",
@@ -60,7 +60,7 @@
     "typescript": "^4.0.3"
   },
   "dependencies": {
-    "@shipengine/connect-sdk": "^5.2.0",
+    "@shipengine/connect-sdk": "^6.0.0",
     "js-yaml": "^3.14.0",
     "json5": "^2.1.3",
     "resolve-from": "^5.0.0",
