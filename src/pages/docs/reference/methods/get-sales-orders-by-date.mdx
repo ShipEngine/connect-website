@@ -323,6 +323,18 @@ An array of sales orders matching the date range.
     </Description>
   </Field>
 
+  <Field name="paymentStatus" type="string" required={false}>
+    <Description>
+      Indicates the status of the customer payment for the order. Valid values include the following:
+      * `awaiting_payment` - The sales order is still waiting on the customer's payment.
+      * `payment_cancelled` - The sales order payment was cancelled.
+      * `payment_failed` - The sales order payment failed.
+      * `payment_in_process` - The sales order payment is currently being processed.
+      * `paid` - The sales order has been payed for.
+      * `other` - The sales order payment is in an unknown state.
+    </Description>
+  </Field>
+
   <Field name="orderURL" required={false}>
     <Type>
       [URL](https://nodejs.org/api/url.html) or string
