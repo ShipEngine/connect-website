@@ -7,7 +7,7 @@ interface UseApp {
   isLoading: boolean;
   isError: boolean;
   appStatus?: AppStatus;
-  error?: unknown;
+  error?: Error;
 }
 
 export default function useAppStatus(): UseApp {
@@ -36,5 +36,7 @@ export default function useAppStatus(): UseApp {
     },
   );
 
-  return { isLoading, isError, appStatus: data, error };
+  const err = error as Error;
+
+  return { isLoading, isError, appStatus: data, error: err };
 }

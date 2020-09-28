@@ -36,7 +36,5 @@ export default function useApp(): UseApp {
     },
   );
 
-  // const tempIsError = isError || failureCount !== 0;
-
   return { isLoading, isError, app: data, error };
 }

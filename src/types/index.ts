@@ -11,7 +11,15 @@ export interface ConnectApp {
   type: 'carrier';
 }
 
+interface ErrorDetail {
+  message: string;
+}
+
+interface ErrorWithDetails extends Error {
+  details: ErrorDetail[]
+}
+
 export interface AppStatus {
   status: 'up' | 'down';
-  error: Error;
+  error: ErrorWithDetails;
 }

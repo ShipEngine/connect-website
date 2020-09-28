@@ -164,7 +164,9 @@ const AppLayout: FunctionComponent = () => {
               onCancel={() => {
                 setModalVisible(false);
               }}>
-              <code>{appStatus?.error?.message}</code>
+              <ul>
+                {appStatus?.error?.details.map((detail) => <li><code>{detail.message}</code></li>)}
+              </ul>
             </Modal>
             {appStatus && appStatus.status === 'down' && (
               <Affix

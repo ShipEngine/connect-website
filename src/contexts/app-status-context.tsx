@@ -6,7 +6,7 @@ interface AppStatusContextProps {
   isLoading: boolean;
   isError: boolean;
   appStatus?: AppStatus;
-  error?: unknown;
+  error?: Error;
 }
 
 const AppContext = React.createContext<AppStatusContextProps | undefined>(
