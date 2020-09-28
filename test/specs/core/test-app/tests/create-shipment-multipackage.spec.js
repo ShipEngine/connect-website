@@ -340,36 +340,6 @@ describe("The create shipment multipackage test suite", () => {
       CarrierApp.prototype.createShipment.restore();
     });
   });
-
-  describe("When the input parameters do not match the return shipment", () => {
-
-    it("should throw an error for a packaging length mismatch", async () => {
-      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-
-      const confirmationMock = pojo.shipmentConfirmation();
-      confirmationMock.packages.push(pojo.packageConfirmation());
-      confirmationMock.packages.push(pojo.packageConfirmation());
-      sinon.stub(CarrierApp.prototype, "createShipment").resolves(confirmationMock);
-      const app = new CarrierApp(appDefinition);
-
-      const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CreateShipmentMultiPackage(args);
-      const tests = testSuite.tests();
-      try {
-        await tests[0].fn();
-        expect(true).to.equal(false);
-      }
-      catch (error) {
-        expect(error.message).includes("The shipment confirmation packages array should have the same number of packages that were on the request");
-      }
-    });
-
-    afterEach(() => {
-      CarrierApp.prototype.createShipment.restore();
-    });
-
-  });
-
 });
 
 function generateBasicAppAndConfigs() {
