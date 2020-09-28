@@ -37,6 +37,23 @@ it is returned from a method.
     </Description>
   </Field>
 
+  <Field name="requestedShippingService" type="string" required={false}>
+    <Description>
+      The requested shipping service to be used.
+    </Description>
+  </Field>
+
+  <Field name="deliverByDate" type="string" required={false}>
+    <Type>
+      [date/time object](./../reference/date-time.mdx), <br/>
+      or [Date object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) object, <br/>
+      or a string representing the date and time in [ISO](https://www.w3.org/TR/NOTE-datetime) format.
+    </Type>
+    <Description>
+      The requested date for the sales order to be delivered by.
+    </Description>
+  </Field>
+
   <Field name="insuredValue" type="object" required={false}>
     <Description>
       Requests that the shipment be insured for the specified value.
@@ -44,7 +61,7 @@ it is returned from a method.
       This property is not required. If it is provided, it must contain all of its required properties, listed below.
     </Description>
   </Field>
-
+  
   <Field name="insuredValue.value" type="number" required={true}>
     <Description>
       The value of the insured amount.
@@ -58,8 +75,3 @@ it is returned from a method.
   </Field>
 
 </Reference>
-
-
-
-
-
