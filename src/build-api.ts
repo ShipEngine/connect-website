@@ -20,6 +20,7 @@ import {
 import { AppType } from "@shipengine/connect-sdk";
 import { TransactionPOJO } from "@shipengine/connect-sdk/lib/internal";
 import log from "./utils/logger";
+import path from "path";
 
 type App = CarrierApp | OrderApp | ConnectionApp;
 
@@ -94,7 +95,7 @@ function logRequest(req: Request, _res: Response, next: NextFunction) {
 }
 
 function buildImageUrl(pathToImage: string, port: number): string | undefined {
-  const fileName = pathToImage.split("/").pop();
+  const fileName = path.basename(pathToImage);
 
   if (fileName) {
     return `http://localhost:${port}/${fileName}`;
