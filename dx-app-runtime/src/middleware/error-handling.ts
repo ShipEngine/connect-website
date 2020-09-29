@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import {
   ErrorCode,
 } from '../errors';
+import { captureException } from '@sentry/node';
 
 export enum HttpStatusCode {
   BadRequest = 400,
@@ -40,7 +41,10 @@ const formatErrorMessage = (error: any, standardErrorCode: StandardizedErrorCode
   }
 }
 
-const getStatusCode = (code: ErrorCode, statusCode?: number): number => {
+const getStatusCode = (code?: ErrorCode, statusCode?: number): number => {
+  if(!code) {
+    return HttpStatusCode.ServerError;
+  }
   const statusCodeMap = {
     [ErrorCode.AppError]: HttpStatusCode.BadRequest,
     [ErrorCode.External]: HttpStatusCode.BadRequest,
@@ -78,6 +82,9 @@ export default (
   const statusCode = getStatusCode(error.originalError?.code, error.originalError?.statusCode);
   const standartizedErrorCode = getStandardizedErrorCode(error.originalError?.code, error.originalError?.statusCode);
   const errorMessage = formatErrorMessage(error, standartizedErrorCode);
+  if(statusCode === HttpStatusCode.ServerError) {
+    captureException(error.originalError);
+  }
   response.status(statusCode).send(errorMessage);
   next(error);
 };

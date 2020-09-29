@@ -20,7 +20,7 @@ const initializeEnvironmentVariables = (app: any) => {
   process.env.SENTRY_DSN = process.env.SENTRY_DSN || '';
   process.env.PORT = process.env.PORT || '3005';
   process.env.HOST = process.env.NODE_ENV?.startsWith('prod') ? 'k8s' : hostname();
-  process.env.NEW_RELIC_APP_NAME = `dip-${app.name.replace(/\s/, '-')} [${process.env.HOST}],dx-carrier-runtime`;
+  process.env.NEW_RELIC_APP_NAME = process.env.NEW_RELIC_APP_NAME || `dip-${app.name.replace(/\s/, '-')} [${process.env.HOST}],dx-carrier-runtime`;
   process.env.LOG_LEVEL = process.env.LOG_LEVEL || 'info';
 }
 
@@ -32,15 +32,17 @@ const logEnvironmentVariables = () => {
     HOST,
     NEW_RELIC_APP_NAME
   } = process.env;
-  logger.info('Environment Variables');
-  logger.info('----------------------');
-  logger.info(`NODE_ENV: ${NODE_ENV || ''}`);
-  logger.info(`SENTRY_DSN: ${SENTRY_DSN || ''}`);
-  logger.info(`PORT: ${PORT}`);
-  logger.info(`HOST: ${HOST}`);
-  logger.info(`NEW_RELIC_APP_NAME: ${NEW_RELIC_APP_NAME}`);
-  logger.info(`LOG_LEVEL: ${process.env.LOG_LEVEL}`);
-  logger.info('----------------------');
+  const environmentMessage = 
+    'Environment Variables\n' +
+    '----------------------\n' +
+    `NODE_ENV: ${NODE_ENV || ''}\n` +
+    `SENTRY_DSN: ${SENTRY_DSN || ''}\n` +
+    `PORT: ${PORT}\n` +
+    `HOST: ${HOST}\n` +
+    `NEW_RELIC_APP_NAME: ${NEW_RELIC_APP_NAME}\n` +
+    `LOG_LEVEL: ${process.env.LOG_LEVEL}\n` +
+    '----------------------';
+  logger.info(environmentMessage);
 }
 
 loadApp().then((app) => {
@@ -50,6 +52,7 @@ loadApp().then((app) => {
   const {
     SENTRY_DSN,
     PORT,
+    NODE_ENV
   } = process.env;
 
   require('newrelic');
@@ -62,7 +65,7 @@ loadApp().then((app) => {
   const server = express();
   if(SENTRY_DSN) {
     logger.info(`Initializing Sentry: ${SENTRY_DSN}`);
-    Sentry.init({ dsn: SENTRY_DSN });
+    Sentry.init({ dsn: SENTRY_DSN, environment: NODE_ENV });
     server.use(Sentry.Handlers.errorHandler());
   }
   server.use(bodyParser.json());

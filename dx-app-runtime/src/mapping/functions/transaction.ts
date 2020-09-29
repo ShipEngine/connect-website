@@ -21,7 +21,7 @@ export const mapTransaction = (
 ): Transaction => {
   return {
     id: request.transaction_id || '',
-    useSandbox: false, // TODO: Do we want to add sandbox to call?
+    useSandbox: false,
     session: {
       ...request.metadata,
     },
