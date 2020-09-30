@@ -21,7 +21,6 @@ export const mapTransaction = (
 ): Transaction => {
   return {
     id: request.transaction_id || '',
-    useSandbox: false,
     session: {
       ...request.metadata,
     },
