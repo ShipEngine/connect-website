@@ -95,12 +95,6 @@ column indicates which properties are required when the object is returned from 
     </Description>
   </Field>
 
-  <Field name="hasSandbox" type="boolean" nullable={false}>
-    <Description>
-      Indicates whether the carrier provides a [sandbox](./../sandbox.mdx) API for this delivery service. A sandbox should mimic real functionality as much as possible but MUST NOT incur any actual costs or affect production data.
-    </Description>
-  </Field>
-
   <Field name="supportsReturns" type="boolean" nullable={false}>
     <Description>
       Indicates whether the carrier supports return shipments. Defaults to `false` if not specified.

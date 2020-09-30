@@ -86,12 +86,6 @@ An object representing a request for a carrier to pickup one or more packages at
     </Description>
   </Field>
 
-  <Field name="pickupService.hasSandbox" type="boolean" nullable={false}>
-    <Description>
-      Indicates whether the carrier provides a [sandbox](./../../sandbox.mdx) development API for this pickup service. A sandbox should mimic real functionality as much as possible but MUST NOT incur any actual costs or affect production data.
-    </Description>
-  </Field>
-
   <Field name="timeWindow" type="object" nullable={false}>
     <Description>
       The requested window of time for the carrier to arrive.

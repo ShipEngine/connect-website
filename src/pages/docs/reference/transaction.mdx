@@ -6,7 +6,7 @@ description: The transaction object provides important information about a metho
 Transaction Object
 ===============================================
 Every method in a [ShipEngine Connect](./../index.mdx) application receives a transaction object as the first parameter. This object contains useful information about the method invocation, such as a unique `transactionID`,
-whether the call is a test (aka [sandbox](./../sandbox.mdx)) call, and session state such as authentication credentials.
+ and includes session state such as authentication credentials.
 
 Any of your methods may modify the `session` property of a transaction object. For example, your [`connect method`](./methods/connect.mdx)
 can set authentication information in the `session` property so that when the transaction object is passed to other methods, they can access it and use
@@ -33,12 +33,6 @@ column indicates which properties are required when the object is returned from 
     </Description>
   </Field>
 
-  <Field name="useSandbox" type="boolean" required={false}>
-    <Description>
-      Indicates whether the operation should use the carrier's [sandbox](./../sandbox.mdx) or development API rather than the normal production API. If `useSandbox` is `true`, then the operation MUST NOT incur any actual costs or affect production data.
-    </Description>
-  </Field>
-
   <Field name="session" type="object" required={true}>
     <Description>
       The application's session data. Any method may update the session data, such as renewing a session token or updating a timestamp. Must be JSON serializable.
@@ -58,7 +52,6 @@ Here's an example transaction object:
 ```javascript
 {
   id: "6ad41b24-62a8-4e17-9751-a28d9688e277",
-  useSandbox: false,
   session: {
     id: "sess_184849191484716854941017",
     accountNumber: "10004583",
@@ -70,7 +63,6 @@ Here's an example transaction object:
 
 ```yaml
 id: 6ad41b24-62a8-4e17-9751-a28d9688e277
-useSandbox: false,
 session:
   id: sess_184849191484716854941017
   accountNumber: 10004583
