@@ -217,7 +217,19 @@ The shipment that was created.
     </Description>
   </Field>
 
-<Field name="fulfillmentService" nullable={true}>
+  <Field name="carrierCode" nullable={true} type="string">
+    <Description>
+      If the shipment is being fulfilled using a well-known third-party carrier, such as UPS, FedEx, DHL, etc., then this field specifies the carrier.
+    </Description>
+  </Field>
+
+  <Field name="carrierServiceCode" nullable={true} type="string">
+    <Description>
+      If the shipment is being fulfilled using a well-known third-party carrier, such as UPS, FedEx, DHL, etc., then this field specifies the service code.
+    </Description>
+  </Field>
+
+  <Field name="fulfillmentService" nullable={true}>
     <Description>
       If the shipment is being fulfilled using a well-known third-party carrier, such as UPS, FedEx, DHL, etc., then this field specifies the carrier service.
     </Description>
