@@ -1,6 +1,6 @@
 {
   "name": "@shipengine/connect-local-dev-ui",
-  "version": "2.0.11",
+  "version": "2.0.12",
   "description": "The ShipEngine Integration Platform local development UI",
   "author": {
     "name": "ShipEngine",
@@ -24,7 +24,7 @@
     "clean": "shx rm -rf coverage build",
     "format": "prettier --write src/**/*.ts{,x}",
     "lint": "eslint src/**/*.ts{,x}",
-    "release": "npm run upgrade && npm run clean && npm run lint && CI=true react-scripts test && npm run bump",
+    "release": "npm run upgrade && npm run clean && npm run lint && npm run build && CI=true react-scripts test && npm run bump",
     "prestart": "react-env --env /path/to/.env",
     "start": "PORT=4000 react-scripts start",
     "test": "react-scripts test",
