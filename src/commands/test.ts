@@ -1,5 +1,5 @@
 import BaseCommand from "../base-command";
-import testApp from "../core/test-app";
+import testApp, { TestAppErrors } from "../core/test-app";
 import { flags } from "@oclif/command";
 import chalk from "chalk";
 
@@ -55,7 +55,7 @@ export default class Test extends BaseCommand {
       }
     } catch (error) {
       switch (error.code) {
-        case "ERR_CONNECT_CONFIG_SCHEMA":
+        case TestAppErrors.SchemaInvalid:
           this.log(chalk.red("connect.config.js is not valid"));
           error.details.map((detail: any) =>
             this.log(chalk.red(`    - ${detail.message}`)),

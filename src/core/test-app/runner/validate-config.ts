@@ -291,11 +291,15 @@ const schema = Joi.object().keys({
   tests: testsSchema,
 });
 
+export enum ValidateConfigError {
+  SchemaInvalid = "ERR_SCHEMA_INVALID"
+}
+
 const validateConfig = (config: Config): Config => {
   const { error, value } = schema.validate(config, joiOptions as ValidationOptions);
 
   if (error) {
-    throw ono(error, { code: "ERR_CONNECT_CONFIG_SCHEMA" });
+    throw ono(error, { code: ValidateConfigError.SchemaInvalid });
   }
 
   return value as Config;
