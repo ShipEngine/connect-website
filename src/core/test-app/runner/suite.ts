@@ -99,7 +99,6 @@ export default abstract class Suite {
     ) {
       const transaction: TransactionPOJO = {
         id: v4(),
-        useSandbox: false,
         session: config.session || this.options.staticRootConfig.session,
       };
 
@@ -131,7 +130,6 @@ export default abstract class Suite {
 
       const transaction: TransactionPOJO = {
         id: v4(),
-        useSandbox: false,
         session: {},
       };
 
@@ -155,7 +153,6 @@ export default abstract class Suite {
 
     const transaction: TransactionPOJO = {
       id: v4(),
-      useSandbox: false,
       session: {},
     };
 
