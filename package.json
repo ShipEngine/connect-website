@@ -18,7 +18,7 @@
   },
   "main": "build/index.js",
   "scripts": {
-    "build": "react-scripts build && tsc -p ./scripts/post-build/tsconfig.json && node ./scripts/remove-deps.js",
+    "build": "react-scripts build && tsc -p ./scripts/post-build/tsconfig.json",
     "bundlesize": "bundlesize --config ./bundlesize.config.js",
     "bump": "bump --tag --push --all",
     "clean": "shx rm -rf coverage build",
@@ -30,28 +30,13 @@
     "test": "react-scripts test",
     "upgrade": "npm-check -u && npm audit fix"
   },
-  "dependencies": {
+  "devDependencies": {
     "@ant-design/icons": "^4.2.2",
     "@beam-australia/react-env": "^2.1.2",
+    "@jsdevtools/version-bump-prompt": "^6.1.0",
     "@rjsf/antd": "^2.4.0",
     "@rjsf/core": "^2.4.0",
     "@shipengine/connect-sdk": "^6.0.4",
-    "antd": "^4.6.6",
-    "axios": "^0.20.0",
-    "dayjs": "^1.9.1",
-    "json-schema": "^0.2.5",
-    "lodash": "^4.17.20",
-    "node-sass": "^4.14.1",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-json-pretty": "^2.2.0",
-    "react-query": "^2.23.0",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "^3.4.3",
-    "uuid": "^8.3.0"
-  },
-  "devDependencies": {
-    "@jsdevtools/version-bump-prompt": "^6.1.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.0.4",
     "@testing-library/user-event": "^12.1.6",
@@ -67,12 +52,25 @@
     "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "4.0.1",
     "@typescript-eslint/parser": "4.0.1",
+    "antd": "^4.6.6",
+    "axios": "^0.20.0",
     "bundlesize": "^0.18.0",
+    "dayjs": "^1.9.1",
     "eslint-plugin-jest": "^24.0.2",
+    "json-schema": "^0.2.5",
+    "lodash": "^4.17.20",
+    "node-sass": "^4.14.1",
     "npm-check": "^5.9.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-json-pretty": "^2.2.0",
+    "react-query": "^2.23.0",
     "react-query-devtools": "^2.5.1",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "^3.4.3",
     "shx": "^0.3.2",
-    "typescript": "^4.0.3"
+    "typescript": "^4.0.3",
+    "uuid": "^8.3.0"
   },
   "engines": {
     "node": ">=10"
