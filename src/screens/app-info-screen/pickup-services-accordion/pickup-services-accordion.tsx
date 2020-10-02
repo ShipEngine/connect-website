@@ -26,9 +26,6 @@ const PickupServicesAccordion: FunctionComponent<Props> = ({
             <Descriptions.Item label='Code'>
               {pickupService.code}
             </Descriptions.Item>
-            <Descriptions.Item label='Has Sandbox'>
-              {pickupService.hasSandbox.toString()}
-            </Descriptions.Item>
           </Descriptions>
         </Collapse.Panel>
       ))}
