@@ -122,6 +122,8 @@ match all the required criteria. If none of these are provided, your method shou
   <Field name="packages[].packaging.code" type="string" nullable={false}>
     <Description>
       Optional code used to map to what the carrier uses to identify the packaging.
+      
+      The value `custom` indicates user-defined packaging. Some of our products allow users to enter custom packaging instead of one of your app's pre-defined packaging types.
     </Description>
   </Field>
 
@@ -499,6 +501,8 @@ An array of objects representing the quoted shipping rates based on the specifie
   <Field name="packages[].packaging.code" type="string" required={false}>
     <Description>
       Optional code used to map to what the carrier or marketplace uses to identify the packaging.
+
+      The value `custom` indicates user-defined packaging. Some of our products allow users to enter custom packaging instead of one of your app's pre-defined packaging types.
     </Description>
   </Field>
 
