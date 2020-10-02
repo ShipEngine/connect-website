@@ -27,7 +27,7 @@
     "coverage": "nyc npm run test",
     "format": "prettier --write src/**/*.ts",
     "lint": "eslint src/**/*",
-    "release": "npm run upgrade && npm run clean && npm run lint && npm test && npm run bump",
+    "release": "npm run upgrade && npm run clean && npm run build && npm run lint && npm test && npm run bump",
     "start": "node lib/start.js",
     "start:dev": "nodemon",
     "test": "mocha -r ts-node/register test/**/*.spec.ts",
