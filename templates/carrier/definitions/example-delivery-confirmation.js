@@ -5,5 +5,6 @@ module.exports = {
   name: "Example Delivery Confirmation",
   description:
     "This is an example delivery confirmation. Please remove and define your own.",
-  type: "delivery",
+  code: "edc",
+  type: "delivery"
 };

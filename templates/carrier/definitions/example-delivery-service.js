@@ -3,6 +3,7 @@
 module.exports = {
   id: "<%- _uuidv4 %>",
   name: "Example Delivery Service",
+  code: "eds",
   description:
     "This is an example delivery service. Please remove and define your own.",
   deliveryConfirmations: ["./example-delivery-confirmation.js"],
