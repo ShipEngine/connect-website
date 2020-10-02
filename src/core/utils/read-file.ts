@@ -1,11 +1,16 @@
 import {
   EcmaScriptModule
 } from "@shipengine/connect-sdk";
-import { error as sdkError, SystemErrorCode } from "@shipengine/connect-sdk/lib/internal";
+import ono from '@jsdevtools/ono'
 import { promises as fs } from "fs";
 import * as jsYaml from "js-yaml";
 import * as json5 from "json5";
 import * as path from "path";
+
+export enum FileError {
+  Filesystem = "ERR_FILESYSTEM",
+  Syntax = "ERR_SYNTAX"
+}
 
 /**
  * Returns the contents of the specified UTF-8 text file
@@ -15,12 +20,12 @@ async function readTextFile(absoluteFilePath: string): Promise<string> {
     return await fs.readFile(absoluteFilePath, "utf8");
   } catch (error) {
     const err = error as Error;
-    throw sdkError(
-      SystemErrorCode.Filesystem,
-      `Unable to read ${absoluteFilePath}.`,
+    throw ono(
+      err,
       {
-        err,
+        code: FileError.Filesystem
       },
+      `Unable to read ${absoluteFilePath}.`,
     );
   }
 }
@@ -37,10 +42,12 @@ async function readYamlFile<T>(absoluteFilePath: string): Promise<T> {
     return parsedYaml as T;
   } catch (error) {
     const err = error as Error;
-    throw sdkError(
-      SystemErrorCode.Syntax,
+    throw ono(
+      err,
+      {
+        code: FileError.Syntax
+      },
       `Unable to parse ${path.basename(absoluteFilePath)}.`,
-      { err },
     );
   }
 }
@@ -55,10 +62,12 @@ async function readJsonFile<T>(absoluteFilePath: string): Promise<T> {
     return json5.parse(json) as T;
   } catch (error) {
     const err = error as Error;
-    throw sdkError(
-      SystemErrorCode.Syntax,
+    throw ono(
+      err,
+      {
+        code: FileError.Syntax
+      },
       `Unable to parse ${path.basename(absoluteFilePath)}.`,
-      { err },
     );
   }
 }
@@ -77,10 +86,12 @@ async function importJavaScriptModule<T>(absoluteFilePath: string): Promise<T> {
     return (exports as unknown) as T;
   } catch (error) {
     const err = error as Error;
-    throw sdkError(
-      SystemErrorCode.Filesystem,
+    throw ono(
+      err,
+      {
+        code: FileError.Filesystem
+      },
       `Unable to import ${path.basename(absoluteFilePath)}.`,
-      { err },
     );
   }
 }
@@ -90,7 +101,7 @@ async function importJavaScriptModule<T>(absoluteFilePath: string): Promise<T> {
  */
 export async function readFile<T>(absoluteFilePath: string): Promise<T> {
   if (!(path.resolve(absoluteFilePath) === path.normalize(absoluteFilePath))) {
-    throw sdkError(SystemErrorCode.Filesystem, "Path must be absolute.");
+    throw ono({ code: FileError.Filesystem }, "Path must be absolute.");
   }
 
   switch (path.extname(absoluteFilePath)) {
