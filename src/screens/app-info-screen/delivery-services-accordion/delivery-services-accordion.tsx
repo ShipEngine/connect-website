@@ -50,9 +50,6 @@ const DeliveryServicesAccordion: FunctionComponent<Props> = ({
             <Descriptions.Item label='Supports Returns'>
               {deliveryService.supportsReturns}
             </Descriptions.Item>
-            <Descriptions.Item label='Has Sandbox'>
-              {deliveryService.hasSandbox.toString()}
-            </Descriptions.Item>
             <Descriptions.Item label='Label Formats'>
               {deliveryService.labelFormats.join(', ')}
             </Descriptions.Item>
