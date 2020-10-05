@@ -18,7 +18,8 @@ property.
 
 Your application must also supply a settings form that allows an end-user to update their connection information, such
 as when the password is changed. You will need to provide the path to this form in the Carrier Application definition file in
-the `settingsForm` property.
+the `settingsForm` property. You can provide the same form for both the `connectionForm` and `settingsForm` if the properties
+are consistent.
 
 Both forms should be created using [React JSON Schema Forms](https://github.com/rjsf-team/react-jsonschema-form).
 The following [site](https://rjsf-team.github.io/react-jsonschema-form/) can be used to test and create your own forms.

@@ -91,14 +91,12 @@ export const menu: MenuContents = [
       {
         title: "App Structure",
         menuItems: [
-          { title: "Order App", href: "/docs/reference/order" },
-          { title: "Forms", href: "/docs/reference/forms" },
+          { title: "Order App", href: "/docs/reference/order" }
         ]
       },
       {
         title: "Methods",
         menuItems: [
-          { title: "connect", href: "/docs/reference/methods/connect" },
           { title: "getSalesOrdersByDate", href: "/docs/reference/methods/get-sales-orders-by-date" },
           { title: "shipmentCreated", href: "/docs/reference/methods/shipment-created" },
           { title: "acknowledgeOrders", href: "/docs/reference/methods/acknowledge-orders"}

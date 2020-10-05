@@ -70,7 +70,10 @@ specifies the path to a file that exports the method, the structure is up to you
 /**
  * Generates a shipping label and tracking number for a shipment
  *
- * See an example implementation below
+ * View documentation here:
+ * https://connect.shipengine.com/docs/reference/methods/create-shipment
+ *
+ * View sample implementation here:
  * https://github.com/ShipEngine/connect-samples/blob/master/freightco/carrier/create-shipment.js
  */
 async function createShipment(transaction, shipment) {
@@ -82,6 +85,7 @@ async function createShipment(transaction, shipment) {
 }
 
 module.exports = createShipment;
+
 ```
 
 ```typescript
@@ -116,9 +120,35 @@ As with methods, you aren't required to maintain this directory structure. As lo
 In addition to the definitions for the services that are offered, running this command creates a sample application definition as well. It uses the values you provided when you ran the command along with some default values. This definition resides in an `index` file in the
 `src` directory. You can change the location of this file as long as you provide the correct path to it in your `package.json` file.
 
+> **WARNING**
+> Once you have [published](./cli.mdx#publish-your-app) your app, you must not change the `id`, `name`, or `code` properties for any of your
+> definitions.
+
 This is an example of the application definition that is generated for a Carrier Application.
 
 <CodeWrapper>
+```javascript
+module.exports = {
+  id: "bd45f17d-e32f-43d0-b397-d627bf0dbfa5",
+  name: "@shipengine/cargo-inc",
+  description: "ShipEngine Connect application for cargo-inc carrier services.",
+  websiteURL: "https://example-carrier.com",
+  logo: "./logo.svg",
+  icon: "./icon.svg",
+  manifestLocations: "single_location",
+  manifestShipments: "explicit_shipments",
+  cancelPickups: "./methods/cancel-pickups.js",
+  cancelShipments: "./methods/cancel-shipments.js",
+  createManifest: "./methods/create-manifest.js",
+  createShipment: "./methods/create-shipment.js",
+  rateShipment: "./methods/rate-shipment.js",
+  schedulePickup: "./methods/schedule-pickup.js",
+  trackShipment: "./methods/track-shipment.js",
+  deliveryServices: ["./definitions/example-delivery-service.json"],
+  pickupServices: []
+}
+```
+
 ```json
 {
   "id": "bd45f17d-e32f-43d0-b397-d627bf0dbfa5",
@@ -140,7 +170,7 @@ This is an example of the application definition that is generated for a Carrier
   "pickupServices": []
 }
 ```
-```javascript
+```typescript
 import { CarrierDefinition } from "@shipengine/connect";
 
 const carrier: CarrierDefinition = {
@@ -194,7 +224,8 @@ Once you have generated the scaffolding for your application using ShipEngine Co
 for each of the services your application provides. Finally, update the application definition to include all the methods and definitions you have implemented.
 
 ### Test
-As you're building your app, you'll probably want to run it periodically so you can test and debug your code. Luckily, [ShipEngine Connect CLI](cli.mdx) includes commands to help with this, such as `connect start` and `connect test`. You can also write your own unit tests to exercise your code. See our [testing page](testing/index.mdx) for more information.
+As you're building your app, you'll want to run it periodically so you can test and debug your code. Luckily, [ShipEngine Connect CLI](cli.mdx) includes commands to help with this,
+such as [`connect start`](./testing/index.mdx#local-testing) and [`connect test`](./testing/index.mdx#acceptance-testing). You can also write your own unit tests to exercise your code. See our [testing page](testing/index.mdx) for more information.
 
 ### Publish
 Once all the generated tests pass, you will publish your application to ShipEngine Connect using the [`connect publish`](./publish.mdx) command. This command will publish to a development environment where your application
