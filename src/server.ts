@@ -28,7 +28,7 @@ export default async function server(
   try {
     sdkApp = (await loadApp(pathToApp)) as unknown as SdkApp;
 
-    buildAPI(sdkApp, server, port);
+    buildAPI(pathToApp, sdkApp, server, port);
     server.use(express.static(pathToApp, { cacheControl: false }));
 
     startMessage = `${sdkApp.name} is now running at http://localhost:${port}`;
