@@ -16,9 +16,10 @@ chai.use(chaiHttp);
 describe("buildAPI", () => {
   it("sets the GET '/' endpoint", async () => {
     const server = express();
-    const app = (await loadApp("test/fixtures/carrier-app")) as unknown as SdkApp;
+    const pathToApp = "test/fixtures/carrier-app";
+    const app = (await loadApp(pathToApp)) as unknown as SdkApp;
 
-    buildAPI(app, server, 3000);
+    buildAPI(pathToApp, app, server, 3000);
 
     chai
       .request(server)
@@ -39,9 +40,10 @@ describe("buildAPI", () => {
 
   it("sets the PUT '/connect' endpoint and returns 200 when given a valid input", async () => {
     const server = express();
-    const app = (await loadApp("test/fixtures/carrier-app")) as unknown as SdkApp;
+    const pathToApp = "test/fixtures/carrier-app";
+    const app = (await loadApp(pathToApp)) as unknown as SdkApp;
 
-    buildAPI(app, server, 3000);
+    buildAPI(pathToApp, app, server, 3000);
 
     chai
       .request(server)
@@ -74,9 +76,10 @@ describe("buildAPI", () => {
 
   it("sets the PUT '/connect' endpoint and returns 400 when given an invalid input", async () => {
     const server = express();
-    const app = (await loadApp("test/fixtures/carrier-app")) as unknown as SdkApp;
+    const pathToApp = "test/fixtures/carrier-app";
+    const app = (await loadApp(pathToApp)) as unknown as SdkApp;
 
-    buildAPI(app, server, 3000);
+    buildAPI(pathToApp, app, server, 3000);
 
     chai
       .request(server)
@@ -100,11 +103,13 @@ describe("buildAPI", () => {
 
   it("does not set the PUT '/connect' endpoint when connect is not defined", async () => {
     const server = express();
+    const pathToApp = "test/fixtures/carrier-app-without-methods";
+
     const app = (await loadApp(
-      "test/fixtures/carrier-app-without-methods",
+      pathToApp,
     )) as unknown as SdkApp;
 
-    buildAPI(app, server, 3000);
+    buildAPI(pathToApp, app, server, 3000);
 
     chai
       .request(server)
@@ -117,9 +122,10 @@ describe("buildAPI", () => {
 
   it("sets the PUT '/create-shipment' endpoint", async () => {
     const server = express();
-    const app = (await loadApp("test/fixtures/carrier-app")) as unknown as SdkApp;
+    const pathToApp = "test/fixtures/carrier-app";
+    const app = (await loadApp(pathToApp)) as unknown as SdkApp;
 
-    buildAPI(app, server, 3000);
+    buildAPI(pathToApp, app, server, 3000);
 
     chai
       .request(server)
@@ -139,9 +145,10 @@ describe("buildAPI", () => {
 
   it("sets the PUT '/create-shipment' endpoint and returns 400 when given an invalid input", async () => {
     const server = express();
-    const app = (await loadApp("test/fixtures/carrier-app")) as unknown as SdkApp;
+    const pathToApp = "test/fixtures/carrier-app";
+    const app = (await loadApp(pathToApp)) as unknown as SdkApp;
 
-    buildAPI(app, server, 3000);
+    buildAPI(pathToApp, app, server, 3000);
 
     chai
       .request(server)
@@ -161,11 +168,12 @@ describe("buildAPI", () => {
 
   it("does not set the PUT '/create-shipment' endpoint when connect is not defined", async () => {
     const server = express();
+    const pathToApp = "test/fixtures/carrier-app-without-methods";
     const app = (await loadApp(
-      "test/fixtures/carrier-app-without-methods",
+      pathToApp,
     )) as unknown as SdkApp;
 
-    buildAPI(app, server, 3000);
+    buildAPI(pathToApp, app, server, 3000);
 
     chai
       .request(server)
@@ -178,9 +186,10 @@ describe("buildAPI", () => {
 
   it("sets the PUT '/cancel-shipments' endpoint", async () => {
     const server = express();
-    const app = (await loadApp("test/fixtures/carrier-app")) as unknown as SdkApp;
+    const pathToApp = "test/fixtures/carrier-app";
+    const app = (await loadApp(pathToApp)) as unknown as SdkApp;
 
-    buildAPI(app, server, 3000);
+    buildAPI(pathToApp, app, server, 3000);
 
     chai
       .request(server)
@@ -200,9 +209,10 @@ describe("buildAPI", () => {
 
   it("sets the PUT '/cancel-shipments' endpoint and returns 400 when given an invalid input", async () => {
     const server = express();
-    const app = (await loadApp("test/fixtures/carrier-app")) as unknown as SdkApp;
+    const pathToApp = "test/fixtures/carrier-app";
+    const app = (await loadApp(pathToApp)) as unknown as SdkApp;
 
-    buildAPI(app, server, 3000);
+    buildAPI(pathToApp, app, server, 3000);
 
     chai
       .request(server)
@@ -222,11 +232,10 @@ describe("buildAPI", () => {
 
   it("does not set the PUT '/cancel-shipments' endpoint when connect is not defined", async () => {
     const server = express();
-    const app = (await loadApp(
-      "test/fixtures/carrier-app-without-methods",
-    )) as unknown as SdkApp;
+    const pathToApp = "test/fixtures/carrier-app-without-methods";
+    const app = (await loadApp(pathToApp)) as unknown as SdkApp;
 
-    buildAPI(app, server, 3000);
+    buildAPI(pathToApp, app, server, 3000);
 
     chai
       .request(server)
@@ -239,9 +248,10 @@ describe("buildAPI", () => {
 
   it("sets the PUT '/rate-shipment' endpoint", async () => {
     const server = express();
-    const app = (await loadApp("test/fixtures/carrier-app")) as unknown as SdkApp;
+    const pathToApp = "test/fixtures/carrier-app";
+    const app = (await loadApp(pathToApp)) as unknown as SdkApp;
 
-    buildAPI(app, server, 3000);
+    buildAPI(pathToApp, app, server, 3000);
 
     chai
       .request(server)
@@ -261,9 +271,10 @@ describe("buildAPI", () => {
 
   it("sets the PUT '/rate-shipment' endpoint and returns 400 when given an invalid input", async () => {
     const server = express();
-    const app = (await loadApp("test/fixtures/carrier-app")) as unknown as SdkApp;
+    const pathToApp = "test/fixtures/carrier-app";
+    const app = (await loadApp(pathToApp)) as unknown as SdkApp;
 
-    buildAPI(app, server, 3000);
+    buildAPI(pathToApp, app, server, 3000);
 
     chai
       .request(server)
@@ -283,11 +294,10 @@ describe("buildAPI", () => {
 
   it("does not set the PUT '/rate-shipment' endpoint when connect is not defined", async () => {
     const server = express();
-    const app = (await loadApp(
-      "test/fixtures/carrier-app-without-methods",
-    )) as unknown as SdkApp;
+    const pathToApp = "test/fixtures/carrier-app-without-methods";
+    const app = (await loadApp(pathToApp)) as unknown as SdkApp;
 
-    buildAPI(app, server, 3000);
+    buildAPI(pathToApp, app, server, 3000);
 
     chai
       .request(server)
@@ -300,9 +310,10 @@ describe("buildAPI", () => {
 
   it("sets the PUT '/track-shipment' endpoint", async () => {
     const server = express();
-    const app = (await loadApp("test/fixtures/carrier-app")) as unknown as SdkApp;
+    const pathToApp = "test/fixtures/carrier-app";
+    const app = (await loadApp(pathToApp)) as unknown as SdkApp;
 
-    buildAPI(app, server, 3000);
+    buildAPI(pathToApp, app, server, 3000);
 
     chai
       .request(server)
@@ -322,9 +333,10 @@ describe("buildAPI", () => {
 
   it("sets the PUT '/track-shipment' endpoint and returns 400 when given an invalid input", async () => {
     const server = express();
-    const app = (await loadApp("test/fixtures/carrier-app")) as unknown as SdkApp;
+    const pathToApp = "test/fixtures/carrier-app";
+    const app = (await loadApp(pathToApp)) as unknown as SdkApp;
 
-    buildAPI(app, server, 3000);
+    buildAPI(pathToApp, app, server, 3000);
 
     chai
       .request(server)
@@ -344,11 +356,10 @@ describe("buildAPI", () => {
 
   it("does not set the PUT '/track-shipment' endpoint when connect is not defined", async () => {
     const server = express();
-    const app = (await loadApp(
-      "test/fixtures/carrier-app-without-methods",
-    )) as unknown as SdkApp;
+    const pathToApp = "test/fixtures/carrier-app-without-methods";
+    const app = (await loadApp(pathToApp)) as unknown as SdkApp;
 
-    buildAPI(app, server, 3000);
+    buildAPI(pathToApp, app, server, 3000);
 
     chai
       .request(server)
@@ -361,9 +372,10 @@ describe("buildAPI", () => {
 
   it("sets the PUT '/create-manifest' endpoint", async () => {
     const server = express();
-    const app = (await loadApp("test/fixtures/carrier-app")) as unknown as SdkApp;
+    const pathToApp = "test/fixtures/carrier-app";
+    const app = (await loadApp(pathToApp)) as unknown as SdkApp;
 
-    buildAPI(app, server, 3000);
+    buildAPI(pathToApp, app, server, 3000);
 
     chai
       .request(server)
@@ -383,9 +395,10 @@ describe("buildAPI", () => {
 
   it("sets the PUT '/create-manifest' endpoint and returns 400 when given an invalid input", async () => {
     const server = express();
-    const app = (await loadApp("test/fixtures/carrier-app")) as unknown as SdkApp;
+    const pathToApp = "test/fixtures/carrier-app";
+    const app = (await loadApp(pathToApp)) as unknown as SdkApp;
 
-    buildAPI(app, server, 3000);
+    buildAPI(pathToApp, app, server, 3000);
 
     chai
       .request(server)
@@ -405,11 +418,10 @@ describe("buildAPI", () => {
 
   it("does not set the PUT '/create-manifest' endpoint when connect is not defined", async () => {
     const server = express();
-    const app = (await loadApp(
-      "test/fixtures/carrier-app-without-methods",
-    )) as unknown as SdkApp;
+    const pathToApp = "test/fixtures/carrier-app-without-methods";
+    const app = (await loadApp(pathToApp)) as unknown as SdkApp;
 
-    buildAPI(app, server, 3000);
+    buildAPI(pathToApp, app, server, 3000);
 
     chai
       .request(server)
@@ -422,9 +434,10 @@ describe("buildAPI", () => {
 
   it("sets the PUT '/schedule-pickup' endpoint", async () => {
     const server = express();
-    const app = (await loadApp("test/fixtures/carrier-app")) as unknown as SdkApp;
+    const pathToApp = "test/fixtures/carrier-app";
+    const app = (await loadApp(pathToApp)) as unknown as SdkApp;
 
-    buildAPI(app, server, 3000);
+    buildAPI(pathToApp, app, server, 3000);
 
     chai
       .request(server)
@@ -444,9 +457,10 @@ describe("buildAPI", () => {
 
   it("sets the PUT '/schedule-pickup' endpoint and returns 400 when given an invalid input", async () => {
     const server = express();
-    const app = (await loadApp("test/fixtures/carrier-app")) as unknown as SdkApp;
+    const pathToApp = "test/fixtures/carrier-app";
+    const app = (await loadApp(pathToApp)) as unknown as SdkApp;
 
-    buildAPI(app, server, 3000);
+    buildAPI(pathToApp, app, server, 3000);
 
     chai
       .request(server)
@@ -466,11 +480,10 @@ describe("buildAPI", () => {
 
   it("does not set the PUT '/schedule-pickup' endpoint when connect is not defined", async () => {
     const server = express();
-    const app = (await loadApp(
-      "test/fixtures/carrier-app-without-methods",
-    )) as unknown as SdkApp;
+    const pathToApp = "test/fixtures/carrier-app-without-methods";
+    const app = (await loadApp(pathToApp)) as unknown as SdkApp;
 
-    buildAPI(app, server, 3000);
+    buildAPI(pathToApp, app, server, 3000);
 
     chai
       .request(server)
@@ -483,9 +496,10 @@ describe("buildAPI", () => {
 
   it("sets the PUT '/cancel-pickups' endpoint", async () => {
     const server = express();
-    const app = (await loadApp("test/fixtures/carrier-app")) as unknown as SdkApp;
+    const pathToApp = "test/fixtures/carrier-app";
+    const app = (await loadApp(pathToApp)) as unknown as SdkApp;
 
-    buildAPI(app, server, 3000);
+    buildAPI(pathToApp, app, server, 3000);
 
     chai
       .request(server)
@@ -505,9 +519,10 @@ describe("buildAPI", () => {
 
   it("sets the PUT '/cancel-pickups' endpoint and returns 400 when given an invalid input", async () => {
     const server = express();
-    const app = (await loadApp("test/fixtures/carrier-app")) as unknown as SdkApp;
+    const pathToApp = "test/fixtures/carrier-app";
+    const app = (await loadApp(pathToApp)) as unknown as SdkApp;
 
-    buildAPI(app, server, 3000);
+    buildAPI(pathToApp, app, server, 3000);
 
     chai
       .request(server)
@@ -527,11 +542,10 @@ describe("buildAPI", () => {
 
   it("does not set the PUT '/cancel-pickups' endpoint when connect is not defined", async () => {
     const server = express();
-    const app = (await loadApp(
-      "test/fixtures/carrier-app-without-methods",
-    )) as unknown as SdkApp;
+    const pathToApp = "test/fixtures/carrier-app-without-methods";
+    const app = (await loadApp(pathToApp)) as unknown as SdkApp;
 
-    buildAPI(app, server, 3000);
+    buildAPI(pathToApp, app, server, 3000);
 
     chai
       .request(server)

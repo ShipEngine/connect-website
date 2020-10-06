@@ -94,8 +94,13 @@ function logRequest(req: Request, _res: Response, next: NextFunction) {
   next();
 }
 
-function buildImageUrl(pathToImage: string, port: number): string | undefined {
-  const fileName = path.basename(pathToImage);
+function buildImageUrl(pathToApp: string, pathToImage: string, port: number): string | undefined {
+  let fileName = path.relative(pathToApp, pathToImage);
+
+  const isWin = process.platform === "win32";
+  if(isWin) {
+    fileName = fileName.replace(/\\/g, '/');
+  }
 
   if (fileName) {
     return `http://localhost:${port}/${fileName}`;
@@ -259,7 +264,7 @@ function buildOrderAppApi(sdkApp: OrderApp, server: Express) {
   }
 }
 
-export default function buildAPI(sdkApp: App, server: Express, port: number): void {
+export default function buildAPI(pathToApp: string, sdkApp: App, server: Express, port: number): void {
   server.use(
     bodyParser.urlencoded({
       extended: false,
@@ -285,8 +290,8 @@ export default function buildAPI(sdkApp: App, server: Express, port: number): vo
     const sdkAppWithLogos = {
       ...sdkApp,
       ...{
-        logo: buildImageUrl(sdkApp.logo, port),
-        icon: buildImageUrl(sdkApp.icon, port),
+        logo: buildImageUrl(pathToApp, sdkApp.logo, port),
+        icon: buildImageUrl(pathToApp, sdkApp.icon, port),
       },
     };
     return res.status(200).json(sdkAppWithLogos);
