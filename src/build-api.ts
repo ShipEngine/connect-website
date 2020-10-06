@@ -95,7 +95,12 @@ function logRequest(req: Request, _res: Response, next: NextFunction) {
 }
 
 function buildImageUrl(pathToApp: string, pathToImage: string, port: number): string | undefined {
-  const fileName = path.relative(pathToApp, pathToImage);
+  let fileName = path.relative(pathToApp, pathToImage);
+
+  const isWin = process.platform === "win32";
+  if(isWin) {
+    fileName = fileName.replace(/\\/g, '/');
+  }
 
   if (fileName) {
     return `http://localhost:${port}/${fileName}`;
