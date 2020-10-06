@@ -31,7 +31,8 @@ export const menu: MenuContents = [
         menuItems: [
           { title: "Changelog", href: "/changelog" },
           { title: "Form Definitions", href: "/docs/reference/forms" },
-          { title: "Transaction", href: "/docs/reference/transaction" },
+          { title: "Carrier App Transaction", href: "/docs/reference/transaction" },
+          { title: "Order App Transaction", href: "/docs/reference/order-transaction" },
           { title: "Address", href: "/docs/reference/address" },
           { title: "Common Types", href: "/docs/reference/common-types" },
           { title: "Country Codes", href: "/docs/reference/country-codes" },
@@ -60,7 +61,7 @@ export const menu: MenuContents = [
           { title: "Pickup Service", href: "/docs/reference/pickup-service" },
           { title: "Packaging", href: "/docs/reference/packaging" },
           { title: "Delivery Confirmation", href: "/docs/reference/delivery-confirmation" },
-          { title: "Forms", href: "/docs/reference/forms" },
+          { title: "Form Definitions", href: "/docs/reference/forms " },
         ]
       },
       {
@@ -86,12 +87,14 @@ export const menu: MenuContents = [
         menuItems: [
           { title: "Overview", href: "/docs/order-app" },
           { title: "Automated tests", href: "/docs/order-app/tests" },
+          { title: "Authorization", href: "/docs/oauth" },
         ]
       },
       {
         title: "App Structure",
         menuItems: [
-          { title: "Order App", href: "/docs/reference/order" }
+          { title: "Order App", href: "/docs/reference/order" },
+          { title: "Form Definitions", href: "/docs/reference/forms#order-apps" },
         ]
       },
       {

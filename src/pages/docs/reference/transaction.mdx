@@ -5,7 +5,7 @@ description: The transaction object provides important information about a metho
 
 Transaction Object
 ===============================================
-Every method in a [ShipEngine Connect](./../index.mdx) application receives a transaction object as the first parameter. This object contains useful information about the method invocation, such as a unique `transactionID`,
+Every method in a [ShipEngine Connect](./../index.mdx) Carrier App receives a transaction object as the first parameter. This object contains useful information about the method invocation, such as a unique `transactionID`,
  and includes session state such as authentication credentials.
 
 Any of your methods may modify the `session` property of a transaction object. For example, your [`connect method`](./methods/connect.mdx)
@@ -24,16 +24,16 @@ column indicates which properties are required when the object is returned from 
 
 <Reference>
 
-  <Field name="id" required={true}>
+  <Field name="id" required={true} nullable={false}>
     <Type>
-      UUID
+      [UUID](https://www.npmjs.com/package/uuid)
     </Type>
     <Description>
       Uniquely identifies the current transaction. If the transaction is retried, then this `id` will remain the same. You can use this to detect and prevent duplicate operations.
     </Description>
   </Field>
 
-  <Field name="session" type="object" required={true}>
+  <Field name="session" type="object" required={true} nullable={false}>
     <Description>
       The application's session data. Any method may update the session data, such as renewing a session token or updating a timestamp. Must be JSON serializable.
     </Description>
@@ -59,14 +59,5 @@ Here's an example transaction object:
     lang: "en-US",
   }
 }
-```
-
-```yaml
-id: 6ad41b24-62a8-4e17-9751-a28d9688e277
-session:
-  id: sess_184849191484716854941017
-  accountNumber: 10004583
-  expires: 2025-07-16T12:45:15.000Z
-  lang: en-US
 ```
 </CodeWrapper>

@@ -77,29 +77,10 @@ Order Application
       [Form](./forms.mdx)
     </Type>
     <Description>
-      A form that allows the user to connect to the service. This form will usually prompt for an account number and login credentials.
+      A form that allows the user to specify the credentials needed to generate the OAuth token.
     </Description>
   </Field>
 
-  <Field name="settingsForm" required={true} description="A form that allows the user to configure connection settings">
-    <Type>
-      [Form](./forms.mdx)
-    </Type>
-  </Field>
-
-  <Field name="connect" required={false}>
-    <Type>
-      method *or* string
-    </Type>
-    <Description>
-      A method that connects to an existing account using the data that was gathered in the
-      [`connectionform`](./forms.mdx).
-      Note that this function does not return a value but rather updates the
-      [`transaction.session`](./transaction.mdx) property.
-      You may define this method direcly inline inside of this file or you may specify the path to the file
-      that exports your [`connect`](./methods/connect.mdx) method.
-    </Description>
-  </Field>
 
   <Field name="getSalesOrdersByDate" required={false}>
     <Type>
@@ -128,6 +109,14 @@ Order Application
     </Description>
   </Field>
 
+  <Field name="oauthConfig" required={false}>
+    <Type>
+     object *or* string
+    </Type>
+    <Description>
+      The [OAuth Config Definition](./../oauth/oauth-config.mdx) that describes the authorization process. This can be defined directly inline inside this file or you may specify the path to a separate OAuth Config Definition file.
+    </Description>
+  </Field>
 </Reference>
 
 
@@ -145,14 +134,13 @@ const orderSource: OrderAppDefinition = {
   logo: "./../logo.svg",
   icon: "./../icon.svg",
   connectionForm: import("./forms/connect"),
-  settingsForm: import("./forms/settings"),
 
-  connect: import("./methods/connect"),
   getSalesOrdersByDate: import("./methods/get-sales-orders-by-date"),
   shipmentCreated: import("./methods/shipment-created"),
   acknowledgeOrders: import("./methods/acknowledge-orders"),
   sendMail: false,
-  canConfigureTimeZone, false
+  canConfigureTimeZone: false,
+  oauthConfig: import("./oauth-config"
 }
 
 export default orderSource;
@@ -167,14 +155,13 @@ const orderSource = {
   logo: "./../logo.svg",
   icon: "./../icon.svg",
   connectionForm: "./forms/connect.js",
-  settingsForm: "./forms/settings.js",
 
-  connect: "./methods/connect.js",
   getSalesOrdersByDate: "./methods/get-sales-orders-by-date.js",
   shipmentCreated: "./methods/shipment-created.js",
   acknowledgeOrders: "./methods/acknowledge-orders.js",
   sendMail: false,
-  canConfigureTimeZone: false
+  canConfigureTimeZone: false,
+  oauthConfig: "./definitions/oauth-config.js"
 }
 
 module.exports = orderSource;
@@ -193,15 +180,15 @@ logo: ./../logo.svg
 
 icon: ./../icon.svg
 
-connectionForm: forms/connection-form.js
-settingsForm: forms/settings-form.js
+connectionForm: ./forms/connection-form.js
 
-connect: methods/connect.js
-getSalesOrdersByDate: methods/get-sales-orders-by-date.js
-shipmentCreated: methods/shipment-created.js
-acknowledgeOrders: /methods/acknowledge-orders.js
+getSalesOrdersByDate: ./methods/get-sales-orders-by-date.js
+shipmentCreated: ./methods/shipment-created.js
+acknowledgeOrders: ./methods/acknowledge-orders.js
 
 sendMail: false
 canConfigureTimeZone: false
+
+oauthConfig: ./definitions/oauth-config.js
 ```
 </CodeWrapper>

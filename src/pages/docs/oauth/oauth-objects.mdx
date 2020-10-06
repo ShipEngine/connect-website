@@ -1,0 +1,180 @@
+---
+title: OAuth Objects
+description: This page describes the common objects used in the OAuth process.
+---
+
+# OAuth Config Objects
+The following objects are used in the [OAuth Config Definition](./oauth-config.mdx).
+
+## OAuth Request Definition Object
+
+The `OAuth request definition` object describes a request made to an identity provider as part of the OAuth process.
+
+<Reference>
+ <Field name="method" type="string" required={true}>
+     <Description>
+       The `HTTP` method to use for this request. Valid values include the following:
+       * `GET`
+       * `POST`
+       * `PUT`
+     </Description>
+   </Field>
+
+   <Field name="url" type="string" required={true}>
+      <Description>
+        The URL for this request.
+      </Description>
+    </Field>
+
+  <Field name="bodyParameters" type="object[]" required={false}>
+      <Description>
+      An array of body parameters that should be included as part of the request.
+    </Description>
+  </Field>
+
+  <Field name="bodyParameters[].name" type="string" required={true}>
+    <Description>
+      The name of the parameter.
+    </Description>
+  </Field>
+
+  <Field name="bodyParameters[].value" type="string" required={true}>
+    <Description>
+      The value of the parameter.
+    </Description>
+  </Field>
+
+  <Field name="bodyParameters[].encoding" type="string" required={true}>
+    <Description>
+      The type of encoding used for this parameter. The only value currently supported is `base64`.
+    </Description>
+  </Field>
+
+  <Field name="headerParameters"  type="object[]" required={false}>
+    <Description>
+      An array of header parameters that should be included as part of the request.
+    </Description>
+  </Field>
+
+  <Field name="headerParameters[].name" type="string" required={true}>
+    <Description>
+      THe name of the parameter.
+    </Description>
+  </Field>
+
+  <Field name="headerParameters[].value" type="string" required={true}>
+    <Description>
+      The value of the parameter.
+    </Description>
+  </Field>
+
+  <Field name="headerParameters[].encoding" type="string" required={true}>
+    <Description>
+      The type of encoding used for this parameter. The only value currently supported is `base64`.
+    </Description>
+  </Field>
+
+  <Field name="queryParameters"  type="object[]" required={false}>
+    <Description>
+      An array of query parameters that should be included as part of the request.
+    </Description>
+  </Field>
+
+  <Field name="queryParameters[].name" type="string" required={true}>
+    <Description>
+      The name of the parameter.
+    </Description>
+  </Field>
+
+  <Field name="queryParameters[].value" type="string" required={true}>
+    <Description>
+      The value of the parameter.
+    </Description>
+  </Field>
+
+  <Field name="queryParameters[].encoding" type="string" required={true}>
+    <Description>
+      The type of encoding used for this parameter. The only value currently supported is `base64`.
+    </Description>
+  </Field>
+
+</Reference>
+
+## OAuth Response Definition Object
+
+The `OAuth response definition` object describes a response received from an identity provider as part of the OAuth process.
+
+<Reference>
+  <Field name="bodyParameters" type="object[]" required={false}>
+      <Description>
+      An array of body parameters that should be included as part of the request.
+    </Description>
+  </Field>
+
+  <Field name="bodyParameters[].name" type="string" required={true}>
+    <Description>
+      The name of the parameter.
+    </Description>
+  </Field>
+
+  <Field name="bodyParameters[].value" type="string" required={true}>
+    <Description>
+      The value of the parameter.
+    </Description>
+  </Field>
+
+  <Field name="bodyParameters[].encoding" type="string" required={true}>
+    <Description>
+      The type of encoding used for this parameter. The only value currently supported is `base64`.
+    </Description>
+  </Field>
+
+  <Field name="headerParameters"  type="object[]" required={false}>
+    <Description>
+      An array of header parameters that should be included as part of the request.
+    </Description>
+  </Field>
+
+  <Field name="headerParameters[].name" type="string" required={true}>
+    <Description>
+      THe name of the parameter.
+    </Description>
+  </Field>
+
+  <Field name="headerParameters[].value" type="string" required={true}>
+    <Description>
+      The value of the parameter.
+    </Description>
+  </Field>
+
+  <Field name="headerParameters[].encoding" type="string" required={true}>
+    <Description>
+      The type of encoding used for this parameter. The only value currently supported is `base64`.
+    </Description>
+  </Field>
+
+  <Field name="queryParameters"  type="object[]" required={false}>
+    <Description>
+      An array of query parameters that should be included as part of the request.
+    </Description>
+  </Field>
+
+  <Field name="queryParameters[].name" type="string" required={true}>
+    <Description>
+      The name of the parameter.
+    </Description>
+  </Field>
+
+  <Field name="queryParameters[].value" type="string" required={true}>
+    <Description>
+      The value of the parameter.
+    </Description>
+  </Field>
+
+  <Field name="queryParameters[].encoding" type="string" required={true}>
+    <Description>
+      The type of encoding used for this parameter. The only value currently supported is `base64`.
+    </Description>
+  </Field>
+
+</Reference>
