@@ -1,6 +1,6 @@
 {
   "name": "@shipengine/connect-local-dev-ui",
-  "version": "2.0.13",
+  "version": "2.0.14",
   "description": "The ShipEngine Integration Platform local development UI",
   "author": {
     "name": "ShipEngine",
@@ -36,18 +36,18 @@
     "@jsdevtools/version-bump-prompt": "^6.1.0",
     "@rjsf/antd": "^2.4.0",
     "@rjsf/core": "^2.4.0",
-    "@shipengine/connect-sdk": "^8.0.1",
+    "@shipengine/connect-sdk": "^10.0.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.0.4",
-    "@testing-library/user-event": "^12.1.6",
+    "@testing-library/user-event": "^12.1.7",
     "@types/eslint": "^7.2.3",
     "@types/jest": "^26.0.14",
     "@types/lodash": "^4.14.161",
-    "@types/node": "^14.11.2",
-    "@types/react": "^16.9.50",
+    "@types/node": "^14.11.5",
+    "@types/react": "^16.9.51",
     "@types/react-dom": "^16.9.0",
     "@types/react-jsonschema-form": "^1.7.4",
-    "@types/react-router-dom": "^5.1.5",
+    "@types/react-router-dom": "^5.1.6",
     "@types/react-syntax-highlighter": "^11.0.5",
     "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "4.0.1",
@@ -64,13 +64,13 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-json-pretty": "^2.2.0",
-    "react-query": "^2.23.0",
+    "react-query": "^2.23.1",
     "react-query-devtools": "^2.5.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.3",
     "shx": "^0.3.2",
     "typescript": "^4.0.3",
-    "uuid": "^8.3.0"
+    "uuid": "^8.3.1"
   },
   "engines": {
     "node": ">=10"
