@@ -48,8 +48,10 @@ Development
 ---------------------
 The development server will start on [localhost:3000](http://localhost:3000) by default. It automatically detects file changes with [nodemon](https://www.npmjs.com/package/nodemon), and transpiles TypeScript on the fly using [ts-node](https://www.npmjs.com/package/ts-node).
 
+*Note*: Make sure to edit `nodemon.json` so that the `exec` command points to the absolute path of the Connect App on your system.
+
 ```sh-session
-$ npm start:dev
+$ npm run start:dev
 ```
 
 
