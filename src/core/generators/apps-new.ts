@@ -242,7 +242,7 @@ class AppsNew extends Generator {
     if (this.ts) {
       this.pjson.scripts.build = "tsc";
       this.pjson.scripts.watch = "tsc --watch";
-      this.pjson.scripts.postbuild = "copyfiles -u 1 src/**/!\\(*.ts\\) lib";
+      this.pjson.scripts.postbuild = "copyfiles -u 1 \"src/**/!(*.ts)\" lib";
       this.pjson.main = `lib/index.${this._definitionExt === "ts" ? "js" : this._definitionExt}`;
     }
   }
