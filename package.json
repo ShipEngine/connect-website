@@ -1,6 +1,6 @@
 {
   "name": "@shipengine/connect-loader",
-  "version": "2.5.3",
+  "version": "2.5.4",
   "description": "Internal library for loading ShipEngine Connect apps",
   "keywords": [
     "shipengine",
@@ -40,12 +40,12 @@
   "engineStrict": true,
   "devDependencies": {
     "@jsdevtools/version-bump-prompt": "^6.1.0",
-    "@types/chai": "^4.2.12",
+    "@types/chai": "^4.2.13",
     "@types/hapi__joi": "^17.1.6",
     "@types/js-yaml": "^3.12.5",
     "@types/json5": "0.0.30",
     "@types/mocha": "^8.0.3",
-    "@types/node": "^14.11.2",
+    "@types/node": "^14.11.5",
     "@types/source-map-support": "^0.5.3",
     "@typescript-eslint/eslint-plugin": "^4.3.0",
     "@typescript-eslint/parser": "^4.3.0",
@@ -60,7 +60,7 @@
     "typescript": "^4.0.3"
   },
   "dependencies": {
-    "@shipengine/connect-sdk": "^8.0.1",
+    "@shipengine/connect-sdk": "^10.0.0",
     "js-yaml": "^3.14.0",
     "json5": "^2.1.3",
     "resolve-from": "^5.0.0",
