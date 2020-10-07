@@ -1,35 +1,21 @@
 import {
   LabelFormat,
-  LabelFormat as capiLabelFormat,
 } from '@ipaas/capi/models';
 import { DocumentFormat } from '@shipengine/connect-sdk';
 
-export const capiToDxLabelFormat = (
-  format: capiLabelFormat
+export const mapLabelFormat = (
+  format: LabelFormat
 ): DocumentFormat => {
   switch (format) {
-    case capiLabelFormat.PDF:
+    case LabelFormat.PDF:
       return DocumentFormat.PDF;
-    case capiLabelFormat.PNG:
+    case LabelFormat.PNG:
       return DocumentFormat.PNG;
-    case capiLabelFormat.ZPL:
+    case LabelFormat.ZPL:
       return DocumentFormat.ZPL;
     default:
       throw new Error(
-        `unknown carrier api label format ${format} defaulting to PDF`
+        `unknown carrier api label format ${format}`
       );
-  }
-};
-
-export const dxToCapiLabelFormat = (
-  format: DocumentFormat
-): capiLabelFormat => {
-  switch (format) {
-    case DocumentFormat.PDF:
-      return LabelFormat.PDF;
-    case DocumentFormat.ZPL:
-      return capiLabelFormat.ZPL;
-    case DocumentFormat.PNG:
-      return capiLabelFormat.PNG;
   }
 };

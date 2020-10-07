@@ -12,7 +12,7 @@ export enum HttpStatusCode {
   ServerError = 500,
   ExternalServerError = 520,
 }
-const enum StandardizedErrorCode {
+export const enum StandardizedErrorCode {
   Generic = 'generic',
   Validation = 'validation',
   UnAuthorized = 'external_unauthorized_error',
@@ -20,7 +20,7 @@ const enum StandardizedErrorCode {
   ExternalClientError = 'external_client_error',
 }
 
-const formatErrorMessage = (error: any, standardErrorCode: StandardizedErrorCode) => {
+export const formatErrorMessage = (error: any, standardErrorCode: StandardizedErrorCode) => {
   const mergeStringArray = (value?: string[]) : string | undefined => {
     if(!Array.isArray(value)) {
       return undefined;
@@ -41,7 +41,7 @@ const formatErrorMessage = (error: any, standardErrorCode: StandardizedErrorCode
   }
 }
 
-const getStatusCode = (code?: ErrorCode, statusCode?: number): number => {
+export const getStatusCode = (code?: ErrorCode, statusCode?: number): number => {
   if(!code) {
     return HttpStatusCode.ServerError;
   }
@@ -59,7 +59,7 @@ const getStatusCode = (code?: ErrorCode, statusCode?: number): number => {
   return code in statusCodeMap ? statusCodeMap[code] : HttpStatusCode.BadRequest;
 }
 
-const getStandardizedErrorCode = (code?: ErrorCode, statusCode?: number): StandardizedErrorCode => {
+export const getStandardizedErrorCode = (code?: ErrorCode, statusCode?: number): StandardizedErrorCode => {
   switch(code) {
     case ErrorCode.UnAuthorized:
       return StandardizedErrorCode.UnAuthorized;
@@ -73,7 +73,7 @@ const getStandardizedErrorCode = (code?: ErrorCode, statusCode?: number): Standa
 }
 
 // TODO: Bother DX About Rate Limit Shape
-export default (
+export const errorHandler = (
   error: any,
   request: Request,
   response: Response,

@@ -1,7 +1,7 @@
 import { LabelLayout } from '@ipaas/capi/models';
 import { DocumentSize } from '@shipengine/connect-sdk';
 
-export default (size: LabelLayout): DocumentSize => {
+export const mapLabelLayout = (size: LabelLayout): DocumentSize => {
   switch (size) {
     case LabelLayout.Letter:
       return DocumentSize.Letter;

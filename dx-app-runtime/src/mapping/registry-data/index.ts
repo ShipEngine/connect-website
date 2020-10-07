@@ -32,14 +32,14 @@ import { LabelFormat } from '@ipaas/capi/models';
 import { dxToCapiSpecPackageType } from '../../routes/loader-data/package-type';
 
 const defaultDiagnosticRoutes: DiagnosticRoutes = {
-  Liveness: 'diagnostics/heartbeat',
-  Readiness: 'diagnostics/heartbeat',
+  Liveness: 'diagnostics/liveness',
+  Readiness: 'diagnostics/readiness',
   Version: 'diagnostics/version',
 };
 
 const mapConnectorModule = (app: CarrierApp): ShippingProviderConnector => {
   return {
-    ApiVersion: '1.12',
+    ApiVersion: '1.0',
     ConnectorUrl: 'https://nothing.sslocal.com',
     Functions: mapFunctions(app),
     DiagnosticRoutes: defaultDiagnosticRoutes,
@@ -119,9 +119,13 @@ const mapCarrierAttributes = (carrier: CarrierApp): CarrierAttribute[] => {
   return carrierAttributes;
 };
 
-const mapCountries = (countries: readonly Country[]): CountryAssociation[] => {
+export const mapCountries = (countries?: readonly Country[]): CountryAssociation[] => {
   const countryAssociations: CountryAssociation[] = [];
-  countries.forEach((country) => {
+  if(!countries) {
+    return countryAssociations;
+  }
+  const uniqueCountries = [...new Set(countries)];
+  uniqueCountries.forEach((country) => {
     const countryAssociation: CountryAssociation = {
       FromCountry: country.toString(),
     };
@@ -224,7 +228,7 @@ const mapRequiredProperties = (
   return requiredProperties;
 };
 
-const isInternationalService = (service: DeliveryService): boolean => {
+export const isInternationalService = (service: DeliveryService): boolean => {
   return (
     service.serviceArea === ServiceArea.International ||
     service.serviceArea === ServiceArea.Global
@@ -322,7 +326,7 @@ const dxToCarrierSpecification = (app: CarrierApp): CarrierSpecification => {
   return carrierSpecification;
 };
 
-export default (app: CarrierApp): ExternalSpec => {
+export const mapApp = (app: CarrierApp): ExternalSpec => {
   const provider: ExternalSpec = {
     Id: '', //app-id is provided by DX WebAPI
     Name: app.name,

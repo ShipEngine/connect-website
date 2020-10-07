@@ -2,7 +2,7 @@ import { DocumentSize } from '@shipengine/connect-sdk';
 
 import { LabelLayout } from '@ipaas/capi/models';
 
-export const mapDxToCapiDocumentSize = (format: DocumentSize): LabelLayout => {
+export const mapDocumentSize = (format: DocumentSize): LabelLayout => {
   switch (format) {
     case DocumentSize.Inches4x6:
       return LabelLayout.The4X6;
@@ -11,14 +11,5 @@ export const mapDxToCapiDocumentSize = (format: DocumentSize): LabelLayout => {
       return LabelLayout.Letter;
     default:
       throw new Error(`${format} is not a supported document size.`);
-  }
-};
-
-export const mapCapiToDxDocumentSize = (format: LabelLayout): DocumentSize => {
-  switch (format) {
-    case LabelLayout.The4X6:
-      return DocumentSize.Inches4x6;
-    case LabelLayout.Letter:
-      return DocumentSize.Letter;
   }
 };

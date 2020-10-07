@@ -8,7 +8,7 @@ import {
 } from '@shipengine/connect-sdk/lib/internal';
 
 import { Rate as capiRate } from '@ipaas/capi/responses';
-import { toCapiDateTimeString } from './datetime';
+import { mapDateTime } from './datetime';
 
 export const mapRate = (rate: Rate): capiRate => {
   const shippingAmount = rate.charges.find(
@@ -44,12 +44,8 @@ export const mapRate = (rate: Rate): capiRate => {
     error_messages: [], // There is nothing that maps to this
     negotiated_rate: rate.isNegotiatedRate,
   };
-  returnRate.ship_datetime = rate.shipDateTime
-    ? toCapiDateTimeString(rate.shipDateTime)
-    : null;
-  returnRate.estimated_delivery_datetime = rate.deliveryDateTime
-    ? toCapiDateTimeString(rate.deliveryDateTime)
-    : null;
+  returnRate.ship_datetime = mapDateTime(rate.shipDateTime);
+  returnRate.estimated_delivery_datetime =  mapDateTime(rate.deliveryDateTime);
   if (rate.notes) {
     if (Array.isArray(rate.notes)) {
       rate.notes.map((note) =>

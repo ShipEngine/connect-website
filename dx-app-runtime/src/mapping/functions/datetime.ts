@@ -1,18 +1,10 @@
-import { DateTimeZonePOJO } from '@shipengine/connect-sdk';
+import { DateTimeZone } from '@shipengine/connect-sdk';
 
-const toCapiDateTimeString = (
-  date: DateTimeZonePOJO | Date | string | undefined
+export const mapDateTime = (
+  date?: DateTimeZone
 ): string | undefined => {
   if (!date) {
-    return date;
+    return undefined;
   }
-  if (typeof date === 'string') {
-    return date;
-  }
-
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  return new Date(date.toISOString()).toISOString();
+  return date.toISOString();
 };
-
-export { toCapiDateTimeString };

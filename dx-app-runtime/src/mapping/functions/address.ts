@@ -4,9 +4,8 @@ import {
   Country,
   PersonNamePOJO,
 } from '@shipengine/connect-sdk';
-import convertISOCountryCodeToCountryEnum from './country-conversion';
 
-const excludeNullsFromAddressLines = (
+export const excludeNullsFromAddressLines = (
   addressLines: (string | null)[] | null | undefined
 ): string[] => {
   const cleanedAddress: string[] = [];
@@ -18,10 +17,13 @@ const excludeNullsFromAddressLines = (
   return cleanedAddress;
 };
 
-const convertResidentialIndicatorToBoolean = (
+export const convertResidentialIndicatorToBoolean = (
   residentialIndicator: AddressResidentialIndicator | null | undefined
 ): boolean | undefined => {
   if (!residentialIndicator) {
+    return undefined;
+  }
+  if(residentialIndicator === AddressResidentialIndicator.Unknown) {
     return undefined;
   }
   return (
@@ -45,7 +47,7 @@ const emptyDxAddress: AddressWithContactInfoPOJO = {
   company: '',
 };
 
-export const mapAddressToAddressWithContactInfoPOJO = (
+export const mapAddress = (
   address: Address | null | undefined
 ): AddressWithContactInfoPOJO => {
   if (!address) {
@@ -55,13 +57,13 @@ export const mapAddressToAddressWithContactInfoPOJO = (
     addressLines: excludeNullsFromAddressLines(address.address_lines),
     cityLocality: address.city_locality || '',
     stateProvince: address.state_province || '',
-    country: convertISOCountryCodeToCountryEnum(address.country_code),
+    country: address.country_code as Country,
     postalCode: address.postal_code,
     email: address.email || '',
     phoneNumber: address.phone_number || '',
     name: address.name || '',
     isResidential: convertResidentialIndicatorToBoolean(
-      address.address_residential_indicator || AddressResidentialIndicator.Yes
+      address.address_residential_indicator
     ),
     company: address.company_name || '',
   };

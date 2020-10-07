@@ -1,11 +1,14 @@
 import { QuantityPOJO } from '@shipengine/connect-sdk';
 
-const capiToDxQuantity = (
-  quantity: number | null | undefined
+export const mapQuantity = (
+  quantity: string | number | null | undefined
 ): QuantityPOJO => {
+  if(!quantity || isNaN(Number(quantity)) || Number(quantity) === 0) {
+    return {
+      value: 1
+    }
+  }
   return {
-    value: quantity ?? 0,
+    value: Number(quantity),
   };
 };
-
-export { capiToDxQuantity };

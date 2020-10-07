@@ -1,7 +1,9 @@
 import { InsuranceProvider as capiInsuranceProvider } from '@ipaas/capi/models';
 import { InsuranceProvider } from '@shipengine/connect-sdk';
 
-export default (
+// TODO: Insurance Provider needs to be added to the DX Spec
+
+export const mapInsuranceProvider =  (
   insuranceProvider: capiInsuranceProvider | null | undefined
 ): InsuranceProvider | undefined => {
   switch (insuranceProvider) {

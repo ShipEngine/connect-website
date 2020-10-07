@@ -60,7 +60,7 @@ loadApp().then((app) => {
   const bodyParser = require('body-parser');
   const middlewareLogging = require('./middleware/logging');
   const routes = require('./routes');
-  const errorHandler = require('./middleware/error-handling');
+  const { errorHandler } = require('./middleware/error-handling');
 
   const server = express();
   if(SENTRY_DSN) {
@@ -71,7 +71,7 @@ loadApp().then((app) => {
   server.use(bodyParser.json());
   server.use(middlewareLogging.default);
   server.use(routes.default);
-  server.use(errorHandler.default);
+  server.use(errorHandler);
 
   server.locals.app = app;
 

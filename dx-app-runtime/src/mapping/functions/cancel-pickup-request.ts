@@ -12,7 +12,7 @@ import {
   PickupWindow,
   Identifier as capiIdentifier,
 } from '@ipaas/capi/models';
-import { mapAddressToAddressWithContactInfoPOJO } from './address';
+import { mapAddress } from './address';
 import mapContact from './pickup-contact';
 import { mapPickupShipment } from './shipped-shipment';
 
@@ -74,7 +74,7 @@ export const mapCancelPickupRequest = (
       type: NoteType.Internal,
       text: request.cancellation_details?.remarks || '',
     }],
-    address: mapAddressToAddressWithContactInfoPOJO(
+    address: mapAddress(
       request.location?.pickup_address
     ),
     contact: mapContact(request.contact),

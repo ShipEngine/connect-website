@@ -2,7 +2,7 @@ import { CreateManifestRequest } from "@ipaas/capi";
 import { ShipmentIdentifierPOJO } from "@shipengine/connect-sdk";
 import { NewManifestPOJO } from '@shipengine/connect-sdk/lib/internal';
 import { Label } from "@ipaas/capi/models/label";
-import { mapAddressToAddressWithContactInfoPOJO } from "./address";
+import { mapAddress } from "./address";
 
 const mapShipments = (label: Label) : ShipmentIdentifierPOJO => {
   return {
@@ -19,6 +19,6 @@ export const mapCreateManifestRequest = (request: CreateManifestRequest) : NewMa
     openDateTime: request.open_datetime || '',
     closeDateTime: request.close_datetime || '',
     shipments: request.included_labels.map(mapShipments),
-    shipFrom: mapAddressToAddressWithContactInfoPOJO(request.ship_from)
+    shipFrom: mapAddress(request.ship_from)
   }
 }

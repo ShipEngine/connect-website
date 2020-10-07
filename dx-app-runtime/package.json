@@ -10,7 +10,8 @@
     "build": "tsc",
     "start": "node dist/server.js",
     "format": "prettier --write \"src/**/*.ts\"",
-    "test": "jest"
+    "test": "jest --verbose",
+    "coverage": "jest --collectCoverage"
   },
   "repository": {
     "type": "git",

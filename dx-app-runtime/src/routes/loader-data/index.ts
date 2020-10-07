@@ -2,10 +2,10 @@ import { IRouter, Router } from 'express';
 
 const router: IRouter = Router();
 
-import spec from '../../mapping/registry-data';
+import { mapApp } from '../../mapping/registry-data';
 
 router.get('/GetRegistryData', (req, res) => {
-  const externalSpec = spec(req.app.locals.app);
+  const externalSpec = mapApp(req.app.locals.app);
   res.send(externalSpec);
 });
 

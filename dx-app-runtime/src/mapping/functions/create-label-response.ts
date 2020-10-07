@@ -6,7 +6,7 @@ import {
   ShipmentConfirmation,
 } from '@shipengine/connect-sdk/lib/internal';
 import { CreateLabelResponse } from '@ipaas/capi/responses';
-import { toCapiDateTimeString } from './datetime';
+import { mapDateTime } from './datetime';
 
 export const mapCreateLabelResponse = (
   transaction: TransactionPOJO,
@@ -40,9 +40,7 @@ export const mapCreateLabelResponse = (
         amount: insuranceAmount.amount?.value?.toString() || '0'
       }
       : undefined,
-    estimated_delivery_datetime: toCapiDateTimeString(
-      response.deliveryDateTime
-    ),
+    estimated_delivery_datetime: mapDateTime(response.deliveryDateTime),
   };
   return createLabelResponse;
 };
