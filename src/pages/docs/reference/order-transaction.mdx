@@ -39,33 +39,11 @@ This table lists the properties of a transaction object and identifies those pro
     </Description>
   </Field>
 
-  <Field name="session.auth.username" type="string" nullable={true}>
-    <Description>
-       The username populated by the authorization process. The value will only be populated by apps that use [basic authentication](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication).
-       All other properties other than the `password` property will be null or undefined when using basic authentication.
-    </Description>
-  </Field>
-
-   <Field name="session.auth.password" type="string" nullable={true}>
-      <Description>
-         The password populated by the authorization process. The value will only be populated by apps that use [basic authentication](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication).
-         All other properties other than the `username` property will be null or undefined when using basic authentication.
-      </Description>
-  </Field>
-
    <Field name="session.auth.accessToken" type="string" nullable={true}>
       <Description>
          The access token populated by the authorization process. The value will only be populated by apps that use [OAuth 2.0](https://oauth.net/2/).
-         All other properties will be null or undefined.
       </Description>
     </Field>
-
-  <Field name="session.auth.apiKey" type="string" nullable={true}>
-    <Description>
-      The api key populated by the authorization process. The value will only be populated by apps that use API key authentication.
-         All other properties will be null or undefined.
-    </Description>
-  </Field>
 </Reference>
 
 
