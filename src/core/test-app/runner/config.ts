@@ -9,6 +9,7 @@ import { RateShipmentWithAllServicesConfigOptions } from './config/rate-shipment
 import { CancelShipmentConfigOptions } from './config/cancel-shipment';
 import { CreateShipmentReturnConfigOptions } from './config/create-shipment-return';
 import { SameDayPickupConfigOptions } from './config/same-day-pickup';
+import { RateShipmentReturnConfigOptions } from './config/rate-shipment-return';
 import { NextDayPickupConfigOptions } from './config/next-day-pickup';
 import { TrackShipmentConfigOptions } from './config/track-shipment';
 import { TrackShipmentReturnConfigOptions } from './config/track-shipment-return';
@@ -28,6 +29,7 @@ export interface TestsConfig {
   createShipment_return?: CreateShipmentReturnConfigOptions | [CreateShipmentReturnConfigOptions];
   rateShipment?: RateShipmentConfigOptions | [RateShipmentConfigOptions];
   rateShipment_with_all_services?: RateShipmentWithAllServicesConfigOptions | [RateShipmentWithAllServicesConfigOptions];
+  rateShipment_return?: RateShipmentReturnConfigOptions | [RateShipmentReturnConfigOptions];
   schedulePickup_same_day?: SameDayPickupConfigOptions | [SameDayPickupConfigOptions];
   schedulePickup_next_day?: NextDayPickupConfigOptions | [NextDayPickupConfigOptions];
   trackShipment?: TrackShipmentConfigOptions | [TrackShipmentConfigOptions];

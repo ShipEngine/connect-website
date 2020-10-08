@@ -11,16 +11,17 @@ import {
   TrackShipment,
   TrackShipmentReturn,
   SameDayPickup,
-  NextDayPickup
+  NextDayPickup,
+  CancelPickupsSameDay,
+  RateShipmentReturn,
+  CancelShipment,
+  RateShipmentWithAllServices
 } from "./test-app/tests";
 import { SdkApp } from "./types";
 import { TestResults, useTestResults } from "./test-app/runner/test-results";
 import { loadAndValidateConfig, LoadAndValidateConfigError } from "./test-app/runner/load-and-validate-config";
 import { logFail, logPass, logStep } from "./utils/log-helpers";
 import { logResults } from "./utils/log-helpers";
-import { RateShipmentWithAllServices } from './test-app/tests/rate-shipment-with-all-services';
-import { CancelShipment } from './test-app/tests/cancel-shipment';
-import { CancelPickupsSameDay } from './test-app/tests/cancel-pickups-same-day';
 
 export const TestAppErrors = LoadAndValidateConfigError;
 
@@ -165,7 +166,8 @@ function registerTestSuiteModules(app: SdkApp): RegisteredTestSuiteModules {
     schedulePickup: [SameDayPickup, NextDayPickup],
     rateShipment: [
       RateShipment,
-      RateShipmentWithAllServices
+      RateShipmentWithAllServices,
+      RateShipmentReturn
     ],
     trackShipment: [TrackShipment, TrackShipmentReturn],
   };
