@@ -71,7 +71,27 @@ export class ConnectionForm extends Suite {
         testArg.config,
         async () => {
           expect(2).to.equal(2);
+
           const carrierApp = this.app as CarrierApp;
+
+          const transaction = await this.transaction(testArg.config);
+
+          const connectionFormData = carrierApp.connectionForm.dataSchema.required.reduce((acc, field) => { 
+            const { type, minLength, maxLength } = carrierApp.connectionForm.dataSchema.properties[field];
+            const stringLength = minLength ? minLength : (maxLength || 1);
+            
+            if (type == 'boolean') {
+              acc[field] = true;
+            } else if (type == 'string') {
+              acc[field] = "e".padEnd(stringLength, "e");
+            } else {
+              acc[field] = 1;
+            }
+            
+            return acc;
+          }, {})
+
+          await carrierApp.connect(transaction, connectionFormData);
 
         }
       );
