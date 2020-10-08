@@ -1,14 +1,14 @@
 ---
-title: Acceptance Tests | trackShipment
+title: Acceptance Tests | trackShipment_return
 description: This test is part of the ShipEngine Connect carrier app test suite.
 ---
 
 Carrier App Tests
 ==================================
 
-### `trackShipment`
+### `trackShipment_return`
 
-This test exercises your app's ability to successfully track a shipment.
+This test exercises your app's ability to successfully track a return shipment.
 
 Test Parameters
 -------------------------
@@ -284,6 +284,16 @@ This test has many parameters [that can be customized](#customizing-parameters) 
     <DefaultValue>
       The name of the first delivery confirmation defined for the specified delivery service, or `undefined` if no
       delivery confirmations are supported for the selected delivery service.
+    </DefaultValue>
+  </Field>
+
+  <Field name="rmaNumber" type="string">
+    <Description>
+       The [Return Merchandise Authorization (RMA)](https://en.wikipedia.org/wiki/Return_merchandise_authorization) associated
+            with this return shipment.
+    </Description>
+    <DefaultValue>
+      None
     </DefaultValue>
   </Field>
 
