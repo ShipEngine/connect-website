@@ -1,3 +1,4 @@
+import { JSONSchema6 } from 'json-schema';
 import { FormDefinition } from "@shipengine/connect-sdk";
 import { CarrierApp } from "@shipengine/connect-sdk/lib/internal";
 import Suite from "../runner/suite";
@@ -17,24 +18,32 @@ interface TestArgs {
   config: unknown;
 }
 
+interface FormDef {
+  dataSchema: JSONSchema6
+}
+
 export class ConnectionForm extends Suite {
   title = "connectionForm";
 
-  private buildFormData(connectionForm: FormDefinition) : object {
-    return connectionForm.dataSchema.required.reduce((acc: object, field: string) => { 
-      const { type, minLength, maxLength } = connectionForm.dataSchema.properties[field];
-      const stringLength = minLength ? minLength : (maxLength || 1);
-      
-      if (type == 'boolean') {
-        acc[field] = true;
-      } else if (type == 'string') {
-        acc[field] = "e".padEnd(stringLength, "e");
-      } else {
-        acc[field] = 1;
-      }
-      
-      return acc;
-    }, {});
+  private buildFormData(connectionForm: FormDef) : object {
+    if (connectionForm.dataSchema.required) {
+      return connectionForm.dataSchema.required.reduce((acc: Record<string, unknown>, field: string) => { 
+        const { type, minLength, maxLength } = connectionForm.dataSchema.properties![field] as JSONSchema6;
+        const stringLength = minLength ? minLength : (maxLength || 1);
+
+        if (type == 'boolean') {
+          acc[field] = true;
+        } else if (type == 'string') {
+          acc[field] = "e".padEnd(stringLength, "e");
+        } else {
+          acc[field] = 1;
+        }
+
+        return acc;
+      }, {});
+    } else {
+      return {};
+    }
   }
 
   buildTestArg(
@@ -88,16 +97,17 @@ export class ConnectionForm extends Suite {
         testArg.methodArgs,
         testArg.config,
         async () => {
-          expect(2).to.equal(2);
 
           const carrierApp = this.app as CarrierApp;
 
           const transaction = await this.transaction(testArg.config);
-
           const connectionFormData = this.buildFormData(carrierApp.connectionForm);
 
-          await carrierApp.connect(transaction, connectionFormData);
+          if (!carrierApp.connect) {
+            throw new Error("createShipment is not implemented");
+          }
 
+          await carrierApp.connect(transaction, connectionFormData);
         }
       );
     });
