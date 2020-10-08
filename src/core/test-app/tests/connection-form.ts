@@ -1,3 +1,4 @@
+import { FormDefinition } from "@shipengine/connect-sdk";
 import { CarrierApp } from "@shipengine/connect-sdk/lib/internal";
 import Suite from "../runner/suite";
 import {
@@ -18,6 +19,23 @@ interface TestArgs {
 
 export class ConnectionForm extends Suite {
   title = "connectionForm";
+
+  private buildFormData(connectionForm: FormDefinition) : object {
+    return connectionForm.dataSchema.required.reduce((acc: object, field: string) => { 
+      const { type, minLength, maxLength } = connectionForm.dataSchema.properties[field];
+      const stringLength = minLength ? minLength : (maxLength || 1);
+      
+      if (type == 'boolean') {
+        acc[field] = true;
+      } else if (type == 'string') {
+        acc[field] = "e".padEnd(stringLength, "e");
+      } else {
+        acc[field] = 1;
+      }
+      
+      return acc;
+    }, {});
+  }
 
   buildTestArg(
     config: ConnectionFormConfigOptions,
@@ -76,20 +94,7 @@ export class ConnectionForm extends Suite {
 
           const transaction = await this.transaction(testArg.config);
 
-          const connectionFormData = carrierApp.connectionForm.dataSchema.required.reduce((acc, field) => { 
-            const { type, minLength, maxLength } = carrierApp.connectionForm.dataSchema.properties[field];
-            const stringLength = minLength ? minLength : (maxLength || 1);
-            
-            if (type == 'boolean') {
-              acc[field] = true;
-            } else if (type == 'string') {
-              acc[field] = "e".padEnd(stringLength, "e");
-            } else {
-              acc[field] = 1;
-            }
-            
-            return acc;
-          }, {})
+          const connectionFormData = this.buildFormData(carrierApp.connectionForm);
 
           await carrierApp.connect(transaction, connectionFormData);
 
