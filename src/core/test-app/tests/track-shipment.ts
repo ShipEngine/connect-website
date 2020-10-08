@@ -82,9 +82,9 @@ export class TrackShipment extends Suite {
     if (!this.deliveryService) return undefined;
 
     let shipFrom;
-    let returnTo;
+    let shipTo;
     try {
-      [shipFrom, returnTo] = useDomesticShippingAddress(this.deliveryService);
+      [shipFrom, shipTo] = useDomesticShippingAddress(this.deliveryService);
     } catch {
       return undefined;
     }
@@ -101,7 +101,7 @@ export class TrackShipment extends Suite {
       },
       shipDateTime: tomorrow,
       shipFrom: shipFrom,
-      returnTo: returnTo,
+      shipTo: shipTo,
       weight: {
         unit: WeightUnit.Pounds,
         value: 50.0,
@@ -122,7 +122,7 @@ export class TrackShipment extends Suite {
       TrackShipmentTestParams
     >(defaults, config);
 
-    if (!testParams.shipFrom || !testParams.returnTo) return undefined;
+    if (!testParams.shipFrom || !testParams.shipTo) return undefined;
 
     const packagePOJO: NewPackagePOJO = {
       packaging: {
@@ -149,7 +149,7 @@ export class TrackShipment extends Suite {
         id: this.deliveryService.id,
       },
       shipFrom: testParams.shipFrom,
-      shipTo: testParams.returnTo,
+      shipTo: testParams.shipTo,
       shipDateTime: testParams.shipDateTime,
       packages: [packagePOJO]
     };

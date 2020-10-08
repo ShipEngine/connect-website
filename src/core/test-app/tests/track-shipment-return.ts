@@ -1,15 +1,10 @@
-import {
-  DeliveryService,
-  WeightUnit,
-  DeliveryConfirmation,
-  LengthUnit
-} from "@shipengine/connect-sdk";
+import { DeliveryService, WeightUnit, DeliveryConfirmation, LengthUnit } from "@shipengine/connect-sdk";
 import { CarrierApp, NewShipmentPOJO, NewPackagePOJO } from "@shipengine/connect-sdk/lib/internal";
 import Suite from "../runner/suite";
 import {
-  CreateShipmentWithInsuranceConfigOptions,
-  CreateShipmentWithInsuranceTestParams,
-} from "../runner/config/create-shipment-insurance";
+  TrackShipmentReturnConfigOptions,
+  TrackShipmentReturnTestParams,
+} from "../runner/config/track-shipment-return";
 import { initializeTimeStamps } from "../../utils/time-stamps";
 import reduceDefaultsWithConfig from "../utils/reduce-defaults-with-config";
 import objectToTestTitle from "../utils/object-to-test-title";
@@ -18,26 +13,23 @@ import useDomesticShippingAddress from "../utils/use-domestic-shipment-addresses
 import { expect } from "chai";
 import findDeliveryServiceByName from "../utils/find-delivery-service-by-name";
 import findDeliveryConfirmationByName from "../utils/find-delivery-confirmation-by-name";
-import { findInsurableDeliveryService } from "../utils/find-insurable-delivery-service";
-import findPackagingByName from "../utils/find-packaging-by-name";
 import Test from '../runner/test';
 
 interface TestArgs {
   title: string;
   methodArgs: NewShipmentPOJO;
   config: unknown;
-  testParams: CreateShipmentWithInsuranceTestParams;
 }
 
-export class CreateShipmentWithInsurance extends Suite {
-  title = "createShipment_with_insurance";
+export class TrackShipmentReturn extends Suite {
+  title = "trackShipment_return";
 
   private deliveryService?: DeliveryService;
 
   private deliveryConfirmation?: DeliveryConfirmation;
 
   private setDeliveryService(
-    config: CreateShipmentWithInsuranceConfigOptions,
+    config: TrackShipmentReturnConfigOptions,
   ): void {
     const carrierApp = this.app as CarrierApp;
 
@@ -46,20 +38,27 @@ export class CreateShipmentWithInsurance extends Suite {
         config.deliveryServiceName,
         carrierApp,
       );
-      if (!this.deliveryService.isInsurable) {
-        throw new Error(`The configured delivery service '${this.deliveryService.name}' does not support insuring packages`);
+
+      if (!this.deliveryService.isTrackable) {
+        throw new Error(`connect.config.js deliveryServiceName: "${config.deliveryServiceName}" does not support tracking`);
       }
+      if (!this.deliveryService.supportsReturns) {
+        throw new Error(`connect.config.js deliveryServiceName: "${config.deliveryServiceName}" does not support returns`);
+      }
+
     } else {
-      try {
-        this.deliveryService = findInsurableDeliveryService(carrierApp);
-      } catch {
-        this.deliveryService = undefined;
+      this.deliveryService = undefined;
+
+      for (const ds of carrierApp.deliveryServices) {
+        if (ds.isTrackable && ds.supportsReturns) {
+          this.deliveryService = ds;
+        }
       }
     }
   }
 
   private setDeliveryConfirmation(
-    config: CreateShipmentWithInsuranceConfigOptions,
+    config: TrackShipmentReturnConfigOptions,
   ): void {
     if (config.deliveryConfirmationName) {
       // We do not want to handle the exception here if this raises. It indicates issues w/ the config provided.
@@ -79,24 +78,31 @@ export class CreateShipmentWithInsurance extends Suite {
   }
 
   buildTestArg(
-    config: CreateShipmentWithInsuranceConfigOptions,
+    config: TrackShipmentReturnConfigOptions,
   ): TestArgs | undefined {
-    const carrierApp = this.app as CarrierApp;
     this.setDeliveryService(config);
     this.setDeliveryConfirmation(config);
 
     if (!this.deliveryService) return undefined;
 
-    const [shipFrom, shipTo] = useDomesticShippingAddress(this.deliveryService);
-
-    if (!shipFrom || !shipTo) return undefined;
+    let shipFrom;
+    let shipTo;
+    try {
+      [shipFrom, shipTo] = useDomesticShippingAddress(this.deliveryService);
+    } catch {
+      return undefined;
+    }
 
     const { tomorrow } = initializeTimeStamps();
 
     // Make a best guess at the defaults, need to resolve the default vs config based delivery service early
     // on since that determines what address and associated timezones get generated.
-    const defaults: CreateShipmentWithInsuranceTestParams = {
+    const defaults: TrackShipmentReturnTestParams = {
       deliveryServiceName: this.deliveryService.name,
+      label: {
+        size: this.deliveryService.labelSizes[0],
+        format: this.deliveryService.labelFormats[0]
+      },
       shipDateTime: tomorrow,
       shipFrom: shipFrom,
       shipTo: shipTo,
@@ -109,11 +115,6 @@ export class CreateShipmentWithInsurance extends Suite {
         width: 12,
         height: 12,
         unit: LengthUnit.Inches
-      },
-      packagingName: this.deliveryService.packaging[0].name,
-      packageInsuredValue: {
-        value: 10,
-        currency: "USD"
       }
     };
 
@@ -122,16 +123,18 @@ export class CreateShipmentWithInsurance extends Suite {
     }
 
     const testParams = reduceDefaultsWithConfig<
-      CreateShipmentWithInsuranceTestParams
+      TrackShipmentReturnTestParams
     >(defaults, config);
+
+    if (!testParams.shipFrom || !testParams.shipTo) return undefined;
 
     const packagePOJO: NewPackagePOJO = {
       packaging: {
-        id: findPackagingByName(testParams.packagingName, carrierApp).id
+        id: this.deliveryService.packaging[0].id
       },
       label: {
-        size: this.deliveryService.labelSizes[0],
-        format: this.deliveryService.labelFormats[0],
+        size: testParams.label.size,
+        format: testParams.label.format,
       },
       weight: {
         value: testParams.weight.value,
@@ -142,19 +145,30 @@ export class CreateShipmentWithInsurance extends Suite {
         width: testParams.dimensions.width,
         height: testParams.dimensions.height,
         unit: testParams.dimensions.unit
-      },
-      insuredValue: testParams.packageInsuredValue
+      }
     };
 
     const newShipmentPOJO: NewShipmentPOJO = {
       deliveryService: {
         id: this.deliveryService.id,
       },
+      returns: {
+        isReturn: true,
+        rmaNumber: testParams.rmaNumber
+      },
       shipFrom: testParams.shipFrom,
       shipTo: testParams.shipTo,
       shipDateTime: testParams.shipDateTime,
-      packages: [packagePOJO],
+      packages: [packagePOJO]
     };
+
+    const title = config.expectedErrorMessage
+      ? `it raises an error when tracking a shipment with ${objectToTestTitle(
+        testParams,
+      )}`
+      : `it tracks a shipment with ${objectToTestTitle(
+        testParams,
+      )}`;
 
     if (this.deliveryConfirmation) {
       newShipmentPOJO.deliveryConfirmation = {
@@ -163,42 +177,31 @@ export class CreateShipmentWithInsurance extends Suite {
     }
 
     if (testParams.deliveryConfirmationName) {
-
       const deliveryConfirmation = this.deliveryService.deliveryConfirmations.find(
-        (dc) => dc.name === testParams.deliveryConfirmationName
+        (dc) => dc.name === testParams.deliveryConfirmationName,
       );
 
       if (deliveryConfirmation) {
         newShipmentPOJO.deliveryConfirmation = {
           id: deliveryConfirmation.id,
-        };
+        }
       }
     }
-
-    const title = config.expectedErrorMessage
-      ? `it raises an error when creating a new insured shipment with ${objectToTestTitle(
-        testParams,
-      )}`
-      : `it creates a new insured shipment with ${objectToTestTitle(
-        testParams,
-      )}`;
 
     return {
       title,
       methodArgs: newShipmentPOJO,
       config,
-      testParams
     };
   }
 
   buildTestArgs(): Array<TestArgs | undefined> {
     if (Array.isArray(this.config)) {
-      return this.config.map((config: CreateShipmentWithInsuranceConfigOptions) => {
+      return this.config.map((config: TrackShipmentReturnConfigOptions) => {
         return this.buildTestArg(config);
       });
     }
-
-    const config = this.config as CreateShipmentWithInsuranceConfigOptions;
+    const config = this.config as TrackShipmentReturnConfigOptions;
     return [this.buildTestArg(config)];
   }
 
@@ -222,13 +225,13 @@ export class CreateShipmentWithInsurance extends Suite {
             throw new Error("createShipment is not implemented");
           }
 
+          if (!carrierApp.trackShipment) {
+            throw new Error("trackShipment is not implemented");
+          }
+
           const shipmentConfirmation = await carrierApp.createShipment(transaction, testArg.methodArgs);
 
-          // If DeliveryServiceDefinition.isTrackable is true, then the shipment must have a trackingNumber set
-          if (this.deliveryService?.isTrackable) {
-            const customMsg = "The shipmentConfirmation.isTrackable returned from createShipment must be present when the given deliveryService.isTrackable is set to 'true'";
-            expect(shipmentConfirmation.trackingNumber, customMsg).to.be.ok;
-          }
+          await carrierApp.trackShipment(transaction, { trackingNumber: shipmentConfirmation.trackingNumber });
         }
       );
     });

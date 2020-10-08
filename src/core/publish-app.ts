@@ -150,12 +150,14 @@ const createOrFindTestAccount = async (client: APIClient, platformApp: ConnectAp
     cli.action.stop(`${logSymbols.success}`);
   }
 
+  const productInfo = platformApp.productInfos.find((info) => info.product === "ShipStation")
+  const testUrl = productInfo && productInfo.loginUrl;
   const table = new Table();
 
   table.push(
     { 'Email': [email] },
     { 'Password': [platformApp.id] },
-    { 'Test URL': ["https://ss-devss127.sslocal.com/"] }
+    { 'Test URL': [testUrl] }
   );
   console.log("Test your app with the account below:");
   console.log(table.toString());

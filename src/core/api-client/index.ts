@@ -92,9 +92,8 @@ export default class APIClient {
       headers: mergedHeaders,
       method: method,
       url: `${this._apiAuthority}/${endpoint}`,
-      ...(isFileUpload && { maxContentLength: Infinity }),
+      ...(isFileUpload && { maxContentLength: Infinity, maxBodyLength: Infinity }),
     };
-
 
     if (body) request.data = body;
 
@@ -118,7 +117,7 @@ export default class APIClient {
         case 500:
           throw ono({ code: ApiClientErrors.InternalServerError }, "The Connect API is experiencing issues");
         default:
-          throw ono({ code: ApiClientErrors.UnhandledError }, "Unable to reach the Connect API - please make sure you are connected via the VPN");
+          throw error;
       }
     }
   }
