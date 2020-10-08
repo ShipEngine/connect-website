@@ -29,7 +29,7 @@ export default async function rateShipment(
 
   if (shipment.packages.length > 0) {
     data.parcel_codes = shipment.packages
-      .map((packages) => packages.packaging?.code)
+      .map((packages) => typeof packages.packaging === "object" ? packages.packaging?.code : packages.packaging)
       .filter((packageCodes) => packageCodes !== undefined);
   }
 
