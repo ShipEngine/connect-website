@@ -23,6 +23,8 @@ ShipEngine Connect Local Dev UI
 
 This package provides a web interface for interacting with [ShipEngine Connect](https://connect.shipengine.com) apps on a local dev machine.
 
+*Note: You need to have the ShipEngine Connect [local API](https://github.com/ShipEngine/connect-local-dev-api) up and running.*
+
 
 Development
 ---------------------
