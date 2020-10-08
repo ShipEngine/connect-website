@@ -89,7 +89,8 @@ This test has many parameters [that can be customized](#customizing-parameters) 
          The name of the [delivery service](../../../reference/delivery-service.mdx) you wish to use in this request.
     </Description>
     <DefaultValue>
-      The name of the first domestic delivery service defined for your app.
+      The name of the first delivery service in your app that supports shipment tracking and returns. If the app doesn't have any delivery services that support these 
+      features then the test will be skipped.
     </DefaultValue>
   </Field>
 
@@ -302,7 +303,7 @@ This test has many parameters [that can be customized](#customizing-parameters) 
 
 Customizing Parameters
 ------------------------------
-Here's an example of using the [`connect.config.js` file](./../../../testing/config.mdx) to customize the `createShipment_domestic` test. This example provides values for all parameters and uses the global `connectArgs` parameter for authentication.
+Here's an example of using the [`connect.config.js` file](./../../../testing/config.mdx) to customize the `trackShipment_return` test. This example provides values for all parameters and uses the global `connectArgs` parameter for authentication.
 
 ```javascript
 module.exports = {
@@ -312,7 +313,7 @@ module.exports = {
     agree_to_eula: true,
   },
   tests: {
-    trackShipment: [
+    trackShipment_return: [
       {
         deliveryServiceName: `Next Day Air`,
         label: {
@@ -355,7 +356,8 @@ module.exports = {
           unit: 'in'
         },
         shipDateTime: '2020-04-15T12:00:00-05:00',
-        deliveryConfirmationName: 'Adult Signature'
+        deliveryConfirmationName: 'Adult Signature',
+        rmaNumber: 'RMA-58383958194'
       }
     ]
   }
