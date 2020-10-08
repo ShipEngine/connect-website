@@ -9,7 +9,7 @@ import { RateShipmentWithAllServicesConfigOptions } from './config/rate-shipment
 import { CancelShipmentConfigOptions } from './config/cancel-shipment';
 import { CreateShipmentReturnConfigOptions } from './config/create-shipment-return';
 import { SameDayPickupConfigOptions } from './config/same-day-pickup';
-import { RateShipmentReturnConfigOptions } from './config/rate-return-shipment';
+import { RateShipmentReturnConfigOptions } from './config/rate-shipment-return';
 import { NextDayPickupConfigOptions } from './config/next-day-pickup';
 
 export interface TestsConfig {

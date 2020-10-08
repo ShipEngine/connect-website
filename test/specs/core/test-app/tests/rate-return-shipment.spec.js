@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 "use strict";
 
-const { RateShipmentReturn } = require("../../../../../lib/core/test-app/tests/rate-return-shipment");
+const { RateShipmentReturn } = require("../../../../../lib/core/test-app/tests/rate-shipment-return");
 const { CarrierApp } = require("@shipengine/connect-sdk/lib/internal/carriers/carrier-app");
 const pojo = require("../../../../utils/pojo");
 const { expect } = require("chai");

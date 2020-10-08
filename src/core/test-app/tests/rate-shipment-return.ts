@@ -9,7 +9,7 @@ import { CarrierApp, RateCriteriaPOJO, PackageRateCriteriaPOJO } from "@shipengi
 
 import Suite from "../runner/suite";
 import { initializeTimeStamps } from "../../utils/time-stamps";
-import { RateShipmentReturnTestParams, RateShipmentReturnConfigOptions } from "../runner/config/rate-return-shipment";
+import { RateShipmentReturnTestParams, RateShipmentReturnConfigOptions } from "../runner/config/rate-shipment-return";
 import reduceDefaultsWithConfig from "../utils/reduce-defaults-with-config";
 import objectToTestTitle from "../utils/object-to-test-title";
 import useShipmentAddresses from '../utils/use-shipment-addresses';
