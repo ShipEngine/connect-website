@@ -21,7 +21,7 @@ function main(clientPort, serverPort) {
   // The following line overwrites the env.js file everytime the local dev UI starts.
   fs.writeFileSync(`${ui.directoryPath}/env.js`, `window._env = {"NODE_ENV":"development","REACT_APP_API_HOST":"http://localhost:${serverPort}"};`, { encoding: 'utf8', flag: 'w' })
 
-  client.use(express.static(ui.directoryPath));
+  client.use(express.static(ui.directoryPath, { cacheControl: false }));
 
   client.listen(clientPort, () =>
     console.log(`Starting Local Dev UI...`),
