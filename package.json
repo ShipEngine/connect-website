@@ -45,6 +45,7 @@
     "open": "^7.3.0",
     "p-retry": "^4.2.0",
     "p-timeout": "^3.2.0",
+    "randexp": "^0.5.3",
     "recursive-readdir": "^2.2.2",
     "sort-pjson": "^1.0.3",
     "tslib": "^2.0.1",

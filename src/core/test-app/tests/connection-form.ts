@@ -1,4 +1,5 @@
 import { JSONSchema6 } from 'json-schema';
+import RandExp from "randexp";
 import { FormDefinition } from "@shipengine/connect-sdk";
 import { CarrierApp } from "@shipengine/connect-sdk/lib/internal";
 import Suite from "../runner/suite";
@@ -28,13 +29,19 @@ export class ConnectionForm extends Suite {
   private buildFormData(connectionForm: FormDef) : object {
     if (connectionForm.dataSchema.required) {
       return connectionForm.dataSchema.required.reduce((acc: Record<string, unknown>, field: string) => { 
-        const { type, minLength, maxLength } = connectionForm.dataSchema.properties![field] as JSONSchema6;
-        const stringLength = minLength ? minLength : (maxLength || 1);
+        const { type, minLength, maxLength, pattern } = connectionForm.dataSchema.properties![field] as JSONSchema6;
+        const stringLength = minLength ? minLength : (maxLength || 5);
 
         if (type == 'boolean') {
           acc[field] = true;
         } else if (type == 'string') {
-          acc[field] = "e".padEnd(stringLength, "e");
+          let randexp;
+          if (pattern) {
+            randexp = new RandExp(`[${pattern}]{${stringLength}}`);
+          } else {
+            randexp = new RandExp(`[a-z]{${stringLength}}`);
+          }
+          acc[field] = randexp.gen();
         } else {
           acc[field] = 1;
         }
