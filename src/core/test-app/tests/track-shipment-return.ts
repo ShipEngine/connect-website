@@ -231,13 +231,7 @@ export class TrackShipmentReturn extends Suite {
 
           const shipmentConfirmation = await carrierApp.createShipment(transaction, testArg.methodArgs);
 
-          const trackingInfo = await carrierApp.trackShipment(transaction, { trackingNumber: shipmentConfirmation.trackingNumber });
-
-          let customMsg = "The tracking info packages array should have the same number of packages that were on the shipment confirmation";
-          expect(trackingInfo.packages.length).to.equal(testArg.methodArgs.packages.length, customMsg);
-
-          customMsg = "The tracking number from the shipping confirmation does not match the tracking number from the tracking info response";
-          expect(trackingInfo.trackingNumber).to.equal(shipmentConfirmation.trackingNumber, customMsg);
+          await carrierApp.trackShipment(transaction, { trackingNumber: shipmentConfirmation.trackingNumber });
         }
       );
     });

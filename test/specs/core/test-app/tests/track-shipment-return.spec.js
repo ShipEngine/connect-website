@@ -5,7 +5,6 @@ const { TrackShipmentReturn } = require("../../../../../lib/core/test-app/tests/
 const { CarrierApp } = require("@shipengine/connect-sdk/lib/internal/carriers/carrier-app");
 const pojo = require("../../../../utils/pojo");
 const { expect } = require("chai");
-const sinon = require("sinon");
 
 describe("The track return shipment test suite", () => {
 
@@ -370,79 +369,6 @@ describe("The track return shipment test suite", () => {
       expect(tests[0].title).to.include("shipFrom: US");
       expect(tests[0].title).to.include("shipTo: US");
 
-    });
-  });
-
-  describe("When the packages in the tracking info does not match those from the shipment confirmation", () => {
-
-    it("should throw an error for a packaging length mismatch", async () => {
-      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-
-      const confirmationMock = pojo.shipmentConfirmation();
-      
-      const trackingInfoMock = {
-        packages: [
-          confirmationMock.packages[0],
-          pojo.packageConfirmation()
-        ]
-      };
-
-      sinon.stub(CarrierApp.prototype, "createShipment").resolves(confirmationMock);
-      sinon.stub(CarrierApp.prototype, "trackShipment").resolves(trackingInfoMock);
-      const app = new CarrierApp(appDefinition);
-
-      const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new TrackShipmentReturn(args);
-      const tests = testSuite.tests();
-      try {
-        await tests[0].fn();
-        expect(true).to.equal(false);
-      }
-      catch (error) {
-        expect(error.message).includes("The tracking info packages array should have the same number of packages that were on the shipment confirmation");
-      }
-    });
-
-    afterEach(() => {
-      CarrierApp.prototype.createShipment.restore();
-      CarrierApp.prototype.trackShipment.restore();
-    });
-  });
-
-  describe("When the tracking number in the tracking info does not match the tracking number from the shipment confirmation", () => {
-
-    it("should throw an error for a tracking number mismatch", async () => {
-      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-
-      const confirmationMock = pojo.shipmentConfirmation();
-      confirmationMock.trackingNumber = "8765-4321";
-
-      const trackingInfoMock = {
-        trackingNumber: "1234-5678",
-        packages: [
-          confirmationMock.packages[0],
-        ]
-      };
-
-      sinon.stub(CarrierApp.prototype, "createShipment").resolves(confirmationMock);
-      sinon.stub(CarrierApp.prototype, "trackShipment").resolves(trackingInfoMock);
-      const app = new CarrierApp(appDefinition);
-
-      const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new TrackShipmentReturn(args);
-      const tests = testSuite.tests();
-      try {
-        await tests[0].fn();
-        expect(true).to.equal(false);
-      }
-      catch (error) {
-        expect(error.message).to.have.string("The tracking number from the shipping confirmation does not match the tracking number from the tracking info response");
-      }
-    });
-
-    afterEach(() => {
-      CarrierApp.prototype.createShipment.restore();
-      CarrierApp.prototype.trackShipment.restore();
     });
   });
 });
