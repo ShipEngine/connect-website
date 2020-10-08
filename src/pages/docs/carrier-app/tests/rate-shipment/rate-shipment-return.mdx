@@ -1,5 +1,5 @@
 ---
-title: Acceptance Tests | rateShipment
+title: Acceptance Tests | rateShipment_return
 description: This test is part of the ShipEngine Connect carrier app test suite.
 ---
 
@@ -7,8 +7,8 @@ description: This test is part of the ShipEngine Connect carrier app test suite.
 Carrier App Tests
 ==================================
 
-### `rateShipment`
-This test exercises your app's ability to successfully return rate quotes for a single [delivery service](./../../../reference/delivery-service.mdx).
+### `rateShipment_return`
+This test exercises your app's ability to successfully return rate quotes for a single [delivery service](./../../../reference/delivery-service.mdx) that supports returns.
 
 
 
@@ -91,7 +91,7 @@ This test has many parameters [that can be customized](#customizing-parameters) 
          The name of the [delivery service](./../../../reference/delivery-service.mdx) you wish to use in this request.
     </Description>
     <DefaultValue>
-      The name of the first domestic delivery service defined for your app.
+      The name of the first delivery service defined for your app that supports returns.
     </DefaultValue>
   </Field>
 
@@ -238,7 +238,7 @@ This test has many parameters [that can be customized](#customizing-parameters) 
 
 Customizing Parameters
 ------------------------------
-Here's an example of using the [`connect.config.js` file](./../../../testing/config.mdx) to customize the `rateShipment` test.
+Here's an example of using the [`connect.config.js` file](./../../../testing/config.mdx) to customize the `rateShipment_return` test.
 This example provides values for all parameters and uses the global `connectArgs` parameter for authentication.
 
 ```javascript
@@ -250,7 +250,7 @@ module.exports = {
   },
   timeout: 4000,
   tests: {
-    rateShipment: [
+    rateShipment_return: [
       {
         deliveryServiceName: `Domestic Standard`,
         shipFrom: {
