@@ -48,7 +48,6 @@ export default async function testApp(
   } catch (error) {
     switch (error.code) {
       case LoadAndValidateConfigError.SchemaInvalid:
-      case LoadAndValidateConfigError.Filesystem:
       case LoadAndValidateConfigError.Syntax:
         throw error;
       default:
