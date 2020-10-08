@@ -9,18 +9,20 @@ import {
   RateShipment,
   CreateShipmentReturn,
   TrackShipment, 
-  CancelPickupsNextDay
+  CancelPickupsNextDay,
+  TrackShipmentReturn,
+  SameDayPickup,
+  NextDayPickup,
+  CancelPickupsSameDay,
+  RateShipmentReturn,
+  CancelShipment,
+  RateShipmentWithAllServices
 } from "./test-app/tests";
 import { SdkApp } from "./types";
 import { TestResults, useTestResults } from "./test-app/runner/test-results";
 import { loadAndValidateConfig, LoadAndValidateConfigError } from "./test-app/runner/load-and-validate-config";
 import { logFail, logPass, logStep } from "./utils/log-helpers";
 import { logResults } from "./utils/log-helpers";
-import { RateShipmentWithAllServices } from './test-app/tests/rate-shipment-with-all-services';
-import { CancelShipment } from './test-app/tests/cancel-shipment';
-import { SameDayPickup } from './test-app/tests/same-day-pickup';
-import { NextDayPickup } from './test-app/tests/next-day-pickup';
-import { CancelPickupsSameDay } from './test-app/tests/cancel-pickups-same-day';
 
 export const TestAppErrors = LoadAndValidateConfigError;
 
@@ -49,7 +51,6 @@ export default async function testApp(
   } catch (error) {
     switch (error.code) {
       case LoadAndValidateConfigError.SchemaInvalid:
-      case LoadAndValidateConfigError.Filesystem:
       case LoadAndValidateConfigError.Syntax:
         throw error;
       default:
@@ -166,10 +167,10 @@ function registerTestSuiteModules(app: SdkApp): RegisteredTestSuiteModules {
     schedulePickup: [SameDayPickup, NextDayPickup],
     rateShipment: [
       RateShipment,
-      RateShipmentWithAllServices
+      RateShipmentWithAllServices,
+      RateShipmentReturn
     ],
-    // schedulePickup: [SchedulePickupTestSuite],
-    trackShipment: [TrackShipment],
+    trackShipment: [TrackShipment, TrackShipmentReturn],
   };
 
   const orderAppMethods = {
