@@ -37,6 +37,12 @@ const baseTestParamValidations = {
   timeout: Joi.number().optional(),
 };
 
+const connectionFormTestParamsSchema = Joi.object({
+  accountEmail: Joi.string(),
+  accountPassword: Joi.string(),
+  agreeToEula: Joi.boolean(),
+});
+
 const createShipmentReturnTestParamsSchema = Joi.object({
   ...baseTestParamValidations,
   ...{
@@ -225,6 +231,10 @@ const TrackShipmentSchema = Joi.object({
 });
 
 const testsSchema = Joi.object({
+  connectionForm: Joi.alternatives().conditional(Joi.array(), {
+    then: Joi.array().items(connectionFormTestParamsSchema),
+    otherwise: connectionFormTestParamsSchema,
+  }),
   createShipment_return: Joi.alternatives().conditional(Joi.array(), {
     then: Joi.array().items(createShipmentReturnTestParamsSchema),
     otherwise: createShipmentReturnTestParamsSchema,
