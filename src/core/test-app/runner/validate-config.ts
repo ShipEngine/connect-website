@@ -224,6 +224,21 @@ const TrackShipmentSchema = Joi.object({
   }
 });
 
+const TrackShipmentReturnSchema = Joi.object({
+  ...baseTestParamValidations,
+  ...{
+    rmaNumber: Joi.string().optional(),
+    deliveryConfirmationName: Joi.string().optional(),
+    deliveryServiceName: Joi.string().optional(),
+    shipDateTime: DateTimeZone[_internal].schema.optional(),
+    shipFrom: AddressWithContactInfo[_internal].schema.optional(),
+    shipTo: AddressWithContactInfo[_internal].schema.optional(),
+    weight: Weight[_internal].schema.optional(),
+    dimensions: Dimensions[_internal].schema.optional(),
+    label: NewLabel[_internal].schema.optional(),
+  }
+});
+
 const testsSchema = Joi.object({
   createShipment_return: Joi.alternatives().conditional(Joi.array(), {
     then: Joi.array().items(createShipmentReturnTestParamsSchema),
@@ -277,6 +292,10 @@ const testsSchema = Joi.object({
   trackShipment: Joi.alternatives().conditional(Joi.array(), {
     then: Joi.array().items(TrackShipmentSchema),
     otherwise: TrackShipmentSchema,
+  }),
+  trackShipment_return: Joi.alternatives().conditional(Joi.array(), {
+    then: Joi.array().items(TrackShipmentReturnSchema),
+    otherwise: TrackShipmentReturnSchema,
   })
 
 }).optional();
