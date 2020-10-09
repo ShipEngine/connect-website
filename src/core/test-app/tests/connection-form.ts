@@ -58,15 +58,17 @@ export class ConnectionForm extends Suite {
     config: ConnectionFormConfigOptions,
   ): TestArgs | undefined {
 
-    // Make a best guess at the defaults, need to resolve the default vs config based delivery service early
-    // on since that determines what address and associated timezones get generated.
-    const defaults: ConnectionFormTestParams = {
-      connectionFormData: {},
-    };
+    const carrierApp = this.app as CarrierApp;
 
-    const testParams = reduceDefaultsWithConfig<
-      ConnectionFormTestParams
-    >(defaults, config);
+    // Parse and Set Sensible defaults
+    const defaults = this.buildFormData(carrierApp.connectionForm);
+
+    // Merge default data, connects args, and user-provided config, in that order
+    const testParams = {
+      ...defaults,
+      ...this.options.staticRootConfig.connectArgs,
+      ...(config as ConnectionFormTestParams).connectionFormData,
+    };
 
     const title = config.expectedErrorMessage
       ? `it raises an error when creating a connection form with ${objectToTestTitle(
@@ -105,30 +107,19 @@ export class ConnectionForm extends Suite {
         testArg.methodArgs,
         testArg.config,
         async () => {
-
           const carrierApp = this.app as CarrierApp;
           const transaction = await this.transaction(testArg.config);
-          
-          // Parse and Set Sensible defaults
-          const defaultFormData = this.buildFormData(carrierApp.connectionForm);
-          
-          // Merge default data, connects args, and user-provided config, in that order
-          const mergedConnectionFormData = {
-            ...defaultFormData,
-            ...this.options.staticRootConfig.connectArgs,
-            ...(testArg.config as ConnectionFormTestParams).connectionFormData,
-          };
 
           // Validate data against Form Schema
           const ajv = Ajv();
-          const valid = ajv.validate(carrierApp.connectionForm, mergedConnectionFormData);
+          const valid = ajv.validate(carrierApp.connectionForm, testArg.methodArgs);
           expect(valid).to.equal(true);
 
           if (!carrierApp.connect) {
             throw new Error("createShipment is not implemented");
           }
 
-          await carrierApp.connect(transaction, mergedConnectionFormData);
+          await carrierApp.connect(transaction, testArg.methodArgs);
         }
       );
     });
