@@ -1,3 +1,4 @@
+import Ajv from "ajv";
 import { JSONSchema6 } from 'json-schema';
 import RandExp from "randexp";
 import { FormDefinition } from "@shipengine/connect-sdk";
@@ -108,8 +109,6 @@ export class ConnectionForm extends Suite {
           const carrierApp = this.app as CarrierApp;
           const transaction = await this.transaction(testArg.config);
           
-          // Validate Connection Form Schema
-
           // Parse and Set Sensible defaults
           const defaultFormData = this.buildFormData(carrierApp.connectionForm);
           
@@ -119,6 +118,11 @@ export class ConnectionForm extends Suite {
             ...this.options.staticRootConfig.connectArgs,
             ...(testArg.config as ConnectionFormTestParams).connectionFormData,
           };
+
+          // Validate data against Form Schema
+          const ajv = Ajv();
+          const valid = ajv.validate(carrierApp.connectionForm, mergedConnectionFormData);
+          expect(valid).to.equal(true);
 
           if (!carrierApp.connect) {
             throw new Error("createShipment is not implemented");
