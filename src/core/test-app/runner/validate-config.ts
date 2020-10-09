@@ -38,9 +38,7 @@ const baseTestParamValidations = {
 };
 
 const connectionFormTestParamsSchema = Joi.object({
-  accountEmail: Joi.string(),
-  accountPassword: Joi.string(),
-  agreeToEula: Joi.boolean(),
+  connectionFormData: Joi.object().keys().unknown(),
 });
 
 const createShipmentReturnTestParamsSchema = Joi.object({

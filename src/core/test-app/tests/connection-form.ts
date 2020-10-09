@@ -106,15 +106,25 @@ export class ConnectionForm extends Suite {
         async () => {
 
           const carrierApp = this.app as CarrierApp;
-
           const transaction = await this.transaction(testArg.config);
-          const connectionFormData = this.buildFormData(carrierApp.connectionForm);
+          
+          // Validate Connection Form Schema
+
+          // Parse and Set Sensible defaults
+          const defaultFormData = this.buildFormData(carrierApp.connectionForm);
+          
+          // Merge default data, connects args, and user-provided config, in that order
+          const mergedConnectionFormData = {
+            ...defaultFormData,
+            ...this.options.staticRootConfig.connectArgs,
+            ...(testArg.config as ConnectionFormTestParams).connectionFormData,
+          };
 
           if (!carrierApp.connect) {
             throw new Error("createShipment is not implemented");
           }
 
-          await carrierApp.connect(transaction, connectionFormData);
+          await carrierApp.connect(transaction, mergedConnectionFormData);
         }
       );
     });
