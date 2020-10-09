@@ -7,6 +7,10 @@ const pojo = require("../../../../utils/pojo");
 const { expect } = require("chai");
 
 describe("The connection form test suite", () => {
+	it("should throw an Error if your JSON schema is invalid", () => {
+
+	});
+
 	it('should generate a test', () => {
 			const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
 	    const app = new CarrierApp(appDefinition);
@@ -29,7 +33,16 @@ describe("The connection form test suite", () => {
 	      // expect(tests[0].methodArgs).to.equal({});
 	});
 
-	it("should successfully be passed to connect function", () => {
+	it("should let the connectsArgs override the defaults", () => {
+
+	});
+
+	it("should let the testing config data override both the connectsArgs and the defaults", () => {
+		
+	});
+
+
+	it("should be capable of being successfully passed to the connect function", () => {
 
 	});
 
