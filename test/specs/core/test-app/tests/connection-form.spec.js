@@ -17,9 +17,16 @@ describe("The connection form test suite", () => {
 			const args = { app, connectArgs, staticConfigTests, options };
       const testSuite = new ConnectionForm(args);
 
-      const tests = testSuite.tests();
+      try {
+        const tests = testSuite.tests();
+        expect(true).to.equal(false);
+      }
+      catch (error) {
+        expect(error.message).includes("The shipmentConfirmation.isTrackable returned from createShipment must be present when the given deliveryService.isTrackable is set to 'true'");
+      }
       
-      expect(tests.length).to.equal(1);
+      
+      //expect(tests.length).to.equal(1);
 	});
 
 	it("should pass the right methodArgs to that test", async () => {

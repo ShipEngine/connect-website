@@ -60,15 +60,16 @@ export class ConnectionForm extends Suite {
 
     const carrierApp = this.app as CarrierApp;
 
-    // Parse and Set Sensible defaults
-    const defaults = this.buildFormData(carrierApp.connectionForm);
-
-    // Merge default data, connects args, and user-provided config, in that order
-    const testParams = {
-      ...defaults,
-      ...this.options.staticRootConfig.connectArgs,
-      ...(config as ConnectionFormTestParams).connectionFormData,
+    // Parse and Set Sensible defaults, merge in connects args
+    const defaults = {
+      ...this.buildFormData(carrierApp.connectionForm),
+      ...this.options.staticRootConfig.connectArgs
     };
+
+    // Merge default data + connects args, and user-provided config, in that order
+    const testParams = reduceDefaultsWithConfig<
+      ConnectionFormTestParams
+    >(defaults, config.connectionFormData);
 
     const title = config.expectedErrorMessage
       ? `it raises an error when creating a connection form with ${objectToTestTitle(
