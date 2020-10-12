@@ -113,7 +113,7 @@ describe("new generator", () => {
               scripts: {
                 build: "tsc",
                 watch: "tsc --watch",
-                postbuild: "copyfiles -u 1 src/**/!\\(*.ts\\) lib; copyfiles -u 1 src/!\\(*.ts\\) lib",
+                postbuild: "copyfiles -u 1 \"src/**/!(*.ts)\" lib",
                 start: "connect start",
                 test: "connect test"
               },
@@ -166,7 +166,7 @@ describe("new generator", () => {
               scripts: {
                 build: "tsc",
                 watch: "tsc --watch",
-                postbuild: "copyfiles -u 1 src/**/!\\(*.ts\\) lib; copyfiles -u 1 src/!\\(*.ts\\) lib",
+                postbuild: "copyfiles -u 1 \"src/**/!(*.ts)\" lib",
                 start: "connect start",
                 test: "connect test",
               }
@@ -218,7 +218,7 @@ describe("new generator", () => {
               scripts: {
                 build: "tsc",
                 watch: "tsc --watch",
-                postbuild: "copyfiles -u 1 src/**/!\\(*.ts\\) lib; copyfiles -u 1 src/!\\(*.ts\\) lib",
+                postbuild: "copyfiles -u 1 \"src/**/!(*.ts)\" lib",
                 start: "connect start",
                 test: "connect test"
               },
@@ -405,6 +405,7 @@ describe("new generator", () => {
               scripts: {
                 build: "tsc",
                 watch: "tsc --watch",
+                postbuild: "copyfiles -u 1 \"src/**/!(*.ts)\" lib",
                 start: "connect start",
                 test: "connect test",
               },
