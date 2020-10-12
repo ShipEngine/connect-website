@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 
-import { ConnectionFormConfigOptions } from "./config/connection-form";
+import { ConnectionFormConfigOptions } from "./config/connect-all-fields";
 import { CreateShipmentInternationalConfigOptions } from "./config/create-shipment-international";
 import { CreateShipmentDomesticConfigOptions } from "./config/create-shipment-domestic";
 import { CreateShipmentMultiPackageConfigOptions } from './config/create-shipment-multipackage';

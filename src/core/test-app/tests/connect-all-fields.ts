@@ -6,7 +6,7 @@ import Suite from "../runner/suite";
 import {
   ConnectionFormConfigOptions,
   ConnectionFormTestParams,
-} from "../runner/config/connection-form";
+} from "../runner/config/connect-all-fields";
 import reduceDefaultsWithConfig from '../utils/reduce-defaults-with-config';
 import objectToTestTitle from '../utils/object-to-test-title';
 
