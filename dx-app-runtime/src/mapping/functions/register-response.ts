@@ -6,7 +6,7 @@ interface BasicAuth {
   password?: string;
 }
 
-const getCredentials = (auth?: BasicAuth) => {
+export const getCredentials = (auth?: BasicAuth) => {
   if(!auth) {
     return {
       username: 'N/A',

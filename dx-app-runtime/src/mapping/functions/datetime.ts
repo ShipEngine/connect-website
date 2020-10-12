@@ -6,5 +6,7 @@ export const mapDateTime = (
   if (!date) {
     return undefined;
   }
-  return date.toISOString();
+  const dt = date.toDate();
+  const utcDate = new Date(Date.UTC(dt.getUTCFullYear(), dt.getUTCMonth(), dt.getUTCDate(), dt.getUTCHours(), dt.getUTCMinutes(), dt.getUTCSeconds()));
+  return utcDate.toISOString();
 };

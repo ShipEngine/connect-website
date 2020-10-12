@@ -12,9 +12,9 @@ const stringDate = new DateTimeZone('1994-11-05T08:15:30Z');
 
 const expectedResults: any[][] = [
     [undefined, undefined],
-    [chicago, '1988-01-25T13:30:00-06:00'],
-    [regularDate, '2020-02-01T16:40:20.000+00:00'],
-    [stringDate, '1994-11-05T08:15:30+00:00']
+    [chicago, '1988-01-25T19:30:00.000Z'],
+    [regularDate, '2020-02-01T16:40:20.000Z'],
+    [stringDate, '1994-11-05T08:15:30.000Z']
 ]
 describe('DateTime', () => {
     describe('Mapping DateTime', () => {

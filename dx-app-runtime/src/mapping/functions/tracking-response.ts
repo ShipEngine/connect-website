@@ -11,7 +11,6 @@ import {
 } from '@ipaas/capi/responses';
 
 import { TrackingEvent, TrackingInfo } from '@shipengine/connect-sdk/lib/internal';
-import { dxPersonNameToString } from './person-name';
 
 
 const mapStatusCode = (
@@ -47,7 +46,7 @@ const mapTrackEvent = (event: TrackingEvent): EventElement => {
     event_datetime: event.dateTime.toISOString(),
     postal_code: event.address?.postalCode,
     state: event.address?.stateProvince,
-    signer: event.signer ? dxPersonNameToString(event.signer) : undefined,
+    signer: event.signer ? event.signer.given : undefined,
   };
 };
 

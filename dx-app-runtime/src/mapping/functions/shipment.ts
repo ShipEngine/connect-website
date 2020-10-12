@@ -26,10 +26,11 @@ export const mapGetRatesRequestToNewShipmentPOJO = (
     packages: request.packages.map((pckg) =>
       mapNewPackage(
         pckg,
-        request.customs,
+        request.customs || undefined,
         request.advanced_options,
         DocumentFormat.PDF, // TODO: TODO: This seems like it can be removed from the get rates request
-        DocumentSize.Inches4x6 // TODO: This seems like it can be removed from the get rates request
+        DocumentSize.Inches4x6, // TODO: This seems like it can be removed from the get rates request
+        request.insurance_provider || undefined
       )
     ),
   };

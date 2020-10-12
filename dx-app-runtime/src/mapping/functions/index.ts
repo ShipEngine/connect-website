@@ -16,7 +16,6 @@ export * from './label-format';
 export * from './label-layout';
 export * from './pickup-package';
 export * from './new-package';
-export * from './person-name';
 export * from './pickup-contact';
 export * from './quantity';
 export * from './register-request';
