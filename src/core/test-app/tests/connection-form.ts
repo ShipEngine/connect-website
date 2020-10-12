@@ -28,8 +28,8 @@ export class ConnectionForm extends Suite {
   title = "connectionForm";
 
   private buildFormData(connectionForm: FormDef) : object {
-    if (connectionForm.dataSchema.required) {
-      return connectionForm.dataSchema.required.reduce((acc: Record<string, unknown>, field: string) => { 
+    if (connectionForm.dataSchema.properties) {
+      return Object.keys(connectionForm.dataSchema.properties).reduce((acc: Record<string, unknown>, field: string) => {
         const { type, minLength, maxLength, pattern } = connectionForm.dataSchema.properties![field] as JSONSchema6;
         const stringLength = minLength ? minLength : (maxLength || 5);
 
