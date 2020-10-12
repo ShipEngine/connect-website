@@ -33,6 +33,7 @@ describe("The connection form test suite", () => {
     expect(Object.keys(tests[0].methodArgs)).to.include('account_email');
     expect(Object.keys(tests[0].methodArgs)).to.include('account_password');
     expect(Object.keys(tests[0].methodArgs)).to.include('agree_to_eula');
+    expect(Object.keys(tests[0].methodArgs)).to.include('agree_to_eula');
 	});
 
 	it("should let the connectsArgs override the defaults", () => {
@@ -57,6 +58,22 @@ describe("The connection form test suite", () => {
     expect(tests[0].methodArgs.account_email).to.equal('spectest@test.com');
 	});
 
+	it("should work with either a config object or array of config objects", () => {
+		const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+    staticConfigTests.connectionForm = {
+			connectionFormData: {
+    		account_email: "objecttest@test.com"
+  		}
+	  };
+
+    const app = new CarrierApp(appDefinition);
+		const args = { app, connectArgs, staticConfigTests, options };
+    const testSuite = new ConnectionForm(args);
+
+    const tests = testSuite.tests();
+    expect(tests[0].methodArgs.account_email).to.equal( "objecttest@test.com");
+	});
+
 
 	it("should be capable of being successfully passed to the connect function", () => {
 
@@ -75,7 +92,8 @@ function generateBasicAppAndConfigs() {
 	      "account_id",
 	      "account_email",
 	      "account_password",
-	      "agree_to_eula"
+	      "agree_to_eula",
+	      "account_number"
 	    ],
 	    "properties": {
 	      "account_id": {
@@ -84,6 +102,10 @@ function generateBasicAppAndConfigs() {
 	        "minLength": 10,
 	        "maxLength": 15,
 	        "pattern": "^\\d+$"
+	      },
+	      "account_number": {
+	        "title": "Account Number",
+	        "type": "number"
 	      },
 	      "account_email": {
 	        "title": "Email Address",
@@ -108,6 +130,9 @@ function generateBasicAppAndConfigs() {
 	  },
 	  "uiSchema": {
 	    "account_id": {
+	      "ui:autofocus": true
+	    },
+	    "account_number": {
 	      "ui:autofocus": true
 	    },
 	    "account_email": {
@@ -151,12 +176,17 @@ function generateBasicAppAndConfigs() {
     packaging: [pojo.packaging()]
   });
 
+  const connectArgs = {
+  	account_password: '1000000000001',
+  };
+
   const options = {
     cli: {
       debug: false,
     },
     staticRootConfig: {
-      debug: false
+      debug: false,
+      connectArgs: connectArgs,
     },
     defaults: {
       debug: false
@@ -174,10 +204,6 @@ function generateBasicAppAndConfigs() {
     		}
   		}
   	]
-  };
-
-  const connectArgs = {
-  	account_password: '1000000000001',
   };
 
   return { appDefinition, connectArgs, staticConfigTests, options };

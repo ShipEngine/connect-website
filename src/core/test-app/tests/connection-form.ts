@@ -69,7 +69,7 @@ export class ConnectionForm extends Suite {
     // Merge default data + connects args, and user-provided config, in that order
     const testParams = reduceDefaultsWithConfig<
       ConnectionFormTestParams
-    >(defaults, config.connectionFormData);
+    >(defaults, config.connectionFormData ? config.connectionFormData : {});
 
     const title = config.expectedErrorMessage
       ? `it raises an error when creating a connection form with ${objectToTestTitle(
