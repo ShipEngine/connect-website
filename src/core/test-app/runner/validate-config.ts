@@ -229,7 +229,7 @@ const TrackShipmentSchema = Joi.object({
 });
 
 const testsSchema = Joi.object({
-  connectionForm: Joi.alternatives().conditional(Joi.array(), {
+  connect_all_fields: Joi.alternatives().conditional(Joi.array(), {
     then: Joi.array().items(connectionFormTestParamsSchema),
     otherwise: connectionFormTestParamsSchema,
   }),

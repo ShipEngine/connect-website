@@ -25,7 +25,7 @@ interface FormDef {
 }
 
 export class ConnectionForm extends Suite {
-  title = "connectionForm";
+  title = "connect_all_fields";
 
   private buildFormData(connectionForm: FormDef) : object {
     if (connectionForm.dataSchema.properties) {
