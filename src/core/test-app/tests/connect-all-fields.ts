@@ -29,11 +29,20 @@ export class ConnectionForm extends Suite {
   private buildFormData(connectionForm: FormDef) : object {
     if (connectionForm.dataSchema.properties) {
       return Object.keys(connectionForm.dataSchema.properties).reduce((acc: Record<string, unknown>, field: string) => {
-        const { type, minLength, maxLength, pattern } = connectionForm.dataSchema.properties![field] as JSONSchema6;
+        const {
+          type,
+          minLength,
+          maxLength,
+          pattern,
+          minimum,
+          maximum,
+          default: defaultValue,
+          enum: numberEnum,
+        } = connectionForm.dataSchema.properties![field] as JSONSchema6;
         const stringLength = minLength ? minLength : (maxLength || 5);
 
-        if (type === 'boolean') {
-          acc[field] = true;
+        if (defaultValue) {
+          acc[field] = defaultValue;
         } else if (type === 'string') {
           let randexp;
           if (pattern) {
@@ -42,8 +51,12 @@ export class ConnectionForm extends Suite {
             randexp = new RandExp(`[a-z]{${stringLength}}`);
           }
           acc[field] = randexp.gen();
+        } else if (type === 'boolean') {
+          acc[field] = true;
+        } else if (numberEnum) {
+          acc[field] = numberEnum[0]
         } else {
-          acc[field] = 1;
+          acc[field] = minimum ? minimum : (maximum || 5);
         }
 
         return acc;
