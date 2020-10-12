@@ -7,11 +7,7 @@ const pojo = require("../../../../utils/pojo");
 const { expect } = require("chai");
 
 describe("The connection form test suite", () => {
-	it("should throw an Error if your JSON schema is invalid", () => {
-
-	});
-
-	it('should generate a test', () => {
+	it("should generate a test", () => {
 		const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
     const app = new CarrierApp(appDefinition);
 		const args = { app, connectArgs, staticConfigTests, options };
@@ -29,11 +25,12 @@ describe("The connection form test suite", () => {
     const tests = testSuite.tests();
     
     
-    expect(Object.keys(tests[0].methodArgs)).to.include('account_id');
-    expect(Object.keys(tests[0].methodArgs)).to.include('account_email');
-    expect(Object.keys(tests[0].methodArgs)).to.include('account_password');
-    expect(Object.keys(tests[0].methodArgs)).to.include('agree_to_eula');
-    expect(Object.keys(tests[0].methodArgs)).to.include('agree_to_eula');
+    expect(Object.keys(tests[0].methodArgs)).to.include("account_id");
+    expect(Object.keys(tests[0].methodArgs)).to.include("account_email");
+    expect(Object.keys(tests[0].methodArgs)).to.include("account_password");
+    expect(Object.keys(tests[0].methodArgs)).to.include("account_number");
+    expect(Object.keys(tests[0].methodArgs)).to.include("agree_to_eula");
+    expect(Object.keys(tests[0].methodArgs)).to.include("eula");
 	});
 
 	it("should let the connectsArgs override the defaults", () => {
@@ -75,9 +72,51 @@ describe("The connection form test suite", () => {
 	});
 
 
-	it("should be capable of being successfully passed to the connect function", () => {
+	it("should be capable of being successfully passed to the connect function", async () => {
+		const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+    const app = new CarrierApp(appDefinition);
+		const args = { app, connectArgs, staticConfigTests, options };
+    const testSuite = new ConnectionForm(args);
 
+    const tests = testSuite.tests();
+
+    await tests[0].fn();
 	});
+
+	// it("should throw a validation error if the JSON is wrong", async () => {
+	// 	const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+ //    appDefinition.connectionForm = {};
+ //    const app = new CarrierApp(appDefinition);
+	// 	const args = { app, connectArgs, staticConfigTests, options };
+ //    const testSuite = new ConnectionForm(args);
+
+ //    try {
+ //      testSuite.tests();
+ //      expect(true).to.equal(false);
+ //    }
+ //    catch (error) {
+ //      expect(error.message).to.include("deliveryServiceName: 'asdf' does not exist");
+ //    }
+
+	// });
+
+	// it("should throw a validation error if the dataSchema is missing", async () => {
+	// 	const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+ //    appDefinition.connectionForm = {
+ //    	uiSchema: {}
+ //    };
+ //    const app = new CarrierApp(appDefinition);
+	// 	const args = { app, connectArgs, staticConfigTests, options };
+ //    const testSuite = new ConnectionForm(args);
+
+ //    try {
+ //      testSuite.tests();
+ //      expect(true).to.equal(false);
+ //    }
+ //    catch (error) {
+ //      expect(error.message).to.include("deliveryServiceName: 'asdf' does not exist");
+ //    }
+	// });
 
 });
 

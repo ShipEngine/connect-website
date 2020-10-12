@@ -33,9 +33,9 @@ export class ConnectionForm extends Suite {
         const { type, minLength, maxLength, pattern } = connectionForm.dataSchema.properties![field] as JSONSchema6;
         const stringLength = minLength ? minLength : (maxLength || 5);
 
-        if (type == 'boolean') {
+        if (type === 'boolean') {
           acc[field] = true;
-        } else if (type == 'string') {
+        } else if (type === 'string') {
           let randexp;
           if (pattern) {
             randexp = new RandExp(`[${pattern}]{${stringLength}}`);
@@ -49,9 +49,8 @@ export class ConnectionForm extends Suite {
 
         return acc;
       }, {});
-    } else {
-      return {};
     }
+    return {};
   }
 
   buildTestArg(
@@ -99,9 +98,6 @@ export class ConnectionForm extends Suite {
   tests(): Test[] {
     const testArgs = this.buildTestArgs().filter((args) => args !== undefined) as TestArgs[];
 
-    if (testArgs.length === 0) {
-      return [];
-    }
     return testArgs.map((testArg) => {
       return this.test(
         testArg.title,
@@ -111,10 +107,14 @@ export class ConnectionForm extends Suite {
           const carrierApp = this.app as CarrierApp;
           const transaction = await this.transaction(testArg.config);
 
-          // Validate data against Form Schema
+          //  Validate data against Form schema 
           const ajv = Ajv();
           const valid = ajv.validate(carrierApp.connectionForm, testArg.methodArgs);
-          expect(valid).to.equal(true);
+          expect(valid, "Invalid JSON schema").to.equal(true);
+
+          if (!carrierApp.connectionForm.dataSchema) {
+            throw new Error("Missing required dataSchema property");
+          }
 
           if (!carrierApp.connect) {
             throw new Error("createShipment is not implemented");
