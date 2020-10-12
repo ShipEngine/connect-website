@@ -7,7 +7,7 @@ const { expect } = require("chai");
 const sinon = require("sinon");
 const { v4 } = require("uuid");
 
-describe.skip("The cancel multiple shipments test suite", () => {
+describe("The cancel multiple shipments test suite", () => {
 
   describe("when there is not address available for the delivery services", () => {
     it("should not generate tests", () => {
@@ -43,13 +43,17 @@ describe.skip("The cancel multiple shipments test suite", () => {
     it("the test params should be reflected in the title", () => {
       const tests = testSuite.tests();
 
-      expect(tests[0].title).to.include("weight: 50lb");
+      expect(tests[0].title).to.include("2 shipments");
+      expect(tests[0].methodArgs[0].shipTo.stateProvince).to.equal("CA");
+      expect(tests[0].methodArgs[0].shipFrom.stateProvince).to.equal("TX");
+      expect(tests[0].methodArgs[1].shipTo.stateProvince).to.equal("CA");
+      expect(tests[0].methodArgs[1].shipFrom.stateProvince).to.equal("TX");
     });
   });
 
   describe("when there is a config override object of test suite parameters", () => {
 
-    it("should update the test title", () => {
+    it("should update the testParams", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       const newPackaging = pojo.packaging();
       newPackaging.name = "New Package";
@@ -57,7 +61,7 @@ describe.skip("The cancel multiple shipments test suite", () => {
 
       const app = new CarrierApp(appDefinition);
 
-      staticConfigTests.cancelShipments = {
+      staticConfigTests.cancelShipments_multiple = {
         shipments: [
           {
             weight: {
@@ -90,8 +94,9 @@ describe.skip("The cancel multiple shipments test suite", () => {
       const testSuite = new CancelShipmentsMultiple(args);
       const tests = testSuite.tests();
 
-      expect(tests[0].title).to.include("weight: 200lb");
-      expect(tests[0].title).to.include("dimensions: 5 x 5 x 5 cm");
+      expect(tests[0].title).to.include("2 shipments");
+      expect(tests[0].methodArgs[0].weight.value).to.equal(200);
+      expect(tests[0].methodArgs[1].weight.value).to.equal(10);
     });
   });
 
