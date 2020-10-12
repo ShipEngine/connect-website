@@ -3,7 +3,7 @@ import Runner from "./test-app/runner";
 import loadAndValidateApp, { isInvalidAppError } from "./load-and-validate-app";
 import { SdkApp } from "./types";
 import { TestResults, useTestResults } from "./test-app/runner/test-results";
-import { loadAndValidateConfig } from "./test-app/runner/load-and-validate-config";
+import { loadAndValidateConfig, LoadAndValidateConfigError } from "./test-app/runner/load-and-validate-config";
 import { logFail, logPass, logStep } from "./utils/log-helpers";
 import { logResults } from "./utils/log-helpers";
 import {
