@@ -1,4 +1,3 @@
-import Ajv from "ajv";
 import { JSONSchema6 } from 'json-schema';
 import RandExp from "randexp";
 import { FormDefinition } from "@shipengine/connect-sdk";
@@ -106,15 +105,6 @@ export class ConnectionForm extends Suite {
         async () => {
           const carrierApp = this.app as CarrierApp;
           const transaction = await this.transaction(testArg.config);
-
-          //  Validate data against Form schema 
-          const ajv = Ajv();
-          const valid = ajv.validate(carrierApp.connectionForm, testArg.methodArgs);
-          expect(valid, "Invalid JSON schema").to.equal(true);
-
-          if (!carrierApp.connectionForm.dataSchema) {
-            throw new Error("Missing required dataSchema property");
-          }
 
           if (!carrierApp.connect) {
             throw new Error("createShipment is not implemented");

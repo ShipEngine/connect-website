@@ -82,42 +82,6 @@ describe("The connection form test suite", () => {
 
     await tests[0].fn();
   });
-
-  // it("should throw a validation error if the JSON is wrong", async () => {
-  //  const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
- //    appDefinition.connectionForm = {};
- //    const app = new CarrierApp(appDefinition);
-  //  const args = { app, connectArgs, staticConfigTests, options };
- //    const testSuite = new ConnectionForm(args);
-
- //    try {
- //      testSuite.tests();
- //      expect(true).to.equal(false);
- //    }
- //    catch (error) {
- //      expect(error.message).to.include("deliveryServiceName: 'asdf' does not exist");
- //    }
-
-  // });
-
-  // it("should throw a validation error if the dataSchema is missing", async () => {
-  //  const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
- //    appDefinition.connectionForm = {
- //     uiSchema: {}
- //    };
- //    const app = new CarrierApp(appDefinition);
-  //  const args = { app, connectArgs, staticConfigTests, options };
- //    const testSuite = new ConnectionForm(args);
-
- //    try {
- //      testSuite.tests();
- //      expect(true).to.equal(false);
- //    }
- //    catch (error) {
- //      expect(error.message).to.include("deliveryServiceName: 'asdf' does not exist");
- //    }
-  // });
-
 });
 
 function generateBasicAppAndConfigs() {

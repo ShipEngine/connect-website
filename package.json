@@ -21,7 +21,6 @@
     "@shipengine/connect-local-dev-api": "^2.1.7",
     "@shipengine/connect-local-dev-ui": "^2.0.13",
     "@shipengine/connect-sdk": "^8.0.1",
-    "ajv": "^6.12.5",
     "axios": "^0.20.0",
     "chai": "^4.2.0",
     "chalk": "^4.1.0",
