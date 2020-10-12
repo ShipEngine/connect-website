@@ -9,14 +9,14 @@ import useDomesticShippingAddress from "../utils/use-domestic-shipment-addresses
 import { findDomesticDeliveryService } from "../utils/find-domestic-delivery-service";
 import { expect } from "chai";
 import findDeliveryServiceByName from "../utils/find-delivery-service-by-name";
-import { CancelShipmentsConfigOptions, CancelShipmentsTestParams } from "../runner/config/cancel-shipments";
+import { CancelShipmentsMultipleConfigOptions, CancelShipmentsMultipleTestParams } from "../runner/config/cancel-shipments-multiple";
 import { v4 } from "uuid";
 import Test from '../runner/test';
 
 
 interface TestArgs {
   title: string;
-  methodArgs: NewShipmentPOJO;
+  methodArgs: NewShipmentPOJO[];
   config: unknown;
 }
 
@@ -24,98 +24,131 @@ interface TestArgs {
  * Test an individual cancellation of one shipment.
  */
 export class CancelShipmentsMultiple extends Suite {
-  title = "cancelShipment";
-
-  private deliveryService?: DeliveryService;
+  title = "cancelShipments_multiple";
 
   private setDeliveryService(
-    config: CancelShipmentsConfigOptions,
-  ): void {
+    deliveryServiceName?: string
+  ): DeliveryService {
     const carrierApp = this.app as CarrierApp;
 
-    if (config.deliveryServiceName) {
-      this.deliveryService = findDeliveryServiceByName(
-        config.deliveryServiceName,
+    if (deliveryServiceName) {
+      return findDeliveryServiceByName(
+        deliveryServiceName,
         carrierApp,
       );
-    } else {
-      try {
-        this.deliveryService = findDomesticDeliveryService(carrierApp);
-      } catch {
-        this.deliveryService = undefined;
-      }
     }
+
+    return findDomesticDeliveryService(carrierApp);
   }
 
   buildTestArg(
-    config: CancelShipmentsConfigOptions,
+    config: CancelShipmentsMultipleConfigOptions,
   ): TestArgs | undefined {
-    this.setDeliveryService(config);
 
-    if (!this.deliveryService) return undefined;
 
-    let shipFrom;
-    let shipTo;
-    try {
-      [shipFrom, shipTo] = useDomesticShippingAddress(this.deliveryService);
-    } catch { }
+    const userOverrides = config.map((shipment) => {
 
-    const { tomorrow } = initializeTimeStamps();
+      const deliveryService = this.setDeliveryService(shipment.deliveryServiceName);
+
+      let shipFrom;
+      let shipTo;
+      try {
+        [shipFrom, shipTo] = useDomesticShippingAddress(deliveryService);
+      } catch { }
+
+      const { tomorrow } = initializeTimeStamps();
+      return {
+        deliveryService,
+        shipFrom,
+        shipTo,
+        shipDateTime: tomorrow
+      }
+    });
 
     // Make a best guess at the defaults, need to resolve the default vs config based delivery service early
     // on since that determines what address and associated timezones get generated.
-    const defaults: CancelShipmentsTestParams = {
-      deliveryServiceName: this.deliveryService.name,
-      shipDateTime: tomorrow,
-      shipFrom: shipFrom,
-      shipTo: shipTo,
-      weight: {
-        unit: WeightUnit.Pounds,
-        value: 50.0,
-      },
-      dimensions: {
-        length: 12,
-        width: 12,
-        height: 12,
-        unit: LengthUnit.Inches
+    // const defaults: CancelShipmentsMultipleTestParams = {
+    //   deliveryServiceName: this.deliveryService.name,
+    //   shipDateTime: tomorrow,
+    //   shipFrom: shipFrom,
+    //   shipTo: shipTo,
+    //   weight: {
+    //     unit: WeightUnit.Pounds,
+    //     value: 50.0,
+    //   },
+    //   dimensions: {
+    //     length: 12,
+    //     width: 12,
+    //     height: 12,
+    //     unit: LengthUnit.Inches
+    //   }
+    // };
+
+
+    const defaults: CancelShipmentsMultipleTestParams = userOverrides.map((test) => {
+      return {
+        deliveryServiceName: test.deliveryService.name,
+        shipDateTime: test.shipDateTime,
+        shipFrom: test.shipFrom,
+        shipTo: test.shipTo,
+        weight: {
+          unit: WeightUnit.Pounds,
+          value: 50.0,
+        },
+        dimensions: {
+          length: 12,
+          width: 12,
+          height: 12,
+          unit: LengthUnit.Inches
+        }
       }
-    };
+    });
 
     const testParams = reduceDefaultsWithConfig<
-      CancelShipmentsTestParams
+      CancelShipmentsMultipleTestParams
     >(defaults, config);
 
-    if (!testParams.shipFrom || !testParams.shipTo) return undefined;
+    const shipments = [];
 
-    const packagePOJO: NewPackagePOJO = {
-      packaging: {
-        id: this.deliveryService.packaging[0].id
-      },
-      label: {
-        size: this.deliveryService.labelSizes[0],
-        format: this.deliveryService.labelFormats[0],
-      },
-      weight: {
-        value: testParams.weight.value,
-        unit: testParams.weight.unit,
-      },
-      dimensions: {
-        length: testParams.dimensions.length,
-        width: testParams.dimensions.width,
-        height: testParams.dimensions.height,
-        unit: testParams.dimensions.unit
-      }
-    };
+    for (const shipment of testParams) {
+      if (!shipment.shipFrom || !shipment.shipTo) return undefined;
 
-    const newShipmentPOJO: NewShipmentPOJO = {
-      deliveryService: {
-        id: this.deliveryService.id,
-      },
-      shipFrom: testParams.shipFrom,
-      shipTo: testParams.shipTo,
-      shipDateTime: testParams.shipDateTime,
-      packages: [packagePOJO],
-    };
+      const deliveryService = findDeliveryServiceByName(shipment.deliveryServiceName, this.app as CarrierApp);
+
+      const packagePOJO: NewPackagePOJO = {
+        packaging: {
+          id: deliveryService.packaging[0].id
+        },
+        label: {
+          size: deliveryService.labelSizes[0],
+          format: deliveryService.labelFormats[0],
+        },
+        weight: {
+          value: shipment.weight.value,
+          unit: shipment.weight.unit,
+        },
+        dimensions: {
+          length: shipment.dimensions.length,
+          width: shipment.dimensions.width,
+          height: shipment.dimensions.height,
+          unit: shipment.dimensions.unit
+        }
+      };
+
+      const newShipmentPOJO: NewShipmentPOJO = {
+        deliveryService: {
+          id: deliveryService.id,
+        },
+        shipFrom: shipment.shipFrom,
+        shipTo: shipment.shipTo,
+        shipDateTime: shipment.shipDateTime,
+        packages: [packagePOJO],
+      };
+
+      shipments.push(newShipmentPOJO);
+    }
+
+    
 
     const title = config.expectedErrorMessage
       ? `it raises an error when cancelling a shipment with ${objectToTestTitle(
@@ -127,18 +160,18 @@ export class CancelShipmentsMultiple extends Suite {
 
     return {
       title,
-      methodArgs: newShipmentPOJO,
+      methodArgs: shipments,
       config,
     };
   }
 
   buildTestArgs(): Array<TestArgs | undefined> {
     if (Array.isArray(this.config)) {
-      return this.config.map((config: CancelShipmentsConfigOptions) => {
+      return this.config.map((config: CancelShipmentsMultipleConfigOptions) => {
         return this.buildTestArg(config);
       });
     }
-    const config = this.config as CancelShipmentsConfigOptions;
+    const config = this.config as CancelShipmentsMultipleConfigOptions;
     return [this.buildTestArg(config)];
   }
 
@@ -163,22 +196,23 @@ export class CancelShipmentsMultiple extends Suite {
           }
 
           if (!carrierApp.cancelShipments) {
-            throw new Error("CancelShipments is not implemented");
+            throw new Error("cancelShipments is not implemented");
           }
 
-          const shipmentConfirmation = await carrierApp.createShipment(transaction, testArg.methodArgs);
-
-          const cancellationID = v4();
-          const shipmentCancellations: ShipmentCancellationPOJO[] = [{
-            cancellationID,
-            trackingNumber: shipmentConfirmation.trackingNumber
-          }];
-
-          const shipmentCancellationConfirmation = await carrierApp.cancelShipments(transaction, shipmentCancellations);
-
-          const customMsg = `The shipmentCancellationConfirmation cancellationID does not match the one that was included in the shipmentCancellation: ${cancellationID}`;
-          expect(shipmentCancellationConfirmation[0].cancellationID).to.equal(cancellationID, customMsg);
-
+          for(const shipment of testArg.methodArgs) {
+            const shipmentConfirmation = await carrierApp.createShipment(transaction, shipment);
+  
+            const cancellationID = v4();
+            const shipmentCancellations: ShipmentCancellationPOJO[] = [{
+              cancellationID,
+              trackingNumber: shipmentConfirmation.trackingNumber
+            }];
+  
+            const shipmentCancellationConfirmation = await carrierApp.cancelShipments(transaction, shipmentCancellations);
+  
+            const customMsg = `The shipmentCancellationConfirmation cancellationID does not match the one that was included in the shipmentCancellation: ${cancellationID}`;
+            expect(shipmentCancellationConfirmation[0].cancellationID).to.equal(cancellationID, customMsg);
+          }
         }
       );
     });

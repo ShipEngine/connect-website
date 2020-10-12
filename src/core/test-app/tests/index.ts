@@ -1,4 +1,4 @@
-export * from "./cancel-shipments";
+export * from "./cancel-shipments-single";
 export * from "./cancel-shipments-multiple";
 export * from "./create-shipment-domestic";
 export * from "./create-shipment-international";
@@ -8,6 +8,8 @@ export * from "./create-shipment-with-insurance";
 export * from "./next-day-pickup";
 export * from "./rate-shipment";
 export * from "./rate-shipment-with-all-services";
-export * from "./same-day-pickup";
-// export * from "./schedule-pickup";
 export * from "./track-shipment";
+export * from "./track-shipment-return"
+export * from "./same-day-pickup";
+export * from "./cancel-pickups-same-day";
+export * from "./rate-shipment-return";

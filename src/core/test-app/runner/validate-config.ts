@@ -1,5 +1,4 @@
 /* eslint-disable camelcase */
-import Joi from "joi";
 import Config from "./config";
 import ono from "@jsdevtools/ono";
 import {
@@ -9,10 +8,12 @@ import {
   ContactInfo,
   TimeRange,
   Dimensions,
-  Address,
+  Address, Joi
 } from "@shipengine/connect-sdk/lib/internal/common";
 import { NewLabel } from "@shipengine/connect-sdk/lib/internal/carriers/documents/new-label";
 import { _internal, MonetaryValue } from "@shipengine/connect-sdk/lib/internal/common";
+import { PickupCancellationReason } from '@shipengine/connect-sdk';
+import { ValidationOptions } from 'joi';
 
 const joiOptions = {
   abortEarly: false,
@@ -51,7 +52,7 @@ const createShipmentReturnTestParamsSchema = Joi.object({
   }
 });
 
-const cancelShipmentsTestParamsSchema = Joi.object({
+const cancelShipmentsSingleTestParamsSchema = Joi.object({
   ...baseTestParamValidations,
   ...{
     deliveryServiceName: Joi.string().optional(),
@@ -61,6 +62,18 @@ const cancelShipmentsTestParamsSchema = Joi.object({
     weight: Weight[_internal].schema.optional(),
     dimensions: Dimensions[_internal].schema.optional()
   }
+});
+
+const cancelShipmentsMultipleTestParamsSchema = Joi.object({
+  ...baseTestParamValidations,
+  ...[{
+    deliveryServiceName: Joi.string().optional(),
+    shipDateTime: DateTimeZone[_internal].schema.optional(),
+    shipFrom: AddressWithContactInfo[_internal].schema.optional(),
+    shipTo: AddressWithContactInfo[_internal].schema.optional(),
+    weight: Weight[_internal].schema.optional(),
+    dimensions: Dimensions[_internal].schema.optional()
+  }]
 });
 
 const createShipmentDomesticTestParamsSchema = Joi.object({
@@ -139,6 +152,19 @@ const RateShipmentTestParamsSchema = Joi.object({
   }
 });
 
+const RateShipmentReturnTestParamsSchema = Joi.object({
+  ...baseTestParamValidations,
+  ...{
+    deliveryServiceName: Joi.string().optional(),
+    packagingName: Joi.string().optional(),
+    shipDateTime: DateTimeZone[_internal].schema.optional(),
+    shipFrom: AddressWithContactInfo[_internal].schema.optional(),
+    shipTo: AddressWithContactInfo[_internal].schema.optional(),
+    weight: Weight[_internal].schema.optional(),
+    dimensions: Dimensions[_internal].schema.optional(),
+  }
+});
+
 const RateShipmentWithAllServicesTestParamsSchema = Joi.object({
   ...baseTestParamValidations,
   ...{
@@ -166,6 +192,26 @@ const SameDayPickupTestParamsSchema = Joi.object({
         weight: Weight[_internal].schema.optional()
       }))
     })
+  }
+});
+
+const CancelPickupsSamedayTestParamsSchema = Joi.object({
+  ...baseTestParamValidations,
+  ...{
+    pickupServiceName: Joi.string().optional(),
+    deliveryServiceName: Joi.string().optional(),
+    address: Address[_internal].schema.optional(),
+    contact: ContactInfo[_internal].schema.optional(),
+    timeWindow: TimeRange[_internal].schema.optional(),
+    shipments: Joi.object({
+      deliveryServiceName: Joi.string(),
+      packages: Joi.array().items(Joi.object({
+        packagingName: Joi.string(),
+        dimensions: Dimensions[_internal].schema.optional(),
+        weight: Weight[_internal].schema.optional()
+      }))
+    }),
+    cancellationReason: Joi.string().enum(PickupCancellationReason)
   }
 });
 
@@ -203,18 +249,33 @@ const TrackShipmentSchema = Joi.object({
   }
 });
 
+const TrackShipmentReturnSchema = Joi.object({
+  ...baseTestParamValidations,
+  ...{
+    rmaNumber: Joi.string().optional(),
+    deliveryConfirmationName: Joi.string().optional(),
+    deliveryServiceName: Joi.string().optional(),
+    shipDateTime: DateTimeZone[_internal].schema.optional(),
+    shipFrom: AddressWithContactInfo[_internal].schema.optional(),
+    shipTo: AddressWithContactInfo[_internal].schema.optional(),
+    weight: Weight[_internal].schema.optional(),
+    dimensions: Dimensions[_internal].schema.optional(),
+    label: NewLabel[_internal].schema.optional(),
+  }
+});
+
 const testsSchema = Joi.object({
   createShipment_return: Joi.alternatives().conditional(Joi.array(), {
     then: Joi.array().items(createShipmentReturnTestParamsSchema),
     otherwise: createShipmentReturnTestParamsSchema,
   }),
-  cancelShipments_single_shipment: Joi.alternatives().conditional(Joi.array(), {
-    then: Joi.array().items(cancelShipmentsTestParamsSchema),
-    otherwise: cancelShipmentsTestParamsSchema,
+  cancelShipments_single: Joi.alternatives().conditional(Joi.array(), {
+    then: Joi.array().items(cancelShipmentsSingleTestParamsSchema),
+    otherwise: cancelShipmentsSingleTestParamsSchema,
   }),
-  cancelShipments_multiple_shipments: Joi.alternatives().conditional(Joi.array(), {
-    then: Joi.array().items(cancelShipmentsTestParamsSchema),
-    otherwise: cancelShipmentsTestParamsSchema,
+  cancelShipments_multiple: Joi.alternatives().conditional(Joi.array(), {
+    then: Joi.array().items(cancelShipmentsMultipleTestParamsSchema),
+    otherwise: cancelShipmentsMultipleTestParamsSchema,
   }),
   createShipment_domestic: Joi.alternatives().conditional(Joi.array(), {
     then: Joi.array().items(createShipmentDomesticTestParamsSchema),
@@ -236,10 +297,22 @@ const testsSchema = Joi.object({
     then: Joi.array().items(RateShipmentTestParamsSchema),
     otherwise: RateShipmentTestParamsSchema,
   }),
+
+  rateShipment_return: Joi.alternatives().conditional(Joi.array(), {
+    then: Joi.array().items(RateShipmentReturnTestParamsSchema),
+    otherwise: RateShipmentReturnTestParamsSchema,
+  }),
+
   rateShipment_with_all_services: Joi.alternatives().conditional(Joi.array(), {
     then: Joi.array().items(RateShipmentWithAllServicesTestParamsSchema),
     otherwise: RateShipmentWithAllServicesTestParamsSchema,
   }),
+
+  cancelPickups_same_day: Joi.alternatives().conditional(Joi.array(), {
+    then: Joi.array().items(CancelPickupsSamedayTestParamsSchema),
+    otherwise: CancelPickupsSamedayTestParamsSchema,
+  }),
+
   schedulePickup_same_day: Joi.alternatives().conditional(Joi.array(), {
     then: Joi.array().items(SameDayPickupTestParamsSchema),
     otherwise: SameDayPickupTestParamsSchema,
@@ -251,6 +324,10 @@ const testsSchema = Joi.object({
   trackShipment: Joi.alternatives().conditional(Joi.array(), {
     then: Joi.array().items(TrackShipmentSchema),
     otherwise: TrackShipmentSchema,
+  }),
+  trackShipment_return: Joi.alternatives().conditional(Joi.array(), {
+    then: Joi.array().items(TrackShipmentReturnSchema),
+    otherwise: TrackShipmentReturnSchema,
   })
 }).optional();
 
@@ -264,11 +341,15 @@ const schema = Joi.object().keys({
   tests: testsSchema,
 });
 
+export enum ValidateConfigError {
+  SchemaInvalid = "ERR_SCHEMA_INVALID"
+}
+
 const validateConfig = (config: Config): Config => {
-  const { error, value } = schema.validate(config, joiOptions as Joi.ValidationOptions);
+  const { error, value } = schema.validate(config, joiOptions as ValidationOptions);
 
   if (error) {
-    throw ono(error, { code: "ERR_CONNECT_CONFIG_SCHEMA" });
+    throw ono(error, { code: ValidateConfigError.SchemaInvalid });
   }
 
   return value as Config;

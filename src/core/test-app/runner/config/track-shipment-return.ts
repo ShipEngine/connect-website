@@ -8,7 +8,7 @@ import { NewLabelPOJO } from "@shipengine/connect-sdk/lib/internal";
 
 import { BaseTestConfigOptions } from "./base-test-config-options";
 
-export interface TrackShipmentTestParams {
+export interface TrackShipmentReturnTestParams {
   deliveryServiceName: string;
   label: NewLabelPOJO;
   shipFrom?: AddressWithContactInfoPOJO;
@@ -17,8 +17,9 @@ export interface TrackShipmentTestParams {
   dimensions: DimensionsPOJO;
   shipDateTime: DateTimeZonePOJO | Date | string;
   deliveryConfirmationName?: string;
+  rmaNumber?: string;
 }
 
-export interface TrackShipmentConfigOptions
-  extends TrackShipmentTestParams,
+export interface TrackShipmentReturnConfigOptions
+  extends TrackShipmentReturnTestParams,
     BaseTestConfigOptions {}

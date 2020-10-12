@@ -266,7 +266,7 @@ describe("The track shipment test suite", () => {
           postalCode: "77422",
           timeZone: "America/Chicago"
         },
-        returnTo: {
+        shipTo: {
           company: "Domestic Route #2",
           addressLines: ["123 New Street"],
           cityLocality: "Houston",
@@ -299,7 +299,7 @@ describe("The track shipment test suite", () => {
           country: "US",
           postalCode: "77422"
         },
-        returnTo: {
+        shipTo: {
           company: "Domestic Route #2",
           addressLines: ["123 New Street"],
           cityLocality: "Houston",
@@ -316,10 +316,10 @@ describe("The track shipment test suite", () => {
       expect(tests[0].methodArgs.shipFrom.company).to.equal("Domestic Route #1");
       expect(tests[0].methodArgs.shipTo.company).to.equal("Domestic Route #2");
 
-      expect(tests[0].methodArgs.shipTo).to.eql(staticConfigTests.trackShipment.returnTo);
+      expect(tests[0].methodArgs.shipTo).to.eql(staticConfigTests.trackShipment.shipTo);
 
       expect(tests[0].title).to.include("shipFrom: US");
-      expect(tests[0].title).to.include("returnTo: US");
+      expect(tests[0].title).to.include("shipTo: US");
 
     });
   });

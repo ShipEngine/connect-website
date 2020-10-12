@@ -215,10 +215,7 @@ export class CreateShipmentMultiPackage extends Suite {
             const customMsg = "The shipmentConfirmation.isTrackable returned from createShipment must be present when the given deliveryService.isTrackable is set to 'true'";
             expect(shipmentConfirmation.trackingNumber, customMsg).to.be.ok;
           }
-
-          const customMsg = "The shipment confirmation packages array should have the same number of packages that were on the request";
-          expect(shipmentConfirmation.packages.length).to.equal(testArg.methodArgs.packages.length, customMsg);
-        },
+        }
       );
     });
   }

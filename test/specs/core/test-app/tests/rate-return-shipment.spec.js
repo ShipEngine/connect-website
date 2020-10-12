@@ -1,30 +1,15 @@
 /* eslint-disable camelcase */
 "use strict";
 
-const { CreateShipmentWithInsurance } = require("../../../../../lib/core/test-app/tests/create-shipment-with-insurance");
+const { RateShipmentReturn } = require("../../../../../lib/core/test-app/tests/rate-shipment-return");
 const { CarrierApp } = require("@shipengine/connect-sdk/lib/internal/carriers/carrier-app");
 const pojo = require("../../../../utils/pojo");
 const { expect } = require("chai");
 const sinon = require("sinon");
 
-describe("The create shipment insured test suite", () => {
+describe("The rate return shipment test suite", () => {
 
-  describe("when there is no delivery service that supports insurance", () => {
-
-    it("should not generate tests", () => {
-      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-      appDefinition.deliveryServices[0].isInsurable = false;
-      const app = new CarrierApp(appDefinition);
-      const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CreateShipmentWithInsurance(args);
-
-      const tests = testSuite.tests();
-      expect(tests.length).to.equal(0);
-    });
-  });
-
-
-  describe("when there is not address available for a delivery service services", () => {
+  describe("when there is no address available for the delivery service", () => {
     it("should not generate tests", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       appDefinition.deliveryServices[0].originCountries = ["AQ"];
@@ -32,14 +17,28 @@ describe("The create shipment insured test suite", () => {
 
       const app = new CarrierApp(appDefinition);
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CreateShipmentWithInsurance(args);
+      const testSuite = new RateShipmentReturn(args);
 
       const tests = testSuite.tests();
       expect(tests.length).to.equal(0);
     });
   });
 
-  describe("when there is a insurable delivery service with an available address", () => {
+  describe("when there is no delivery service available that supports returns", () => {
+    it("should not generate tests", () => {
+      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+      appDefinition.deliveryServices[0].supportsReturns = false;
+
+      const app = new CarrierApp(appDefinition);
+      const args = { app, connectArgs, staticConfigTests, options };
+      const testSuite = new RateShipmentReturn(args);
+
+      const tests = testSuite.tests();
+      expect(tests.length).to.equal(0);
+    });
+  });
+
+  describe("when there is a delivery service with an available address", () => {
 
     let testSuite;
     beforeEach(() => {
@@ -47,7 +46,7 @@ describe("The create shipment insured test suite", () => {
       const app = new CarrierApp(appDefinition);
       const args = { app, connectArgs, staticConfigTests, options };
 
-      testSuite = new CreateShipmentWithInsurance(args);
+      testSuite = new RateShipmentReturn(args);
     });
 
     it("should generate a test", () => {
@@ -58,8 +57,9 @@ describe("The create shipment insured test suite", () => {
     it("the test params should be reflected in the title", () => {
       const tests = testSuite.tests();
 
-      expect(tests[0].title).to.include("packageInsuredValue: 10 USD");
       expect(tests[0].title).to.include("weight: 50lb");
+      expect(tests[0].title).to.include("deliveryServiceName: Dummy Delivery Service");
+
     });
   });
 
@@ -67,13 +67,9 @@ describe("The create shipment insured test suite", () => {
 
     it("should update the test title", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-      const newPackaging = pojo.packaging();
-      newPackaging.name = "New Package";
-      appDefinition.deliveryServices[0].packaging.push(newPackaging);
-
       const app = new CarrierApp(appDefinition);
 
-      staticConfigTests.createShipment_with_insurance = {
+      staticConfigTests.rateShipment_return = {
         weight: {
           value: 200,
           unit: "lb"
@@ -83,23 +79,16 @@ describe("The create shipment insured test suite", () => {
           width: 5,
           height: 5,
           unit: "cm"
-        },
-        packagingName: "New Package",
-        packageInsuredValue: {
-          value: "50",
-          currency: "usd"
         }
       };
 
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CreateShipmentWithInsurance(args);
+      const testSuite = new RateShipmentReturn(args);
       const tests = testSuite.tests();
 
-      expect(tests[0].title).to.include("packagingName: New Package");
-      expect(tests[0].title).to.include("packageInsuredValue: 50 usd");
+      expect(tests[0].title).to.include("weight: 200lb");
+      expect(tests[0].title).to.include("deliveryServiceName: Dummy Delivery Service");
       expect(tests[0].title).to.include("dimensions: 5 x 5 x 5 cm");
-
-
     });
   });
 
@@ -109,38 +98,24 @@ describe("The create shipment insured test suite", () => {
     beforeEach(() => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       const app = new CarrierApp(appDefinition);
-      staticConfigTests.createShipment_with_insurance =
+      staticConfigTests.rateShipment_return =
         [
           {
             weight: {
               value: 200,
               unit: "lb"
-            },
-            packageInsuredValue: {
-              value: "50",
-              currency: "usd"
             }
           },
           {
             weight: {
               value: 22,
               unit: "lb"
-            },
-            dimensions: {
-              length: 5,
-              width: 5,
-              height: 5,
-              unit: "cm"
-            },
-            packageInsuredValue: {
-              value: "50",
-              currency: "usd"
             }
           }
         ];
 
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CreateShipmentWithInsurance(args);
+      const testSuite = new RateShipmentReturn(args);
       tests = testSuite.tests();
     });
 
@@ -150,13 +125,12 @@ describe("The create shipment insured test suite", () => {
     });
 
     it("should update the test titles", () => {
-      expect(tests[0].title).to.include("weight: 200lb");
-      expect(tests[0].title).to.include("packageInsuredValue: 50 usd");
 
+      expect(tests[0].title).to.include("weight: 200lb");
+      expect(tests[0].title).to.include("deliveryServiceName: Dummy Delivery Service");
 
       expect(tests[1].title).to.include("weight: 22lb");
-      expect(tests[1].title).to.include("packageInsuredValue: 50 usd");
-      expect(tests[1].title).to.include("dimensions: 5 x 5 x 5 cm");
+      expect(tests[1].title).to.include("deliveryServiceName: Dummy Delivery Service");
 
     });
   });
@@ -165,12 +139,12 @@ describe("The create shipment insured test suite", () => {
     it("should throw an error", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       const app = new CarrierApp(appDefinition);
-      staticConfigTests.createShipment_with_insurance = {
+      staticConfigTests.rateShipment_return = {
         deliveryServiceName: "asdf"
       };
 
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CreateShipmentWithInsurance(args);
+      const testSuite = new RateShipmentReturn(args);
 
       try {
         testSuite.tests();
@@ -182,35 +156,37 @@ describe("The create shipment insured test suite", () => {
     });
   });
 
-  describe("When a user configs a delivery service that is not insurable", () => {
+  describe("When a user configs a delivery service that does not support returns", () => {
     it("should throw an error", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       appDefinition.deliveryServices.push({
         id: "9cf1bfda-7ee4-4f03-96f6-6eab52243eee",
-        isInsurable: false,
-        name: "Uninsured Delivery Service",
-        code: "uninsured_ds",
-        manifestType: "digital",
+        name: "Better Delivery Service",
+        code: "better_ds",
         originCountries: ["MX"],
         destinationCountries: ["MX"],
         labelFormats: ["pdf"],
+        manifestType: "physical",
         labelSizes: ["A4"],
-        packaging: [pojo.packaging()]
+        packaging: [pojo.packaging()],
+        supportsReturns: false
       });
-
+      
       const app = new CarrierApp(appDefinition);
-      staticConfigTests.createShipment_with_insurance = {
-        deliveryServiceName: "Uninsured Delivery Service"
+     
+      staticConfigTests.rateShipment_return = {
+        deliveryServiceName: "Better Delivery Service"
       };
+
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CreateShipmentWithInsurance(args);
+      const testSuite = new RateShipmentReturn(args);
 
       try {
         testSuite.tests();
         expect(true).to.equal(false);
       }
       catch (error) {
-        expect(error.message).to.include("The configured delivery service 'Uninsured Delivery Service' does not support insuring packages");
+        expect(error.message).to.include("deliveryServiceName: 'Better Delivery Service' does not support returns");
       }
     });
   });
@@ -220,24 +196,24 @@ describe("The create shipment insured test suite", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       appDefinition.deliveryServices.push({
         id: "9cf1bfda-7ee4-4f03-96f6-6eab52243eee",
-        isInsurable: true,
         name: "Better Delivery Service",
-        manifestType: "digital",
-        code: "priority_overnight",
+        code: "better_ds",
         originCountries: ["MX"],
         destinationCountries: ["MX"],
         labelFormats: ["pdf"],
+        manifestType: "physical",
         labelSizes: ["A4"],
+        supportsReturns: true,
         packaging: [pojo.packaging()]
       });
 
-      staticConfigTests.createShipment_with_insurance = {
+      staticConfigTests.rateShipment_return = {
         deliveryServiceName: "Better Delivery Service"
-      }
+      };
 
       const app = new CarrierApp(appDefinition);
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CreateShipmentWithInsurance(args);
+      const testSuite = new RateShipmentReturn(args);
       const tests = testSuite.tests();
 
       expect(tests[0].title).to.include("deliveryServiceName: Better Delivery Service");
@@ -250,7 +226,7 @@ describe("The create shipment insured test suite", () => {
 
       const app = new CarrierApp(appDefinition);
 
-      staticConfigTests.createShipment_with_insurance = {
+      staticConfigTests.rateShipment_return = {
         shipFrom: {
           company: "Domestic Route #1",
           addressLines: ["123 New Street"],
@@ -272,43 +248,41 @@ describe("The create shipment insured test suite", () => {
       };
 
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CreateShipmentWithInsurance(args);
+      const testSuite = new RateShipmentReturn(args);
       const tests = testSuite.tests();
 
       expect(tests[0].methodArgs.shipFrom.company).to.equal("Domestic Route #1");
       expect(tests[0].methodArgs.shipTo.company).to.equal("Domestic Route #2");
 
-      expect(tests[0].methodArgs.shipTo).to.eql(staticConfigTests.createShipment_with_insurance.shipTo);
+      expect(tests[0].methodArgs.shipTo).to.eql(staticConfigTests.rateShipment_return.shipTo);
 
       expect(tests[0].title).to.include("shipFrom: US");
       expect(tests[0].title).to.include("shipTo: US");
-
     });
   });
 
-  describe("When a delivery service 'isTrackable' property is set", () => {
-    it("should throw an error if no tracking number is returned", async () => {
+  describe("When the delivery service in the request is missing in the response", () => {
+    it("should throw an error", async () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
 
-      appDefinition.deliveryServices[0].isTrackable = true;
-      const confirmationMock = pojo.shipmentConfirmation();
-      sinon.stub(CarrierApp.prototype, "createShipment").resolves(confirmationMock);
+      const rateResponse = [];
+      sinon.stub(CarrierApp.prototype, "rateShipment").resolves(rateResponse);
       const app = new CarrierApp(appDefinition);
 
       const args = { app, connectArgs, staticConfigTests, options };
-      const testSuite = new CreateShipmentWithInsurance(args);
+      const testSuite = new RateShipmentReturn(args);
       const tests = testSuite.tests();
       try {
         await tests[0].fn();
         expect(true).to.equal(false);
       }
       catch (error) {
-        expect(error.message).includes("The shipmentConfirmation.isTrackable returned from createShipment must be present when the given deliveryService.isTrackable is set to 'true'");
+        expect(error.message).includes("Rate for delivery service 'Dummy Delivery Service' is missing from the response");
       }
     });
 
     afterEach(() => {
-      CarrierApp.prototype.createShipment.restore();
+      CarrierApp.prototype.rateShipment.restore();
     });
   });
 });
@@ -317,14 +291,11 @@ function generateBasicAppAndConfigs() {
   const appDefinition = pojo.carrierApp();
   const deliveryService = pojo.deliveryService();
   deliveryService.labelFormats = ["pdf"];
-  deliveryService.manifestType = "digital";
   deliveryService.labelSizes = ["A4"];
-  deliveryService.isInsurable = true;
-  deliveryService.code = "priority_overnight";
   deliveryService.deliveryConfirmations = [pojo.deliveryConfirmation()];
-  deliveryService.packaging.push(pojo.packaging());
+  deliveryService.supportsReturns = true;
   appDefinition.deliveryServices = [deliveryService];
-  appDefinition.createShipment = () => { };
+  appDefinition.rateShipment = () => { };
 
   const options = {
     cli: {
@@ -342,7 +313,7 @@ function generateBasicAppAndConfigs() {
   };
 
   const staticConfigTests = {
-    createShipment_with_insurance: {}
+    RateShipmentReturn: {}
   };
 
   const connectArgs = {};

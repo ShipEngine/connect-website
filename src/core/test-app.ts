@@ -14,14 +14,19 @@ import {
   RateShipment,
   CreateShipmentReturn,
   TrackShipment,
+  TrackShipmentReturn,
   RateShipmentWithAllServices,
-  CancelShipments,
+  CancelShipmentsSingle,
   CancelShipmentsMultiple,
+  CancelPickupsSameDay,
   SameDayPickup,
   NextDayPickup,
+  RateShipmentReturn,
 } from "./test-app/tests";
 
-interface TesOptions {
+export const TestAppErrors = LoadAndValidateConfigError;
+
+interface TestOptions {
   debug?: boolean;
   failFast?: boolean;
   grep?: string;
@@ -31,7 +36,7 @@ interface TesOptions {
 
 export default async function testApp(
   pathToApp: string,
-  { debug, failFast, grep, retries, timeout }: TesOptions,
+  { debug, failFast, grep, retries, timeout }: TestOptions,
 ): Promise<TestResults> {
   const [testResults, testResultsReducer] = useTestResults();
 
@@ -45,10 +50,11 @@ export default async function testApp(
     staticConfig = await loadAndValidateConfig(pathToApp);
   } catch (error) {
     switch (error.code) {
-      case "ERR_CONNECT_CONFIG_SCHEMA":
+      case LoadAndValidateConfigError.SchemaInvalid:
+      case LoadAndValidateConfigError.Syntax:
         throw error;
-
       default:
+        // IF the file doesnt exist an error will be thrown and we want to swallow that here
         break;
     }
   }
@@ -148,23 +154,23 @@ type RegisteredTestSuiteModules = object[];
 function registerTestSuiteModules(app: SdkApp): RegisteredTestSuiteModules {
   const carrierAppMethods = {
     // cancelPickups: [CancelPickupsTestSuite],
-    cancelShipments: [CancelShipments, CancelShipmentsMultiple],
+    cancelShipments: [CancelShipmentsSingle, CancelShipmentsMultiple],
     // createManifest: [CreateManifestTestSuite],
     createShipment: [
       CreateShipmentInternational,
       CreateShipmentDomestic,
       CreateShipmentMultiPackage,
       CreateShipmentWithInsurance,
-      CreateShipmentWithInsurance,
       CreateShipmentReturn
     ],
+    cancelPickups: [CancelPickupsSameDay],
     schedulePickup: [SameDayPickup, NextDayPickup],
     rateShipment: [
       RateShipment,
-      RateShipmentWithAllServices
+      RateShipmentWithAllServices,
+      RateShipmentReturn
     ],
-    // schedulePickup: [SchedulePickupTestSuite],
-    trackShipment: [TrackShipment],
+    trackShipment: [TrackShipment, TrackShipmentReturn],
   };
 
   const orderAppMethods = {
