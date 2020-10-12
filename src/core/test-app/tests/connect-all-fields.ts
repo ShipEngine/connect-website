@@ -1,3 +1,4 @@
+import jsf from 'json-schema-faker';
 import { JSONSchema6 } from 'json-schema';
 import RandExp from "randexp";
 import { FormDefinition } from "@shipengine/connect-sdk";
@@ -27,42 +28,8 @@ export class ConnectionForm extends Suite {
   title = "connect_all_fields";
 
   private buildFormData(connectionForm: FormDef) : object {
-    if (connectionForm.dataSchema.properties) {
-      return Object.keys(connectionForm.dataSchema.properties).reduce((acc: Record<string, unknown>, field: string) => {
-        const {
-          type,
-          minLength,
-          maxLength,
-          pattern,
-          minimum,
-          maximum,
-          default: defaultValue,
-          enum: numberEnum,
-        } = connectionForm.dataSchema.properties![field] as JSONSchema6;
-        const stringLength = minLength ? minLength : (maxLength || 5);
-
-        if (defaultValue) {
-          acc[field] = defaultValue;
-        } else if (type === 'string') {
-          let randexp;
-          if (pattern) {
-            randexp = new RandExp(`[${pattern}]{${stringLength}}`);
-          } else {
-            randexp = new RandExp(`[a-z]{${stringLength}}`);
-          }
-          acc[field] = randexp.gen();
-        } else if (type === 'boolean') {
-          acc[field] = true;
-        } else if (numberEnum) {
-          acc[field] = numberEnum[0]
-        } else {
-          acc[field] = minimum ? minimum : (maximum || 5);
-        }
-
-        return acc;
-      }, {});
-    }
-    return {};
+    const fakeData = jsf.generate(connectionForm);
+    return fakeData.dataSchema;
   }
 
   buildTestArg(
