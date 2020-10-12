@@ -1,14 +1,14 @@
 ---
-title: Acceptance Tests | cancelPickup_next_day
+title: Acceptance Tests | cancelPickups_same_day
 description: This test is part of the ShipEngine Connect carrier app test suite.
 ---
 
 Carrier App Tests
 ==================================
 
-### `cancelPickup_next_day`
+### `cancelPickups_same_day`
 
-This test exercises your app's ability to successfully cancel a next day pickup. If your app does not have any [pickup services](../../../reference/pickup-service.mdx), then this test will be skipped by [the `connect test` command](../../../cli.mdx#test-your-app).
+This test exercises your app's ability to successfully cancel a same day pickup. If your app does not have any [pickup services](../../../reference/pickup-service.mdx), then this test will be skipped by [the `connect test` command](../../../cli.mdx#test-your-app).
 
 
 Test Parameters
@@ -99,7 +99,8 @@ This test has many parameters [that can be customized](#customizing-parameters) 
            The name of the [delivery service](../../../reference/delivery-service.mdx) you wish to use in this request.
       </Description>
       <DefaultValue>
-        The name of the first delivery service defined for your app. If your app does not define any pickup services, this test will be skipped.
+        The name of the first delivery service defined for your app. If your app does not define any pickup services, this test 
+        will be skipped.
       </DefaultValue>
     </Field>
 
@@ -152,7 +153,7 @@ This test has many parameters [that can be customized](#customizing-parameters) 
      or a string representing the date and time in [ISO](https://www.w3.org/TR/NOTE-datetime) format.
     </Type>
     <DefaultValue>
-      Tomorrow at 9:00 am.
+      Today at 6:00 am.
     </DefaultValue>
   </Field>
 
@@ -166,7 +167,7 @@ This test has many parameters [that can be customized](#customizing-parameters) 
          or a string representing the date and time in [ISO](https://www.w3.org/TR/NOTE-datetime) format.
         </Type>
     <DefaultValue>
-        Tomorrow at 6:00 pm.
+        Today at 6:00 pm.
     </DefaultValue>
   </Field>
 
@@ -321,7 +322,7 @@ module.exports = {
     agree_to_eula: true,
   },
   tests: {
-    schedulePickup_next_day: [
+    cancelPickups_same_day: [
       {
         pickupServiceName: `Drop Off`,
         deliveryServiceName: `Next Day Air`,
