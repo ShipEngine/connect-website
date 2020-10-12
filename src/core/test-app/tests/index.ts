@@ -10,5 +10,6 @@ export * from "./same-day-pickup";
 export * from "./next-day-pickup";
 export * from "./cancel-pickups-same-day";
 export * from "./rate-shipment-return";
-export * from "./cancel-shipment";
+export * from "./cancel-shipments-single";
+export * from "./cancel-shipments-multiple";
 export * from "./rate-shipment-with-all-services";

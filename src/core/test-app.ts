@@ -14,7 +14,8 @@ import {
   NextDayPickup,
   CancelPickupsSameDay,
   RateShipmentReturn,
-  CancelShipment,
+  CancelShipmentsSingle,
+  CancelShipmentsMultiple,
   RateShipmentWithAllServices
 } from "./test-app/tests";
 import { SdkApp } from "./types";
@@ -153,7 +154,7 @@ type RegisteredTestSuiteModules = object[];
 function registerTestSuiteModules(app: SdkApp): RegisteredTestSuiteModules {
   const carrierAppMethods = {
     // cancelPickups: [CancelPickupsTestSuite],
-    cancelShipments: [CancelShipment],
+    cancelShipments: [CancelShipmentsSingle, CancelShipmentsMultiple],
     // createManifest: [CreateManifestTestSuite],
     createShipment: [
       CreateShipmentInternational,

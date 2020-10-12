@@ -9,7 +9,7 @@ import useDomesticShippingAddress from "../utils/use-domestic-shipment-addresses
 import { findDomesticDeliveryService } from "../utils/find-domestic-delivery-service";
 import { expect } from "chai";
 import findDeliveryServiceByName from "../utils/find-delivery-service-by-name";
-import { CancelShipmentConfigOptions, CancelShipmentTestParams } from "../runner/config/cancel-shipment";
+import { CancelShipmentsSingleConfigOptions, CancelShipmentsSingleTestParams } from "../runner/config/cancel-shipments-single";
 import { v4 } from "uuid";
 import Test from '../runner/test';
 
@@ -23,13 +23,13 @@ interface TestArgs {
 /**
  * Test an individual cancellation of one shipment.
  */
-export class CancelShipment extends Suite {
-  title = "cancelShipment";
+export class CancelShipmentsSingle extends Suite {
+  title = "cancelShipments_single";
 
   private deliveryService?: DeliveryService;
 
   private setDeliveryService(
-    config: CancelShipmentConfigOptions,
+    config: CancelShipmentsSingleConfigOptions,
   ): void {
     const carrierApp = this.app as CarrierApp;
 
@@ -48,7 +48,7 @@ export class CancelShipment extends Suite {
   }
 
   buildTestArg(
-    config: CancelShipmentConfigOptions,
+    config: CancelShipmentsSingleConfigOptions,
   ): TestArgs | undefined {
     this.setDeliveryService(config);
 
@@ -64,7 +64,7 @@ export class CancelShipment extends Suite {
 
     // Make a best guess at the defaults, need to resolve the default vs config based delivery service early
     // on since that determines what address and associated timezones get generated.
-    const defaults: CancelShipmentTestParams = {
+    const defaults: CancelShipmentsSingleTestParams = {
       deliveryServiceName: this.deliveryService.name,
       shipDateTime: tomorrow,
       shipFrom: shipFrom,
@@ -82,7 +82,7 @@ export class CancelShipment extends Suite {
     };
 
     const testParams = reduceDefaultsWithConfig<
-      CancelShipmentTestParams
+      CancelShipmentsSingleTestParams
     >(defaults, config);
 
     if (!testParams.shipFrom || !testParams.shipTo) return undefined;
@@ -134,11 +134,11 @@ export class CancelShipment extends Suite {
 
   buildTestArgs(): Array<TestArgs | undefined> {
     if (Array.isArray(this.config)) {
-      return this.config.map((config: CancelShipmentConfigOptions) => {
+      return this.config.map((config: CancelShipmentsSingleConfigOptions) => {
         return this.buildTestArg(config);
       });
     }
-    const config = this.config as CancelShipmentConfigOptions;
+    const config = this.config as CancelShipmentsSingleConfigOptions;
     return [this.buildTestArg(config)];
   }
 
@@ -163,7 +163,7 @@ export class CancelShipment extends Suite {
           }
 
           if (!carrierApp.cancelShipments) {
-            throw new Error("cancelShipment is not implemented");
+            throw new Error("cancelShipments is not implemented");
           }
 
           const shipmentConfirmation = await carrierApp.createShipment(transaction, testArg.methodArgs);
