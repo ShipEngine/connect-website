@@ -28,16 +28,33 @@ describe("The connection form test suite", () => {
     const testSuite = new ConnectionForm(args);
     const tests = testSuite.tests();
     
-    // not sure why the methodArgs aren't coming through
-    // expect(tests[0].methodArgs).to.equal({});
+    
+    expect(Object.keys(tests[0].methodArgs)).to.include('account_id');
+    expect(Object.keys(tests[0].methodArgs)).to.include('account_email');
+    expect(Object.keys(tests[0].methodArgs)).to.include('account_password');
+    expect(Object.keys(tests[0].methodArgs)).to.include('agree_to_eula');
 	});
 
 	it("should let the connectsArgs override the defaults", () => {
-
+		const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+    const app = new CarrierApp(appDefinition);
+    const args = { app, connectArgs, staticConfigTests, options };
+    const testSuite = new ConnectionForm(args);
+    const tests = testSuite.tests();
+    
+    
+    expect(tests[0].methodArgs.account_password).to.equal(connectArgs.account_password);
 	});
 
 	it("should let the testing config data override both the connectsArgs and the defaults", () => {
-		
+		const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+    const app = new CarrierApp(appDefinition);
+    const args = { app, connectArgs, staticConfigTests, options };
+    const testSuite = new ConnectionForm(args);
+    const tests = testSuite.tests();
+    
+    
+    expect(tests[0].methodArgs.account_email).to.equal('spectest@test.com');
 	});
 
 
@@ -153,14 +170,14 @@ function generateBasicAppAndConfigs() {
   	connectionForm: [
   		{
   			connectionFormData: {
-      		account_email: "test@test.com"
+      		account_email: "spectest@test.com"
     		}
   		}
   	]
   };
 
   const connectArgs = {
-  	account_password: '09sdf0s9dfms0d9fm',
+  	account_password: '1000000000001',
   };
 
   return { appDefinition, connectArgs, staticConfigTests, options };
