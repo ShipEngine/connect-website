@@ -2,6 +2,7 @@ import Config from "./test-app/runner/config";
 import Runner from "./test-app/runner";
 import loadAndValidateApp, { isInvalidAppError } from "./load-and-validate-app";
 import {
+  AcknowledgeOrders,
   ConnectionForm,
   CreateShipmentInternational,
   CreateShipmentDomestic,
@@ -176,6 +177,7 @@ function registerTestSuiteModules(app: SdkApp): RegisteredTestSuiteModules {
   };
 
   const orderAppMethods = {
+    acknowledgeOrders: [AcknowledgeOrders],
     // getSalesOrdersByDate: [GetSalesOrdersByDateTestSuite],
     // shipmentCancelled: [ShipmentCancelledTestSuite],
     // shipmentCreated: [ShipmentCreatedTestSuite],
