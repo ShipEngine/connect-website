@@ -15,14 +15,6 @@ Test Parameters
 -------------------------
 This test has parameters [that can be customized](#customizing-parameters) in your [`connect.config.js` file](../../../testing/config.mdx). Any parameters you don't override will use their default values.
 
-The connection form data used by this test can come from one of the following, in the order listed.
-
-1. First it will generate dummy data from your app's `connectionForm` schema.
-2. Then it will look in `connectArgs` for overriding values.
-3. Then it will look to your test data in your [`connect.config.js` file](../../../testing/config.mdx). These values will take precedence over the first two.
-
-**TIP:** Check out more about how global and test-specific parameters are ordered in the [`connect.config.js` file](../../../testing/config.mdx).
-
 
 <Reference>
 
@@ -30,8 +22,7 @@ The connection form data used by this test can come from one of the following, i
     <Description>
         An object containing the connection form data you would like to test.
 
-        The data included in this object depends on the react json schema you provide in your `connectionForm`. You will need to
-        provide key-value pairs where the keys are the fields from your `connectionForm`.
+        The data included in this object depends on the [React JSON Schema](https://react-jsonschema-form.readthedocs.io/en/latest/) you defined for your `connectionForm`.
     </Description>
     <DefaultValue>
         An object filled with automatically generated data compliant with your react json schema
