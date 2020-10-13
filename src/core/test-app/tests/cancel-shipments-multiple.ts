@@ -50,15 +50,11 @@ export class CancelShipmentsMultiple extends Suite {
       throw new Error("connect.config.js shipments must contain two or more shipments");
     }
 
-    const userOverrides: {
-      deliveryServiceName: string;
-      shipFrom?: AddressWithContactInfoPOJO,
-      shipTo?: AddressWithContactInfoPOJO,
-      shipDateTime: string;
-    }[] = [];
-
     const shipmentNumber = config.shipments.length || 2;
+    const defaults: CancelShipmentsMultipleTestParams = { shipments: [] };
+    const { tomorrow } = initializeTimeStamps();
 
+    // Genereate the potential user overrides 
     for (let i = 0; i < shipmentNumber; i++) {
       const deliveryServiceName = config.shipments[i] && config.shipments[i].deliveryServiceName || "";
       const deliveryService = this.setDeliveryService(deliveryServiceName);
@@ -69,27 +65,11 @@ export class CancelShipmentsMultiple extends Suite {
         break;
       }
 
-      const { tomorrow } = initializeTimeStamps();
-
-      userOverrides.push({
+      defaults.shipments.push({
         deliveryServiceName: deliveryService.name,
-        shipFrom,
-        shipTo,
-        shipDateTime: tomorrow
-      });
-    }
-
-    if (userOverrides.length === 0) {
-      return undefined;
-    }
-
-    const defaults: CancelShipmentsMultipleTestParams = { shipments: [] };
-    defaults.shipments = userOverrides.map((test) => {
-      return {
-        deliveryServiceName: test.deliveryServiceName,
-        shipDateTime: test.shipDateTime,
-        shipFrom: test.shipFrom,
-        shipTo: test.shipTo,
+        shipDateTime: tomorrow,
+        shipFrom: shipFrom,
+        shipTo: shipTo,
         weight: {
           unit: WeightUnit.Pounds,
           value: 50.0,
@@ -100,15 +80,19 @@ export class CancelShipmentsMultiple extends Suite {
           height: 12,
           unit: LengthUnit.Inches
         }
-      }
-    });
+      });
+    }
+
+    if (defaults.shipments.length === 0) {
+      return undefined;
+    }
 
     const testParams = { shipments: [] } as CancelShipmentsMultipleTestParams;
 
     for (let i = 0; i < shipmentNumber; i++) {
       const reduced = reduceDefaultsWithConfig<
         ShipmentConfig
-      >(defaults.shipments[i], config.shipments[i] || {});
+      >(defaults.shipments[i], config.shipments[i]);
 
       testParams.shipments.push(reduced);
     }

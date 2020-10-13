@@ -9,8 +9,8 @@ import { BaseTestConfigOptions } from "./base-test-config-options";
 
 export interface ShipmentConfig {
   deliveryServiceName: string;
-  shipFrom?: AddressWithContactInfoPOJO;
-  shipTo?: AddressWithContactInfoPOJO;
+  shipFrom: AddressWithContactInfoPOJO;
+  shipTo: AddressWithContactInfoPOJO;
   weight: {
     value: number;
     unit: WeightUnit;

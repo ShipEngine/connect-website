@@ -194,6 +194,46 @@ describe("The cancel multiple shipments test suite", () => {
     });
   });
 
+  describe("When a user configs a more than two shipments", () => {
+    it("should update the methodargs to reflect the new properties", () => {
+      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+      appDefinition.deliveryServices.push({
+        id: "9cf1bfda-7ee4-4f03-96f6-6eab52243eee",
+        name: "Better Delivery Service",
+        code: "better_ds",
+        manifestType: "physical",
+        originCountries: ["MX"],
+        destinationCountries: ["MX"],
+        labelFormats: ["pdf"],
+        labelSizes: ["A4"],
+        packaging: [pojo.packaging()]
+      });
+
+      staticConfigTests.cancelShipments_multiple = {
+        shipments: [
+          {
+            deliveryServiceName: "Better Delivery Service"
+          },
+          {
+            deliveryServiceName: "Dummy Delivery Service"
+          },
+          {
+            deliveryServiceName: "Better Delivery Service"
+          }
+        ]
+      };
+
+      const app = new CarrierApp(appDefinition);
+      const args = { app, connectArgs, staticConfigTests, options };
+      const testSuite = new CancelShipmentsMultiple(args);
+      const tests = testSuite.tests();
+
+      expect(tests[0].title).to.include("3 shipments");
+      expect(tests[0].methodArgs[0].deliveryService.id).to.equal("9cf1bfda-7ee4-4f03-96f6-6eab52243eee");
+      expect(tests[0].methodArgs[1].deliveryService.id).to.equal("22222222-2222-2222-2222-222222222222");
+    });
+  });
+
   describe("When a delivery service has addresses that we don't have samples but user uses valid configs", () => {
     it("should generate tests", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();

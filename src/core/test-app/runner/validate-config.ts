@@ -64,17 +64,21 @@ const cancelShipmentsSingleTestParamsSchema = Joi.object({
   }
 });
 
-const cancelShipmentsMultipleTestParamsSchema = Joi.object({
-  ...baseTestParamValidations,
-  ...[{
-    deliveryServiceName: Joi.string().optional(),
-    shipDateTime: DateTimeZone[_internal].schema.optional(),
-    shipFrom: AddressWithContactInfo[_internal].schema.optional(),
-    shipTo: AddressWithContactInfo[_internal].schema.optional(),
-    weight: Weight[_internal].schema.optional(),
-    dimensions: Dimensions[_internal].schema.optional()
-  }]
-});
+const cancelShipmentsMultipleTestParamsSchema = Joi.object(
+  Object.assign(
+    baseTestParamValidations,
+    {
+      shipments: Joi.array().items({
+        deliveryServiceName: Joi.string().optional(),
+        shipDateTime: DateTimeZone[_internal].schema.optional(),
+        shipFrom: AddressWithContactInfo[_internal].schema.optional(),
+        shipTo: AddressWithContactInfo[_internal].schema.optional(),
+        weight: Weight[_internal].schema.optional(),
+        dimensions: Dimensions[_internal].schema.optional()
+      })
+    }
+  )
+);
 
 const createShipmentDomesticTestParamsSchema = Joi.object({
   ...baseTestParamValidations,

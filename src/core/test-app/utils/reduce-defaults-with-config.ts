@@ -7,7 +7,7 @@
  */
 export default function reduceDefaultsWithConfig<T>(
   defaultObject: T,
-  configObject: object,
+  configObject: object = {},
 ): T {
   const whiteListKeys = Object.keys(defaultObject);
 
