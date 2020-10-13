@@ -1,5 +1,7 @@
 export * from "./cancel-shipments-single";
 export * from "./cancel-shipments-multiple";
+export * from "./cancel-pickups-next-day"
+export * from "./cancel-pickups-same-day"
 export * from "./create-shipment-domestic";
 export * from "./create-shipment-international";
 export * from "./create-shipment-multipackage";
