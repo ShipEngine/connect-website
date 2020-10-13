@@ -95,217 +95,209 @@ describe("The cancel multiple shipments test suite", () => {
       const tests = testSuite.tests();
 
       expect(tests[0].title).to.include("2 shipments");
-      expect(tests[0].methodArgs[0].weight.value).to.equal(200);
-      expect(tests[0].methodArgs[1].weight.value).to.equal(10);
+      expect(tests[0].methodArgs[0].packages[0].weight.value).to.equal(200);
+      expect(tests[0].methodArgs[1].packages[0].weight.value).to.equal(10);
     });
   });
 
 
   describe("when the user overrides the tests with only one shipment", () => {
-    it("should generate an error");
+    it("should generate an error", () => {
+
+      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+      const newPackaging = pojo.packaging();
+      newPackaging.name = "New Package";
+      appDefinition.deliveryServices[0].packaging.push(newPackaging);
+
+      const app = new CarrierApp(appDefinition);
+
+      staticConfigTests.cancelShipments_multiple = {
+        shipments: [
+          {
+            weight: {
+              value: 200,
+              unit: "lb"
+            },
+            dimensions: {
+              length: 5,
+              width: 5,
+              height: 5,
+              unit: "cm"
+            }
+          }
+        ]
+      };
+
+      const args = { app, connectArgs, staticConfigTests, options };
+      const testSuite = new CancelShipmentsMultiple(args);
+      expect(() => testSuite.tests()).to.throw("connect.config.js shipments must contain two or more shipments");
+    });
   });
 
-  // describe("when there is a config override array of test suite parameters", () => {
+  describe("When a user configs a delivery service that does not exist", () => {
+    it("should throw an error", () => {
+      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+      const app = new CarrierApp(appDefinition);
+      staticConfigTests.cancelShipments_multiple = {
+        shipments: [
+          {
+            deliveryServiceName: "asdf"
+          },
+          {
+            deliveryServiceName: "asdf"
+          }
+        ]
+      };
 
-  //   let tests;
-  //   beforeEach(() => {
-  //     const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-  //     const app = new CarrierApp(appDefinition);
-  //     staticConfigTests.cancelShipments =
-  //       [
-  //         {
-  //           weight: {
-  //             value: 200,
-  //             unit: "lb"
-  //           }
-  //         },
-  //         {
-  //           weight: {
-  //             value: 22,
-  //             unit: "lb"
-  //           }
-  //         }
-  //       ];
+      const args = { app, connectArgs, staticConfigTests, options };
+      const testSuite = new CancelShipmentsMultiple(args);
 
-  //     const args = { app, connectArgs, staticConfigTests, options };
-  //     const testSuite = new CancelShipments(args);
-  //     tests = testSuite.tests();
-  //   });
+      expect(() => testSuite.tests()).to.throw("deliveryServiceName: 'asdf' does not exist");
+    });
+  });
 
+  describe("When a user configs a new delivery service", () => {
+    it("should update the methodargs to reflect the new properties", () => {
+      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+      appDefinition.deliveryServices.push({
+        id: "9cf1bfda-7ee4-4f03-96f6-6eab52243eee",
+        name: "Better Delivery Service",
+        code: "better_ds",
+        manifestType: "physical",
+        originCountries: ["MX"],
+        destinationCountries: ["MX"],
+        labelFormats: ["pdf"],
+        labelSizes: ["A4"],
+        packaging: [pojo.packaging()]
+      });
 
-  //   it("should generate additional tests", () => {
-  //     expect(tests.length).to.equal(2);
-  //   });
+      staticConfigTests.cancelShipments_multiple = {
+        shipments: [
+          {
+            deliveryServiceName: "Better Delivery Service"
+          },
+          {
+            deliveryServiceName: "Dummy Delivery Service"
+          }
+        ]
+      };
 
-  //   it("should update the test titles", () => {
-  //     expect(tests[0].title).to.include("weight: 200lb");
+      const app = new CarrierApp(appDefinition);
+      const args = { app, connectArgs, staticConfigTests, options };
+      const testSuite = new CancelShipmentsMultiple(args);
+      const tests = testSuite.tests();
 
-  //     expect(tests[1].title).to.include("weight: 22lb");
-  //   });
-  // });
+      expect(tests[0].title).to.include("2 shipments");
+      expect(tests[0].methodArgs[0].deliveryService.id).to.equal("9cf1bfda-7ee4-4f03-96f6-6eab52243eee");
+      expect(tests[0].methodArgs[1].deliveryService.id).to.equal("22222222-2222-2222-2222-222222222222");
+    });
+  });
 
-  // describe("When a user configs a delivery service that does not exist", () => {
-  //   it("should throw an error", () => {
-  //     const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-  //     const app = new CarrierApp(appDefinition);
-  //     staticConfigTests.cancelShipments = {
-  //       deliveryServiceName: "asdf"
-  //     };
+  describe("When a delivery service has addresses that we don't have samples but user uses valid configs", () => {
+    it("should generate tests", () => {
+      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
 
-  //     const args = { app, connectArgs, staticConfigTests, options };
-  //     const testSuite = new CancelShipments(args);
-
-  //     try {
-  //       testSuite.tests();
-  //       expect(true).to.equal(false);
-  //     }
-  //     catch (error) {
-  //       expect(error.message).to.include("deliveryServiceName: 'asdf' does not exist");
-  //     }
-  //   });
-  // });
-
-  // describe("When a user configs a new delivery service", () => {
-  //   it("should update the title params to reflect the new properties", () => {
-  //     const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-  //     appDefinition.deliveryServices.push({
-  //       id: "9cf1bfda-7ee4-4f03-96f6-6eab52243eee",
-  //       name: "Better Delivery Service",
-  //       code: "better_ds",
-  //       manifestType: "physical",
-  //       originCountries: ["MX"],
-  //       destinationCountries: ["MX"],
-  //       labelFormats: ["pdf"],
-  //       labelSizes: ["A4"],
-  //       packaging: [pojo.packaging()]
-  //     });
-
-  //     staticConfigTests.cancelShipments = {
-  //       deliveryServiceName: "Better Delivery Service"
-  //     };
-
-  //     const app = new CarrierApp(appDefinition);
-  //     const args = { app, connectArgs, staticConfigTests, options };
-  //     const testSuite = new CancelShipments(args);
-  //     const tests = testSuite.tests();
-
-  //     expect(tests[0].title).to.include("deliveryServiceName: Better Delivery Service");
-  //   });
-  // });
-
-  // describe("When a delivery service has addresses that we don't have samples but user uses valid configs", () => {
-  //   it("should generate tests", () => {
-  //     const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-
-  //     appDefinition.deliveryServices[0].originCountries = ["AQ", "US"];
-  //     appDefinition.deliveryServices[0].destinationCountries = ["AQ", "US"];
+      appDefinition.deliveryServices[0].originCountries = ["AQ", "US"];
+      appDefinition.deliveryServices[0].destinationCountries = ["AQ", "US"];
 
 
-  //     const app = new CarrierApp(appDefinition);
+      const app = new CarrierApp(appDefinition);
 
-  //     staticConfigTests.cancelShipments = {
-  //       shipFrom: {
-  //         company: "Domestic Route #1",
-  //         addressLines: ["123 New Street"],
-  //         cityLocality: "Houston",
-  //         stateProvince: "TX",
-  //         country: "US",
-  //         postalCode: "77422",
-  //         timeZone: "America/Chicago"
-  //       },
-  //       shipTo: {
-  //         company: "Domestic Route #2",
-  //         addressLines: ["123 New Street"],
-  //         cityLocality: "Houston",
-  //         stateProvince: "TX",
-  //         country: "US",
-  //         postalCode: "77422",
-  //         timeZone: "America/Chicago"
-  //       }
-  //     };
+      staticConfigTests.cancelShipments_multiple = {
+        shipments: [
+          {
+            shipFrom: {
+              company: "Domestic Route #1",
+              addressLines: ["123 New Street"],
+              cityLocality: "Houston",
+              stateProvince: "TX",
+              country: "US",
+              postalCode: "77422",
+              timeZone: "America/Chicago"
+            },
+            shipTo: {
+              company: "Domestic Route #2",
+              addressLines: ["123 New Street"],
+              cityLocality: "Houston",
+              stateProvince: "TX",
+              country: "US",
+              postalCode: "77422",
+              timeZone: "America/Chicago"
+            },
+          },
+          {
+            shipFrom: {
+              company: "Domestic Route #1",
+              addressLines: ["123 New Street"],
+              cityLocality: "Houston",
+              stateProvince: "TX",
+              country: "US",
+              postalCode: "77422",
+              timeZone: "America/Chicago"
+            },
+            shipTo: {
+              company: "Domestic Route #2",
+              addressLines: ["123 New Street"],
+              cityLocality: "Houston",
+              stateProvince: "TX",
+              country: "US",
+              postalCode: "77422",
+              timeZone: "America/Chicago"
+            }
+          }
+        ]
+      };
 
-  //     const args = { app, connectArgs, staticConfigTests, options };
-  //     const testSuite = new CancelShipments(args);
-  //     const tests = testSuite.tests();
-  //     expect(tests.length).to.equal(1);
-  //   });
-  // });
+      const args = { app, connectArgs, staticConfigTests, options };
+      const testSuite = new CancelShipmentsMultiple(args);
+      const tests = testSuite.tests();
 
-  // describe("When a user configures a Ship To and Ship From address", () => {
-  //   it("should update the test arguments and titles", () => {
-  //     const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+      expect(tests[0].title).to.include("2 shipments");
+      expect(tests[0].methodArgs[0].shipFrom.cityLocality).to.equal("Houston");
+      expect(tests[0].methodArgs[1].shipFrom.cityLocality).to.equal("Houston");
+    });
+  });
 
-  //     const app = new CarrierApp(appDefinition);
+  describe("When a valid shipment is created and the cancellation ids do not match", async () => {
 
-  //     staticConfigTests.cancelShipments = {
-  //       shipFrom: {
-  //         company: "Domestic Route #1",
-  //         addressLines: ["123 New Street"],
-  //         cityLocality: "Houston",
-  //         stateProvince: "TX",
-  //         country: "US",
-  //         postalCode: "77422"
-  //       },
-  //       shipTo: {
-  //         company: "Domestic Route #2",
-  //         addressLines: ["123 New Street"],
-  //         cityLocality: "Houston",
-  //         stateProvince: "TX",
-  //         country: "US",
-  //         postalCode: "77422"
-  //       }
-  //     };
+    it("should throw an error", async () => {
+      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
 
-  //     const args = { app, connectArgs, staticConfigTests, options };
-  //     const testSuite = new CancelShipments(args);
-  //     const tests = testSuite.tests();
+      const confirmationMock = pojo.shipmentConfirmation();
+      confirmationMock.packages.push(pojo.packageConfirmation());
 
-  //     expect(tests[0].methodArgs.shipFrom.company).to.equal("Domestic Route #1");
-  //     expect(tests[0].methodArgs.shipTo.company).to.equal("Domestic Route #2");
+      sinon.stub(CarrierApp.prototype, "createShipment").resolves(confirmationMock);
 
-  //     expect(tests[0].methodArgs.shipTo).to.eql(staticConfigTests.cancelShipments.shipTo);
+      const shipmentCancelledOutcomeMock = [
+        {
+          cancellationId: v4(),
+        },
+        {
+          cancellationId: v4()
+        }
+      ];
 
-  //     expect(tests[0].title).to.include("shipFrom: US");
-  //     expect(tests[0].title).to.include("shipTo: US");
+      sinon.stub(CarrierApp.prototype, "cancelShipments").resolves(shipmentCancelledOutcomeMock);
 
-  //   });
-  // });
+      const app = new CarrierApp(appDefinition);
+      const args = { app, connectArgs, staticConfigTests, options };
+      const testSuite = new CancelShipmentsMultiple(args);
+      const tests = testSuite.tests();
 
-  // describe("When a valid shipment is created and the cancellation ids do not match", () => {
+      try {
+        await tests[0].fn();
+        expect(true).to.equal(false);
+      }
+      catch (error) {
+        expect(error.message).includes("The shipmentCancellationConfirmation cancellationID does not match the one that was included in the shipmentCancellation");
+      }
+    });
 
-  //   it("should throw an error", async () => {
-  //     const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-
-  //     const confirmationMock = pojo.shipmentConfirmation();
-  //     confirmationMock.packages.push(pojo.packageConfirmation());
-
-  //     sinon.stub(CarrierApp.prototype, "createShipment").resolves(confirmationMock);
-
-  //     const shipmentCancelledOutcomeMock = [{
-  //       cancellationId: v4()
-  //     }];
-
-  //     sinon.stub(CarrierApp.prototype, "cancelShipments").resolves(shipmentCancelledOutcomeMock);
-
-  //     const app = new CarrierApp(appDefinition);
-  //     const args = { app, connectArgs, staticConfigTests, options };
-  //     const testSuite = new CancelShipments(args);
-  //     const tests = testSuite.tests();
-
-  //     try {
-  //       await tests[0].fn();
-  //       expect(true).to.equal(false);
-  //     }
-  //     catch (error) {
-  //       expect(error.message).includes("The shipmentCancellationConfirmation cancellationID does not match the one that was included in the shipmentCancellation");
-  //     }
-  //   });
-
-  //   afterEach(() => {
-  //     CarrierApp.prototype.createShipment.restore();
-  //     CarrierApp.prototype.cancelShipments.restore();
-  //   });
-  // });
+    afterEach(() => {
+      CarrierApp.prototype.createShipment.restore();
+      CarrierApp.prototype.cancelShipments.restore();
+    });
+  });
 
 });
 

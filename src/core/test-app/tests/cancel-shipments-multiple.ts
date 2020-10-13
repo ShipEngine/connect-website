@@ -3,15 +3,13 @@ import { CarrierApp, NewShipmentPOJO, NewPackagePOJO, ShipmentCancellationPOJO }
 import Suite from "../runner/suite";
 import { initializeTimeStamps } from "../../utils/time-stamps";
 import reduceDefaultsWithConfig from "../utils/reduce-defaults-with-config";
-import objectToTestTitle from "../utils/object-to-test-title";
 
 import { expect } from "chai";
 import findDeliveryServiceByName from "../utils/find-delivery-service-by-name";
-import { CancelShipmentsMultipleConfigOptions, CancelShipmentsMultipleTestParams } from "../runner/config/cancel-shipments-multiple";
+import { CancelShipmentsMultipleConfigOptions, CancelShipmentsMultipleTestParams, ShipmentConfig } from "../runner/config/cancel-shipments-multiple";
 import { v4 } from "uuid";
 import Test from '../runner/test';
 import useShipmentAddresses from '../utils/use-shipment-addresses';
-import { Address } from '@shipengine/connect-sdk/lib/internal/input';
 
 
 interface TestArgs {
@@ -49,6 +47,10 @@ export class CancelShipmentsMultiple extends Suite {
       config = { shipments: [] };
     }
 
+    if(config.shipments.length === 1) {
+      throw new Error("connect.config.js shipments must contain two or more shipments");
+    }
+
     const userOverrides: {
       deliveryServiceName: string;
       shipFrom?: AddressWithContactInfoPOJO,
@@ -58,15 +60,15 @@ export class CancelShipmentsMultiple extends Suite {
 
     const shipmentNumber = config.shipments.length || 2;
 
-    for (let i = 0; i < shipmentNumber; i++) {  
+    for (let i = 0; i < shipmentNumber; i++) {
       const deliveryServiceName = config.shipments[i] && config.shipments[i].deliveryServiceName || "";
       const deliveryService = this.setDeliveryService(deliveryServiceName);
 
-      let shipFrom;
-      let shipTo;
-      try {
-        [shipFrom, shipTo] = useShipmentAddresses(deliveryService);
-      } catch { }
+      const [shipFrom, shipTo] = useShipmentAddresses(deliveryService);
+
+      if(!shipFrom || !shipTo) {
+        break;
+      }
 
       const { tomorrow } = initializeTimeStamps();
 
@@ -121,9 +123,15 @@ export class CancelShipmentsMultiple extends Suite {
       }
     });
 
-    const testParams = reduceDefaultsWithConfig<
-      CancelShipmentsMultipleTestParams
-    >(defaults, config);
+    const testParams = { shipments: [] } as CancelShipmentsMultipleTestParams;
+
+    for (let i = 0; i < shipmentNumber; i++) {
+      const reduced = reduceDefaultsWithConfig<
+        ShipmentConfig
+      >(defaults.shipments[i], config.shipments[i] || {});
+
+      testParams.shipments.push(reduced);
+    }
 
     const shipments = [];
 

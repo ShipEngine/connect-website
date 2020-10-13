@@ -7,18 +7,21 @@ import {
 
 import { BaseTestConfigOptions } from "./base-test-config-options";
 
+
+export interface ShipmentConfig {
+  deliveryServiceName: string;
+  shipFrom?: AddressWithContactInfoPOJO;
+  shipTo?: AddressWithContactInfoPOJO;
+  weight: {
+    value: number;
+    unit: WeightUnit;
+  };
+  dimensions: DimensionsPOJO;
+  shipDateTime: DateTimeZonePOJO | Date | string;
+}
+
 export interface CancelShipmentsMultipleTestParams {
-  shipments: Array<{
-    deliveryServiceName: string;
-    shipFrom?: AddressWithContactInfoPOJO;
-    shipTo?: AddressWithContactInfoPOJO;
-    weight: {
-      value: number;
-      unit: WeightUnit;
-    };
-    dimensions: DimensionsPOJO;
-    shipDateTime: DateTimeZonePOJO | Date | string;
-  }>
+  shipments: Array<ShipmentConfig>
 }
 
 // export type CancelShipmentsMultipleTestParams = Array<{
