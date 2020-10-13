@@ -1,4 +1,5 @@
 import {
+  CancellationStatus,
   Transaction,
 } from '@shipengine/connect-sdk';
 import {
@@ -14,7 +15,8 @@ export const mapVoidLabelsResponse = (
   response.forEach((response) => {
     voidResponses.push({
       void_request_id: response.cancellationID,
-      message: response.notes ? response.notes.map(p => p.text).join(', ') : '',
+      errors: response.status === CancellationStatus.Error ? [response.description] : undefined,
+      message: response.description,
     });
   });
   return {
