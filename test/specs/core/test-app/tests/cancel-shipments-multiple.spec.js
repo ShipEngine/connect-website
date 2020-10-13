@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 "use strict";
 
 const { CancelShipmentsMultiple } = require("../../../../../lib/core/test-app/tests/cancel-shipments-multiple");
