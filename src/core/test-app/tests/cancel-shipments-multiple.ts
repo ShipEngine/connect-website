@@ -11,7 +11,6 @@ import { v4 } from "uuid";
 import Test from '../runner/test';
 import useShipmentAddresses from '../utils/use-shipment-addresses';
 
-
 interface TestArgs {
   title: string;
   methodArgs: NewShipmentPOJO[];
@@ -79,25 +78,6 @@ export class CancelShipmentsMultiple extends Suite {
         shipDateTime: tomorrow
       });
     }
-
-    // Make a best guess at the defaults, need to resolve the default vs config based delivery service early
-    // on since that determines what address and associated timezones get generated.
-    // const defaults: CancelShipmentsMultipleTestParams = {
-    //   deliveryServiceName: this.deliveryService.name,
-    //   shipDateTime: tomorrow,
-    //   shipFrom: shipFrom,
-    //   shipTo: shipTo,
-    //   weight: {
-    //     unit: WeightUnit.Pounds,
-    //     value: 50.0,
-    //   },
-    //   dimensions: {
-    //     length: 12,
-    //     width: 12,
-    //     height: 12,
-    //     unit: LengthUnit.Inches
-    //   }
-    // };
 
     if (userOverrides.length === 0) {
       return undefined;
