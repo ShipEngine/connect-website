@@ -87,7 +87,7 @@ export class ConnectionForm extends Suite {
           };
 
           if (!carrierApp.connect) {
-            throw new Error("createShipment is not implemented");
+            throw new Error("connect is not implemented");
           }
 
           await carrierApp.connect(transaction, testArg.methodArgs);
