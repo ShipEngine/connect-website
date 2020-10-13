@@ -1,4 +1,4 @@
-import { CarrierApp } from "@shipengine/connect-sdk/lib/internal";
+import { OrderApp, SalesOrderNotificationPOJO } from "@shipengine/connect-sdk/lib/internal";
 import Suite from "../runner/suite";
 import {
   AcknowledgeOrdersConfigOptions,
@@ -18,15 +18,24 @@ interface TestArgs {
 export class AcknowledgeOrders extends Suite {
   title = "acknowledgeOrders";
 
-
   buildTestArg(
     config: AcknowledgeOrdersConfigOptions,
   ): TestArgs | undefined {
 
-    const carrierApp = this.app as CarrierApp;
-
     // Parse and Set Sensible defaults, merge in connects args
-    const defaults = {};
+    const notifications: SalesOrderNotificationPOJO[] = [
+    	{
+    		id: '989798798',
+    		identifiers: {
+    			id: 'lksldm',
+    		},
+    		orderNumber: "987987987",
+  			importedDate: "2005-09-23T17:30:00+05:30",
+    	}
+    ];
+    const defaults = {
+    	notifications: notifications,
+    };
 
     // Merge default data + connects args, and user-provided config, in that order
     const testParams = reduceDefaultsWithConfig<
@@ -37,7 +46,7 @@ export class AcknowledgeOrders extends Suite {
       ? `it raises an error when creating a connection form with ${objectToTestTitle(
         testParams,
       )}`
-      : `it validates the connection form with ${objectToTestTitle(
+      : `it validates the acknowledgeOrders method with ${objectToTestTitle(
         testParams,
       )}`;
 
@@ -67,8 +76,14 @@ export class AcknowledgeOrders extends Suite {
         testArg.methodArgs,
         testArg.config,
         async () => {
-          const carrierApp = this.app as CarrierApp;
+          const orderApp = this.app as OrderApp;
+          const transaction = await this.transaction(testArg.config);
 
+          if (!orderApp.acknowledgeOrders) {
+          	throw new Error("acknowledgeOrders is not implemented");
+          }
+          
+          await orderApp.acknowledgeOrders(transaction, testArg.methodArgs.notifications);
         }
       );
     });
