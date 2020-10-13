@@ -1,8 +1,6 @@
 import jsf from 'json-schema-faker';
 import { JSONSchema6 } from 'json-schema';
-import RandExp from "randexp";
-import { FormDefinition } from "@shipengine/connect-sdk";
-import { CarrierApp } from "@shipengine/connect-sdk/lib/internal";
+import { CarrierApp, TransactionPOJO } from "@shipengine/connect-sdk/lib/internal";
 import Suite from "../runner/suite";
 import {
   ConnectionFormConfigOptions,
@@ -10,9 +8,8 @@ import {
 } from "../runner/config/connect-all-fields";
 import reduceDefaultsWithConfig from '../utils/reduce-defaults-with-config';
 import objectToTestTitle from '../utils/object-to-test-title';
-
-import { expect } from "chai";
 import Test from '../runner/test';
+import { v4 } from 'uuid';
 
 interface TestArgs {
   title: string;
@@ -27,8 +24,8 @@ interface FormDef {
 export class ConnectionForm extends Suite {
   title = "connect_all_fields";
 
-  private buildFormData(connectionForm: FormDef) : object {
-    const fakeData = jsf.generate(connectionForm);
+  private buildFormData(connectionForm: FormDef) {
+    const fakeData = jsf.generate(connectionForm) as FormDef;
     return fakeData.dataSchema;
   }
 
@@ -42,7 +39,7 @@ export class ConnectionForm extends Suite {
     const defaults = {
       ...this.buildFormData(carrierApp.connectionForm),
       ...this.options.staticRootConfig.connectArgs
-    };
+    } as ConnectionFormTestParams;
 
     // Merge default data + connects args, and user-provided config, in that order
     const testParams = reduceDefaultsWithConfig<
@@ -84,7 +81,10 @@ export class ConnectionForm extends Suite {
         testArg.config,
         async () => {
           const carrierApp = this.app as CarrierApp;
-          const transaction = await this.transaction(testArg.config);
+          const transaction = {
+            id: v4(),
+            session: {},
+          };
 
           if (!carrierApp.connect) {
             throw new Error("createShipment is not implemented");

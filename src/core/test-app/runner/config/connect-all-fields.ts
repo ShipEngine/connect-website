@@ -1,7 +1,7 @@
 import { BaseTestConfigOptions } from "./base-test-config-options";
 
 export interface ConnectionFormTestParams {
-  connectionFormData: {};
+  connectionFormData: object;
 }
 
 export interface ConnectionFormConfigOptions
