@@ -1,6 +1,6 @@
 import jsf from 'json-schema-faker';
 import { JSONSchema6 } from 'json-schema';
-import { CarrierApp, TransactionPOJO } from "@shipengine/connect-sdk/lib/internal";
+import { CarrierApp } from "@shipengine/connect-sdk/lib/internal";
 import Suite from "../runner/suite";
 import {
   ConnectionFormConfigOptions,
