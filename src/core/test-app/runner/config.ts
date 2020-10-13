@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 
+import { ConnectionFormConfigOptions } from "./config/connect-all-fields";
 import { CreateShipmentInternationalConfigOptions } from "./config/create-shipment-international";
 import { CreateShipmentDomesticConfigOptions } from "./config/create-shipment-domestic";
 import { CreateShipmentMultiPackageConfigOptions } from './config/create-shipment-multipackage';
@@ -18,6 +19,7 @@ import { CancelPickupsSameDayConfigOptions } from './config/cancel-pickups-same-
 export interface TestsConfig {
   cancelShipment?: CancelShipmentConfigOptions | [CancelShipmentConfigOptions];
   // createManifest?: TestOptions | [TestOptions];
+  connectionForm?: ConnectionFormConfigOptions;
   createShipment_domestic?:
   | CreateShipmentDomesticConfigOptions
   | [CreateShipmentDomesticConfigOptions];
