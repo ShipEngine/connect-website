@@ -1,0 +1,57 @@
+---
+title: Acceptance Tests | connect_all_fields
+description: This test is part of the ShipEngine Connect carrier app test suite.
+---
+
+Carrier App Tests
+==================================
+
+### `connect_all_fields`
+
+This test exercises the validity of your app's [connection form](../../../reference/forms.mdx#connection-form-examples) and [`connect` method](../../../reference/methods/connect.mdx).
+
+
+Test Parameters
+-------------------------
+This test has parameters [that can be customized](#customizing-parameters) in your [`connect.config.js` file](../../../testing/config.mdx). Any parameters you don't override will use their default values.
+
+
+<Reference>
+
+  <Field name="connectionFormData" type="object">
+    <Description>
+        An object containing the connection form data you would like to test.
+
+        The data included in this object depends on the [React JSON Schema](https://react-jsonschema-form.readthedocs.io/en/latest/) you defined for your `connectionForm`.
+    </Description>
+    <DefaultValue>
+        An object filled with automatically generated data compliant with your react json schema
+    </DefaultValue>
+  </Field>
+
+</Reference>
+
+
+Customizing Parameters
+------------------------------
+Here's an example of using the [`connect.config.js` file](./../../../testing/config.mdx) to customize the `connect_all_fields` test. This example provides values for all parameters and uses the global `connectArgs` parameter for authentication. In this example the `account_email` provided in `connectArgs` would be overridden by the `account_email` provided in `connectionFormData`, so our test would use the `joe@example.com` option.
+
+```javascript
+module.exports = {
+  connectArgs: {
+    account_email: 'user@example.com',
+    account_password: 'u0G#^08Ue1G!jX$mkc1',
+    agree_to_eula: true,
+  },
+  tests: {
+  	connect_all_fields: [
+  		{
+	  		connectionFormData: {
+	  			account_email: 'joe@example.com',
+	    		agree_to_eula: true,
+	  		},
+  		},
+  	]
+  },
+}
+```
