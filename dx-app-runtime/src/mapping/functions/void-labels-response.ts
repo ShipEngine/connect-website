@@ -8,14 +8,14 @@ import {
 import { VoidLabelsResponse, VoidResponse } from '@ipaas/capi/responses';
 
 export const mapVoidLabelsResponse = (
-  response: ShipmentCancellationOutcome[],
+  responses: ShipmentCancellationOutcome[],
   transaction: Transaction
 ): VoidLabelsResponse => {
   const voidResponses: VoidResponse[] = [];
-  response.forEach((response) => {
+  responses.forEach((response) => {
     voidResponses.push({
       void_request_id: response.cancellationID,
-      errors: response.status === CancellationStatus.Error ? [response.description] : undefined,
+      errors: response.status !== CancellationStatus.Success ? [response.description || 'Error'] : undefined,
       message: response.description,
     });
   });
