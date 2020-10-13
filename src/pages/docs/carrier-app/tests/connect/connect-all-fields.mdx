@@ -8,7 +8,7 @@ Carrier App Tests
 
 ### `connect_all_fields`
 
-This test exercises the validity of your app's `connect.json` react json schema and the connection form it generates.
+This test exercises the validity of your app's [connection form](../../../reference/forms.mdx) and [connect method](../../../reference/methods/connect.mdx).
 
 
 Test Parameters
@@ -17,7 +17,7 @@ This test has parameters [that can be customized](#customizing-parameters) in yo
 
 This test will look in three locations to generate connection form data to use in the test:
 
-1. First it will generate dummy data from the `connect.json` react json schema.
+1. First it will generate dummy data from your app's `connectionForm` schema.
 2. Then it will look in `connectArgs` for overriding values.
 3. Then it will look to your test data in [`connect.config.js` file](../../../testing/config.mdx).
 
