@@ -1,0 +1,64 @@
+---
+title: Acceptance Tests | connect_all_fields
+description: This test is part of the ShipEngine Connect carrier app test suite.
+---
+
+Carrier App Tests
+==================================
+
+### `connect_all_fields`
+
+This test exercises the validity of your app's `connect.json` react json schema and the connection form it generates.
+
+
+Test Parameters
+-------------------------
+This test has parameters [that can be customized](#customizing-parameters) in your [`connect.config.js` file](../../../testing/config.mdx). Any parameters you don't override will use their default values.
+
+This test will look in three locations to generate connection form data to use in the test:
+
+1. First it will generate dummy data from the `connect.json` react json schema.
+2. Then it will look in `connectArgs` for overriding values.
+3. Then it will look to your test data in [`connect.config.js` file](../../../testing/config.mdx).
+
+
+<Reference>
+
+  <Field name="connectionFormData" type="object">
+    <Description>
+        An object containing the connection form data you would like to test.
+
+        The data included in this object depends on the react json schema you provide in your `connect.json`. You will need to
+        provide key-value pairs where the keys are the fields from your `connect.json`.
+    </Description>
+    <DefaultValue>
+        An empty object
+    </DefaultValue>
+  </Field>
+
+</Reference>
+
+
+Customizing Parameters
+------------------------------
+Here's an example of using the [`connect.config.js` file](./../../../testing/config.mdx) to customize the `connect_all_fields` test. This example provides values for all parameters and uses the global `connectArgs` parameter for authentication. In this example the `account_email` provided in `connectArgs` would be overridden by the `account_email` provided in `connectionFormData`, so our test would use the `joe@example.com` option.
+
+```javascript
+module.exports = {
+  connectArgs: {
+    account_email: 'user@example.com',
+    account_password: 'u0G#^08Ue1G!jX$mkc1',
+    agree_to_eula: true,
+  },
+  tests: {
+  	connect_all_fields: [
+  		{
+	  		connectionFormData: {
+	  			account_email: 'joe@example.com',
+	    		agree_to_eula: true,
+	  		},
+  		},
+  	]
+  },
+}
+```
