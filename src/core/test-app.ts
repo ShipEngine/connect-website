@@ -2,6 +2,7 @@ import Config from "./test-app/runner/config";
 import Runner from "./test-app/runner";
 import loadAndValidateApp, { isInvalidAppError } from "./load-and-validate-app";
 import {
+  ConnectionForm,
   CreateShipmentInternational,
   CreateShipmentDomestic,
   CreateShipmentWithInsurance,
@@ -157,6 +158,7 @@ function registerTestSuiteModules(app: SdkApp): RegisteredTestSuiteModules {
     // cancelPickups: [CancelPickupsTestSuite],
     cancelShipments: [CancelShipmentsSingle, CancelShipmentsMultiple],
     // createManifest: [CreateManifestTestSuite],
+    connectionForm: [ConnectionForm],
     createShipment: [
       CreateShipmentInternational,
       CreateShipmentDomestic,
