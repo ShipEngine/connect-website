@@ -24,14 +24,18 @@
       "request": "launch",
       "name": "Run CLI",
       "skipFiles": [
-        "<node_internals>/**"
+        "<node_internals>/**",
+        "${workspaceRoot}/node_modules/**/*.js",
+        "/home/rkrauskopf/repos/connect-samples/cargo-inc/node_modules/**/*"
       ],
       "smartStep": true,
       "console": "integratedTerminal",
       "internalConsoleOptions": "openOnSessionStart",
       "program": "${workspaceFolder}/bin/run",
       "args": [
-        "publish"
+        "test",
+        "-g",
+        "cancel"
       ],
       "cwd": "/home/rkrauskopf/repos/connect-samples/cargo-inc"
     }

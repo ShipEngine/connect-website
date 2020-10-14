@@ -463,7 +463,7 @@ describe("AppsApiClient @integration", () => {
       });
     });
 
-    describe("getLogsById", () => {
+    describe.skip("getLogsById", () => {
       it("returns logs for a given ID", async () => {
         const app = await validClient.apps.findOrCreateByName({
           name: "test app",
