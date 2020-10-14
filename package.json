@@ -1,6 +1,6 @@
 {
   "name": "@shipengine/connect-local-dev-api",
-  "version": "2.1.11",
+  "version": "2.1.12",
   "description": "The ShipEngine Integration Platform local development API",
   "author": {
     "name": "ShipEngine",
@@ -34,7 +34,7 @@
     "upgrade": "npm-check -u && npm audit fix"
   },
   "dependencies": {
-    "@shipengine/connect-loader": "^2.5.4",
+    "@shipengine/connect-loader": "^2.5.5",
     "chai": "^4.2.0",
     "chalk": "^4.1.0",
     "cors": "^2.8.5",
