@@ -61,7 +61,7 @@ function ReferenceTableRow(field: FieldProps) {
   return (
     <tr key={field.name}>
       {field.name && <td>
-        <code className="pre-line">
+        <code className={styles.preLine}>
           {nameSplit.map((item, index) => {
             if (index === nameSplit.length - 1) {
               return <span key={index}>{item}</span>
