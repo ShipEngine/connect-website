@@ -43,12 +43,8 @@ export class AcknowledgeOrders extends Suite {
     >(defaults, config);
 
     const title = config.expectedErrorMessage
-      ? `it raises an error when creating a connection form with ${objectToTestTitle(
-        testParams,
-      )}`
-      : `it validates the acknowledgeOrders method with ${objectToTestTitle(
-        testParams,
-      )}`;
+      ? `it raises an error when creating a connection form with notifications ${testParams.notifications.map((obj) => objectToTestTitle(obj))}`
+      : `it validates the acknowledgeOrders method with notifications ${testParams.notifications.map((obj) => objectToTestTitle(obj))}`;
 
     return {
       title,
