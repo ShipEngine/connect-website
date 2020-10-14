@@ -1,5 +1,5 @@
 ---
-title: Acceptance Tests | cancelShipment
+title: Acceptance Tests | cancelShipments_single
 description: This test is part of the ShipEngine Connect carrier app test suite.
 ---
 
@@ -7,7 +7,7 @@ description: This test is part of the ShipEngine Connect carrier app test suite.
 Carrier App Tests
 ==================================
 
-### `cancelShipment`
+### `cancelShipments_single`
 This test exercises your app's ability to successfully cancel a shipment.
 
 
@@ -239,9 +239,9 @@ module.exports = {
   },
   timeout: 4000,
   tests: {
-    cancelShipment: [
+    cancelShipments_single: [
       {
-        deliveryServiceName: `International Overnight`,
+        deliveryServiceName: 'International Overnight',
         shipFrom: {
           name: 'John Doe',
           phoneNumber: '111-111-1111',
