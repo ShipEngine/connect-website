@@ -50,8 +50,7 @@ An object containing information about which shipment to track.
     <Description>
       The master tracking number for the entire shipment. For single-piece shipments, this will be the same as the package
       tracking number. For multi-piece shipments, this may be a separate tracking number,
-      or the same tracking number as one of the packages. This string will be between `0` and `100` characters and will
-      not contain newline characters.
+      or the same tracking number as one of the packages. This string will not contain newline characters.
     </Description>
   </Field>
 
@@ -101,8 +100,7 @@ An object with tracking information for the specified shipment.
 
     <Field name="events[].name" type="string" required={false}>
       <Description>
-        The user-friendly name of the event (e.g. "Arrived at Warehouse", "Delivered"). This string must be between `0`
-        and `100` characters and must not contain newline characters.
+        The user-friendly name of the event (e.g. "Arrived at Warehouse", "Delivered"). This string must not contain newline characters.
       </Description>
     </Field>
 
@@ -138,14 +136,14 @@ An object with tracking information for the specified shipment.
 
     <Field name="events[].code" type="string" required={false}>
       <Description>
-        The carrier's event or status code. This string must be between `0` and `100` characters and must not contain newline characters.
+        The carrier's event or status code. This string must not contain newline characters.
       </Description>
     </Field>
 
     <Field name="events[].description" type="string" required={false}>
       <Description>
         The carrier's description of the event or status code. This description should not be specific to this particular shipment.
-        This string must be between `0` and `1000` characters and must not contain newline characters.
+        This string must not contain newline characters.
       </Description>
     </Field>
 
@@ -175,31 +173,31 @@ An object with tracking information for the specified shipment.
 
     <Field name="events[].signer.title" type="string" required={false}>
       <Description>
-        The title of the contact (eg "Mr", "Mrs", "Dr"). This string must be between `0` and `100` characters and must not contain newline characters.
+        The title of the contact (eg "Mr", "Mrs", "Dr"). This string must not contain newline characters.
       </Description>
     </Field>
 
     <Field name="events[].signer.given" type="string" required={true}>
       <Description>
-        The first name of the signer. This string must be between `1` and `100` characters and must not contain newline characters.
+        The first name of the signer. This string must not contain newline characters.
       </Description>
     </Field>
 
     <Field name="events[].signer.middle" type="string" required={false}>
       <Description>
-        The middle name of the signer. This string must be between `0` and `100` characters and must not contain newline characters.
+        The middle name of the signer. This string must not contain newline characters.
       </Description>
     </Field>
 
     <Field name="events[].signer.family" type="string" required={false}>
       <Description>
-        The last name or family name of the signer. This string must be between `0` and `100` characters and must not contain newline characters.
+        The last name or family name of the signer. This string must not contain newline characters.
       </Description>
     </Field>
 
     <Field name="events[].signer.suffix" type="string" required={false}>
       <Description>
-        The suffix of the signer (eg "Sr", "Jr", "IV"). This string must be between `0` and `100` characters and must not contain newline characters.
+        The suffix of the signer (eg "Sr", "Jr", "IV"). This string must not contain newline characters.
       </Description>
     </Field>
 
@@ -207,7 +205,7 @@ An object with tracking information for the specified shipment.
     <Description>
       The master tracking number for the entire shipment. For single-piece shipments, this will be the same as the package
       tracking number. For multi-piece shipments, this may be a separate tracking number,
-      or the same tracking number as one of the packages. This string must be between `0` and `100` characters and contain
+      or the same tracking number as one of the packages. This string contain
       no newline characters.
     </Description>
   </Field>
@@ -355,7 +353,7 @@ An object with tracking information for the specified shipment.
 
   <Field name="notes[].text" type="string" required={true}>
     <Description>
-      The note text itself. This string must be between `0` and `5000` characters.
+      The note text itself.
     </Description>
   </Field>
 

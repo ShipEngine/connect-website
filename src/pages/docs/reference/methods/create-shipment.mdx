@@ -126,7 +126,7 @@ An object containing information about the new shipment to create.
 
   <Field name="returns.rmaNumber" type="string" nullable={false}>
     <Description>
-      A [return merchandise authorization (RMA)](https://en.wikipedia.org/wiki/Return_merchandise_authorization) is an associated number assigned to process the return. This number is often printed on the label and used when the original shipper processes the inbound return. This string will be between `0` and `100` characters and will not contain newline characters.
+      A [return merchandise authorization (RMA)](https://en.wikipedia.org/wiki/Return_merchandise_authorization) is an associated number assigned to process the return. This number is often printed on the label and used when the original shipper processes the inbound return. This string will not contain newline characters.
     </Description>
   </Field>
 
@@ -176,7 +176,7 @@ An object that contains confirmation that a shipment has been created.
 
   <Field name="label.name" type="string" required={false}>
     <Description>
-      The user-friendly name of the label. This string must be between `0` and `100` characters and must not contain newline characters.
+      The user-friendly name of the label. This string must not contain newline characters.
     </Description>
   </Field>
 
@@ -217,7 +217,7 @@ An object that contains confirmation that a shipment has been created.
 
   <Field name="label.referenceFields" type="string[]" required={true}>
     <Description>
-      The **actual** reference fields on the label, which may not match the originally-specified reference fields due to the carrier's restrictions on the number of fields or the length of each field. Each string in this array must be between `0` and `100` characters and must not contain newline characters.
+      The **actual** reference fields on the label, which may not match the originally-specified reference fields due to the carrier's restrictions on the number of fields or the length of each field. Each string in this array must not contain newline characters.
     </Description>
   </Field>
 
@@ -240,7 +240,7 @@ An object that contains confirmation that a shipment has been created.
 
   <Field name="form.name" type="string" required={false}>
     <Description>
-      The user-friendly name of the form (e.g. "Customs Form", "Scan Form"). This string must be between `0` and `100` characters and must not contain newline characters.
+      The user-friendly name of the form (e.g. "Customs Form", "Scan Form"). This string must not contain newline characters.
     </Description>
   </Field>
 
@@ -280,7 +280,7 @@ An object that contains confirmation that a shipment has been created.
 
   <Field name="trackingNumber" type="string" required={false}>
     <Description>
-      The master tracking number for the entire shipment. For single-piece shipments, this will be the same as the package tracking number. For multi-piece shipments, this may be a separate tracking number, or the same tracking number as one of the packages. This string must be between `0` and `100` characters and must not contain newline characters.
+      The master tracking number for the entire shipment. For single-piece shipments, this will be the same as the package tracking number. For multi-piece shipments, this may be a separate tracking number, or the same tracking number as one of the packages. This string must not contain newline characters.
     </Description>
   </Field>
 
@@ -312,7 +312,7 @@ An object that contains confirmation that a shipment has been created.
 
   <Field name="packages[].trackingNumber" type="string">
     <Description>
-      The master tracking number for the entire shipment. For single-piece shipments, this will be the same as the package tracking number. For multi-piece shipments, this may be a separate tracking number, or the same tracking number as one of the packages. This string must be between `0` and `100` characters and must not contain newline characters.
+      The master tracking number for the entire shipment. For single-piece shipments, this will be the same as the package tracking number. For multi-piece shipments, this may be a separate tracking number, or the same tracking number as one of the packages. This string must not contain newline characters.
     </Description>
   </Field>
 

@@ -30,7 +30,7 @@ column indicates which properties are required when the object is returned from 
 
   <Field name="company" type="string" nullable={true} required={false}>
     <Description>
-      The company name for the address, if provided. This string must be between `0` and `100` characters and must not include newline characters and must not include newline characters.
+      The company name for the address, if provided. This string must not include newline characters.
     </Description>
   </Field>
 
@@ -42,19 +42,19 @@ column indicates which properties are required when the object is returned from 
 
   <Field name="cityLocality" type="string" nullable={true} required={false}>
     <Description>
-      The city or locality for this address. This string must be between `1` and `100` characters and must not include newline characters.
+      The city or locality for this address. This string must not include newline characters.
     </Description>
   </Field>
 
   <Field name="stateProvince" type="string" nullable={true} required={false}>
     <Description>
-      The state or province for this address. This string must be between `1` and `100` characters and must not include newline characters.
+      The state or province for this address. This string must not include newline characters.
     </Description>
   </Field>
 
   <Field name="postalCode" type="string" nullable={false} required={false}>
     <Description>
-      The zip code or other postal code for this address. This string must be between `1` and `100` characters and must not include newline characters.
+      The zip code or other postal code for this address. This string must not include newline characters.
     </Description>
   </Field>
 
@@ -107,31 +107,31 @@ column indicates which properties are required when the object is returned from 
 
   <Field name="name.title" type="string" nullable={false} required={false}>
     <Description>
-      The title of the contact (eg "Mr", "Mrs", "Dr"). This string must be between `0` and `100` characters and must not include newline characters.
+      The title of the contact (eg "Mr", "Mrs", "Dr"). This must not include newline characters.
     </Description>
   </Field>
 
   <Field name="name.given" type="string" nullable={false} required={true}>
     <Description>
-      The first name of the signer. This string must be between `1` and `100` characters and must not include newline characters.
+      The first name of the signer. This must not include newline characters.
     </Description>
   </Field>
 
   <Field name="name.middle" type="string" nullable={false} required={false}>
     <Description>
-      The middle name of the signer. This string must be between `0` and `100` characters and must not include newline characters.
+      The middle name of the signer. This must not include newline characters.
     </Description>
   </Field>
 
   <Field name="name.family" type="string" nullable={false} required={false}>
     <Description>
-      The last name or family name of the signer. This string must be between `0` and `100` characters and must not include newline characters.
+      The last name or family name of the signer. This must not include newline characters.
     </Description>
   </Field>
 
   <Field name="name.suffix" type="string" nullable={false} required={false}>
     <Description>
-      The suffix of the signer (eg "Sr", "Jr", "IV"). This string must be between `0` and `100` characters and must not include newline characters.
+      The suffix of the signer (eg "Sr", "Jr", "IV"). This must not include newline characters.
     </Description>
   </Field>
 
@@ -143,7 +143,7 @@ column indicates which properties are required when the object is returned from 
 
   <Field name="phoneNumber" type="string" nullable={false} required={false}>
     <Description>
-      The phone number of the contact. This string must be between `0` and `30` characters
+      The phone number of the contact.
           and must not include newline characters.
     </Description>
   </Field>
@@ -176,7 +176,7 @@ column indicates which properties are required when the object is returned from 
 
   <Field name="company" type="string" nullable={false} required={true}>
     <Description>
-      The company name for the address, if provided. This string must be between `0` and `100` characters    and must not include newline characters and must not include newline characters.
+      The company name for the address, if provided. This string must not include newline characters and must not include newline characters.
     </Description>
   </Field>
 
@@ -188,19 +188,19 @@ column indicates which properties are required when the object is returned from 
 
   <Field name="cityLocality" type="string" nullable={false} required={true}>
     <Description>
-      The city or locality for this address. This string must be between `1` and `100` characters and must not include newline characters.
+      The city or locality for this address. This string must not include newline characters.
     </Description>
   </Field>
 
   <Field name="stateProvince" type="string" nullable={false} required={true}>
     <Description>
-      The state or province for this address. This string must be between `1` and `100` characters and must not include newline characters.
+      The state or province for this address. This string must not include newline characters.
     </Description>
   </Field>
 
   <Field name="postalCode" type="string" nullable={false} required={true}>
     <Description>
-      The zip code or other postal code for this address. This string must be between `1` and `100` characters and must not include newline characters.
+      The zip code or other postal code for this address. This string must not include newline characters.
     </Description>
   </Field>
 
@@ -227,31 +227,31 @@ column indicates which properties are required when the object is returned from 
 
   <Field name="contact.name.title" type="string" nullable={false} required={false}>
     <Description>
-      The title of the contact (eg "Mr", "Mrs", "Dr"). This string must be between `0` and `100` characters and must not include newline characters.
+      The title of the contact (eg "Mr", "Mrs", "Dr"). This string must not include newline characters.
     </Description>
   </Field>
 
   <Field name="contact.name.given" type="string" nullable={false} required={true}>
     <Description>
-      The first name of the signer. This string must be between `1` and `100` characters and must not include newline characters.
+      The first name of the signer. This string must not include newline characters.
     </Description>
   </Field>
 
   <Field name="contact.name.middle" type="string" nullable={false} required={false}>
     <Description>
-      The middle name of the signer. This string must be between `0` and `100` characters and must not include newline characters.
+      The middle name of the signer. This string must not include newline characters.
     </Description>
   </Field>
 
   <Field name="contact.name.family" type="string" nullable={false} required={false}>
     <Description>
-      The last name or family name of the signer. This string must be between `0` and `100` characters and must not include newline characters.
+      The last name or family name of the signer. This string must not include newline characters.
     </Description>
   </Field>
 
   <Field name="contact.name.suffix" type="string" nullable={false} required={false}>
     <Description>
-      The suffix of the signer (eg "Sr", "Jr", "IV"). This string must be between `0` and `100` characters and must not include newline characters.
+      The suffix of the signer (eg "Sr", "Jr", "IV"). This string must not include newline characters.
     </Description>
   </Field>
 
@@ -263,8 +263,7 @@ column indicates which properties are required when the object is returned from 
 
   <Field name="phoneNumber" type="string" nullable={false} required={false}>
     <Description>
-      The phone number of the contact. This string must be between `0` and `30` characters
-          and must not include newline characters.
+      The phone number of the contact. This string must not include newline characters.
     </Description>
   </Field>
 

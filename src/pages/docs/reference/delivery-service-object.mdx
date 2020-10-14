@@ -185,13 +185,13 @@ column indicates which properties are required when the object is returned from 
 
   <Field name="packaging[].name" type="string" nullable={false}>
     <Description>
-      The user-friendly name for this packaging (e.g. "Flat-Rate Box", "Large Padded Envelope"). This string must be between `1` and `100` characters and must not contain newline characters.
+      The user-friendly name for this packaging (e.g. "Flat-Rate Box", "Large Padded Envelope"). This string must not contain newline characters.
     </Description>
   </Field>
 
   <Field name="packaging[].description" type="string" nullable={false}>
     <Description>
-      A short, user-friendly description of the packaging. This string must be between `0` and `1000` characters and must not contain newline characters.
+      A short, user-friendly description of the packaging. This string must not contain newline characters.
     </Description>
   </Field>
 
@@ -230,13 +230,13 @@ column indicates which properties are required when the object is returned from 
 
   <Field name="deliveryConfirmations[].name" type="string" nullable={false}>
     <Description>
-      The user-friendly name for this delivery confirmation (e.g. "Adult Signature", "Authority to Leave"). This string must be between `1` and `100` characters and must not contain newline characters.
+      The user-friendly name for this delivery confirmation (e.g. "Adult Signature", "Authority to Leave"). This string must not contain newline characters.
     </Description>
   </Field>
 
   <Field name="deliveryConfirmations[].description" type="string" nullable={false}>
     <Description>
-      A short, user-friendly description of the delivery confirmation type. This string must be between `0` and `1000` characters and must not contain newline characters.
+      A short, user-friendly description of the delivery confirmation type. This string must not contain newline characters.
     </Description>
   </Field>
 

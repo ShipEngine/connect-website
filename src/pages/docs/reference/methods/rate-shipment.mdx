@@ -129,13 +129,13 @@ match all the required criteria. If none of these are provided, your method shou
 
   <Field name="packages[].packaging.name" type="string" nullable={false}>
     <Description>
-      The user-friendly name for this packaging (e.g. "Flat-Rate Box", "Large Padded Envelope"). This string will be between `1` and `100` characters and will not contain newline characters.
+      The user-friendly name for this packaging (e.g. "Flat-Rate Box", "Large Padded Envelope"). This string will not contain newline characters.
     </Description>
   </Field>
 
   <Field name="packages[].packaging.description" type="string" nullable={false}>
     <Description>
-      A short, user-friendly description of the packaging. This string will be between `0` and `1000` characters and will not contain newline characters.
+      A short, user-friendly description of the packaging. This string will not contain newline characters.
     </Description>
   </Field>
 
@@ -459,7 +459,7 @@ An array of objects representing the quoted shipping rates based on the specifie
 
   <Field name="notes[].text" type="string" required={true}>
     <Description>
-      The note text itself. This string must be between `0` and `5000` characters.
+      The note text itself.
     </Description>
   </Field>
 

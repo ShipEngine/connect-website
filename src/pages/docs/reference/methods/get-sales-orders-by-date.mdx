@@ -115,7 +115,7 @@ An array of sales orders matching the date range.
 
   <Field name="id" type="string" required={true}>
     <Description>
-      The marketplace's unique ID for the sales order. This string must be between `1` and `100` characters and must not contain newline characters.
+      The marketplace's unique ID for the sales order. This string must not contain newline characters.
     </Description>
   </Field>
 
@@ -149,7 +149,7 @@ An array of sales orders matching the date range.
 
  <Field name="buyer.id" type="string" required={false}>
     <Description>
-      The marketplace's unique ID for the buyer. This string must be between `0` and `100` characters and must not contain newline characters.
+      The marketplace's unique ID for the buyer. This string must not contain newline characters.
     </Description>
   </Field>
 
@@ -170,31 +170,31 @@ An array of sales orders matching the date range.
 
    <Field name="buyer.name.title" type="string" nullablerequired={false}>
      <Description>
-       The title of the contact (eg "Mr", "Mrs", "Dr"). This string must be between `0` and `100` characters and must not include newline characters.
+       The title of the contact (eg "Mr", "Mrs", "Dr"). This string must not include newline characters.
      </Description>
    </Field>
 
    <Field name="buyer.name.given" type="string" required={true}>
      <Description>
-       The first name of the signer. This string must be between `1` and `100` characters and must not include newline characters.
+       The first name of the signer. This string must not include newline characters.
      </Description>
    </Field>
 
    <Field name="buyer.name.middle" type="string"  required={false}>
      <Description>
-       The middle name of the signer. This string must be between `0` and `100` characters and must not include newline characters.
+       The middle name of the signer. This string must not include newline characters.
      </Description>
    </Field>
 
    <Field name="buyer.name.family" type="string"  required={false}>
      <Description>
-       The last name or family name of the signer. This string must be between `0` and `100` characters and must not include newline characters.
+       The last name or family name of the signer. This string must not include newline characters.
      </Description>
    </Field>
 
    <Field name="buyer.name.suffix" type="string" required={false}>
      <Description>
-       The suffix of the signer (eg "Sr", "Jr", "IV"). This string must be between `0` and `100` characters and must not include newline characters.
+       The suffix of the signer (eg "Sr", "Jr", "IV"). This string must not include newline characters.
      </Description>
    </Field>
 
@@ -206,7 +206,7 @@ An array of sales orders matching the date range.
 
    <Field name="buyer.phoneNumber" type="string" required={false}>
      <Description>
-       The phone number of the contact. This string must be between `0` and `30` characters
+       The phone number of the contact.
            and must not include newline characters.
      </Description>
    </Field>
@@ -263,7 +263,7 @@ An array of sales orders matching the date range.
 
   <Field name="notes[].text" type="string" required={true}>
     <Description>
-      The note text itself. This string must be between `0` and `5000` characters.
+      The note text itself.
     </Description>
   </Field>
 

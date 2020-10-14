@@ -75,7 +75,7 @@ An object containing information needed to create a new end-of-day manifest.
   <Field name="shipments[].trackingNumber" type="string" nullable={false}>
     <Description>
       The master tracking number for the entire shipment. For single-piece shipments, this will be the same as the package tracking number. For multi-piece shipments, this may be a separate tracking number, or the same tracking number as one of the packages.
-      This string will be between `0` and `100` characters and will not contain newline characters.
+      This string will not contain newline characters.
     </Description>
   </Field>
 
@@ -124,7 +124,7 @@ An object that contains confirmation that an end-of-day manifest has been create
 
   <Field name="manifests[].shipments[].trackingNumber" type="string" required={false}>
     <Description>
-      The master tracking number for the entire outbound shipment. For single-piece shipments, this will be the same as the package tracking number. For multi-piece shipments, this may be a separate tracking number, or the same tracking number as one of the packages. This string must be between `0` and `100` characters and must not contain newline characters.
+      The master tracking number for the entire outbound shipment. For single-piece shipments, this will be the same as the package tracking number. For multi-piece shipments, this may be a separate tracking number, or the same tracking number as one of the packages. This string must not contain newline characters.
     </Description>
   </Field>
 
@@ -139,7 +139,7 @@ An object that contains confirmation that an end-of-day manifest has been create
 
   <Field name="manifests[].id" type="string" required={false}>
     <Description>
-      The carrier's manifest ID, if any. This string must be between `0` and `100` characters and must not contain newline characters.
+      The carrier's manifest ID, if any. This string must not contain newline characters.
     </Description>
   </Field>
 
@@ -162,7 +162,7 @@ An object that contains confirmation that an end-of-day manifest has been create
 
   <Field name="manifests[].document.name" type="string" required={false}>
     <Description>
-      The user-friendly name of the document (e.g. "Label", "Customs Form"). This string must be between `0` and `100` characters and must not contain newline characters.
+      The user-friendly name of the document (e.g. "Label", "Customs Form"). This string must not contain newline characters.
     </Description>
   </Field>
 
@@ -222,7 +222,7 @@ An object that contains confirmation that an end-of-day manifest has been create
 
   <Field name="manifests[].notes[].text" type="string" required={true}>
     <Description>
-      The note text itself. This string must be between `0` and `5000` characters.
+      The note text itself.
     </Description>
   </Field>
 
@@ -234,7 +234,7 @@ An object that contains confirmation that an end-of-day manifest has been create
 
   <Field name="manifests[].id" type="string" required={false}>
       <Description>
-        The carrier's manifest ID, if any. This string must be between `0` and `100` characters and must not contain newline characters.
+        The carrier's manifest ID, if any. This string must not contain newline characters.
       </Description>
     </Field>
 
@@ -259,8 +259,7 @@ An object that contains confirmation that an end-of-day manifest has been create
     <Description>
       The master tracking number for the entire shipment. For single-piece shipments, this will be the same as the package
       tracking number. For multi-piece shipments, this may be a separate tracking number,
-      or the same tracking number as one of the packages. This string will be between `0` and `100` characters and will
-      not contain newline characters.
+      or the same tracking number as one of the packages. This string will not contain newline characters.
     </Description>
   </Field>
 
@@ -275,13 +274,13 @@ An object that contains confirmation that an end-of-day manifest has been create
 
   <Field name="notManifested[].code" type="string" required={false}>
     <Description>
-      The carrier's error code. This string must be between `0` and `100` characters and must not contain newline characters.
+      The carrier's error code. This string must not contain newline characters.
     </Description>
   </Field>
 
   <Field name="notManifested[].description" type="string" required={false}>
     <Description>
-      The carrier's description of the error code. This description should not be specific to this particular shipment. This string must be between `0` and `1000` characters and must not contain newline characters.
+      The carrier's description of the error code. This description should not be specific to this particular shipment. This string must not contain newline characters.
     </Description>
   </Field>
 
@@ -302,7 +301,7 @@ An object that contains confirmation that an end-of-day manifest has been create
 
   <Field name="notManifested[].notes[].text" type="string" required={true}>
     <Description>
-      The note text itself. This string must be between `0` and `5000` characters.
+      The note text itself.
     </Description>
   </Field>
 
