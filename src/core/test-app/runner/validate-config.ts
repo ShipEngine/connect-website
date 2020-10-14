@@ -37,6 +37,10 @@ const baseTestParamValidations = {
   timeout: Joi.number().optional(),
 };
 
+const connectionFormTestParamsSchema = Joi.object({
+  connectionFormData: Joi.object().keys().unknown(),
+});
+
 const createShipmentReturnTestParamsSchema = Joi.object({
   ...baseTestParamValidations,
   ...{
@@ -289,6 +293,10 @@ const TrackShipmentReturnSchema = Joi.object({
 });
 
 const testsSchema = Joi.object({
+  connect_all_fields: Joi.alternatives().conditional(Joi.array(), {
+    then: Joi.array().items(connectionFormTestParamsSchema),
+    otherwise: connectionFormTestParamsSchema,
+  }),
   createShipment_return: Joi.alternatives().conditional(Joi.array(), {
     then: Joi.array().items(createShipmentReturnTestParamsSchema),
     otherwise: createShipmentReturnTestParamsSchema,

@@ -7,6 +7,7 @@ import { loadAndValidateConfig, LoadAndValidateConfigError } from "./test-app/ru
 import { logFail, logPass, logStep } from "./utils/log-helpers";
 import { logResults } from "./utils/log-helpers";
 import {
+  ConnectionForm,
   CreateShipmentInternational,
   CreateShipmentDomestic,
   CreateShipmentWithInsurance,
@@ -157,6 +158,7 @@ function registerTestSuiteModules(app: SdkApp): RegisteredTestSuiteModules {
     // cancelPickups: [CancelPickupsTestSuite],
     cancelShipments: [CancelShipmentsSingle, CancelShipmentsMultiple],
     // createManifest: [CreateManifestTestSuite],
+    connectionForm: [ConnectionForm],
     createShipment: [
       CreateShipmentInternational,
       CreateShipmentDomestic,
