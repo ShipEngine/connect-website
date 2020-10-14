@@ -41,6 +41,15 @@ const connectionFormTestParamsSchema = Joi.object({
   connectionFormData: Joi.object().keys().unknown(),
 });
 
+const acknowledgeOrdersTestParamsSchema = Joi.object({
+  notifications: Joi.array().min(1).items(Joi.object({
+      id: Joi.string(),
+      identifiers: Joi.object().keys().unknown(),
+      orderNumber: Joi.string(),
+      importedDate: Joi.string(),
+  })).optional(),
+});
+
 const createShipmentReturnTestParamsSchema = Joi.object({
   ...baseTestParamValidations,
   ...{
@@ -277,6 +286,10 @@ const TrackShipmentReturnSchema = Joi.object({
 });
 
 const testsSchema = Joi.object({
+  acknowledgeOrders: Joi.alternatives().conditional(Joi.array(), {
+    then: Joi.array().items(acknowledgeOrdersTestParamsSchema),
+    otherwise: acknowledgeOrdersTestParamsSchema,
+  }),
   connect_all_fields: Joi.alternatives().conditional(Joi.array(), {
     then: Joi.array().items(connectionFormTestParamsSchema),
     otherwise: connectionFormTestParamsSchema,
