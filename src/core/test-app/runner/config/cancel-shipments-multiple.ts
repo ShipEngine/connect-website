@@ -7,10 +7,10 @@ import {
 
 import { BaseTestConfigOptions } from "./base-test-config-options";
 
-export interface CancelShipmentTestParams {
+export interface ShipmentConfig {
   deliveryServiceName: string;
-  shipFrom?: AddressWithContactInfoPOJO;
-  shipTo?: AddressWithContactInfoPOJO;
+  shipFrom: AddressWithContactInfoPOJO;
+  shipTo: AddressWithContactInfoPOJO;
   weight: {
     value: number;
     unit: WeightUnit;
@@ -19,6 +19,10 @@ export interface CancelShipmentTestParams {
   shipDateTime: DateTimeZonePOJO | Date | string;
 }
 
-export interface CancelShipmentConfigOptions
-  extends CancelShipmentTestParams,
+export interface CancelShipmentsMultipleTestParams {
+  shipments: Array<ShipmentConfig>
+}
+
+export interface CancelShipmentsMultipleConfigOptions
+  extends CancelShipmentsMultipleTestParams,
   BaseTestConfigOptions { }
