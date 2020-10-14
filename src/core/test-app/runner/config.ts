@@ -8,7 +8,8 @@ import { CreateShipmentMultiPackageConfigOptions } from './config/create-shipmen
 import { CreateShipmentWithInsuranceConfigOptions } from './config/create-shipment-insurance';
 import { RateShipmentConfigOptions } from './config/rate-shipment';
 import { RateShipmentWithAllServicesConfigOptions } from './config/rate-shipment-with-all-services';
-import { CancelShipmentConfigOptions } from './config/cancel-shipment';
+import { CancelShipmentsSingleConfigOptions } from './config/cancel-shipments-single';
+import { CancelShipmentsMultipleConfigOptions } from './config/cancel-shipments-multiple';
 import { CreateShipmentReturnConfigOptions } from './config/create-shipment-return';
 import { SameDayPickupConfigOptions } from './config/same-day-pickup';
 import { RateShipmentReturnConfigOptions } from './config/rate-shipment-return';
@@ -19,8 +20,8 @@ import { CancelPickupsSameDayConfigOptions } from './config/cancel-pickups-same-
 
 export interface TestsConfig {
   acknowledgeOrders?: AcknowledgeOrdersConfigOptions;
-  cancelShipment?: CancelShipmentConfigOptions | [CancelShipmentConfigOptions];
-  // createManifest?: TestOptions | [TestOptions];
+  cancelShipments_single?: CancelShipmentsSingleConfigOptions | [CancelShipmentsSingleConfigOptions];
+  cancelShipments_multiple?: CancelShipmentsMultipleConfigOptions | [CancelShipmentsMultipleConfigOptions];
   connectionForm?: ConnectionFormConfigOptions;
   createShipment_domestic?:
   | CreateShipmentDomesticConfigOptions
@@ -40,8 +41,6 @@ export interface TestsConfig {
   trackReturnShipment?: TrackShipmentReturnConfigOptions | [TrackShipmentReturnConfigOptions];
 
   cancelPickups_same_day?: CancelPickupsSameDayConfigOptions | [CancelPickupsSameDayConfigOptions];
-  // createShipment_multi_package?: TestOptions | [TestOptions];
-  // rateShipmentWithOneService?: RateShipmentConfigOptions | [RateShipmentConfigOptions];
 }
 
 export default interface Config {

@@ -1,6 +1,11 @@
 import Config from "./test-app/runner/config";
 import Runner from "./test-app/runner";
 import loadAndValidateApp, { isInvalidAppError } from "./load-and-validate-app";
+import { SdkApp } from "./types";
+import { TestResults, useTestResults } from "./test-app/runner/test-results";
+import { loadAndValidateConfig, LoadAndValidateConfigError } from "./test-app/runner/load-and-validate-config";
+import { logFail, logPass, logStep } from "./utils/log-helpers";
+import { logResults } from "./utils/log-helpers";
 import {
   AcknowledgeOrders,
   ConnectionForm,
@@ -13,18 +18,14 @@ import {
   TrackShipment, 
   CancelPickupsNextDay,
   TrackShipmentReturn,
+  RateShipmentWithAllServices,
+  CancelShipmentsSingle,
+  CancelShipmentsMultiple,
+  CancelPickupsSameDay,
   SameDayPickup,
   NextDayPickup,
-  CancelPickupsSameDay,
   RateShipmentReturn,
-  CancelShipment,
-  RateShipmentWithAllServices
 } from "./test-app/tests";
-import { SdkApp } from "./types";
-import { TestResults, useTestResults } from "./test-app/runner/test-results";
-import { loadAndValidateConfig, LoadAndValidateConfigError } from "./test-app/runner/load-and-validate-config";
-import { logFail, logPass, logStep } from "./utils/log-helpers";
-import { logResults } from "./utils/log-helpers";
 
 export const TestAppErrors = LoadAndValidateConfigError;
 
@@ -156,7 +157,7 @@ type RegisteredTestSuiteModules = object[];
 function registerTestSuiteModules(app: SdkApp): RegisteredTestSuiteModules {
   const carrierAppMethods = {
     // cancelPickups: [CancelPickupsTestSuite],
-    cancelShipments: [CancelShipment],
+    cancelShipments: [CancelShipmentsSingle, CancelShipmentsMultiple],
     // createManifest: [CreateManifestTestSuite],
     connectionForm: [ConnectionForm],
     createShipment: [
