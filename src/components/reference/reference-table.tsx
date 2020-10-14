@@ -47,9 +47,32 @@ export function ReferenceTable({ nameHeading, fields }: ReferenceTableProps) {
 
 
 function ReferenceTableRow(field: FieldProps) {
+
+  let nameSplit = [field.name];
+  
+  /**
+   * Long field names can cause overflow/hidden issues in the description fields.
+   * If the name is longer than 25 characters then split and wrap along the '.' delimiter
+   */
+  if (field.name && field.name.length > 25) {
+    nameSplit = field.name.split(".");
+  }
+
   return (
     <tr key={field.name}>
-      {field.name && <td><code>{field.name}</code></td>}
+      {field.name && <td>
+        <code className={styles.preLine}>
+          {nameSplit.map((item, index) => {
+            if (index === nameSplit.length - 1) {
+              return <span key={index}>{item}</span>
+            }
+            return (
+              <span key={index}>
+                {`${item}\n`} &nbsp; {"."}
+              </span>
+            );
+          })}
+        </code></td>}
       {field.type && <td>{field.type}</td>}
       {field.required !== undefined && <td className="centered">{field.required ? "✔" : ""}</td>}
       {field.nullable !== undefined && <td className="centered">{field.nullable ? "✔" : ""}</td>}
