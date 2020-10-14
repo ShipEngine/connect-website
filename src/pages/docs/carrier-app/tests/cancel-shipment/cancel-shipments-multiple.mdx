@@ -228,7 +228,8 @@ Any parameters you don't override will use their default values.
 Customizing Parameters
 ------------------------------
 Here's an example of using the [`connect.config.js` file](./../../../testing/config.mdx) to customize the `cancelShipments_multiple` test.
-This example provides values for all parameters and uses the global `connectArgs` and `timeout` parameters.
+This example provides values for all parameters and uses the global `connectArgs` and `timeout` parameters. When you specify new `shipments` you must at least specify two or more 
+or the automated tests will throw an error.
 
 ```javascript
 module.exports = {
@@ -241,6 +242,45 @@ module.exports = {
   tests: {
     cancelShipments_multiple: {
       shipments: [
+        {
+          deliveryServiceName: 'International Overnight',
+          shipFrom: {
+            name: 'John Doe',
+            phoneNumber: '111-111-1111',
+            company: 'Example Corp.',
+            addressLines: [
+              '4009 Marathon Blvd',
+              'Suite 300'
+            ],
+          cityLocality: 'Austin',
+          stateProvince: 'TX',
+          postalCode: '78756',
+          country: 'US',
+          isResidential: false
+          },
+          shipTo: {
+            name: 'Amanda Miller',
+            phoneNumber: '555-555-5555',
+            addressLines: [
+              '525 S Winchester Blvd'
+            ],
+            cityLocality: 'San Jose',
+            stateProvince: 'CA',
+            postalCode: '95128',
+            country: 'US',
+          },
+          weight: {
+            value: 10,
+            unit: 'lb',
+          },
+          dimensions: {
+            width: 10,
+            height: 10,
+            length: 10,
+            unit: 'in'
+          },
+          shipDateTime: '2020-04-15T12:00:00-05:00'
+        },
         {
           deliveryServiceName: 'International Overnight',
           shipFrom: {
