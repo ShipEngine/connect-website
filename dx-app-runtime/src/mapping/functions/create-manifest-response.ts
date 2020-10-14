@@ -3,9 +3,9 @@ import { Manifest, ManifestConfirmation } from '@shipengine/connect-sdk/lib/inte
 import { Transaction } from '@shipengine/connect-sdk';
 import { Manifest as CapiManifest } from "@ipaas/capi/models/manifest";
 
-const mapManifest = (manifest: Manifest): CapiManifest => {
+export const mapManifest = (manifest: Manifest): CapiManifest => {
   return {
-    manifest_id: manifest.id || '',
+    manifest_id: manifest.id,
     document_download: {
       data: manifest.document?.data?.toString('base64') || '',
       href: '' // TODO CAPI: Make this Optional
@@ -17,7 +17,10 @@ const mapManifest = (manifest: Manifest): CapiManifest => {
 
 export const mapCreateManifestResponse = (response: ManifestConfirmation, transaction: Transaction) : CreateManifestResponse => {
   return {
-    transaction_id: transaction.id || '',
-    manifests: response.manifests.map(mapManifest)
+    transaction_id: transaction.id,
+    manifests: response.manifests.map(mapManifest),
+    metadata: {
+      ...transaction.session
+    }
   }
 }

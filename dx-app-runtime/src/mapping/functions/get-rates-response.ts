@@ -1,7 +1,6 @@
 import { GetRatesResponse } from '@ipaas/capi/responses';
 import {
   Transaction,
-  ChargeType,
 } from '@shipengine/connect-sdk';
 import {
   Rate,
@@ -9,53 +8,27 @@ import {
 
 import { Rate as capiRate } from '@ipaas/capi/responses';
 import { mapDateTime } from './datetime';
+import { confirmationChargeFilter, insuranceChargeFilter, otherChargeFilter, shippingChargeFilter, getTotalCosts } from '.';
+
+
 
 export const mapRate = (rate: Rate): capiRate => {
-  const shippingAmount = rate.charges.find(
-    (rate) => rate.type === ChargeType.Shipping
-  );
-  const confirmationAmount = rate.charges.find(
-    (rate) => rate.type === ChargeType.DeliveryConfirmation
-  );
-  const insuranceAmount = rate.charges.find(
-    (rate) => rate.type === ChargeType.Insurance
-  );
-  const otherAmount = rate.charges.find(
-    (rate) => rate.type === ChargeType.Uncategorized
-  );
+  const shippingAmount = getTotalCosts(rate.charges.filter(shippingChargeFilter));
+  const confirmationAmount = getTotalCosts(rate.charges.filter(confirmationChargeFilter));
+  const insuranceAmount = getTotalCosts(rate.charges.filter(insuranceChargeFilter));
+  const otherAmount = getTotalCosts(rate.charges.filter(otherChargeFilter));
+
   const returnRate: capiRate = {
-    service_code: rate?.deliveryService?.code || '',
-    shipping_amount: {
-      currency: shippingAmount?.amount?.currency || 'USD',
-      amount: shippingAmount?.amount?.value?.toString() || '0.00',
-    },
-    confirmation_amount: {
-      currency: confirmationAmount?.amount.currency || 'USD',
-      amount: confirmationAmount?.amount.value.toString() || '0.00',
-    },
-    insurance_amount: {
-      currency: insuranceAmount?.amount?.currency || 'USD',
-      amount: insuranceAmount?.amount?.value?.toString() || '0.00',
-    },
-    other_amount: {
-      currency: otherAmount?.amount?.currency || 'USD',
-      amount: otherAmount?.amount?.value?.toString() || '0.00',
-    },
+    service_code: rate.deliveryService?.code,
+    shipping_amount: shippingAmount,
+    confirmation_amount: confirmationAmount,
+    insurance_amount: insuranceAmount,
+    other_amount: otherAmount,
     error_messages: [], // There is nothing that maps to this
     negotiated_rate: rate.isNegotiatedRate,
   };
   returnRate.ship_datetime = mapDateTime(rate.shipDateTime);
-  returnRate.estimated_delivery_datetime =  mapDateTime(rate.deliveryDateTime);
-  if (rate.notes) {
-    if (Array.isArray(rate.notes)) {
-      rate.notes.map((note) =>
-        typeof note === 'string' ? note : `${note.type} ${note.text}`
-      ); // It is either going to be an array of strings or an array of objects.
-    } else {
-      // It is a string
-      returnRate.warning_messages = []; // TODO: Do we need Warnings?
-    }
-  }
+  returnRate.estimated_delivery_datetime = mapDateTime(rate.deliveryDateTime);
   return returnRate;
 };
 

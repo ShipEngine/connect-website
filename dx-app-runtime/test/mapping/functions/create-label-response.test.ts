@@ -1,63 +1,6 @@
-import { ChargeType, DocumentFormat, DocumentSize, DocumentType } from '@shipengine/connect';
+import { DocumentFormat, DocumentSize, DocumentType } from '@shipengine/connect';
 import { ShipmentConfirmation } from '@shipengine/connect/lib/internal/carriers';
-import { Charge } from '@shipengine/connect/lib/internal/common';
-import { mapCreateLabelResponse, insuranceChargeFilter, shippingChargeFilter, getTotalCosts, mapDateTime } from '../../../src/mapping/functions';
-
-const insuranceCharges: readonly Charge[] = [
-    {
-        amount: {
-            currency: 'USD',
-            value: 244.53
-        },
-        type: ChargeType.Insurance,
-        name: 'Insurance 1'
-    },
-    {
-        amount: {
-            currency: 'USD',
-            value: 245.3
-        },
-        type: ChargeType.Insurance,
-        name: 'Insurance 2'
-    }
-]
-
-const otherCharges: readonly Charge[] = [
-    {
-        amount: {
-            currency: 'USD',
-            value: 244.53
-        },
-        type: ChargeType.LocationFee,
-        name: 'Location Fee'
-    },
-    {
-        amount: {
-            currency: 'USD',
-            value: 245.3
-        },
-        type: ChargeType.Shipping,
-        name: 'Shipping'
-    },
-    {
-        amount: {
-            currency: 'USD',
-            value: 245.3
-        },
-        type: ChargeType.SpecialGoods,
-        name: 'Special Goods'
-    },
-    {
-        amount: {
-            currency: 'USD',
-            value: 245.3
-        },
-        type: ChargeType.Tax,
-        name: 'Tax'
-    }
-]
-
-const charges: readonly Charge[] = [...insuranceCharges, ...otherCharges];
+import { mapCreateLabelResponse, mapDateTime } from '../../../src/mapping/functions';
 
 const shipmentWithoutForm = new ShipmentConfirmation({
     charges: [],
@@ -93,14 +36,6 @@ const shipmentWithForm = new ShipmentConfirmation({
 
 
 describe('Create Label Response', () => {
-    describe('when we have a list of charges of various types', () => {
-        it('the insurance charge filter only returns a list of charges that have a type of Insurance', () => expect(charges.filter(insuranceChargeFilter)).toEqual(insuranceCharges));
-        it('the shipping charge filter returns a list of all charges other than Insurance charges', () => expect(charges.filter(shippingChargeFilter)).toEqual(otherCharges));
-        it('the getTotalCosts properly sums and combines the totals into a new Currency type', () => expect(getTotalCosts(charges)).toEqual({ amount: '1470.26', currency: 'USD' }));
-        it('the getTotalCharges method should return undefined if the charges array was empty', () => expect(getTotalCosts([])).toEqual(undefined));
-        it('the getTotalCharges method should return undefined if the charges array was undefined', () => expect(getTotalCosts(undefined)).toEqual(undefined));
-    });
-
     describe('when we map the Create Label Response with only a label', () => {
         const response = mapCreateLabelResponse({id: 'Id' }, shipmentWithoutForm);
         it('it should map transaction_id correctly', () => expect(response.transaction_id).toEqual('Id'));

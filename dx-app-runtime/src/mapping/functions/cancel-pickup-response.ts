@@ -15,10 +15,11 @@ export const mapCancelPickupResponse = (
   transaction: TransactionPOJO
 ): CancelPickupResponse => {
   return {
-    confirmation_id: response.confirmationNumber || '',
+    confirmation_id: response.confirmationNumber,
     successful: response.status === CancellationStatus.Success,
-    status: response.notes?.toString() || '',
+    status: response.description,
     custom_properties: {
+      carrier_code: response.code
     },
     metadata: {
       ...transaction.session,

@@ -1,7 +1,6 @@
 import { CancelPickupRequest } from '@ipaas/capi/requests';
 import {
   PickupCancellationReason,
-  TimeRangePOJO,
   NoteType,
 } from '@shipengine/connect-sdk';
 import {
@@ -9,21 +8,18 @@ import {
 } from '@shipengine/connect-sdk/lib/internal';
 import {
   CancellationReason,
-  PickupWindow,
   Identifier as capiIdentifier,
 } from '@ipaas/capi/models';
-import { mapAddress } from './address';
-import mapContact from './pickup-contact';
-import { mapPickupShipment } from './shipped-shipment';
+import { mapAddress, mapPickupContact, mapPickupShipment, mapTimeWindow } from '.';
 
-const mapIdentifier = (result: any, identifier: capiIdentifier): any => {
+export const identifierReducer = (result: any, identifier: capiIdentifier): any => {
   if (identifier.value && identifier.type) {
-    result[identifier.value] = identifier.type;
+    result[identifier.type] = identifier.value;
   }
   return result;
 };
 
-const mapCancellationReason = (
+export const mapCancellationReason = (
   reason: CancellationReason | null | undefined
 ): PickupCancellationReason => {
   switch (reason) {
@@ -40,47 +36,25 @@ const mapCancellationReason = (
   }
 };
 
-const mapPickupWindow = (
-  pickupWindow: PickupWindow | null | undefined
-): TimeRangePOJO => {
-  const startTime = pickupWindow?.start_time || '';
-  const endTime = pickupWindow?.end_time || '';
-  return {
-    startDateTime: {
-      value: startTime || '',
-      timeZone: pickupWindow?.time_zone_iana || '',
-    },
-    endDateTime: {
-      value: endTime,
-      timeZone: pickupWindow?.time_zone_iana || '',
-    },
-  };
-};
-
 export const mapCancelPickupRequest = (
   request: CancelPickupRequest
 ): PickupCancellationPOJO => {
   return {
-    cancellationID: request.transaction_id || '',
+    cancellationID: request.transaction_id,
     id: request.confirmation?.confirmation_id || '',
-    pickupService: {
-      id: request.pickup_details?.pickup_service_code || '',
-    },
+    pickupService: request.pickup_details?.pickup_service_code || '',
     identifiers:
-      request.confirmation?.alternate_identifiers?.reduce(mapIdentifier, {}) ||
+      request.confirmation?.alternate_identifiers?.reduce(identifierReducer, {}) ||
       undefined,
-    reason: mapCancellationReason(request.cancellation_details?.reason || CancellationReason.Other),
+    reason: mapCancellationReason(request.cancellation_details?.reason),
     notes: [{
       type: NoteType.Internal,
       text: request.cancellation_details?.remarks || '',
     }],
-    address: mapAddress(
-      request.location?.pickup_address
-    ),
-    contact: mapContact(request.contact),
-    timeWindows: request.pickup_windows?.map(mapPickupWindow) || [],
-    shipments:
-      request.pickup_details?.shipments?.map(mapPickupShipment) || [],
+    address: mapAddress(request.location?.pickup_address),
+    contact: mapPickupContact(request.contact),
+    timeWindows: request.pickup_windows?.map(mapTimeWindow) || [],
+    shipments: request.pickup_details?.shipments?.map(mapPickupShipment) || [],
     metadata: request.custom_properties || {},
   };
 };
