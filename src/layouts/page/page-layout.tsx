@@ -12,7 +12,7 @@ export default function PageLayout(props: PageLayoutProps) {
   const { children } = props;
 
   return (
-    <BaseLayout hidden={true} {...props}>
+    <BaseLayout {...props}>
       <Header/>
       <div id="page-background">
         { children }
