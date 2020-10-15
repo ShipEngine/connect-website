@@ -1,7 +1,7 @@
 import { CustomsItem } from '@ipaas/capi';
 import { mapCustomsItem } from '../../../src/mapping/functions/';
 
-const defaultCustomsItem = { "description": "", "harmonizedTariffCode": "", "quantity": { "value": 1 }, "sku": "", "type": "other", "unitValue": { "currency": "", "value": 0 } };
+const defaultCustomsItem = { "description": "", "harmonizedTariffCode": "", "quantity": { "value": 1 }, "sku": "", "type": "other", "unitValue": { "currency": "USD", "value": 0 } };
 
 const capiCustomsItem: CustomsItem = {
     country_of_origin: 'US',

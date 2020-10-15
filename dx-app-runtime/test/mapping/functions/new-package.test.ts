@@ -1,6 +1,6 @@
 import { InsuranceProvider, Currency, Package, DimensionUnit, WeightUnit, Customs, NonDelivery, AdvancedShippingOptions } from '@ipaas/capi';
 import { DocumentFormat, DocumentSize, NonDeliveryOption } from '@shipengine/connect';
-import { mapCustomsPOJO, mapInsuredValue, mapNewLabelPOJO, mapNewPackage, mapNonDeliveryOption } from '../../../src/mapping/functions';
+import { mapCustomsPOJO, mapInsuredValue, mapNewLabelPOJO, mapNewPackage, mapNonDeliveryOption, nonEmptyCustomsItemsFilter } from '../../../src/mapping/functions';
 
 const validCurrency: Currency = {
     amount: '200.24',
@@ -144,7 +144,7 @@ describe('New Package', () => {
 
     describe('Customs Maps Properly', () => {
         it('it should be undefined when the customs item is undefined.', () => expect(mapCustomsPOJO()).toEqual(undefined));
-        it('it should have an undefined contents when the customs has no customs items.', () => expect(mapCustomsPOJO(customsWithNoItems)?.contents).not.toEqual(undefined));
+        it('it should map to undefined if no items are present', () => expect(mapCustomsPOJO(customsWithNoItems)).toEqual(undefined));
         describe('when it has a full customs item', () => {
             const result = mapCustomsPOJO(customs);
             it('it should map non delivery options properly', () => expect(result?.nonDeliveryOption).toEqual('return'));
@@ -158,5 +158,16 @@ describe('New Package', () => {
         it('it maps nothing to contents because that does not exist in capi', () => expect(result.contents).toEqual(undefined));
         it('it maps isNonMachinable correctly', () => expect(result.isNonMachinable).toEqual(true));
         it('it maps packaging correctly', () => expect(result.packaging).toEqual('packageCode'));
+    });
+
+    describe('nonEmptyCustomsItemsFilter', () => {
+        it('the filter should return false when the item is undefined', () => expect(nonEmptyCustomsItemsFilter(undefined)).toEqual(false));
+        it('the filter should return false when the item is an empty object', () => expect(nonEmptyCustomsItemsFilter({})).toEqual(false));
+        it('the filter should return false when quantity is 0', () => expect(nonEmptyCustomsItemsFilter({ quantity: 0 })).toEqual(false));
+        it('the filter should return true when description is specified', () => expect(nonEmptyCustomsItemsFilter({ description: 'value' })).toEqual(true));
+        it('the filter should return true when harmonized_tariff_code is specified', () => expect(nonEmptyCustomsItemsFilter({ harmonized_tariff_code: 'value' })).toEqual(true));
+        it('the filter should return true when quantity is greater than 0', () => expect(nonEmptyCustomsItemsFilter({ quantity: 1 })).toEqual(true));
+        it('the filter should return true when sku is specified', () => expect(nonEmptyCustomsItemsFilter({ sku: 'value' })).toEqual(true));
+        it('the filter should return true when sku_description is specified', () => expect(nonEmptyCustomsItemsFilter({ sku_description: 'value' })).toEqual(true));
     });
 })

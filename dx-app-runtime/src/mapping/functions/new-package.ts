@@ -7,7 +7,8 @@ import {
     InsuranceProvider,
     Currency,
     LabelMessages,
-    NonDelivery} from '@ipaas/capi/models';
+    NonDelivery,
+    CustomsItem} from '@ipaas/capi/models';
   import {
     CustomsPOJO,
     DocumentFormat,
@@ -58,8 +59,20 @@ export const mapNonDeliveryOption = (option?: NonDelivery): NonDeliveryOption | 
   }
 }
 
+export const nonEmptyCustomsItemsFilter = (item?: CustomsItem | null) => {
+  if(!item) {
+    return false;
+  }
+  return Boolean(item.description) || Boolean(item.harmonized_tariff_code) || Boolean(item.quantity) || Boolean(item.sku) || Boolean(item.sku_description);
+};
+
+const customsExist = (customs: Customs): boolean => {
+  const filledOutCustomsItems = customs.customs_items.filter(nonEmptyCustomsItemsFilter);
+  return filledOutCustomsItems.length > 0;
+}
+
 export const mapCustomsPOJO = (customs?: Customs): CustomsPOJO | undefined => {
-  if(!customs) {
+  if(!customs || !customsExist(customs)) {
     return undefined;
   }
   const customsItems = customs.customs_items.filter(p => p) as CapiCustomsItem[];
@@ -76,7 +89,6 @@ export const mapNewPackage = (
     documentFormat: DocumentFormat,
     documentSize: DocumentSize,
     insuranceProvider?: InsuranceProvider): NewPackagePOJO => {
-    
     const mappedPackage: NewPackagePOJO = {
       customs: mapCustomsPOJO(customs),
       packaging: capiPackage.package_code || '',

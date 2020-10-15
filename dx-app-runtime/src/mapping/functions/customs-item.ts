@@ -8,7 +8,7 @@ import { mapQuantity, mapCurrency } from './';
 
 const defaultUnitValue = {
   value: 0,
-  currency: ''
+  currency: 'USD'
 }
 
 export const mapCustomsItem = (customsItem: CapiCustomsItem | undefined): CustomsItem => {
