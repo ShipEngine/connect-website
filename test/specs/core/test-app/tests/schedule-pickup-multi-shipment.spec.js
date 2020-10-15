@@ -6,7 +6,21 @@ const { CarrierApp } = require("@shipengine/connect-sdk/lib/internal/carriers/ca
 const pojo = require("../../../../utils/pojo");
 const { expect } = require("chai");
 
-describe.only("The schedule pickup multi shipment test suite", () => {
+describe("The schedule pickup multi shipment test suite", () => {
+
+  describe("when there is no pickup service defined in the app", () => {
+    it("should not generate tests", () => {
+      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+      appDefinition.pickupServices = [];
+
+      const app = new CarrierApp(appDefinition);
+      const args = { app, connectArgs, staticConfigTests, options };
+      const testSuite = new SchedulePickupMultiShipment(args);
+
+      const tests = testSuite.tests();
+      expect(tests.length).to.equal(0);
+    });
+  });
 
   describe("when there is no address available for the delivery service", () => {
     it("should not generate tests", () => {

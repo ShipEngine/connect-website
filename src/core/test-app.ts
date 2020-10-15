@@ -23,6 +23,7 @@ import {
   CancelPickupsSameDay,
   SchedulePickupSameDay,
   SchedulePickupNextDay,
+  SchedulePickupMultiShipment,
   RateShipmentReturn,
 } from "./test-app/tests";
 
@@ -167,7 +168,7 @@ function registerTestSuiteModules(app: SdkApp): RegisteredTestSuiteModules {
       CreateShipmentReturn
     ],
     cancelPickups: [CancelPickupsSameDay, CancelPickupsNextDay],
-    schedulePickup: [SchedulePickupSameDay, SchedulePickupNextDay],
+    schedulePickup: [SchedulePickupSameDay, SchedulePickupNextDay, SchedulePickupMultiShipment],
     rateShipment: [
       RateShipment,
       RateShipmentWithAllServices,

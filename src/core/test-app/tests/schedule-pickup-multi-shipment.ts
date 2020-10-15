@@ -1,5 +1,3 @@
-/* eslint-disable complexity */
-
 import { PickupService, LengthUnit, WeightUnit, DeliveryService } from "@shipengine/connect-sdk";
 import { CarrierApp, PickupRequestPOJO, PickupShipmentPOJO, PickupPackagePOJO } from "@shipengine/connect-sdk/lib/internal";
 import Suite from "../runner/suite";
@@ -64,77 +62,74 @@ export class SchedulePickupMultiShipment extends Suite {
     }
 
     const defaults: SchedulePickupMultiShipmentConfigOptions = { shipments: [] };
-    const shipmentNumber = config.shipments && config.shipments.length || 2;
-    if (config.shipments) {
+    const shipmentNumber = config.shipments.length || 2;
 
-      if (config.shipments.length === 1) {
-        throw new Error("connect.config.js shipments must contain two or more shipments");
-      }
+    if (config.shipments.length === 1) {
+      throw new Error("connect.config.js shipments must contain two or more shipments");
+    }
 
+    const { todayEarly, todayEvening } = initializeTimeStamps();
 
-      const { todayEarly, todayEvening } = initializeTimeStamps();
+    // Generate the potential user overrides 
+    for (let i = 0; i < shipmentNumber; i++) {
+      const deliveryServiceName = config.shipments[i] && config.shipments[i].deliveryServiceName || "";
+      const deliveryService = this.setDeliveryService(deliveryServiceName);
 
-      // Genereate the potential user overrides 
-      for (let i = 0; i < shipmentNumber; i++) {
-        const deliveryServiceName = config.shipments[i] && config.shipments[i].deliveryServiceName || "";
-        const deliveryService = this.setDeliveryService(deliveryServiceName);
+      const [shipFrom, shipTo] = useShipmentAddresses(deliveryService);
 
-        const [shipFrom, shipTo] = useShipmentAddresses(deliveryService);
+      if (!shipTo || !shipFrom) return undefined;
 
-        if (!shipTo || !shipFrom) return undefined;
+      const address = buildAddress(`${shipFrom.country}-from`);
 
-        const address = buildAddress(`${shipFrom.country}-from`);
+      defaults.pickupServiceName = this.pickupService.name;
+      defaults.address = address;
+      defaults.contact = { name: "John Doe" };
+      defaults.timeWindow = {
+        startDateTime: todayEarly,
+        endDateTime: todayEvening
+      };
 
-        defaults.pickupServiceName = this.pickupService.name;
-        defaults.address = address;
-        defaults.contact = { name: "John Doe" };
-        defaults.timeWindow = {
-          startDateTime: todayEarly,
-          endDateTime: todayEvening
-        };
-
-        defaults.shipments && defaults.shipments.push({
-          deliveryServiceName: deliveryService.name,
-          packages: [
-            {
-              packagingName: deliveryService.packaging[0].name,
-              weight: {
-                unit: WeightUnit.Pounds,
-                value: 50.0,
-              },
-              dimensions: {
-                length: 12,
-                width: 12,
-                height: 12,
-                unit: LengthUnit.Inches
-              }
+      defaults.shipments && defaults.shipments.push({
+        deliveryServiceName: deliveryService.name,
+        packages: [
+          {
+            packagingName: deliveryService.packaging[0].name,
+            weight: {
+              unit: WeightUnit.Pounds,
+              value: 50.0,
+            },
+            dimensions: {
+              length: 12,
+              width: 12,
+              height: 12,
+              unit: LengthUnit.Inches
             }
-          ]
-        });
-      }
-
+          }
+        ]
+      });
     }
 
     if (defaults.shipments && defaults.shipments.length === 0) {
       return undefined;
     }
 
-    const testParams: SchedulePickupMultiShipmentTestParams = { 
+    // Merge the top level properties
+    const testParams: SchedulePickupMultiShipmentTestParams = {
       pickupServiceName: config.pickupServiceName || defaults.pickupServiceName,
       address: config.address || defaults.address,
       contact: config.contact || defaults.contact,
       timeWindow: config.timeWindow || defaults.timeWindow,
-      shipments: [] 
+      shipments: []
     };
 
+    // Merge the individual shipments array
     for (let i = 0; i < shipmentNumber; i++) {
-
-      if(config.shipments && config.shipments[i]) {
+      if (config.shipments[i]) {
         const reduced = reduceDefaultsWithConfig<
           PickupShipmentConfig
         >(defaults.shipments[i], config.shipments[i]);
         testParams.shipments.push(reduced);
-      
+
       }
       else {
         testParams.shipments.push(defaults.shipments[i]);
