@@ -15,8 +15,11 @@ export interface PageProps {
 export function SEO({ hidden, url }: PageProps) {
   return <>
     {hidden
-      ? <meta name="robots" content="noindex" />
-      : <meta name="robots" content="index, follow" />
+      ? <meta name="robots" content="noindex, nofollow" />
+      : <>
+        <meta name="robots" content="noindex, nofollow" />
+        <meta name="st:robots" content="follow, index" />
+      </>
     }
     <link rel="canonical" href={url.href} />
   </>;
