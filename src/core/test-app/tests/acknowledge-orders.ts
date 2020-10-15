@@ -6,6 +6,7 @@ import {
 } from "../runner/config/acknowledge-orders";
 import reduceDefaultsWithConfig from '../utils/reduce-defaults-with-config';
 import objectToTestTitle from '../utils/object-to-test-title';
+import { initializeTimeStamps } from "../../utils/time-stamps";
 import Test from '../runner/test';
 import { v4 } from 'uuid';
 
@@ -22,6 +23,7 @@ export class AcknowledgeOrders extends Suite {
     config: AcknowledgeOrdersConfigOptions,
   ): TestArgs | undefined {
 
+    const { todayEvening } = initializeTimeStamps();
     // Parse and Set Sensible defaults, merge in connects args
     const notifications: SalesOrderNotificationPOJO[] = [
     	{
@@ -30,7 +32,7 @@ export class AcknowledgeOrders extends Suite {
     			id: 'lksldm',
     		},
     		orderNumber: "987987987",
-  			importedDate: "2005-09-23T17:30:00+05:30",
+  			importedDate: todayEvening,
     	}
     ];
     const defaults = {
