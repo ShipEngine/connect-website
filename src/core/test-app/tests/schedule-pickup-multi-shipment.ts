@@ -1,3 +1,5 @@
+/* eslint-disable complexity */
+
 import { PickupService, LengthUnit, WeightUnit, DeliveryService } from "@shipengine/connect-sdk";
 import { CarrierApp, PickupRequestPOJO, PickupShipmentPOJO, PickupPackagePOJO } from "@shipengine/connect-sdk/lib/internal";
 import Suite from "../runner/suite";
@@ -58,9 +60,7 @@ export class SchedulePickupMultiShipment extends Suite {
     if (!this.pickupService) return undefined;
 
     if (!Array.isArray(config.shipments)) {
-      config = {
-        shipments: []
-      };
+      config.shipments = [];
     }
 
     const defaults: SchedulePickupMultiShipmentConfigOptions = { shipments: [] };
@@ -120,10 +120,10 @@ export class SchedulePickupMultiShipment extends Suite {
     }
 
     const testParams: SchedulePickupMultiShipmentTestParams = { 
-      pickupServiceName: defaults.pickupServiceName,
-      address: defaults.address,
-      contact: defaults.contact,
-      timeWindow: defaults.timeWindow,
+      pickupServiceName: config.pickupServiceName || defaults.pickupServiceName,
+      address: config.address || defaults.address,
+      contact: config.contact || defaults.contact,
+      timeWindow: config.timeWindow || defaults.timeWindow,
       shipments: [] 
     };
 

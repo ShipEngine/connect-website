@@ -23,7 +23,7 @@ describe.only("The schedule pickup multi shipment test suite", () => {
     });
   });
 
-  describe.only("when there is a delivery service with an available address", () => {
+  describe("when there is a delivery service with an available address", () => {
 
     let testSuite;
     beforeEach(() => {
@@ -55,35 +55,75 @@ describe.only("The schedule pickup multi shipment test suite", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       const app = new CarrierApp(appDefinition);
 
-      staticConfigTests.schedulePickup_same_day = {
+      staticConfigTests.schedulePickup_multi_shipment = {
         contact: { name: "Jane Doe" },
-        shipments: [{
-          deliveryServiceName: "Dummy Delivery Service",
-          packages: [
-            {
-              packagingName: "Dummy Packaging",
-              dimensions: {
-                length: 5,
-                width: 5,
-                height: 5,
-                unit: "in"
-              },
-              weight: {
-                value: 1,
-                unit: "lb"
+        shipments: [
+          {
+            deliveryServiceName: "Dummy Delivery Service",
+            packages: [
+              {
+                packagingName: "Dummy Packaging",
+                dimensions: {
+                  length: 5,
+                  width: 5,
+                  height: 5,
+                  unit: "in"
+                },
+                weight: {
+                  value: 1,
+                  unit: "lb"
+                }
               }
-            }
-          ]
-        }]
-
+            ]
+          },
+          {
+            deliveryServiceName: "Dummy Delivery Service",
+            packages: [
+              {
+                packagingName: "Dummy Packaging",
+                dimensions: {
+                  length: 5,
+                  width: 5,
+                  height: 5,
+                  unit: "in"
+                },
+                weight: {
+                  value: 1,
+                  unit: "lb"
+                }
+              }
+            ]
+          },
+          {
+            deliveryServiceName: "Dummy Delivery Service",
+            packages: [
+              {
+                packagingName: "Dummy Packaging",
+                dimensions: {
+                  length: 5,
+                  width: 5,
+                  height: 5,
+                  unit: "in"
+                },
+                weight: {
+                  value: 1,
+                  unit: "lb"
+                }
+              }
+            ]
+          }
+        ]
       };
 
       const args = { app, connectArgs, staticConfigTests, options };
       const testSuite = new SchedulePickupMultiShipment(args);
       const tests = testSuite.tests();
 
+      expect(tests[0].title).to.include("shipments: 3");
       expect(tests[0].title).to.include("contact: Jane Doe");
-      expect(tests[0].title).to.include("deliveryServiceName: Dummy Delivery Service");
+      expect(tests[0].methodArgs.shipments[0].deliveryService.name).to.equal("Dummy Delivery Service");
+      expect(tests[0].methodArgs.shipments[1].deliveryService.name).to.equal("Dummy Delivery Service");
+      expect(tests[0].methodArgs.shipments[2].deliveryService.name).to.equal("Dummy Delivery Service");
     });
   });
 
@@ -93,7 +133,7 @@ describe.only("The schedule pickup multi shipment test suite", () => {
     beforeEach(() => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       const app = new CarrierApp(appDefinition);
-      staticConfigTests.schedulePickup_same_day =
+      staticConfigTests.schedulePickup_multi_shipment =
         [
           {
             contact: { name: "Jane Doe" }
@@ -116,10 +156,10 @@ describe.only("The schedule pickup multi shipment test suite", () => {
     it("should update the test titles", () => {
 
       expect(tests[0].title).to.include("contact: Jane Doe");
-      expect(tests[0].title).to.include("deliveryServiceName: Dummy Delivery Service");
+      expect(tests[0].methodArgs.shipments[0].deliveryService.name).to.equal("Dummy Delivery Service");
 
       expect(tests[1].title).to.include("contact: Doe Jane");
-      expect(tests[1].title).to.include("deliveryServiceName: Dummy Delivery Service");
+      expect(tests[1].methodArgs.shipments[0].deliveryService.name).to.equal("Dummy Delivery Service");
 
     });
   });
@@ -128,20 +168,34 @@ describe.only("The schedule pickup multi shipment test suite", () => {
     it("should throw an error", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       const app = new CarrierApp(appDefinition);
-      staticConfigTests.schedulePickup_same_day = {
+      staticConfigTests.schedulePickup_multi_shipment = {
         pickupServiceName: "asdf"
       };
 
       const args = { app, connectArgs, staticConfigTests, options };
       const testSuite = new SchedulePickupMultiShipment(args);
 
-      try {
-        testSuite.tests();
-        expect(true).to.equal(false);
-      }
-      catch (error) {
-        expect(error.message).to.include("pickupServiceName: 'asdf' does not exist");
-      }
+      expect(() => testSuite.tests()).to.throw("pickupServiceName: 'asdf' does not exist");
+
+    });
+  });
+
+  describe("When a user configures only one shipment", () => {
+    it("should throw an error", () => {
+      const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+      const app = new CarrierApp(appDefinition);
+      staticConfigTests.schedulePickup_multi_shipment = {
+        shipments: [
+          {
+            deliveryServiceName: "Dummy Delivery Service"
+          }
+        ]
+      };
+
+      const args = { app, connectArgs, staticConfigTests, options };
+      const testSuite = new SchedulePickupMultiShipment(args);
+
+      expect(() => testSuite.tests()).to.throw("connect.config.js shipments must contain two or more shipments");
     });
   });
 
@@ -149,22 +203,24 @@ describe.only("The schedule pickup multi shipment test suite", () => {
     it("should throw an error", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       const app = new CarrierApp(appDefinition);
-      staticConfigTests.schedulePickup_same_day = {
-        deliveryServiceName: "asdf"
+      staticConfigTests.schedulePickup_multi_shipment = {
+        shipments: [
+          {
+            deliveryServiceName: "asdf"
+          },
+          {
+            deliveryServiceName: "Dummy Delivery Service"
+          }
+        ]
       };
 
       const args = { app, connectArgs, staticConfigTests, options };
       const testSuite = new SchedulePickupMultiShipment(args);
 
-      try {
-        testSuite.tests();
-        expect(true).to.equal(false);
-      }
-      catch (error) {
-        expect(error.message).to.include("deliveryServiceName: 'asdf' does not exist");
-      }
+      expect(() => testSuite.tests()).to.throw("deliveryServiceName: 'asdf' does not exist");
     });
   });
+
 
   describe("When a user configs a new delivery service", () => {
     it("should update the title params to reflect the new properties", () => {
@@ -181,8 +237,15 @@ describe.only("The schedule pickup multi shipment test suite", () => {
         packaging: [pojo.packaging()]
       });
 
-      staticConfigTests.schedulePickup_same_day = {
-        deliveryServiceName: "Better Delivery Service"
+      staticConfigTests.schedulePickup_multi_shipment = {
+        shipments: [
+          {
+            deliveryServiceName: "Better Delivery Service"
+          },
+          {
+            deliveryServiceName: "Better Delivery Service"
+          }
+        ]
       };
 
       const app = new CarrierApp(appDefinition);
@@ -190,7 +253,9 @@ describe.only("The schedule pickup multi shipment test suite", () => {
       const testSuite = new SchedulePickupMultiShipment(args);
       const tests = testSuite.tests();
 
-      expect(tests[0].title).to.include("deliveryServiceName: Better Delivery Service");
+      expect(tests[0].methodArgs.shipments[0].deliveryService.name).to.equal("Better Delivery Service");
+      expect(tests[0].methodArgs.shipments[1].deliveryService.name).to.equal("Better Delivery Service");
+
     });
   });
 
@@ -203,7 +268,7 @@ describe.only("The schedule pickup multi shipment test suite", () => {
         code: "better_ds"
       });
 
-      staticConfigTests.schedulePickup_same_day = {
+      staticConfigTests.schedulePickup_multi_shipment = {
         pickupServiceName: "Better Pickup Service"
       };
 
@@ -222,7 +287,7 @@ describe.only("The schedule pickup multi shipment test suite", () => {
 
       const app = new CarrierApp(appDefinition);
 
-      staticConfigTests.schedulePickup_same_day = {
+      staticConfigTests.schedulePickup_multi_shipment = {
         address: {
           company: "Domestic Route #1",
           addressLines: ["123 New Street"],
@@ -240,7 +305,7 @@ describe.only("The schedule pickup multi shipment test suite", () => {
 
       expect(tests[0].methodArgs.address.company).to.equal("Domestic Route #1");
 
-      expect(tests[0].methodArgs.address).to.eql(staticConfigTests.schedulePickup_same_day.address);
+      expect(tests[0].methodArgs.address).to.eql(staticConfigTests.schedulePickup_multi_shipment.address);
 
       expect(tests[0].title).to.include("address: US");
     });
