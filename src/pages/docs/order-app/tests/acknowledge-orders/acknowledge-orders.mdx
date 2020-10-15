@@ -1,0 +1,104 @@
+---
+title: Acceptance Tests | acknowledgeOrders
+description: This test is part of the ShipEngine Connect order app test suite.
+---
+
+Order App Tests
+==================================
+
+### `acknowledgeOrders`
+
+This test exercises your app's ability to successfully acknowledge orders.
+
+
+Test Parameters
+-------------------------
+This test has many parameters [that can be customized](#customizing-parameters) in your [`connect.config.js` file](../../../testing/config.mdx). Any parameters you don't override will use their default values.
+
+<Reference>
+
+  <Field name="notifications" type="array">
+    <Description>
+        An array of `notification` objects which contain an `id` string, an `identifiers` object, an `orderNumber` and `importedDate`.
+    </Description>
+    <DefaultValue>
+        An array populated with the values below
+    </DefaultValue>
+  </Field>
+
+  <Field name="notifications[].id" type="string">
+    <Description>
+        A string `id`.
+    </Description>
+    <DefaultValue>
+        `989798798`
+    </DefaultValue>
+  </Field>
+
+  <Field name="notifications[].identifiers" type="object">
+    <Description>
+        An object filled with `id: "lksldm"`  or some other string key-value pair.
+    </Description>
+    <DefaultValue>
+        `lksldm`
+    </DefaultValue>
+  </Field>
+
+  <Field name="notifications[].orderNumber" type="string">
+    <Description>
+        A string order number.
+    </Description>
+    <DefaultValue>
+        `987987987`
+    </DefaultValue>
+  </Field>
+
+  <Field name="notifications[].importedDate" type="string">
+    <Description>
+        A complete ISO 8601 date/time with a time zone, or `Datetime` object.
+    </Description>
+    <DefaultValue>
+        `2005-09-23T17:30:00+05:30`
+    </DefaultValue>
+  </Field>
+
+</Reference>
+
+
+Customizing Parameters
+------------------------------
+Here's an example of using the [`connect.config.js` file](./../../../testing/config.mdx) to customize the `acknowledgeOrder` test. This example provides values for all parameters and uses the global `connectArgs` parameter for authentication.
+
+```javascript
+module.exports = {
+  connectArgs: {
+    account_email: 'user@example.com',
+    account_password: 'u0G#^08Ue1G!jX$mkc1',
+    agree_to_eula: true,
+  },
+  tests: {
+    acknowledgeOrders: [
+      {
+        notifications: [
+          {
+            id: '9823m239o',
+            identifiers: {
+              id: 'lksldm',
+            },
+            orderNumber: "987987987",
+            importedDate: "2005-09-23T17:30:00+07:30",
+          },
+          {
+            id: '09023930asd',
+            identifiers: {
+              id: 'asdasdd',
+            },
+            orderNumber: "987989007",
+            importedDate: "2005-09-23T17:30:00+05:30",
+          }
+        ]
+      },
+    ]
+  }
+}
+```
