@@ -145,7 +145,7 @@ This test has many parameters [that can be customized](#customizing-parameters) 
      or a string representing the date and time in [ISO](https://www.w3.org/TR/NOTE-datetime) format.
     </Type>
     <DefaultValue>
-      Tomorrow at 6:00 am.
+      Today at 6:00 am.
     </DefaultValue>
   </Field>
 
@@ -159,7 +159,7 @@ This test has many parameters [that can be customized](#customizing-parameters) 
          or a string representing the date and time in [ISO](https://www.w3.org/TR/NOTE-datetime) format.
         </Type>
     <DefaultValue>
-        Tomorrow at 9:00 am.
+        Today at 9:00 am.
     </DefaultValue>
   </Field>
 
@@ -169,8 +169,6 @@ This test has many parameters [that can be customized](#customizing-parameters) 
     </Description>
     <DefaultValue>
        The properties and their default values are listed below. Note that these are the default values used when no `shipments` parameter is specified.
-
-       If a `shipments` parameter is specified, it must contain values for all properties.
     </DefaultValue>
   </Field>
 
@@ -303,7 +301,6 @@ module.exports = {
     schedulePickup_multi_shipment: [
       {
         pickupServiceName: `Drop Off`,
-        deliveryServiceName: `Next Day Air`,
         address: {
           company: 'Example Corp.',
           addressLines: [
