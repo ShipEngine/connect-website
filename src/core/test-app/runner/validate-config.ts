@@ -192,7 +192,7 @@ const SameDayPickupTestParamsSchema = Joi.object({
     address: Address[_internal].schema.optional(),
     contact: ContactInfo[_internal].schema.optional(),
     timeWindow: TimeRange[_internal].schema.optional(),
-    shipments: Joi.object({
+    shipments: Joi.array().items({
       deliveryServiceName: Joi.string(),
       packages: Joi.array().items(Joi.object({
         packagingName: Joi.string(),
@@ -211,7 +211,7 @@ const CancelPickupsSamedayTestParamsSchema = Joi.object({
     address: Address[_internal].schema.optional(),
     contact: ContactInfo[_internal].schema.optional(),
     timeWindow: TimeRange[_internal].schema.optional(),
-    shipments: Joi.object({
+    shipments: Joi.array().items({
       deliveryServiceName: Joi.string(),
       packages: Joi.array().items(Joi.object({
         packagingName: Joi.string(),
@@ -231,7 +231,7 @@ const CancelPickupsNextdayTestParamsSchema = Joi.object({
     address: Address[_internal].schema.optional(),
     contact: ContactInfo[_internal].schema.optional(),
     timeWindow: TimeRange[_internal].schema.optional(),
-    shipments: Joi.object({
+    shipments: Joi.array().items({
       deliveryServiceName: Joi.string(),
       packages: Joi.array().items(Joi.object({
         packagingName: Joi.string(),
@@ -251,7 +251,7 @@ const NextDayPickupTestParamsSchema = Joi.object({
     address: Address[_internal].schema.optional(),
     contact: ContactInfo[_internal].schema.optional(),
     timeWindow: TimeRange[_internal].schema.optional(),
-    shipments: Joi.object({
+    shipments: Joi.array().items({
       deliveryServiceName: Joi.string(),
       packages: Joi.array().items(Joi.object({
         packagingName: Joi.string(),
