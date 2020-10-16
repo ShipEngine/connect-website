@@ -11,7 +11,6 @@ export * from './document-format';
 export * from './document-size';
 export * from './get-rates-request';
 export * from './get-rates-response';
-export * from './insurance-provider';
 export * from './label-format';
 export * from './label-layout';
 export * from './pickup-package';

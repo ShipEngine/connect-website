@@ -1,4 +1,4 @@
-import { DocumentFormat, DocumentSize, DocumentType } from '@shipengine/connect';
+import { DocumentFormat, DocumentSize, DocumentType, Session } from '@shipengine/connect';
 import { Manifest, ManifestConfirmation } from '@shipengine/connect/lib/internal/carriers';
 import { mapCreateManifestResponse, mapManifest } from '../../../src/mapping/functions/create-manifest-response';
 
@@ -33,7 +33,7 @@ describe('Create Manifest Response', () => {
     });
 
     describe('Map Create Manifest Response', () => {
-        const result = mapCreateManifestResponse(manifestConfirmation, { id: 'transactionId', session: { value: "1" }});
+        const result = mapCreateManifestResponse(manifestConfirmation, { id: 'transactionId', session: { value: "1" } as Session<object>});
         it('it maps the transaction_id correctly', () => expect(result.transaction_id).toEqual('transactionId'));
         it('it maps the metadata correctly', () => expect(result.metadata).toEqual({value: '1'}));
     });

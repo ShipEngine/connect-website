@@ -20,6 +20,21 @@ export const enum StandardizedErrorCode {
   ExternalClientError = 'external_client_error',
 }
 
+/**
+ * converts "Error in the rateShipment method. Invalid Credentials" to "Invalid Credentials"
+ * @param value the error message
+ */
+const removeErrorMessagePrefix = (value?: string) : string | undefined => {
+  if(!value) {
+    return undefined;
+  }
+  if(value.startsWith('Error in the')) {
+    const realError = value.substring(value.indexOf('.') + 2).trim();
+    return realError;
+  }
+  return value;
+};
+
 export const formatErrorMessage = (error: any, standardErrorCode: StandardizedErrorCode) => {
   const mergeStringArray = (value?: string[]) : string | undefined => {
     if(!Array.isArray(value)) {
@@ -27,13 +42,15 @@ export const formatErrorMessage = (error: any, standardErrorCode: StandardizedEr
     }
     return value.join(', ');
   }
+
+  const message = removeErrorMessagePrefix(error.message || error?.originalError?.message);
   return {
-    "errors": [error.message || error?.originalError?.message],
+    "errors": [message],
     "detailed_errors": [
       {
         "standardized_error_code": standardErrorCode,
         "external_error_code": mergeStringArray(error?.originalError?.externalErrors),
-        "message": error.message || error?.originalError?.message,
+        "message": message,
         "external_http_status_code": error?.originalError?.statusCode,
         "raw_external_context": JSON.stringify(error)
       }
@@ -79,8 +96,8 @@ export const errorHandler = (
   response: Response,
   next: NextFunction
 ) => {
-  const statusCode = getStatusCode(error.originalError?.code, error.originalError?.statusCode);
-  const standartizedErrorCode = getStandardizedErrorCode(error.originalError?.code, error.originalError?.statusCode);
+  const statusCode = getStatusCode(error.originalError?.code || error.code, error.originalError?.statusCode);
+  const standartizedErrorCode = getStandardizedErrorCode(error.originalError?.code || error.code, error.originalError?.statusCode);
   const errorMessage = formatErrorMessage(error, standartizedErrorCode);
   if(statusCode === HttpStatusCode.ServerError) {
     captureException(error.originalError);

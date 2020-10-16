@@ -1,12 +1,11 @@
-import { Transaction } from '@shipengine/connect';
-import { mapRegisterResponse, getCredentials } from '../../../src/mapping/functions';
+const { mapRegisterResponse, getCredentials } = require('../../../src/mapping/functions');
 
 const defaultCredentials = {
     username: 'N/A',
     password: 'N/A'
 }
 
-const expectedCredentials: any[][] = [
+const expectedCredentials = [
     [undefined, defaultCredentials],
     [{ userId: '', password: ''}, defaultCredentials],
     [{ userId: 'test', password: ''}, { ...defaultCredentials, username: 'test' }],
@@ -31,7 +30,7 @@ describe('Register Response', () => {
     };
     
     describe('when we have a fully formed transaction with basicAuth attached', () => {
-        const response = mapRegisterResponse(transaction as Transaction<object>);
+        const response = mapRegisterResponse(transaction);
         it('maps the session correctly', () => expect(response.metadata).toEqual(session));
         it('maps the credentials correctly', () => expect(response.credentials).toEqual({
             username: 'id',
