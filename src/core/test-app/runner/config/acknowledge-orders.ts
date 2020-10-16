@@ -3,6 +3,7 @@ import { BaseTestConfigOptions } from "./base-test-config-options";
 
 export interface AcknowledgeOrdersTestParams {
 	notifications: SalesOrderNotificationPOJO[];
+	accessToken: string;
 }
 
 export interface AcknowledgeOrdersConfigOptions

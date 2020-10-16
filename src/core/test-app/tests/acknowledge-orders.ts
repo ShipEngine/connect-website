@@ -35,8 +35,16 @@ export class AcknowledgeOrders extends Suite {
   			importedDate: todayEvening,
     	}
     ];
+
+    let token = "accessToken";
+    if (this.options.staticRootConfig.session
+      && this.options.staticRootConfig.session.auth
+      && this.options.staticRootConfig.session.auth.accessToken) {
+      token = this.options.staticRootConfig.session.auth.accessToken;
+    }
     const defaults = {
     	notifications: notifications,
+      accessToken: token,
     };
 
     // Merge default data + connects args, and user-provided config, in that order
@@ -76,18 +84,11 @@ export class AcknowledgeOrders extends Suite {
         async () => {
           const orderApp = this.app as OrderApp;
 
-          let token = "accessToken";
-          if (this.options.staticRootConfig.session
-            && this.options.staticRootConfig.session.auth
-            && this.options.staticRootConfig.session.auth.accessToken) {
-            token = this.options.staticRootConfig.session.auth.accessToken;
-          }
-
           const transaction = {
             id: v4(),
             session: {
               auth: {
-                accessToken: token,
+                accessToken: testArg.methodArgs.accessToken,
               }
             },
           };
