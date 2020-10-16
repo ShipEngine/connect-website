@@ -17,9 +17,12 @@ This test has many parameters [that can be customized](#customizing-parameters) 
 
 <Reference>
 
-  <Field name="notifications" type="array">
+  <Field name="notifications">
+    <Type>
+      object[]
+    </Type>
     <Description>
-        An array of `notification` objects which contain an `id` string, an `identifiers` object, an `orderNumber` and `importedDate`.
+        An array of objects representing order notifications.
     </Description>
     <DefaultValue>
         An array populated with the values below
@@ -28,7 +31,7 @@ This test has many parameters [that can be customized](#customizing-parameters) 
 
   <Field name="notifications[].id" type="string">
     <Description>
-        A string `id`.
+        The marketplace's unique ID for the sales order.
     </Description>
     <DefaultValue>
         `989798798`
@@ -37,7 +40,7 @@ This test has many parameters [that can be customized](#customizing-parameters) 
 
   <Field name="notifications[].identifiers" type="object">
     <Description>
-        An object filled with `id: "lksldm"`  or some other string key-value pair.
+        Your own identifiers for this sales order.
     </Description>
     <DefaultValue>
         `lksldm`
@@ -46,16 +49,19 @@ This test has many parameters [that can be customized](#customizing-parameters) 
 
   <Field name="notifications[].orderNumber" type="string">
     <Description>
-        A string order number.
+        The customer facing identifier of the sales order.
     </Description>
     <DefaultValue>
         `987987987`
     </DefaultValue>
   </Field>
 
-  <Field name="notifications[].importedDate" type="string">
+  <Field name="notifications[].importedDate">
+    <Type>
+      [date/time object](./../../../reference/date-time.mdx)
+    </Type>
     <Description>
-        A complete ISO 8601 date/time with a time zone, or `Datetime` object.
+        The date that the order was imported.
     </Description>
     <DefaultValue>
         Today at 6:00pm
@@ -81,20 +87,20 @@ module.exports = {
       {
         notifications: [
           {
-            id: '9823m239o',
+            id: '178900',
             identifiers: {
-              id: 'lksldm',
+              id: '98sdsd8m-sdsodumsd-sdoumsd-asdmoaisddi',
             },
-            orderNumber: "987987987",
-            importedDate: "2005-09-23T17:30:00+07:30",
+            orderNumber: "192991",
+            importedDate: "2020-10-15T17:30:00+07:30",
           },
           {
-            id: '09023930asd',
+            id: '1098090',
             identifiers: {
-              id: 'asdasdd',
+              id: '09k09asd0a-sd0a8sd-am0s8da0sd8-asd9omu',
             },
-            orderNumber: "987989007",
-            importedDate: "2005-09-23T17:30:00+05:30",
+            orderNumber: "090029",
+            importedDate: "2020-09-23T17:30:00+05:30",
           }
         ]
       },
