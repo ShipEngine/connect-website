@@ -15,6 +15,7 @@ import {
   RateShipment,
   CreateShipmentReturn,
   TrackShipment, 
+  CancelPickupsMultiple,
   CancelPickupsNextDay,
   TrackShipmentReturn,
   RateShipmentWithAllServices,
@@ -167,7 +168,7 @@ function registerTestSuiteModules(app: SdkApp): RegisteredTestSuiteModules {
       CreateShipmentWithInsurance,
       CreateShipmentReturn
     ],
-    cancelPickups: [CancelPickupsSameDay, CancelPickupsNextDay],
+    cancelPickups: [CancelPickupsSameDay, CancelPickupsNextDay, CancelPickupsMultiple],
     schedulePickup: [SchedulePickupSameDay, SchedulePickupNextDay, SchedulePickupMultiShipment],
     rateShipment: [
       RateShipment,
