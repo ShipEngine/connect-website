@@ -19,7 +19,7 @@ export type PickupShipmentConfig = {
   packages: PickupPackageConfig[];
 };
 
-export interface NextDayPickupTestParams {
+export interface SchedulePickupSameDayTestParams {
   pickupServiceName: string;
   deliveryServiceName: string;
   address: AddressPOJO;
@@ -28,6 +28,6 @@ export interface NextDayPickupTestParams {
   shipments: PickupShipmentConfig[];
 }
 
-export interface NextDayPickupConfigOptions
-  extends NextDayPickupTestParams,
+export interface SchedulePickupSameDayConfigOptions
+  extends SchedulePickupSameDayTestParams,
     BaseTestConfigOptions {}

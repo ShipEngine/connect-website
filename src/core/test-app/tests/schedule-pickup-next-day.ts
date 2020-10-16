@@ -2,7 +2,7 @@ import { DeliveryService, PickupService, LengthUnit, WeightUnit } from "@shipeng
 import { CarrierApp, PickupRequestPOJO, PickupShipmentPOJO, PickupPackagePOJO } from "@shipengine/connect-sdk/lib/internal";
 import Suite from "../runner/suite";
 import { initializeTimeStamps } from "../../utils/time-stamps";
-import { SameDayPickupTestParams, SameDayPickupConfigOptions } from "../runner/config/same-day-pickup";
+import { SchedulePickupNextDayTestParams, SchedulePickupNextDayConfigOptions } from "../runner/config/schedule-pickup-next-day";
 import reduceDefaultsWithConfig from "../utils/reduce-defaults-with-config";
 import objectToTestTitle from "../utils/object-to-test-title";
 import useShipmentAddresses from '../utils/use-shipment-addresses';
@@ -17,18 +17,18 @@ interface TestArgs {
   title: string;
   methodArgs: PickupRequestPOJO;
   config: unknown;
-  testParams: SameDayPickupTestParams;
+  testParams: SchedulePickupNextDayTestParams;
 }
 
-export class SameDayPickup extends Suite {
-  title = "schedulePickup_same_day";
+export class SchedulePickupNextDay extends Suite {
+  title = "schedulePickup_next_day";
 
   private deliveryService: DeliveryService | undefined;
 
   private pickupService: PickupService | undefined;
 
   private setDeliveryService(
-    config: SameDayPickupConfigOptions,
+    config: SchedulePickupNextDayConfigOptions,
   ): void {
     const carrierApp = this.app as CarrierApp;
 
@@ -46,7 +46,7 @@ export class SameDayPickup extends Suite {
     }
   }
 
-  private setPickupService(config: SameDayPickupConfigOptions): void {
+  private setPickupService(config: SchedulePickupNextDayConfigOptions): void {
     const carrierApp = this.app as CarrierApp;
 
     if (config.pickupServiceName) {
@@ -58,7 +58,7 @@ export class SameDayPickup extends Suite {
     }
   }
 
-  buildTestArg(config: SameDayPickupConfigOptions): TestArgs | undefined {
+  buildTestArg(config: SchedulePickupNextDayConfigOptions): TestArgs | undefined {
     const carrierApp = this.app as CarrierApp;
     this.setPickupService(config);
     this.setDeliveryService(config);
@@ -70,16 +70,16 @@ export class SameDayPickup extends Suite {
 
     const address = buildAddress(`${shipFrom.country}-from`);
 
-    const { todayEarly, todayEvening } = initializeTimeStamps();
+    const { tomorrowEarlyAM, tomorrowEvening } = initializeTimeStamps();
 
-    const defaults: SameDayPickupTestParams = {
+    const defaults: SchedulePickupNextDayTestParams = {
       pickupServiceName: this.pickupService.name,
       deliveryServiceName: this.deliveryService.name,
       address,
       contact: { name: "John Doe" },
       timeWindow: {
-        startDateTime: todayEarly,
-        endDateTime: todayEvening
+        startDateTime: tomorrowEarlyAM,
+        endDateTime: tomorrowEvening
       },
       shipments: [{
         deliveryServiceName: this.deliveryService.name,
@@ -102,7 +102,7 @@ export class SameDayPickup extends Suite {
     };
 
     const testParams = reduceDefaultsWithConfig<
-      SameDayPickupTestParams
+      SchedulePickupNextDayTestParams
     >(defaults, config);
 
     const shipments: PickupShipmentPOJO[] = testParams.shipments.map((shipmentParams) => {
@@ -121,8 +121,6 @@ export class SameDayPickup extends Suite {
 
       return shipment;
     });
-    
-
 
     const rateCriteriaPOJO: PickupRequestPOJO = {
       pickupService: findPickupServiceByName(testParams.pickupServiceName, carrierApp),
@@ -133,10 +131,10 @@ export class SameDayPickup extends Suite {
     };
 
     const title = config.expectedErrorMessage
-      ? `it raises an error when scheduling a pickup with ${objectToTestTitle(
+      ? `it raises an error when scheduling a next day pickup with ${objectToTestTitle(
         testParams,
       )}`
-      : `it schedules a pickup with ${objectToTestTitle(
+      : `it schedules a next day pickup with ${objectToTestTitle(
         testParams,
       )}`;
 
@@ -150,12 +148,12 @@ export class SameDayPickup extends Suite {
 
   buildTestArgs(): Array<TestArgs | undefined> {
     if (Array.isArray(this.config)) {
-      return this.config.map((config: SameDayPickupConfigOptions) => {
+      return this.config.map((config: SchedulePickupNextDayConfigOptions) => {
         return this.buildTestArg(config);
       });
     }
 
-    const config = this.config as SameDayPickupConfigOptions;
+    const config = this.config as SchedulePickupNextDayConfigOptions;
     return [this.buildTestArg(config)];
   }
 

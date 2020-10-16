@@ -19,15 +19,14 @@ export type PickupShipmentConfig = {
   packages: PickupPackageConfig[];
 };
 
-export interface SameDayPickupTestParams {
-  pickupServiceName: string;
-  deliveryServiceName: string;
-  address: AddressPOJO;
-  contact: ContactInfoPOJO;
-  timeWindow: TimeRangePOJO;
+export interface SchedulePickupMultiShipmentTestParams {
+  pickupServiceName?: string;
+  address?: AddressPOJO;
+  contact?: ContactInfoPOJO;
+  timeWindow?: TimeRangePOJO;
   shipments: PickupShipmentConfig[];
 }
 
-export interface SameDayPickupConfigOptions
-  extends SameDayPickupTestParams,
+export interface SchedulePickupMultiShipmentConfigOptions
+  extends SchedulePickupMultiShipmentTestParams,
     BaseTestConfigOptions {}
