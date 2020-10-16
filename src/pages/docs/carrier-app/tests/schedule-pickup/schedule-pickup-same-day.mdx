@@ -310,8 +310,8 @@ module.exports = {
   tests: {
     schedulePickup_same_day: [
       {
-        pickupServiceName: `Drop Off`,
-        deliveryServiceName: `Next Day Air`,
+        pickupServiceName: 'Drop Off',
+        deliveryServiceName: 'Next Day Air',
         address: {
           company: 'Example Corp.',
           addressLines: [
@@ -335,20 +335,22 @@ module.exports = {
         },
         shipments: [
           {
-            deliveryServiceName: `Next Day Air`,
+            deliveryServiceName: 'Next Day Air',
             packages: [
-              packagingName: `package`,
-              weight: {
-                value: 10,
-                unit: 'lb',
-              },
-              dimensions: {
-                width: 10,
-                height: 10,
-                length: 10,
-                unit: 'in'
-              },
-            ],
+              {
+                packagingName: 'package',
+                weight: {
+                  value: 10,
+                  unit: 'lb',
+                },
+                dimensions: {
+                  width: 10,
+                  height: 10,
+                  length: 10,
+                  unit: 'in'
+                }
+              }
+            ]
           }
         ]
       }
