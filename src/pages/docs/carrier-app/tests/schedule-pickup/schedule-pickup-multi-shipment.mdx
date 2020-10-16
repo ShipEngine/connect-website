@@ -1,14 +1,14 @@
 ---
-title: Acceptance Tests | schedulePickup_next_day
+title: Acceptance Tests | schedulePickup_multi_shipment
 description: This test is part of the ShipEngine Connect carrier app test suite.
 ---
 
 Carrier App Tests
 ==================================
 
-### `schedulePickup_next_day`
+### `schedulePickup_multi_shipment`
 
-This test exercises your app's ability to successfully schedule a next day pickup. If your app does not have any [pickup services](../../../reference/pickup-service.mdx), then this test will be skipped by [the `connect test` command](../../../cli.mdx#test-your-app).
+This test exercises your app's ability to successfully schedule a pickup with multiple shipments. If your app does not have any [pickup services](../../../reference/pickup-service.mdx), then this test will be skipped by [the `connect test` command](../../../cli.mdx#test-your-app).
 
 
 
@@ -91,18 +91,10 @@ This test has many parameters [that can be customized](#customizing-parameters) 
          The name of the [pickup service](../../../reference/pickup-service.mdx) you wish to use in this request.
     </Description>
     <DefaultValue>
-      The name of the first pickup service defined for your app.
+      The name of the first pickup service defined for your app. If the app doesn't have any pickup services that support these 
+      features then the test will be skipped.
     </DefaultValue>
   </Field>
-
-   <Field name="deliveryServiceName" type="string">
-      <Description>
-           The name of the [delivery service](../../../reference/delivery-service.mdx) you wish to use in this request.
-      </Description>
-      <DefaultValue>
-        The name of the first delivery service defined for your app.
-      </DefaultValue>
-    </Field>
 
   <Field name="address">
     <Type>
@@ -153,7 +145,7 @@ This test has many parameters [that can be customized](#customizing-parameters) 
      or a string representing the date and time in [ISO](https://www.w3.org/TR/NOTE-datetime) format.
     </Type>
     <DefaultValue>
-      Tomorrow at 6:00 am.
+      Today at 6:00 am.
     </DefaultValue>
   </Field>
 
@@ -167,7 +159,7 @@ This test has many parameters [that can be customized](#customizing-parameters) 
          or a string representing the date and time in [ISO](https://www.w3.org/TR/NOTE-datetime) format.
         </Type>
     <DefaultValue>
-        Tomorrow at 9:00 am.
+        Today at 9:00 am.
     </DefaultValue>
   </Field>
 
@@ -177,8 +169,6 @@ This test has many parameters [that can be customized](#customizing-parameters) 
     </Description>
     <DefaultValue>
        The properties and their default values are listed below. Note that these are the default values used when no `shipments` parameter is specified.
-
-       If a `shipments` parameter is specified, it must contain values for all properties.
     </DefaultValue>
   </Field>
 
@@ -298,7 +288,7 @@ This test has many parameters [that can be customized](#customizing-parameters) 
 
 Customizing Parameters
 ------------------------------
-Here's an example of using the [`connect.config.js` file](./../../../testing/config.mdx) to customize the `schedulePickup_next_day` test. This example provides values for all parameters and uses the global `connectArgs` parameter for authentication.
+Here's an example of using the [`connect.config.js` file](./../../../testing/config.mdx) to customize the `schedulePickup_multi_shipment` test. This example provides values for all parameters and uses the global `connectArgs` parameter for authentication.
 
 ```javascript
 module.exports = {
@@ -308,10 +298,9 @@ module.exports = {
     agree_to_eula: true,
   },
   tests: {
-    schedulePickup_next_day: [
+    schedulePickup_multi_shipment: [
       {
         pickupServiceName: `Drop Off`,
-        deliveryServiceName: `Next Day Air`,
         address: {
           company: 'Example Corp.',
           addressLines: [
@@ -334,6 +323,22 @@ module.exports = {
           endDateTime: '2020-09-24T18:00:00-05:00'
         },
         shipments: [
+          {
+            deliveryServiceName: `Next Day Air`,
+            packages: [
+              packagingName: `package`,
+              weight: {
+                value: 10,
+                unit: 'lb',
+              },
+              dimensions: {
+                width: 10,
+                height: 10,
+                length: 10,
+                unit: 'in'
+              },
+            ],
+          },
           {
             deliveryServiceName: `Next Day Air`,
             packages: [
