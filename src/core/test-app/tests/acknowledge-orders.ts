@@ -75,7 +75,22 @@ export class AcknowledgeOrders extends Suite {
         testArg.config,
         async () => {
           const orderApp = this.app as OrderApp;
-          const transaction = await this.transaction(testArg.config);
+
+          let token = "accessToken";
+          if (this.options.staticRootConfig.session
+            && this.options.staticRootConfig.session.auth
+            && this.options.staticRootConfig.session.auth.accessToken) {
+            token = this.options.staticRootConfig.session.auth.accessToken;
+          }
+
+          const transaction = {
+            id: v4(),
+            session: {
+              auth: {
+                accessToken: token,
+              }
+            },
+          };
 
           if (!orderApp.acknowledgeOrders) {
           	throw new Error("acknowledgeOrders is not implemented");
