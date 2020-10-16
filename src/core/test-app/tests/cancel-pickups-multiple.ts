@@ -1,5 +1,5 @@
 import { PickupService, LengthUnit, WeightUnit, DeliveryService } from "@shipengine/connect-sdk";
-import { CarrierApp, PickupRequestPOJO, PickupShipmentPOJO, PickupPackagePOJO } from "@shipengine/connect-sdk/lib/internal";
+import { CarrierApp, PickupRequestPOJO, PickupShipmentPOJO, PickupPackagePOJO, PickupCancellationPOJO } from "@shipengine/connect-sdk/lib/internal";
 import Suite from "../runner/suite";
 import { initializeTimeStamps } from "../../utils/time-stamps";
 import { CancelPickupsMultipleTestParams, CancelPickupsMultipleConfigOptions, PickupShipmentConfig } from "../runner/config/cancel-pickups-multiple";
@@ -11,6 +11,9 @@ import findPickupServiceByName from '../utils/find-pickup-service-by-name';
 import Test from '../runner/test';
 import { buildAddress } from '../factories/address';
 import findPackagingByName from '../utils/find-packaging-by-name';
+import { PickupCancellation, PickupCancellationReason } from '@shipengine/connect-sdk/lib/internal/input';
+import { v4 } from 'uuid';
+import { expect } from 'chai';
 
 interface TestArgs {
   title: string;
@@ -88,6 +91,8 @@ export class CancelPickupsMultiple extends Suite {
         startDateTime: todayEarly,
         endDateTime: todayEvening
       };
+
+      defaults.cancellationReason = PickupCancellationReason.NotReady;
 
       defaults.shipments && defaults.shipments.push({
         deliveryServiceName: deliveryService.name,
@@ -209,7 +214,30 @@ export class CancelPickupsMultiple extends Suite {
             throw new Error("schedulePickup is not implemented");
           }
 
-          await carrierApp.schedulePickup(transaction, testArg.methodArgs);
+          if (!carrierApp.cancelPickups) {
+            throw new Error("cancelPickups is not implemented");
+          }
+
+          const confirmation = await carrierApp.schedulePickup(transaction, testArg.methodArgs);
+
+          const cancellationID = v4();
+
+          const pickupCancellation: PickupCancellationPOJO = {
+            cancellationID,
+            id: confirmation.id,
+            pickupService: testArg.methodArgs.pickupService,
+            reason: testArg.testParams.cancellationReason!,
+            notes: [],
+            address: testArg.methodArgs.address,
+            contact: testArg.methodArgs.contact,
+            timeWindows: [testArg.methodArgs.timeWindow],
+            shipments: testArg.methodArgs.shipments
+          }
+
+          const cancellationOutcomes = await carrierApp.cancelPickups(transaction, [pickupCancellation]);
+
+          const customMsg = `The cancelled pickup cancellationID does not match the one that was included in the pickupCancellation: ${cancellationID}`;
+          expect(cancellationOutcomes[0].cancellationID).to.equal(cancellationID, customMsg);
 
         }
       );

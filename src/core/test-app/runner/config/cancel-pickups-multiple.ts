@@ -4,6 +4,7 @@ import {
   AddressPOJO,
   WeightPOJO,
   DimensionsPOJO,
+  PickupCancellationReason,
 } from "@shipengine/connect-sdk";
 import { BaseTestConfigOptions } from "./base-test-config-options";
 
@@ -25,6 +26,8 @@ export interface CancelPickupsMultipleTestParams {
   contact?: ContactInfoPOJO;
   timeWindow?: TimeRangePOJO;
   shipments: PickupShipmentConfig[];
+
+  cancellationReason?: PickupCancellationReason;
 }
 
 export interface CancelPickupsMultipleConfigOptions
