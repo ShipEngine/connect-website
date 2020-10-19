@@ -1,72 +1,72 @@
 import { Address, AddressResidentialIndicator } from '@ipaas/capi';
 import {
-  AddressWithContactInfoPOJO,
-  Country,
-  PersonNamePOJO,
+	AddressWithContactInfoPOJO,
+	Country,
+	PersonNamePOJO,
 } from '@shipengine/connect-sdk';
 
 export const excludeNullsFromAddressLines = (
-  addressLines: (string | null)[] | null | undefined
+	addressLines: (string | null)[] | null | undefined,
 ): string[] => {
-  const cleanedAddress: string[] = [];
-  addressLines?.forEach((line) => {
-    if (line !== null && line !== '') {
-      cleanedAddress.push(line);
-    }
-  });
-  return cleanedAddress;
+	const cleanedAddress: string[] = [];
+	addressLines?.forEach((line) => {
+		if (line !== null && line !== '') {
+			cleanedAddress.push(line);
+		}
+	});
+	return cleanedAddress;
 };
 
 export const convertResidentialIndicatorToBoolean = (
-  residentialIndicator: AddressResidentialIndicator | null | undefined
+	residentialIndicator: AddressResidentialIndicator | null | undefined,
 ): boolean | undefined => {
-  if (!residentialIndicator) {
-    return undefined;
-  }
-  if(residentialIndicator === AddressResidentialIndicator.Unknown) {
-    return undefined;
-  }
-  return (
-    residentialIndicator === AddressResidentialIndicator.Yes ||
-    residentialIndicator === AddressResidentialIndicator.Residential
-  );
+	if (!residentialIndicator) {
+		return undefined;
+	}
+	if (residentialIndicator === AddressResidentialIndicator.Unknown) {
+		return undefined;
+	}
+	return (
+		residentialIndicator === AddressResidentialIndicator.Yes ||
+		residentialIndicator === AddressResidentialIndicator.Residential
+	);
 };
 
 const emptyDxPersonName: PersonNamePOJO = { given: '' };
 
 const emptyDxAddress: AddressWithContactInfoPOJO = {
-  addressLines: [],
-  cityLocality: '',
-  stateProvince: '',
-  country: Country.UnitedStates,
-  postalCode: '',
-  email: '',
-  phoneNumber: '',
-  name: emptyDxPersonName,
-  isResidential: undefined,
-  company: '',
+	addressLines: [],
+	cityLocality: '',
+	stateProvince: '',
+	country: Country.UnitedStates,
+	postalCode: '',
+	email: '',
+	phoneNumber: '',
+	name: emptyDxPersonName,
+	isResidential: undefined,
+	company: '',
 };
 
 export const mapAddress = (
-  address: Address | null | undefined
+	address: Address | null | undefined,
 ): AddressWithContactInfoPOJO => {
-  if (!address) {
-    return emptyDxAddress;
-  }
-  const dxAddress: AddressWithContactInfoPOJO = {
-    addressLines: excludeNullsFromAddressLines(address.address_lines),
-    cityLocality: address.city_locality || '',
-    stateProvince: address.state_province || '',
-    country: address.country_code as Country,
-    postalCode: address.postal_code,
-    email: address.email || '',
-    phoneNumber: address.phone_number || '',
-    name: address.name || '',
-    isResidential: convertResidentialIndicatorToBoolean(
-      address.address_residential_indicator
-    ),
-    company: address.company_name || '',
-  };
+	if (!address) {
+		return emptyDxAddress;
+	}
+	const dxAddress: AddressWithContactInfoPOJO = {
+		addressLines: excludeNullsFromAddressLines(address.address_lines),
+		cityLocality: address.city_locality || '',
+		stateProvince: address.state_province || '',
+		country: address.country_code as Country,
+		postalCode: address.postal_code,
+		email: address.email || '',
+		phoneNumber: address.phone_number || '',
+		name: address.name || '',
+		isResidential: convertResidentialIndicatorToBoolean(
+			address.address_residential_indicator,
+		),
+		company: address.company_name || '',
+	};
 
-  return dxAddress;
+	return dxAddress;
 };

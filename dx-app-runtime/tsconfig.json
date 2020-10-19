@@ -1,12 +1,12 @@
 {
-  "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
-    "declaration": true,
-    "outDir": "./dist",
-    "strict": true,
-    "sourceMap": true
-  },
-  "include": ["src"],
-  "exclude": ["node_modules", "**/__tests__/*", "src/**/todo/*"]
+	"compilerOptions": {
+		"target": "es6",
+		"module": "commonjs",
+		"declaration": true,
+		"outDir": "./dist",
+		"strict": true,
+		"sourceMap": true
+	},
+	"include": ["src"],
+	"exclude": ["node_modules", "**/__tests__/*", "src/**/todo/*"]
 }

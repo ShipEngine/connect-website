@@ -1,4 +1,4 @@
 export default interface CountryAssociation {
-  FromCountry: string;
-  AlternateServiceName?: string | null;
+	FromCountry: string;
+	AlternateServiceName?: string | null;
 }
