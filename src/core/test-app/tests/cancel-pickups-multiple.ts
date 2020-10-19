@@ -23,7 +23,7 @@ interface TestArgs {
 }
 
 export class CancelPickupsMultiple extends Suite {
-  title = "cancelPickups_multiple_shipment";
+  title = "cancelPickups_multi_shipment";
 
   private pickupService: PickupService | undefined;
 
