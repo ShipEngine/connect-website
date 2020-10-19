@@ -19,9 +19,11 @@ import { SchedulePickupMultiShipmentConfigOptions } from './config/schedule-pick
 import { TrackShipmentConfigOptions } from './config/track-shipment';
 import { TrackShipmentReturnConfigOptions } from './config/track-shipment-return';
 import { CancelPickupsSameDayConfigOptions } from './config/cancel-pickups-same-day';
+import { ShipmentCreatedConfigOptions } from './config/shipment-created';
 
 export interface TestsConfig {
   acknowledgeOrders?: AcknowledgeOrdersConfigOptions;
+  shipmentedCreated?: ShipmentCreatedConfigOptions | [ShipmentCreatedConfigOptions];
   cancelShipments_single?: CancelShipmentsSingleConfigOptions | [CancelShipmentsSingleConfigOptions];
   cancelShipments_multiple?: CancelShipmentsMultipleConfigOptions | [CancelShipmentsMultipleConfigOptions];
   connectionForm?: ConnectionFormConfigOptions;
