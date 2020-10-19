@@ -3,6 +3,7 @@ export * from "./cancel-shipments-multiple";
 export * from "./connect-all-fields";
 export * from "./cancel-pickups-next-day"
 export * from "./cancel-pickups-same-day"
+export * from "./cancel-pickups-multiple";
 export * from "./create-shipment-domestic";
 export * from "./create-shipment-international";
 export * from "./create-shipment-multipackage";
@@ -17,3 +18,4 @@ export * from "./schedule-pickup-same-day";
 export * from "./schedule-pickup-multi-shipment";
 export * from "./cancel-pickups-same-day";
 export * from "./rate-shipment-return";
+export * from "./cancel-pickups-multiple";
