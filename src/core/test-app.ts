@@ -29,6 +29,7 @@ import {
   RateShipmentReturn,
 } from "./test-app/tests";
 import { ShipmentCreated } from './test-app/tests/shipment-created';
+import { CarrierApp } from '@shipengine/connect-sdk/lib/internal';
 
 export const TestAppErrors = LoadAndValidateConfigError;
 
@@ -186,18 +187,56 @@ function registerTestSuiteModules(app: SdkApp): RegisteredTestSuiteModules {
     // shipmentCancelled: [ShipmentCancelledTestSuite],
     shipmentCreated: [ShipmentCreated],
   };
-
-  const allMethods = { ...carrierAppMethods, ...orderAppMethods };
+  
+  let methods;
+  
+  if(isCarrierApp(app)) {
+    methods = carrierAppMethods;
+  }
+  else {
+    methods = orderAppMethods;
+  }
 
   let registeredTestSuiteModules: RegisteredTestSuiteModules = [];
 
-  for (const method in allMethods) {
+  for (const method in methods) {
     if (Reflect.get(app, method)) {
       registeredTestSuiteModules = registeredTestSuiteModules.concat(
-        Reflect.get(allMethods, method),
+        Reflect.get(methods, method),
       );
     }
   }
 
   return registeredTestSuiteModules;
+}
+
+/**
+ * Checks to make sure that an app has enough required and distinguishing properties to determine its type.
+ */
+function isCarrierApp(app: SdkApp): app is CarrierApp {
+  const requiredCarrierProperties = ["deliveryServices"];
+  const optionalCarrierProperties = ["manifestLocations", "manifestShipments", "pickupServices", "createShipment", "cancelShipments",
+    "rateShipment", "trackShipment", "createManifest", "schedulePickup", "cancelPickups"];
+
+  for (const property of requiredCarrierProperties) {
+    if (property in app) {
+      return true;
+    }
+  }
+
+  for (const property of optionalCarrierProperties) {
+    if (property in app) {
+      throw new Error("Carrier app is missing required 'deliveryServices` property");
+    }
+  }
+
+  const optionalOrderProperties = ["getSalesOrdersByDate", "shipmentCreated"];
+
+  for (const property of optionalOrderProperties) {
+    if (property in app) {
+      return false;
+    }
+  }
+
+  throw new Error("Your app is missing some required fields. Please refer to the documentation.");
 }
