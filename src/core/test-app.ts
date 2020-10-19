@@ -183,7 +183,7 @@ function registerTestSuiteModules(app: SdkApp): RegisteredTestSuiteModules {
     acknowledgeOrders: [AcknowledgeOrders],
     // getSalesOrdersByDate: [GetSalesOrdersByDateTestSuite],
     // shipmentCancelled: [ShipmentCancelledTestSuite],
-    // shipmentCreated: [ShipmentCreatedTestSuite],
+    shipmentCreated: [ShipmentCreated],
   };
 
   const allMethods = { ...carrierAppMethods, ...orderAppMethods };
