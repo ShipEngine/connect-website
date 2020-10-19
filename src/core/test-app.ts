@@ -28,6 +28,7 @@ import {
   SchedulePickupMultiShipment,
   RateShipmentReturn,
 } from "./test-app/tests";
+import { ShipmentCreated } from './test-app/tests/shipment-created';
 
 export const TestAppErrors = LoadAndValidateConfigError;
 
