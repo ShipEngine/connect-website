@@ -1,12 +1,12 @@
 ---
-title: Acceptance Tests | cancelPickups_multiple
+title: Acceptance Tests | cancelPickups_multi_shipment
 description: This test is part of the ShipEngine Connect carrier app test suite.
 ---
 
 Carrier App Tests
 ==================================
 
-### `cancelPickups_multiple`
+### `cancelPickups_multi_shipment`
 
 This test exercises your app's ability to successfully cancel a scheduled pickup with multiple shipments. 
 If your app does not have any [pickup services](../../../reference/pickup-service.mdx), then this test will be skipped by [the `connect test` command](../../../cli.mdx#test-your-app).
@@ -284,7 +284,7 @@ This test has many parameters [that can be customized](#customizing-parameters) 
     </DefaultValue>
   </Field>
 
-  <Field name="reason" type="string" >
+  <Field name="cancellationReason" type="string" >
       <Description>
         The reason for the cancellation. Valid values include the following:
         * `not_ready` - The package was not ready for pickup.
@@ -303,7 +303,7 @@ This test has many parameters [that can be customized](#customizing-parameters) 
 
 Customizing Parameters
 ------------------------------
-Here's an example of using the [`connect.config.js` file](./../../../testing/config.mdx) to customize the `cancelPickups_multiple` test. This example provides values for all parameters and uses the global `connectArgs` parameter for authentication.
+Here's an example of using the [`connect.config.js` file](./../../../testing/config.mdx) to customize the `cancelPickups_multi_shipment` test. This example provides values for all parameters and uses the global `connectArgs` parameter for authentication.
 
 ```javascript
 module.exports = {
@@ -313,7 +313,7 @@ module.exports = {
     agree_to_eula: true,
   },
   tests: {
-    cancelPickups_multiple: [
+    cancelPickups_multi_shipment: [
       {
         pickupServiceName: 'Drop Off',
         deliveryServiceName: 'Next Day Air',
