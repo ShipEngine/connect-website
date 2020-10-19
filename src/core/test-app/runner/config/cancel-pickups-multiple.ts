@@ -4,6 +4,7 @@ import {
   AddressPOJO,
   WeightPOJO,
   DimensionsPOJO,
+  PickupCancellationReason,
 } from "@shipengine/connect-sdk";
 import { BaseTestConfigOptions } from "./base-test-config-options";
 
@@ -19,15 +20,15 @@ export type PickupShipmentConfig = {
   packages: PickupPackageConfig[];
 };
 
-export interface NextDayPickupTestParams {
-  pickupServiceName: string;
-  deliveryServiceName: string;
-  address: AddressPOJO;
-  contact: ContactInfoPOJO;
-  timeWindow: TimeRangePOJO;
+export interface CancelPickupsMultipleTestParams {
+  pickupServiceName?: string;
+  address?: AddressPOJO;
+  contact?: ContactInfoPOJO;
+  timeWindow?: TimeRangePOJO;
   shipments: PickupShipmentConfig[];
+  cancellationReason?: PickupCancellationReason;
 }
 
-export interface NextDayPickupConfigOptions
-  extends NextDayPickupTestParams,
+export interface CancelPickupsMultipleConfigOptions
+  extends CancelPickupsMultipleTestParams,
     BaseTestConfigOptions {}

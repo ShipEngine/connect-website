@@ -11,9 +11,11 @@ import { RateShipmentWithAllServicesConfigOptions } from './config/rate-shipment
 import { CancelShipmentsSingleConfigOptions } from './config/cancel-shipments-single';
 import { CancelShipmentsMultipleConfigOptions } from './config/cancel-shipments-multiple';
 import { CreateShipmentReturnConfigOptions } from './config/create-shipment-return';
-import { SameDayPickupConfigOptions } from './config/same-day-pickup';
+import { SchedulePickupSameDayConfigOptions } from './config/schedule-pickup-same-day';
 import { RateShipmentReturnConfigOptions } from './config/rate-shipment-return';
-import { NextDayPickupConfigOptions } from './config/next-day-pickup';
+import { SchedulePickupNextDayConfigOptions } from './config/schedule-pickup-next-day';
+import { SchedulePickupMultiShipmentConfigOptions } from './config/schedule-pickup-multi-shipment';
+
 import { TrackShipmentConfigOptions } from './config/track-shipment';
 import { TrackShipmentReturnConfigOptions } from './config/track-shipment-return';
 import { CancelPickupsSameDayConfigOptions } from './config/cancel-pickups-same-day';
@@ -35,8 +37,9 @@ export interface TestsConfig {
   rateShipment?: RateShipmentConfigOptions | [RateShipmentConfigOptions];
   rateShipment_with_all_services?: RateShipmentWithAllServicesConfigOptions | [RateShipmentWithAllServicesConfigOptions];
   rateShipment_return?: RateShipmentReturnConfigOptions | [RateShipmentReturnConfigOptions];
-  schedulePickup_same_day?: SameDayPickupConfigOptions | [SameDayPickupConfigOptions];
-  schedulePickup_next_day?: NextDayPickupConfigOptions | [NextDayPickupConfigOptions];
+  schedulePickup_multi_shipment?: SchedulePickupMultiShipmentConfigOptions | [SchedulePickupMultiShipmentConfigOptions];
+  schedulePickup_same_day?: SchedulePickupSameDayConfigOptions | [SchedulePickupSameDayConfigOptions];
+  schedulePickup_next_day?: SchedulePickupNextDayConfigOptions | [SchedulePickupNextDayConfigOptions];
   trackShipment?: TrackShipmentConfigOptions | [TrackShipmentConfigOptions];
   trackReturnShipment?: TrackShipmentReturnConfigOptions | [TrackShipmentReturnConfigOptions];
 

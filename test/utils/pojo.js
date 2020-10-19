@@ -1,3 +1,5 @@
+/* eslint-disable no-multi-assign */
+
 "use strict";
 
 const path = require("path");
@@ -148,6 +150,15 @@ const pojo = module.exports = {
       documents: [pojo.document()],
       ...props,
     };
+  },
+
+  pickupConfirmation (props = {}) {
+    return {
+      id: "22222222-2222-2222-2222-222222222222",
+      charges: [pojo.charge()],
+      timeWindows: [pojo.timeRange()],
+      ...props
+    }
   },
 
   pickupShipment (props = {}) {
