@@ -7,6 +7,7 @@ import { loadAndValidateConfig, LoadAndValidateConfigError } from "./test-app/ru
 import { logFail, logPass, logStep } from "./utils/log-helpers";
 import { logResults } from "./utils/log-helpers";
 import {
+  AcknowledgeOrders,
   ConnectionForm,
   CreateShipmentInternational,
   CreateShipmentDomestic,
@@ -179,6 +180,7 @@ function registerTestSuiteModules(app: SdkApp): RegisteredTestSuiteModules {
   };
 
   const orderAppMethods = {
+    acknowledgeOrders: [AcknowledgeOrders],
     // getSalesOrdersByDate: [GetSalesOrdersByDateTestSuite],
     // shipmentCancelled: [ShipmentCancelledTestSuite],
     // shipmentCreated: [ShipmentCreatedTestSuite],

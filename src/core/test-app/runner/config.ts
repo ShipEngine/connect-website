@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 
+import { AcknowledgeOrdersConfigOptions } from "./config/acknowledge-orders";
 import { ConnectionFormConfigOptions } from "./config/connect-all-fields";
 import { CreateShipmentInternationalConfigOptions } from "./config/create-shipment-international";
 import { CreateShipmentDomesticConfigOptions } from "./config/create-shipment-domestic";
@@ -20,6 +21,7 @@ import { TrackShipmentReturnConfigOptions } from './config/track-shipment-return
 import { CancelPickupsSameDayConfigOptions } from './config/cancel-pickups-same-day';
 
 export interface TestsConfig {
+  acknowledgeOrders?: AcknowledgeOrdersConfigOptions;
   cancelShipments_single?: CancelShipmentsSingleConfigOptions | [CancelShipmentsSingleConfigOptions];
   cancelShipments_multiple?: CancelShipmentsMultipleConfigOptions | [CancelShipmentsMultipleConfigOptions];
   connectionForm?: ConnectionFormConfigOptions;
