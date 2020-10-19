@@ -30,9 +30,9 @@ const setScope = (
 ) => {
 	configureScope((scope) => {
 		scope.setTransactionName(name);
-		scope.setExtra('capi_request', request);
-		scope.setExtra('request', dxRequest);
-		scope.setExtra('transaction', transaction);
+		scope.setExtra('capi_request', JSON.stringify(request, null, 2));
+		scope.setExtra('request', JSON.stringify(dxRequest, null, 2));
+		scope.setExtra('transaction', JSON.stringify(transaction, null, 2));
 	});
 };
 
