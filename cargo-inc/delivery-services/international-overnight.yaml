@@ -8,6 +8,8 @@ isTrackable: true
 isInsurable: true
 manifestType: digital
 
+supportsReturns: true
+
 labelFormats:
   - pdf
 
@@ -26,4 +28,3 @@ deliveryConfirmations:
   - ../delivery-confirmations/signature-required.yaml
   - ../delivery-confirmations/adult-signature.yaml
   - ../delivery-confirmations/recipient-signature.yaml
-

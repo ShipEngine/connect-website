@@ -4,6 +4,7 @@
 
 const DEFAULT_PICKUP_COST = 2;
 const DEFAULT_TAX_COST = 1;
+const { ONE_DAY, ONE_HOUR } = require("./pickup-cancellation");
 
 function pickUp(request) {
   let serviceCode = request.service_code;
