@@ -71,7 +71,7 @@ describe("The cancel pickups multi shipment test suite", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       const app = new CarrierApp(appDefinition);
 
-      staticConfigTests.cancelPickups_multiple = {
+      staticConfigTests.cancelPickups_multiple_shipment = {
         contact: { name: "Jane Doe" },
         shipments: [
           {
@@ -149,7 +149,7 @@ describe("The cancel pickups multi shipment test suite", () => {
     beforeEach(() => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       const app = new CarrierApp(appDefinition);
-      staticConfigTests.cancelPickups_multiple =
+      staticConfigTests.cancelPickups_multiple_shipment =
         [
           {
             contact: { name: "Jane Doe" }
@@ -184,7 +184,7 @@ describe("The cancel pickups multi shipment test suite", () => {
     it("should throw an error", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       const app = new CarrierApp(appDefinition);
-      staticConfigTests.cancelPickups_multiple = {
+      staticConfigTests.cancelPickups_multiple_shipment = {
         pickupServiceName: "asdf"
       };
 
@@ -200,7 +200,7 @@ describe("The cancel pickups multi shipment test suite", () => {
     it("should throw an error", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       const app = new CarrierApp(appDefinition);
-      staticConfigTests.cancelPickups_multiple = {
+      staticConfigTests.cancelPickups_multiple_shipment = {
         shipments: [
           {
             deliveryServiceName: "Dummy Delivery Service"
@@ -219,7 +219,7 @@ describe("The cancel pickups multi shipment test suite", () => {
     it("should throw an error", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
       const app = new CarrierApp(appDefinition);
-      staticConfigTests.cancelPickups_multiple = {
+      staticConfigTests.cancelPickups_multiple_shipment = {
         shipments: [
           {
             deliveryServiceName: "asdf"
@@ -253,7 +253,7 @@ describe("The cancel pickups multi shipment test suite", () => {
         packaging: [pojo.packaging()]
       });
 
-      staticConfigTests.cancelPickups_multiple = {
+      staticConfigTests.cancelPickups_multiple_shipment = {
         shipments: [
           {
             deliveryServiceName: "Better Delivery Service"
@@ -284,7 +284,7 @@ describe("The cancel pickups multi shipment test suite", () => {
         code: "better_ds"
       });
 
-      staticConfigTests.cancelPickups_multiple = {
+      staticConfigTests.cancelPickups_multiple_shipment = {
         pickupServiceName: "Better Pickup Service"
       };
 
@@ -303,7 +303,7 @@ describe("The cancel pickups multi shipment test suite", () => {
 
       const app = new CarrierApp(appDefinition);
 
-      staticConfigTests.cancelPickups_multiple = {
+      staticConfigTests.cancelPickups_multiple_shipment = {
         address: {
           company: "Domestic Route #1",
           addressLines: ["123 New Street"],
@@ -321,7 +321,7 @@ describe("The cancel pickups multi shipment test suite", () => {
 
       expect(tests[0].methodArgs.address.company).to.equal("Domestic Route #1");
 
-      expect(tests[0].methodArgs.address).to.eql(staticConfigTests.cancelPickups_multiple.address);
+      expect(tests[0].methodArgs.address).to.eql(staticConfigTests.cancelPickups_multiple_shipment.address);
 
       expect(tests[0].title).to.include("address: US");
     });
