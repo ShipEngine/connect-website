@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import { PickupService, LengthUnit, WeightUnit, DeliveryService } from "@shipengine/connect-sdk";
 import { CarrierApp, PickupRequestPOJO, PickupShipmentPOJO, PickupPackagePOJO, PickupCancellationPOJO } from "@shipengine/connect-sdk/lib/internal";
 import Suite from "../runner/suite";
@@ -123,6 +124,7 @@ export class CancelPickupsMultiple extends Suite {
       pickupServiceName: config.pickupServiceName || defaults.pickupServiceName,
       address: config.address || defaults.address,
       contact: config.contact || defaults.contact,
+      cancellationReason: config.cancellationReason || defaults.cancellationReason,
       timeWindow: config.timeWindow || defaults.timeWindow,
       shipments: []
     };
@@ -238,7 +240,6 @@ export class CancelPickupsMultiple extends Suite {
 
           const customMsg = `The cancelled pickup cancellationID does not match the one that was included in the pickupCancellation: ${cancellationID}`;
           expect(cancellationOutcomes[0].cancellationID).to.equal(cancellationID, customMsg);
-
         }
       );
     });
