@@ -1,15 +1,15 @@
 ---
-title: Acceptance Tests | schedulePickup_next_day
+title: Acceptance Tests | cancelPickups_multi_shipment
 description: This test is part of the ShipEngine Connect carrier app test suite.
 ---
 
 Carrier App Tests
 ==================================
 
-### `schedulePickup_next_day`
+### `cancelPickups_multi_shipment`
 
-This test exercises your app's ability to successfully schedule a next day pickup. If your app does not have any [pickup services](../../../reference/pickup-service.mdx), then this test will be skipped by [the `connect test` command](../../../cli.mdx#test-your-app).
-
+This test exercises your app's ability to successfully cancel a scheduled pickup with multiple shipments. 
+If your app does not have any [pickup services](../../../reference/pickup-service.mdx), then this test will be skipped by [the `connect test` command](../../../cli.mdx#test-your-app).
 
 
 Test Parameters
@@ -95,15 +95,6 @@ This test has many parameters [that can be customized](#customizing-parameters) 
     </DefaultValue>
   </Field>
 
-   <Field name="deliveryServiceName" type="string">
-      <Description>
-           The name of the [delivery service](../../../reference/delivery-service.mdx) you wish to use in this request.
-      </Description>
-      <DefaultValue>
-        The name of the first delivery service defined for your app.
-      </DefaultValue>
-    </Field>
-
   <Field name="address">
     <Type>
       [address object](./../../../reference/address.mdx#address-properties)
@@ -153,7 +144,7 @@ This test has many parameters [that can be customized](#customizing-parameters) 
      or a string representing the date and time in [ISO](https://www.w3.org/TR/NOTE-datetime) format.
     </Type>
     <DefaultValue>
-      Tomorrow at 6:00 am.
+      Today at 6:00 am.
     </DefaultValue>
   </Field>
 
@@ -167,7 +158,7 @@ This test has many parameters [that can be customized](#customizing-parameters) 
          or a string representing the date and time in [ISO](https://www.w3.org/TR/NOTE-datetime) format.
         </Type>
     <DefaultValue>
-        Tomorrow at 9:00 am.
+        Today at 6:00 pm.
     </DefaultValue>
   </Field>
 
@@ -207,7 +198,7 @@ This test has many parameters [that can be customized](#customizing-parameters) 
       The name of the [packaging](./../../../reference/packaging.mdx) you wish to use for this package.
     </Description>
     <DefaultValue>
-       The name of the first packaging defined for the specified delivery service.
+       The name of the first packaging defined for the selected delivery service.
     </DefaultValue>
   </Field>
 
@@ -293,12 +284,26 @@ This test has many parameters [that can be customized](#customizing-parameters) 
     </DefaultValue>
   </Field>
 
+  <Field name="cancellationReason" type="string" >
+      <Description>
+        The reason for the cancellation. Valid values include the following:
+        * `not_ready` - The package was not ready for pickup.
+        * `price` - The customer cancelled the pickup because of the price.
+        * `schedule` - The pickup was cancelled because it could not be picked up within the needed time sframe.
+        * `carrier_failed_pickup` - The carrier failed to pick up the package.
+        * `other` - The cancellation is for a reason not covered by any of the other categories.
+      </Description>
+      <DefaultValue>
+         `not_ready`
+      </DefaultValue>
+    </Field>
+
 </Reference>
 
 
 Customizing Parameters
 ------------------------------
-Here's an example of using the [`connect.config.js` file](./../../../testing/config.mdx) to customize the `schedulePickup_next_day` test. This example provides values for all parameters and uses the global `connectArgs` parameter for authentication.
+Here's an example of using the [`connect.config.js` file](./../../../testing/config.mdx) to customize the `cancelPickups_multi_shipment` test. This example provides values for all parameters and uses the global `connectArgs` parameter for authentication.
 
 ```javascript
 module.exports = {
@@ -308,10 +313,9 @@ module.exports = {
     agree_to_eula: true,
   },
   tests: {
-    schedulePickup_next_day: [
+    cancelPickups_multi_shipment: [
       {
         pickupServiceName: 'Drop Off',
-        deliveryServiceName: 'Next Day Air',
         address: {
           company: 'Example Corp.',
           addressLines: [
@@ -349,10 +353,29 @@ module.exports = {
                   length: 10,
                   unit: 'in'
                 }
-              ]
-            }
+              }
+            ]
+          },
+          {
+            deliveryServiceName: 'Next Day Air',
+            packages: [
+              {
+                packagingName: 'package',
+                weight: {
+                  value: 10,
+                  unit: 'lb',
+                },
+                dimensions: {
+                  width: 10,
+                  height: 10,
+                  length: 10,
+                  unit: 'in'
+                }
+              }
+            ]
           }
-        ]
+        ],
+        cancellationReason:  'price'
       }
     ]
   }

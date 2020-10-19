@@ -112,7 +112,7 @@ This test has many parameters [that can be customized](#customizing-parameters) 
         The address where the package should be picked up.
     </Description>
     <DefaultValue>
-        A valid domestic address based on the `originCountries` and `destinationCountries` of the delivery service.
+        A valid address based on the `originCountries` and `destinationCountries` of the delivery service.
 
         Note that this is the default value used when no `address` parameter is specified.
 
@@ -293,7 +293,7 @@ This test has many parameters [that can be customized](#customizing-parameters) 
     </DefaultValue>
   </Field>
 
-  <Field name="reason" type="string" >
+  <Field name="cancellationReason" type="string" >
       <Description>
         The reason for the cancellation. Valid values include the following:
         * `not_ready` - The package was not ready for pickup.
@@ -324,8 +324,8 @@ module.exports = {
   tests: {
     cancelPickups_same_day: [
       {
-        pickupServiceName: `Drop Off`,
-        deliveryServiceName: `Next Day Air`,
+        pickupServiceName: 'Drop Off',
+        deliveryServiceName: 'Next Day Air',
         address: {
           company: 'Example Corp.',
           addressLines: [
@@ -349,20 +349,22 @@ module.exports = {
         },
         shipments: [
           {
-            deliveryServiceName: `Next Day Air`,
+            deliveryServiceName: 'Next Day Air',
             packages: [
-              packagingName: `package`,
-              weight: {
-                value: 10,
-                unit: 'lb',
-              },
-              dimensions: {
-                width: 10,
-                height: 10,
-                length: 10,
-                unit: 'in'
-              },
-            ],
+              {
+                packagingName: 'package',
+                weight: {
+                  value: 10,
+                  unit: 'lb',
+                },
+                dimensions: {
+                  width: 10,
+                  height: 10,
+                  length: 10,
+                  unit: 'in'
+                }
+              }
+            ]
           }
         ],
         cancellationReason:  'price'
