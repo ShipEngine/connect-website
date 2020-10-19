@@ -11,7 +11,7 @@ import findPickupServiceByName from '../utils/find-pickup-service-by-name';
 import Test from '../runner/test';
 import { buildAddress } from '../factories/address';
 import findPackagingByName from '../utils/find-packaging-by-name';
-import { PickupCancellation, PickupCancellationReason } from '@shipengine/connect-sdk/lib/internal/input';
+import { PickupCancellationReason } from '@shipengine/connect-sdk/lib/internal/input';
 import { v4 } from 'uuid';
 import { expect } from 'chai';
 

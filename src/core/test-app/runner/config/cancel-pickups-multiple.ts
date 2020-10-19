@@ -26,7 +26,6 @@ export interface CancelPickupsMultipleTestParams {
   contact?: ContactInfoPOJO;
   timeWindow?: TimeRangePOJO;
   shipments: PickupShipmentConfig[];
-
   cancellationReason?: PickupCancellationReason;
 }
 

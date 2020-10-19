@@ -8,7 +8,7 @@ const { expect } = require("chai");
 const sinon = require("sinon");
 const { v4 } = require("uuid");
 
-describe.only("The cancel pickups multi shipment test suite", () => {
+describe("The cancel pickups multi shipment test suite", () => {
 
   describe("when there is no pickup service defined in the app", () => {
     it("should not generate tests", () => {
