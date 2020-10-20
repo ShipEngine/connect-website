@@ -63,7 +63,9 @@ describe("The acknowledge orders test suite", () => {
     });
 
     afterEach(() => {
-      OrderApp.prototype.acknowledgeOrders.restore();
+      if(OrderApp.prototype.acknowledgeOrders.restore) {
+        OrderApp.prototype.acknowledgeOrders.restore();
+      }
     });
   });
 

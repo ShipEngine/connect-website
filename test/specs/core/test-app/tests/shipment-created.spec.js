@@ -75,7 +75,9 @@ describe("The shipment created test suite", () => {
     });
 
     afterEach(() => {
-      OrderApp.prototype.shipmentCreated.restore();
+      if(OrderApp.prototype.shipmentCreated.restore) {
+        OrderApp.prototype.shipmentCreated.restore();
+      }
     });
   });
 
