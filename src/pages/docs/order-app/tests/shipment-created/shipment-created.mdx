@@ -8,7 +8,7 @@ Order App Tests
 
 ### `shipmentCreated`
 
-This test exercises your app's ability to successfully acknowledge orders.
+This test exercises your app's ability to receive notification that shipment has been imported from an order source.
 
 
 Test Parameters
@@ -19,7 +19,7 @@ This test has many parameters [that can be customized](#customizing-parameters) 
 
   <Field name="session" type="object">
     <Description>
-        An object containing session information needed to make calls to your backend API or service, such as
+        An object containing [session information](../../../oauth/index.mdx) needed to make calls to your backend API or service, such as
         a username and password or an auth token.
     </Description>
     <DefaultValue>
@@ -87,22 +87,16 @@ This test has many parameters [that can be customized](#customizing-parameters) 
     </DefaultValue>
   </Field>
 
-  <Field name="identifiers" type="object">
-    <Description>
-        Your own identifiers for this shipment.
-    </Description>
-    <DefaultValue>
-        empty object
-    </DefaultValue>
-  </Field>
-
-
   <Field name="salesOrder" type="object">
     <Description>
         The sales order associated with this shipment.
     </Description>
     <DefaultValue>
         An object populated with the objects below.
+
+        The properties and their default values are listed below. Note that these are the default values used when no salesOrder parameter is specified.
+
+        If a salesOrder parameter is specified, it must contain values for all properties.
     </DefaultValue>
   </Field>
 
@@ -195,6 +189,8 @@ This test has many parameters [that can be customized](#customizing-parameters) 
     <DefaultValue>
       The properties and their default values are listed below. 
       Note that these are the default values used when no `contents` parameter is specified.
+
+      If a contents parameter is specified, it must contain values for all properties.
     </DefaultValue>
   </Field>
 
@@ -242,8 +238,6 @@ This test has many parameters [that can be customized](#customizing-parameters) 
   <Field name="contents.product" type="object">
     <Description>
       The product associated with this item.
-
-      This property may be null. If it is provided, all its required properties, listed below, will be included.
     </Description>
     <DefaultValue>
       The properties and their default values are listed below. Note that these are the default values used when no
@@ -337,7 +331,7 @@ This test has many parameters [that can be customized](#customizing-parameters) 
 
   <Field name="contents.quantity.value" type="number">
     <Description>
-      The quantity of items. The minimum value is `1`. This value will not contain decimals.
+      The quantity of items. The minimum value is `1`. This value may not contain decimals.
     </Description>
     <DefaultValue>
       `1`
@@ -348,14 +342,15 @@ This test has many parameters [that can be customized](#customizing-parameters) 
 
 Customizing Parameters
 ------------------------------
-Here's an example of using the [`connect.config.js` file](./../../../testing/config.mdx) to customize the `shipmentCreated` test. This example provides values for all parameters and uses the global `connectArgs` parameter for authentication.
+Here's an example of using the [`connect.config.js` file](./../../../testing/config.mdx) to customize the `shipmentCreated` test. 
+This example provides values for all parameters and uses the global `session` parameter for authentication.
 
 ```javascript
 module.exports = {
-  connectArgs: {
-    account_email: 'user@example.com',
-    account_password: 'u0G#^08Ue1G!jX$mkc1',
-    agree_to_eula: true,
+  session: {
+    auth: {
+      accessToken: "eyJzdWIiOiJ1c2Vycy9Uek1Vb2NNRjRwIiwibmFtZSI6IlJvYmVydCBUb2tlbiBNYW4iLCJzY29wZSI6InNlbGYgZ3JvdXBzL2FkbWlucyIsImV4cCI6IjEzMDA4MTkzODAifQ"
+    }
   },
   tests: {
     shipmentCreated: [
