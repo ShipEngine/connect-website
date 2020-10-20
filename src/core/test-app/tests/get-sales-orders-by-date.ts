@@ -1,4 +1,4 @@
-import { OrderApp, SalesOrderTimeRangePOJO } from "@shipengine/connect-sdk/lib/internal";
+import { OrderApp } from "@shipengine/connect-sdk/lib/internal";
 import Suite from "../runner/suite";
 import {
   GetSalesOrdersByDateConfigOptions,

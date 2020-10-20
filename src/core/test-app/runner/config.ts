@@ -20,10 +20,13 @@ import { TrackShipmentConfigOptions } from './config/track-shipment';
 import { TrackShipmentReturnConfigOptions } from './config/track-shipment-return';
 import { CancelPickupsSameDayConfigOptions } from './config/cancel-pickups-same-day';
 import { ShipmentCreatedConfigOptions } from './config/shipment-created';
+import { GetSalesOrdersByDateConfigOptions } from './config/get-sales-orders-by-date';
 
 export interface TestsConfig {
   acknowledgeOrders?: AcknowledgeOrdersConfigOptions;
   shipmentedCreated?: ShipmentCreatedConfigOptions | [ShipmentCreatedConfigOptions];
+  getSalesOrdersByDate?: GetSalesOrdersByDateConfigOptions | [GetSalesOrdersByDateConfigOptions];
+  
   cancelShipments_single?: CancelShipmentsSingleConfigOptions | [CancelShipmentsSingleConfigOptions];
   cancelShipments_multiple?: CancelShipmentsMultipleConfigOptions | [CancelShipmentsMultipleConfigOptions];
   connectionForm?: ConnectionFormConfigOptions;
