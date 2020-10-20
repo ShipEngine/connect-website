@@ -36,15 +36,8 @@ export class AcknowledgeOrders extends Suite {
     	}
     ];
 
-    let token = "accessToken";
-    if (this.options.staticRootConfig.session
-      && this.options.staticRootConfig.session.auth
-      && this.options.staticRootConfig.session.auth.accessToken) {
-      token = this.options.staticRootConfig.session.auth.accessToken;
-    }
     const defaults = {
-    	notifications: notifications,
-      accessToken: token,
+    	notifications: notifications
     };
 
     // Merge default data + connects args, and user-provided config, in that order
@@ -53,8 +46,8 @@ export class AcknowledgeOrders extends Suite {
     >(defaults, config);
 
     const title = config.expectedErrorMessage
-      ? `it raises an error when creating a connection form with notifications ${testParams.notifications.map((obj) => objectToTestTitle(obj))}`
-      : `it validates the acknowledgeOrders method with notifications ${testParams.notifications.map((obj) => objectToTestTitle(obj))}`;
+      ? `it raises an error when calling the acknowledgeOrders method with notifications ${objectToTestTitle(testParams)}`
+      : `it validates the acknowledgeOrders method with notifications ${objectToTestTitle(testParams)}`;
 
     return {
       title,
@@ -86,12 +79,18 @@ export class AcknowledgeOrders extends Suite {
 
           const transaction = {
             id: v4(),
-            session: {
-              auth: {
-                accessToken: testArg.methodArgs.accessToken,
-              }
-            },
+            session: {}
           };
+
+          if (this.options.staticRootConfig.session
+            && this.options.staticRootConfig.session.auth
+            && this.options.staticRootConfig.session.auth.accessToken) {
+            transaction.session = {
+              auth: {
+                accessToken: this.options.staticRootConfig.session.auth.accessToken
+              }
+            }
+          }
 
           if (!orderApp.acknowledgeOrders) {
           	throw new Error("acknowledgeOrders is not implemented");

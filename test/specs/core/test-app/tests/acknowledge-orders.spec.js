@@ -5,6 +5,7 @@ const { OrderApp } = require("@shipengine/connect-sdk/lib/internal/orders/order-
 const { AcknowledgeOrders } = require("../../../../../lib/core/test-app/tests/acknowledge-orders");
 const pojo = require("../../../../utils/pojo");
 const { expect } = require("chai");
+const sinon = require("sinon");
 
 describe("The acknowledge orders test suite", () => {
   it("should generate a test", () => {
@@ -39,6 +40,32 @@ describe("The acknowledge orders test suite", () => {
 
     expect(tests[0].methodArgs.accessToken).to.equal("someAccessToken");
     expect(tests[0].methodArgs.notifications[0].id).to.equal('a09cma09cm');
+  });
+
+  it("should pass a configured session object to the transaction property of the shipmentCreated method", async () => {
+
+    const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+
+    const acknowledgeOrdersStub = sinon.stub(OrderApp.prototype, "acknowledgeOrders");
+
+    const app = new OrderApp(appDefinition);
+    const args = { app, connectArgs, staticConfigTests, options };
+    const testSuite = new AcknowledgeOrders(args);
+
+    const tests = testSuite.tests();
+
+    await tests[0].fn();
+
+
+    expect(acknowledgeOrdersStub.getCall(0).args[0].session).to.deep.equal({
+      auth: {
+        accessToken: "someAccessToken"
+      }
+    });
+
+    afterEach(() => {
+      OrderApp.prototype.acknowledgeOrders.restore();
+    });
   });
 
   it("should be able to pass info to the acknowledgeOrders function and call it successfully", async () => {
