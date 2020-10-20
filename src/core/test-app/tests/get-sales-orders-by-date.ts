@@ -25,13 +25,10 @@ export class GetSalesOrdersByDate extends Suite {
 
     const { yesterday, today } = initializeTimeStamps();
     // Parse and Set Sensible defaults, merge in connects args
-    const salesOrderTimeRange: SalesOrderTimeRangePOJO = {
-      startDateTime: yesterday,
-      endDateTime: today
-    }
 
     const defaults = {
-      timeRange: salesOrderTimeRange,
+      startDateTime: yesterday,
+      endDateTime: today
     };
 
     // Merge default data + connects args, and user-provided config, in that order
@@ -90,7 +87,7 @@ export class GetSalesOrdersByDate extends Suite {
           	throw new Error("getSalesOrdersByDate is not implemented");
           }
           
-          await orderApp.getSalesOrdersByDate(transaction, testArg.methodArgs.timeRange);
+          await orderApp.getSalesOrdersByDate(transaction, testArg.methodArgs);
         }
       );
     });

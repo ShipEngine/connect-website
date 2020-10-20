@@ -25,8 +25,8 @@ describe("The getSalesOrdersByDate test suite", () => {
     const testSuite = new GetSalesOrdersByDate(args);
     const tests = testSuite.tests();
 
-    expect(Object.keys(tests[0].methodArgs.timeRange)).to.include("startDateTime");
-    expect(Object.keys(tests[0].methodArgs.timeRange)).to.include("endDateTime");
+    expect(Object.keys(tests[0].methodArgs)).to.include("startDateTime");
+    expect(Object.keys(tests[0].methodArgs)).to.include("endDateTime");
   });
 
   it("should let the testing config data override the defaults", () => {
@@ -37,10 +37,8 @@ describe("The getSalesOrdersByDate test suite", () => {
 
     staticConfigTests = {
       getSalesOrdersByDate: {
-        timeRange: {
-          startDateTime: today,
-          endDateTime: new Date()
-        }
+        startDateTime: today,
+        endDateTime: new Date()
       }
     };
 
@@ -48,7 +46,7 @@ describe("The getSalesOrdersByDate test suite", () => {
     const testSuite = new GetSalesOrdersByDate(args);
     const tests = testSuite.tests();
 
-    expect(tests[0].methodArgs.timeRange.startDateTime).to.equal(today);
+    expect(tests[0].methodArgs.startDateTime).to.equal(today);
   });
 
   it("should pass a configured session object to the transaction property of the getSalesOrdersByDate method", async () => {
@@ -73,15 +71,15 @@ describe("The getSalesOrdersByDate test suite", () => {
     });
 
     afterEach(() => {
-      if(OrderApp.prototype.getSalesOrdersByDate.restore) {
+      if (OrderApp.prototype.getSalesOrdersByDate.restore) {
         OrderApp.prototype.getSalesOrdersByDate.restore();
       }
     });
   });
 
-  it("should be able to pass info to the acknowledgeOrders function and call it successfully", async () => {
+  it("should be able to pass info to the getSalesOrdersByDate function and call it successfully", async () => {
     const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-    
+
     sinon.stub(OrderApp.prototype, "getSalesOrdersByDate").resolves([]);
     const app = new OrderApp(appDefinition);
     const args = { app, connectArgs, staticConfigTests, options };
@@ -123,7 +121,7 @@ function generateBasicAppAndConfigs() {
   };
 
   const staticConfigTests = {
-    
+
   };
 
   return { appDefinition, connectArgs, staticConfigTests, options };

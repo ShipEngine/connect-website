@@ -1,8 +1,9 @@
-import { SalesOrderTimeRangePOJO } from "@shipengine/connect-sdk/lib/internal";
+import { DateTimeZonePOJO } from '@shipengine/connect-sdk';
 import { BaseTestConfigOptions } from "./base-test-config-options";
 
 export interface GetSalesOrdersByDateTestParams {
-	timeRange: SalesOrderTimeRangePOJO;
+	startDateTime: DateTimeZonePOJO | Date | string;
+	endDateTime: DateTimeZonePOJO | Date | string;
 }
 
 export interface GetSalesOrdersByDateConfigOptions
