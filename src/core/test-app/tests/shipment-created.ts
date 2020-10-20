@@ -67,6 +67,7 @@ export class ShipmentCreated extends Suite {
 
     const salesOrderShipment: SalesOrderShipmentPOJO = {
       trackingURL: testParams.trackingURL,
+      trackingNumber: testParams.trackingNumber,
       salesOrder: testParams.salesOrder,
       carrierCode: testParams.carrierCode,
       shipFrom: testParams.shipFrom,

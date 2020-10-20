@@ -32,11 +32,12 @@ describe("The shipment created test suite", () => {
     const testSuite = new ShipmentCreated(args);
     const tests = testSuite.tests();
 
-    expect(tests[0].methodArgs.shipment.trackingURL).to.equal("");
+    expect(tests[0].methodArgs.shipment.trackingNumber).to.equal(undefined);
+    expect(tests[0].methodArgs.shipment.trackingURL).to.equal(undefined);
     expect(tests[0].methodArgs.shipment.salesOrder.id).to.equal("123456");
     expect(tests[0].methodArgs.shipment.carrierCode).to.equal(undefined);
     expect(tests[0].methodArgs.shipment.contents[0].salesOrderItem.id).to.equal("123456");
-    expect(tests[0].methodArgs.accessToken).to.equal("");
+    expect(tests[0].methodArgs.accessToken).to.equal(undefined);
   });
 
   it("should let the testing config data override the defaults", () => {
