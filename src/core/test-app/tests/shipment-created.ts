@@ -11,14 +11,9 @@ import Test from '../runner/test';
 import { v4 } from 'uuid';
 import { buildAddressWithContactInfo } from '../factories/address';
 
-interface ShipmentCreatedMethodArgs {
-  accessToken: string;
-  shipment: SalesOrderShipmentPOJO;
-}
-
 interface TestArgs {
   title: string;
-  methodArgs: ShipmentCreatedMethodArgs;
+  methodArgs: SalesOrderShipmentPOJO;
   config: unknown;
 }
 
@@ -30,14 +25,7 @@ export class ShipmentCreated extends Suite {
   ): TestArgs | undefined {
 
     const { tomorrow } = initializeTimeStamps();
-    // Parse and Set Sensible defaults, merge in connects args
 
-    let token;
-    if (this.options.staticRootConfig.session
-      && this.options.staticRootConfig.session.auth
-      && this.options.staticRootConfig.session.auth.accessToken) {
-      token = this.options.staticRootConfig.session.auth.accessToken;
-    }
     const defaults: ShipmentCreatedConfigOptions = {
       trackingURL: undefined,
       trackingNumber: undefined,
@@ -56,8 +44,7 @@ export class ShipmentCreated extends Suite {
         quantity: {
           value: 1
         }
-      }],
-      accessToken: token
+      }]
     };
 
     // Merge default data + connects args, and user-provided config, in that order
@@ -82,7 +69,7 @@ export class ShipmentCreated extends Suite {
 
     return {
       title,
-      methodArgs: { accessToken: token, shipment: salesOrderShipment },
+      methodArgs: salesOrderShipment,
       config,
     };
   }
@@ -110,18 +97,24 @@ export class ShipmentCreated extends Suite {
 
           const transaction = {
             id: v4(),
-            session: {
-              auth: {
-                accessToken: testArg.methodArgs.accessToken,
-              }
-            },
+            session: {}
           };
+
+          if (this.options.staticRootConfig.session
+            && this.options.staticRootConfig.session.auth
+            && this.options.staticRootConfig.session.auth.accessToken) {
+            transaction.session = {
+              auth: {
+                accessToken: this.options.staticRootConfig.session.auth.accessToken
+              }
+            }
+          }
 
           if (!orderApp.shipmentCreated) {
             throw new Error("shipmentCreated is not implemented");
           }
 
-          await orderApp.shipmentCreated(transaction, testArg.methodArgs.shipment);
+          await orderApp.shipmentCreated(transaction, testArg.methodArgs);
         }
       );
     });

@@ -5,6 +5,8 @@ const { OrderApp } = require("@shipengine/connect-sdk/lib/internal/orders/order-
 const { ShipmentCreated } = require("../../../../../lib/core/test-app/tests/shipment-created");
 const pojo = require("../../../../utils/pojo");
 const { expect } = require("chai");
+const sinon = require("sinon");
+
 
 describe("The shipment created test suite", () => {
   it("should generate a test", () => {
@@ -37,19 +39,44 @@ describe("The shipment created test suite", () => {
     expect(tests[0].methodArgs.shipment.salesOrder.id).to.equal("123456");
     expect(tests[0].methodArgs.shipment.carrierCode).to.equal(undefined);
     expect(tests[0].methodArgs.shipment.contents[0].salesOrderItem.id).to.equal("123456");
-    expect(tests[0].methodArgs.accessToken).to.equal(undefined);
   });
 
   it("should let the testing config data override the defaults", () => {
     const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-    
+
     const app = new OrderApp(appDefinition);
     const args = { app, connectArgs, staticConfigTests, options };
     const testSuite = new ShipmentCreated(args);
     const tests = testSuite.tests();
 
-    expect(tests[0].methodArgs.accessToken).to.equal("someAccessToken");
     expect(tests[0].methodArgs.shipment.trackingURL).to.equal("https://www.trackingUrl.com");
+  });
+
+
+  it("should pass a configured session object to the transaction property of the shipmentCreated method", async () => {
+
+    const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
+
+    const shipmentCreatedStub = sinon.stub(OrderApp.prototype, "shipmentCreated");
+
+    const app = new OrderApp(appDefinition);
+    const args = { app, connectArgs, staticConfigTests, options };
+    const testSuite = new ShipmentCreated(args);
+
+    const tests = testSuite.tests();
+
+    await tests[0].fn();
+
+
+    expect(shipmentCreatedStub.getCall(0).args[0].session).to.deep.equal({
+      auth: {
+        accessToken: "someAccessToken"
+      }
+    });
+
+    afterEach(() => {
+      OrderApp.prototype.shipmentCreated.restore();
+    });
   });
 
   it("should be able to pass info to the ShipmentCreated function and call it successfully", async () => {
@@ -62,6 +89,8 @@ describe("The shipment created test suite", () => {
 
     await tests[0].fn();
   });
+
+
 });
 
 function generateBasicAppAndConfigs() {

@@ -12,7 +12,6 @@ export interface ShipmentCreatedTestParams {
   shipTo: AddressWithContactInfoPOJO;
   shipDateTime: DateTimeZonePOJO | Date | string;
   contents: SalesOrderPackageItemPOJO[];
-  accessToken?: string;
 }
 
 export interface ShipmentCreatedConfigOptions
