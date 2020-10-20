@@ -3,6 +3,7 @@ import { SalesOrderPackageItemPOJO } from "@shipengine/connect-sdk/lib/internal"
 import { BaseTestConfigOptions } from "./base-test-config-options";
 
 export interface ShipmentCreatedTestParams {
+  trackingNumber?: string;
   trackingURL?: string;
   salesOrder: SalesOrderIdentifierPOJO;
   carrierCode?: string;

@@ -40,6 +40,7 @@ export class ShipmentCreated extends Suite {
     }
     const defaults: ShipmentCreatedConfigOptions = {
       trackingURL: undefined,
+      trackingNumber: undefined,
       salesOrder: {
         id: "123456"
       },
