@@ -14,6 +14,7 @@ import { NewLabel } from "@shipengine/connect-sdk/lib/internal/carriers/document
 import { _internal, MonetaryValue } from "@shipengine/connect-sdk/lib/internal/common";
 import { PickupCancellationReason } from '@shipengine/connect-sdk';
 import { ValidationOptions } from 'joi';
+import { SalesOrderIdentifier, SalesOrderPackageItem } from '@shipengine/connect-sdk/lib/internal';
 
 const joiOptions = {
   abortEarly: false,
@@ -48,6 +49,22 @@ const acknowledgeOrdersTestParamsSchema = Joi.object({
       orderNumber: Joi.string(),
       importedDate: Joi.string(),
   })).optional(),
+});
+
+
+const shipmentCreatedTestParamsSchema = Joi.object({
+  ...baseTestParamValidations,
+  ...{
+    trackingURL: Joi.string(),
+    salesOrder: SalesOrderIdentifier[_internal].schema,
+    carrierCode: Joi.string(),
+    carrierServiceCode: Joi.string(),
+    shipFrom: AddressWithContactInfo[_internal].schema,
+    shipTo: AddressWithContactInfo[_internal].schema,
+    shipDateTime: DateTimeZone[_internal].schema,
+    contents: SalesOrderPackageItem[_internal].schema,
+    accessToken: Joi.string()
+  }
 });
 
 const createShipmentReturnTestParamsSchema = Joi.object({
@@ -121,26 +138,26 @@ const createShipmentInternationalTestParamsSchema = Joi.object({
   }
 });
 
-const CreateShipmentMultiPackageTestParamsSchemaPackage = Joi.object({
+const createShipmentMultiPackageTestParamsSchemaPackage = Joi.object({
   packagingName: Joi.string().optional(),
   label: NewLabel[_internal].schema.optional(),
   weight: Weight[_internal].schema.optional(),
   dimensions: Dimensions[_internal].schema.optional()
 })
 
-const CreateShipmentMultiPackageTestParamsSchema = Joi.object({
+const createShipmentMultiPackageTestParamsSchema = Joi.object({
   ...baseTestParamValidations,
   ...{
     deliveryConfirmationName: Joi.string().optional(),
     deliveryServiceName: Joi.string().optional(),
-    packages: Joi.array().min(1).items(CreateShipmentMultiPackageTestParamsSchemaPackage).optional(),
+    packages: Joi.array().min(1).items(createShipmentMultiPackageTestParamsSchemaPackage).optional(),
     shipDateTime: DateTimeZone[_internal].schema.optional(),
     shipFrom: AddressWithContactInfo[_internal].schema.optional(),
     shipTo: AddressWithContactInfo[_internal].schema.optional(),
   }
 })
 
-const CreateShipmentWithInsuranceTestParamsSchema = Joi.object({
+const createShipmentWithInsuranceTestParamsSchema = Joi.object({
   ...baseTestParamValidations,
   ...{
     deliveryConfirmationName: Joi.string().optional(),
@@ -156,7 +173,7 @@ const CreateShipmentWithInsuranceTestParamsSchema = Joi.object({
   }
 })
 
-const RateShipmentTestParamsSchema = Joi.object({
+const rateShipmentTestParamsSchema = Joi.object({
   ...baseTestParamValidations,
   ...{
     deliveryServiceName: Joi.string().optional(),
@@ -169,7 +186,7 @@ const RateShipmentTestParamsSchema = Joi.object({
   }
 });
 
-const RateShipmentReturnTestParamsSchema = Joi.object({
+const rateShipmentReturnTestParamsSchema = Joi.object({
   ...baseTestParamValidations,
   ...{
     deliveryServiceName: Joi.string().optional(),
@@ -182,7 +199,7 @@ const RateShipmentReturnTestParamsSchema = Joi.object({
   }
 });
 
-const RateShipmentWithAllServicesTestParamsSchema = Joi.object({
+const rateShipmentWithAllServicesTestParamsSchema = Joi.object({
   ...baseTestParamValidations,
   ...{
     shipFrom: AddressWithContactInfo[_internal].schema.optional(),
@@ -193,7 +210,7 @@ const RateShipmentWithAllServicesTestParamsSchema = Joi.object({
   }
 });
 
-const SameDayPickupTestParamsSchema = Joi.object({
+const sameDayPickupTestParamsSchema = Joi.object({
   ...baseTestParamValidations,
   ...{
     pickupServiceName: Joi.string().optional(),
@@ -212,7 +229,7 @@ const SameDayPickupTestParamsSchema = Joi.object({
   }
 });
 
-const CancelPickupsSamedayTestParamsSchema = Joi.object({
+const cancelPickupsSamedayTestParamsSchema = Joi.object({
   ...baseTestParamValidations,
   ...{
     pickupServiceName: Joi.string().optional(),
@@ -232,7 +249,7 @@ const CancelPickupsSamedayTestParamsSchema = Joi.object({
   }
 });
 
-const CancelPickupsNextdayTestParamsSchema = Joi.object({
+const cancelPickupsNextdayTestParamsSchema = Joi.object({
   ...baseTestParamValidations,
   ...{
     pickupServiceName: Joi.string().optional(),
@@ -252,7 +269,7 @@ const CancelPickupsNextdayTestParamsSchema = Joi.object({
   }
 });
 
-const CancelPickupsMultiShipmentTestParamsSchema = Joi.object({
+const cancelPickupsMultiShipmentTestParamsSchema = Joi.object({
   ...baseTestParamValidations,
   ...{
     pickupServiceName: Joi.string().optional(),
@@ -271,7 +288,7 @@ const CancelPickupsMultiShipmentTestParamsSchema = Joi.object({
   }
 });
 
-const NextDayPickupTestParamsSchema = Joi.object({
+const nextDayPickupTestParamsSchema = Joi.object({
   ...baseTestParamValidations,
   ...{
     pickupServiceName: Joi.string().optional(),
@@ -290,7 +307,7 @@ const NextDayPickupTestParamsSchema = Joi.object({
   }
 });
 
-const SchedulePickupMultiShipmentTestParamsSchema = Joi.object({
+const schedulePickupMultiShipmentTestParamsSchema = Joi.object({
     ...baseTestParamValidations,
     ...{
       pickupServiceName: Joi.string().optional(),
@@ -310,7 +327,7 @@ const SchedulePickupMultiShipmentTestParamsSchema = Joi.object({
   }
 );
 
-const TrackShipmentSchema = Joi.object({
+const trackShipmentSchema = Joi.object({
   ...baseTestParamValidations,
   ...{
     rmaNumber: Joi.string().optional(),
@@ -325,7 +342,7 @@ const TrackShipmentSchema = Joi.object({
   }
 });
 
-const TrackShipmentReturnSchema = Joi.object({
+const trackShipmentReturnSchema = Joi.object({
   ...baseTestParamValidations,
   ...{
     rmaNumber: Joi.string().optional(),
@@ -370,59 +387,63 @@ const testsSchema = Joi.object({
     otherwise: createShipmentInternationalTestParamsSchema,
   }),
   createShipment_multi_package: Joi.alternatives().conditional(Joi.array(), {
-    then: Joi.array().items(CreateShipmentMultiPackageTestParamsSchema),
-    otherwise: CreateShipmentMultiPackageTestParamsSchema,
+    then: Joi.array().items(createShipmentMultiPackageTestParamsSchema),
+    otherwise: createShipmentMultiPackageTestParamsSchema,
   }),
   createShipment_with_insurance: Joi.alternatives().conditional(Joi.array(), {
-    then: Joi.array().items(CreateShipmentWithInsuranceTestParamsSchema),
-    otherwise: CreateShipmentWithInsuranceTestParamsSchema,
+    then: Joi.array().items(createShipmentWithInsuranceTestParamsSchema),
+    otherwise: createShipmentWithInsuranceTestParamsSchema,
   }),
   rateShipment: Joi.alternatives().conditional(Joi.array(), {
-    then: Joi.array().items(RateShipmentTestParamsSchema),
-    otherwise: RateShipmentTestParamsSchema,
+    then: Joi.array().items(rateShipmentTestParamsSchema),
+    otherwise: rateShipmentTestParamsSchema,
   }),
 
   rateShipment_return: Joi.alternatives().conditional(Joi.array(), {
-    then: Joi.array().items(RateShipmentReturnTestParamsSchema),
-    otherwise: RateShipmentReturnTestParamsSchema,
+    then: Joi.array().items(rateShipmentReturnTestParamsSchema),
+    otherwise: rateShipmentReturnTestParamsSchema,
   }),
 
   rateShipment_with_all_services: Joi.alternatives().conditional(Joi.array(), {
-    then: Joi.array().items(RateShipmentWithAllServicesTestParamsSchema),
-    otherwise: RateShipmentWithAllServicesTestParamsSchema,
+    then: Joi.array().items(rateShipmentWithAllServicesTestParamsSchema),
+    otherwise: rateShipmentWithAllServicesTestParamsSchema,
   }),
 
   cancelPickups_same_day: Joi.alternatives().conditional(Joi.array(), {
-    then: Joi.array().items(CancelPickupsSamedayTestParamsSchema),
-    otherwise: CancelPickupsSamedayTestParamsSchema,
+    then: Joi.array().items(cancelPickupsSamedayTestParamsSchema),
+    otherwise: cancelPickupsSamedayTestParamsSchema,
   }),
   cancelPickups_next_day: Joi.alternatives().conditional(Joi.array(), {
-    then: Joi.array().items(CancelPickupsNextdayTestParamsSchema),
-    otherwise: CancelPickupsNextdayTestParamsSchema,
+    then: Joi.array().items(cancelPickupsNextdayTestParamsSchema),
+    otherwise: cancelPickupsNextdayTestParamsSchema,
   }),
   cancelPickups_multi_shipment: Joi.alternatives().conditional(Joi.array(), {
-    then: Joi.array().items(CancelPickupsMultiShipmentTestParamsSchema),
-    otherwise: CancelPickupsMultiShipmentTestParamsSchema,
+    then: Joi.array().items(cancelPickupsMultiShipmentTestParamsSchema),
+    otherwise: cancelPickupsMultiShipmentTestParamsSchema,
   }),
   schedulePickup_same_day: Joi.alternatives().conditional(Joi.array(), {
-    then: Joi.array().items(SameDayPickupTestParamsSchema),
-    otherwise: SameDayPickupTestParamsSchema,
+    then: Joi.array().items(sameDayPickupTestParamsSchema),
+    otherwise: sameDayPickupTestParamsSchema,
   }),
   schedulePickup_next_day: Joi.alternatives().conditional(Joi.array(), {
-    then: Joi.array().items(NextDayPickupTestParamsSchema),
-    otherwise: NextDayPickupTestParamsSchema,
+    then: Joi.array().items(nextDayPickupTestParamsSchema),
+    otherwise: nextDayPickupTestParamsSchema,
   }),
   schedulePickup_multi_shipment: Joi.alternatives().conditional(Joi.array(), {
-    then: Joi.array().items(SchedulePickupMultiShipmentTestParamsSchema),
-    otherwise: SchedulePickupMultiShipmentTestParamsSchema,
+    then: Joi.array().items(schedulePickupMultiShipmentTestParamsSchema),
+    otherwise: schedulePickupMultiShipmentTestParamsSchema,
+  }),
+  shipmentCreated: Joi.alternatives().conditional(Joi.array(), {
+    then: Joi.array().items(shipmentCreatedTestParamsSchema),
+    otherwise: shipmentCreatedTestParamsSchema,
   }),
   trackShipment: Joi.alternatives().conditional(Joi.array(), {
-    then: Joi.array().items(TrackShipmentSchema),
-    otherwise: TrackShipmentSchema,
+    then: Joi.array().items(trackShipmentSchema),
+    otherwise: trackShipmentSchema,
   }),
   trackShipment_return: Joi.alternatives().conditional(Joi.array(), {
-    then: Joi.array().items(TrackShipmentReturnSchema),
-    otherwise: TrackShipmentReturnSchema,
+    then: Joi.array().items(trackShipmentReturnSchema),
+    otherwise: trackShipmentReturnSchema,
   })
 }).optional();
 

@@ -34,6 +34,13 @@ function formatTitleParameter(key: string, value: any) {
     case "shipments":
       return `${value.length}`;
 
+    case "contents":
+      if(Array.isArray(value)) {
+        return `${value.length}`;
+      }
+
+      return value;
+
     default:
       return value;
   }
