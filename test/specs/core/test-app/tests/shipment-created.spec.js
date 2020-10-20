@@ -18,11 +18,11 @@ describe("The shipment created test suite", () => {
     const tests = testSuite.tests();
     expect(tests.length).to.equal(1);
 
-    expect(Object.keys(tests[0].methodArgs.shipment)).to.include("trackingURL");
-    expect(Object.keys(tests[0].methodArgs.shipment)).to.include("salesOrder");
-    expect(Object.keys(tests[0].methodArgs.shipment)).to.include("carrierCode");
-    expect(Object.keys(tests[0].methodArgs.shipment)).to.include("contents");
-    expect(Object.keys(tests[0].methodArgs.shipment)).to.include("shipFrom");
+    expect(Object.keys(tests[0].methodArgs)).to.include("trackingURL");
+    expect(Object.keys(tests[0].methodArgs)).to.include("salesOrder");
+    expect(Object.keys(tests[0].methodArgs)).to.include("carrierCode");
+    expect(Object.keys(tests[0].methodArgs)).to.include("contents");
+    expect(Object.keys(tests[0].methodArgs)).to.include("shipFrom");
   });
 
   it("should pass the right default methodArgs to that test", async () => {
@@ -34,11 +34,11 @@ describe("The shipment created test suite", () => {
     const testSuite = new ShipmentCreated(args);
     const tests = testSuite.tests();
 
-    expect(tests[0].methodArgs.shipment.trackingNumber).to.equal(undefined);
-    expect(tests[0].methodArgs.shipment.trackingURL).to.equal(undefined);
-    expect(tests[0].methodArgs.shipment.salesOrder.id).to.equal("123456");
-    expect(tests[0].methodArgs.shipment.carrierCode).to.equal(undefined);
-    expect(tests[0].methodArgs.shipment.contents[0].salesOrderItem.id).to.equal("123456");
+    expect(tests[0].methodArgs.trackingNumber).to.equal(undefined);
+    expect(tests[0].methodArgs.trackingURL).to.equal(undefined);
+    expect(tests[0].methodArgs.salesOrder.id).to.equal("123456");
+    expect(tests[0].methodArgs.carrierCode).to.equal(undefined);
+    expect(tests[0].methodArgs.contents[0].salesOrderItem.id).to.equal("123456");
   });
 
   it("should let the testing config data override the defaults", () => {
@@ -49,7 +49,7 @@ describe("The shipment created test suite", () => {
     const testSuite = new ShipmentCreated(args);
     const tests = testSuite.tests();
 
-    expect(tests[0].methodArgs.shipment.trackingURL).to.equal("https://www.trackingUrl.com");
+    expect(tests[0].methodArgs.trackingURL).to.equal("https://www.trackingUrl.com");
   });
 
 

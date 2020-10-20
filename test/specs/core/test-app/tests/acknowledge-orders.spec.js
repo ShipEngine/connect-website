@@ -38,7 +38,6 @@ describe("The acknowledge orders test suite", () => {
     const testSuite = new AcknowledgeOrders(args);
     const tests = testSuite.tests();
 
-    expect(tests[0].methodArgs.accessToken).to.equal("someAccessToken");
     expect(tests[0].methodArgs.notifications[0].id).to.equal('a09cma09cm');
   });
 
