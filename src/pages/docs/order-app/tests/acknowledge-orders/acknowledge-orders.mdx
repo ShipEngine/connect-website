@@ -17,6 +17,56 @@ This test has many parameters [that can be customized](#customizing-parameters) 
 
 <Reference>
 
+  <Field name="session" type="object">
+    <Description>
+        An object containing session information needed to make calls to your backend API or service, such as
+        a username and password or an auth token.
+    </Description>
+    <DefaultValue>
+        An empty `session`.
+    </DefaultValue>
+  </Field>
+
+  <Field name="expectedErrorMessage" type="string">
+    <Description>
+      The error message that is expected when running this test.
+      <br/> <br/>
+
+      This property is useful in negative test cases.
+      For example, you may wish to provide invalid weights and verify that the expected error message is returned.
+    </Description>
+    <DefaultValue>
+      None
+    </DefaultValue>
+  </Field>
+
+  <Field name="debug" type="boolean">
+    <Description>
+      Whether or not to run in `debug` mode.
+    </Description>
+    <DefaultValue>
+      `false`
+    </DefaultValue>
+  </Field>
+
+  <Field name="timeout" type="number">
+    <Description>
+      The number of of milliseconds to wait before timing out an asynchronous operation.
+    </Description>
+    <DefaultValue>
+      `3000`
+    </DefaultValue>
+  </Field>
+
+  <Field name="skip" type="boolean">
+    <Description>
+      Whether or not to skip this test.
+    </Description>
+    <DefaultValue>
+      `false`
+    </DefaultValue>
+  </Field>
+
   <Field name="notifications">
     <Type>
       object[]
