@@ -19,7 +19,7 @@ This test has many parameters [that can be customized](#customizing-parameters) 
 
   <Field name="session" type="object">
     <Description>
-        An object containing session information needed to make calls to your backend API or service, such as
+        An object containing [session information](../../../oauth/index.mdx) needed to make calls to your backend API or service, such as
         a username and password or an auth token.
     </Description>
     <DefaultValue>
@@ -127,10 +127,10 @@ Here's an example of using the [`connect.config.js` file](./../../../testing/con
 
 ```javascript
 module.exports = {
-  connectArgs: {
-    account_email: 'user@example.com',
-    account_password: 'u0G#^08Ue1G!jX$mkc1',
-    agree_to_eula: true,
+  session: {
+    auth: {
+      accessToken: "eyJzdWIiOiJ1c2Vycy9Uek1Vb2NNRjRwIiwibmFtZSI6IlJvYmVydCBUb2tlbiBNYW4iLCJzY29wZSI6InNlbGYgZ3JvdXBzL2FkbWlucyIsImV4cCI6IjEzMDA4MTkzODAifQ"
+    }
   },
   tests: {
     acknowledgeOrders: [
