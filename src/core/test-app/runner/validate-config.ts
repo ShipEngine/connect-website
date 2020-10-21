@@ -173,6 +173,14 @@ const createShipmentWithInsuranceTestParamsSchema = Joi.object({
   }
 })
 
+const getSalesOrdersByDateTestParamsSchema = Joi.object({
+  ...baseTestParamValidations,
+  ...{
+    startDateTime: DateTimeZone[_internal].schema.optional(),
+    endDateTime: DateTimeZone[_internal].schema.optional()
+  }
+});
+
 const rateShipmentTestParamsSchema = Joi.object({
   ...baseTestParamValidations,
   ...{
@@ -393,6 +401,11 @@ const testsSchema = Joi.object({
   createShipment_with_insurance: Joi.alternatives().conditional(Joi.array(), {
     then: Joi.array().items(createShipmentWithInsuranceTestParamsSchema),
     otherwise: createShipmentWithInsuranceTestParamsSchema,
+  }),
+
+  getSalesOrdersByDate: Joi.alternatives().conditional(Joi.array(), {
+    then: Joi.array().items(getSalesOrdersByDateTestParamsSchema),
+    otherwise: getSalesOrdersByDateTestParamsSchema,
   }),
   rateShipment: Joi.alternatives().conditional(Joi.array(), {
     then: Joi.array().items(rateShipmentTestParamsSchema),
