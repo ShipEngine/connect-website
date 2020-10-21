@@ -30,7 +30,13 @@ export default async function getSalesOrderByDate(
 ```
 </CodeWrapper>
 
+Paging
+-------
+For returning large numbers of sales orders, you can take advantage of [cursor based pagination](https://jsonapi.org/profiles/ethanresnick/cursor-pagination/#auto-id--cursors) to return the data in chunks.
 
+Simply populate the `paging.cursor` property with your preferred cursor structure and the `getSalesOrderByDate` method will be called again with the `paging.cursor` property populated with the return object. 
+
+The method will continue to be called until the `paging.cursor` property is returned as `undefined`.
 
 Parameters
 -----------------------------------------------
