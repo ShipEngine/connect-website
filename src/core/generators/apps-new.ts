@@ -477,12 +477,6 @@ class AppsNew extends Generator {
           );
 
           this.fs.copyTpl(
-            this.templatePath(`order-source/methods/connect.${this._codeExt}`),
-            this.destinationPath(`src/methods/connect.${this._codeExt}`),
-            this,
-          );
-
-          this.fs.copyTpl(
             this.templatePath(
               `order-source/methods/get-sales-order-by-date.${this._codeExt}`,
             ),

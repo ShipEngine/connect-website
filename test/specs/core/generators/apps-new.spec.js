@@ -342,7 +342,6 @@ describe("new generator", () => {
           .then(() => {
             assert.file([
               "src/index.yaml",
-              "src/methods/connect.js",
               "src/methods/get-sales-order-by-date.js",
               "src/methods/shipment-created.js",
               "src/methods/acknowledge-orders.js",
@@ -386,7 +385,6 @@ describe("new generator", () => {
           .then(() => {
             assert.file([
               "src/index.ts",
-              "src/methods/connect.ts",
               "src/methods/get-sales-order-by-date.ts",
               "src/methods/shipment-created.ts",
               "src/methods/acknowledge-orders.ts",
@@ -432,7 +430,6 @@ describe("new generator", () => {
           .then(() => {
             assert.file([
               "src/index.json",
-              "src/methods/connect.ts",
               "src/methods/get-sales-order-by-date.ts",
               "src/methods/shipment-created.ts",
               "src/methods/acknowledge-orders.ts",
@@ -477,7 +474,6 @@ describe("new generator", () => {
           .then(() => {
             assert.file([
               "src/index.yaml",
-              "src/methods/connect.ts",
               "src/methods/get-sales-order-by-date.ts",
               "src/methods/shipment-created.ts",
               "src/methods/acknowledge-orders.ts",
@@ -523,7 +519,6 @@ describe("new generator", () => {
           .then(() => {
             assert.file([
               "src/index.json",
-              "src/methods/connect.js",
               "src/methods/get-sales-order-by-date.js",
               "src/methods/shipment-created.js",
               "src/methods/acknowledge-orders.js",
@@ -566,7 +561,6 @@ describe("new generator", () => {
           .then(() => {
             assert.file([
               "src/index.yaml",
-              "src/methods/connect.js",
               "src/methods/get-sales-order-by-date.js",
               "src/methods/shipment-created.js",
               "src/methods/acknowledge-orders.js",
