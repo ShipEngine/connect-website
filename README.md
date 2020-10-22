@@ -52,7 +52,7 @@ npm run upgrade
 ### QA / Review
 We use [Vercel](https://vercel.com/) to host the ShipEngine Connect website. One of the nice features of Vercel is that it creates a preview URL for every Git branch and PR, so you can see how the site will look in production and share the link with others to review .
 
-Just push your changes to your branch/PR and then go to [the Vercel dashboard](https://vercel.com/login) to monitor the build process and get your preview URL.
+Just push your changes to your branch/PR and then go to [the Vercel dashboard](https://vercel.com/shipengine) to monitor the build process and get your preview URL.
 
 
 ### Releasing to Prod
