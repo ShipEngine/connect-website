@@ -9,6 +9,9 @@ Order App Tests
 ### `getSalesOrdersByDate`
 
 This test exercises your app's ability to successfully retrieve sales orders by a date range.
+If your app's `getSalesOrdersByDate` method 
+implements [paging](../../../reference/methods/get-sales-orders-by-date) then this test will continuosly call the `getSalesOrdersByDate` until the 
+`paging.cursor` property is returned as `undefined`.
 
 Test Parameters
 -------------------------
