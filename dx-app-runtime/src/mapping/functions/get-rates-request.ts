@@ -9,7 +9,7 @@ import {
 	mapWeightGrams,
 	mapDimensionsCM,
 	mapConfirmation,
-	mapAddress,
+	mapAddressWithContact,
 } from './';
 
 export const mapRatePackage = (
@@ -36,8 +36,8 @@ export const mapGetRatesRequest = (
 		deliveryConfirmation: mapConfirmation(request.confirmation),
 		deliveryDateTime: undefined,
 		shipDateTime: request.ship_datetime,
-		shipFrom: mapAddress(request.ship_from),
-		shipTo: mapAddress(request.ship_to),
+		shipFrom: mapAddressWithContact(request.ship_from),
+		shipTo: mapAddressWithContact(request.ship_to),
 		packages: request.packages.map((pckg) => mapRatePackage(pckg, request)),
 		returns: {
 			isReturn: request.is_return_label || false,

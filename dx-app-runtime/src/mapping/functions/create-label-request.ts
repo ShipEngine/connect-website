@@ -7,7 +7,7 @@ import {
 	mapLabelLayout,
 	mapLabelFormat,
 	mapNewPackage,
-	mapAddress,
+	mapAddressWithContact,
 } from './';
 
 export const getReturnToAddress = (
@@ -18,7 +18,7 @@ export const getReturnToAddress = (
 	if (!isReturn || (!from && !display)) {
 		return undefined;
 	}
-	return display ? mapAddress(display) : mapAddress(from);
+	return display ? mapAddressWithContact(display) : mapAddressWithContact(from);
 };
 
 export const mapCreateLabelRequest = (
@@ -27,8 +27,8 @@ export const mapCreateLabelRequest = (
 	return {
 		deliveryService: request.service_code || '',
 		deliveryConfirmation: mapConfirmation(request.confirmation),
-		shipFrom: mapAddress(request.ship_from),
-		shipTo: mapAddress(request.ship_to),
+		shipFrom: mapAddressWithContact(request.ship_from),
+		shipTo: mapAddressWithContact(request.ship_to),
 		returnTo: getReturnToAddress(
 			request.is_return_label,
 			request.ship_from,

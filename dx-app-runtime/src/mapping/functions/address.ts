@@ -1,5 +1,6 @@
 import { Address, AddressResidentialIndicator } from '@ipaas/capi';
 import {
+	AddressPOJO,
 	AddressWithContactInfoPOJO,
 	Country,
 	PersonNamePOJO,
@@ -34,7 +35,7 @@ export const convertResidentialIndicatorToBoolean = (
 
 const emptyDxPersonName: PersonNamePOJO = { given: '' };
 
-const emptyDxAddress: AddressWithContactInfoPOJO = {
+const emptyDxAddressWithContact: AddressWithContactInfoPOJO = {
 	addressLines: [],
 	cityLocality: '',
 	stateProvince: '',
@@ -46,12 +47,21 @@ const emptyDxAddress: AddressWithContactInfoPOJO = {
 	isResidential: undefined,
 	company: '',
 };
+const emptyDxAddress: AddressPOJO = {
+	addressLines: [],
+	cityLocality: '',
+	stateProvince: '',
+	country: Country.UnitedStates,
+	postalCode: '',
+	isResidential: undefined,
+	company: '',
+};
 
-export const mapAddress = (
+export const mapAddressWithContact = (
 	address: Address | null | undefined,
 ): AddressWithContactInfoPOJO => {
 	if (!address) {
-		return emptyDxAddress;
+		return emptyDxAddressWithContact;
 	}
 	const dxAddress: AddressWithContactInfoPOJO = {
 		addressLines: excludeNullsFromAddressLines(address.address_lines),
@@ -70,3 +80,22 @@ export const mapAddress = (
 
 	return dxAddress;
 };
+
+export const mapAddress = (
+	address: Address | null | undefined,
+): AddressPOJO => {
+	if(!address) {
+		return emptyDxAddress;
+	}
+	return {
+		addressLines: excludeNullsFromAddressLines(address.address_lines),
+		cityLocality: address.city_locality || '',
+		stateProvince: address.state_province || '',
+		country: address.country_code as Country,
+		postalCode: address.postal_code,
+		isResidential: convertResidentialIndicatorToBoolean(
+			address.address_residential_indicator,
+		),
+		company: address.company_name || '',
+	}
+}

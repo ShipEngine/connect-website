@@ -1,5 +1,5 @@
 import {
-	mapAddress,
+	mapAddressWithContact,
 	excludeNullsFromAddressLines,
 	convertResidentialIndicatorToBoolean,
 } from '../../../src/mapping/functions/address';
@@ -53,7 +53,7 @@ describe('Address', () => {
 			state_province: undefined,
 			address_residential_indicator: undefined,
 		};
-		const address = mapAddress(capiAddress);
+		const address = mapAddressWithContact(capiAddress);
 		it('sets address lines to an empty array', () =>
 			expect(address.addressLines).toHaveLength(0));
 		it('sets city to be an empty string', () =>
@@ -84,7 +84,7 @@ describe('Address', () => {
 			state_province: 'CA',
 			address_residential_indicator: AddressResidentialIndicator.Unknown,
 		};
-		const address = mapAddress(capiAddress);
+		const address = mapAddressWithContact(capiAddress);
 		it('sets address lines to the appropriate value', () =>
 			expect(address.addressLines).toHaveLength(2));
 		it('sets city to the appropriate value', () =>
@@ -108,7 +108,7 @@ describe('Address', () => {
 
 describe('address mapping', () => {
 	it('returns an empty DX address with null CAPI', () => {
-		const dxAddress = mapAddress(null);
+		const dxAddress = mapAddressWithContact(null);
 		expect(dxAddress).not.toBeUndefined();
 		expect(dxAddress.name).not.toBeUndefined();
 		expect(dxAddress.addressLines?.length).toBe(0);
