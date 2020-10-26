@@ -1,4 +1,4 @@
-import { OrderApp } from "@shipengine/connect-sdk/lib/internal";
+import { OrderApp, SalesOrderTimeRangePOJO } from "@shipengine/connect-sdk/lib/internal";
 import Suite from "../runner/suite";
 import {
   GetSalesOrdersByDateConfigOptions,
@@ -84,10 +84,28 @@ export class GetSalesOrdersByDate extends Suite {
           }
 
           if (!orderApp.getSalesOrdersByDate) {
-          	throw new Error("getSalesOrdersByDate is not implemented");
+            throw new Error("getSalesOrdersByDate is not implemented");
           }
-          
-          await orderApp.getSalesOrdersByDate(transaction, testArg.methodArgs);
+
+          // If the user returns a populate paging cursor that indicates additional data needs to be retrieved.
+          // Call the method and return the latest paging data into the method param.
+          let hasPaginatedData = true;
+
+          const rangeParams = testArg.methodArgs as SalesOrderTimeRangePOJO;
+
+          while (hasPaginatedData) {
+            // Make a copy of the range params so that subsequent updates to the object will 
+            // not modify what is stored in the sinon stub used to verify that this is working as expected.
+            const results = await orderApp.getSalesOrdersByDate(transaction, Object.assign({}, rangeParams));
+
+            if(results && results.paging && results.paging.cursor) {
+              hasPaginatedData = true;
+              rangeParams.paging = results.paging;
+            }
+            else {
+              hasPaginatedData = false;
+            }
+          }
         }
       );
     });

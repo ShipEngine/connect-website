@@ -55,18 +55,13 @@ describe("The acknowledge orders test suite", () => {
 
     await tests[0].fn();
 
-
     expect(acknowledgeOrdersStub.getCall(0).args[0].session).to.deep.equal({
       auth: {
         accessToken: "someAccessToken"
       }
     });
 
-    afterEach(() => {
-      if(OrderApp.prototype.acknowledgeOrders.restore) {
-        OrderApp.prototype.acknowledgeOrders.restore();
-      }
-    });
+    acknowledgeOrdersStub.restore();
   });
 
   it("should be able to pass info to the acknowledgeOrders function and call it successfully", async () => {
