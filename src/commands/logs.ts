@@ -56,7 +56,7 @@ export default class Logs extends BaseCommand {
 
       const logs = await apiClient.deployments.getLogsById({ deployId: latestDeployment.deployId, appId: platformApp.id })
 
-      if (!flags.json) {
+      if (!flags.raw) {
         const parsedLogs = parseLogs(logs, flags.lines);
         parsedLogs.map(log => this.log(log));
       }
@@ -86,7 +86,8 @@ export default class Logs extends BaseCommand {
 export function parseLogs(logs: string, lines = "1500"): string[] {
 
   // Strip tailing logs that are greater than the line parameter
-  const trimmedLogs = logs.split("\n").slice(0, Number(lines));
+  const splitLogs = logs.split("\n");
+  const trimmedLogs = splitLogs.slice(splitLogs.length - Number(lines));
 
   const parsedLogs: string[] = [];
 

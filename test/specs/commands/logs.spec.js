@@ -55,8 +55,9 @@ describe("When parsing logs", () => {
   });
 
   it("should only return the number of lines specified by the flag", () => {
-    const parsedLogs = parseLogs(sampleLogs, "2");
-    expect(parsedLogs.length).to.equal(2);
-    expect(parsedLogs[1]).to.include("> dx-shipping-runtime@1.0.0 start /code");
+    const parsedLogs = parseLogs(sampleLogs, "3");
+    expect(parsedLogs.length).to.equal(3);
+    expect(parsedLogs[0]).to.include("HTTP GET /logo");
+    expect(parsedLogs[1]).to.include("HTTP GET /icon");
   });
 });
