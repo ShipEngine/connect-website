@@ -24,9 +24,9 @@ export default class Logs extends BaseCommand {
       default: "1500",
       description: "The number of lines of logs to show from the server, max of 1500"
     }),
-    json: flags.boolean({
-      char: "j",
-      description: "Show logs in raw json format",
+    raw: flags.boolean({
+      char: "r",
+      description: "Show logs in raw format",
       default: false
     })
   };
