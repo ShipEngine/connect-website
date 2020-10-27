@@ -3,6 +3,7 @@ import { flags } from "@oclif/command";
 import { loadApp } from "@shipengine/connect-loader";
 import Login from './login';
 import { ApiClientErrors } from '../core/api-client'
+import chalk from 'chalk';
 
 export default class Logs extends BaseCommand {
   public static description = "Get the logs for your app";
@@ -18,6 +19,16 @@ export default class Logs extends BaseCommand {
       default: false,
       hidden: true
     }),
+    lines: flags.string({
+      char: "l",
+      default: "1500",
+      description: "The number of lines of logs to show from the server, max of 1500"
+    }),
+    json: flags.boolean({
+      char: "j",
+      description: "Show logs in raw json format",
+      default: false
+    })
   };
 
   async run(): Promise<void> {
@@ -45,7 +56,13 @@ export default class Logs extends BaseCommand {
 
       const logs = await apiClient.deployments.getLogsById({ deployId: latestDeployment.deployId, appId: platformApp.id })
 
-      this.log(logs);
+      if (!flags.json) {
+        const parsedLogs = parseLogs(logs, flags.lines);
+        parsedLogs.map(log => this.log(log));
+      }
+      else {
+        this.log(logs);
+      }
 
     } catch (error) {
       switch (error.code) {
@@ -66,3 +83,81 @@ export default class Logs extends BaseCommand {
   }
 }
 
+export function parseLogs(logs: string, lines = "1500"): string[] {
+
+  // Strip tailing logs that are greater than the line parameter
+  const trimmedLogs = logs.split("\n").slice(0, Number(lines));
+
+  const parsedLogs: string[] = [];
+
+  for (const log of trimmedLogs) {
+    try {
+      const parsedLog = JSON.parse(log) as object;
+
+      if (isDIPLog(parsedLog)) {
+        parsedLogs.push(formatDIPLog(parsedLog));
+      }
+      else {
+        parsedLogs.push(JSON.stringify(parsedLogs, undefined, 2));
+      }
+
+    } catch {
+      parsedLogs.push(chalk.grey(log));
+    }
+  }
+
+  return parsedLogs;
+}
+
+interface DIPLog {
+  level: string;
+  message: string;
+  transactionId: string;
+  metadata: {
+    timestamp: string;
+    meta?: Record<string, unknown>;
+    [key: string]: unknown;
+  };
+}
+
+function isDIPLog(obj: object): obj is DIPLog {
+  return "level" in obj && "message" in obj;
+}
+
+interface MetadataHTTP {
+  meta: {
+    request: Record<string, unknown>;
+    response: Record<string, unknown>
+  }
+}
+
+function isHTTPLog(obj: { meta?: Record<string, unknown> }): obj is MetadataHTTP {
+  if ("meta" in obj) {
+    return "request" in obj.meta! && "response" in obj.meta!;
+  }
+  return false;
+}
+
+
+function formatDIPLog(log: DIPLog): string {
+  let formattedMessage = chalk.green(`${log.metadata.timestamp}`);
+  const tid = log.transactionId;
+
+  formattedMessage += `: message=${chalk.grey(log.message)}`;
+
+  if (tid !== "no-txid" && tid !== undefined) {
+    formattedMessage += ` transactionId=${tid}`;
+  }
+
+  if (isHTTPLog(log.metadata)) {
+    formattedMessage += ` meta=${chalk.grey(JSON.stringify(log.metadata.meta))}`;
+  }
+
+  for (const key of Object.keys(log.metadata)) {
+    if (!["meta", "timestamp"].includes(key) && typeof log.metadata[key] === "string") {
+      formattedMessage += ` ${key}=${chalk.grey(log.metadata[key])}`;
+    }
+  }
+
+  return formattedMessage;
+}
