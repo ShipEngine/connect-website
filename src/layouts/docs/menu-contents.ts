@@ -20,6 +20,7 @@ export const menu: MenuContents = [
           { title: "Creating Your First App", href: "/docs/create-first-app" },
           { title: "Implementing Your Methods", href: "/docs/implementation" },
           { title: "Developing in TypeScript", href: "/docs/typescript" },
+          { title: "Environment Variables", href: "/docs/environment-variables"},
           { title: "Error Handling", href: "/docs/error-handling" },
           { title: "Testing", href: "/docs/testing" },
           { title: "Local Dev Tooling", href: "/docs/local-dev-tooling"},

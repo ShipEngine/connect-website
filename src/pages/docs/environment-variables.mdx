@@ -1,0 +1,96 @@
+---
+title: Environment Variables for Your ShipEngine Connect app
+description: Learn how to manage environment variables for your ShipEngine Connect application with the ShipEngine Connect CLI
+---
+
+
+
+Managing Environment Variables for Your Application
+===========================
+
+One of the key benefits of integrating your service with [ShipEngine Connect](./index.mdx) is that we will take care of
+hosting your application and setting environment variables that you define.
+
+It is typical for a twelve-factor app to supply [configuration](https://12factor.net/config) via Environment Variables.
+As such [ShipEngine Connect](./index.mdx) allows you to specify configuration and secrets for your application, assuring
+that secrets are stored in an encrypted enclave.
+
+> **INFO:** Environment Variables are set for an Application during the [publish](./publish.mdx) process.
+
+Using the CLI to Manage Environment Variables
+------------------
+
+### Accessing Environment Variable
+
+Accessing an environment variable in Node is supported by default. Upon staring up Node will load environment variables
+for the process and make them available in `process.env`.
+For details on Node Process see the [documentation](https://nodejs.org/docs/latest-v12.x/api/process.html#process_process_env).
+
+```bash
+$ cat test.js
+console.log(`MY_VARIABLE is: ${process.env.MY_VARIABLE}`);
+$ MY_VARIABLE=foo node test.js
+MY_VARIABLE is: foo
+```
+
+### Setting Environment Variables
+
+Setting one or more environment variables can be done with the `env` topic in the ShipEngine Connect CLI.
+
+```bash
+$ connect env:set MY_VARIABLE=foo my_second_variable=bar
+MY_VARIABLE=foo has been set.
+MY_SECOND_VARIABLE=bar has been set.
+```
+
+> **NOTE:** Environment Variable Names will always be UPCASED
+
+### Listing Environment Variables
+
+List environment variables that have been set for the application with `env:list`
+
+```bash
+$ connect env:list
+┌────────────────────┬─────────┐
+│ Name               │ Value   │
+├────────────────────┼─────────┤
+│ MY_SECOND_VARIABLE │ bar     │
+├────────────────────┼─────────┤
+│ MY_VARIABLE        │ foo     │
+└────────────────────┴─────────┘
+```
+
+You can also list environment variables in dotenv format for easy use with dotenv.
+
+```
+$ connect env:list -f dotenv
+MY_SECOND_VARIABLE=bar
+MY_VARIABLE=foo
+```
+
+### Getting Specific Environment Variables
+
+If you have a large number of environment variables you can get specific variables by name.
+
+```bash
+$ connect env:get my_second_variable
+┌─────────────┬───────┐
+│ Name        │ Value │
+├─────────────┼───────┤
+│ MY_VARIABLE │ foo   │
+└─────────────┴───────┘
+```
+
+### Removing an Unwanted Environment Variable
+
+To remove an environment variable from your application and its next publish, use `env:unset`.
+
+```bash
+$ connect env:unset my_second_variable
+MY_VARIABLE has been removed as an environment variable.
+```
+
+<Pager
+prev="./typescript.mdx" prevTitle="Developing in Typescript"
+next="./error-handling.mdx" nextTitle="Error Handling"
+/>
