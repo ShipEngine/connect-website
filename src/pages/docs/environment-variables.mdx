@@ -33,6 +33,12 @@ $ MY_VARIABLE=foo node test.js
 MY_VARIABLE is: foo
 ```
 
+#### Environment Variables and Application Publishing
+
+When an application is [published](./publish.mdx) the environment variables that have been set *at that time* are
+injected into the application's runtime environment. In other words, updating environment variable after a successful
+publish will not change those variables for that publish, you must re-publish.
+
 ### Setting Environment Variables
 
 Setting one or more environment variables can be done with the `env` topic in the ShipEngine Connect CLI.
