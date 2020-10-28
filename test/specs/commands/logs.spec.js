@@ -60,4 +60,6 @@ describe("When parsing logs", () => {
     expect(parsedLogs[0]).to.include("HTTP GET /logo");
     expect(parsedLogs[1]).to.include("HTTP GET /icon");
   });
+
+  it("should format to different colors based on log levels");
 });
