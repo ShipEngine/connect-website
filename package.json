@@ -28,7 +28,7 @@
     "format": "prettier --write src/**/*.ts",
     "lint": "eslint src/**/*",
     "release": "npm run upgrade && npm run clean && npm run build && npm run lint && npm test && npm run bump",
-    "start": "node lib/start.js",
+    "start": "node lib/start.js hello ../connect-samples/cargo-inc",
     "start:dev": "nodemon",
     "test": "mocha -r ts-node/register test/**/*.spec.ts",
     "upgrade": "npm-check -u && npm audit fix"
@@ -38,7 +38,8 @@
     "chai": "^4.2.0",
     "chalk": "^4.1.0",
     "cors": "^2.8.5",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "serialize-error": "^7.0.1"
   },
   "devDependencies": {
     "@jsdevtools/version-bump-prompt": "^6.1.0",

@@ -15,12 +15,14 @@ import {
   SalesOrderShipmentPOJO,
   SalesOrderTimeRange,
   ShipmentCancellationPOJO,
+  SystemError,
   TrackingCriteriaPOJO,
 } from "@shipengine/connect-sdk/lib/internal";
 import { AppType } from "@shipengine/connect-sdk";
 import { TransactionPOJO } from "@shipengine/connect-sdk/lib/internal";
 import log from "./utils/logger";
 import path from "path";
+import { serializeError } from "serialize-error";
 
 type App = CarrierApp | OrderApp | ConnectionApp;
 
@@ -79,15 +81,6 @@ interface AcknowledgeOrdersArgs {
   notifications: SalesOrderNotification[];
 }
 
-interface SdkError {
-  message: string;
-  code: string;
-  details?: string[];
-  name: string;
-  originalCode: string;
-  stack: string;
-}
-
 function logRequest(req: Request, _res: Response, next: NextFunction) {
   log.info(`${req.method} ${req.url}`);
   log.body(req.body);
@@ -107,13 +100,14 @@ function buildImageUrl(pathToApp: string, pathToImage: string, port: number): st
   }
 }
 
-function formatError(error: SdkError) {
+function formatError(error: SystemError) {
   return {
     name: error.name,
     message: error.message,
     code: error.code,
     details: error.details || [],
     originalCode: error.originalCode,
+    originalError: serializeError(error.originalError),
     stack: error.stack,
   };
 }
