@@ -4,7 +4,6 @@ import { loadApp } from "@shipengine/connect-loader";
 import Login from './login';
 import { ApiClientErrors } from '../core/api-client'
 import chalk from 'chalk';
-import { format } from 'path';
 
 export default class Logs extends BaseCommand {
   public static description = "Get the logs for your app";
@@ -63,7 +62,7 @@ export default class Logs extends BaseCommand {
       const logs = await apiClient.deployments.getLogsById({ deployId: latestDeployment.deployId, appId: platformApp.id })
 
       if (!flags.raw) {
-        const parsedLogs = parseLogs(logs, flags.lines);
+        const parsedLogs = parseLogs(logs, flags.lines, flags.all);
         parsedLogs.map(log => this.log(log));
       }
       else {
@@ -102,9 +101,8 @@ export function parseLogs(logs: string, lines = "1500", showAll = false): string
       const parsedLog = JSON.parse(log) as object;
 
       if (isDIPLog(parsedLog)) {
-
         // Skip HTTP calls unless specified
-        if (!showAll && isHTTPLog(parsedLog.metadata)) {
+        if (!showAll && (isHTTPLog(parsedLog.metadata) || parsedLog.message.includes("HTTP"))) {
           continue;
         }
 

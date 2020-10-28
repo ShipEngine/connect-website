@@ -14,7 +14,7 @@ describe("When parsing logs", () => {
 
   it("should filter out HTTP requests by default", () => {
     const parsedLogs = parseLogs(sampleLogs, "1500", false);
-    expect(parsedLogs.length).to.equal(16);
+    expect(parsedLogs.length).to.equal(14);
     expect(parsedLogs[1]).to.include("> dx-shipping-runtime@1.0.0 start /code");
     expect(parsedLogs[4]).to.include("Logging initialized with info level and json");
   });
@@ -88,6 +88,4 @@ describe("When parsing logs", () => {
 
     expect(parsedLogs[0]).to.include("[31m");
   });
-
-  
 });
