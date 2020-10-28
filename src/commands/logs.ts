@@ -3,7 +3,7 @@ import { flags } from "@oclif/command";
 import { loadApp } from "@shipengine/connect-loader";
 import Login from './login';
 import { ApiClientErrors } from '../core/api-client'
-import chalk from 'chalk';
+import { parseDIPLogs } from '../core/utils/dip-log-helpers';
 
 export default class Logs extends BaseCommand {
   public static description = "Get the logs for your app";
@@ -62,7 +62,7 @@ export default class Logs extends BaseCommand {
       const logs = await apiClient.deployments.getLogsById({ deployId: latestDeployment.deployId, appId: platformApp.id })
 
       if (!flags.raw) {
-        const parsedLogs = parseLogs(logs, flags.lines, flags.all);
+        const parsedLogs = parseDIPLogs(logs, flags.lines, flags.all);
         parsedLogs.map(log => this.log(log));
       }
       else {
@@ -86,103 +86,4 @@ export default class Logs extends BaseCommand {
       }
     }
   }
-}
-
-export function parseLogs(logs: string, lines = "1500", showAll = false): string[] {
-
-  // Strip tailing logs that are greater than the line parameter
-  const splitLogs = logs.split("\n");
-  const trimmedLogs = splitLogs.slice(splitLogs.length - Number(lines));
-
-  const parsedLogs: string[] = [];
-
-  for (const log of trimmedLogs) {
-    try {
-      const parsedLog = JSON.parse(log) as object;
-
-      if (isDIPLog(parsedLog)) {
-        // Skip HTTP calls unless specified
-        if (!showAll && (isHTTPLog(parsedLog.metadata) || parsedLog.message.includes("HTTP"))) {
-          continue;
-        }
-
-        parsedLogs.push(formatDIPLog(parsedLog));
-      }
-      else {
-        parsedLogs.push(JSON.stringify(parsedLogs, undefined, 2));
-      }
-
-    } catch {
-      parsedLogs.push(chalk.grey(log));
-    }
-  }
-
-  return parsedLogs;
-}
-
-interface DIPLog {
-  level: "info" | "warning" | "error";
-  message: string;
-  transactionId: string;
-  metadata: {
-    timestamp: string;
-    meta?: Record<string, unknown>;
-    [key: string]: unknown;
-  };
-}
-
-function isDIPLog(obj: object): obj is DIPLog {
-  return "level" in obj && "message" in obj;
-}
-
-interface MetadataHTTP {
-  meta: {
-    request: Record<string, unknown>;
-    response: Record<string, unknown>
-  }
-}
-
-function isHTTPLog(obj: { meta?: Record<string, unknown> }): obj is MetadataHTTP {
-  if ("meta" in obj) {
-    return "request" in obj.meta! && "response" in obj.meta!;
-  }
-  return false;
-}
-
-function formatDIPLog(log: DIPLog): string {
-
-  let formattedMessage = "";
-  switch (log.level) {
-    case "info":
-      formattedMessage = chalk.green(`${log.metadata.timestamp}`);
-      break;
-    case "warning":
-      formattedMessage = chalk.yellow(`${log.metadata.timestamp}`);
-      break;
-    case "error":
-      formattedMessage = chalk.red(`${log.metadata.timestamp}`);
-      break;
-    default:
-      formattedMessage = chalk.green(`${log.metadata.timestamp}`);
-  }
-
-  const tid = log.transactionId;
-
-  formattedMessage += `: message=${chalk.grey(log.message)}`;
-
-  if (tid !== "no-txid" && tid !== undefined) {
-    formattedMessage += ` transactionId=${tid}`;
-  }
-
-  if (isHTTPLog(log.metadata)) {
-    formattedMessage += ` meta=${chalk.grey(JSON.stringify(log.metadata.meta))}`;
-  }
-
-  for (const key of Object.keys(log.metadata)) {
-    if (!["meta", "timestamp"].includes(key) && typeof log.metadata[key] === "string") {
-      formattedMessage += ` ${key}=${chalk.grey(log.metadata[key])}`;
-    }
-  }
-
-  return formattedMessage;
 }
