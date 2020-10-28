@@ -28,7 +28,7 @@
     "format": "prettier --write src/**/*.ts",
     "lint": "eslint src/**/*",
     "release": "npm run upgrade && npm run clean && npm run build && npm run lint && npm test && npm run bump",
-    "start": "node lib/start.js hello ../connect-samples/cargo-inc",
+    "start": "node lib/start.js",
     "start:dev": "nodemon",
     "test": "mocha -r ts-node/register test/**/*.spec.ts",
     "upgrade": "npm-check -u && npm audit fix"
