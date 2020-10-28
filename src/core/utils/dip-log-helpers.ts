@@ -7,7 +7,31 @@ export function parseDIPLogs(logs: string, lines = "1500", showAll = false): str
 
   // Strip tailing logs that are greater than the line parameter
   const splitLogs = logs.split("\n");
-  const trimmedLogs = splitLogs.slice(splitLogs.length - Number(lines));
+
+  // Remove empty space tail to prevent unnecessary space at the end of the logs
+  if(splitLogs[splitLogs.length-1] === "") {
+    splitLogs.pop();
+  }
+
+  // Check for internal DIP logs and filter them out if -a is not set in the CLI
+  const filteredLogs = splitLogs.filter((log) => {
+    try {
+      const parsedLog = JSON.parse(log) as object;
+      if (isDIPLog(parsedLog)) {
+        if (!showAll && (isHTTPLog(parsedLog.metadata) || parsedLog.message.includes("HTTP"))) {
+          return false;
+        }
+        return true;
+      }
+
+      return true;
+    }
+    catch {
+      return true;
+    }
+  });
+
+  const trimmedLogs = filteredLogs.slice(filteredLogs.length - Number(lines));
 
   const parsedLogs: string[] = [];
 
@@ -18,10 +42,6 @@ export function parseDIPLogs(logs: string, lines = "1500", showAll = false): str
 
       // Check for DIP specifc 
       if (isDIPLog(parsedLog)) {
-        // Skip HTTP calls unless '-a' flag is specified
-        if (!showAll && (isHTTPLog(parsedLog.metadata) || parsedLog.message.includes("HTTP"))) {
-          continue;
-        }
         parsedLogs.push(formatDIPLog(parsedLog));
       }
       else {
