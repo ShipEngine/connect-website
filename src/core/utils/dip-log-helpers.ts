@@ -8,7 +8,7 @@ export function parseDIPLogs(logs: string, lines = "1500", showAll = false): str
   // Strip tailing logs that are greater than the line parameter
   const splitLogs = logs.split("\n");
 
-  // Remove empty space tail to prevent unnecessary space at the end of the logs
+  // Remove empty space tail to prevent unnecessary newline at the end of the logs
   if(splitLogs[splitLogs.length-1] === "") {
     splitLogs.pop();
   }
