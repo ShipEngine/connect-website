@@ -121,14 +121,14 @@ The `connect env` topic allows you to manage environment variables for your publ
 variables for an application are stored in an encrypted enclave suitable for any secrets integral
 to running the application. For more details see [Environment Variables](environment-variables.mdx).
 
-> **Note:** When an application is published ShipEngine Connect uses a point in time snapshot of the variables
+> **NOTE:** When an application is published ShipEngine Connect uses a point in time snapshot of the variables
 that have been set. Modifying variables post-publish will require a re-publish for them to apply.
 
 ```
 connect env:list
 connect env:set   NAME=value NAME_2=value2 ... NAME_N=valueN
-connect env:get   NAME=value NAME_2=value2 ... NAME_N=valueN
-connect env:unset NAME=value NAME_2=value2 ... NAME_N=valueN
+connect env:get   NAME NAME_2 ... NAME_N
+connect env:unset NAME NAME_2 ... NAME_N
 ```
 #### Options
 
