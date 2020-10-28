@@ -70,24 +70,4 @@ describe("When parsing logs", () => {
     expect(parsedLogs[1]).to.include("HTTP GET /icon");
   });
 
-  it("should timestamp text green for an info log", () => {
-    const jsonLog = `{"level":"info","message":"Logging initialized with info level and json","metadata":{"timestamp":"2020-10-27T16:20:59.434Z", "foo": "bar"},"transactionId":"no-txid"}`;
-    const parsedLogs = parseDIPLogs(jsonLog, "1500");
-
-    expect(parsedLogs[0]).to.include("[32m");
-  });
-
-  it("should timestamp text yellow for an error log", () => {
-    const jsonLog = `{"level":"warning","message":"Logging initialized with info level and json","metadata":{"timestamp":"2020-10-27T16:20:59.434Z", "foo": "bar"},"transactionId":"no-txid"}`;
-    const parsedLogs = parseDIPLogs(jsonLog, "1500");
-
-    expect(parsedLogs[0]).to.include("[33m");
-  });
-
-  it("should timestamp text red for an error log", () => {
-    const jsonLog = `{"level":"error","message":"Logging initialized with info level and json","metadata":{"timestamp":"2020-10-27T16:20:59.434Z", "foo": "bar"},"transactionId":"no-txid"}`;
-    const parsedLogs = parseDIPLogs(jsonLog, "1500");
-
-    expect(parsedLogs[0]).to.include("[31m");
-  });
 });
