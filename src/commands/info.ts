@@ -4,6 +4,7 @@ import { loadApp } from "@shipengine/connect-loader";
 import Login from './login';
 import { ApiClientErrors } from '../core/api-client'
 import Table from 'cli-table';
+import { createOrFindTestAccount } from '../core/utils/create-or-find-test-account';
 
 export default class Info extends BaseCommand {
   public static description = "Get the current information about your app";
@@ -45,6 +46,8 @@ export default class Info extends BaseCommand {
 
       const latestDeployment = paginatedDeployments.items[0];
 
+      const accountInfo = await createOrFindTestAccount(apiClient, platformApp);
+
       const table = new Table();
 
       table.push(
@@ -53,6 +56,9 @@ export default class Info extends BaseCommand {
         { 'Type': [platformApp.type] },
         { 'Status': [latestDeployment.status] },
         { 'Created At': [latestDeployment.createdAt] },
+        { 'Email': [accountInfo.email] },
+        { 'Password': [accountInfo.password] },
+        { 'Test URL': [accountInfo.testUrl] }
       );
       this.log(table.toString());
     } catch (error) {

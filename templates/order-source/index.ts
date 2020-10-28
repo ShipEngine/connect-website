@@ -12,7 +12,6 @@ const orderSource: OrderAppDefinition = {
   connectionForm: import("./forms/connect"),
   settingsForm: import("./forms/settings"),
 
-  connect: import("./methods/connect"),
   getSalesOrdersByDate: import("./methods/get-sales-order-by-date"),
   shipmentCreated: import("./methods/shipment-created"),
   acknowledgeOrders: import("./methods/acknowledge-orders")

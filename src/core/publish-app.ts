@@ -9,7 +9,7 @@ import { watchDeployment } from "./publish-app/watch-deployment";
 import { green, red } from "chalk";
 import parseDeploymentErrors from './utils/parse-deployment-errors';
 import Table from 'cli-table';
-import { ConnectApp } from './types'
+import { createOrFindTestAccount, TestAccountInfo } from './utils/create-or-find-test-account';
 
 class AppFailedToPackageError extends Error {
   code: string;
@@ -129,36 +129,28 @@ export default async function publishApp(
       console.log(
         green(`Your app was published successfully ${logSymbols.success} `),
       );
-      await createOrFindTestAccount(client, platformApp);
+      const accountInfo = await createOrFindTestAccount(client, platformApp);
+      displayAccountInfo(accountInfo);
     }
 
     return newDeployment;
   }
 
-  await createOrFindTestAccount(client, platformApp);
+  const accountInfo = await createOrFindTestAccount(client, platformApp);
+  displayAccountInfo(accountInfo);
 
   return newDeployment;
 }
 
-const createOrFindTestAccount = async (client: APIClient, platformApp: ConnectApp) => {
-  const sellers = await client.sellers.getSellersForAppId(platformApp.id)
-  const email = `${platformApp.id}@test.com`;
-
-  if (!sellers.some((seller) => seller.email === email)) {
-    cli.action.start("Creating test account");
-    await client.sellers.createSeller(platformApp.id, email, platformApp.id)
-    cli.action.stop(`${logSymbols.success}`);
-  }
-
-  const productInfo = platformApp.productInfos.find((info) => info.product === "ShipStation")
-  const testUrl = productInfo && productInfo.loginUrl;
+function displayAccountInfo(accountInfo: TestAccountInfo) {
   const table = new Table();
 
   table.push(
-    { 'Email': [email] },
-    { 'Password': [platformApp.id] },
-    { 'Test URL': [testUrl] }
+    { 'Email': [accountInfo.email] },
+    { 'Password': [accountInfo.password] },
+    { 'Test URL': [accountInfo.testUrl] }
   );
+  
   console.log("Test your app with the account below:");
   console.log(table.toString());
 }
