@@ -126,7 +126,12 @@
     "plugins": [
       "@oclif/plugin-help",
       "@oclif/plugin-not-found"
-    ]
+    ],
+    "topics": {
+      "env": {
+        "description": "Manage environment variables for your published app"
+      }
+    }
   },
   "repository": {
     "type": "git",

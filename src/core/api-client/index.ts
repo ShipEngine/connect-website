@@ -5,6 +5,7 @@ import Deployments from "./resources/deployments";
 import Diagnostics from "./resources/diagnostics";
 import Sellers from "./resources/sellers";
 import Users from "./resources/users";
+import Configuration from "./resources/configuration";
 
 export interface ApiClientParams {
   endpoint: string;
@@ -34,6 +35,8 @@ export interface ApiClientError {
 export default class APIClient {
   apps: Apps;
 
+  configuration: Configuration;
+
   deployments: Deployments;
 
   diagnostics: Diagnostics;
@@ -44,14 +47,15 @@ export default class APIClient {
 
   apiKey: string;
 
-  private debug: boolean;
+  private readonly debug: boolean;
 
-  private _apiAuthority = "https://dip-webapi-dev.kubedev.sslocal.com/api";
+  private _apiAuthority = process.env.API_AUTHORITY ?? "https://dip-webapi-dev.kubedev.sslocal.com/api";
 
   constructor(apiKey: string, debug = false) {
     this.apiKey = apiKey;
 
     this.apps = new Apps(this);
+    this.configuration = new Configuration(this);
     this.deployments = new Deployments(this);
     this.diagnostics = new Diagnostics(this);
     this.sellers = new Sellers(this);
