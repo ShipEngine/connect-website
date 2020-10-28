@@ -4,6 +4,7 @@ import { loadApp } from "@shipengine/connect-loader";
 import Login from './login';
 import { ApiClientErrors } from '../core/api-client'
 import chalk from 'chalk';
+import { format } from 'path';
 
 export default class Logs extends BaseCommand {
   public static description = "Get the logs for your app";
@@ -23,6 +24,11 @@ export default class Logs extends BaseCommand {
       char: "l",
       default: "1500",
       description: "The number of lines of logs to show from the server, max of 1500"
+    }),
+    all: flags.boolean({
+      char: "a",
+      default: false,
+      description: "Show internal logs along with the app developer related ones"
     }),
     raw: flags.boolean({
       char: "r",
@@ -83,7 +89,7 @@ export default class Logs extends BaseCommand {
   }
 }
 
-export function parseLogs(logs: string, lines = "1500"): string[] {
+export function parseLogs(logs: string, lines = "1500", showAll = false): string[] {
 
   // Strip tailing logs that are greater than the line parameter
   const splitLogs = logs.split("\n");
@@ -96,6 +102,12 @@ export function parseLogs(logs: string, lines = "1500"): string[] {
       const parsedLog = JSON.parse(log) as object;
 
       if (isDIPLog(parsedLog)) {
+
+        // Skip HTTP calls unless specified
+        if (!showAll && isHTTPLog(parsedLog.metadata)) {
+          continue;
+        }
+
         parsedLogs.push(formatDIPLog(parsedLog));
       }
       else {
@@ -111,7 +123,7 @@ export function parseLogs(logs: string, lines = "1500"): string[] {
 }
 
 interface DIPLog {
-  level: string;
+  level: "info" | "warning" | "error";
   message: string;
   transactionId: string;
   metadata: {
@@ -139,9 +151,23 @@ function isHTTPLog(obj: { meta?: Record<string, unknown> }): obj is MetadataHTTP
   return false;
 }
 
-
 function formatDIPLog(log: DIPLog): string {
-  let formattedMessage = chalk.green(`${log.metadata.timestamp}`);
+
+  let formattedMessage = "";
+  switch (log.level) {
+    case "info":
+      formattedMessage = chalk.green(`${log.metadata.timestamp}`);
+      break;
+    case "warning":
+      formattedMessage = chalk.yellow(`${log.metadata.timestamp}`);
+      break;
+    case "error":
+      formattedMessage = chalk.red(`${log.metadata.timestamp}`);
+      break;
+    default:
+      formattedMessage = chalk.green(`${log.metadata.timestamp}`);
+  }
+
   const tid = log.transactionId;
 
   formattedMessage += `: message=${chalk.grey(log.message)}`;

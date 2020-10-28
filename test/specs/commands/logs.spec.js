@@ -6,8 +6,15 @@ const sampleLogs = `"\n> dx-shipping-runtime@1.0.0 start /code\n> node dist/serv
 describe("When parsing logs", () => {
 
   it("should successfully parse all logs", () => {
-    const parsedLogs = parseLogs(sampleLogs, "1500");
+    const parsedLogs = parseLogs(sampleLogs, "1500", true);
     expect(parsedLogs.length).to.equal(18);
+    expect(parsedLogs[1]).to.include("> dx-shipping-runtime@1.0.0 start /code");
+    expect(parsedLogs[4]).to.include("Logging initialized with info level and json");
+  });
+
+  it("should filter out HTTP requests by default", () => {
+    const parsedLogs = parseLogs(sampleLogs, "1500", false);
+    expect(parsedLogs.length).to.equal(16);
     expect(parsedLogs[1]).to.include("> dx-shipping-runtime@1.0.0 start /code");
     expect(parsedLogs[4]).to.include("Logging initialized with info level and json");
   });
@@ -41,7 +48,7 @@ describe("When parsing logs", () => {
   });
 
   it("should parse a log that contains HTTP metadata", () => {
-    const parsedLogs = parseLogs(sampleLogs, "1500");
+    const parsedLogs = parseLogs(sampleLogs, "1500", true);
     expect(parsedLogs[14]).to.include('"request":{}');
     expect(parsedLogs[14]).to.include('"response":{"body":');
   });
@@ -55,11 +62,32 @@ describe("When parsing logs", () => {
   });
 
   it("should only return the number of lines specified by the flag", () => {
-    const parsedLogs = parseLogs(sampleLogs, "3");
+    const parsedLogs = parseLogs(sampleLogs, "3", true);
     expect(parsedLogs.length).to.equal(3);
     expect(parsedLogs[0]).to.include("HTTP GET /logo");
     expect(parsedLogs[1]).to.include("HTTP GET /icon");
   });
 
-  it("should format to different colors based on log levels");
+  it("should timestamp text green for an info log", () => {
+    const jsonLog = "{\"level\":\"info\",\"message\":\"Logging initialized with info level and json\",\"metadata\":{\"timestamp\":\"2020-10-27T16:20:59.434Z\", \"foo\": \"bar\"},\"transactionId\":\"no-txid\"}";
+    const parsedLogs = parseLogs(jsonLog, "1500");
+
+    expect(parsedLogs[0]).to.include("[32m");
+  });
+
+  it("should timestamp text yellow for an error log", () => {
+    const jsonLog = "{\"level\":\"warning\",\"message\":\"Logging initialized with info level and json\",\"metadata\":{\"timestamp\":\"2020-10-27T16:20:59.434Z\", \"foo\": \"bar\"},\"transactionId\":\"no-txid\"}";
+    const parsedLogs = parseLogs(jsonLog, "1500");
+
+    expect(parsedLogs[0]).to.include("[33m");
+  });
+
+  it("should timestamp text red for an error log", () => {
+    const jsonLog = "{\"level\":\"error\",\"message\":\"Logging initialized with info level and json\",\"metadata\":{\"timestamp\":\"2020-10-27T16:20:59.434Z\", \"foo\": \"bar\"},\"transactionId\":\"no-txid\"}";
+    const parsedLogs = parseLogs(jsonLog, "1500");
+
+    expect(parsedLogs[0]).to.include("[31m");
+  });
+
+  
 });
