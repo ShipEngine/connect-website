@@ -117,26 +117,53 @@ Use this option to allow more time for your tests to run. The timeout is specifi
 
 Manage Environment Variables
 --------------------------
-The `connect env` topic allows you to manage environment variables for your published application. Environment
-variables for an application are stored in an encrypted enclave suitable for any secrets integral
-to running the application. For more details see [Environment Variables](environment-variables.mdx).
+The `connect env` command allows you to set environment variables that will be available to your app once it is published
+to ShipEngine Connect.
+This allows you to manage application secrets and configuration data separately from your code and make changes to this data without changing your application code.
 
-> **NOTE:** When an application is published ShipEngine Connect uses a point in time snapshot of the variables
-that have been set. Modifying variables post-publish will require a re-publish for them to apply.
+You should run this command before [publishing](#publish-your-app) your app.
+The values that are set at the time you run the publish command will be injected into your app once it is hosted in ShipEngine Connect. If you change those variables,
+you will need to re-publish your app before those changes will take affect in ShipEngine Connect.
 
+When you run the `connect env` command, you will include one of its subcommands listed below to indicate which environment
+variable action you would like to perform. Y
+
+> **PRO TIP:**
+> You can leave off the `env` part of the command and just specify the subcommand. For example, you can run
+> `connect list` to list the environment variables rather than `connect env:list`.
+
+#### Set Environment Variables
+This subcommand sets one or more environment variables.
+```bash
+connect env:set NAME=value NAME_2=value2 ... NAME_N=valueN [OPTIONS]
 ```
-connect env:list
-connect env:set   NAME=value NAME_2=value2 ... NAME_N=valueN
-connect env:get   NAME NAME_2 ... NAME_N
-connect env:unset NAME NAME_2 ... NAME_N
+
+#### Get Environment Variables
+This subcommand lists the current value for one or more environment variables.
+```bash
+connect env:get NAME NAME_2 ... NAME_N [OPTIONS]
 ```
+
+#### List Environment Variables
+This subcommand lists the values of all environment variables.
+```bash
+connect env:list [OPTIONS]
+```
+
+#### Unset Environment Variables
+This subcommand unsets one or more environment variables.
+```bash
+connect env:unset NAME NAME_2 ... NAME_N [OPTIONS]
+```
+
 #### Options
 
 ##### `--debug`
 This option enables verbose logging, which can be useful for debugging issues managing variables.
 
-##### `env:list -f, --format=table|dotenv  [default: table] specify output format`
-This option allows list to be output as a table or as [dotenv](https://github.com/motdotla/dotenv) NAME=value format.
+##### `--format`
+This option formats the output of the `connect list` command. Set this option to `table` to list the environment variables
+ in a table format or `dotenv` to list the environment variables in the [dotenv](https://www.npmjs.com/package/dotenv) format.
 
 Package Your App
 --------------------------
