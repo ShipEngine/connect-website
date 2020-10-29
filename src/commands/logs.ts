@@ -29,10 +29,11 @@ export default class Logs extends BaseCommand {
       default: false,
       description: "Show internal logs along with the app developer related ones"
     }),
-    raw: flags.boolean({
-      char: "r",
-      description: "Show logs in raw format",
-      default: false
+    format: flags.string({
+      char: "f",
+      description: "The format the logs get shown in",
+      options: ["default", "raw"],
+      default: "default"
     })
   };
 
@@ -61,7 +62,7 @@ export default class Logs extends BaseCommand {
 
       const logs = await apiClient.deployments.getLogsById({ deployId: latestDeployment.deployId, appId: platformApp.id })
 
-      if (!flags.raw) {
+      if (flags.format !== "raw") {
         const parsedLogs = parseDIPLogs(logs, flags.lines, flags.all);
         parsedLogs.map(log => this.log(log));
       }
