@@ -3,13 +3,13 @@ import chalk from "chalk";
 /**
  * Parse logs from DIP into a more human readable format.
  */
-export function parseDIPLogs(logs: string, lines = "1500", showAll = false): string[] {
+export function parseDIPLogs(logs: string, lines = 500, showAll = false): string[] {
 
   // Strip tailing logs that are greater than the line parameter
   const splitLogs = logs.split("\n");
 
   // Remove empty space tail to prevent unnecessary newline at the end of the logs
-  if(splitLogs[splitLogs.length-1] === "") {
+  if (splitLogs[splitLogs.length - 1] === "") {
     splitLogs.pop();
   }
 
@@ -31,7 +31,12 @@ export function parseDIPLogs(logs: string, lines = "1500", showAll = false): str
     }
   });
 
-  const trimmedLogs = filteredLogs.slice(filteredLogs.length - Number(lines));
+  // Currently the DIP only supports a maximum of 1500 lines.
+  if (lines > 1500) {
+    lines = 1500;
+  }
+
+  const trimmedLogs = filteredLogs.slice(filteredLogs.length - lines);
 
   const parsedLogs: string[] = [];
 

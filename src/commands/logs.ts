@@ -21,7 +21,7 @@ export default class Logs extends BaseCommand {
     }),
     lines: flags.string({
       char: "l",
-      default: "1500",
+      default: "500",
       description: "The number of lines of logs to show from the server, max of 1500"
     }),
     all: flags.boolean({
@@ -63,7 +63,7 @@ export default class Logs extends BaseCommand {
       const logs = await apiClient.deployments.getLogsById({ deployId: latestDeployment.deployId, appId: platformApp.id })
 
       if (flags.format !== "raw") {
-        const parsedLogs = parseDIPLogs(logs, flags.lines, flags.all);
+        const parsedLogs = parseDIPLogs(logs, Number(flags.lines), flags.all);
         parsedLogs.map(log => this.log(log));
       }
       else {
