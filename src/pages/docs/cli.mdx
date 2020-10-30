@@ -115,7 +115,55 @@ You can opt to retry failed tests, which can be convenient for flaky tests or in
 ##### `--timeout <number>`
 Use this option to allow more time for your tests to run. The timeout is specified in milliseconds.
 
+Manage Environment Variables
+--------------------------
+The `connect env` command allows you to set environment variables that will be available to your app once it is published
+to ShipEngine Connect.
+This allows you to manage application secrets and configuration data separately from your code and make changes to this data without changing your application code.
 
+You should run this command before [publishing](#publish-your-app) your app.
+The values that are set at the time you run the publish command will be injected into your app once it is hosted in ShipEngine Connect. If you change those variables,
+you will need to re-publish your app before those changes will take affect in ShipEngine Connect.
+
+When you run the `connect env` command, you will include one of its subcommands listed below to indicate which environment
+variable action you would like to perform.
+
+> **PRO TIP:**
+> You can leave off the `env` part of the command and just specify the subcommand. For example, you can run
+> `connect list` to list the environment variables rather than `connect env:list`.
+
+#### Set Environment Variables
+This subcommand sets one or more environment variables.
+```bash
+connect env:set NAME=value NAME_2=value2 ... NAME_N=valueN [OPTIONS]
+```
+
+#### Get Environment Variables
+This subcommand lists the current value for one or more environment variables.
+```bash
+connect env:get NAME NAME_2 ... NAME_N [OPTIONS]
+```
+
+#### List Environment Variables
+This subcommand lists the values of all environment variables.
+```bash
+connect env:list [OPTIONS]
+```
+
+#### Unset Environment Variables
+This subcommand unsets one or more environment variables.
+```bash
+connect env:unset NAME NAME_2 ... NAME_N [OPTIONS]
+```
+
+#### Options
+
+##### `--debug`
+This option enables verbose logging, which can be useful for debugging issues managing variables.
+
+##### `--format`
+This option formats the output of the `connect list` command. Set this option to `table` to list the environment variables
+ in a table format or `dotenv` to list the environment variables in the [dotenv](https://www.npmjs.com/package/dotenv) format.
 
 Package Your App
 --------------------------
