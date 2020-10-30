@@ -3,6 +3,7 @@ import { flags } from "@oclif/command";
 import { loadApp } from "@shipengine/connect-loader";
 import Login from './login';
 import { ApiClientErrors } from '../core/api-client'
+import { parseDIPLogs } from '../core/utils/dip-log-helpers';
 
 export default class Logs extends BaseCommand {
   public static description = "Get the logs for your app";
@@ -18,6 +19,22 @@ export default class Logs extends BaseCommand {
       default: false,
       hidden: true
     }),
+    lines: flags.string({
+      char: "l",
+      default: "500",
+      description: "The number of lines of logs to show from the server, max of 1500"
+    }),
+    all: flags.boolean({
+      char: "a",
+      default: false,
+      description: "Show internal logs along with the app developer related ones"
+    }),
+    format: flags.string({
+      char: "f",
+      description: "The format the logs get shown in",
+      options: ["default", "raw"],
+      default: "default"
+    })
   };
 
   async run(): Promise<void> {
@@ -45,7 +62,13 @@ export default class Logs extends BaseCommand {
 
       const logs = await apiClient.deployments.getLogsById({ deployId: latestDeployment.deployId, appId: platformApp.id })
 
-      this.log(logs);
+      if (flags.format !== "raw") {
+        const parsedLogs = parseDIPLogs(logs, Number(flags.lines), flags.all);
+        parsedLogs.map(log => this.log(log));
+      }
+      else {
+        this.log(logs);
+      }
 
     } catch (error) {
       switch (error.code) {
@@ -65,4 +88,3 @@ export default class Logs extends BaseCommand {
     }
   }
 }
-
