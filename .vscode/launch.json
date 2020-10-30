@@ -25,19 +25,18 @@
       "name": "Run CLI",
       "skipFiles": [
         "<node_internals>/**",
-        "${workspaceRoot}/node_modules/**/*.js",
-        "/home/rkrauskopf/repos/connect-samples/cargo-inc/node_modules/**/*"
+        "${workspaceRoot}/node_modules/**/*.js"
       ],
       "smartStep": true,
       "console": "integratedTerminal",
       "internalConsoleOptions": "openOnSessionStart",
       "program": "${workspaceFolder}/bin/run",
       "args": [
-        "test",
-        "-g",
-        "schedulePickup_same_day"
+        "logs",
+        "-l",
+        "2"
       ],
-      "cwd": "/home/rkrauskopf/repos/connect-samples/cargo-inc"
+      "cwd": "/home/rkrauskopf/repos/integrations-shipping/dx-modules/test-carrier"
     }
   ]
 }

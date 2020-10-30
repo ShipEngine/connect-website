@@ -35,7 +35,7 @@ $ npm install -g @shipengine/connect-cli
 $ connect COMMAND
 running command...
 $ connect (-v|--version|version)
-@shipengine/connect-cli/2.11.1 linux-x64 node-v12.18.1
+@shipengine/connect-cli/2.11.2 linux-x64 node-v12.18.1
 $ connect --help [COMMAND]
 USAGE
   $ connect COMMAND
@@ -47,6 +47,10 @@ USAGE
 
 <!-- commands -->
 * [`connect apps`](#connect-apps)
+* [`connect env:get NAME-1 ... NAME-N`](#connect-envget-name-1--name-n)
+* [`connect env:list`](#connect-envlist)
+* [`connect env:set NAME-1=VALUE ... NAME-N=VALUE`](#connect-envset-name-1value--name-nvalue)
+* [`connect env:unset NAME-1 ... NAME-N`](#connect-envunset-name-1--name-n)
 * [`connect help [COMMAND]`](#connect-help-command)
 * [`connect info`](#connect-info)
 * [`connect init [PATH]`](#connect-init-path)
@@ -71,7 +75,83 @@ OPTIONS
   -h, --help  Show help for the apps commands
 ```
 
-_See code: [src/commands/apps.ts](https://github.com/ShipEngine/connect-cli/blob/v2.11.1/src/commands/apps.ts)_
+_See code: [src/commands/apps.ts](https://github.com/ShipEngine/connect-cli/blob/v2.11.2/src/commands/apps.ts)_
+
+## `connect env:get NAME-1 ... NAME-N`
+
+Get environment variables for an app
+
+```
+USAGE
+  $ connect env:get NAME-1 ... NAME-N
+
+ARGUMENTS
+  NAME-1 ... NAME-N  the environment variable name(s). e.g. FOO (note: name will always be UPPERCASED)
+
+OPTIONS
+  -h, --help  show help for the env command
+
+ALIASES
+  $ connect get
+```
+
+_See code: [src/commands/env/get.ts](https://github.com/ShipEngine/connect-cli/blob/v2.11.2/src/commands/env/get.ts)_
+
+## `connect env:list`
+
+List environment variables for an app
+
+```
+USAGE
+  $ connect env:list
+
+OPTIONS
+  -f, --format=table|dotenv  [default: table] specify output format
+  -h, --help                 show help for the env command
+```
+
+_See code: [src/commands/env/list.ts](https://github.com/ShipEngine/connect-cli/blob/v2.11.2/src/commands/env/list.ts)_
+
+## `connect env:set NAME-1=VALUE ... NAME-N=VALUE`
+
+Set environment variables for an app
+
+```
+USAGE
+  $ connect env:set NAME-1=VALUE ... NAME-N=VALUE
+
+ARGUMENTS
+  NAME-1=VALUE ... NAME-N=VALUE  the environment variable(s) name=value. e.g. FOO=bar (note: name will always be
+                                 UPPERCASED)
+
+OPTIONS
+  -h, --help  show help for the env command
+
+ALIASES
+  $ connect set
+```
+
+_See code: [src/commands/env/set.ts](https://github.com/ShipEngine/connect-cli/blob/v2.11.2/src/commands/env/set.ts)_
+
+## `connect env:unset NAME-1 ... NAME-N`
+
+Unset (delete) environment variables from an app
+
+```
+USAGE
+  $ connect env:unset NAME-1 ... NAME-N
+
+ARGUMENTS
+  NAME-1 ... NAME-N  the environment variable name(s). e.g. FOO (note: name will always be UpperCased)
+
+OPTIONS
+  -h, --help  show help for the env command
+
+ALIASES
+  $ connect unset
+```
+
+_See code: [src/commands/env/unset.ts](https://github.com/ShipEngine/connect-cli/blob/v2.11.2/src/commands/env/unset.ts)_
 
 ## `connect help [COMMAND]`
 
@@ -102,7 +182,7 @@ OPTIONS
   -h, --help  Show help for the info command
 ```
 
-_See code: [src/commands/info.ts](https://github.com/ShipEngine/connect-cli/blob/v2.11.1/src/commands/info.ts)_
+_See code: [src/commands/info.ts](https://github.com/ShipEngine/connect-cli/blob/v2.11.2/src/commands/info.ts)_
 
 ## `connect init [PATH]`
 
@@ -127,7 +207,7 @@ EXAMPLE
   $ connect init
 ```
 
-_See code: [src/commands/init.ts](https://github.com/ShipEngine/connect-cli/blob/v2.11.1/src/commands/init.ts)_
+_See code: [src/commands/init.ts](https://github.com/ShipEngine/connect-cli/blob/v2.11.2/src/commands/init.ts)_
 
 ## `connect login`
 
@@ -144,7 +224,7 @@ ALIASES
   $ connect login
 ```
 
-_See code: [src/commands/login.ts](https://github.com/ShipEngine/connect-cli/blob/v2.11.1/src/commands/login.ts)_
+_See code: [src/commands/login.ts](https://github.com/ShipEngine/connect-cli/blob/v2.11.2/src/commands/login.ts)_
 
 ## `connect logout`
 
@@ -161,7 +241,7 @@ ALIASES
   $ connect logout
 ```
 
-_See code: [src/commands/logout.ts](https://github.com/ShipEngine/connect-cli/blob/v2.11.1/src/commands/logout.ts)_
+_See code: [src/commands/logout.ts](https://github.com/ShipEngine/connect-cli/blob/v2.11.2/src/commands/logout.ts)_
 
 ## `connect logs`
 
@@ -172,10 +252,13 @@ USAGE
   $ connect logs
 
 OPTIONS
-  -h, --help  Show help for the logs command
+  -a, --all                 Show internal logs along with the app developer related ones
+  -f, --format=default|raw  [default: default] The format the logs get shown in
+  -h, --help                Show help for the logs command
+  -l, --lines=lines         [default: 500] The number of lines of logs to show from the server, max of 1500
 ```
 
-_See code: [src/commands/logs.ts](https://github.com/ShipEngine/connect-cli/blob/v2.11.1/src/commands/logs.ts)_
+_See code: [src/commands/logs.ts](https://github.com/ShipEngine/connect-cli/blob/v2.11.2/src/commands/logs.ts)_
 
 ## `connect pack`
 
@@ -192,7 +275,7 @@ EXAMPLE
   $ connect pack
 ```
 
-_See code: [src/commands/pack.ts](https://github.com/ShipEngine/connect-cli/blob/v2.11.1/src/commands/pack.ts)_
+_See code: [src/commands/pack.ts](https://github.com/ShipEngine/connect-cli/blob/v2.11.2/src/commands/pack.ts)_
 
 ## `connect publish`
 
@@ -211,7 +294,7 @@ EXAMPLE
   $ connect publish
 ```
 
-_See code: [src/commands/publish.ts](https://github.com/ShipEngine/connect-cli/blob/v2.11.1/src/commands/publish.ts)_
+_See code: [src/commands/publish.ts](https://github.com/ShipEngine/connect-cli/blob/v2.11.2/src/commands/publish.ts)_
 
 ## `connect start`
 
@@ -226,7 +309,7 @@ OPTIONS
   -p, --port=port  [default: 3000] The port that the app will run on
 ```
 
-_See code: [src/commands/start.ts](https://github.com/ShipEngine/connect-cli/blob/v2.11.1/src/commands/start.ts)_
+_See code: [src/commands/start.ts](https://github.com/ShipEngine/connect-cli/blob/v2.11.2/src/commands/start.ts)_
 
 ## `connect test`
 
@@ -249,7 +332,7 @@ EXAMPLES
   $ connect test --grep rateShipment
 ```
 
-_See code: [src/commands/test.ts](https://github.com/ShipEngine/connect-cli/blob/v2.11.1/src/commands/test.ts)_
+_See code: [src/commands/test.ts](https://github.com/ShipEngine/connect-cli/blob/v2.11.2/src/commands/test.ts)_
 
 ## `connect whoami`
 
@@ -266,5 +349,5 @@ ALIASES
   $ connect whoami
 ```
 
-_See code: [src/commands/whoami.ts](https://github.com/ShipEngine/connect-cli/blob/v2.11.1/src/commands/whoami.ts)_
+_See code: [src/commands/whoami.ts](https://github.com/ShipEngine/connect-cli/blob/v2.11.2/src/commands/whoami.ts)_
 <!-- commandsstop -->
