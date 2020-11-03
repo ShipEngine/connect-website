@@ -20,7 +20,7 @@
     "@shipengine/connect-loader": "^2.5.5",
     "@shipengine/connect-local-dev-api": "^2.1.15",
     "@shipengine/connect-local-dev-ui": "^2.0.16",
-    "@shipengine/connect-sdk": "^10.1.0",
+    "@shipengine/connect-sdk": "^10.2.0",
     "axios": "^0.20.0",
     "chai": "^4.2.0",
     "chalk": "^4.1.0",
