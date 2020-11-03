@@ -28,6 +28,15 @@ Carrier Application
     </Description>
   </Field>
 
+  <Field name="providerId" required={false}>
+    <Type>
+      [UUID](https://www.npmjs.com/package/uuid)
+    </Type>
+    <Description>
+      A UUID that is used to relate this app to an existing production application. Do not set this field unless instructed to by the ShipEngine Connect team.
+    </Description>
+  </Field>
+
   <Field name="name" type="string" required={true}>
     <Description>
       The user-friendly name for this Carrier application.
