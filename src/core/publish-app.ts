@@ -73,6 +73,7 @@ export default async function publishApp(
     const pathToTarball = path.join(process.cwd(), tarballName);
 
     platformApp = await client.apps.findOrCreateByName({
+      appId: app.providerId,
       name: app.manifest.name,
       type: app.type,
     });
