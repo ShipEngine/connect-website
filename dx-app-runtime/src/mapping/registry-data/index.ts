@@ -330,7 +330,7 @@ const dxToCarrierSpecification = (app: CarrierApp): CarrierSpecification => {
 
 export const mapApp = (app: CarrierApp): ExternalSpec => {
 	const provider: ExternalSpec = {
-		Id: '', //app-id is provided by DX WebAPI
+		Id: app.providerId, // If not provided it will default to an empty string which will be overwritten by the webapi
 		Name: app.name,
 		Carriers: [dxToCarrierSpecification(app)],
 		Connector: mapConnectorModule(app),

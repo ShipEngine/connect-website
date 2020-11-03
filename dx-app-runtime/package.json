@@ -22,7 +22,7 @@
 	"dependencies": {
 		"@ipaas/capi": "0.0.12",
 		"@sentry/node": "^5.24.2",
-		"@shipengine/connect": "npm:@shipengine/connect-sdk@^10.1.0",
+		"@shipengine/connect": "npm:@shipengine/connect-sdk@^10.2.0",
 		"@shipengine/connect-loader": "^2.5.5",
 		"body-parser": "1.19.0",
 		"continuation-local-storage": "3.2.1",
