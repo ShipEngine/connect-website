@@ -289,6 +289,13 @@ const mapLabelFormats = (
 	return formats;
 };
 
+export const updateTrackingUrlTemplate = (url?: string): string | undefined => {
+	if(!url) {
+		return undefined;
+	}
+	return url.replace(/{}/g, '{0}');
+}
+
 const dxToCarrierSpecification = (app: CarrierApp): CarrierSpecification => {
 	if (!app) {
 		throw new ValidationError('Unable to map null CarrierApp');
@@ -313,7 +320,7 @@ const dxToCarrierSpecification = (app: CarrierApp): CarrierSpecification => {
 		},
 		CarrierAttributes: mapCarrierAttributes(app),
 		CarrierUrl: app.websiteURL?.toString(),
-		TrackingUrl: app.trackingURLTemplate,
+		TrackingUrl: updateTrackingUrlTemplate(app.trackingURLTemplate),
 		ShippingServices: app.deliveryServices
 			? mapDeliveryServices(app.deliveryServices)
 			: [],
