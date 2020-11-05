@@ -15,7 +15,7 @@ An `OAuthConfigDefinition` specifies the data required for the [OAuth 2.0](https
     </Description>
   </Field>
 
-  <Field name="tokenProperties.accessTokenExpirationLength" type="number" required={true}>
+  <Field name="tokenProperties.accessTokenExpirationLength" type="number" required={false}>
     <Description>
       Access token expiration length in seconds. The minimum value is `1`.
     </Description>
@@ -24,6 +24,12 @@ An `OAuthConfigDefinition` specifies the data required for the [OAuth 2.0](https
   <Field name="tokenProperties.refreshTokenExpirationLength" type="number" required={false}>
     <Description>
        Refresh token expiration length in seconds. The minimum value is `1`.
+    </Description>
+  </Field>
+
+  <Field name="tokenProperties.tokenExpirationLengthTimeUnit" type="string" required={false}>
+    <Description>
+       Token Expiration Unit of Time. This is required if `accessTokenExpirationLength` or `refreshTokenExpirationLength` is set.
     </Description>
   </Field>
 
