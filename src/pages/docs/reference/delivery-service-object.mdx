@@ -120,23 +120,13 @@ column indicates which properties are required when the object is returned from 
     </Description>
   </Field>
 
-  <Field name="originCountries" nullable={false}>
+  <Field name="availableCountries" nullable={false}>
     <Type>
       [country code](./country-codes.mdx)[]
     </Type>
     <Description>
       The list of [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) for the
       [countries](./country-codes.mdx) that can be shipped _from_ using this delivery service.
-    </Description>
-  </Field>
-
-  <Field name="destinationCountries" nullable={false}>
-    <Type>
-      [country code](./country-codes.mdx)[]
-    </Type>
-    <Description>
-      The list of [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) for the
-              [countries](./country-codes.mdx) that can be shipped _to_ using this delivery service.
     </Description>
   </Field>
 
@@ -261,4 +251,3 @@ column indicates which properties are required when the object is returned from 
   </Field>
 
 </Reference>
-
