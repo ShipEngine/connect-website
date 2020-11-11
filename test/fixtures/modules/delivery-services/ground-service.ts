@@ -9,14 +9,8 @@ const groundService: DeliveryServiceDefinition = {
 
   code: "priority_overnight",
 
-  originCountries: [
+  availableCountries: [
     Country.UnitedStates
-  ],
-
-  destinationCountries: [
-    Country.UnitedStates,
-    Country.Canada,
-    Country.Mexico,
   ],
 
   packaging: [
