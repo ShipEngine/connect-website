@@ -4,13 +4,8 @@
     "name": "Priority Overnight",
     "manifestType": "digital",
     "code": "priority_overnight",
-    "originCountries": [
+    "availableCountries": [
       "US"
-    ],
-    "destinationCountries": [
-      "US",
-      "CA",
-      "MX"
     ],
     "packaging": [
       {

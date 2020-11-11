@@ -14,8 +14,7 @@ export async function readDeliveryServiceDefinition(
 
   return {
     ...definition,
-    originCountries: await readDefinitionValue(definition.originCountries, cwd, `${fieldName}.originCountries`),
-    destinationCountries: await readDefinitionValue(definition.destinationCountries, cwd, `${fieldName}.destinationCountries`),
+    availableCountries: await readDefinitionValue(definition.availableCountries, cwd, `${fieldName}.availableCountries`),
     packaging: await readPackingArrayDefinition(definition.packaging, cwd, `${fieldName}.packaging`),
     deliveryConfirmations: await readDeliveryConfirmationArrayDefinition(definition.deliveryConfirmations, cwd, `${fieldName}.deliveryConfirmations`)
   };

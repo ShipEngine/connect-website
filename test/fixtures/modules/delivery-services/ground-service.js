@@ -11,14 +11,8 @@ const groundService = {
 
     code: "priority_overnight",
 
-    originCountries: [
+    availableCountries: [
       "US"
-    ],
-
-    destinationCountries: [
-      "US",
-      "CA",
-      "MX",
     ],
 
     packaging: [

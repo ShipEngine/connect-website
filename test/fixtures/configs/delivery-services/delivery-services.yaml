@@ -2,13 +2,8 @@
   name: Priority Overnight
   code: priority_overnight
   manifestType: digital
-  originCountries:
+  availableCountries:
     - US
-
-  destinationCountries:
-    - US
-    - CA
-    - MX
 
   carrier: ../carrier/carrier.yaml
 
