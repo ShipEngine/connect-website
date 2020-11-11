@@ -7,50 +7,9 @@ import { buildAddressWithContactInfo } from "../factories/address";
 export default function useDomesticShippingAddress(
   deliveryService: DeliveryService,
 ): [AddressWithContactInfoPOJO | undefined, AddressWithContactInfoPOJO | undefined] {
-  let destinationCountryCode: string | undefined;
-  let originCountryCode: string | undefined;
-
-  if (deliveryService.originCountries.length === 1) {
-    originCountryCode = deliveryService.originCountries[0];
-    destinationCountryCode = deliveryService.destinationCountries.find(
-      (destinationCountry) => destinationCountry === originCountryCode,
-    );
-    if (!destinationCountryCode) {
-      throw new Error(
-        "useDomesticShippingAddress: can not resolve destination country",
-      );
-    }
-  } else if (deliveryService.destinationCountries.length === 1) {
-    destinationCountryCode = deliveryService.destinationCountries[0];
-    originCountryCode = deliveryService.originCountries.find(
-      (originCountry) => originCountry === destinationCountryCode,
-    );
-    if (!originCountryCode)
-      throw new Error(
-        "useDomesticShippingAddress: can not resolve origin country",
-      );
-  } else {
-    for (const oc of deliveryService.originCountries) {
-      destinationCountryCode = deliveryService.destinationCountries.find(
-        (destinationCountry) => destinationCountry === oc,
-      );
-
-      // Check to make sure that we have a sample address on file.
-      if (!buildAddressWithContactInfo(`${oc}-from`)) {
-        destinationCountryCode = "";
-      }
-      else {
-        originCountryCode = oc;
-        break;
-      }
-    }
-    if (!destinationCountryCode) {
-      throw new Error(
-        "useDomesticShippingAddress: can not resolve destination country",
-      );
-    }
-  }
-
+  let destinationCountryCode: string | undefined = deliveryService.availableCountries[0];
+  let originCountryCode: string | undefined = deliveryService.availableCountries[0];
+  
   return [
     buildAddressWithContactInfo(`${originCountryCode}-from`),
     buildAddressWithContactInfo(`${destinationCountryCode}-to`),
