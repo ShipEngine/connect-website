@@ -5,7 +5,6 @@ import { Country, DeliveryService } from "@shipengine/connect-sdk";
  */
 export function findMatchingAvailableCountries(deliveryServices: DeliveryService[])
   : Country[] {
-  const allCountries = Object.values(Country);
   if(deliveryServices.length < 2) {
     throw new Error("Multiple Delivery Services must be specified");
   }

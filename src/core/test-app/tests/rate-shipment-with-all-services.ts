@@ -8,7 +8,7 @@ import { initializeTimeStamps } from "../../utils/time-stamps";
 import { RateShipmentWithAllServicesTestParams, RateShipmentWithAllServicesConfigOptions } from "../runner/config/rate-shipment-with-all-services";
 import reduceDefaultsWithConfig from "../utils/reduce-defaults-with-config";
 import objectToTestTitle from "../utils/object-to-test-title";
-import { findMatchingAvailableCountries } from '../utils/find-matching-origin-and-destination-countries';
+import { findMatchingAvailableCountries } from '../utils/find-matching-available-countries';
 import { buildAddressWithContactInfo } from '../factories/address';
 import Test from '../runner/test';
 
