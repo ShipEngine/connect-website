@@ -50,11 +50,11 @@
 //         rateCriteriaOpts.deliveryServices.push({ id: deliveryService.id });
 
 //         // Handle combinations of packages within the
-//         countryAndTimePermutations(deliveryService.originCountries.slice(), deliveryService.originCountries.slice(), baseRateCriteria, rateCriteriaOpts, deliveryService);
+//         countryAndTimePermutations(deliveryService.availableCountries.slice(), deliveryService.availableCountries.slice(), baseRateCriteria, rateCriteriaOpts, deliveryService);
 //       }
 //       // If a delivery service isn't specified then get loop through all destination and origin countries
 //       else {
-//         countryAndTimePermutations(app.originCountries.slice(), app.destinationCountries.slice(), baseRateCriteria, rateCriteriaOpts);
+//         countryAndTimePermutations(app.availableCountries.slice(), app.availableCountries.slice(), baseRateCriteria, rateCriteriaOpts);
 //       }
 //     }
 //   }
@@ -66,11 +66,11 @@
 //  * Augment the rateCriteria object by adding country and time permutations based on the app or delivery service metadata.
 //  */
 // // TODO: Make this re-usable by having it accept generics with the `shipFrom` and `shipTo` properties, if possible.
-// function countryAndTimePermutations(originCountries: Country[], destinationCountries: Country[], baseRateCriteria: RateCriteriaWithMetdata, rateCriteriaOpts: RateOpts, deliveryService?: DeliveryService): void {
+// function countryAndTimePermutations(availableCountries: Country[], availableCountries: Country[], baseRateCriteria: RateCriteriaWithMetdata, rateCriteriaOpts: RateOpts, deliveryService?: DeliveryService): void {
 
 //   const countryCombos: Array<[string, string]> = [];
-//   for (const dCountry of destinationCountries) {
-//     for (const oCountry of originCountries) {
+//   for (const dCountry of availableCountries) {
+//     for (const oCountry of availableCountries) {
 
 //       const hasCountryCombo = countryCombos.some((combo) => {
 //         return combo[0] === oCountry && combo[1] === dCountry;

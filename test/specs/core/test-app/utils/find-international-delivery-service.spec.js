@@ -33,45 +33,45 @@ describe("findDeliveryServiceByName", () => {
   });
 
   it("returns a delivery service when a delivery service has more than 1 orgin country", () => {
-    const originCountries = ["US", "MX"];
+    const availableCountries = ["US", "MX"];
     const deliveryService = pojo.deliveryService({
-      originCountries,
+      availableCountries,
+      serviceArea: 'international'
     });
     const app = pojo.carrierApp({
       deliveryServices: [deliveryService],
     });
 
     const subject = findInternationalDeliveryService(app);
-    expect(subject.originCountries).to.eql(originCountries);
+    expect(subject.availableCountries).to.eql(availableCountries);
   });
 
   it("returns a delivery service when a delivery service has more than 1 destination country", () => {
-    const destinationCountries = ["US", "MX"];
+    const availableCountries = ["US", "MX"];
     const deliveryService = pojo.deliveryService({
-      destinationCountries,
+      availableCountries,
+      serviceArea: 'international'
     });
     const app = pojo.carrierApp({
       deliveryServices: [deliveryService],
     });
 
     const subject = findInternationalDeliveryService(app);
-    expect(subject.destinationCountries).to.eql(destinationCountries);
+    expect(subject.availableCountries).to.eql(availableCountries);
   });
 
   it("returns a delivery service when a delivery service has different destination and origin countries", () => {
-    const destinationCountries = ["MX"];
-    const originCountries = ["US"];
+    const availableCountries = ["US"];
     const deliveryService = pojo.deliveryService({
-      destinationCountries,
-      originCountries,
+      availableCountries,
+      serviceArea: 'international'
     });
     const app = pojo.carrierApp({
       deliveryServices: [deliveryService],
     });
 
     const subject = findInternationalDeliveryService(app);
-    expect(subject.destinationCountries).to.eql(destinationCountries);
-    expect(subject.originCountries).to.eql(originCountries);
+    expect(subject.availableCountries).to.eql(availableCountries);
   });
 
   it("throws an error when an international delivery service does not exist", () => {

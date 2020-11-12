@@ -12,11 +12,7 @@ labelFormats:
   - pdf
 labelSizes:
   - 4x8
-originCountries:
-  - US
-  - CA
-  - MX
-destinationCountries:
+availableCountries:
   - US
   - CA
   - MX

@@ -7,11 +7,9 @@ import { buildAddressWithContactInfo } from "../factories/address";
 export default function useDomesticShippingAddress(
   deliveryService: DeliveryService,
 ): [AddressWithContactInfoPOJO | undefined, AddressWithContactInfoPOJO | undefined] {
-  let destinationCountryCode: string | undefined = deliveryService.availableCountries[0];
-  let originCountryCode: string | undefined = deliveryService.availableCountries[0];
-  
+  let country: string | undefined = deliveryService.availableCountries.find(country => buildAddressWithContactInfo(`${country}-from`) && buildAddressWithContactInfo(`${country}-to`));
   return [
-    buildAddressWithContactInfo(`${originCountryCode}-from`),
-    buildAddressWithContactInfo(`${destinationCountryCode}-to`),
+    buildAddressWithContactInfo(`${country}-from`),
+    buildAddressWithContactInfo(`${country}-to`),
   ];
 }

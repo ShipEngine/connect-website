@@ -8,53 +8,14 @@ export default function useInternationalShipmentAddresses(
   deliveryService: DeliveryService,
 ): [AddressWithContactInfoPOJO, AddressWithContactInfoPOJO] {
   const allCountries = Object.values(Country);
-  let destinationCountryCode: string | undefined;
-  let originCountryCode: string | undefined;
+  let originCountryCode: string | undefined = deliveryService.availableCountries.find(country => buildAddressWithContactInfo(`${country}-from`));
+  let destinationCountryCode: string | undefined = allCountries.find(country => country !== originCountryCode && buildAddressWithContactInfo(`${country}-to`));
 
-  if (deliveryService.availableCountries.length === 1) {
-    originCountryCode = deliveryService.availableCountries[0];
-    destinationCountryCode = allCountries.find(
-      (destinationCountry) => destinationCountry !== originCountryCode,
-    );
-    if (!destinationCountryCode) {
-      throw new Error(
-        "useInternationalShipmentAddresses: can not resolve destination country",
-      );
-    }
-  } else {
-    for (const oc of deliveryService.availableCountries) {
-      const destinationCountryCodes = allCountries.filter(
-        (destinationCountry) => destinationCountry !== oc,
-      );
-
-      for (const dc of destinationCountryCodes) {
-        // Check to make sure that we have a sample address on file.
-        if (!buildAddressWithContactInfo(`${oc}-from`)) {
-          destinationCountryCode = "";
-        }
-        else if (!buildAddressWithContactInfo(`${dc}-to`)) {
-          destinationCountryCode = "";
-        }
-        else {
-          originCountryCode = oc;
-          destinationCountryCode = dc;
-          break;
-        }
-      }
-
-      if (destinationCountryCode) {
-        break;
-      }
-    }
-    if (!destinationCountryCode || !originCountryCode) {
-      throw new Error(
-        "useInternationalShipmentAddresses: can not resolve destination country",
-      );
-    }
+  if(!originCountryCode || !destinationCountryCode) {
+    throw new Error(`useInternationalShipmentAddresses error. Unable to find address in ${deliveryService.availableCountries}`);
   }
+  const fromAddress = buildAddressWithContactInfo(`${originCountryCode}-from`);
+  const toAddress = buildAddressWithContactInfo(`${destinationCountryCode}-to`);
 
-  return [
-    buildAddressWithContactInfo(`${originCountryCode}-from`)!,
-    buildAddressWithContactInfo(`${destinationCountryCode}-to`)!,
-  ];
+  return [fromAddress!, toAddress!];
 }

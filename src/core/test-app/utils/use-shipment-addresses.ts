@@ -11,8 +11,10 @@ import useInternationalShipmentAddresses from './use-international-shipment-addr
  */
 export default function useShipmentAddresses(deliveryService: DeliveryService): [AddressWithContactInfoPOJO | undefined, AddressWithContactInfoPOJO | undefined] {
   if(deliveryService.serviceArea === ServiceArea.Global || deliveryService.serviceArea === ServiceArea.International) {
-    return useInternationalShipmentAddresses(deliveryService);
+    const internationalAddress = useInternationalShipmentAddresses(deliveryService);
+    return internationalAddress;
   } else {
-    return useDomesticShippingAddress(deliveryService);
+    const domesticAddress =  useDomesticShippingAddress(deliveryService);
+    return domesticAddress;
   }
 }

@@ -9,14 +9,8 @@ const groundService = {
 
     name: "Ground",
 
-    originCountries: [
+    availableCountries: [
       "US"
-    ],
-
-    destinationCountries: [
-      "US",
-      "CA",
-      "MX",
     ],
 
     packaging: [
