@@ -40,10 +40,10 @@ describe("The create shipment international test suite", () => {
     });
   });
 
-  describe.skip("When a delivery service has addresses that we don't have samples but user uses valid configs", () => {
+  describe("When a delivery service has addresses that we don't have samples but user uses valid configs", () => {
     it("should generate tests", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-      appDefinition.deliveryServices[0].availableCountries = ["SJ", "JP"];
+      appDefinition.deliveryServices[0].availableCountries = ["AQ"];
       appDefinition.deliveryServices[0].serviceArea = "international";
 
       staticConfigTests.createShipment_international = {
@@ -74,7 +74,7 @@ describe("The create shipment international test suite", () => {
     });
   });
 
-  describe.skip("when there is an international service with an available address", () => {
+  describe("when there is an international service with an available address", () => {
     let testSuite;
     beforeEach(() => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
@@ -97,7 +97,7 @@ describe("The create shipment international test suite", () => {
     });
   });
 
-  describe.skip("when there is a config override object of test suite parameters", () => {
+  describe("when there is a config override object of test suite parameters", () => {
 
     it("should update the test title", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
@@ -131,7 +131,7 @@ describe("The create shipment international test suite", () => {
     });
   });
 
-  describe.skip("when there is a config override array of test suite parameters", () => {
+  describe("when there is a config override array of test suite parameters", () => {
 
     let tests;
     beforeEach(() => {
