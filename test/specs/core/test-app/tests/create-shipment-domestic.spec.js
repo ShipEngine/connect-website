@@ -18,9 +18,7 @@ describe("The create shipment domestic test suite", () => {
       const app = new CarrierApp(appDefinition);
       const args = { app, connectArgs, staticConfigTests, options };
       const testSuite = new CreateShipmentDomestic(args);
-
       const tests = testSuite.tests();
-      console.log(tests);
       expect(tests.length).to.equal(0);
     });
   });
