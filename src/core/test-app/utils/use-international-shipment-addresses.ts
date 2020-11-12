@@ -8,8 +8,8 @@ export default function useInternationalShipmentAddresses(
   deliveryService: DeliveryService,
 ): [AddressWithContactInfoPOJO, AddressWithContactInfoPOJO] {
   const allCountries = Object.values(Country);
-  let originCountryCode: string | undefined = deliveryService.availableCountries.find(country => buildAddressWithContactInfo(`${country}-from`));
-  let destinationCountryCode: string | undefined = allCountries.find(country => country !== originCountryCode && buildAddressWithContactInfo(`${country}-to`));
+  const originCountryCode: string | undefined = deliveryService.availableCountries.find(country => buildAddressWithContactInfo(`${country}-from`));
+  const destinationCountryCode: string | undefined = allCountries.find(country => country !== originCountryCode && buildAddressWithContactInfo(`${country}-to`));
 
   if(!originCountryCode || !destinationCountryCode) {
     throw new Error(`useInternationalShipmentAddresses error. Unable to find address in ${deliveryService.availableCountries}`);

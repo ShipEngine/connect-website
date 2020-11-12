@@ -13,8 +13,7 @@ export default function useShipmentAddresses(deliveryService: DeliveryService): 
   if(deliveryService.serviceArea === ServiceArea.Global || deliveryService.serviceArea === ServiceArea.International) {
     const internationalAddress = useInternationalShipmentAddresses(deliveryService);
     return internationalAddress;
-  } else {
-    const domesticAddress =  useDomesticShippingAddress(deliveryService);
-    return domesticAddress;
   }
+  const domesticAddress =  useDomesticShippingAddress(deliveryService);
+  return domesticAddress;
 }
