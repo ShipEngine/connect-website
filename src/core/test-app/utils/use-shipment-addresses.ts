@@ -1,25 +1,19 @@
 import {
   DeliveryService,
   AddressWithContactInfoPOJO,
+  ServiceArea,
 } from "@shipengine/connect-sdk";
-import { buildAddressWithContactInfo } from "../factories/address";
+import useDomesticShippingAddress from './use-domestic-shipment-addresses';
+import useInternationalShipmentAddresses from './use-international-shipment-addresses';
 
 /**
  * Return a tuple of shipFrom and shipTo addresses if available
  */
 export default function useShipmentAddresses(deliveryService: DeliveryService): [AddressWithContactInfoPOJO | undefined, AddressWithContactInfoPOJO | undefined] {
-
-  for (const oc of deliveryService.originCountries) {
-    const shipFrom = buildAddressWithContactInfo(`${oc}-from`);
-
-    for (const dc of deliveryService.destinationCountries) {
-      const shipTo = buildAddressWithContactInfo(`${dc}-to`);
-
-      if (shipFrom && shipTo) {
-        return [shipFrom, shipTo];
-      }
-    }
+  if(deliveryService.serviceArea === ServiceArea.Global || deliveryService.serviceArea === ServiceArea.International) {
+    const internationalAddress = useInternationalShipmentAddresses(deliveryService);
+    return internationalAddress;
   }
-
-  return [undefined, undefined];
+  const domesticAddress =  useDomesticShippingAddress(deliveryService);
+  return domesticAddress;
 }

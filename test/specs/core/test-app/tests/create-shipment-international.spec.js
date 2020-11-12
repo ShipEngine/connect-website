@@ -13,9 +13,8 @@ describe("The create shipment international test suite", () => {
 
     it("should not generate tests", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-      appDefinition.deliveryServices[0].originCountries = ["MX"];
-
-      appDefinition.deliveryServices[0].destinationCountries = ["MX"];
+      appDefinition.deliveryServices[0].availableCountries = ["MX"];
+      appDefinition.deliveryServices[0].serviceArea = "domestic";
 
       const app = new CarrierApp(appDefinition);
       const args = { app, connectArgs, staticConfigTests, options };
@@ -30,8 +29,7 @@ describe("The create shipment international test suite", () => {
   describe("when there is not address available for international services", () => {
     it("should not generate tests", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-      appDefinition.deliveryServices[0].originCountries = ["SJ"];
-      appDefinition.deliveryServices[0].destinationCountries = ["AQ"];
+      appDefinition.deliveryServices[0].availableCountries = ["SJ"];
 
       const app = new CarrierApp(appDefinition);
       const args = { app, connectArgs, staticConfigTests, options };
@@ -45,8 +43,8 @@ describe("The create shipment international test suite", () => {
   describe("When a delivery service has addresses that we don't have samples but user uses valid configs", () => {
     it("should generate tests", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-      appDefinition.deliveryServices[0].originCountries = ["SJ", "US"];
-      appDefinition.deliveryServices[0].destinationCountries = ["AQ", "MX"];
+      appDefinition.deliveryServices[0].availableCountries = ["AQ"];
+      appDefinition.deliveryServices[0].serviceArea = "international";
 
       staticConfigTests.createShipment_international = {
         shipFrom: {
@@ -214,8 +212,7 @@ describe("The create shipment international test suite", () => {
         name: "Better Delivery Service",
         code: "priority_overnight",
         manifestType: "digital",
-        originCountries: ["MX"],
-        destinationCountries: ["US"],
+        availableCountries: ["MX"],
         labelFormats: ["pdf"],
         labelSizes: ["A4"],
         packaging: [pojo.packaging()]
@@ -311,8 +308,8 @@ function generateBasicAppAndConfigs() {
   deliveryService.labelFormats = ["pdf"];
   deliveryService.labelSizes = ["A4"];
   deliveryService.code = "priority_overnight";
-  deliveryService.destinationCountries = ["AQ","MX"];
-  deliveryService.originCountries = ["US", "MX"];
+  deliveryService.availableCountries = ["US", "MX"];
+  deliveryService.serviceArea = "international";
   appDefinition.createShipment = () => { };
 
   deliveryService.deliveryConfirmations = [pojo.deliveryConfirmation()];

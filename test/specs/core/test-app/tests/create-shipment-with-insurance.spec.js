@@ -27,8 +27,7 @@ describe("The create shipment insured test suite", () => {
   describe("when there is not address available for a delivery service services", () => {
     it("should not generate tests", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-      appDefinition.deliveryServices[0].originCountries = ["AQ"];
-      appDefinition.deliveryServices[0].destinationCountries = ["AQ"];
+      appDefinition.deliveryServices[0].availableCountries = ["AQ"];
 
       const app = new CarrierApp(appDefinition);
       const args = { app, connectArgs, staticConfigTests, options };
@@ -191,8 +190,7 @@ describe("The create shipment insured test suite", () => {
         name: "Uninsured Delivery Service",
         code: "uninsured_ds",
         manifestType: "digital",
-        originCountries: ["MX"],
-        destinationCountries: ["MX"],
+        availableCountries: ["MX"],
         labelFormats: ["pdf"],
         labelSizes: ["A4"],
         packaging: [pojo.packaging()]
@@ -224,8 +222,7 @@ describe("The create shipment insured test suite", () => {
         name: "Better Delivery Service",
         manifestType: "digital",
         code: "priority_overnight",
-        originCountries: ["MX"],
-        destinationCountries: ["MX"],
+        availableCountries: ["MX"],
         labelFormats: ["pdf"],
         labelSizes: ["A4"],
         packaging: [pojo.packaging()]

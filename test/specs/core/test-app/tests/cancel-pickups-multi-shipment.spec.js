@@ -27,8 +27,7 @@ describe("The cancel pickups multi shipment test suite", () => {
   describe("when there is no address available for the delivery service", () => {
     it("should not generate tests", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-      appDefinition.deliveryServices[0].originCountries = ["AQ"];
-      appDefinition.deliveryServices[0].destinationCountries = ["AQ"];
+      appDefinition.deliveryServices[0].availableCountries = ["AQ"];
 
       const app = new CarrierApp(appDefinition);
       const args = { app, connectArgs, staticConfigTests, options };
@@ -245,8 +244,7 @@ describe("The cancel pickups multi shipment test suite", () => {
         id: "9cf1bfda-7ee4-4f03-96f6-6eab52243eee",
         name: "Better Delivery Service",
         code: "better_ds",
-        originCountries: ["MX"],
-        destinationCountries: ["MX"],
+        availableCountries: ["MX"],
         labelFormats: ["pdf"],
         manifestType: "physical",
         labelSizes: ["A4"],

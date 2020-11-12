@@ -8,7 +8,7 @@ import { initializeTimeStamps } from "../../utils/time-stamps";
 import { RateShipmentWithAllServicesTestParams, RateShipmentWithAllServicesConfigOptions } from "../runner/config/rate-shipment-with-all-services";
 import reduceDefaultsWithConfig from "../utils/reduce-defaults-with-config";
 import objectToTestTitle from "../utils/object-to-test-title";
-import { findMatchingOriginAndDestinationCountries } from '../utils/find-matching-origin-and-destination-countries';
+import { findMatchingAvailableCountries } from '../utils/find-matching-available-countries';
 import { buildAddressWithContactInfo } from '../factories/address';
 import Test from '../runner/test';
 
@@ -28,13 +28,13 @@ export class RateShipmentWithAllServices extends Suite {
 
     let matchingCountries
     try {
-      matchingCountries = findMatchingOriginAndDestinationCountries(Reflect.get(carrierApp, "deliveryServices"));
+      matchingCountries = findMatchingAvailableCountries(Reflect.get(carrierApp, "deliveryServices"));
     } catch {
       return undefined;
     }
 
-    const shipFrom = buildAddressWithContactInfo(`${matchingCountries.originCountries[0]}-from`);
-    const shipTo = buildAddressWithContactInfo(`${matchingCountries.destinationCountries[0]}-to`);
+    const shipFrom = buildAddressWithContactInfo(`${matchingCountries[0]}-from`);
+    const shipTo = buildAddressWithContactInfo(`${matchingCountries[0]}-to`);
 
     if (!shipTo || !shipFrom) return undefined;
 

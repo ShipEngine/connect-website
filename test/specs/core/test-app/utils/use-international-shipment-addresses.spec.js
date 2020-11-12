@@ -7,11 +7,9 @@ const useInternationalShipmentAddresses = require("../../../../../lib/core/test-
 
 describe("useInternationalShipmentAddresses", () => {
   it("returns a a tuple of international addresses when there is only 1 origin country for the app", () => {
-    const originCountries = ["US"];
-    const destinationCountries = ["US", "MX"];
+    const availableCountries = ["US"];
     const deliveryService = pojo.deliveryService({
-      destinationCountries,
-      originCountries,
+      availableCountries
     });
 
     const [
@@ -19,32 +17,13 @@ describe("useInternationalShipmentAddresses", () => {
       destinationAddress,
     ] = useInternationalShipmentAddresses(deliveryService);
     expect(originAddress.country).to.equal("US");
-    expect(destinationAddress.country).to.equal("MX");
+    expect(destinationAddress.country).to.not.equal("US");
   });
-
-  it("returns a a tuple of international addresses when there is only 1 destination country for the app", () => {
-    const originCountries = ["US", "MX"];
-    const destinationCountries = ["US"];
-    const deliveryService = pojo.deliveryService({
-      destinationCountries,
-      originCountries,
-    });
-
-    const [
-      originAddress,
-      destinationAddress,
-    ] = useInternationalShipmentAddresses(deliveryService);
-    expect(originAddress.country).to.equal("MX");
-    expect(destinationAddress.country).to.equal("US");
-  });
-
 
   it("returns a a tuple of international addresses when there is more than 1 origin and destination country for the app", () => {
-    const originCountries = ["US", "MX"];
-    const destinationCountries = ["US", "MX"];
+    const availableCountries = ["US", "MX"];
     const deliveryService = pojo.deliveryService({
-      destinationCountries,
-      originCountries,
+      availableCountries,
     });
 
     const [
@@ -52,6 +31,6 @@ describe("useInternationalShipmentAddresses", () => {
       destinationAddress,
     ] = useInternationalShipmentAddresses(deliveryService);
     expect(originAddress.country).to.equal("US");
-    expect(destinationAddress.country).to.equal("MX");
+    expect(destinationAddress.country).to.not.equal("US");
   });
 });

@@ -13,12 +13,11 @@ describe("The create shipment domestic test suite", () => {
 
     it("should not generate tests", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-      appDefinition.deliveryServices[0].originCountries = ["MX"];
-
+      appDefinition.deliveryServices[0].availableCountries = ["MX"];
+      appDefinition.deliveryServices[0].serviceArea = 'international';
       const app = new CarrierApp(appDefinition);
       const args = { app, connectArgs, staticConfigTests, options };
       const testSuite = new CreateShipmentDomestic(args);
-
       const tests = testSuite.tests();
       expect(tests.length).to.equal(0);
     });
@@ -28,8 +27,7 @@ describe("The create shipment domestic test suite", () => {
   describe("when there is not address available for a domestic services", () => {
     it("should not generate tests", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-      appDefinition.deliveryServices[0].originCountries = ["AQ"];
-      appDefinition.deliveryServices[0].destinationCountries = ["AQ"];
+      appDefinition.deliveryServices[0].availableCountries = ["AQ"];
 
       const app = new CarrierApp(appDefinition);
       const args = { app, connectArgs, staticConfigTests, options };
@@ -174,15 +172,16 @@ describe("The create shipment domestic test suite", () => {
         name: "Better Delivery Service",
         code: "better_ds",
         manifestType: "physical",
-        originCountries: ["MX"],
-        destinationCountries: ["MX"],
-        labelFormats: ["pdf"],
-        labelSizes: ["A4"],
-        packaging: [pojo.packaging()]
+        availableCountries: ["MX"],
+        packaging: [pojo.packaging()],
+        labelFormats: ['pdf'],
+        labelSizes: ['A4']
       });
 
       staticConfigTests.createShipment_domestic = {
-        deliveryServiceName: "Better Delivery Service"
+        deliveryServiceName: "Better Delivery Service",
+        labelFormats: 'pdf',
+        labelSizes: 'A4'
       }
 
       const app = new CarrierApp(appDefinition);
@@ -199,8 +198,7 @@ describe("The create shipment domestic test suite", () => {
     it("should generate tests", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
 
-      appDefinition.deliveryServices[0].originCountries = ["AQ", "US"];
-      appDefinition.deliveryServices[0].destinationCountries = ["AQ", "US"];
+      appDefinition.deliveryServices[0].availableCountries = ["AQ", "US"];
 
 
       const app = new CarrierApp(appDefinition);

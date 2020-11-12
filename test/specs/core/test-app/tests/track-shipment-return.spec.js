@@ -12,7 +12,8 @@ describe("The track return shipment test suite", () => {
 
     it("should not generate tests", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-      appDefinition.deliveryServices[0].originCountries = ["MX"];
+      appDefinition.deliveryServices[0].availableCountries = ["MX"];
+      appDefinition.deliveryServices[0].isTrackable = false;
 
       const app = new CarrierApp(appDefinition);
       const args = { app, connectArgs, staticConfigTests, options };
@@ -27,8 +28,7 @@ describe("The track return shipment test suite", () => {
   describe("when there is not address available for a delivery service", () => {
     it("should not generate tests", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-      appDefinition.deliveryServices[0].originCountries = ["AQ"];
-      appDefinition.deliveryServices[0].destinationCountries = ["AQ"];
+      appDefinition.deliveryServices[0].availableCountries = ["AQ"];
 
       const app = new CarrierApp(appDefinition);
       const args = { app, connectArgs, staticConfigTests, options };
@@ -203,8 +203,7 @@ describe("The track return shipment test suite", () => {
         name: "Better Delivery Service",
         code: "better_ds",
         manifestType: "physical",
-        originCountries: ["MX"],
-        destinationCountries: ["MX"],
+        availableCountries: ["MX"],
         labelFormats: ["pdf"],
         labelSizes: ["A4"],
         packaging: [pojo.packaging()]
@@ -237,8 +236,7 @@ describe("The track return shipment test suite", () => {
         name: "Better Delivery Service",
         code: "better_ds",
         manifestType: "physical",
-        originCountries: ["MX"],
-        destinationCountries: ["MX"],
+        availableCountries: ["MX"],
         labelFormats: ["pdf"],
         labelSizes: ["A4"],
         isTrackable: true,
@@ -271,9 +269,8 @@ describe("The track return shipment test suite", () => {
         name: "Better Delivery Service",
         code: "better_ds",
         manifestType: "physical",
-        originCountries: ["MX"],
+        availableCountries: ["MX"],
         supportsReturns: true,
-        destinationCountries: ["MX"],
         labelFormats: ["pdf"],
         labelSizes: ["A4"],
         isTrackable: true,
@@ -298,8 +295,7 @@ describe("The track return shipment test suite", () => {
     it("should generate tests", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
 
-      appDefinition.deliveryServices[0].originCountries = ["AQ", "US"];
-      appDefinition.deliveryServices[0].destinationCountries = ["AQ", "US"];
+      appDefinition.deliveryServices[0].availableCountries = ["AQ", "US"];
 
 
       const app = new CarrierApp(appDefinition);

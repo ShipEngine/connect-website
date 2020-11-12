@@ -1,3 +1,4 @@
+import { ServiceArea } from '@shipengine/connect-sdk';
 import { DeliveryService, CarrierApp } from "@shipengine/connect-sdk/lib/internal";
 
 /**
@@ -7,14 +8,11 @@ export function findDomesticDeliveryService(
   app: CarrierApp,
 ): DeliveryService {
 
-  for (const ds of app.deliveryServices) {
-    for (const country of ds.originCountries) {
-      if (ds.destinationCountries.includes(country)) {
-        return ds;
-      }
-    }
+  const service  = app.deliveryServices.find(service => service.serviceArea === undefined || service.serviceArea === ServiceArea.Domestic);
+  if(service) {
+    return service; 
   }
-
+  
   throw new Error("Unable to find domestic delivery service");
 
 }

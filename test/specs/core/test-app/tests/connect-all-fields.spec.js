@@ -187,8 +187,7 @@ function generateBasicAppAndConfigs() {
     name: "Better Delivery Service",
     code: "bd_code",
     manifestType: "digital",
-    originCountries: ["US"],
-    destinationCountries: ["US"],
+    availableCountries: ["US"],
     labelFormats: ["pdf"],
     labelSizes: ["A4"],
     packaging: [pojo.packaging()]

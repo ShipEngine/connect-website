@@ -7,14 +7,8 @@ module.export = {
 
   name: "Priority Overnight",
 
-  originCountries: [
+  availableCountries: [
     "US"
-  ],
-
-  destinationCountries: [
-    "US",
-    "CA",
-    "MX",
   ],
 
   packaging: [
@@ -22,4 +16,3 @@ module.export = {
     largePaddedEnvelope
   ]
 };
-

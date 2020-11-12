@@ -2,26 +2,24 @@
 
 const { expect } = require("chai");
 const pojo = require("../../../../utils/pojo");
-const { findMatchingOriginAndDestinationCountries } = require("../../../../../lib/core/test-app/utils/find-matching-origin-and-destination-countries");
+const { findMatchingAvailableCountries } = require("../../../../../lib/core/test-app/utils/find-matching-available-countries");
 const { CarrierApp } = require("@shipengine/connect-sdk/lib/internal/carriers/carrier-app");
 
-describe("findMatchingOriginAndDestinationCountries", () => {
-  it("returns a set of origin and destination countries that all given delivery services share", () => {
+describe("findMatchingAvailableCountries", () => {
+  it("returns a set of available countries that all given delivery services share", () => {
 
     const appDefinition = pojo.carrierApp();
     const deliveryService = pojo.deliveryService();
     appDefinition.deliveryServices = [deliveryService];
 
-    appDefinition.deliveryServices[0].originCountries = ["US", "MX", "CA"];
-    appDefinition.deliveryServices[0].destinationCountries = ["US", "MX", "CA"];
+    appDefinition.deliveryServices[0].availableCountries = ["US", "MX", "CA"];
 
     appDefinition.deliveryServices.push({
       id: "9df1bfda-7ee4-4f03-96f6-6eab52243eee",
       name: "Another Delivery Service",
       code: "ad",
       manifestType: "digital",
-      originCountries: ["US", "MX", "CA"],
-      destinationCountries: ["US", "MX", "CA"],
+      availableCountries: ["US", "MX", "CA"],
       labelFormats: ["pdf"],
       labelSizes: ["A4"],
       packaging: [pojo.packaging()]
@@ -32,16 +30,13 @@ describe("findMatchingOriginAndDestinationCountries", () => {
       name: "Better Delivery Service",
       code: "bd",
       manifestType: "digital",
-      originCountries: ["US", "MX"],
-      destinationCountries: ["US", "MX"],
+      availableCountries: ["US", "MX"],
       packaging: [pojo.packaging()]
     });
 
     const app = new CarrierApp(appDefinition);
-
-    const results = findMatchingOriginAndDestinationCountries(app.deliveryServices);
-    expect(results.originCountries).to.be.eql(["US", "MX"]);
-    expect(results.destinationCountries).to.be.eql(["US", "MX"]);
+    const results = findMatchingAvailableCountries(app.deliveryServices);
+    expect(results.length).to.equal(2);
   });
 
   it("throw an error if only 0 or 1 delivery services are sent into the function", () => {
@@ -51,7 +46,7 @@ describe("findMatchingOriginAndDestinationCountries", () => {
 
     const app = new CarrierApp(appDefinition);
 
-    expect(() => findMatchingOriginAndDestinationCountries(app.deliveryServices)).to.throw(
+    expect(() => findMatchingAvailableCountries(app.deliveryServices)).to.throw(
       Error,
       /Multiple Delivery Services must be specified/,
     );
@@ -63,16 +58,14 @@ describe("findMatchingOriginAndDestinationCountries", () => {
     const deliveryService = pojo.deliveryService();
     appDefinition.deliveryServices = [deliveryService];
 
-    appDefinition.deliveryServices[0].originCountries = ["US", "MX", "CA"];
-    appDefinition.deliveryServices[0].destinationCountries = ["US", "MX", "CA"];
+    appDefinition.deliveryServices[0].availableCountries = ["US", "MX", "CA"];
 
     appDefinition.deliveryServices.push({
       id: "9df1bfda-7ee4-4f03-96f6-6eab52243eee",
       name: "Another Delivery Service",
       code: "ad",
       manifestType: "digital",
-      originCountries: ["CA"],
-      destinationCountries: ["CA"],
+      availableCountries: ["CA"],
       packaging: [pojo.packaging()]
     });
 
@@ -81,14 +74,13 @@ describe("findMatchingOriginAndDestinationCountries", () => {
       name: "Better Delivery Service",
       code: "bd",
       manifestType: "digital",
-      originCountries: ["US", "MX"],
-      destinationCountries: ["US", "MX"],
+      availableCountries: ["US", "MX"],
       packaging: [pojo.packaging()]
     });
 
     const app = new CarrierApp(appDefinition);
 
-    expect(() => findMatchingOriginAndDestinationCountries(app.deliveryServices)).to.throw(
+    expect(() => findMatchingAvailableCountries(app.deliveryServices)).to.throw(
       Error,
       /Specified delivery services do not share origin and destination countries/,
     );

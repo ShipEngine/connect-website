@@ -91,7 +91,8 @@ export class CreateShipmentInternational extends Suite {
     try {
       [shipFrom, shipTo] = useInternationalShipmentAddresses(this.deliveryService);
     } catch {
-      return undefined;
+      shipFrom = config.shipFrom;
+      shipTo = config.shipTo;
     }
 
     const { tomorrow } = initializeTimeStamps();

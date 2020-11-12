@@ -13,8 +13,7 @@ describe("The cancel multiple shipments test suite", () => {
   describe("when there is not address available for the delivery services", () => {
     it("should not generate tests", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-      appDefinition.deliveryServices[0].originCountries = ["AQ"];
-      appDefinition.deliveryServices[0].destinationCountries = ["AQ"];
+      appDefinition.deliveryServices[0].availableCountries = ["AQ"];
 
       const app = new CarrierApp(appDefinition);
       const args = { app, connectArgs, staticConfigTests, options };
@@ -165,8 +164,7 @@ describe("The cancel multiple shipments test suite", () => {
         name: "Better Delivery Service",
         code: "better_ds",
         manifestType: "physical",
-        originCountries: ["MX"],
-        destinationCountries: ["MX"],
+        availableCountries: ["MX"],
         labelFormats: ["pdf"],
         labelSizes: ["A4"],
         packaging: [pojo.packaging()]
@@ -202,8 +200,7 @@ describe("The cancel multiple shipments test suite", () => {
         name: "Better Delivery Service",
         code: "better_ds",
         manifestType: "physical",
-        originCountries: ["MX"],
-        destinationCountries: ["MX"],
+        availableCountries: ["MX"],
         labelFormats: ["pdf"],
         labelSizes: ["A4"],
         packaging: [pojo.packaging()]
@@ -238,8 +235,7 @@ describe("The cancel multiple shipments test suite", () => {
     it("should generate tests", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
 
-      appDefinition.deliveryServices[0].originCountries = ["AQ", "US"];
-      appDefinition.deliveryServices[0].destinationCountries = ["AQ", "US"];
+      appDefinition.deliveryServices[0].availableCountries = ["AQ", "US"];
 
 
       const app = new CarrierApp(appDefinition);
@@ -349,6 +345,7 @@ function generateBasicAppAndConfigs() {
   deliveryService.labelFormats = ["pdf"];
   deliveryService.code = "priority_overnight";
   deliveryService.labelSizes = ["A4"];
+  deliveryService.availableCountries = ["US"];
   deliveryService.deliveryConfirmations = [pojo.deliveryConfirmation()];
   deliveryService.packaging.push(pojo.packaging());
   appDefinition.deliveryServices = [deliveryService];

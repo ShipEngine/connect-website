@@ -13,8 +13,7 @@ describe("The create shipment multipackage test suite", () => {
 
     it("should not generate tests", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-      appDefinition.deliveryServices[0].originCountries = ["AQ"]
-      appDefinition.deliveryServices[0].destinationCountries = ["AQ"]
+      appDefinition.deliveryServices[0].availableCountries = ["AQ"]
 
       const app = new CarrierApp(appDefinition);
       const args = { app, connectArgs, staticConfigTests, options };
@@ -253,8 +252,7 @@ describe("The create shipment multipackage test suite", () => {
         code: "better_ds",
         manifestType: "digital",
         allowsMultiplePackages: true,
-        originCountries: ["MX"],
-        destinationCountries: ["MX"],
+        availableCountries: ["MX"],
         labelFormats: ["pdf"],
         labelSizes: ["A4"],
         packaging: [pojo.packaging()]

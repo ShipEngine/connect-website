@@ -26,8 +26,7 @@ describe("The rate shipment with multiple services test suite", () => {
   describe("when there is no shared address between the delivery services", () => {
     it("should not generate tests", () => {
       const { appDefinition, connectArgs, staticConfigTests, options } = generateBasicAppAndConfigs();
-      appDefinition.deliveryServices[0].originCountries = ["MX"];
-      appDefinition.deliveryServices[0].destinationCountries = ["MX"];
+      appDefinition.deliveryServices[0].availableCountries = ["MX"];
 
       const app = new CarrierApp(appDefinition);
       const args = { app, connectArgs, staticConfigTests, options };
@@ -188,8 +187,7 @@ function generateBasicAppAndConfigs() {
     name: "Better Delivery Service",
     code: "bd_code",
     manifestType: "digital",
-    originCountries: ["US"],
-    destinationCountries: ["US"],
+    availableCountries: ["US"],
     labelFormats: ["pdf"],
     labelSizes: ["A4"],
     packaging: [pojo.packaging()]
