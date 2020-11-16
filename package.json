@@ -1,6 +1,6 @@
 {
   "name": "@shipengine/connect-local-dev-ui",
-  "version": "2.0.16",
+  "version": "2.0.18",
   "description": "The ShipEngine Integration Platform local development UI",
   "author": {
     "name": "ShipEngine",
@@ -36,7 +36,7 @@
     "@jsdevtools/version-bump-prompt": "^6.1.0",
     "@rjsf/antd": "^2.4.0",
     "@rjsf/core": "^2.4.0",
-    "@shipengine/connect-sdk": "^10.1.0",
+    "@shipengine/connect-sdk": "^12.0.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.8",
@@ -53,7 +53,7 @@
     "@typescript-eslint/eslint-plugin": "4.0.1",
     "@typescript-eslint/parser": "4.0.1",
     "antd": "^4.7.0",
-    "axios": "^0.20.0",
+    "axios": "^0.21.0",
     "bundlesize": "^0.18.0",
     "dayjs": "^1.9.3",
     "eslint-plugin-jest": "^24.1.0",
@@ -68,7 +68,7 @@
     "react-query-devtools": "^2.6.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.3",
-    "shx": "^0.3.2",
+    "shx": "^0.3.3",
     "typescript": "^4.0.3",
     "uuid": "^8.3.1"
   },
