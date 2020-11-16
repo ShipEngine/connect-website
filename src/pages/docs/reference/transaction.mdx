@@ -33,6 +33,12 @@ column indicates which properties are required when the object is returned from 
     </Description>
   </Field>
 
+  <Field name="language" type="string" required={true} nullable={false}>
+    <Description>
+      Represents the desired language of the request. This property should be a string that contains a BCP 47 language tag (e.g. en-US, en-GB).
+    </Description>
+  </Field>
+
   <Field name="session" type="object" required={true} nullable={false}>
     <Description>
       The application's session data. Any method may update the session data, such as renewing a session token or updating a timestamp. Must be JSON serializable.
@@ -52,6 +58,7 @@ Here's an example transaction object:
 ```javascript
 {
   id: "6ad41b24-62a8-4e17-9751-a28d9688e277",
+  language: "en-US",
   session: {
     id: "sess_184849191484716854941017",
     accountNumber: "10004583",

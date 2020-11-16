@@ -117,17 +117,9 @@ Delivery Service Properties
     </Description>
   </Field>
 
-  <Field name="originCountries" type="string[]" required={true}>
+  <Field name="availableCountries" type="string[]" required={true}>
     <Description>
-      The list of [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) for the
-      [countries](./country-codes.mdx) that can be shipped _from_ using this delivery service.
-    </Description>
-  </Field>
-
-  <Field name="destinationCountries" type="string[]" required={true}>
-    <Description>
-      The list of [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) for the
-              [countries](./country-codes.mdx)  that can be shipped _to_ using this deliveyr service. Valid values include the following:
+      The sellers home [countries](./country-codes.mdx) in [ISO 3166-1 alpha-2 format](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) that should have access to this service.
     </Description>
   </Field>
 
@@ -182,8 +174,7 @@ labelSizes:
   - A4
   - letter
 
-originCountries: worldwide.yaml
-destinationCountries: worldwide.yaml
+availableCountries: north-america.yaml
 
 packaging:
   - ../packaging/package.yaml
@@ -217,8 +208,7 @@ deliveryConfirmations:
         "A4",
         "letter"
     ],
-    originCountries: "worldwide.yaml",
-    destinationCountries: "worldwide.yaml",
+    availableCountries: "north-america.yaml",
     packaging: [
         "../packaging/package.yaml",
         "../packaging/pallet.yaml"
@@ -249,14 +239,13 @@ const internationalEconomyDeliveryService: DeliveryServiceDefinition = {
   description:
     "Worldwide delivery at an affordable price",
   deliveryConfirmations: [import("./signature-delivery-confirmation")],
-  destinationCountries: [Country.UnitedStates],
   isInsurable: true,
   isTrackable: false,
   manifestType: digital,
   supportsReturns: false,
   labelFormats: [DocumentFormat.PDF, DocumentFormat.PNG],
   labelSizes: [DocumentSize.Letter, DocumentSize.Inches4x6],
-  originCountries: [Country.UnitedStates],
+  availableCountries: [Country.UnitedStates],
   packaging: [import("./package-packaging")],
   serviceArea: ServiceArea.domestic,
 };
@@ -278,8 +267,7 @@ export default internationalEconomyDeliveryService;
   "manifestType": "digital",
   "labelFormats": ["pdf"],
   "labelSizes": ["4x8"],
-  "originCountries": ["US", "CA", "MX"],
-  "destinationCountries": ["US", "CA", "MX"],
+  "availableCountries": ["US", "CA", "MX"],
   "packaging": ["./package-packaging.json"],
   "serviceArea": "international"
 }
