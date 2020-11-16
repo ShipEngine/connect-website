@@ -293,7 +293,7 @@ Therefore, only the `nullable` column is listed below.
     </Type>
   </Field>
 
-  <Field name="contents.quantity" type="object" nullable={false}>
+  <Field name="contents.quantity" type="object" nullable={true}>
       <Description>
         The quantity of this item in the package.
       </Description>
@@ -305,7 +305,7 @@ Therefore, only the `nullable` column is listed below.
       </Description>
     </Field>
 
-    <Field name="contents.unitPrice" type="object">
+    <Field name="contents.unitPrice" type="object" nullable={true}>
       <Description>
         The sale price of each item.
       </Description>
@@ -323,7 +323,7 @@ Therefore, only the `nullable` column is listed below.
       </Description>
     </Field>
 
-    <Field name="contents.totalPrice" type="object">
+    <Field name="contents.totalPrice" type="object" nullable={true}>
       <Description>
         The total price of this item. This is `unitPrice` multiplied by `quantity`.
       </Description>
@@ -387,6 +387,3 @@ Therefore, only the `nullable` column is listed below.
     </Field>
 
 </Reference>
-
-
-
