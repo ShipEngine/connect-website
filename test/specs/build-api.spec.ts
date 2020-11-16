@@ -51,6 +51,7 @@ describe("buildAPI", () => {
       .send({
         transaction: {
           id: "6ad41b24-62a8-4e17-9751-a28d9688e277",
+          language: "en",
           session: {},
         },
         connectionFormData: {
@@ -64,6 +65,7 @@ describe("buildAPI", () => {
         expect(res.body).to.eql({
           transaction: {
             id: "6ad41b24-62a8-4e17-9751-a28d9688e277",
+            language: "en",
             session: {
               email: "jdoe87@example.com",
               password: "p@$$w0rd",
@@ -97,7 +99,7 @@ describe("buildAPI", () => {
       })
       .end((_err, res) => {
         expect(res.status).to.equal(400);
-        expect(res.body).to.haveOwnProperty("code", "ERR_APP_ERROR");
+        expect(res.body).to.haveOwnProperty("code", "ERR_INVALID_INPUT");
       });
   });
 

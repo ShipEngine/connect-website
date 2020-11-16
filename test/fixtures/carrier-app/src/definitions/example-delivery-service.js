@@ -12,8 +12,7 @@ module.exports = {
   isTrackable: false,
   labelFormats: ["pdf"],
   labelSizes: ["4x8"],
-  originCountries: ["US", "CA", "MX"],
-  destinationCountries: ["US", "CA", "MX"],
+  availableCountries: ["US", "CA", "MX"],
   packaging: ["./example-packaging.js"],
   serviceArea: "international",
 };
