@@ -70,6 +70,7 @@ export class GetSalesOrdersByDate extends Suite {
 
           const transaction = {
             id: v4(),
+            language: "en",
             session: {}
           };
 

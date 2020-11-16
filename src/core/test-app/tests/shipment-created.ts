@@ -97,6 +97,7 @@ export class ShipmentCreated extends Suite {
 
           const transaction = {
             id: v4(),
+            language: "en",
             session: {}
           };
 

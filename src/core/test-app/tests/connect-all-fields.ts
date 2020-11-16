@@ -83,6 +83,7 @@ export class ConnectionForm extends Suite {
           const carrierApp = this.app as CarrierApp;
           const transaction = {
             id: v4(),
+            language: "en",
             session: {},
           };
 

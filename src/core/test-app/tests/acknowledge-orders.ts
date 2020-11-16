@@ -79,6 +79,7 @@ export class AcknowledgeOrders extends Suite {
 
           const transaction = {
             id: v4(),
+            language: "en",
             session: {}
           };
 

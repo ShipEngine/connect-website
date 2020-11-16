@@ -99,6 +99,7 @@ export default abstract class Suite {
     ) {
       const transaction: TransactionPOJO = {
         id: v4(),
+        language: "en",
         session: config.session || this.options.staticRootConfig.session,
       };
 
@@ -130,6 +131,7 @@ export default abstract class Suite {
 
       const transaction: TransactionPOJO = {
         id: v4(),
+        language: "en",
         session: {},
       };
 
@@ -153,6 +155,7 @@ export default abstract class Suite {
 
     const transaction: TransactionPOJO = {
       id: v4(),
+      language: "en",
       session: {},
     };
 
