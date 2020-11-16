@@ -43,7 +43,7 @@ const shipmentWithForm = new ShipmentConfirmation({
 
 describe('Create Label Response', () => {
 	describe('when we map the Create Label Response with only a label', () => {
-		const response = mapCreateLabelResponse({ id: 'Id' }, shipmentWithoutForm);
+		const response = mapCreateLabelResponse({ id: 'Id', language: 'en-US' }, shipmentWithoutForm);
 		it('it should map transaction_id correctly', () =>
 			expect(response.transaction_id).toEqual('Id'));
 		it('it should map tracking_number correctly', () =>
@@ -63,7 +63,7 @@ describe('Create Label Response', () => {
 	});
 
 	describe('when we map the Create Label Response with a document', () => {
-		const response = mapCreateLabelResponse({ id: 'Id' }, shipmentWithForm);
+		const response = mapCreateLabelResponse({ id: 'Id', language: 'en-US' }, shipmentWithForm);
 		it('it should map form_data correctly to a base64 string', () =>
 			expect(response.form_download?.label_data).toEqual(
 				shipmentWithForm.form?.data?.toString('base64'),

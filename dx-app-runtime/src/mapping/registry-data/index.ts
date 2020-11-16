@@ -244,7 +244,7 @@ const mapShippingService = (
 		Id: service.id,
 		Name: service.name,
 		Abbreviation: service.name?.substring(0, 4), // This is not sent to us, since there is no product layer that can update this, we will initialize it to be a substring
-		SupportedCountries: mapCountries(service.countries),
+		SupportedCountries: mapCountries(service.availableCountries),
 		Code: service.code,
 		LabelCode: undefined, // TODO: Update dx spec to use label code.
 		ServiceAttributes: mapShippingServiceAttributes(service),

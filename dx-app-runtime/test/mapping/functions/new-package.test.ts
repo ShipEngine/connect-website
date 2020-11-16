@@ -202,7 +202,6 @@ describe('New Package', () => {
 	describe('when we have a fully filled out package', () => {
 		const result = mapNewPackage(
 			capiPackage,
-			customs,
 			advancedOptions,
 			DocumentFormat.PDF,
 			DocumentSize.Inches4x6,

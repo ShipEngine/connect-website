@@ -9,6 +9,10 @@ import {
 } from '@ipaas/capi/requests';
 import { Transaction } from '@shipengine/connect-sdk';
 
+export interface HeaderArgs {
+	language: string;
+}
+
 export const mapTransaction = (
 	request:
 		| RegisterRequest
@@ -18,9 +22,11 @@ export const mapTransaction = (
 		| TrackRequest
 		| SchedulePickupRequest
 		| CancelPickupRequest,
+	header: HeaderArgs
 ): Transaction => {
 	return {
 		id: request.transaction_id || '',
+		language: header.language,
 		session: {
 			...request.metadata,
 		},

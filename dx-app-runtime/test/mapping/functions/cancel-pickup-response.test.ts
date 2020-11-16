@@ -4,6 +4,7 @@ import { CancellationStatus, NoteType } from '@shipengine/connect';
 
 const transaction = {
 	id: 'transactionId',
+	language: 'en-US',
 	session: {
 		value: 1,
 	},

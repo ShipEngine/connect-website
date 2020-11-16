@@ -9,6 +9,8 @@ import {
 	mapNewPackage,
 	mapAddressWithContact,
 } from './';
+import { mapCustomsItem } from './customs-item';
+import { mapCustomsPOJO } from './new-package';
 
 export const getReturnToAddress = (
 	isReturn?: boolean,
@@ -24,7 +26,7 @@ export const getReturnToAddress = (
 export const mapCreateLabelRequest = (
 	request: CreateLabelRequest,
 ): NewShipmentPOJO => {
-	return {
+	const mappedRequest = {
 		deliveryService: request.service_code || '',
 		deliveryConfirmation: mapConfirmation(request.confirmation),
 		shipFrom: mapAddressWithContact(request.ship_from),
@@ -42,7 +44,6 @@ export const mapCreateLabelRequest = (
 		packages: request.packages.map((pckg) =>
 			mapNewPackage(
 				pckg,
-				request.customs || undefined,
 				request.advanced_options,
 				mapLabelFormat(request.label_format),
 				mapLabelLayout(request.label_layout),
@@ -50,4 +51,16 @@ export const mapCreateLabelRequest = (
 			),
 		),
 	};
+	
+	if (mappedRequest.packages.length) {
+		// We only want to map the customs to the first package in the array until shipstation can support package level customs
+		mappedRequest.packages[0].customs = mapCustomsPOJO(request.customs || undefined);
+		mappedRequest.packages[0].contents = [{
+			salesOrder: {
+				id: request.reference || ''
+			}
+		}];
+	}
+
+	return mappedRequest;
 };

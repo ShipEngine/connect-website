@@ -53,6 +53,7 @@ describe('Create Manifest Response', () => {
 	describe('Map Create Manifest Response', () => {
 		const result = mapCreateManifestResponse(manifestConfirmation, {
 			id: 'transactionId',
+			language: 'en-US',
 			session: { value: '1' } as Session<object>,
 		});
 		it('it maps the transaction_id correctly', () =>

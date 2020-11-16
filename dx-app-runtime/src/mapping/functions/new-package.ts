@@ -111,14 +111,12 @@ export const mapCustomsPOJO = (customs?: Customs): CustomsPOJO | undefined => {
 
 export const mapNewPackage = (
 	capiPackage: Package,
-	customs: Customs | undefined,
 	advancedOptions: AdvancedShippingOptions | null | undefined,
 	documentFormat: DocumentFormat,
 	documentSize: DocumentSize,
 	insuranceProvider?: InsuranceProvider,
 ): NewPackagePOJO => {
 	const mappedPackage: NewPackagePOJO = {
-		customs: mapCustomsPOJO(customs),
 		packaging: capiPackage.package_code || '',
 		dimensions: mapDimensionsCM(
 			capiPackage?.dimension_details?.dimensions_in_centimeters,

@@ -79,6 +79,7 @@ describe('Void Labels', () => {
 			expect(
 				mapVoidLabelsResponse([], {
 					id: 'test',
+					language: 'en-US',
 					session: { value: 1 },
 				} as Transaction),
 			).toEqual({ metadata: { value: 1 }, void_responses: [] }));

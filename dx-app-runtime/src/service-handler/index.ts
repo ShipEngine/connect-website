@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import { HeaderArgs } from '../mapping/functions';
 
 export default async (
 	implementation: any,
@@ -9,7 +10,10 @@ export default async (
 	const { body } = request;
 	const dxApp = request.app.locals.app;
 	try {
-		const result = await implementation(dxApp, body);
+		const headers: HeaderArgs = {
+			language: request.headers['accept-language'] || 'en'
+		};
+		const result = await implementation(dxApp, body, headers);
 		response.send(result);
 	} catch (error) {
 		next(error);

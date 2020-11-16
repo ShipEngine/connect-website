@@ -81,6 +81,7 @@ describe('Schedule Pickup Response', () => {
 		it('it maps correctly', () => {
 			const response = mapSchedulePickupResponse(pickupResponse, {
 				id: 'transactionId',
+				language: 'en-US',
 				session: { garbage: 1 } as Session<object>,
 			});
 			expect(response).toEqual(expectedPickupResponse);

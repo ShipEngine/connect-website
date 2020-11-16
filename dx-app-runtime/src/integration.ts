@@ -16,6 +16,7 @@ import {
 	mapCancelPickupRequest,
 	mapCancelPickupResponse,
 	mapTransaction,
+	HeaderArgs,
 } from './mapping/functions';
 import { CarrierApp } from '@shipengine/connect-sdk/lib/internal';
 import logger from './util/logger';
@@ -36,22 +37,22 @@ const setScope = (
 	});
 };
 
-export const register = async (app: CarrierApp, request: any) => {
+export const register = async (app: CarrierApp, request: any, headers: HeaderArgs) => {
 	if (!app.connect) {
 		throw new NotSupported('connect');
 	}
-	const transaction = mapTransaction(request);
+	const transaction = mapTransaction(request, headers);
 	const dxRequest = mapRegisterRequest(request);
 	setScope('Register', request, dxRequest, transaction);
 	await app.connect(transaction, dxRequest);
 	return mapRegisterResponse(transaction);
 };
 
-export const getRates = async (app: CarrierApp, request: any) => {
+export const getRates = async (app: CarrierApp, request: any, headers: HeaderArgs) => {
 	if (!app.rateShipment) {
 		throw new NotSupported('rateShipment');
 	}
-	const transaction = mapTransaction(request);
+	const transaction = mapTransaction(request, headers);
 	logger.debug(request);
 	const dxRequest = mapGetRatesRequest(request);
 	setScope('Get Rates', request, dxRequest, transaction);
@@ -63,11 +64,11 @@ export const getRates = async (app: CarrierApp, request: any) => {
 	return response;
 };
 
-export const createLabel = async (app: CarrierApp, request: any) => {
+export const createLabel = async (app: CarrierApp, request: any, headers: HeaderArgs) => {
 	if (!app.createShipment) {
 		throw new NotSupported('createShipment');
 	}
-	const transaction = mapTransaction(request);
+	const transaction = mapTransaction(request, headers);
 	logger.debug(request);
 	const dxRequest = mapCreateLabelRequest(request);
 	setScope('Create Label', request, dxRequest, transaction);
@@ -79,11 +80,11 @@ export const createLabel = async (app: CarrierApp, request: any) => {
 	return response;
 };
 
-export const voidLabels = async (app: CarrierApp, request: any) => {
+export const voidLabels = async (app: CarrierApp, request: any, headers: HeaderArgs) => {
 	if (!app.cancelShipments) {
 		throw new NotSupported('cancelShipment');
 	}
-	const transaction = mapTransaction(request);
+	const transaction = mapTransaction(request, headers);
 	logger.debug(request);
 	const dxRequest = mapVoidLabelsRequest(request);
 	setScope('Void Labels', request, dxRequest, transaction);
@@ -95,11 +96,11 @@ export const voidLabels = async (app: CarrierApp, request: any) => {
 	return response;
 };
 
-export const createManifest = async (app: CarrierApp, request: any) => {
+export const createManifest = async (app: CarrierApp, request: any, headers: HeaderArgs) => {
 	if (!app.createManifest) {
 		throw new NotSupported('createManifest');
 	}
-	const transaction = mapTransaction(request);
+	const transaction = mapTransaction(request, headers);
 	logger.debug(request);
 	const dxRequest = mapCreateManifestRequest(request);
 	setScope('Create Manifest', request, dxRequest, transaction);
@@ -111,11 +112,11 @@ export const createManifest = async (app: CarrierApp, request: any) => {
 	return response;
 };
 
-export const track = async (app: CarrierApp, request: any) => {
+export const track = async (app: CarrierApp, request: any, headers: HeaderArgs) => {
 	if (!app.trackShipment) {
 		throw new NotSupported('track');
 	}
-	const transaction = mapTransaction(request);
+	const transaction = mapTransaction(request, headers);
 	logger.debug(request);
 	const dxRequest = mapTrackingRequest(request);
 	logger.debug(dxRequest);
@@ -127,11 +128,11 @@ export const track = async (app: CarrierApp, request: any) => {
 	return response;
 };
 
-export const schedulePickup = async (app: CarrierApp, request: any) => {
+export const schedulePickup = async (app: CarrierApp, request: any, headers: HeaderArgs) => {
 	if (!app.schedulePickup) {
 		throw new NotSupported('schedulePickup');
 	}
-	const transaction = mapTransaction(request);
+	const transaction = mapTransaction(request, headers);
 	const dxRequest = mapSchedulePickupRequest(request);
 	logger.debug(dxRequest);
 	setScope('Schedule Pickup', request, dxRequest, transaction);
@@ -140,11 +141,11 @@ export const schedulePickup = async (app: CarrierApp, request: any) => {
 	return mapSchedulePickupResponse(dxResponse, transaction);
 };
 
-export const cancelPickup = async (app: CarrierApp, request: any) => {
+export const cancelPickup = async (app: CarrierApp, request: any, headers: HeaderArgs) => {
 	if (!app.cancelPickups) {
 		throw new NotSupported('cancelPickups');
 	}
-	const transaction = mapTransaction(request);
+	const transaction = mapTransaction(request, headers);
 	logger.debug(request);
 	const dxRequest = [mapCancelPickupRequest(request)];
 	logger.debug(dxRequest);
