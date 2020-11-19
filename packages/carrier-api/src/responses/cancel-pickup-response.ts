@@ -1,21 +1,8 @@
-import { BaseResponse } from "./base-response";
+import { BaseResponse } from './base-response';
 
 export interface CancelPickupResponse extends BaseResponse {
-  /**
-   * The confirmation id from the carrier associated with the cancellation request.
-   */
-  confirmation_id?: null | string;
-  /**
-   * A grab bag used to store additional information that might be useful for logging or
-   * internal reporting.
-   */
-  custom_properties?: { [key: string]: string } | null;
-  /**
-   * The optional status returned by the carrier.
-   */
-  status?: null | string;
-  /**
-   * A flag for whether or not the cancellation was successful.
-   */
+  confirmation_id?: string;
   successful: boolean;
+  status?: string;
+  custom_properties?: { [key: string]: string };
 }

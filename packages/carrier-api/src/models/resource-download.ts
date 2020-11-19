@@ -1,4 +1,4 @@
 export interface ResourceDownload {
-    href: string;
-    data: string;
+  href?: string;
+  data?: string;
 }

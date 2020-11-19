@@ -1,7 +1,7 @@
-import { Manifest } from '../models/manifest';
 import { BaseResponse } from './base-response';
+import { Manifest } from '../models';
 
 export interface CreateManifestResponse extends BaseResponse {
-    transaction_id: string;
-    manifests: Manifest[];
+  transaction_id: string;
+  manifests?: Manifest[];
 }

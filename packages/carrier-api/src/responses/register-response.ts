@@ -1,18 +1,6 @@
-import { BaseResponse } from "./base-response";
+import { Credentials } from '../models';
 
-export interface RegisterResponse extends BaseResponse {
-  /**
-   * The credentials that will be used to access this carrier's services. These will be sent
-   * as a Basic Authorization header with all future requests.
-   */
+export interface RegisterResponse<T> {
   credentials: Credentials;
-}
-
-/**
-* The credentials that will be used to access this carrier's services. These will be sent
-* as a Basic Authorization header with all future requests.
-*/
-export interface Credentials {
-  password?: null | string;
-  username?: null | string;
+  metadata: T;
 }
