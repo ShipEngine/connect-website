@@ -26,6 +26,14 @@ The `OAuth request definition` object describes a request made to an identity pr
       </Description>
     </Field>
 
+  <Field name="contentType" type="string" required={false}>
+    <Description>
+      The content-type for the body parameters. Valid values include:
+      * `application/json` (default)
+      * `application/x-www-form-urlencoded`
+    </Description>
+  </Field>
+
   <Field name="bodyParameters" type="object[]" required={false}>
       <Description>
       An array of body parameters that should be included as part of the request.
