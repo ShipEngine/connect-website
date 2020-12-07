@@ -19,10 +19,7 @@ export const sameDay: DeliveryServiceDefinition = {
     DocumentSize.Letter,
     DocumentSize.Inches4x6,
   ],
-  originCountries: [
-    Country.UnitedStates,
-  ],
-  destinationCountries: [
+  availableCountries: [
     Country.UnitedStates,
   ],
   packaging: customerPackaging,
