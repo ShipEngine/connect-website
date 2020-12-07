@@ -15,8 +15,7 @@ labelSizes:
   - A4
   - letter
 
-originCountries: worldwide.yaml
-destinationCountries: worldwide.yaml
+availableCountries: worldwide.yaml
 
 packaging:
   - ../packaging/package.yaml
