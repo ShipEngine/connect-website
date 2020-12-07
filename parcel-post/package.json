@@ -8,8 +8,7 @@
     "watch": "tsc --watch",
     "start": "connect start",
     "test": "connect test",
-    "postbuild": "copyfiles -u 1 src/**/!\\(*.ts\\) lib; copyfiles -u 1 src/!\\(*.ts\\) lib",
-    "postbuild": "copyfiles -u 1 src/**/!\\(*.ts\\) lib; copyfiles -u 1 src/!\\(*.ts\\) lib"
+    "postbuild": "copyfiles -u 1 \"src/**/!(*.ts)\" lib"
   },
   "devDependencies": {
     "@shipengine/connect": "^1.0.14",
