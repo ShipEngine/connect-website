@@ -44,7 +44,7 @@ export function JsonLD({ title, description, createdAt, modifiedAt, tags, url, i
             "@type": "Organization",
             name: "ShipEngine",
             telephone: "1 (512) 856-5379",
-            email: "info@shipengine.com",
+            email: "connect@shipengine.com",
             url: siteURL.href,
             logo: logoURL.href
           }
@@ -55,7 +55,7 @@ export function JsonLD({ title, description, createdAt, modifiedAt, tags, url, i
           "@type": "Organization",
           name: "ShipEngine",
           telephone: "1 (512) 856-5379",
-          email: "info@shipengine.com",
+          email: "connect@shipengine.com",
           url: siteURL.href,
           logo: logoURL.href
         }
@@ -77,7 +77,7 @@ export function JsonLD({ title, description, createdAt, modifiedAt, tags, url, i
           "@type": "Organization",
           name: "ShipEngine",
           telephone: "1 (512) 856-5379",
-          email: "info@shipengine.com",
+          email: "connect@shipengine.com",
           url: siteURL.href,
           logo: logoURL.href
         }
