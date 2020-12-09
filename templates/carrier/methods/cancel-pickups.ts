@@ -8,8 +8,8 @@ import { Session } from "./session";
 /**
  * Cancels one or more previously-scheduled pickups
  *
- * See an example implementation below
- * https://github.com/ShipEngine/connect-samples/blob/master/parcel-post/carrier/src/methods/cancel-pickups.ts
+ * View documentation here:
+ * https://connect.shipengine.com/docs/reference/methods/cancel-pickups
 
  * View sample implementation here:
  * https://github.com/ShipEngine/connect-samples/blob/master/parcel-post/src/methods/cancel-pickups.ts

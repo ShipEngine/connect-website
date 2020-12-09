@@ -4,6 +4,13 @@ import { Session } from "./session";
 
 /**
  * Retrieve existing sales orders based on a date range.
+ *
+ * View documentation here:
+ * https://connect.shipengine.com/docs/reference/methods/get-sales-orders-by-date
+ *
+ * View sample implementation here:
+ * https://github.com/ShipEngine/connect-samples/blob/master/iBuy/src/methods/get-sales-orders-by-date.ts
+ *
  */
 export default async function getSalesOrdersByDate(
   transaction: Transaction<Session>,

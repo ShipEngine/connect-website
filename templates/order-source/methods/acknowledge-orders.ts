@@ -1,10 +1,16 @@
 import { AcknowledgedSalesOrder, SalesOrderNotification, Transaction } from "@shipengine/connect";
 import { Session } from "./session";
 
-
 /**
  * Called when an order has been imported into a marketplace.
+ *
+ * View documentation here:
+ * https://connect.shipengine.com/docs/reference/methods/acknowledge-orders
+ *
+ * View sample implementation here:
+ * https://github.com/ShipEngine/connect-samples/blob/master/iBuy/src/methods/acknowledge-orders.ts
  */
+
 export default async function acknowledgeOrders(
   transaction: Transaction<Session>,
   notifications: SalesOrderNotification[],
