@@ -2,6 +2,14 @@
 
 /**
  * Called when shipment is created
+ *
+ *
+ * View documentation here:
+ * https://connect.shipengine.com/docs/reference/methods/shipment-created
+ *
+ * View sample implementation here:
+ * https://github.com/ShipEngine/connect-samples/blob/master/southwest-products/src/methods/shipment-created.js
+ *
  */
 async function shipmentCreated(transaction, shipment) {
   throw new Error("NotImplementedError");

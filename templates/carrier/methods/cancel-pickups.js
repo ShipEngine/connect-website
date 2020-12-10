@@ -2,10 +2,10 @@
 
 /**
  * Cancels one or more previously-scheduled pickups
- * 
+ *
  * View documentation here:
- * https://shipenginestag:439bd542@shipenginestag.wpengine.com/docs/integration-platform/reference/methods/cancel-pickups
- * 
+ * https://connect.shipengine.com/docs/reference/methods/cancel-pickups
+ *
  * View sample implementation here:
  * https://github.com/ShipEngine/connect-samples/blob/master/freightco/cancel-pickups.js
  */
