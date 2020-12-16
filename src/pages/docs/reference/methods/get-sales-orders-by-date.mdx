@@ -265,6 +265,15 @@ An array of sales orders matching the date range.
     </Description>
   </Field>
 
+  <Field name="requestedFulfillments[].extensions" required={false}>
+    <Type>
+      object
+    </Type>
+    <Description>
+      (Deprecated) This property is only used for legacy integrations.
+    </Description>
+  </Field>
+
   <Field name="originalOrderSource" type="object" required={false}>
     <Description>
       Information regarding the original order source. This is used when an order source is acting on behalf of other order sources, in order to persist information regarding the original order.
