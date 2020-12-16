@@ -114,9 +114,36 @@ The shipment that was created.
       </Description>
     </Field>
 
-    <Field name="contents[].quantity.value" type="number" nullable={false}>
+    <Field name="contents[].currency" type="string" nullable={true}>
       <Description>
-        The quantity of items in this sales order item. The minimum value for this property is `1`.
+        The three character ISO 4217 code of the currency used for all monetary amounts.
+      </Description>
+    </Field>
+
+    <Field name="contents[].notes" nullable={true}>
+      <Type>
+        object[]
+      </Type>
+      <Description>
+        Additional notes associated with this notification or its sales order.
+      </Description>
+    </Field>
+
+    <Field name="contents[].notes[].type" nullable={true}>
+      <Type>
+        [notes type string](../reference/common-types#notes-types)
+      </Type>
+      <Description>
+        The type for this note.
+      </Description>
+    </Field>
+
+    <Field name="contents[].notes[].text" nullable={true}>
+      <Type>
+        string
+      </Type>
+      <Description>
+        The note text itself.
       </Description>
     </Field>
 
