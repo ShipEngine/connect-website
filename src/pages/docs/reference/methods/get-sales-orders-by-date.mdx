@@ -110,6 +110,12 @@ Specifies a date/time range to retrieve sales orders for.
     </Description>
   </Field>
 
+  <Field name="statusMappings" type="object" nullable={true}>
+    <Description>
+      A customer specified desired mapping for status codes. The keys of this object will be the custom status strings provided by a user, and the value will be a related SalesOrderStatus it should be mapped to.
+    </Description>
+  </Field>
+
 </Reference>
 
 
