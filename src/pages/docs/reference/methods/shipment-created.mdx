@@ -208,6 +208,15 @@ The shipment that was created.
     </Type>
   </Field>
 
+  <Field name="contents[].product.details" nullable={false}>
+    <Description>
+      A list of details associated with this product.
+    </Description>
+    <Type>
+      [identifiers object](./../identifiers-object.mdx)
+    </Type>
+  </Field>
+
   <Field name="trackingURL" nullable={true}>
     <Type>
       [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL/URL)

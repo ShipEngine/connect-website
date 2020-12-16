@@ -55,6 +55,15 @@ not passed as an argument to any method.
     </Type>
   </Field>
 
+  <Field name="product.details" required={false}>
+    <Description>
+      A list of details associated with this product.
+    </Description>
+    <Type>
+      [identifiers object](./identifiers-object.mdx)
+    </Type>
+  </Field>
+
   <Field name="product.sku" type="string" required={false}>
     <Description>
       The [Stock Keeping Unit](https://en.wikipedia.org/wiki/Stock_keeping_unit). This string must not contain newline characters.
@@ -157,8 +166,6 @@ not passed as an argument to any method.
       [identifiers object](./identifiers-object.mdx)
     </Type>
   </Field>
-
-
 
   <Field name="description" type="string" required={false}>
     <Description>
