@@ -31,6 +31,7 @@ const ConnectFrom: FunctionComponent<Props> = ({ connectSchema, connectUiSchema,
     const body = {
       transaction: {
         id: uuidv4(),
+        language: '*',
         session: {},
       },
       connectionFormData: formSubmit.formData,
