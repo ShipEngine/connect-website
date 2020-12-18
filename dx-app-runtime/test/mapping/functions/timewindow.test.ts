@@ -1,4 +1,4 @@
-import { PickupWindow } from '@ipaas/capi';
+import { PickupWindow } from '@ipaas/capi/models';
 import { mapTimeWindow } from '../../../src/mapping/functions';
 
 const fullPickupWindow: PickupWindow = {

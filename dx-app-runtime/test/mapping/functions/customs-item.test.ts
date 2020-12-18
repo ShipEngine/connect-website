@@ -1,4 +1,4 @@
-import { CustomsItem } from '@ipaas/capi';
+import { CustomsItem } from '@ipaas/capi/models';
 import { mapCustomsItem } from '../../../src/mapping/functions/';
 
 const defaultCustomsItem = {

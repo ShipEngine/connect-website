@@ -17,6 +17,6 @@ describe('Transaction', () => {
 				session: { value1: 'fun' },
 			}));
 		it('it sets transaction id to an empty string when the transaction_id is undefined', () =>
-			expect(mapTransaction({}, {language: 'en-US'})).toEqual({ id: '', language: 'en-US', session: {} }));
+			expect(mapTransaction({} as any, {language: 'en-US'})).toEqual({ id: '', language: 'en-US', session: {} }));
 	});
 });

@@ -1,7 +1,7 @@
-import { TrackRequest } from '@ipaas/capi';
+import { TrackingRequest } from '@ipaas/capi/requests';
 import { mapTrackingRequest } from '../../../src/mapping/functions/';
 
-const trackingRequest: TrackRequest = {
+const trackingRequest: TrackingRequest = {
 	tracking_number: 'trackingNumber',
 	transaction_id: 'transactionId',
 	metadata: {
@@ -16,14 +16,6 @@ const trackingRequest: TrackRequest = {
 		{
 			type: 'id2',
 			value: 'value2',
-		},
-		{
-			type: undefined,
-			value: 'value3',
-		},
-		{
-			type: 'id4',
-			value: undefined,
 		},
 	],
 };
@@ -43,7 +35,7 @@ describe('Tracking Request', () => {
 			const request = {
 				identifiers: [{ type: 'tracking_number', value: 'trackingNumber' }],
 			};
-			expect(mapTrackingRequest(request).trackingNumber).toEqual(
+			expect(mapTrackingRequest(request as TrackingRequest).trackingNumber).toEqual(
 				'trackingNumber',
 			);
 		});

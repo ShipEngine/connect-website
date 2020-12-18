@@ -4,13 +4,16 @@ import {
 } from '../../../src/mapping/functions';
 import {
 	AddressResidentialIndicator,
-	Confirmation,
+	ConfirmationTypes,
 	DimensionUnit,
-	GetRatesRequest,
-	InsuranceProvider,
+	InsuranceProviders,
 	Package,
 	WeightUnit,
-} from '@ipaas/capi/';
+} from '@ipaas/capi/models';
+import {
+	GetRatesRequest,
+} from '@ipaas/capi/requests';
+
 
 const fullPackage: Package = {
 	package_code: 'Package',
@@ -47,8 +50,8 @@ const fullPackage: Package = {
 const fullRateRequest: GetRatesRequest = {
 	service_code: 'string',
 	ship_datetime: '2019-12-06T02:02:56Z',
-	confirmation: Confirmation.None,
-	insurance_provider: InsuranceProvider.Carrier,
+	confirmation: ConfirmationTypes.None,
+	insurance_provider: InsuranceProviders.Carrier,
 	advanced_options: {
 		contains_alcohol: true,
 		no_postage: true,
@@ -63,7 +66,7 @@ const fullRateRequest: GetRatesRequest = {
 	is_return_label: false,
 	is_residential: false,
 	packages: [fullPackage],
-	customs: null,
+	customs: undefined,
 	ship_to: {
 		name: 'ShipStation',
 		first_name: 'Ship',
@@ -71,7 +74,7 @@ const fullRateRequest: GetRatesRequest = {
 		email: 'some@email.com',
 		phone_number: '1234567890',
 		company_name: 'ShipStation',
-		address_lines: ['3800 N Lamar Blvd #220', null, null],
+		address_lines: ['3800 N Lamar Blvd #220'],
 		city_locality: 'Austin',
 		state_province: 'Tx',
 		postal_code: '78756',
@@ -86,7 +89,7 @@ const fullRateRequest: GetRatesRequest = {
 		email: 'some@email.com',
 		phone_number: '1234567890',
 		company_name: 'ShippingEZ',
-		address_lines: ['3700 N Capital of Texas Hwy Suite 550', null, null],
+		address_lines: ['3700 N Capital of Texas Hwy Suite 550'],
 		city_locality: 'Austin',
 		state_province: 'Tx',
 		postal_code: '78746',

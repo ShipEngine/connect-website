@@ -1,4 +1,4 @@
-import { AddressResidentialIndicator } from '@ipaas/capi';
+import { AddressResidentialIndicator } from '@ipaas/capi/models';
 import {
 	mapManifestShipments,
 	mapCreateManifestRequest,
@@ -88,7 +88,7 @@ describe('Create Manifest Request', () => {
 				},
 				included_labels: [],
 				excluded_labels: [],
-				open_datetime: null,
+				open_datetime: undefined,
 				close_datetime: '2019-12-06T01:27:34Z',
 				advanced_options: {
 					contains_alcohol: true,

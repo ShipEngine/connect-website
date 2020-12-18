@@ -1,13 +1,13 @@
-import { LabelFormat } from '@ipaas/capi/models';
+import { LabelFormats } from '@ipaas/capi/models';
 import { DocumentFormat } from '@shipengine/connect-sdk';
 
-export const mapLabelFormat = (format: LabelFormat): DocumentFormat => {
+export const mapLabelFormat = (format?: LabelFormats): DocumentFormat => {
 	switch (format) {
-		case LabelFormat.PDF:
+		case LabelFormats.Pdf:
 			return DocumentFormat.PDF;
-		case LabelFormat.PNG:
+		case LabelFormats.Png:
 			return DocumentFormat.PNG;
-		case LabelFormat.ZPL:
+		case LabelFormats.Zpl:
 			return DocumentFormat.ZPL;
 		default:
 			throw new Error(`unknown carrier api label format ${format}`);

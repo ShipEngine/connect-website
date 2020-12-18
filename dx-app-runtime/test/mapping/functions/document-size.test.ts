@@ -1,11 +1,11 @@
-import { LabelLayout } from '@ipaas/capi';
+import { LabelLayouts } from '@ipaas/capi/models';
 import { DocumentSize } from '@shipengine/connect';
 import { mapDocumentSize } from '../../../src/mapping/functions';
 
 const correctLabelFormats: any[][] = [
-	[DocumentSize.Inches4x6, LabelLayout.The4X6],
-	[DocumentSize.Inches4x8, LabelLayout.Letter],
-	[DocumentSize.Letter, LabelLayout.Letter],
+	[DocumentSize.Inches4x6, LabelLayouts.FourBySix],
+	[DocumentSize.Inches4x8, LabelLayouts.Letter],
+	[DocumentSize.Letter, LabelLayouts.Letter],
 ];
 
 const errorFormats: any[][] = [

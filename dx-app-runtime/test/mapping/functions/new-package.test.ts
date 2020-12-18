@@ -1,13 +1,13 @@
 import {
-	InsuranceProvider,
-	Currency,
+	InsuranceProviders,
 	Package,
 	DimensionUnit,
 	WeightUnit,
 	Customs,
-	NonDelivery,
-	AdvancedShippingOptions,
-} from '@ipaas/capi';
+	CustomsNonDelivery,
+	AdvancedOptions,
+	CustomsContentTypes,
+} from '@ipaas/capi/models';
 import {
 	DocumentFormat,
 	DocumentSize,
@@ -22,12 +22,12 @@ import {
 	nonEmptyCustomsItemsFilter,
 } from '../../../src/mapping/functions';
 
-const validCurrency: Currency = {
+const validCurrency: any = {
 	amount: '200.24',
 	currency: 'USD',
 };
 
-const invalidCurrency: Currency = {
+const invalidCurrency: any = {
 	amount: '',
 };
 
@@ -72,7 +72,7 @@ const capiPackage: Package = {
 };
 
 const customs: Customs = {
-	contents: 'Contents',
+	contents: 'Contents' as CustomsContentTypes,
 	customs_items: [
 		{
 			country_of_origin: 'US',
@@ -99,15 +99,15 @@ const customs: Customs = {
 			},
 		},
 	],
-	non_delivery: NonDelivery.ReturnToSender,
+	non_delivery: CustomsNonDelivery.ReturnToSender,
 };
 
 const customsWithNoItems: Customs = {
-	contents: 'Contents',
+	contents: 'Contents' as CustomsContentTypes,
 	customs_items: [],
-	non_delivery: NonDelivery.ReturnToSender,
+	non_delivery: CustomsNonDelivery.ReturnToSender,
 };
-const advancedOptions: AdvancedShippingOptions = {
+const advancedOptions: AdvancedOptions = {
 	bill_duties_to_sender: true,
 	contains_alcohol: true,
 	no_postage: true,
@@ -117,13 +117,13 @@ const advancedOptions: AdvancedShippingOptions = {
 
 const expectedInsuranceMapping: any[][] = [
 	[undefined, undefined, undefined],
-	[InsuranceProvider.Carrier, undefined, undefined],
-	[InsuranceProvider.Carrier, invalidCurrency, undefined],
-	[InsuranceProvider.External, validCurrency, undefined],
-	[InsuranceProvider.None, validCurrency, undefined],
-	[InsuranceProvider.ShipEngine, validCurrency, undefined],
+	[InsuranceProviders.Carrier, undefined, undefined],
+	[InsuranceProviders.Carrier, invalidCurrency, undefined],
+	[InsuranceProviders.External, validCurrency, undefined],
+	[InsuranceProviders.None, validCurrency, undefined],
+	[InsuranceProviders.ShipStation, validCurrency, undefined],
 	[
-		InsuranceProvider.Carrier,
+		InsuranceProviders.Carrier,
 		validCurrency,
 		{ currency: 'USD', value: 200.24 },
 	],
@@ -143,8 +143,8 @@ const expectedReferenceMapping: any[][] = [
 const expectedNonDeliveryOptionsMapping: any[][] = [
 	[undefined, undefined],
 	['garbage', undefined],
-	[NonDelivery.ReturnToSender, NonDeliveryOption.Return],
-	[NonDelivery.TreatAsAbandoned, NonDeliveryOption.Abandon],
+	[CustomsNonDelivery.ReturnToSender, NonDeliveryOption.Return],
+	[CustomsNonDelivery.TreatAsAbandoned, NonDeliveryOption.Abandon],
 ];
 
 describe('New Package', () => {
@@ -205,7 +205,7 @@ describe('New Package', () => {
 			advancedOptions,
 			DocumentFormat.PDF,
 			DocumentSize.Inches4x6,
-			InsuranceProvider.Carrier,
+			InsuranceProviders.Carrier,
 		);
 		it('it maps containsAlcohol correctly', () =>
 			expect(result.containsAlcohol).toEqual(true));

@@ -2,7 +2,7 @@ import { GetRatesResponse } from '@ipaas/capi/responses';
 import { Transaction } from '@shipengine/connect-sdk';
 import { Rate } from '@shipengine/connect-sdk/lib/internal';
 
-import { Rate as capiRate } from '@ipaas/capi/responses';
+import { Rate as capiRate } from '@ipaas/capi/models';
 import { mapDateTime } from './datetime';
 import {
 	confirmationChargeFilter,

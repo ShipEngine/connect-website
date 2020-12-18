@@ -1,5 +1,4 @@
-import { PickupWindow } from '@ipaas/capi';
-import { DateTimeZonePOJO, TimeRangePOJO } from '@shipengine/connect';
+import { DateTimeZonePOJO } from '@shipengine/connect';
 
 export const mapDateTimeZone = (
 	date?: string | null,

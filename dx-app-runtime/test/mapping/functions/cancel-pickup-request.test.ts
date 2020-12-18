@@ -2,7 +2,7 @@ import {
 	AddressResidentialIndicator,
 	CancellationReason,
 	Identifier,
-} from '@ipaas/capi';
+} from '@ipaas/capi/models';
 import { PickupCancellationReason } from '@shipengine/connect';
 import {
 	mapCancelPickupRequest,

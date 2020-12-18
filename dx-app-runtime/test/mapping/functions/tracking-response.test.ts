@@ -8,19 +8,19 @@ import {
 	TrackingInfo,
 	Transaction,
 } from '@shipengine/connect/lib/internal';
-import { StandardizedStatusCodes } from '@ipaas/capi';
+import { StandardizedStatusCodes } from '@ipaas/capi/models';
 import { Country, ShipmentStatus } from '@shipengine/connect';
 
 const expectedResults: any[][] = [
-	[undefined, StandardizedStatusCodes.Un],
-	['garbage', StandardizedStatusCodes.Un],
-	[ShipmentStatus.Accepted, StandardizedStatusCodes.AC],
-	[ShipmentStatus.Delivered, StandardizedStatusCodes.De],
-	[ShipmentStatus.DeliveryAttempted, StandardizedStatusCodes.At],
-	[ShipmentStatus.Exception, StandardizedStatusCodes.Ex],
-	[ShipmentStatus.InTransit, StandardizedStatusCodes.It],
-	[ShipmentStatus.NotYetInSystem, StandardizedStatusCodes.Ny],
-	[ShipmentStatus.Unknown, StandardizedStatusCodes.Un],
+	[undefined, StandardizedStatusCodes.Unknown],
+	['garbage', StandardizedStatusCodes.Unknown],
+	[ShipmentStatus.Accepted, StandardizedStatusCodes.Accepted],
+	[ShipmentStatus.Delivered, StandardizedStatusCodes.Delivered],
+	[ShipmentStatus.DeliveryAttempted, StandardizedStatusCodes.DeliveryAttempt],
+	[ShipmentStatus.Exception, StandardizedStatusCodes.Exception],
+	[ShipmentStatus.InTransit, StandardizedStatusCodes.InTransit],
+	[ShipmentStatus.NotYetInSystem, StandardizedStatusCodes.NotYetInSystem],
+	[ShipmentStatus.Unknown, StandardizedStatusCodes.Unknown],
 ];
 
 describe('Tracking Response', () => {

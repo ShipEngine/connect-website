@@ -39,14 +39,14 @@ describe('Create Manifest Response', () => {
 			it('it maps the id to manifest_id', () =>
 				expect(result.manifest_id).toEqual(manifest.id));
 			it('it maps the data to the document_download.data as a base64 string', () =>
-				expect(result.document_download.data.toString()).toEqual(
+				expect(result.document_download?.data?.toString()).toEqual(
 					manifest.document?.data?.toString('base64'),
 				));
 		});
 		describe('when mapping manifest without a document', () => {
 			const result = mapManifest({ ...manifest, document: undefined });
 			it('it maps the data to the document_download.data as an empty string', () =>
-				expect(result.document_download.data.toString()).toEqual(''));
+				expect(result.document_download?.data?.toString()).toEqual(''));
 		});
 	});
 

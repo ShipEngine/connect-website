@@ -1,16 +1,14 @@
-import { Currency } from '@ipaas/capi';
-import { MonetaryValuePOJO } from '@shipengine/connect';
 import { mapCurrency } from '../../../src/mapping/functions/currency';
 
-const zeroValueCurrency: Currency = {
+const zeroValueCurrency: any = {
 	amount: '0',
 };
 
-const nanValueCurrency: Currency = {
+const nanValueCurrency: any = {
 	amount: 'garbage',
 };
 
-const validAmountNoCurrency: Currency = {
+const validAmountNoCurrency: any = {
 	amount: '240.24',
 };
 

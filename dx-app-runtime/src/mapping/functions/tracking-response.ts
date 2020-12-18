@@ -1,10 +1,11 @@
 import { ShipmentStatus, Transaction } from '@shipengine/connect-sdk';
-
 import {
-	EventElement,
+	TrackEvent,
 	StandardizedStatusCodes,
-	TrackingInfo as CapiTrackingInfo,
-	TrackResponse,
+	TrackingInfo as CapiTrackingInfo
+} from '@ipaas/capi/models'
+import {
+	TrackingResponse,
 } from '@ipaas/capi/responses';
 
 import {
@@ -17,25 +18,25 @@ export const mapTrackingStatus = (
 ): StandardizedStatusCodes => {
 	switch (shipmentStatus) {
 		case ShipmentStatus.Accepted:
-			return StandardizedStatusCodes.AC;
+			return StandardizedStatusCodes.Accepted;
 		case ShipmentStatus.InTransit:
-			return StandardizedStatusCodes.It;
+			return StandardizedStatusCodes.InTransit;
 		case ShipmentStatus.DeliveryAttempted:
-			return StandardizedStatusCodes.At;
+			return StandardizedStatusCodes.DeliveryAttempt;
 		case ShipmentStatus.Delivered:
-			return StandardizedStatusCodes.De;
+			return StandardizedStatusCodes.Delivered;
 		case ShipmentStatus.Exception:
-			return StandardizedStatusCodes.Ex;
+			return StandardizedStatusCodes.Exception;
 		case ShipmentStatus.Unknown:
-			return StandardizedStatusCodes.Un;
+			return StandardizedStatusCodes.Unknown;
 		case ShipmentStatus.NotYetInSystem:
-			return StandardizedStatusCodes.Ny;
+			return StandardizedStatusCodes.NotYetInSystem;
 		default:
-			return StandardizedStatusCodes.Un;
+			return StandardizedStatusCodes.Unknown;
 	}
 };
 
-export const mapTrackEvent = (event: TrackingEvent): EventElement => {
+export const mapTrackEvent = (event: TrackingEvent): TrackEvent => {
 	return {
 		city: event.address?.cityLocality,
 		company: event.address?.company,
@@ -52,7 +53,7 @@ export const mapTrackEvent = (event: TrackingEvent): EventElement => {
 export const mapTrackingResponse = (
 	trackingInfo: TrackingInfo,
 	transaction: Transaction,
-): TrackResponse => {
+): TrackingResponse => {
 	const errorEvent = {
 		description: '',
 		problemCode: '',

@@ -1,11 +1,11 @@
-import { LabelFormat } from '@ipaas/capi';
+import { LabelFormats } from '@ipaas/capi/models';
 import { DocumentFormat } from '@shipengine/connect';
 import { mapLabelFormat } from '../../../src/mapping/functions';
 
 const correctLabelFormats: any[][] = [
-	[LabelFormat.PDF, DocumentFormat.PDF],
-	[LabelFormat.PNG, DocumentFormat.PNG],
-	[LabelFormat.ZPL, DocumentFormat.ZPL],
+	[LabelFormats.Pdf, DocumentFormat.PDF],
+	[LabelFormats.Png, DocumentFormat.PNG],
+	[LabelFormats.Zpl, DocumentFormat.ZPL],
 ];
 
 const errorFormats: any[][] = [

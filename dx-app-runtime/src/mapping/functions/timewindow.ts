@@ -1,4 +1,4 @@
-import { PickupWindow } from '@ipaas/capi';
+import { PickupWindow } from '@ipaas/capi/models';
 import { TimeRangePOJO } from '@shipengine/connect';
 import { mapDateTimeZone } from '.';
 

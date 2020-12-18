@@ -1,4 +1,5 @@
-import { CreateLabelRequest, LabelFormat, LabelLayout } from '@ipaas/capi';
+import { LabelFormats, LabelLayouts } from '@ipaas/capi/models';
+import { CreateLabelRequest } from '@ipaas/capi/requests';
 import {
 	mapCreateLabelRequest,
 	getReturnToAddress,
@@ -6,13 +7,13 @@ import {
 
 const shipTime = new Date();
 
-const labelRequest: CreateLabelRequest = {
+const labelRequest: any = {
 	service_code: 'service_code',
 	is_residential: true,
 	is_test_label: false,
 	is_return_label: false,
-	label_format: LabelFormat.PDF,
-	label_layout: LabelLayout.Letter,
+	label_format: LabelFormats.Pdf,
+	label_layout: LabelLayouts.Letter,
 	packages: [
 		{
 			insured_value: {

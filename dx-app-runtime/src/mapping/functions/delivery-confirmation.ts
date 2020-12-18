@@ -1,19 +1,19 @@
-import { Confirmation } from '@ipaas/capi';
+import { ConfirmationTypes } from '@ipaas/capi/models';
 import { DeliveryConfirmationType } from '@shipengine/connect-sdk';
 
 export const mapConfirmation = (
-	confirmation?: Confirmation | null,
+	confirmation?: ConfirmationTypes | null,
 ): DeliveryConfirmationType | undefined => {
 	switch (confirmation) {
-		case Confirmation.AdultSignature:
+		case ConfirmationTypes.AdultSignature:
 			return DeliveryConfirmationType.AdultSignature;
-		case Confirmation.Delivery:
+		case ConfirmationTypes.Delivery:
 			return DeliveryConfirmationType.Delivery;
-		case Confirmation.DirectSignature:
+		case ConfirmationTypes.DirectSignature:
 			return DeliveryConfirmationType.DirectSignature;
-		case Confirmation.Signature:
+		case ConfirmationTypes.Signature:
 			return DeliveryConfirmationType.Signature;
-		case Confirmation.None:
+		case ConfirmationTypes.None:
 			return DeliveryConfirmationType.None;
 		default:
 			return undefined;

@@ -26,7 +26,7 @@ import {
 } from '@shipengine/connect-sdk';
 import { CarrierApp } from '@shipengine/connect-sdk/lib/internal';
 import ShippingProviderConnector from './external/shipping-provider-connector';
-import { LabelFormat } from '@ipaas/capi/models';
+import { LabelFormats } from '@ipaas/capi/models';
 import { dxToCapiSpecPackageType } from '../../routes/loader-data/package-type';
 
 const defaultDiagnosticRoutes: DiagnosticRoutes = {
@@ -271,18 +271,18 @@ const mapDeliveryServices = (
 
 const mapLabelFormats = (
 	documentFormats: ReadonlyArray<DocumentFormat>,
-): LabelFormat[] => {
-	const formats: LabelFormat[] = [];
+): LabelFormats[] => {
+	const formats: LabelFormats[] = [];
 	documentFormats.forEach((documentFormat) => {
 		switch (documentFormat) {
 			case DocumentFormat.PDF:
-				formats.push(LabelFormat.PDF);
+				formats.push(LabelFormats.Pdf);
 				break;
 			case DocumentFormat.ZPL:
-				formats.push(LabelFormat.ZPL);
+				formats.push(LabelFormats.Zpl);
 				break;
 			case DocumentFormat.PNG:
-				formats.push(LabelFormat.PNG);
+				formats.push(LabelFormats.Png);
 				break;
 		}
 	});

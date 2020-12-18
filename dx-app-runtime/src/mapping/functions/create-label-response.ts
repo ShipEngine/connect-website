@@ -25,7 +25,7 @@ export const mapCreateLabelResponse = (
 		transaction_id: transaction.id,
 		tracking_number: response.trackingNumber,
 		label_download: {
-			label_data: response.label.data.toString('base64'),
+			data: response.label.data.toString('base64'),
 		},
 		shipping_amount: shippingCost,
 		insurance_amount: insuranceCost,
@@ -33,7 +33,7 @@ export const mapCreateLabelResponse = (
 	};
 	if (response.form?.data) {
 		createLabelResponse.form_download = {
-			label_data: response.form.data.toString('base64'),
+			data: response.form.data.toString('base64'),
 		};
 	}
 	return createLabelResponse;

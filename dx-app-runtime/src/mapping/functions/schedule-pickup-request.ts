@@ -1,4 +1,4 @@
-import { SchedulePickupRequest } from '@ipaas/capi';
+import { SchedulePickupRequest } from '@ipaas/capi/requests';
 import { PickupRequestPOJO } from '@shipengine/connect-sdk/lib/internal';
 import {
 	mapAddress,

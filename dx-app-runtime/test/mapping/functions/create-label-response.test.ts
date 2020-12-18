@@ -56,16 +56,16 @@ describe('Create Label Response', () => {
 			));
 		it('it should leave form_download undefined', () =>
 			expect(response.form_download).toEqual(undefined));
-		it('it should map label_data correctly to a base64 string', () =>
-			expect(response.label_download.label_data).toEqual(
+		it('it should map data correctly to a base64 string', () =>
+			expect(response.label_download?.data).toEqual(
 				shipmentWithoutForm.label.data.toString('base64'),
 			));
 	});
 
 	describe('when we map the Create Label Response with a document', () => {
 		const response = mapCreateLabelResponse({ id: 'Id', language: 'en-US' }, shipmentWithForm);
-		it('it should map form_data correctly to a base64 string', () =>
-			expect(response.form_download?.label_data).toEqual(
+		it('it should map data correctly to a base64 string', () =>
+			expect(response.form_download?.data).toEqual(
 				shipmentWithForm.form?.data?.toString('base64'),
 			));
 	});

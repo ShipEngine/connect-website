@@ -1,14 +1,14 @@
 import { DocumentFormat } from '@shipengine/connect-sdk';
 
-import { LabelFormat } from '@ipaas/capi/models';
+import { LabelFormats } from '@ipaas/capi/models';
 
-export const mapDocumentFormat = (format: DocumentFormat): LabelFormat => {
+export const mapDocumentFormat = (format: DocumentFormat): LabelFormats => {
 	switch (format) {
 		case DocumentFormat.PDF:
-			return LabelFormat.PDF;
+			return LabelFormats.Pdf;
 		case DocumentFormat.ZPL:
-			return LabelFormat.ZPL;
+			return LabelFormats.Zpl;
 		case DocumentFormat.PNG:
-			return LabelFormat.PNG;
+			return LabelFormats.Png;
 	}
 };

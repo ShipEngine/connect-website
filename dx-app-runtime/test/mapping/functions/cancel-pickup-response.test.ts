@@ -1,6 +1,6 @@
 import { mapCancelPickupResponse } from '../../../src/mapping/functions';
 import { PickupCancellationOutcome } from '@shipengine/connect/lib/internal';
-import { CancellationStatus, NoteType } from '@shipengine/connect';
+import { CancellationStatus } from '@shipengine/connect';
 
 const transaction = {
 	id: 'transactionId',

@@ -1,7 +1,7 @@
 import {
 	CancelPickupRequest,
 	SchedulePickupRequest,
-	TrackRequest,
+	TrackingRequest,
 	VoidLabelsRequest,
 	GetRatesRequest,
 	RegisterRequest,
@@ -19,7 +19,7 @@ export const mapTransaction = (
 		| GetRatesRequest
 		| CreateLabelRequest
 		| VoidLabelsRequest
-		| TrackRequest
+		| TrackingRequest
 		| SchedulePickupRequest
 		| CancelPickupRequest,
 	header: HeaderArgs

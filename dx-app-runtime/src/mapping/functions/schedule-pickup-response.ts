@@ -19,7 +19,7 @@ export const mapIdentifier = (
 ): capiIdentifier => {
 	return {
 		type: key,
-		value: value,
+		value: value || '',
 	};
 };
 
@@ -75,7 +75,7 @@ export const mapSchedulePickupResponse = (
 	transaction: Transaction,
 ): SchedulePickupResponse => {
 	const mappedResponse: SchedulePickupResponse = {
-		remarks: mapNotes(response.notes),
+		remarks: mapNotes(response.notes) || '',
 		charges_total: mapMonetaryValue(response.totalAmount),
 		confirmation: {
 			confirmation_id: response.id,

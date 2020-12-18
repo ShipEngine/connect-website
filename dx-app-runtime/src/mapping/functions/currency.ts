@@ -1,4 +1,4 @@
-import { Currency } from '@ipaas/capi';
+import { Currency } from '@ipaas/capi/models';
 import { MonetaryValuePOJO } from '@shipengine/connect';
 
 export const mapCurrency = (

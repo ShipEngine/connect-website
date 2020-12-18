@@ -97,7 +97,7 @@ describe('Schedule Pickup Response', () => {
 		it('it maps properly with an undefined value', () =>
 			expect(mapIdentifier('key', undefined)).toEqual({
 				type: 'key',
-				value: undefined,
+				value: "",
 			}));
 	});
 

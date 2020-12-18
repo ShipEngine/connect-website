@@ -1,4 +1,5 @@
-import { AddressResidentialIndicator } from '@ipaas/capi';
+import { AddressResidentialIndicator } from '@ipaas/capi/models';
+import { SchedulePickupRequest } from '@ipaas/capi/requests';
 import { mapSchedulePickupRequest } from '../../../src/mapping/functions';
 
 const minimalRequest = {
@@ -8,7 +9,7 @@ const minimalRequest = {
 		start_time: '2020-01-25T01:00:00Z',
 		end_time: '2020-01-25T01:00:00Z',
 		time_zone_iana: 'America/Chicago',
-	},
+	}
 };
 
 const fullSchedulePickupRequest = {

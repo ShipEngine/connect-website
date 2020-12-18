@@ -1,4 +1,4 @@
-import { Address } from '@ipaas/capi';
+import { AddressBase } from '@ipaas/capi/models';
 import { CreateLabelRequest } from '@ipaas/capi/requests';
 import { AddressWithContactInfoPOJO } from '@shipengine/connect';
 import { NewShipmentPOJO } from '@shipengine/connect-sdk/lib/internal';
@@ -14,8 +14,8 @@ import { mapCustomsPOJO } from './new-package';
 
 export const getReturnToAddress = (
 	isReturn?: boolean,
-	from?: Address | null,
-	display?: Address | null,
+	from?: AddressBase | null,
+	display?: AddressBase | null,
 ): AddressWithContactInfoPOJO | undefined => {
 	if (!isReturn || (!from && !display)) {
 		return undefined;

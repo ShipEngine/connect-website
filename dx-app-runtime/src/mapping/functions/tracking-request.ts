@@ -1,11 +1,11 @@
-import { TrackRequest } from '@ipaas/capi/requests';
+import { TrackingRequest } from '@ipaas/capi/requests';
 import {
 	IdentifiersPOJO,
 	TrackingCriteriaPOJO,
 } from '@shipengine/connect-sdk/lib/internal';
 
 export const mapTrackingRequest = (
-	request: TrackRequest,
+	request: TrackingRequest,
 ): TrackingCriteriaPOJO => {
 	const identifiers: IdentifiersPOJO = {};
 

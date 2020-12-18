@@ -1,5 +1,5 @@
 import { mapVoidLabelsRequest } from '../../../src/mapping/functions';
-import { VoidLabelsRequest } from '@ipaas/capi';
+import { VoidLabelsRequest } from '@ipaas/capi/requests';
 
 const voidLabelRequest: VoidLabelsRequest = {
 	transaction_id: 'transactionId',

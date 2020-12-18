@@ -1,4 +1,4 @@
-import { Dimensions } from '@ipaas/capi';
+import { Dimensions } from '@ipaas/capi/models';
 import { DimensionsPOJO, LengthUnit } from '@shipengine/connect';
 
 export const mapDimensionsCM = (

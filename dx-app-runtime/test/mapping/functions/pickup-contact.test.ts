@@ -1,4 +1,4 @@
-import { PickupContactDetails } from '@ipaas/capi';
+import { PickupContactDetails } from '@ipaas/capi/models';
 import { mapPickupContact } from '../../../src/mapping/functions/';
 
 const minimalContact: PickupContactDetails = {

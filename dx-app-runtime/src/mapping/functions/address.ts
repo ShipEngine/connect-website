@@ -1,4 +1,4 @@
-import { Address, AddressResidentialIndicator } from '@ipaas/capi';
+import { AddressBase, AddressResidentialIndicator } from '@ipaas/capi/models';
 import {
 	AddressPOJO,
 	AddressWithContactInfoPOJO,
@@ -58,7 +58,7 @@ const emptyDxAddress: AddressPOJO = {
 };
 
 export const mapAddressWithContact = (
-	address: Address | null | undefined,
+	address: AddressBase | null | undefined,
 ): AddressWithContactInfoPOJO => {
 	if (!address) {
 		return emptyDxAddressWithContact;
@@ -82,7 +82,7 @@ export const mapAddressWithContact = (
 };
 
 export const mapAddress = (
-	address: Address | null | undefined,
+	address: AddressBase | null | undefined,
 ): AddressPOJO => {
 	if(!address) {
 		return emptyDxAddress;

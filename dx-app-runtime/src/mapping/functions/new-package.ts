@@ -1,12 +1,11 @@
 import {
 	Package,
 	Customs,
-	AdvancedShippingOptions,
-	CustomsItem as CapiCustomsItem,
-	InsuranceProvider,
+	AdvancedOptions,
+	InsuranceProviders,
 	Currency,
-	LabelMessages,
-	NonDelivery,
+	LabelMessage,
+	CustomsNonDelivery,
 	CustomsItem,
 } from '@ipaas/capi/models';
 import {
@@ -29,10 +28,10 @@ import {
 } from './';
 
 export const mapInsuredValue = (
-	provider?: InsuranceProvider,
+	provider?: InsuranceProviders,
 	insuredValue?: Currency,
 ): MonetaryValuePOJO | undefined => {
-	if (!provider || provider !== InsuranceProvider.Carrier) {
+	if (!provider || provider !== InsuranceProviders.Carrier) {
 		return undefined;
 	}
 	return mapCurrency(insuredValue);
@@ -41,7 +40,7 @@ export const mapInsuredValue = (
 export const mapNewLabelPOJO = (
 	format: DocumentFormat,
 	size: DocumentSize,
-	messages?: LabelMessages,
+	messages?: LabelMessage,
 ): NewLabelPOJO => {
 	if (
 		!messages ||
@@ -64,12 +63,12 @@ export const mapNewLabelPOJO = (
 };
 
 export const mapNonDeliveryOption = (
-	option?: NonDelivery,
+	option?: CustomsNonDelivery,
 ): NonDeliveryOption | undefined => {
 	switch (option) {
-		case NonDelivery.ReturnToSender:
+		case CustomsNonDelivery.ReturnToSender:
 			return NonDeliveryOption.Return;
-		case NonDelivery.TreatAsAbandoned:
+		case CustomsNonDelivery.TreatAsAbandoned:
 			return NonDeliveryOption.Abandon;
 		default:
 			return undefined;
@@ -102,7 +101,7 @@ export const mapCustomsPOJO = (customs?: Customs): CustomsPOJO | undefined => {
 	}
 	const customsItems = customs.customs_items.filter(
 		(p) => p,
-	) as CapiCustomsItem[];
+	) as CustomsItem[];
 	return {
 		nonDeliveryOption: mapNonDeliveryOption(customs.non_delivery || undefined),
 		contents: customsItems?.map(mapCustomsItem),
@@ -111,10 +110,10 @@ export const mapCustomsPOJO = (customs?: Customs): CustomsPOJO | undefined => {
 
 export const mapNewPackage = (
 	capiPackage: Package,
-	advancedOptions: AdvancedShippingOptions | null | undefined,
+	advancedOptions: AdvancedOptions | null | undefined,
 	documentFormat: DocumentFormat,
 	documentSize: DocumentSize,
-	insuranceProvider?: InsuranceProvider,
+	insuranceProvider?: InsuranceProviders,
 ): NewPackagePOJO => {
 	const mappedPackage: NewPackagePOJO = {
 		packaging: capiPackage.package_code || '',
