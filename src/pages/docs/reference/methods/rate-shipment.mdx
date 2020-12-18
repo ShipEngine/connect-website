@@ -310,10 +310,19 @@ match all the required criteria. If none of these are provided, your method shou
     </Field>
 
   <Field name="totalInsuredValue.value" type="number" nullable={false}>
-      <Description>
-        The amount of this value.
-      </Description>
-    </Field>
+    <Description>
+      The amount of this value.
+    </Description>
+  </Field>
+
+  <Field name="customShippingOptions" nullable={true}>
+    <Type>
+      [custom shipping options](./../custom-shipping-options.mdx)
+    </Type>
+    <Description>
+      The custom shipping options that are required for this shipment.
+    </Description>
+  </Field>
 </Reference>
 
 
