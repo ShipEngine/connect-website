@@ -1,6 +1,6 @@
 export enum InsuranceProviders {
-  None = 0,
-  ShipStation = 1,
-  Carrier = 2,
-  External = 3,
+  None = "None",
+  ShipStation = "ShipStation",
+  Carrier = "Carrier",
+  External = "External",
 }

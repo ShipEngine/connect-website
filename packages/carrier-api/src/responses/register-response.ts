@@ -1,6 +1,6 @@
 import { Credentials } from '../models';
 
-export interface RegisterResponse<T> {
+export interface RegisterResponse {
   credentials: Credentials;
-  metadata: T;
+  metadata: object;
 }

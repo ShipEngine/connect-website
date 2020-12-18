@@ -9,6 +9,6 @@ import {
 export interface SchedulePickupRequest extends BaseRequest {
   location?: PickupLocationDetails;
   contact?: PickupContactDetails;
-  pickup_details: PickupShipmentDetails;
+  pickup_details?: PickupShipmentDetails;
   requested_pickup_window: PickupWindow;
 }

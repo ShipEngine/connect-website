@@ -1,5 +1,6 @@
 export * from './cancel-pickup-response';
 export * from './create-label-response';
+export * from './create-manifest-response';
 export * from './get-rates-response';
 export * from './register-response';
 export * from './schedule-pickup-response';
