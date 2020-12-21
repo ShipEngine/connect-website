@@ -10,7 +10,7 @@ import { Session } from "./session";
  * this may include voiding labels, refunding charges, and/or removing the shipment from the day's manifest.
  *
  * View documentation here:
- * https://shipenginestag:439bd542@shipenginestag.wpengine.com/docs/integration-platform/reference/methods/cancel-shipments
+ * https://connect.shipengine.com/docs/reference/methods/cancel-shipments
  *
  * View sample implementation here:
  * https://github.com/ShipEngine/connect-samples/blob/master/parcel-post/src/methods/cancel-shipments.ts

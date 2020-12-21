@@ -3,6 +3,14 @@ import { Session } from "./session";
 
 /**
  * Called when shipment is created
+ *
+ *
+ * View documentation here:
+ * https://connect.shipengine.com/docs/reference/methods/shipment-created
+ *
+ * View sample implementation here:
+ * https://github.com/ShipEngine/connect-samples/blob/master/southwest-products/src/methods/shipment-created.js
+ *
  */
 export default async function shipmentCreated(
   transaction: Transaction<Session>,
