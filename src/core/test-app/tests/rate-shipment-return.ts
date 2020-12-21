@@ -109,7 +109,8 @@ export class RateShipmentReturn extends Suite {
       packages: [packageRateCriteriaPOJO],
       returns: {
         isReturn: true
-      }
+      },
+      shippingOptions: {}
     };
 
     const title = config.expectedErrorMessage

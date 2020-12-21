@@ -78,7 +78,8 @@ export class RateShipmentWithAllServices extends Suite {
       shipFrom: testParams.shipFrom,
       shipTo: testParams.shipTo,
       shipDateTime: testParams.shipDateTime,
-      packages: [packageRateCriteriaPOJO]
+      packages: [packageRateCriteriaPOJO],
+      shippingOptions: {}
     };
 
     const title = config.expectedErrorMessage
