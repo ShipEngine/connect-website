@@ -89,15 +89,13 @@ An object containing information needed to create a new end-of-day manifest.
   </Field>
 
   <Field name="shipFrom" nullable={true}>
-      <Type>
-        [address object](./../address.mdx#address-properties)
-      </Type>
-      <Description>
-        The address of the location that is performing end-of-day manifesting. This field is required if the carrier's `manifestLocations` setting is `single_location` in the [Carrier Definition](./../carrier.mdx) file.
-      </Description>
-    </Field>
-
-
+    <Type>
+      [address object](./../address.mdx#address-properties)
+    </Type>
+    <Description>
+      The address of the location that is performing end-of-day manifesting. This field is required if the carrier's `manifestLocations` setting is `single_location` in the [Carrier Definition](./../carrier.mdx) file.
+    </Description>
+  </Field>
 
 </Reference>
 
