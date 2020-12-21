@@ -204,7 +204,10 @@ The shipment that was cancelled.
     </Description>
   </Field>
 
-  <Field name="contents[].product.details" type="object" nullable={false}>
+  <Field name="contents[].product.details" nullable={false}>
+    <Type>
+      [identifiers object](../../../reference/identifiers-object.mdx)
+    </Type>
     <Description>
       A list of details associated with this product.
     </Description>

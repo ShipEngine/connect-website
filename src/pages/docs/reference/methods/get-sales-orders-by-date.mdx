@@ -112,7 +112,12 @@ Specifies a date/time range to retrieve sales orders for.
 
   <Field name="statusMappings" type="object" nullable={true}>
     <Description>
-      A customer specified desired mapping for status codes. The keys of this object will be the custom status strings provided by a user, and the value will be a related SalesOrderStatus it should be mapped to.
+      A customer specified mapping for status codes. The keys of this object will be the custom status strings provided by a user, and the values will be one of the following valid status codes: 
+        * `awaiting_payment` - The sales order is awaiting payment.
+        * `awaiting_shipment` - This sales order is awaiting shipment.
+        * `on_hold` - This sales order is on hold.
+        * `completed` - This sales order is completed.
+        * `cancelled` - This sales order has been cancelled.
     </Description>
   </Field>
 
