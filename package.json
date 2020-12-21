@@ -1,6 +1,6 @@
 {
   "name": "@shipengine/connect-local-dev-ui",
-  "version": "2.0.19",
+  "version": "2.0.20",
   "description": "The ShipEngine Integration Platform local development UI",
   "author": {
     "name": "ShipEngine",
@@ -36,7 +36,7 @@
     "@jsdevtools/version-bump-prompt": "^6.1.0",
     "@rjsf/antd": "^2.4.0",
     "@rjsf/core": "^2.4.0",
-    "@shipengine/connect-sdk": "^12.4.0",
+    "@shipengine/connect-sdk": "^12.5.1",
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.8",
