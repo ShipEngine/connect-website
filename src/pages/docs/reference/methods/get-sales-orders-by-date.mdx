@@ -110,6 +110,17 @@ Specifies a date/time range to retrieve sales orders for.
     </Description>
   </Field>
 
+  <Field name="statusMappings" type="object" nullable={true}>
+    <Description>
+      A customer specified mapping for status codes. The keys of this object will be the custom status strings provided by a user, and the values will be one of the following valid status codes: 
+        * `awaiting_payment` - The sales order is awaiting payment.
+        * `awaiting_shipment` - This sales order is awaiting shipment.
+        * `on_hold` - This sales order is on hold.
+        * `completed` - This sales order is completed.
+        * `cancelled` - This sales order has been cancelled.
+    </Description>
+  </Field>
+
 </Reference>
 
 
@@ -135,6 +146,17 @@ An array of sales orders matching the date range.
     </Type>
     <Description>
       The date/time that the sales order was originally placed.
+    </Description>
+  </Field>
+
+  <Field name="lastModifiedDateTime" required={false}>
+    <Type>
+      [Date Time](./../date-time.mdx), <br/>
+      or [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) object, <br/>
+      or a string representing the date and time in [ISO](https://www.w3.org/TR/NOTE-datetime) format.
+    </Type>
+    <Description>
+      The date/time that the sales order was last modified.
     </Description>
   </Field>
 
@@ -251,6 +273,30 @@ An array of sales orders matching the date range.
     </Type>
     <Description>
       Preferences on how this order should be fulfilled.
+    </Description>
+  </Field>
+
+  <Field name="originalOrderSource" type="object" required={false}>
+    <Description>
+      Information regarding the original order source. This is used when an order source is acting on behalf of other order sources, in order to persist information regarding the original order.
+    </Description>
+  </Field>
+
+  <Field name="originalOrderSource.sourceId" type="string" required={true}>
+    <Description>
+      A unique identifier for the source marketplace.
+    </Description>
+  </Field>
+
+  <Field name="originalOrderSource.marketplaceCode" type="string" required={true}>
+    <Description>
+      The code for the type of marketplace.
+    </Description>
+  </Field>
+
+  <Field name="originalOrderSource.orderId" type="string" required={true}>
+    <Description>
+      The unique identifier for the order at the source marketplace.
     </Description>
   </Field>
 
