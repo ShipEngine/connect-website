@@ -11,6 +11,7 @@ import {
 } from './';
 import { mapCustomsItem } from './customs-item';
 import { mapCustomsPOJO } from './new-package';
+import { mapShippingOptions } from './shipping-options';
 
 export const getReturnToAddress = (
 	isReturn?: boolean,
@@ -49,9 +50,10 @@ export const mapCreateLabelRequest = (
 				mapLabelLayout(request.label_layout),
 				request.insurance_provider || undefined,
 			),
-		),
+    ),
+    shippingOptions: mapShippingOptions(request.advanced_options),
 	};
-	
+
 	if (mappedRequest.packages.length) {
 		// We only want to map the customs to the first package in the array until shipstation can support package level customs
 		mappedRequest.packages[0].customs = mapCustomsPOJO(request.customs || undefined);

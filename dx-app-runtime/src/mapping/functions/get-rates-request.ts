@@ -11,6 +11,8 @@ import {
 	mapConfirmation,
 	mapAddressWithContact,
 } from './';
+import { mapShippingOptions } from './shipping-options';
+
 
 export const mapRatePackage = (
 	pckg: Package,
@@ -24,7 +26,7 @@ export const mapRatePackage = (
 		weight: mapWeightGrams(pckg.weight_details?.weight_in_grams),
 		insuredValue: mapCurrency(request.insured_value),
 		containsAlcohol: request.advanced_options?.contains_alcohol || false,
-		isNonMachinable: request.advanced_options?.nonmachineable || false,
+    isNonMachinable: request.advanced_options?.nonmachineable || false,
 	};
 };
 
@@ -41,7 +43,8 @@ export const mapGetRatesRequest = (
 		packages: request.packages.map((pckg) => mapRatePackage(pckg, request)),
 		returns: {
 			isReturn: request.is_return_label || false,
-		},
+    },
+    shippingOptions: mapShippingOptions(request.advanced_options),
 	};
 	return rateCriteria;
 };

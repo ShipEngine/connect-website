@@ -36,3 +36,4 @@ export * from './timewindow';
 export * from './location-notes';
 export * from './total-costs';
 export * from './charge-filters';
+export * from './shipping-options';
