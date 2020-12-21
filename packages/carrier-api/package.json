@@ -1,6 +1,6 @@
 {
   "name": "@ipaas/capi",
-  "version": "1.13.4",
+  "version": "1.13.5",
   "description": "This is the typescript/javascript definitions for carrier api",
   "main": "/index.js",
   "types": "/index.ts",

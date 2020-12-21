@@ -4,5 +4,5 @@ export interface AdvancedOptions {
   nonmachineable?: boolean;
   bill_duties_to_sender?: boolean;
   saturday_delivery?: boolean;
-  AdditionalOptions?: { [key: string]: any };
+  [key: string]: any;
 }
