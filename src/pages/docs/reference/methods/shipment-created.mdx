@@ -120,6 +120,39 @@ The shipment that was created.
       </Description>
     </Field>
 
+    <Field name="contents[].currency" type="string" nullable={true}>
+      <Description>
+        The three character ISO 4217 code of the currency used for all monetary amounts.
+      </Description>
+    </Field>
+
+    <Field name="contents[].notes" nullable={true}>
+      <Type>
+        object[]
+      </Type>
+      <Description>
+        Additional notes associated with this notification or its sales order.
+      </Description>
+    </Field>
+
+    <Field name="contents[].notes[].type" nullable={true}>
+      <Type>
+        [notes type string](../reference/common-types#notes-types)
+      </Type>
+      <Description>
+        The type for this note.
+      </Description>
+    </Field>
+
+    <Field name="contents[].notes[].text" nullable={true}>
+      <Type>
+        string
+      </Type>
+      <Description>
+        The note text itself.
+      </Description>
+    </Field>
+
   <Field name="contents[].salesOrderItem" type="object" nullable={true}>
     <Description>
       The sales order associated with this item.
@@ -208,6 +241,15 @@ The shipment that was created.
     </Type>
   </Field>
 
+  <Field name="contents[].product.details" nullable={false}>
+    <Description>
+      A list of details associated with this product.
+    </Description>
+    <Type>
+      [identifiers object](./../identifiers-object.mdx)
+    </Type>
+  </Field>
+
   <Field name="trackingURL" nullable={true}>
     <Type>
       [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL/URL)
@@ -247,6 +289,30 @@ The shipment that was created.
       </Description>
     </Field>
 
+    <Field name="notifyBuyer" nullable={true} type="boolean">
+      <Description>
+        Instructs the order source on whether to notify the buyer. 
+        Omit, or set to null, to retain the order source's default behavior.
+      </Description>
+    </Field>
+
+    <Field name="fulfillmentCost" nullable={true}>
+      <Type>
+        [charge object](../charge.mdx)
+      </Type>
+      <Description>
+        The amount it costs to fulfill this shipment.
+      </Description>
+    </Field>
+
+    <Field name="insuranceCost" nullable={true}>
+      <Type>
+        [charge object](../charge.mdx)
+      </Type>
+      <Description>
+        The amount of insurance purchased for this shipment.
+      </Description>
+    </Field>
 
 </Reference>
 

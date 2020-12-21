@@ -320,6 +320,18 @@ This test has many parameters [that can be customized](#customizing-parameters) 
     </DefaultValue>
   </Field>
 
+  <Field name="contents.product.details">
+    <Description>
+      A list of details associated with this product.
+    </Description>
+    <Type>
+      [identifiers object](../../../reference/identifiers-object.mdx)
+    </Type>
+    <DefaultValue>
+      `undefined`
+    </DefaultValue>
+  </Field>
+
   <Field name="contents.quantity" type="object">
     <Description>
       The quantity of this item in the package.
@@ -337,8 +349,44 @@ This test has many parameters [that can be customized](#customizing-parameters) 
       `1`
     </DefaultValue>
   </Field>
-</Reference>
 
+
+<Field name="notifyBuyer" type="boolean">
+    <Description>
+      Instructs the order source on whether to notify the buyer. Omit, or set to null, to retain the order source's default behavior.
+    </Description>
+    <DefaultValue>
+      `undefined`
+    </DefaultValue>
+  </Field>
+
+
+<Field name="fulfillmentCost">
+    <type>
+      [charge object](../../../reference/charge.mdx)
+    </type>
+    <Description>
+      The amount it costs to fulfill this shipment.
+    </Description>
+    <DefaultValue>
+      `undefined`
+    </DefaultValue>
+  </Field>
+
+
+<Field name="insuranceCost">
+    <type>
+      [charge object](../../../reference/charge.mdx)
+    </type>
+    <Description>
+      The amount of insurance purchased for this shipment.
+    </Description>
+    <DefaultValue>
+      `undefined`
+    </DefaultValue>
+  </Field>
+
+</Reference>
 
 Customizing Parameters
 ------------------------------

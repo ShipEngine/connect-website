@@ -293,6 +293,15 @@ Therefore, only the `nullable` column is listed below.
     </Type>
   </Field>
 
+  <Field name="contents.product.details" nullable={false}>
+    <Description>
+      A list of details associated with this product
+    </Description>
+    <Type>
+      [identifiers object](./identifiers-object.mdx)
+    </Type>
+  </Field>
+
   <Field name="contents.quantity" type="object" nullable={true}>
       <Description>
         The quantity of this item in the package.
