@@ -44,6 +44,13 @@ const resolvePackageAttributes = (
 	return distinctServiceAreas.map(serviceAreaToPackageAttribute);
 };
 
+const getAbbreviation = (name: string) : string => {
+	if(name.length < 20) {
+		return name;
+	}
+	return name.substr(0, 20);
+}
+
 const dxToCapiSpecPackageType = (
 	packaging: readonly Packaging[],
 	services: ReadonlyArray<DeliveryService>,
@@ -64,7 +71,7 @@ const dxToCapiSpecPackageType = (
 		}
 
 		const packageType: PackageType = {
-			Abbreviation: dxPackage.name, //TODO: DX does not have package abbreviation concept
+			Abbreviation: getAbbreviation(dxPackage.name),
 			Id: dxPackage.id,
 			Name: dxPackage.name,
 			CarrierPackageTypeCode: dxPackage.id,
