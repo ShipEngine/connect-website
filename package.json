@@ -17,6 +17,7 @@
     "upgrade": "npm-check -u && npm audit fix"
   },
   "dependencies": {
+    "@charlietango/use-script": "^2.2.0",
     "@mdx-js/react": "^1.6.16",
     "@shipengine/next-mdx": "^1.1.1",
     "next": "^9.5.3",
