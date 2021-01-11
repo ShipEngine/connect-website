@@ -1,7 +1,10 @@
 import { siteURL } from "../../lib/url";
 import styles from "./header.module.scss";
+import React from "react";
+import useSwiftType from "../../components/swiftype/use-swiftype";
 
 export function Header() {
+  useSwiftType();
   return (
     <header className={styles.siteHeader}>
       <a id="site-logo" className={styles.siteLogo} href={siteURL.pathname}>

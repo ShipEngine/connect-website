@@ -5,7 +5,7 @@ import { defaultImageURL, getPageURL } from "../../lib/url";
 import { Favicons } from "./favicons";
 import { JsonLD } from "./json-ld";
 import { OpenGraph, PageProps, SEO, Twitter } from "./meta";
-import { AnalyticsScript, SearchScript } from "./scripts";
+import { AnalyticsScript } from "./scripts";
 
 export interface BaseLayoutProps {
   title: string;
@@ -58,6 +58,5 @@ export default function BaseLayout(props: BaseLayoutProps) {
 
     {children}
 
-    <SearchScript />
   </>;
 }
