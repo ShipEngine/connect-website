@@ -121,6 +121,30 @@ Specifies a date/time range to retrieve sales orders for.
     </Description>
   </Field>
 
+  <Field name="fieldMappings" type="object" nullable={true}>
+    <Description>
+    A custom specified mapping for supported custom fields. The supported custom fields will be predefined by the app developer.
+    </Description>
+  </Field>
+
+  <Field name="fieldMappings.customField1" type="number" nullable={true}>
+    <Description>
+      The custom field whose value that will map to the RequestedFulfillmentExtensions.CustomField1.
+    </Description>
+  </Field>
+
+  <Field name="fieldMappings.customField2" type="number" nullable={true}>
+    <Description>
+      The custom field whose value that will map to the RequestedFulfillmentExtensions.CustomField2.
+    </Description>
+  </Field>
+
+  <Field name="fieldMappings.customField3" type="string" nullable={true}>
+    <Description>
+      The custom field whose value that will map to the RequestedFulfillmentExtensions.CustomField3.
+    </Description>
+  </Field>
+
 </Reference>
 
 
