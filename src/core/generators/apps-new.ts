@@ -75,7 +75,7 @@ class AppsNew extends Generator {
     };
 
     const defaults = {
-      name: capitalization.kebabCase(this.determineAppname().replace(/ /g, "-").replace("_", "-")),
+      name: capitalization.kebabCase(this.determineAppname().replace(/ /g, "-").replace("_", "-"), { prefix: "shipengine" }),
       scope: "@your-company-name",
       type: "carrier",
       version: "1.0.0",
