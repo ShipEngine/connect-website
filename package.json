@@ -1,6 +1,6 @@
 {
   "name": "@shipengine/connect-local-dev-api",
-  "version": "2.1.17",
+  "version": "2.2.0",
   "description": "The ShipEngine Integration Platform local development API",
   "author": {
     "name": "ShipEngine",
@@ -34,7 +34,7 @@
     "upgrade": "npm-check -u && npm audit fix"
   },
   "dependencies": {
-    "@shipengine/connect-loader": "^3.1.1",
+    "@shipengine/connect-loader": "^3.2.0",
     "chai": "^4.2.0",
     "chalk": "^4.1.0",
     "cors": "^2.8.5",
@@ -43,11 +43,11 @@
   },
   "devDependencies": {
     "@jsdevtools/version-bump-prompt": "^6.1.0",
-    "@shipengine/connect-sdk": "^12.5.1",
+    "@shipengine/connect-sdk": "^12.6.0",
     "@types/chai": "^4.2.14",
     "@types/cors": "^2.8.9",
     "@types/eslint": "^7.2.6",
-    "@types/express": "^4.17.9",
+    "@types/express": "^4.17.11",
     "@types/hapi__joi": "^17.1.6",
     "@types/mocha": "^8.0.4",
     "@typescript-eslint/eslint-plugin": "^4.7.0",
@@ -55,7 +55,7 @@
     "chai-http": "^4.3.0",
     "eslint": "^7.13.0",
     "mocha": "^8.2.1",
-    "nodemon": "^2.0.6",
+    "nodemon": "^2.0.7",
     "npm-check": "^5.9.2",
     "shx": "^0.3.3",
     "ts-node": "^9.0.0",
