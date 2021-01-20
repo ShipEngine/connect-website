@@ -258,13 +258,6 @@ class AppsNew extends Generator {
       );
     }
 
-
-    this.fs.copyTpl(
-      this.templatePath("connect.config.js"),
-      this.destinationPath("connect.config.js"),
-      this,
-    );
-
     if (this.fs.exists(this.destinationPath("./package.json"))) {
       fixpack(
         this.destinationPath("./package.json"),
@@ -275,12 +268,6 @@ class AppsNew extends Generator {
     this.fs.writeJSON(
       this.destinationPath("./package.json"),
       sortPjson(this.pjson),
-    );
-
-    this.fs.copyTpl(
-      this.templatePath("connect.config.js"),
-      this.destinationPath("connect.config.js"),
-      this,
     );
 
     this.fs.copyTpl(
@@ -308,6 +295,12 @@ class AppsNew extends Generator {
 
     switch (this.type) {
       case AppType.Carrier:
+        this.fs.copyTpl(
+          this.templatePath("connect.config.js"),
+          this.destinationPath("connect.config.js"),
+          this,
+        );
+
         if (!fs.existsSync("src")) {
           this.fs.copyTpl(
             this.templatePath(`carrier/index.${this._definitionExt}`),
@@ -465,14 +458,6 @@ class AppsNew extends Generator {
               `order-source/forms/connect.${this._definitionExt}`,
             ),
             this.destinationPath(`src/forms/connect.${this._definitionExt}`),
-            this,
-          );
-
-          this.fs.copyTpl(
-            this.templatePath(
-              `order-source/forms/settings.${this._definitionExt}`,
-            ),
-            this.destinationPath(`src/forms/settings.${this._definitionExt}`),
             this,
           );
 
