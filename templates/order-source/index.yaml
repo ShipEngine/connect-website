@@ -5,7 +5,6 @@ websiteURL: https://www.order-source.com
 logo: ./logo.svg
 icon: ./logo.svg
 connectionForm: ./forms/connect.yaml
-settingsForm": ./forms/settings.yaml
 
 getSalesOrdersByDate: ./methods/get-sales-order-by-date.<%- _codeExt %>
 shipmentCreated: ./methods/shipment-created.<%- _codeExt %>
