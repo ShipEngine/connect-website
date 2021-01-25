@@ -21,8 +21,7 @@ const connectionForm: FormDefinition = {
   },
   uiSchema: {
     email: {
-      "ui:autofocus": true,
-      "ui:emptyValue": "you@example.com",
+      "ui:autofocus": true
     },
     password: {
       "ui:widget": "password",

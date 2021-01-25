@@ -44,8 +44,7 @@ const connectionForm: FormDefinition = {
       "ui:autofocus": true
     },
     account_email: {
-      "ui:autofocus": true,
-      "ui:emptyValue": "you@example.com"
+      "ui:autofocus": true
     },
     password: {
       "ui:widget": "password",
