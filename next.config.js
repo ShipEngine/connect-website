@@ -1,7 +1,7 @@
 /// <reference path="./next-env.d.ts" />
 "use strict";
 
-const nextMDX = require("@shipengine/next-mdx");
+const nextMDX = require("@jsdevtools/next-mdx");
 
 const withMDX = nextMDX({
   layoutsDir: "./src/layouts",
