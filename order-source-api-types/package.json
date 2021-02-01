@@ -1,6 +1,6 @@
 {
   "name": "@ipaas/ecommerce",
-  "version": "2.3.1",
+  "version": "2.3.3",
   "description": "This is the typescript/javascript definitions for the ecommerce api",
   "homepage": "https://github.com/shipstation/integrations-ecommerce/tree/master/order-source-api-types",
   "main": "lib/index.js",
