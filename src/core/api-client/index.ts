@@ -49,7 +49,7 @@ export default class APIClient {
 
   private readonly debug: boolean;
 
-  private _apiAuthority = process.env.API_AUTHORITY ?? "https://dip-webapi-dev.kubedev.sslocal.com/api";
+  private _apiAuthority = process.env.API_AUTHORITY ?? "https://connect-api.shipengine.com/api";
 
   constructor(apiKey: string, debug = false) {
     this.apiKey = apiKey;
