@@ -34,6 +34,7 @@
 		"newrelic": "6.10.0",
 		"only": "0.0.2",
 		"redact-secrets": "1.0.0",
+		"serialize-error": "^8.0.1",
 		"uuid": "8.2.0",
 		"winston": "3.3.3"
 	},

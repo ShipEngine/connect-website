@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { ErrorCode } from '../errors';
 import { captureException } from '@sentry/node';
+import { serializeError } from 'serialize-error';
 
 export enum HttpStatusCode {
 	BadRequest = 400,
@@ -57,7 +58,7 @@ export const formatErrorMessage = (
 				),
 				message: message,
 				external_http_status_code: error?.originalError?.statusCode,
-				raw_external_context: JSON.stringify(error),
+				raw_external_context: JSON.stringify(serializeError(error)),
 			},
 		],
 	};
