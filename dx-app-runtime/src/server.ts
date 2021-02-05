@@ -26,7 +26,7 @@ const initializeEnvironmentVariables = (app: any) => {
 		`dip-${app.name.replace(/\s/, '-')} [${
 			process.env.HOST
 		}],dx-carrier-runtime`;
-	process.env.LOG_LEVEL = process.env.LOG_LEVEL || 'info';
+	process.env.LOG_LEVEL = process.env.LOG_LEVEL || 'debug';
 };
 
 const logEnvironmentVariables = () => {
