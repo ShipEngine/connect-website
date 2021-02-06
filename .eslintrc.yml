@@ -1,0 +1,62 @@
+# ESLint config
+# http://eslint.org/docs/user-guide/configuring
+# https://github.com/typescript-eslint/typescript-eslint/blob/master/docs/getting-started/linting/README.md
+# https://github.com/typescript-eslint/typescript-eslint/blob/master/docs/getting-started/linting/TYPED_LINTING.md
+
+root: true
+
+env:
+  browser: true
+  es6: true
+
+settings:
+  react:
+    version: "detect"
+
+overrides:
+  # Linter settings for JavaScript
+  - files: ["**/*.js"]
+    parserOptions:
+      ecmaVersion: 2020
+    env:
+      node: true
+    extends:
+      - eslint:recommended
+
+  # Linter settings for TypeScript
+  - files: ["**/*.{ts,tsx}"]
+    parser: "@typescript-eslint/parser"
+    parserOptions:
+      ecmaVersion: 2020
+      sourceType: module
+      project: tsconfig.json
+      ecmaFeatures:
+        jsx: true
+    env:
+      browser: true
+      shared-node-browser: true
+    plugins:
+      - "@typescript-eslint"
+      - "react"
+      - "react-hooks"
+      - "jsx-a11y"
+    extends:
+      - eslint:recommended
+      - plugin:react/recommended
+      - plugin:@typescript-eslint/recommended
+      - plugin:@typescript-eslint/recommended-requiring-type-checking
+      - plugin:jsx-a11y/recommended
+    rules:
+      # It's not necessary to explicitly import React in every component
+      react/react-in-jsx-scope: off
+
+      # Don't require React function components to specify a return type
+      # (since it's always JSX.Element)
+      "@typescript-eslint/explicit-module-boundary-types": off
+
+      # The Next.js <Link> component handles "href" for <a> elements
+      jsx-a11y/anchor-is-valid: off
+
+      # Annoying rules that makes code harder to read, write, and/or undrstand
+      no-case-declarations: off
+      "@typescript-eslint/ban-types": off

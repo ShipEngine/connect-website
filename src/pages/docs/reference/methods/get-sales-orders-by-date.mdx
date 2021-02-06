@@ -1,0 +1,518 @@
+---
+title: getSalesOrderByDate Method
+description: This method returns detailed information about sales orders, filtered by time range.
+---
+
+
+`getSalesOrderByDate()`
+===========================
+This method returns detailed information about sales orders, filtered by time range.
+
+
+Syntax
+-----------------------------------------------
+<CodeWrapper>
+```javascript
+module.exports = async function getSalesOrderByDate(transaction, range) {
+  // Your code here
+}
+```
+
+```typescript
+import { Transaction, SalesOrderTimeRange, SalesOrderArray } from "@shipengine/connect";
+
+export default async function getSalesOrderByDate(
+  transaction: Transaction,
+  range: SalesOrderTimeRange
+): Promise<SalesOrderArray> {
+  // Your code here
+}
+```
+</CodeWrapper>
+
+Paging
+-------
+For returning large numbers of sales orders, you can take advantage of [cursor based pagination](https://jsonapi.org/profiles/ethanresnick/cursor-pagination/#auto-id--cursors)
+to return the needed data in more consumable chunks.
+
+To accomplish this you will need to populate the `paging.cursor` property with your preferred cursor structure and the `getSalesOrderByDate` method 
+will be called again with the `paging.cursor` property populated with the return object. 
+
+The method will continue to be called until the `paging.cursor` property is returned as `undefined`.
+
+Parameters
+-----------------------------------------------
+
+### `transaction`
+A [transaction object](../order-transaction.mdx) containing information about the transaction and session state.
+
+### `range`
+Specifies a date/time range to retrieve sales orders for.
+
+<Reference>
+
+  <Field name="startDateTime" nullable={true}>
+    <Type>
+      [DateTime](./../date-time.mdx)
+    </Type>
+    <Description>
+      The start date/time of the range.
+    </Description>
+  </Field>
+
+  <Field name="endDateTime" nullable={true}>
+    <Type>
+      [DateTime](./../date-time.mdx)
+    </Type>
+    <Description>
+      The end date/time of the range.
+    </Description>
+  </Field>
+
+  <Field name="toString" nullable={false}>
+    <Type>
+      method
+    </Type>
+    <Description>
+      A method that returns the time range as a string.
+    </Description>
+  </Field>
+
+  <Field name="paging" type="object" nullable={true}>
+    <Description>
+      An object that indicates that page preferences for the items that are returned from this method.
+
+      This property may be null. If it is provided, all its required properties, listed below, will be included.
+    </Description>
+  </Field>
+
+  <Field name="paging.pageSize" type="number" nullable={false}>
+    <Description>
+      The desired maximum number of items to return. This value will always be provided and will be greater than zero.
+    </Description>
+  </Field>
+
+  <Field name="paging.pageCount" type="number" nullable={false}>
+    <Description>
+      he desired maximum number of pages to return. This value is optional.
+    </Description>
+  </Field>
+
+  <Field name="paging.pageNumber" type="number" nullable={true}>
+    <Description>
+      The desired page number to return. This value will always be provided and will be zero or greater.
+    </Description>
+  </Field>
+
+  <Field name="paging.cursor" type="string" nullable={true}>
+    <Description>
+      Identifies the next page of results to return. This value is optional.
+    </Description>
+  </Field>
+
+  <Field name="statusMappings" type="object" nullable={true}>
+    <Description>
+      A customer specified mapping for status codes. The keys of this object will be the custom status strings provided by a user, and the values will be one of the following valid status codes: 
+        * `awaiting_payment` - The sales order is awaiting payment.
+        * `awaiting_shipment` - This sales order is awaiting shipment.
+        * `on_hold` - This sales order is on hold.
+        * `completed` - This sales order is completed.
+        * `cancelled` - This sales order has been cancelled.
+    </Description>
+  </Field>
+
+  <Field name="fieldMappings" type="object" nullable={true}>
+    <Description>
+    A custom specified mapping for supported custom fields. The supported custom fields will be predefined by the app developer.
+    </Description>
+  </Field>
+
+  <Field name="fieldMappings.customField1" type="number" nullable={true}>
+    <Description>
+      The custom field whose value that will map to the RequestedFulfillmentExtensions.CustomField1.
+    </Description>
+  </Field>
+
+  <Field name="fieldMappings.customField2" type="number" nullable={true}>
+    <Description>
+      The custom field whose value that will map to the RequestedFulfillmentExtensions.CustomField2.
+    </Description>
+  </Field>
+
+  <Field name="fieldMappings.customField3" type="string" nullable={true}>
+    <Description>
+      The custom field whose value that will map to the RequestedFulfillmentExtensions.CustomField3.
+    </Description>
+  </Field>
+
+</Reference>
+
+
+
+Return Value
+-----------------------------------------------
+### `salesOrders`
+An array of sales orders matching the date range.
+
+<Reference>
+
+  <Field name="id" type="string" required={true}>
+    <Description>
+      The marketplace's unique ID for the sales order. This string must not contain newline characters.
+    </Description>
+  </Field>
+
+  <Field name="createdDateTime" required={true}>
+    <Type>
+      [Date Time](./../date-time.mdx), <br/>
+      or [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) object, <br/>
+      or a string representing the date and time in [ISO](https://www.w3.org/TR/NOTE-datetime) format.
+    </Type>
+    <Description>
+      The date/time that the sales order was originally placed.
+    </Description>
+  </Field>
+
+  <Field name="lastModifiedDateTime" required={false}>
+    <Type>
+      [Date Time](./../date-time.mdx), <br/>
+      or [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) object, <br/>
+      or a string representing the date and time in [ISO](https://www.w3.org/TR/NOTE-datetime) format.
+    </Type>
+    <Description>
+      The date/time that the sales order was last modified.
+    </Description>
+  </Field>
+
+  <Field name="status" type="string" required={true}>
+    <Description>
+      The current status of this sales order. Valid values include the following:
+      * `awaiting_payment` - The sales order is awaiting payment.
+      * `awaiting_shipment` - This sales order is awaiting shipment.
+      * `on_hold` - This sales order is on hold.
+      * `completed` - This sales order is completed.
+      * `cancelled` - This sales order has been cancelled.
+    </Description>
+  </Field>
+
+  <Field name="buyer" type="object" required={true}>
+    <Description>
+      The buyer who bought the order. This is not necessarily the same person as the `shipTo`.
+    </Description>
+  </Field>
+
+ <Field name="buyer.id" type="string" required={false}>
+    <Description>
+      The marketplace's unique ID for the buyer. This string must not contain newline characters.
+    </Description>
+  </Field>
+
+ <Field name="buyer.address" required={false}>
+    <Description>
+      The address of the buyer.
+    </Description>
+    <Type>
+      [address object](./../address.mdx#address-properties)
+    </Type>
+  </Field>
+
+ <Field name="buyer.name" type="object"  required={true}>
+     <Description>
+       The name of the contact.
+     </Description>
+   </Field>
+
+   <Field name="buyer.name.title" type="string" nullablerequired={false}>
+     <Description>
+       The title of the contact (eg "Mr", "Mrs", "Dr"). This string must not include newline characters.
+     </Description>
+   </Field>
+
+   <Field name="buyer.name.given" type="string" required={true}>
+     <Description>
+       The first name of the signer. This string must not include newline characters.
+     </Description>
+   </Field>
+
+   <Field name="buyer.name.middle" type="string"  required={false}>
+     <Description>
+       The middle name of the signer. This string must not include newline characters.
+     </Description>
+   </Field>
+
+   <Field name="buyer.name.family" type="string"  required={false}>
+     <Description>
+       The last name or family name of the signer. This string must not include newline characters.
+     </Description>
+   </Field>
+
+   <Field name="buyer.name.suffix" type="string" required={false}>
+     <Description>
+       The suffix of the signer (eg "Sr", "Jr", "IV"). This string must not include newline characters.
+     </Description>
+   </Field>
+
+   <Field name="buyer.email" type="string" required={false}>
+     <Description>
+       The email address of the contact. This string must be a valid email address.
+     </Description>
+   </Field>
+
+   <Field name="buyer.phoneNumber" type="string" required={false}>
+     <Description>
+       The phone number of the contact.
+           and must not include newline characters.
+     </Description>
+   </Field>
+
+
+
+  <Field name="requestedFulfillments" type="object[]" required={true}>
+    <Description>
+      An array of fulfillment requests.
+    </Description>
+  </Field>
+
+  <Field name="requestedFulfillments[].items" required={true}>
+    <Type>
+      [sales order item object[]](./../sales-order-item.mdx)
+    </Type>
+    <Description>
+      The items in this sales order.
+    </Description>
+  </Field>
+
+  <Field name="requestedFulfillments[].shipTo" required={true}>
+    <Type>
+      [address + contact object](./../address.mdx#address-contact-info-properties)
+    </Type>
+    <Description>
+      The address where the sales order should be shipped. Be sure to include the extra contact info fields as indicated in the reference doc.
+    </Description>
+  </Field>
+
+  <Field name="requestedFulfillments[].shippingPreferences" required={false}>
+    <Type>
+      [shipping preferences object](./../shipping-preferences.mdx)
+    </Type>
+    <Description>
+      Preferences on how this order should be fulfilled.
+    </Description>
+  </Field>
+
+  <Field name="originalOrderSource" type="object" required={false}>
+    <Description>
+      Information regarding the original order source. This is used when an order source is acting on behalf of other order sources, in order to persist information regarding the original order.
+    </Description>
+  </Field>
+
+  <Field name="originalOrderSource.sourceId" type="string" required={true}>
+    <Description>
+      A unique identifier for the source marketplace.
+    </Description>
+  </Field>
+
+  <Field name="originalOrderSource.marketplaceCode" type="string" required={true}>
+    <Description>
+      The code for the type of marketplace.
+    </Description>
+  </Field>
+
+  <Field name="originalOrderSource.orderId" type="string" required={true}>
+    <Description>
+      The unique identifier for the order at the source marketplace.
+    </Description>
+  </Field>
+
+  <Field name="notes" type="object[]" required={false}>
+    <Description>
+      An array of objects containing additional information about this sales order.
+    </Description>
+  </Field>
+
+  <Field name="notes[].type" required={true}>
+    <Type>
+      [notes type string](./../common-types.mdx#notes-types)
+    </Type>
+    <Description>
+      The type for this note.
+    </Description>
+  </Field>
+
+  <Field name="notes[].text" type="string" required={true}>
+    <Description>
+      The note text itself.
+    </Description>
+  </Field>
+
+  <Field name="metadata" type="object" required={false}>
+    <Description>
+      Custom data about this sales order that was persisted by ShipEngine Connect. Must be JSON serializable.
+    </Description>
+  </Field>
+
+  <Field name="paging" type="object" required={false}>
+    <Description>
+      An object that indicates that page preferences for the items that are returned from this method.
+    </Description>
+  </Field>
+
+  <Field name="paging.pageSize" type="number" required={false}>
+    <Description>
+      The desired maximum number of items to return. This value will always be provided and will be greater than zero.
+    </Description>
+  </Field>
+
+  <Field name="paging.pageNumber" type="number" required={false}>
+    <Description>
+      The desired page number to return. This value will always be provided and will be zero or greater.
+    </Description>
+  </Field>
+
+  <Field name="paging.pageCount" type="number" required={false}>
+    <Description>
+      he desired maximum number of pages to return. This value is optional.
+    </Description>
+  </Field>
+
+  <Field name="paging.cursor" type="string" required={false}>
+    <Description>
+      Identifies the next page of results to return. This value is optional.
+    </Description>
+  </Field>
+
+  <Field name="identifiers"required={false}>
+    <Description>
+      Your own identifiers for this sales order.
+    </Description>
+    <Type>
+      [identifiers object](./../identifiers-object.mdx)
+    </Type>
+  </Field>
+
+  <Field name="paymentMethod" type="string" required={false}>
+    <Description>
+      Indicates how the customer has paid for the order. Valid values include the following:
+      * `cash` - The sales order was paid for with cash.
+      * `cash_equivalent` - The sales order was paid for with guaranteed funds, such as a cashier's check or money order.
+      * `check` - This sales order was paid for with a check.
+      * `credit_card` - This sales order was paid for with a credit card.
+      * `bank_transfer` - This sales order was paid for with a bank transfer.
+    </Description>
+  </Field>
+
+  <Field name="paymentStatus" type="string" required={false}>
+    <Description>
+      Indicates the status of the customer payment for the order. Valid values include the following:
+      * `awaiting_payment` - The sales order is still waiting on the customer's payment.
+      * `payment_cancelled` - The sales order payment was cancelled.
+      * `payment_failed` - The sales order payment failed.
+      * `payment_in_process` - The sales order payment is currently being processed.
+      * `paid` - The sales order has been payed for.
+      * `other` - The sales order payment is in an unknown state.
+    </Description>
+  </Field>
+
+  <Field name="orderURL" required={false}>
+    <Type>
+      [URL](https://nodejs.org/api/url.html) or string
+    </Type>
+    <Description>
+      The URL of a webpage where the customer can view the order.  Must be a valid HTTP or HTTPS url.
+    </Description>
+  </Field>
+
+ <Field name="charges" required={false}>
+    <Type>
+      [charge object[]](./../charge.mdx)
+    </Type>
+    <Description>
+      The breakdown of charges for this sales order.
+    </Description>
+  </Field>
+
+</Reference>
+
+
+
+Example
+-----------------------------------------------
+<CodeWrapper>
+```javascript
+async function getSalesOrdersByDate(transaction, range) {
+  // STEP 1: Validation
+  // Add any desired validation here
+
+  // STEP 2: Create the data that the order's API expects
+  const data = {
+    operation: "retrieve_sales_orders_by_date",
+    session_id: transaction.session.id,
+    start_date:  range.startDateTime,
+    end_date: range.endDateTime
+  };
+
+  // STEP 3: Call the order source's API
+  const response = await apiClient.request({ data });
+
+  // Step 4: Create the output data that ShipEngine expects
+  return formatSalesOrders(response.data);
+}
+
+function formatSalesOrders(salesOrders) {
+
+  return salesOrders.map(salesOrder => {
+    return {
+      id: salesOrder.id,
+      createdDateTime: salesOrder.createdDateTime,
+      status: mapSalesOrderStatus(salesOrder.status),
+      paymentMethod: mapPaymentMethod(salesOrder.payment.method),
+      buyer: {
+        id: salesOrder.buyer.id,
+        name: salesOrder.buyer.name
+      },
+      requestedFulfillments: [
+        {
+          items: salesOrder.shipping_items.map((item) => {
+            return {
+              id: item.id,
+              name: item.name,
+              quantity: {
+                value: item.quantity,
+                unit: "ea"
+              },
+              unitPrice: {
+                value: item.price_per_unit,
+                currency: "USD"
+              }
+            }
+        }),
+        shipTo: salesOrder.ship_to
+      }]
+    }
+  });
+}
+```
+```typescript
+export default async function getSalesOrdersByDate(
+  transaction: Transaction<Session>,
+  range: SalesOrderTimeRange,
+): Promise<Iterable<SalesOrder>> {
+  // STEP 1: Validation
+  // Add any desired validation here
+
+  // STEP 2: Create the data that the order's API expects
+  const data = {
+    operation: "retrieve_sales_orders_by_date",
+    session_id: transaction.session.id,
+    start_date:  range.startDateTime,
+    end_date: range.endDateTime
+  };
+
+  // STEP 3: Call the order source's API
+  const response = await apiClient.request<RetrieveSalesOrdersByDateResponse>({ data });
+
+  // Step 4: Create the output data that ShipEngine expects
+  return formatSalesOrders(response.data);
+}
+```
+</CodeWrapper>

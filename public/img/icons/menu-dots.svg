@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="480px" height="120px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(1,0,0,1,-16,-196)">
+        <path d="M304,256C304,282.4 282.4,304 256,304C229.6,304 208,282.4 208,256C208,229.6 229.6,208 256,208C282.4,208 304,229.6 304,256Z" style="fill:white;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(1,0,0,1,-16,-196)">
+        <path d="M124,256C124,282.4 102.4,304 76,304C49.6,304 28,282.4 28,256C28,229.6 49.6,208 76,208C102.4,208 124,229.6 124,256Z" style="fill:white;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(1,0,0,1,-16,-196)">
+        <path d="M484,256C484,282.4 462.4,304 436,304C409.6,304 388,282.4 388,256C388,229.6 409.6,208 436,208C462.4,208 484,229.6 484,256Z" style="fill:white;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(1,0,0,1,-16,-196)">
+        <path d="M256,316C222.8,316 196,289.2 196,256C196,222.8 222.8,196 256,196C289.2,196 316,222.8 316,256C316,289.2 289.2,316 256,316ZM256,220C236,220 220,236 220,256C220,276 236,292 256,292C276,292 292,276 292,256C292,236 276,220 256,220Z" style="fill:rgb(69,170,242);fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(1,0,0,1,-16,-196)">
+        <path d="M76,316C42.8,316 16,289.2 16,256C16,222.8 42.8,196 76,196C109.2,196 136,222.8 136,256C136,289.2 109.2,316 76,316ZM76,220C56,220 40,236 40,256C40,276 56,292 76,292C96,292 112,276 112,256C112,236 96,220 76,220Z" style="fill:rgb(69,170,242);fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(1,0,0,1,-16,-196)">
+        <path d="M436,316C402.8,316 376,289.2 376,256C376,222.8 402.8,196 436,196C469.2,196 496,222.8 496,256C496,289.2 469.2,316 436,316ZM436,220C416,220 400,236 400,256C400,276 416,292 436,292C456,292 472,276 472,256C472,236 456,220 436,220Z" style="fill:rgb(69,170,242);fill-rule:nonzero;"/>
+    </g>
+</svg>

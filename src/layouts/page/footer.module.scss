@@ -1,0 +1,136 @@
+@use "../../styles/variables" as *;
+
+$social-media-icon-size: 28px;
+
+.siteFooter {
+  background-color: $light-purple;
+  padding: 7rem 0;
+}
+
+.footerNav {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.column {
+  width: 18.75%;
+  margin-bottom: 20px;
+
+  > ul {
+    margin-bottom: 2.5rem;
+
+    > li {
+      font-size: $small-font-size;
+      line-height: 1;
+      margin-bottom: 1rem;
+
+      > a {
+        color: $darker-blue;
+        border-bottom: 1px solid transparent;
+
+        &:hover {
+          border-color: $darker-blue;
+        }
+      }
+    }
+  }
+}
+
+.columnHeading {
+  font-family: $script-font;
+  font-size: $tiny-font-size;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: transparentize($darker-blue, .65);
+  margin: 0 0 1.5rem 0;
+}
+
+.socialMediaIcons {
+  width: 25%;
+  text-align: right;
+
+  > ul {
+    height: $social-media-icon-size;
+
+    > li {
+      display: inline-block;
+    }
+  }
+
+  a {
+    display: inline-block;
+    text-align: center;
+    width: $social-media-icon-size;
+    height: $social-media-icon-size;
+    margin-right: 8px;
+    border-radius: 50%;
+    background-color: $gray;
+    background-repeat: no-repeat;
+    background-position: center center;
+    transition: background-color .4s ease-in-out;
+
+    &:hover {
+      background-color: $blue;
+    }
+
+    &.instagram {
+      background-image: url("../../../public/img/logos/social/instagram.svg");
+    }
+
+    &.facebook {
+      background-image: url("../../../public/img/logos/social/facebook.svg");
+    }
+
+    &.twitter {
+      background-image: url("../../../public/img/logos/social/twitter.svg");
+    }
+
+    &.linkedin {
+      background-image: url("../../../public/img/logos/social/linkedin.svg");
+    }
+  }
+}
+
+.copyright {
+  font-size: $small-font-size;
+  opacity: .5;
+  margin: 20px 0 0 0;
+  padding: 0 .75rem;
+}
+
+
+/**
+  * Landscape Phone screens
+  */
+@media (max-width: $phone-landscape-max-width) {
+  .column {
+    width: 50%;
+  }
+
+  .socialMediaIcons {
+    width: 100%;
+    text-align: left;
+  }
+}
+
+/**
+  * Small Phone screens
+  */
+@media (max-width: $phone-max-width) {
+  .socialMediaIcons {
+    text-align: center;
+  }
+
+  .copyright {
+    text-align: center;
+  }
+}
+
+/**
+  * Very small phone screens
+  */
+@media (max-width: 369px) {
+  .column {
+    width: 100%;
+  }
+}

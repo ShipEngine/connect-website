@@ -1,0 +1,9 @@
+@use "../../styles/variables" as *;
+
+.pager {
+  margin-top: $large-vertical-space;
+
+  a {
+    margin-right: $small-horizontal-space;
+  }
+}

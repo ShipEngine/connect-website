@@ -1,0 +1,86 @@
+@use "../styles/variables" as *;
+@use "../styles/mixins" as *;
+
+// Stylize the company logos image
+.logos {
+  text-align: center;
+  margin: 45px 0;
+}
+
+// Show the list of steps as tiles
+.devProcess {
+  $box-shadow-size: 15px;
+  $number-size: 25px;
+
+  margin-bottom: 2rem;
+
+  ol {
+    display: block;
+    list-style: none;
+    padding: 0 $box-shadow-size;
+    margin: 0;
+    font-size: $small-font-size;
+
+    > li {
+      @include tiny-box;
+      display: flex;
+      align-items: center;
+      margin: ($box-shadow-size + $tiny-vertical-space) 0;
+      padding: $box-shadow-size $box-shadow-size $box-shadow-size $number-size;
+      min-height: 90px;
+      transition: transform .4s ease;
+      cursor: default;
+
+      &:first-child {
+        margin-top: 0;
+      }
+
+      &:hover {
+        transform: scale(1.02);
+      }
+
+      p {
+        margin: 0;
+      }
+
+      &::before {
+        content: "";
+        display: block;
+        height: $number-size;
+        width: $number-size;
+        min-width: $number-size;
+        font-size: $h4-font-size;
+        text-align: center;
+        line-height: 27px;
+        margin: 0 $number-size 0 0;
+      }
+
+      &:nth-child(1)::before {
+        content: "1";
+      }
+
+      &:nth-child(2)::before {
+        content: "2";
+      }
+
+      &:nth-child(3)::before {
+        content: "3";
+      }
+
+      &:nth-child(4)::before {
+        content: "4";
+      }
+    }
+  }
+}
+
+// Style the list on small screens
+@media (max-width: $phone-max-width) {
+  .devProcess ol > li {
+    flex-direction: column;
+
+    &::before {
+      margin: 0 0 $small-vertical-space 0;
+    }
+  }
+}

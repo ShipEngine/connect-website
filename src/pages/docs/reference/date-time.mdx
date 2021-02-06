@@ -1,0 +1,115 @@
+---
+title: DateTime object
+description: An object that represents a date and time in a particular time zone.
+---
+
+Date/Time Object
+===============================================
+Date/time objects are used throughout [ShipEngine Connect](./../index.mdx). Your app will almost certainly need to
+access or return date/time objects, such as the date and time a shipment was shipped or the time and the date and time of a particular shipment tracking event.
+
+Each date/time object has properties for the date/time string as well as a timezone string that holds either the UTC offset (e.g. "+05:30")
+ or [IANA time zone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) (e.g. "America/Los_Angeles", "Asia/Tokyo").
+
+
+
+Properties
+-----------------------------------------------
+This table lists the properties of a date/time object and identifies those properties that are required. The `nullable`
+column indicates which properties may be null when the object is provided as an argument to one of your methods, and the `required`
+column indicates which properties are required when the object is returned from one of your methods.
+
+
+<Reference>
+
+  <Field name="value" type="string" required={true} nullable={false}>
+    <Description>
+      The date and time, without a time zone (e.g. "2005-09-23T17:30:00").
+    </Description>
+  </Field>
+
+  <Field name="timeZone" type="string" required={true} >
+    <Description>
+      The time zone represented as either the UTC offset (e.g. "+05:30") or [IANA time zone](https\:\/\/en.wikipedia.org\/wiki\/List_of_tz_database_time_zones) (e.g. "America/Los_Angeles", "Asia/Tokyo").
+    </Description>
+  </Field>
+
+</Reference>
+
+### Examples
+
+Here's an example datetime object that uses the UTC offset for the `timezone`:
+
+```javascript
+{
+  value: "2020-09-24T17:30:00",
+  timezone: "America/Los_Angeles"
+}
+```
+
+And here's an example that uses the IANA time zone for the timezone.
+
+```javascript
+{
+  value: "2020-09-24T17:30:00",
+  timezone: "+05:30"
+}
+```
+
+
+Additional Convenience Properties
+-------------------------------------------------------------
+This table lists some additional convenience properties and methods that are included when a date/time object is
+passed to one of your methods. None of these will ever be `null`.
+
+<Reference>
+  <Field name="offset" type="string" >
+    <Description>
+      The UTC offset (e.g. "+05:30").
+    </Description>
+  </Field>
+
+  <Field name="isUTC" type="boolean" >
+    <Description>
+      Indicates whether the date/time is in UTC..
+    </Description>
+  </Field>
+
+  <Field name="toDate()" type="method" >
+    <Description>
+      A method that returns the date/time as a JavaScript `Date` object.
+
+      NOTE: JavaScript Date objects only support local/UTC time.
+    </Description>
+  </Field>
+
+  <Field name="toString()" type="method">
+    <Description>
+      A method that returns a string representation of the date/time and time zone.
+      </Description>
+  </Field>
+
+  <Field name="toJSON()" type="method">
+    <Description>
+      A method that returns the date and time as an object that can be safely serialized as JSON.
+    </Description>
+  </Field>
+
+  <Field name="getTime()" type="method">
+      <Description>
+        A method that returns [the number of milliseconds since the Unix Epoch](https://en.wikipedia.org/wiki/Unix_time), in UTC.
+      </Description>
+    </Field>
+
+
+  <Field name="valueOf()" type="method">
+    <Description>
+      A method that returns the [primitive value](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/valueOf)
+      of the date and time. This method is used internally by the JavaScript engine whenever a primitive value is expected.
+    </Description>
+  </Field>
+</Reference>
+
+
+
+

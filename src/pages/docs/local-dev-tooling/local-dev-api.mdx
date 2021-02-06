@@ -1,0 +1,87 @@
+---
+title: ShipEngine Connect Local Dev API
+description: Learn about ShipEngine Connect local dev api.
+---
+
+import styles from "./index.module.scss";
+import PostmanButton from './PostmanButton'
+
+Local Dev API
+==================================================
+[The `connect start` command](./../cli.mdx#run-your-app-locally) starts a local web server that exposes your app as a REST API
+and allows you to invoke your app's
+methods using [our Postman collection](https://documenter.getpostman.com/view/12340335/T1LPBRJk?version=latest). The server
+monitors your source code and automatically reloads your app whenever changes are detected, so if you find a bug, you can
+fix it and immediately retry.
+
+Click the <b>Run in Postman</b> button to open our collection directly in Postman: &nbsp;&nbsp;
+<PostmanButton />
+
+You can run the `connect start command` from the command line or directly from within [VS Code](https://code.visualstudio.com/) using the
+`launch.json` config file that was generated when you ran `connect init`. Additionally, you can run `npm start` just like
+you would to start any other NodeJS application.
+
+> **PRO TIP:** You can use the [VSCode debugger](https://code.visualstudio.com/docs/editor/debugging) to set breakpoints, step through your code line-by-line, and inspect variables at runtime. Just press `F5` to start a debug session.
+
+![VSCode debugger](/img/testing/vs-code-debug.png)
+
+
+Request Modification
+-------------------------------------
+Each request in [our Postman collection](https://documenter.getpostman.com/view/12340335/T1LPBRJk?version=latest) contains sample data that matches the structure expected by one of the methods in your application. We have included placeholder text
+in the areas where you will need to provide values.
+
+For example, when running the `Create a shipment` request in the `Carrier Apps` folder, you will need to provide IDs for
+`shipment.delivery_service.id` and `shipment.packages[].packaging.id` that are defined in your application.
+
+You may also need to modify the `shipFrom` and `shipTo` properties
+to addresses within your service area and ensure that the `shipDateTime` is in the future.
+
+Note that you will likely need to update the properties in the `Connect` request to match the names you used in your [connection form](./../reference/forms.mdx#connection-form-examples).
+
+You can begin running requests in this collection as soon as you have defined the corresponding method, even if it is not fully implemented.
+It may be useful to set a breakpoint and examine the structure of the data sent to your method to assist in mapping the input
+data to the format expected by your backend service or API.
+
+![Postman screenshot](/img/testing/postman-placeholder.png)
+
+
+Authentication
+----------------------------------------
+
+You may have noticed that each request in our Postman collection contains a `transaction` object that contains a `session` property.
+Once you are ready for your method to call your backend API or service, you will need to specify authentication information.
+
+### Postman Variables
+Our Postman collection uses variables to persist session data between requests. You can see in the request below that we set the `transaction.session`
+property to `{{session}}`. This is the way Postman variables are referenced within request payloads. While it is not valid
+JSON at the moment, it will be once Postman renders the request.
+
+![Session variable in Postman](/img/testing/postman-session-variable.png)
+
+
+You can see and set the value of the variables by editing the collection. Click the ellipses icon next to the collection name
+and select `Edit`, then click the `Variables` tab.
+
+![Editing the collection in Postman](/img/testing/variable-menu.png)
+
+
+When you first import the collection, the `session`
+variable will be unset.
+
+![Postman collection variables](/img/testing/postman-empty-vars.png)
+
+
+When beginning to work with our Postman collection, you should first run the `Connect` request in the `All Apps` folder with valid credentials to create a session. This will then set the `session` variable that is referenced in each of the other requests. Likewise, if you already
+have a valid session you wish to use, you can edit the variable directly and skip running the `Connect` request.
+
+![Setting the session variable](/img/testing/postman-set-variable.png)
+
+
+### Hardcoded Values
+You may wish to hardcode the session data in each of your requests rather than using Postman variables. If so, you will need to run the `Connect`
+request with valid credentials and then copy the `transaction.session` value that is returned and update each Postman request to use this value.
+Likewise, if you already have a valid session you wish to use, you can skip running the `Connect` request and add the
+`session` data directly to the request.
+
+![Using hard-coded values in Postman](/img/testing/postman-transaction.png)

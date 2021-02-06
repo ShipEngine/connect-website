@@ -1,0 +1,360 @@
+---
+title: Acceptance Tests | schedulePickup_same_day
+description: This test is part of the ShipEngine Connect carrier app test suite.
+---
+
+Carrier App Tests
+==================================
+
+### `schedulePickup_same_day`
+
+This test exercises your app's ability to successfully schedule a same day pickup. If your app does not have any [pickup services](../../../reference/pickup-service.mdx), then this test will be skipped by [the `connect test` command](../../../cli.mdx#test-your-app).
+
+
+
+Test Parameters
+-------------------------
+This test has many parameters [that can be customized](#customizing-parameters) in your [`connect.config.js` file](../../../testing/config.mdx). Any parameters you don't override will use their default values.
+
+<Reference>
+
+  <Field name="session" type="object">
+    <Description>
+        An object containing session information needed to make calls to your backend API or service, such as
+        a username and password or an auth token.
+
+        The data included in this object depends on your service. You will need to
+        provide the information your methods need to make calls without calling your [`connect()` method](../../../reference/methods/connect.mdx).
+
+        If both a `connectArgs` parameter and a `session` parameter are provided, the `session` parameter will be used.
+    </Description>
+    <DefaultValue>
+        An empty `session` unless you provide a `connectArgs` property.
+    </DefaultValue>
+  </Field>
+
+  <Field name="connectArgs" type="object">
+    <Description>
+        An object containing properties with the same names as those you defined in
+        your [connection form](../../../reference/forms.mdx#connection-form-examples). These will be used to call your
+        [`connect()` method](../../../reference/methods/connect.mdx) to obtain a valid `session` object before calling other methods in the test.
+
+        If both a `connectArgs` parameter and a `session` parameter are provided, the `session` parameter will be used.
+    </Description>
+    <DefaultValue>
+        An empty `session` unless you provide a `session` property.
+    </DefaultValue>
+  </Field>
+
+  <Field name="expectedErrorMessage" type="string">
+    <Description>
+      The error message that is expected when running this test.
+      <br/> <br/>
+
+      This property is useful in negative test cases.
+      For example, you may wish to provide invalid weights and verify that the expected error message is returned.
+    </Description>
+    <DefaultValue>
+      None
+    </DefaultValue>
+  </Field>
+
+  <Field name="debug" type="boolean">
+    <Description>
+      Whether or not to run in `debug` mode.
+    </Description>
+    <DefaultValue>
+      `false`
+    </DefaultValue>
+  </Field>
+
+  <Field name="timeout" type="number">
+    <Description>
+      The number of of milliseconds to wait before timing out an asynchronous operation.
+    </Description>
+    <DefaultValue>
+      `3000`
+    </DefaultValue>
+  </Field>
+
+  <Field name="skip" type="boolean">
+    <Description>
+      Whether or not to skip this test.
+    </Description>
+    <DefaultValue>
+      `false`
+    </DefaultValue>
+  </Field>
+
+  <Field name="pickupServiceName" type="string">
+    <Description>
+         The name of the [pickup service](../../../reference/pickup-service.mdx) you wish to use in this request.
+    </Description>
+    <DefaultValue>
+      The name of the first pickup service defined for your app.
+    </DefaultValue>
+  </Field>
+
+   <Field name="deliveryServiceName" type="string">
+      <Description>
+           The name of the [delivery service](../../../reference/delivery-service.mdx) you wish to use in this request.
+      </Description>
+      <DefaultValue>
+        The name of the first delivery service defined for your app.
+      </DefaultValue>
+    </Field>
+
+  <Field name="address">
+    <Type>
+      [address object](./../../../reference/address.mdx#address-properties)
+    </Type>
+    <Description>
+        The address where the package should be picked up.
+    </Description>
+    <DefaultValue>
+        A valid address based on the `availableCountries` of the delivery service.
+
+        Note that this is the default value used when no `address` parameter is specified.
+
+        If a `address` parameter is specified, it must contain values for all properties.
+    </DefaultValue>
+  </Field>
+
+  <Field name="contact">
+    <Type>
+      [contact object](./../../../reference/address.mdx#contact-info-properties)
+    </Type>
+    <Description>
+        The contact information for the person who will be there to meet the driver.
+    </Description>
+    <DefaultValue>
+        `John Doe`
+    </DefaultValue>
+  </Field>
+
+  <Field name="timeWindow" type="object">
+    <Description>
+      The requested window of time for the carrier to arrive.
+    </Description>
+    <DefaultValue>
+        The properties and their default values are listed below. Note that these are the default values used when no `timeWindow` parameter is specified.
+
+        If a `timeWindow` parameter is specified, it must contain values for all properties.
+    </DefaultValue>
+  </Field>
+
+  <Field name="timeWindow.startDateTime">
+    <Description>
+        The start date/time of the request window.
+    </Description>
+    <Type>
+     [date/time object](./../../../reference/date-time.mdx), <br/>
+     or [Date object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) object, <br/>
+     or a string representing the date and time in [ISO](https://www.w3.org/TR/NOTE-datetime) format.
+    </Type>
+    <DefaultValue>
+      Today at 6:00 am.
+    </DefaultValue>
+  </Field>
+
+  <Field name="timeWindow.endDateTime">
+    <Description>
+      The end date/time of the request window.
+    </Description>
+    <Type>
+         [date/time object](./../../../reference/date-time.mdx), <br/>
+         or [Date object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) object, <br/>
+         or a string representing the date and time in [ISO](https://www.w3.org/TR/NOTE-datetime) format.
+        </Type>
+    <DefaultValue>
+        Today at 6:00 pm.
+    </DefaultValue>
+  </Field>
+
+  <Field name="shipments" type="object[]">
+    <Description>
+      A list of shipments that should be scheduled for pickup.
+    </Description>
+    <DefaultValue>
+       The properties and their default values are listed below. Note that these are the default values used when no `shipments` parameter is specified.
+
+       If a `shipments` parameter is specified, it must contain values for all properties.
+    </DefaultValue>
+  </Field>
+
+  <Field name="shipments[].deliveryServiceName" type="string">
+    <Description>
+      The name of the [delivery service](../../../reference/delivery-service.mdx) you wish to use in this request.
+    </Description>
+    <DefaultValue>
+      The name of the first delivery service defined for your app.
+    </DefaultValue>
+  </Field>
+
+  <Field name="shipments[].packages" type="object[]">
+    <Description>
+      The packages in this shipment.
+    </Description>
+    <DefaultValue>
+       The properties and their default values are listed below. Note that these are the default values used when no `packages` parameter is specified.
+
+       If a `packages` parameter is specified, it must contain values for all properties.
+    </DefaultValue>
+  </Field>
+
+  <Field name="shipments[].packages[].packagingName" type="string">
+    <Description>
+      The name of the [packaging](./../../../reference/packaging.mdx) you wish to use for this package.
+    </Description>
+    <DefaultValue>
+       The name of the first packaging defined for the selected delivery service.
+    </DefaultValue>
+  </Field>
+
+<Field name="shipments[].packages[].weight" type="object">
+    <Description>
+      The weight to use for the shipment.
+    </Description>
+    <DefaultValue>
+        The properties and their default values are listed below. Note that these are the default values used when no `weight` parameter is specified.
+
+        If a `weight` parameter is specified, it must contain values for all properties.
+    </DefaultValue>
+  </Field>
+
+  <Field name="shipments[].packages[].weight.unit" type="string">
+    <Description>
+        The unit of measure for this weight. Valid values include the following:
+        * `g` - grams
+        * `oz` - ounces
+        * `kg` - kilograms
+        * `lb` - pounds
+    </Description>
+    <DefaultValue>
+      `lb`
+    </DefaultValue>
+  </Field>
+
+  <Field name="shipments[].packages[].weight.value" type="number">
+    <Description>
+      The value for this weight.
+    </Description>
+    <DefaultValue>
+        `50`
+    </DefaultValue>
+  </Field>
+
+  <Field name="shipments[].packages[].dimensions" type="object">
+    <Description>
+      The dimensions to use for the shipment.
+    </Description>
+    <DefaultValue>
+       The properties and their default values are listed below. Note that these are the default values used when no `dimensions` parameter is specified.
+
+       If a `dimensions` parameter is specified, it must contain values for all properties.
+    </DefaultValue>
+  </Field>
+
+  <Field name="shipments[].packages[].dimensions.length" type="number">
+    <Description>
+      The length to use for the shipment.
+    </Description>
+    <DefaultValue>
+      `12`
+    </DefaultValue>
+  </Field>
+
+  <Field name="shipments[].packages[].dimensions.width" type="number">
+    <Description>
+      The width to use for the shipment.
+    </Description>
+    <DefaultValue>
+      `12`
+    </DefaultValue>
+  </Field>
+
+  <Field name="shipments[].packages[].dimensions.height" type="number">
+    <Description>
+      The height to use for the shipment.
+    </Description>
+    <DefaultValue>
+      `12`
+    </DefaultValue>
+  </Field>
+
+  <Field name="shipments[].packages[].dimensions.unit" type="string">
+    <Description>
+      The unit of measurement for the dimensions. Valid values include the following:
+        * `in` - inches
+        * `cm` - centimeters
+    </Description>
+    <DefaultValue>
+      `in`
+    </DefaultValue>
+  </Field>
+
+</Reference>
+
+
+Customizing Parameters
+------------------------------
+Here's an example of using the [`connect.config.js` file](./../../../testing/config.mdx) to customize the `schedulePickup_same_day` test. This example provides values for all parameters and uses the global `connectArgs` parameter for authentication.
+
+```javascript
+module.exports = {
+  connectArgs: {
+    account_email: 'user@example.com',
+    account_password: 'u0G#^08Ue1G!jX$mkc1',
+    agree_to_eula: true,
+  },
+  tests: {
+    schedulePickup_same_day: [
+      {
+        pickupServiceName: 'Drop Off',
+        deliveryServiceName: 'Next Day Air',
+        address: {
+          company: 'Example Corp.',
+          addressLines: [
+            '4009 Marathon Blvd',
+            'Suite 300'
+          ],
+         cityLocality: 'Austin',
+         stateProvince: 'TX',
+         postalCode: '78756',
+         country: 'US',
+         isResidential: false
+        },
+        contact: {
+          name: 'Amanda Miller',
+          phoneNumber: '555-555-5555',
+          email: 'amanda.miller@email.com'
+        },
+        timeWindow: {
+          startDateTime: '2020-09-24T06:00:00-05:00',
+          endDateTime: '2020-09-24T18:00:00-05:00'
+        },
+        shipments: [
+          {
+            deliveryServiceName: 'Next Day Air',
+            packages: [
+              {
+                packagingName: 'package',
+                weight: {
+                  value: 10,
+                  unit: 'lb',
+                },
+                dimensions: {
+                  width: 10,
+                  height: 10,
+                  length: 10,
+                  unit: 'in'
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
+```

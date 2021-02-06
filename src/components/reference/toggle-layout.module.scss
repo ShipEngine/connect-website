@@ -1,0 +1,27 @@
+@use "../../styles/variables" as *;
+
+$icon-height: 13px;
+$selected-color: darken($light-purple, 8%);
+
+.button {
+  margin: 0 1px;
+  padding: 3px;
+  line-height: $icon-height;
+  border: 1px solid transparent;
+  border-radius: $tiny-border-radius;
+
+  &:hover {
+    background-color: $light-purple;
+  }
+
+  &[disabled] {
+    border-color: $selected-color;
+    background-color: $selected-color;
+    cursor: default;
+  }
+
+  > img {
+    height: $icon-height;
+    vertical-align: middle;
+  }
+}

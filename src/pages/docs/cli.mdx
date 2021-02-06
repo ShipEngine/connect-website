@@ -1,0 +1,271 @@
+---
+title: ShipEngine Connect CLI
+description: ShipEngine Connect provides a powerful command-line tool to make it easier to create, run, and test your app.
+tags:
+- CLI
+- ShipEngine Connect
+- command-line interface
+- terminal
+- console
+- NPM
+---
+
+
+
+ShipEngine Connect CLI
+=====================================
+The [ShipEngine Connect CLI](https://www.npmjs.com/package/@shipengine/connect) is a powerful tool that makes it easier for you to create, run, test, and publish your application.
+
+
+
+Prerequisites
+------------------------
+
+**Node v12+**<br/>
+You'll need [NodeJS](https://nodejs.org) version 12.0.0 or greater.  You can verify your installed Node version using `node --version`.
+
+**NPM v6+**<br/>
+Node comes with [npm](https://www.npmjs.com/). Verify that you have version 6.0.0 or greater by running `npm --version`.
+
+**Git**<br/>
+You'll need to install [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) in order to use the CLI.
+
+**Mac Users**<br/>
+Mac users will need to install the developer tools. If you do not have them installed, you will get the dialog box below
+ when you run the CLI. You can click the Install button in the dialog box.
+
+<img src="/img/cli/mac-dev-tools.png" alt="Mac dev tools dialog"/>
+
+Installation
+------------------------
+To install ShipEngine Connect CLI, run the following command from your terminal:
+
+```
+npm install --global @shipengine/connect
+```
+
+Verify that the CLI was installed correctly:
+
+```
+connect --version
+```
+
+
+
+Initialize a New App
+--------------------------
+Use the `connect init` command to start building a new application. Rather than starting from scratch, this command will prompt you for information about your app and coding preferences and will then generate all the inital scaffolding for you. For more details, see [Creating Your First App](create-first-app.mdx).
+
+```
+connect init [OPTIONS] [PATH]
+```
+
+#### Options
+
+##### `--yes`
+This option will bypass all the prompts and just use the default values. This is an easy way to quickly create a new app.
+
+##### `--force`
+This option will overwrite existing files in the output directory without prompting. Use caution with this option.
+
+#### Arguments
+
+##### `path`
+By default, the `connect init` command will create a new app in the current directory, but you can optionally specify a different path. For example, `connect init my-new-app` will create the app in a new sub-directory named "my-new-app".
+
+
+
+Run Your App Locally
+--------------------------
+The `connect start` command starts a local server that allows you to invoke your app's methods using [our Postman collection](#coming-soon). The server monitors your source code and automatically reloads your app whenever changes are detected, so if you find a bug, you can fix it and immediately retry.
+
+> **PRO TIP:** You can use the [VSCode debugger](https://code.visualstudio.com/docs/editor/debugging) to set breakpoints, step through your code line-by-line, and inspect variables at runtime. Just press `F5` to start a debug session.
+
+```
+connect start [OPTIONS]
+```
+
+#### Options
+
+##### `--port <number>`
+The local server runs on port 3000 by default, but you can use this option to change the port number.
+
+
+
+Test Your App
+--------------------------
+The `connect test` command runs our [end-to-end acceptance test suite](./testing#acceptance-testing) against your app to confirm that it behaves as expected. These tests emulate real-world workflows that your app will experience in production, and you should make sure your app passes before publishing it.
+
+Refer to the complete lists of tests for [Carrier Apps](carrier-app/tests/index.mdx) and [Order Apps](order-app/tests/index.mdx). Each test has many parameters that can be [configured in the `connect.config.js` file](testing/config.mdx).
+
+> **NOTE:**
+> We also encourage you to [unit test your app](testing/index.mdx#unit-testing) in addition to these end-to-end tests.
+
+```
+connect test [OPTIONS]
+```
+
+#### Options
+
+##### `--debug`
+This option enables verbose logging, which can be useful for debugging test failures.
+
+##### `--fail-fast`
+This option aborts the test run as soon as one test fails, rather than continuing to run the rest of the tests.
+
+##### `--grep <filter>`
+To run a specific test or set of tests, use the `--grep` option and specify a substring or regular expression. Only tests whose names contain the substring or match the regular expression will be run.
+
+##### `--retries <number>`
+You can opt to retry failed tests, which can be convenient for flaky tests or intermittent network errors.
+
+##### `--timeout <number>`
+Use this option to allow more time for your tests to run. The timeout is specified in milliseconds.
+
+Manage Environment Variables
+--------------------------
+The `connect env` command allows you to set environment variables that will be available to your app once it is published
+to ShipEngine Connect.
+This allows you to manage application secrets and configuration data separately from your code and make changes to this data without changing your application code.
+
+You should run this command before [publishing](#publish-your-app) your app.
+The values that are set at the time you run the publish command will be injected into your app once it is hosted in ShipEngine Connect. If you change those variables,
+you will need to re-publish your app before those changes will take affect in ShipEngine Connect.
+
+When you run the `connect env` command, you will include one of its subcommands listed below to indicate which environment
+variable action you would like to perform.
+
+> **PRO TIP:**
+> You can leave off the `env` part of the command and just specify the subcommand. For example, you can run
+> `connect list` to list the environment variables rather than `connect env:list`.
+
+#### Set Environment Variables
+This subcommand sets one or more environment variables.
+```bash
+connect env:set NAME=value NAME_2=value2 ... NAME_N=valueN [OPTIONS]
+```
+
+#### Get Environment Variables
+This subcommand lists the current value for one or more environment variables.
+```bash
+connect env:get NAME NAME_2 ... NAME_N [OPTIONS]
+```
+
+#### List Environment Variables
+This subcommand lists the values of all environment variables.
+```bash
+connect env:list [OPTIONS]
+```
+
+#### Unset Environment Variables
+This subcommand unsets one or more environment variables.
+```bash
+connect env:unset NAME NAME_2 ... NAME_N [OPTIONS]
+```
+
+#### Options
+
+##### `--debug`
+This option enables verbose logging, which can be useful for debugging issues managing variables.
+
+##### `--format`
+This option formats the output of the `connect list` command. Set this option to `table` to list the environment variables
+ in a table format or `dotenv` to list the environment variables in the [dotenv](https://www.npmjs.com/package/dotenv) format.
+
+Package Your App
+--------------------------
+The `connect pack` command allows you to package your application without publishing it. It moves your
+`dependencies` into `bundledDependencies`, runs `npm pack`, and creates
+a [tarball](https://en.wikipedia.org/wiki/Tar_(computing)) in the root of your project that you can inspect.
+
+> **NOTE:** If a tarball already exists in the root of your project, it will be overwritten.
+
+This provides you with visibility as to exactly what is being sent to ShipEngine Connect.
+This is useful for ensuring that you are not sending us any sensitive data. It is also helpful in
+making sure you aren't including any unnecessary files in your package. For example, this may help
+you identify packages that are listed in your `dependencies` that should actually be listed in your
+`devDependencies`.
+
+We suggest that you use the [`files` property](https://docs.npmjs.com/files/package.json#files) of your `package.json` file to list which files to _allow_ in the package.
+Likewise, you can create a [`.npmignore` file](https://docs.npmjs.com/using-npm/developers.html#keeping-files-out-of-your-package) to specify which files to _exclude_ from your package.
+
+```
+connect pack
+```
+
+#### Options
+There are no options for this command.
+
+
+
+Publish Your App
+--------------------------
+When you're ready to see your app live on ShipEngine Connect, run the `connect publish` command.
+This will publish your app to our development environment for further testing and approval.  For more details see [Publishing Your Application](publish.mdx).
+This command fist calls the `connect pack` command to package your app, creates a new deployment to Shipengine Connect, deletes the tarball created
+by `connect pack`, and polls ShipEngine Connect for status changes.
+
+> **INFO:** ShipEngine Connect currently runs Node.js v12
+
+```
+connect publish [OPTIONS]
+```
+
+#### Options
+
+##### `--skip-tests`
+We normally run your app through our end-to-end test suite to confirm that it functions correctly before publishing it. You can skip the tests using this option.
+
+##### `--no-watch`
+Use this option if you do not wish to watch the publish or show a progress indicator.  You can run the `connect info` command to check the status of your app deployment.
+
+
+
+List Your Apps
+--------------------------
+This command lists all of your apps
+
+```
+connect apps
+```
+
+#### Options
+There are no options for this command.
+
+
+
+View App Info
+--------------------------
+This command shows information about your app, such as its ID, deployed version, deployment status, etc.
+
+```
+connect info
+```
+
+#### Options
+There are no options for this command.
+
+
+
+Print App Logs
+--------------------------
+This command prints retrieves your app's logs from the server and prints them to the console
+
+```
+connect logs
+```
+
+#### Options
+##### `--all`
+Shows additional debugging about internal ShipEngine platform calls. By default you will only be shown logs specific to your app.
+
+##### `--format`
+Choose the format (`default` or `raw`) that logs are displayed in. The default is `default`.
+
+##### `--lines`
+Show the tail of the ShipEngine platform logs up to 1500 lines. The default is 500.
+
+<Pager
+  prev="./tools/index.mdx" prevTitle="Recommended Tools"
+  next="./create-first-app.mdx" nextTitle="Creating Your First App"
+/>

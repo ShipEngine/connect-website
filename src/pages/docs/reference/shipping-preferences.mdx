@@ -1,0 +1,112 @@
+---
+title: Shipping Preference objects
+description: Shipping preferences are conveyed using the ShippingPreference object.
+---
+
+Shipping Preferences Object
+===============================================
+Shipping preference objects are used in [ShipEngine Connect](./../../index.mdx) to convey shipping preferences
+for a sales order.
+
+Properties
+-----------------------------------------------
+This table lists the properties of a shipping preference object and identifies those properties that are required when
+it is returned from a method.
+
+<Reference>
+
+  <Field name="deliveryConfirmationType" type="string" required={false}>
+    <Description>
+      The requested delivery confirmation. Valid values include the following:
+      * `delivery` - Package is dropped off at the destination address.
+      * `signature` - A person at the destination address signs for the package.
+      * `adult_signature` - A person of legal adult age for the destination jurisdiction signs for the package.
+      * `direct_signature` - The person named as the recipient signs for the package.
+    </Description>
+  </Field>
+
+  <Field name="containsAlcohol" type="boolean" required={false}>
+    <Description>
+      Indicates whether the shipment needs to be marked as containing alcohol.
+    </Description>
+  </Field>
+
+  <Field name="saturdayDelivery" type="boolean" required={false}>
+    <Description>
+      Indicates whether Saturday delivery is requested.
+    </Description>
+  </Field>
+
+  <Field name="isGift" type="boolean" required={false}>
+    <Description>
+      Indicates whether the item has been marked as a gift.
+    </Description>
+  </Field>
+
+  <Field name="requestedShippingService" type="string" required={false}>
+    <Description>
+      The requested shipping service to be used.
+    </Description>
+  </Field>
+
+  <Field name="deliverByDate" type="string" required={false}>
+    <Type>
+      [date/time object](./../reference/date-time.mdx), <br/>
+      or [Date object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) object, <br/>
+      or a string representing the date and time in [ISO](https://www.w3.org/TR/NOTE-datetime) format.
+    </Type>
+    <Description>
+      The requested date for the sales order to be delivered by.
+    </Description>
+  </Field>
+
+  <Field name="requestedWarehouse" type="string" required={false}>
+    <Description>
+      The warehouse name associated with the request.
+    </Description>
+  </Field>
+
+  <Field name="shipByDate" type="string" required={false}>
+    <Type>
+      [date/time object](./../reference/date-time.mdx), <br/>
+      or [Date object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) object, <br/>
+      or a string representing the date and time in [ISO](https://www.w3.org/TR/NOTE-datetime) format.
+    </Type>
+    <Description>
+      The requested date for the sales order to be shipped by.
+    </Description>
+  </Field>
+
+  <Field name="insuredValue" type="object" required={false}>
+    <Description>
+      Requests that the shipment be insured for the specified value.
+
+      This property is not required. If it is provided, it must contain all of its required properties, listed below.
+    </Description>
+  </Field>
+  
+  <Field name="insuredValue.value" type="number" required={true}>
+    <Description>
+      The value of the insured amount.
+    </Description>
+  </Field>
+
+  <Field name="insuredValue.currency" type="string" required={true}>
+    <Description>
+      The currency the value represents.
+    </Description>
+  </Field>
+
+  <Field name="isPremiumProgam" type="boolean" required={false}>
+    <Description>
+      Indicates whether the fulfillment is part of a premium program (Amazon Prime, Walmart+, etc.)
+    </Description>
+  </Field>
+
+  <Field name="premiumProgramName" type="string" required={false}>
+    <Description>
+      Name of the Premium Program
+    </Description>
+  </Field>
+
+</Reference>

@@ -1,0 +1,445 @@
+---
+title: Acceptance Tests | shipmentCreated
+description: This test is part of the ShipEngine Connect order app test suite.
+---
+
+Order App Tests
+==================================
+
+### `shipmentCreated`
+
+This test exercises your app's ability to receive notification that shipment has been imported from an order source.
+
+
+Test Parameters
+-------------------------
+This test has many parameters [that can be customized](#customizing-parameters) in your [`connect.config.js` file](../../../testing/config.mdx). Any parameters you don't override will use their default values.
+
+<Reference>
+
+  <Field name="session" type="object">
+    <Description>
+        An object containing [session information](../../../oauth/index.mdx) needed to make calls to your backend API or service, such as
+        a username and password or an auth token.
+    </Description>
+    <DefaultValue>
+        An empty `session`.
+    </DefaultValue>
+  </Field>
+
+  <Field name="expectedErrorMessage" type="string">
+    <Description>
+      The error message that is expected when running this test.
+      <br/> <br/>
+
+      This property is useful in negative test cases.
+      For example, you may wish to provide invalid weights and verify that the expected error message is returned.
+    </Description>
+    <DefaultValue>
+      None
+    </DefaultValue>
+  </Field>
+
+  <Field name="debug" type="boolean">
+    <Description>
+      Whether or not to run in `debug` mode.
+    </Description>
+    <DefaultValue>
+      `false`
+    </DefaultValue>
+  </Field>
+
+  <Field name="timeout" type="number">
+    <Description>
+      The number of of milliseconds to wait before timing out an asynchronous operation.
+    </Description>
+    <DefaultValue>
+      `3000`
+    </DefaultValue>
+  </Field>
+
+  <Field name="skip" type="boolean">
+    <Description>
+      Whether or not to skip this test.
+    </Description>
+    <DefaultValue>
+      `false`
+    </DefaultValue>
+  </Field>
+
+  <Field name="trackingNumber" type="string">
+    <Description>
+      The tracking number for the created shipment.
+    </Description>
+    <DefaultValue>
+      `undefined`
+    </DefaultValue>
+  </Field>
+  <Field name="trackingUrl">
+    <Type>
+      string
+    </Type>
+    <Description>
+        The URL of a webpage where the customer can track the shipment.
+    </Description>
+    <DefaultValue>
+        `undefined`
+    </DefaultValue>
+  </Field>
+
+  <Field name="salesOrder" type="object">
+    <Description>
+        The sales order associated with this shipment.
+    </Description>
+    <DefaultValue>
+        An object populated with the objects below.
+
+        The properties and their default values are listed below. Note that these are the default values used when no salesOrder parameter is specified.
+
+        If a salesOrder parameter is specified, it must contain values for all properties.
+    </DefaultValue>
+  </Field>
+
+  <Field name="salesOrder.id" type="string">
+    <Description>
+        The marketplace's unique ID for the sales order.
+    </Description>
+    <DefaultValue>
+        `123456`
+    </DefaultValue>
+  </Field>
+
+  <Field name="salesOrder.identifiers" type="object">
+    <Description>
+        Your own identifiers for this sales order.
+    </Description>
+    <DefaultValue>
+        empty object
+    </DefaultValue>
+  </Field>
+
+  <Field name="carrierCode" type="string">
+    <Description>
+        The code for the carrier that is being used to fulfill the sales order.
+    </Description>
+    <DefaultValue>
+        `undefined`
+    </DefaultValue>
+  </Field>
+
+  <Field name="carrierServiceCode" type="string">
+    <Description>
+        The code for the carrier service that is being used to fulfill the sales order.
+    </Description>
+    <DefaultValue>
+        `undefined`
+    </DefaultValue>
+  </Field>
+
+  <Field name="shipFrom">
+    <Type>
+      [address + contact object](./../../../reference/address.mdx#address-contact-info-properties)
+    </Type>
+    <Description>
+        The address to ship _from_ in the test. Be sure to include the additional contact info properties.
+    </Description>
+    <DefaultValue>
+        A valid US based address.
+
+        Note that this is the default value used when no `shipFrom` parameter is specified.
+
+        If a `shipFrom` parameter is specified, it must contain values for all properties.
+    </DefaultValue>
+  </Field>
+
+  <Field name="shipTo">
+    <Type>
+      [address + contact object](./../../../reference/address.mdx#address-contact-info-properties)
+    </Type>
+    <Description>
+        The address to ship _from_ in the test. Be sure to include the additional contact info properties.
+    </Description>
+    <DefaultValue>
+        A valid US based address.
+
+        Note that this is the default value used when no `shipTo` parameter is specified.
+
+        If a `shipTo` parameter is specified, it must contain values for all properties.
+    </DefaultValue>
+  </Field>
+
+  <Field name="shipDateTime">
+    <Type>
+      [date/time object](./../../../reference/date-time.mdx), <br/>
+      or [Date object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) object, <br/>
+      or a string representing the date and time in [ISO](https://www.w3.org/TR/NOTE-datetime) format.
+    </Type>
+    <Description>
+      The date/time that the package is expected to ship. This is not guaranteed to be in the future.
+    </Description>
+    <DefaultValue>
+        The following date at `noon` in the local time zone. 
+    </DefaultValue>
+  </Field>
+
+  <Field name="contents" type="object">
+    <Description>
+      Describes the items inside the package.
+    </Description>
+    <DefaultValue>
+      The properties and their default values are listed below. 
+      Note that these are the default values used when no `contents` parameter is specified.
+
+      If a contents parameter is specified, it must contain values for all properties.
+    </DefaultValue>
+  </Field>
+
+  <Field name="contents.salesOrderItem" type="object">
+    <Description>
+      The sales order item associated with this item.
+
+      This property may be null. If it is provided, all its required properties, listed below, will be included.
+    </Description>
+    <DefaultValue>
+        The following date at `noon` in the local time zone.
+    </DefaultValue>
+  </Field>
+
+  <Field name="contents.salesOrderItem.id" type="string">
+    <Description>
+      The marketplace's unique ID for the sales order item. This string will not contain newline characters.
+    </Description>
+    <DefaultValue>
+      `123456`
+    </DefaultValue>
+  </Field>
+
+  <Field name="contents.salesOrderItem.sku" type="string">
+    <Description>
+      The [Stock Keeping Unit](https://en.wikipedia.org/wiki/Stock_keeping_unit). This string will not contain newline characters.
+    </Description>
+    <DefaultValue>
+      `undefined`
+    </DefaultValue>
+  </Field>
+
+  <Field name="contents.salesOrderItem.identifiers">
+    <Description>
+      Your own identifiers for this sales order item.
+    </Description>
+    <Type>
+      [identifiers object](../../../reference/identifiers-object.mdx)
+    </Type>
+    <DefaultValue>
+      `undefined`
+    </DefaultValue>
+  </Field>
+
+  <Field name="contents.product" type="object">
+    <Description>
+      The product associated with this item.
+    </Description>
+    <DefaultValue>
+      The properties and their default values are listed below. Note that these are the default values used when no
+      `product` parameter is specified.
+    </DefaultValue>
+  </Field>
+
+  <Field name="contents.product.id" type="string">
+    <Description>
+      The product catalog's unique ID for the order. This string must not contain newline characters.
+    </Description>
+    <DefaultValue>
+      `undefined`
+    </DefaultValue>
+  </Field>
+
+  <Field name="contents.product.sku" type="string">
+    <Description>
+      The [Stock Keeping Unit](https://en.wikipedia.org/wiki/Stock_keeping_unit). This must not contain newline characters.
+    </Description>
+    <DefaultValue>
+      `undefined`
+    </DefaultValue>
+  </Field>
+
+  <Field name="contents.product.upc" type="string">
+    <Description>
+      The [Universal Product Code](https://en.wikipedia.org/wiki/Universal_Product_Code) for this item. This must not contain newline characters.
+    </Description>
+    <DefaultValue>
+      `undefined`
+    </DefaultValue>
+  </Field>
+
+  <Field name="contents.product.isbn" type="string">
+    <Description>
+      The [International Standard Book Number](https://www.isbn-international.org/) for this item. This must not contain newline characters.
+    </Description>
+    <DefaultValue>
+      `undefined`
+    </DefaultValue>
+  </Field>
+
+  <Field name="contents.product.asin" type="string">
+    <Description>
+      The [Amazon Standard Identification Number](https://www.amazon.com/gp/seller/asin-upc-isbn-info.html) for this item. This must not contain newline characters.
+    </Description>
+    <DefaultValue>
+      `undefined`
+    </DefaultValue>
+  </Field>
+
+  <Field name="contents.product.fulfillmentSku" type="string">
+    <Description>
+      The [Stock Keeping Unit](https://en.wikipedia.org/wiki/Stock_keeping_unit) related to the fulfillment of this item. This must not contain newline characters.
+    </Description>
+    <DefaultValue>
+      `undefined`
+    </DefaultValue>
+  </Field>
+
+  <Field name="contents.product.inventoryID" type="string">
+    <Description>
+      The inventory ID for this item. This must not contain newline characters.
+    </Description>
+    <DefaultValue>
+      `undefined`
+    </DefaultValue>
+  </Field>
+
+  <Field name="contents.product.identifiers">
+    <Description>
+      Your own identifiers for this product.
+    </Description>
+    <Type>
+      [identifiers object](../../../reference/identifiers-object.mdx)
+    </Type>
+    <DefaultValue>
+      `undefined`
+    </DefaultValue>
+  </Field>
+
+  <Field name="contents.product.details">
+    <Description>
+      A list of details associated with this product.
+    </Description>
+    <Type>
+      [identifiers object](../../../reference/identifiers-object.mdx)
+    </Type>
+    <DefaultValue>
+      `undefined`
+    </DefaultValue>
+  </Field>
+
+  <Field name="contents.quantity" type="object">
+    <Description>
+      The quantity of this item in the package.
+    </Description>
+    <DefaultValue>
+      An object populated with the objects below.
+    </DefaultValue>
+  </Field>
+
+  <Field name="contents.quantity.value" type="number">
+    <Description>
+      The quantity of items. The minimum value is `1`. This value may not contain decimals.
+    </Description>
+    <DefaultValue>
+      `1`
+    </DefaultValue>
+  </Field>
+
+
+<Field name="notifyBuyer" type="boolean">
+    <Description>
+      Instructs the order source on whether to notify the buyer. Omit, or set to null, to retain the order source's default behavior.
+    </Description>
+    <DefaultValue>
+      `undefined`
+    </DefaultValue>
+  </Field>
+
+
+<Field name="fulfillmentCost">
+    <type>
+      [charge object](../../../reference/charge.mdx)
+    </type>
+    <Description>
+      The amount it costs to fulfill this shipment.
+    </Description>
+    <DefaultValue>
+      `undefined`
+    </DefaultValue>
+  </Field>
+
+
+<Field name="insuranceCost">
+    <type>
+      [charge object](../../../reference/charge.mdx)
+    </type>
+    <Description>
+      The amount of insurance purchased for this shipment.
+    </Description>
+    <DefaultValue>
+      `undefined`
+    </DefaultValue>
+  </Field>
+
+</Reference>
+
+Customizing Parameters
+------------------------------
+Here's an example of using the [`connect.config.js` file](./../../../testing/config.mdx) to customize the `shipmentCreated` test. 
+This example provides values for all parameters and uses the global `session` parameter for authentication.
+
+```javascript
+module.exports = {
+  session: {
+    auth: {
+      accessToken: "eyJzdWIiOiJ1c2Vycy9Uek1Vb2NNRjRwIiwibmFtZSI6IlJvYmVydCBUb2tlbiBNYW4iLCJzY29wZSI6InNlbGYgZ3JvdXBzL2FkbWlucyIsImV4cCI6IjEzMDA4MTkzODAifQ"
+    }
+  },
+  tests: {
+    shipmentCreated: [
+      {
+        trackingNumber: 123456
+        trackingURL: "https://www.tracking-url.com",
+        carrierCode: "usps",
+        carrierServiceCode: "usps_first_class_mail",
+        shipFrom: {
+          name: 'John Doe',
+          phoneNumber: '111-111-1111',
+          company: 'Example Corp.',
+          addressLines: [
+            '4009 Marathon Blvd',
+            'Suite 300'
+          ],
+          cityLocality: 'Austin',
+          stateProvince: 'TX',
+          postalCode: '78756',
+          country: 'US',
+          isResidential: false
+        },
+        shipTo: {
+          name: 'Amanda Miller',
+          phoneNumber: '555-555-5555',
+          addressLines: [
+            '525 S Winchester Blvd'
+          ],
+          cityLocality: 'San Jose',
+          stateProvince: 'CA',
+          postalCode: '95128',
+          country: 'US',
+        },
+        shipDateTime: '2020-04-15T12:00:00-05:00'
+        contents: [{
+          quantity: {
+            value: 1
+          }
+        }]
+      }
+    ]
+  }
+}
+```
