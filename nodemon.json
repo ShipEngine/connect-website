@@ -1,0 +1,7 @@
+{
+  "watch": [
+    "src"
+  ],
+  "ext": ".ts",
+  "exec": "ts-node ./src/start.ts 3000 /Users/pierce/Dev/ship/shipengine-integration-platform-sample-apps/southwest-products/"
+}

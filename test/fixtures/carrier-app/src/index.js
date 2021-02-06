@@ -1,0 +1,25 @@
+"use strict";
+
+module.exports = {
+  id: "e6b6c16f-69d6-4bc2-bec2-1fc5cb0065f7",
+  name: "ShipEngine Testing",
+  description: "Another test app!",
+  logo: "./logo.svg",
+  icon: "./logo.svg",
+  websiteURL: "http://www.carier-site.com",
+  manifestType: "digital",
+  manifestLocations: "single_location",
+  manifestShipments: "explicit_shipments",
+  connectionForm: "./forms/connect.js",
+  settingsForm: "./forms/settings.js",
+  connect: "./methods/connect.js",
+  cancelPickups: "./methods/cancel-pickups.js",
+  cancelShipments: "./methods/cancel-shipments.js",
+  createManifest: "./methods/create-manifest.js",
+  createShipment: "./methods/create-shipment.js",
+  rateShipment: "./methods/rate-shipment.js",
+  schedulePickup: "./methods/schedule-pickup.js",
+  trackShipment: "./methods/track-shipment.js",
+  deliveryServices: ["./definitions/example-delivery-service.js"],
+  pickupServices: [],
+};
