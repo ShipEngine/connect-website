@@ -1,0 +1,8 @@
+# ESLint config
+# http://eslint.org/docs/user-guide/configuring
+
+env:
+  mocha: true
+
+rules:
+  "unicorn/no-abusive-eslint-disable": "warn"

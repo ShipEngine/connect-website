@@ -1,0 +1,21 @@
+---
+id: "<%- _uuidv4 %>"
+name: Example Delivery Service
+description: This is an example delivery service. Please remove and define your own.
+code: eds
+deliveryConfirmations:
+  - ./example-delivery-confirmation.yaml
+manifestType: digital
+isInsurable: true
+isTrackable: false
+labelFormats:
+  - pdf
+labelSizes:
+  - 4x8
+availableCountries:
+  - US
+  - CA
+  - MX
+packaging:
+  - ./example-packaging.yaml
+serviceArea: international
