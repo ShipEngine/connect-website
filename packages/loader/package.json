@@ -24,9 +24,9 @@
     "lib"
   ],
   "scripts": {
-    "clean": "shx rm -rf .nyc_output coverage lib",
+    "clean": "shx rm -rf .nyc_output coverage lib tsconfig.tsbuildinfo",
     "lint": "eslint src test",
-    "build": "tsc",
+    "build": "tsc --build",
     "watch": "tsc --watch",
     "test": "mocha && npm run lint",
     "coverage": "nyc node_modules/mocha/bin/mocha",

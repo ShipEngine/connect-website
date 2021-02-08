@@ -138,7 +138,7 @@
   "scripts": {
     "build": "tsc --build",
     "bump": "bump --tag --push --all",
-    "clean": "shx rm -rf .nyc_output coverage lib",
+    "clean": "shx rm -rf .nyc_output coverage lib tsconfig.tsbuildinfo",
     "coverage": "nyc npm run-script test:skip-integration",
     "lint": "eslint src test/specs",
     "mocha": "mocha",

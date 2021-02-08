@@ -29,7 +29,7 @@
     "lib"
   ],
   "scripts": {
-    "clean": "shx rm -rf .nyc_output coverage lib",
+    "clean": "shx rm -rf .nyc_output coverage lib tsconfig.tsbuildinfo",
     "lint": "eslint src test",
     "build": "tsc --build",
     "watch": "tsc --watch",
