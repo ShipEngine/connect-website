@@ -86,7 +86,6 @@
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-chai-friendly": "^0.6.0",
     "globby": "^11.0.1",
-    "nock": "^13.0.5",
     "npm-check": "^5.9.0",
     "nyc": "^15.1.0",
     "shx": "^0.3.3",
