@@ -1,9 +1,0 @@
-{
-  "name": "@test/order-app",
-  "description": "test app",
-  "version": "0.0.0",
-  "dependencies": {
-    "@shipengine/connect": "1.0.6"
-  },
-  "main": "src/index.js"
-}

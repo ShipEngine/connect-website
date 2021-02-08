@@ -20,15 +20,20 @@
     "noImplicitThis": true,
     "strictBindCallApply": true,
     "strictPropertyInitialization": true,
+
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
-    ]
+    ],
+
+    "composite": true
   },
+
   "exclude": [
     "node_modules"
   ],
+
   "include": [
     "next-env.d.ts",
     "**/*.ts",

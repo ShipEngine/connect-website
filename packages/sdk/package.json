@@ -31,7 +31,7 @@
   "scripts": {
     "clean": "shx rm -rf .nyc_output coverage lib",
     "lint": "eslint src test",
-    "build": "tsc",
+    "build": "tsc --build",
     "watch": "tsc --watch",
     "test": "mocha && npm run lint",
     "coverage": "nyc node_modules/mocha/bin/mocha",

@@ -10,7 +10,5 @@ describe("getVersions", () => {
     expect(getVersions()).to.haveOwnProperty("@shipengine/connect-cli");
     expect(getVersions()).to.haveOwnProperty("@shipengine/connect-sdk");
     expect(getVersions()).to.haveOwnProperty("@shipengine/connect-loader");
-    expect(getVersions()).to.haveOwnProperty("@shipengine/connect-local-dev-api");
-    expect(getVersions()).to.haveOwnProperty("@shipengine/connect-local-dev-ui");
   });
 });

@@ -56,7 +56,7 @@ async function readJsonFile<T>(filePath: string): Promise<T> {
   const json = await readTextFile(filePath);
 
   try {
-    return json5.parse(json) as T;
+    return json5.parse(json);
   }
   catch (originalError: unknown) {
     throw error(SystemErrorCode.Syntax, `Unable to parse ${path.basename(filePath)}.`, { originalError });

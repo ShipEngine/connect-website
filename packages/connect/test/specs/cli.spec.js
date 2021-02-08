@@ -61,8 +61,6 @@ describe("CLI", () => {
       expect(cli).to.have.stdout.that.contains(`@shipengine/connect-cli`);
       expect(cli).to.have.stdout.that.contains(`@shipengine/connect-sdk`);
       expect(cli).to.have.stdout.that.contains(`@shipengine/connect-loader`);
-      expect(cli).to.have.stdout.that.contains(`@shipengine/connect-local-dev-ui`);
-      expect(cli).to.have.stdout.that.contains(`@shipengine/connect-local-dev-api`);
     });
 
     it("should support -v shorthand", () => {
@@ -74,8 +72,6 @@ describe("CLI", () => {
       expect(cli).to.have.stdout.that.contains(`@shipengine/connect-cli`);
       expect(cli).to.have.stdout.that.contains(`@shipengine/connect-sdk`);
       expect(cli).to.have.stdout.that.contains(`@shipengine/connect-loader`);
-      expect(cli).to.have.stdout.that.contains(`@shipengine/connect-local-dev-ui`);
-      expect(cli).to.have.stdout.that.contains(`@shipengine/connect-local-dev-api`);
     });
 
     it("should support 'version' command", () => {
@@ -87,8 +83,6 @@ describe("CLI", () => {
       expect(cli).to.have.stdout.that.contains(`@shipengine/connect-cli`);
       expect(cli).to.have.stdout.that.contains(`@shipengine/connect-sdk`);
       expect(cli).to.have.stdout.that.contains(`@shipengine/connect-loader`);
-      expect(cli).to.have.stdout.that.contains(`@shipengine/connect-local-dev-ui`);
-      expect(cli).to.have.stdout.that.contains(`@shipengine/connect-local-dev-api`);
     });
   });
 });

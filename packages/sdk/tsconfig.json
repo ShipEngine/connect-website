@@ -1,14 +1,14 @@
 {
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "target": "esnext",
     "module": "commonjs",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-
+    "rootDir": "src",
     "outDir": "lib",
     "sourceMap": true,
     "declaration": true,
-
     "newLine": "LF",
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
@@ -18,16 +18,7 @@
     "strictNullChecks": true,
     "strictPropertyInitialization": true,
     "stripInternal": true,
-
-    "typeRoots": [
-      "node_modules/@types",
-      "src/typings"
-    ]
+    "composite": true
   },
-  "include": [
-    "src/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["src/**/*"]
 }

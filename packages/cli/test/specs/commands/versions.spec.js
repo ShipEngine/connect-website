@@ -11,7 +11,5 @@ describe("connect versions", () => {
       expect(ctx.stdout).to.contain("@shipengine/connect-cli");
       expect(ctx.stdout).to.contain("@shipengine/connect-sdk");
       expect(ctx.stdout).to.contain("@shipengine/connect-loader");
-      expect(ctx.stdout).to.contain("@shipengine/connect-local-dev-ui");
-      expect(ctx.stdout).to.contain("@shipengine/connect-local-dev-api");
     });
 });

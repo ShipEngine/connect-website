@@ -109,5 +109,5 @@ function resolve(moduleId: string, cwd: string): string {
  */
 function isDynamicImport<T>(value: unknown): value is DynamicImport<T> {
   const dynamicImport = value as DynamicImport<T>;
-  return value && typeof dynamicImport.then === "function";
+  return !!(value && typeof dynamicImport.then === "function");
 }

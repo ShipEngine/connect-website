@@ -18,8 +18,6 @@
     "@oclif/plugin-not-found": "^1.2.4",
     "@shipengine/capitalization": "^1.2.1",
     "@shipengine/connect-loader": "^3.2.0",
-    "@shipengine/connect-local-dev-api": "^2.2.1",
-    "@shipengine/connect-local-dev-ui": "^2.1.0",
     "@shipengine/connect-sdk": "^12.6.0",
     "axios": "^0.21.1",
     "chai": "^4.2.0",
@@ -138,7 +136,7 @@
     "url": "https://github.com/ShipEngine/connect-cli.git"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --build",
     "bump": "bump --tag --push --all",
     "clean": "shx rm -rf .nyc_output coverage lib",
     "coverage": "nyc npm run-script test:skip-integration",
@@ -148,7 +146,7 @@
     "posttest": "eslint src test/specs",
     "prepack": "shx rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
     "release": "npm run upgrade && npm run clean && npm test && npm run bump",
-    "test": "shx rm -rf lib && npm run build && nyc --extension .ts mocha --forbid-only && npm run lint",
+    "test": "shx rm -rf lib tsconfig.tsbuildinfo && npm run build && nyc --extension .ts mocha --forbid-only && npm run lint",
     "test:skip-integration": "shx rm -rf lib && npm run build && nyc --extension .ts mocha --forbid-only -i -g @integration && npm run lint",
     "upgrade": "npm-check -u && npm audit fix",
     "version": "oclif-dev readme && git add README.md",
