@@ -19,7 +19,9 @@ export async function main(args: string[]): Promise<void> {
     }
 
     // Run the CLI
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const cli = await importCLI();
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
     await cli.run(args);
 
     // The CLI finished successfully, but there may still be STDIO in process,

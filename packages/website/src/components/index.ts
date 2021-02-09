@@ -3,7 +3,7 @@ import { A } from "./html/a";
 import { Blockquote } from "./html/blockquote";
 import { H1, H2, H3, H4, H5, H6 } from "./html/headings";
 import { Img } from "./html/img";
-import { passThru } from "./html/pass-thru";
+import { passThru, MarkdownProps } from "./html/pass-thru";
 import { Pre } from "./html/pre";
 import { Pager } from "./pager/pager";
 import { DefaultValue, Description, Field, Reference, Type } from "./reference/reference";

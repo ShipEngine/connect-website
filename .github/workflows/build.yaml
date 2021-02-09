@@ -1,0 +1,54 @@
+name: build
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  ci:
+    name: ${{ matrix.dir }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    strategy:
+      fail-fast: true
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-latest
+          - windows-latest
+        dir:
+          - packages/connect
+          - packages/cli
+          - packages/loader
+          - packages/sdk
+          - packages/website
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: install node@14
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+
+      - name: yarn install
+        run: yarn install --frozen-lockfile
+
+      - name: yarn lint
+        working-directory: ${{ matrix.dir }}
+        run: yarn lint
+
+      - name: yarn build
+        working-directory: ${{ matrix.dir }}
+        run: yarn build
+
+      - name: yarn test
+        working-directory: ${{ matrix.dir }}
+        run: yarn test
+        env:
+          HOME: ./

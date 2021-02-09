@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 
-interface MarkdownProps {
+export interface MarkdownProps {
   markdown?: boolean;
   children?: ReactNode;
   [key: string]: unknown;
