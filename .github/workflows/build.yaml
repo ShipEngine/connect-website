@@ -9,7 +9,36 @@ on:
       - master
 
 jobs:
-  ci:
+  website:
+    name: website
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: install node@14
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+
+      - name: yarn install
+        run: yarn install --frozen-lockfile
+
+      - name: yarn lint
+        working-directory: packages/website
+        run: yarn lint
+
+      - name: yarn build
+        working-directory: packages/website
+        run: yarn build
+
+      - name: yarn test
+        working-directory: packages/website
+        run: yarn test
+
+  libraries:
     name: ${{ matrix.dir }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 10
@@ -25,7 +54,6 @@ jobs:
           - packages/cli
           - packages/loader
           - packages/sdk
-          - packages/website
 
     steps:
       - name: checkout
