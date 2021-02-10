@@ -1,11 +1,11 @@
 {
-  "name": "connect",
+  "name": "shipengine-connect",
   "version": "1.0.0",
   "description": "ShipEngine Connect",
   "main": "index.js",
   "repository": "git@github.com:ShipEngine/connect.git",
   "author": "ShipEngine Connect <connect@shipengine.com>",
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
   "private": true,
   "workspaces": [
     "packages/*"
