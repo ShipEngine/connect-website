@@ -1,0 +1,120 @@
+---
+title: Carrier App Tests
+description: The ShipEngine connect test suite includes comprehensive test coverage for your carrier app
+---
+
+
+Carrier App Tests
+==========================================
+The following automated tests are available for the [Carrier App](../../reference/carrier.mdx).
+
+> **TIP:** Click on a test name to view the details for the test.
+
+
+`connect()` Method
+------------------------------------
+The following tests exercise the [`connect() method`](../../reference/methods/connect.mdx) and the validity of your connection form's `connect.json` react json schema.
+
+| Test Name | Description
+|-----------|------------------------------------------
+|[`connect_all_fields`](./connect/connect-all-fields.mdx) | Generates test data based on your [Connect Form](../../reference/forms.mdx#connection-form-examples) and submits it to your `connect` method.
+
+
+
+`createShipment()` Method
+------------------------------------
+The following tests exercise the [`createShipment()` method](../../reference/methods/create-shipment.mdx).
+They may also call the [`connect() method`](../../reference/methods/connect.mdx) if you do not provide
+a `session` object in your [`connect.config.js` file](./../../testing/config.mdx).
+
+| Test Name | Description
+|-----------|------------------------------------------
+|[`createShipment_domestic`](./create-shipment/create-shipment-domestic.mdx) | Creates a domestic shipment.
+|[`createShipment_international`](./create-shipment/create-shipment-international.mdx) | Creates an international shipment.
+|[`createShipment_with_insurance`](./create-shipment/create-shipment-with-insurance.mdx) | Creates a domestic shipment with insurance.
+|[`createShipment_multi_package`](./create-shipment/create-shipment-multi-package.mdx) | Creates a domestic shipment with multiple packages.
+|[`createShipment_return`](./create-shipment/create-shipment-return.mdx) | Creates a return shipment.
+
+
+
+`cancelShipments` Method
+------------------------------------
+The following tests exercise the [`cancelShipments()` method](../../reference/methods/cancel-shipments.mdx). They will
+also utilize the [`createShipment()` method](../../reference/methods/create-shipment.mdx) to create the shipment(s) that will
+be cancelled in the test. They may also call the [`connect()` method](../../reference/methods/connect.mdx) if you do not provide
+ a `session` object in your [`connect.config.js` file](./../../testing/config.mdx).
+
+| Test Name | Description
+|-----------|------------------------------------------
+| [`cancelShipments_single`](./cancel-shipment/cancel-shipments-single.mdx) | Creates a shipment and cancels it.
+| [`cancelShipments_multiple`](./cancel-shipment/cancel-shipments-multiple.mdx) | Creates multiple shipments and cancels them.
+
+
+`trackShipments()` Method
+------------------------------------
+The following tests exercise the [`trackShipment()` method](../../reference/methods/track-shipment.mdx). They will
+also utilize the [`createShipment()` method](../../reference/methods/create-shipment.mdx) to create the shipment(s) that will
+be tracked in the test. They may also call the [`connect()` method](../../reference/methods/connect.mdx) if you do not provide
+a `session` object in your [`connect.config.js` file](./../../testing/config.mdx).
+
+| Test Name | Description
+|-----------|------------------------------------------
+| [`trackShipment`](./track-shipment/track-shipment.mdx) | Creates a shipment and tracks it.
+| [`trackShipment_return`](./track-shipment/track-shipment-return.mdx) | Creates a return shipment and tracks it.
+
+
+
+`rateShipment()` Method
+------------------------------------
+The following tests exercise the [`rateShipment()` method](../../reference/methods/cancel-shipments.mdx).
+They may also call the [`connect()` method](../../reference/methods/connect.mdx) if you do not provide
+a `session` object in your [`connect.config.js` file](./../../testing/config.mdx).
+
+| Test Name | Description
+|-----------|------------------------------------------
+|[`rateShipment`](./rate-shipment/rate-shipment.mdx) | Rates a shipment for a single [`delivery service`](../../reference/delivery-service.mdx).
+|[`rateShipment_with_all_services`](./rate-shipment/rate-shipment-with-all-services.mdx) | Rate a shipment for all [`delivery services`](../../reference/delivery-service.mdx). This test will only be run if your app has more than one delivery service defined.
+|[`rateShipment_return`](./rate-shipment/rate-shipment-return.mdx) | Rates a shipment for a single [`delivery service`](../../reference/delivery-service.mdx) that supports returns.
+
+
+`createManifest()` Method
+------------------------------------
+The following tests exercise the [`createManifest()` method](../../reference/methods/create-manifest.mdx). They will
+also utilize the [`createShipment()` method](../../reference/methods/create-shipment.mdx) to create the shipment(s) that will
+be in the manifest in the test. They may also call the [`connect()` method](../../reference/methods/connect.mdx) if you do not provide
+a `session` object in your [`connect.config.js` file](./../../testing/config.mdx).
+
+| Test Name | Description
+|-----------|------------------------------------------
+| **COMING SOON!** | We're still working on building-out the test suite for ShipEngine Connect
+
+
+
+`schedulePickup()` Method
+------------------------------------
+The following tests exercise the [`schedulePickup()` method](../../reference/methods/schedule-pickup.mdx). They will
+also utilize the [`createShipment()` method](../../reference/methods/create-shipment.mdx) to create the shipment(s) that will
+be picked up in the test. They may also call the [`connect()` method](../../reference/methods/connect.mdx) if you do not provide
+a `session` object in your [`connect.config.js` file](./../../testing/config.mdx).
+
+| Test Name | Description
+|-----------|------------------------------------------
+| [`schedulePickup_same_day`](./schedule-pickup/schedule-pickup-same-day.mdx) | Schedules a same day pickup.
+| [`schedulePickup_next_day`](./schedule-pickup/schedule-pickup-next-day.mdx) | Schedules a next day pickup.
+| [`schedulePickup_multi_shipment`](./schedule-pickup/schedule-pickup-multi-shipment.mdx) | Schedules a pickup with multiple shipments.
+
+
+
+`cancelPickups()` Method
+------------------------------------
+The following tests exercise the [`cancelPickup()` method](../../reference/methods/cancel-pickups.mdx). They will
+also utilize the [`createShipment()` method](../../reference/methods/create-shipment.mdx) to create shipment(s) and the
+ [`schedulePickup()` method](../../reference/methods/schedule-pickup.mdx) to schedule the pickup that will
+be cancelled in the test. They may also call the [`connect()` method](../../reference/methods/connect.mdx) if you do not provide
+a `session` object in your [`connect.config.js` file](./../../testing/config.mdx).
+
+| Test Name | Description
+|-----------|------------------------------------------
+| [`cancelPickups_same_day`](./cancel-pickup/cancel-pickups-same-day.mdx) | Cancels a same day pickup.
+| [`cancelPickups_next_day`](./cancel-pickup/cancel-pickups-next-day.mdx) | Cancels a next day pickup.
+| [`cancelPickups_multi_shipment`](./cancel-pickup/cancel-pickups-multiple.mdx) | Cancels a pickup with multiple shipments.

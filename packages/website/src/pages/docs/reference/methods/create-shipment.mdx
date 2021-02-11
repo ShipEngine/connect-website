@@ -1,0 +1,422 @@
+---
+title: createShipment Method
+description: This method creates a new shipment.
+---
+
+
+`createShipment()`
+===========================
+This method creates a new shipment.
+
+
+Syntax
+-----------------------------------------------
+<CodeWrapper>
+```javascript
+module.exports = async function createShipment(transaction, shipment) {
+  // Your code here
+}
+```
+
+```typescript
+import { Transaction, NewShipment, ShipmentConfirmation } from "@shipengine/connect";
+
+export default async function createShipment(
+  transaction: Transaction,
+  shipment: NewShipment
+): Promise<ShipmentConfirmation> {
+  // Your code here
+}
+```
+</CodeWrapper>
+
+
+
+Parameters
+-----------------------------------------------
+
+### `transaction`
+A [transaction object](../transaction.mdx) containing information about the transaction and session state.
+
+### `shipment`
+An object containing information about the new shipment to create.
+
+<Reference>
+
+  <Field name="deliveryService" nullable={false}>
+    <Type>
+      [delivery service object](./../delivery-service-object.mdx#delivery-service-argument)
+    </Type>
+    <Description>
+      An object that identifies a [delivery service](./../delivery-service.mdx) that is offered by a carrier.
+    </Description>
+  </Field>
+
+  <Field name="shipFrom" nullable={false}>
+    <Type>
+      [address + contact info object](./../address.mdx#address-contact-info-properties)
+    </Type>
+    <Description>
+      The address _from_ which the shipment is being shipped.
+    </Description>
+  </Field>
+
+  <Field name="shipTo" nullable={false}>
+    <Type>
+      [address + contact info object](./../address.mdx#address-contact-info-properties)
+    </Type>
+    <Description>
+      The address _to_ which the shipment is being shipped.
+    </Description>
+  </Field>
+
+  <Field name="returnTo" nullable={false}>
+    <Type>
+      [address + contact info object](./../address.mdx#address-contact-info-properties)
+    </Type>
+    <Description>
+      The address to which to send the shipment in the case of a return. This may be different from the `shipFrom` address if the customer uses a centralized returns processing facility.
+    </Description>
+  </Field>
+
+  <Field name="shipDateTime" nullable={false}>
+    <Type>
+      [date/time object](./../date-time.mdx)
+    </Type>
+    <Description>
+      The date/time that the package is expected to ship. This is not guaranteed to be in the future.
+    </Description>
+  </Field>
+
+  <Field name="totalInsuredValue" type="object" nullable={false}>
+    <Description>
+      The total insured value of all packages in the shipment.
+    </Description>
+  </Field>
+
+  <Field name="totalInsuredValue.value" type="number" nullable={false}>
+    <Description>
+      The value of the insured amount.
+    </Description>
+  </Field>
+
+  <Field name="totalInsuredValue.currency" type="string" nullable={false}>
+    <Description>
+      The currency that the value represents.
+    </Description>
+  </Field>
+
+  <Field name="isNonMachineable" type="boolean" nullable={false}>
+    <Description>
+      Indicates whether the shipment cannot be processed automatically due to size, shape, weight, etc. and requires manual handling. This property is `true` if any package in the shipment is non-machinable.
+    </Description>
+  </Field>
+
+  <Field name="returns" type="object" nullable={false}>
+    <Description>
+      An object that indicates whether or not this shipment is a return shipment.
+    </Description>
+  </Field>
+
+  <Field name="returns.isReturn" type="boolean" nullable={false}>
+    <Description>
+      Indicates whether or not this shipment is a return shipment.
+    </Description>
+  </Field>
+
+  <Field name="returns.rmaNumber" type="string" nullable={false}>
+    <Description>
+      A [return merchandise authorization (RMA)](https://en.wikipedia.org/wiki/Return_merchandise_authorization) is an associated number assigned to process the return. This number is often printed on the label and used when the original shipper processes the inbound return. This string will not contain newline characters.
+    </Description>
+  </Field>
+
+  <Field name="packages" nullable={false}>
+    <Type>
+      [new package object[]](./../new-package-object.mdx)
+    </Type>
+    <Description>
+      The list of packages in this shipment.
+    </Description>
+  </Field>
+
+  <Field name="package" nullable={false}>
+    <Type>
+      [new package object](./../new-package-object.mdx)
+    </Type>
+    <Description>
+      Returns the first package in the `packages` array. Useful for carriers that only support single-piece shipments.
+    </Description>
+  </Field>
+
+ <Field name="deliveryConfirmation" nullable={true}>
+    <Type>
+      [delivery confirmation object](./../delivery-confirmation-object.mdx#delivery-confirmation-argument)
+    </Type>
+    <Description>
+      The requested [delivery confirmation](./../delivery-confirmation.mdx) for this shipment.
+    </Description>
+  </Field>
+
+  <Field name="shippingOptions" nullable={true}>
+    <Type>
+      [shipping options](./../shipping-options.mdx)
+    </Type>
+    <Description>
+      The shipping options that are required for this shipment.
+    </Description>
+  </Field>
+
+</Reference>
+
+
+
+Return Value
+-----------------------------------------------
+### `shipmentConfirmation`
+An object that contains confirmation that a shipment has been created.
+
+<Reference>
+
+  <Field name="label" type="object" required={true}>
+    <Description>
+      An object representing the shipping label details.
+    </Description>
+  </Field>
+
+  <Field name="label.name" type="string" required={false}>
+    <Description>
+      The user-friendly name of the label. This string must not contain newline characters.
+    </Description>
+  </Field>
+
+  <Field name="label.type" type="string" required={true}>
+    <Description>
+      The type of document. This value should always be `label` for label objects. This object type is also used for
+      customs forms and scan forms.
+    </Description>
+  </Field>
+
+  <Field name="label.size" type="string" required={true}>
+    <Description>
+      The size of the label. Valid values include the following:
+      * `A4`- A4 sized paper ( 8.27 inches x 11.69 inches)
+      * `letter` - Letter sized paper (8.5 inches by 11 inches)
+      * `4x6` - Paper sized 4 inches by 6 inches
+      * `4x8` - Paper sized 4 inches by 8 inches
+    </Description>
+  </Field>
+
+  <Field name="label.format" type="string" required={true}>
+    <Description>
+      The file format of the label. Valid values include the following:
+      * `pdf` - Portable Document Format (PDF)
+      * `zpl` - Zebra Printer Label (ZPL)
+      * `png` - Portable Graphics Format (PNG)
+    </Description>
+  </Field>
+
+  <Field name="label.data" required={true}>
+    <Type>
+      [Buffer object](https://nodejs.org/api/buffer.html)
+    </Type>
+    <Description>
+      The label data, in the specified file format.
+    </Description>
+  </Field>
+
+  <Field name="label.referenceFields" type="string[]" required={true}>
+    <Description>
+      The **actual** reference fields on the label, which may not match the originally-specified reference fields due to the carrier's restrictions on the number of fields or the length of each field. Each string in this array must not contain newline characters.
+    </Description>
+  </Field>
+
+  <Field name="charges" required={true}>
+    <Type>
+      [charge object[]](./../charge.mdx)
+    </Type>
+    <Description>
+      The breakdown of charges for this shipment.  If the carrier does not provide a detailed breakdown, then just use a single charge of type "shipping".
+    </Description>
+  </Field>
+
+  <Field name="form" type="object" required={false}>
+    <Description>
+      An object representing a form, such as a customs form or scan form.
+
+      This property is not required. If it is provided, it must contain all of its required properties, listed below.
+    </Description>
+  </Field>
+
+  <Field name="form.name" type="string" required={false}>
+    <Description>
+      The user-friendly name of the form (e.g. "Customs Form", "Scan Form"). This string must not contain newline characters.
+    </Description>
+  </Field>
+
+  <Field name="form.type" type="string" required={true}>
+    <Description>
+      The type of form. This value should be `customs_form` or `scan_form`.
+    </Description>
+  </Field>
+
+  <Field name="form.size" type="string" required={true}>
+    <Description>
+      The size of the form. Valid values include the following:
+      * `A4`- A4 sized paper ( 8.27 inches x 11.69 inches)
+      * `letter` - Letter sized paper (8.5 inches by 11 inches)
+      * `4x6` - Paper sized 4 inches by 6 inches
+      * `4x8` - Paper sized 4 inches by 8 inches
+    </Description>
+  </Field>
+
+  <Field name="form.format" type="string" required={true}>
+    <Description>
+      The file format of the form. Valid values include the following:
+      * `pdf` - Portable Document Format (PDF)
+      * `zpl` - Zebra Printer Label (ZPL)
+      * `png` - Portable Graphics Format (PNG)
+    </Description>
+  </Field>
+
+  <Field name="form.data" required={true}>
+    <Type>
+      [Buffer object](https://nodejs.org/api/buffer.html)
+    </Type>
+    <Description>
+      The form data, in the specified file format.
+    </Description>
+  </Field>
+
+  <Field name="trackingNumber" type="string" required={false}>
+    <Description>
+      The master tracking number for the entire shipment. For single-piece shipments, this will be the same as the package tracking number. For multi-piece shipments, this may be a separate tracking number, or the same tracking number as one of the packages. This string must not contain newline characters.
+    </Description>
+  </Field>
+
+  <Field name="identifiers" required={false}>
+    <Type>
+      [identifiers object](./../identifiers-object.mdx)
+    </Type>
+    <Description>
+      Your own identifiers for this shipment.
+    </Description>
+  </Field>
+
+  <Field name="deliveryDateTime" required={false}>
+    <Type>
+      [date/time object](./../date-time.mdx), <br/>
+      or [Date object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) object, <br/>
+      or a string representing the date and time in [ISO](https://www.w3.org/TR/NOTE-datetime) format.
+    </Type>
+    <Description>
+      The estimated date and time the shipment will be delivered.
+    </Description>
+  </Field>
+
+  <Field name="packages" type="object[]" required={false}>
+    <Description>
+      An array of objects containing confirmation details about each package in the shipment. This array will contain at least one item.
+    </Description>
+  </Field>
+
+  <Field name="packages[].trackingNumber" type="string">
+    <Description>
+      The master tracking number for the entire shipment. For single-piece shipments, this will be the same as the package tracking number. For multi-piece shipments, this may be a separate tracking number, or the same tracking number as one of the packages. This string must not contain newline characters.
+    </Description>
+  </Field>
+
+  <Field name="packages[].identifiers" required={false}>
+    <Description>
+      Your own identifiers for this package.
+    </Description>
+    <Type>
+      [identifiers object](./../identifiers-object.mdx)
+    </Type>
+  </Field>
+
+  <Field name="packages[].metadata" type="object" required={false}>
+    <Description>
+      Custom data about this package that will be persisted by ShipEngine Connect. Must be JSON serializable.
+    </Description>
+  </Field>
+
+</Reference>
+
+
+
+Example
+-----------------------------------------------
+<CodeWrapper>
+```javascript
+module.exports = async function createShipment(transaction, shipment) {
+  // STEP 1: Validation
+  for (let parcel of shipment.packages) {
+    if (parcel.packaging.id === OWN_PACKAGING && parcel.weight.grams > 100000) {
+      throw new Error(`${parcel.packaging.name} cannot weigh more than 100 kilograms`);
+    }
+  }
+
+  // STEP 2: Create the data that the carrier's API expects
+  let data = {
+    operation: "generate_label",
+    session_id: transaction.session.id,
+    service_code: shipment.deliveryService.code,
+    confirmation_code: shipment.deliveryConfirmation.code,
+    ship_date: shipment.shipDateTime.toISOString(),
+    from_zone: parseInt(shipment.shipFrom.postalCode, 10),
+    to_zone: parseInt(shipment.shipTo.postalCode, 10),
+    total_weight: shipment.package.weight.ounces,
+  };
+
+  // STEP 3: Call the carrier's API
+  const response = await apiClient.request({ data });
+
+  // STEP 4: Create the output data that ShipEngine expects
+  return await formatShipment(response.data);
+}
+```
+
+```typescript
+import {
+  ChargeType,
+  DocumentFormat,
+  DocumentSize,
+  DocumentType,
+  NewShipment,
+  ShipmentConfirmation,
+  Transaction
+} from "@shipengine/connect";
+
+export default async function createShipment(
+  transaction: Transaction<Session>, shipment: NewShipment): Promise<ShipmentConfirmation> {
+
+  // STEP 1: Validation
+  for (let parcel of shipment.packages) {
+    if (parcel.packaging.id === box.id && parcel.weight.ounces > (150 * 16)) {
+      throw new Error(`${parcel.packaging.name} cannot weigh more than 150 pounds`);
+    }
+    else if (parcel.packaging.id === bag.id && parcel.weight.ounces > (45 * 16)) {
+      throw new Error(`${parcel.packaging.name} cannot weigh more than 45 pounds`);
+    }
+  }
+
+  // STEP 2: Create the data that the carrier's API expects
+  let data: GenerateLabelRequest = {
+    operation: "generate_label",
+    session_id: transaction.session.id,
+    service_code: shipment.deliveryService.code,
+    confirmation_code: shipment.deliveryConfirmation.code,
+    ship_date: shipment.shipDateTime.toISOString(),
+    from_zone: parseInt(shipment.shipFrom.postalCode, 10),
+    to_zone: parseInt(shipment.shipTo.postalCode, 10),
+    total_weight: shipment.package.weight.ounces,
+  };
+
+  // STEP 3: Call the carrier's API
+  const response = await apiClient.request<GenerateLabelResponse>({ data });
+
+  // STEP 4: Create the output data that ShipEngine expects
+  return formatShipment(response.data);
+}
+```
+</CodeWrapper>

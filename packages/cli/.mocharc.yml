@@ -1,0 +1,20 @@
+# Mocha options
+# https://mochajs.org/#configuring-mocha-nodejs
+# https://github.com/mochajs/mocha/blob/master/example/config/.mocharc.yml
+
+require:
+  - source-map-support/register
+
+bail: true
+retries: 5
+recusive: true
+timeout: 10000
+spec:
+  # Test fixtures
+  - test/fixtures/**/*.js
+
+  # Test specs
+  - test/specs/**/*.spec.js
+
+extensions:
+  - js

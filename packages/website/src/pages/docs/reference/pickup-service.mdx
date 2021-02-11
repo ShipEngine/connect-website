@@ -1,0 +1,109 @@
+---
+title: Pickup Service Definition
+description: The page describes how to define a pickup service.
+---
+
+
+Pickup Service Definition
+===============================================
+A Pickup Service allows the sender to request that one or more packages be picked up at a specified time and location. Each pickup service that is offered must be defined
+in its own pickup service definition file. This file can reside anywhere within your application as long as its location is specified in the [Carrier Application Definition](./carrier.mdx) file.
+ The definition may be specified in [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript), [TypeScript](https://www.typescriptlang.org/), [JSON](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON), or
+  [YAML](https://en.wikipedia.org/wiki/YAML).
+
+These pickup service definitions will be used by the [ShipEngine Connect](./../index.mdx) to display pickup service options within our suite of e-commerce applications when your carrier is used.
+
+> **WARNING:** Once you have published your app, you must not change the `id`, `name` or `code` for any of your definitions.
+
+Pickup Service Properties
+----------------------------------------------
+<Reference>
+
+  <Field name="id" required={true}>
+    <Type>
+      [UUID](https://www.npmjs.com/package/uuid)
+    </Type>
+    <Description>
+      UUID that uniquely identifies the pickup service. This ID should never change.
+    </Description>
+  </Field>
+
+  <Field name="identifiers" type="object" required={false}>
+    <Description>
+      Your own identifiers for this pickup service.
+    </Description>
+  </Field>
+
+  <Field name="code" type="string" required={false}>
+    <Description>
+      Optional code used to map to what the carrier or uses to identify the pickup service.
+    </Description>
+  </Field>
+
+  <Field name="name" type="string" required={true}>
+    <Description>
+      The user-friendly service name (e.g. "One-Time Pickup", "Recurring Pickup", "Drop-Off").
+    </Description>
+  </Field>
+
+  <Field name="description" type="string" required={false}>
+    <Description>
+      A short, user-friendly description of the service.
+    </Description>
+  </Field>
+</Reference>
+
+
+
+Examples
+-----------------------------------------------
+
+<CodeWrapper>
+```typescript
+import { PickupServiceConfig } from "@shipengine/connect";
+
+const pickupService:PickupServiceConfig = {
+  id: "27483200-72b4-11ea-bc55-0242ac130003",
+  identifiers: {
+        apiCode: "DO"
+  }
+  code: "DO",
+  name: "Drop Off",
+  description: "Drop-off your parcel at any Parcel Post™ kiosk or locker"
+}
+```
+
+```javascript
+const pickupService = {
+  id: "27483200-72b4-11ea-bc55-0242ac130003",
+  identifiers: {
+        apiCode: "DO"
+  },
+  code: "DO",
+  name: "Drop Off",
+  description: "Drop-off your parcel at any Parcel Post™ kiosk or locker"
+}
+```
+
+```json
+{
+  "id": "27483200-72b4-11ea-bc55-0242ac130003",
+  "identifiers": {
+        "apiCode": "DO"
+  },
+  "code": "DO",
+  "name": "Drop Off",
+  "description": "Drop-off your parcel at any Parcel Post™ kiosk or locker"
+}
+```
+
+```yaml
+id: 27483200-72b4-11ea-bc55-0242ac130003
+identifiers: {
+  apiCode: DO
+}
+code: DO
+name: Drop Off
+description: Drop-off your parcel at any Parcel Post™ kiosk or locker
+```
+</CodeWrapper>

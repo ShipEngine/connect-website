@@ -1,0 +1,8 @@
+{
+  "name": "@carrier/inline-app",
+  "version": "0.0.1",
+  "main": "carrier.js",
+  "devDependencies": {
+    "@shipengine/connect-sdk": "1.0.0"
+  }
+}

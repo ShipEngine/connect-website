@@ -1,0 +1,15 @@
+{
+  "id": "<%- _uuidv4 %>",
+  "name": "Example Delivery Service",
+  "description": "This is an example delivery service. Please remove and define your own.",
+  "code": "eds",
+  "deliveryConfirmations": ["./example-delivery-confirmation.json"],
+  "isInsurable": true,
+  "manifestType": "digital",
+  "isTrackable": false,
+  "labelFormats": ["pdf"],
+  "labelSizes": ["4x8"],
+  "availableCountries": ["US", "CA", "MX"],
+  "packaging": ["./example-packaging.json"],
+  "serviceArea": "international"
+}

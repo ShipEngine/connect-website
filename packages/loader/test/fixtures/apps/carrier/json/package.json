@@ -1,0 +1,8 @@
+{
+  "name": "@carrier/json-app",
+  "version": "0.0.1",
+  "main": "carrier.json",
+  "devDependencies": {
+    "@shipengine/connect-sdk": "1.0.0"
+  }
+}

@@ -1,0 +1,41 @@
+---
+title: Order App Tests
+description: The ShipEngine connect test suite includes comprehensive test coverage for your order app
+---
+
+
+Order App Tests
+==========================================
+The following automated tests are available for the [Order App](../../reference/order.mdx).
+
+> **TIP:** Click on a test name to view the details for the test.
+
+`acknowledgeOrders()` Method
+------------------------------------
+The following tests exercise the [`acknowledgeOrders() method`](../../reference/methods/acknowledge-orders.mdx).
+You will likely need to provide a [session auth token](../../oauth/index.mdx) object to fulfill your app's authentication needs.
+
+| Test Name | Description
+|-----------|------------------------------------------
+|[`acknowledgeOrders`](./acknowledge-orders/acknowledge-orders.mdx) | Generates notification and transaction data and submits it to your `acknowledgeOrders` method.
+
+
+`getSalesOrdersByDate()` Method
+------------------------------------
+The following tests exercise the [`getSalesOrdersBydate()`](../../reference/methods/get-sales-orders-by-date.mdx) method.
+You will likely need to provide a [session auth token](../../oauth/index.mdx) object to fulfill your app's authentication needs.
+
+| Test Name | Description
+|-----------|------------------------------------------
+|[`getSalesOrdersByDate`](./get-sales-orders-by-date/get-sales-orders-by-date.mdx) | Retrieves sales orders for the provided date rate.
+
+
+`shipmentCreated` Method
+------------------------------------
+The following tests exercise the [`shipmentCreated()`](../../reference/methods/shipment-created.mdx) method.
+You will likely need to provide a [session auth token](../../oauth/index.mdx) object to fulfill your app's authentication needs.
+
+
+| Test Name | Description
+|-----------|------------------------------------------
+| [`shipmentCreated`](./shipment-created/shipment-created.mdx) | Notifies an application that a shipment has been imported from an order source.

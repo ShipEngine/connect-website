@@ -1,0 +1,78 @@
+{
+  "name": "@shipengine/connect",
+  "version": "1.0.17",
+  "description": "The official developer tooling for building ShipEngine connect apps",
+  "keywords": [
+    "shipengine",
+    "connect",
+    "platform",
+    "app",
+    "cli",
+    "sdk",
+    "typescript",
+    "types",
+    "definitions"
+  ],
+  "author": {
+    "name": "ShipEngine",
+    "email": "support@shipengine.com",
+    "url": "https://connect.shipengine.com"
+  },
+  "license": "Apache-2.0",
+  "homepage": "https://connect.shipengine.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ShipEngine/connect.git"
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "bin": {
+    "connect": "bin/connect.js"
+  },
+  "files": [
+    "bin",
+    "lib"
+  ],
+  "scripts": {
+    "clean": "shx rm -rf .nyc_output coverage lib tsconfig.tsbuildinfo",
+    "lint": "eslint src test",
+    "build": "tsc --build",
+    "watch": "tsc --watch",
+    "test": "yarn test:javascript && yarn test:typescript",
+    "test:javascript": "mocha",
+    "test:typescript": "tsc --noEmit test/specs/typescript.spec.ts",
+    "coverage": "nyc node_modules/mocha/bin/mocha",
+    "bump": "bump patch --tag --push --all",
+    "release": "yarn upgrade && yarn clean && yarn build && yarn test && yarn bump"
+  },
+  "engines": {
+    "node": ">=10"
+  },
+  "engineStrict": true,
+  "devDependencies": {
+    "@jsdevtools/chai-exec": "^2.1.1",
+    "@jsdevtools/version-bump-prompt": "^6.1.0",
+    "@types/chai": "^4.2.14",
+    "@types/mocha": "^8.0.4",
+    "@types/node": "^14.14.14",
+    "@types/update-notifier": "^5.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.7.0",
+    "@typescript-eslint/parser": "^4.7.0",
+    "chai": "^4.2.0",
+    "eslint": "^7.13.0",
+    "mocha": "^8.2.1",
+    "npm-check": "^5.9.0",
+    "nyc": "^15.1.0",
+    "shx": "^0.3.3",
+    "source-map-support": "^0.5.19",
+    "typescript": "^4.0.5"
+  },
+  "dependencies": {
+    "@oclif/command": "^1.8.0",
+    "@oclif/errors": "^1.3.4",
+    "@shipengine/connect-cli": "^2.15.2",
+    "@shipengine/connect-sdk": "^12.6.4",
+    "resolve-from": "^5.0.0",
+    "update-notifier": "^5.0.1"
+  }
+}

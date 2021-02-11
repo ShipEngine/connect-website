@@ -1,0 +1,54 @@
+---
+title: Carrier App Overview
+description: ShipEngine Connect carrier apps allow shipping providers to integrate their rating, labeling, tracking, and manifesting functionality
+---
+
+
+Carrier Application Overview
+=================================
+
+The [Carrier](../reference/carrier.mdx) application is intended to be implemented by companies that provide shipping services (aka carriers).
+It consists of specifying the various [delivery](../reference/delivery-service.mdx) and [pickup](../reference/pickup-service.mdx) services that
+your carrier offers and implementing the methods that correspond to the available services.
+
+![Carrier Diagram](/img/carrier-app/carrier-diagram.svg)
+
+
+Delivery Service
+-------------------------
+A service offered by the carrier that allows for the transportation of packages from one destination to the other.
+
+#### Examples
+  - FedEx Ground
+  - UPS Next Day Air
+  - USPS First Class Mail
+
+
+Packaging
+-------------------------
+The types of packaging that a service offers for the pickup and delivery services.
+
+#### Examples
+  - Flat Rate Box
+  - Padded Envelope
+  - 36-inch Tube
+
+
+Delivery Confirmation
+-------------------------
+The various ways that your service offers delivery confirmation back to the sender.
+
+#### Examples
+  - Adult Signature Required
+  - Authority to Leave
+
+
+Pickup Service
+-------------------------
+Defines what services you offer where a driver will come to the user's location, whether it's at a residence or office,
+to pickup a package for shipping rather than the user coming to your drop-off location.
+
+#### Examples
+  - One Time Pickup
+  - Recurring Pickup
+  - Drop Off

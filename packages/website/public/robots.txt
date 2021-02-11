@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://connect.shipengine.com/sitemap.xml

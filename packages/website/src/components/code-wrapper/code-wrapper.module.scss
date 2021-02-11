@@ -1,0 +1,13 @@
+@use "../../styles/variables" as *;
+
+.codeWrapper {
+  position: relative;
+}
+
+.codeBlock {
+  display: none;
+}
+
+.selectedCodeBlock {
+  display: block;
+}
