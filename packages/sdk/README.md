@@ -31,13 +31,13 @@ Local Development
 To build/test the library locally on your computer:
 
 1. __Install dependencies__<br>
-`npm install`
+`yarn`
 
 2. __Run the build script__<br>
-`npm run build` or `npm run watch`
+`yarn build` or `yarn watch`
 
 3. __Run the tests__<br>
-`npm test`
+`yarn test`
 
 
 
@@ -46,7 +46,7 @@ Releasing
 To release a new version of the SDK, use the command below.
 
 ```bash
-npm run release
+yarn release
 ```
 
 This will do the following:
@@ -59,4 +59,4 @@ This will do the following:
 - Prompt you for the version number to bump to
 - Tag, commit, and push to GitHub
 
-Once the commit is merged to the `master` branch, the [CI/CD script](.github/workflows/CI-CD.yaml) will publish it to NPM.
+Once the commit is merged to the `master` branch, the [CI/CD script](../../.github/workflows/build.yaml) will publish it to NPM.

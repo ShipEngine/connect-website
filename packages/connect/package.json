@@ -38,13 +38,12 @@
     "lint": "eslint src test",
     "build": "tsc --build",
     "watch": "tsc --watch",
-    "test": "npm run test:javascript && npm run test:typescript && npm run lint",
+    "test": "yarn test:javascript && yarn test:typescript",
     "test:javascript": "mocha",
     "test:typescript": "tsc --noEmit test/specs/typescript.spec.ts",
     "coverage": "nyc node_modules/mocha/bin/mocha",
-    "upgrade": "npm-check -u && npm audit fix",
     "bump": "bump patch --tag --push --all",
-    "release": "npm run upgrade && npm run clean && npm run build && npm test && npm run bump"
+    "release": "yarn upgrade && yarn clean && yarn build && yarn test && yarn bump"
   },
   "engines": {
     "node": ">=10"

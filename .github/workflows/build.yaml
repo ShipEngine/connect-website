@@ -34,10 +34,6 @@ jobs:
         working-directory: packages/website
         run: yarn build
 
-      - name: yarn test
-        working-directory: packages/website
-        run: yarn test
-
   libraries:
     name: ${{ matrix.dir }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}

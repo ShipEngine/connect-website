@@ -142,13 +142,13 @@ Local Development
 To build/test the library locally on your computer:
 
 1. __Install dependencies__<br>
-`npm install`
+`yarn`
 
 2. __Run the build script__<br>
-`npm run build` or `npm run watch`
+`yarn build` or `yarn watch`
 
 3. __Run the tests__<br>
-`npm test`
+`yarn test`
 
 
 
@@ -157,7 +157,7 @@ Releasing
 To release a new version, use the command below.
 
 ```bash
-npm run release
+yarn release
 ```
 
 This will do the following:
