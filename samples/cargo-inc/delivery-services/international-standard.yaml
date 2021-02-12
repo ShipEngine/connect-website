@@ -1,0 +1,28 @@
+id: 2c24a88f-a6ab-4082-9761-674e9280d5f8
+code: STD
+name: International Standard
+description: Standard 3-day delivery anwyere in the world
+serviceArea: global
+isConsolidationService: true
+isTrackable: true
+isInsurable: true
+manifestType: digital
+
+labelFormats:
+  - pdf
+
+labelSizes:
+  - A4
+  - letter
+
+availableCountries: worldwide.yaml
+
+packaging:
+  - ../packaging/package.yaml
+  - ../packaging/pallet.yaml
+
+deliveryConfirmations:
+  - ../delivery-confirmations/signature-required.yaml
+  - ../delivery-confirmations/adult-signature.yaml
+  - ../delivery-confirmations/recipient-signature.yaml
+
