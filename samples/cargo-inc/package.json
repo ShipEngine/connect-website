@@ -1,0 +1,17 @@
+{
+  "name": "@cargo-inc/carrier",
+  "version": "1.0.0",
+  "description": "The Cargo Incorporated carrier app",
+  "main": "cargo-inc.yaml",
+  "devDependencies": {
+    "@shipengine/connect": "^1.0.14"
+  },
+  "scripts": {
+    "start": "connect start",
+    "test": "connect test"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "js-yaml": "^3.14.0"
+  }
+}
