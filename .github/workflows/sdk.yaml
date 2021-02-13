@@ -1,0 +1,86 @@
+name: sdk
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - "packages/sdk/**"
+      - ".github/workflows/sdk.yaml"
+  pull_request:
+    branches:
+      - master
+    paths:
+      - "packages/sdk/**"
+      - ".github/workflows/sdk.yaml"
+
+jobs:
+  test:
+    name: ${{ matrix.dir }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    strategy:
+      fail-fast: true
+      matrix:
+        os:
+          - ubuntu-latest
+          - windows-latest
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: install node@14
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+
+      - name: yarn install
+        run: yarn install --frozen-lockfile
+
+      - name: yarn lint
+        working-directory: packages/sdk
+        run: yarn lint
+
+      - name: yarn build
+        working-directory: packages/sdk
+        run: yarn build
+
+      - name: yarn test
+        working-directory: packages/sdk
+        run: yarn test
+        env:
+          HOME: ./
+
+  publish:
+    name: Publish to NPM
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: test
+
+    defaults:
+      run:
+        working-directory: packages/sdk
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v2
+
+      - name: Install Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build
+        working-directory: packages/sdk
+        run: yarn build
+
+      - name: Publish to NPM
+        working-directory: packages/{{ PACAKGE }}
+        run: yarn publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

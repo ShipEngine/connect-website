@@ -1,0 +1,53 @@
+name: loader
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - "packages/loader/**"
+      - ".github/workflows/loader.yaml"
+  pull_request:
+    branches:
+      - master
+    paths:
+      - "packages/loader/**"
+      - ".github/workflows/loader.yaml"
+
+jobs:
+  test:
+    name: ${{ matrix.dir }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    strategy:
+      fail-fast: true
+      matrix:
+        os:
+          - ubuntu-latest
+          - windows-latest
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: install node@14
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+
+      - name: yarn install
+        run: yarn install --frozen-lockfile
+
+      - name: yarn lint
+        working-directory: packages/loader
+        run: yarn lint
+
+      - name: yarn build
+        working-directory: packages/loader
+        run: yarn build
+
+      - name: yarn test
+        working-directory: packages/loader
+        run: yarn test
+        env:
+          HOME: ./

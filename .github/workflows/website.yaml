@@ -1,0 +1,41 @@
+name: website
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - "packages/website/**"
+      - ".github/workflows/website.yaml"
+  pull_request:
+    branches:
+      - master
+    paths:
+      - "packages/website/**"
+      - ".github/workflows/website.yaml"
+
+jobs:
+  build:
+    name: website
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: install node@14
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+
+      - name: yarn install
+        run: yarn install --frozen-lockfile
+
+      - name: yarn lint
+        working-directory: packages/website
+        run: yarn lint
+
+      - name: yarn build
+        working-directory: packages/website
+        run: yarn build
