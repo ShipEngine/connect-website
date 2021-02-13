@@ -6,8 +6,6 @@ import styles from "./toggle-layout.module.scss";
 
 export function ToggleLayout({ className }: Props) {
   const settings = useContext(UserSettingsContext);
-  const isList = settings.referenceLayout === "list";
-  const isTable = !isList;
 
   return (
     <div className={className}>

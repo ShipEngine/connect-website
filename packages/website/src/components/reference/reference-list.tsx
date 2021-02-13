@@ -14,7 +14,7 @@ interface ReferenceTableProps {
  * Renders a list of reference information. Each item in the list is a `<Field>`
  * component, which defines the field name, data type, default value, description, etc.
  */
-export function ReferenceList({ nameHeading, fields }: ReferenceTableProps) {
+export function ReferenceList({ fields }: ReferenceTableProps) {
   return (
     <div className={styles.referenceListWrapper}>
       <ToggleLayout className={styles.toggleLayout} />
