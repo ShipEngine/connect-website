@@ -3,17 +3,6 @@
 ShipEngine Connect SDK
 ==============================================
 
-[![Cross-Platform Compatibility](https://shipengine.github.io/img/badges/os-badges.svg)](https://github.com/ShipEngine/connect-sdk/actions)
-[![Build Status](https://github.com/ShipEngine/connect-sdk/workflows/CI-CD/badge.svg)](https://github.com/ShipEngine/connect-sdk/actions)
-
-[![Coverage Status](https://coveralls.io/repos/github/ShipEngine/connect-sdk/badge.svg?branch=master)](https://coveralls.io/github/ShipEngine/connect-sdk)
-[![Dependencies](https://david-dm.org/ShipEngine/connect-sdk.svg)](https://david-dm.org/ShipEngine/connect-sdk)
-[![npm](https://img.shields.io/npm/v/@shipengine/connect-sdk.svg)](https://www.npmjs.com/package/@shipengine/connect-sdk)
-[![License](https://img.shields.io/npm/l/@shipengine/connect-sdk.svg)](LICENSE)
-
-
-<p><br></p>
-
 > ### ⚠ WARNING: This is an internal package
 > Using this package directly is discouraged and unsupported. Instead, you should install
 > [**@shipengine/connect**](https://www.npmjs.com/package/@shipengine/connect) which uses this package under the hood.
