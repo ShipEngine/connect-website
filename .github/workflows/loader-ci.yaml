@@ -6,25 +6,21 @@ on:
       - master
     paths:
       - "packages/loader/**"
-      - ".github/workflows/loader.yaml"
+      - ".github/workflows/loader-ci.yaml"
   pull_request:
     branches:
       - master
     paths:
       - "packages/loader/**"
-      - ".github/workflows/loader.yaml"
+      - ".github/workflows/loader-ci.yaml"
 
 jobs:
-  test:
+  ci:
     name: ${{ matrix.dir }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     strategy:
       fail-fast: true
-      matrix:
-        os:
-          - ubuntu-latest
-          - windows-latest
 
     steps:
       - name: checkout

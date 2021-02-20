@@ -1,25 +1,27 @@
-name: website
+name: {{ PACKAGE }}
 
 on:
   push:
     branches:
       - master
     paths:
-      - "website/**"
-      - ".github/workflows/website.yaml"
+      - "packages/{{ PACKAGE }}/**"
+      - ".github/workflows/{{ PACKAGE }}-ci.yaml"
   pull_request:
     branches:
       - master
     paths:
-      - "website/**"
-      - ".github/workflows/website.yaml"
+      - "packages/{{ PACKAGE }}/**"
+      - ".github/workflows/{{ PACKAGE }}-ci.yaml"
 
 jobs:
-  build:
-    name: ci
+  ci:
+    name: ${{ matrix.dir }}
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     strategy:
       fail-fast: true
+
     steps:
       - name: checkout
         uses: actions/checkout@v2
@@ -30,13 +32,18 @@ jobs:
           node-version: 14
 
       - name: yarn install
-        working-directory: website
         run: yarn install --frozen-lockfile
 
       - name: yarn lint
-        working-directory: website
+        working-directory: packages/{{ PACKAGE }}
         run: yarn lint
 
       - name: yarn build
-        working-directory: website
+        working-directory: packages/{{ PACKAGE }}
         run: yarn build
+
+      - name: yarn test
+        working-directory: packages/{{ PACKAGE }}
+        run: yarn test
+        env:
+          HOME: ./

@@ -1,0 +1,43 @@
+name: cli
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - "packages/cli/**"
+    tags:
+      - v*
+
+jobs:
+  publish:
+    name: Publish to NPM
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    defaults:
+      run:
+        working-directory: packages/cli
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v2
+
+      - name: Install Node
+        uses: actions/setup-node@v2
+        with:
+          always-auth: true
+          node-version: 14
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build
+        working-directory: packages/cli
+        run: yarn build
+
+      - name: Publish to NPM
+        working-directory: packages/cli
+        run: yarn publish --non-interactive --no-git-tag-version
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

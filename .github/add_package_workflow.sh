@@ -1,10 +1,10 @@
-#!/bin/bash
+#!/usr/bin/bash
 REPO_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." >/dev/null 2>&1 && pwd )
-WORKFLOW_TEMPLATE=$(cat .github/workflow_template.yaml)
+CI_WORKFLOW_TEMPLATE=$(cat .github/ci_template.yaml)
+PUBLISH_WORKFLOW_TEMPLATE=$(cat .github/publish_template.yaml)
 
 PACKAGE=$1
 PACKAGE_PATH=${REPO_DIR}/packages/${PACKAGE}
-
 
 if [ -z "${PACKAGE}" ]; then
     echo "Package must be specified"
@@ -17,10 +17,12 @@ if [ ! -d "${PACKAGE_PATH}" ]; then
     exit 1
 fi
 
-echo "generating workflow for ${PACKAGE_PATH}"
+echo "generating workflows for ${PACKAGE_PATH}"
 
 # replace template package placeholder with route name
-WORKFLOW=$(echo "${WORKFLOW_TEMPLATE}" | sed "s/{{ PACKAGE }}/${PACKAGE}/g")
+CI_WORKFLOW=$(echo "${CI_WORKFLOW_TEMPLATE}" | sed "s/{{ PACKAGE }}/${PACKAGE}/g")
+PUBLISH_WORKFLOW=$(echo "${PUBLISH_WORKFLOW_TEMPLATE}" | sed "s/{{ PACKAGE }}/${PACKAGE}/g")
 
 # save workflow to .github/workflows/{ROUTE}
-echo "${WORKFLOW}" > .github/workflows/${PACKAGE}.yaml
+echo "${CI_WORKFLOW}" > .github/workflows/${PACKAGE}-ci.yaml
+echo "${PUBLISH_WORKFLOW}" > .github/workflows/${PACKAGE}-publish.yaml
