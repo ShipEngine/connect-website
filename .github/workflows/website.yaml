@@ -36,7 +36,3 @@ jobs:
       - name: yarn lint
         working-directory: website
         run: yarn lint
-
-      - name: yarn build
-        working-directory: website
-        run: yarn build
