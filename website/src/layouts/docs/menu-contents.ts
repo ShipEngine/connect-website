@@ -23,7 +23,6 @@ export const menu: MenuContents = [
           { title: "Environment Variables", href: "/docs/environment-variables"},
           { title: "Error Handling", href: "/docs/error-handling" },
           { title: "Testing", href: "/docs/testing" },
-          { title: "Local Dev Tooling", href: "/docs/local-dev-tooling"},
           { title: "Publishing", href: "/docs/publish" },
         ]
       },
