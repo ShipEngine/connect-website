@@ -57,11 +57,6 @@ const dxToCapiSpecPackageType = (
 ): PackageType[] => {
 	const packageTypes: PackageType[] = [];
 	packaging.forEach((dxPackage) => {
-		if (dxPackage.name.toLowerCase() === 'package') {
-			throw new ValidationError(
-				`PackageId ${dxPackage.id} can not be named ${dxPackage.name}`,
-			);
-		}
 
 		const packageAttributes = resolvePackageAttributes(dxPackage, services);
 		if (!packageAttributes || packageAttributes.length === 0) {
