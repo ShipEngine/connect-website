@@ -15,9 +15,11 @@ should have its own definition file. These files can reside anywhere within your
  The definition may be specified in [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript), [TypeScript](https://www.typescriptlang.org/), [JSON](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON), or
   [YAML](https://en.wikipedia.org/wiki/YAML).
 
+  Note that at least one Delivery Confirmation value is required. If your app doesn’t require them, you will just need have one defined as “None”.
+
 
 > **WARNING:**
-> You may define only one delivery service for each of the delivery service types. Additionally, each delivery service must
+> You may define only one delivery confirmation for each of the delivery confirmation types. Additionally, each delivery confirmation must
 > have a unique `id`, `name`, and `code`. Once you have published your app, these unique properties must not be changed.
 
 Delivery Confirmation Properties
