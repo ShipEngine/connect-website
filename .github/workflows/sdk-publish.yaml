@@ -1,13 +1,11 @@
-name: sdk
+name: sdk publish
 
 on:
   push:
     branches:
       - master
     paths:
-      - "packages/sdk/**"
-    tags:
-      - v*
+      - "packages/sdk/package.json"
 
 jobs:
   publish:

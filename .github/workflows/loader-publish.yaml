@@ -1,13 +1,11 @@
-name: loader
+name: loader publish
 
 on:
   push:
     branches:
       - master
     paths:
-      - "packages/loader/**"
-    tags:
-      - v*
+      - "packages/loader/package.json"
 
 jobs:
   publish:

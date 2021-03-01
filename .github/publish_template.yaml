@@ -1,13 +1,11 @@
-name: {{ PACKAGE }}
+name: {{ PACKAGE }} publish
 
 on:
   push:
     branches:
       - master
     paths:
-      - "packages/{{ PACKAGE }}/**"
-    tags:
-      - v*
+      - "packages/{{ PACKAGE }}/package.json"
 
 jobs:
   publish:

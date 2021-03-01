@@ -1,4 +1,4 @@
-name: sdk
+name: sdk test
 
 on:
   push:
@@ -16,7 +16,6 @@ on:
 
 jobs:
   ci:
-    name: ${{ matrix.dir }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     strategy:

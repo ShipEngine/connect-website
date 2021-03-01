@@ -1,13 +1,11 @@
-name: cli
+name: cli publish
 
 on:
   push:
     branches:
       - master
     paths:
-      - "packages/cli/**"
-    tags:
-      - v*
+      - "packages/cli/package.json"
 
 jobs:
   publish:

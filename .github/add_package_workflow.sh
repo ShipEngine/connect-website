@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 REPO_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." >/dev/null 2>&1 && pwd )
 CI_WORKFLOW_TEMPLATE=$(cat .github/ci_template.yaml)
 PUBLISH_WORKFLOW_TEMPLATE=$(cat .github/publish_template.yaml)

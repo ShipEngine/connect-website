@@ -1,13 +1,11 @@
-name: connect
+name: connect publish
 
 on:
   push:
     branches:
       - master
     paths:
-      - "packages/connect/**"
-    tags:
-      - v*
+      - "packages/connect/package.json"
 
 jobs:
   publish:
