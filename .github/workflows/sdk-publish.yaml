@@ -30,6 +30,10 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
+      - name: Build
+        working-directory: packages/sdk
+        run: yarn build
+
       - name: Increment version
         working-directory: packages/sdk
         run: |
