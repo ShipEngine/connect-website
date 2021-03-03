@@ -35,6 +35,14 @@ export interface ErrorProps {
 export function error(code: ErrorCode | SystemErrorCode, message: string, props: ErrorProps = {}): SystemError {
   let originalError = props.originalError as SystemError | undefined;
 
+  /*
+   * This is a stopgap to make sure we preserve the stack trace from the app code in the logs
+   * When this error wrapping is moved into middleware in the app layer, this won't be needed
+   */
+  if (originalError?.stack) {
+    console.log(originalError.stack)
+  }
+
   if (originalError) {
     message += ` ${originalError.message}`;
   }
