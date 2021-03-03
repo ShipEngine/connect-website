@@ -42,7 +42,7 @@
     "test:javascript": "mocha",
     "test:typescript": "tsc --noEmit test/specs/typescript.spec.ts",
     "coverage": "nyc node_modules/mocha/bin/mocha",
-    "bump": "bump patch --commit 'release connect v' --tag 'connect v' --push --all",
+    "bump": "bump patch --commit 'release connect v' --tag 'connect_v' --push --all",
     "release": "yarn clean && yarn build && yarn test && yarn bump"
   },
   "engines": {

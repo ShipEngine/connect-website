@@ -136,7 +136,7 @@
   },
   "scripts": {
     "build": "tsc --build",
-    "bump": "bump patch --commit 'release cli v' --tag 'connect-cli v' --push --all",
+    "bump": "bump patch --commit 'release cli v' --tag 'connect-cli_v' --push --all",
     "clean": "shx rm -rf .nyc_output coverage lib tsconfig.tsbuildinfo",
     "coverage": "nyc yarn-script test:skip-integration",
     "lint": "eslint src test/specs",
