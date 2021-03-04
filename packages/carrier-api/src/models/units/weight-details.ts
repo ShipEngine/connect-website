@@ -1,4 +1,4 @@
-import { WeightUnit } from './weight-unit';
+import { WeightUnit } from "./weight-unit";
 
 export interface WeightDetails {
   weight_in_ounces?: number;

@@ -1,5 +1,5 @@
-import { BillingLineItem } from '../billing/billing-line-item';
-import { Currency } from '../currency';
+import { BillingLineItem } from "../billing/billing-line-item";
+import { Currency } from "../currency";
 
 export interface Rate {
   service_code?: string;

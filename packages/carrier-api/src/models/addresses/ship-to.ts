@@ -1,3 +1,3 @@
-import { AddressBase } from './address-base';
+import { AddressBase } from "./address-base";
 
 export interface ShipTo extends AddressBase {}

@@ -1,4 +1,4 @@
-import { BaseRequest } from './base-request';
+import { BaseRequest } from "./base-request";
 import {
   CancellationDetails,
   PickupConfirmation,
@@ -6,7 +6,7 @@ import {
   PickupLocationDetails,
   PickupShipmentDetails,
   PickupWindow,
-} from '../models';
+} from "../models";
 
 export interface CancelPickupRequest extends BaseRequest {
   confirmation?: PickupConfirmation;

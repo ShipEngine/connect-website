@@ -1,5 +1,5 @@
-import { BillingCategories } from './billing-categories';
-import { Currency } from '../currency';
+import { BillingCategories } from "./billing-categories";
+import { Currency } from "../currency";
 
 export interface BillingLineItem {
   billing_category: BillingCategories;

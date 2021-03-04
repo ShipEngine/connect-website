@@ -1,5 +1,5 @@
 export enum LabelFormats {
-  Pdf = 'PDF',
-  Zpl = 'ZPL',
-  Png = 'PNG',
+  Pdf = "PDF",
+  Zpl = "ZPL",
+  Png = "PNG",
 }

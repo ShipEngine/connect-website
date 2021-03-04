@@ -1,4 +1,4 @@
-import { BaseRequest } from './base-request';
+import { BaseRequest } from "./base-request";
 import {
   ConfirmationTypes,
   AdvancedOptions,
@@ -9,7 +9,7 @@ import {
   ShipFrom,
   ShipTo,
   FulfillmentPlanDetails,
-} from '../models';
+} from "../models";
 
 export interface GetRatesRequest extends BaseRequest {
   service_code?: string;

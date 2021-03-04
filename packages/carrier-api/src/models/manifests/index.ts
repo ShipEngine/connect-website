@@ -1,2 +1,2 @@
-export * from './label';
-export * from './manifest';
+export * from "./label";
+export * from "./manifest";

@@ -1,4 +1,4 @@
-import { StandardizedErrorCode } from './standardized-error-code';
+import { StandardizedErrorCode } from "./standardized-error-code";
 
 export interface DetailedError {
   standardized_error_code: StandardizedErrorCode;

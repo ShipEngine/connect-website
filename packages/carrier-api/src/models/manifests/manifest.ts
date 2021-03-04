@@ -1,4 +1,4 @@
-import { ResourceDownload } from '../resource-download';
+import { ResourceDownload } from "../resource-download";
 
 export interface Manifest {
   manifest_id?: string;

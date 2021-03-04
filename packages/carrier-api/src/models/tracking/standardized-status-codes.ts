@@ -1,9 +1,9 @@
 export enum StandardizedStatusCodes {
-  Unknown = 'UN',
-  Accepted = 'AC',
-  InTransit = 'IT',
-  Delivered = 'DE',
-  Exception = 'EX',
-  DeliveryAttempt = 'AT',
-  NotYetInSystem = 'NY',
+  Unknown = "UN",
+  Accepted = "AC",
+  InTransit = "IT",
+  Delivered = "DE",
+  Exception = "EX",
+  DeliveryAttempt = "AT",
+  NotYetInSystem = "NY",
 }

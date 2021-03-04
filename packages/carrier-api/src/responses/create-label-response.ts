@@ -1,10 +1,10 @@
-import { BaseResponse } from './base-response';
+import { BaseResponse } from "./base-response";
 import {
   LabelDownload,
   FormDownload,
   BillingLineItem,
   Currency,
-} from '../models';
+} from "../models";
 
 export interface CreateLabelResponse extends BaseResponse {
   transaction_id: string;

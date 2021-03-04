@@ -1,5 +1,5 @@
-import { BaseRequest } from './base-request';
-import { TrackingIdentifier, TrackingAttribute } from '../models';
+import { BaseRequest } from "./base-request";
+import { TrackingIdentifier, TrackingAttribute } from "../models";
 
 export interface TrackingRequest extends BaseRequest {
   tracking_number?: string;

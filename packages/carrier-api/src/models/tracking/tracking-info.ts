@@ -1,7 +1,7 @@
-import { StandardizedStatusCodes } from './standardized-status-codes';
-import { Dimensions } from '../units/dimensions';
-import { Service } from './service';
-import { TrackEvent } from './track-event';
+import { StandardizedStatusCodes } from "./standardized-status-codes";
+import { Dimensions } from "../units/dimensions";
+import { Service } from "./service";
+import { TrackEvent } from "./track-event";
 
 export interface TrackingInfo {
   carrier_name?: string;

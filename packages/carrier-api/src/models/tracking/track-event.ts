@@ -1,4 +1,4 @@
-import { LatLong } from './lat-long';
+import { LatLong } from "./lat-long";
 
 export interface TrackEvent {
   event_datetime?: string;

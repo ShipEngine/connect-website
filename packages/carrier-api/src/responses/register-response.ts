@@ -1,4 +1,4 @@
-import { Credentials } from '../models';
+import { Credentials } from "../models";
 
 export interface RegisterResponse {
   credentials: Credentials;

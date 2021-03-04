@@ -1,4 +1,4 @@
-import { BaseResponse } from './base-response';
+import { BaseResponse } from "./base-response";
 
 export interface CancelPickupResponse extends BaseResponse {
   confirmation_id?: string;

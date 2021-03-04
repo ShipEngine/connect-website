@@ -1,10 +1,10 @@
-import { BaseRequest } from './base-request';
+import { BaseRequest } from "./base-request";
 import {
   PickupContactDetails,
   PickupLocationDetails,
   PickupShipmentDetails,
   PickupWindow,
-} from '../models';
+} from "../models";
 
 export interface SchedulePickupRequest extends BaseRequest {
   location?: PickupLocationDetails;

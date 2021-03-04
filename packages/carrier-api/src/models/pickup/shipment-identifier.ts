@@ -1,4 +1,4 @@
-import { Identifier } from '../identifier';
+import { Identifier } from "../identifier";
 
 export interface ShipmentIdentifier {
   tracking_number?: string;

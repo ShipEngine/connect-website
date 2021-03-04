@@ -1,4 +1,4 @@
-import { Identifier } from '../identifier';
+import { Identifier } from "../identifier";
 
 export interface FulfillmentPlanItems {
   external_sales_order_identifiers?: Identifier[];

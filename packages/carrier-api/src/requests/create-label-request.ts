@@ -1,4 +1,4 @@
-import { BaseRequest } from './base-request';
+import { BaseRequest } from "./base-request";
 import {
   AdvancedOptions,
   ConfirmationTypes,
@@ -13,7 +13,7 @@ import {
   ShipFrom,
   ShipFromDisplay,
   ShipTo,
-} from '../models';
+} from "../models";
 
 export interface CreateLabelRequest extends BaseRequest {
   service_code?: string;

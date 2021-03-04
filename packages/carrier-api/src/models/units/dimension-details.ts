@@ -1,5 +1,5 @@
-import { Dimensions } from './dimensions';
-import { DimensionUnit } from './dimension-unit';
+import { Dimensions } from "./dimensions";
+import { DimensionUnit } from "./dimension-unit";
 
 export interface DimensionDetails {
   dimensions_in_centimeters?: Dimensions;

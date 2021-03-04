@@ -1,5 +1,5 @@
-import { BaseRequest } from './base-request';
-import { ShipFrom, Label, AdvancedOptions } from '../models';
+import { BaseRequest } from "./base-request";
+import { ShipFrom, Label, AdvancedOptions } from "../models";
 
 export interface CreateManifestRequest extends BaseRequest {
   ship_from?: ShipFrom;

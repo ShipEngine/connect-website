@@ -1,4 +1,4 @@
-import { AddressResidentialIndicator } from './address-residential-indicator';
+import { AddressResidentialIndicator } from "./address-residential-indicator";
 
 export interface AddressBase {
   name?: string;

@@ -1,11 +1,11 @@
-import { BaseResponse } from './base-response';
+import { BaseResponse } from "./base-response";
 import {
   PickupConfirmation,
   PickupWindow,
   BillingLineItem,
   Charge,
   Currency,
-} from '../models';
+} from "../models";
 
 export interface SchedulePickupResponse extends BaseResponse {
   confirmation?: PickupConfirmation;

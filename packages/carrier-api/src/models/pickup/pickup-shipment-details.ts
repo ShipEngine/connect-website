@@ -1,4 +1,4 @@
-import { PickupShipment } from './pickup-shipment';
+import { PickupShipment } from "./pickup-shipment";
 
 export interface PickupShipmentDetails {
   pickup_service_code?: string;

@@ -1,5 +1,5 @@
-import { Identifier } from '../identifier';
-import { ShippedPackage } from './shipped-package';
+import { Identifier } from "../identifier";
+import { ShippedPackage } from "./shipped-package";
 
 export interface PickupShipment {
   tracking_number?: string;
