@@ -1,19 +1,22 @@
 {
-  "name": "@ipaas/capi",
+  "name": "@shipengine/connect-carrier-api",
   "version": "1.13.5",
   "description": "This is the typescript/javascript definitions for carrier api",
   "main": "/index.js",
   "types": "/index.ts",
-  "publishConfig": {
-    "registry": "https://infra-nexus.kube.sslocal.com/repository/s3-npm-hosted/"
-  },
   "scripts": {
-    "test": "test",
-    "build": "tsc -p . && cp -rf package.json lib"
+    "test": "true",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "lint": "prettier --check \"src/**/*.ts\"",
+    "clean": "shx rm -rf .nyc_output coverage lib tsconfig.tsbuildinfo",
+    "build": "tsc --build",
+    "watch": "tsc --watch",
+    "bump": "bump patch --commit 'release carrier-api v' --tag 'carrier-api_v' --push --all",
+    "release": "yarn clean && yarn build && yarn test && yarn bump"
   },
   "repository": {
     "type": "git",
-    "url": "github.com/shipstation/integrations-shipping"
+    "url": "github.com/shipengine/connect"
   },
   "keywords": [
     "ipaas",
@@ -23,6 +26,6 @@
   "author": "Justin Robertson",
   "license": "ISC",
   "devDependencies": {
-    "typescript": "^3.9.3"
+    "typescript": "^4.0.5"
   }
 }
