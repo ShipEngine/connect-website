@@ -2,8 +2,9 @@
   "name": "@shipengine/connect-carrier-api",
   "version": "1.13.5",
   "description": "This is the typescript/javascript definitions for carrier api",
-  "main": "/index.js",
-  "types": "/index.ts",
+  "homepage": "https://github.com/ShipEngine/connect",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "scripts": {
     "test": "true",
     "format": "prettier --write \"src/**/*.ts\"",
