@@ -8,6 +8,7 @@
   "scripts": {
     "test": "test",
     "format": "prettier --write \"src/**/*.ts\"",
+    "lint": "prettier --check \"src/**/*.ts\"",
     "build": "tsc"
   },
   "repository": {

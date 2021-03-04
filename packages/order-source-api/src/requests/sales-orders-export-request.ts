@@ -1,5 +1,5 @@
 import { RequestBase } from "./request-base";
-import { SalesOrderStatus } from "../index"
+import { SalesOrderStatus } from "../index";
 
 export interface SalesOrderExportCriteria {
   from_date_time?: string;
@@ -22,4 +22,3 @@ export interface SalesOrdersExportRequest extends RequestBase {
   sales_order_field_mappings?: SalesOrderCustomFieldMappings;
   sales_order_status_mappings?: SalesOrderCustomStatusMappings;
 }
-
