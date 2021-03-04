@@ -1,4 +1,4 @@
-import { PickupContactDetails } from '@ipaas/capi/models';
+import { PickupContactDetails } from '@shipengine/connect-carrier-api/lib/models';
 import { mapPickupContact } from '../../../src/mapping/functions/';
 
 const minimalContact: PickupContactDetails = {

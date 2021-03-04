@@ -1,4 +1,4 @@
-import { TrackingRequest } from '@ipaas/capi/requests';
+import { TrackingRequest } from '@shipengine/connect-carrier-api/lib/requests';
 import { mapTrackingRequest } from '../../../src/mapping/functions/';
 
 const trackingRequest: TrackingRequest = {

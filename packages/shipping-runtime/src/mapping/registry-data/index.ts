@@ -26,7 +26,7 @@ import {
 } from '@shipengine/connect-sdk';
 import { CarrierApp } from '@shipengine/connect-sdk/lib/internal';
 import ShippingProviderConnector from './external/shipping-provider-connector';
-import { LabelFormats } from '@ipaas/capi/models';
+import { LabelFormats } from '@shipengine/connect-carrier-api/lib/models';
 import { dxToCapiSpecPackageType } from '../../routes/loader-data/package-type';
 
 const defaultDiagnosticRoutes: DiagnosticRoutes = {

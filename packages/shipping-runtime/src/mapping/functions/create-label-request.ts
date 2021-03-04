@@ -1,6 +1,6 @@
-import { AddressBase } from '@ipaas/capi/models';
-import { CreateLabelRequest } from '@ipaas/capi/requests';
-import { AddressWithContactInfoPOJO } from '@shipengine/connect';
+import { AddressBase } from '@shipengine/connect-carrier-api/lib/models';
+import { CreateLabelRequest } from '@shipengine/connect-carrier-api/lib/requests';
+import { AddressWithContactInfoPOJO } from '@shipengine/connect-sdk';
 import { NewShipmentPOJO } from '@shipengine/connect-sdk/lib/internal';
 import {
 	mapConfirmation,

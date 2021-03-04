@@ -1,8 +1,8 @@
-import { GetRatesResponse } from '@ipaas/capi/responses';
+import { GetRatesResponse } from '@shipengine/connect-carrier-api/lib/responses';
 import { Transaction } from '@shipengine/connect-sdk';
 import { Rate } from '@shipengine/connect-sdk/lib/internal';
 
-import { Rate as capiRate } from '@ipaas/capi/models';
+import { Rate as capiRate } from '@shipengine/connect-carrier-api/lib/models';
 import { mapDateTime } from './datetime';
 import {
 	confirmationChargeFilter,

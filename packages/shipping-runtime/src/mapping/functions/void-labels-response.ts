@@ -1,7 +1,7 @@
 import { CancellationStatus, Transaction } from '@shipengine/connect-sdk';
 import { ShipmentCancellationOutcome } from '@shipengine/connect-sdk/lib/internal';
-import { VoidResponse } from '@ipaas/capi/models';
-import { VoidLabelsResponse } from '@ipaas/capi/responses';
+import { VoidResponse } from '@shipengine/connect-carrier-api/lib/models';
+import { VoidLabelsResponse } from '@shipengine/connect-carrier-api/lib/responses';
 
 export const mapVoidResponse = (
 	response: ShipmentCancellationOutcome,

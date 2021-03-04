@@ -1,4 +1,4 @@
-import { RegisterRequest } from '@ipaas/capi/requests';
+import { RegisterRequest } from '@shipengine/connect-carrier-api/lib/requests';
 
 export const mapRegisterRequest = (request: RegisterRequest): object => {
 	return {

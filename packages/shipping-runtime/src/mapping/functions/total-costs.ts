@@ -1,5 +1,5 @@
-import { Currency } from '@ipaas/capi/models';
-import { Charge } from '@shipengine/connect';
+import { Currency } from '@shipengine/connect-carrier-api/lib/models';
+import { Charge } from '@shipengine/connect-sdk';
 
 export const getTotalCosts = (
 	charges: readonly Charge[] | undefined,

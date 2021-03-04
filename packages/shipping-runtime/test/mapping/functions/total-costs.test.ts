@@ -1,4 +1,4 @@
-import { Charge, ChargeType } from '@shipengine/connect';
+import { Charge, ChargeType } from '@shipengine/connect-sdk';
 import { getTotalCosts } from '../../../src/mapping/functions';
 
 const insuranceCharges: readonly Charge[] = [

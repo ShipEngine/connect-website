@@ -1,4 +1,4 @@
-import { AddressBase, AddressResidentialIndicator } from '@ipaas/capi/models';
+import { AddressBase, AddressResidentialIndicator } from '@shipengine/connect-carrier-api/lib/models';
 import {
 	AddressPOJO,
 	AddressWithContactInfoPOJO,

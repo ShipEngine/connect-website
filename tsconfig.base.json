@@ -8,7 +8,8 @@
       "@shipengine/connect-order-source-runtime": ["./packages/order-source-runtime/src"],
       "@shipengine/connect-sdk": ["./packages/sdk/src/public"],
       "@shipengine/connect-sdk/lib/internal": ["./packages/sdk/src/internal"],
-      "@shipengine/connect-sdk/lib/internal/*": ["./packages/sdk/src/internal/*"]
+      "@shipengine/connect-sdk/lib/internal/*": ["./packages/sdk/src/internal/*"],
+      "@shipengine/connect-shipping-runtime": ["./packages/shipping-runtime/src"]
     }
   }
 }

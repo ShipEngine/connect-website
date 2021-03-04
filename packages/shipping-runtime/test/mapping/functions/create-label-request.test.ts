@@ -1,5 +1,5 @@
-import { LabelFormats, LabelLayouts } from '@ipaas/capi/models';
-import { CreateLabelRequest } from '@ipaas/capi/requests';
+import { LabelFormats, LabelLayouts } from '@shipengine/connect-carrier-api/lib/models';
+import { CreateLabelRequest } from '@shipengine/connect-carrier-api/lib/requests';
 import {
 	mapCreateLabelRequest,
 	getReturnToAddress,

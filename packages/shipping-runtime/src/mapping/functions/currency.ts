@@ -1,5 +1,5 @@
-import { Currency } from '@ipaas/capi/models';
-import { MonetaryValuePOJO } from '@shipengine/connect';
+import { Currency } from '@shipengine/connect-carrier-api/lib/models';
+import { MonetaryValuePOJO } from '@shipengine/connect-sdk';
 
 export const mapCurrency = (
 	money?: Currency,

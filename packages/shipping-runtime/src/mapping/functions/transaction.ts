@@ -6,7 +6,7 @@ import {
 	GetRatesRequest,
 	RegisterRequest,
 	CreateLabelRequest,
-} from '@ipaas/capi/requests';
+} from '@shipengine/connect-carrier-api/lib/requests';
 import { Transaction } from '@shipengine/connect-sdk';
 
 export interface HeaderArgs {

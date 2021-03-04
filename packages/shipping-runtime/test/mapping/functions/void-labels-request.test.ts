@@ -1,5 +1,5 @@
 import { mapVoidLabelsRequest } from '../../../src/mapping/functions';
-import { VoidLabelsRequest } from '@ipaas/capi/requests';
+import { VoidLabelsRequest } from '@shipengine/connect-carrier-api/lib/requests';
 
 const voidLabelRequest: VoidLabelsRequest = {
 	transaction_id: 'transactionId',

@@ -2,7 +2,7 @@ import {
 	TransactionPOJO,
 	ShipmentConfirmation,
 } from '@shipengine/connect-sdk/lib/internal';
-import { CreateLabelResponse } from '@ipaas/capi/responses';
+import { CreateLabelResponse } from '@shipengine/connect-carrier-api/lib/responses';
 import {
 	mapDateTime,
 	getTotalCosts,

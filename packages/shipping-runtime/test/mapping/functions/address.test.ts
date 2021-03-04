@@ -3,7 +3,7 @@ import {
 	excludeNullsFromAddressLines,
 	convertResidentialIndicatorToBoolean,
 } from '../../../src/mapping/functions/address';
-import { AddressResidentialIndicator } from '@ipaas/capi/models';
+import { AddressResidentialIndicator } from '@shipengine/connect-carrier-api/lib/models';
 
 describe('Address', () => {
 	describe('when the address lines are empty or null or undefined', () => {

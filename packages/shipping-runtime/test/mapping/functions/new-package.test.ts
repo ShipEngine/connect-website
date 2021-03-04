@@ -7,12 +7,12 @@ import {
 	CustomsNonDelivery,
 	AdvancedOptions,
 	CustomsContentTypes,
-} from '@ipaas/capi/models';
+} from '@shipengine/connect-carrier-api/lib/models';
 import {
 	DocumentFormat,
 	DocumentSize,
 	NonDeliveryOption,
-} from '@shipengine/connect';
+} from '@shipengine/connect-sdk';
 import {
 	mapCustomsPOJO,
 	mapInsuredValue,

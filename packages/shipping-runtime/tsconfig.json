@@ -1,12 +1,22 @@
 {
+	"extends": "../../tsconfig.base.json",
 	"compilerOptions": {
-		"target": "es6",
-		"module": "commonjs",
-		"declaration": true,
-		"outDir": "./dist",
-		"strict": true,
-		"sourceMap": true
+	  "allowJs": true,
+	  "declaration": true,
+	  "esModuleInterop": true,
+	  "importHelpers": true,
+	  "module": "commonjs",
+	  "outDir": "lib",
+	  "rootDir": "src",
+	  "sourceMap": true,
+	  "strict": true,
+	  "target": "es2017",
+	  "composite": true
 	},
-	"include": ["src"],
-	"exclude": ["node_modules", "**/__tests__/*", "src/**/todo/*"]
-}
+	"include": ["src/**/*"],
+	"references": [
+	{ "path": "../carrier-api" },
+    { "path": "../loader" },
+    { "path": "../sdk" }
+	]
+  }

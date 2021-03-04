@@ -3,7 +3,7 @@ import {
 	DocumentSize,
 	DocumentType,
 	Session,
-} from '@shipengine/connect';
+} from '@shipengine/connect-sdk';
 import {
 	Manifest,
 	ManifestConfirmation,

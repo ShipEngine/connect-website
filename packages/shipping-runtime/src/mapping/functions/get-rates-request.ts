@@ -1,9 +1,9 @@
-import { GetRatesRequest } from '@ipaas/capi/requests';
+import { GetRatesRequest } from '@shipengine/connect-carrier-api/lib/requests';
 import {
 	RateCriteriaPOJO,
 	PackageRateCriteriaPOJO,
 } from '@shipengine/connect-sdk/lib/internal';
-import { Package } from '@ipaas/capi/models';
+import { Package } from '@shipengine/connect-carrier-api/lib/models';
 import {
 	mapCurrency,
 	mapWeightGrams,

@@ -1,5 +1,5 @@
-import { LabelFormats } from '@ipaas/capi/models';
-import { DocumentFormat } from '@shipengine/connect';
+import { LabelFormats } from '@shipengine/connect-carrier-api/lib/models';
+import { DocumentFormat } from '@shipengine/connect-sdk';
 import { mapLabelFormat } from '../../../src/mapping/functions';
 
 const correctLabelFormats: any[][] = [

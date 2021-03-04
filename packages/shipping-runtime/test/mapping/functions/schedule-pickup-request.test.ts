@@ -1,5 +1,5 @@
-import { AddressResidentialIndicator } from '@ipaas/capi/models';
-import { SchedulePickupRequest } from '@ipaas/capi/requests';
+import { AddressResidentialIndicator } from '@shipengine/connect-carrier-api/lib/models';
+import { SchedulePickupRequest } from '@shipengine/connect-carrier-api/lib/requests';
 import { mapSchedulePickupRequest } from '../../../src/mapping/functions';
 
 const minimalRequest = {

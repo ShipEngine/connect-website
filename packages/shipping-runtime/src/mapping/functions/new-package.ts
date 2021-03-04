@@ -7,7 +7,7 @@ import {
 	LabelMessage,
 	CustomsNonDelivery,
 	CustomsItem,
-} from '@ipaas/capi/models';
+} from '@shipengine/connect-carrier-api/lib/models';
 import {
 	CustomsPOJO,
 	DocumentFormat,

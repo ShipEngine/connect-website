@@ -1,4 +1,4 @@
-import { CustomsItem } from '@ipaas/capi/models';
+import { CustomsItem } from '@shipengine/connect-carrier-api/lib/models';
 import { mapCustomsItem } from '../../../src/mapping/functions/';
 
 const defaultCustomsItem = {

@@ -1,4 +1,4 @@
-import { AdvancedOptions } from '@ipaas/capi/models';
+import { AdvancedOptions } from '@shipengine/connect-carrier-api/lib/models';
 import { ShippingOptions } from '@shipengine/connect-sdk';
 export const mapShippingOptions = (capiOptions?: AdvancedOptions): ShippingOptions => {
   const dxOptions: ShippingOptions = {

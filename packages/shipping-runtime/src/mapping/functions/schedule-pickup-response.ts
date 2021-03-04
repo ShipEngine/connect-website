@@ -5,13 +5,13 @@ import {
 } from '@shipengine/connect-sdk/lib/internal';
 import { MonetaryValue, Note, Transaction } from '@shipengine/connect-sdk';
 
-import { SchedulePickupResponse } from '@ipaas/capi/responses';
+import { SchedulePickupResponse } from '@shipengine/connect-carrier-api/lib/responses';
 import {
 	ShipmentIdentifier,
 	Identifier as capiIdentifier,
 	PickupWindow,
 	Currency,
-} from '@ipaas/capi/models';
+} from '@shipengine/connect-carrier-api/lib/models';
 
 export const mapIdentifier = (
 	key: string,

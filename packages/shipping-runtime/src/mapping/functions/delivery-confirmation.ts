@@ -1,4 +1,4 @@
-import { ConfirmationTypes } from '@ipaas/capi/models';
+import { ConfirmationTypes } from '@shipengine/connect-carrier-api/lib/models';
 import { DeliveryConfirmationType } from '@shipengine/connect-sdk';
 
 export const mapConfirmation = (

@@ -3,7 +3,7 @@ import {
 	NoteType,
 	Session,
 	ShipmentIdentifierPOJO,
-} from '@shipengine/connect';
+} from '@shipengine/connect-sdk';
 import { PickupConfirmation } from '@shipengine/connect/lib/internal';
 import {
 	mapIdentifier,

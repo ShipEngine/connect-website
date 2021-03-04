@@ -1,6 +1,6 @@
 import { ShipmentCancellationPOJO } from '@shipengine/connect-sdk/lib/internal';
-import { VoidRequest } from '@ipaas/capi/models';
-import { VoidLabelsRequest } from '@ipaas/capi/requests';
+import { VoidRequest } from '@shipengine/connect-carrier-api/lib/models';
+import { VoidLabelsRequest } from '@shipengine/connect-carrier-api/lib/requests';
 
 const mapVoidLabelRequest = (
 	request: VoidRequest,

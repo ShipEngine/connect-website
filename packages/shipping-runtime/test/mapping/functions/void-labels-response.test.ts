@@ -1,4 +1,4 @@
-import { CancellationStatus, Transaction } from '@shipengine/connect';
+import { CancellationStatus, Transaction } from '@shipengine/connect-sdk';
 import {
 	mapVoidLabelsResponse,
 	mapVoidResponse,

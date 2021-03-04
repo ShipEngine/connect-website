@@ -1,5 +1,5 @@
-import { PickupWindow } from '@ipaas/capi/models';
-import { TimeRangePOJO } from '@shipengine/connect';
+import { PickupWindow } from '@shipengine/connect-carrier-api/lib/models';
+import { TimeRangePOJO } from '@shipengine/connect-sdk';
 import { mapDateTimeZone } from '.';
 
 export const mapTimeWindow = (window: PickupWindow | null): TimeRangePOJO => {

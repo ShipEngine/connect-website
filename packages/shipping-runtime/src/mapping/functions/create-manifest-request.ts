@@ -1,7 +1,7 @@
-import { CreateManifestRequest } from '@ipaas/capi/requests';
+import { CreateManifestRequest } from '@shipengine/connect-carrier-api/lib/requests';
 import { ShipmentIdentifierPOJO } from '@shipengine/connect-sdk';
 import { NewManifestPOJO } from '@shipengine/connect-sdk/lib/internal';
-import { Label } from '@ipaas/capi/models';
+import { Label } from '@shipengine/connect-carrier-api/lib/models';
 import { mapAddress } from './address';
 
 export const mapManifestShipments = (label: Label): ShipmentIdentifierPOJO => {

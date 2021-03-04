@@ -1,11 +1,8 @@
 {
-	"name": "dx-shipping-runtime",
+	"name": "@shipengine/connect-shipping-runtime",
 	"version": "1.0.0",
-	"description": "This is the app host for a carrier DX app. It provides an HTTP interface implementing the CAPI spec and does mapping CAPI -> DX -> CAPI",
+	"description": "This is the app host for a carrier Connect app. It provides an HTTP interface implementing the CAPI spec and does mapping CAPI -> Connect -> CAPI",
 	"main": "dist/server.js",
-	"engines": {
-		"node": "12.18.3"
-	},
 	"scripts": {
 		"build": "tsc",
 		"start": "node dist/server.js",
@@ -20,9 +17,8 @@
 	"author": "",
 	"license": "UNLICENSED",
 	"dependencies": {
-		"@ipaas/capi": "^1.13.5",
+		"@shipengine/connect-carrier-api": "^1.13.5",
 		"@sentry/node": "^5.24.2",
-		"@shipengine/connect": "npm:@shipengine/connect-sdk@^12.6.4",
 		"@shipengine/connect-loader": "^3.2.0",
 		"@shipengine/connect-sdk": "^12.6.4",
 		"body-parser": "1.19.0",
@@ -44,7 +40,7 @@
 		"@types/fast-redact": "2.0.0",
 		"@types/hapi__joi": "^17.1.4",
 		"@types/jest": "25.2.3",
-		"@types/node": "13.13.9",
+		"@types/node": "^14.14.31",
 		"@types/uuid": "8.0.0",
 		"@types/winston": "2.4.4",
 		"@typescript-eslint/eslint-plugin": "3.6.0",
@@ -57,6 +53,6 @@
 		"nodemon": "2.0.4",
 		"prettier": "2.0.5",
 		"ts-jest": "26.1.1",
-		"typescript": "3.9.6"
+		"typescript": "^4.1.3"
 	}
 }

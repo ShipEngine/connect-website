@@ -3,10 +3,10 @@ import {
 	TrackEvent,
 	StandardizedStatusCodes,
 	TrackingInfo as CapiTrackingInfo
-} from '@ipaas/capi/models'
+} from '@shipengine/connect-carrier-api/lib/models'
 import {
 	TrackingResponse,
-} from '@ipaas/capi/responses';
+} from '@shipengine/connect-carrier-api/lib/responses';
 
 import {
 	TrackingEvent,

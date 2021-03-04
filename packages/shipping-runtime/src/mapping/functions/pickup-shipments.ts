@@ -1,4 +1,4 @@
-import { PickupShipment } from '@ipaas/capi/models';
+import { PickupShipment } from '@shipengine/connect-carrier-api/lib/models';
 import { PickupShipmentPOJO } from '@shipengine/connect-sdk/lib/internal';
 import { mapPickupPackage } from '.';
 

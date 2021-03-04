@@ -2,8 +2,8 @@ import {
 	AddressResidentialIndicator,
 	CancellationReason,
 	Identifier,
-} from '@ipaas/capi/models';
-import { PickupCancellationReason } from '@shipengine/connect';
+} from '@shipengine/connect-carrier-api/lib/models';
+import { PickupCancellationReason } from '@shipengine/connect-sdk';
 import {
 	mapCancelPickupRequest,
 	mapCancellationReason,

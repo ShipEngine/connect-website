@@ -1,5 +1,5 @@
 import { Transaction } from '@shipengine/connect-sdk';
-import { RegisterResponse } from '@ipaas/capi/responses';
+import { RegisterResponse } from '@shipengine/connect-carrier-api/lib/responses';
 
 interface BasicAuth {
 	userId?: string;

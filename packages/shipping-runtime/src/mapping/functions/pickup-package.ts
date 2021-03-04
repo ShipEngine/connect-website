@@ -1,4 +1,4 @@
-import { ShippedPackage } from '@ipaas/capi/models';
+import { ShippedPackage } from '@shipengine/connect-carrier-api/lib/models';
 
 import { PickupPackagePOJO } from '@shipengine/connect-sdk/lib/internal';
 import { mapWeightGrams, mapDimensionsCM } from '.';

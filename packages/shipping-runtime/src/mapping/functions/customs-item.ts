@@ -1,4 +1,4 @@
-import { CustomsItem as CapiCustomsItem } from '@ipaas/capi/models';
+import { CustomsItem as CapiCustomsItem } from '@shipengine/connect-carrier-api/lib/models';
 import { CustomsItemType, CustomsItem, Country } from '@shipengine/connect-sdk';
 import { mapQuantity, mapCurrency } from './';
 

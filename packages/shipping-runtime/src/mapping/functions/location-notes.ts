@@ -1,4 +1,4 @@
-import { NotePOJO, NoteType } from '@shipengine/connect';
+import { NotePOJO, NoteType } from '@shipengine/connect-sdk';
 
 export const mapLocationNotes = (
 	locationNotes: string | undefined | null,

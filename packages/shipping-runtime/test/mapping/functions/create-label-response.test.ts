@@ -2,7 +2,7 @@ import {
 	DocumentFormat,
 	DocumentSize,
 	DocumentType,
-} from '@shipengine/connect';
+} from '@shipengine/connect-sdk';
 import { ShipmentConfirmation } from '@shipengine/connect/lib/internal/carriers';
 import {
 	mapCreateLabelResponse,

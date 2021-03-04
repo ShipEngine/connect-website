@@ -8,8 +8,8 @@ import {
 	TrackingInfo,
 	Transaction,
 } from '@shipengine/connect/lib/internal';
-import { StandardizedStatusCodes } from '@ipaas/capi/models';
-import { Country, ShipmentStatus } from '@shipengine/connect';
+import { StandardizedStatusCodes } from '@shipengine/connect-carrier-api/lib/models';
+import { Country, ShipmentStatus } from '@shipengine/connect-sdk';
 
 const expectedResults: any[][] = [
 	[undefined, StandardizedStatusCodes.Unknown],

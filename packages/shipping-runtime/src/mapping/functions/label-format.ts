@@ -1,4 +1,4 @@
-import { LabelFormats } from '@ipaas/capi/models';
+import { LabelFormats } from '@shipengine/connect-carrier-api/lib/models';
 import { DocumentFormat } from '@shipengine/connect-sdk';
 
 export const mapLabelFormat = (format?: LabelFormats): DocumentFormat => {

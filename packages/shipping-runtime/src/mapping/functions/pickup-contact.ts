@@ -1,5 +1,5 @@
 import { ContactInfoPOJO } from '@shipengine/connect-sdk';
-import { PickupContactDetails } from '@ipaas/capi/models';
+import { PickupContactDetails } from '@shipengine/connect-carrier-api/lib/models';
 
 export const mapPickupContact = (
 	contact: PickupContactDetails | null | undefined,

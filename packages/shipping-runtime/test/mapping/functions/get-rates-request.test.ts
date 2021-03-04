@@ -9,10 +9,10 @@ import {
 	InsuranceProviders,
 	Package,
 	WeightUnit,
-} from '@ipaas/capi/models';
+} from '@shipengine/connect-carrier-api/lib/models';
 import {
 	GetRatesRequest,
-} from '@ipaas/capi/requests';
+} from '@shipengine/connect-carrier-api/lib/requests';
 
 
 const fullPackage: Package = {

@@ -1,10 +1,10 @@
-import { CancelPickupRequest } from '@ipaas/capi/requests';
+import { CancelPickupRequest } from '@shipengine/connect-carrier-api/lib/requests';
 import { PickupCancellationReason, NoteType } from '@shipengine/connect-sdk';
 import { PickupCancellationPOJO } from '@shipengine/connect-sdk/lib/internal';
 import {
 	CancellationReason,
 	Identifier as capiIdentifier,
-} from '@ipaas/capi/models';
+} from '@shipengine/connect-carrier-api/lib/models';
 import {
 	mapAddress,
 	mapPickupContact,

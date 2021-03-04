@@ -1,4 +1,4 @@
-import { PickupWindow } from '@ipaas/capi/models';
+import { PickupWindow } from '@shipengine/connect-carrier-api/lib/models';
 import { mapTimeWindow } from '../../../src/mapping/functions';
 
 const fullPickupWindow: PickupWindow = {

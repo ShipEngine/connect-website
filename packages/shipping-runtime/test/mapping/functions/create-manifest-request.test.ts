@@ -1,4 +1,4 @@
-import { AddressResidentialIndicator } from '@ipaas/capi/models';
+import { AddressResidentialIndicator } from '@shipengine/connect-carrier-api/lib/models';
 import {
 	mapManifestShipments,
 	mapCreateManifestRequest,

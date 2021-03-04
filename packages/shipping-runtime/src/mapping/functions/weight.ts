@@ -1,4 +1,4 @@
-import { WeightPOJO, WeightUnit } from '@shipengine/connect';
+import { WeightPOJO, WeightUnit } from '@shipengine/connect-sdk';
 
 export const mapWeightGrams = (
 	weight?: number | string | null,

@@ -1,4 +1,4 @@
-import { DateTimeZonePOJO } from '@shipengine/connect';
+import { DateTimeZonePOJO } from '@shipengine/connect-sdk';
 
 export const mapDateTimeZone = (
 	date?: string | null,
