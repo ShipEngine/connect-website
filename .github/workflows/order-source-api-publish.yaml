@@ -46,6 +46,6 @@ jobs:
 
       - name: Publish to NPM
         working-directory: packages/order-source-api
-        run: yarn publish --non-interactive --no-git-tag-version
+        run: yarn publish --non-interactive --no-git-tag-version --access public
         env:
           NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

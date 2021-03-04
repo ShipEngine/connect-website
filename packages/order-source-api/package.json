@@ -12,7 +12,7 @@
     "clean": "shx rm -rf .nyc_output coverage lib tsconfig.tsbuildinfo",
     "build": "tsc --build",
     "watch": "tsc --watch",
-    "bump": "bump patch --commit 'release order-surce-api v' --tag 'connect-sdk_v' --push --all",
+    "bump": "bump patch --commit 'release order-source-api v' --tag 'order-source-api_v' --push --all",
     "release": "yarn clean && yarn build && yarn test && yarn bump"
   },
   "repository": {
