@@ -1,4 +1,4 @@
 export default interface FunctionSpecification {
-	Name: string;
-	IsSandboxed: boolean;
+  Name: string;
+  IsSandboxed: boolean;
 }

@@ -1,13 +1,13 @@
-import { WeightPOJO, WeightUnit } from '@shipengine/connect-sdk';
+import { WeightPOJO, WeightUnit } from "@shipengine/connect-sdk";
 
 export const mapWeightGrams = (
-	weight?: number | string | null,
+  weight?: number | string | null
 ): WeightPOJO | undefined => {
-	if (!weight || isNaN(Number(weight)) || Number(weight) === 0) {
-		return undefined;
-	}
-	return {
-		unit: WeightUnit.Grams,
-		value: Number(weight),
-	};
+  if (!weight || isNaN(Number(weight)) || Number(weight) === 0) {
+    return undefined;
+  }
+  return {
+    unit: WeightUnit.Grams,
+    value: Number(weight),
+  };
 };
