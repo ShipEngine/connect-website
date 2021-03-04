@@ -1,13 +1,10 @@
 {
-  "name": "@ipaas/ecommerce",
+  "name": "@shipengine/connect-order-source-api",
   "version": "2.3.5",
-  "description": "This is the typescript/javascript definitions for the ecommerce api",
-  "homepage": "https://github.com/shipstation/integrations-ecommerce/tree/master/order-source-api-types",
+  "description": "This is the typescript/javascript definitions for the order source api",
+  "homepage": "https://github.com/ShipEngine/connect",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
-  "publishConfig": {
-    "registry": "https://infra-nexus.kube.sslocal.com/repository/s3-npm-hosted/"
-  },
   "scripts": {
     "test": "test",
     "format": "prettier --write \"src/**/*.ts\"",
@@ -15,15 +12,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "github.com/shipstation/integrations-ecommerce/order-source-api-types"
+    "url": "https://github.com/ShipEngine/connect"
   },
   "keywords": [
-    "ipaas",
-    "ecommerce",
-    "integrations-ecommerce"
+    "shipengine",
+    "connect",
+    "ordersourceapi"
   ],
   "author": "Justin Robertson",
-  "license": "UNLICENSED",
+  "license": "Apache-2.0",
   "devDependencies": {
     "prettier": "^2.0.5",
     "typescript": "^3.9.3"
