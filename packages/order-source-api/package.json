@@ -6,7 +6,7 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "scripts": {
-    "test": "test",
+    "test": "true",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "prettier --check \"src/**/*.ts\"",
     "build": "tsc"
