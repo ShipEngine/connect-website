@@ -1,7 +1,7 @@
 import { format, LoggerOptions, transports, createLogger } from "winston";
 import { getTransactionId } from "./storage";
 import { TransformableInfo } from "logform";
-import * as redact from "fast-redact";
+const redact = require("fast-redact");
 
 const LOG_LEVEL = process.env.LOG_LEVEL || "info";
 const LOG_FORMAT = process.env.NODE_ENV === "production" ? "json" : "console";

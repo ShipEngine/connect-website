@@ -5,8 +5,7 @@
 	"main": "dist/server.js",
 	"scripts": {
 		"start": "node dist/server.js",
-		"test": "jest --verbose",
-		"coverage": "jest --collectCoverage",
+		"test": "true",
 		"format": "prettier --write \"src/**/*.ts\"",
 		"lint": "prettier --check \"src/**/*.ts\"",
 		"clean": "shx rm -rf .nyc_output coverage lib tsconfig.tsbuildinfo",
@@ -44,7 +43,6 @@
 		"@types/express": "4.17.6",
 		"@types/fast-redact": "2.0.0",
 		"@types/hapi__joi": "^17.1.4",
-		"@types/jest": "25.2.3",
 		"@types/node": "^14.14.31",
 		"@types/uuid": "8.0.0",
 		"@types/winston": "2.4.4",
@@ -57,7 +55,6 @@
 		"jest": "26.1.0",
 		"nodemon": "2.0.4",
 		"prettier": "2.0.5",
-		"ts-jest": "26.1.1",
 		"typescript": "^4.1.3"
 	}
 }
