@@ -11,15 +11,25 @@ jobs:
     name: Prepare Release
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    env:
-      PACKAGE_NAME: ${{ github.event.comment.body.split(' ').length > 1 && github.event.comment.body.split(' ')[1] || '' }}
-      NPM_CONFIG_RELEASE_TYPE: ${{ github.event.comment.body.split(' ').length > 2 && github.event.comment.body.split(' ')[2] || 'patch' }}
 
     steps:
       - id: validate
         name: Validate Inputs
+        env:
+          COMMENT: ${{ github.event.comment.body }}
         run: |
-          [[ -n "${PACKAGE_NAME}" ]] && [[ "$(ls packages)" =~ "${PACKAGE_NAME}" ]]
+          set -x
+          IFS=' '
+          read -ra words <<< "${COMMENT}"
+          set -- "${words[@]}"
+          shift
+          package_name=$1
+          shift
+          release_type=${1:-patch}
+          echo "::set-output name=package_name::${package_name}"
+          echo "::set-output name=release_type::${release_type}"
+          [[ -n "${package_name}" ]] && [[ "$(ls packages)" =~ "${package_name}" ]]
+        shell: bash
 
       - name: Checkout source
         uses: actions/checkout@v2
@@ -46,3 +56,6 @@ jobs:
           git config user.email github-actions@github.com
           # Increment package version
           yarn run release
+        env:
+          PACKAGE_NAME: ${{ steps.validate.outputs.package_name }}
+          NPM_CONFIG_RELEASE_TYPE: ${{ steps.validate.outputs.release_type }}
