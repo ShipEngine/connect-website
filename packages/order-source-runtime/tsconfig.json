@@ -1,0 +1,22 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "declaration": true,
+    "outDir": "./lib",
+    "strict": true,
+    "sourceMap": true
+  },
+  "include": [
+    "src"
+  ],
+  "exclude": ["node_modules", "**/__tests__/*",
+    "src/**/todo/*"
+  ],
+  "references": [
+    { "path": "../loader" },
+    { "path": "../order-source-api" },
+    { "path": "../sdk" }
+  ]
+}
