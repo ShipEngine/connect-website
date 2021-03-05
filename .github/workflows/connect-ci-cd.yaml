@@ -1,0 +1,83 @@
+name: connect CI-CD
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - "packages/connect/**"
+      - ".github/workflows/connect-ci-cd.yaml"
+  pull_request:
+    branches:
+      - master
+    paths:
+      - "packages/connect/**"
+      - ".github/workflows/connect-ci-cd.yaml"
+
+jobs:
+  ci:
+    name: Test
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: true
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: install node@14
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: yarn install
+        run: yarn install --frozen-lockfile
+
+      - name: yarn lint
+        working-directory: packages/connect
+        run: yarn lint
+
+      - name: yarn build
+        working-directory: packages/connect
+        run: yarn build
+
+      - name: yarn test
+        working-directory: packages/connect
+        run: yarn test
+        env:
+          HOME: ./
+
+  cd:
+    if: github.ref == 'refs/heads/master'
+    name: Publish to NPM
+    needs: ci
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    defaults:
+      run:
+        working-directory: packages/connect
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v2
+
+      - name: Install Node
+        uses: actions/setup-node@v2
+        with:
+          always-auth: true
+          node-version: 14
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build
+        working-directory: packages/connect
+        run: yarn build
+
+      - name: Publish to NPM
+        uses: JS-DevTools/npm-publish@v1
+        with:
+          package: packages/connect/package.json
+          token: ${{ secrets.NPM_AUTH_TOKEN }}

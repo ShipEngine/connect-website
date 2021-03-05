@@ -1,0 +1,48 @@
+name: Manage Releases
+
+on:
+  issue_comment:
+    types:
+      - created
+
+jobs:
+  release:
+    if: github.event.issue.pull_request && github.event.issue.user.id == github.event.comment.user.id && github.event.comment.body.startsWith('release')
+    name: Prepare Release
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PACKAGE_NAME: ${{ github.event.comment.body.split(' ').length > 1 && github.event.comment.body.split(' ')[1] || '' }}
+      NPM_CONFIG_RELEASE_TYPE: ${{ github.event.comment.body.split(' ').length > 2 && github.event.comment.body.split(' ')[2] || 'patch' }}
+
+    steps:
+      - id: validate
+        name: Validate Inputs
+        run: |
+          [[ -n "${PACKAGE_NAME}" ]] && [[ "$(ls packages)" =~ "${PACKAGE_NAME}" ]]
+
+      - name: Checkout source
+        uses: actions/checkout@v2
+        if: steps.validate.conclusion == 'success'
+
+      - name: Install Node
+        uses: actions/setup-node@v2
+        if: steps.validate.conclusion == 'success'
+        with:
+          always-auth: true
+          node-version: 14
+
+      - name: Install dependencies
+        if: steps.validate.conclusion == 'success'
+        run: yarn install --frozen-lockfile
+
+      - name: Increment version
+        if: steps.validate.conclusion == 'success'
+        working-directory: packages/${{ env.PACKAGE_NAME }}
+        run: |
+          # Configure git for commits
+          date > generated.txt
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          # Increment package version
+          yarn run release

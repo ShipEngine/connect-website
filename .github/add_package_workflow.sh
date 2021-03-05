@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 REPO_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." >/dev/null 2>&1 && pwd )
-CI_WORKFLOW_TEMPLATE=$(cat .github/ci_template.yaml)
-PUBLISH_WORKFLOW_TEMPLATE=$(cat .github/publish_template.yaml)
+WORKFLOWS=(ci-cd release)
 
 PACKAGE=$1
 PACKAGE_PATH=${REPO_DIR}/packages/${PACKAGE}
@@ -19,10 +18,12 @@ fi
 
 echo "generating workflows for ${PACKAGE_PATH}"
 
-# replace template package placeholder with route name
-CI_WORKFLOW=$(echo "${CI_WORKFLOW_TEMPLATE}" | sed "s/{{ PACKAGE }}/${PACKAGE}/g")
-PUBLISH_WORKFLOW=$(echo "${PUBLISH_WORKFLOW_TEMPLATE}" | sed "s/{{ PACKAGE }}/${PACKAGE}/g")
+for workflow in ${WORKFLOWS[@]}; do
+    echo "* ${workflow}"
 
-# save workflow to .github/workflows/{ROUTE}
-echo "${CI_WORKFLOW}" > .github/workflows/${PACKAGE}-ci.yaml
-echo "${PUBLISH_WORKFLOW}" > .github/workflows/${PACKAGE}-publish.yaml
+    # replace template package placeholder with route name
+    workflow_yaml=$(cat ${REPO_DIR}/.github/${workflow}_template.yaml |  sed "s/{{ PACKAGE }}/${PACKAGE}/g")
+
+    # save workflow to .github/workflows/
+    echo "${workflow_yaml}" > ${REPO_DIR}/.github/workflows/${PACKAGE}-${workflow}.yaml
+done

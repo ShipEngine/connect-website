@@ -29,16 +29,16 @@
     "lib"
   ],
   "scripts": {
-    "clean": "shx rm -rf .nyc_output coverage lib tsconfig.tsbuildinfo",
-    "lint": "eslint src test",
     "build": "tsc --build",
-    "watch": "tsc --watch",
-    "test": "mocha",
+    "bump": "bump $npm_confg_release_type --commit 'release sdk v' --tag 'connect-sdk_v' --push --all",
+    "clean": "shx rm -rf .nyc_output coverage lib tsconfig.tsbuildinfo",
     "coverage": "nyc node_modules/mocha/bin/mocha",
-    "upgrade": "npm-check -u && npm audit fix",
-    "bump": "bump patch --commit 'release sdk v' --tag 'connect-sdk_v' --push --all",
+    "dist-clean": "yarn clean && rm -rf node_modules",
+    "lint": "eslint src test",
     "release": "yarn clean && yarn build && yarn test && yarn bump",
-    "postpublish": "cd ../../ && yarn workspace @shipengine/connect add @shipengine/connect-cli && yarn workspace @shipengine/connect run release"
+    "test": "mocha",
+    "upgrade": "npm-check -u && npm audit fix",
+    "watch": "tsc --watch"
   },
   "engines": {
     "node": ">=10"

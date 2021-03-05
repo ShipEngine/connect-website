@@ -24,14 +24,15 @@
     "lib"
   ],
   "scripts": {
-    "clean": "shx rm -rf .nyc_output coverage lib tsconfig.tsbuildinfo",
-    "lint": "eslint src test",
     "build": "tsc --build",
-    "watch": "tsc --watch",
-    "test": "mocha && yarn lint",
+    "bump": "bump $npm_confg_release_type --commit 'release loader v' --tag 'connect-loader_v' --push --all",
+    "clean": "shx rm -rf .nyc_output coverage lib tsconfig.tsbuildinfo",
     "coverage": "nyc node_modules/mocha/bin/mocha",
-    "bump": "bump patch --commit 'release loader v' --tag 'connect-loader_v' --push --all",
-    "release": "yarn clean && yarn build && yarn test && yarn bump"
+    "dist-clean": "yarn clean && rm -rf node_modules",
+    "lint": "eslint src test",
+    "release": "yarn clean && yarn build && yarn test && yarn bump",
+    "test": "mocha && yarn lint",
+    "watch": "tsc --watch"
   },
   "engines": {
     "node": ">=10"
