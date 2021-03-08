@@ -51,3 +51,5 @@ export { URLString } from "../public/common/types";
 export { SalesOrderPackageItemPOJO as SalesOrderPackageItem } from "./orders/shipments/sales-order-package-item";
 export { SalesOrderShipmentPOJO as SalesOrderShipment } from "./orders/shipments/sales-order-shipment";
 export { Country } from "../public/common/country";
+export { AddressWithContactInfoAndPickupLocationPOJO as AddressWithContactInfoAndPickupLocation } from "../public/common/addresses/address-with-contact-info-and-pickup-location"
+export { PickupLocationPOJO as PickupLocation } from "../public/common/addresses/pickup-location";

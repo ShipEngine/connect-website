@@ -4,7 +4,7 @@ import { mapCountry } from "../input";
 
 export function mapAddress(
   address: api.Address | undefined
-): Input.AddressWithContactInfo | undefined {
+): Input.AddressWithContactInfoAndPickupLocation | undefined {
   if (!address) {
     return;
   }
@@ -15,6 +15,13 @@ export function mapAddress(
     address.address_line_3,
   ].filter((a) => a) as string[];
 
+  const pickupLocation: Input.PickupLocation | undefined = address.pickup_location
+    ? {
+        relayId: address.pickup_location.relay_id,
+        carrierId: address.pickup_location.carrier_id,
+      }
+    : undefined;
+
   return {
     name: address.name || "",
     addressLines,
@@ -22,6 +29,7 @@ export function mapAddress(
     postalCode: address.postal_code,
     stateProvince: address.state_province || "",
     country: mapCountry(address.country_code),
+    pickupLocation,
   };
 }
 

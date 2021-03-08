@@ -164,6 +164,35 @@ column indicates which properties are required when the object is returned from 
 }
 ```
 
+Pickup Location Properties
+--------------------------------------------
+This table lists the properties of a Pickup Location object and all of its properties are required.
+
+<Reference>
+
+  <Field name="relayId" type="string" nullable={false} required={true}>
+    <Description>
+      The Relay Id of the desired Pickup Location.
+    </Description>
+  </Field>
+
+  <Field name="carrierId" type="string" nullable={false} required={true}>
+    <Description>
+      The Carrier Id of the desired Pickup Location.
+    </Description>
+  </Field>
+
+</Reference>
+
+### Example
+
+```javascript
+{
+  relayId: "12345-A",
+  carrierId: "DHL"
+}
+```
+
 
 Address + Contact Info Properties
 --------------------------------------------
@@ -290,5 +319,155 @@ column indicates which properties are required when the object is returned from 
   postalCode: "78756",
   country: "US",
   isResidential: false
+}
+```
+
+Address + Contact Info + Pickup Location Properties
+--------------------------------------------
+This table lists the properties of an object referred to as `address + contact info + pickup location` in the reference documentation
+and identifies those properties that are required. The `nullable` column indicates which properties may be null when the object is
+provided as an argument to one of your methods and the `required` column indicates which properties are required when the object is
+returned from one of your methods.
+
+<Reference>
+
+  <Field name="company" type="string" nullable={false} required={true}>
+    <Description>
+      The company name for the address, if provided. This string must not include newline characters and must not include newline characters.
+    </Description>
+  </Field>
+
+  <Field name="addressLines" type="string[]" nullable={false} required={true}>
+    <Description>
+      Rather than providing two or three distinct address fields, simply provide all lines of the address in a string array. Each string in the array must be between `0` and `100` characters and must not include newline characters.
+    </Description>
+  </Field>
+
+  <Field name="cityLocality" type="string" nullable={false} required={true}>
+    <Description>
+      The city or locality for this address. This string must not include newline characters.
+    </Description>
+  </Field>
+
+  <Field name="stateProvince" type="string" nullable={false} required={true}>
+    <Description>
+      The state or province for this address. This string must not include newline characters.
+    </Description>
+  </Field>
+
+  <Field name="postalCode" type="string" nullable={false} required={true}>
+    <Description>
+      The zip code or other postal code for this address. This string must not include newline characters.
+    </Description>
+  </Field>
+
+  <Field name="country" nullable={false} required={true}>
+    <Type>
+      [country code string](./country-codes.mdx)
+    </Type>
+    <Description>
+      The country for the address.
+    </Description>
+  </Field>
+
+  <Field name="isResidential" type="boolean" nullable={true} required={false}>
+    <Description>
+      A boolean value indicating whether or not the address is residential.
+    </Description>
+  </Field>
+
+  <Field name="contact.name" type="object" nullable={false} required={true}>
+    <Description>
+      The name of the contact.
+    </Description>
+  </Field>
+
+  <Field name="contact.name.title" type="string" nullable={false} required={false}>
+    <Description>
+      The title of the contact (eg "Mr", "Mrs", "Dr"). This string must not include newline characters.
+    </Description>
+  </Field>
+
+  <Field name="contact.name.given" type="string" nullable={false} required={true}>
+    <Description>
+      The first name of the signer. This string must not include newline characters.
+    </Description>
+  </Field>
+
+  <Field name="contact.name.middle" type="string" nullable={false} required={false}>
+    <Description>
+      The middle name of the signer. This string must not include newline characters.
+    </Description>
+  </Field>
+
+  <Field name="contact.name.family" type="string" nullable={false} required={false}>
+    <Description>
+      The last name or family name of the signer. This string must not include newline characters.
+    </Description>
+  </Field>
+
+  <Field name="contact.name.suffix" type="string" nullable={false} required={false}>
+    <Description>
+      The suffix of the signer (eg "Sr", "Jr", "IV"). This string must not include newline characters.
+    </Description>
+  </Field>
+
+  <Field name="email" type="string" nullable={false} required={false}>
+    <Description>
+      The email address of the contact. This string must be a valid email address.
+    </Description>
+  </Field>
+
+  <Field name="phoneNumber" type="string" nullable={false} required={false}>
+    <Description>
+      The phone number of the contact. This string must not include newline characters.
+    </Description>
+  </Field>
+
+  <Field name="pickupLocation" type="object" nullable={true} required={false}>
+    <Description>
+      The Pickup Location asscoated with, or to use instead of, this address.
+    </Description>
+  </Field>
+
+  <Field name="pickupLocation.relayId" type="string" nullable={false} required={true}>
+    <Description>
+      The Relay Id of the desired Pickup Location.
+    </Description>
+  </Field>
+
+  <Field name="pickupLocation.carrierId" type="string" nullable={false} required={true}>
+    <Description>
+      The Carrier Id of the desired Pickup Location.
+    </Description>
+  </Field>
+
+</Reference>
+
+### Example
+
+```javascript
+{
+  name: {
+    title: "Mr.",
+    given: "John",
+    family: "Doe",
+  },
+  email: "johndoe@example.com",
+  phoneNumber: "555-555-5555",
+  company: "Example Corp",
+  addressLines: [
+    "4009 Marathon Blvd",
+    "Suite 310",
+  ],
+  cityLocality: "Austin",
+  stateProvince: "TX",
+  postalCode: "78756",
+  country: "US",
+  isResidential: false,
+  pickupLocation: {
+    relayId: "12345-A",
+    carrierId: "DHL"
+  }
 }
 ```

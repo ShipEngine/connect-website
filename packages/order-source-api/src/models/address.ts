@@ -1,8 +1,13 @@
+export interface PickupLocation {
+  carrier_id: string;
+  relay_id: string;
+}
+
 export interface Address {
   name?: string;
   company?: string;
   phone?: string;
-  address_line_1: string;
+  address_line_1?: string;
   address_line_2?: string;
   address_line_3?: string;
   city?: string;
@@ -11,4 +16,5 @@ export interface Address {
   country_code?: string;
   residential_indicator?: string;
   is_verified?: boolean;
+  pickup_location?: PickupLocation;
 }

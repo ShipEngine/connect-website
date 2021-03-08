@@ -41,3 +41,5 @@ export { RequestedFulfillment } from "./orders/requested-fulfillment";
 export { RequestedFulfillmentExtensions } from "./orders/requested-fulfillment-extensions";
 export { PersonName } from "./common/addresses/person-name"
 export { AcknowledgedSalesOrder } from "./orders/acknowledged-sales-order";
+export { AddressWithContactInfoAndPickupLocation } from "./common/addresses/address-with-contact-info-and-pickup-location";
+export { PickupLocation } from "./common/addresses/pickup-location";

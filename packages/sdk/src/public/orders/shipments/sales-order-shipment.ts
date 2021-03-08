@@ -1,5 +1,5 @@
 import { ShipmentIdentifier } from "../../carriers";
-import type { AddressWithContactInfo, Charge, DateTimeZone } from "../../common";
+import type { AddressWithContactInfoAndPickupLocation, AddressWithContactInfo, Charge, DateTimeZone } from "../../common";
 import { SalesOrderPackageItem } from "./sales-order-package-item";
 import type { SalesOrderIdentifier } from "../../orders";
 
@@ -36,7 +36,7 @@ export interface SalesOrderShipment extends ShipmentIdentifier {
   /**
    * The recipient's contact info and address
    */
-  readonly shipTo?: AddressWithContactInfo;
+  readonly shipTo?: AddressWithContactInfoAndPickupLocation;
 
   /**
    * The date/time that the shipment was shipped or is expected to ship.

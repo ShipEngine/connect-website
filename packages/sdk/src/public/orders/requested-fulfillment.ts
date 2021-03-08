@@ -1,4 +1,4 @@
-import { AddressWithContactInfoPOJO } from "../common/addresses/address-with-contact-info"
+import { AddressWithContactInfoAndPickupLocationPOJO } from "../common/addresses/address-with-contact-info-and-pickup-location"
 import { SalesOrderItem } from "./sales-order-item"
 import { ShippingPreferences } from "./shipping-preferences"
 
@@ -11,6 +11,6 @@ export interface RequestedFulfillmentExtensions {
 export interface RequestedFulfillmentPOJO {
     items: SalesOrderItem[];
     shippingPreferences: ShippingPreferences;
-    shipTo: AddressWithContactInfoPOJO;
+    shipTo: AddressWithContactInfoAndPickupLocationPOJO;
     extensions?: RequestedFulfillmentExtensions;
 }

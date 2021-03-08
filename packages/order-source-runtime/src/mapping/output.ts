@@ -6,7 +6,7 @@ export function mapName(name: Output.PersonName): string {
 }
 
 export function mapAddress(
-  address: Output.AddressWithContactInfo | undefined
+  address: Output.AddressWithContactInfoAndPickupLocation | undefined
 ): api.Address | undefined {
   if (!address) {
     return;
@@ -18,6 +18,13 @@ export function mapAddress(
   if (address.isResidential !== undefined) {
     residential_indicator = address.isResidential ? "R" : "C";
   }
+
+  const pickup_location: api.PickupLocation | undefined = address.pickupLocation
+    ? {
+        relay_id: address.pickupLocation.relayId,
+        carrier_id: address.pickupLocation.carrierId,
+      }
+    : undefined;
 
   return {
     name: mapName(address.name),
@@ -32,5 +39,6 @@ export function mapAddress(
     country_code: address.country,
     residential_indicator,
     is_verified: false,
+    pickup_location,
   };
 }
