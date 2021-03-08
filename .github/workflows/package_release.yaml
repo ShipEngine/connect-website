@@ -29,13 +29,14 @@ jobs:
           package_name=$1
           shift
           release_type=${1:-patch}
-          if [[ -n "${package_name}" ]] && [[ "$(ls packages)" =~ "${package_name}" ]]; then
+          package_directory=packages/${package_name}
+          echo "PACKAGE_DIRECTORY=${package_directory}" >> $GITHUB_ENV
+          if [[ -n "${package_name}" ]] && [[ -d "${package_directory}" ]]; then
             echo "::set-output name=is_valid::true"
           else
             echo "::set-output name=is_valid::false"
             echo "::debug::Invalid package: ${package_name}"
           fi
-          echo "working_directory=packages/${package_name}" >> $GITHUB_ENV
           echo "::set-output name=package_name::${package_name}"
           echo "::set-output name=release_type::${release_type}"
         shell: bash
@@ -62,7 +63,7 @@ jobs:
 
       - name: Increment version
         if: steps.validate.outputs.is_valid == 'true'
-        working-directory: ${{ env.working_directory }}
+        working-directory: ${{ env.PACKAGE_DIRECTORY }}
         run: |
           # Configure git for commits
           date > generated.txt
@@ -71,5 +72,5 @@ jobs:
           # Increment package version
           yarn run release
         env:
+          BUMP_RELEASE_TYPE: ${{ steps.validate.outputs.release_type }}
           PACKAGE_NAME: ${{ steps.validate.outputs.package_name }}
-          NPM_CONFIG_RELEASE_TYPE: ${{ steps.validate.outputs.release_type }}

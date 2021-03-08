@@ -7,7 +7,7 @@
   "types": "./lib/index.d.ts",
   "scripts": {
     "build": "tsc --build",
-    "bump": "bump $npm_confg_release_type --commit 'release carrier-api v' --tag 'carrier-api_v' --push --all",
+    "bump": "bump $BUMP_RELEASE_TYPE --commit 'release carrier-api v' --tag 'carrier-api_v' --push --all",
     "clean": "shx rm -rf .nyc_output coverage lib tsconfig.tsbuildinfo",
     "dist-clean": "yarn clean && rm -rf node_modules",
     "format": "prettier --write \"src/**/*.ts\"",

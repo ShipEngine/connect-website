@@ -35,7 +35,7 @@
   ],
   "scripts": {
     "build": "tsc --build",
-    "bump": "bump $npm_confg_release_type --commit 'release connect v' --tag 'connect_v' --push --all",
+    "bump": "bump $BUMP_RELEASE_TYPE --commit 'release connect v' --tag 'connect_v' --push --all",
     "clean": "shx rm -rf .nyc_output coverage lib tsconfig.tsbuildinfo",
     "coverage": "nyc node_modules/mocha/bin/mocha",
     "dist-clean": "yarn clean && rm -rf node_modules",
