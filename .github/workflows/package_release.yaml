@@ -34,7 +34,7 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v2
         with:
-          ref: ${{ fromJSON(steps.get-pr.outputs.result).head.ref }}
+          ref: ${{ fromJSON(steps.pr_info.outputs.result).head.ref }}
 
       - id: validate
         name: Validate Inputs
