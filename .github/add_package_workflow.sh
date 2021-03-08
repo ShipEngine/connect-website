@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 REPO_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." >/dev/null 2>&1 && pwd )
-WORKFLOWS=(ci-cd release)
+WORKFLOWS=(ci-cd)
 
 PACKAGE=$1
 PACKAGE_PATH=${REPO_DIR}/packages/${PACKAGE}

@@ -13,6 +13,9 @@ jobs:
     timeout-minutes: 10
 
     steps:
+      - name: Checkout source
+        uses: actions/checkout@v2
+
       - id: validate
         name: Validate Inputs
         env:
@@ -26,29 +29,39 @@ jobs:
           package_name=$1
           shift
           release_type=${1:-patch}
+          if [[ -n "${package_name}" ]] && [[ "$(ls packages)" =~ "${package_name}" ]]; then
+            echo "::set-output name=is_valid::true"
+          else
+            echo "::set-output name=is_valid::false"
+            echo "::debug::Invalid package: ${package_name}"
+          fi
           echo "::set-output name=package_name::${package_name}"
           echo "::set-output name=release_type::${release_type}"
-          [[ -n "${package_name}" ]] && [[ "$(ls packages)" =~ "${package_name}" ]]
         shell: bash
 
-      - name: Checkout source
-        uses: actions/checkout@v2
-        if: steps.validate.conclusion == 'success'
+      - name: Alert
+        if: steps.validate.outputs.is_valid == 'false'
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            Invalid package name ${{ steps.validate.outputs.package_name }} in [comment](${{ github.event.comment.html_url }}).
+          reactions: 'confused'
 
       - name: Install Node
         uses: actions/setup-node@v2
-        if: steps.validate.conclusion == 'success'
+        if: steps.validate.outputs.is_valid == 'true'
         with:
           always-auth: true
           node-version: 14
 
       - name: Install dependencies
-        if: steps.validate.conclusion == 'success'
+        if: steps.validate.outputs.is_valid == 'true'
         run: yarn install --frozen-lockfile
 
       - name: Increment version
-        if: steps.validate.conclusion == 'success'
-        working-directory: packages/${{ env.PACKAGE_NAME }}
+        if: steps.validate.outputs.is_valid == 'true'
+        working-directory: packages/${{ steps.validate.outputs.package_name }}
         run: |
           # Configure git for commits
           date > generated.txt
