@@ -70,7 +70,7 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '🤖 Invalid package name ${{ steps.validate.outputs.package_name }} in [comment](${{ github.event.comment.html_url }}).'
+              body: '🤖 Invalid 📦 name `${{ steps.validate.outputs.package_name }}` in [comment#${{ github.event.comment.id }}](${{ github.event.comment.html_url }}).'
             })
 
       - name: Install Node
