@@ -7,7 +7,7 @@ on:
 
 jobs:
   release:
-    if: github.event.issue.pull_request && github.event.issue.user.id == github.event.comment.user.id && github.event.comment.body.startsWith('release')
+    if: github.event.issue.pull_request && github.event.issue.user.id == github.event.comment.user.id && startsWith(github.event.comment.body, 'release')
     name: Prepare Release
     runs-on: ubuntu-latest
     timeout-minutes: 10
