@@ -160,6 +160,7 @@ export function mapPayment(order: Output.SalesOrder): api.Payment {
   return {
     payment_status: mapPaymentStatus(order.paymentStatus),
     payment_method: order.paymentMethod,
+    amount_paid: order.paymentAmount?.value,
     shipping_charges,
     taxes,
     adjustments,

@@ -1,4 +1,4 @@
-import type { DateTimeZonePOJO, NotePOJO, URLString, Charge } from "../common";
+import type { MonetaryValuePOJO, DateTimeZonePOJO, NotePOJO, URLString, Charge } from "../common";
 import type { Buyer } from "./buyer";
 import type { PaymentMethod, PaymentStatus, SalesOrderStatus } from "./enums";
 import { OriginalOrderSource } from "./original-order-source";
@@ -33,6 +33,11 @@ export interface SalesOrder extends SalesOrderIdentifierPOJO {
    * Indicates what the status of the customer payment for this order is.
    */
   paymentStatus?: PaymentStatus;
+  
+  /**
+   * The amount paid by the customer
+   */
+  paymentAmount?: MonetaryValuePOJO;
 
   /**
    * The URL of a webpage where the customer can view the order

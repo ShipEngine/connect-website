@@ -413,6 +413,24 @@ An array of sales orders matching the date range.
     </Description>
   </Field>
 
+  <Field name="paymentAmount" type="object" required={false}>
+    <Description>
+      The amount the customer has paid for the order.
+    </Description>
+  </Field>
+
+  <Field name="paymentAmount.value" type="number" required={true}>
+    <Description>
+      The value for paymentAmount.
+    </Description>
+  </Field>
+
+  <Field name="paymentAmount.currency" type="string" required={true}>
+    <Description>
+      The currency for paymentAmount.
+    </Description>
+  </Field>
+
   <Field name="orderURL" required={false}>
     <Type>
       [URL](https://nodejs.org/api/url.html) or string

@@ -1,6 +1,6 @@
 {
   "name": "@shipengine/connect-order-source-runtime",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "This is the app host for a order source Connect app. It provides an HTTP interface implementing the OrderSourceAPI spec and does mapping to Connect and back",
   "main": "lib/server.js",
   "scripts": {
@@ -25,7 +25,7 @@
     "@sentry/node": "^5.26.0",
     "@shipengine/connect-loader": "^3.1.0",
     "@shipengine/connect-order-source-api": "^2.3.7",
-    "@shipengine/connect-sdk": "^12.6.3",
+    "@shipengine/connect-sdk": "^12.9.0",
     "body-parser": "1.19.0",
     "continuation-local-storage": "3.2.1",
     "dotenv-flow": "3.2.0",

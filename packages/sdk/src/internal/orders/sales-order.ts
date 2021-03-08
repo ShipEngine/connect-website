@@ -15,6 +15,7 @@ export class SalesOrder extends SalesOrderIdentifierBase {
       status: Joi.string().enum(SalesOrderStatus).required(),
       paymentMethod: Joi.alternatives(Joi.string().enum(PaymentMethod), Joi.string()),
       paymentStatus: Joi.string().enum(PaymentStatus),
+      paymentAmount: MonetaryValue[_internal].schema,
       orderURL: Joi.alternatives(Joi.object().website(), Joi.string().website()),
       buyer: Buyer[_internal].schema.required(),
       shippingPreferences: ShippingPreferences[_internal].schema,
@@ -31,6 +32,7 @@ export class SalesOrder extends SalesOrderIdentifierBase {
   public readonly status: SalesOrderStatus;
   public readonly paymentMethod?: PaymentMethod | string;
   public readonly paymentStatus: PaymentStatus;
+  public readonly paymentAmount?: MonetaryValue;
   public readonly orderURL?: URL;
   public readonly buyer: Buyer;
 
@@ -51,6 +53,7 @@ export class SalesOrder extends SalesOrderIdentifierBase {
     this.status = pojo.status;
     this.paymentMethod = pojo.paymentMethod;
     this.paymentStatus = pojo.paymentStatus || PaymentStatus.AwaitingPayment;
+    this.paymentAmount = pojo.paymentAmount ? new MonetaryValue(pojo.paymentAmount) : undefined;
     this.orderURL = pojo.orderURL ? new URL(pojo.orderURL as string) : undefined;
     this.buyer = new Buyer(pojo.buyer);
 
