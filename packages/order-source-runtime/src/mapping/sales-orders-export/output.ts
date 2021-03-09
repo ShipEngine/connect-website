@@ -149,6 +149,9 @@ export function mapPayment(order: Output.SalesOrder): api.Payment {
       case ChargeType.Duty:
       case ChargeType.Fuel:
       case ChargeType.LocationFee:
+      case ChargeType.Fee:
+      case ChargeType.Handling:
+      case ChargeType.Pickup:
       case ChargeType.Oversize:
         shipping_charges.push(mappedCharge);
         break;
