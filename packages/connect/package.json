@@ -1,6 +1,6 @@
 {
   "name": "@shipengine/connect",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "The official developer tooling for building ShipEngine connect apps",
   "keywords": [
     "shipengine",
@@ -46,7 +46,7 @@
     "lint": "eslint src test",
     "preversion": "cd ../../ && yarn workspace @shipengine/connect add @shipengine/connect-sdk",
     "release": "yarn clean && yarn build && yarn test && yarn bump",
-    "test": "yarn test:javascript && yarn test:typescript",
+    "test": "HOME=. yarn test:javascript && yarn test:typescript",
     "test:javascript": "mocha",
     "test:typescript": "tsc --noEmit test/specs/typescript.spec.ts",
     "watch": "tsc --watch"

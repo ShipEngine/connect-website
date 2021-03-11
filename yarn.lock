@@ -663,18 +663,6 @@
   resolved "https://registry.yarnpkg.com/@shipengine/capitalization/-/capitalization-1.2.1.tgz#7162a8b763a4de7c99116027557093485d9f6037"
   integrity sha512-JRxO2Rv9JMKdypwqWtthiJvU/a7BhoMjeSlUucwiyIlFPPaYjkAtiIX/CFo5k1C8QjDoKBS0cWGcfLWdMW281A==
 
-"@shipengine/connect-sdk@^12.10.0":
-  version "12.10.0"
-  resolved "https://registry.yarnpkg.com/@shipengine/connect-sdk/-/connect-sdk-12.10.0.tgz#d7590bcf3d23bfcf1b73951de6072bf5b258f478"
-  integrity sha512-WFFYjUfgOH63FtxZSla+sK4jaE+y8fXeiiHUSUavEsqiAnnAr5Ylrp/v0e2Pty6FDSvTjTVWiqQuUtuPI007OA==
-  dependencies:
-    "@types/json-schema" "^7.0.6"
-    "@types/react-jsonschema-form" "^1.7.4"
-    currency.js "^2.0.2"
-    joi "^17.3.0"
-    moment-timezone "^0.5.32"
-    uuid "^8.3.2"
-
 "@sideway/address@^4.1.0":
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/@sideway/address/-/address-4.1.1.tgz#9e321e74310963fdf8eebfbee09c7bd69972de4d"
