@@ -3,3 +3,10 @@
 
 env:
   mocha: true
+
+rules:
+  "unicorn/no-abusive-eslint-disable": "warn"
+
+ignorePatterns:
+  - "specs/typescript.spec.ts"
+  - "fixtures/**/*.js"

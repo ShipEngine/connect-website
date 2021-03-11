@@ -1,9 +1,7 @@
-import * as flush from "@oclif/command/flush";
-import * as resolveFrom from "resolve-from";
-import * as updateNotifier from "update-notifier";
+import flush from "@oclif/command/flush";
+import updateNotifier from "update-notifier";
 import { handle } from "@oclif/errors";
-
-type ConnectCLI = typeof import("@shipengine/connect-cli");
+import { run as cli } from "@oclif/command";
 
 /**
  * This is the main entry point of the ShipEngine Connect CLI.
@@ -18,11 +16,8 @@ export async function main(args: string[]): Promise<void> {
       args = ['versions']
     }
 
-    // Run the CLI
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const cli = await importCLI();
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-    await cli.run(args);
+    await cli(args);
 
     // The CLI finished successfully, but there may still be STDIO in process,
     // so flush all remaining STDIO
@@ -51,20 +46,4 @@ function checkForUpdate() {
   });
 
   notifier.notify();
-}
-
-
-/**
- * Detects whether there is a locally-installed version of the CLI, and if so, returns
- * the local version. Otherwise, returns the version from this package.
- */
-async function importCLI(): Promise<ConnectCLI> {
-  const localCLI = resolveFrom.silent(process.cwd(), "@shipengine/connect-cli");
-
-  if (localCLI) {
-    return import(localCLI) as Promise<ConnectCLI>;
-  }
-  else {
-    return import("@shipengine/connect-cli");
-  }
 }

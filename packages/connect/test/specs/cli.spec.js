@@ -58,7 +58,7 @@ describe("CLI", () => {
       expect(cli).to.have.exitCode(0);
       expect(cli).to.have.stderr("");
       expect(cli).to.have.stdout.that.contains(`node`);
-      expect(cli).to.have.stdout.that.contains(`@shipengine/connect-cli`);
+      expect(cli).to.have.stdout.that.contains(`@shipengine/connect`);
       expect(cli).to.have.stdout.that.contains(`@shipengine/connect-sdk`);
       expect(cli).to.have.stdout.that.contains(`@shipengine/connect-loader`);
     });
@@ -69,7 +69,7 @@ describe("CLI", () => {
       expect(cli).to.have.exitCode(0);
       expect(cli).to.have.stderr("");
       expect(cli).to.have.stdout.that.contains(`node`);
-      expect(cli).to.have.stdout.that.contains(`@shipengine/connect-cli`);
+      expect(cli).to.have.stdout.that.contains(`@shipengine/connect`);
       expect(cli).to.have.stdout.that.contains(`@shipengine/connect-sdk`);
       expect(cli).to.have.stdout.that.contains(`@shipengine/connect-loader`);
     });
@@ -80,7 +80,7 @@ describe("CLI", () => {
       expect(cli).to.have.exitCode(0);
       expect(cli).to.have.stderr("");
       expect(cli).to.have.stdout.that.contains(`node`);
-      expect(cli).to.have.stdout.that.contains(`@shipengine/connect-cli`);
+      expect(cli).to.have.stdout.that.contains(`@shipengine/connect`);
       expect(cli).to.have.stdout.that.contains(`@shipengine/connect-sdk`);
       expect(cli).to.have.stdout.that.contains(`@shipengine/connect-loader`);
     });

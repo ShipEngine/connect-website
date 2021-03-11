@@ -59,7 +59,7 @@ async function readJsonFile<T>(absoluteFilePath: string): Promise<T> {
   const json = await readTextFile(absoluteFilePath);
 
   try {
-    return json5.parse(json) as T;
+    return json5.parse(json) ;
   } catch (error) {
     const err = error as Error;
     throw ono(

@@ -84,7 +84,7 @@ interface MetadataHTTP {
 
 function isHTTPLog(obj: { meta?: Record<string, unknown> }): obj is MetadataHTTP {
   if ("meta" in obj) {
-    return "request" in obj.meta! && "response" in obj.meta!;
+    return "request" in obj.meta! && "response" in obj.meta;
   }
   return false;
 }

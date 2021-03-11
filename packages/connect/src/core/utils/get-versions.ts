@@ -8,7 +8,7 @@ interface PJson {
 export default function getVersions(): Record<string, string> {
   // We have to use `require()` here instad of `import`
   // because the "package.json" file is outside of the "src" directory.
-  const cliPjson = require("../../../package.json") as PJson;
+  const connectPjson = require("../../../package.json") as PJson;
 
   const sdkPjson = require("@shipengine/connect-sdk/package.json") as PJson;
 
@@ -16,7 +16,7 @@ export default function getVersions(): Record<string, string> {
 
   return {
     "node": process.version,
-    "@shipengine/connect-cli": `v${cliPjson.version}`,
+    "@shipengine/connect": `v${connectPjson.version}`,
     "@shipengine/connect-sdk": `v${sdkPjson.version}`,
     "@shipengine/connect-loader": `v${loaderPjson.version}`,
   }

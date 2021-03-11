@@ -1,7 +1,7 @@
 "use strict";
 
-const namedExports = require("../../");
-const { default: defaultExport } = require("../../");
+const namedExports = require('../..');
+const { default: defaultExport } = require('../..');
 const { expect } = require("chai");
 
 describe("package exports", () => {
