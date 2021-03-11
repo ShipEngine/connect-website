@@ -9,7 +9,7 @@ export { ShipmentCancellationOutcome } from "./carriers/shipments/shipment-cance
 export { ShipmentConfirmation } from "./carriers/shipments/shipment-confirmation";
 export { TrackingInfo } from "./carriers/tracking/tracking-info";
 export { Label } from "./carriers/documents/label";
-export { Document } from "./carriers/documents/document";
+export { Document } from "./common/document";
 export {
   DateTimeZone,
   Charge

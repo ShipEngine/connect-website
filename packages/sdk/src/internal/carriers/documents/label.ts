@@ -1,6 +1,6 @@
 import { Label as LabelPOJO } from "../../../public";
 import { hideAndFreeze, Joi, _internal } from "../../common";
-import { Document, DocumentBase } from "./document";
+import { Document, DocumentBase } from "../../common/document";
 
 export class Label extends DocumentBase {
   public static readonly [_internal] = {

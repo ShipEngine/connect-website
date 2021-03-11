@@ -1,5 +1,5 @@
-import { Document as DocumentPOJO, DocumentFormat, DocumentSize, DocumentType, ErrorCode } from "../../../public";
-import { error, hideAndFreeze, Joi, _internal } from "../../common";
+import { Document as DocumentPOJO, DocumentFormat, DocumentSize, DocumentType, ErrorCode } from "../../public";
+import { error, hideAndFreeze, Joi, _internal } from ".";
 
 export abstract class DocumentBase {
   public readonly name: string;

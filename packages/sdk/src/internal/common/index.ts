@@ -35,3 +35,4 @@ export * from "./validation";
 export * from "./validation/index";
 export * from "./validation/object-validation";
 export * from "./validation/string-validation";
+export * from "./document";

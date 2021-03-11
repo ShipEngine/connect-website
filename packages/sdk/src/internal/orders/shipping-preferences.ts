@@ -1,5 +1,5 @@
 import { DeliveryConfirmationType, ShippingPreferences as ShippingPreferencesPOJO } from "../../public";
-import { DateTimeZone, hideAndFreeze, Joi, MonetaryValue, _internal } from "../common";
+import { Document, DateTimeZone, hideAndFreeze, Joi, MonetaryValue, _internal } from "../common";
 
 export class ShippingPreferences {
   public static readonly [_internal] = {
@@ -30,6 +30,7 @@ export class ShippingPreferences {
   public readonly isPremiumProgram: boolean;
   public readonly premiumProgramName: string;
   public readonly requestedWarehouse?: string;
+  public readonly documents?: Document[];
 
   public constructor(pojo: ShippingPreferencesPOJO) {
     this.deliveryConfirmationType = pojo.deliveryConfirmationType;
@@ -43,6 +44,7 @@ export class ShippingPreferences {
     this.isPremiumProgram = pojo.isPremiumProgram || false;
     this.premiumProgramName = pojo.premiumProgramName || "";
     this.requestedWarehouse = pojo.requestedWarehouse;
+    this.documents = (pojo.documents || []).map(doc => new Document(doc));
   
     // Make this object immutable
     hideAndFreeze(this);

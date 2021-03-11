@@ -3,7 +3,6 @@ export * from "./customs/customs";
 export * from "./customs/customs-item";
 export * from "./delivery-confirmation";
 export * from "./delivery-service";
-export * from "./documents/document";
 export * from "./documents/label";
 export * from "./documents/new-label";
 export * from "./documents/utils";

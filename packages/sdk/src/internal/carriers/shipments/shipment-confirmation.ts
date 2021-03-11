@@ -1,6 +1,6 @@
 import { ShipmentConfirmation as ShipmentConfirmationPOJO } from "../../../public";
 import { calculateTotalCharges, Charge, DateTimeZone, hideAndFreeze, Joi, MonetaryValue, _internal } from "../../common";
-import { Document } from "../documents/document";
+import { Document } from "../../common/document";
 import { Label } from "../documents/label";
 import { PackageConfirmation } from "../packages/package-confirmation";
 import { ShipmentIdentifier, ShipmentIdentifierBase } from "./shipment-identifier";

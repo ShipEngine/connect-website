@@ -1,5 +1,5 @@
 import type { ChargePOJO, DateTimeZonePOJO } from "../../common";
-import type { Document } from "../documents/document";
+import type { Document } from "../../common/document";
 import type { Label } from "../documents/label";
 import type { PackageConfirmation } from "../packages/package-confirmation";
 import type { ShipmentIdentifierPOJO } from "./shipment-identifier";

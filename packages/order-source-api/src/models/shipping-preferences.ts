@@ -1,3 +1,5 @@
+import { Document } from "./document";
+
 export interface ShippingPreferences {
   digital_fulfillment?: boolean;
   additional_handling?: boolean;
@@ -23,4 +25,5 @@ export interface ShippingPreferences {
   premium_program_name?: string;
   /** The warehouse name associated with the requested warehouse  */
   requested_warehouse?: string;
+  documents?: Document[];
 }

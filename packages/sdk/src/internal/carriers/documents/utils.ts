@@ -1,5 +1,5 @@
 import { Document as DocumentPOJO, DocumentType } from "../../../public";
-import { Document } from "./document";
+import { Document } from "../../common/document";
 import { Label } from "./label";
 
 /**

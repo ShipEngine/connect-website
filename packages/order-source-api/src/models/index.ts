@@ -11,3 +11,4 @@ export * from "./sales-order";
 export * from "./sales-order-item";
 export * from "./shipping-preferences";
 export * from "./weight";
+export * from "./document";

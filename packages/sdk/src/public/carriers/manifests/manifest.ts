@@ -1,5 +1,5 @@
 import type { Identifiers, NotePOJO } from "../../common";
-import type { Document } from "../documents/document";
+import type { Document } from "../../common/document";
 import type { ShipmentIdentifierPOJO } from "../shipments/shipment-identifier";
 
 /**

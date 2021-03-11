@@ -30,3 +30,4 @@ export * from "./oauth/token-properties";
 export * from "./oauth-config";
 export * from "./transaction";
 export * from "./types";
+export * from "./document";

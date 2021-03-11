@@ -5,7 +5,13 @@ import * as api from "@shipengine/connect-order-source-api";
 import logger from "../../util/logger";
 
 // TODO I can't find the internal export for these
-import { ChargeType, PaymentStatus, NoteType } from "@shipengine/connect-sdk";
+import {
+  ChargeType,
+  PaymentStatus,
+  NoteType,
+  DocumentType,
+  DocumentFormat,
+} from "@shipengine/connect-sdk";
 
 export function mapItem(item: Output.SalesOrderItem): api.SalesOrderItem {
   return {
@@ -32,6 +38,41 @@ export function mapItem(item: Output.SalesOrderItem): api.SalesOrderItem {
   };
 }
 
+export function mapDocument(doc: Output.Document): api.Document {
+  let format;
+  switch (doc.format) {
+    case DocumentFormat.PDF:
+      format = api.DocumentFormat.Pdf;
+      break;
+    case DocumentFormat.PNG:
+      format = api.DocumentFormat.Png;
+      break;
+    case DocumentFormat.ZPL:
+      format = api.DocumentFormat.Zpl;
+      break;
+  }
+
+  const type = [];
+  switch (doc.type) {
+    case DocumentType.CustomsForm:
+      type.push(api.DocumentType.CustomsForm);
+      break;
+    case DocumentType.Label:
+      type.push(api.DocumentType.Label);
+      break;
+    // Are these the same, but we gave them different names? Or do our enums not match?
+    case DocumentType.ScanForm:
+      type.push(api.DocumentType.CommercialInvoice);
+      break;
+  }
+
+  return {
+    type,
+    format,
+    data: doc.data.toString("base64"),
+  };
+}
+
 export function mapShippingPreferences(
   pref: Output.ShippingPreferences | undefined
 ): api.ShippingPreferences | undefined {
@@ -49,6 +90,7 @@ export function mapShippingPreferences(
     insured_value: pref.insuredValue?.value,
     is_premium_program: pref.isPremiumProgram,
     premium_program_name: pref.premiumProgramName,
+    documents: (pref.documents || []).map((doc) => mapDocument(doc)),
   };
 }
 

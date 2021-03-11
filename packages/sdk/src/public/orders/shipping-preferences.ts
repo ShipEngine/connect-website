@@ -1,4 +1,5 @@
 import type { DateTimeZonePOJO, DeliveryConfirmationType, MonetaryValuePOJO } from "../common";
+import { Document } from "../common";
 
 /**
  * Preferences about how a sales order or item should be shipped
@@ -59,4 +60,9 @@ export interface ShippingPreferences {
    * The warehouse name associated with the requested warehouse.
    */
   requestedWarehouse?: string;
+
+  /**
+   * Any shipping documents the order source has for this order or package
+   */
+  documents?: Document[];
 }

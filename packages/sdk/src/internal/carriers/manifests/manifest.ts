@@ -1,6 +1,6 @@
 import { Manifest as ManifestPOJO } from "../../../public";
 import { hideAndFreeze, Identifiers, Joi, Note, _internal } from "../../common";
-import { Document } from "../documents/document";
+import { Document } from "../../common/document";
 import { ShipmentIdentifier } from "../shipments/shipment-identifier";
 
 export class Manifest {

@@ -1,4 +1,4 @@
-import type { DocumentFormat, DocumentSize, DocumentType } from "../enums";
+import type { DocumentFormat, DocumentSize, DocumentType } from "../carriers/enums";
 
 /**
  * A document that is associated with a shipment or package, such as a customs form.
