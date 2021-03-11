@@ -1,6 +1,6 @@
 {
   "name": "@shipengine/connect",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "The official developer tooling for building ShipEngine connect apps",
   "keywords": [
     "shipengine",
@@ -34,8 +34,9 @@
     "node": ">=10.5.0"
   },
   "files": [
-    "bin",
-    "lib"
+    "/bin",
+    "/lib",
+    "/templates"
   ],
   "scripts": {
     "build": "tsc --build",
