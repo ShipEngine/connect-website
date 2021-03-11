@@ -1,4 +1,4 @@
-import { Transaction, SalesOrderShipment } from "@shipengine/connect";
+import { Transaction, SalesOrderShipment } from "@shipengine/connect-sdk";
 import { Session } from "./session";
 import { apiClient } from "../mock-api/client";
 

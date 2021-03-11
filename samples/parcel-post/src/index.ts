@@ -1,4 +1,4 @@
-import { CarrierAppDefinition, ManifestType, ManifestLocation, ManifestShipment } from "@shipengine/connect";
+import { CarrierAppDefinition, ManifestType, ManifestLocation, ManifestShipment } from "@shipengine/connect-sdk";
 
 const parcelPost: CarrierAppDefinition = {
   id: "1cd8dc3b-3acb-4373-b32a-d59abd5ec86b",

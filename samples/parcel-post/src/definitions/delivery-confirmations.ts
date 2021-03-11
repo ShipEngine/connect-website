@@ -1,4 +1,4 @@
-import { DeliveryConfirmationDefinition, DeliveryConfirmationType } from "@shipengine/connect";
+import { DeliveryConfirmationDefinition, DeliveryConfirmationType } from "@shipengine/connect-sdk";
 
 export const signature: DeliveryConfirmationDefinition = {
   id: "dbcfb3b5-9457-4d82-b614-123aadc96b1e",

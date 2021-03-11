@@ -1,6 +1,6 @@
 import { apiClient } from "../mock-api/client";
 import { Session } from "./session";
-import { Transaction, TrackingInfo, TrackingCriteria, ShipmentStatus, LengthUnit, Country, NoteType } from "@shipengine/connect";
+import { Transaction, TrackingInfo, TrackingCriteria, ShipmentStatus, LengthUnit, Country, NoteType } from "@shipengine/connect-sdk";
 import { LocationHistoryResponse, LocationHistoryRequest } from "../mock-api/location-history";
 
 export default async function trackShipment(

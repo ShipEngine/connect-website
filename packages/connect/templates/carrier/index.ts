@@ -3,7 +3,7 @@ import {
     ManifestLocation,
     ManifestShipment,
     ManifestType
-} from "@shipengine/connect";
+} from "@shipengine/connect-sdk";
 
 const carrier: CarrierAppDefinition = {
   id: "<%- _uuidv4 %>",

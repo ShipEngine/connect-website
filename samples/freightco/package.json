@@ -6,9 +6,7 @@
     "start": "connect start",
     "test": "connect test"
   },
-  "devDependencies": {
-    "@shipengine/connect": "^1.0.14"
-  },
+  "devDependencies": {},
   "dependencies": {
     "axios": "^0.19.2"
   }

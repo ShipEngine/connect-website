@@ -2,7 +2,7 @@ import {
     Rate, RateCriteria,
 
     Transaction
-} from "@shipengine/connect";
+} from "@shipengine/connect-sdk";
 import { Session } from "./session";
 
 /**

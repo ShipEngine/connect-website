@@ -1,4 +1,4 @@
-import { DocumentFormat, DocumentSize, DocumentType, Transaction, ManifestConfirmation, NewManifest } from "@shipengine/connect";
+import { DocumentFormat, DocumentSize, DocumentType, Transaction, ManifestConfirmation, NewManifest } from "@shipengine/connect-sdk";
 import { apiClient } from "../mock-api/client";
 import { Session } from "./session";
 import { GenerateManifestRequest, GenerateManifestResponse } from "../mock-api/generate-manifest";

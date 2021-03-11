@@ -510,16 +510,18 @@ class AppsNew extends Generator {
   }
 
   async install() {
+    // We only have dependencies to install on TS projects
+    if (!this.ts) {
+      return;
+    }
+
     const dependencies: string[] = [];
     const devDependencies: string[] = [];
 
-    devDependencies.push("@shipengine/connect");
-
-    if (this.ts) {
-      devDependencies.push("@types/node@^13.13.5");
-      devDependencies.push("typescript");
-      devDependencies.push("copyfiles");
-    }
+    devDependencies.push("@shipengine/connect-sdk");
+    devDependencies.push("@types/node@^13.13.5");
+    devDependencies.push("typescript");
+    devDependencies.push("copyfiles");
 
     await this.npmInstall(devDependencies, {
       "save-dev": true,

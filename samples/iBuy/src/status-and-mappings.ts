@@ -1,4 +1,4 @@
-import { SalesOrderStatus, PaymentMethod, Country } from "@shipengine/connect";
+import { SalesOrderStatus, PaymentMethod, Country } from "@shipengine/connect-sdk";
 
 export const orderStatus = ["payment_needed", "in_transit", "on_hold", "completed", "cancelled"];
 export const paymentStatus = ["payment_needed", "processing", "paid", "failed_payment", "cancelled"];

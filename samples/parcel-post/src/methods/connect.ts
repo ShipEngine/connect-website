@@ -1,4 +1,4 @@
-import { Transaction } from "@shipengine/connect";
+import { Transaction } from "@shipengine/connect-sdk";
 import { AuthenticateRequest, AuthenticateResponse } from "../mock-api/authenticate";
 import { apiClient } from "../mock-api/client";
 import { Session } from "./session";

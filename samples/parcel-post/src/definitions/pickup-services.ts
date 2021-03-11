@@ -1,4 +1,4 @@
-import { PickupServiceDefinition } from "@shipengine/connect";
+import { PickupServiceDefinition } from "@shipengine/connect-sdk";
 
 export const dropOff: PickupServiceDefinition = {
   id: "27483200-72b4-11ea-bc55-0242ac130003",

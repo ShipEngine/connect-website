@@ -1,4 +1,4 @@
-import { Transaction, SalesOrderTimeRange, SalesOrders, SalesOrder } from "@shipengine/connect";
+import { Transaction, SalesOrderTimeRange, SalesOrders, SalesOrder, RequestedFulfillmentPOJO } from "@shipengine/connect-sdk";
 import { Session } from "./session";
 import { apiClient } from "../mock-api/client";
 import { mapSalesOrderStatus, mapPaymentMethod, mapCountryCode } from "../status-and-mappings";
@@ -31,37 +31,40 @@ export default async function getSalesOrdersByDate(
 
 function formatSalesOrders(salesOrders: RetrieveSalesOrdersByDateResponse): SalesOrder[] {
   return salesOrders.map(salesOrder => {
+    const requestedFulfillments: RequestedFulfillmentPOJO[] = [
+      {
+        shippingPreferences: {},
+        items: salesOrder.shipping_items.map((item) => {
+          return {
+            id: item.id,
+            name: item.name,
+            product: { id: item.product_id },
+            quantity: {
+              value: item.quantity
+            },
+            unitPrice: {
+              value: item.price_per_unit,
+              currency: "usd"
+            },
+          }
+        }),
+        shipTo: {
+          name: salesOrder.address.business_name,
+          addressLines: salesOrder.address.lines,
+          cityLocality: salesOrder.address.city,
+          stateProvince: salesOrder.address.state,
+          postalCode: salesOrder.address.postalCode,
+          country: mapCountryCode(salesOrder.address.country)
+        }
+      }
+    ];
+
     return {
       id: salesOrder.id,
       createdDateTime: salesOrder.created_at,
       status: mapSalesOrderStatus(salesOrder.status),
       paymentMethod: mapPaymentMethod(salesOrder.payment.method),
-      requestedFulfillments: [
-        {
-          items: salesOrder.shipping_items.map((item) => {
-            return {
-              id: item.id,
-              name: item.name,
-              product: { id: item.product_id },
-              quantity: {
-                value: item.quantity
-              },
-              unitPrice: {
-                value: item.price_per_unit,
-                currency: "usd"
-              },
-            }
-          }),
-          shipTo: {
-            name: salesOrder.address.business_name,
-            addressLines: salesOrder.address.lines,
-            cityLocality: salesOrder.address.city,
-            stateProvince: salesOrder.address.state,
-            postalCode: salesOrder.address.postalCode,
-            country: salesOrder.address.country
-          }
-        }
-      ],
+      requestedFulfillments,
       buyer: {
         id: salesOrder.buyer.id,
         name: salesOrder.buyer.name

@@ -1,5 +1,5 @@
 import { HttpRequest } from "./client";
-import { LengthUnit, Country, WeightUnit, NoteType } from "@shipengine/connect";
+import { LengthUnit, Country, WeightUnit, NoteType } from "@shipengine/connect-sdk";
 
 const allStatusCodes = ["NY", "C", "IT"]
 const allStatuses = {

@@ -1,4 +1,4 @@
-import { Transaction, SalesOrderNotification, AcknowledgedSalesOrder } from "@shipengine/connect";
+import { Transaction, SalesOrderNotification, AcknowledgedSalesOrder } from "@shipengine/connect-sdk";
 import { Session } from "./session";
 import { apiClient } from "../mock-api/client";
 import { VerifyOrdersResponse } from "../mock-api/verify-orders";

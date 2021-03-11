@@ -5,7 +5,7 @@ import {
     DocumentSize,
     ManifestType,
     ServiceArea
-} from "@shipengine/connect";
+} from "@shipengine/connect-sdk";
 
 const exampleDeliveryService: DeliveryServiceDefinition = {
   id: "<%- _uuidv4 %>",

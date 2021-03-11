@@ -1,4 +1,4 @@
-import { AcknowledgedSalesOrder, SalesOrderNotification, Transaction } from "@shipengine/connect";
+import { AcknowledgedSalesOrder, SalesOrderNotification, Transaction } from "@shipengine/connect-sdk";
 import { Session } from "./session";
 
 /**
