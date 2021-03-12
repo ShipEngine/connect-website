@@ -1,6 +1,6 @@
 {
 	"name": "@shipengine/connect-shipping-runtime",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "This is the app host for a carrier Connect app. It provides an HTTP interface implementing the CAPI spec and does mapping CAPI -> Connect -> CAPI",
 	"main": "lib/server.js",
 	"scripts": {
