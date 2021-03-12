@@ -11,10 +11,11 @@ import {
   NoteType,
   DocumentType,
   DocumentFormat,
+  LengthUnit,
 } from "@shipengine/connect-sdk";
 
 export function mapItem(item: Output.SalesOrderItem): api.SalesOrderItem {
-  return {
+  const mappedItem: api.SalesOrderItem = {
     line_item_id: item.id,
     description: item.description,
     quantity: item.quantity.value,
@@ -36,6 +37,20 @@ export function mapItem(item: Output.SalesOrderItem): api.SalesOrderItem {
     },
     item_url: item.itemURL?.toString(),
   };
+
+  if (item.product.dimensions) {
+    mappedItem.product!.dimensions = {
+      length: item.product.dimensions.length,
+      width: item.product.dimensions.width,
+      height: item.product.dimensions.height,
+      unit:
+        item.product.dimensions.unit === LengthUnit.Inches
+          ? api.DimensionsUnit.Inch
+          : api.DimensionsUnit.Centimeter,
+    };
+  }
+
+  return mappedItem;
 }
 
 export function mapDocument(doc: Output.Document): api.Document {
@@ -254,6 +269,7 @@ export function mapSalesOrder(order: Output.SalesOrder): api.SalesOrder {
 
   return {
     order_id: order.id,
+    order_number: order.orderNumber,
     status: mapSalesOrderStatus(order.status),
     requested_fulfillments: order.requestedFulfillments.map(mapRequestedFulfillment),
     buyer: mapBuyer(order.buyer),

@@ -1,4 +1,4 @@
-import type { Identifiers, IdentifiersPOJO } from "../common";
+import type { Identifiers, IdentifiersPOJO, Dimensions, DimensionsPOJO } from "../common";
 
 /**
  * Identifies a product
@@ -49,6 +49,11 @@ export interface ProductIdentifierPOJO {
    * { "Color": "White", "Style": "Avant Garde" }
    */
   details?: IdentifiersPOJO;
+
+  /**
+   * The physical measures of the product
+   */
+  dimensions?: DimensionsPOJO;
 }
 
 /**
@@ -100,4 +105,9 @@ export interface ProductIdentifier {
    * { "Color": "White", "Style": "Avant Garde" }
    */
   readonly details: Identifiers;
+
+  /**
+   * The physical measures of the product
+   */
+  readonly dimensions?: Dimensions;
 }

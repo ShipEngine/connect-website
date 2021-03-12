@@ -10,9 +10,9 @@ export enum LengthUnit {
  * The dimensions of a package
  */
 export interface DimensionsPOJO {
-  length: number;
-  width: number;
-  height: number;
+  length?: number;
+  width?: number;
+  height?: number;
   unit: LengthUnit;
 }
 

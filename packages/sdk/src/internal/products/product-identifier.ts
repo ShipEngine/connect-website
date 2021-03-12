@@ -1,5 +1,5 @@
-import { ProductIdentifier as IProductIdentifier, ProductIdentifierPOJO } from "../../public";
-import { hideAndFreeze, Identifiers, Joi, _internal } from "../common";
+import { ProductIdentifier as IProductIdentifier, ProductIdentifierPOJO, DimensionsPOJO } from "../../public";
+import { hideAndFreeze, Identifiers, Dimensions, Joi, _internal } from "../common";
 
 
 export class ProductIdentifier implements IProductIdentifier {
@@ -27,6 +27,7 @@ export class ProductIdentifier implements IProductIdentifier {
   public readonly inventoryID: string;
   public readonly identifiers: Identifiers;
   public readonly details: Identifiers;
+  public readonly dimensions?: Dimensions;
 
   public constructor(pojo: ProductIdentifierPOJO) {
     this.id = pojo.id;
@@ -38,6 +39,7 @@ export class ProductIdentifier implements IProductIdentifier {
     this.inventoryID = pojo.inventoryID || "";
     this.details = new Identifiers(pojo.details)
     this.identifiers = new Identifiers(pojo.identifiers);
+    this.dimensions = pojo.dimensions ? new Dimensions(pojo.dimensions) : undefined;
 
     // Make this object immutable
     hideAndFreeze(this);

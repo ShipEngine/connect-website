@@ -1,5 +1,4 @@
 import { Dimensions as IDimensions, DimensionsPOJO, LengthUnit } from "../../../public";
-import { error, SystemErrorCode } from "../errors";
 import { hideAndFreeze, _internal } from "../utils";
 import { Joi } from "../validation";
 
@@ -21,23 +20,10 @@ export class Dimensions implements IDimensions {
 
   public constructor(pojo: DimensionsPOJO) {
 
-    this.length = pojo.length;
-    this.width = pojo.width;
-    this.height = pojo.height;
+    this.length = pojo.length || 0;
+    this.width = pojo.width || 0;
+    this.height = pojo.height || 0;
     this.unit = pojo.unit;
-
-    // Check that at least two of the three dimensions properties are set. (Allows for 2 dimensional packages such as envelopes)
-    const zeroCount = [this.length, this.width, this.height].reduce((totalCount, currentValue) => {
-      if(!currentValue) {
-        return totalCount + 1;
-      }
-      return totalCount;
-    }, 0);
-
-    if (zeroCount > 1) {
-      const message = "Dimensions property must have at least 2 of the 3 length, width, and height properties set.";
-      throw error(SystemErrorCode.InvalidInput, message);
-    }
 
     // Make this object immutable
     hideAndFreeze(this);

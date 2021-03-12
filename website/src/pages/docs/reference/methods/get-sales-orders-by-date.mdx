@@ -162,6 +162,13 @@ An array of sales orders matching the date range.
     </Description>
   </Field>
 
+  <Field name="orderNumber" type="string" required={false}>
+    <Description>
+      Use this field when a marketplace provides a customer facing identifier for the order that
+      is different from that order's unique id.
+    </Description>
+  </Field>
+
   <Field name="createdDateTime" required={true}>
     <Type>
       [Date Time](./../date-time.mdx), <br/>
