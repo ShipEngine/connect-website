@@ -1,14 +1,13 @@
-FROM node:12-alpine as build
+FROM node:14-alpine as build
 
 WORKDIR /code
+COPY package.json tsconfig.docker.json ./
+COPY src ./src
+RUN yarn --non-interactive
 
-COPY .npmrc tsconfig.json package.json package-lock.json /code/
-RUN npm ci
+RUN ./node_modules/.bin/tsc --project tsconfig.docker.json
 
-COPY src /code/src
-RUN npm run build
-
-FROM node:12-alpine as run
+FROM node:14-alpine as run
 
 ARG GIT_SHA
 ENV GIT_SHA ${GIT_SHA:-unknown}
@@ -17,8 +16,9 @@ ARG GIT_BRANCH
 ENV GIT_BRANCH ${GIT_BRANCH:-unknown}
 
 WORKDIR /code
-COPY package.json package-lock.json .npmrc ./
-RUN npm install --production
-COPY --from=build ./code/dist ./dist
 
-CMD ["npm", "start"]
+COPY --from=build /code/package.json ./package.json
+COPY --from=build /code/lib ./lib
+COPY --from=build /code/node_modules ./node_modules
+
+CMD ["yarn", "start"]
