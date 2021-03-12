@@ -10,7 +10,6 @@ const orderSource: OrderAppDefinition = {
   logo: "./logo.svg",
   icon: "./logo.svg",
   connectionForm: import("./forms/connect"),
-  settingsForm: import("./forms/settings"),
 
   getSalesOrdersByDate: import("./methods/get-sales-order-by-date"),
   shipmentCreated: import("./methods/shipment-created"),

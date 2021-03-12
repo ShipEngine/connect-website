@@ -6,7 +6,6 @@
   "logo": "./logo.svg",
   "icon": "./logo.svg",
   "connectionForm": "./forms/connect.json",
-  "settingsForm": "./forms/settings.json",
 
   "getSalesOrdersByDate": "./methods/get-sales-order-by-date.<%- _codeExt %>",
   "shipmentCreated": "./methods/shipment-created.<%- _codeExt %>",
