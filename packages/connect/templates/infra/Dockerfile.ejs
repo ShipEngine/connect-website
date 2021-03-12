@@ -1,0 +1,27 @@
+FROM node:lts
+RUN npm i @shipengine/connect -g
+
+ARG PROJECT_ROOT=.
+
+WORKDIR /app
+
+COPY ${PROJECT_ROOT}/*.json ./
+COPY ${PROJECT_ROOT}/src ./src
+
+RUN npm i
+<% if (hasBuild) { %>
+RUN npm run build
+<% } %>
+RUN connect pack
+
+# We can't predict or control what the name of the tarball is, so instead we assume
+# that *.tgz only maches 1 thing and give it a consistent name
+RUN mv *.tgz integration.tgz
+
+FROM <%= image %>
+
+COPY --from=0 /app/integration.tgz .
+
+RUN tar -xvf integration.tgz && mv package app
+
+ENV DX_APP_PATH=app

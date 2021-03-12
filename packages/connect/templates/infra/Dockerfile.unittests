@@ -1,0 +1,15 @@
+FROM node:lts
+RUN npm i @shipengine/connect -g
+
+ARG PROJECT_ROOT=.
+
+WORKDIR /app
+
+COPY ${PROJECT_ROOT}/ ./
+
+RUN npm i
+<% if (hasBuild) { %>
+RUN npm run build
+<% } %>
+
+ENTRYPOINT [ "npm", "run", "test" ]

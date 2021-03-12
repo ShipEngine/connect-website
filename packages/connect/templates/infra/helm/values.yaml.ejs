@@ -1,0 +1,40 @@
+image:
+  repository: 813448775391.dkr.ecr.us-east-1.amazonaws.com/<%= repo %>
+
+stack:
+  environment: dev
+
+service:
+  ingress:
+    class: nginx
+  port: 3000
+  healthcheck: /diagnostics/liveness
+
+resources:
+  memory:
+    request: "128Mi"
+    limit: "256Mi"
+  cpu:
+    request: "100m"
+    limit: "250m"
+
+autoscaling:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 1
+  cpu: 70
+
+environment:
+  PORT: 3000
+  MODULE_NAME: <%= appName %>
+  DEPLOY_ENV: dev
+  DEPLOY_PR: local
+  NEW_RELIC_APP_NAME: <%= type %>-<%= appName %>-local
+
+secret:
+  SENTRY_DSN: "#{SENTRY_DSN}"
+  NEW_RELIC_LICENSE_KEY: "#{NEW_RELIC_LICENSE_KEY}"
+
+spec:
+  strategy:
+    type: RollingUpdate

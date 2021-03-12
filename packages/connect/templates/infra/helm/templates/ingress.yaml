@@ -1,0 +1,32 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ template "fullname" . }}-ingress
+  annotations:
+    kubernetes.io/ingress.class: {{ .Values.service.ingress.class }}
+    shipkube/version: "0.0.5"
+  labels:
+    app: {{ .Chart.Name }}
+    release: {{ .Release.Name | quote }}
+spec:
+  rules:
+  {{- if .Values.service.hostnames -}}
+    {{- range $host := .Values.service.hostnames }}
+    - host: {{ $host }}
+      http:
+        paths:
+          - backend:
+              serviceName:  {{ template "fullname" $ }}-service
+              servicePort: 80
+            path: {{ $.Values.service.ingress.path | default "/" }}
+    {{- end }}
+  {{- else }}
+    - host: {{ .Values.service.hostname }}
+      http:
+        paths:
+          - backend:
+              serviceName: {{ template "fullname" . }}-service
+              servicePort: 80
+            path: {{ .Values.service.ingress.path | default "/" }}
+  {{-  end }}
+  

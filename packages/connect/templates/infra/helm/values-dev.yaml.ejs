@@ -1,0 +1,10 @@
+service:
+  ingress:
+    class: nginx-kubedev-sslocal
+environment:
+  DEPLOY_ENV: dev
+  NODE_ENVIRONMENT: development
+  NEW_RELIC_APP_NAME: <%= type %>-<%= appName %>-dev
+spec:
+  strategy:
+    type: Recreate

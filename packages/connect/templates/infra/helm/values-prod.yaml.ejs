@@ -1,0 +1,18 @@
+stack:
+  environment: prod
+
+service:
+  ingress:
+    class: nginx-kube-sslocal
+
+environment:
+  DEPLOY_ENV: prod
+  NODE_ENV: production
+  NEW_RELIC_APP_NAME: <%= type %>-<%= appName %>-prod
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 4
+  cpu: 70
+

@@ -23,6 +23,9 @@ export default class New extends BaseCommand {
       char: "h",
       description: "Show help for the new command",
     }),
+    infra: flags.boolean({
+      description: "Initializes infra files for ShipEngine internal deployments"
+    })
   };
 
   static args = [
@@ -38,6 +41,25 @@ export default class New extends BaseCommand {
   async run(): Promise<void> {
     const { flags, args } = this.parse(New);
     const env = createEnv();
+
+    // If the infra flag is present, use the infra generator
+    if (flags.infra) {
+      env.register(require.resolve("../core/generators/infra-new"), "new");
+
+      const generatorOptions = {
+        path: args.path,
+      };
+
+      await new Promise((resolve, reject) => {
+        env.run("new", generatorOptions, (err: Error | null) => {
+          if (err) reject(err);
+          else resolve("done");
+        });
+      });
+
+      return;
+    }
+
     env.register(require.resolve("../core/generators/apps-new"), "new");
 
     const generatorOptions = {

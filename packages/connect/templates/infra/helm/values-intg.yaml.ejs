@@ -1,0 +1,11 @@
+stack:
+  environment: intg
+
+service:
+  ingress:
+    class: nginx-kubedev-sslocal
+
+environment:
+  DEPLOY_ENV: intg
+  NODE_ENV: production
+  NEW_RELIC_APP_NAME: <%= type %>-<%= appName %>-intg
