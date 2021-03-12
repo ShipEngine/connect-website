@@ -30,6 +30,7 @@ export const mapCreateLabelResponse = (
     shipping_amount: shippingCost,
     insurance_amount: insuranceCost,
     estimated_delivery_datetime: mapDateTime(response.deliveryDateTime),
+    carrier_transaction_id: response.identifiers?.carrierTransactionId,
   };
   if (response.form?.data) {
     createLabelResponse.form_download = {
