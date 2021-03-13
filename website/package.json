@@ -6,7 +6,7 @@
   "homepage": "https://connect.shipengine.com/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ShipEngine/connect-website.git"
+    "url": "https://github.com/ShipEngine/connect.git"
   },
   "scripts": {
     "dev": "next dev -p 3005",
