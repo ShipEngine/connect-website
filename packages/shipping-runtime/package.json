@@ -4,15 +4,16 @@
 	"description": "This is the app host for a carrier Connect app. It provides an HTTP interface implementing the CAPI spec and does mapping CAPI -> Connect -> CAPI",
 	"main": "lib/server.js",
 	"scripts": {
-		"start": "node lib/server.js",
-		"test": "true",
+		"build": "tsc --build",
+		"bump": "bump patch --commit 'release shipping-runtime v' --tag 'shipping-runtime_v' --push --all",
+		"clean": "shx rm -rf .nyc_output coverage lib tsconfig.tsbuildinfo",
+		"dist-clean": "yarn clean && rm -rf node_modules",
 		"format": "prettier --write \"src/**/*.ts\"",
 		"lint": "prettier --check \"src/**/*.ts\"",
-		"clean": "shx rm -rf .nyc_output coverage lib tsconfig.tsbuildinfo",
-		"build": "tsc --build",
-		"watch": "tsc --watch",
-		"bump": "bump patch --commit 'release shipping-runtime v' --tag 'shipping-runtime_v' --push --all",
-		"release": "yarn clean && yarn build && yarn test && yarn bump"
+		"release": "yarn clean && yarn build && yarn test && yarn bump",
+		"start": "node lib/server.js",
+		"test": "true",
+		"watch": "tsc --watch"
 	},
 	"repository": {
 		"type": "git",
