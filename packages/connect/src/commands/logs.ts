@@ -81,7 +81,7 @@ export default class Logs extends BaseCommand {
             exit: 1,
           });
         default:
-          return this.error("Error retrieving app info", {
+          return this.error(error, {
             exit: 1,
           });
       }

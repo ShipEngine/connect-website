@@ -51,7 +51,7 @@ export default abstract class AppBaseCommand extends BaseCommand {
               exit: 1,
             });
           default:
-            return this.error("Error initializing app", {
+            return this.error(error, {
               exit: 1,
             });
         }
@@ -61,7 +61,7 @@ export default abstract class AppBaseCommand extends BaseCommand {
 }
 
 function isBaseAppFlagType(flags: unknown): flags is { debug: false } {
-  
+
   if (typeof flags === "object" && flags && "debug" in flags) {
     return true;
   }

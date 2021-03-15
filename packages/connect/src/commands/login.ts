@@ -52,7 +52,9 @@ export default class Login extends BaseCommand {
             exit: 1,
           });
         default:
-          throw error;
+          return this.error(error, {
+            exit: 1,
+          });
       }
 
     } finally {
