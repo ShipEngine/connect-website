@@ -24,22 +24,20 @@
     "lib"
   ],
   "scripts": {
-    "build": "tsc --build",
-    "bump": "bump $BUMP_RELEASE_TYPE --commit 'release loader v' --tag 'connect-loader_v' --push --all",
-    "clean": "shx rm -rf .nyc_output coverage lib tsconfig.tsbuildinfo",
-    "coverage": "nyc node_modules/mocha/bin/mocha",
-    "dist-clean": "yarn clean && rm -rf node_modules",
+    "build": "yarn build:ts",
+    "bump": "yarn version:bump",
+    "clean": "yarn build:clean",
+    "coverage": "yarn test:coverage",
     "lint": "eslint src test",
-    "release": "yarn clean && yarn build && yarn test && yarn bump",
+    "release": "yarn version:release",
     "test": "mocha && yarn lint",
-    "watch": "tsc --watch"
+    "watch": "yarn build:watch"
   },
   "engines": {
     "node": ">=10"
   },
   "engineStrict": true,
   "devDependencies": {
-    "@jsdevtools/version-bump-prompt": "^6.1.0",
     "@types/chai": "^4.2.14",
     "@types/hapi__joi": "^17.1.6",
     "@types/js-yaml": "^3.12.5",

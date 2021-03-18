@@ -50,3 +50,12 @@ node_modules
 .env.development.local
 .env.test.local
 .env.production.local
+
+# Yarn files
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*

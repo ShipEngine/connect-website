@@ -32,7 +32,7 @@ jobs:
           node-version: 14
 
       - name: yarn install
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
 
       - name: yarn lint
         working-directory: packages/order-source-api
@@ -70,14 +70,33 @@ jobs:
           node-version: 14
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
 
       - name: Build
         working-directory: packages/order-source-api
         run: yarn build
 
-      - name: Publish to NPM
+      - id: publish
+        name: Publish to NPM
         uses: JS-DevTools/npm-publish@v1
         with:
           package: packages/order-source-api/package.json
           token: ${{ secrets.NPM_TOKEN }}
+
+      - name: Tag Release
+        if: ${{ steps.publish.outputs.type != 'none' }}
+        working-directory: packages/order-source-api
+        run: |
+          yarn run version:tag
+          git push --tags
+
+          cd ${{ github.workspace }}
+          git log --oneline order-source-api_v${{ steps.publish.outputs.old-version }}..order-source-api_v${{ steps.publish.outputs.version }} -- packages/order-source-api > release-changelog.txt
+        env:
+          NEW_VERSION: ${{ steps.publish.outputs.version }}
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          body-path: ${{ github.workspace }}/release-changelog.txt
+          tag_name: order-source-api_v${{ steps.publish.outputs.version }}

@@ -1,13 +1,20 @@
 name: Manage Releases
 
+env:
+  IS_VALID_COMMENT: ${{ github.event.comment && startsWith(github.event.comment.body, 'release') }}
+  IS_APPROVED_PR: ${{ github.event.pull_request_review && github.event.pull_request_review.state == 'APPROVED' }}
+
 on:
   issue_comment:
+    types:
+      - created
+  pull_request_review:
     types:
       - created
 
 jobs:
   release:
-    if: github.event.issue.pull_request && github.event.issue.user.id == github.event.comment.user.id && startsWith(github.event.comment.body, 'release')
+    if: ${{ github.event.issue.pull_request && (env.IS_VALID_COMMENT == 'true' || env.IS_APPROVED_PR == 'true') }}
     name: Prepare Release
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -34,58 +41,70 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v2
         with:
+          fetch-depth: 0
           ref: ${{ fromJSON(steps.pr_info.outputs.result).head.ref }}
-
-      - id: validate
-        name: Validate Inputs
-        env:
-          COMMENT: ${{ github.event.comment.body }}
-        run: |
-          set -x
-          IFS=' '
-          read -ra words <<< "${COMMENT}"
-          set -- "${words[@]}"
-          shift
-          package_name=$1
-          shift
-          release_type=${1:-patch}
-          package_directory=packages/${package_name}
-          echo "PACKAGE_DIRECTORY=${package_directory}" >> $GITHUB_ENV
-          if [[ -n "${package_name}" ]] && [[ -d "${package_directory}" ]]; then
-            echo "::set-output name=is_valid::true"
-          else
-            echo "::set-output name=is_valid::false"
-            echo "::debug::Invalid package: ${package_name}"
-          fi
-          echo "::set-output name=package_name::${package_name}"
-          echo "::set-output name=release_type::${release_type}"
-        shell: bash
-
-      - name: Alert
-        if: steps.validate.outputs.is_valid == 'false'
-        uses: actions/github-script@v3
-        with:
-          script: |
-            github.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: '🤖 Invalid 📦 name `${{ steps.validate.outputs.package_name }}` in [comment#${{ github.event.comment.id }}](${{ github.event.comment.html_url }}).'
-            })
 
       - name: Install Node
         uses: actions/setup-node@v2
-        if: steps.validate.outputs.is_valid == 'true'
         with:
           always-auth: true
           node-version: 14
 
       - name: Install dependencies
-        if: steps.validate.outputs.is_valid == 'true'
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
+
+      - name: Parse comment
+        if: ${{ env.IS_VALID_COMMENT == 'true' }}
+        env:
+          COMMENT: ${{ github.event.comment.body }}
+        run: |
+          # If an optional comma-separated list of packages has
+          # been provided, commit those releases.
+          set -x
+          IFS=' '
+          read -ra words <<< "${COMMENT}"
+          set -- "${words[@]}"
+          shift
+          package_names=$1
+          shift
+          export BUMP_RELEASE_TYPE=${1:-patch}
+
+          IFS=','
+          read -ra packages <<< "${package_names}"
+          for package in "${packages[@]}"; do
+            package_directory=packages/${package_name}
+            if [[ -d "${package_directory}" ]]; then
+              cd "${package_directory}"
+              yarn run bump
+              cd -
+            fi
+          done
+        shell: bash
+
+      - id: validate
+        name: Validate
+        uses: actions/github-script@v3
+        with:
+          script: |
+            // Running `yarn version check` as a child process because
+            // passing multiline output between steps is awkward.
+            const exec = require('child_process').exec
+            exec('yarn version check', (error, stdout, stderr) => {
+              if (error) {
+                github.issues.createComment({
+                  issue_number: context.issue.number,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  body: '```\n' + stdout + '```\n'
+                })
+              }
+            })
+        env:
+          BASE_REF: ${{ fromJSON(steps.pr_info.outputs.result).base.ref }}
+
 
       - name: Increment version
-        if: steps.validate.outputs.is_valid == 'true'
+        if: ${{ env.IS_VALID_COMMENT == 'true' }}
         working-directory: ${{ env.PACKAGE_DIRECTORY }}
         run: |
           # Configure git for commits
@@ -94,6 +113,4 @@ jobs:
           git config user.email github-actions@github.com
           # Increment package version
           yarn run release
-        env:
-          BUMP_RELEASE_TYPE: ${{ steps.validate.outputs.release_type }}
-          PACKAGE_NAME: ${{ steps.validate.outputs.package_name }}
+          git push

@@ -1,8 +1,6 @@
 {
   "name": "shipengine-connect",
-  "version": "1.0.0",
   "description": "ShipEngine Connect",
-  "main": "index.js",
   "repository": "git@github.com:ShipEngine/connect.git",
   "author": "ShipEngine Connect <connect@shipengine.com>",
   "license": "Apache-2.0",
@@ -11,6 +9,15 @@
     "packages/*"
   ],
   "scripts": {
-    "dist-clean": "yarn workspaces run dist-clean && rm -rf node_modules"
+    "build:clean": "cd $INIT_CWD && rm -rf .nyc_output coverage lib tsconfig.tsbuildinfo",
+    "build:ts": "cd $INIT_CWD && tsc --build",
+    "build:watch": "cd $INIT_CWD && tsc --watch",
+    "clean-tags": "git tag -l | xargs git tag -d && git fetch -t",
+    "dist-clean": "yarn workspaces foreach run clean && rm -rf node_modules packages/*/node_modules",
+    "test:coverage": "cd $INIT_CWD && nyc node_modules/mocha/bin/mocha",
+    "version:bump": "cd $INIT_CWD && yarn version ${BUMP_RELEASE_TYPE:-patch} && git add ../../.yarn/versions/* && git commit -m \"${BUMP_RELEASE_TYPE:-patch} $(basename $INIT_CWD)\"",
+    "version:lookup": "cd $INIT_CWD && node -e 'console.log(require(\"./package.json\").version)'",
+    "version:release": "cd $INIT_CWD && yarn clean && yarn build && yarn test && yarn version apply && git commit -a -m \"release $(basename $INIT_CWD) v$(yarn run version:lookup)\"",
+    "version:tag": "cd $INIT_CWD && git tag -a \"$(basename $INIT_CWD)_v${NEW_VERSION:-$(yarn run version:lookup)}\" -m \"release $(basename $INIT_CWD) v${NEW_VERSION:-$(yarn run version:lookup)}\""
   }
 }

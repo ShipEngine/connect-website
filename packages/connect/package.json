@@ -26,9 +26,7 @@
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
-  "bin": {
-    "connect": "bin/connect.js"
-  },
+  "bin": "bin/connect.js",
   "engineStrict": true,
   "engines": {
     "node": ">=10.5.0"
@@ -39,18 +37,16 @@
     "/templates"
   ],
   "scripts": {
-    "build": "tsc --build",
-    "bump": "bump $BUMP_RELEASE_TYPE --commit 'release connect v' --tag 'connect_v' --push --all",
-    "clean": "shx rm -rf .nyc_output coverage lib tsconfig.tsbuildinfo",
-    "coverage": "nyc node_modules/mocha/bin/mocha",
-    "dist-clean": "yarn clean && rm -rf node_modules",
+    "build": "yarn build:ts",
+    "bump": "yarn version:bump",
+    "clean": "yarn build:clean",
+    "coverage": "yarn test:coverage",
     "lint": "eslint src test",
-    "preversion": "cd ../../ && yarn workspace @shipengine/connect add @shipengine/connect-sdk",
-    "release": "yarn clean && yarn build && yarn test && yarn bump",
+    "release": "yarn version:release",
     "test": "HOME=. yarn test:javascript && yarn test:typescript",
     "test:javascript": "mocha",
     "test:typescript": "tsc --noEmit test/specs/typescript.spec.ts",
-    "watch": "tsc --watch"
+    "watch": "yarn build:watch"
   },
   "oclif": {
     "commands": "./lib/commands",
@@ -67,7 +63,6 @@
   },
   "devDependencies": {
     "@jsdevtools/chai-exec": "^2.1.1",
-    "@jsdevtools/version-bump-prompt": "^6.1.0",
     "@oclif/dev-cli": "^1.23.1",
     "@oclif/test": "^1.2.8",
     "@types/chai": "^4.2.14",

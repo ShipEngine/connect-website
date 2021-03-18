@@ -4,16 +4,15 @@
   "description": "This is the app host for a order source Connect app. It provides an HTTP interface implementing the OrderSourceAPI spec and does mapping to Connect and back",
   "main": "lib/server.js",
   "scripts": {
-    "build": "tsc --build",
-    "bump": "bump $BUMP_RELEASE_TYPE --commit 'release order-source-runtime v' --tag 'order-source-runtime_v' --push --all",
-    "clean": "shx rm -rf .nyc_output coverage lib tsconfig.tsbuildinfo",
-    "dist-clean": "yarn clean && rm -rf node_modules",
+    "build": "yarn build:ts",
+    "bump": "yarn version:bump",
+    "clean": "yarn build:clean",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "prettier --check \"src/**/*.ts\"",
-    "release": "yarn clean && yarn build && yarn test && yarn bump",
+    "release": "yarn version:release",
     "start": "node lib/server.js",
     "test": "true",
-    "watch": "tsc --watch"
+    "watch": "yarn build:watch"
   },
   "repository": {
     "type": "git",
