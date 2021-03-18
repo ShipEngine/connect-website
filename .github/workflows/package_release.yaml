@@ -53,7 +53,8 @@ jobs:
       - name: Install dependencies
         run: yarn install --immutable
 
-      - name: Parse comment
+      - id: parse
+        name: Parse comment
         if: ${{ env.IS_VALID_COMMENT == 'true' }}
         env:
           COMMENT: ${{ github.event.comment.body }}
@@ -68,6 +69,7 @@ jobs:
           package_names=$1
           shift
           export BUMP_RELEASE_TYPE=${1:-patch}
+          echo "::set-output name=package_names::${package_names}"
           
           IFS=',' read -ra packages <<< "${package_names}"
           for package in "${packages[@]}"; do
@@ -110,4 +112,14 @@ jobs:
           git config user.name github-actions
           git config user.email github-actions@github.com
           # Increment package version(s)
-          yarn version apply --all && git push
+          if [[ -n "${PACKAGES}" ]]; then
+            commit_msg="🤖 release 📦(s): ${PACKAGES}"
+          else
+            commit_msg="🤖 release 📦(s)"
+          fi
+          set -e
+          yarn version apply --all
+          git commit -a -m "${commit_msg}"
+          git push
+        env:
+          PACKAGES: ${{ steps.parse.outputs.package_names }}
