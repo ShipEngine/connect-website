@@ -78,7 +78,7 @@ jobs:
           echo "::set-output name=package_names::${package_names}"
 
           IFS=',' read -ra packages <<< "${package_names}"
-          for package in "${packages[@]}"; do
+          for package_name in "${packages[@]}"; do
             package_directory=packages/${package_name}
             if [[ -n "${package_name}" ]] && [[ -d "${package_directory}" ]]; then
               cd "${package_directory}"
