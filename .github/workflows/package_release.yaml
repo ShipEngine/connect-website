@@ -105,12 +105,11 @@ jobs:
 
       - name: Increment version
         if: ${{ env.IS_VALID_COMMENT == 'true' }}
-        working-directory: ${{ env.PACKAGE_DIRECTORY }}
         run: |
           # Configure git for commits
           date > generated.txt
           git config user.name github-actions
           git config user.email github-actions@github.com
-          # Increment package version
-          yarn run release
+          # Increment package version(s)
+          yarn version apply --all
           git push
