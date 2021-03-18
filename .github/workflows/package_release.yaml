@@ -73,7 +73,7 @@ jobs:
           read -ra packages <<< "${package_names}"
           for package in "${packages[@]}"; do
             package_directory=packages/${package_name}
-            if [[ -d "${package_directory}" ]]; then
+            if [[ -n "${package_name}" ]] && [[ -d "${package_directory}" ]]; then
               cd "${package_directory}"
               yarn run bump
               cd -
