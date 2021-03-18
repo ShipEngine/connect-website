@@ -1,0 +1,3784 @@
+openapi: 3.0.0
+tags:
+  - name: Accounts
+  - name: Labels
+  - name: Manifests
+  - name: Pickup
+  - name: Rates
+  - name: Tracking
+info:
+  description: This API specification describes the canonical ShipEngine Carrier API connector module. A module which implements one or more endpoints from this specification can be integrated with the ShipEngine Carrier Platform.
+  version: 1.13.0
+  title: ShipEngine Carrier API
+  contact:
+    name: ShipEngine
+    url: 'https://www.shipengine.com/'
+    email: support@shipengine.com
+paths:
+  /Track:
+    post:
+      tags:
+        - Tracking
+      operationId: Tracking_Track
+      parameters:
+        - name: ShipStation-TransactionID
+          in: header
+          schema:
+            format: guid
+            type: string
+          description: A unique GUID used to identify this transaction.
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: 'The client sends HTTP requests with the Authorization header that contains the word Basic word followed by a space and a base64-encoded string username:password.'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrackingRequest'
+            examples:
+              Track-Request:
+                value:
+                  is_return: false
+                  identifiers:
+                    - type: tracking_number
+                      value: 6e90affb-feab-4993-b55d-0f9c4db99046
+                  attributes: []
+                  transaction_id: 4bfe4db5-d67b-46da-945d-3757bd0a7e38
+                  metadata: {}
+      responses:
+        '200':
+          description: A response that indicates that the module encountered no errors during the course of its execution.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrackingResponse'
+              examples:
+                Track-Response:
+                  value:
+                    tracking_info:
+                      tracking_number: 1Z34353434534
+                      standardized_status_code: AC
+                      carrier_status_code: CARRIER_ACCEPTED
+                      carrier_status_description: The carrier has accepted the package
+                      shipped_datetime: '2019-12-06T02:12:19Z'
+                      estimated_delivery_datetime: '2019-14-06T02:12:19Z'
+                      actual_delivery_datetime: null
+                      shipping_problem_description: null
+                      weight: 10
+                      dimensions:
+                        length: 5
+                        width: 6
+                        height: 4
+                      service:
+                        code: SHIP_1
+                        name: Shipping Service One
+                      packaging: Box
+                      package_count: 1
+                      last_event:
+                        event_datetime: '2019-12-06T02:12:19Z'
+                        event_code: AC
+                        description: Accepted
+                        city: Austin
+                        state: Texas
+                        postal_code: '78759'
+                        country: US
+                        company: ''
+                        signer: null
+                        geo:
+                          lat: -31.9543
+                          long: -120.9762
+                      events:
+                        - event_datetime: '2019-12-06T02:12:19Z'
+                          event_code: AC
+                          description: Accepted
+                          city: Austin
+                          state: Texas
+                          postal_code: '78759'
+                          country: US
+                          company: ''
+                          signer: null
+                          geo:
+                            lat: -31.9543
+                            long: -120.9762
+                      shipping_problem: false
+                      shipping_problem_code: null
+                      error_description: null
+        '400':
+          description: A response to indicate that there was either a module level client error or an external client error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+        '401':
+          description: A response to indicate that the request failed to authenticate with the shipping provider.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+        '404':
+          description: A response to indicate that the module does not implement this endpoint.
+        '429':
+          description: A response indicates that the shipping service provider has denied a request due to too many requests.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitResponse'
+              examples:
+                Example:
+                  value:
+                    retry_after_seconds: 6000
+                    retry_after_time: null
+                    throttling_context: {}
+        '500':
+          description: A response indicating a server level error with the module.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerErrorResponse'
+        '520':
+          description: A response indicating a server level error with the external world.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalServerErrorResponse'
+      security: []
+      description: This endpoint is used to get tracking information about a shipment.
+      summary: Track
+  /GetRates:
+    post:
+      tags:
+        - Rates
+      operationId: Rates_GetRates
+      parameters:
+        - name: ShipStation-TransactionID
+          in: header
+          schema:
+            format: guid
+            type: string
+          description: A unique GUID used to identify this transaction.
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: 'The client sends HTTP requests with the Authorization header that contains the word Basic word followed by a space and a base64-encoded string username:password.'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetRatesRequest'
+            examples:
+              Get-Rates-Request:
+                value:
+                  service_code: string
+                  ship_datetime: '2019-12-06T02:02:56Z'
+                  confirmation: None
+                  insurance_provider: None
+                  advanced_options:
+                    contains_alcohol: true
+                    no_postage: true
+                    nonmachineable: true
+                    bill_duties_to_sender: true
+                    saturday_delivery: true
+                  insured_value:
+                    currency: USD
+                    amount: '45.44'
+                  is_return_label: false
+                  is_residential: false
+                  packages:
+                    - package_code: Package
+                      weight_details:
+                        weight_in_ounces: 0.3584
+                        weight_in_grams: 10.16
+                        source_weight: 10.16
+                        source_weight_unit: Grams
+                      dimension_details:
+                        dimensions_in_centimeters:
+                          length: 254
+                          width: 254
+                          height: 254
+                        dimensions_in_inches:
+                          length: 100
+                          width: 100
+                          height: 100
+                        source_dimensions:
+                          length: 100
+                          width: 100
+                          height: 100
+                        source_dimension_unit: Inches
+                      insured_value:
+                        currency: USD
+                        amount: '16.00'
+                  customs: null
+                  ship_to:
+                    name: ShipStation
+                    first_name: Ship
+                    last_name: Station
+                    email: some@email.com
+                    phone_number: '1234567890'
+                    company_name: ShipStation
+                    address_lines:
+                      - '3800 N Lamar Blvd #220'
+                      - null
+                      - null
+                    city_locality: Austin
+                    state_province: Tx
+                    postal_code: '78756'
+                    country_code: US
+                    address_residential_indicator: unknown
+                    is_eu: false
+                  ship_from:
+                    name: Shipping Easy
+                    first_name: Ship
+                    last_name: EZ
+                    email: some@email.com
+                    phone_number: '1234567890'
+                    company_name: ShippingEZ
+                    address_lines:
+                      - 3700 N Capital of Texas Hwy Suite 550
+                      - null
+                      - null
+                    city_locality: Austin
+                    state_province: Tx
+                    postal_code: '78746'
+                    country_code: US
+                    address_residential_indicator: unknown
+                    is_eu: false
+                  international: false
+                  next_day: false
+                  transaction_id: 26e83391-6015-47b0-90c9-9eacb987bca3
+                  metadata: {}
+      responses:
+        '200':
+          description: A response that indicates that the module encountered no errors during the course of its execution.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetRatesResponse'
+              examples:
+                Get-Rates-Response:
+                  value:
+                    rates:
+                      - service_code: SERVICE_CODE
+                        ship_datetime: '2019-12-06T02:10:52.715Z'
+                        estimated_delivery_datetime: '2019-12-06T02:10:52.715Z'
+                        shipping_amount:
+                          currency: USD
+                          amount: '50.00'
+                        insurance_amount:
+                          currency: USD
+                          amount: '5.00'
+                        confirmation_amount:
+                          currency: USD
+                          amount: '2.00'
+                        other_amount:
+                          currency: USD
+                          amount: '14.00'
+                        error_messages: []
+                        warning_messages: []
+                        negotiated_rate: true
+        '400':
+          description: A response to indicate that there was either a module level client error or an external client error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+        '401':
+          description: A response to indicate that the request failed to authenticate with the shipping provider.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+        '404':
+          description: A response to indicate that the module does not implement this endpoint.
+        '429':
+          description: A response indicates that the shipping service provider has denied a request due to too many requests.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitResponse'
+              examples:
+                Example:
+                  value:
+                    retry_after_seconds: 6000
+                    retry_after_time: null
+                    throttling_context: {}
+        '500':
+          description: A response indicating a server level error with the module.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerErrorResponse'
+        '520':
+          description: A response indicating a server level error with the external world.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalServerErrorResponse'
+      security: []
+      description: This endpoint is used to get rates for a particular shipment.
+      summary: Get Rates
+  /SchedulePickup:
+    post:
+      tags:
+        - Pickup
+      operationId: Pickup_SchedulePickup
+      parameters:
+        - name: ShipStation-TransactionID
+          in: header
+          schema:
+            format: guid
+            type: string
+          description: A unique GUID used to identify this transaction.
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: 'The client sends HTTP requests with the Authorization header that contains the word Basic word followed by a space and a base64-encoded string username:password.'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SchedulePickupRequest'
+            examples:
+              Schedule-Pickup-Request:
+                value:
+                  transaction_id: 4008bc7b-6ffb-42ac-b987-15a85751e178
+                  metadata: {}
+                  location:
+                    pickup_address:
+                      name: John Doe
+                      first_name: John
+                      last_name: Doe
+                      email: email@email.com
+                      phone_number: 555-555-5555
+                      company_name: Shipstation
+                      address_lines:
+                        - 800 N Lamar Blvd
+                        - '#220'
+                      city_locality: Austin
+                      state_province: TX
+                      postal_code: '78756'
+                      country_code: US
+                      address_residential_indicator: commercial
+                      is_eu: false
+                    location_notes: 'Kendra Scott building, second floor. Parking Validated.'
+                    pickup_options: {}
+                  contact:
+                    first_name: Jane
+                    last_name: Doe
+                    email: jdoe@email.com
+                    phone_number: 555-666-5555
+                    phone_number_extension: ''
+                  pickup_details:
+                    pickup_service_code: ''
+                    shipments:
+                      - tracking_number: cd03c247-8d06-4f08-925b-2f0d2b5dff49
+                        alternative_identifiers: []
+                        service_code: '03'
+                        packages:
+                          - tracking_number: cd03c247-8d06-4f08-925b-2f0d2b5dff49
+                            alternative_identifiers: []
+                            dimensions:
+                              length: 5
+                              width: 6
+                              height: 10
+                            package_code: '01'
+                            weight: 50000
+                          - tracking_number: cd03c247-8d06-4f08-925b-2f0d2b5dff49
+                            alternative_identifiers: []
+                            dimensions:
+                              length: 5
+                              width: 6
+                              height: 10
+                            package_code: '01'
+                            weight: 80000
+                        advanced_options: {}
+                      - tracking_number: eae6d3bc-f9dd-4237-aa04-53452791107b
+                        alternative_identifiers: []
+                        service_code: '04'
+                        packages:
+                          - tracking_number: eae6d3bc-f9dd-4237-aa04-53452791107b
+                            alternative_identifiers: []
+                            dimensions:
+                              length: 5
+                              width: 6
+                              height: 10
+                            package_code: '01'
+                            weight: 50000
+                          - tracking_number: eae6d3bc-f9dd-4237-aa04-53452791107b
+                            alternative_identifiers: []
+                            dimensions:
+                              length: 5
+                              width: 6
+                              height: 10
+                            package_code: '01'
+                            weight: 10000
+                          - tracking_number: eae6d3bc-f9dd-4237-aa04-53452791107b
+                            alternative_identifiers: []
+                            dimensions:
+                              length: 5
+                              width: 6
+                              height: 10
+                            package_code: '01'
+                            weight: 10000
+                        advanced_options: {}
+                      - tracking_number: eae6d3bc-f9dd-4237-aa04-53452791107b
+                        alternative_identifiers: []
+                        service_code: '03'
+                        packages:
+                          - tracking_number: eae6d3bc-f9dd-4237-aa04-53452791107b
+                            alternative_identifiers: []
+                            dimensions:
+                              length: 5
+                              width: 6
+                              height: 10
+                            package_code: '01'
+                            weight: 50000
+                          - tracking_number: eae6d3bc-f9dd-4237-aa04-53452791107b
+                            alternative_identifiers: []
+                            dimensions:
+                              length: 5
+                              width: 6
+                              height: 10
+                            package_code: '01'
+                            weight: 10000
+                          - tracking_number: eae6d3bc-f9dd-4237-aa04-53452791107b
+                            alternative_identifiers: []
+                            dimensions:
+                              length: 5
+                              width: 6
+                              height: 10
+                            package_code: '01'
+                            weight: 10000
+                        advanced_options: {}
+                  requested_pickup_window:
+                    time_zone_iana: America/Chicago
+                    pickup_date: '2019-10-11T21:21:46.261Z'
+                    start_time: '2019-10-11T21:21:46.261Z'
+                    end_time: '2019-10-11T21:21:46.261Z'
+        description: ''
+      responses:
+        '200':
+          description: A response that indicates that the module encountered no errors during the course of its execution.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SchedulePickupResponse'
+              examples:
+                Schedule-Pickup-Response:
+                  value:
+                    confirmation:
+                      confirmation_id: CONFIRMATION_12345
+                      alternate_identifiers:
+                        - type: PICKUP_CODE
+                          value: ABC123
+                      shipment_identifiers:
+                        - tracking_number: TRACK1234
+                          alternate_identifiers:
+                            - type: SHIPMENT_ID
+                              value: '12345'
+                    pickup_windows:
+                      - time_zone_iana: America/Chicago
+                        pickup_date: '2002-10-02T00:00:00-05:00'
+                        start_time: '2002-10-02T18:30:00-05:00'
+                        end_time: '2002-10-02T22:30:00-05:00'
+                    charges:
+                      - charge_tax:
+                          currency: USD
+                          amount: '0.00'
+                        charge_amount:
+                          currency: USD
+                          amount: '5.80'
+                        charge_code: B
+                        charge_description: BASE CHARGE
+                        disclaimer: 'Rate excludes VAT. Rate includes a fuel surcharge, but excludes taxes, duties and other charges that may apply to the shipment.'
+                      - charge_tax:
+                          currency: USD
+                          amount: '0.00'
+                        charge_amount:
+                          currency: USD
+                          amount: '0.00'
+                        charge_code: S
+                        charge_description: REMOTE AREA SURCHARGE
+                        disclaimer: 'Rate excludes VAT. Rate includes a fuel surcharge, but excludes taxes, duties and other charges that may apply to the shipment.'
+                      - charge_tax:
+                          currency: USD
+                          amount: '0.00'
+                        charge_amount:
+                          currency: USD
+                          amount: '0.42'
+                        charge_code: S
+                        charge_description: FUEL SURCHARGE
+                        disclaimer: 'Rate excludes VAT. Rate includes a fuel surcharge, but excludes taxes, duties and other charges that may apply to the shipment.'
+                    charges_total:
+                      currency: USD
+                      amount: '6.22'
+                    remarks: The pickup has been scheduled. We will call you 1 hour before the time window.
+                    custom_properties:
+                      SERVICE_AREA: AUS
+        '400':
+          description: A response to indicate that there was either a module level client error or an external client error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+        '401':
+          description: A response to indicate that the request failed to authenticate with the shipping provider.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+        '404':
+          description: A response to indicate that the module does not implement this endpoint.
+        '429':
+          description: A response indicates that the shipping service provider has denied a request due to too many requests.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitResponse'
+              examples:
+                Example:
+                  value:
+                    retry_after_seconds: 6000
+                    retry_after_time: null
+                    throttling_context: {}
+        '500':
+          description: A response indicating a server level error with the module.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerErrorResponse'
+        '520':
+          description: A response indicating a server level error with the external world.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalServerErrorResponse'
+      security: []
+      description: This endpoint is used to schedule an adhoc pickup with the shipping provider.
+      summary: Schedule Pickup
+  /CancelPickup:
+    post:
+      tags:
+        - Pickup
+      operationId: Pickup_CancelPickup
+      parameters:
+        - name: ShipStation-TransactionID
+          in: header
+          schema:
+            format: guid
+            type: string
+          description: A unique GUID used to identify this transaction.
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: 'The client sends HTTP requests with the Authorization header that contains the word Basic word followed by a space and a base64-encoded string username:password.'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CancelPickupRequest'
+            examples:
+              Cancel-Pickup-Request:
+                value:
+                  transaction_id: 4008bc7b-6ffb-42ac-b987-15a85751e178
+                  metadata: {}
+                  confirmation:
+                    confirmation_id: CONFIRMATION_12345
+                    alternate_identifiers:
+                      - type: PICKUP_CODE
+                        value: ABC123
+                    shipment_identifiers:
+                      - tracking_number: TRACK1234
+                        alternate_identifiers:
+                          - type: SHIPMENT_ID
+                            value: '12345'
+                  location:
+                    pickup_address:
+                      name: John Doe
+                      first_name: John
+                      last_name: Doe
+                      email: email@email.com
+                      phone_number: 555-555-5555
+                      company_name: Shipstation
+                      address_lines:
+                        - 800 N Lamar Blvd
+                        - '#220'
+                      city_locality: Austin
+                      state_province: TX
+                      postal_code: '78756'
+                      country_code: US
+                      address_residential_indicator: commercial
+                      is_eu: false
+                    location_notes: 'Kendra Scott building, second floor. Parking Validated.'
+                    pickup_options: {}
+                  cancellation_details:
+                    reason: cost_too_high
+                    cancellation_options: {}
+                    remarks: "I can't pay that much for a pickup."
+                  contact:
+                    first_name: Jane
+                    last_name: Doe
+                    email: jdoe@email.com
+                    phone_number: 555-666-5555
+                    phone_number_extension: ''
+                  pickup_details:
+                    pickup_service_code: ''
+                    shipments:
+                      - tracking_number: cd03c247-8d06-4f08-925b-2f0d2b5dff49
+                        alternative_identifiers: []
+                        service_code: '03'
+                        packages:
+                          - tracking_number: cd03c247-8d06-4f08-925b-2f0d2b5dff49
+                            alternative_identifiers: []
+                            dimensions:
+                              length: 5
+                              width: 6
+                              height: 10
+                            package_code: '01'
+                            weight: 50000
+                          - tracking_number: cd03c247-8d06-4f08-925b-2f0d2b5dff49
+                            alternative_identifiers: []
+                            dimensions:
+                              length: 5
+                              width: 6
+                              height: 10
+                            package_code: '01'
+                            weight: 80000
+                        advanced_options: {}
+                      - tracking_number: eae6d3bc-f9dd-4237-aa04-53452791107b
+                        alternative_identifiers: []
+                        service_code: '04'
+                        packages:
+                          - tracking_number: eae6d3bc-f9dd-4237-aa04-53452791107b
+                            alternative_identifiers: []
+                            dimensions:
+                              length: 5
+                              width: 6
+                              height: 10
+                            package_code: '01'
+                            weight: 50000
+                          - tracking_number: eae6d3bc-f9dd-4237-aa04-53452791107b
+                            alternative_identifiers: []
+                            dimensions:
+                              length: 5
+                              width: 6
+                              height: 10
+                            package_code: '01'
+                            weight: 10000
+                          - tracking_number: eae6d3bc-f9dd-4237-aa04-53452791107b
+                            alternative_identifiers: []
+                            dimensions:
+                              length: 5
+                              width: 6
+                              height: 10
+                            package_code: '01'
+                            weight: 10000
+                        advanced_options: {}
+                      - tracking_number: eae6d3bc-f9dd-4237-aa04-53452791107b
+                        alternative_identifiers: []
+                        service_code: '03'
+                        packages:
+                          - tracking_number: eae6d3bc-f9dd-4237-aa04-53452791107b
+                            alternative_identifiers: []
+                            dimensions:
+                              length: 5
+                              width: 6
+                              height: 10
+                            package_code: '01'
+                            weight: 50000
+                          - tracking_number: eae6d3bc-f9dd-4237-aa04-53452791107b
+                            alternative_identifiers: []
+                            dimensions:
+                              length: 5
+                              width: 6
+                              height: 10
+                            package_code: '01'
+                            weight: 10000
+                          - tracking_number: eae6d3bc-f9dd-4237-aa04-53452791107b
+                            alternative_identifiers: []
+                            dimensions:
+                              length: 5
+                              width: 6
+                              height: 10
+                            package_code: '01'
+                            weight: 10000
+                        advanced_options: {}
+                  pickup_windows:
+                    - time_zone_iana: America/Chicago
+                      pickup_date: '2019-10-11T21:21:46.261Z'
+                      start_time: '2019-10-11T21:21:46.261Z'
+                      end_time: '2019-10-11T21:21:46.261Z'
+                  custom_properties:
+                    SERVICE_AREA: AUS
+        description: A cancel pickup request
+      responses:
+        '200':
+          description: A response that indicates that the module encountered no errors during the course of its execution.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CancelPickupResponse'
+              examples:
+                Cancel-Pickup-Response:
+                  value:
+                    confirmation_id: N/A
+                    successful: true
+                    status: Cancelled
+                    custom_properties:
+                      SERVICE_AREA: AUS
+        '400':
+          description: A response to indicate that there was either a module level client error or an external client error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+        '401':
+          description: A response to indicate that the request failed to authenticate with the shipping provider.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+        '404':
+          description: A response to indicate that the module does not implement this endpoint.
+        '429':
+          description: A response indicates that the shipping service provider has denied a request due to too many requests.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitResponse'
+              examples:
+                Example:
+                  value:
+                    retry_after_seconds: 6000
+                    retry_after_time: null
+                    throttling_context: {}
+        '500':
+          description: A response indicating a server level error with the module.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerErrorResponse'
+        '520':
+          description: A response indicating a server level error with the external world.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalServerErrorResponse'
+      security: []
+      description: This endpoint is used to cancel a previously scheduled pickup.
+      summary: Cancel Pickup
+  /CreateManifest:
+    post:
+      tags:
+        - Manifests
+      operationId: Manifests_CreateManifest
+      parameters:
+        - name: ShipStation-TransactionID
+          in: header
+          schema:
+            format: guid
+            type: string
+          description: A unique GUID used to identify this transaction.
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: 'The client sends HTTP requests with the Authorization header that contains the word Basic word followed by a space and a base64-encoded string username:password.'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateManifestRequest'
+            examples:
+              Create-Manifest-Request:
+                value:
+                  ship_from:
+                    is_eu: true
+                    address_residential_indicator: 'yes'
+                    country_code: US
+                    postal_code: '78759'
+                    state_province: TX
+                    city_locality: Austin
+                    address_lines:
+                      - 10000 Fumble Blvd.
+                      - Apt 433
+                    company_name: Shipstation
+                    phone_number: 555-555-5555
+                    email: jdoe@email.com
+                    last_name: Doe
+                    first_name: Jane
+                    name: Jane Doe
+                  included_labels:
+                    - tracking_number: 1ZWO3343405309843
+                      carrier_transaction_id: b82c065b-52ad-49d0-9a8a-3f5f03e89fbc
+                    - tracking_number: 2ZWO3343405309844
+                      carrier_transaction_id: ccc32518-b4f9-41bc-8769-ce46c25792ba
+                  excluded_labels:
+                    - tracking_number: 2ZWO3343405309843
+                      carrier_transaction_id: 086a86d5-8379-4120-984f-e713691ddbac
+                  open_datetime: '2019-12-06T01:27:34Z'
+                  close_datetime: '2019-12-06T01:27:34Z'
+                  advanced_options:
+                    contains_alcohol: true
+                    no_postage: false
+                    nonmachineable: false
+                    bill_duties_to_sender: false
+                    saturday_delivery: false
+                  transaction_id: 8061f1f2-6d43-42cc-9b38-7f4c2fab822e
+                  metadata: {}
+        description: ''
+      responses:
+        '200':
+          description: A response that indicates that the module encountered no errors during the course of its execution.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateManifestResponse'
+              examples:
+                Create-Manifest-Response:
+                  value:
+                    transaction_id: 85c568e7-e6da-44dc-9ec7-4546e97eb9b0
+                    manifests:
+                      - manifest_id: 3005b48c
+                        document_href: 'https://www.shipping-provider.com/api/manifest/3005b48c'
+                        included_labels:
+                          - tracking_number: 1ZWO3343405309843
+                            carrier_transaction_id: b82c065b-52ad-49d0-9a8a-3f5f03e89fbc
+                        manifest_is_deterministic: true
+                      - manifest_id: 4546e97eb9b0
+                        document_data: VGhpcyBpcyBhIGZha2UgZG9jdW1lbnQu
+                        included_labels:
+                          - tracking_number: 2ZWO3343405309844
+                            carrier_transaction_id: ccc32518-b4f9-41bc-8769-ce46c25792ba
+                        manifest_is_deterministic: true
+        '400':
+          description: A response to indicate that there was either a module level client error or an external client error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+        '401':
+          description: A response to indicate that the request failed to authenticate with the shipping provider.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+        '404':
+          description: A response to indicate that the module does not implement this endpoint.
+        '429':
+          description: A response indicates that the shipping service provider has denied a request due to too many requests.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitResponse'
+              examples:
+                Example:
+                  value:
+                    retry_after_seconds: 6000
+                    retry_after_time: null
+                    throttling_context: {}
+        '500':
+          description: A response indicating a server level error with the module.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerErrorResponse'
+        '520':
+          description: A response indicating a server level error with the external world.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalServerErrorResponse'
+      security: []
+      description: 'This endpoint is used to create a manifest with a carrier. '
+      summary: Create Manifest
+  /CreateLabel:
+    post:
+      tags:
+        - Labels
+      operationId: Labels_CreateLabel
+      parameters:
+        - name: ShipStation-TransactionID
+          in: header
+          schema:
+            format: guid
+            type: string
+          description: A unique GUID used to identify this transaction.
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: 'The client sends HTTP requests with the Authorization header that contains the word Basic word followed by a space and a base64-encoded string username:password.'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateLabelRequest'
+            examples:
+              US-Domestic:
+                value:
+                  service_code: example_service_code
+                  ship_datetime: '2020-01-25T01:00:00Z'
+                  confirmation: Delivery
+                  insurance_provider: None
+                  label_format: PDF
+                  label_layout: 4x6
+                  is_test_label: true
+                  advanced_options: {}
+                  insured_value:
+                    currency: USD
+                    amount: '16.00'
+                  is_return_label: false
+                  is_residential: false
+                  packages:
+                    - package_code: Package
+                      weight_details:
+                        weight_in_ounces: 0.3584
+                        weight_in_grams: 10.16
+                        source_weight: 10.16
+                        source_weight_unit: Grams
+                      dimension_details:
+                        dimensions_in_centimeters:
+                          length: 254
+                          width: 254
+                          height: 254
+                        dimensions_in_inches:
+                          length: 100
+                          width: 100
+                          height: 100
+                        source_dimensions:
+                          length: 100
+                          width: 100
+                          height: 100
+                        source_dimension_unit: Inches
+                      insured_value:
+                        currency: USD
+                        amount: '16.00'
+                  customs: null
+                  ship_to:
+                    name: ShipStation
+                    first_name: Ship
+                    last_name: Station
+                    email: some@email.com
+                    phone_number: '1234567890'
+                    company_name: ShipStation
+                    address_lines:
+                      - '3800 N Lamar Blvd #220'
+                      - null
+                      - null
+                    city_locality: Austin
+                    state_province: Tx
+                    postal_code: '78756'
+                    country_code: US
+                    address_residential_indicator: unknown
+                    is_eu: false
+                  ship_from:
+                    name: Shipping Easy
+                    first_name: Ship
+                    last_name: EZ
+                    email: some@email.com
+                    phone_number: '1234567890'
+                    company_name: ShippingEZ
+                    address_lines:
+                      - 3700 N Capital of Texas Hwy Suite 550
+                      - null
+                      - null
+                    city_locality: Austin
+                    state_province: Tx
+                    postal_code: '78746'
+                    country_code: US
+                    address_residential_indicator: unknown
+                    is_eu: false
+                  next_day: false
+                  international: false
+                  reference: test-ship-test
+                  shipment_details: {}
+                  transaction_id: a6b02372-adf5-40b2-8475-8d1799e60061
+                  ship_from_display:
+                    name: Shipping Easy
+                    first_name: Ship
+                    last_name: EZ
+                    email: some@email.com
+                    phone_number: '1234567890'
+                    company_name: ShippingEZ
+                    address_lines:
+                      - 3700 N Capital of Texas Hwy Suite 550
+                      - null
+                      - null
+                    city_locality: Austin
+                    state_province: Tx
+                    postal_code: '78746'
+                    country_code: US
+                    address_residential_indicator: unknown
+                    is_eu: false
+                  fulfillment_plan_details:
+                    external_sales_order_identifiers:
+                      - type: external_type
+                        value: test123
+                    items:
+                      - external_sales_order_identifiers:
+                          - type: id
+                            value: value
+                        external_product_identifiers:
+                          - type: id
+                            value: value
+                        name: product name
+                        quantity: 4
+                    raw_external_source:
+                      marketplace_code: custom_code
+                  metadata: {}
+              US-International:
+                value:
+                  service_code: example_service_code
+                  ship_datetime: '2020-01-25T01:00:00Z'
+                  confirmation: Delivery
+                  insurance_provider: None
+                  label_format: PDF
+                  label_layout: 4x6
+                  is_test_label: true
+                  advanced_options: {}
+                  insured_value:
+                    currency: USD
+                    amount: '16.00'
+                  is_return_label: false
+                  is_residential: false
+                  packages:
+                    - package_code: Package
+                      weight_details:
+                        weight_in_ounces: 0.3584
+                        weight_in_grams: 10.16
+                        source_weight: 10.16
+                        source_weight_unit: Grams
+                      dimension_details:
+                        dimensions_in_centimeters:
+                          length: 254
+                          width: 254
+                          height: 254
+                        dimensions_in_inches:
+                          length: 100
+                          width: 100
+                          height: 100
+                        source_dimensions:
+                          length: 100
+                          width: 100
+                          height: 100
+                        source_dimension_unit: Inches
+                      insured_value:
+                        currency: USD
+                        amount: '16.00'
+                  customs:
+                    contents: merchandise
+                    non_delivery: return_to_sender
+                    customs_items:
+                      - description: test
+                        quantity: 2
+                        value:
+                          currency: GBP
+                          amount: '12.00'
+                        country_of_origin: GB
+                        harmonized_tariff_code: '3401'
+                        sku: custom_SKU
+                        sku_description: soap
+                  ship_to:
+                    name: Shipping Easy
+                    first_name: Ship
+                    last_name: EZ
+                    email: some@email.com
+                    phone_number: '1234567890'
+                    company_name: ShippingEZ
+                    address_lines:
+                      - ' 5 Stable St'
+                      - Kings Cross
+                      - ''
+                    city_locality: 'London '
+                    state_province: AA
+                    postal_code: N1C 4AB
+                    country_code: GB
+                    address_residential_indicator: 'no'
+                    is_eu: true
+                  ship_from:
+                    name: ShipStation
+                    first_name: Ship
+                    last_name: Station
+                    email: some@email.com
+                    phone_number: '1234567890'
+                    company_name: ShipStation
+                    address_lines:
+                      - '3800 N Lamar Blvd #220'
+                      - null
+                      - null
+                    city_locality: Austin
+                    state_province: Tx
+                    postal_code: '78756'
+                    country_code: US
+                    address_residential_indicator: unknown
+                    is_eu: false
+                  next_day: false
+                  international: false
+                  reference: test-ship-test
+                  shipment_details: {}
+                  transaction_id: a6b02372-adf5-40b2-8475-8d1799e60061
+                  ship_from_display:
+                    name: Shipping Easy
+                    first_name: Ship
+                    last_name: EZ
+                    email: some@email.com
+                    phone_number: '1234567890'
+                    company_name: ShippingEZ
+                    address_lines:
+                      - 3700 N Capital of Texas Hwy Suite 550
+                      - null
+                      - null
+                    city_locality: Austin
+                    state_province: Tx
+                    postal_code: '78746'
+                    country_code: US
+                    address_residential_indicator: unknown
+                    is_eu: false
+                  fulfillment_plan_details:
+                    external_sales_order_identifiers:
+                      - type: external_type
+                        value: test123
+                    items:
+                      - external_sales_order_identifiers:
+                          - type: id
+                            value: value
+                        external_product_identifiers:
+                          - type: id
+                            value: value
+                        name: product name
+                        quantity: 4
+                    raw_external_source:
+                      marketplace_code: custom_code
+                  metadata: {}
+        description: ''
+      responses:
+        '200':
+          description: A response that indicates that the module encountered no errors during the course of its execution.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateLabelResponse'
+              examples:
+                US-Domestic:
+                  value:
+                    label_download:
+                      label_data: VGhpcyBpcyBhIGZha2UgbGFiZWwgdG8gZG93bmxvYWQu
+                    form_download:
+                      href: 'https://www.carrier-api.com/form/1Z343534232542523'
+                    shipping_amount:
+                      currency: USD
+                      amount: '16.43'
+                    insurance_amount:
+                      currency: USD
+                      amount: '5.43'
+                    tracking_number: 1Z343534232542523
+                    trackable: true
+                    carrier_transaction_id: CARRIER_12345
+                    estimated_delivery_datetime: '1937-01-01T12:00:27.87+00:20'
+                    transaction_id: a6b02372-adf5-40b2-8475-8d1799e60061
+                US-International:
+                  value:
+                    label_download:
+                      href: 'https://www.carrier-api.com/label/1Z343534232542523'
+                    form_download:
+                      label_data: VGhpcyBpcyBhIGZha2UgZm9ybSB5b3UgZG93bmxvYWRlZA==
+                    shipping_amount:
+                      currency: USD
+                      amount: '16.43'
+                    insurance_amount:
+                      currency: USD
+                      amount: '5.43'
+                    tracking_number: 1Z343534232542523
+                    trackable: true
+                    carrier_transaction_id: CARRIER_12345
+                    estimated_delivery_datetime: '1937-01-01T12:00:27.87+00:20'
+                    transaction_id: a6b02372-adf5-40b2-8475-8d1799e60061
+        '400':
+          description: A response to indicate that there was either a module level client error or an external client error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+        '401':
+          description: A response to indicate that the request failed to authenticate with the shipping provider.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+        '404':
+          description: A response to indicate that the module does not implement this endpoint.
+        '429':
+          description: A response indicates that the shipping service provider has denied a request due to too many requests.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitResponse'
+              examples:
+                Example:
+                  value:
+                    retry_after_seconds: 6000
+                    retry_after_time: null
+                    throttling_context: {}
+        '500':
+          description: A response indicating a server level error with the module.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerErrorResponse'
+        '520':
+          description: A response indicating a server level error with the external world.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalServerErrorResponse'
+      security: []
+      description: This endpoint is used to create a label.
+      summary: Create Label
+  /VoidLabels:
+    post:
+      tags:
+        - Labels
+      operationId: Labels_VoidLabels
+      parameters:
+        - name: ShipStation-TransactionID
+          in: header
+          schema:
+            format: guid
+            type: string
+          description: A unique GUID used to identify this transaction.
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: 'The client sends HTTP requests with the Authorization header that contains the word Basic word followed by a space and a base64-encoded string username:password.'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VoidLabelsRequest'
+            examples:
+              Void-Label-Request:
+                value:
+                  void_requests:
+                    - void_request_id: 4f9d748c-7df1-4267-97ab-a6939e6c0433
+                      tracking_number: 1Z32434AH343324
+                      carrier_transaction_id: C_T_ID1
+                    - void_request_id: c46362ec-9657-48c0-9c38-dc75b23ec60a
+                      tracking_number: 1Z42434AH343324
+                      carrier_transaction_id: C_T_ID2
+                  transaction_id: 72695375-2bf8-4740-b0bd-47ca7efd5bf4
+                  metadata: {}
+      responses:
+        '200':
+          description: A response that indicates that the module encountered no errors during the course of its execution.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VoidLabelsResponse'
+              examples:
+                Void-Label-Response:
+                  value:
+                    void_responses:
+                      - void_request_id: 4f9d748c-7df1-4267-97ab-a6939e6c0433
+                        message: Successfully voided label
+                        errors: []
+                      - void_request_id: c46362ec-9657-48c0-9c38-dc75b23ec60a
+                        message: An issue occurred voiding this label.
+                        errors:
+                          - Unable to void label. Label previously voided.
+        '400':
+          description: A response to indicate that there was either a module level client error or an external client error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+        '401':
+          description: A response to indicate that the request failed to authenticate with the shipping provider.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+        '404':
+          description: A response to indicate that the module does not implement this endpoint.
+        '429':
+          description: A response indicates that the shipping service provider has denied a request due to too many requests.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitResponse'
+              examples:
+                Example:
+                  value:
+                    retry_after_seconds: 6000
+                    retry_after_time: null
+                    throttling_context: {}
+        '500':
+          description: A response indicating a server level error with the module.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerErrorResponse'
+        '520':
+          description: A response indicating a server level error with the external world.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalServerErrorResponse'
+      security: []
+      description: This endpoint is used to void multiple labels.
+      summary: Void Labels
+  /Register:
+    post:
+      tags:
+        - Accounts
+      operationId: Accounts_Register
+      parameters:
+        - name: ShipStation-TransactionID
+          in: header
+          schema:
+            format: guid
+            type: string
+          description: A unique GUID used to identify this transaction.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+            examples:
+              Access-Token-Registration:
+                value:
+                  registration_info:
+                    client_id: x3345xxh5
+                    client_secret: xxy3she34oiosdkfjo3
+                    access_license: 1234567m
+                  warehouses: []
+                  transaction_id: 4af2c454-bfc9-404c-bfd4-3924b6ef611c
+                  metadata: {}
+              Basic-Registration:
+                value:
+                  registration_info:
+                    user_name: test
+                    password: password123
+                  warehouses: []
+                  transaction_id: 4af2c454-bfc9-404c-bfd4-3924b6ef611c
+                  metadata: {}
+        description: ''
+      responses:
+        '200':
+          description: A response that indicates that the module encountered no errors during the course of its execution.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegisterResponse'
+              examples:
+                Access-Token-Registration:
+                  value:
+                    credentials:
+                      username: N/A
+                      password: N/A
+                    metadata:
+                      client_id: x3345xxh5
+                      client_secret: xxy3she34oiosdkfjo3
+                      access_license: 1234567m
+                      access_token: token
+                      expiration: '2020-01-25T01:00:00Z'
+                      note: metadata is a persisted grab bag for future requests.
+                      note2: store things needed to authenticate for future requests in metadata.
+                Basic-Registration:
+                  value:
+                    credentials:
+                      username: test
+                      password: password123
+                    metadata: {}
+        '400':
+          description: A response to indicate that there was either a module level client error or an external client error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+        '401':
+          description: A response to indicate that the request failed to authenticate with the shipping provider.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+        '404':
+          description: A response to indicate that the module does not implement this endpoint.
+        '429':
+          description: A response indicates that the shipping service provider has denied a request due to too many requests.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitResponse'
+              examples:
+                Example:
+                  value:
+                    retry_after_seconds: 6000
+                    retry_after_time: null
+                    throttling_context: {}
+        '500':
+          description: A response indicating a server level error with the module.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerErrorResponse'
+        '520':
+          description: A response indicating a server level error with the external world.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalServerErrorResponse'
+      security: []
+      description: This endpoint is used to register an account within shipstation. If the shipping provider supports registration this endpoint will register a new account with them. If they do not this endpoint will be used to authenticate the provided credentials with the shipping provider.
+      summary: Register
+servers:
+  - url: 'http://localhost:3005'
+    description: CarrierAPI
+components:
+  schemas:
+    TrackingResponse:
+      type: object
+      title: Tracking Response
+      description: This model represents the successful response from a tracking request.
+      properties:
+        tracking_info:
+          allOf:
+            - $ref: '#/components/schemas/TrackingInfo'
+          nullable: false
+      required:
+        - tracking_info
+      additionalProperties: {}
+    TrackingInfo:
+      additionalProperties: {}
+      type: object
+      title: Tracking Info
+      description: This model represents tracking information for a shipment.
+      properties:
+        carrier_name:
+          nullable: true
+          type: string
+          description: The human readable name of the carrier tracking this shipment.
+        carrierEnum:
+          type: integer
+          deprecated: true
+          format: int32
+          description: This property has been deprecated. Please use carrier_name.
+          nullable: true
+        tracking_number:
+          nullable: true
+          type: string
+          description: The carrier specific tracking identifier for this shipment.
+        standardized_status_code:
+          description: This represents the ShipEngine supported status codes for a shipment.
+          allOf:
+            - $ref: '#/components/schemas/StandardizedStatusCodes'
+          nullable: false
+        carrier_status_code:
+          nullable: true
+          type: string
+          description: "The carrier specific status code of this shipment's tracking status."
+        carrier_status_description:
+          nullable: true
+          type: string
+          description: "The human readable description of this shipment's tracking status."
+        shipped_datetime:
+          format: date-time
+          nullable: true
+          type: string
+          description: 'When the package(s) in this shipment were turned over to the carrier. Formatted per https://tools.ietf.org/html/rfc3339. Must be in UTC.'
+        estimated_delivery_datetime:
+          format: date-time
+          nullable: true
+          type: string
+          description: 'When the package(s) in this shipment are expected to arrive at their destination. Formatted per https://tools.ietf.org/html/rfc3339. Must be in UTC.'
+        actual_delivery_datetime:
+          format: date-time
+          nullable: true
+          type: string
+          description: 'When the package(s) in this shipment arrived at their destination. Formatted per https://tools.ietf.org/html/rfc3339. Must be in UTC.'
+        shipping_problem_description:
+          nullable: true
+          type: string
+          description: A human readable description of why the shipment is in an error state.
+        weight:
+          format: decimal
+          nullable: true
+          type: number
+          description: The weight measured by the carrier of the package(s) in this shipment.
+        dimensions:
+          $ref: '#/components/schemas/Dimensions'
+        service:
+          $ref: '#/components/schemas/Service'
+        packaging:
+          nullable: true
+          type: string
+        package_count:
+          format: int32
+          nullable: true
+          type: integer
+          description: The carrier observed count of packages in this shipment.
+        last_event:
+          allOf:
+            - $ref: '#/components/schemas/TrackEvent'
+          description: The last recorded tracking event for this shipment.
+          nullable: true
+        events:
+          nullable: true
+          type: array
+          description: All recorded tracking events for this shipment.
+          items:
+            $ref: '#/components/schemas/TrackEvent'
+        shipping_problem:
+          type: boolean
+          description: Whether or not this shipment has entered an error state.
+          nullable: true
+        shipping_problem_code:
+          nullable: true
+          type: string
+          description: The unique identifying code for the type of error encountered by this shipment.
+        error_description:
+          nullable: true
+          type: string
+          description: The human readable explanation of the error encountered by this shipment.
+      required:
+        - standardized_status_code
+    StandardizedStatusCodes:
+      description: 'This represents the ShipEngine supported status codes for a shipment.<br/>UN - Unknown<br/>AC - Accepted<br/>IT - In Transit<br/>DE - Delivered<br/>EX - Exception<br/>AT - Delivery Attempted<br/>NY - Not Yet In System'
+      enum:
+        - UN
+        - AC
+        - IT
+        - DE
+        - EX
+        - AT
+        - NY
+      x-enumNames:
+        - Unknown
+        - Accepted
+        - InTransit
+        - Delivered
+        - Exception
+        - DeliveryAttempt
+        - NotYetInSystem
+      type: string
+      title: Standardized Status Codes
+      additionalProperties: {}
+    DimensionsDeprecated:
+      type: object
+      additionalProperties: {}
+      nullable: true
+      title: Dimensions Deprecated
+      description: This field has been deprecated.
+      deprecated: true
+      properties:
+        length:
+          format: decimal
+          nullable: false
+          type: number
+          description: The length of the package.
+        width:
+          format: decimal
+          nullable: false
+          type: number
+          description: The width of the package.
+        height:
+          format: decimal
+          nullable: false
+          type: number
+          description: The height of the package.
+      required:
+        - length
+        - width
+        - height
+    Dimensions:
+      additionalProperties: {}
+      nullable: true
+      type: object
+      title: Dimensions
+      description: This model represents the measurements for dimensions.
+      properties:
+        length:
+          format: decimal
+          nullable: false
+          type: number
+          description: The length of the package.
+        width:
+          format: decimal
+          nullable: false
+          type: number
+          description: The width of the package.
+        height:
+          format: decimal
+          nullable: false
+          type: number
+          description: The height of the package.
+      required:
+        - length
+        - width
+        - height
+    Service:
+      additionalProperties: {}
+      nullable: true
+      type: object
+      title: Service
+      description: A shipping provider specific service.
+      properties:
+        code:
+          nullable: true
+          type: string
+          description: The code specific to a shipping provider service.
+        name:
+          nullable: true
+          type: string
+          description: The name of this shipping provider service.
+    TrackEvent:
+      additionalProperties: {}
+      type: object
+      title: Track Event
+      description: This model represents a tracking event for a shipment.
+      properties:
+        event_datetime:
+          format: date-time
+          type: string
+          description: 'When this tracking event occurred. Formatted per https://tools.ietf.org/html/rfc3339. Must be in UTC.'
+          nullable: true
+        event_code:
+          nullable: true
+          type: string
+          description: ''
+        description:
+          nullable: true
+          type: string
+        city:
+          nullable: true
+          type: string
+        state:
+          nullable: true
+          type: string
+        postal_code:
+          nullable: true
+          type: string
+        country:
+          nullable: true
+          type: string
+        company:
+          nullable: true
+          type: string
+        signer:
+          nullable: true
+          type: string
+        geo:
+          allOf:
+            - $ref: '#/components/schemas/LatLong'
+          nullable: true
+    LatLong:
+      additionalProperties: {}
+      type: object
+      title: Latitude Longitude
+      description: This model represents a geographic point.
+      properties:
+        lat:
+          type: number
+          description: 'The latitude of the point. Represented as signed degrees. http://www.geomidpoint.com/latlon.html'
+          format: decimal
+          example: -31.9543
+          minimum: -90
+          maximum: 90
+          nullable: false
+        long:
+          type: number
+          description: 'The longitude of the point. Represented as signed degrees http://www.geomidpoint.com/latlon.html'
+          format: decimal
+          minimum: -180
+          maximum: 180
+          example: -120.9762
+          nullable: false
+      required:
+        - lat
+        - long
+    BadRequestResponse:
+      type: object
+      nullable: true
+      title: Bad Request Response
+      description: This model represents a response where there was a client error.
+      additionalProperties: {}
+      example:
+        detailed_errors:
+          - standardized_error_code: external_client_error
+            external_error_code: UPS_0001
+            message: This is a made up error message from UPS
+            external_http_status_code: 400
+            raw_external_context: "{ups_transaction_id:'fake_transaction_id', error_code:'UPS_0001', error_message:'This is a made up error message from UPS' "
+          - standardized_error_code: validation
+            message: This error represents a validation failure within the module.
+      properties:
+        detailed_errors:
+          type: array
+          description: 'A list of detailed errors that occurred for this request.<br/><b>Remove all personally identifiable information.</b>'
+          items:
+            allOf:
+              - $ref: '#/components/schemas/DetailedError'
+              - type: object
+                properties:
+                  standardized_error_code:
+                    type: string
+                    nullable: false
+                    description: The ShipEngine standardized error code associated with this error.
+                    enum:
+                      - generic
+                      - serialization
+                      - validation
+                      - external_client_error
+                required:
+                  - standardized_error_code
+          nullable: true
+        errors:
+          type: array
+          deprecated: true
+          description: 'This property has been deprecated. Please use detailed_errors. '
+          nullable: true
+          items:
+            type: string
+    DetailedError:
+      type: object
+      additionalProperties: {}
+      title: Detailed Error
+      description: This model represented a detailed error
+      properties:
+        external_error_code:
+          type: string
+          description: This is a shipping provider specific error code.
+          example: '0016'
+          nullable: true
+        message:
+          type: string
+          description: A user friendly message about this error.
+          example: Severe error return code
+          nullable: true
+        external_http_status_code:
+          type: integer
+          description: The HTTP status code returned from the external service provider.
+          format: int32
+          example: 400
+          nullable: true
+        raw_external_context:
+          nullable: true
+          type: string
+          description: The serialized response containing the error from an external service provider.
+    UnauthorizedResponse:
+      type: object
+      title: Unauthorized Response
+      description: This model represents a response that the request was unauthorized to perform some action.
+      additionalProperties: {}
+      example:
+        detailed_errors:
+          - standardized_error_code: external_unauthorized_error
+            external_error_code: 4000001_made_up
+            message: 'The users account has been suspended, please contact support.'
+            external_http_status_code: 401
+            raw_external_context: "{ 'account_id':'123456', 'error_code':'4000001_made_up', 'error_description':'The users account has been suspended, please contact support.', 'support_number':'555-555-5555' }"
+      properties:
+        detailed_errors:
+          nullable: true
+          type: array
+          description: 'A list of detailed errors that occurred for this request.<br/><b>Remove all personally identifiable information.</b>'
+          items:
+            allOf:
+              - $ref: '#/components/schemas/DetailedError'
+              - type: object
+                properties:
+                  standardized_error_code:
+                    type: string
+                    nullable: false
+                    description: The ShipEngine standardized error code associated with this error.
+                    enum:
+                      - external_unauthorized_error
+                required:
+                  - standardized_error_code
+    InternalServerErrorResponse:
+      type: object
+      title: Internal Server Error Response
+      description: This model represents a module level error that was caught.
+      additionalProperties: {}
+      example:
+        detailed_errors:
+          - standardized_error_code: unhandled_module_exception
+            message: There was an uncaught exception with the module.
+            raw_external_context: |-
+              {'message':'Cannot read property 'toString' of null', 'stack':'TypeError: Cannot read property 'toString' of null
+                  at /home/runner/index.js:4:5
+                  at Script.runInContext (vm.js:133:20)
+                  at Object.<anonymous> (/run_dir/interp.js:156:20)
+                  at Module._compile (internal/modules/cjs/loader.js:778:30)
+                  at Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)
+                  at Module.load (internal/modules/cjs/loader.js:653:32)
+                  at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+                  at Function.Module._load (internal/modules/cjs/loader.js:585:3)
+                  at Function.Module.runMain (internal/modules/cjs/loader.js:831:12)
+                  at startup (internal/bootstrap/node.js:283:19)'}
+      properties:
+        detailed_errors:
+          nullable: true
+          type: array
+          description: 'A list of detailed errors that occurred for this request.<br/><b>Remove all personally identifiable information.</b>'
+          items:
+            allOf:
+              - $ref: '#/components/schemas/DetailedError'
+              - type: object
+                properties:
+                  standardized_error_code:
+                    type: string
+                    nullable: false
+                    description: The ShipEngine standardized error code associated with this error.
+                    enum:
+                      - unhandled_module_exception
+                required:
+                  - standardized_error_code
+    ExternalServerErrorResponse:
+      type: object
+      title: External Server Error Response
+      description: This model represents a server error with the external services the module depends on.
+      additionalProperties: {}
+      example:
+        detailed_errors:
+          - standardized_error_code: external_server_error
+            external_http_status_code: 503
+            message: Unable to successfully connect to shipping providers endpoint.
+            raw_external_context: Service Unavailable.
+      properties:
+        detailed_errors:
+          nullable: true
+          type: array
+          description: 'A list of detailed errors that occurred for this request.<br/><b>Remove all personally identifiable information.</b>'
+          items:
+            allOf:
+              - $ref: '#/components/schemas/DetailedError'
+              - type: object
+                properties:
+                  standardized_error_code:
+                    type: string
+                    nullable: false
+                    description: The ShipEngine standardized error code associated with this error.
+                    enum:
+                      - external_server_error
+                required:
+                  - standardized_error_code
+    TrackingRequest:
+      type: object
+      title: Tracking Request
+      description: This model represents the payload that is sent to request tracking information.
+      additionalProperties: {}
+      properties:
+        tracking_number:
+          type: string
+          deprecated: true
+          description: This property is deprecated. Please use Identifiers instead where tracking_number will be found as a type.
+          nullable: true
+        is_return:
+          type: boolean
+          description: Whether this represents a return shipment. If the field is absent it should be interpeted as false
+          nullable: true
+        identifiers:
+          nullable: true
+          type: array
+          description: This array represents the custom identifiers for a carrier.
+          items:
+            $ref: '#/components/schemas/TrackingIdentifier'
+        attributes:
+          nullable: true
+          type: array
+          items:
+            $ref: '#/components/schemas/TrackingAttribute'
+        transaction_id:
+          format: guid
+          type: string
+          description: The transaction ID uniquely represents this request. If the request is retried then this transaction ID will be the same. You should only perform the requested action once per given transaction ID.
+          nullable: true
+        metadata:
+          additionalProperties:
+            type: object
+          nullable: true
+          type: object
+          description: 'This is an optional schemaless object that you may return with a successful response. Anything returned under this key will be included in all future requests. For example, you may store additional static properties about the end user or their connection to the carrier. The maximum storage size for data under this key is 4KB.'
+    TrackingIdentifier:
+      additionalProperties: {}
+      nullable: true
+      type: object
+      title: Tracking Identifier
+      description: This model represents a key value pair for identifying a shipment for tracking.
+      properties:
+        type:
+          nullable: true
+          type: string
+          description: A unique key.
+        value:
+          nullable: true
+          type: string
+          description: A value associated with that key.
+    TrackingAttribute:
+      additionalProperties: {}
+      nullable: true
+      type: object
+      title: Tracking Attribute
+      description: This model represents attributes from the shipping provider about a shipment necessary for tracking.
+      properties:
+        type:
+          nullable: true
+          type: string
+          description: A unique key.
+        value:
+          nullable: true
+          type: string
+          description: The value associated with that key.
+    GetRatesResponse:
+      type: object
+      properties:
+        rates:
+          nullable: false
+          type: array
+          description: "A list of rates for shipping services. If you use service codes there may be exactly one rate returned for the requested service. If you use service codes there may be more than one rate to provide additional options. If you don't use service codes there may be one or more rates. If you don't provide real time rates you should return a single hard coded zero value rate."
+          items:
+            $ref: '#/components/schemas/Rate'
+      required:
+        - rates
+      title: Get Rates Response
+      description: This model represents the response for a get rates request.
+      additionalProperties: {}
+    Rate:
+      additionalProperties: {}
+      type: object
+      title: Rate
+      description: This model represents a rate for a given service code.
+      properties:
+        service_code:
+          nullable: true
+          type: string
+          description: "The service code uniquely identifies a shipping service that you offer. Which service codes can be passed to you will be configured in ShipEngine. If you don't use service codes this field won't be present."
+        ship_datetime:
+          format: date-time
+          nullable: true
+          type: string
+          description: 'When the package is expected to ship. Not guaranteed to be in the future. Formatted per the https://tools.ietf.org/html/rfc3339 spec. Must be in UTC.'
+        estimated_delivery_datetime:
+          format: date-time
+          nullable: true
+          type: string
+          description: 'When the package(s) in this shipment are expected to arrive at their destination. Formatted per https://tools.ietf.org/html/rfc3339. Must be in UTC.'
+        shipping_amount:
+          description: "This field has been deprecated please add a `billing_line_item` with the `shipping` billing category."
+          deprecated: true
+          nullable: true
+          allOf:
+            - $ref: '#/components/schemas/CurrencyDeprecated'
+        insurance_amount:
+          description: "This field has been deprecated please add a `billing_line_item` with the `insurance` billing category."
+          deprecated: true
+          nullable: true
+          allOf:
+            - $ref: '#/components/schemas/CurrencyDeprecated'
+        confirmation_amount:
+          description: "This field has been deprecated please add a `billing_line_item` with the `confirmation` billing category."
+          deprecated: true
+          nullable: true
+          allOf:
+            - $ref: '#/components/schemas/CurrencyDeprecated'
+        other_amount:
+          description: 'This field has been deprecated please add a `billing_line_item` with categories that match the summation for the other amount, or use `uncategorized`.'
+          deprecated: true
+          nullable: true
+          allOf:
+            - $ref: '#/components/schemas/CurrencyDeprecated'
+        error_messages:
+          nullable: true
+          type: array
+          description: A list of discrete errors.
+          items:
+            type: string
+        warning_messages:
+          nullable: true
+          type: array
+          description: A list of discrete warnings. This should be data the end user needs to be aware of. These should not stop the request from succeeding.
+          items:
+            type: string
+        negotiated_rate:
+          type: boolean
+          description: Whether these are negotiated rates.
+          nullable: true
+        billing_line_items:
+          type: array
+          description: Individual Billing Line items for the rate.
+          items:
+            $ref: '#/components/schemas/BillingLineItem'
+    Currency:
+      type: object
+      title: Currency
+      description: This model represents a currency value.
+      properties:
+        currency:
+          nullable: true
+          type: string
+          description: 'The currency of this value. Will be a three letter currency code defined by https://www.iban.com/currency-codes.html.'
+        amount:
+          type: string
+          description: The amount of this value. Represented as a string to avoid floating point rounding issues. You must parse this string into a type appropriate for financial and monetary calculations.
+          nullable: false
+      required:
+        - amount
+      additionalProperties: {}
+    GetRatesRequest:
+      type: object
+      title: Get Rates Request
+      description: This model represents the payload sent to get a rate for a shipment.
+      additionalProperties: {}
+      properties:
+        service_code:
+          nullable: true
+          type: string
+          description: "The service code uniquely identifies a shipping service that you offer. Which service codes can be passed to you will be configured in ShipEngine. If you don't use service codes this field won't be present."
+        ship_datetime:
+          format: date-time
+          nullable: false
+          type: string
+          description: 'When the package is expected to ship. Not guaranteed to be in the future. Formatted per the https://tools.ietf.org/html/rfc3339 spec. Will always be in UTC.'
+        confirmation:
+          type: string
+          default: None
+          enum:
+            - None
+            - Delivery
+            - Signature
+            - AdultSignature
+            - DirectSignature
+          description: 'The expected delivery confirmation. If the field is absent it should be interpreted as "None".'
+          nullable: true
+        insurance_provider:
+          type: string
+          default: None
+          enum:
+            - None
+            - ShipEngine
+            - Carrier
+            - External
+          description: 'The expected delivery confirmation. If the field is absent it should be interpreted as "None".'
+          nullable: true
+        advanced_options:
+          $ref: '#/components/schemas/AdvancedShippingOptions'
+        insured_value:
+          allOf:
+            - $ref: '#/components/schemas/CurrencyDeprecated'
+          description: The total insured value of the shipment. The currency is defined by the end user of ShipEngine. If the field is absent it should be interpeted as zero value.
+          nullable: true
+        is_return_label:
+          type: boolean
+          default: false
+          description: Whether this label is to return a previously shipped package. If the field is absent it should be interpreted as false.
+          nullable: false
+        is_residential:
+          type: boolean
+          default: false
+          description: Whether this package ships from a residential address. If the field is absent it should be interpreted as false.
+          nullable: false
+        packages:
+          type: array
+          description: All the packages that make up this shipment. There will always be at least one package defined.
+          minItems: 1
+          nullable: false
+          items:
+            $ref: '#/components/schemas/Package'
+        customs:
+          $ref: '#/components/schemas/Customs'
+        ship_to:
+          $ref: '#/components/schemas/ShipTo'
+        ship_from:
+          $ref: '#/components/schemas/ShipFrom'
+        international:
+          type: boolean
+          default: false
+          description: Whether this shipment uses a shipping service that is defined as international.
+          nullable: true
+        next_day:
+          type: boolean
+          default: false
+          description: Whether this shipment is expected to use a next day service class. If the field is absent it should be interpreted as false
+          nullable: true
+        fulfillment_plan_details:
+          $ref: '#/components/schemas/FulfillmentPlanDetails'
+        transaction_id:
+          format: guid
+          type: string
+          description: The transaction ID uniquely represents this request. If the request is retried then this transaction ID will be the same. You should only perform the requested action once per given transaction ID.
+          nullable: false
+        metadata:
+          additionalProperties:
+            type: object
+          nullable: true
+          type: object
+          description: 'This is an optional schemaless object that you may return with a successful response. Anything returned under this key will be included in all future requests. For example, you may store additional static properties about the end user or their connection to the carrier. The maximum storage size for data under this key is 4KB.'
+      required:
+        - ship_datetime
+        - is_return_label
+        - is_residential
+        - packages
+        - ship_to
+        - ship_from
+        - transaction_id
+    Package:
+      type: object
+      title: Package
+      description: This model represents an individual package that is part of a shipment.
+      properties:
+        dimensions:
+          type: object
+          deprecated: true
+          description: 'This property has been deprecated. Please use dimension_details. '
+          properties:
+            length:
+              type: number
+              description: The length of the package in centimeters.
+              nullable: false
+            width:
+              type: number
+              description: The width of the package in centimeters.
+              nullable: false
+            height:
+              type: number
+              description: The height of the package in centimeters.
+              nullable: false
+          required:
+            - length
+            - width
+            - height
+          nullable: true
+        dimension_details:
+          $ref: '#/components/schemas/DimensionDetails'
+        package_code:
+          nullable: true
+          type: string
+        weight:
+          type: number
+          deprecated: true
+          format: decimal
+          description: This property has been deprecated. Please use weight_details.
+          nullable: true
+        weight_details:
+          $ref: '#/components/schemas/WeightDetails'
+        insured_value:
+          type: object
+          required:
+            - currency
+            - amount
+          description: The insured value of this package.
+          properties:
+            currency:
+              type: string
+              description: 'The currency of this value. Will be a three letter currency code defined by https://www.iban.com/currency-codes.html.'
+              nullable: false
+            amount:
+              type: string
+              description: The amount of this value. Represented as a string to avoid floating point rounding issues. You must parse this string into a type appropriate for financial and monetary calculations.
+              nullable: false
+          nullable: false
+        label_messages:
+          type: object
+          description: Customized strings the end user expects to appear on their label. The exact location on the label depends on the carrier. It is not expected that every carrier supports including these messages. If the field is absent the user has not specified any messages.
+          properties:
+            reference1:
+              type: string
+              nullable: true
+            reference2:
+              type: string
+              nullable: true
+            reference3:
+              type: string
+              nullable: true
+          nullable: true
+      required:
+        - insured_value
+      additionalProperties: {}
+    DimensionDetails:
+      nullable: true
+      type: object
+      properties:
+        dimensions_in_centimeters:
+          allOf:
+            - $ref: '#/components/schemas/Dimensions'
+          description: The dimensions in Centimeters rounded to the fourth decimal place.
+        dimensions_in_inches:
+          allOf:
+            - $ref: '#/components/schemas/Dimensions'
+          description: The dimensions in Inches rounded to the fourth decimal place.
+        source_dimensions:
+          allOf:
+            - $ref: '#/components/schemas/Dimensions'
+          description: The dimensions in the original dimensions rounded to the fourth decimal place.
+        source_dimension_unit:
+          allOf:
+            - $ref: '#/components/schemas/DimensionUnit'
+          nullable: false
+          description: This represents the original unit of measurement.
+      required:
+        - source_dimension_unit
+      title: Dimension Details
+      description: 'This model represents the dimensions for a package represented in its original unit, inches, and centimeters.'
+      additionalProperties: {}
+    DimensionUnit:
+      description: This model represents the supported units for dimensions.
+      enum:
+        - inches
+        - centimeters
+      x-enumNames:
+        - Inches
+        - Centimeters
+      nullable: true
+      type: string
+      title: Dimension Unit
+      additionalProperties: {}
+    WeightDetails:
+      additionalProperties: {}
+      nullable: true
+      type: object
+      title: Weight Details
+      description: 'This model represents the weight of a package in its original unit, ounces, and grams.'
+      properties:
+        weight_in_ounces:
+          format: decimal
+          type: number
+          description: The weight in ounces rounded to the fourth decimal place.
+          nullable: false
+        weight_in_grams:
+          format: decimal
+          type: number
+          description: The weight in grams rounded to the fourth decimal place.
+          nullable: false
+        source_weight:
+          format: decimal
+          type: number
+          description: The weight in its original unit of measurement rounded to the fourth decimal place.
+          nullable: false
+        source_weight_unit:
+          allOf:
+            - $ref: '#/components/schemas/WeightUnit'
+          nullable: false
+      required:
+        - weight_in_ounces
+        - weight_in_grams
+        - source_weight
+        - source_weight_unit
+    WeightUnit:
+      description: This model describes the possible units of weight.
+      enum:
+        - grams
+        - ounces
+        - kilograms
+        - pounds
+      x-enumNames:
+        - Grams
+        - Ounces
+        - Kilograms
+        - Pounds
+      nullable: true
+      type: string
+      title: Weight Unit
+      additionalProperties: {}
+    Customs:
+      nullable: true
+      type: object
+      title: Customs
+      description: This model represents the customs declarations of a shipment.
+      additionalProperties: {}
+      properties:
+        contents:
+          type: string
+          description: A user entered free form description of the shipment contents.
+          enum:
+            - merchandise
+            - documents
+            - gift
+            - sample
+            - returned_goods
+          example: gift
+        non_delivery:
+          type: string
+          description: What to do if the shipment is undeliverable. If the field is absent the undeliverable behavior is unspecified and should be defaulted per carrier.
+          enum:
+            - return_to_sender
+            - treat_as_abandoned
+          nullable: true
+        customs_items:
+          nullable: false
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomsItem'
+      required:
+        - customs_items
+    CustomsItem:
+      nullable: true
+      type: object
+      title: Customs Item
+      description: This model represents the customs declaration for a single item.
+      properties:
+        description:
+          nullable: true
+          type: string
+          description: A user specified free form string describing this customs item. If the field is absent the user has not specified a description.
+        quantity:
+          format: int32
+          nullable: true
+          type: integer
+          description: The user specified count of items in this declaration. This value may be zero.
+        value:
+          allOf:
+            - $ref: '#/components/schemas/Currency'
+          description: The user specified declared customs value of this customs item. This value may be zero.
+          nullable: true
+        country_of_origin:
+          nullable: true
+          type: string
+          description: The user specified declared country of origin of this customs item.
+        harmonized_tariff_code:
+          nullable: true
+          type: string
+          description: 'The user specified Harmonized Tariff Code. See https://hts.usitc.gov/ for more information.'
+        sku:
+          nullable: true
+          type: string
+          description: The user specified SKU of this customs item. This field is completely free form.
+        sku_description:
+          nullable: true
+          type: string
+          description: The user specified SKU description of this customs item. This field is completely free form.
+      additionalProperties: {}
+    ShipTo:
+      allOf:
+        - $ref: '#/components/schemas/AddressBase'
+      title: Ship To
+      description: "The shipment recipient's address. It may or may not have been validated."
+      nullable: false
+      additionalProperties: {}
+    ShipFrom:
+      nullable: false
+      allOf:
+        - $ref: '#/components/schemas/AddressBase'
+      title: Ship From
+      description: "The shipment sender's address. It may or may not have been validated."
+      additionalProperties: {}
+    FulfillmentPlanDetails:
+      nullable: true
+      type: object
+      additionalProperties: {}
+      title: Fulfillment Plan Details
+      description: This model contains information about the fulfillment plan.
+      properties:
+        external_sales_order_identifiers:
+          nullable: true
+          type: array
+          description: A list of identifiers for the sales order.
+          items:
+            $ref: '#/components/schemas/Identifier'
+        fulfillment_plan_items:
+          allOf:
+            - $ref: '#/components/schemas/FulfillmentPlanItems'
+          deprecated: true
+          description: This property has been deprecated. Please use items.
+        items:
+          nullable: true
+          type: array
+          description: Information about the fulfillment plan item.
+          items:
+            $ref: '#/components/schemas/FulfillmentPlanItems'
+        raw_external_source:
+          $ref: '#/components/schemas/RawExternalSource'
+    Identifier:
+      nullable: true
+      type: object
+      additionalProperties: {}
+      title: Identifier
+      description: 'A key value pair, allowing custom properties to be stored.'
+      properties:
+        type:
+          nullable: true
+          type: string
+          description: The key.
+        value:
+          nullable: true
+          type: string
+          description: The value.
+    FulfillmentPlanItems:
+      nullable: true
+      type: object
+      additionalProperties: {}
+      title: Fulfillment Plan Items
+      description: This contains information about the fulfillment plan for a set of items.
+      properties:
+        external_sales_order_identifiers:
+          nullable: true
+          type: array
+          description: A list of identifiers for the sales order.
+          items:
+            $ref: '#/components/schemas/Identifier'
+        external_product_identifiers:
+          nullable: true
+          type: array
+          description: A list of identifiers specific to the selling channel.
+          items:
+            $ref: '#/components/schemas/Identifier'
+        name:
+          nullable: true
+          type: string
+          description: The name of the item.
+        quantity:
+          format: int32
+          nullable: true
+          type: integer
+          description: The number of items.
+    RawExternalSource:
+      nullable: true
+      type: object
+      additionalProperties: {}
+      title: Raw External Source
+      description: This model represents a raw external source of information.
+      properties:
+        marketplace_code:
+          nullable: true
+          type: string
+          description: The code specific to a marketplace.
+    SchedulePickupResponse:
+      type: object
+      additionalProperties: {}
+      title: Schedule Pickup Response
+      description: The response for scheduling a pickup.
+      properties:
+        confirmation:
+          $ref: '#/components/schemas/PickupConfirmation'
+        pickup_windows:
+          nullable: true
+          type: array
+          description: A list of dates and times when the carrier intends to be available to pickup.
+          items:
+            $ref: '#/components/schemas/PickupWindow'
+        remarks:
+          nullable: true
+          type: string
+          description: A custom message returned from the carrier.
+        custom_properties:
+          additionalProperties:
+            type: string
+          nullable: true
+          type: object
+          description: A grab bag of custom properties that will be persisted and sent back with the cancel pickup request.
+        charges:
+          type: array
+          description: 'This field has been deprecated, please use billing_line_items'
+          deprecated: true
+          items:
+            $ref: '#/components/schemas/ChargeDeprecated'
+        charges_total:
+          allOf:
+            - $ref: '#/components/schemas/CurrencyDeprecated'
+          description: This field has been deprecated.
+          nullable: true
+        billing_line_items:
+          type: array
+          items:
+            $ref: '#/components/schemas/BillingLineItem'
+    PickupConfirmation:
+      additionalProperties: {}
+      nullable: true
+      type: object
+      title: Pickup Confirmation
+      description: This model contains the confirmation information for a scheduled pickup.
+      properties:
+        confirmation_id:
+          nullable: true
+          type: string
+          description: The primary confirmation ID for this request.
+        alternate_identifiers:
+          nullable: true
+          type: array
+          description: Other identifiers potentially needed in other calls.
+          items:
+            $ref: '#/components/schemas/Identifier'
+        shipment_identifiers:
+          nullable: true
+          type: array
+          description: List of the shipments added for this pickup.
+          items:
+            $ref: '#/components/schemas/ShipmentIdentifier'
+    ShipmentIdentifier:
+      additionalProperties: {}
+      nullable: true
+      type: object
+      title: Shipment Identifier
+      description: This model represents identifying information about a shipment.
+      properties:
+        tracking_number:
+          nullable: true
+          type: string
+          description: The tracking number associated with this shipment.
+        alternate_identifiers:
+          nullable: true
+          type: array
+          description: 'Alternative identifiers associated with this shipment, specific to a shipping provider.'
+          items:
+            $ref: '#/components/schemas/Identifier'
+    PickupWindow:
+      additionalProperties: {}
+      nullable: true
+      type: object
+      title: Pickup Window
+      description: This model represents a window of time a pickup could be made.
+      properties:
+        time_zone_iana:
+          type: string
+          description: 'The local time zone represented in IANA. See https://www.iana.org/time-zones'
+          example: America/Chicago
+          nullable: false
+        pickup_date:
+          type: string
+          description: 'The local date the pickup will occur. Formatted per https://tools.ietf.org/html/rfc3339'
+          format: date-time
+          example: '2002-10-02T10:00:00-05:00'
+          nullable: false
+        start_time:
+          type: string
+          description: 'The time relative to the time_zone_iana that the carrier says that the pickup could occur. Formatted per https://tools.ietf.org/html/rfc3339'
+          format: date-time
+          example: '2002-10-02T10:00:00-05:00'
+          nullable: true
+        end_time:
+          type: string
+          description: 'The end of the window when the pickup could be made relative to the time_zone_iana. Formatted per https://tools.ietf.org/html/rfc3339'
+          format: date-time
+          example: '2002-10-02T10:00:00-05:00'
+          nullable: true
+      required:
+        - time_zone_iana
+        - pickup_date
+    SchedulePickupRequest:
+      type: object
+      additionalProperties: {}
+      title: Schedule Pickup Request
+      description: A request to schedule a pickup with a carrier.
+      properties:
+        location:
+          $ref: '#/components/schemas/PickupLocationDetails'
+        contact:
+          $ref: '#/components/schemas/PickupContactDetails'
+        pickup_details:
+          $ref: '#/components/schemas/PickupShipmentDetails'
+        requested_pickup_window:
+          allOf:
+            - $ref: '#/components/schemas/PickupWindow'
+          nullable: false
+          description: The time window that the user is requesting for the pickup to be made.
+        transaction_id:
+          format: guid
+          type: string
+          description: The transaction ID uniquely represents this request. If the request is retried then this transaction ID will be the same. You should only perform the requested action once per given transaction ID.
+          nullable: false
+        metadata:
+          additionalProperties:
+            type: object
+          nullable: true
+          type: object
+          description: 'This is an optional schemaless object that you may return with a successful response. Anything returned under this key will be included in all future requests. For example, you may store additional static properties about the end user or their connection to the carrier. The maximum storage size for data under this key is 4KB.'
+      required:
+        - requested_pickup_window
+        - transaction_id
+    PickupLocationDetails:
+      additionalProperties: {}
+      nullable: true
+      type: object
+      title: Pickup Location Details
+      description: This model represents the place where the pickup should occur
+      properties:
+        pickup_address:
+          $ref: '#/components/schemas/PickupAddress'
+        location_notes:
+          type: string
+          description: Human readable location information for the driver to find the location.
+          example: "Our loading doc is near the denny's entrance."
+          nullable: true
+        pickup_options:
+          additionalProperties:
+            type: string
+          nullable: true
+          type: object
+          description: Custom options that are used by the carrier to determine pickup locations.
+    PickupContactDetails:
+      additionalProperties: {}
+      nullable: true
+      type: object
+      description: Contact information about the person there to meet the driver.
+      title: Pickup Contact Details
+      properties:
+        first_name:
+          type: string
+          description: The first name of the person who will be there for the pickup.
+          nullable: false
+        last_name:
+          nullable: true
+          type: string
+          description: The last name of the person who will be there for the pickup.
+        email:
+          type: string
+          description: The email address of the person who will be there for the pickup.
+          nullable: false
+        phone_number:
+          type: string
+          description: The phone number of the person who will be there for the pickup.
+          nullable: false
+        phone_number_extension:
+          nullable: true
+          type: string
+          description: The phone extension of the person who will be there for the pickup.
+      required:
+        - first_name
+        - email
+        - phone_number
+    PickupShipmentDetails:
+      additionalProperties: {}
+      nullable: true
+      type: object
+      title: Pickup Shipment Details
+      description: Contains information regarding the service code for the pickup request and the packages that will be picked up
+      properties:
+        pickup_service_code:
+          nullable: true
+          type: string
+          description: Service category for the carrier.
+        shipments:
+          nullable: true
+          type: array
+          description: The shipments that will be picked up.
+          items:
+            $ref: '#/components/schemas/PickupShipment'
+    PickupShipment:
+      additionalProperties: {}
+      title: Pickup Shipment
+      description: This model represents a shipment that should be picked up.
+      type: object
+      properties:
+        tracking_number:
+          nullable: true
+          type: string
+          description: The carrier tracking number for this shipment.
+        alternative_identifiers:
+          nullable: true
+          type: array
+          description: Alternative identifiers associated with this package.
+          items:
+            $ref: '#/components/schemas/Identifier'
+        service_code:
+          nullable: true
+          type: string
+          description: The service code used for this shipment.
+        packages:
+          nullable: true
+          type: array
+          description: The list of packages associated with this shipment.
+          items:
+            $ref: '#/components/schemas/ShippedPackage'
+        advanced_options:
+          $ref: '#/components/schemas/AdvancedShippingOptions'
+    ShippedPackage:
+      additionalProperties: {}
+      nullable: true
+      type: object
+      title: Shipped Package
+      description: This model represents a package that has been shipped.
+      properties:
+        tracking_number:
+          nullable: true
+          type: string
+          description: The carrier specific tracking identifier for this shipment.
+        alternative_identifiers:
+          nullable: true
+          type: array
+          description: Alternative identifiers for the package.
+          items:
+            $ref: '#/components/schemas/Identifier'
+        dimensions:
+          description: This field has been deprecated please use the dimension_details field.
+          deprecated: true
+          allOf:
+            - $ref: '#/components/schemas/DimensionsDeprecated'
+        package_code:
+          nullable: true
+          type: string
+          description: The shipping providers specific code for this packaging type.
+        weight:
+          type: number
+          format: decimal
+          description: Please use WeightDetails.
+          deprecated: true
+        dimension_details:
+          $ref: '#/components/schemas/DimensionDetails'
+        weight_details:
+          $ref: '#/components/schemas/WeightDetails'
+    CancelPickupResponse:
+      type: object
+      additionalProperties: {}
+      title: Cancel Pickup Response
+      description: This model represents a response for a successful cancel pickup request.
+      properties:
+        confirmation_id:
+          nullable: true
+          type: string
+          description: The confirmation id from the carrier associated with the cancellation request.
+        successful:
+          type: boolean
+          description: A flag for whether or not the cancellation was successful.
+          nullable: false
+        status:
+          type: string
+          description: The optional status returned by the carrier.
+          example: 'Your pickup request was cancelled, Unable to cancel over the network, please call ### ### ####'
+          nullable: true
+        custom_properties:
+          additionalProperties:
+            type: string
+          nullable: true
+          type: object
+          description: A grab bag used to store additional information that might be useful for logging or internal reporting.
+      required:
+        - successful
+    CancelPickupRequest:
+      type: object
+      description: The request for cancelling a previously scheduled pickup.
+      additionalProperties: {}
+      title: Cancel Pickup Request
+      properties:
+        confirmation:
+          $ref: '#/components/schemas/PickupConfirmation'
+        location:
+          $ref: '#/components/schemas/PickupLocationDetails'
+        cancellation_details:
+          $ref: '#/components/schemas/CancellationDetails'
+        contact:
+          $ref: '#/components/schemas/PickupContactDetails'
+        pickup_details:
+          $ref: '#/components/schemas/PickupShipmentDetails'
+        pickup_windows:
+          nullable: true
+          type: array
+          description: The time windows that the carrier returned in the Schedule Pickup Response.
+          items:
+            $ref: '#/components/schemas/PickupWindow'
+        custom_properties:
+          type: object
+          example:
+            custom_carrier_identifier: Ax3Gh4Z
+            custom_carrier_key: bGxHZ
+          additionalProperties:
+            type: string
+          description: The grab bag of properties necessary to cancel the pickup. These should be returned from the SchedulePickupResponse.
+          nullable: true
+        metadata:
+          nullable: true
+          type: object
+          additionalProperties:
+            type: object
+          description: 'This is an optional schemaless object that you may return with a successful response. Anything returned under this key will be included in all future requests. For example, you may store additional static properties about the end user or their connection to the carrier. The maximum storage size for data under this key is 4KB.'
+        transaction_id:
+          format: guid
+          type: string
+          description: The transaction ID uniquely represents this request. If the request is retried then this transaction ID will be the same. You should only perform the requested action once per given transaction ID.
+          nullable: false
+      required:
+        - transaction_id
+    CancellationDetails:
+      additionalProperties: {}
+      nullable: true
+      type: object
+      title: Cancellation Details
+      description: This model contains the explanation of why a user is cancelling a pickup.
+      properties:
+        reason:
+          allOf:
+            - $ref: '#/components/schemas/CancellationReason'
+          nullable: false
+        cancellation_options:
+          additionalProperties:
+            type: string
+          nullable: true
+          type: object
+          description: Additional properties about the cancellation.
+        remarks:
+          nullable: true
+          type: string
+          description: Remarks about why the customer is cancelling the pickup.
+      required:
+        - reason
+    CancellationReason:
+      type: string
+      title: Cancellation Reason
+      description: The reason the customer is cancelling their pickup request
+      enum:
+        - not_ready
+        - other
+        - cost_too_high
+        - service_too_slow
+        - carrier_failed_pickup
+      example: cost_too_high
+    CreateManifestResponse:
+      type: object
+      additionalProperties: {}
+      title: Create Manifest Response
+      description: This model represents the successful response for a create manifest request.
+      properties:
+        transaction_id:
+          format: guid
+          type: string
+          description: The transaction ID uniquely represents this request. If the request is retried then this transaction ID will be the same. You should only perform the requested action once per given transaction ID.
+          nullable: false
+        manifests:
+          nullable: true
+          type: array
+          description: 'The manifests created from this request. It should contain either a href or data, but not both.'
+          items:
+            $ref: '#/components/schemas/Manifest'
+      required:
+        - transaction_id
+    Manifest:
+      additionalProperties: {}
+      nullable: true
+      type: object
+      title: Manifest
+      description: This model represents a single manifest created with a shipping provider.
+      properties:
+        manifest_id:
+          nullable: true
+          type: string
+          description: The unique identifier for this manifest.
+        document_href:
+          type: string
+          description: Please use document_download.
+          deprecated: true
+        document_data:
+          type: string
+          description: Please use document_download.
+          deprecated: true
+        included_labels:
+          type: array
+          description: 'A list of which labels are included with this manifest. If the shipping providers service is non deterministic, leave empty. '
+          nullable: true
+          items:
+            $ref: '#/components/schemas/Label'
+        document_download:
+          allOf:
+            - $ref: '#/components/schemas/ResourceDownload'
+          description: The resource for where the manifest documentation can be downloaded.
+    CreateManifestRequest:
+      type: object
+      additionalProperties: {}
+      title: Create Manifest Request
+      description: This model represents the request payload needed to manifest with a shipping provider.
+      properties:
+        ship_from:
+          allOf:
+            - $ref: '#/components/schemas/ShipFrom'
+          nullable: true
+        included_labels:
+          nullable: true
+          type: array
+          description: The labels to include in the manifest. There should be at least one label included in a manifest.
+          items:
+            $ref: '#/components/schemas/Label'
+        excluded_labels:
+          nullable: true
+          type: array
+          description: The labels to exclude from the manifest.
+          items:
+            $ref: '#/components/schemas/Label'
+        open_datetime:
+          format: date-time
+          nullable: true
+          type: string
+          description: 'The date and time of the earliest shipment being manifested. Formatted per the https://tools.ietf.org/html/rfc3339 spec'
+        close_datetime:
+          format: date-time
+          nullable: false
+          type: string
+          description: 'The date and time of the last shipment being manifested. Formatted per the https://tools.ietf.org/html/rfc3339 spec'
+        advanced_options:
+          allOf:
+            - $ref: '#/components/schemas/AdvancedShippingOptions'
+          description: 'This is a schemaless object. This is a join of all of the advanced options for all of the shipments being manifested. It is for open ended customizations unique to particular carriers. The documented keys are some common options shared by many carriers, but are not definitive. Advanced options you support will be defined in ShipEngine. If the field is absent it should be interpreted as the default value for any applicable options, e.g. false for booleans.'
+        transaction_id:
+          format: guid
+          type: string
+          description: The transaction ID uniquely represents this request. If the request is retried then this transaction ID will be the same. You should only perform the requested action once per given transaction ID.
+          nullable: false
+        metadata:
+          nullable: true
+          type: object
+          additionalProperties:
+            type: object
+          description: 'This is an optional schemaless object that you may return with a successful response. Anything returned under this key will be included in all future requests. For example, you may store additional static properties about the end user or their connection to the carrier. The maximum storage size for data under this key is 4KB.'
+      required:
+        - close_datetime
+        - transaction_id
+    Label:
+      additionalProperties: {}
+      nullable: true
+      type: object
+      title: Label
+      description: This model represents a label.
+      properties:
+        tracking_number:
+          nullable: true
+          type: string
+          description: "The shipping provider's tracking number for this label."
+        carrier_transaction_id:
+          nullable: true
+          type: string
+          description: A unique identifier for the shipping provider.
+    CreateLabelResponse:
+      type: object
+      title: Create Label Response
+      description: This model represents the response from a successful create label request.
+      properties:
+        label_download:
+          $ref: '#/components/schemas/LabelDownload'
+        form_download:
+          $ref: '#/components/schemas/FormDownload'
+        shipping_amount:
+          allOf:
+            - $ref: '#/components/schemas/CurrencyDeprecated'
+          description: "This field has been deprecated please add a billing line item to billing_line_items with billing_category set to 'shipping'."
+          nullable: true
+        insurance_amount:
+          allOf:
+            - $ref: '#/components/schemas/CurrencyDeprecated'
+          description: "This field has been deprecated please add a billing line item to billing_line_items with billing_category set to 'insurance'."
+          nullable: true
+        tracking_number:
+          nullable: true
+          type: string
+          description: The carrier specific tracking identifier for this shipment.
+        trackable:
+          nullable: true
+          type: boolean
+          description: Whether this shipment can be tracked.
+        carrier_transaction_id:
+          nullable: true
+          type: string
+          description: The shipping provider specific id for the creation of this label.
+        estimated_delivery_datetime:
+          type: string
+          description: 'The estimated date and time for when the shipment will be delivered. Formatted per the https://tools.ietf.org/html/rfc3339 spec.'
+          format: date-time
+          example: '1937-01-01T12:00:27.87+00:20'
+          nullable: true
+        transaction_id:
+          format: guid
+          type: string
+          description: The transaction ID uniquely represents this request. If the request is retried then this transaction ID will be the same. You should only perform the requested action once per given transaction ID.
+          nullable: false
+        billing_line_items:
+          type: array
+          items:
+            $ref: '#/components/schemas/BillingLineItem'
+      required:
+        - label_download
+        - transaction_id
+      additionalProperties: {}
+    LabelDownload:
+      nullable: false
+      type: object
+      title: Label Download
+      description: This has been deprecated in favor of the resource download.
+      deprecated: true
+      additionalProperties: {}
+      properties:
+        href:
+          nullable: true
+          type: string
+          description: The url where the created label can be downloaded.
+        label_data:
+          type: string
+          description: This field has been deprecated please use data.
+          deprecated: true
+        data:
+          type: string
+          description: The base64 encoded label image.
+    FormDownload:
+      nullable: true
+      type: object
+      title: Form Download
+      description: This model has been deprecated in favor of the resource download.
+      deprecated: true
+      additionalProperties: {}
+      properties:
+        href:
+          nullable: true
+          type: string
+          description: The url where the created forms can be downloaded.
+        form_data:
+          type: string
+          description: 'This field has been deprecated, please use data.'
+          deprecated: true
+        data:
+          type: string
+          description: The base64 encoded label image.
+    CreateLabelRequest:
+      type: object
+      title: Create Label Request
+      description: The request body used to create a label.
+      additionalProperties: {}
+      properties:
+        service_code:
+          nullable: true
+          type: string
+          description: "The service code uniquely identifies a shipping service that you offer. Which service codes can be passed to you will be configured in ShipEngine. If you don't use service codes this field won't be present."
+        ship_datetime:
+          format: date-time
+          nullable: false
+          type: string
+          description: 'When the package is expected to ship. Not guaranteed to be in the future. Formatted per the https://tools.ietf.org/html/rfc3339 spec. Will always be in UTC.'
+        confirmation:
+          type: string
+          description: 'The expected delivery confirmation. If the field is absent it should be interpreted as "None"'
+          enum:
+            - None
+            - Delivery
+            - Signature
+            - AdultSignature
+            - DirectSignature
+          nullable: true
+        insurance_provider:
+          type: string
+          description: 'Which party will be insuring the shipment. If the field is absent it should be interpreted as "None"'
+          enum:
+            - None
+            - ShipEngine
+            - Carrier
+            - External
+          nullable: true
+        label_format:
+          type: string
+          description: The expected format of the returned label.
+          enum:
+            - PDF
+            - ZPL
+            - PNG
+          nullable: false
+        label_layout:
+          type: string
+          description: The expected layout of the returned label.
+          enum:
+            - 4x6
+            - letter
+          nullable: false
+        is_test_label:
+          type: boolean
+          default: false
+          description: Whether this request is the result of a test. When true the request must not result in any financial charges to any party. If the field is absent it should be interpreted as false
+          nullable: true
+        advanced_options:
+          $ref: '#/components/schemas/AdvancedShippingOptions'
+        insured_value:
+          allOf:
+            - $ref: '#/components/schemas/CurrencyDeprecated'
+          description: The total insured value of the shipment. The currency is defined by the end user of ShipEngine. If the field is absent it should be interpeted as zero value.
+          nullable: true
+        is_return_label:
+          type: boolean
+          default: false
+          description: Whether this label is to return a previously shipped package. If the field is absent it should be interpreted as false.
+          nullable: false
+        is_residential:
+          type: boolean
+          default: false
+          description: Whether this package ships from a residential address. If the field is absent it should be interpreted as false
+          nullable: false
+        packages:
+          type: array
+          minItems: 1
+          description: All the packages that make up this shipment. There will always be at least one package defined.
+          nullable: false
+          items:
+            $ref: '#/components/schemas/Package'
+        customs:
+          allOf:
+            - $ref: '#/components/schemas/Customs'
+          description: This describes the customs declarations of this shipment. This field should be present for international shipments.
+        ship_to:
+          $ref: '#/components/schemas/ShipTo'
+        ship_from:
+          $ref: '#/components/schemas/ShipFrom'
+        ship_from_display:
+          $ref: '#/components/schemas/ShipFromDisplay'
+        next_day:
+          type: boolean
+          default: false
+          description: Whether this shipment is expected to use a next day service class. If the field is absent it should be interpreted as false.
+          nullable: true
+        international:
+          type: boolean
+          default: false
+          description: Whether this shipment uses a shipping service that is defined as international.
+          nullable: true
+        reference:
+          nullable: true
+          type: string
+          description: A user specified free form string to identify this shipment in their own system.
+        shipment_details:
+          type: object
+          deprecated: true
+          description: This property has been deprecated. Please use fulfillment_plan_details.
+          nullable: true
+        fulfillment_plan_details:
+          allOf:
+            - $ref: '#/components/schemas/FulfillmentPlanDetails'
+          description: 'Details regarding the fulfillment plan and/or original sales order, only if the carrier provider requires this info for label generation.'
+        transaction_id:
+          format: guid
+          type: string
+          description: The transaction ID uniquely represents this request. If the request is retried then this transaction ID will be the same. You should only perform the requested action once per given transaction ID.
+          nullable: false
+        metadata:
+          nullable: true
+          type: object
+          additionalProperties:
+            type: object
+          description: 'This is an optional schemaless object that you may return with a successful response. Anything returned under this key will be included in all future requests. For example, you may store additional static properties about the end user or their connection to the carrier. The maximum storage size for data under this key is 4KB.'
+      required:
+        - ship_datetime
+        - label_format
+        - label_layout
+        - is_return_label
+        - is_residential
+        - packages
+        - ship_to
+        - ship_from
+        - transaction_id
+    ShipFromDisplay:
+      nullable: true
+      title: Ship From Display
+      description: 'The address that should be displayed as the return address, only if the shipping provider supports this functionality.'
+      allOf:
+        - $ref: '#/components/schemas/AddressBase'
+      additionalProperties: {}
+    VoidLabelsResponse:
+      type: object
+      title: Void Labels Response
+      description: This model represents the successful attempt to void a set of labels.
+      properties:
+        void_responses:
+          nullable: false
+          type: array
+          description: A request to void a particular label.
+          items:
+            $ref: '#/components/schemas/VoidResponse'
+      required:
+        - void_responses
+      additionalProperties: {}
+    VoidResponse:
+      additionalProperties: {}
+      nullable: true
+      type: object
+      title: Void Response
+      description: This model represents the success or failure of an individual label being voided.
+      properties:
+        void_request_id:
+          format: guid
+          type: string
+          description: 'This unique identifier should be related to the void_request_id in the VoidLabelsRequest. '
+          nullable: false
+        message:
+          nullable: true
+          type: string
+          description: User facing text describing the void process. May be left blank to present a default value.
+        errors:
+          nullable: true
+          type: array
+          description: A list of errors preventing this label from being voided. If no errors are returned the void is considered successful. If any errors are returned the void is considered failed.
+          items:
+            type: string
+      required:
+        - void_request_id
+    VoidLabelsRequest:
+      type: object
+      title: Void Labels Request
+      description: This model represents the payload sent to void a set of labels.
+      additionalProperties: {}
+      properties:
+        void_requests:
+          nullable: false
+          type: array
+          description: A request to void a particular label.
+          items:
+            $ref: '#/components/schemas/VoidRequest'
+        transaction_id:
+          format: guid
+          type: string
+          description: The transaction ID uniquely represents this request. If the request is retried then this transaction ID will be the same. You should only perform the requested action once per given transaction ID.
+          nullable: false
+        metadata:
+          nullable: true
+          type: object
+          additionalProperties:
+            type: object
+          description: 'This is an optional schemaless object that you may return with a successful response. Anything returned under this key will be included in all future requests. For example, you may store additional static properties about the end user or their connection to the carrier. The maximum storage size for data under this key is 4KB.'
+      required:
+        - void_requests
+        - transaction_id
+    VoidRequest:
+      additionalProperties: {}
+      nullable: true
+      type: object
+      title: Void Request
+      description: This model represents a request to void a single label.
+      properties:
+        void_request_id:
+          format: guid
+          type: string
+          description: Uniquely identifies this request to void a label. Must be returned in a void response.
+          nullable: false
+        tracking_number:
+          nullable: true
+          type: string
+          description: The Carrier provided tracking number for the label.
+        carrier_transaction_id:
+          nullable: true
+          type: string
+          description: The Carrier provided unique transaction id from creating the label.
+      required:
+        - void_request_id
+    RegisterResponse:
+      type: object
+      title: Register Response
+      description: This model represents the successful response for a registration request.
+      properties:
+        credentials:
+          allOf:
+            - $ref: '#/components/schemas/Credentials'
+          nullable: false
+        metadata:
+          nullable: true
+          type: object
+          additionalProperties:
+            type: object
+          description: 'This is an optional schemaless object that you may return with a successful response. Anything returned under this key will be included in all future requests. For example, you may store additional static properties about the end user or their connection to the carrier. The maximum storage size for data under this key is 4KB.'
+      required:
+        - credentials
+      additionalProperties: {}
+    Credentials:
+      properties:
+        username:
+          nullable: true
+          type: string
+        password:
+          nullable: true
+          type: string
+      type: object
+      description: "The credentials that will be used to access this carrier's services. These will be sent as a Basic Authorization header with all future requests."
+      additionalProperties: {}
+      title: Credentials
+    RegisterRequest:
+      title: Register Request
+      type: object
+      description: This model represents the body of a request used to register a new user within ShipEngine.
+      additionalProperties: {}
+      properties:
+        registration_info:
+          type: object
+          description: 'This is a schemaless object used to contain any required fields for validating a users credentials or registering a new account. These fields will be custom to the shipping service provider, and will be collected via a form and sent over as key value pairs.'
+          nullable: false
+        warehouses:
+          nullable: true
+          type: array
+          description: This is an optional bit of information about the warehouse for the user who is making the request.
+          items:
+            $ref: '#/components/schemas/Warehouse'
+        transaction_id:
+          format: guid
+          type: string
+          description: The transaction ID uniquely represents this request. If the request is retried then this transaction ID will be the same. You should only perform the requested action once per given transaction ID.
+          nullable: false
+        metadata:
+          additionalProperties:
+            type: object
+          nullable: true
+          type: object
+          description: 'This is an optional schemaless object that you may return with a successful response. Anything returned under this key will be included in all future requests. For example, you may store additional static properties about the end user or their connection to the carrier. The maximum storage size for data under this key is 4KB.'
+      required:
+        - registration_info
+        - transaction_id
+    Warehouse:
+      additionalProperties: {}
+      nullable: true
+      type: object
+      title: Warehouse
+      description: This model describes a ShipEngine users warehouse.
+      properties:
+        warehouseId:
+          format: int32
+          type: integer
+          description: The ShipEngine specific Id for a warehouse.
+          nullable: false
+        sellerId:
+          format: int32
+          type: integer
+          description: The ShipEngine specific Id for a seller.
+          nullable: false
+        name:
+          nullable: true
+          type: string
+          description: The name of the warehouse.
+        originPostalCode:
+          nullable: true
+          type: string
+          description: The postal code for the warehouse.
+        returnName:
+          nullable: true
+          type: string
+          description: The name that should appear on returns to this warehouse.
+        returnCompany:
+          nullable: true
+          type: string
+          description: The company name that should appear on returns to this warehouse.
+        returnStreet1:
+          nullable: true
+          type: string
+          description: The return street address line 1 that should appear on returns to this warehouse.
+        returnStreet2:
+          nullable: true
+          type: string
+          description: The return street address line 2 that should appear on returns to this warehouse.
+        returnCity:
+          nullable: true
+          type: string
+          description: The return city that should appear on returns to this warehouse.
+        returnState:
+          nullable: true
+          type: string
+          description: The return state that should appear on returns to this warehouse.
+        returnPostalCode:
+          nullable: true
+          type: string
+          description: The return postal code that should appear on returns to this warehouse.
+        returnCountryCode:
+          nullable: true
+          type: string
+          description: The return country code that should appear on returns to this warehouse. The codes are specified by ISO 3166-1 alpha-2.
+        createDate:
+          format: date-time
+          type: string
+          description: "The date the warehouse was created in ShipEngine's system."
+          nullable: false
+        modifyDate:
+          format: date-time
+          nullable: true
+          type: string
+          description: The last date the warehouse was modified.
+        active:
+          type: boolean
+          description: Indicates whether or not the warehouse is active.
+          nullable: false
+        returnStreet3:
+          nullable: true
+          type: string
+          description: The return street address line 3 that should appear on returns to this warehouse.
+        returnPhone:
+          nullable: true
+          type: string
+          description: The phone number that should appear on returns to this warehouse.
+        default:
+          type: boolean
+          description: Identifies whether or not this is the sellers primary warehouse.
+          nullable: false
+        fedExMeter:
+          nullable: true
+          type: string
+          description: The meter id for FedEx for this sellers warehouse.
+        originState:
+          nullable: true
+          type: string
+          description: The origin state for the user.
+        inventoryStoreId:
+          format: int32
+          nullable: true
+          type: integer
+        extInventoryIdentity:
+          nullable: true
+          type: string
+        canadaPostGroup:
+          nullable: true
+          type: string
+        isResidential:
+          type: boolean
+          nullable: false
+        dhlGmAccount:
+          nullable: true
+          type: string
+        bulkCopyBatchId:
+          format: guid
+          nullable: true
+          type: string
+        bulkCopyRecordId:
+          format: guid
+          nullable: true
+          type: string
+        originName:
+          nullable: true
+          type: string
+        originCompany:
+          nullable: true
+          type: string
+        originStreet1:
+          nullable: true
+          type: string
+        originStreet2:
+          nullable: true
+          type: string
+        originStreet3:
+          nullable: true
+          type: string
+        originCountryCode:
+          nullable: true
+          type: string
+        originPhone:
+          nullable: true
+          type: string
+        originCity:
+          nullable: true
+          type: string
+        royalMailHub:
+          nullable: true
+          type: string
+      required:
+        - warehouseId
+        - sellerId
+        - createDate
+        - active
+        - default
+        - isResidential
+    AddressBase:
+      type: object
+      nullable: true
+      title: Address Base
+      description: This model is represents the base address.
+      additionalProperties: {}
+      properties:
+        is_eu:
+          nullable: true
+          type:
+            - boolean
+            - 'null'
+          description: 'Whether the country of the shipment address is a member of the EU. Specified by https://www.gov.uk/eu-eea.'
+          deprecated: true
+        address_residential_indicator:
+          type: string
+          default: unknown
+          description: Whether the shipment address is residential.
+          enum:
+            - 'yes'
+            - 'no'
+            - unknown
+          example: 'yes'
+          nullable: true
+        country_code:
+          nullable: false
+          type: string
+          description: The two character country code of the shipment address. The codes are specified by ISO 3166-1 alpha-2.
+        postal_code:
+          nullable: false
+          type: string
+          description: The postal code of the shipment address.
+        state_province:
+          nullable: true
+          type: string
+          description: 'The state or province of the shipment address, where applicable.'
+        city_locality:
+          nullable: true
+          type: string
+          description: 'The city or locality of the shipment address, where applicable.'
+        address_lines:
+          type: array
+          nullable: true
+          description: The address lines of the shipment address.
+          items:
+            type: string
+            nullable: true
+        company_name:
+          nullable: true
+          type: string
+          description: The name of the company associated with this address.
+        phone_number:
+          nullable: true
+          type: string
+          description: The phone number of the shipment address.
+        email:
+          nullable: true
+          type: string
+          description: The email of the shipment address.
+        last_name:
+          nullable: true
+          type: string
+          description: The last name of the shipment address.
+        first_name:
+          nullable: true
+          type: string
+          description: The first name of the shipment address.
+        name:
+          nullable: true
+          type: string
+          description: The full unparsed name of the shipment address.
+        address_metadata:
+          type: object
+          additionalProperties:
+            type: string
+          description: Additional Metadata about an address for a given carrier
+      required:
+        - country_code
+        - postal_code
+    AdvancedShippingOptions:
+      title: Advanced Shipping Options
+      type: object
+      description: 'This is a schemaless object. It is for open ended customizations unique to particular carriers. The documented keys are some common options shared by many carriers, but are not definitive. Advanced options you support will be defined in ShipEngine. If the field is absent it should be interpreted as the default value for any applicable options, e.g. false for booleans.'
+      nullable: true
+      additionalProperties: {}
+      properties:
+        contains_alcohol:
+          type: boolean
+          description: Describes whether or not the shipment contains alcohol.
+          nullable: true
+        no_postage:
+          type: boolean
+          description: Describes whether no postage is necessary
+          nullable: true
+        nonmachineable:
+          type: boolean
+          description: Describes whether or not the shipment is non automatically sortable with machines.
+          nullable: true
+        bill_duties_to_sender:
+          type: boolean
+          description: Describes whether or not customs duties should be billed to the sender.
+          nullable: true
+        saturday_delivery:
+          type: boolean
+          description: Describes whether or not the shipment is requested to be delivered on a saturday.
+          nullable: true
+    PickupAddress:
+      title: Pickup Address
+      type: object
+      additionalProperties: {}
+      description: The physical address of the warehouse/pickup address.
+      nullable: true
+      properties:
+        name:
+          nullable: true
+          type: string
+          description: The full unparsed name of the shipment address.
+        first_name:
+          nullable: true
+          type: string
+          description: The first name of the shipment address.
+        last_name:
+          nullable: true
+          type: string
+          description: The last name of the shipment address.
+        email:
+          nullable: true
+          type: string
+          description: The email of the shipment address.
+        phone_number:
+          nullable: true
+          type: string
+          description: The phone number of the shipment address.
+        company_name:
+          nullable: true
+          type: string
+          description: The name of the company associated with this address.
+        address_lines:
+          nullable: true
+          type: array
+          description: The address lines of the shipment address.
+          items:
+            type: string
+        city_locality:
+          nullable: true
+          type: string
+          description: 'The city or locality of the shipment address, where applicable.'
+        state_province:
+          nullable: true
+          type: string
+          description: 'The state or province of the shipment address, where applicable.'
+        postal_code:
+          nullable: false
+          type: string
+          description: The postal code of the shipment address.
+        country_code:
+          nullable: false
+          type: string
+          description: The two character country code of the shipment address. The codes are specified by ISO 3166-1 alpha-2.
+        address_residential_indicator:
+          type: string
+          default: unknown
+          description: Whether the shipment address is residential.
+          enum:
+            - 'yes'
+            - 'no'
+            - unknown
+          example: residential
+        is_eu:
+          nullable: true
+          type: boolean
+          description: 'Whether the country of the shipment address is a member of the EU. Specified by https://www.gov.uk/eu-eea.'
+      required:
+        - postal_code
+        - country_code
+    RateLimitResponse:
+      title: Rate Limit Response
+      type: object
+      description: 'This response indicates that the shipping service provider has denied a request due to too many requests, generally associated with a 429 http status code.'
+      properties:
+        retry_after_seconds:
+          type: integer
+          description: The number of seconds to wait before retrying the request. Optionally provided if the shipping provider supports this and the end point is a 1 to 1 mapping.
+          nullable: true
+        retry_after_time:
+          type: string
+          format: date-time
+          description: The date time the shipping provider has specified to retry after. Optionally provided if the shipping provider supports this and the end point is a 1 to 1 mapping.
+          nullable: true
+        throttling_context:
+          type: object
+          description: An optional grab bag of information related to the context of the shipping provider.
+          nullable: true
+          additionalProperties:
+            type: string
+      x-examples:
+        Example:
+          retry_after_seconds: 6000
+          retry_after_time: null
+          throttling_context: {}
+    ChargeDeprecated:
+      type: object
+      title: Charge Deprecated
+      description: This model represents a charge for a given service.
+      deprecated: true
+      properties:
+        charge_tax:
+          allOf:
+            - $ref: '#/components/schemas/Currency'
+          description: The tax associated with this charge.
+          nullable: true
+        charge_amount:
+          description: The amount being charged.
+          allOf:
+            - $ref: '#/components/schemas/Currency'
+          nullable: true
+        charge_code:
+          type: string
+          description: The shipping provider specific code for this charge.
+          nullable: true
+        charge_description:
+          type: string
+          description: A human readable description about this charge.
+          nullable: true
+        disclaimer:
+          type: string
+          description: 'An optional human readable disclaimer about this charge. '
+          example: 'Rate excludes VAT. Rate includes a fuel surcharge, but excludes taxes, duties and other charges that may apply to the shipment.'
+          nullable: true
+    BillingLineItem:
+      title: Billing Line Item
+      type: object
+      description: This model represents a line item billed by the shipping service provider
+      properties:
+        billing_category:
+          type: string
+          enum:
+            - uncategorized
+            - shipping
+            - insurance
+            - confirm
+            - discount
+            - fuel_charge
+            - additional_fees
+            - tariff
+            - tax
+            - delivery
+            - handling
+            - special_goods
+            - pickup
+            - location_fee
+            - oversize
+            - returns
+            - notifications
+          example: delivery
+          description: The standardized category for this billing line item.
+        carrier_billing_category:
+          type: string
+          maxLength: 100
+          description: The open category used by the shipping provider for this billing line item.
+        carrier_description:
+          type: string
+          description: 'The carrier specific description for this billing line item, if provided.'
+          maxLength: 100
+        carrier_billing_code:
+          type: string
+          description: The carrier specific code for this line item.
+        memo:
+          type: string
+          description: 'Maximum length of 250 characters. This will often be empty; however, if there was additionally specific information about the charge it should go here, could also be a reference number. Maximum length of 250 characters.'
+          maxLength: 250
+        amount:
+          allOf:
+            - $ref: '#/components/schemas/Currency'
+          description: The total amount of the line item
+      required:
+        - billing_category
+        - amount
+    ReturnLabelDetails:
+      additionalProperties: {}
+      title: Return Label Details
+      type: object
+      description: This model contains information regarding details about a return.
+      properties:
+        rma_number:
+          type: string
+          description: 'A return merchandise authorization (RMA) is an associated number assigned to process the return, this number is often printed on the label, and used when the original shipper processes the inbound return.'
+    ResourceDownload:
+      title: Resource Download
+      description: ''
+      oneOf:
+        - properties:
+            href:
+              type: string
+              description: The public url where the created resource can be downloaded.
+          required:
+            - href
+        - properties:
+            data:
+              type: string
+              description: The base64 encoded resource data.
+          required:
+            - data
+      type: object
+    CurrencyDeprecated:
+      type: object
+      title: Deprecated Currency
+      description: This model represents a currency value.
+      deprecated: true
+      properties:
+        currency:
+          nullable: true
+          type: string
+          description: 'The currency of this value. Will be a three letter currency code defined by https://www.iban.com/currency-codes.html.'
+        amount:
+          type: string
+          description: The amount of this value. Represented as a string to avoid floating point rounding issues. You must parse this string into a type appropriate for financial and monetary calculations.
+          nullable: false
+      required:
+        - amount
+      additionalProperties: {}

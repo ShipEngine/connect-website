@@ -37,7 +37,7 @@ overrides:
       - "@typescript-eslint"
 
     excludedFiles: ["**/fixtures/**/*.ts"]
-    extends: 
+    extends:
       - oclif
       - oclif-typescript
       - eslint:recommended
@@ -77,3 +77,4 @@ overrides:
       "@typescript-eslint/await-thenable": warn
       "@typescript-eslint/require-await": warn
       "@typescript-eslint/no-var-requires": warn
+      "@typescript-eslint/no-misused-promises": warn

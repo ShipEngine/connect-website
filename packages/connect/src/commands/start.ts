@@ -1,6 +1,7 @@
 import nodemon from 'nodemon';
 import BaseCommand from "../base-command";
 import { loadApp } from "@shipengine/connect-loader";
+import open from 'open';
 
 export default class Start extends BaseCommand {
   public static description = "Start the app";
@@ -23,7 +24,14 @@ export default class Start extends BaseCommand {
         watch: [
           'src/'
         ],
-      }).on('restart', files => {
+      }).on('start', async () => {
+        if (app.type === 'order') {
+          await open('http://localhost:3006/docs');
+        } else {
+          await open('http://localhost:3005/docs');
+        }
+      })
+      .on('restart', files => {
         if (files) {
           console.log(`connect: restarting due to ${files.join(', ')}`);
         }

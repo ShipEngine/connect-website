@@ -4,9 +4,23 @@ const router: IRouter = Router();
 import * as integration from "../integration";
 import diagnostics from "./diagnostics";
 import registry from "./loader-data";
+import path from "path";
+import redoc from "redoc-express";
 
 router.use("/diagnostics", diagnostics);
 router.use(registry);
+
+router.get("/docs/spec.yaml", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "../mapping/spec.yaml"));
+});
+
+router.get(
+  "/docs",
+  redoc({
+    title: "CarrierAPI Docs",
+    specUrl: "/docs/spec.yaml",
+  })
+);
 
 router.post("/CreateManifest", (req, res, next) =>
   serviceHandler(integration.createManifest, req, res, next)
