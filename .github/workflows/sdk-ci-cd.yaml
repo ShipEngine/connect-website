@@ -63,6 +63,12 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v2
 
+      - name: Configure git identity
+        run: |
+          # Configure git for commits
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+
       - name: Install Node
         uses: actions/setup-node@v2
         with:

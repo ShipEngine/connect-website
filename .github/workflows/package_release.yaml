@@ -44,6 +44,12 @@ jobs:
           fetch-depth: 0
           ref: ${{ fromJSON(steps.pr_info.outputs.result).head.ref }}
 
+      - name: Configure git identity
+        run: |
+          # Configure git for commits
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+
       - name: Install Node
         uses: actions/setup-node@v2
         with:
@@ -62,7 +68,7 @@ jobs:
           # If an optional comma-separated list of packages has
           # been provided, commit those releases.
           set -x
-          
+
           IFS=' ' read -ra words <<< "${COMMENT}"
           set -- "${words[@]}"
           shift
@@ -70,7 +76,7 @@ jobs:
           shift
           export BUMP_RELEASE_TYPE=${1:-patch}
           echo "::set-output name=package_names::${package_names}"
-          
+
           IFS=',' read -ra packages <<< "${package_names}"
           for package in "${packages[@]}"; do
             package_directory=packages/${package_name}
@@ -107,10 +113,6 @@ jobs:
       - name: Increment version
         if: ${{ env.IS_VALID_COMMENT == 'true' }}
         run: |
-          # Configure git for commits
-          date > generated.txt
-          git config user.name github-actions
-          git config user.email github-actions@github.com
           # Increment package version(s)
           if [[ -n "${PACKAGES}" ]]; then
             commit_msg="🤖 release 📦(s): ${PACKAGES}"
