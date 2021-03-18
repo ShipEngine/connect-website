@@ -61,16 +61,15 @@ jobs:
           # If an optional comma-separated list of packages has
           # been provided, commit those releases.
           set -x
-          IFS=' '
-          read -ra words <<< "${COMMENT}"
+          
+          IFS=' ' read -ra words <<< "${COMMENT}"
           set -- "${words[@]}"
           shift
           package_names=$1
           shift
           export BUMP_RELEASE_TYPE=${1:-patch}
-
-          IFS=','
-          read -ra packages <<< "${package_names}"
+          
+          IFS=',' read -ra packages <<< "${package_names}"
           for package in "${packages[@]}"; do
             package_directory=packages/${package_name}
             if [[ -n "${package_name}" ]] && [[ -d "${package_directory}" ]]; then
@@ -111,5 +110,4 @@ jobs:
           git config user.name github-actions
           git config user.email github-actions@github.com
           # Increment package version(s)
-          yarn version apply --all
-          git push
+          yarn version apply --all && git push
