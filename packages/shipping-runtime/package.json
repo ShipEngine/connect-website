@@ -23,7 +23,7 @@
 	"dependencies": {
 		"@sentry/node": "^5.24.2",
 		"@shipengine/connect-carrier-api": "^1.13.5",
-		"@shipengine/connect-loader": "^3.2.0",
+		"@shipengine/connect-loader": "^3.2.2",
 		"@shipengine/connect-sdk": "^12.6.4",
 		"body-parser": "1.19.0",
 		"continuation-local-storage": "3.2.1",

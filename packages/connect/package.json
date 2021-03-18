@@ -119,7 +119,7 @@
     "@oclif/plugin-help": "^3.2.1",
     "@oclif/plugin-not-found": "^1.2.4",
     "@shipengine/capitalization": "^1.2.1",
-    "@shipengine/connect-loader": "^3.2.0",
+    "@shipengine/connect-loader": "^3.2.2",
     "@shipengine/connect-order-source-runtime": "^1.3.0",
     "@shipengine/connect-sdk": "^12.10.0",
     "@shipengine/connect-shipping-runtime": "^1.0.2",

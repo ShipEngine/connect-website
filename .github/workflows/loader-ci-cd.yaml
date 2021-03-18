@@ -96,7 +96,8 @@ jobs:
           NEW_VERSION: ${{ steps.publish.outputs.version }}
 
       - name: Create GitHub Release
+        if: ${{ steps.publish.outputs.type != 'none' }}
         uses: softprops/action-gh-release@v1
         with:
-          body-path: ${{ github.workspace }}/release-changelog.txt
+          body_path: ${{ github.workspace }}/release-changelog.txt
           tag_name: loader_v${{ steps.publish.outputs.version }}
