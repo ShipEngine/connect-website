@@ -14,7 +14,7 @@ on:
 
 jobs:
   release:
-    if: ${{ github.event.issue.pull_request && (env.IS_VALID_COMMENT == 'true' || env.IS_APPROVED_PR == 'true') }}
+    if: ${{ github.event.issue.pull_request && ((github.event.comment && startsWith(github.event.comment.body, 'release')) || (github.event.pull_request_review && github.event.pull_request_review.state == 'APPROVED')) }}
     name: Prepare Release
     runs-on: ubuntu-latest
     timeout-minutes: 10
