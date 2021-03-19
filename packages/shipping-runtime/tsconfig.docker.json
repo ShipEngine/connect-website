@@ -1,5 +1,10 @@
 {
   "compilerOptions": {
+    "allowJs": true,
+    "esModuleInterop": true,
+    "importHelpers": true,
+    "rootDir": "src",
+    "composite": true,
     "target": "es6",
     "module": "commonjs",
     "declaration": true,
