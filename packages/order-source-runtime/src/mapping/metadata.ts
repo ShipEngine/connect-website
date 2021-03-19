@@ -139,7 +139,7 @@ export function mapMetadata(app: OrderApp): any {
         CanLeaveFeedback: false,
         ScoreFactorForAutoRefresh: 0,
         CanConfirmShipments: true,
-        CanConfirmMultipleShipments: true,
+        CanConfirmMultipleShipments: false,
         IsRefreshDisabled: false,
         HasCustomStatuses: false,
         CanConfigureTimeZone: true,
