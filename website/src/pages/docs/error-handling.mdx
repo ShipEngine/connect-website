@@ -12,7 +12,7 @@ Error Handling
 
 For example, the methods you implement will often need to perform input validation. If this validation fails, you can throw an error as in the example below.
 
-```javascript highlight="3"
+```javascript highlight=3
 for (let parcel of shipment.packages) {
   if (parcel.packaging.code === "BOX" && parcel.weight.grams > 100000) {
     throw new RangeError(`${parcel.packaging.name} cannot weigh more than 100 kilograms`);

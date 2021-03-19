@@ -15,8 +15,8 @@ on:
       - ".github/workflows/website.yaml"
 
 jobs:
-  build:
-    name: ci
+  ci:
+    name: Test
     runs-on: ubuntu-latest
     strategy:
       fail-fast: true

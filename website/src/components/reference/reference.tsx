@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { Children, Props } from "../../lib/react-nodes";
 import { UserSettingsContext } from "../user-settings/user-settings-context";
 import { normalizeChildren } from "./normalize-children";
