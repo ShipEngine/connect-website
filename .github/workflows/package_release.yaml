@@ -102,7 +102,7 @@ jobs:
                   issue_number: context.issue.number,
                   owner: context.repo.owner,
                   repo: context.repo.repo,
-                  body: '```\n' + stdout + '```\n'
+                  body: stdout.replace(/\x1b\[[0-9;]*[a-zA-Z]/g, '')
                 })
               }
             })
