@@ -93,6 +93,7 @@ jobs:
         if: ${{ steps.publish.outputs.type != 'none' }}
         working-directory: packages/sdk
         run: |
+          yarn run clean:tags
           yarn run version:tag
           git push --tags
 

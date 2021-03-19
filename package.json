@@ -12,7 +12,7 @@
     "build:clean": "cd $INIT_CWD && rm -rf .nyc_output coverage lib tsconfig.tsbuildinfo",
     "build:ts": "cd $INIT_CWD && tsc --build",
     "build:watch": "cd $INIT_CWD && tsc --watch",
-    "clean-tags": "git tag -l | xargs git tag -d && git fetch -t",
+    "clean:tags": "git tag -l | xargs git tag -d && git fetch -t",
     "dist-clean": "yarn workspaces foreach run clean && rm -rf node_modules packages/*/node_modules",
     "test:coverage": "cd $INIT_CWD && nyc node_modules/mocha/bin/mocha",
     "version:bump": "cd $INIT_CWD && yarn version ${BUMP_RELEASE_TYPE:-patch} && git add ../../.yarn/versions/* && git commit -m \"${BUMP_RELEASE_TYPE:-patch} $(basename $INIT_CWD)\"",
