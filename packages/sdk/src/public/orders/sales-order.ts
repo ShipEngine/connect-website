@@ -50,7 +50,7 @@ export interface SalesOrder extends SalesOrderIdentifierPOJO {
   buyer: Buyer;
   
   /**
-   * The breakdown of charges for this sales order
+   * Any additional charges for this order that aren't tied to a line item.
    */
   charges?: Charge[];
   
