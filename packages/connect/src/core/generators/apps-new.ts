@@ -295,12 +295,6 @@ class AppsNew extends Generator {
 
     switch (this.type) {
       case AppType.Carrier:
-        this.fs.copyTpl(
-          this.templatePath("connect.config.js"),
-          this.destinationPath("connect.config.js"),
-          this,
-        );
-
         if (!fs.existsSync("src")) {
           this.fs.copyTpl(
             this.templatePath(`carrier/index.${this._definitionExt}`),

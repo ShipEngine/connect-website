@@ -11,11 +11,20 @@ There are multiple ways to test your application, and we suggest taking advantag
 If your backend API
 or service has a [Sandbox Environment](https://en.wikipedia.org/wiki/Sandbox_(software_development)), we recommend using this
 while you are testing to avoid sending unnecessary traffic to your production environment or incurring actual service charges. It is easy to modify
-your app during local testing and [acceptance testing](#acceptance-testing).
+your app during local testing.
 
 You will
 need to [publish](./../cli.mdx#publish-your-app) your app with your sandbox environment configured to perform [live testing](#live-testing).
 You should then configure your app to use your production environment and then republish your app.
+
+Unit & Acceptance Testing
+-----------------------------
+We recommend using Jest to write unit and acceptance tests locally:
+
+#### [Jest](https://jestjs.io/)
+Jest is a batteries-included, zero-configuration test runner that is approachable for beginners, extensible for almost all testing use cases and scalable to large projects.
+It includes the test runner, an assertion library, and extensible matchers - everything you need to being writing unit tests.
+
 
 Live Testing
 -----------------------------
@@ -48,17 +57,11 @@ single test may authenticate by calling your [`connect` method](./../reference/m
 cancel the shipment.
 
 These tests execute the entire application, so you won't be able to run this suite until you have finished implementing all the methods
-in your application. For this reason, we recommend using the `connect start` command to perform testing during iterative development.
+in your application. For this reason, we recommend using the [`connect start` command](#local-testing) to perform testing during iterative development.
 
 Once you have completed development,
 this test suite can provide a higher degree of confidence that the application will work as expected when used from within one of our
 e-commerce applications since this suite calls your application in the same manner in which it will be used in production.
-
-The acceptance test suite is both customizable and extendable via the [`connect.config.js` file](./config.mdx).
-
-> **INFO:**
-> ### What tests are run?
-> See the complete lists of tests for [Carrier Apps](../carrier-app/tests/index.mdx) and [Order Apps](../order-app/tests/index.mdx).
 
 
 Unit Testing

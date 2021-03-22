@@ -21,11 +21,6 @@ export default class Publish extends BaseCommand {
       char: "n",
       description: "Does not track the status of the deployment",
     }),
-    "skip-tests": flags.boolean({
-      char: "s",
-      description: "Skip running the test before publishing",
-      default: false,
-    }),
     debug: flags.boolean({
       char: "d",
       description: "Show network debugging information",
@@ -47,8 +42,7 @@ export default class Publish extends BaseCommand {
 
     const apiClient = await this.apiClient(flags.debug)
 
-    // Run test in fail fast mode unless skipped
-    if (!flags["skip-tests"]) await Test.run(["-f"]);
+    await Test.run();
 
     try {
       const tarballName = await packageApp();

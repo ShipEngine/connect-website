@@ -94,33 +94,14 @@ The local server runs on port 3006 by default, but you can use this option to ch
 
 Test Your App
 --------------------------
-The `connect test` command runs our [end-to-end acceptance test suite](./testing#acceptance-testing) against your app to confirm that it behaves as expected. These tests emulate real-world workflows that your app will experience in production, and you should make sure your app passes before publishing it.
+The `connect test` will validate that your connect app is properly structured.
 
-Refer to the complete lists of tests for [Carrier Apps](carrier-app/tests/index.mdx) and [Order Apps](order-app/tests/index.mdx). Each test has many parameters that can be [configured in the `connect.config.js` file](testing/config.mdx).
+We recommend that you write your own acceptance tests in your project using jest and create requests based off of the requests you get from the test environment.
+These can be attained by running a `connect logs` after publishing your app and making request to it in the shipstation test environment.
 
 > **NOTE:**
 > We also encourage you to [unit test your app](testing/index.mdx#unit-testing) in addition to these end-to-end tests.
 
-```
-connect test [OPTIONS]
-```
-
-#### Options
-
-##### `--debug`
-This option enables verbose logging, which can be useful for debugging test failures.
-
-##### `--fail-fast`
-This option aborts the test run as soon as one test fails, rather than continuing to run the rest of the tests.
-
-##### `--grep <filter>`
-To run a specific test or set of tests, use the `--grep` option and specify a substring or regular expression. Only tests whose names contain the substring or match the regular expression will be run.
-
-##### `--retries <number>`
-You can opt to retry failed tests, which can be convenient for flaky tests or intermittent network errors.
-
-##### `--timeout <number>`
-Use this option to allow more time for your tests to run. The timeout is specified in milliseconds.
 
 Manage Environment Variables
 --------------------------
