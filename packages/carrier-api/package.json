@@ -1,6 +1,6 @@
 {
   "name": "@shipengine/connect-carrier-api",
-  "version": "1.13.6",
+  "version": "1.15.0",
   "description": "This is the typescript/javascript definitions for carrier api",
   "homepage": "https://github.com/ShipEngine/connect",
   "main": "./lib/index.js",

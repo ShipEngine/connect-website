@@ -1,5 +1,5 @@
-import { DeliveryConfirmationIdentifierPOJO, AddressWithContactInfoPOJO, DateTimeZonePOJO, DeliveryServiceIdentifierPOJO, FulfillmentService, RateCriteria as IRateCriteria } from "../../../public";
-import { AddressWithContactInfo, App, DateTimeZone, DefinitionIdentifier, hideAndFreeze, Joi, MonetaryValue, _internal } from "../../common";
+import { DeliveryConfirmationIdentifierPOJO, AddressWithContactInfoPOJO, DateTimeZonePOJO, DeliveryServiceIdentifierPOJO, FulfillmentService, RateCriteria as IRateCriteria, AddressWithContactInfoAndPickupLocationPOJO } from "../../../public";
+import { AddressWithContactInfo, AddressWithContactInfoAndPickupLocation, App, DateTimeZone, DefinitionIdentifier, hideAndFreeze, Joi, MonetaryValue, _internal } from "../../common";
 import { DeliveryService } from "../delivery-service";
 import { calculateTotalInsuranceAmount } from "../utils";
 import { PackageRateCriteria, PackageRateCriteriaPOJO } from "./package-rate-criteria";
@@ -14,6 +14,7 @@ export interface RateCriteriaPOJO {
   deliveryDateTime?: DateTimeZonePOJO | Date | string;
   shipFrom: AddressWithContactInfoPOJO;
   shipTo: AddressWithContactInfoPOJO;
+  pickupLocation?: AddressWithContactInfoAndPickupLocationPOJO;
   returns?: { isReturn?: boolean };
   packages: readonly PackageRateCriteriaPOJO[];
   deliveryConfirmation?: DeliveryConfirmationIdentifierPOJO | string;
@@ -34,6 +35,7 @@ export class RateCriteria implements IRateCriteria {
       deliveryDateTime: DateTimeZone[_internal].schema,
       shipFrom: AddressWithContactInfo[_internal].schema.required(),
       shipTo: AddressWithContactInfo[_internal].schema.required(),
+      pickupLocation: AddressWithContactInfoAndPickupLocation[_internal].schema,
       returns: Joi.object({
         isReturn: Joi.boolean()
       }),
@@ -53,6 +55,7 @@ export class RateCriteria implements IRateCriteria {
   public readonly deliveryDateTime?: DateTimeZone;
   public readonly shipFrom: AddressWithContactInfo;
   public readonly shipTo: AddressWithContactInfo;
+  public readonly pickupLocation?: AddressWithContactInfoAndPickupLocation;
   public readonly totalInsuredValue?: MonetaryValue;
   public readonly packages: readonly PackageRateCriteria[];
   public readonly deliveryConfirmation?: DeliveryConfirmation;
@@ -76,6 +79,7 @@ export class RateCriteria implements IRateCriteria {
     this.deliveryDateTime = pojo.deliveryDateTime ? new DateTimeZone(pojo.deliveryDateTime) : undefined;
     this.shipFrom = new AddressWithContactInfo(pojo.shipFrom);
     this.shipTo = new AddressWithContactInfo(pojo.shipTo);
+    this.pickupLocation = pojo.pickupLocation ? new AddressWithContactInfoAndPickupLocation(pojo.pickupLocation) : undefined;
     this.deliveryConfirmation = app[_internal].references.lookup(pojo.deliveryConfirmation, DeliveryConfirmation);
 
     // If there's no return info, then the shipment is not a return

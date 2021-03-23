@@ -70,6 +70,15 @@ An object containing information about the new shipment to create.
     </Description>
   </Field>
 
+  <Field name="pickupLocation" nullable={true}>
+    <Type>
+      [address + contact info + pickup location object](./../address.mdx#address-contact-info-pickup-location-properties)
+    </Type>
+    <Description>
+      The location where the recipient can pick up the shipment.
+    </Description>
+  </Field>
+
   <Field name="returnTo" nullable={false}>
     <Type>
       [address + contact info object](./../address.mdx#address-contact-info-properties)

@@ -75,6 +75,15 @@ match all the required criteria. If none of these are provided, your method shou
     </Description>
   </Field>
 
+  <Field name="pickupLocation" nullable={true}>
+    <Type>
+      [address + contact info + pickup location object](./../address.mdx#address-contact-info-pickup-location-properties)
+    </Type>
+    <Description>
+      The location where the recipient can pick up the shipment.
+    </Description>
+  </Field>
+
   <Field name="returns" type="object" nullable={false}>
     <Description>
       An object that indicates whether or not this shipment is a return shipment.
@@ -122,7 +131,7 @@ match all the required criteria. If none of these are provided, your method shou
   <Field name="packages[].packaging.code" type="string" nullable={false}>
     <Description>
       Optional code used to map to what the carrier uses to identify the packaging.
-      
+
       The value `custom` indicates user-defined packaging. Some of our products allow users to enter custom packaging instead of one of your app's pre-defined packaging types.
     </Description>
   </Field>

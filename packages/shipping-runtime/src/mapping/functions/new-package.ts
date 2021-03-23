@@ -103,6 +103,8 @@ export const mapCustomsPOJO = (customs?: Customs): CustomsPOJO | undefined => {
   return {
     nonDeliveryOption: mapNonDeliveryOption(customs.non_delivery || undefined),
     contents: customsItems?.map(mapCustomsItem),
+    buyerShippingAmountPaid: mapCurrency(customs.buyer_shipping_amount_paid),
+    dutiesPaid: mapCurrency(customs.duties_paid),
   };
 };
 

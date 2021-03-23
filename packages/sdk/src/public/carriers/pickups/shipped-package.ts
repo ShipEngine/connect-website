@@ -3,9 +3,9 @@ import type { PackageIdentifier } from "../packages/package-identifier";
 import type { PackagingIdentifier } from "../packaging";
 
 /**
- * The package information needed to schedule a pickup
+ * Information about a package that is ready to be shipped or has already been shipped.
  */
- export interface PickupPackage extends PackageIdentifier {
+export interface ShippedPackage extends PackageIdentifier {
   /**
    * The packaging used for this package
    */

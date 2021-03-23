@@ -58,6 +58,9 @@ function getDocumentName(document: DocumentPOJO): string {
     case DocumentType.ScanForm:
       return "SCAN Form";
 
+    case DocumentType.BillOfLading:
+      return "Bill of Lading";
+
     default:
       return "Document";
   }

@@ -43,7 +43,9 @@ export { PackageRateCriteriaPOJO as PackageRateCriteria } from "./carriers/rates
 export { PickupServiceIdentifierPOJO as PickupServiceIdentifier} from "./carriers/pickups/pickup-service";
 export { TimeRangePOJO as TimeRange } from "../public/common/measures/time-range";
 export { NotePOJO as Note } from "../public/common/note";
+export { ShippedShipmentPOJO as ShippedShipment } from "./carriers/pickups/shipped-shipment";
 export { PickupShipmentPOJO as PickupShipment } from "./carriers/pickups/pickup-shipment";
+export { ShippedPackagePOJO as ShippedPackage } from "./carriers/pickups/shipped-package";
 export { PickupPackagePOJO as PickupPackage } from "./carriers/pickups/pickup-package";
 export { SalesOrderTimeRangePOJO as SalesOrderTimeRange } from "./orders/sales-order-time-range";
 export { SalesOrderPagingPOJO as SalesOrderPaging } from "../public/orders/sales-order-time-range";

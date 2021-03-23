@@ -8,6 +8,7 @@ import {
   Customs,
   ShipFrom,
   ShipTo,
+  PudoLocation,
   FulfillmentPlanDetails,
 } from "../models";
 
@@ -24,6 +25,7 @@ export interface GetRatesRequest extends BaseRequest {
   customs?: Customs;
   ship_to: ShipTo;
   ship_from: ShipFrom;
+  pickup_location?: PudoLocation;
   international?: boolean;
   next_day?: boolean;
   fulfillment_plan_details?: FulfillmentPlanDetails;

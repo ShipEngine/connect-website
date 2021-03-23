@@ -1,12 +1,15 @@
 import { ShippedPackage } from "@shipengine/connect-carrier-api/lib/models";
 
-import { PickupPackagePOJO } from "@shipengine/connect-sdk/lib/internal";
+import {
+  ShippedPackagePOJO,
+  PickupPackagePOJO,
+} from "@shipengine/connect-sdk/lib/internal";
 import { mapWeightGrams, mapDimensionsCM } from ".";
 
-export const mapPickupPackage = (
+export const mapShippedPackage = (
   shippedPackage: ShippedPackage
-): PickupPackagePOJO => {
-  const pickupPackage: PickupPackagePOJO = {
+): ShippedPackagePOJO => {
+  const pojo: ShippedPackagePOJO = {
     trackingNumber: shippedPackage.tracking_number || undefined,
     packaging: shippedPackage.package_code || "",
     weight: mapWeightGrams(shippedPackage.weight),
@@ -14,5 +17,19 @@ export const mapPickupPackage = (
     identifiers: undefined,
   };
 
-  return pickupPackage;
+  return pojo;
+};
+
+export const mapPickupPackage = (
+  shippedPackage: ShippedPackage
+): PickupPackagePOJO => {
+  const pojo: PickupPackagePOJO = {
+    trackingNumber: shippedPackage.tracking_number || undefined,
+    packaging: shippedPackage.package_code || "",
+    weight: mapWeightGrams(shippedPackage.weight),
+    dimensions: mapDimensionsCM(shippedPackage.dimensions),
+    identifiers: undefined,
+  };
+
+  return pojo;
 };

@@ -1,4 +1,4 @@
-import type { AddressWithContactInfo, DateTimeZone, MonetaryValue } from "../../common";
+import type { AddressWithContactInfo, AddressWithContactInfoAndPickupLocation, DateTimeZone, MonetaryValue } from "../../common";
 import type { DeliveryService } from "../delivery-service";
 import type { NewPackage } from "../packages/new-package";
 import { DeliveryConfirmation } from "../delivery-confirmation";
@@ -22,6 +22,12 @@ export interface NewShipment {
    * The recipient's contact info and address
    */
   readonly shipTo: AddressWithContactInfo;
+
+  /**
+   * If this is a pickup shipment, a pickup location will be populated for where the recipient can
+   * pickup the shipment.
+   */
+  readonly pickupLocation?: AddressWithContactInfoAndPickupLocation;
 
   /**
    * The return address

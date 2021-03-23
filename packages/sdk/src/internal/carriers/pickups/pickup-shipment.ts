@@ -1,4 +1,4 @@
-import { DeliveryServiceIdentifierPOJO, PickupShipment as IPickupShipment, ShipmentIdentifierPOJO } from "../../../public";
+import { DeliveryServiceIdentifierPOJO, ShipmentIdentifierPOJO, PickupShipment as IPickupShipment } from "../../../public";
 import { App, DefinitionIdentifier, hideAndFreeze, Joi, _internal } from "../../common";
 import { DeliveryService } from "../delivery-service";
 import { ShipmentIdentifier, ShipmentIdentifierBase } from "../shipments/shipment-identifier";
@@ -9,7 +9,6 @@ export interface PickupShipmentPOJO extends ShipmentIdentifierPOJO {
   metadata?: object;
   packages: readonly PickupPackagePOJO[];
 }
-
 
 export class PickupShipment extends ShipmentIdentifierBase implements IPickupShipment {
   public static readonly [_internal] = {

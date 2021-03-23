@@ -1,17 +1,17 @@
-import { DimensionsPOJO, PackageIdentifierPOJO, PackagingIdentifierPOJO, PickupPackage as IPickupPackage, WeightPOJO } from "../../../public";
+import { DimensionsPOJO, PackageIdentifierPOJO, PackagingIdentifierPOJO, ShippedPackage as IShippedPackage, WeightPOJO } from "../../../public";
 import { App, DefinitionIdentifier, Dimensions, hideAndFreeze, Joi, Weight, _internal } from "../../common";
 import { PackageIdentifier, PackageIdentifierBase } from "../packages/package-identifier";
 import { Packaging } from "../packaging";
 import { setPackaging } from "../utils";
 
-export interface PickupPackagePOJO extends PackageIdentifierPOJO {
-  packaging: PackagingIdentifierPOJO | string;
+export interface ShippedPackagePOJO extends PackageIdentifierPOJO {
+  packaging?: PackagingIdentifierPOJO | string;
   dimensions?: DimensionsPOJO;
   weight?: WeightPOJO;
   metadata?: object;
 }
 
-export class PickupPackage extends PackageIdentifierBase implements IPickupPackage {
+export class ShippedPackage extends PackageIdentifierBase implements IShippedPackage {
   public static readonly [_internal] = {
     label: "package",
     schema: PackageIdentifier[_internal].schema.keys({
@@ -30,7 +30,7 @@ export class PickupPackage extends PackageIdentifierBase implements IPickupPacka
   public readonly weight?: Weight;
   public readonly metadata: object;
 
-  public constructor(pojo: PickupPackagePOJO, app: App) {
+  public constructor(pojo: ShippedPackagePOJO, app: App) {
     super(pojo);
 
     this.packaging = setPackaging(app, pojo.packaging);

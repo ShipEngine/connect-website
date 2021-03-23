@@ -89,6 +89,7 @@ export enum DocumentType {
   Label = "label",
   CustomsForm = "customs_form",
   ScanForm = "scan_form",
+  BillOfLading = "bill_of_lading",
 }
 /**
  * Indicates which locations are included in end-of-day manifests

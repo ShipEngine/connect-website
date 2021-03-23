@@ -10,6 +10,7 @@ import {
   mapDimensionsCM,
   mapConfirmation,
   mapAddressWithContact,
+  mapAddressWithContactAndPickup,
 } from "./";
 import { mapShippingOptions } from "./shipping-options";
 
@@ -39,6 +40,7 @@ export const mapGetRatesRequest = (
     shipDateTime: request.ship_datetime,
     shipFrom: mapAddressWithContact(request.ship_from),
     shipTo: mapAddressWithContact(request.ship_to),
+    pickupLocation: mapAddressWithContactAndPickup(request.pickup_location),
     packages: request.packages.map((pckg) => mapRatePackage(pckg, request)),
     returns: {
       isReturn: request.is_return_label || false,

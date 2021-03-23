@@ -1,3 +1,4 @@
+import { MonetaryValuePOJO, MonetaryValue } from "../../common";
 import { NonDeliveryOption } from "../enums";
 import { CustomsItemPOJO, CustomsItem } from "./customs-item";
 
@@ -22,6 +23,10 @@ export interface CustomsPOJO {
    * for customs purposes.
    */
   contents?: CustomsItemPOJO[];
+
+  buyerShippingAmountPaid?: MonetaryValuePOJO;
+
+  dutiesPaid?: MonetaryValuePOJO;
 }
 
 export interface Customs {
@@ -42,4 +47,8 @@ export interface Customs {
    * for customs purposes.
    */
   readonly contents: readonly CustomsItem[];
+
+  readonly buyerShippingAmountPaid?: MonetaryValue;
+
+  readonly dutiesPaid?: MonetaryValue
 }

@@ -1,5 +1,5 @@
-import { AddressWithContactInfoPOJO, DateTimeZonePOJO, DeliveryServiceIdentifierPOJO, NewShipment as INewShipment, DeliveryConfirmationIdentifierPOJO, DeliveryConfirmationType } from "../../../public";
-import { AddressWithContactInfo, App, DateTimeZone, DefinitionIdentifier, hideAndFreeze, Joi, MonetaryValue, _internal } from "../../common";
+import { AddressWithContactInfoPOJO, DateTimeZonePOJO, DeliveryServiceIdentifierPOJO, NewShipment as INewShipment, DeliveryConfirmationIdentifierPOJO, DeliveryConfirmationType, AddressWithContactInfoAndPickupLocationPOJO } from "../../../public";
+import { AddressWithContactInfo, AddressWithContactInfoAndPickupLocation, App, DateTimeZone, DefinitionIdentifier, hideAndFreeze, Joi, MonetaryValue, _internal } from "../../common";
 import { DeliveryService } from "../delivery-service";
 import { NewPackage, NewPackagePOJO } from "../packages/new-package";
 import { calculateTotalInsuranceAmount } from "../utils";
@@ -11,6 +11,7 @@ export interface NewShipmentPOJO {
   deliveryService: DeliveryServiceIdentifierPOJO | string;
   shipFrom: AddressWithContactInfoPOJO;
   shipTo: AddressWithContactInfoPOJO;
+  pickupLocation?: AddressWithContactInfoAndPickupLocationPOJO;
   returnTo?: AddressWithContactInfoPOJO;
   shipDateTime: DateTimeZonePOJO | Date | string;
   returns?: {
@@ -33,6 +34,7 @@ export class NewShipment implements INewShipment {
       ).required(),
       shipFrom: AddressWithContactInfo[_internal].schema.required(),
       shipTo: AddressWithContactInfo[_internal].schema.required(),
+      pickupLocation: AddressWithContactInfoAndPickupLocation[_internal].schema.required(),
       returnTo: AddressWithContactInfo[_internal].schema,
       shipDateTime: DateTimeZone[_internal].schema.required(),
       returns: Joi.object({
@@ -51,6 +53,7 @@ export class NewShipment implements INewShipment {
   public readonly deliveryService: DeliveryService;
   public readonly shipFrom: AddressWithContactInfo;
   public readonly shipTo: AddressWithContactInfo;
+  public readonly pickupLocation?: AddressWithContactInfoAndPickupLocation;
   public readonly returnTo: AddressWithContactInfo;
   public readonly shipDateTime: DateTimeZone;
   public readonly totalInsuredValue: MonetaryValue;
@@ -76,6 +79,7 @@ export class NewShipment implements INewShipment {
     this.deliveryService = app[_internal].references.lookup(pojo.deliveryService, DeliveryService);
     this.shipFrom = new AddressWithContactInfo(pojo.shipFrom);
     this.shipTo = new AddressWithContactInfo(pojo.shipTo);
+    this.pickupLocation = pojo.pickupLocation ? new AddressWithContactInfoAndPickupLocation(pojo.pickupLocation) : undefined;
     this.returnTo = pojo.returnTo ? new AddressWithContactInfo(pojo.returnTo) : this.shipFrom;
     this.shipDateTime = new DateTimeZone(pojo.shipDateTime);
 

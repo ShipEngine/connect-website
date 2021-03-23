@@ -74,8 +74,7 @@ An object containing information needed to create a new end-of-day manifest.
 
   <Field name="shipments[].trackingNumber" type="string" nullable={false}>
     <Description>
-      The master tracking number for the entire shipment. For single-piece shipments, this will be the same as the package tracking number. For multi-piece shipments, this may be a separate tracking number, or the same tracking number as one of the packages.
-      This string will not contain newline characters.
+      The master tracking number for the entire shipment. For single-piece shipments, this will be the same as the package tracking number.  For multi-piece shipments, this may be a separate tracking number, or the same tracking number as one of the packages. This string will not contain newline characters.
     </Description>
   </Field>
 
@@ -86,6 +85,144 @@ An object containing information needed to create a new end-of-day manifest.
     <Type>
       [identifiers object](./../identifiers-object.mdx)
     </Type>
+  </Field>
+
+  <Field name="shipments[].deliveryService" nullable={false}>
+    <Type>
+      [delivery service object](./../delivery-service-object.mdx#delivery-service-argument)
+    </Type>
+    <Description>
+      The [delivery service](./../delivery-service.mdx) assigned to this shipment.
+    </Description>
+  </Field>
+
+  <Field name="shipments[].metadata" type="object" nullable={false}>
+    <Description>
+      Custom data about this shipment that was previously persisted by the ShipEngine Platform.
+    </Description>
+  </Field>
+
+  <Field name="shipments[].packages" type="object[]" nullable={false}>
+    <Description>
+      The list of packages in this shipment. This array will contain at least one value.
+    </Description>
+  </Field>
+
+  <Field name="shipments.packages[].trackingNumber" type="string" nullable={false}>
+    <Description>
+      The master tracking number for the entire shipment. For single-piece shipments, this will be the same as the package tracking number.  For multi-piece shipments, this may be a separate tracking number, or the same tracking number as one of the packages. This string will not contain newline characers.
+    </Description>
+  </Field>
+
+  <Field name="shipments[].packages[].identifiers" nullable={false}>
+    <Description>
+      Your own identifiers for this package.
+    </Description>
+    <Type>
+      [identifiers object](./../identifiers-object.mdx)
+    </Type>
+  </Field>
+
+  <Field name="shipments[].packages[].packaging" type="object" nullable={false}>
+    <Description>
+      The packaging used for this package.
+    </Description>
+  </Field>
+
+  <Field name="shipments[].packages[].packaging.id" nullable={false}>
+    <Type>
+      [UUID](https://www.npmjs.com/package/uuid)
+    </Type>
+    <Description>
+      A UUID that uniquely identifies this packaging. This is the UUID you used in the [Packaging Definition](./../packaging.mdx) file for this packaging type.
+    </Description>
+  </Field>
+
+  <Field name="shipments[].packages[].packaging.identifiers" nullable={false}>
+    <Description>
+      Your own identifiers for this packaging.
+    </Description>
+    <Type>
+      [identifiers object](./../identifiers-object.mdx)
+    </Type>
+  </Field>
+
+  <Field name="shipments[].packages[].packaging[].code" type="string" nullable={false}>
+    <Description>
+      Optional code used to map to what the carrier uses to identify the packaging.
+
+      The value `custom` indicates user-defined packaging. Some of our products allow users to enter custom packaging instead of one of your app's pre-defined packaging types.
+    </Description>
+  </Field>
+
+  <Field name="shipments[].packages[].dimensions" type="object" nullable={true}>
+    <Description>
+      The dimensions for the package.
+
+      This property is not required. If it is provided, it must contain all of its required properties, listed below.
+    </Description>
+  </Field>
+
+  <Field name="shipments[].packages[].dimensions.length" type="number" nullable={false}>
+    <Description>
+      The length of the package. This value may contain decimals.
+    </Description>
+  </Field>
+
+  <Field name="shipments[].packages[].dimensions.width" type="number" nullable={false}>
+    <Description>
+      The width of the package. This value may contain decimals.
+    </Description>
+  </Field>
+
+  <Field name="shipments[].packages[].dimensions.height" type="number" nullable={false}>
+    <Description>
+      The height of this package. This value may contain decimals.
+    </Description>
+  </Field>
+
+  <Field name="shipments[].packages[].dimensions.unit" type="string" nullable={false}>
+    <Description>
+      The unit of measurement for the dimensions. Valid values include the following:
+      * `in` for inches
+      * `cm` for centimeters
+    </Description>
+  </Field>
+
+  <Field name="shipments[].packages[].weight" type="object" nullable={true}>
+    <Description>
+      The weight of the package.
+
+      This property is not required. If it is provided, it must contain all of its required properties, listed below.
+    </Description>
+  </Field>
+
+  <Field name="shipments[].packages[].weight.value" type="number" nullable={false}>
+    <Description>
+      The weight value for this package. This value will not contain decimals.
+    </Description>
+  </Field>
+
+  <Field name="shipments[].packages[].weight.unit" type="string" nullable={false}>
+    <Description>
+      The unit of measure for this weight. Valid values include the following:
+      * `g` for grams
+      * `oz` for ounces
+      * `kg` for kilograms
+      * `lb` for pounds
+    </Description>
+  </Field>
+
+  <Field name="shipments[].packages[].metadata" type="object" nullable={true}>
+    <Description>
+      Custom data about this package that was persisted by ShipEngine Connect. Must be JSON serializable.
+    </Description>
+  </Field>
+
+  <Field name="shipments[].package" type="object" nullable={false}>
+    <Description>
+      The first package in the `packages` array. This is useful for carriers that only support single-piece shipments. This object has all the same properties as the objects in the `packages` array described above.
+    </Description>
   </Field>
 
   <Field name="shipFrom" nullable={true}>

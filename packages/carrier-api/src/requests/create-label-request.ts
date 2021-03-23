@@ -11,6 +11,7 @@ import {
   Package,
   ReturnLabelDetails,
   ShipFrom,
+  PudoLocation,
   ShipFromDisplay,
   ShipTo,
 } from "../models";
@@ -31,6 +32,7 @@ export interface CreateLabelRequest extends BaseRequest {
   customs?: Customs;
   ship_to: ShipTo;
   ship_from: ShipFrom;
+  pickup_location?: PudoLocation;
   ship_from_display?: ShipFromDisplay;
   next_day?: boolean;
   international?: boolean;

@@ -125,5 +125,41 @@ column indicates which properties are required when the object is returned from 
     </Description>
   </Field>
 
+  <Field name="customs.buyerShippingAmountPaid" type="object" nullable={true}>
+    <Description>
+      Indicates how much the buyer paid for shipping, if any. This amount may be different than the shipping cost billed to the shipper.
+    </Description>
+  </Field>
+
+  <Field name="customs.buyerShippingAmountPaid.value" type="number" nullable={false}>
+    <Description>
+      The amount of this value.
+    </Description>
+  </Field>
+
+  <Field name="customs.buyerShippingAmountPaid.currency" type="string" nullable={false}>
+    <Description>
+      The currency that the value represents.
+    </Description>
+  </Field>
+
+  <Field name="customs.dutiesPaid" type="object" nullable={true}>
+    <Description>
+      The amount of duties paid by the shipper, if any. This is generally only necessary for DDP (bill duties to sender) shipments.
+    </Description>
+  </Field>
+
+  <Field name="customs.dutiesPaid.value" type="number" nullable={false}>
+    <Description>
+      The amount of this value.
+    </Description>
+  </Field>
+
+  <Field name="customs.dutiesPaid.currency" type="string" nullable={false}>
+    <Description>
+      The currency that the value represents.
+    </Description>
+  </Field>
+
 </Reference>
 

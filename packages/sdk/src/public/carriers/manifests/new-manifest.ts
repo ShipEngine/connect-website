@@ -1,5 +1,5 @@
 import type { Address, DateTimeZone } from "../../common";
-import type { ShipmentIdentifier } from "../shipments/shipment-identifier";
+import { ShippedShipment } from "../pickups/shipped-shipment";
 
 
 /**
@@ -33,6 +33,6 @@ export interface NewManifest {
    * `exclude_shipments`: This field specifies which shipments should _not_ be manifested.
    * All other shipments will be manifested.
    */
-  readonly shipments: readonly ShipmentIdentifier[];
+  readonly shipments: readonly ShippedShipment[];
 
 }
