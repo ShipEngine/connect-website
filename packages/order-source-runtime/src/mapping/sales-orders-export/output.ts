@@ -12,6 +12,7 @@ import {
   DocumentType,
   DocumentFormat,
   LengthUnit,
+  WeightUnit,
 } from "@shipengine/connect-sdk";
 
 export function mapItem(item: Output.SalesOrderItem): api.SalesOrderItem {
@@ -38,6 +39,14 @@ export function mapItem(item: Output.SalesOrderItem): api.SalesOrderItem {
     item_url: item.itemURL?.toString(),
   };
 
+  //this is unit weight not total items weight
+  if (item.unitWeight) {
+    mappedItem.product!.weight = {
+      unit: mapWeightUnit(item.unitWeight.unit),
+      value: item.unitWeight.value,
+    };
+  }
+
   if (item.product.dimensions) {
     mappedItem.product!.dimensions = {
       length: item.product.dimensions.length,
@@ -51,6 +60,21 @@ export function mapItem(item: Output.SalesOrderItem): api.SalesOrderItem {
   }
 
   return mappedItem;
+}
+
+export function mapWeightUnit(unit?: WeightUnit): api.WeightUnit {
+  switch (unit) {
+    case WeightUnit.Grams:
+      return api.WeightUnit.Gram;
+    case WeightUnit.Kilograms:
+      return api.WeightUnit.Kilogram;
+    case WeightUnit.Ounces:
+      return api.WeightUnit.Ounce;
+    case WeightUnit.Pounds:
+      return api.WeightUnit.Pound;
+    default:
+      return api.WeightUnit.Ounce;
+  }
 }
 
 export function mapDocument(doc: Output.Document): api.Document {
