@@ -1,6 +1,6 @@
 import { Output } from "@shipengine/connect-sdk/lib/internal";
 import { RequestedFulfillmentExtensions as OutputRequestedFulfillmentExtensions } from "@shipengine/connect-sdk/lib/public/orders/requested-fulfillment";
-import { mapAddress, mapName } from "../output";
+import { mapAddress, mapName, ignoreEmpty } from "../output";
 import * as api from "@shipengine/connect-order-source-api";
 import logger from "../../util/logger";
 
@@ -293,7 +293,7 @@ export function mapSalesOrder(order: Output.SalesOrder): api.SalesOrder {
 
   return {
     order_id: order.id,
-    order_number: order.orderNumber,
+    order_number: ignoreEmpty(order.orderNumber),
     status: mapSalesOrderStatus(order.status),
     requested_fulfillments: order.requestedFulfillments.map(mapRequestedFulfillment),
     buyer: mapBuyer(order.buyer),

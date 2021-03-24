@@ -42,3 +42,7 @@ export function mapAddress(
     pickup_location,
   };
 }
+
+export function ignoreEmpty(input: string | undefined): string | undefined {
+  return !!input ? input : undefined;
+}
