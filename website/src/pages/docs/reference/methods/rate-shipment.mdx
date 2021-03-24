@@ -384,7 +384,7 @@ An array of objects representing the quoted shipping rates based on the specifie
       [charge object[]](./../charge.mdx)
     </Type>
     <Description>
-      The breakdown of charges for this shipment.  If the carrier does not provide a detailed breakdown, then just use a single charge of type "shipping".
+      The breakdown of charges for this shipment.  If the carrier does not provide a detailed breakdown, then just use a single charge of type "shipping". If the carrier does not provide any charges values at all, return a $0 value charge.
     </Description>
   </Field>
 

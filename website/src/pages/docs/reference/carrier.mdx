@@ -168,16 +168,16 @@ Carrier Application
     <Description>
       A method that cancels one or more shipments. You may define this method direcly inline inside
       of this file or you may specify the path to the file that exports your [`cancelShipments`](./methods/cancel-shipments.mdx)
-       method. This property is required for carrier's who allow shipments to be cancelled.
+       method. This property is required for carriers who allow shipments to be cancelled.
     </Description>
   </Field>
 
-  <Field name="rateShipment" required={false}>
+  <Field name="rateShipment" required={true}>
     <Type>
       method *or* string
     </Type>
     <Description>
-      A method used to calculate shipping costs for a shipment, or multiple permutations of a shipment. You may define this method direcly inline inside of this file or you may specify the path to the file that exports your [`rateShipment`](./methods/rate-shipment.mdx) method.
+      A method used to calculate shipping costs for a shipment, or multiple permutations of a shipment. You may define this method direcly inline inside of this file or you may specify the path to the file that exports your [`rateShipment`](./methods/rate-shipment.mdx) method. If the shipping service provider does not support rates, the platform expects to receive an empty array.
     </Description>
   </Field>
 
