@@ -4,6 +4,7 @@ import {
   FormDownload,
   BillingLineItem,
   Currency,
+  LabelPackage,
 } from "../models";
 
 export interface CreateLabelResponse extends BaseResponse {
@@ -17,4 +18,5 @@ export interface CreateLabelResponse extends BaseResponse {
   estimated_delivery_datetime?: string;
   shipping_amount?: Currency;
   insurance_amount?: Currency;
+  packages?: LabelPackage[];
 }

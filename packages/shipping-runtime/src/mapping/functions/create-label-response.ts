@@ -8,6 +8,7 @@ import {
   getTotalCosts,
   everythingButInsuranceFilter,
   insuranceChargeFilter,
+  getLabelPackage,
 } from ".";
 
 export const mapCreateLabelResponse = (
@@ -31,6 +32,7 @@ export const mapCreateLabelResponse = (
     insurance_amount: insuranceCost,
     estimated_delivery_datetime: mapDateTime(response.deliveryDateTime),
     carrier_transaction_id: response.identifiers?.carrierTransactionId,
+    packages: response.packages?.map(getLabelPackage),
   };
   if (response.form?.data) {
     createLabelResponse.form_download = {
