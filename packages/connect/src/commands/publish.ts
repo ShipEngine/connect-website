@@ -4,6 +4,7 @@ import Test from "./test";
 import publishApp, { isAppFailedToDeployError } from "../core/publish-app";
 import { flags } from "@oclif/command";
 import { packageApp, isAppFailedToPackageError } from '../core/package-app';
+import testApp from "../core/test-app";
 
 export default class Publish extends BaseCommand {
   static description = "Packages and publishes your app to the dev server";
@@ -41,8 +42,12 @@ export default class Publish extends BaseCommand {
     }
 
     const apiClient = await this.apiClient(flags.debug)
+    const pathToApp = process.cwd();
+    const results = await testApp(pathToApp);
 
-    await Test.run();
+    if (results.failed > 0) {
+      return this.exit(1);
+    }
 
     try {
       const tarballName = await packageApp();
