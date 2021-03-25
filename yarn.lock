@@ -1226,7 +1226,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@shipengine/connect-order-source-runtime@^1.7.2, @shipengine/connect-order-source-runtime@workspace:packages/order-source-runtime":
+"@shipengine/connect-order-source-runtime@^1.7.3, @shipengine/connect-order-source-runtime@workspace:packages/order-source-runtime":
   version: 0.0.0-use.local
   resolution: "@shipengine/connect-order-source-runtime@workspace:packages/order-source-runtime"
   dependencies:
@@ -1353,7 +1353,7 @@ __metadata:
     "@oclif/test": ^1.2.8
     "@shipengine/capitalization": ^1.2.1
     "@shipengine/connect-loader": ^3.4.0
-    "@shipengine/connect-order-source-runtime": ^1.7.2
+    "@shipengine/connect-order-source-runtime": ^1.7.3
     "@shipengine/connect-sdk": ^12.13.0
     "@shipengine/connect-shipping-runtime": ^1.4.1
     "@types/chai": ^4.2.14
