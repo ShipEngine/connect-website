@@ -12,8 +12,10 @@ export const mapShippedPackage = (
   const pojo: ShippedPackagePOJO = {
     trackingNumber: shippedPackage.tracking_number || undefined,
     packaging: shippedPackage.package_code || "",
-    weight: mapWeightGrams(shippedPackage.weight),
-    dimensions: mapDimensionsCM(shippedPackage.dimensions),
+    weight: mapWeightGrams(shippedPackage.weight_details?.weight_in_grams),
+    dimensions: mapDimensionsCM(
+      shippedPackage.dimension_details?.dimensions_in_centimeters
+    ),
     identifiers: undefined,
   };
 
