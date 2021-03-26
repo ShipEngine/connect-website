@@ -91,22 +91,25 @@ jobs:
         id: bump
         env:
           BASE_REF: ${{ fromJSON(steps.pr_info.outputs.result).base.ref }}
-          COMMENT_ID: ${{ fromJSON(steps.parse.result).comment_id }}
+          COMMENT_ID: ${{ fromJSON(steps.parse.outputs.result).comment_id }}
         uses: actions/github-script@v3
         with:
           script: |
-            const exec = require('child_process').exec;
+            const { promisify } = require('util');
+            const exec  = promisify(require('child_process').exec);
             let action = 'Incremented';
             let help = '';
             let flags = '';
+            let result = {};
             if (process.env.IS_VALID_COMMENT != 'true') {
               action = 'Missing expected';
               help = '\n\nAdd a comment on this PR with `increment <patch|minor|major|prerelease|decline> versions` before merging.'
               flags = ' --dry-run';
             }
-            exec(`yarn run version:bump:all ${{ fromJSON(steps.parse.result).release_type }} --json${flags}`, (error, stdout, stderr) => {
-              const output = JSON.parse(stdout);
-              const commentBody = `🤖 ${action} ${output.options.bumpType} versions for ${output.packages.join(', ')}.${help}`;
+            try {
+              const { stdout, stderr } = await exec(`yarn run version:bump:all ${{ fromJSON(steps.parse.outputs.result).release_type }} --json${flags}`);
+              result = JSON.parse(stdout);
+              const commentBody = `🤖 ${action} ${result.options.bumpType} versions for ${result.packages.join(', ')}.${help}`;
               if (process.env.COMMENT_ID) {
                 await github.issues.updateComment({
                   comment_id: process.env.COMMENT_ID,
@@ -122,16 +125,18 @@ jobs:
                   body: commentBody
                 });
               }
-              return output;
-            });
+            } catch (err) {
+              core.setFailed(`Action failed with error ${err}`);
+            }
+            return result;
 
       - name: Increment version
         if: ${{ env.IS_VALID_COMMENT == 'true' }}
         env:
-          PACKAGES: ${{ join(fromJSON(steps.bump.result).packages, ', ') }}
+          PACKAGES: ${{ join(fromJSON(steps.bump.outputs.result).packages, ', ') }}
         run: |
           # Increment package version(s)
-          commit_msg="🤖 ${{ fromJSON(steps.bump.result).options.bumpType }} release 📦(s)"
+          commit_msg="🤖 ${{ fromJSON(steps.bump.outputs.result).options.bumpType }} release 📦(s)"
           if [[ -n "${PACKAGES}" ]]; then
             commit_msg="${commit_msg}: ${PACKAGES}"
           fi

@@ -42,7 +42,7 @@ const bumpVersion = async (package, type) => {
 
 const checkVersions = async () => {
   try {
-    const {error, stdout, stderr } = await exec('yarn version check');
+    const {stdout, stderr } = await exec('yarn version check');
     log('No further version changes required.');
   } catch (err) {
     log(`Incrementing package ${options.bumpType} versions for:`);
