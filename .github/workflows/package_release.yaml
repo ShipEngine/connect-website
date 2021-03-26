@@ -109,7 +109,9 @@ jobs:
             }
             try {
               const { stdout, stderr } = await exec(`yarn run version:bump:all ${{ fromJSON(steps.parse.outputs.result).release_type }} --json${flags}`);
+              core.debug(stdout);
               result = JSON.parse(stdout);
+              core.debug(result);
               if (result.packages.length > 0) {
                 body = `🤖 ${action} ${result.options.bumpType} versions for ${result.packages.join(', ')}.${help}`;
               }
