@@ -104,7 +104,21 @@ jobs:
 
       - name: Create GitHub Release
         if: ${{ steps.publish.outputs.type != 'none' }}
-        uses: softprops/action-gh-release@v1
+        uses: actions/github-script@v3
         with:
-          body_path: ${{ github.workspace }}/release-changelog.txt
-          tag_name: order-source-runtime_v${{ steps.publish.outputs.version }}
+          script: |
+            const { readFile } = require('fs');
+            let body = '';
+            readFile('${{ github.workspace }}/release-changelog.txt', 'utf8', (err, data) => {
+              if (!err) body = data;
+              try {
+                github.repos.createRelease({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  tag_name: 'order-source-runtime_v${{ steps.publish.outputs.version }}',
+                  body
+                });
+              } catch (err) {
+                core.warning(`Unable to create release: ${err}`);
+              }
+            });

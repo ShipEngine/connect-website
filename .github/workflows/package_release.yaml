@@ -1,27 +1,55 @@
 name: Manage Releases
 
 env:
-  IS_VALID_COMMENT: ${{ github.event.comment && startsWith(github.event.comment.body, 'release') }}
+  IS_VALID_COMMENT: ${{ github.event.comment && startsWith(github.event.comment.body, ':octocat: increment') }}
   IS_APPROVED_PR: ${{ github.event.pull_request_review && github.event.pull_request_review.state == 'APPROVED' }}
 
 on:
   issue_comment:
     types:
       - created
+      - edited
   pull_request_review:
     types:
-      - created
+      - submitted
+      - edited
 
 jobs:
   release:
-    if: ${{ github.event.issue.pull_request && ((github.event.comment && startsWith(github.event.comment.body, 'release')) || (github.event.pull_request_review && github.event.pull_request_review.state == 'APPROVED')) }}
+    if: ${{ github.event.issue.pull_request && ((github.event.comment && startsWith(github.event.comment.body, ':octocat: increment')) || (github.event.pull_request_review && github.event.pull_request_review.state == 'APPROVED')) }}
     name: Prepare Release
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
     steps:
-      - id: pr_info
-        name: Lookup PR
+      - name: Parse Comment
+        id: parse
+        env:
+          COMMENT: ${{ github.event.comment && github.event.comment.body || '' }}
+        uses: actions/github-script@v3
+        with:
+          script: |
+            const fs = require('fs');
+            let [octocat, keyword, release_type] = process.env.COMMENT.split(' ');
+            const result = {
+              comment_id: '',
+              release_type: release_type || 'patch'
+            };
+            try {
+              const response = await github.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: `🤖 Initiating ${result.release_type} version increments for affected packages...`
+              });
+              result.comment_id = response.id
+            } catch (err) {
+              core.warning(`Unable to create comment on PR: ${err}`);
+            }
+            return result;
+
+      - name: Lookup PR
+        id: pr_info
         uses: actions/github-script@v3
         with:
           script: |
@@ -29,13 +57,13 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               pull_number: context.issue.number
-            }
-            core.info(`Getting PR #${request.pull_number} from ${request.owner}/${request.repo}`)
+            };
+            core.info(`Getting PR #${request.pull_number} from ${request.owner}/${request.repo}`);
             try {
-              const result = await github.pulls.get(request)
-              return result.data
+              const result = await github.pulls.get(request);
+              return result.data;
             } catch (err) {
-              core.setFailed(`Request failed with error ${err}`)
+              core.setFailed(`Request failed with error ${err}`);
             }
 
       - name: Checkout source
@@ -59,69 +87,55 @@ jobs:
       - name: Install dependencies
         run: yarn install --immutable
 
-      - id: parse
-        name: Parse comment
-        if: ${{ env.IS_VALID_COMMENT == 'true' }}
+      - name: Bump Versions
+        id: bump
         env:
-          COMMENT: ${{ github.event.comment.body }}
-        run: |
-          # If an optional comma-separated list of packages has
-          # been provided, commit those releases.
-          set -x
-
-          IFS=' ' read -ra words <<< "${COMMENT}"
-          set -- "${words[@]}"
-          shift
-          package_names=$1
-          shift
-          export BUMP_RELEASE_TYPE=${1:-patch}
-          echo "::set-output name=package_names::${package_names}"
-
-          IFS=',' read -ra packages <<< "${package_names}"
-          for package_name in "${packages[@]}"; do
-            package_directory=packages/${package_name}
-            if [[ -n "${package_name}" ]] && [[ -d "${package_directory}" ]]; then
-              cd "${package_directory}"
-              yarn run bump
-              cd -
-            fi
-          done
-        shell: bash
-
-      - id: validate
-        name: Validate
+          BASE_REF: ${{ fromJSON(steps.pr_info.outputs.result).base.ref }}
+          COMMENT_ID: ${{ fromJSON(steps.parse.result).comment_id }}
         uses: actions/github-script@v3
         with:
           script: |
-            // Running `yarn version check` as a child process because
-            // passing multiline output between steps is awkward.
-            const exec = require('child_process').exec
-            exec('yarn version check', (error, stdout, stderr) => {
-              if (error) {
-                github.issues.createComment({
+            const exec = require('child_process').exec;
+            let action = 'Incremented';
+            let help = '';
+            let flags = '';
+            if (process.env.IS_VALID_COMMENT != 'true') {
+              action = 'Missing expected';
+              help = '\n\nAdd a comment on this PR with `:octocat: increment <patch|minor|major|prerelease|decline> versions` before merging.'
+              flags = ' --dry-run';
+            }
+            exec(`yarn run version:bump:all ${{ fromJSON(steps.parse.result).release_type }} --json${flags}`, (error, stdout, stderr) => {
+              const output = JSON.parse(stdout);
+              const commentBody = `🤖 ${action} ${output.options.bumpType} versions for ${output.packages.join(', ')}.${help}`;
+              if (process.env.COMMENT_ID) {
+                await github.issues.updateComment({
+                  comment_id: process.env.COMMENT_ID,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  body: commentBody
+                });
+              } else {
+                await github.issues.createComment({
                   issue_number: context.issue.number,
                   owner: context.repo.owner,
                   repo: context.repo.repo,
-                  body: stdout.replace(/\x1b\[[0-9;]*[a-zA-Z]/g, '')
-                })
+                  body: commentBody
+                });
               }
-            })
-        env:
-          BASE_REF: ${{ fromJSON(steps.pr_info.outputs.result).base.ref }}
-
+              return output;
+            });
 
       - name: Increment version
         if: ${{ env.IS_VALID_COMMENT == 'true' }}
+        env:
+          PACKAGES: ${{ join(fromJSON(steps.bump.result).packages, ', ') }}
         run: |
           # Increment package version(s)
+          commit_msg="🤖 ${{ fromJSON(steps.bump.result).options.bumpType }} release 📦(s)"
           if [[ -n "${PACKAGES}" ]]; then
-            commit_msg="🤖 release 📦(s): ${PACKAGES}"
-          else
-            commit_msg="🤖 release 📦(s)"
+            commit_msg="${commit_msg}: ${PACKAGES}"
           fi
           set -e
           yarn version apply --all
           git commit -a -m "${commit_msg}"
           git push
-        env:
-          PACKAGES: ${{ steps.parse.outputs.package_names }}
