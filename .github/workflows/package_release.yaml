@@ -110,9 +110,9 @@ jobs:
               flags = ' --dry-run';
             }
             try {
-              const { stdout, stderr } = await exec(`yarn run version:bump:all ${{ fromJSON(steps.parse.outputs.result).release_type }} --json${flags}`);
-              core.info(`Increment results: ${stdout}`);
-              result = JSON.parse(stdout);
+              const execOut = await exec(`yarn run version:bump:all ${{ fromJSON(steps.parse.outputs.result).release_type }} --json${flags}`);
+              core.debug(execOut);
+              result = JSON.parse(execOut.stdout);
               core.debug(result);
               if (result.packages.length > 0) {
                 body = `🤖 ${action} ${result.options.bumpType} versions for ${result.packages.join(', ')}.${help}`;
