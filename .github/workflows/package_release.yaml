@@ -98,6 +98,7 @@ jobs:
             const { promisify } = require('util');
             const exec  = promisify(require('child_process').exec);
             let action = 'Incremented';
+            let body = '🤖 No packages need bumping.';
             let help = '';
             let flags = '';
             let result = {};
@@ -109,20 +110,22 @@ jobs:
             try {
               const { stdout, stderr } = await exec(`yarn run version:bump:all ${{ fromJSON(steps.parse.outputs.result).release_type }} --json${flags}`);
               result = JSON.parse(stdout);
-              const commentBody = `🤖 ${action} ${result.options.bumpType} versions for ${result.packages.join(', ')}.${help}`;
+              if (result.packages.length > 0) {
+                body = `🤖 ${action} ${result.options.bumpType} versions for ${result.packages.join(', ')}.${help}`;
+              }
               if (process.env.COMMENT_ID) {
                 await github.issues.updateComment({
                   comment_id: process.env.COMMENT_ID,
                   owner: context.repo.owner,
                   repo: context.repo.repo,
-                  body: commentBody
+                  body
                 });
               } else {
                 await github.issues.createComment({
                   issue_number: context.issue.number,
                   owner: context.repo.owner,
                   repo: context.repo.repo,
-                  body: commentBody
+                  body
                 });
               }
             } catch (err) {
