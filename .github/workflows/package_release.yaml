@@ -1,7 +1,7 @@
 name: Manage Releases
 
 env:
-  IS_VALID_COMMENT: ${{ github.event.comment && startsWith(github.event.comment.body, ':octocat: increment') }}
+  IS_VALID_COMMENT: ${{ github.event.comment && startsWith(github.event.comment.body, 'increment') }}
   IS_APPROVED_PR: ${{ github.event.pull_request_review && github.event.pull_request_review.state == 'APPROVED' }}
 
 on:
@@ -16,7 +16,7 @@ on:
 
 jobs:
   release:
-    if: ${{ github.event.issue.pull_request && ((github.event.comment && startsWith(github.event.comment.body, ':octocat: increment')) || (github.event.pull_request_review && github.event.pull_request_review.state == 'APPROVED')) }}
+    if: ${{ github.event.issue.pull_request && ((github.event.comment && startsWith(github.event.comment.body, 'increment')) || (github.event.pull_request_review && github.event.pull_request_review.state == 'APPROVED')) }}
     name: Prepare Release
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -30,7 +30,7 @@ jobs:
         with:
           script: |
             const fs = require('fs');
-            let [octocat, keyword, release_type] = process.env.COMMENT.split(' ');
+            let [keyword, release_type] = process.env.COMMENT.split(' ');
             const result = {
               comment_id: '',
               release_type: release_type || 'patch'
@@ -101,7 +101,7 @@ jobs:
             let flags = '';
             if (process.env.IS_VALID_COMMENT != 'true') {
               action = 'Missing expected';
-              help = '\n\nAdd a comment on this PR with `:octocat: increment <patch|minor|major|prerelease|decline> versions` before merging.'
+              help = '\n\nAdd a comment on this PR with `increment <patch|minor|major|prerelease|decline> versions` before merging.'
               flags = ' --dry-run';
             }
             exec(`yarn run version:bump:all ${{ fromJSON(steps.parse.result).release_type }} --json${flags}`, (error, stdout, stderr) => {
