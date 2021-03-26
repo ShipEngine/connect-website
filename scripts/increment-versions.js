@@ -4,13 +4,14 @@ const exec  = promisify(require('child_process').exec);
 const { resolve } = require('path');
 
 const args = process.argv.slice(2);
-const root_dir = resolve(__dirname, '..');
 const options = {
   bumpType: 'patch',
   dryRun: false,
   outputType: 'std'
 };
 const packages = new Set();
+const rootDir = resolve(__dirname, '..');
+let continueChecks = true;
 
 args.forEach(arg => {
   switch (arg) {
@@ -43,6 +44,7 @@ const bumpVersion = async (package, type) => {
 const checkVersions = async () => {
   try {
     const {stdout, stderr } = await exec('yarn version check');
+    continueChecks = false;
     log('No further version changes required.');
   } catch (err) {
     log(`Incrementing package ${options.bumpType} versions for:`);
@@ -56,7 +58,7 @@ const checkVersions = async () => {
       } else {
         log(`* ${package}`);
         try {
-          await exec('yarn run version:bump  || echo "No changes"', {cwd: `${root_dir}/packages/${package}`});
+          await exec('yarn run version:bump  || echo "No changes"', {cwd: `${rootDir}/packages/${package}`});
         } catch (bumpErr) {
           log(bumpErr.stdout, bumpErr.stderr);
           process.exit(1);
@@ -74,11 +76,15 @@ const log = (out, err) => {
 };
 
 const main = async () => {
+  let maxLoops = 6;
   await checkVersions();
-  if (!options.dryRun) {
-    // sometimes the bumps may actually trigger new changes
+
+  // sometimes the bumps may actually trigger new changes
+  while (!options.dryRun && continueChecks && maxLoops > 0) {
+    maxLoops--;
     await checkVersions();
   }
+
   if (options.outputType == 'json') {
     console.log(JSON.stringify({
       options,
