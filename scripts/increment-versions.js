@@ -56,7 +56,7 @@ const checkVersions = async () => {
       } else {
         log(`* ${package}`);
         try {
-          await exec('yarn run version:bump', {cwd: `${root_dir}/packages/${package}`});
+          await exec('yarn run version:bump  || echo "No changes"', {cwd: `${root_dir}/packages/${package}`});
         } catch (bumpErr) {
           log(bumpErr.stdout, bumpErr.stderr);
           process.exit(1);
