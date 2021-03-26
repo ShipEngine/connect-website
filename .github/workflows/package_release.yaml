@@ -42,7 +42,9 @@ jobs:
                 repo: context.repo.repo,
                 body: `🤖 Initiating ${result.release_type} version increments for affected packages...`
               });
-              result.comment_id = response.id
+              core.debug(response);
+              result.comment_id = response.id;
+              core.debut(`Comment ID: ${response.id}`);
             } catch (err) {
               core.warning(`Unable to create comment on PR: ${err}`);
             }
@@ -109,7 +111,7 @@ jobs:
             }
             try {
               const { stdout, stderr } = await exec(`yarn run version:bump:all ${{ fromJSON(steps.parse.outputs.result).release_type }} --json${flags}`);
-              core.debug(stdout);
+              core.info(`Increment results: ${stdout}`);
               result = JSON.parse(stdout);
               core.debug(result);
               if (result.packages.length > 0) {
