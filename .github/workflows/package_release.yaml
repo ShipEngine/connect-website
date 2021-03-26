@@ -42,12 +42,12 @@ jobs:
                 repo: context.repo.repo,
                 body: `🤖 Initiating ${result.release_type} version increments for affected packages...`
               });
-              core.debug(response);
-              result.comment_id = response.id;
-              core.debut(`Comment ID: ${response.id}`);
+              result.comment_id = response.data.id;
+              core.debug(`Comment ID: ${response.id}`);
             } catch (err) {
               core.warning(`Unable to create comment on PR: ${err}`);
             }
+            core.debug(result);
             return result;
 
       - name: Lookup PR
