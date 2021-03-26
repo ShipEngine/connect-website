@@ -103,7 +103,7 @@ jobs:
             let result = {};
             if (process.env.IS_VALID_COMMENT != 'true') {
               action = 'Missing expected';
-              help = '\n\nAdd a comment on this PR with `increment <patch|minor|major|prerelease|decline> versions` before merging.'
+              help = '\n\nAdd a comment on this PR with `increment <patch|minor|major|prerelease|decline> versions` before merging.';
               flags = ' --dry-run';
             }
             try {

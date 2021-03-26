@@ -80,10 +80,10 @@ const main = async () => {
     await checkVersions();
   }
   if (options.outputType == 'json') {
-    console.log({
+    console.log(JSON.stringify({
       options,
       packages: [...packages]
-    });
+    }));
   }
 };
 
