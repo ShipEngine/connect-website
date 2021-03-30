@@ -15,6 +15,21 @@ import {
   WeightUnit,
 } from "@shipengine/connect-sdk";
 
+export function mapProductDetails(
+  identifiers?: Output.Identifiers
+): api.ProductDetail[] | undefined {
+  if (!identifiers) {
+    return undefined;
+  }
+
+  return Object.keys(identifiers).map((key) => {
+    return {
+      name: key,
+      value: identifiers[key],
+    };
+  });
+}
+
 export function mapItem(item: Output.SalesOrderItem): api.SalesOrderItem {
   const mappedItem: api.SalesOrderItem = {
     line_item_id: item.id,
@@ -32,6 +47,7 @@ export function mapItem(item: Output.SalesOrderItem): api.SalesOrderItem {
         isbn: item.product.isbn,
         inventory_id: item.product.inventoryID,
       },
+      details: mapProductDetails(item.product?.details),
       urls: {
         thumbnail_url: item.thumbnailURL?.toString(),
       },
