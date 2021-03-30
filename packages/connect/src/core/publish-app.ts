@@ -9,7 +9,9 @@ import { watchDeployment } from "./publish-app/watch-deployment";
 import { green, red } from "chalk";
 import parseDeploymentErrors from './utils/parse-deployment-errors';
 import Table from 'cli-table';
-import { createOrFindTestAccount, TestAccountInfo } from './utils/create-or-find-test-account';
+import { createOrFindTestAccounts, TestAccountInfo } from './utils/create-or-find-test-account';
+import { AppType } from "@shipengine/connect-sdk";
+import { App, CarrierApp, DeliveryService } from "@shipengine/connect-sdk/lib/internal";
 
 class AppFailedToPackageError extends Error {
   code: string;
@@ -55,6 +57,18 @@ interface PublishAppOptions {
   noWatch?: boolean;
 }
 
+export const getSupportedCountries = (app: App): string[] => {
+  const unitedStates: string[] = ['US'];
+  if (app.type === AppType.Carrier) {
+    const countries = (app as CarrierApp).deliveryServices?.map(service => service?.availableCountries)?.flat();
+    const uniqueCountries = [...new Set(countries)].filter(country => country);
+    if (uniqueCountries.length > 1) {
+      return uniqueCountries;
+    } 
+  }
+  return unitedStates;
+}
+
 export default async function publishApp(
   tarballName: string,
   client: APIClient,
@@ -62,13 +76,12 @@ export default async function publishApp(
 ): Promise<Deployment> {
 
   cli.action.start("Publishing app");
-
+  let supportedCountries: string[] = [];
   let newDeployment;
   let platformApp;
   try {
     const app = await loadApp(process.cwd());
-
-    app.type
+    supportedCountries = getSupportedCountries(app);
     // Find the tarball
     const pathToTarball = path.join(process.cwd(), tarballName);
 
@@ -130,28 +143,30 @@ export default async function publishApp(
       console.log(
         green(`Your app was published successfully ${logSymbols.success} `),
       );
-      const accountInfo = await createOrFindTestAccount(client, platformApp);
+      const accountInfo = await createOrFindTestAccounts(client, platformApp, supportedCountries);
       displayAccountInfo(accountInfo);
     }
 
     return newDeployment;
   }
 
-  const accountInfo = await createOrFindTestAccount(client, platformApp);
+  const accountInfo = await createOrFindTestAccounts(client, platformApp, supportedCountries);
   displayAccountInfo(accountInfo);
 
   return newDeployment;
 }
 
-function displayAccountInfo(accountInfo: TestAccountInfo) {
-  const table = new Table();
+export const displayAccountInfo = (accounts: TestAccountInfo[]) => {
+  console.log("Test your app with the accounts below:");
+  accounts.forEach(account => {
+    const table = new Table();
+    table.push(
+      { 'Seller Country': [account.country] },
+      { 'Email': [account.email] },
+      { 'Password': [account.password] },
+      { 'Test URL': [account.testUrl] }
+    );
+    console.log(table.toString());
+  })
 
-  table.push(
-    { 'Email': [accountInfo.email] },
-    { 'Password': [accountInfo.password] },
-    { 'Test URL': [accountInfo.testUrl] }
-  );
-  
-  console.log("Test your app with the account below:");
-  console.log(table.toString());
 }

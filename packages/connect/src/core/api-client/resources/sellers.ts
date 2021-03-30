@@ -25,7 +25,7 @@ export default class Sellers {
    * Creates a seller for an application scoped to the given API key.
    * @returns {Promise<Seller>} Promise that resolves to an Seller.
    */
-  async createSeller(appId: string, email: string, password: string): Promise<Seller> {
+  async createSeller(appId: string, email: string, password: string, country: string): Promise<Seller> {
     const response = await this.client.call<Seller>({
       endpoint: `apps/${appId}/sellers`,
       method: "POST",
@@ -34,7 +34,7 @@ export default class Sellers {
         "password": password,
         "firstName": "Test",
         "lastName": "User",
-        "countryCode": "US",
+        "countryCode": country,
         "type": "shipstation"
       }
     });

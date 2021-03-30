@@ -652,7 +652,7 @@ describe("AppsApiClient @integration", () => {
         let errorResponse;
 
         try {
-          response = await validClient.sellers.createSeller(app.id, `${uuid.v4()}@test.com`, uuid.v4());
+          response = await validClient.sellers.createSeller(app.id, `${uuid.v4()}@test.com`, uuid.v4(), "US");
         } catch (error) {
           errorResponse = error;
         }
@@ -666,7 +666,7 @@ describe("AppsApiClient @integration", () => {
         let errorResponse;
 
         try {
-          response = await invalidClient.sellers.createSeller("id", "test@test.com", "test");
+          response = await invalidClient.sellers.createSeller("id", "test@test.com", "test", "US");
         } catch (error) {
           errorResponse = error;
         }

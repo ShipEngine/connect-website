@@ -4,7 +4,20 @@ import { loadApp } from "@shipengine/connect-loader";
 import Login from './login';
 import { ApiClientErrors } from '../core/api-client'
 import Table from 'cli-table';
-import { createOrFindTestAccount } from '../core/utils/create-or-find-test-account';
+import { createOrFindTestAccounts } from '../core/utils/create-or-find-test-account';
+import { displayAccountInfo, getSupportedCountries } from "../core/publish-app";
+
+const displayAppInfo = (log: any, id: string, name: string, type: string, status: string, createdAt: string) => {
+  const table = new Table();
+  table.push(
+    { 'ID': [id] },
+    { 'Name': [name] },
+    { 'Type': [type] },
+    { 'Status': [status] },
+    { 'Created At': [createdAt] },
+  );
+  log(table.toString());
+}
 
 export default class Info extends BaseCommand {
   public static description = "Get the current information about your app";
@@ -36,6 +49,7 @@ export default class Info extends BaseCommand {
     try {
       const pathToApp = process.cwd();
       const app = await loadApp(pathToApp);
+      const supportedCountries = getSupportedCountries(app);
 
       const apiClient = await this.apiClient(flags.debug)
 
@@ -46,21 +60,11 @@ export default class Info extends BaseCommand {
 
       const latestDeployment = paginatedDeployments.items[0];
 
-      const accountInfo = await createOrFindTestAccount(apiClient, platformApp);
+      const accounts = await createOrFindTestAccounts(apiClient, platformApp, supportedCountries);
+      displayAppInfo(this.log, platformApp.id, platformApp.name, platformApp.type, latestDeployment.status, latestDeployment.createdAt);
+      console.log('\nCredentials\n');
+      displayAccountInfo(accounts);
 
-      const table = new Table();
-
-      table.push(
-        { 'ID': [platformApp.id] },
-        { 'Name': [platformApp.name] },
-        { 'Type': [platformApp.type] },
-        { 'Status': [latestDeployment.status] },
-        { 'Created At': [latestDeployment.createdAt] },
-        { 'Email': [accountInfo.email] },
-        { 'Password': [accountInfo.password] },
-        { 'Test URL': [accountInfo.testUrl] }
-      );
-      this.log(table.toString());
     } catch (error) {
       switch (error.code) {
         case "ERR_APP_ERROR":
