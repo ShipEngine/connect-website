@@ -1,12 +1,15 @@
 export interface Document {
   /**
-   * Usually there will only be 1 type present, but sometimes multiple documents can be combined
+   * @description Usually there will only be 1 type present, but sometimes multiple documents can be combined
    */
   type?: DocumentType[];
   /**
-   * Base64 encoded string of the document in the specified format
+   * @description Base64 encoded string of the document in the specified format
    */
   data?: string;
+  /**
+   * @description The format the document is in
+   */
   format: DocumentFormat;
 }
 
