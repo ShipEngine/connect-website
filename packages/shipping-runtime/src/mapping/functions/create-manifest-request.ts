@@ -6,8 +6,11 @@ import { mapShippedShipments } from ".";
 export const mapCreateManifestRequest = (
   request: CreateManifestRequest
 ): NewManifestPOJO => {
+  const openDateTime = request.open_datetime
+    ? new Date(request.open_datetime)
+    : new Date("2000-01-01T00:00:00Z");
   return {
-    openDateTime: request.open_datetime || "2000-01-01T01:00:00Z",
+    openDateTime,
     closeDateTime: request.close_datetime,
     shipments: mapShippedShipments(request.included_labels),
     shipFrom: mapAddress(request.ship_from),
