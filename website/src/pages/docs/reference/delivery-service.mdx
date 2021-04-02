@@ -94,7 +94,7 @@ Delivery Service Properties
 
   <Field name="supportsReturns" type="boolean" required={false}>
     <Description>
-      Indicates whether the carrier supprorts return shipments. Defaults to `false` if not specified.
+      Indicates whether the carrier supports return shipments. Defaults to `false` if not specified.
     </Description>
   </Field>
 
@@ -119,7 +119,7 @@ Delivery Service Properties
 
   <Field name="availableCountries" type="string[]" required={true}>
     <Description>
-      The sellers home [countries](./country-codes.mdx) in [ISO 3166-1 alpha-2 format](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) that should have access to this service.
+      The seller's home [countries](./country-codes.mdx) in [ISO 3166-1 alpha-2 format](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) that should have access to this service.
     </Description>
   </Field>
 
@@ -138,7 +138,7 @@ Delivery Service Properties
     </Description>
   </Field>
 
-  <Field name="manifestType" type="string" required={true}>
+  <Field name="manifestType" type="string" required={false}>
     <Description>
       Indicates whether the service supports digital or physical manifests. Valid values include the following:
       *  `physical` - This service will require physical documents even if the carrier default is digital transmission.
