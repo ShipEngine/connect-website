@@ -2,6 +2,7 @@
   "compilerOptions": {
     "paths": {
       "@shipengine/connect": ["./packages/connect/src"],
+      "@shipengine/connect-runtime": ["./packages/runtime/src"],
       "@shipengine/connect-carrier-api": ["./packages/carrier-api/src"],
       "@shipengine/connect-loader": ["./packages/loader/src"],
       "@shipengine/connect-order-source-api": ["./packages/order-source-api/src"],

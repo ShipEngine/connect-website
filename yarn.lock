@@ -1113,6 +1113,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sentry/hub@npm:6.2.5":
+  version: 6.2.5
+  resolution: "@sentry/hub@npm:6.2.5"
+  dependencies:
+    "@sentry/types": 6.2.5
+    "@sentry/utils": 6.2.5
+    tslib: ^1.9.3
+  checksum: 60bc51afddbe4629650ddaf06c69ce03de07a7a9c9e49374ac0f16acb6d9ac11aef5697755e792f3f008657f00cfd0174a45968795b3191956694e32396503d0
+  languageName: node
+  linkType: hard
+
 "@sentry/minimal@npm:5.30.0":
   version: 5.30.0
   resolution: "@sentry/minimal@npm:5.30.0"
@@ -1121,6 +1132,17 @@ __metadata:
     "@sentry/types": 5.30.0
     tslib: ^1.9.3
   checksum: 0ad27f2f72da62f88564a08af35ae3b438dde23f13ae1d97514e693cd7c9ab8ce5adff855645b7d8406fd0f95f4518fae1f6c674258de97d198e33f85653965c
+  languageName: node
+  linkType: hard
+
+"@sentry/minimal@npm:6.2.5":
+  version: 6.2.5
+  resolution: "@sentry/minimal@npm:6.2.5"
+  dependencies:
+    "@sentry/hub": 6.2.5
+    "@sentry/types": 6.2.5
+    tslib: ^1.9.3
+  checksum: 038a7e9bd5b307ef0ef2156bfa132766f3f7c93b863f2cd698919920d9a149fe243a8c723c60ff1f917c5803091717463c99f62182865c629f2deeb3b0f4dc09
   languageName: node
   linkType: hard
 
@@ -1154,10 +1176,30 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sentry/tracing@npm:^6.2.1":
+  version: 6.2.5
+  resolution: "@sentry/tracing@npm:6.2.5"
+  dependencies:
+    "@sentry/hub": 6.2.5
+    "@sentry/minimal": 6.2.5
+    "@sentry/types": 6.2.5
+    "@sentry/utils": 6.2.5
+    tslib: ^1.9.3
+  checksum: 335f175471268e6dbcf100cf9da06f714545c7e3d116af2eb667bf9550c32ebee71d78ddae437ad1eb2cd4d778061358c4fc75eeee25838297ee686c3b7ee464
+  languageName: node
+  linkType: hard
+
 "@sentry/types@npm:5.30.0":
   version: 5.30.0
   resolution: "@sentry/types@npm:5.30.0"
   checksum: 36955c4db69a7b5ff558d4c404b37f2135a55a579da5c84dbf11817ecf594dead5e565efaf970395ea79f9978a735b946c082f7e2684a514eb56e158855625ec
+  languageName: node
+  linkType: hard
+
+"@sentry/types@npm:6.2.5":
+  version: 6.2.5
+  resolution: "@sentry/types@npm:6.2.5"
+  checksum: d9c8c9182bd674206618d3cf7fe296ad98b31bafa1ea9da0e5a5dda00bb1047c84bda44af8161efb13d90b2c215380fe32c9220ce5121be9bc8f410b46e50644
   languageName: node
   linkType: hard
 
@@ -1168,6 +1210,16 @@ __metadata:
     "@sentry/types": 5.30.0
     tslib: ^1.9.3
   checksum: 5126166e06947283dd57f8b79a247c5227cacff1f7c9d838c8a4846db621722c97c327c161ed2c4e2949c4e9e66054c464ba0e73aa3a22feda31d7208fdb4acd
+  languageName: node
+  linkType: hard
+
+"@sentry/utils@npm:6.2.5":
+  version: 6.2.5
+  resolution: "@sentry/utils@npm:6.2.5"
+  dependencies:
+    "@sentry/types": 6.2.5
+    tslib: ^1.9.3
+  checksum: 641a0c0e1a363af3896bf8a6d00f7b84edaab0f4e1084ab7c5b03b4788484078e2cf1f2a4a2e64f96d3746fa28c5980761e48900aa94c6739828c8489d9622cc
   languageName: node
   linkType: hard
 
@@ -1259,6 +1311,42 @@ __metadata:
     redact-secrets: 1.0.0
     redoc-express: ^1.0.0
     serialize-error: ^7.0.1
+    typescript: ^4.1.3
+    uuid: 8.2.0
+    winston: 3.3.3
+  languageName: unknown
+  linkType: soft
+
+"@shipengine/connect-runtime@workspace:packages/runtime":
+  version: 0.0.0-use.local
+  resolution: "@shipengine/connect-runtime@workspace:packages/runtime"
+  dependencies:
+    "@sentry/node": ^5.26.0
+    "@sentry/tracing": ^6.2.1
+    "@types/continuation-local-storage": ^3.2.2
+    "@types/express": 4.17.6
+    "@types/node": 14.14.37
+    "@types/uuid": 8.0.0
+    "@typescript-eslint/eslint-plugin": 3.6.0
+    "@typescript-eslint/parser": 3.1.0
+    body-parser: 1.19.0
+    continuation-local-storage: ^3.2.1
+    dotenv-flow: 3.2.0
+    eslint: 6.8.0
+    eslint-config-google: 0.14.0
+    eslint-config-prettier: 6.11.0
+    eslint-plugin-jest: 23.18.0
+    express: 4.17.1
+    express-winston: 4.0.3
+    fast-redact: 2.0.0
+    jest: ^26.6.3
+    newrelic: 6.10.0
+    nodemon: 2.0.4
+    only: 0.0.2
+    prettier: 2.0.5
+    redact-secrets: 1.0.0
+    serialize-error: ^7.0.1
+    ts-node: ^9.1.1
     typescript: ^4.1.3
     uuid: 8.2.0
     winston: 3.3.3
@@ -1600,6 +1688,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/continuation-local-storage@npm:^3.2.2":
+  version: 3.2.3
+  resolution: "@types/continuation-local-storage@npm:3.2.3"
+  dependencies:
+    "@types/node": "*"
+  checksum: 4e9970a200751a2d79b416f6cfbc1e4c88d278196519c084aabf27ab0e11b7b63e4275bcdba3de480d6984273b93884d50df0c3edf402af96fc07b31ee4c31b0
+  languageName: node
+  linkType: hard
+
 "@types/cross-spawn@npm:^6.0.2":
   version: 6.0.2
   resolution: "@types/cross-spawn@npm:6.0.2"
@@ -1862,6 +1959,13 @@ __metadata:
   version: 14.14.34
   resolution: "@types/node@npm:14.14.34"
   checksum: 74db0d80ad997c3ca2597abe1c63c85e87c32e06b4e8c8392a24a11ad00a4567b293a72bbdf49ace201150b420a943609181771cab034cef10fe65272d452718
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:14.14.37":
+  version: 14.14.37
+  resolution: "@types/node@npm:14.14.37"
+  checksum: 5e2d9baf7594ebacaf016716515f30de0765169412787f981481c2fb8b468923149bb9e2e3219ee672399811672ceddc339a7372a61cf15bc656836a5494d991
   languageName: node
   linkType: hard
 
@@ -4106,7 +4210,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"continuation-local-storage@npm:3.2.1":
+"continuation-local-storage@npm:3.2.1, continuation-local-storage@npm:^3.2.1":
   version: 3.2.1
   resolution: "continuation-local-storage@npm:3.2.1"
   dependencies:
@@ -7769,7 +7873,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-cli@npm:^26.1.0":
+"jest-cli@npm:^26.1.0, jest-cli@npm:^26.6.3":
   version: 26.6.3
   resolution: "jest-cli@npm:26.6.3"
   dependencies:
@@ -8202,6 +8306,19 @@ __metadata:
   bin:
     jest: bin/jest.js
   checksum: 95638b5947f96067f5e29d8cb6c4a7f75e09defd17168ffc3e892d8db9c7db09e663dea91d32864bde5f539b63b126ac115fda46aa8521e8dd713c618355e399
+  languageName: node
+  linkType: hard
+
+"jest@npm:^26.6.3":
+  version: 26.6.3
+  resolution: "jest@npm:26.6.3"
+  dependencies:
+    "@jest/core": ^26.6.3
+    import-local: ^3.0.2
+    jest-cli: ^26.6.3
+  bin:
+    jest: bin/jest.js
+  checksum: 4ffcfefa2b30999a71c205e1aacf2b3d7af10f36c17ba1baf45677684116ad5aa6a5bb162ad2dd418f9ea99d18f24b70d8c83fb317b765a3acac361a50e9db9f
   languageName: node
   linkType: hard
 
@@ -12638,7 +12755,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-node@npm:^9.0.0":
+"ts-node@npm:^9.0.0, ts-node@npm:^9.1.1":
   version: 9.1.1
   resolution: "ts-node@npm:9.1.1"
   dependencies:

@@ -1,0 +1,126 @@
+name: runtime CI-CD
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - "packages/runtime/**"
+      - ".github/workflows/runtime-ci-cd.yaml"
+  pull_request:
+    branches:
+      - master
+    paths:
+      - "packages/runtime/**"
+      - ".github/workflows/runtime-ci-cd.yaml"
+
+jobs:
+  ci:
+    name: Test
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: true
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: install node@14
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: yarn install
+        run: yarn install --immutable
+
+      - name: yarn lint
+        working-directory: packages/runtime
+        run: yarn lint
+
+      - name: yarn build
+        working-directory: packages/runtime
+        run: yarn build
+
+      - name: yarn test
+        working-directory: packages/runtime
+        run: yarn test
+        env:
+          HOME: ./
+
+  cd:
+    if: github.ref == 'refs/heads/master'
+    name: Publish to NPM
+    needs: ci
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    defaults:
+      run:
+        working-directory: packages/runtime
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v2
+
+      - name: Configure git identity
+        run: |
+          # Configure git for commits
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+
+      - name: Install Node
+        uses: actions/setup-node@v2
+        with:
+          always-auth: true
+          node-version: 14
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Build
+        working-directory: packages/runtime
+        run: yarn build
+
+      - id: publish
+        name: Publish to NPM
+        uses: JS-DevTools/npm-publish@v1
+        with:
+          package: packages/runtime/package.json
+          token: ${{ secrets.NPM_TOKEN }}
+          checkVersion: false
+          access: public
+
+      - name: Tag Release
+        if: ${{ steps.publish.outputs.type != 'none' }}
+        working-directory: packages/runtime
+        run: |
+          yarn run clean:tags
+          yarn run version:tag
+          git push --tags
+
+          cd ${{ github.workspace }}
+          git log --oneline runtime_v${{ steps.publish.outputs.old-version }}..runtime_v${{ steps.publish.outputs.version }} -- packages/runtime > release-changelog.txt
+        env:
+          NEW_VERSION: ${{ steps.publish.outputs.version }}
+
+      - name: Create GitHub Release
+        if: ${{ steps.publish.outputs.type != 'none' }}
+        uses: actions/github-script@v3
+        with:
+          script: |
+            const { readFile } = require('fs');
+            let body = '';
+            readFile('${{ github.workspace }}/release-changelog.txt', 'utf8', (err, data) => {
+              if (!err) body = data;
+              try {
+                github.repos.createRelease({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  tag_name: 'runtime_v${{ steps.publish.outputs.version }}',
+                  body
+                });
+              } catch (err) {
+                core.warning(`Unable to create release: ${err}`);
+              }
+            });

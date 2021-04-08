@@ -9,3 +9,8 @@ node_modules/
 packages/*/lib/
 packages/*/node_modules/
 tsconfig.tsbuildinfo
+
+*.log
+
+package-lock.json
+lib
