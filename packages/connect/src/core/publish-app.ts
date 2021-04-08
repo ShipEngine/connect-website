@@ -62,7 +62,7 @@ export const getSupportedCountries = (app: App): string[] => {
   if (app.type === AppType.Carrier) {
     const countries = (app as CarrierApp).deliveryServices?.map(service => service?.availableCountries)?.flat();
     const uniqueCountries = [...new Set(countries)].filter(country => country);
-    if (uniqueCountries.length > 1) {
+    if (uniqueCountries.length >= 1) {
       return uniqueCountries;
     } 
   }
