@@ -8,6 +8,12 @@ import { PackageJSON } from './types/package-json';
 
 const asyncExec = util.promisify(exec);
 
+const isTypeScriptProject = (manifest: PackageJSON): boolean => {
+  const dependencies = Object.keys(manifest.dependencies || {});
+  const devDependencies = Object.keys(manifest.devDependencies || {});
+  return dependencies.includes('typescript') || devDependencies.includes('typescript');
+}
+
 /**
  * This function is used for add all dependencies in the package.json app to the bundled dependencies property
  * and then running npm pack to create a tarball for deploying to the connect platform.
@@ -25,6 +31,8 @@ export async function packageApp(cwd?: string): Promise<string> {
   const results = await fs.promises.readFile(packagePath, "utf-8");
   const pjson = JSON.parse(results) as PackageJSON;
 
+  const usesTypeScript = isTypeScriptProject(pjson);
+
   // take dependencies and move them to bundledDependencies
   pjson.bundledDependencies = [];
 
@@ -39,11 +47,16 @@ export async function packageApp(cwd?: string): Promise<string> {
     );
   }
 
-  let stdout;
+  let stdout = "";
 
   try {
+    if (usesTypeScript) {
+      console.log('Transpiling TypeScript.');
+      const transpilationResults = await asyncExec("npm run-script build", { cwd: currentDir });
+      stdout += transpilationResults.stdout;
+    }
     const results = await asyncExec("npm pack", { cwd: currentDir });
-    stdout = results.stdout;
+    stdout += results.stdout;
 
   } catch (error) {
     const err = error as Error;
