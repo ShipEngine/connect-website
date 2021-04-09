@@ -47,16 +47,15 @@ export async function packageApp(cwd?: string): Promise<string> {
     );
   }
 
-  let stdout = "";
+  let fileName;
 
   try {
     if (usesTypeScript) {
       console.log('Transpiling TypeScript.');
-      const transpilationResults = await asyncExec("npm run-script build", { cwd: currentDir });
-      stdout += transpilationResults.stdout;
+      await asyncExec("npm run-script build", { cwd: currentDir });
     }
     const results = await asyncExec("npm pack", { cwd: currentDir });
-    stdout += results.stdout;
+    fileName = results.stdout;
 
   } catch (error) {
     const err = error as Error;
@@ -71,7 +70,7 @@ export async function packageApp(cwd?: string): Promise<string> {
 
   cli.action.stop(`${logSymbols.success}`);
 
-  return stdout.trim();
+  return fileName.trim();
 }
 
 
