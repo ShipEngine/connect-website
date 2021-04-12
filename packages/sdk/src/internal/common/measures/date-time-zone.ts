@@ -38,9 +38,9 @@ export class DateTimeZone implements IDateTimeZone {
     const { value, timeZone } = pojo;
 
     this.value = value;
-    this.timeZone = timeZone;
+    this.timeZone = timeZone || "UTC";
 
-    if (timeZone.startsWith("+") || timeZone.startsWith("-")) {
+    if (this.timeZone.startsWith("+") || this.timeZone.startsWith("-")) {
       // The timeZone is already a UTC offset
       this.offset = timeZone;
     }
