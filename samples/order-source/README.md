@@ -3,3 +3,7 @@
 
 Define the Metadata needed to display your order source integration in the app in the `src/definitions` directory.
 Implement the methods necessary for the ordersource found in `src/methods`;
+
+`npm start` will build your project and start up a local server.
+
+`npm run-script build` will build your project.

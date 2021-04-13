@@ -1,14 +1,16 @@
 {
   "name": "order-source",
+  "version": "1.0.0",
+  "main": "./lib/index.js",
   "scripts": {
-    "start": "tsc && node ./lib/index.js",
+    "start": "tsc && node ./lib/serve.js",
     "build": "tsc"
   },
   "devDependencies": {
     "typescript": "^4.2.3"
   },
   "dependencies": {
-    "@shipengine/connect-order-source-api": "file:../../packages/order-source-api",
-    "@shipengine/connect-runtime": "file:../../packages/runtime"
+    "@shipengine/connect-order-source-api": "^2.6.0",
+    "@shipengine/connect-runtime": "0.0.1"
   }
 }
