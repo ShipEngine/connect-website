@@ -56,14 +56,32 @@ class InfraNew extends Generator {
             },
             {
                 type: "input",
-                name: "organization",
-                message: "Who developed this integration?",
+                name: "repo",
+                message: "Which GitHub repo is this for?",
             },
         ]);
 
         this.appName = answers.name;
         this.type = answers.type;
-        this.organization = answers.organization ? answers.organization : "ips";
+
+        const integrationsRegex = /integrations-(.*)/;
+        const matches = answers.repo.match(integrationsRegex);
+        if (matches?.length >= 2) {
+            switch (matches[1]) {
+                case "ecommerce":
+                case "shipping":
+                case "fulfillment":
+                    // These internal repos use a different prefix
+                    this.organization = "ips"
+                    break;
+                default:
+                    this.organization = matches[1];
+                    break;
+            }
+        } else {
+            // If we end up here something went wrong, but we can catch it in code review
+            this.organization = answers.repo;
+        }
 
         if (this.type === "shipping") {
             this.image = "813448775391.dkr.ecr.us-east-1.amazonaws.com/ipaas-dip-functions:shipping-dx-base-latest";
