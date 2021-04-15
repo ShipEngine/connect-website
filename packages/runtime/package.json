@@ -1,6 +1,6 @@
 {
   "name": "@shipengine/connect-runtime",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "This is a generic runtime for all ShipEngine Connect apps.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -38,6 +38,7 @@
     "newrelic": "6.10.0",
     "only": "0.0.2",
     "redact-secrets": "1.0.0",
+    "redoc-express": "^1.0.0",
     "serialize-error": "^7.0.1",
     "uuid": "8.2.0",
     "winston": "3.3.3"

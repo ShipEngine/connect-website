@@ -1,6 +1,6 @@
 {
   "name": "@shipengine/connect",
-  "version": "1.8.6",
+  "version": "1.9.0",
   "description": "The official developer tooling for building ShipEngine connect apps",
   "keywords": [
     "shipengine",
@@ -120,7 +120,7 @@
     "@oclif/plugin-not-found": "^1.2.4",
     "@shipengine/capitalization": "^1.2.1",
     "@shipengine/connect-loader": "^3.4.0",
-    "@shipengine/connect-order-source-runtime": "^1.7.5",
+    "@shipengine/connect-order-source-runtime": "^1.8.0",
     "@shipengine/connect-sdk": "^12.13.1",
     "@shipengine/connect-shipping-runtime": "^1.4.3",
     "axios": "^0.21.1",

@@ -1,0 +1,1191 @@
+swagger: '2.0'
+info:
+  description: This API specification describes the canonical ShipEngine eCommerce API Order Source module. A module which implements this specification can be integrated with the ShipEngine eCommerce Platform as an Order Source.
+  version: 2.0.0
+  title: ShipEngine eCommerce Order Source API
+host: 'localhost:3006'
+schemes:
+  - http
+consumes:
+  - application/json-patch+json
+  - application/json
+  - text/json
+  - application/*+json
+paths:
+  /shipment_notification:
+    post:
+      tags:
+        - Order Source
+      description: Notify marketplace of a shipment
+      operationId: OrderSource_ShipmentNotification
+      parameters:
+        - in: body
+          name: shipmentNotificationRequest
+          required: true
+          schema:
+            $ref: '#/definitions/ShipmentNotificationRequest'
+        - name: OrderSourceApiCode
+          in: header
+          description: The unique identifier for the type of order source
+          required: false
+          type: string
+          x-nullable: true
+        - name: Tenant-ID
+          in: header
+          description: An ID to identify the platform tenant
+          required: false
+          type: string
+          x-nullable: true
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/ShipmentNotificationResponse'
+          x-nullable: true
+        '400':
+          description: A response to indicate that there was either a module level client error or an external client error.
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+          x-nullable: true
+        '401':
+          description: A response to indicate that the request failed to authenticate with the shipping provider.
+          schema:
+            $ref: '#/definitions/UnauthorizedResponse'
+          x-nullable: true
+        '404':
+          description: A response to indicate that the module does not implement this endpoint.
+        '429':
+          description: A response indicates that the shipping service provider has denied a request due to too many requests.
+          schema:
+            $ref: '#/definitions/RateLimitResponse'
+        '500':
+          description: A response indicating a server level error with the module.
+          schema:
+            $ref: '#/definitions/InternalServerErrorResponse'
+          x-nullable: true
+        '520':
+          description: A response indicating a server level error with the external world.
+          schema:
+            $ref: '#/definitions/ExternalServerErrorResponse'
+          x-nullable: true
+      summary: Notify Shipments
+  /sales_orders_export:
+    post:
+      tags:
+        - Order Source
+      description: Get sales orders based on filter criteria
+      operationId: OrderSource_SalesOrdersExport
+      consumes:
+        - application/json-patch+json
+        - application/json
+        - text/json
+        - application/*+json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: salesOrdersExportRequest
+          description: The criteria of which sales orders to retrieve
+          required: true
+          schema:
+            $ref: '#/definitions/SalesOrdersExportRequest'
+          x-nullable: false
+        - name: OrderSourceApiCode
+          in: header
+          description: A code that identifies the type of Order Source
+          required: false
+          type: string
+          x-nullable: true
+        - name: Tenant-ID
+          in: header
+          description: An ID to identify the platform tenant
+          required: false
+          type: string
+          x-nullable: true
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/SalesOrdersExportResponse'
+          x-nullable: true
+        '400':
+          description: A response to indicate that there was either a module level client error or an external client error.
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+          x-nullable: true
+        '401':
+          description: A response to indicate that the request failed to authenticate with the shipping provider.
+          schema:
+            $ref: '#/definitions/UnauthorizedResponse'
+          x-nullable: true
+        '404':
+          description: A response to indicate that the module does not implement this endpoint.
+        '429':
+          description: A response indicates that the shipping service provider has denied a request due to too many requests.
+          schema:
+            $ref: '#/definitions/RateLimitResponse'
+        '500':
+          description: A response indicating a server level error with the module.
+          schema:
+            $ref: '#/definitions/InternalServerErrorResponse'
+          x-nullable: true
+        '520':
+          description: A response indicating a server level error with the external world.
+          schema:
+            $ref: '#/definitions/ExternalServerErrorResponse'
+          x-nullable: true
+      summary: Export Sales Orders
+  /acknowledge_orders:
+    post:
+      tags:
+        - Order Source
+      description: Notify marketplace that an order has been imported
+      operationId: OrderSource_AcknowledgeOrders
+      parameters:
+        - in: body
+          name: AcknowledgeOrdersRequest
+          required: true
+          schema:
+            $ref: '#/definitions/AcknowledgeOrdersRequest'
+        - name: OrderSourceApiCode
+          in: header
+          description: A code that identifies the type of Order Source
+          required: false
+          type: string
+          x-nullable: true
+        - name: Tenant-ID
+          in: header
+          description: An ID to identify the platform tenant
+          required: false
+          type: string
+          x-nullable: true
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/AcknowledgeOrdersResponse'
+          x-nullable: true
+        '400':
+          description: A response to indicate that there was either a module level client error or an external client error.
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+          x-nullable: true
+        '401':
+          description: A response to indicate that the request failed to authenticate with the shipping provider.
+          schema:
+            $ref: '#/definitions/UnauthorizedResponse'
+          x-nullable: true
+        '404':
+          description: A response to indicate that the module does not implement this endpoint.
+        '429':
+          description: A response indicates that the shipping service provider has denied a request due to too many requests.
+          schema:
+            $ref: '#/definitions/RateLimitResponse'
+        '500':
+          description: A response indicating a server level error with the module.
+          schema:
+            $ref: '#/definitions/InternalServerErrorResponse'
+          x-nullable: true
+        '520':
+          description: A response indicating a server level error with the external world.
+          schema:
+            $ref: '#/definitions/ExternalServerErrorResponse'
+          x-nullable: true
+      summary: Acknowledge Orders
+definitions:
+  Product:
+    allOf:
+      - type: object
+        required:
+          - name
+          - product_id
+        properties:
+          product_id:
+            type: string
+            description: This ID of this product in the vendor API
+          name:
+            type: string
+            description: The product name
+          description:
+            type: string
+            description: The product description
+          identifiers:
+            type: object
+            description: Additional identifiers associated with this product
+            properties:
+              sku:
+                type: string
+                description: The product SKU
+              upc:
+                type: string
+              isbn:
+                type: string
+              asin:
+                type: string
+              fulfillment_sku:
+                type: string
+              inventory_id:
+                type: string
+                description: The identifier needed to set and retrieve inventory levels
+          details:
+            type: array
+            description: A list of details associated with this product
+            items:
+              $ref: '#/definitions/ProductDetail'
+          unit_cost:
+            type: number
+            format: decimal
+          weight:
+            description: The product weight
+            $ref: '#/definitions/Weight'
+          dimensions:
+            description: The product dimensions
+            $ref: '#/definitions/Dimensions'
+          urls:
+            type: object
+            properties:
+              product_url:
+                type: string
+              image_url:
+                type: string
+              thumbnail_url:
+                type: string
+          location:
+            type: string
+            description: The location the product can be found in a warehouse
+        additionalProperties: {}
+  SalesOrder:
+    allOf:
+      - additionalProperties: {}
+        properties:
+          order_id:
+            description: The unique identifier of the sales order from the order source
+            type: string
+          order_number:
+            type: string
+            description: The customer facing identifier of the sales order
+          status:
+            $ref: '#/definitions/SalesOrderStatus'
+          paid_date:
+            type: string
+            format: date-time
+          fulfilled_date:
+            type: string
+            format: date-time
+          original_order_source:
+            $ref: '#/definitions/OriginalOrderSource'
+          requested_fulfillments:
+            type: array
+            items:
+              type: object
+              properties:
+                ship_to:
+                  allOf:
+                    - $ref: '#/definitions/Address'
+                  description: 'The destination address for this sales order'
+                items:
+                  type: array
+                  description: The line items associated with this sales order
+                  items:
+                    $ref: '#/definitions/SalesOrderItem'
+                extensions:
+                  type: object
+                  properties:
+                    custom_field_1:
+                      type: string
+                    custom_field_2:
+                      type: string
+                    custom_field_3:
+                      type: string
+                shipping_preferences:
+                  type: object
+                  properties:
+                    digital_fulfillment:
+                      description: 'true if there are no physical items to fulfill. In this case, the ship_to may include placeholder data.'
+                      type: boolean
+                    additional_handling:
+                      type: boolean
+                    bill_duties_to_sender:
+                      type: boolean
+                    do_not_prepay_postage:
+                      description: 'Pay for postage at drop off, for carriers that usually require prepaid postage.'
+                      type: boolean
+                    gift:
+                      type: boolean
+                    has_alcohol:
+                      type: boolean
+                    insurance_requested:
+                      type: boolean
+                    non_machinable:
+                      type: boolean
+                    saturday_delivery:
+                      type: boolean
+                    show_postage:
+                      description: Allow display of postage paid on the shipping label
+                      type: boolean
+                    suppress_email_notify:
+                      type: boolean
+                    suppress_marketplace_notify:
+                      type: boolean
+                    deliver_by_date:
+                      type: string
+                      format: date-time
+                    hold_until_date:
+                      type: string
+                      format: date-time
+                    ready_to_ship_date:
+                      type: string
+                      format: date-time
+                    ship_by_date:
+                      type: string
+                      format: date-time
+                    preplanned_fulfillment_id:
+                      description: The identifer assigned by a fulfillment planning system at checkout (Delivery Options).
+                      type: string
+                    shipping_service:
+                      type: string
+                    package_type:
+                      type: string
+                    insured_value:
+                      $ref: '#/definitions/Money'
+                    is_premium_program:
+                      description: 'true if the order was placed under the terms of the order source''s premium program (Amazon Prime, Walmart+, etc)'
+                      type: boolean
+                    premium_program_name:
+                      description: 'The name of the premium program, if any. This is for informational purposes. Consumers should base all logic on is_premium_program flag.'
+                      type: string
+                    requested_warehouse:
+                      type: string
+                    documents:
+                      type: array
+                      description: Any documents relevant to shipping that the order source provides
+                      items:
+                        $ref: '#/definitions/Document'
+                branding:
+                  type: object
+                  properties:
+                    packing_slip:
+                      type: object
+                      properties:
+                        url:
+                          type: string
+              required:
+                - ship_to
+                - items
+          buyer:
+            $ref: '#/definitions/Buyer'
+          bill_to:
+            allOf:
+              - description: The billing address and contact information
+              - type: object
+                properties:
+                  email:
+                    type: string
+              - $ref: '#/definitions/Address'
+          currency:
+            type: string
+            description: The three character ISO 4217 code of the currency used for all monetary amounts
+          payment:
+            $ref: '#/definitions/Payment'
+          ship_from:
+            $ref: '#/definitions/Address'
+          order_url:
+            type: string
+          notes:
+            type: array
+            description: Additional notes associated with this sales order
+            items:
+              $ref: '#/definitions/Note'
+          integration_context:
+            description: Data provided by the order source that should be included in calls back to the order source. This data is only meaningful to the integration and not otherwise used by the platform.
+            type: string
+          created_date_time:
+            type: string
+            format: date-time
+          modified_date_time:
+            type: string
+            format: date-time
+        required:
+          - order_id
+          - status
+          - requested_fulfillments
+    type: object
+    description: ''
+  SalesOrderStatus:
+    type: string
+    description: The sales order status
+    enum:
+      - AwaitingPayment
+      - AwaitingShipment
+      - Cancelled
+      - Completed
+      - OnHold
+      - PendingFulfillment
+    x-enumNames:
+      - AwaitingPayment
+      - AwaitingShipment
+      - Cancelled
+      - Completed
+      - OnHold
+      - PendingFulfillment
+  OriginalOrderSource:
+    type: object
+    properties:
+      source_id:
+        type: string
+        description: A unique identifier for the source marketplace
+      marketplace_code:
+        type: string
+        description: The code for the type of marketplace
+      order_id:
+        description: The unique identifier for the order at the source marketplace
+        type: string
+    additionalProperties: {}
+  Note:
+    type: object
+    required:
+      - text
+      - type
+    properties:
+      type:
+        type: string
+        description: 'The type of note. Example Values: ''BackOrderMessage'', ''ConditionNote'', ''GiftMessage'', ''InternalNotes'', ''InStockMessage'', ''MPN'', ''NotesFromBuyer'', ''NotesToBuyer'', ''Other'', ''OutOfStockMessage'', ''Reason'', ''SpecialInstructions'', ''WarningLabel'', ''FeedbackMessage'''
+      text:
+        type: string
+        description: The text of the note
+    additionalProperties: {}
+  SalesOrderItem:
+    allOf:
+      - type: object
+        required:
+          - description
+          - quantity
+        properties:
+          line_item_id:
+            type: string
+            description: An ID for the line item for the vendor API
+          description:
+            type: string
+            description: A description of the sales order item - which may differ from the product description
+          product:
+            description: The product associated with this sales order item
+            $ref: '#/definitions/Product'
+          quantity:
+            type: number
+            format: integer
+            description: The item quantity for this sales order item
+          unit_price:
+            description: The price of each unit
+            $ref: '#/definitions/Money'
+          taxes:
+            description: A list of tax charges. The description can convey the jurisdiction
+            type: array
+            items:
+              $ref: '#/definitions/Charge'
+          shipping_charges:
+            description: A list of shipping charges.
+            type: array
+            items:
+              $ref: '#/definitions/Charge'
+          adjustments:
+            description: 'A list of adjustments applied that influence the order total. For example, promotions/discounts/coupons. The amount should always be a quantify of currency, not a percentage.'
+            type: array
+            items:
+              $ref: '#/definitions/Charge'
+          item_url:
+            type: string
+          modified_date_time:
+            type: string
+            format: date-time
+        additionalProperties: {}
+  Charge:
+    type: object
+    required:
+      - amount
+      - description
+    properties:
+      amount:
+        description: 'The amount of the charge, in the order''s currency'
+        $ref: '#/definitions/Money'
+      description:
+        description: A description for display purposes only
+        type: string
+  Money:
+    type: number
+    format: decimal
+    description: The amount of the currency
+  Address:
+    type: object
+    additionalProperties: {}
+    properties:
+      name:
+        type: string
+        description: The name of the individual associated with this address
+      company:
+        type: string
+        description: The name of the company associated with this address
+      phone:
+        type: string
+      address_line_1:
+        type: string
+        description: The first line of the address
+      address_line_2:
+        type: string
+        description: The second line of the address
+      address_line_3:
+        type: string
+        description: The third line of the address
+      city:
+        type: string
+        description: The city of the address
+      state_province:
+        type: string
+        description: 'The state, province, or municipality of the address'
+      postal_code:
+        type: string
+        description: The postal code of the address
+      country_code:
+        type: string
+        description: The two character ISO 3166 country code of this address
+      residential_indicator:
+        type: string
+        description: 'Indicates this is a residential or commercial address. Values: ''R'', ''C'', and null'
+      is_verified:
+        type: boolean
+        description: 'Indicates whether or not this address has been verified using an Address Verification Service. Values: true, false, and null'
+      pickup_location:
+        type: object
+        properties:
+          carrier_id:
+            type: string
+          relay_id:
+            type: string
+        required:
+          - carrier_id
+          - relay_id
+  ProductDetail:
+    type: object
+    required:
+      - name
+      - value
+    properties:
+      name:
+        description: 'The type of the product detail. Example (non-exhaustive) values: ''Color'', ''CountryOfManufacture'', ''Shape'', ''Size'', ''Style'''
+        type: string
+      value:
+        description: The value of the product detail
+        type: string
+    additionalProperties: {}
+  Buyer:
+    description: Contact information for the buyer of this sales order
+    type: object
+    properties:
+      buyer_id:
+        type: string
+        description: An ID for this buyer in the vendor API
+      name:
+        type: string
+        description: The full name of the buyer
+      email:
+        type: string
+        description: The primary email address of the buyer
+      phone:
+        type: string
+        description: The primary phone number of the buyer
+  Payment:
+    type: object
+    properties:
+      payment_id:
+        type: string
+        description: An ID for this payment in the vendor API
+      payment_status:
+        description: 'The status of this payment. Values: ''AwaitingPayment'', ''PaymentCancelled'', ''PaymentFailed'', ''PaymentInProcess'', ''Paid'', ''Other'''
+        $ref: '#/definitions/PaymentStatus'
+      taxes:
+        description: A list of tax charges. The description can convey the jurisdiction
+        type: array
+        items:
+          $ref: '#/definitions/Charge'
+      shipping_charges:
+        description: A list of shipping charges.
+        type: array
+        items:
+          $ref: '#/definitions/Charge'
+      adjustments:
+        description: 'A list of adjustments applied that influence the order total. For example, promotions/discounts/coupons. The amount should always be a quantify of currency, not a percentage.'
+        type: array
+        items:
+          $ref: '#/definitions/Charge'
+      amount_paid:
+        description: The amount paid
+        $ref: '#/definitions/Money'
+      coupon_codes:
+        description: Coupon codes applied to obtain a discount. The discount amounts should be included as one of the adjustments.
+        type: array
+        items:
+          type: string
+      payment_method:
+        type: string
+        description: The payment method
+    additionalProperties: {}
+  PaymentStatus:
+    type: string
+    description: ''
+    enum:
+      - AwaitingPayment
+      - PaymentCancelled
+      - PaymentFailed
+      - PaymentInProcess
+      - Paid
+      - Other
+    x-enumNames:
+      - AwaitingPayment
+      - PaymentCancelled
+      - PaymentFailed
+      - PaymentInProcess
+      - Paid
+      - Other
+  Weight:
+    type: object
+    required:
+      - unit
+      - value
+    properties:
+      unit:
+        description: 'The weight unit. Values: ''Gram'', ''Ounce'', ''Kilogram'', ''Pound'''
+        $ref: '#/definitions/WeightUnit'
+      value:
+        type: number
+        format: decimal
+        description: The value of the weight in weight units
+    additionalProperties: {}
+  WeightUnit:
+    type: string
+    description: ''
+    enum:
+      - Gram
+      - Ounce
+      - Kilogram
+      - Pound
+    x-enumNames:
+      - Gram
+      - Ounce
+      - Kilogram
+      - Pound
+  Dimensions:
+    type: object
+    required:
+      - height
+      - length
+      - unit
+      - width
+    properties:
+      unit:
+        description: 'The unit associated with the dimensions. Values: ''Centimeter'', ''Inch'''
+        $ref: '#/definitions/DimensionUnit'
+      height:
+        type: number
+        format: decimal
+        description: The height of the item in dimension units
+      width:
+        type: number
+        format: decimal
+        description: The width of the item in dimension units
+      length:
+        type: number
+        format: decimal
+        description: The length of the item in dimension units
+    additionalProperties: {}
+  DimensionUnit:
+    type: string
+    description: ''
+    enum:
+      - Centimeter
+      - Inch
+    x-enumNames:
+      - Centimeter
+      - Inch
+  BadRequestResponse:
+    type: object
+    title: Bad Request Response
+    description: This model represents a response where there was a client error.
+    additionalProperties: {}
+    example:
+      detailed_errors:
+        - standardized_error_code: external_client_error
+          external_error_code: SYS_0001
+          message: This is a made up error message
+          external_http_status_code: 400
+          raw_external_context: '{transaction_id:''fake_transaction_id'', error_code:''SYS_0001'', error_message:''This is a made up error message'' '
+        - standardized_error_code: validation
+          message: This error represents a validation failure within the module.
+    properties:
+      detailed_errors:
+        type: array
+        description: A list of detailed errors that occurred for this request.<br/><b>Remove all personally identifiable information.</b>
+        items:
+          allOf:
+            - $ref: '#/definitions/DetailedError'
+            - type: object
+              properties:
+                standardized_error_code:
+                  type: string
+                  x-nullable: false
+                  description: The ShipEngine standardized error code associated with this error.
+                  enum:
+                    - generic
+                    - serialization
+                    - validation
+                    - external_client_error
+              required:
+                - standardized_error_code
+        x-nullable: true
+  UnauthorizedResponse:
+    type: object
+    title: Unauthorized Response
+    description: This model represents a response that the request was unauthorized to perform some action.
+    additionalProperties: {}
+    example:
+      detailed_errors:
+        - standardized_error_code: external_unauthorized_error
+          external_error_code: 4000001_made_up
+          message: 'The users account has been suspended, please contact support.'
+          external_http_status_code: 401
+          raw_external_context: '{ ''account_id'':''123456'', ''error_code'':''4000001_made_up'', ''error_description'':''The user account has been suspended, please contact support.'', ''support_number'':''555-555-5555'' }'
+    properties:
+      detailed_errors:
+        x-nullable: true
+        type: array
+        description: A list of detailed errors that occurred for this request.<br/><b>Remove all personally identifiable information.</b>
+        items:
+          allOf:
+            - $ref: '#/definitions/DetailedError'
+            - type: object
+              properties:
+                standardized_error_code:
+                  type: string
+                  x-nullable: false
+                  description: The ShipEngine standardized error code associated with this error.
+                  enum:
+                    - external_unauthorized_error
+              required:
+                - standardized_error_code
+  InternalServerErrorResponse:
+    type: object
+    title: Internal Server Error Response
+    description: This model represents a module level error that was caught.
+    additionalProperties: {}
+    example:
+      detailed_errors:
+        - standardized_error_code: unhandled_module_exception
+          message: There was an uncaught exception with the module.
+          raw_external_context: |-
+            {'message':'Cannot read property 'toString' of null', 'stack':'TypeError: Cannot read property 'toString' of null
+                at /home/runner/index.js:4:5
+                at Script.runInContext (vm.js:133:20)
+                at Object.<anonymous> (/run_dir/interp.js:156:20)
+                at Module._compile (internal/modules/cjs/loader.js:778:30)
+                at Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)
+                at Module.load (internal/modules/cjs/loader.js:653:32)
+                at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+                at Function.Module._load (internal/modules/cjs/loader.js:585:3)
+                at Function.Module.runMain (internal/modules/cjs/loader.js:831:12)
+                at startup (internal/bootstrap/node.js:283:19)'}
+    properties:
+      detailed_errors:
+        x-nullable: true
+        type: array
+        description: A list of detailed errors that occurred for this request.<br/><b>Remove all personally identifiable information.</b>
+        items:
+          allOf:
+            - $ref: '#/definitions/DetailedError'
+            - type: object
+              properties:
+                standardized_error_code:
+                  type: string
+                  x-nullable: false
+                  description: The ShipEngine standardized error code associated with this error.
+                  enum:
+                    - unhandled_module_exception
+              required:
+                - standardized_error_code
+  ExternalServerErrorResponse:
+    type: object
+    title: External Server Error Response
+    description: This model represents a server error with the external services the module depends on.
+    additionalProperties: {}
+    example:
+      detailed_errors:
+        - standardized_error_code: external_server_error
+          external_http_status_code: 503
+          message: Unable to successfully connect to provider endpoint.
+          raw_external_context: Service Unavailable.
+    properties:
+      detailed_errors:
+        x-nullable: true
+        type: array
+        description: A list of detailed errors that occurred for this request.<br/><b>Remove all personally identifiable information.</b>
+        items:
+          allOf:
+            - $ref: '#/definitions/DetailedError'
+            - type: object
+              properties:
+                standardized_error_code:
+                  type: string
+                  x-nullable: false
+                  description: The ShipEngine standardized error code associated with this error.
+                  enum:
+                    - external_server_error
+              required:
+                - standardized_error_code
+  RateLimitResponse:
+    title: Rate Limit Response
+    type: object
+    description: 'This response indicates that the provider has denied a request due to too many requests, generally associated with a 429 HTTP status code.'
+    properties:
+      retry_after_seconds:
+        type: integer
+        description: The number of seconds to wait before retrying the request. Optionally provided if the provider supports this and the end point is a 1 to 1 mapping.
+        x-nullable: true
+      retry_after_time:
+        type: string
+        format: date-time
+        description: The date time the provider has specified to retry after. Optionally provided if the provider supports this and the end point is a 1 to 1 mapping.
+        x-nullable: true
+      throttling_context:
+        type: object
+        description: An optional grab bag of information related to the context of the provider.
+        x-nullable: true
+        additionalProperties:
+          type: string
+    x-examples:
+      Example:
+        retry_after_seconds: 6000
+        retry_after_time: null
+        throttling_context: {}
+  RequestBase:
+    type: object
+    required:
+      - auth
+      - transaction_id
+    properties:
+      transaction_id:
+        type: string
+        format: guid
+        description: 'A randomly generated transaction ID, used to correlate the request and response'
+      auth:
+        type: object
+        description: The authorization information necessary to fulfill this request.
+        required:
+          - order_source_api_code
+        properties:
+          order_source_api_code:
+            description: The unique identifier for the type of order source
+            type: string
+          username:
+            type: string
+          password:
+            type: string
+          access_token:
+            type: string
+          api_key:
+            type: string
+          url:
+            type: string
+          connection_context:
+            description: Additional source-specific information needed to connect to the API.
+            type: object
+            additionalProperties:
+              type: string
+    additionalProperties: {}
+  ShipmentNotificationRequest:
+    allOf:
+      - $ref: '#/definitions/RequestBase'
+      - type: object
+    required:
+      - notifications
+    properties:
+      notifications:
+        type: array
+        items:
+          required:
+            - notification_id
+            - order_id
+            - items
+          properties:
+            notification_id:
+              description: A unique identifier to correlate this shipment notification with its result in the response
+              type: string
+            order_id:
+              description: The unique identifier of the sales order from the order source
+              type: string
+            order_number:
+              description: The customer facing identifier of the sales order
+              type: string
+            tracking_number:
+              description: The identifier provided by the fulfiller for tracking the delivery progress
+              type: string
+            tracking_url:
+              type: string
+            carrier_code:
+              type: string
+            carrier_service_code:
+              type: string
+            ext_location_id:
+              description: The order source's identifier for the location that items were shipped from
+              type: string
+            items:
+              type: array
+              items:
+                $ref: '#/definitions/ShipmentNotificationItem'
+            ship_to:
+              allOf:
+                - description: The address where the shipment was sent.
+                - $ref: '#/definitions/Address'
+            ship_from:
+              allOf:
+                - description: The address where the shipment was sent from.
+                - $ref: '#/definitions/Address'
+            return_address:
+              allOf:
+                - description: 'The address for returns, is different from ship_from.'
+                - $ref: '#/definitions/Address'
+            ship_date:
+              type: string
+              format: date-time
+            currency:
+              type: string
+              description: The three character ISO 4217 code of the currency used for all monetary amounts
+            fulfillment_cost:
+              allOf:
+                - description: Total paid for fulfillment
+                - $ref: '#/definitions/Money'
+            insurance_cost:
+              allOf:
+                - description: Total paid for insurance
+                - $ref: '#/definitions/Money'
+            notify_buyer:
+              type: boolean
+              description: 'true to explicitly instruct the order source to notify the buyer. false to explicitly instruct the order source not to notify the buyer. Omit, or set to null, to retain the order source''s default behavior.'
+            integration_context:
+              description: Data provided by the order source during import that is stored by the plaform so that it can be included in calls back to the order source. This data is only meaningful to the integration and not otherwise used by the platform.
+              type: object
+            notes:
+              type: array
+              description: Additional notes associated with this notification or its sales order
+              items:
+                $ref: '#/definitions/Note'
+  ShipmentNotificationItem:
+    required:
+      - description
+      - quantity
+    properties:
+      line_item_id:
+        description: The order source's unique identifier for the line item
+        type: string
+      description:
+        type: string
+        description: A description of the sales order item - which may differ from the product description
+      sku:
+        description: The unique identifier for the item that was shipped
+        type: string
+      product_id:
+        description: This ID of this product in the vendor API
+        type: string
+      quantity:
+        description: The number of items of this SKU that were shipped
+        type: integer
+  ShipmentNotificationResponse:
+    allOf:
+      - type: object
+        required:
+          - notification_results
+        properties:
+          notification_results:
+            description: The result of each notification.
+            type: array
+            items:
+              type: object
+              required:
+                - notification_id
+                - succeeded
+              properties:
+                notification_id:
+                  description: A unique identifier for a notification provided in the request
+                  type: string
+                succeeded:
+                  description: 'true if the order source accepted the notification, false otherwise'
+                  type: boolean
+                confirmation_code:
+                  description: An identifier provided by the order source to acknowledge the fulfillment
+                  type: string
+                failure_reason:
+                  description: Additional context for why the notification failed.
+                  type: string
+  SalesOrdersExportResponse:
+    allOf:
+      - type: object
+        required:
+          - sales_orders
+        properties:
+          sales_orders:
+            type: array
+            description: A list of sales orders which match the request criteria
+            items:
+              $ref: '#/definitions/SalesOrder'
+          cursor:
+            type: string
+            description: The value to pass on subsequent requests when there is more data available.
+        additionalProperties: {}
+  SalesOrdersExportRequest:
+    allOf:
+      - $ref: '#/definitions/RequestBase'
+      - type: object
+        properties:
+          sales_order_status_mappings:
+            description: 'overwrites of default mapping of sales order statuses. Key: integration''s status, Values: ''AwaitingPayment'', ''AwaitingShipment'', ''Cancelled'', ''Completed'', ''OnHold'', ''PendingFulfillment'''
+            type: object
+            additionalProperties:
+              $ref: '#/definitions/SalesOrderStatus'
+          sales_order_field_mappings:
+            description: allows for mapping of custom 3rd party SalesOrder fields to properties on RequestedFulfillmentExtensions
+            type: object
+            properties:
+              custom_field_1:
+                type: string
+              custom_field_2:
+                type: string
+              custom_field_3:
+                type: string
+          criteria:
+            type: object
+            properties:
+              from_date_time:
+                type: string
+                format: date-time
+                description: Return only sales orders modified on or after this date
+              to_date_time:
+                type: string
+                format: date-time
+                description: Return only sales orders modified on or before this date
+          cursor:
+            type: string
+            description: The value returned from a previous request when more pages of data are availalble. The criteria is ignored when this value is present.
+        additionalProperties: {}
+  AcknowledgeOrdersRequest:
+    allOf:
+      - $ref: '#/definitions/RequestBase'
+      - type: object
+        required:
+          - orders
+        properties:
+          orders:
+            type: array
+            items:
+              type: object
+              required:
+                - order_id
+                - imported_date
+              properties:
+                order_id:
+                  type: string
+                order_number:
+                  type: string
+                imported_date:
+                  type: string
+                  format: date-time
+                integration_context:
+                  description: Data provided by the order source during import that is stored by the plaform so that it can be included in calls back to the order source. This data is only meaningful to the integration and not otherwise used by the platform.
+                  type: object
+  AcknowledgeOrdersResponse:
+    allOf:
+      - type: object
+        required:
+          - responses
+        properties:
+          responses:
+            type: array
+            items:
+              type: object
+              required:
+                - order_id
+                - succeeded
+              properties:
+                order_id:
+                  type: string
+                succeeded:
+                  type: boolean
+                  description: 'true or false, indicating if acknowledgement succeeded'
+                failure_reason:
+                  description: Additional context for why the acknowledgement failed.
+                  type: string
+  DetailedError:
+    type: object
+    additionalProperties: {}
+    title: Detailed Error
+    description: This model represented a detailed error
+    properties:
+      external_error_code:
+        type: string
+        description: This is a provider specific error code.
+        example: '0016'
+        x-nullable: true
+      message:
+        type: string
+        description: A user friendly message about this error.
+        example: Severe error return code
+        x-nullable: true
+      external_http_status_code:
+        type: integer
+        description: The HTTP status code returned from the external service provider.
+        format: int32
+        example: 400
+        x-nullable: true
+      raw_external_context:
+        x-nullable: true
+        type: string
+        description: The serialized response containing the error from an external service provider.
+  Document:
+    type: object
+    description: Container for a document.
+    additionalProperties: false
+    properties:
+      type:
+        type: array
+        description: |-
+          The document type(s) being returned. In most cases this is just a single document type; however, some
+          carriers return multiple document types in the same PDF or ZPL.
+        nullable: true
+        items:
+          $ref: '#/definitions/DocumentType'
+      data:
+        type: string
+        description: Base64 encoded data for the document.
+        nullable: true
+      format:
+        description: Format of the document.
+        oneOf:
+          - $ref: '#/definitions/DocumentFormat'
+  DocumentType:
+    type: string
+    description: ''
+    x-enumNames:
+      - Label
+      - CustomsForm
+      - CommercialInvoice
+    enum:
+      - label
+      - customs_form
+      - commercial_invoice
+  DocumentFormat:
+    type: string
+    description: ''
+    x-enumNames:
+      - Pdf
+      - Zpl
+      - Png
+    enum:
+      - PDF
+      - ZPL
+      - PNG
+x-generator: NSwag v12.0.11.0 (NJsonSchema v9.13.13.0 (Newtonsoft.Json v11.0.0.0))

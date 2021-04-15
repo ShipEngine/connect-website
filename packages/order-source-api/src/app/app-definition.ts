@@ -13,6 +13,8 @@ import {
   OrderSourceProviderSpecification,
   OrderSourceSpecification,
 } from "./metadata";
+import { resolve } from "path";
+import { readFileSync } from "fs";
 
 export enum Method {
   POST = "post",
@@ -127,6 +129,7 @@ export class OrderSourceApp implements App {
   data: any;
   logo: string;
   icon: string;
+  redoc: string;
   constructor(app: OrderSourceAppDefinition) {
     this.routes.push({
       method: Method.POST,
@@ -146,5 +149,6 @@ export class OrderSourceApp implements App {
     this.logo = app.Logo;
     this.icon = app.Icon;
     this.data = new Metadata(app);
+    this.redoc = readFileSync(resolve(__dirname, "../../spec.yaml")).toString();
   }
 }

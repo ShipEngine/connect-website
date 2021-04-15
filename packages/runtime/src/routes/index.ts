@@ -2,6 +2,7 @@ import { getNamespace } from "continuation-local-storage";
 import { IRouter, NextFunction, Request, Router, Response } from "express";
 import { setTransactionId, SESSION_ID } from "../util/storage";
 import diagnostics from "./diagnostics";
+import docs from "./docs";
 import { App } from "../app";
 import { NotImplementedError } from "..";
 
@@ -26,6 +27,7 @@ export const executeImplementation = (implementation?: Function) => {
 export const getRoutes = (app: App) => {
   const router: IRouter = Router();
   router.use("/diagnostics", diagnostics);
+  router.use("/docs", docs(app));
   router.get("/logo", (req, res) => {
     res.sendFile(app.logo);
   });

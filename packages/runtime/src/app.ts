@@ -17,4 +17,6 @@ export interface App {
   data: any;
   logo: string;
   icon: string;
+  // String containing yaml file to display with redoc
+  redoc?: string;
 }
