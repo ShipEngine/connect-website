@@ -6,3 +6,4 @@ export * from "./rate-limit-response";
 export * from "./sales-orders-export-response";
 export * from "./shipment-notification-response";
 export * from "./unauthorized-response";
+export * from "./get-products-response";

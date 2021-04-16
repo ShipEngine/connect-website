@@ -24,7 +24,7 @@ export interface SalesOrderCustomStatusMappings {
   [key: string]: SalesOrderStatus;
 }
 
-/** @description A request to  */
+/** @description A request to export a range of sales orders */
 export interface SalesOrdersExportRequest extends RequestBase {
   /** @description The criteria of which sales orders to retrieve */
   criteria?: SalesOrderExportCriteria;

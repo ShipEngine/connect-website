@@ -1,11 +1,4 @@
-import {
-  AcknowledgeOrdersRequest,
-  AcknowledgeOrdersResponse,
-  SalesOrdersExportRequest,
-  SalesOrdersExportResponse,
-  ShipmentNotificationRequest,
-  ShipmentNotificationResponse,
-} from "..";
+import * as API from "..";
 import { AuthSpecification } from "./metadata/auth-specification";
 import {
   Connector,
@@ -56,22 +49,31 @@ export interface OrderSourceAppDefinition {
    * @param request The criteria of which sales orders to retrieve
    */
   SalesOrdersExport?: (
-    request: SalesOrdersExportRequest
-  ) => SalesOrdersExportResponse | Promise<SalesOrdersExportResponse>;
+    request: API.SalesOrdersExportRequest
+  ) => API.SalesOrdersExportResponse | Promise<API.SalesOrdersExportResponse>;
   /**
    * @description This method notifies a marketplace of a shipment
    * @param request The information necessary to update the order source that this order has been shipped.
    */
   ShipmentNotification?: (
-    request: ShipmentNotificationRequest
-  ) => ShipmentNotificationResponse | Promise<ShipmentNotificationResponse>;
+    request: API.ShipmentNotificationRequest
+  ) =>
+    | API.ShipmentNotificationResponse
+    | Promise<API.ShipmentNotificationResponse>;
   /**
    * @description This method notifies a marketplace that an order has been imported
    * @param request The information necessary to acknowledge that the order has been imported
    */
   AcknowledgeOrders?: (
-    request: AcknowledgeOrdersRequest
-  ) => AcknowledgeOrdersResponse | Promise<AcknowledgeOrdersResponse>;
+    request: API.AcknowledgeOrdersRequest
+  ) => API.AcknowledgeOrdersResponse | Promise<API.AcknowledgeOrdersResponse>;
+  /**
+   * @description This method gets extra data for a product that was unavailable during export
+   * @param request The list of product ids to get data for
+   */
+  GetProducts?: (
+    request: API.GetProductsRequest
+  ) => API.GetProductsResponse | Promise<API.GetProductsResponse>;
 }
 
 const mapFunctions = (
@@ -145,6 +147,11 @@ export class OrderSourceApp implements App {
       method: Method.POST,
       path: "/shipment_notification",
       handler: app.ShipmentNotification,
+    });
+    this.routes.push({
+      method: Method.POST,
+      path: "/get_products",
+      handler: app.GetProducts,
     });
     this.logo = app.Logo;
     this.icon = app.Icon;

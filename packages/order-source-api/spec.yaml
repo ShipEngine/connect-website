@@ -192,6 +192,49 @@ paths:
             $ref: '#/definitions/ExternalServerErrorResponse'
           x-nullable: true
       summary: Acknowledge Orders
+  /get_products:
+    post:
+      summary: ''
+      operationId: post-get_product_information
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+            properties:
+              products:
+                type: array
+                items:
+                  $ref: '#/definitions/Product'
+        '':
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Product'
+          description: ''
+      parameters:
+        - in: body
+          name: body
+          schema:
+            allOf:
+              - $ref: '#/definitions/RequestBase'
+              - type: object
+                properties:
+                  product_ids:
+                    type: array
+                    description: ''
+                    items:
+                      type: string
+        - type: string
+          in: header
+          name: OrderSourceApiCode
+          description: A code that identifies the type of Order Source
+        - type: string
+          in: header
+          name: Tenant-ID
+          description: An ID to identify the platform tenant
+      description: Retrieves the information for a list of products
+    parameters: []
 definitions:
   Product:
     allOf:
@@ -282,7 +325,7 @@ definitions:
                 ship_to:
                   allOf:
                     - $ref: '#/definitions/Address'
-                  description: 'The destination address for this sales order'
+                  description: The destination address for this sales order
                 items:
                   type: array
                   description: The line items associated with this sales order
@@ -369,6 +412,8 @@ definitions:
                       properties:
                         url:
                           type: string
+                    company_name:
+                      type: string
               required:
                 - ship_to
                 - items
@@ -409,8 +454,8 @@ definitions:
           - order_id
           - status
           - requested_fulfillments
-    type: object
     description: ''
+    type: object
   SalesOrderStatus:
     type: string
     description: The sales order status
@@ -594,12 +639,12 @@ definitions:
         description: The primary phone number of the buyer
   Payment:
     type: object
+    additionalProperties: {}
     properties:
       payment_id:
         type: string
         description: An ID for this payment in the vendor API
       payment_status:
-        description: 'The status of this payment. Values: ''AwaitingPayment'', ''PaymentCancelled'', ''PaymentFailed'', ''PaymentInProcess'', ''Paid'', ''Other'''
         $ref: '#/definitions/PaymentStatus'
       taxes:
         description: A list of tax charges. The description can convey the jurisdiction
@@ -617,7 +662,6 @@ definitions:
         items:
           $ref: '#/definitions/Charge'
       amount_paid:
-        description: The amount paid
         $ref: '#/definitions/Money'
       coupon_codes:
         description: Coupon codes applied to obtain a discount. The discount amounts should be included as one of the adjustments.
@@ -627,10 +671,12 @@ definitions:
       payment_method:
         type: string
         description: The payment method
-    additionalProperties: {}
+      label_voucher:
+        $ref: '#/definitions/LabelVoucher'
   PaymentStatus:
     type: string
-    description: ''
+    description: |
+      The status of this payment. Values: 'AwaitingPayment', 'PaymentCancelled', 'PaymentFailed', 'PaymentInProcess', 'Paid', 'Other'
     enum:
       - AwaitingPayment
       - PaymentCancelled
@@ -645,6 +691,7 @@ definitions:
       - PaymentInProcess
       - Paid
       - Other
+    title: ''
   Weight:
     type: object
     required:
@@ -1188,4 +1235,15 @@ definitions:
       - PDF
       - ZPL
       - PNG
+  LabelVoucher:
+    title: LabelVoucher
+    type: object
+    description: Represents information needed to leverage a third party Carrier API implementation
+    properties:
+      url:
+        type: string
+        description: Base URL for the Carrier API implementation
+      token:
+        type: string
+        description: Token needed to authenticate with the Carrier API implementation
 x-generator: NSwag v12.0.11.0 (NJsonSchema v9.13.13.0 (Newtonsoft.Json v11.0.0.0))
