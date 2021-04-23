@@ -1,3 +1,4 @@
+import { CarrierApp } from "@shipengine/connect-sdk/lib/internal";
 import { IRouter, Router } from "express";
 
 const router: IRouter = Router();
@@ -26,6 +27,25 @@ router.get("/appinfo", (req, res) => {
     description,
     version,
   });
+});
+
+router.get("/images", (req, res) => {
+  const app = req.app.locals.app as CarrierApp;
+  res.send([
+    {
+      id: app.id,
+      logo: `/images/${app.id}/logo`,
+      icon: `/images/${app.id}/icon`,
+    },
+  ]);
+});
+router.get("/images/:id/logo", (req, res) => {
+  const app = req.app.locals.app as CarrierApp;
+  res.sendFile(app.logo);
+});
+router.get("/images/:id/icon", (req, res) => {
+  const app = req.app.locals.app as CarrierApp;
+  res.sendFile(app.icon);
 });
 
 router.get("/logo", (req, res) => {

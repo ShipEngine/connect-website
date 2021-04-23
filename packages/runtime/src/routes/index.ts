@@ -5,6 +5,7 @@ import diagnostics from "./diagnostics";
 import docs from "./docs";
 import { App } from "../app";
 import { NotImplementedError } from "..";
+import { getImageRoutes } from "./images";
 
 export const executeImplementation = (implementation?: Function) => {
   return async (req: Request, res: Response, next: NextFunction) => {
@@ -15,7 +16,7 @@ export const executeImplementation = (implementation?: Function) => {
         if (!implementation) {
           throw new NotImplementedError();
         }
-        const response = await implementation(req.body);
+        const response = await implementation(req);
         res.status(200).send(response);
       } catch (exception) {
         next(exception);
@@ -27,13 +28,8 @@ export const executeImplementation = (implementation?: Function) => {
 export const getRoutes = (app: App) => {
   const router: IRouter = Router();
   router.use("/diagnostics", diagnostics);
-  router.use("/docs", docs(app));
-  router.get("/logo", (req, res) => {
-    res.sendFile(app.logo);
-  });
-  router.get("/icon", (req, res) => {
-    res.sendFile(app.icon);
-  });
+  router.use(docs(app));
+  router.use(getImageRoutes(app.getImages()));
   router.get("/GetRegistryData", (req, res, next) => {
     res.status(200).send(app.data);
   });

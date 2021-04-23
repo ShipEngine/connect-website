@@ -9,12 +9,12 @@ export default function docs(app: App): IRouter {
     return router;
   }
 
-  router.get("/spec.yaml", (req, res) => {
+  router.get("/docs/spec.yaml", (req, res) => {
     res.send(app.redoc);
   });
 
   router.get(
-    "/",
+    "/docs",
     redoc({
       title: "API Docs",
       specUrl: "/docs/spec.yaml",

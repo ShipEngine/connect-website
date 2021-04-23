@@ -1269,7 +1269,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@shipengine/connect-order-source-api@^2.8.0, @shipengine/connect-order-source-api@workspace:packages/order-source-api":
+"@shipengine/connect-order-source-api@npm:^2.8.0":
+  version: 2.8.0
+  resolution: "@shipengine/connect-order-source-api@npm:2.8.0"
+  checksum: 0bd893ebafc5d58fb503d0606094354916d63ff84dfaabc90678104112539aae26d187e19ddd322e40b4a65296c2ec8c3848dd1eea6bd89c17f45523097ac4fb
+  languageName: node
+  linkType: hard
+
+"@shipengine/connect-order-source-api@workspace:packages/order-source-api":
   version: 0.0.0-use.local
   resolution: "@shipengine/connect-order-source-api@workspace:packages/order-source-api"
   dependencies:

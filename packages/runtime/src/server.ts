@@ -14,10 +14,10 @@ process.on("unhandledRejection", (reason, promise) => {
 });
 
 export enum Environment {
-  Development = "dev",
-  Integration = "intg",
-  Stage = "stage",
-  Production = "prod",
+  Local = "local",
+  Development = "development",
+  Stage = "staging",
+  Production = "production",
 }
 
 /**
@@ -31,15 +31,14 @@ export interface ServerConfig {
   port?: string;
   /**
    * @description The environment this server is currently running on
-   * @default "development"
+   * @default "local"
    */
   environment?: Environment | string;
 }
 
 const initializeEnvironmentVariables = (config?: ServerConfig) => {
-  process.env.NODE_ENV = config?.environment || Environment.Development;
-  process.env.PORT = config?.port || "80";
-  process.env.SENTRY_DSN = process.env.SENTRY_DSN || "https://public@sentry.example.com/1";
+  process.env.NODE_ENV = process.env.NODE_ENV || config?.environment || Environment.Local;
+  process.env.PORT = process.env.PORT || config?.port || "80";
   process.env.NEW_RELIC_NO_CONFIG_FILE = process.env.NEW_RELIC_NO_CONFIG_FILE || "true";
   process.env.NEW_RELIC_APP_NAME = process.env.NEW_RELIC_APP_NAME || "custom-store-template";
 
@@ -62,19 +61,21 @@ export const start = (app: App, config?: ServerConfig) => {
   const express = require("express");
   const server = express();
 
-  logger.info(`Initializing Sentry: ${process.env.SENTRY_DSN}`);
-  Sentry.init({
-    dsn: process.env.SENTRY_DSN,
-    environment: process.env.NODE_ENV,
-    integrations: [
-      // enable HTTP calls tracing
-      new Sentry.Integrations.Http({ tracing: true }),
-      // enable Express.js middleware tracing
-      new Tracing.Integrations.Express({ app: server }),
-    ],
-  });
-  server.use(Sentry.Handlers.requestHandler());
-  server.use(Sentry.Handlers.tracingHandler());
+  if (process.env.SENTRY_DSN) {
+    logger.info(`Initializing Sentry: DSN ${process.env.SENTRY_DSN} ENV ${process.env.NODE_ENV}`);
+    Sentry.init({
+      dsn: process.env.SENTRY_DSN,
+      environment: process.env.NODE_ENV,
+      integrations: [
+        // enable HTTP calls tracing
+        new Sentry.Integrations.Http({ tracing: true }),
+        // enable Express.js middleware tracing
+        new Tracing.Integrations.Express({ app: server }),
+      ],
+    });
+    server.use(Sentry.Handlers.requestHandler());
+    server.use(Sentry.Handlers.tracingHandler());
+  }
 
   const bodyParser = require("body-parser");
   const middlewareLogging = require("./middleware/logging");
@@ -82,14 +83,16 @@ export const start = (app: App, config?: ServerConfig) => {
   server.use(bodyParser.json());
   server.use(middlewareLogging.default);
   server.use(getRoutes(app));
-  server.use(
-    Sentry.Handlers.errorHandler({
-      shouldHandleError(error) {
-        const handledError = error as BaseError;
-        return handledError.isIntentional !== true;
-      },
-    })
-  );
+  if (process.env.SENTRY_DSN) {
+    server.use(
+      Sentry.Handlers.errorHandler({
+        shouldHandleError(error) {
+          const handledError = error as BaseError;
+          return handledError.isIntentional !== true;
+        },
+      })
+    );
+  }
   server.use(errorHandler.default);
   server.listen(process.env.PORT, () => {
     logger.info(`Server started http://localhost:${process.env.PORT}/diagnostics/liveness`);

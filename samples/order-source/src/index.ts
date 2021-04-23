@@ -1,9 +1,9 @@
 import { OrderSourceApp } from '@shipengine/connect-order-source-api';
-import { join } from 'path';
 import {
     SalesOrdersExport,
     ShipmentNotification,
-    AcknowledgeOrders
+    AcknowledgeOrders,
+    GetProducts,
 } from './methods';
 import {
     Metadata
@@ -13,7 +13,6 @@ export default new OrderSourceApp({
     SalesOrdersExport,
     ShipmentNotification,
     AcknowledgeOrders,
+    GetProducts,
     Metadata,
-    Logo: join(__dirname, '../assets/logo.svg'),
-    Icon: join(__dirname, '../assets/icon.svg'),
 })
