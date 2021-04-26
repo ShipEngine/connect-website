@@ -1,5 +1,3 @@
-import { Request } from "express";
-
 /** @description The Http Verb associated with a given call */
 export enum Method {
   POST = "post",
@@ -19,7 +17,7 @@ export interface Route {
    * The method that will be called to handle this request
    *
    */
-  handler?: (req: Request) => any | Promise<any>;
+  handler?: (req: any) => any | Promise<any>;
 }
 
 /** @description This contains the logo and icon for an individual branded entity */
