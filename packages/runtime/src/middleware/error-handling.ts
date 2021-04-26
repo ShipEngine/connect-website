@@ -10,7 +10,7 @@ export default (error: any, request: Request, response: Response, next: NextFunc
     const handledError = error as BaseError;
     if (handledError.details) {
       response.status(handledError.statusCode).json({
-        transacton_id: transactionId,
+        transaction_id: transactionId,
         detailed_errors: handledError.details.map((detail) => {
           return {
             external_error_code: detail.externalErrorCode,
@@ -28,7 +28,7 @@ export default (error: any, request: Request, response: Response, next: NextFunc
       });
     } else {
       response.status(handledError.statusCode).json({
-        transacton_id: transactionId,
+        transaction_id: transactionId,
         detailed_errors: [
           {
             message: error.message,

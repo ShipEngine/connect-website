@@ -1,6 +1,6 @@
 {
   "name": "@shipengine/connect-runtime",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "This is a generic runtime for all ShipEngine Connect apps.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -30,7 +30,6 @@
     "@sentry/node": "^5.26.0",
     "@sentry/tracing": "^6.2.1",
     "body-parser": "1.19.0",
-    "continuation-local-storage": "^3.2.1",
     "dotenv-flow": "3.2.0",
     "express": "4.17.1",
     "express-winston": "4.0.3",
@@ -44,7 +43,6 @@
     "winston": "3.3.3"
   },
   "devDependencies": {
-    "@types/continuation-local-storage": "^3.2.2",
     "@types/express": "4.17.6",
     "@types/node": "14.14.37",
     "@types/uuid": "8.0.0",

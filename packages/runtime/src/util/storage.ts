@@ -1,18 +1,20 @@
-import { createNamespace, getNamespace } from "continuation-local-storage";
+import { AsyncLocalStorage } from "async_hooks";
 import { v4 as uuid } from "uuid";
 
-export const SESSION_ID = "request_session";
+interface RequestSession {
+  transaction_id?: string;
+}
 
-const TRANSACTION_ID = "transaction_ID";
+export const session = new AsyncLocalStorage<RequestSession>();
 
-createNamespace(SESSION_ID);
+export const setTransactionId = (id?: string | undefined) => {
+  const store = session.getStore();
 
-export const setTransactionId = (id?: string | undefined): string | undefined => {
-  const session = getNamespace(SESSION_ID);
-  return session?.set(TRANSACTION_ID, id ?? uuid());
+  if (store) {
+    store.transaction_id = id ?? uuid();
+  }
 };
 
 export const getTransactionId = (): string | undefined => {
-  const session = getNamespace(SESSION_ID);
-  return session?.get(TRANSACTION_ID);
+  return session.getStore()?.transaction_id;
 };

@@ -1,6 +1,5 @@
-import { getNamespace } from "continuation-local-storage";
 import { IRouter, NextFunction, Request, Router, Response } from "express";
-import { setTransactionId, SESSION_ID } from "../util/storage";
+import { session, setTransactionId } from "../util/storage";
 import diagnostics from "./diagnostics";
 import docs from "./docs";
 import { App } from "../app";
@@ -9,8 +8,7 @@ import { getImageRoutes } from "./images";
 
 export const executeImplementation = (implementation?: Function) => {
   return async (req: Request, res: Response, next: NextFunction) => {
-    const session = getNamespace(SESSION_ID);
-    session?.run(async () => {
+    await session.run({}, async () => {
       setTransactionId(req?.body?.transaction_id);
       try {
         if (!implementation) {
