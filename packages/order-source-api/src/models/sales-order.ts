@@ -5,6 +5,7 @@ import { Buyer } from "./buyer";
 import { BillTo } from "./bill-to";
 import { Payment } from "./payment";
 import { Note } from "./note";
+import { Branding } from "./branding";
 
 /** @description The status of a sales order */
 export enum SalesOrderStatus {
@@ -46,6 +47,8 @@ export interface RequestedFulfillment {
   extensions?: RequestedFulfillmentExtensions;
   /** @description Preferences about how the order is shipped */
   shipping_preferences?: ShippingPreferences;
+  /** @description Brand information about this fulfillment */
+  branding?: Branding;
 }
 
 /** @description This represents a sales order */

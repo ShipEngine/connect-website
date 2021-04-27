@@ -1,4 +1,5 @@
 import { Charge } from "./charge";
+import { LabelVoucher } from "./label-voucher";
 
 /** @description The status of whether or not an order has been paid for */
 export enum PaymentStatus {
@@ -28,4 +29,6 @@ export interface Payment {
   coupon_code?: string[];
   /** @description The payment method */
   payment_method?: string;
+  /** @description Represents information needed to leverage a third party Carrier API implementation */
+  label_voucher?: LabelVoucher;
 }

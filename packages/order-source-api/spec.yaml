@@ -406,14 +406,18 @@ definitions:
                         $ref: '#/definitions/Document'
                 branding:
                   type: object
+                  description: The brand requested for a fulfillment
                   properties:
                     packing_slip:
                       type: object
+                      description: Packing slip associated with the brand
                       properties:
                         url:
                           type: string
+                          description: The url from which the packing slip can be downloaded
                     company_name:
                       type: string
+                      description: Company name associated with the brand
               required:
                 - ship_to
                 - items
