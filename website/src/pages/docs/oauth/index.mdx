@@ -6,8 +6,8 @@ description: The page describes how authorization works for Order Apps.
 Authorization
 ====================
 
-[ShipEngine Connect](./../index.mdx) supports the [OAuth 2.0](https://oauth.net/2/) protocol for [Order Apps](./../reference/order.mdx).
-This allows users to give your app permission to interact with your backend API on their behalf without having
+[ShipEngine Connect](./../index.mdx) supports both Basic Auth and the [OAuth 2.0](https://oauth.net/2/) protocol for [Order Apps](./../reference/order.mdx).
+OAuth allows users to give your app permission to interact with your backend API on their behalf without having
 to supply their password. Instead, OAuth enables an end user to provide their credentials to a third party identity provider for authentication.
 This is much safer for the end user than providing their login credentials directly to your app.
 The access token can be revoked at any time without affecting any other applications or websites that have been given permission to
@@ -27,3 +27,8 @@ When a method in your Order App is called, it will receive a [`transaction` obje
 as the first parameter. You can then retrieve the OAuth access token from the `transaction.session.auth.accessToken` property.
 
 
+## Using Basic Auth in Order Apps
+Specify the necessary authentication data in the [connection form](./../reference/forms.mdx#connection-form-examples) of your Order App.
+These fields will be included on the [`transaction` object](./../reference/order-transaction.mdx) passed to the other methods of your app.
+If your form includes `username`, `password`, and/or `api_key` fields, they will be available via the `transaction.session.auth` object.
+All other fields will be attached to `transaction.session`.
