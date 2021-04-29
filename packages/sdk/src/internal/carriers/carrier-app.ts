@@ -1,5 +1,5 @@
 import { AppType, CancellationStatus, CancelPickups, CancelShipments, CarrierAppDefinition, Connect, Country, CreateManifest, CreateShipment, DocumentFormat, DocumentSize, ErrorCode, ManifestLocation, ManifestShipment, ManifestType, Packaging, RateShipment, SchedulePickup, ServiceArea, TrackShipment } from "../../public";
-import { AppPOJO, ConnectionApp, error, FormPOJO, hideAndFreeze, Joi, SystemErrorCode, Transaction, TransactionPOJO, validateArray, _internal, OAuthConfigPOJO } from "../common";
+import { AppPOJO, ConnectionApp, error, FormPOJO, hideAndFreeze, Joi, SystemErrorCode, Transaction, TransactionPOJO, validateArray, _internal, OAuthConfigPOJO, DeploymentType } from "../common";
 import { DeliveryConfirmation } from "./delivery-confirmation";
 import { DeliveryService, DeliveryServicePOJO } from "./delivery-service";
 import { ManifestConfirmation } from "./manifests/manifest-confirmation";
@@ -160,6 +160,7 @@ export class CarrierApp extends ConnectionApp {
   // #endregion
 
   public constructor(pojo: CarrierAppPOJO) {
+    pojo.deploymentType = DeploymentType.LegacyConnectCarrier;
     super(pojo);
 
     this.type = AppType.Carrier;

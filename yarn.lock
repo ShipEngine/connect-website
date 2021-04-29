@@ -1239,11 +1239,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@shipengine/connect-loader@^3.4.0, @shipengine/connect-loader@workspace:packages/loader":
+"@shipengine/connect-loader@^3.5.0, @shipengine/connect-loader@workspace:packages/loader":
   version: 0.0.0-use.local
   resolution: "@shipengine/connect-loader@workspace:packages/loader"
   dependencies:
-    "@shipengine/connect-sdk": ^12.13.0
+    "@shipengine/connect-sdk": ^12.14.0
     "@types/chai": ^4.2.14
     "@types/hapi__joi": ^17.1.6
     "@types/js-yaml": ^3.12.5
@@ -1285,14 +1285,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@shipengine/connect-order-source-runtime@^1.9.0, @shipengine/connect-order-source-runtime@workspace:packages/order-source-runtime":
+"@shipengine/connect-order-source-runtime@^1.11.0, @shipengine/connect-order-source-runtime@workspace:packages/order-source-runtime":
   version: 0.0.0-use.local
   resolution: "@shipengine/connect-order-source-runtime@workspace:packages/order-source-runtime"
   dependencies:
     "@sentry/node": ^5.26.0
-    "@shipengine/connect-loader": ^3.4.0
+    "@shipengine/connect-loader": ^3.5.0
     "@shipengine/connect-order-source-api": ^2.8.0
-    "@shipengine/connect-sdk": ^12.13.1
+    "@shipengine/connect-sdk": ^12.14.0
     "@types/continuation-local-storage": 3.2.2
     "@types/express": 4.17.6
     "@types/fast-redact": 2.0.0
@@ -1359,7 +1359,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@shipengine/connect-sdk@^12.13.0, @shipengine/connect-sdk@^12.13.1, @shipengine/connect-sdk@workspace:packages/sdk":
+"@shipengine/connect-sdk@^12.14.0, @shipengine/connect-sdk@workspace:packages/sdk":
   version: 0.0.0-use.local
   resolution: "@shipengine/connect-sdk@workspace:packages/sdk"
   dependencies:
@@ -1389,14 +1389,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@shipengine/connect-shipping-runtime@^1.4.3, @shipengine/connect-shipping-runtime@workspace:packages/shipping-runtime":
+"@shipengine/connect-shipping-runtime@^1.6.0, @shipengine/connect-shipping-runtime@workspace:packages/shipping-runtime":
   version: 0.0.0-use.local
   resolution: "@shipengine/connect-shipping-runtime@workspace:packages/shipping-runtime"
   dependencies:
     "@sentry/node": ^5.24.2
     "@shipengine/connect-carrier-api": ^1.16.0
-    "@shipengine/connect-loader": ^3.4.0
-    "@shipengine/connect-sdk": ^12.13.1
+    "@shipengine/connect-loader": ^3.5.0
+    "@shipengine/connect-sdk": ^12.14.0
     "@types/continuation-local-storage": 3.2.2
     "@types/express": 4.17.6
     "@types/fast-redact": 2.0.0
@@ -1446,15 +1446,14 @@ __metadata:
     "@oclif/plugin-not-found": ^1.2.4
     "@oclif/test": ^1.2.8
     "@shipengine/capitalization": ^1.2.1
-    "@shipengine/connect-loader": ^3.4.0
-    "@shipengine/connect-order-source-runtime": ^1.9.0
-    "@shipengine/connect-sdk": ^12.13.1
-    "@shipengine/connect-shipping-runtime": ^1.4.3
+    "@shipengine/connect-loader": ^3.5.0
+    "@shipengine/connect-order-source-runtime": ^1.11.0
+    "@shipengine/connect-sdk": ^12.14.0
+    "@shipengine/connect-shipping-runtime": ^1.6.0
     "@types/chai": ^4.2.14
     "@types/cli-table": ^0.3.0
     "@types/cross-spawn": ^6.0.2
     "@types/form-data": ^2.5.0
-    "@types/fs-extra": ^9.0.5
     "@types/hapi__joi": ^17.1.6
     "@types/inquirer": ^7.3.0
     "@types/js-yaml": ^3.12.5
@@ -1774,15 +1773,6 @@ __metadata:
   dependencies:
     form-data: "*"
   checksum: c44b41e642061049f28807f579f4742c18d73fed98859de07651a6fc4e6c555e925c6b2041f0beef74f4613e430a09cc67d552fe95da8cd8cc757f92d4d70e2d
-  languageName: node
-  linkType: hard
-
-"@types/fs-extra@npm:^9.0.5":
-  version: 9.0.8
-  resolution: "@types/fs-extra@npm:9.0.8"
-  dependencies:
-    "@types/node": "*"
-  checksum: 3e02e99fc5ce0bc7bb61020d2d10c5aa56f0abbcad9b35b1c6a220a7598c49ad7b4b34f2632385e5d51e493307cc741a7ccf6e6ca6aec184a2d62a3298900eab
   languageName: node
   linkType: hard
 

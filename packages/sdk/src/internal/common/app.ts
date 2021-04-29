@@ -4,13 +4,20 @@ import { AppManifestPOJO, sdk } from "./sdk";
 import { _internal } from "./utils";
 import { Joi } from "./validation";
 
+export enum DeploymentType {
+    OrderSourceAPI = "order_source_api",
+    CarrierAPI = "carrier_api",
+    LegacyConnectCarrier = "carrier",
+    LegacyConnectOrder = "order",
+}
 
 export interface AppPOJO extends AppDefinition {
   manifest: AppManifestPOJO;
+  type: AppType;
+  deploymentType: DeploymentType;
 }
 
-
-export abstract class App {
+export class App {
   public static readonly [_internal] = {
     label: "ShipEngine Connect app",
     schema: Joi.object({
@@ -30,14 +37,16 @@ export abstract class App {
     references: new ReferenceMap(),
   };
 
-  public abstract readonly type: AppType;
+  public type: AppType;
+  public deploymentType: DeploymentType;
   public readonly id: UUID;
   public readonly providerId: UUID;
   public readonly manifest: AppManifest;
   public readonly sdkVersion: number;
 
   public constructor(pojo: AppPOJO) {
-
+    this.type = pojo.type;
+    this.deploymentType = pojo.deploymentType;
     this.id = pojo.id;
     this.providerId = pojo.providerId || "";
     this.sdkVersion = Number.parseFloat(sdk.version);

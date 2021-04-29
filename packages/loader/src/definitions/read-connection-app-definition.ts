@@ -1,5 +1,6 @@
+import { AppType } from "@shipengine/connect-sdk";
 import { ConnectionAppDefinition } from "@shipengine/connect-sdk";
-import { AppManifestPOJO, ConnectionAppPOJO } from "@shipengine/connect-sdk/lib/internal";
+import { AppManifestPOJO, ConnectionAppPOJO, DeploymentType } from "@shipengine/connect-sdk/lib/internal";
 import * as path from "path";
 import { readDefinitionValue } from "../read-definition";
 import { readFormDefinition } from "./read-form-definition";
@@ -11,6 +12,8 @@ import { readOAuthConfigDefinition } from "./read-oauth-config-definition";
 export async function readConnectionAppDefinition(
   definition: ConnectionAppDefinition, cwd: string, manifest: AppManifestPOJO): Promise<ConnectionAppPOJO> {
   return {
+    type: AppType.Carrier, // These will get overwritten
+    deploymentType: DeploymentType.OrderSourceAPI, // These will get overwritten
     ...definition,
     manifest,
     logo: path.resolve(cwd, definition.logo),

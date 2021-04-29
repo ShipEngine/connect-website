@@ -9,6 +9,8 @@ const path = require("path");
 describe("CarrierApp", () => {
   it("should create a CarrierApp with the minimum required fields", () => {
     let app = new CarrierApp({
+      type: "carrier",
+      deploymentType: "carrier",
       id: "12345678-1234-1234-1234-123456789012",
       name: "My carrier",
       websiteURL: "https://my-carrier.com/",
@@ -22,9 +24,9 @@ describe("CarrierApp", () => {
         version: "1.0.0"
       },
     });
-
     expect(app).to.deep.equal({
       type: "carrier",
+      deploymentType: "carrier",
       id: "12345678-1234-1234-1234-123456789012",
       providerId: "",
       name: "My carrier",
@@ -66,6 +68,7 @@ describe("CarrierApp", () => {
       id: "12345678-1234-1234-1234-123456789012",
       providerId: "12345678-1234-1234-1234-123456789012",
       name: "My carrier",
+      deploymentType: "carrier",
       description: "My carrier description",
       websiteURL: "https://my-carrier.com/",
       logo: path.resolve("logo.svg"),
@@ -103,6 +106,7 @@ describe("CarrierApp", () => {
 
     expect(app).to.deep.equal({
       type: "carrier",
+      deploymentType: "carrier",
       id: "12345678-1234-1234-1234-123456789012",
       providerId: "12345678-1234-1234-1234-123456789012",
       name: "My carrier",
@@ -139,6 +143,7 @@ describe("CarrierApp", () => {
   it("should allow an empty description", () => {
     let app = new CarrierApp({
       id: "12345678-1234-1234-1234-123456789012",
+      deploymentType: "carrier",
       name: "My carrier",
       description: "",
       websiteURL: "https://my-carrier.com/",
@@ -156,6 +161,7 @@ describe("CarrierApp", () => {
 
     expect(app).to.deep.equal({
       type: "carrier",
+      deploymentType: "carrier",
       id: "12345678-1234-1234-1234-123456789012",
       providerId: "",
       name: "My carrier",

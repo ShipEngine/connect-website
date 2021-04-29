@@ -1,7 +1,7 @@
 import ono from '@jsdevtools/ono';
 import ShipengineAPIClient, { ApiClientErrors } from "..";
 import { ConnectApp, PaginatedItems } from "../../types";
-import { AppType } from '@shipengine/connect-sdk'
+import { DeploymentType } from '@shipengine/connect-sdk/lib/internal';
 
 export default class Apps {
   private client: ShipengineAPIClient;
@@ -21,7 +21,7 @@ export default class Apps {
   }: {
     appId?: string;
     name: string;
-    type: AppType;
+    type: DeploymentType;
   }): Promise<ConnectApp> {
     const response = await this.client.call<ConnectApp>({
       endpoint: "apps",
@@ -43,7 +43,7 @@ export default class Apps {
   }: {
     appId?: string;
     name: string;
-    type: AppType;
+    type: DeploymentType;
   }): Promise<ConnectApp> {
     let app;
 

@@ -7,10 +7,10 @@
     "build": "tsc"
   },
   "devDependencies": {
-    "typescript": "^4.2.3"
+    "typescript": "^4.2.4"
   },
   "dependencies": {
-    "@shipengine/connect-order-source-api": "file:../../packages/order-source-api",
-    "@shipengine/connect-runtime": "file:../../packages/runtime"
+    "@shipengine/connect-order-source-api": "^3.0.0",
+    "@shipengine/connect-runtime": "^0.4.0"
   }
 }

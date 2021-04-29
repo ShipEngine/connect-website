@@ -10,6 +10,7 @@ describe("OrderApp", () => {
   it("should create an OrderApp with the minimum required fields", () => {
     let app = new OrderApp({
       id: "12345678-1234-1234-1234-123456789012",
+      deploymentType: "order",
       name: "My order",
       websiteURL: "https://my-order.com/",
       logo: path.resolve("logo.svg"),
@@ -23,6 +24,7 @@ describe("OrderApp", () => {
 
     expect(app).to.deep.equal({
       type: "order",
+      deploymentType: "order",
       id: "12345678-1234-1234-1234-123456789012",
       providerId: "",
       name: "My order",
@@ -52,6 +54,7 @@ describe("OrderApp", () => {
 
   it("should create an OrderApp with all possible fields", () => {
     let app = new OrderApp({
+      deploymentType: "order",
       id: "12345678-1234-1234-1234-123456789012",
       providerId: "12345678-1234-1234-1234-123456789012",
       name: "My order",
@@ -84,6 +87,7 @@ describe("OrderApp", () => {
 
     expect(app).to.deep.equal({
       type: "order",
+      deploymentType: "order",
       id: "12345678-1234-1234-1234-123456789012",
       providerId: "12345678-1234-1234-1234-123456789012",
       name: "My order",
@@ -115,6 +119,7 @@ describe("OrderApp", () => {
   it("should allow an empty description", () => {
     let app = new OrderApp({
       id: "12345678-1234-1234-1234-123456789012",
+      deploymentType: "order",
       name: "My order",
       description: "",
       websiteURL: "https://my-order.com/",
@@ -132,6 +137,7 @@ describe("OrderApp", () => {
 
     expect(app).to.deep.equal({
       type: "order",
+      deploymentType: "order",
       id: "12345678-1234-1234-1234-123456789012",
       providerId: "",
       name: "My order",

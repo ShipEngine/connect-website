@@ -9,9 +9,13 @@ import { PackageJSON } from './types/package-json';
 const asyncExec = util.promisify(exec);
 
 const isTypeScriptProject = (manifest: PackageJSON): boolean => {
-  const dependencies = Object.keys(manifest.dependencies || {});
-  const devDependencies = Object.keys(manifest.devDependencies || {});
-  return dependencies.includes('typescript') || devDependencies.includes('typescript');
+  const dependencies = [...Object.keys(manifest.dependencies || {}), ...Object.keys(manifest.devDependencies || {})];
+  return dependencies.includes('typescript');
+}
+
+const usesGenericRuntime = (manifest: PackageJSON): boolean => {
+  const dependencies = [...Object.keys(manifest.dependencies || {}), ...Object.keys(manifest.devDependencies || {})];
+  return dependencies.includes('@shipengine/connect-runtime');
 }
 
 /**
@@ -33,18 +37,20 @@ export async function packageApp(cwd?: string): Promise<string> {
 
   const usesTypeScript = isTypeScriptProject(pjson);
 
-  // take dependencies and move them to bundledDependencies
-  pjson.bundledDependencies = [];
+  if (!usesGenericRuntime(pjson)) {
+    // take dependencies and move them to bundledDependencies
+    pjson.bundledDependencies = [];
 
-  if (pjson.dependencies) {
-    for (const dependency of Object.keys(pjson.dependencies)) {
-      pjson.bundledDependencies.push(dependency);
+    if (pjson.dependencies) {
+      for (const dependency of Object.keys(pjson.dependencies)) {
+        pjson.bundledDependencies.push(dependency);
+      }
+
+      await fs.promises.writeFile(
+        packagePath,
+        JSON.stringify(pjson, undefined, 2),
+      );
     }
-
-    await fs.promises.writeFile(
-      packagePath,
-      JSON.stringify(pjson, undefined, 2),
-    );
   }
 
   let fileName;

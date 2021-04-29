@@ -1,5 +1,5 @@
-import { CarrierAppDefinition, ErrorCode, OrderAppDefinition } from "@shipengine/connect-sdk";
-import { App, CarrierApp, error, OrderApp } from "@shipengine/connect-sdk/lib/internal";
+import { AppType, CarrierAppDefinition, ErrorCode, OrderAppDefinition } from "@shipengine/connect-sdk";
+import { App, AppManifestPOJO, CarrierApp, DeploymentType, error, OrderApp } from "@shipengine/connect-sdk/lib/internal";
 import { readCarrierAppDefinition } from "./definitions/read-carrier-app-definition";
 import { readOrderAppDefinition } from "./definitions/read-order-app-definition";
 import { fileCache } from "./file-cache";
@@ -7,6 +7,33 @@ import { readAppManifest } from "./read-app-manifest";
 import { readDefinition } from "./read-definition";
 
 type AppDefinition = CarrierAppDefinition | OrderAppDefinition;
+
+const usesGenericRuntime = (manifest: AppManifestPOJO): boolean => {
+  const dependencies = [...Object.keys(manifest.devDependencies || {}), ...Object.keys(manifest.dependencies || {})];
+  return dependencies.includes('@shipengine/connect-runtime');
+}
+
+const getGenericRuntimeAppType = (manifest: AppManifestPOJO): AppType => {
+  const dependencies = [...Object.keys(manifest.devDependencies || {}), ...Object.keys(manifest.dependencies || {})];
+  const orderSourceApi = '@shipengine/connect-order-source-api';
+  const carrierApi = '@shipengine/connect-carrier-api';
+  if(dependencies.includes(orderSourceApi)) {
+    return AppType.Order;
+  } else if(dependencies.includes(carrierApi)) {
+    return AppType.Carrier;
+  } else {
+    throw new Error('Unknown App Type');
+  }
+}
+
+const getGenericRuntimeDeploymentType = (type: AppType): DeploymentType => {
+  switch(type) {
+    case AppType.Carrier:
+      return DeploymentType.CarrierAPI;
+    case AppType.Order:
+      return DeploymentType.OrderSourceAPI;
+  }
+}
 
 /**
  * Loads a ShipEngine Connect App
@@ -20,13 +47,25 @@ export async function loadApp(appPath = "."): Promise<App> {
 
     // Read the app's exported definition
     const [definition, definitionPath] = await readDefinition<AppDefinition>(appPath, ".", "ShipEngine Connect app");
-
-    if (isCarrierApp(definition)) {
+    if (usesGenericRuntime(manifest)) {
+      const type = getGenericRuntimeAppType(manifest);
+      const deploymentType = getGenericRuntimeDeploymentType(type);
+      const app = definition as any;
+      return new App({
+        providerId: app.data.Id,
+        id: app.data.Id,
+        manifest,
+        type,
+        deploymentType,
+      });
+    } else if (isCarrierApp(definition)) {
       const pojo = await readCarrierAppDefinition(definition, definitionPath, manifest);
+      pojo.deploymentType = DeploymentType.LegacyConnectCarrier;
       return new CarrierApp(pojo);
     }
     else {
       const pojo = await readOrderAppDefinition(definition, definitionPath, manifest);
+      pojo.deploymentType = DeploymentType.LegacyConnectOrder;
       return new OrderApp(pojo);
     }
   }

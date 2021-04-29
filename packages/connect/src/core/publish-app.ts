@@ -11,7 +11,7 @@ import parseDeploymentErrors from './utils/parse-deployment-errors';
 import Table from 'cli-table';
 import { createOrFindTestAccounts, TestAccountInfo } from './utils/create-or-find-test-account';
 import { AppType } from "@shipengine/connect-sdk";
-import { App, CarrierApp, DeliveryService } from "@shipengine/connect-sdk/lib/internal";
+import { App, CarrierApp, DeliveryService, DeploymentType } from "@shipengine/connect-sdk/lib/internal";
 
 class AppFailedToPackageError extends Error {
   code: string;
@@ -59,7 +59,8 @@ interface PublishAppOptions {
 
 export const getSupportedCountries = (app: App): string[] => {
   const unitedStates: string[] = ['US'];
-  if (app.type === AppType.Carrier) {
+  // TODO: We will need to add this functionality for the new apps as well.
+  if (app.type === AppType.Carrier && app.deploymentType === DeploymentType.LegacyConnectCarrier) {
     const countries = (app as CarrierApp).deliveryServices?.map(service => service?.availableCountries)?.flat();
     const uniqueCountries = [...new Set(countries)].filter(country => country);
     if (uniqueCountries.length >= 1) {
@@ -88,7 +89,7 @@ export default async function publishApp(
     platformApp = await client.apps.findOrCreateByName({
       appId: app.providerId,
       name: app.manifest.name,
-      type: app.type,
+      type: app.deploymentType,
     });
 
     newDeployment = await client.deployments.create({
