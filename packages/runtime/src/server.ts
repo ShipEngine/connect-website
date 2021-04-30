@@ -66,6 +66,7 @@ export const start = (app: App, config?: ServerConfig) => {
     Sentry.init({
       dsn: process.env.SENTRY_DSN,
       environment: process.env.NODE_ENV,
+      release: process.env.GIT_SHA,
       integrations: [
         // enable HTTP calls tracing
         new Sentry.Integrations.Http({ tracing: true }),
