@@ -25,6 +25,9 @@ export default class New extends BaseCommand {
     }),
     infra: flags.boolean({
       description: "Initializes infra files for ShipEngine internal deployments"
+    }),
+    beta: flags.boolean({
+      description: "Create a new package to develop a ShipEngine connect app using the latest definitions."
     })
   };
 
@@ -57,6 +60,25 @@ export default class New extends BaseCommand {
         });
       });
 
+      return;
+    }
+    if(flags.beta) {
+      env.register(require.resolve("../core/generators/beta-new"), "new");
+      const generatorOptions = {
+        path: args.path,
+        skipQuestions: flags.yes,
+        force: flags.force,
+      };
+  
+      this.log(cliBanner());
+      this.log("Time to build a Connect app!");
+  
+      await new Promise((resolve, reject) => {
+        env.run("new", generatorOptions, (err: Error | null) => {
+          if (err) reject(err);
+          else resolve("done");
+        });
+      });
       return;
     }
 
