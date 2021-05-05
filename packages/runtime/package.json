@@ -1,6 +1,6 @@
 {
   "name": "@shipengine/connect-runtime",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "description": "This is a generic runtime for all ShipEngine Connect apps.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

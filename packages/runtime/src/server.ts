@@ -4,6 +4,7 @@ import * as Tracing from "@sentry/tracing";
 import logger from "./util/logger";
 import { getRoutes } from "./routes";
 import { App } from "./app";
+import { serializeError } from "serialize-error";
 
 process.on("uncaughtException", (err) => {
   logger.error(err.message, err);
@@ -35,6 +36,15 @@ export interface ServerConfig {
    */
   environment?: Environment | string;
 }
+
+export const captureException = (exception: any) => {
+  logger.error(serializeError(exception));
+  if (process.env.SENTRY_DSN) {
+    Sentry.captureException(exception);
+  } else {
+    logger.debug("captureException did not create an alert");
+  }
+};
 
 const initializeEnvironmentVariables = (config?: ServerConfig) => {
   process.env.NODE_ENV = process.env.NODE_ENV || config?.environment || Environment.Local;
