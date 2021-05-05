@@ -27,7 +27,7 @@ export enum Environment {
 export interface ServerConfig {
   /**
    * @description The desired port for this server to run on
-   * @default "80"
+   * @default "3005"
    */
   port?: string;
   /**
@@ -48,7 +48,7 @@ export const captureException = (exception: any) => {
 
 const initializeEnvironmentVariables = (config?: ServerConfig) => {
   process.env.NODE_ENV = process.env.NODE_ENV || config?.environment || Environment.Local;
-  process.env.PORT = process.env.PORT || config?.port || "80";
+  process.env.PORT = process.env.PORT || config?.port || "3005";
   process.env.NEW_RELIC_NO_CONFIG_FILE = process.env.NEW_RELIC_NO_CONFIG_FILE || "true";
   process.env.NEW_RELIC_APP_NAME = process.env.NEW_RELIC_APP_NAME || "custom-store-template";
 
