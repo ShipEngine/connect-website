@@ -1,9 +1,13 @@
 export interface ConfirmationType {
   Name?: string;
-  Type?: ConfirmationTypeType;
+  Type?: ConfirmationTypeEnum;
 }
 
-export enum ConfirmationTypeType {
+export type ConfirmationDictionary = {
+  [Key in ConfirmationTypeEnum]?: string | undefined;
+};
+
+export enum ConfirmationTypeEnum {
   None = "None",
   Delivery = "Delivery",
   Signature = "Signature",

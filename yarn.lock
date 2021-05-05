@@ -1230,7 +1230,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@shipengine/connect-carrier-api@^1.16.0, @shipengine/connect-carrier-api@workspace:packages/carrier-api":
+"@shipengine/connect-carrier-api@npm:^1.16.0":
+  version: 1.17.0
+  resolution: "@shipengine/connect-carrier-api@npm:1.17.0"
+  checksum: bdbe71649f50c628c8f0ff8664c2ef28b48a14498f9bc720de9fbfce37156e29a16cb65df3ec7343f5f21da6010d03af23171b78d303b72d41cc7a68d1c20475
+  languageName: node
+  linkType: hard
+
+"@shipengine/connect-carrier-api@workspace:packages/carrier-api":
   version: 0.0.0-use.local
   resolution: "@shipengine/connect-carrier-api@workspace:packages/carrier-api"
   dependencies:

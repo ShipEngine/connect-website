@@ -9,6 +9,7 @@ import {
   ServiceGradeEnum,
   ServiceClassEnum,
   ServiceAttributesEnum,
+  ShippingOptionEnum,
 } from '@shipengine/connect-carrier-api';
 
 
@@ -52,16 +53,10 @@ export const CarrierTwo: Carrier = {
   Description: 'Babys second carrier',
   PackageTypes: [aPackage],
   ShippingServices: [aShippingService],
-  ShippingOptions: [
-    {
-      Name: 'Contains Dry Ice',
-      Type: 'contains-dry-ice',
-    },
-    {
-      Name: 'Contains Alcohol',
-      Type: 'contains-alcohol',
-    }
-  ],
+  ShippingOptions: {
+    [ShippingOptionEnum.DryIce]: 'Contains Dry Ice',
+    [ShippingOptionEnum.ContainsAlcohol]: undefined, // default name will be used
+  },
   DefaultSupportedCountries: [
     {
       FromCountry: 'US',

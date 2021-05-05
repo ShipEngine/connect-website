@@ -9,6 +9,8 @@ import {
   ServiceGradeEnum,
   ServiceClassEnum,
   ServiceAttributesEnum,
+  ConfirmationTypeEnum,
+  ShippingOptionEnum,
 } from '@shipengine/connect-carrier-api';
 
 
@@ -52,16 +54,10 @@ export const CarrierOne: Carrier = {
   Description: 'Babys first carrier',
   PackageTypes: [aPackage],
   ShippingServices: [aShippingService],
-  ShippingOptions: [
-    {
-      Name: 'Contains Dry Ice',
-      Type: 'contains-dry-ice',
-    },
-    {
-      Name: 'Contains Alcohol',
-      Type: 'contains-alcohol',
-    }
-  ],
+  ShippingOptions: {
+    [ShippingOptionEnum.DryIce]: 'Contains Dry Ice',
+    [ShippingOptionEnum.SaturdayGuarantee]: 'Saturday Delivery Guaranteed!'
+  },
   DefaultSupportedCountries: [
     {
       FromCountry: 'US',
@@ -72,7 +68,11 @@ export const CarrierOne: Carrier = {
   ],
   DefaultLabelSizes: [LabelSizesEnum.Inches4x6, LabelSizesEnum.Inches4x8],
   LabelFormats: [LabelFormatsEnum.PDF, LabelFormatsEnum.ZPL],
-  DefaultConfirmationTypes: null,
+  DefaultConfirmationTypes: {
+    [ConfirmationTypeEnum.None]: 'No Confirmation Required',
+    [ConfirmationTypeEnum.AdultSignature]: 'Adult Required',
+
+  },
   CarrierAttributes: null,
   TrackingUrl: 'https://the.carrier.com/track',
   CarrierUrl: 'https://the.carrier.com',

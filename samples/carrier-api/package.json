@@ -2,6 +2,7 @@
   "name": "carrier-api",
   "version": "1.0.0",
   "main": "./lib/index.js",
+  "types": "./lib/index.ts",
   "scripts": {
     "start": "tsc && node ./lib/serve.js",
     "build": "tsc"

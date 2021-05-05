@@ -2,9 +2,17 @@ import { Carrier } from "../metadata/carrier";
 import { AccountModals } from "../metadata/account-modals";
 import { PackageType } from "../metadata/package-type";
 import { ShippingService } from "../metadata/shipping-service";
-import { ShippingOption } from "../metadata/shipping-option";
+import {
+  ShippingOption,
+  ShippingOptionDictionary,
+  ShippingOptionEnum,
+} from "../metadata/shipping-option";
 import { CountryAssociation } from "../metadata/country-association";
-import { ConfirmationType } from "../metadata/confirmation-type";
+import {
+  ConfirmationDictionary,
+  ConfirmationType,
+  ConfirmationTypeEnum,
+} from "../metadata/confirmation-type";
 import { LabelFormatsEnum } from "../metadata/label-formats";
 import { LabelSizesEnum } from "../metadata/label-sizes";
 import { CarrierAttributeEnum } from "../metadata/carrier-attributes";
@@ -19,7 +27,7 @@ export class CarrierSpecification {
   DefaultSupportedCountries?: CountryAssociation[];
   DefaultLabelSizes?: LabelSizesEnum[];
   LabelFormats?: LabelFormatsEnum[];
-  DefaultConfirmationTypes?: ConfirmationType[];
+  DefaultConfirmationTypes: ConfirmationType[];
   CarrierAttributes?: CarrierAttributeEnum[];
   TrackingUrl?: string;
   CarrierUrl?: string;
@@ -31,11 +39,31 @@ export class CarrierSpecification {
     this.AccountModals = definition.AccountModals;
     this.PackageTypes = definition.PackageTypes;
     this.ShippingServices = definition.ShippingServices;
-    this.ShippingOptions = definition.ShippingOptions;
+    this.ShippingOptions = [];
+    Object.keys(definition.ShippingOptions || {}).forEach((key: any) => {
+      const options = definition.ShippingOptions as ShippingOptionDictionary;
+      const Type = key as ShippingOptionEnum;
+      const Name = options[Type] as string;
+      this.ShippingOptions?.push({
+        Name,
+        Type,
+      });
+    });
     this.DefaultSupportedCountries = definition.DefaultSupportedCountries;
     this.DefaultLabelSizes = definition.DefaultLabelSizes;
     this.LabelFormats = definition.LabelFormats;
-    this.DefaultConfirmationTypes = definition.DefaultConfirmationTypes;
+    this.DefaultConfirmationTypes = [];
+    Object.keys(definition.DefaultConfirmationTypes || {}).forEach(
+      (key: any) => {
+        const confirmations = definition.DefaultConfirmationTypes as ConfirmationDictionary;
+        const Type = key as ConfirmationTypeEnum;
+        const Name = confirmations[Type] as string;
+        this.DefaultConfirmationTypes.push({
+          Name,
+          Type,
+        });
+      }
+    );
     this.CarrierAttributes = definition.CarrierAttributes;
     this.TrackingUrl = definition.TrackingUrl;
     this.CarrierUrl = definition.CarrierUrl;

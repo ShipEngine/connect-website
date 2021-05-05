@@ -1,22 +1,22 @@
 import { AccountModals } from "./account-modals";
 import { PackageType } from "./package-type";
 import { ShippingService } from "./shipping-service";
-import { ShippingOption } from "./shipping-option";
+import { ShippingOptionDictionary } from "./shipping-option";
 import { CountryAssociation } from "./country-association";
-import { ConfirmationType } from "./confirmation-type";
 import { CarrierAttributeEnum } from "./carrier-attributes";
 import { LabelFormatsEnum } from "./label-formats";
 import { LabelSizesEnum } from "./label-sizes";
+import { ConfirmationDictionary } from "./confirmation-type";
 
 export interface Carrier {
   AccountModals?: AccountModals;
   PackageTypes?: PackageType[];
   ShippingServices?: ShippingService[];
-  ShippingOptions?: ShippingOption[];
+  ShippingOptions?: ShippingOptionDictionary;
   DefaultSupportedCountries?: CountryAssociation[];
   DefaultLabelSizes?: LabelSizesEnum[];
   LabelFormats?: LabelFormatsEnum[];
-  DefaultConfirmationTypes?: ConfirmationType[];
+  DefaultConfirmationTypes?: ConfirmationDictionary;
   CarrierAttributes?: CarrierAttributeEnum[];
   TrackingUrl?: string;
   CarrierUrl?: string;
