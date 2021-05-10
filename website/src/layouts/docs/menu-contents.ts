@@ -126,4 +126,13 @@ export const menu: MenuContents = [
       { title: "Meetup Group", href: "https://www.meetup.com/Austin-Homegrown-API/" },
     ],
   },
+  {
+    title: "Beta",
+    open: true,
+    menuItems: [
+      { title: "Connect Apps 2.0", href: "/docs/beta" },
+      { title: "Carrier App", href: "/docs/beta/app-definition/carrier" },
+      { title: "Order Source App", href: "/docs/beta/app-definition/order-source" },
+    ],
+  },
 ];
