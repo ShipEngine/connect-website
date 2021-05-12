@@ -1,3 +1,4 @@
+/** @description Reasons for cancellation */
 export enum CancellationReason {
   Other = "other",
   NotReady = "not_ready",

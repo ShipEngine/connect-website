@@ -6,6 +6,7 @@ import {
   PickupWindow,
 } from "../models";
 
+/** @description Basic structure for a request to schedule pickup */
 export interface SchedulePickupRequest extends BaseRequest {
   location?: PickupLocationDetails;
   contact?: PickupContactDetails;

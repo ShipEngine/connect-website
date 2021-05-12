@@ -7,6 +7,7 @@ import {
   Currency,
 } from "../models";
 
+/** @description Basic structure for a response to schedule a pickup */
 export interface SchedulePickupResponse extends BaseResponse {
   confirmation?: PickupConfirmation;
   pickup_windows?: PickupWindow[];

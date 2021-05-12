@@ -1,3 +1,4 @@
+/** @description Types of documents */
 export enum DocumentType {
   Label = "label",
   CustomsForm = "customs_form",

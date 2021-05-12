@@ -4,6 +4,7 @@ import { AdvancedOptions } from "../advanced-options";
 import { Identifier } from "../identifier";
 import { ShippedPackage } from "./shipped-package";
 
+/** @description Basic structure for a shipment that has been shipped */
 export interface ShippedShipment extends Label {
   tracking_number?: string;
   carrier_transaction_id?: string;

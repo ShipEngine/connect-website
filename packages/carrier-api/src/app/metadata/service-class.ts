@@ -1,3 +1,4 @@
+/** @description Common shipping service classes */
 export enum ServiceClassEnum {
   Unspecified = "Unspecified",
   Ground = "Ground",

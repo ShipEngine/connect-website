@@ -1,3 +1,4 @@
+/** @description Contact details */
 export interface PickupContactDetails {
   first_name: string;
   last_name?: string;

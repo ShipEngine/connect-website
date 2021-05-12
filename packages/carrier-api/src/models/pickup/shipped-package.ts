@@ -3,6 +3,7 @@ import { DimensionDetails } from "../units/dimension-details";
 import { WeightDetails } from "../units/weight-details";
 import { Dimensions } from "../units/dimensions";
 
+/** @description Basic structure for a package that has been shipped */
 export interface ShippedPackage {
   tracking_number?: string;
   alternative_identifiers?: Identifier[];

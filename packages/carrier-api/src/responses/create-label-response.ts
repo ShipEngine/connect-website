@@ -7,6 +7,7 @@ import {
   LabelPackage,
 } from "../models";
 
+/** @description Basic structure for a response to create a label */
 export interface CreateLabelResponse extends BaseResponse {
   transaction_id: string;
   label_download?: LabelDownload;

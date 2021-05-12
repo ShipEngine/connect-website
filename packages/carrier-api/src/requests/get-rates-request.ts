@@ -12,6 +12,7 @@ import {
   FulfillmentPlanDetails,
 } from "../models";
 
+/** @description Basic structure for a request to get rates */
 export interface GetRatesRequest extends BaseRequest {
   service_code?: string;
   ship_datetime: string;

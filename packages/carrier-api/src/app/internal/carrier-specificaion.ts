@@ -17,6 +17,7 @@ import { LabelFormatsEnum } from "../metadata/label-formats";
 import { LabelSizesEnum } from "../metadata/label-sizes";
 import { CarrierAttributeEnum } from "../metadata/carrier-attributes";
 
+/** @description This represents what we send to data manager */
 export class CarrierSpecification {
   Id: string;
   Name: string;

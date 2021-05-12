@@ -1,3 +1,4 @@
+/** @description Common shipping service grades */
 export enum ServiceGradeEnum {
   Unspecified = "Unspecified",
   Economy = "Economy",

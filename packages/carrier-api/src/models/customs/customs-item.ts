@@ -1,5 +1,6 @@
 import { Currency } from "../currency";
 
+/** @description Basic structure of an item in a customs declaration */
 export interface CustomsItem {
   description?: string;
   quantity?: number;

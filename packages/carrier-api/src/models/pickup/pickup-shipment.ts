@@ -3,6 +3,7 @@ import { AdvancedOptions } from "../advanced-options";
 import { Identifier } from "../identifier";
 import { PickupPackage } from "./pickup-package";
 
+/** @description Basic structure for a pickup shipment */
 export interface PickupShipment {
   tracking_number?: string;
   carrier_transaction_id?: string;

@@ -3,6 +3,7 @@ import { Dimensions } from "../units/dimensions";
 import { Service } from "./service";
 import { TrackEvent } from "./track-event";
 
+/** @description Basic structure for tracking information */
 export interface TrackingInfo {
   carrier_name?: string;
   tracking_number?: string;

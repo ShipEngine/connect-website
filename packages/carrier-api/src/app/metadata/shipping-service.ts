@@ -6,6 +6,7 @@ import { ServiceClassEnum } from "./service-class";
 import { ServiceGradeEnum } from "./service-grade";
 import { ServiceRequiredPropertiesEnum } from "./service-required-properties";
 
+/** @description Basic structure for each shipping service */
 export interface ShippingService {
   ConfirmationTypes?: ConfirmationType[];
   ServiceAttributes?: ServiceAttributesEnum[];

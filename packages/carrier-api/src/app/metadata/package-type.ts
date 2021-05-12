@@ -1,3 +1,4 @@
+/** @description Package details */
 export interface PackageType {
   Id: string;
   Name: string;

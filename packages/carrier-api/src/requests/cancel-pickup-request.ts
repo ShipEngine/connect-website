@@ -8,6 +8,7 @@ import {
   PickupWindow,
 } from "../models";
 
+/** @description Basic structure for a request to cancel pickup */
 export interface CancelPickupRequest extends BaseRequest {
   confirmation?: PickupConfirmation;
   location?: PickupLocationDetails;

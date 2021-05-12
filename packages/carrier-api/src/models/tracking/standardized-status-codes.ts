@@ -1,3 +1,4 @@
+/** @description Status codes for tracking */
 export enum StandardizedStatusCodes {
   Unknown = "UN",
   Accepted = "AC",

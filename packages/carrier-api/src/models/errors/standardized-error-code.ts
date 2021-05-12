@@ -1,3 +1,4 @@
+/** @description Error codes for DetailedError */
 export enum StandardizedErrorCode {
   Generic = 0,
   Serialization = 1,

@@ -8,6 +8,7 @@ import { LabelFormatsEnum } from "./label-formats";
 import { LabelSizesEnum } from "./label-sizes";
 import { ConfirmationDictionary } from "./confirmation-type";
 
+/** @description Basic structure for each carrier */
 export interface Carrier {
   AccountModals?: AccountModals;
   PackageTypes?: PackageType[];
