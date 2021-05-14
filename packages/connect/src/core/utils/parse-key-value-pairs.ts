@@ -1,7 +1,3 @@
-import {default as d} from "debug"
-
-const debugLogger = d("parser");
-
 export type KeyValuePair = {
   key: string,
   value: string;
@@ -10,11 +6,9 @@ export type KeyValuePair = {
 export function tryParseTuple(arg: string): KeyValuePair | null {
   const tokens = arg.split("=");
   if (tokens.length !== 2) {
-    debugLogger("arg is not in NAME=value format: %s", arg);
     return null;
   }
   if (!(tokens[0] && tokens[1])) {
-    debugLogger("arg is not in NAME=value format. NAME and value must not be empty: %s", arg);
     return null;
   }
   return {
@@ -31,7 +25,6 @@ export function parseIndependentKeyValuePairs(args: string[]): KeyValuePair[] | 
   const sanitizedArgs = args.map(arg => arg.trim().replace(/"/g, ""));
 
   if (sanitizedArgs.length % 2 !== 0) {
-    debugLogger("args.length is not an even number: %o", sanitizedArgs);
     throw new Error("Invalid number of arguments, each key must have a corresponding value");
   }
 

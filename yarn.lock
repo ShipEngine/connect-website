@@ -1504,6 +1504,7 @@ __metadata:
     json-schema-faker: ^0.5.0-rcv.29
     json5: ^2.1.3
     lodash: ^4.17.20
+    log-symbols: ^4.1.0
     luxon: ^1.24.1
     mocha: ^8.2.1
     nodemon: ^2.0.6
@@ -7668,6 +7669,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"is-unicode-supported@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "is-unicode-supported@npm:0.1.0"
+  checksum: 00ca6f5581b81d55c567d259175cb1af08c60ae95f6aad69adadfdfbe098c60ef5617ad440770d821f1710773987c0b13ed6dd375cd9ab1bd7b7dd8f9a42625c
+  languageName: node
+  linkType: hard
+
 "is-utf8@npm:^0.2.0, is-utf8@npm:^0.2.1":
   version: 0.2.1
   resolution: "is-utf8@npm:0.2.1"
@@ -8916,6 +8924,16 @@ __metadata:
   dependencies:
     chalk: ^2.0.1
   checksum: e2dfd255f3e3080134055597fb67bd67798d65383488683ed90f0376f7264dd21028f30d4c3a0686251dcfc4dc71172e8061cef21e89c6deabb8b375450d5166
+  languageName: node
+  linkType: hard
+
+"log-symbols@npm:^4.1.0":
+  version: 4.1.0
+  resolution: "log-symbols@npm:4.1.0"
+  dependencies:
+    chalk: ^4.1.0
+    is-unicode-supported: ^0.1.0
+  checksum: 57be4aeb6a6ecb81d8267600836f81928da1d846ad13384a9a22d179e27590fdb680946edbd15642a31735183adaa3dc6aae2d20e619a19fa0d54e1aee945915
   languageName: node
   linkType: hard
 
