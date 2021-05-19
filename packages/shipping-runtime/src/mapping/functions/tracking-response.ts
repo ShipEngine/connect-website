@@ -75,7 +75,6 @@ export const mapTrackingResponse = (
     carrier_status_description: trackingInfo.latestEvent.description,
     error_description: errorEvent.description,
     events: trackingInfo.events.map(mapTrackEvent),
-    last_event: mapTrackEvent(trackingInfo.latestEvent),
     package_count: trackingInfo.packages?.length ?? 0,
     shipped_datetime: trackingInfo.shipDateTime?.toISOString(),
     shipping_problem: trackingInfo.hasError,

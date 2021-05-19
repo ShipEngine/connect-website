@@ -76,7 +76,6 @@ export const mapSchedulePickupResponse = (
 ): SchedulePickupResponse => {
   const mappedResponse: SchedulePickupResponse = {
     remarks: mapNotes(response.notes) || "",
-    charges_total: mapMonetaryValue(response.totalAmount),
     confirmation: {
       confirmation_id: response.id,
       shipment_identifiers: response.shipments?.map(mapShipmentIdentifiers),

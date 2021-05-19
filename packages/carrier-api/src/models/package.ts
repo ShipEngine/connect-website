@@ -11,6 +11,4 @@ export interface Package {
   weight_details?: WeightDetails;
   insured_value: Currency;
   label_messages?: LabelMessage;
-  weight?: number;
-  dimensions?: Dimensions;
 }

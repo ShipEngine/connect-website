@@ -29,7 +29,6 @@ const fullSchedulePickupRequest = {
 			postal_code: '78756',
 			country_code: 'US',
 			address_residential_indicator: AddressResidentialIndicator.Yes,
-			is_eu: false,
 		},
 		location_notes: 'Kendra Scott building, second floor. Parking Validated.',
 		pickup_options: {},

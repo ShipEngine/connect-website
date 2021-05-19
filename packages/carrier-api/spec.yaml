@@ -480,16 +480,6 @@ components:
           type: string
           description: A human readable description of why the shipment is in an error state.
           nullable: true
-        weight:
-          type: number
-          description: The weight measured by the carrier of the package(s) in this shipment.
-          format: decimal
-          nullable: true
-        dimensions:
-          description: This model represents the measurements for dimensions.
-          nullable: true
-          oneOf:
-            - $ref: '#/components/schemas/Dimensions'
         service:
           description: A shipping provider specific service.
           nullable: true
@@ -520,15 +510,6 @@ components:
           type: string
           description: The human readable explanation of the error encountered by this shipment.
           nullable: true
-        last_event:
-          description: The last recorded tracking event for this shipment.
-          nullable: true
-          oneOf:
-            - $ref: '#/components/schemas/TrackEvent'
-        carrierEnum:
-          type: integer
-          description: This property has been deprecated. Please use carrier_name.
-          format: int32
     StandardizedStatusCodes:
       type: string
       description: |-
@@ -880,23 +861,6 @@ components:
           nullable: true
           oneOf:
             - $ref: '#/components/schemas/Currency'
-        insurance_amount:
-          description: The total cost to insure the package(s) in this request.
-          nullable: true
-          oneOf:
-            - $ref: '#/components/schemas/Currency'
-        confirmation_amount:
-          description: The confirmation cost of the package(s) in this request.
-          nullable: true
-          oneOf:
-            - $ref: '#/components/schemas/Currency'
-        other_amount:
-          description: |-
-            The total additional costs of the package(s) in this request. This is a generic bucket for charges that
-            don't fit into the other categories.
-          nullable: true
-          oneOf:
-            - $ref: '#/components/schemas/Currency'
         error_messages:
           type: array
           description: A list of discrete errors.
@@ -1026,14 +990,7 @@ components:
                 in a transaction.
               nullable: true
               oneOf:
-                - $ref: '#/components/schemas/InsuranceProviders'
-            insured_value:
-              description: |-
-                The total insured value of the shipment. The currency is defined by the end user of ShipEngine.
-                If the field is absent it should be interpreted as zero value.
-              nullable: true
-              oneOf:
-                - $ref: '#/components/schemas/Currency'
+                - $ref: '#/components/schemas/InsuranceProviders'          
             is_return_label:
               type: boolean
               description: |-
@@ -1473,9 +1430,6 @@ components:
           nullable: true
           oneOf:
             - $ref: '#/components/schemas/AddressResidentialIndicator'
-        is_eu:
-          type: boolean
-          description: 'Whether the country of the shipment address is a member of the EU. Specified by https://www.gov.uk/eu-eea.'
         address_metadata:
           type: object
           description: Additional metadata provided for specific requests.
@@ -1489,14 +1443,10 @@ components:
         - Unknown
         - 'Yes'
         - 'No'
-        - Commercial
-        - Residential
       enum:
         - unknown
         - 'yes'
         - 'no'
-        - commercial
-        - residential
     ShipFrom:
       allOf:
         - $ref: '#/components/schemas/AddressBase'
@@ -1547,11 +1497,6 @@ components:
           nullable: true
           oneOf:
             - $ref: '#/components/schemas/RawExternalSource'
-        fulfillment_plan_items:
-          description: This property has been deprecated. Please use items.
-          nullable: true
-          oneOf:
-            - $ref: '#/components/schemas/FulfillmentPlanItems'
     Identifier:
       type: object
       description: 'A key value pair, allowing custom properties to be stored.'
@@ -1633,17 +1578,6 @@ components:
               nullable: true
               items:
                 $ref: '#/components/schemas/BillingLineItem'
-            charges:
-              type: array
-              description: A list of charges accrued with a schedule pickup request.
-              nullable: true
-              items:
-                $ref: '#/components/schemas/Charge'
-            charges_total:
-              description: The total amount charged (tax included) for a schedule pickup request.
-              nullable: true
-              oneOf:
-                - $ref: '#/components/schemas/Currency'
     PickupConfirmation:
       type: object
       description: This model contains the confirmation information for a scheduled pickup.
@@ -1702,33 +1636,6 @@ components:
           type: string
           description: 'The end of the window when the pickup could be made relative to the time_zone_iana. Formatted per https://tools.ietf.org/html/rfc3339'
           format: date-time
-          nullable: true
-    Charge:
-      type: object
-      description: Represents a charge from a shipping provider for a given service.
-      additionalProperties: false
-      properties:
-        charge_tax:
-          description: The tax associated with this charge
-          nullable: true
-          oneOf:
-            - $ref: '#/components/schemas/Currency'
-        charge_amount:
-          description: The amount being charged.
-          nullable: true
-          oneOf:
-            - $ref: '#/components/schemas/Currency'
-        charge_code:
-          type: string
-          description: The shipping provider specific code for this charge.
-          nullable: true
-        charge_description:
-          type: string
-          description: A human readable description about this charge.
-          nullable: true
-        disclaimer:
-          type: string
-          description: An optional human readable disclaimer about this charge.
           nullable: true
     SchedulePickupRequest:
       allOf:
@@ -1830,10 +1737,6 @@ components:
         tracking_number:
           type: string
           description: The carrier tracking number for this shipment
-          nullable: true
-        carrier_transaction_id:
-          type: string
-          description: A unique identifier for the shipping provider.
           nullable: true
         ship_to:
           description: The shipment recipient's address. It may or may not have been validated.
@@ -2115,23 +2018,6 @@ components:
               type: string
               description: The transaction ID uniquely represents this request.
               format: guid
-            label_download:
-              description: |-
-                This object provides the requested label that was just created. Exactly one of the keys should be
-                populated. Set href if the label should be downloaded separately from a public URL. Set data if the
-                label is returned directly in the response.
-              nullable: true
-              oneOf:
-                - $ref: '#/components/schemas/LabelDownload'
-            form_download:
-              description: |-
-                This is deprecated, use documents array with type = customs_form
-                This provides any additional forms that go with the label. For example, customs forms. Exactly one of the
-                keys should be populated. Set href is the forms should be downloaded separately. Set data if the
-                forms are returned directly in the response.
-              nullable: true
-              oneOf:
-                - $ref: '#/components/schemas/FormDownload'
             documents:
               type: array
               description: |-
@@ -2165,12 +2051,6 @@ components:
               type: boolean
               description: Whether this shipment can be tracked.
               nullable: true
-            carrier_transaction_id:
-              type: string
-              description: |-
-                Use alternative_identifiers, set type = carrier_transaction_id.
-                The shipping provider specific id for the creation of this label.
-              nullable: true
             alternative_identifiers:
               type: array
               description: Alternative identifiers associated with this shipment.
@@ -2183,43 +2063,6 @@ components:
                 The estimated date and time for when the shipment will be delivered. Formatted per the
                 https://tools.ietf.org/html/rfc3339 spec.
               format: date-time
-              nullable: true
-            shipping_amount:
-              description: The total cost to ship the package(s) in this request.
-              nullable: true
-              oneOf:
-                - $ref: '#/components/schemas/Currency'
-            insurance_amount:
-              description: The total cost to insure the package(s) in this request.
-              nullable: true
-              oneOf:
-                - $ref: '#/components/schemas/Currency'
-    LabelDownload:
-      allOf:
-        - $ref: '#/components/schemas/ResourceDownload'
-        - type: object
-          description: |-
-            This object provides the requested label that was just created. Exactly one of the keys should be populated.
-            Set href if the label should be downloaded separately. Set data if the label is returned directly in
-            the response.
-          additionalProperties: false
-          properties:
-            label_data:
-              type: string
-              description: The base64 encoded label image.
-              nullable: true
-    FormDownload:
-      allOf:
-        - $ref: '#/components/schemas/ResourceDownload'
-        - type: object
-          description: |-
-            This provides any additional forms that go with the label. For example, customs forms. Exactly one of the
-            keys should be populated. Set href is the forms should be downloaded separately. Set data if the
-            forms are returned directly in the response.
-          additionalProperties: false
-          properties:
-            form_data:
-              type: string
               nullable: true
     Document:
       type: object
@@ -2344,13 +2187,6 @@ components:
               nullable: true
               oneOf:
                 - $ref: '#/components/schemas/InsuranceProviders'
-            insured_value:
-              description: |-
-                Please use the packages insured_value. The total insured value of the shipment. The currency is defined by the end user of ShipEngine. If the
-                field is absent it should be interpreted as zero value.
-              nullable: true
-              oneOf:
-                - $ref: '#/components/schemas/Currency'
             is_return_label:
               type: boolean
               description: |-
@@ -2572,7 +2408,3 @@ components:
               nullable: true
               additionalProperties:
                 type: string
-            warehouses:
-              type: array
-              nullable: true
-              items: {}
