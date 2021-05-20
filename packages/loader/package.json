@@ -1,6 +1,6 @@
 {
   "name": "@shipengine/connect-loader",
-  "version": "3.5.0",
+  "version": "3.5.1",
   "description": "Internal library for loading ShipEngine Connect apps",
   "keywords": [
     "shipengine",
