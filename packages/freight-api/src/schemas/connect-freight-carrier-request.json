@@ -1,0 +1,32 @@
+{
+  "title": "ConnectFreightCarrierRequest",
+  "type": "object",
+  "required": [
+    "credentials",
+    "scac",
+    "transaction_id"
+  ],
+  "properties": {
+    "transaction_id": {
+      "type": "string"
+    },
+    "scac": {
+      "type": "string",
+      "description": "The Standard Carrier Alpha Code developed by the NMFTA is used to identify a freight carrier within the transportation industry."
+    },
+    "auth": {
+      "type": "object",
+      "description": "The carrier authorization information needed to fulfill this request.",
+      "properties": {
+        "access_token": {
+          "type": "string",
+          "description": "Optional freight account access token as required per freight carrier. Tokens are issued via the Provision Freight Account operation."
+        }
+      }
+    },
+    "credentials": {
+      "type": "object",
+      "description": "The credentials as required by the carrier. Refer to the integrations registry for the credentials schema supported for each carrier."
+    }
+  }
+}

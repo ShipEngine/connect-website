@@ -1,0 +1,27 @@
+{
+  "title": "ProvisionFreightProviderAccountRequest",
+  "type": "object",
+  "required": [
+    "account_type",
+    "tenant_id",
+    "tenant_name",
+    "transaction_id"
+  ],
+  "properties": {
+    "transaction_id": {
+      "type": "string"
+    },
+    "account_type": {
+      "type": "string",
+      "enum": [
+        "SMC3"
+      ]
+    },
+    "tenant_id": {
+      "type": "string"
+    },
+    "tenant_name": {
+      "type": "string"
+    }
+  }
+}

@@ -3,7 +3,7 @@ import { AppType } from "@shipengine/connect-sdk";
 import * as fs from "fs";
 const { readdirSync, statSync } = require("fs");
 import _ from "lodash";
-import { join, resolve } from "path";
+import { join, resolve, sep } from "path";
 import { v4 as uuidv4 } from "uuid";
 import { SdkAppTypes } from "../types";
 import Generator = require("yeoman-generator");
@@ -104,6 +104,7 @@ class BetaNew extends Generator {
           message: "what type of app are you building",
           choices: [
             { name: "Carrier app ", value: "carrier" },
+            { name: "Freight app ", value: "freight" },
             { name: "Order app", value: "order" },
           ],
           default: defaults.type,
@@ -185,33 +186,35 @@ class BetaNew extends Generator {
           const fullPath = this.templatePath(filePath);
           const files = readdirSync(fullPath);
           files.forEach((file: string) => {
-            if (statSync(fullPath + "/" + file).isDirectory()) {
+            if (statSync(fullPath + sep + file).isDirectory()) {
               arrayOfFiles = getAllFiles(join(filePath, file), arrayOfFiles)
             } else {
               arrayOfFiles.push(join(fullPath, file))
             }
-          })
+          });
           return arrayOfFiles;
         };
-  
+
         const files = getAllFiles(template, []);
         return files.filter(f => f.endsWith(type));
       }
+
       const allFiles = getAllFiles(templateName, fileExtension);
-  
+
       const getPaths = (template: string, files: string[]) => {
         return files.map(file => {
-          const pathComponents = file.split('\\');
+          const pathComponents = file.split(sep);
           const indexOfPath = pathComponents.indexOf(template);
           const newPath = [];
           for (let index = indexOfPath + 1; index < pathComponents.length; index++) {
             newPath.push(pathComponents[index]);
           }
-          return newPath.join('\\');
+          return newPath.join(sep);
         });
       }
-  
+
       const paths = getPaths(templateName, allFiles);
+
       paths.forEach(filePath => {
         this.fs.copyTpl(
           this.templatePath(templateName, filePath),
@@ -281,6 +284,11 @@ class BetaNew extends Generator {
           copyAllFilesToSource('carrier-api', this.ts ? 'ts' : 'js');
         }
         break;
+      case AppType.Freight:
+        if (!fs.existsSync("src")) {
+          copyAllFilesToSource('freight-api', this.ts ? 'ts' : 'js');
+        }
+        break;
       case AppType.Order:
         if (!fs.existsSync("src")) {
           copyAllFilesToSource('order-source-api', this.ts ? 'ts' : 'js');
@@ -296,6 +304,9 @@ class BetaNew extends Generator {
     switch (this.type) {
       case AppType.Carrier:
         dependencies.push("@shipengine/connect-carrier-api");
+        break;
+      case AppType.Freight:
+        dependencies.push("@shipengine/connect-freight-api");
         break;
       case AppType.Order:
         dependencies.push("@shipengine/connect-order-source-api");

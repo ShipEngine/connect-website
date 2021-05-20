@@ -49,6 +49,10 @@ class InfraNew extends Generator {
                         value: "shipping",
                     },
                     {
+                        name: "Freight",
+                        value: "freight",
+                    },
+                    {
                         name: "Order",
                         value: "ecommerce",
                     },
@@ -70,6 +74,7 @@ class InfraNew extends Generator {
             switch (matches[1]) {
                 case "ecommerce":
                 case "shipping":
+                case "freight":
                 case "fulfillment":
                     // These internal repos use a different prefix
                     this.organization = "ips"
@@ -88,7 +93,7 @@ class InfraNew extends Generator {
         } else if (this.type === "ecommerce") {
             this.image = "813448775391.dkr.ecr.us-east-1.amazonaws.com/ipaas-dip-functions:order-source-dx-base-latest";
         }
-        
+
         if (this.organization === "ips") {
             this.repo = `integrations-${this.type}`;
         } else {

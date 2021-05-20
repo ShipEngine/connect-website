@@ -215,12 +215,14 @@ describe("AppsApiClient @integration", () => {
         expect(response.id).to.eql(app.id);
       });
 
-      it("returns an error when given an invalid app name", async () => {
+      it("returns an error when given an invalid app id", async () => {
+        const randomAppId = uuid.v4();
+
         let response;
         let errorResponse;
 
         try {
-          response = await validClient.apps.getById("invalid");
+          response = await validClient.apps.getById(randomAppId);
         } catch (error) {
           errorResponse = error;
         }

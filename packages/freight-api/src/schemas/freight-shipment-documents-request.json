@@ -1,0 +1,43 @@
+{
+  "title": "FreightShipmentDocumentsRequest",
+  "description": "Retrieve the freight documents associated with a PRO Number. By default this request will return all available document types. You can optionally specify a `document_type` value in order to download a particular kind of document.",
+  "type": "object",
+  "required": [
+    "pro_number",
+    "scac",
+    "transaction_id"
+  ],
+  "properties": {
+    "transaction_id": {
+      "type": "string"
+    },
+    "scac": {
+      "type": "string",
+      "description": "The Standard Carrier Alpha Code developed by the NMFTA is used to identify a freight carrier within the transportation industry."
+    },
+    "auth": {
+      "type": "object",
+      "description": "The carrier authorization information needed to fulfill this request.",
+      "properties": {
+        "access_token": {
+          "type": "string",
+          "description": "Optional freight account access token as required per freight carrier. Tokens are issued via the Provision Freight Account operation."
+        }
+      }
+    },
+    "pro_number": {
+      "type": "string"
+    },
+    "document_type": {
+      "type": ["string", "null"],
+      "title": "DocumentType",
+      "enum": [
+        null,
+        "bill_of_lading",
+        "delivery_receipt",
+        "invoice",
+        "weight_inspection_certificate"
+      ]
+    }
+  }
+}

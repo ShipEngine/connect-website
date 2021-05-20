@@ -7,7 +7,7 @@ import { AppType } from "@shipengine/connect-sdk";
 
 export type SdkApp = CarrierApp | OrderApp;
 
-export type SdkAppTypes = AppType.Carrier | AppType.Order;
+export type SdkAppTypes = AppType.Carrier | AppType.Freight | AppType.Order;
 
 export interface ProductInfo {
   product: "ShipStation",

@@ -30,6 +30,8 @@ const getGenericRuntimeDeploymentType = (type: AppType): DeploymentType => {
   switch(type) {
     case AppType.Carrier:
       return DeploymentType.CarrierAPI;
+    case AppType.Freight:
+      return DeploymentType.FreightAPI;
     case AppType.Order:
       return DeploymentType.OrderSourceAPI;
   }

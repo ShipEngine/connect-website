@@ -3,6 +3,7 @@
  */
 export enum AppType {
   Carrier = "carrier",
+  Freight = "freight",
   Order = "order",
 }
 

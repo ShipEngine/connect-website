@@ -4,6 +4,7 @@
 !.yarn/plugins
 !.yarn/sdks
 !.yarn/versions
+.DS_Store
 .pnp.*
 node_modules/
 packages/*/lib/

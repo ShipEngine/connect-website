@@ -7,6 +7,7 @@ import { Joi } from "./validation";
 export enum DeploymentType {
     OrderSourceAPI = "order_source_api",
     CarrierAPI = "carrier_api",
+    FreightAPI = "freight_api",
     LegacyConnectCarrier = "carrier",
     LegacyConnectOrder = "order",
 }

@@ -1,0 +1,385 @@
+{
+	"info": {
+		"_postman_id": "cfc9a6c5-f78f-438a-81e0-2b9ad41d92d2",
+		"name": "Freight API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Provision Freight Provider Account",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const body = pm.response.json();",
+							"",
+							"pm.collectionVariables.set(\"access_token\", body.access_token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"transaction_id\": \"{{$randomUUID}}\",\n\t\"account_type\": \"SMC3\",\n\t\"tenant_id\": \"{{$randomInt}}\",\n\t\"tenant_name\": \"Test Tenant\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/provision-freight-provider-account",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"provision-freight-provider-account"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Connect Freight Carrier",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"transaction_id\": \"{{$randomUUID}}\",\n\t\"scac\": \"SMCA\",\n\t\"credentials\": {\n\t\t\"username\": \"username\",\n\t\t\"password\": \"password\"\n\t},\n\t\"auth\": {\n\t\t\"access_token\": \"{{access_token}}\"\n\t}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/connect-freight-carrier",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"connect-freight-carrier"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Freight Quote",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"transaction_id\": \"{{$randomUUID}}\",\n\t\"scac\": \"SMCA\",\n\t\"service\": {\n\t\t\"code\": \"STND\"\n\t},\n\t\"pickup\": {\n\t\t\"date\": \"{{pickup_date}}\"\n\t},\n\t\"containers\": [\n\t\t{\n\t\t\t\"code\": \"PAT\",\n\t\t\t\"classification\": 92.5,\n\t\t\t\"description\": \"Umbrellas\",\n\t\t\t\"dimensions\": {\n\t\t\t\t\"width\": 40,\n\t\t\t\t\"height\": 40,\n\t\t\t\t\"length\": 48,\n\t\t\t\t\"unit\": \"inches\"\n\t\t\t},\n\t\t\t\"weight\": {\n\t\t\t\t\"value\": 1500,\n\t\t\t\t\"unit\": \"pounds\"\n\t\t\t},\n\t\t\t\"quantity\": 3,\n\t\t\t\"stackable\": false\n\t\t}\n\t],\n\t\"shipment_measurements\": {\n\t\t\"total_linear_length\": {\n\t\t\t\"value\": 48,\n\t\t\t\"unit\": \"inches\"\n\t\t},\n\t\t\"total_width\": {\n\t\t\t\"value\": 48,\n\t\t\t\"unit\": \"inches\"\n\t\t},\n\t\t\"total_height\": {\n\t\t\t\"value\": 48,\n\t\t\t\"unit\": \"inches\"\n\t\t}\n\t},\n\t\"accessorials\": [\n\t\t{\n\t\t\t\"code\": \"LFTP\"\n\t\t},\n\t\t{\n\t\t\t\"code\": \"HAZ\",\n\t\t\t\"attributes\": {\n\t\t\t\t\"name\": \"Contact Person\",\n\t\t\t\t\"phone\": \"7704865900\"\n\t\t\t}\n\t\t}\n\t],\n\t\"ship_from\": {\n\t\t\"account\": \"123456\",\n\t\t\"address\": {\n\t\t\t\"company_name\": \"Ship From Company\",\n\t\t\t\"address_lines\": [\n\t\t\t\t\"123 Ship From St.\"\n\t\t\t],\n\t\t\t\"city_locality\": \"Louisville\",\n\t\t\t\"state_province\": \"KY\",\n\t\t\t\"postal_code\": \"40213\",\n\t\t\t\"country_code\": \"US\"\n\t\t}\n\t},\n\t\"ship_to\": {\n\t\t\"account\": \"123456\",\n\t\t\"address\": {\n\t\t\t\"company_name\": \"Ship To Company\",\n\t\t\t\"address_lines\": [\n\t\t\t\t\"123 Ship To St.\"\n\t\t\t],\n\t\t\t\"city_locality\": \"Calgary\",\n\t\t\t\"state_province\": \"AB\",\n\t\t\t\"postal_code\": \"T1Y2S2\",\n\t\t\t\"country_code\": \"CA\"\n\t\t}\n\t},\n\t\"bill_to\": {\n\t\t\"type\": \"third_party\",\n\t\t\"payment_terms\": \"prepaid\",\n\t\t\"account\": \"123456\",\n\t\t\"address\": {\n\t\t\t\"company_name\": \"Bill To Company\",\n\t\t\t\"address_lines\": [\n\t\t\t\t\"123 Bill To St.\"\n\t\t\t],\n\t\t\t\"city_locality\": \"Peachtree City\",\n\t\t\t\"state_province\": \"GA\",\n\t\t\t\"postal_code\": \"30269\",\n\t\t\t\"country_code\": \"US\"\n\t\t},\n\t\t\"contact\": {\n\t\t\t\"name\": \"Jim Smith\",\n\t\t\t\"phone_number\": \"5555555555\",\n\t\t\t\"email\": \"test@test.com\"\n\t\t}\n\t},\n\t\"requested_by\": {\n\t\t\"company_name\": \"Requesting Company\",\n\t\t\"contact\": {\n\t\t\t\"name\": \"Jim Smith\",\n\t\t\t\"phone_number\": \"5555555555\",\n\t\t\t\"email\": \"test@test.com\"\n\t\t}\n\t},\n\t\"auth\": {\n\t\t\"access_token\": \"{{access_token}}\"\n\t}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/freight-quote",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"freight-quote"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Freight Spot Quote",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"transaction_id\": \"{{$randomUUID}}\",\n\t\"scac\": \"SMCA\",\n\t\"pickup\": {\n\t\t\"date\": \"{{pickup_date}}\"\n\t},\n\t\"containers\": [\n\t\t{\n\t\t\t\"code\": \"PAT\",\n\t\t\t\"classification\": 92.5,\n\t\t\t\"description\": \"Umbrellas\",\n\t\t\t\"dimensions\": {\n\t\t\t\t\"width\": 40,\n\t\t\t\t\"height\": 40,\n\t\t\t\t\"length\": 48,\n\t\t\t\t\"unit\": \"inches\"\n\t\t\t},\n\t\t\t\"weight\": {\n\t\t\t\t\"value\": 1500,\n\t\t\t\t\"unit\": \"pounds\"\n\t\t\t},\n\t\t\t\"quantity\": 3,\n\t\t\t\"stackable\": false\n\t\t}\n\t],\n\t\"shipment_measurements\": {\n\t\t\"total_linear_length\": {\n\t\t\t\"value\": 48,\n\t\t\t\"unit\": \"inches\"\n\t\t},\n\t\t\"total_width\": {\n\t\t\t\"value\": 48,\n\t\t\t\"unit\": \"inches\"\n\t\t},\n\t\t\"total_height\": {\n\t\t\t\"value\": 48,\n\t\t\t\"unit\": \"inches\"\n\t\t},\n\t\t\"total_weight\": {\n\t\t\t\"value\": 1500,\n\t\t\t\"unit\": \"pounds\"\n\t\t}\n\t},\n\t\"accessorials\": [\n\t\t{\n\t\t\t\"code\": \"LFTP\"\n\t\t},\n\t\t{\n\t\t\t\"code\": \"HAZ\",\n\t\t\t\"attributes\": {\n\t\t\t\t\"name\": \"Contact Person\",\n\t\t\t\t\"phone\": \"7704865900\"\n\t\t\t}\n\t\t}\n\t],\n\t\"ship_from\": {\n\t\t\"account\": \"123456\",\n\t\t\"address\": {\n\t\t\t\"company_name\": \"Ship From Company\",\n\t\t\t\"address_lines\": [\n\t\t\t\t\"123 Ship From St.\"\n\t\t\t],\n\t\t\t\"city_locality\": \"Louisville\",\n\t\t\t\"state_province\": \"KY\",\n\t\t\t\"postal_code\": \"40213\",\n\t\t\t\"country_code\": \"US\"\n\t\t}\n\t},\n\t\"ship_to\": {\n\t\t\"account\": \"123456\",\n\t\t\"address\": {\n\t\t\t\"company_name\": \"Ship To Company\",\n\t\t\t\"address_lines\": [\n\t\t\t\t\"123 Ship To St.\"\n\t\t\t],\n\t\t\t\"city_locality\": \"Calgary\",\n\t\t\t\"state_province\": \"AB\",\n\t\t\t\"postal_code\": \"T1Y2S2\",\n\t\t\t\"country_code\": \"CA\"\n\t\t}\n\t},\n\t\"bill_to\": {\n\t\t\"type\": \"third_party\",\n\t\t\"payment_terms\": \"prepaid\",\n\t\t\"account\": \"123456\",\n\t\t\"address\": {\n\t\t\t\"company_name\": \"Bill To Company\",\n\t\t\t\"address_lines\": [\n\t\t\t\t\"123 Bill To St.\"\n\t\t\t],\n\t\t\t\"city_locality\": \"Peachtree City\",\n\t\t\t\"state_province\": \"GA\",\n\t\t\t\"postal_code\": \"30269\",\n\t\t\t\"country_code\": \"US\"\n\t\t},\n\t\t\"contact\": {\n\t\t\t\"name\": \"Jim Smith\",\n\t\t\t\"phone_number\": \"5555555555\",\n\t\t\t\"email\": \"test@test.com\"\n\t\t}\n\t},\n\t\"requested_by\": {\n\t\t\"company_name\": \"Requesting Company\",\n\t\t\"contact\": {\n\t\t\t\"name\": \"Jim Smith\",\n\t\t\t\"phone_number\": \"5555555555\",\n\t\t\t\"email\": \"test@test.com\"\n\t\t}\n\t},\n\t\"auth\": {\n\t\t\"access_token\": \"{{access_token}}\"\n\t}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/freight-spot-quote",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"freight-spot-quote"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Schedule Freight Pickup",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"transaction_id\": \"{{$randomUUID}}\",\n\t\"scac\": \"SMCA\",\n\t\"service\": {\n\t\t\"code\": \"STND\"\n\t},\n\t\"pickup\": {\n\t\t\"date\": \"{{pickup_date}}\",\n\t\t\"earliest_time\": \"08:00:00-06:00\",\n\t\t\"latest_time\": \"17:00:00-06:00\",\n\t\t\"closing_time\": \"17:00:00-06:00\"\n\t},\n\t\"delivery\": {\n\t\t\"date\": \"{{delivery_date}}\"\n\t},\n\t\"containers\": [\n\t\t{\n\t\t\t\"code\": \"PAT\",\n\t\t\t\"classification\": 92.5,\n\t\t\t\"description\": \"Umbrellas\",\n\t\t\t\"dimensions\": {\n\t\t\t\t\"width\": 40,\n\t\t\t\t\"height\": 40,\n\t\t\t\t\"length\": 48,\n\t\t\t\t\"unit\": \"inches\"\n\t\t\t},\n\t\t\t\"weight\": {\n\t\t\t\t\"value\": 1500,\n\t\t\t\t\"unit\": \"pounds\"\n\t\t\t},\n\t\t\t\"quantity\": 3,\n\t\t\t\"stackable\": false\n\t\t}\n\t],\n\t\"accessorials\": [\n\t\t{\n\t\t\t\"code\": \"LFTP\"\n\t\t},\n\t\t{\n\t\t\t\"code\": \"HAZ\",\n\t\t\t\"attributes\": {\n\t\t\t\t\"name\": \"Hazardous Contact Name\",\n\t\t\t\t\"phone\": \"7704865900\"\n\t\t\t}\n\t\t}\n\t],\n\t\"ship_from\": {\n\t\t\"account\": \"123456\",\n\t\t\"address\": {\n\t\t\t\"company_name\": \"Ship From Company\",\n\t\t\t\"address_lines\": [\n\t\t\t\t\"123 Ship From St.\"\n\t\t\t],\n\t\t\t\"city_locality\": \"Louisville\",\n\t\t\t\"state_province\": \"KY\",\n\t\t\t\"postal_code\": \"40213\",\n\t\t\t\"country_code\": \"US\"\n\t\t},\n\t\t\"contact\": {\n\t\t\t\"name\": \"Ship From Contact Name\",\n\t\t\t\"phone_number\": \"5555555555\",\n\t\t\t\"email\": \"test@test.com\"\n\t\t}\n\t},\n\t\"ship_to\": {\n\t\t\"account\": \"123456\",\n\t\t\"address\": {\n\t\t\t\"company_name\": \"Ship To Company\",\n\t\t\t\"address_lines\": [\n\t\t\t\t\"123 Ship To St.\"\n\t\t\t],\n\t\t\t\"city_locality\": \"Calgary\",\n\t\t\t\"state_province\": \"AB\",\n\t\t\t\"postal_code\": \"T1Y2S2\",\n\t\t\t\"country_code\": \"CA\"\n\t\t},\n\t\t\"contact\": {\n\t\t\t\"name\": \"Ship To Contact Name\",\n\t\t\t\"phone_number\": \"5555555555\",\n\t\t\t\"email\": \"test@test.com\"\n\t\t}\n\t},\n\t\"bill_to\": {\n\t\t\"type\": \"third_party\",\n\t\t\"payment_terms\": \"prepaid\",\n\t\t\"account\": \"123456\",\n\t\t\"address\": {\n\t\t\t\"company_name\": \"Bill To Company\",\n\t\t\t\"address_lines\": [\n\t\t\t\t\"123 Bill To St.\"\n\t\t\t],\n\t\t\t\"city_locality\": \"Peachtree City\",\n\t\t\t\"state_province\": \"GA\",\n\t\t\t\"postal_code\": \"30269\",\n\t\t\t\"country_code\": \"US\"\n\t\t},\n\t\t\"contact\": {\n\t\t\t\"name\": \"Bill To Contact Name\",\n\t\t\t\"phone_number\": \"5555555555\",\n\t\t\t\"email\": \"test@test.com\"\n\t\t}\n\t},\n\t\"requested_by\": {\n\t\t\"company_name\": \"Requesting Company\",\n\t\t\"contact\": {\n\t\t\t\"name\": \"Requesting Contact Name\",\n\t\t\t\"phone_number\": \"5555555555\",\n\t\t\t\"email\": \"test@test.com\"\n\t\t}\n\t},\n\t\"carrier\": {\n\t\t\"comments\": \"Instructions for the carrier\"\n\t},\n\t\"auth\": {\n\t\t\"access_token\": \"{{access_token}}\"\n\t}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/schedule-freight-pickup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"schedule-freight-pickup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Freight Shipment Documents",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"transaction_id\": \"{{$randomUUID}}\",\n\t\"scac\": \"SMCA\",\n\t\"pro_number\": \"24601-42\",\n\t\"document_type\": \"bill_of_lading\",\n\t\"auth\": {\n\t\t\"access_token\": \"{{access_token}}\"\n\t}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/freight-shipment-documents",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"freight-shipment-documents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Freight Shipment Documents - All Types",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"transaction_id\": \"{{$randomUUID}}\",\n\t\"scac\": \"SMCA\",\n\t\"pro_number\": \"24601-42\",\n\t\"document_type\": null,\n\t\"auth\": {\n\t\t\"access_token\": \"{{access_token}}\"\n\t}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/freight-shipment-documents",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"freight-shipment-documents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Track Freight Shipment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"transaction_id\": \"{{$randomUUID}}\",\n\t\"scac\": \"SMCA\",\n\t\"pro_number\": \"24601-42\",\n\t\"auth\": {\n\t\t\"access_token\": \"{{access_token}}\"\n\t}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/track-freight-shipment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"track-freight-shipment"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"const pickupDate = new Date();",
+					"const deliveryDate = new Date();",
+					"",
+					"pickupDate.setDate(pickupDate.getDate() + 1);",
+					"deliveryDate.setDate(deliveryDate.getDate() + 7);",
+					"",
+					"pm.collectionVariables.set(\"pickup_date\", pickupDate.toISOString().split(\"T\")[0]);",
+					"",
+					"pm.collectionVariables.set(\"delivery_date\", deliveryDate.toISOString().split(\"T\")[0]);"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "access_token",
+			"value": ""
+		},
+		{
+			"key": "today",
+			"value": ""
+		},
+		{
+			"key": "tomorrow",
+			"value": ""
+		},
+		{
+			"key": "pickup_date",
+			"value": ""
+		},
+		{
+			"key": "delivery_date",
+			"value": ""
+		}
+	]
+}
