@@ -1,6 +1,6 @@
 {
   "name": "@shipengine/connect",
-  "version": "1.12.2",
+  "version": "1.12.3",
   "description": "The official developer tooling for building ShipEngine connect apps",
   "keywords": [
     "shipengine",
@@ -121,7 +121,7 @@
     "@shipengine/connect-loader": "^3.5.2",
     "@shipengine/connect-order-source-runtime": "^1.11.1",
     "@shipengine/connect-sdk": "^12.14.0",
-    "@shipengine/connect-shipping-runtime": "^1.6.1",
+    "@shipengine/connect-shipping-runtime": "^1.6.0",
     "axios": "^0.21.1",
     "chai": "^4.2.0",
     "chalk": "^4.1.0",
