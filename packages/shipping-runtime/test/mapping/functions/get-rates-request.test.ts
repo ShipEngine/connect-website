@@ -59,6 +59,10 @@ const fullRateRequest: GetRatesRequest = {
 		bill_duties_to_sender: true,
 		saturday_delivery: true,
 	},
+	insured_value: {
+		currency: 'USD',
+		amount: '45.44',
+	},
 	is_return_label: false,
 	is_residential: false,
 	packages: [fullPackage],
@@ -76,6 +80,7 @@ const fullRateRequest: GetRatesRequest = {
 		postal_code: '78756',
 		country_code: 'US',
 		address_residential_indicator: AddressResidentialIndicator.Unknown,
+		is_eu: false,
 	},
 	ship_from: {
 		name: 'Shipping Easy',
@@ -90,6 +95,7 @@ const fullRateRequest: GetRatesRequest = {
 		postal_code: '78746',
 		country_code: 'US',
 		address_residential_indicator: AddressResidentialIndicator.Unknown,
+		is_eu: false,
 	},
 	international: false,
 	next_day: false,

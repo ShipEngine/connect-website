@@ -7,6 +7,7 @@ import { ShippedPackage } from "./shipped-package";
 /** @description Basic structure for a shipment that has been shipped */
 export interface ShippedShipment extends Label {
   tracking_number?: string;
+  carrier_transaction_id?: string;
   ship_to?: ShipTo;
   alternative_identifiers?: Identifier[];
   service_code?: string;

@@ -1,5 +1,6 @@
 export * from "./cancellation-details";
 export * from "./cancellation-reason";
+export * from "./charge";
 export * from "./pickup-confirmation";
 export * from "./pickup-contact-details";
 export * from "./pickup-location-details";

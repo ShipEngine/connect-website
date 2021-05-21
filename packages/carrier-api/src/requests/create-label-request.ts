@@ -28,6 +28,7 @@ export interface CreateLabelRequest extends BaseRequest {
   /** @description Any additional options a shipment may require, including custom options */
   advanced_options?: AdvancedOptions;
   insurance_provider?: InsuranceProviders;
+  insured_value?: Currency;
   /** @description Whether the shipment is a return */
   is_return_label: boolean;
   /** @description Whether the shipment is to a residential address */

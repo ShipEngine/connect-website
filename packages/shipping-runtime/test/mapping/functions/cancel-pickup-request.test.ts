@@ -2,8 +2,6 @@ import {
 	AddressResidentialIndicator,
 	CancellationReason,
 	Identifier,
-	WeightUnit,
-	DimensionUnit
 } from '@shipengine/connect-carrier-api/lib/models';
 import { PickupCancellationReason } from '@shipengine/connect-sdk';
 import {
@@ -62,6 +60,7 @@ const fullyFormedRequest = {
 			postal_code: '78756',
 			country_code: 'US',
 			address_residential_indicator: AddressResidentialIndicator.Commercial,
+			is_eu: false,
 		},
 		location_notes: 'Kendra Scott building, second floor. Parking Validated.',
 		pickup_options: {},
@@ -89,60 +88,24 @@ const fullyFormedRequest = {
 					{
 						tracking_number: 'cd03c247-8d06-4f08-925b-2f0d2b5dff49',
 						alternative_identifiers: [],
-						weight_details: {
-							weight_in_ounces: 0.3584,
-							weight_in_grams: 10.16,
-							source_weight: 10.16,
-							source_weight_unit: WeightUnit.Grams,
-						},
-						dimension_details: {
-							dimensions_in_centimeters: {
-								length: 254,
-								width: 254,
-								height: 254,
-							},
-							dimensions_in_inches: {
-								length: 100,
-								width: 100,
-								height: 100,
-							},
-							source_dimensions: {
-								length: 100,
-								width: 100,
-								height: 100,
-							},
-							source_dimension_unit: DimensionUnit.Inches,
+						dimensions: {
+							length: 5,
+							width: 6,
+							height: 10,
 						},
 						package_code: '01',
+						weight: 50000,
 					},
 					{
 						tracking_number: 'cd03c247-8d06-4f08-925b-2f0d2b5dff49',
 						alternative_identifiers: [],
-						weight_details: {
-							weight_in_ounces: 0.3584,
-							weight_in_grams: 10.16,
-							source_weight: 10.16,
-							source_weight_unit: WeightUnit.Grams,
-						},
-						dimension_details: {
-							dimensions_in_centimeters: {
-								length: 254,
-								width: 254,
-								height: 254,
-							},
-							dimensions_in_inches: {
-								length: 100,
-								width: 100,
-								height: 100,
-							},
-							source_dimensions: {
-								length: 100,
-								width: 100,
-								height: 100,
-							},
-							source_dimension_unit: DimensionUnit.Inches,
+						dimensions: {
+							length: 5,
+							width: 6,
+							height: 10,
 						},
 						package_code: '01',
+						weight: 80000,
 					},
 				],
 				advanced_options: {},
@@ -155,89 +118,35 @@ const fullyFormedRequest = {
 					{
 						tracking_number: 'eae6d3bc-f9dd-4237-aa04-53452791107b',
 						alternative_identifiers: [],
-						weight_details: {
-							weight_in_ounces: 0.3584,
-							weight_in_grams: 10.16,
-							source_weight: 10.16,
-							source_weight_unit: WeightUnit.Grams,
-						},
-						dimension_details: {
-							dimensions_in_centimeters: {
-								length: 254,
-								width: 254,
-								height: 254,
-							},
-							dimensions_in_inches: {
-								length: 100,
-								width: 100,
-								height: 100,
-							},
-							source_dimensions: {
-								length: 100,
-								width: 100,
-								height: 100,
-							},
-							source_dimension_unit: DimensionUnit.Inches,
+						dimensions: {
+							length: 5,
+							width: 6,
+							height: 10,
 						},
 						package_code: '01',
+						weight: 50000,
 					},
 					{
 						tracking_number: 'eae6d3bc-f9dd-4237-aa04-53452791107b',
 						alternative_identifiers: [],
-						weight_details: {
-							weight_in_ounces: 0.3584,
-							weight_in_grams: 10.16,
-							source_weight: 10.16,
-							source_weight_unit: WeightUnit.Grams,
-						},
-						dimension_details: {
-							dimensions_in_centimeters: {
-								length: 254,
-								width: 254,
-								height: 254,
-							},
-							dimensions_in_inches: {
-								length: 100,
-								width: 100,
-								height: 100,
-							},
-							source_dimensions: {
-								length: 100,
-								width: 100,
-								height: 100,
-							},
-							source_dimension_unit: DimensionUnit.Inches,
+						dimensions: {
+							length: 5,
+							width: 6,
+							height: 10,
 						},
 						package_code: '01',
+						weight: 10000,
 					},
 					{
 						tracking_number: 'eae6d3bc-f9dd-4237-aa04-53452791107b',
 						alternative_identifiers: [],
-						weight_details: {
-							weight_in_ounces: 0.3584,
-							weight_in_grams: 10.16,
-							source_weight: 10.16,
-							source_weight_unit: WeightUnit.Grams,
-						},
-						dimension_details: {
-							dimensions_in_centimeters: {
-								length: 254,
-								width: 254,
-								height: 254,
-							},
-							dimensions_in_inches: {
-								length: 100,
-								width: 100,
-								height: 100,
-							},
-							source_dimensions: {
-								length: 100,
-								width: 100,
-								height: 100,
-							},
-							source_dimension_unit: DimensionUnit.Inches,
+						dimensions: {
+							length: 5,
+							width: 6,
+							height: 10,
 						},
 						package_code: '01',
+						weight: 10000,
 					},
 				],
 				advanced_options: {},
@@ -250,89 +159,35 @@ const fullyFormedRequest = {
 					{
 						tracking_number: 'eae6d3bc-f9dd-4237-aa04-53452791107b',
 						alternative_identifiers: [],
-						weight_details: {
-							weight_in_ounces: 0.3584,
-							weight_in_grams: 10.16,
-							source_weight: 10.16,
-							source_weight_unit: WeightUnit.Grams,
-						},
-						dimension_details: {
-							dimensions_in_centimeters: {
-								length: 254,
-								width: 254,
-								height: 254,
-							},
-							dimensions_in_inches: {
-								length: 100,
-								width: 100,
-								height: 100,
-							},
-							source_dimensions: {
-								length: 100,
-								width: 100,
-								height: 100,
-							},
-							source_dimension_unit: DimensionUnit.Inches,
+						dimensions: {
+							length: 5,
+							width: 6,
+							height: 10,
 						},
 						package_code: '01',
+						weight: 50000,
 					},
 					{
 						tracking_number: 'eae6d3bc-f9dd-4237-aa04-53452791107b',
 						alternative_identifiers: [],
-						weight_details: {
-							weight_in_ounces: 0.3584,
-							weight_in_grams: 10.16,
-							source_weight: 10.16,
-							source_weight_unit: WeightUnit.Grams,
-						},
-						dimension_details: {
-							dimensions_in_centimeters: {
-								length: 254,
-								width: 254,
-								height: 254,
-							},
-							dimensions_in_inches: {
-								length: 100,
-								width: 100,
-								height: 100,
-							},
-							source_dimensions: {
-								length: 100,
-								width: 100,
-								height: 100,
-							},
-							source_dimension_unit: DimensionUnit.Inches,
+						dimensions: {
+							length: 5,
+							width: 6,
+							height: 10,
 						},
 						package_code: '01',
+						weight: 10000,
 					},
 					{
 						tracking_number: 'eae6d3bc-f9dd-4237-aa04-53452791107b',
 						alternative_identifiers: [],
-						weight_details: {
-							weight_in_ounces: 0.3584,
-							weight_in_grams: 10.16,
-							source_weight: 10.16,
-							source_weight_unit: WeightUnit.Grams,
-						},
-						dimension_details: {
-							dimensions_in_centimeters: {
-								length: 254,
-								width: 254,
-								height: 254,
-							},
-							dimensions_in_inches: {
-								length: 100,
-								width: 100,
-								height: 100,
-							},
-							source_dimensions: {
-								length: 100,
-								width: 100,
-								height: 100,
-							},
-							source_dimension_unit: DimensionUnit.Inches,
+						dimensions: {
+							length: 5,
+							width: 6,
+							height: 10,
 						},
 						package_code: '01',
+						weight: 10000,
 					},
 				],
 				advanced_options: {},
@@ -388,62 +243,34 @@ const fullyFormedExpectedMapping = {
 			deliveryService: '03',
 			packages: [
 				{
+					dimensions: {
+						height: 10,
+						length: 5,
+						unit: 'cm',
+						width: 6,
+					},
 					identifiers: undefined,
+					packaging: '01',
 					trackingNumber: 'cd03c247-8d06-4f08-925b-2f0d2b5dff49',
-					weight_details: {
-						weight_in_ounces: 0.3584,
-						weight_in_grams: 10.16,
-						source_weight: 10.16,
-						source_weight_unit: WeightUnit.Grams,
+					weight: {
+						unit: 'g',
+						value: 50000,
 					},
-					dimension_details: {
-						dimensions_in_centimeters: {
-							length: 254,
-							width: 254,
-							height: 254,
-						},
-						dimensions_in_inches: {
-							length: 100,
-							width: 100,
-							height: 100,
-						},
-						source_dimensions: {
-							length: 100,
-							width: 100,
-							height: 100,
-						},
-						source_dimension_unit: DimensionUnit.Inches,
-					},
-					package_code: '01',
 				},
 				{
+					dimensions: {
+						height: 10,
+						length: 5,
+						unit: 'cm',
+						width: 6,
+					},
 					identifiers: undefined,
+					packaging: '01',
 					trackingNumber: 'cd03c247-8d06-4f08-925b-2f0d2b5dff49',
-					weight_details: {
-						weight_in_ounces: 0.3584,
-						weight_in_grams: 10.16,
-						source_weight: 10.16,
-						source_weight_unit: WeightUnit.Grams,
+					weight: {
+						unit: 'g',
+						value: 80000,
 					},
-					dimension_details: {
-						dimensions_in_centimeters: {
-							length: 254,
-							width: 254,
-							height: 254,
-						},
-						dimensions_in_inches: {
-							length: 100,
-							width: 100,
-							height: 100,
-						},
-						source_dimensions: {
-							length: 100,
-							width: 100,
-							height: 100,
-						},
-						source_dimension_unit: DimensionUnit.Inches,
-					},
-					package_code: '01',
 				},
 			],
 			trackingNumber: 'cd03c247-8d06-4f08-925b-2f0d2b5dff49',
@@ -452,91 +279,49 @@ const fullyFormedExpectedMapping = {
 			deliveryService: '04',
 			packages: [
 				{
+					dimensions: {
+						height: 10,
+						length: 5,
+						unit: 'cm',
+						width: 6,
+					},
 					identifiers: undefined,
+					packaging: '01',
 					trackingNumber: 'eae6d3bc-f9dd-4237-aa04-53452791107b',
-					weight_details: {
-						weight_in_ounces: 0.3584,
-						weight_in_grams: 10.16,
-						source_weight: 10.16,
-						source_weight_unit: WeightUnit.Grams,
+					weight: {
+						unit: 'g',
+						value: 50000,
 					},
-					dimension_details: {
-						dimensions_in_centimeters: {
-							length: 254,
-							width: 254,
-							height: 254,
-						},
-						dimensions_in_inches: {
-							length: 100,
-							width: 100,
-							height: 100,
-						},
-						source_dimensions: {
-							length: 100,
-							width: 100,
-							height: 100,
-						},
-						source_dimension_unit: DimensionUnit.Inches,
-					},
-					package_code: '01',
 				},
 				{
+					dimensions: {
+						height: 10,
+						length: 5,
+						unit: 'cm',
+						width: 6,
+					},
 					identifiers: undefined,
+					packaging: '01',
 					trackingNumber: 'eae6d3bc-f9dd-4237-aa04-53452791107b',
-					weight_details: {
-						weight_in_ounces: 0.3584,
-						weight_in_grams: 10.16,
-						source_weight: 10.16,
-						source_weight_unit: WeightUnit.Grams,
+					weight: {
+						unit: 'g',
+						value: 10000,
 					},
-					dimension_details: {
-						dimensions_in_centimeters: {
-							length: 254,
-							width: 254,
-							height: 254,
-						},
-						dimensions_in_inches: {
-							length: 100,
-							width: 100,
-							height: 100,
-						},
-						source_dimensions: {
-							length: 100,
-							width: 100,
-							height: 100,
-						},
-						source_dimension_unit: DimensionUnit.Inches,
-					},
-					package_code: '01',
 				},
 				{
+					dimensions: {
+						height: 10,
+						length: 5,
+						unit: 'cm',
+						width: 6,
+					},
 					identifiers: undefined,
+					packaging: '01',
 					trackingNumber: 'eae6d3bc-f9dd-4237-aa04-53452791107b',
-					weight_details: {
-						weight_in_ounces: 0.3584,
-						weight_in_grams: 10.16,
-						source_weight: 10.16,
-						source_weight_unit: WeightUnit.Grams,
+					weight: {
+						unit: 'g',
+						value: 10000,
 					},
-					dimension_details: {
-						dimensions_in_centimeters: {
-							length: 254,
-							width: 254,
-							height: 254,
-						},
-						dimensions_in_inches: {
-							length: 100,
-							width: 100,
-							height: 100,
-						},
-						source_dimensions: {
-							length: 100,
-							width: 100,
-							height: 100,
-						},
-						source_dimension_unit: DimensionUnit.Inches,
-					},
-					package_code: '01',
 				},
 			],
 			trackingNumber: 'eae6d3bc-f9dd-4237-aa04-53452791107b',
@@ -545,91 +330,49 @@ const fullyFormedExpectedMapping = {
 			deliveryService: '03',
 			packages: [
 				{
+					dimensions: {
+						height: 10,
+						length: 5,
+						unit: 'cm',
+						width: 6,
+					},
 					identifiers: undefined,
+					packaging: '01',
 					trackingNumber: 'eae6d3bc-f9dd-4237-aa04-53452791107b',
-					weight_details: {
-						weight_in_ounces: 0.3584,
-						weight_in_grams: 10.16,
-						source_weight: 10.16,
-						source_weight_unit: WeightUnit.Grams,
+					weight: {
+						unit: 'g',
+						value: 50000,
 					},
-					dimension_details: {
-						dimensions_in_centimeters: {
-							length: 254,
-							width: 254,
-							height: 254,
-						},
-						dimensions_in_inches: {
-							length: 100,
-							width: 100,
-							height: 100,
-						},
-						source_dimensions: {
-							length: 100,
-							width: 100,
-							height: 100,
-						},
-						source_dimension_unit: DimensionUnit.Inches,
-					},
-					package_code: '01',
 				},
 				{
+					dimensions: {
+						height: 10,
+						length: 5,
+						unit: 'cm',
+						width: 6,
+					},
 					identifiers: undefined,
+					packaging: '01',
 					trackingNumber: 'eae6d3bc-f9dd-4237-aa04-53452791107b',
-					weight_details: {
-						weight_in_ounces: 0.3584,
-						weight_in_grams: 10.16,
-						source_weight: 10.16,
-						source_weight_unit: WeightUnit.Grams,
+					weight: {
+						unit: 'g',
+						value: 10000,
 					},
-					dimension_details: {
-						dimensions_in_centimeters: {
-							length: 254,
-							width: 254,
-							height: 254,
-						},
-						dimensions_in_inches: {
-							length: 100,
-							width: 100,
-							height: 100,
-						},
-						source_dimensions: {
-							length: 100,
-							width: 100,
-							height: 100,
-						},
-						source_dimension_unit: DimensionUnit.Inches,
-					},
-					package_code: '01',
 				},
 				{
+					dimensions: {
+						height: 10,
+						length: 5,
+						unit: 'cm',
+						width: 6,
+					},
 					identifiers: undefined,
+					packaging: '01',
 					trackingNumber: 'eae6d3bc-f9dd-4237-aa04-53452791107b',
-					weight_details: {
-						weight_in_ounces: 0.3584,
-						weight_in_grams: 10.16,
-						source_weight: 10.16,
-						source_weight_unit: WeightUnit.Grams,
+					weight: {
+						unit: 'g',
+						value: 10000,
 					},
-					dimension_details: {
-						dimensions_in_centimeters: {
-							length: 254,
-							width: 254,
-							height: 254,
-						},
-						dimensions_in_inches: {
-							length: 100,
-							width: 100,
-							height: 100,
-						},
-						source_dimensions: {
-							length: 100,
-							width: 100,
-							height: 100,
-						},
-						source_dimension_unit: DimensionUnit.Inches,
-					},
-					package_code: '01',
 				},
 			],
 			trackingNumber: 'eae6d3bc-f9dd-4237-aa04-53452791107b',

@@ -3,6 +3,7 @@ import {
   ConfirmationTypes,
   AdvancedOptions,
   InsuranceProviders,
+  Currency,
   Package,
   Customs,
   ShipFrom,
@@ -18,6 +19,7 @@ export interface GetRatesRequest extends BaseRequest {
   confirmation?: ConfirmationTypes;
   advanced_options?: AdvancedOptions;
   insurance_provider?: InsuranceProviders;
+  insured_value?: Currency;
   is_return_label: boolean;
   is_residential: boolean;
   packages: Package[];

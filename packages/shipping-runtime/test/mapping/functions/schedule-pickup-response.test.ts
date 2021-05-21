@@ -41,6 +41,10 @@ const pickupResponse = new PickupConfirmation({
 });
 
 const expectedPickupResponse = {
+	charges_total: {
+		amount: '510',
+		currency: 'USD',
+	},
 	confirmation: {
 		confirmation_id: 'confirmationId',
 		shipment_identifiers: [

@@ -1,4 +1,5 @@
 import { BillingLineItem } from "../billing/billing-line-item";
+import { Currency } from "../currency";
 
 /** @description Basic structure for a rate */
 export interface Rate {
@@ -9,6 +10,13 @@ export interface Rate {
   estimated_delivery_datetime?: string;
   /** @description List of charge details for a rate */
   billing_line_items?: BillingLineItem[];
+  shipping_amount?: Currency;
+  /** @description Charges for carrier insurance */
+  insurance_amount?: Currency;
+  /** @description Charges for delivery confirmation, e.g. signature */
+  confirmation_amount?: Currency;
+  /** @description Charges that are not related to shipping, insurance, or confirmation */
+  other_amount?: Currency;
   /** @description Any error messages that resulted while trying to get the rate */
   error_messages?: string[];
   /** @description Any warning messages that resulted while trying to get the rate */

@@ -13,8 +13,23 @@ import {
 } from ".";
 
 export const mapRate = (rate: Rate): capiRate => {
+  const shippingAmount = getTotalCosts(
+    rate.charges.filter(shippingChargeFilter)
+  );
+  const confirmationAmount = getTotalCosts(
+    rate.charges.filter(confirmationChargeFilter)
+  );
+  const insuranceAmount = getTotalCosts(
+    rate.charges.filter(insuranceChargeFilter)
+  );
+  const otherAmount = getTotalCosts(rate.charges.filter(otherChargeFilter));
+
   const returnRate: capiRate = {
     service_code: rate.deliveryService?.code,
+    shipping_amount: shippingAmount,
+    confirmation_amount: confirmationAmount,
+    insurance_amount: insuranceAmount,
+    other_amount: otherAmount,
     error_messages: [], // There is nothing that maps to this
     negotiated_rate: rate.isNegotiatedRate,
   };

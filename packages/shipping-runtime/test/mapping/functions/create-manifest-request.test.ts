@@ -21,6 +21,7 @@ describe('Create Manifest Request', () => {
 		describe('when mapping a full create manifest request', () => {
 			const result = mapCreateManifestRequest({
 				ship_from: {
+					is_eu: true,
 					address_residential_indicator: AddressResidentialIndicator.Yes,
 					country_code: 'US',
 					postal_code: '78759',
@@ -71,6 +72,7 @@ describe('Create Manifest Request', () => {
 		describe('when mapping a minimal create manifest request without an open date provided', () => {
 			const result = mapCreateManifestRequest({
 				ship_from: {
+					is_eu: true,
 					address_residential_indicator: AddressResidentialIndicator.Yes,
 					country_code: 'US',
 					postal_code: '78759',
