@@ -17,10 +17,13 @@ const getGenericRuntimeAppType = (manifest: AppManifestPOJO): AppType => {
   const dependencies = [...Object.keys(manifest.devDependencies || {}), ...Object.keys(manifest.dependencies || {})];
   const orderSourceApi = '@shipengine/connect-order-source-api';
   const carrierApi = '@shipengine/connect-carrier-api';
+  const freightApi = '@shipengine/connect-freight-api';
   if(dependencies.includes(orderSourceApi)) {
     return AppType.Order;
   } else if(dependencies.includes(carrierApi)) {
     return AppType.Carrier;
+  } else if(dependencies.includes(freightApi)) {
+    return AppType.Freight;
   } else {
     throw new Error('Unknown App Type');
   }
