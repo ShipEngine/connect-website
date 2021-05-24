@@ -86,7 +86,7 @@ jobs:
           node-version: 14
 
       - name: Install dependencies
-        run: yarn install --immutable
+        run: yarn install --immutable --immutable-cache
 
       - name: Bump Versions
         id: bump
