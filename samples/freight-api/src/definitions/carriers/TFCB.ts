@@ -2,68 +2,79 @@ import { FreightCarrierSpecification } from "@shipengine/connect-freight-api";
 import { join } from "path";
 
 export const TFCB: FreightCarrierSpecification = {
-  Id: "13d93e45-3719-4a7d-bbca-04ced4194652",
+  Id: "2714afc0-b207-4ea4-ab5a-8de4ce0e5ce6",
+  ApiCode: "tfcb",
   Code: "TFCB",
   Name: "Test Freight Carrier B",
   ServiceLevels: [
     {
-      Id: "173e4945-5aae-4d41-b472-23e50f1bad2c",
+      Id: "1686cca3-98ce-42bd-9815-a9fbe87bb617",
+      ApiCode: "gtd_am",
       Code: "GTD_AM",
       Name: "Guaranteed Morning",
     },
     {
-      Id: "7c29cc4c-b889-47a0-b3ab-1eb9c7706b91",
+      Id: "4312d30e-f6ed-4da6-8e5b-d79f649c0e19",
+      ApiCode: "gtd_noon",
       Code: "GTD_NOON",
       Name: "Guaranteed Noon",
     },
     {
-      Id: "de99b9bb-4c89-45e8-bc50-d021aa4c007a",
+      Id: "0a012cd4-c2a3-4b1f-9787-4ab21bf782ed",
+      ApiCode: "gtd_pm",
       Code: "GTD_PM",
       Name: "Guaranteed End of Day",
     },
     {
-      Id: "d8f0369e-3abe-4390-a344-349ffb40af9e",
+      Id: "72fe2139-114e-433b-bdb6-c3f20b58f7ff",
+      ApiCode: "stnd",
       Code: "STND",
       Name: "Standard",
     },
   ],
   ContainerTypes: [
     {
-      Id: "77c0cfa7-60b5-4519-90c5-53b1273b15c7",
+      Id: "5eafe403-636d-4519-9135-54083710a314",
+      ApiCode: "box",
       Code: "BOX",
       Name: "Box",
     },
     {
-      Id: "57a13464-1fd7-4c26-b647-0c8272060d40",
+      Id: "708aa553-166b-4280-a9d5-3559ec5c46a7",
+      ApiCode: "pat",
       Code: "PAT",
       Name: "Pallet",
     },
     {
-      Id: "afeb19ca-f841-4b61-8fbd-affdcfc48999",
+      Id: "cb49d96d-7f12-4687-87ef-8849590f624d",
+      ApiCode: "skd",
       Code: "SKD",
       Name: "Skid",
     },
   ],
   AccessorialServiceGroups: [
     {
-      Id: "d2023c1f-7201-4d79-836c-93a3aaf956a6",
+      Id: "af4ed99c-2d47-4101-811d-9ee3fde071da",
       Name: "Pickup Services",
       SortOrder: 1,
       Services: [
         {
-          Id: "38719d48-86cf-4a4d-aa59-ed492e4d99b8",
+          Id: "e0d05024-87a3-4e9c-b06d-02411e8f72d3",
+          ApiCode: "lftp",
           Code: "LFTP",
           Name: "Lift gate required at pickup",
           SortOrder: 1,
         },
         {
-          Id: "4a68e9ea-6153-41f9-a081-49447d3c375c",
+          Id: "c6612a05-9306-4d32-b1d3-1429c5e4df44",
+          ApiCode: "ipu",
           Code: "IPU",
           Name: "Inside pickup",
           SortOrder: 2,
         },
         {
-          Id: "a56555d0-280f-4c40-9f0b-e8b5df832790",
+          Id: "54aa6a99-cc13-475d-9a7d-8770414d46a7",
+          ApiCode: "rep",
           Code: "REP",
           Name: "Residential pickup",
           SortOrder: 3,
@@ -71,12 +82,13 @@ export const TFCB: FreightCarrierSpecification = {
       ],
     },
     {
-      Id: "61589ee1-7f02-4554-895e-d11598f59b93",
+      Id: "bf77b1d2-20d0-4f43-8eb6-20c32c8b68b4",
       Name: "Other",
       SortOrder: 2,
       Services: [
         {
-          Id: "b58ad4bf-b040-4579-a054-8fdd2e484445",
+          Id: "1da3d36d-2def-4d55-9be3-80b49c02cca7",
+          ApiCode: "haz",
           Code: "HAZ",
           Name: "Hazardous material",
           Attributes: {
@@ -101,6 +113,16 @@ export const TFCB: FreightCarrierSpecification = {
                 "ui:emptyValue": "5555555555",
               },
             },
+            ApiContractMapping: [
+              {
+                apiContractField: "name",
+                jsonSchemaProperty: "name"
+              },
+              {
+                apiContractField: "phone",
+                jsonSchemaProperty: "phone"
+              }
+            ],
           },
         },
       ],

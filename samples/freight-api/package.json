@@ -11,7 +11,7 @@
     "typescript": "^4.2.3"
   },
   "dependencies": {
-    "@shipengine/connect-carrier-api": "file:../../packages/freight-api",
+    "@shipengine/connect-freight-api": "file:../../packages/freight-api",
     "@shipengine/connect-runtime": "file:../../packages/runtime"
   }
 }

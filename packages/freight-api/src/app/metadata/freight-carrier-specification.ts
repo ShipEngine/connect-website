@@ -6,6 +6,7 @@ import { ServiceLevelSpecification } from "./service-level-specification";
 
 export interface FreightCarrierSpecification {
   Id: string;
+  ApiCode: string;
   Code: string;
   Name: string;
   Description?: string;

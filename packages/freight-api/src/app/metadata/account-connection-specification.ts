@@ -1,3 +1,4 @@
+import { ApiContractMapping } from "./api-contract-mapping";
 import { JsonSchema } from "./json-schema";
 import { UiSchema } from "./ui-schema";
 
@@ -8,8 +9,5 @@ import { UiSchema } from "./ui-schema";
 export interface AccountConnectionSpecification {
   JsonSchema: JsonSchema;
   UiSchema?: UiSchema;
-  ApiContractMapping?: {
-    apiContractField: string;
-    jsonSchemaProperty: string;
-  }[];
+  ApiContractMapping?: ApiContractMapping[];
 }

@@ -63,11 +63,13 @@ const mapFunctions = (app: FreightAppDefinition): FunctionSpecification[] => {
 
 export class FreightProvider implements FreightProviderSpecification {
   Id: string;
+  ApiCode?: string;
   Name: string;
   Connector: Connector;
   FreightCarriers: FreightCarrierSpecification[];
   constructor(app: FreightAppDefinition) {
     this.Id = app.Metadata.Id;
+    this.ApiCode = app.Metadata.ApiCode;
     this.Name = app.Metadata.Name;
     this.FreightCarriers = app.Metadata.FreightCarriers;
     this.Connector = {
