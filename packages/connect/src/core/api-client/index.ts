@@ -1,4 +1,5 @@
 import axios, { Method, AxiosRequestConfig, AxiosError } from "axios";
+import axiosRetry from "axios-retry";
 import ono from '@jsdevtools/ono';
 import Apps from "./resources/apps";
 import Deployments from "./resources/deployments";
@@ -53,6 +54,18 @@ export default class APIClient {
 
   constructor(apiKey: string, debug = false) {
     this.apiKey = apiKey;
+
+    axiosRetry(axios, {
+      retries: 3, // number of retries
+      retryDelay: (retryCount) => {
+        console.log(`retry attempt: ${retryCount}`);
+        return retryCount * 2000; // time interval between retries
+      },
+      retryCondition: (error) => {
+        // if retry condition is not specified, by default idempotent requests are retried
+        return (error.response?.status ?? 0) >= 500;
+      },
+    });
 
     this.apps = new Apps(this);
     this.configuration = new Configuration(this);

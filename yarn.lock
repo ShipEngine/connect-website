@@ -1492,6 +1492,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^4.7.0
     "@typescript-eslint/parser": ^4.7.0
     axios: ^0.21.1
+    axios-retry: ^3.1.9
     body-parser: ^1.19.0
     chai: ^4.2.0
     chai-as-promised: ^7.1.1
@@ -3102,6 +3103,15 @@ __metadata:
   version: 1.11.0
   resolution: "aws4@npm:1.11.0"
   checksum: d30dce2b73839974894d8283a06c53e8374b74d643d3b08340d84c364e01158be011fcfd1a88f8462be946d69055313a3038202f2eafd155b039aaab3549ba21
+  languageName: node
+  linkType: hard
+
+"axios-retry@npm:^3.1.9":
+  version: 3.1.9
+  resolution: "axios-retry@npm:3.1.9"
+  dependencies:
+    is-retry-allowed: ^1.1.0
+  checksum: 1e6a4df3089bd08377734e2dcb58a6895b272ca9facd6e8b2d0388c342b31d39a1ec4592abe171d9f596bbab374fbc4de6e845d4eb6d7440c874e97933f29888
   languageName: node
   linkType: hard
 

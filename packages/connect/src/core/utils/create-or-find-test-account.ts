@@ -1,4 +1,4 @@
-import APIClient from '../api-client';
+import APIClient, { ApiClientErrors } from '../api-client';
 import { ConnectApp } from '../types';
 import logSymbols from "log-symbols";
 import cli from "cli-ux";
@@ -36,8 +36,16 @@ export async function createOrFindTestAccounts(client: APIClient, platformApp: C
     const email = `${platformApp.id}+${country}@test.com`;
     if (!sellers.some((seller) => seller.email === email)) {
       cli.action.start(`Creating ${country} test account`);
-      await client.sellers.createSeller(platformApp.id, email, platformApp.id, country);
-      cli.action.stop(`${logSymbols.success}`);
+      let success = true;
+      try {
+        await client.sellers.createSeller(platformApp.id, email, platformApp.id, country);
+      } catch (error) {
+        if (error.code !== ApiClientErrors.BadRequest) {
+          success = false;
+          console.log(error);
+        }
+      }
+      cli.action.stop(`${success ? logSymbols.success : logSymbols.error}`);
     }
     testAccounts.push({
       email,
