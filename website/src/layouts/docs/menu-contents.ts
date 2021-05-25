@@ -16,6 +16,8 @@ export const menu: MenuContents = [
       {
         title: "Guides",
         menuItems: [
+          { title: "Contribution Guide", href: "/docs/contributing" },
+          { title: "Style Guide", href: "/docs/style" },
           { title: "Using the CLI", href: "/docs/cli" },
           { title: "Creating Your First App", href: "/docs/create-first-app" },
           { title: "Implementing Your Methods", href: "/docs/implementation" },
