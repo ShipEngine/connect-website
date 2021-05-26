@@ -3,8 +3,12 @@ import { join } from "path";
 
 export const TFCB: FreightCarrierSpecification = {
   Id: "2714afc0-b207-4ea4-ab5a-8de4ce0e5ce6",
-  ApiCode: "tfcb",
-  Code: "TFCB",
+  Codes: [
+    {
+      SCAC: "TFCB",
+      ApiCode: "tfcb"
+    },
+  ],
   Name: "Test Freight Carrier B",
   ServiceLevels: [
     {
