@@ -26,8 +26,6 @@ export interface AddressBase {
   country_code: string;
   /** @description Whether the address is residential or commercial */
   address_residential_indicator?: AddressResidentialIndicator;
-  /** @description Whether the address is in the European Union */
-  is_eu?: boolean;
   /** @description Metadata for this address */
   address_metadata?: { [key: string]: string };
 }

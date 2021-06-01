@@ -23,6 +23,4 @@ export interface TrackingInfo {
   shipping_problem?: boolean;
   shipping_problem_code?: string;
   error_description?: string;
-  last_event?: TrackEvent;
-  CarrierEnum?: number;
 }
