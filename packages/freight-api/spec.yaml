@@ -17,7 +17,7 @@ paths:
 
         Freight provider accounts typically identify a tenant within an external system, linking any carrier credentials to that tenant, so the recommendation is that the definition of a tenant in this situation is an individual user vs a service-level identity or similar. In the case of SMC3 only one set of credentials per carrier is active per freight provider account, so attempting to add multiple accounts for a single carrier will result in the requests simply overwriting each other.
 
-        The actual request to create a freight provider account must include the freight provider's API code as defined in the registry as the value of the header `api-code`.
+        The actual request to create a freight provider account must include the freight provider's API code as defined in the registry as the value of the header `FreightApiCode`.
 
         Note: at this point in time freight provider account access tokens do not expire but that may be a consideration to keep in mind for future freight providers that we integrate with.
       parameters:
@@ -386,9 +386,9 @@ components:
         code:
           type: string
           description: The container/packaging code for this container
-        classification:
+        freight_class:
           type: number
-          description: 'A standard published by the NMFTA, NMFC codes classify commodities for transport based on their characteristics: density, stowability, handling and liability.'
+          description: NMFC freight class
           enum:
             - 50
             - 55
@@ -408,6 +408,9 @@ components:
             - 300
             - 400
             - 500
+        nmfc_code:
+          description: NMFC commodity code / item number
+          type: string
         description:
           type: string
           description: The description of the item(s) in this container
@@ -424,7 +427,6 @@ components:
           description: ''
       required:
         - code
-        - classification
         - description
         - dimensions
         - weight
@@ -614,6 +616,22 @@ components:
               properties:
                 code:
                   type: string
+            carrier:
+              type: object
+              properties:
+                quote:
+                  type: object
+                  required:
+                    - id
+                  properties:
+                    id:
+                      type: string
+                      description: Quote ID received from the carrier
+                comments:
+                  type: string
+                  description: Optional shipment comments / special instructions for the carrier
+              required:
+                - quote
             pickup:
               type: object
               required:
@@ -653,6 +671,7 @@ components:
                 $ref: '#/components/schemas/Container'
             accessorials:
               type: array
+              description: Accessorial services required for pickup
               items:
                 $ref: '#/components/schemas/AccessorialService'
             ship_from:
@@ -679,12 +698,6 @@ components:
               $ref: '#/components/schemas/BillingParty'
             requested_by:
               $ref: '#/components/schemas/RequestingParty'
-            carrier:
-              type: object
-              properties:
-                comments:
-                  type: string
-                  description: Optional shipment comments for the carrier
           required:
             - service
             - pickup
@@ -692,6 +705,7 @@ components:
             - ship_from
             - ship_to
             - requested_by
+      description: ''
     ScheduleFreightPickupResponse:
       title: ScheduleFreightPickupResponse
       allOf:
@@ -1098,6 +1112,7 @@ components:
                       $ref: '#/components/schemas/WeightUnitType'
             accessorials:
               type: array
+              description: Accessorial services required for delivery
               items:
                 $ref: '#/components/schemas/AccessorialService'
             ship_from:

@@ -7,9 +7,9 @@ export interface Container {
    */
   code: string;
   /**
-   * A standard published by the NMFTA, NMFC codes classify commodities for transport based on their characteristics: density, stowability, handling and liability.
+   * NMFC freight class
    */
-  classification:
+  freight_class:
     | 50
     | 55
     | 60
@@ -28,6 +28,10 @@ export interface Container {
     | 300
     | 400
     | 500;
+  /**
+   * NMFC commodity code / item number
+   */
+  nmfc_code?: number;
   /**
    * The description of the item(s) in this container
    */

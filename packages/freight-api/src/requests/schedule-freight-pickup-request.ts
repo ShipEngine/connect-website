@@ -16,6 +16,18 @@ export interface ScheduleFreightPickupRequest extends BaseCarrierRequest {
   service: {
     code: string;
   };
+  carrier: {
+    quote: {
+      /**
+       * Quote ID received from the carrier
+       */
+      id: string;
+    };
+    /**
+     * Optional shipment comments for the carrier
+     */
+    comments?: string;
+  };
   pickup: {
     /**
      * Date Format: YYYY-MM-DD
@@ -52,10 +64,4 @@ export interface ScheduleFreightPickupRequest extends BaseCarrierRequest {
   };
   bill_to?: BillingParty;
   requested_by: RequestingParty;
-  carrier?: {
-    /**
-     * Optional shipment comments for the carrier
-     */
-    comments?: string;
-  };
 }

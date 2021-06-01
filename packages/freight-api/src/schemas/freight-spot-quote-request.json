@@ -50,7 +50,7 @@
         "title": "Container",
         "required": [
           "code",
-          "classification",
+          "freight_class",
           "description",
           "dimensions",
           "weight",
@@ -62,9 +62,9 @@
             "type": "string",
             "description": "The container/packaging code for this container"
           },
-          "classification": {
+          "freight_class": {
             "type": "number",
-            "description": "A standard published by the NMFTA, NMFC codes classify commodities for transport based on their characteristics: density, stowability, handling and liability.",
+            "description": "NMFC freight class",
             "enum": [
               50,
               55,
@@ -85,6 +85,10 @@
               400,
               500
             ]
+          },
+          "nmfc_code": {
+            "type": "number",
+            "description": "NMFC commodity code / item number"
           },
           "description": {
             "type": "string",
