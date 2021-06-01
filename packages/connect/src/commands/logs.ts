@@ -54,7 +54,7 @@ export default class Logs extends BaseCommand {
 
       const apiClient = await this.apiClient(flags.debug)
 
-      const platformApp = await apiClient.apps.getByName(app.manifest.name);
+      const platformApp = await apiClient.apps.getByIdOrName(app.manifest.name, app.manifest.appId);
       const paginatedDeployments = await apiClient.deployments.getAllForAppId(
         platformApp.id,
       );

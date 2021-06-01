@@ -12,6 +12,8 @@ const fixpack = require("@oclif/fixpack");
 const sortPjson = require("sort-pjson");
 
 class BetaNew extends Generator {
+  appId: string;
+
   args!: { [k: string]: string };
 
   type: SdkAppTypes;
@@ -36,6 +38,7 @@ class BetaNew extends Generator {
 
   constructor(args: any, opts: any) {
     super(args, opts);
+    this.appId = uuidv4();
     this.path = opts.path;
     this.type = AppType.Carrier;
   }
@@ -53,6 +56,7 @@ class BetaNew extends Generator {
     }
 
     this.pjson = {
+      appId: this.appId,
       private: true,
       scripts: {},
       engines: {},
@@ -344,6 +348,10 @@ class BetaNew extends Generator {
   get _appName() {
     const name = this.pjson.name.replace("@", "").replace("/", " ");
     return capitalization.titleCase(name);
+  }
+
+  get _appId() {
+    return this.appId;
   }
 
   private _gitignore(): string {

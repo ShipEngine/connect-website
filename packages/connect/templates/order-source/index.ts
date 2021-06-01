@@ -3,7 +3,7 @@ import {
 } from "@shipengine/connect-sdk";
 
 const orderSource: OrderAppDefinition = {
-  id: "<%- _uuidv4 %>",
+  id: "<%- _appId %>",
   name: "<%- _appName %>",
   description: "<%- pjson.description %>",
   websiteURL: "http://www.carier-site.com",

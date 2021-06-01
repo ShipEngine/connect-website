@@ -23,6 +23,7 @@ export interface AppDefinition {
  * A ShipEngine Connect app manifest (package.json file)
  */
 export interface AppManifest {
+  appId?: string;
   name: string;
   version: string;
   description: string;

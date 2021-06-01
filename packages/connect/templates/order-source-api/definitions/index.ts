@@ -3,7 +3,7 @@ import { brandOne } from "./order-source";
 
 export const Metadata: OrderSourceAppMetadata = {
     // DO NOT CHANGE THIS ID AFTER PUBLISHING
-    Id: "<%- _uuidv4 %>",
+    Id: "<%- _appId %>",
     Name: "<%- _appName %>",
     AuthProcess: {
         Identifier: {

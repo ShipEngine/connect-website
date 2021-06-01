@@ -15,6 +15,8 @@ const isWindows = process.platform === "win32";
 type DefinitionTypes = "pojo" | "json" | "yaml";
 
 class AppsNew extends Generator {
+  appId: string;
+
   args!: { [k: string]: string };
 
   type: SdkAppTypes;
@@ -44,7 +46,7 @@ class AppsNew extends Generator {
 
   constructor(args: any, opts: any) {
     super(args, opts);
-
+    this.appId = uuidv4();
     this.path = opts.path;
     this.type = AppType.Carrier;
   }
@@ -245,6 +247,7 @@ class AppsNew extends Generator {
       this.pjson.scripts.postbuild = "copyfiles -u 1 \"src/**/!(*.ts)\" lib";
       this.pjson.main = `lib/index.${this._definitionExt === "ts" ? "js" : this._definitionExt}`;
     }
+    this.pjson.appId = this.appId;
   }
 
   writing() {
@@ -547,6 +550,10 @@ class AppsNew extends Generator {
   get _appName() {
     const name = this.pjson.name.replace("@", "").replace("/", " ");
     return capitalization.titleCase(name);
+  }
+
+  get _appId() {
+    return this.appId;
   }
 
   private _gitignore(): string {

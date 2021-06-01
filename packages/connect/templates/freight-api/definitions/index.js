@@ -1,7 +1,7 @@
 const { DEMO } = require("./carriers/DEMO");
 
 module.exports.Metadata = {
-  Id: "<%- _uuidv4 %>",
+  Id: "<%- _appId %>",
   Name: "<%- _appName %>",
   FreightCarriers: [DEMO],
 };

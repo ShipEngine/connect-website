@@ -25,6 +25,7 @@ export class App {
       id: Joi.string().uuid().required(),
       providerId: Joi.string().uuid().optional(),
       manifest: Joi.object({
+        appId: Joi.string().optional(),
         name: Joi.string().appName().required(),
         version: Joi.string().semver().required(),
         description: Joi.string().singleLine().allow(""),

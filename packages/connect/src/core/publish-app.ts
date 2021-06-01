@@ -6,12 +6,13 @@ import path from "path";
 import { Deployment, DeploymentStatus } from "./types";
 import { loadApp } from "@shipengine/connect-loader";
 import { watchDeployment } from "./publish-app/watch-deployment";
-import { green, red } from "chalk";
+import { green, red, yellow } from "chalk";
 import parseDeploymentErrors from './utils/parse-deployment-errors';
 import Table from 'cli-table';
 import { createOrFindTestAccounts, TestAccountInfo } from './utils/create-or-find-test-account';
 import { AppType } from "@shipengine/connect-sdk";
 import { App, CarrierApp, DeliveryService, DeploymentType } from "@shipengine/connect-sdk/lib/internal";
+import { updateAppId } from "./update-app-id";
 
 class AppFailedToPackageError extends Error {
   code: string;
@@ -82,12 +83,21 @@ export default async function publishApp(
   let platformApp;
   try {
     const app = await loadApp(process.cwd());
+    try {
+      const deployedApp = await client.apps.getByIdOrName(app.manifest.name, app.manifest.appId);
+      if(!app.manifest.appId) {
+        updateAppId(path.join(process.cwd(), 'package.json'), deployedApp.id);
+        app.manifest.appId = deployedApp.id;
+        console.log(yellow(`Updated package.json set appId to ${deployedApp.id}`));
+      }
+    } catch {}
+
     supportedCountries = getSupportedCountries(app);
     // Find the tarball
     const pathToTarball = path.join(process.cwd(), tarballName);
 
     platformApp = await client.apps.findOrCreateByName({
-      appId: app.providerId,
+      appId: app.manifest.appId || app.providerId,
       name: app.manifest.name,
       type: app.deploymentType,
     });

@@ -6,7 +6,7 @@ import {
 } from "@shipengine/connect-sdk";
 
 const carrier: CarrierAppDefinition = {
-  id: "<%- _uuidv4 %>",
+  id: "<%- _appId %>",
   name: "<%- _appName %>",
   description: "<%- pjson.description %>",
   websiteURL: "http://www.carier-site.com",

@@ -3,7 +3,7 @@ const { brandOne } = require("./order-source");
 
 module.exports.Metadata = {
     // DO NOT CHANGE THIS ID AFTER PUBLISHING
-    Id: "<%- _uuidv4 %>",
+    Id: "<%- _appId %>",
     Name: "<%- _appName %>",
     AuthProcess: {
         Identifier: {

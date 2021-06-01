@@ -6,6 +6,9 @@ import { ApiClientErrors } from '../core/api-client'
 import Table from 'cli-table';
 import { createOrFindTestAccounts } from '../core/utils/create-or-find-test-account';
 import { displayAccountInfo, getSupportedCountries } from "../core/publish-app";
+import { updateAppId } from "../core/update-app-id";
+import path from "path";
+import { yellow } from "chalk";
 
 const displayAppInfo = (log: any, id: string, name: string, type: string, status: string, createdAt: string) => {
   const table = new Table();
@@ -49,11 +52,17 @@ export default class Info extends BaseCommand {
     try {
       const pathToApp = process.cwd();
       const app = await loadApp(pathToApp);
+      
       const supportedCountries = getSupportedCountries(app);
 
-      const apiClient = await this.apiClient(flags.debug)
+      const apiClient = await this.apiClient(flags.debug);
 
-      const platformApp = await apiClient.apps.getByName(app.manifest.name);
+      const platformApp = await apiClient.apps.getByIdOrName(app.manifest.name, app.manifest.appId);
+      if(!app.manifest.appId) {
+        updateAppId(path.join(process.cwd(), 'package.json'), platformApp.id);
+        app.manifest.appId = platformApp.id;
+        console.log(yellow(`Updated package.json set appId to ${platformApp.id}`));
+      }
       const paginatedDeployments = await apiClient.deployments.getAllForAppId(
         platformApp.id,
       );

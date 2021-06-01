@@ -107,4 +107,16 @@ export default class Apps {
 
     throw ono({ code: ApiClientErrors.NotFound }, "The record could not be found");
   }
+
+  /**
+   * @description Returns an app, if an id is provided it will use that, if not it defaults to looking it up by name
+   * @param name The name of the app (this is bad, we want it to eventually always be the id)
+   * @param appId The appId found in the manifest of the package.json file
+   */
+  async getByIdOrName(name: string, appId?: string): Promise<ConnectApp> {
+    if(appId) {
+      return this.getById(appId);
+    }
+    return this.getByName(name);
+  }
 }

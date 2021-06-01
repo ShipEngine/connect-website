@@ -1,7 +1,7 @@
 "use strict";
 
 module.exports = {
-  id: "<%- _uuidv4 %>",
+  id: "<%- _appId %>",
   name: "<%- _appName %>",
   description: "<%- pjson.description %>",
   websiteURL: "https://www.order-source.com",

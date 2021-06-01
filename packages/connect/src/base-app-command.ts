@@ -39,7 +39,7 @@ export default abstract class AppBaseCommand extends BaseCommand {
         const app = await loadApp(pathToApp);
 
         this.client = await this.apiClient(flags.debug);
-        this.platformApp = await this.client.apps.getByName(app.manifest.name);
+        this.platformApp = await this.client.apps.getByIdOrName(app.manifest.name, app.manifest.appId);
       } catch (error) {
         switch (error.code) {
           case "ERR_APP_ERROR":
