@@ -1,0 +1,423 @@
+openapi: 3.0.0
+info:
+  title: Inventory API
+  description: API specification for Inventory Apps in ShipEngine Connect.
+  version: 0.0.1
+
+paths:
+  /fetch_inventory_full:
+    post:
+      summary: Fetch all latest stock levels
+      operationId: FetchInventoryFull
+      description: Request stock levels for *all* available products from the inventory source
+      tags: 
+        - Fetch Inventory
+      requestBody:
+        $ref: "#/components/requestBodies/FetchInventoryRequestBase"
+      responses:
+        '200':
+          $ref: "#/components/responses/FetchInventoryResponse"
+
+        '4XX':
+          $ref: "#/components/responses/ErrorResponse"
+
+  /fetch_inventory_partial:
+    post:
+      summary: Fetch stock levels for specific SKUs
+      operationId: FetchInventoryPartial
+      description: Request stock levels from the inventory source, *only* for the provided SKUs
+      tags: 
+        - Fetch Inventory
+      requestBody:
+        $ref: "#/components/requestBodies/FetchInventoryRequestPartial"
+      responses:
+        '200':
+          $ref: "#/components/responses/FetchInventoryResponse"
+
+        '4XX':
+          $ref: "#/components/responses/ErrorResponse"
+
+  /fetch_inventory_delta:
+    post:
+      summary: Fetch only stock levels changed after a given date
+      operationId: FetchInventoryDelta
+      description: Request stock levels from the inventory source, *only* for levels changed since the given date
+      tags: 
+        - Fetch Inventory
+      requestBody:
+        $ref: "#/components/requestBodies/FetchInventoryRequestDelta"
+      responses:
+        '200':
+          $ref: "#/components/responses/FetchInventoryResponse"
+
+        '4XX':
+          $ref: "#/components/responses/ErrorResponse"
+                
+  /push_inventory:
+    post:
+      summary: Push new stock levels to inventory source
+      operationId: PushInventory
+      tags:
+        - Push Inventory
+      description: Send new or updated stock quantities to the inventory provider or store platform
+      requestBody:
+        $ref: "#/components/requestBodies/PushInventoryRequestBody"
+      responses:
+        '200':
+          $ref:  "#/components/responses/PushInventoryResponse"
+          
+      
+        '4XX':
+          $ref: "#/components/responses/ErrorResponse"
+        
+
+components:
+  schemas:
+    RequestAuth:
+      type: object
+      description: Credentials and auth info necessary to fulfill the requset to the inventory source. The shape of these will vary with each inventory provider / store platform.
+      example: { token: abcd-1234, accountId: 4442431 }
+
+    Cursor:
+      description: An opaque string which should be passed back in the next request – for paging / retrying / polling.
+      type: string
+      example: cGFnZTozMDo6cGVyX3BhZ2U6NTAw
+
+    # -------------------------
+    # Inventory models
+    # -------------------------
+
+    InventoryItemBase:
+      type: object
+      description: Common / shared properties for InventoryItems, regardless of whether receiving data (fetch) or sending it (push) 
+      required:
+        - sku
+        - integration_entity_id
+        - fetched_at
+        - available_quantity
+      properties:
+        sku:
+          type: string
+          example: t-shirt-small-red
+          description: The merchant-supplied identifier for the product.
+        integration_entity_id:
+          type: string
+          example: t-shirt-small-red
+          description: The unique inventory record in the *source* system. This will often be the same as the SKU, but could be different in inventory source platforms that allow duplicate SKUs.
+        fetched_at:
+          type: string
+          description: DateTime representing when these inventory quantities were fetched from the source.
+          format: date-time
+          example: 2021-01-01T08:30:00+0000
+        updated_at:
+          type: string
+          description: DateTime representing when these inventory quantities were last updated at the source (if available).
+          format: date-time
+          example: 2021-01-01T08:15:00+0000
+        available_quantity:
+          type: integer
+          example: 15
+        allocated_quantity:
+          type: integer
+          example: 2
+        onhand_quantity:
+          type: integer
+          example: 5
+        committed_quantity:
+          type: integer
+          example: 1
+      example:
+        sku: t-shirt-small-red
+        integration_entity_id: t-shirt-small-red
+        fetched_at: 2021-01-01T08:30:00+0000
+        updated_at: 2021-01-01T08:20:00+0000
+        available_quantity: 20
+        allocated_quantity: 2
+
+    InventoryFetchItem:
+      description: The reported stock levels from an inventory source when fetching
+      allOf:
+        - $ref: "#/components/schemas/InventoryItemBase"
+        - type: object
+          properties:
+            warehouse_id:
+              type: string
+              description: Unique identifier for a warehouse or other location tracked in the source system.
+
+    InventoryFetchStatusEnum:
+      description: Enum of possible response statuses when fetching inventory.
+      type: string
+      enum: [success, failure, pending]
+      example: pending
+
+    # -------------------------------
+    # InventoryFetch response schemas
+    # -------------------------------
+
+    InventoryFetchSuccess:
+      description: Response shape for a successful inventory fetch request.
+      type: object
+      required:
+        - inventory_items
+        - status
+        - has_more_data
+      properties:
+        status:
+          type: string
+          pattern: '^success$'
+          example: success
+        inventory_items:
+          type: array
+          items:
+            $ref: "#/components/schemas/InventoryFetchItem"
+        has_more_data:
+          type: boolean
+        cursor:
+          $ref: "#/components/schemas/Cursor"
+      example:
+        status: success
+        inventory_items:
+          - $ref: "#/components/schemas/InventoryItemBase/example"
+          - sku: blue-shoes-8.5
+            integration_entity_id: blue-shoes-8.5
+            fetched_at: 2021-01-15T08:30:00+0000
+            updated_at: 2021-01-15T08:20:00+0000
+            available_quantity: 40
+            onhand_quantity: 50
+        has_more_data: true
+        cursor:
+          $ref: "#/components/schemas/Cursor/example"
+
+    InventoryFetchPending:
+      description: Response shape for a pending inventory fetch request.
+      type: object
+      required:
+        - status
+        - cursor
+        - poll_after_seconds
+      properties:
+        status:
+          type: string
+          pattern: '^pending$'
+          example: pending
+        cursor:
+          $ref:  "#/components/schemas/Cursor"
+        poll_after_seconds:
+          type: integer
+          description: A suggested wait time before clients should poll with the given cursor to check on completion.
+          example: 10
+      example:
+        status: pending
+        poll_after_seconds: 10
+        cursor:
+          $ref: "#/components/schemas/Cursor/example"
+
+    InventoryFetchFailure:
+      description: Response shape for a failed inventory fetch request.
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          pattern: '^failure$'
+          example: failure
+        error:
+          $ref:  "#/components/schemas/Error"
+      example:
+        status: failure
+        error: "#components/schemas/Error/example"
+
+    # ------------------------------
+    # InventoryPush response schemas
+    # ------------------------------
+
+    InventoryPushSuccess:
+      description: Response shape for a successful `push_inventory` operation
+      type: object
+      properties:
+        transaction_id:
+          type: string
+          description: A unique identifier for the completed operation, which may refer to a resource
+                      at the inventory source, such as a feed or document ID.
+          example: abcd-1234
+        skus_updated:
+          type: array
+          items:
+            type: string
+            example: [t-shirt-small-red, blue-shoe-8.5]
+      example:
+        transaction_id: abcd-1234
+        skus_updated: [t-shirt-small-red, blue-shoe-8.5]
+
+    InventoryPushPending:
+      description: Response shape for a pending or long-running `push_inventory` operation
+      type: object
+      required:
+        - status
+        - cursor
+        - poll_after_seconds
+      properties:
+        status:
+          type: string
+          pattern: '^pending$'
+          example: pending
+        cursor:
+          $ref:  "#/components/schemas/Cursor"
+        poll_after_seconds:
+          type: integer
+          description: A suggested wait time before clients should poll with the given cursor to check on completion.
+          example: 10
+      example:
+        status: pending
+        poll_after_seconds: 10
+        cursor:
+          $ref: "#/components/schemas/Cursor/example"
+
+
+    # ----------
+    # Errors
+    # ----------
+
+    Error:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          description: Summary of what went wrong.
+          type: string
+        transaction_id:
+          description: Unique identifier for the request or operation that produced the error, if available.
+          type: string
+        external_error_code:
+          type: integer
+          description: Error code received from the remote inventory source
+        details:
+          description: Additional detail about what went wrong.
+          type: string
+        poll_after_seconds:
+          description: A suggested wait interval before the request should be retried, if applicable.
+          type: number
+      example:
+        message: Throttled due to exceeding available query capacity
+        transaction_id: 12345
+        external_error_code: 429
+        details: Calculated cost was 5400, but only 1200 units are currently available. (Restore Rate 100)
+        poll_after_seconds: 42
+
+  requestBodies:
+    FetchInventoryRequestBase:
+      description: Request body for making a basic (full) inventory request
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - auth
+            properties:
+              cursor:
+                $ref: "#/components/schemas/Cursor"
+              auth:
+                $ref: "#/components/schemas/RequestAuth"
+
+    FetchInventoryRequestPartial:
+      description: Request body for making a partial inventory request (only specific SKUs)
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - auth
+            properties:
+              cursor:
+                $ref: "#/components/schemas/Cursor"
+              auth:
+                $ref: "#/components/schemas/RequestAuth"
+              skus:
+                type: array
+                example: ['t-shirt', 'mug', 'bouncy-ball']
+                items: 
+                  type: string
+
+    FetchInventoryRequestDelta:
+      description: Request body for making a delta inventory request (only since a given date)
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - auth
+            properties:
+              cursor:
+                $ref: "#/components/schemas/Cursor"
+              auth:
+                $ref: "#/components/schemas/RequestAuth"
+              sinceDate:
+                type: string
+                example: 2021-01-01T08:30:00+0000
+                format: date-time
+  
+    PushInventoryRequestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - auth
+            properties:
+              auth:
+                $ref: "#/components/schemas/RequestAuth"
+              items:
+                type: array
+                items:
+                  $ref: "#/components/schemas/InventoryItemBase"
+              cursor:
+                $ref:  "#/components/schemas/Cursor"
+
+  responses:
+    FetchInventoryResponse:
+      description: A successful or pending response for any `fetch_inventory` operation
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref:  "#/components/schemas/InventoryFetchSuccess"
+              - $ref:  "#/components/schemas/InventoryFetchPending"
+            discriminator:
+              propertyName: status
+              mapping:
+                success: "#/components/schemas/InventoryFetchSuccess"
+                pending: "#/components/schemas/InventoryFetchPending"
+
+    FetchInventoryErrorResponse:
+      description: An error response  for a `fetch_inventory` operation
+      content:
+        application/json:
+          schema:
+            $ref:  "#/components/schemas/InventoryFetchFailure"
+
+    PushInventoryResponse:
+      description: A successful response for a `push_inventory` operation
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref:   "#/components/schemas/InventoryPushSuccess"
+              - $ref:   "#/components/schemas/InventoryPushPending"
+            discriminator:
+              propertyName: status
+              mapping:
+                success: "#/components/schemas/InventoryPushSuccess"
+                pending: "#/components/schemas/InventoryPushPending"
+
+    ErrorResponse:
+      description: Any standardized Error response
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
