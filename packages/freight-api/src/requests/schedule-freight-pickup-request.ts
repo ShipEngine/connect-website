@@ -24,9 +24,9 @@ export interface ScheduleFreightPickupRequest extends BaseCarrierRequest {
       id: string;
     };
     /**
-     * Optional shipment comments for the carrier
+     * Optional instructions for the carrier
      */
-    comments?: string;
+    instructions?: string;
   };
   pickup: {
     /**

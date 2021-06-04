@@ -55,7 +55,8 @@
           "dimensions",
           "weight",
           "quantity",
-          "stackable"
+          "stackable",
+          "hazardous_materials"
         ],
         "properties": {
           "code": {
@@ -150,6 +151,9 @@
             "type": "number"
           },
           "stackable": {
+            "type": "boolean"
+          },
+          "hazardous_materials": {
             "type": "boolean"
           }
         }

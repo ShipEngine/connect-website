@@ -59,9 +59,9 @@
             }
           }
         },
-        "comments": {
+        "instructions": {
           "type": "string",
-          "description": "Optional shipment comments for the carrier"
+          "description": "Optional instructions for the carrier"
         }
       }
     },
@@ -121,7 +121,8 @@
           "dimensions",
           "weight",
           "quantity",
-          "stackable"
+          "stackable",
+          "hazardous_materials"
         ],
         "properties": {
           "code": {
@@ -216,6 +217,9 @@
             "type": "number"
           },
           "stackable": {
+            "type": "boolean"
+          },
+          "hazardous_materials": {
             "type": "boolean"
           }
         }

@@ -40,4 +40,5 @@ export interface Container {
   weight: Weight;
   quantity: number;
   stackable: boolean;
+  hazardous_materials: boolean;
 }
