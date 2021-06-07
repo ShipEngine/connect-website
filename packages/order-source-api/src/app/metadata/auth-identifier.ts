@@ -6,5 +6,6 @@ export enum AuthenticationType {
 
 export interface AuthIdentifier {
   AuthenticationType: AuthenticationType;
+  Version?: string;
   IsSandbox?: boolean;
 }

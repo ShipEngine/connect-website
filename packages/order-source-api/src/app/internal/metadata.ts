@@ -43,6 +43,7 @@ export class Metadata implements OrderSourceProviderSpecification {
     this.Id = app.Metadata.Id;
     this.Name = app.Metadata.Name;
     this.AuthProcess = app.Metadata.AuthProcess;
+    this.AuthProcess.Identifier.Version = "2.0";
     this.OrderSources = app.Metadata.OrderSources.map(
       (orderSourceDefinition) =>
         new OrderSourceSpecification(orderSourceDefinition)
