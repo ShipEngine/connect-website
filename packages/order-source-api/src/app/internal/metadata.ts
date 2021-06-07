@@ -12,21 +12,28 @@ const mapFunctions = (
   const functions: FunctionSpecification[] = [];
   if (app.SalesOrdersExport) {
     functions.push({
-      Name: "SalesOrdersExport",
+      Name: "sales_orders_export",
       IsSandboxed: false,
     });
   }
 
   if (app.ShipmentNotification) {
     functions.push({
-      Name: "ShipmentNotification",
+      Name: "shipment_notification",
       IsSandboxed: false,
     });
   }
 
   if (app.AcknowledgeOrders) {
     functions.push({
-      Name: "AcknowledgeOrders",
+      Name: "acknowledge_orders",
+      IsSandboxed: false,
+    });
+  }
+
+  if (app.GetProducts) {
+    functions.push({
+      Name: "get_products",
       IsSandboxed: false,
     });
   }
