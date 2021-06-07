@@ -990,7 +990,7 @@ components:
                 in a transaction.
               nullable: true
               oneOf:
-                - $ref: '#/components/schemas/InsuranceProviders'          
+                - $ref: '#/components/schemas/InsuranceProviders'
             is_return_label:
               type: boolean
               description: |-
@@ -2018,6 +2018,23 @@ components:
               type: string
               description: The transaction ID uniquely represents this request.
               format: guid
+            label_download:
+              description: |-
+                This object provides the requested label that was just created. Exactly one of the keys should be
+                populated. Set href if the label should be downloaded separately from a public URL. Set data if the
+                label is returned directly in the response.
+              nullable: true
+              oneOf:
+                - $ref: '#/components/schemas/LabelDownload'
+            form_download:
+              description: |-
+                This is deprecated, use documents array with type = customs_form
+                This provides any additional forms that go with the label. For example, customs forms. Exactly one of the
+                keys should be populated. Set href is the forms should be downloaded separately. Set data if the
+                forms are returned directly in the response.
+              nullable: true
+              oneOf:
+                - $ref: '#/components/schemas/FormDownload'
             documents:
               type: array
               description: |-
@@ -2063,6 +2080,33 @@ components:
                 The estimated date and time for when the shipment will be delivered. Formatted per the
                 https://tools.ietf.org/html/rfc3339 spec.
               format: date-time
+              nullable: true
+    LabelDownload:
+      allOf:
+        - $ref: '#/components/schemas/ResourceDownload'
+        - type: object
+          description: |-
+            This object provides the requested label that was just created. Exactly one of the keys should be populated.
+            Set href if the label should be downloaded separately. Set data if the label is returned directly in
+            the response.
+          additionalProperties: false
+          properties:
+            label_data:
+              type: string
+              description: The base64 encoded label image.
+              nullable: true
+    FormDownload:
+      allOf:
+        - $ref: '#/components/schemas/ResourceDownload'
+        - type: object
+          description: |-
+            This provides any additional forms that go with the label. For example, customs forms. Exactly one of the
+            keys should be populated. Set href is the forms should be downloaded separately. Set data if the
+            forms are returned directly in the response.
+          additionalProperties: false
+          properties:
+            form_data:
+              type: string
               nullable: true
     Document:
       type: object
