@@ -3,11 +3,11 @@ import { TaxIdentifierType } from "./tax-identifier-type";
 /** @description Entity representing a Tax Identification number, type, and country of registration. */
 export interface TaxIdentifier {
   /** @description Identification number */
-  Id: string;
+  id: string;
   /** @description The Tax ID type */
-  Type: TaxIdentifierType;
+  type: TaxIdentifierType;
   /** @description The country where the Tax ID is registered with */
-  RegistrationCounty?: string;
+  registration_county?: string;
   /** @description Description of the tax ID that may give the customs agent more context */
-  Description?: string;
+  description?: string;
 }
