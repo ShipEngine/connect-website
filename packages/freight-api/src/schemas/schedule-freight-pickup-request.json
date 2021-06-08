@@ -154,7 +154,7 @@
             ]
           },
           "nmfc_code": {
-            "type": "number",
+            "type": "string",
             "description": "NMFC commodity code / item number"
           },
           "description": {

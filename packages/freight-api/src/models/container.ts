@@ -31,7 +31,7 @@ export interface Container {
   /**
    * NMFC commodity code / item number
    */
-  nmfc_code?: number;
+  nmfc_code?: string;
   /**
    * The description of the item(s) in this container
    */

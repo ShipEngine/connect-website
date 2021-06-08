@@ -7,21 +7,13 @@ import {
   FreightProvider,
   Method,
   Route,
-  validateRequest,
-  validateResponse,
 } from "./internal";
 import { FreightProviderSpecification } from "./metadata";
 
-const handleRequest = (operation: string, implementation?: Function): any => {
+const handleRequest = (implementation?: Function): any => {
   if (implementation) {
     return (request: any) => {
-      validateRequest(operation, request.body);
-
-      const response = implementation(request.body);
-
-      validateResponse(operation, response.body);
-
-      return response;
+      return implementation(request.body);
     };
   }
 };
@@ -34,7 +26,7 @@ const route = (
   return {
     method: method,
     path: `/${operation}`,
-    handler: handleRequest(operation, handler),
+    handler: handleRequest(handler),
   };
 };
 

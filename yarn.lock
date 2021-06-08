@@ -1250,10 +1250,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@shipengine/connect-freight-api@workspace:packages/freight-api"
   dependencies:
-    "@shipengine/connect-runtime": ^0.6.1
     "@types/node": ^14.14.41
-    ajv: ^8.2.0
-    ajv-formats: ^2.0.2
     prettier: 2.2.1
     typescript: ^4.2.4
   languageName: unknown
@@ -1344,7 +1341,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@shipengine/connect-runtime@^0.6.1, @shipengine/connect-runtime@workspace:packages/runtime":
+"@shipengine/connect-runtime@workspace:packages/runtime":
   version: 0.0.0-use.local
   resolution: "@shipengine/connect-runtime@workspace:packages/runtime"
   dependencies:
@@ -2643,20 +2640,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ajv-formats@npm:^2.0.2":
-  version: 2.1.0
-  resolution: "ajv-formats@npm:2.1.0"
-  dependencies:
-    ajv: ^8.0.0
-  peerDependencies:
-    ajv: ^8.0.0
-  peerDependenciesMeta:
-    ajv:
-      optional: true
-  checksum: b75faa4a63dbf2de2ed22731dd920ebb45b25652b0b13363e564f8a4b1787e06ff3d904d09a931e1af5c4dec7d0211034a21be08f96d84559a70eaa8bcd78829
-  languageName: node
-  linkType: hard
-
 "ajv@npm:^6.10.0, ajv@npm:^6.10.2, ajv@npm:^6.12.3, ajv@npm:^6.12.4":
   version: 6.12.6
   resolution: "ajv@npm:6.12.6"
@@ -2678,18 +2661,6 @@ __metadata:
     require-from-string: ^2.0.2
     uri-js: ^4.2.2
   checksum: 34044f60ca45ef8ec850f5d09e4db340bb870639efc1694d54bec7ff4b06b12b077872949223f703d1507bbf3d553b59752f4c327ffcd25726ee27919d586037
-  languageName: node
-  linkType: hard
-
-"ajv@npm:^8.0.0, ajv@npm:^8.2.0":
-  version: 8.4.0
-  resolution: "ajv@npm:8.4.0"
-  dependencies:
-    fast-deep-equal: ^3.1.1
-    json-schema-traverse: ^1.0.0
-    require-from-string: ^2.0.2
-    uri-js: ^4.2.2
-  checksum: 0dcdfe0ecaafca2de60d01601c041853a1057f26bcb24de79484a3f6947486cad7b84d2779f93a9a315345451248aca14ed4996213905b42fac4ec11c7a76a6c
   languageName: node
   linkType: hard
 
