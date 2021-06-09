@@ -612,7 +612,7 @@ components:
         - $ref: '#/components/schemas/BaseCarrierRequest'
         - type: object
           properties:
-            service:
+            service_level:
               type: object
               required:
                 - code
@@ -858,7 +858,7 @@ components:
         - $ref: '#/components/schemas/BaseQuoteRequest'
         - type: object
           properties:
-            service:
+            service_level:
               type: object
               required:
                 - code

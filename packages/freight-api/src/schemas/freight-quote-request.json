@@ -7,7 +7,7 @@
     "pickup",
     "requested_by",
     "scac",
-    "service",
+    "service_level",
     "ship_from",
     "ship_to",
     "shipment_measurements",
@@ -497,7 +497,7 @@
         }
       }
     },
-    "service": {
+    "service_level": {
       "type": "object",
       "required": [
         "code"

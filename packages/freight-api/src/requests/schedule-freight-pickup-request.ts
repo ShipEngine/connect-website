@@ -13,7 +13,7 @@ import { BaseCarrierRequest } from "./base-carrier-request";
  * Schedule a freight pickup / dispatch.
  */
 export interface ScheduleFreightPickupRequest extends BaseCarrierRequest {
-  service: {
+  service_level: {
     code: string;
   };
   carrier: {
