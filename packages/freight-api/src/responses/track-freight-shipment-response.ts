@@ -13,37 +13,35 @@ export interface TrackFreightShipmentResponse extends BaseCarrierResponse {
       postal_code?: string;
     };
   };
-  transit: {
-    pickup?: {
+  pickup?: {
+    /**
+     * Date Format: YYYY-MM-DD
+     */
+    date: string;
+  };
+  delivery?: {
+    estimated?: {
       /**
        * Date Format: YYYY-MM-DD
        */
       date: string;
+      /**
+       * 24 Hour Format: HH:MM:SS, HH:MM:SSZ, HH:MM:SS+/-HH:MM
+       */
+      time?: string;
     };
-    delivery?: {
-      estimated?: {
-        /**
-         * Date Format: YYYY-MM-DD
-         */
-        date: string;
-        /**
-         * 24 Hour Format: HH:MM:SS, HH:MM:SSZ, HH:MM:SS+/-HH:MM
-         */
-        time?: string;
-      };
-      actual?: {
-        /**
-         * Date Format: YYYY-MM-DD
-         */
-        date: string;
-        /**
-         * 24 Hour Format: HH:MM:SS, HH:MM:SSZ, HH:MM:SS+/-HH:MM
-         */
-        time?: string;
-      };
-      signature?: {
-        name: string;
-      };
+    actual?: {
+      /**
+       * Date Format: YYYY-MM-DD
+       */
+      date: string;
+      /**
+       * 24 Hour Format: HH:MM:SS, HH:MM:SSZ, HH:MM:SS+/-HH:MM
+       */
+      time?: string;
+    };
+    signature?: {
+      name: string;
     };
   };
   events: {

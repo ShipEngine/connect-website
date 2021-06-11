@@ -9,14 +9,9 @@
     "sourceMap": true,
     "strict": true,
     "declaration": true,
-    "resolveJsonModule": true,
     "composite": true
   },
   "include": [
-    "src/**/*.ts",
-    "src/schemas/*.json"
-  ],
-  "references": [
-    { "path": "../runtime" }
+    "src/**/*.ts"
   ]
 }

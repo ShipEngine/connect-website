@@ -1,44 +1,40 @@
 import { Money } from ".";
 
 export interface Quote {
-  carrier: {
-    quote: {
-      id: string;
+  quote: {
+    id: string;
+    /**
+     * Quote effective information if supported by the carrier
+     */
+    effective?: {
       /**
-       * Quote effective information if supported by the carrier
+       * Date Format: YYYY-MM-DD
        */
-      effective?: {
-        /**
-         * Date Format: YYYY-MM-DD
-         */
-        date?: string;
-      };
+      date?: string;
+    };
+    /**
+     * Quote expiration information if supported by the carrier
+     */
+    expiration?: {
       /**
-       * Quote expiration information if supported by the carrier
+       * Date Format: YYYY-MM-DD
        */
-      expiration?: {
-        /**
-         * Date Format: YYYY-MM-DD
-         */
-        date?: string;
-      };
+      date?: string;
     };
     /**
      * Optional message supplied by the carrier about the quote
      */
-    message?: string;
+    carrier_message?: string;
   };
-  transit: {
-    pickup: {
-      /**
-       * Date Format: YYYY-MM-DD
-       */
-      date: string;
-    };
-    delivery: {
-      estimated: {
-        days?: number;
-      };
+  pickup: {
+    /**
+     * Date Format: YYYY-MM-DD
+     */
+    date: string;
+  };
+  delivery: {
+    estimated: {
+      days?: number;
     };
   };
   charges: {

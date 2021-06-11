@@ -1,6 +1,6 @@
 {
   "name": "@shipengine/connect-freight-api",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "OpenAPI specification and TypeScript definitions for the Freight API",
   "author": "ShipEngine",
   "license": "Apache-2.0",

@@ -379,62 +379,6 @@ paths:
           required: true
 components:
   schemas:
-    Container:
-      type: object
-      title: Container
-      properties:
-        code:
-          type: string
-          description: The container/packaging code for this container
-        freight_class:
-          type: number
-          description: NMFC freight class
-          enum:
-            - 50
-            - 55
-            - 60
-            - 65
-            - 70
-            - 77.5
-            - 85
-            - 92.5
-            - 100
-            - 110
-            - 125
-            - 150
-            - 175
-            - 200
-            - 250
-            - 300
-            - 400
-            - 500
-        nmfc_code:
-          description: NMFC commodity code / item number
-          type: string
-        description:
-          type: string
-          description: The description of the item(s) in this container
-          example: Windows
-        dimensions:
-          $ref: '#/components/schemas/Dimensions'
-        weight:
-          $ref: '#/components/schemas/Weight'
-        quantity:
-          type: number
-          description: ''
-        stackable:
-          type: boolean
-          description: ''
-        hazardous_materials:
-          type: boolean
-      required:
-        - code
-        - description
-        - dimensions
-        - weight
-        - quantity
-        - stackable
-        - hazardous_materials
     AccessorialService:
       description: 'Accessorial services are services offered by a carrier in addition to transportation services, such as hazardous materials handling, residential pickup or delivery, collecting payment at delivery, etc... Each carrier offers a unique set of services, represented primarily by a service code. In some cases additional data will be required such as the emergency contact for hazardous materials handling in which case that can be supplied via the `attributes` object. Please refer to the registry for more information about the attributes supported per accessorial service for a given carrier defined as a JSON Schema.'
       title: AccessorialService
@@ -454,35 +398,6 @@ components:
           description: Optional attributes as required by the carrier for the accessorial service
       required:
         - code
-    BillingParty:
-      type: object
-      title: BillingParty
-      properties:
-        type:
-          type: string
-          enum:
-            - consignee
-            - shipper
-            - third_party
-        payment_terms:
-          type: string
-          enum:
-            - collect
-            - prepaid
-            - third_party
-        account:
-          type: string
-          description: The carrier account number used to determine the pricing agreement.
-        address:
-          $ref: '#/components/schemas/Address'
-        contact:
-          $ref: '#/components/schemas/Contact'
-      required:
-        - type
-        - payment_terms
-        - account
-        - address
-        - contact
     Contact:
       type: object
       title: Contact
@@ -612,6 +527,14 @@ components:
         - $ref: '#/components/schemas/BaseCarrierRequest'
         - type: object
           properties:
+            quote:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: Quote ID received from the carrier
+              required:
+                - id
             service_level:
               type: object
               required:
@@ -619,22 +542,7 @@ components:
               properties:
                 code:
                   type: string
-            carrier:
-              type: object
-              properties:
-                quote:
-                  type: object
-                  required:
-                    - id
-                  properties:
-                    id:
-                      type: string
-                      description: Quote ID received from the carrier
-                instructions:
-                  type: string
-                  description: Optional instructions for the carrier
-              required:
-                - quote
+                  description: Service level for the pickup/dispatch request
             pickup:
               type: object
               required:
@@ -671,7 +579,62 @@ components:
             containers:
               type: array
               items:
-                $ref: '#/components/schemas/Container'
+                type: object
+                title: Container
+                properties:
+                  code:
+                    type: string
+                    description: The container/packaging code for this container
+                  freight_class:
+                    type: number
+                    description: NMFC freight class
+                    enum:
+                      - 50
+                      - 55
+                      - 60
+                      - 65
+                      - 70
+                      - 77.5
+                      - 85
+                      - 92.5
+                      - 100
+                      - 110
+                      - 125
+                      - 150
+                      - 175
+                      - 200
+                      - 250
+                      - 300
+                      - 400
+                      - 500
+                  nmfc_code:
+                    description: NMFC commodity code / item number
+                    type: string
+                  description:
+                    type: string
+                    description: The description of the item(s) in this container
+                    example: Windows
+                  dimensions:
+                    $ref: '#/components/schemas/Dimensions'
+                  weight:
+                    $ref: '#/components/schemas/Weight'
+                  quantity:
+                    type: number
+                    description: ''
+                  stackable:
+                    type: boolean
+                    description: ''
+                  hazardous_materials:
+                    type: boolean
+                required:
+                  - code
+                  - freight_class
+                  - description
+                  - dimensions
+                  - weight
+                  - quantity
+                  - stackable
+                  - hazardous_materials
             accessorials:
               type: array
               description: Accessorial services required for pickup
@@ -698,17 +661,52 @@ components:
                 contact:
                   $ref: '#/components/schemas/Contact'
             bill_to:
-              $ref: '#/components/schemas/BillingParty'
+              type: object
+              title: BillingParty
+              required:
+                - type
+                - payment_terms
+              properties:
+                type:
+                  type: string
+                  enum:
+                    - consignee
+                    - shipper
+                    - third_party
+                payment_terms:
+                  type: string
+                  enum:
+                    - collect
+                    - prepaid
+                    - third_party
+                account:
+                  type: string
+                  description: The carrier account number used to determine the pricing agreement.
+                address:
+                  $ref: '#/components/schemas/Address'
+                contact:
+                  $ref: '#/components/schemas/Contact'
             requested_by:
               $ref: '#/components/schemas/RequestingParty'
+            carrier:
+              type: object
+              properties:
+                instructions:
+                  type: string
+                  description: Optional instructions for the carrier
+                test:
+                  type: boolean
+                  default: false
+                  description: By setting `test` to true a pickup will not be created with the carrier.
           required:
-            - service
+            - service_level
             - pickup
             - containers
             - ship_from
             - ship_to
+            - bill_to
             - requested_by
-      description: ''
+      description: 'Schedule a pickup with the carrier. Where quote requests were more permissive in terms of required data - addresses, etc... - the pickup request is where the specifics of the shipment are sent to the carrier - complete addresses, container information, and so on. Note also that there is the capability to send test requests by setting `carrier.test = true`, however if the carrier does not support that capability you must set the '
     ScheduleFreightPickupResponse:
       title: ScheduleFreightPickupResponse
       allOf:
@@ -855,7 +853,7 @@ components:
     FreightQuoteRequest:
       title: FreightQuoteRequest
       allOf:
-        - $ref: '#/components/schemas/BaseQuoteRequest'
+        - $ref: '#/components/schemas/BaseCarrierRequest'
         - type: object
           properties:
             service_level:
@@ -865,8 +863,181 @@ components:
               properties:
                 code:
                   type: string
+            pickup:
+              type: object
+              required:
+                - date
+              properties:
+                date:
+                  type: string
+                  format: date
+                  description: 'Date Format: YYYY-MM-DD'
+            containers:
+              type: array
+              items:
+                type: object
+                title: Container
+                properties:
+                  code:
+                    type: string
+                    description: The container/packaging code for this container
+                  freight_class:
+                    type: number
+                    description: NMFC freight class
+                    enum:
+                      - 50
+                      - 55
+                      - 60
+                      - 65
+                      - 70
+                      - 77.5
+                      - 85
+                      - 92.5
+                      - 100
+                      - 110
+                      - 125
+                      - 150
+                      - 175
+                      - 200
+                      - 250
+                      - 300
+                      - 400
+                      - 500
+                  nmfc_code:
+                    description: NMFC commodity code / item number
+                    type: string
+                  description:
+                    type: string
+                    description: The description of the item(s) in this container
+                    example: Windows
+                  dimensions:
+                    $ref: '#/components/schemas/Dimensions'
+                  weight:
+                    $ref: '#/components/schemas/Weight'
+                  quantity:
+                    type: number
+                    description: ''
+                  stackable:
+                    type: boolean
+                    description: ''
+                  hazardous_materials:
+                    type: boolean
+                required:
+                  - freight_class
+                  - description
+                  - weight
+            shipment_measurements:
+              type: object
+              description: The dimensions and weight consumed by the shipment once loaded in the trailer
+              properties:
+                total_linear_length:
+                  type: object
+                  description: 'The total linear length of the shipment as it will be loaded into the trailer, calculated based on the length of an individual container, factoring in whether containers can be stacked and/or fit widthwise in the trailer'
+                  properties:
+                    value:
+                      type: number
+                    unit:
+                      $ref: '#/components/schemas/DimensionUnitType'
+                  required:
+                    - value
+                    - unit
+                total_width:
+                  type: object
+                  description: The total width of the shipment configuration as it will be loaded into the trailer
+                  properties:
+                    value:
+                      type: number
+                    unit:
+                      $ref: '#/components/schemas/DimensionUnitType'
+                  required:
+                    - value
+                    - unit
+                total_height:
+                  type: object
+                  description: The total height of the shipment configuration as it will be loaded into the trailer
+                  properties:
+                    value:
+                      type: number
+                    unit:
+                      $ref: '#/components/schemas/DimensionUnitType'
+                  required:
+                    - value
+                    - unit
+                total_weight:
+                  type: object
+                  description: The total weight of the shipment configuration as it will be loaded into the trailer
+                  properties:
+                    value:
+                      type: number
+                    unit:
+                      $ref: '#/components/schemas/WeightUnitType'
+                  required:
+                    - value
+                    - unit
+            accessorials:
+              type: array
+              description: Accessorial services required for delivery
+              items:
+                $ref: '#/components/schemas/AccessorialService'
+            ship_from:
+              type: object
+              required:
+                - address
+              properties:
+                account:
+                  type: string
+                  description: Shipper's carrier account number
+                address:
+                  $ref: '#/components/schemas/QuoteAddress'
+            ship_to:
+              type: object
+              required:
+                - address
+              properties:
+                account:
+                  type: string
+                  description: Consignee's carrier account number
+                address:
+                  $ref: '#/components/schemas/QuoteAddress'
+            bill_to:
+              type: object
+              title: BillingParty
+              properties:
+                type:
+                  type: string
+                  enum:
+                    - consignee
+                    - shipper
+                    - third_party
+                payment_terms:
+                  type: string
+                  enum:
+                    - collect
+                    - prepaid
+                    - third_party
+                account:
+                  type: string
+                  description: The carrier account number used to determine the pricing agreement.
+                address:
+                  $ref: '#/components/schemas/Address'
+                contact:
+                  $ref: '#/components/schemas/Contact'
+              required:
+                - type
+                - payment_terms
+                - account
+                - address
+                - contact
+            requested_by:
+              $ref: '#/components/schemas/RequestingParty'
           required:
-            - service
+            - service_level
+            - pickup
+            - containers
+            - ship_from
+            - ship_to
+            - bill_to
+            - requested_by
     FreightQuoteResponse:
       title: FreightQuoteResponse
       allOf:
@@ -916,54 +1087,51 @@ components:
                   properties:
                     postal_code:
                       type: string
-            transit:
+            pickup:
               type: object
               properties:
-                pickup:
+                date:
+                  type: string
+                  format: date
+                  description: 'Date Format: YYYY-MM-DD'
+              required:
+                - date
+            delivery:
+              type: object
+              properties:
+                estimated:
                   type: object
                   properties:
                     date:
                       type: string
                       format: date
                       description: 'Date Format: YYYY-MM-DD'
+                    time:
+                      type: string
+                      format: time
+                      description: '24 Hour Format: HH:MM:SS, HH:MM:SSZ, HH:MM:SS+/-HH:MM'
                   required:
                     - date
-                delivery:
+                actual:
                   type: object
                   properties:
-                    estimated:
-                      type: object
-                      properties:
-                        date:
-                          type: string
-                          format: date
-                          description: 'Date Format: YYYY-MM-DD'
-                        time:
-                          type: string
-                          format: time
-                          description: '24 Hour Format: HH:MM:SS, HH:MM:SSZ, HH:MM:SS+/-HH:MM'
-                      required:
-                        - date
-                    actual:
-                      type: object
-                      properties:
-                        date:
-                          type: string
-                          format: date
-                          description: 'Date Format: YYYY-MM-DD'
-                        time:
-                          type: string
-                          format: time
-                          description: '24 Hour Format: HH:MM:SS, HH:MM:SSZ, HH:MM:SS+/-HH:MM'
-                      required:
-                        - date
-                    signature:
-                      type: object
-                      properties:
-                        name:
-                          type: string
-                      required:
-                        - name
+                    date:
+                      type: string
+                      format: date
+                      description: 'Date Format: YYYY-MM-DD'
+                    time:
+                      type: string
+                      format: time
+                      description: '24 Hour Format: HH:MM:SS, HH:MM:SSZ, HH:MM:SS+/-HH:MM'
+                  required:
+                    - date
+                signature:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                  required:
+                    - name
             events:
               type: array
               items:
@@ -1019,31 +1187,6 @@ components:
     FreightSpotQuoteRequest:
       title: FreightSpotQuoteRequest
       allOf:
-        - $ref: '#/components/schemas/BaseQuoteRequest'
-    FreightSpotQuoteResponse:
-      title: FreightSpotQuoteResponse
-      allOf:
-        - $ref: '#/components/schemas/BaseCarrierResponse'
-        - type: object
-          properties:
-            results:
-              type: array
-              items:
-                allOf:
-                  - type: object
-                    properties:
-                      service_level:
-                        type: object
-                        description: Spot/volume service level returned by the carrier. These service levels are often different than standard service levels so only the description provided by the carrier is returned.
-                        properties:
-                          carrier_description:
-                            type: string
-                  - $ref: '#/components/schemas/Quote'
-          required:
-            - results
-    BaseQuoteRequest:
-      title: BaseQuoteRequest
-      allOf:
         - $ref: '#/components/schemas/BaseCarrierRequest'
         - type: object
           properties:
@@ -1059,14 +1202,67 @@ components:
             containers:
               type: array
               items:
-                $ref: '#/components/schemas/Container'
+                type: object
+                title: Container
+                properties:
+                  code:
+                    type: string
+                    description: The container/packaging code for this container
+                  freight_class:
+                    type: number
+                    description: NMFC freight class
+                    enum:
+                      - 50
+                      - 55
+                      - 60
+                      - 65
+                      - 70
+                      - 77.5
+                      - 85
+                      - 92.5
+                      - 100
+                      - 110
+                      - 125
+                      - 150
+                      - 175
+                      - 200
+                      - 250
+                      - 300
+                      - 400
+                      - 500
+                  nmfc_code:
+                    description: NMFC commodity code / item number
+                    type: string
+                  description:
+                    type: string
+                    description: The description of the item(s) in this container
+                    example: Windows
+                  dimensions:
+                    $ref: '#/components/schemas/Dimensions'
+                  weight:
+                    $ref: '#/components/schemas/Weight'
+                  quantity:
+                    type: number
+                    description: ''
+                  stackable:
+                    type: boolean
+                    description: ''
+                  hazardous_materials:
+                    type: boolean
+                required:
+                  - code
+                  - freight_class
+                  - description
+                  - dimensions
+                  - weight
+                  - quantity
+                  - stackable
+                  - hazardous_materials
             shipment_measurements:
               type: object
               description: The dimensions and weight consumed by the shipment once loaded in the trailer
               required:
                 - total_linear_length
-                - total_width
-                - total_height
                 - total_weight
               properties:
                 total_linear_length:
@@ -1083,25 +1279,25 @@ components:
                 total_width:
                   type: object
                   description: The total width of the shipment configuration as it will be loaded into the trailer
-                  required:
-                    - value
-                    - unit
                   properties:
                     value:
                       type: number
                     unit:
                       $ref: '#/components/schemas/DimensionUnitType'
+                  required:
+                    - value
+                    - unit
                 total_height:
                   type: object
                   description: The total height of the shipment configuration as it will be loaded into the trailer
-                  required:
-                    - value
-                    - unit
                   properties:
                     value:
                       type: number
                     unit:
                       $ref: '#/components/schemas/DimensionUnitType'
+                  required:
+                    - value
+                    - unit
                 total_weight:
                   type: object
                   description: The total weight of the shipment configuration as it will be loaded into the trailer
@@ -1127,7 +1323,7 @@ components:
                   type: string
                   description: Shipper's carrier account number
                 address:
-                  $ref: '#/components/schemas/Address'
+                  $ref: '#/components/schemas/QuoteAddress'
             ship_to:
               type: object
               required:
@@ -1137,9 +1333,34 @@ components:
                   type: string
                   description: Consignee's carrier account number
                 address:
-                  $ref: '#/components/schemas/Address'
+                  $ref: '#/components/schemas/QuoteAddress'
             bill_to:
-              $ref: '#/components/schemas/BillingParty'
+              type: object
+              title: BillingParty
+              required:
+                - type
+                - payment_terms
+                - contact
+              properties:
+                type:
+                  type: string
+                  enum:
+                    - consignee
+                    - shipper
+                    - third_party
+                payment_terms:
+                  type: string
+                  enum:
+                    - collect
+                    - prepaid
+                    - third_party
+                account:
+                  type: string
+                  description: The carrier account number used to determine the pricing agreement.
+                address:
+                  $ref: '#/components/schemas/Address'
+                contact:
+                  $ref: '#/components/schemas/Contact'
             requested_by:
               $ref: '#/components/schemas/RequestingParty'
           required:
@@ -1150,6 +1371,27 @@ components:
             - ship_to
             - bill_to
             - requested_by
+    FreightSpotQuoteResponse:
+      title: FreightSpotQuoteResponse
+      allOf:
+        - $ref: '#/components/schemas/BaseCarrierResponse'
+        - type: object
+          properties:
+            results:
+              type: array
+              items:
+                allOf:
+                  - type: object
+                    properties:
+                      service_level:
+                        type: object
+                        description: Spot/volume service level returned by the carrier. These service levels are often different than standard service levels so only the description provided by the carrier is returned.
+                        properties:
+                          carrier_description:
+                            type: string
+                  - $ref: '#/components/schemas/Quote'
+          required:
+            - results
     RequestingParty:
       title: RequestingParty
       type: object
@@ -1195,62 +1437,51 @@ components:
       title: Quote
       type: object
       properties:
-        carrier:
+        quote:
           type: object
           required:
-            - quote
+            - id
           properties:
-            quote:
-              type: object
-              required:
-                - id
-              properties:
-                id:
-                  type: string
-                effective:
-                  type: object
-                  description: Quote effective information if supported by the carrier
-                  properties:
-                    date:
-                      type: string
-                      format: date
-                      description: 'Date Format: YYYY-MM-DD'
-                expiration:
-                  type: object
-                  description: Quote expiration information if supported by the carrier
-                  properties:
-                    date:
-                      type: string
-                      format: date
-                      description: 'Date Format: YYYY-MM-DD'
-            message:
+            id:
               type: string
-              description: Optional message supplied by the carrier about the quote
-        transit:
-          type: object
-          required:
-            - pickup
-            - delivery
-          properties:
-            pickup:
+            effective:
               type: object
-              required:
-                - date
+              description: Quote effective information if supported by the carrier
               properties:
                 date:
                   type: string
                   format: date
                   description: 'Date Format: YYYY-MM-DD'
-            delivery:
+            expiration:
               type: object
-              required:
-                - estimated
+              description: Quote expiration information if supported by the carrier
               properties:
-                estimated:
-                  type: object
-                  properties:
-                    days:
-                      type: number
+                date:
+                  type: string
+                  format: date
+                  description: 'Date Format: YYYY-MM-DD'
+            carrier_message:
+              type: string
+              description: Optional message supplied by the carrier about the quote
+        pickup:
+          type: object
+          required:
+            - date
+          properties:
+            date:
+              type: string
+              format: date
+              description: 'Date Format: YYYY-MM-DD'
+        delivery:
+          type: object
+          required:
+            - estimated
+          properties:
+            estimated:
+              type: object
+              properties:
+                days:
+                  type: number
         charges:
           type: array
           items:
@@ -1277,6 +1508,39 @@ components:
         - carrier
         - transit
         - charges
+    QuoteAddress:
+      description: ''
+      type: object
+      title: QuoteAddress
+      properties:
+        company_name:
+          type: string
+          description: The name of the company associated with this address.
+        address_lines:
+          type: array
+          description: The address lines of the shipment address.
+          items:
+            type: string
+        city_locality:
+          type: string
+          description: 'The city or locality of the shipment address, where applicable.'
+        state_province:
+          type: string
+          description: 'The state or province of the shipment address, where applicable.'
+        postal_code:
+          type: string
+          description: The postal code of the shipment address.
+        country_code:
+          type: string
+          description: The two character country code of the shipment address. The codes are specified by ISO 3166-1 alpha-2.
+        residential:
+          type: boolean
+          default: false
+      required:
+        - city_locality
+        - state_province
+        - postal_code
+        - country_code
 security: []
 servers:
   - url: 'http://localhost:3000'
