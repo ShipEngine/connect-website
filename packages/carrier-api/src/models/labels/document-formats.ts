@@ -1,5 +1,5 @@
 /** @description Label data type */
-export enum LabelFormats {
+export enum DocumentFormat {
   Pdf = "PDF",
   Zpl = "ZPL",
   Png = "PNG",

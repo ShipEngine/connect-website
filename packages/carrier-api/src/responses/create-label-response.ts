@@ -2,9 +2,10 @@ import { BaseResponse } from "./base-response";
 import {
   LabelDownload,
   FormDownload,
+  Document,
   BillingLineItem,
-  Currency,
   LabelPackage,
+  Identifier,
 } from "../models";
 
 /** @description Basic structure for a response to create a label */
@@ -12,12 +13,11 @@ export interface CreateLabelResponse extends BaseResponse {
   transaction_id: string;
   label_download?: LabelDownload;
   form_download?: FormDownload;
+  documents?: Document[];
+  packages?: LabelPackage[];
   billing_line_items?: BillingLineItem[];
   tracking_number?: string;
   trackable?: boolean;
-  carrier_transaction_id?: string;
+  alternative_identifiers?: Identifier[];
   estimated_delivery_datetime?: string;
-  shipping_amount?: Currency;
-  insurance_amount?: Currency;
-  packages?: LabelPackage[];
 }

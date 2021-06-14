@@ -18,3 +18,4 @@ export * from "./insurance-providers";
 export * from "./package";
 export * from "./resource-download";
 export * from "./taxes";
+export * from "./documents";

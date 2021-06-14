@@ -2,11 +2,9 @@ import { BaseRequest } from "./base-request";
 import {
   AdvancedOptions,
   ConfirmationTypes,
-  Currency,
-  Customs,
   FulfillmentPlanDetails,
   InsuranceProviders,
-  LabelFormats,
+  DocumentFormat,
   LabelLayouts,
   Package,
   ReturnLabelDetails,
@@ -14,6 +12,7 @@ import {
   PudoLocation,
   ShipFromDisplay,
   ShipTo,
+  Document,
 } from "../models";
 
 /** @description Basic structure for a request to create a label */
@@ -21,7 +20,7 @@ export interface CreateLabelRequest extends BaseRequest {
   service_code?: string;
   ship_datetime: string;
   confirmation?: ConfirmationTypes;
-  label_format?: LabelFormats;
+  label_format?: DocumentFormat;
   label_layout?: LabelLayouts;
   /** @description Whether the request is for a test */
   is_test_label?: boolean;
@@ -33,7 +32,6 @@ export interface CreateLabelRequest extends BaseRequest {
   /** @description Whether the shipment is to a residential address */
   is_residential: boolean;
   packages: Package[];
-  customs?: Customs;
   ship_to: ShipTo;
   ship_from: ShipFrom;
   pickup_location?: PudoLocation;
@@ -43,7 +41,7 @@ export interface CreateLabelRequest extends BaseRequest {
   /** @description Whether the shipment is international */
   international?: boolean;
   reference?: string;
-  shipment_details?: { [key: string]: any };
   return_details?: ReturnLabelDetails;
   fulfillment_plan_details?: FulfillmentPlanDetails;
+  attachments?: Document[];
 }
