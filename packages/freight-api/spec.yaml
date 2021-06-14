@@ -722,6 +722,16 @@ components:
             message:
               type: string
               description: Optional message with notes about the pickup that the user should be made aware of.
+            warnings:
+              type: array
+              description: Optional warnings returned by the carrier for this pickup request.
+              items:
+                type: object
+                properties:
+                  external_code:
+                    type: string
+                  message:
+                    type: string
       description: ''
     Dimensions:
       title: Dimensions
@@ -1439,8 +1449,6 @@ components:
       properties:
         quote:
           type: object
-          required:
-            - id
           properties:
             id:
               type: string
@@ -1463,25 +1471,27 @@ components:
             carrier_message:
               type: string
               description: Optional message supplied by the carrier about the quote
+          required:
+            - id
         pickup:
           type: object
-          required:
-            - date
           properties:
             date:
               type: string
               format: date
               description: 'Date Format: YYYY-MM-DD'
+          required:
+            - date
         delivery:
           type: object
-          required:
-            - estimated
           properties:
             estimated:
               type: object
               properties:
                 days:
                   type: number
+          required:
+            - estimated
         charges:
           type: array
           items:
@@ -1504,9 +1514,17 @@ components:
             required:
               - type
               - amount
+        warnings:
+          type: array
+          description: Optional warnings returned by the carrier for this quote.
+          items:
+            type: object
+            properties:
+              external_code:
+                type: string
+              message:
+                type: string
       required:
-        - carrier
-        - transit
         - charges
     QuoteAddress:
       description: ''

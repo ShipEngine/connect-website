@@ -13,4 +13,11 @@ export interface ScheduleFreightPickupResponse extends BaseCarrierResponse {
    * Optional message with notes about the pickup that the user should be made aware of.
    */
   message?: string;
+  /**
+   * Optional warnings returned by the carrier for this quote.
+   */
+  warnings: {
+    external_code: string;
+    message: string;
+  }[];
 }

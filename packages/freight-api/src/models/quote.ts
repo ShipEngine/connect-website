@@ -42,4 +42,11 @@ export interface Quote {
     description?: string;
     amount: Money;
   }[];
+  /**
+   * Optional warnings returned by the carrier for this quote.
+   */
+  warnings: {
+    external_code: string;
+    message: string;
+  }[];
 }
