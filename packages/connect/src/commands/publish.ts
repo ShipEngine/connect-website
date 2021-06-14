@@ -1,6 +1,5 @@
 import BaseCommand from "../base-command";
 import Login from './login';
-import Test from "./test";
 import publishApp, { isAppFailedToDeployError } from "../core/publish-app";
 import { flags } from "@oclif/command";
 import { packageApp, isAppFailedToPackageError } from '../core/package-app';

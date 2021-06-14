@@ -2,13 +2,21 @@ import nodemon from 'nodemon';
 import BaseCommand from "../base-command";
 import { loadApp } from "@shipengine/connect-loader";
 import open from 'open';
+import { execSync } from "child_process";
+import { yellow, green } from 'chalk';
 
 export default class Start extends BaseCommand {
   public static description = "Start the app";
 
   async run(): Promise<void> {
     try {
-      const app = await loadApp(process.cwd())
+      const app = await loadApp(process.cwd());
+      if(app.manifest.dependencies['@shipengine/connect-runtime']) {
+        console.log(yellow('\n\nYou can now run `npm start` instead of using the connect start.'));
+        console.log(green('npm start'));
+        execSync("npm start", { stdio: 'inherit' });
+        return;
+      }
       let script;
       if (app.type === 'order') {
         script = require.resolve('@shipengine/connect-order-source-runtime')
