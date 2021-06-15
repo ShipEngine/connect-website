@@ -1,8 +1,10 @@
-# Carrier App
-**Warning: This sample is using an experimental version of the connect SDK. This message will be removed when it becomes usable by members outside of the team.**
+# Sample Carrier App
 
-Implement the methods necessary for the ordersource found in `src/methods`;
+This is a sample carrier app.
 
-`npm start` will build your project and start up a local server.
+## Setup
 
-`npm run-script build` will build your project.
+1. `npm i` to install dependencies
+1. `npm run build` to transpile TS into JS
+1. `npm run start` to run the application
+

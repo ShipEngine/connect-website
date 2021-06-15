@@ -1,80 +1,48 @@
 import {
   Carrier,
-  PackageAttribute,
-  ShippingService,
-  PackageType,
-  ServiceRequiredPropertiesEnum,
   LabelSizesEnum,
   LabelFormatsEnum,
-  ServiceGradeEnum,
-  ServiceClassEnum,
-  ServiceAttributesEnum,
   ShippingOptionEnum,
-} from '@shipengine/connect-carrier-api';
+  ConfirmationTypeEnum,
+} from "@shipengine/connect-carrier-api";
 
 import { join } from "path";
 
-const aPackage: PackageType = {
-  Id: "a8195f65-8381-4a0e-8857-67deaa92ac3b",
-  Name: "A Package",
-  CarrierPackageTypeCode: "01",
-  Description: "A Package",
-  Abbreviation: "Pkg",
-  PackageAttributes: [
-    PackageAttribute.International,
-    PackageAttribute.Domestic,
-  ] ,
-  RequiredToShip: ["Weight"],
-};
+import { Box, Bag } from "./packaging";
 
-const aShippingService: ShippingService = {
-  Id: "beb82e53-a5bb-4da3-a22a-be22c4e4e3c7",
-  Name: "A Shipping Service",
-  Abbreviation: "A Service",
-  Code: "07",
-  International: false,
-  RequiredProperties: [ServiceRequiredPropertiesEnum.Dimensions, ServiceRequiredPropertiesEnum.Weight],
-  SupportedLabelSizes: [LabelSizesEnum.Inches4x6],
-  SupportedCountries: [
-    {
-      FromCountry: "GB"
-    },
-    {
-      FromCountry: "AU"
-    }
-  ],
-  Class: ServiceClassEnum.OneDayEarly,
-  Grade: ServiceGradeEnum.Expedited,
-  ServiceAttributes: [ServiceAttributesEnum.Returns, ServiceAttributesEnum.MultiPackage, ServiceAttributesEnum.Tracking]
-};
+import { NextDayAir, BudgetDelivery } from "./shipping-services";
 
-export const CarrierTwo: Carrier = {
-  Id: '4bec4bfe-db20-41bf-abec-96c68e5e3c1a',
-  Name: 'The Second Carrier',
-  Description: 'Babys second carrier',
-  PackageTypes: [aPackage],
-  ShippingServices: [aShippingService],
+export const DemoCarrier: Carrier = {
+  // DO NOT CHANGE THIS ID AFTER PUBLISHING
+  Id: "15b60bda-e92e-49bf-9fdb-54113d5a96fa",
+  Name: "Demo Carrier",
+  Description: "This is a description about the carrier",
+  PackageTypes: [Box, Bag],
+  ShippingServices: [NextDayAir, BudgetDelivery],
   ShippingOptions: {
-    [ShippingOptionEnum.DryIce]: 'Contains Dry Ice',
+    [ShippingOptionEnum.DryIce]: "Contains Dry Ice",
     [ShippingOptionEnum.ContainsAlcohol]: undefined, // default name will be used
   },
   DefaultSupportedCountries: [
     {
-      FromCountry: 'US',
+      FromCountry: "US",
     },
     {
       FromCountry: "GB",
-    }
+    },
   ],
   DefaultLabelSizes: [LabelSizesEnum.Inches4x6, LabelSizesEnum.Inches4x8],
   LabelFormats: [LabelFormatsEnum.PDF, LabelFormatsEnum.ZPL],
-  DefaultConfirmationTypes: null,
+  DefaultConfirmationTypes: {
+    [ConfirmationTypeEnum.None]: "No Confirmation Required",
+    [ConfirmationTypeEnum.AdultSignature]: "Adult Required",
+  },
   CarrierAttributes: null,
-  TrackingUrl: 'https://the.second-carrier.com/track',
-  CarrierUrl: 'https://the.second-carrier.com',
+  TrackingUrl: "https://the.carrier.com/track",
+  CarrierUrl: "https://the.carrier.com",
   Images: {
-    Logo: join(__dirname, "../../assets/brand-two/logo.svg"),
-    Icon: join(__dirname, "../../assets/brand-two/icon.svg"),
+    Logo: join(__dirname, "../../../assets/logo.svg"),
+    Icon: join(__dirname, "../../../assets/icon.svg"),
   },
   AccountModals: {
     RegistrationFormSchema: {

@@ -3,13 +3,10 @@
     "target": "es2017",
     "module": "commonjs",
     "moduleResolution": "node",
+    "rootDir": "src",
     "outDir": "lib",
     "sourceMap": true
   },
-  "include": [
-    "src/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
 }

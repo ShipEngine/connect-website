@@ -1,17 +1,30 @@
 {
   "name": "carrier-api",
+  "description": "Sample carrier app",
   "version": "1.0.0",
-  "main": "./lib/index.js",
-  "types": "./lib/index.ts",
-  "scripts": {
-    "start": "tsc && node ./lib/serve.js",
-    "build": "tsc"
+  "author": "Doug Wile",
+  "appId": "89ebe16c-29fb-4dc5-b949-349bd4625656",
+  "dependencies": {
+    "@shipengine/connect-carrier-api": "^2.1.1",
+    "@shipengine/connect-runtime": "^0.6.1"
   },
   "devDependencies": {
-    "typescript": "^4.2.3"
+    "@types/node": "^15.12.2",
+    "typescript": "^4.3.2"
   },
-  "dependencies": {
-    "@shipengine/connect-carrier-api": "file:../../packages/carrier-api",
-    "@shipengine/connect-runtime": "file:../../packages/runtime"
-  }
+  "engines": {
+    "node": ">=14.16.1"
+  },
+  "keywords": [
+    "ShipEngine",
+    "carrier app"
+  ],
+  "main": "lib/index.js",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "start": "node lib/serve.js",
+    "watch": "tsc --watch"
+  },
+  "types": "lib/index.ts"
 }
