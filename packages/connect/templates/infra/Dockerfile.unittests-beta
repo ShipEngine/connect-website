@@ -1,0 +1,33 @@
+FROM node:lts-alpine as base
+# This sets our package dependencies up for upgraded client certificates
+RUN set -ex; \
+    apk update; \
+    apk add --no-cache ca-certificates;
+
+FROM base as base-build
+
+# This sets our os package dependencies up for NewRelic
+RUN set -ex; \
+    apk add --no-cache build-base python; \
+    npm install --no-progress --global node-gyp;
+
+ENV CXXFLAGS='-Wno-cast-function-type'
+
+ARG PROJECT_ROOT=.
+
+WORKDIR /app
+COPY ${PROJECT_ROOT}/ ${PROJECT_ROOT}/
+
+ARG GIT_SHA
+ARG GIT_BRANCH
+ENV GIT_SHA ${GIT_SHA:-snapshot}
+ENV GIT_BRANCH ${GIT_BRANCH:-some-branch}
+ENV MODULE_NAME ${MODULE_NAME:-module}
+ENV NEW_RELIC_NO_CONFIG_FILE ${NEW_RELIC_NO_CONFIG_FILE:-true}
+ENV PORT ${PORT:-3000}
+
+EXPOSE 3000
+
+RUN npm ci --no-progress
+
+ENTRYPOINT [ "npm", "run-script", "test" ]

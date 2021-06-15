@@ -11,6 +11,8 @@ class InfraNew extends Generator {
 
     type!: string;
 
+    beta!: boolean;
+
     organization!: string;
 
     image!: string;
@@ -31,7 +33,7 @@ class InfraNew extends Generator {
             process.chdir(this.destinationRoot());
         }
         const currentDir = path.resolve().split(path.sep).pop();
-
+        const integrationsDir = path.resolve().split(path.sep).find(part => part.includes('integrations-'));
         const answers = await this.prompt([
             {
                 type: "input",
@@ -62,6 +64,7 @@ class InfraNew extends Generator {
                 type: "input",
                 name: "repo",
                 message: "Which GitHub repo is this for?",
+                default: integrationsDir,
             },
         ]);
 
@@ -102,6 +105,11 @@ class InfraNew extends Generator {
 
         const pjson: any = this.fs.readJSON("package.json", {});
         this.hasBuild = !!pjson.scripts?.build;
+        const dependencies = Object.keys({
+            ...pjson.dependencies,
+            ...pjson.devDependencies
+        });
+        this.beta = dependencies.includes('@shipengine/connect-runtime');
     }
 
 
@@ -122,10 +130,19 @@ class InfraNew extends Generator {
             { src: "helm/values-prod.yaml.ejs", dest: `../../infra/helm/${this.appName}/values-prod.yaml` },
             { src: "helm/values-stage.yaml.ejs", dest: `../../infra/helm/${this.appName}/values-stage.yaml` },
             { src: "helm/values.yaml.ejs", dest: `../../infra/helm/${this.appName}/values.yaml` },
-            { src: "Dockerfile.ejs", dest: "Dockerfile" },
-            { src: "Dockerfile.unittests", dest: "Dockerfile.unittests" },
             { src: "Makefile.ejs", dest: "Makefile" },
         ];
+        if(this.beta) {
+            filesToCopy.push(
+                { src: "Dockerfile.beta.ejs", dest: "Dockerfile" },
+                { src: "Dockerfile.unittests-beta", dest: "Dockerfile.unittests" }
+            );
+        } else {
+            filesToCopy.push(
+                { src: "Dockerfile.ejs", dest: "Dockerfile" },
+                { src: "Dockerfile.unittests", dest: "Dockerfile.unittests" }
+            );
+        }
 
         filesToCopy.forEach(fileToCopy => {
             this.fs.copyTpl(
