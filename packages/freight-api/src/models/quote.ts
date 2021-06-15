@@ -45,7 +45,7 @@ export interface Quote {
   /**
    * Optional warnings returned by the carrier for this quote.
    */
-  warnings: {
+  warnings?: {
     external_code: string;
     message: string;
   }[];
