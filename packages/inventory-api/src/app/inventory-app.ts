@@ -4,6 +4,12 @@ import { InventoryAppDefinition } from "./inventory-app-definition";
 import { FetchType, InventoryAppMetadata } from "./inventory-app-metadata";
 import { InventoryHandler, Operation } from "./types";
 import { BrandedImage, ConnectRuntimeApp, Method, Route } from "./internal";
+import { Request } from "express";
+import { RequestAuth, isRequestAuth } from "../models";
+import {
+  BadRequestError,
+  UnauthorizedError,
+} from "@shipengine/connect-runtime";
 
 export class InventoryApp implements ConnectRuntimeApp {
   routes: Route[];
@@ -14,6 +20,8 @@ export class InventoryApp implements ConnectRuntimeApp {
   constructor(def: InventoryAppDefinition) {
     // Validate app; throws if invalid
     validateAppDef(def);
+
+    this.data = def.metadata;
 
     this.routes = [
       {
@@ -30,11 +38,6 @@ export class InventoryApp implements ConnectRuntimeApp {
         method: Method.POST,
         path: Operation.FETCH_DELTA,
         handler: handleRequest(def.fetchInventoryDelta),
-      },
-      {
-        method: Method.POST,
-        path: Operation.FETCH_FULL,
-        handler: handleRequest(def.fetchInventoryFull),
       },
       {
         method: Method.GET,
@@ -56,16 +59,56 @@ export class InventoryApp implements ConnectRuntimeApp {
 }
 
 /**
- * Simple wrapper for method implementations, which passes an incoming
- * request body to the method for further processing.
- * 
+ * Simple middleware to wrap individual handlers. Extracts and decodes
+ * Authorization header, passing the result along with the request.body
+ * to the given handler.
+ *
  * NOTE: It may turn out we need to have a bit of data handling, e.g.
  * coercing strings to dates or vice versa; will circle back to this.
  */
 const handleRequest =
   (handler: InventoryHandler): any =>
-  (request: any) =>
-    handler(request.body);
+  (request: Request) => {
+    const auth = extractAuth(request);
+    const cursor = extractCursor(request);
+    return handler({ auth, cursor, ...request.body });
+  };
+
+const extractCursor = (request: Request): string | undefined =>
+  request.params.cursor;
+
+/**
+ * Extracts `Authorization` header from an incoming request, decodes and
+ * parses it to a `RequestAuth` object. Throws Auth / BadRequest errors if
+ * decoding / parsing fails.
+ */
+const extractAuth = (request: Request): RequestAuth => {
+  const rawAuth = request.get("Authorization");
+  if (!rawAuth) {
+    throw new UnauthorizedError("Must provide Authorization");
+  }
+
+  const decoded = Buffer.from(rawAuth, "base64").toString();
+
+  try {
+    const parsed = JSON.parse(decoded);
+    if (isRequestAuth(parsed)) {
+      return parsed;
+    } else {
+      throw new BadRequestError(
+        "Auth header must match `RequestAuth` definition"
+      );
+    }
+  } catch (error) {
+    if (error instanceof SyntaxError) {
+      throw new UnauthorizedError(
+        "Authorization header must decode to a valid JSON object"
+      );
+    } else {
+      throw new BadRequestError("Authorization error:", error.message);
+    }
+  }
+};
 
 /**
  * Runtime verification that an Inventory App Definition is implemented in a way

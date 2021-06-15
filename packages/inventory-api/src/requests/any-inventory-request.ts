@@ -1,6 +1,7 @@
 import { AuthenticatedRequest } from "./authenticated-requests";
 import {
   FetchInventoryRequestDelta,
+  FetchInventoryRequestPartial,
   FetchInventoryRequestFull,
 } from "./fetch-inventory";
 import { OperationResults } from "./operation-results";
@@ -13,6 +14,6 @@ export type AnyInventoryRequest =
   | AuthenticatedRequest
   | FetchInventoryRequestFull
   | FetchInventoryRequestDelta
-  | FetchInventoryRequestDelta
+  | FetchInventoryRequestPartial
   | PushInventoryRequest
   | OperationResults;

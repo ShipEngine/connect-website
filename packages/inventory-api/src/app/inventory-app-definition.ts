@@ -1,4 +1,3 @@
-import * as Models from "../models";
 import * as Requests from "../requests";
 import * as Responses from "../responses";
 import { InventoryAppMetadata } from "./inventory-app-metadata";
