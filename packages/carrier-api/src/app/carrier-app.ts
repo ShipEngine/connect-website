@@ -5,6 +5,7 @@ import { resolve } from "path";
 import { readFileSync } from "fs";
 
 import { Metadata } from "./internal/metadata";
+import { CarrierSpecification } from "./internal/carrier-specificaion";
 
 const handleRequest = (implementation?: Function): any => {
   if (implementation) {
@@ -59,7 +60,7 @@ const registerRoutes = (routes: Route[], definition: CarrierAppDefinition) => {
 
 export class CarrierApp implements ConnectRuntimeApp {
   routes: Route[] = [];
-  data: any;
+  data: Metadata;
   redoc: string;
   constructor(definition: CarrierAppDefinition) {
     registerRoutes(this.routes, definition);
@@ -67,6 +68,13 @@ export class CarrierApp implements ConnectRuntimeApp {
     this.redoc = readFileSync(resolve(__dirname, "../../spec.yaml")).toString();
   }
   getImages(): BrandedImages[] {
-    return [];
+    const mapBrandedImages = (carrier: CarrierSpecification): BrandedImages => {
+      return {
+        id: carrier.Id,
+        logo: carrier.Images.LogoUrl,
+        icon: carrier.Images.IconUrl,
+      };
+    };
+    return this.data.Carriers.map(mapBrandedImages);
   }
 }

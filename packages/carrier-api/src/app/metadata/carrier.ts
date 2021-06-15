@@ -10,7 +10,7 @@ import { ConfirmationDictionary } from "./confirmation-type";
 
 /** @description Basic structure for each carrier */
 export interface Carrier {
-  AccountModals?: AccountModals;
+  AccountModals: AccountModals;
   PackageTypes?: PackageType[];
   ShippingServices?: ShippingService[];
   ShippingOptions?: ShippingOptionDictionary;
@@ -24,4 +24,8 @@ export interface Carrier {
   Description?: string;
   Name: string;
   Id: string;
+  Images: {
+    Logo: string;
+    Icon: string;
+  };
 }

@@ -11,8 +11,9 @@ import {
   ServiceAttributesEnum,
   ConfirmationTypeEnum,
   ShippingOptionEnum,
-} from '@shipengine/connect-carrier-api';
+} from "@shipengine/connect-carrier-api";
 
+import { join } from "path";
 
 const aPackage: PackageType = {
   Id: "a8195f65-8381-4a0e-8857-67deaa92ac3b",
@@ -23,7 +24,7 @@ const aPackage: PackageType = {
   PackageAttributes: [
     PackageAttribute.International,
     PackageAttribute.Domestic,
-  ] ,
+  ],
   RequiredToShip: ["Weight"],
 };
 
@@ -33,47 +34,119 @@ const aShippingService: ShippingService = {
   Abbreviation: "A Service",
   Code: "07",
   International: false,
-  RequiredProperties: [ServiceRequiredPropertiesEnum.Dimensions, ServiceRequiredPropertiesEnum.Weight],
+  RequiredProperties: [
+    ServiceRequiredPropertiesEnum.Dimensions,
+    ServiceRequiredPropertiesEnum.Weight,
+  ],
   SupportedLabelSizes: [LabelSizesEnum.Inches4x6],
   SupportedCountries: [
     {
-      FromCountry: "GB"
+      FromCountry: "GB",
     },
     {
-      FromCountry: "AU"
-    }
+      FromCountry: "AU",
+    },
   ],
   Class: ServiceClassEnum.OneDayEarly,
   Grade: ServiceGradeEnum.Expedited,
-  ServiceAttributes: [ServiceAttributesEnum.Returns, ServiceAttributesEnum.MultiPackage, ServiceAttributesEnum.Tracking]
+  ServiceAttributes: [
+    ServiceAttributesEnum.Returns,
+    ServiceAttributesEnum.MultiPackage,
+    ServiceAttributesEnum.Tracking,
+  ],
 };
 
 export const CarrierOne: Carrier = {
-  Id: '',
-  Name: 'The First Carrier',
-  Description: 'Babys first carrier',
+  Id: "a3a69dbc-5ceb-43b1-94cd-155e49931d4f",
+  Name: "The First Carrier",
+  Description: "Babys first carrier",
   PackageTypes: [aPackage],
   ShippingServices: [aShippingService],
   ShippingOptions: {
-    [ShippingOptionEnum.DryIce]: 'Contains Dry Ice',
-    [ShippingOptionEnum.SaturdayGuarantee]: 'Saturday Delivery Guaranteed!'
+    [ShippingOptionEnum.DryIce]: "Contains Dry Ice",
+    [ShippingOptionEnum.SaturdayGuarantee]: "Saturday Delivery Guaranteed!",
   },
   DefaultSupportedCountries: [
     {
-      FromCountry: 'US',
+      FromCountry: "US",
     },
     {
       FromCountry: "GB",
-    }
+    },
   ],
+  Images: {
+    Logo: join(__dirname, "../../assets/brand-one/logo.svg"),
+    Icon: join(__dirname, "../../assets/brand-one/icon.svg"),
+  },
+  AccountModals: {
+    RegistrationFormSchema: {
+      jsonSchema: {
+        type: "object",
+        title: "Login Form Example",
+        required: ["email", "password"],
+        properties: {
+          email: {
+            type: "string",
+            title: "Email Address",
+            format: "email",
+          },
+          password: {
+            type: "string",
+            title: "Password",
+            minLength: 8,
+          },
+        },
+        description: "Connect to your account.",
+      },
+      uiSchema: {
+        email: {
+          "ui:autofocus": true,
+          "ui:emptyValue": "you@example.com",
+        },
+        password: {
+          "ui:help": "Note: password is case sensitive",
+          "ui:widget": "password",
+        },
+      },
+    },
+    SettingsFormSchema: {
+      jsonSchema: {
+        type: "object",
+        title: "Login Form Example",
+        required: ["email", "password"],
+        properties: {
+          email: {
+            type: "string",
+            title: "Email Address",
+            format: "email",
+          },
+          password: {
+            type: "string",
+            title: "Password",
+            minLength: 8,
+          },
+        },
+        description: "Connect to your account.",
+      },
+      uiSchema: {
+        email: {
+          "ui:autofocus": true,
+          "ui:emptyValue": "you@example.com",
+        },
+        password: {
+          "ui:help": "Note: password is case sensitive",
+          "ui:widget": "password",
+        },
+      },
+    },
+  },
   DefaultLabelSizes: [LabelSizesEnum.Inches4x6, LabelSizesEnum.Inches4x8],
   LabelFormats: [LabelFormatsEnum.PDF, LabelFormatsEnum.ZPL],
   DefaultConfirmationTypes: {
-    [ConfirmationTypeEnum.None]: 'No Confirmation Required',
-    [ConfirmationTypeEnum.AdultSignature]: 'Adult Required',
-
+    [ConfirmationTypeEnum.None]: "No Confirmation Required",
+    [ConfirmationTypeEnum.AdultSignature]: "Adult Required",
   },
   CarrierAttributes: null,
-  TrackingUrl: 'https://the.carrier.com/track',
-  CarrierUrl: 'https://the.carrier.com',
+  TrackingUrl: "https://the.carrier.com/track",
+  CarrierUrl: "https://the.carrier.com",
 };

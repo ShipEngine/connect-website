@@ -21,7 +21,7 @@ import { CarrierAttributeEnum } from "../metadata/carrier-attributes";
 export class CarrierSpecification {
   Id: string;
   Name: string;
-  AccountModals?: AccountModals;
+  AccountModals: AccountModals;
   PackageTypes?: PackageType[];
   ShippingServices?: ShippingService[];
   ShippingOptions?: ShippingOption[];
@@ -33,8 +33,16 @@ export class CarrierSpecification {
   TrackingUrl?: string;
   CarrierUrl?: string;
   Description?: string;
+  Images: {
+    LogoUrl: string;
+    IconUrl: string;
+  };
 
   constructor(definition: Carrier) {
+    this.Images = {
+      LogoUrl: definition.Images.Logo,
+      IconUrl: definition.Images.Icon,
+    };
     this.Id = definition.Id;
     this.Name = definition.Name;
     this.AccountModals = definition.AccountModals;

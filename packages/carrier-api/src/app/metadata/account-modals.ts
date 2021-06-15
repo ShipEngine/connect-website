@@ -1,10 +1,12 @@
-import Logo from "./logo";
-
 export interface AccountModals {
-  /** @description List of logos for the carriers */
-  Logos?: Logo[];
   /** @description Schema for the form to register with the carrier */
-  RegistrationFormSchema?: any;
+  RegistrationFormSchema: {
+    jsonSchema: object;
+    uiSchema: object;
+  };
   /** @description  Schema for the form to update carrier settings */
-  SettingsFormSchema?: any;
+  SettingsFormSchema: {
+    jsonSchema: object;
+    uiSchema: object;
+  };
 }

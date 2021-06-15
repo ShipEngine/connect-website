@@ -9,7 +9,6 @@ export * from "./enums";
 export * from "./function";
 export * from "./label-formats";
 export * from "./label-sizes";
-export * from "./logo";
 export * from "./package-type";
 export * from "./service-class";
 export * from "./service-grade";

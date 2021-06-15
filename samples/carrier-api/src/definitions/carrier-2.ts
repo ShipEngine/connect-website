@@ -12,6 +12,7 @@ import {
   ShippingOptionEnum,
 } from '@shipengine/connect-carrier-api';
 
+import { join } from "path";
 
 const aPackage: PackageType = {
   Id: "a8195f65-8381-4a0e-8857-67deaa92ac3b",
@@ -48,7 +49,7 @@ const aShippingService: ShippingService = {
 };
 
 export const CarrierTwo: Carrier = {
-  Id: '',
+  Id: '4bec4bfe-db20-41bf-abec-96c68e5e3c1a',
   Name: 'The Second Carrier',
   Description: 'Babys second carrier',
   PackageTypes: [aPackage],
@@ -71,4 +72,70 @@ export const CarrierTwo: Carrier = {
   CarrierAttributes: null,
   TrackingUrl: 'https://the.second-carrier.com/track',
   CarrierUrl: 'https://the.second-carrier.com',
+  Images: {
+    Logo: join(__dirname, "../../assets/brand-two/logo.svg"),
+    Icon: join(__dirname, "../../assets/brand-two/icon.svg"),
+  },
+  AccountModals: {
+    RegistrationFormSchema: {
+      jsonSchema: {
+        type: "object",
+        title: "Login Form Example",
+        required: ["email", "password"],
+        properties: {
+          email: {
+            type: "string",
+            title: "Email Address",
+            format: "email",
+          },
+          password: {
+            type: "string",
+            title: "Password",
+            minLength: 8,
+          },
+        },
+        description: "Connect to your account.",
+      },
+      uiSchema: {
+        email: {
+          "ui:autofocus": true,
+          "ui:emptyValue": "you@example.com",
+        },
+        password: {
+          "ui:help": "Note: password is case sensitive",
+          "ui:widget": "password",
+        },
+      },
+    },
+    SettingsFormSchema: {
+      jsonSchema: {
+        type: "object",
+        title: "Login Form Example",
+        required: ["email", "password"],
+        properties: {
+          email: {
+            type: "string",
+            title: "Email Address",
+            format: "email",
+          },
+          password: {
+            type: "string",
+            title: "Password",
+            minLength: 8,
+          },
+        },
+        description: "Connect to your account.",
+      },
+      uiSchema: {
+        email: {
+          "ui:autofocus": true,
+          "ui:emptyValue": "you@example.com",
+        },
+        password: {
+          "ui:help": "Note: password is case sensitive",
+          "ui:widget": "password",
+        },
+      },
+    },
+  },
 };
