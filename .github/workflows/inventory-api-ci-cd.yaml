@@ -90,8 +90,6 @@ jobs:
         with:
           package: packages/inventory-api/package.json
           token: ${{ secrets.NPM_TOKEN }}
-          checkVersion: false
-          access: public
 
       - name: Tag Release
         if: ${{ steps.publish.outputs.type != 'none' }}
