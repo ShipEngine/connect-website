@@ -5,7 +5,7 @@ import { AuthenticatedRequest } from ".";
  * request takes no extra parameters beyond the common auth scheme, so
  * this definition is just a type alias.
  */
-export type FetchInventoryRequestFull = AuthenticatedRequest
+export type FetchInventoryRequestFull = AuthenticatedRequest;
 
 /**
  * The shape of request bodies when making a `partial` inventory fetch. A partial

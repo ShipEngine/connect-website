@@ -1260,6 +1260,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@shipengine/connect-inventory-api@workspace:packages/inventory-api"
   dependencies:
+    "@types/express": ^4.17.12
     prettier: ^2.3.0
     typescript: ^4.2.4
   languageName: unknown
@@ -1776,6 +1777,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/express-serve-static-core@npm:^4.17.18":
+  version: 4.17.21
+  resolution: "@types/express-serve-static-core@npm:4.17.21"
+  dependencies:
+    "@types/node": "*"
+    "@types/qs": "*"
+    "@types/range-parser": "*"
+  checksum: 437165cc123eacb36c7602e8df738d053c2fe4d67957e2b3758bd0b7426cd0439201b411b59dc85abc74456870011b0d91abb2f7bf8e35d8b643ecbdc5d91dfd
+  languageName: node
+  linkType: hard
+
 "@types/express@npm:4.17.6":
   version: 4.17.6
   resolution: "@types/express@npm:4.17.6"
@@ -1785,6 +1797,18 @@ __metadata:
     "@types/qs": "*"
     "@types/serve-static": "*"
   checksum: 45e31c66a048bfb8ddfb28f9c7f448f89eb8667132dc13f0e35397d5e4df05796f920a114bb774ba910bb3795a18d17a3ea8ae6aaf4d0d2e6b6c5622866f21d0
+  languageName: node
+  linkType: hard
+
+"@types/express@npm:^4.17.12":
+  version: 4.17.12
+  resolution: "@types/express@npm:4.17.12"
+  dependencies:
+    "@types/body-parser": "*"
+    "@types/express-serve-static-core": ^4.17.18
+    "@types/qs": "*"
+    "@types/serve-static": "*"
+  checksum: b1ab50e0373095283f5a58c8c1aa7e206182d241d24279e24d754819ae39959b35996d34633b1e4b3a9d3817559abad00ec33c94b96da945a9c3d1546f3e4f70
   languageName: node
   linkType: hard
 

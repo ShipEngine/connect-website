@@ -1,4 +1,4 @@
-import { AuthenticatedRequest } from '.'
+import { AuthenticatedRequest } from ".";
 
 /**
  * Clients can check the status of long-running Inventory operations,
@@ -6,6 +6,6 @@ import { AuthenticatedRequest } from '.'
  * the `/push` or `/fetch` endpoints. All that's required from the client
  * in this case is a cursor.
  */
- export type OperationResults = AuthenticatedRequest & {
+export type OperationResults = AuthenticatedRequest & {
   cursor: string;
 };
