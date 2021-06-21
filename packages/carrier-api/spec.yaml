@@ -3,7 +3,7 @@ openapi: 3.0.0
 info:
   title: ShipEngine Carrier API
   description: This API specification describes the canonical ShipEngine Carrier API connector module. A module which implements one or more endpoints from this specification can be integrated with the ShipEngine Carrier Platform.
-  version: 1.14.1-pre
+  version: 1.14.3
 consumes:
   - application/json-patch+json
   - application/json
@@ -1368,12 +1368,18 @@ components:
         - SSN
         - VAT
         - EORI
+        - IOSS
+        - PAN
+        - VOEC
       enum:
         - tin
         - ein
         - ssn
         - vat
         - eori
+        - ioss
+        - pan
+        - voec
     AddressBase:
       type: object
       x-abstract: true
