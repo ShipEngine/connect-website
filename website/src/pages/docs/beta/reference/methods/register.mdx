@@ -1,0 +1,97 @@
+---
+title: Register Method
+description: This method is used to authenticate with your application.
+---
+
+
+`Register()`
+===========================
+This method is used to authenticate with your application. It is responsible for verifying the supplied user credentials and establishing or
+  renewing a connection. The authentication information will be stored in the metadata object and will be included in all request bodies.
+  All applications must implement the Register method.
+
+
+Syntax
+-----------------------------------------------
+<CodeWrapper>
+```javascript
+module.exports = async function Register(request) {
+  // Your code here
+}
+```
+
+```typescript
+import { RegisterRequest, RegisterResponse } from "@shipengine/connect-carrier-api";
+
+export const Register = async (request: RegisterRequest): Promise<RegisterResponse> => {
+  // Your code here
+}
+```
+</CodeWrapper>
+
+
+
+Parameters
+-----------------------------------------------
+
+### `RegisterRequest`
+An object containing the authentication information gathered using the connection form you created for your application.
+ It will contain whatever fields you defined in this form. Your method must then use this data to perform authentication with your backend service.
+
+<Reference>
+
+  <Field name="registration_info" type="object" nullable={false}>
+    <Description>
+      An object containing the fields defined in your connecion form.
+    </Description>
+  </Field>
+
+  <Field name="transaction_id" type="string" nullable={false}>
+    <Description>
+      Uniquely identifies the current transaction. If the transaction is retried, then this `transaction_id` will remain the same. You can use this to detect and prevent duplicate operations.
+    </Description>
+  </Field>
+
+  <Field name="metadata" type="object" nullable={true}>
+    <Description>
+      Custom data about this request.
+    </Description>
+  </Field>
+
+</Reference>
+
+
+Return Value
+-----------------------------------------------
+### `RegisterResponse`
+The `Register` method returns the result of the carrier's authentication process.
+ This information will be included in the `metadata` of every subsequent request to yoru application.
+
+<Reference>
+
+  <Field name="credentials" type="object" nullable={false}>
+    <Description>
+      An object containing basic authentication information for the integration.
+    </Description>
+  </Field>
+
+  <Field name="credentials.username" type="object" nullable={false}>
+    <Description>
+      The user's username
+    </Description>
+  </Field>
+
+  <Field name="credentials.password" type="object" nullable={false}>
+    <Description>
+      The user's password
+    </Description>
+  </Field>
+
+  <Field name="metadata" type="object" nullable={false} required={true}>
+    <Description>
+      This object should contain all of the necessary properties needed to make authenticated requests with the carrier.
+      Every property included here will be persisted by ShipEngine Connect and included on each subsequent request from this user.
+    </Description>
+  </Field>
+
+</Reference>

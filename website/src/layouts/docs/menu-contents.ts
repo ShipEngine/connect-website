@@ -127,12 +127,43 @@ export const menu: MenuContents = [
     ],
   },
   {
-    title: "Beta",
-    open: true,
-    menuItems: [
-      { title: "Connect Apps 2.0", href: "/docs/beta" },
-      { title: "Carrier App", href: "/docs/beta/app-definition/carrier" },
-      { title: "Order Source App", href: "/docs/beta/app-definition/order-source" },
-    ],
+    title: "Beta Carrier Apps",
+    subGroups: [
+      {
+        title: "Overview",
+        menuItems: [
+          { title: "Connect Apps 2.0", href: "/docs/beta" },
+        ]
+      },
+      {
+        title: "App Structure",
+        menuItems: [
+          { title: "Carrier App", href: "/docs/beta/app-definition/carrier" },
+        ]
+      },
+      {
+        title: "Methods",
+        menuItems: [
+          { title: "Register", href: "/docs/beta/reference/methods/register" },
+        ]
+      },
+    ]
   },
+  {
+    title: "Beta Order Apps",
+    subGroups: [
+      {
+        title: "Overview",
+        menuItems: [
+          { title: "Connect Apps 2.0", href: "/docs/beta" },
+        ]
+      },
+      {
+        title: "App Structure",
+        menuItems: [
+          { title: "Order App", href: "/docs/beta/app-definition/order-source" },
+        ]
+      },
+    ]
+  }
 ];
