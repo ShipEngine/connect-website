@@ -1,3 +1,13 @@
+## Installing, building
+
+Install dependencies either at the repo root or in each package directory, eg `/packages/connect-carrier-api`
+
+Install dependencies
+`yarn`
+
+Build from the package directory
+`yarn build`
+
 # Order Source App
 
 ``` typescript

@@ -2,33 +2,12 @@
 
 The purpose of this library is to fill a similar role that CarrierApi.Common serves for C# but for JavaScript & TypeScript. It will contain the models and definitions for Request/Response Bodies.
 
-## Building & Publishing
+## Building
 
-To build the project use this command in the terminal from this directory.
+From the repo root, navigate to this package directory.
 
-```
-npm run-script build
-```
+Install dependencies
+`yarn`
 
-this will generate a `./lib` directory which contains the JavaScript & TypeScript.
-
-To publish make sure you set the appropriate version in the package.json file
-**change directory to the ./lib directory and publish**
-
-```
-npm publish
-```
-
-**DO NOT PUBLISH FROM THIS DIRECTORY**
-_this is because the pathing for the package will be weird, exposing both the src directory and the lib directory we want imports to be able to look like this_
-
-```javascript
-import CreateLabelRequest from '@ipaas/capi/requests';
-```
-
-_and not like this_
-
-```javascript
-import CreateLabelRequest from '@ipaas/capi/lib/requests';
-```
-
+Build
+`yarn build`
