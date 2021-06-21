@@ -8,6 +8,7 @@ import { Request } from "express";
 import { RequestAuth, isRequestAuth } from "../models";
 import {
   BadRequestError,
+  NotImplementedError,
   UnauthorizedError,
 } from "@shipengine/connect-runtime";
 
@@ -67,8 +68,12 @@ export class InventoryApp implements ConnectRuntimeApp {
  * coercing strings to dates or vice versa; will circle back to this.
  */
 const handleRequest =
-  (handler: InventoryHandler): any =>
+  (handler: InventoryHandler | undefined): any =>
   (request: Request) => {
+    if (!handler) {
+      throw new NotImplementedError();
+    }
+
     const auth = extractAuth(request);
     const cursor = extractCursor(request);
     return handler({ auth, cursor, ...request.body });
