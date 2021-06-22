@@ -31,3 +31,4 @@ export * from './oauth-config';
 export * from './transaction';
 export * from './types';
 export * from './document';
+export * from './tax-identifier';

@@ -11,6 +11,8 @@ import {
   mapConfirmation,
   mapAddressWithContact,
   mapAddressWithContactAndPickup,
+  mapShipToAddress,
+  mapShipFromAddress,
 } from './';
 import { mapShippingOptions } from './shipping-options';
 
@@ -49,8 +51,8 @@ export const mapGetRatesRequest = (
     deliveryConfirmation: mapConfirmation(request.confirmation),
     deliveryDateTime: undefined,
     shipDateTime: request.ship_datetime,
-    shipFrom: mapAddressWithContact(request.ship_from),
-    shipTo: mapAddressWithContact(request.ship_to),
+    shipFrom: mapShipFromAddress(request.ship_from),
+    shipTo: mapShipToAddress(request.ship_to),
     pickupLocation: mapAddressWithContactAndPickup(request.pickup_location),
     packages: request.packages.map((pckg) => mapRatePackage(pckg, request)),
     returns: {

@@ -9,6 +9,8 @@ import {
   mapNewPackage,
   mapAddressWithContact,
   mapAddressWithContactAndPickup,
+  mapShipToAddress,
+  mapShipFromAddress,
 } from './';
 import { mapCustomsItem } from './customs-item';
 import { mapCustomsPOJO } from './new-package';
@@ -31,8 +33,8 @@ export const mapCreateLabelRequest = (
   const mappedRequest = {
     deliveryService: request.service_code || '',
     deliveryConfirmation: mapConfirmation(request.confirmation),
-    shipFrom: mapAddressWithContact(request.ship_from),
-    shipTo: mapAddressWithContact(request.ship_to),
+    shipFrom: mapShipFromAddress(request.ship_from),
+    shipTo: mapShipToAddress(request.ship_to),
     pickupLocation: mapAddressWithContactAndPickup(request.pickup_location),
     returnTo: getReturnToAddress(
       request.is_return_label,

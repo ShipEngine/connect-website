@@ -38,3 +38,4 @@ export * from './total-costs';
 export * from './charge-filters';
 export * from './shipping-options';
 export * from './get-label-packages';
+export * from './tax-identifier';

@@ -75,7 +75,7 @@ function assertFileExports (dir, deep = false, exceptions = []) {
 
   for (let file of files) {
     let moduleName = path.posix.join(path.dirname(file), path.basename(file, ".ts"));
-    let isExported = exports.includes(`from "./${moduleName}"`);
+    let isExported = exports.includes(`from './${moduleName}'`);
     let shouldBeExported = !exceptions.some((ex) => file.startsWith(ex));
 
     if (isExported && !shouldBeExported) {

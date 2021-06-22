@@ -1,5 +1,7 @@
 import {
   AddressBase,
+  ShipTo,
+  ShipFrom,
   AddressResidentialIndicator,
   PudoLocation,
 } from '@shipengine/connect-carrier-api/lib/models';
@@ -11,6 +13,8 @@ import {
   Country,
   PersonNamePOJO,
 } from '@shipengine/connect-sdk';
+import { add } from 'winston';
+import { mapTaxIdentifiers } from './tax-identifier';
 
 export const excludeNullsFromAddressLines = (
   addressLines: (string | null)[] | null | undefined,
@@ -77,6 +81,24 @@ const emptyDxAddressWithContactAndPickup: AddressWithContactInfoAndPickupLocatio
   isResidential: undefined,
   company: '',
   pickupLocation: emptyDxPickupLocation,
+};
+
+export const mapShipToAddress = (
+  address: ShipTo | null | undefined,
+): AddressWithContactInfoPOJO => {
+  return {
+    ...mapAddressWithContact(address),
+    taxIdentifiers: mapTaxIdentifiers(address?.tax_identifiers ?? []),
+  };
+};
+
+export const mapShipFromAddress = (
+  address: ShipFrom | null | undefined,
+): AddressWithContactInfoPOJO => {
+  return {
+    ...mapAddressWithContact(address),
+    taxIdentifiers: mapTaxIdentifiers(address?.tax_identifiers ?? []),
+  };
 };
 
 export const mapAddressWithContact = (
