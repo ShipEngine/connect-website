@@ -22,7 +22,7 @@
 	"license": "UNLICENSED",
 	"dependencies": {
 		"@sentry/node": "^5.24.2",
-		"@shipengine/connect-carrier-api": "^1.16.0",
+		"@shipengine/connect-carrier-api": "workspace:packages/carrier-api",
 		"@shipengine/connect-loader": "^3.5.3",
 		"@shipengine/connect-sdk": "^12.14.2",
 		"body-parser": "1.19.0",

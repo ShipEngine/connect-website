@@ -16,16 +16,16 @@ export const mapTrackingRequest = (
       }
     });
   }
-
-  let trackingNumber = request.tracking_number;
-  if (!trackingNumber) {
-    trackingNumber = identifiers["tracking_number"];
-  }
+  const trackingNumber = identifiers["tracking_number"];
 
   return {
     identifiers,
     metadata: request.metadata ?? undefined,
-    returns: { isReturn: request.is_return ?? false },
+    returns: {
+      isReturn:
+        request.attributes?.find((a) => a.type === "is_return")?.value ===
+          "true" ?? false,
+    },
     trackingNumber: trackingNumber ?? "",
   };
 };

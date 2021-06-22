@@ -33,10 +33,7 @@ export const convertResidentialIndicatorToBoolean = (
   if (residentialIndicator === AddressResidentialIndicator.Unknown) {
     return undefined;
   }
-  return (
-    residentialIndicator === AddressResidentialIndicator.Yes ||
-    residentialIndicator === AddressResidentialIndicator.Residential
-  );
+  return residentialIndicator === AddressResidentialIndicator.Yes;
 };
 
 const emptyDxPersonName: PersonNamePOJO = { given: "" };

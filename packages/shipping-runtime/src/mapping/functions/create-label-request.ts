@@ -50,25 +50,12 @@ export const mapCreateLabelRequest = (
         request.advanced_options,
         mapLabelFormat(request.label_format),
         mapLabelLayout(request.label_layout),
-        request.insurance_provider || undefined
+        request.insurance_provider || undefined,
+        request.reference
       )
     ),
     shippingOptions: mapShippingOptions(request.advanced_options),
   };
-
-  if (mappedRequest.packages.length) {
-    // We only want to map the customs to the first package in the array until shipstation can support package level customs
-    mappedRequest.packages[0].customs = mapCustomsPOJO(
-      request.customs || undefined
-    );
-    mappedRequest.packages[0].contents = [
-      {
-        salesOrder: {
-          id: request.reference || "",
-        },
-      },
-    ];
-  }
 
   return mappedRequest;
 };

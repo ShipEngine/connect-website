@@ -113,7 +113,8 @@ export const mapNewPackage = (
   advancedOptions: AdvancedOptions | null | undefined,
   documentFormat: DocumentFormat,
   documentSize: DocumentSize,
-  insuranceProvider?: InsuranceProviders
+  insuranceProvider?: InsuranceProviders,
+  reference?: string
 ): NewPackagePOJO => {
   const mappedPackage: NewPackagePOJO = {
     packaging: capiPackage.package_code || "",
@@ -132,6 +133,14 @@ export const mapNewPackage = (
       documentSize,
       capiPackage.label_messages || undefined
     ),
+    customs: mapCustomsPOJO(capiPackage.customs),
+    contents: [
+      {
+        salesOrder: {
+          id: reference || "",
+        },
+      },
+    ],
   };
   return mappedPackage;
 };
