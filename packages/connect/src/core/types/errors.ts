@@ -10,7 +10,6 @@ export interface NetworkErrorCollection {
   errors: NetworkError[];
 }
 
-
 export interface ShipEngineAPIError {
   error_source: string;
   error_type: string;

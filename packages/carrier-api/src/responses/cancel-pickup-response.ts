@@ -1,4 +1,4 @@
-import { BaseResponse } from "./base-response";
+import { BaseResponse } from './base-response';
 
 /** @description Basic structure for a response to cancel pickup */
 export interface CancelPickupResponse extends BaseResponse {

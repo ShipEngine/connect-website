@@ -1,4 +1,4 @@
-import { Method } from "./method";
+import { Method } from './method';
 
 export interface Route {
   path: string;

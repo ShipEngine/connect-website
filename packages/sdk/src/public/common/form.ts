@@ -1,7 +1,6 @@
-import type { JSONSchema6 } from "json-schema";
-import type { UiSchema } from "react-jsonschema-form";
-import type { InlineOrReference } from "./types";
-
+import type { JSONSchema6 } from 'json-schema';
+import type { UiSchema } from 'react-jsonschema-form';
+import type { InlineOrReference } from './types';
 
 /**
  * Defines a user-interface form that collects data from the user.

@@ -1,9 +1,9 @@
 /** @description The unit describing the weight of an item */
 export enum WeightUnit {
-  Gram = "Gram",
-  Ounce = "Ounce",
-  Kilogram = "Kilogram",
-  Pound = "Pound",
+  Gram = 'Gram',
+  Ounce = 'Ounce',
+  Kilogram = 'Kilogram',
+  Pound = 'Pound',
 }
 
 /** @description A measurement of weight */

@@ -1,6 +1,6 @@
-import { DocumentSize } from "@shipengine/connect-sdk";
+import { DocumentSize } from '@shipengine/connect-sdk';
 
-import { LabelLayouts } from "@shipengine/connect-carrier-api/lib/models";
+import { LabelLayouts } from '@shipengine/connect-carrier-api/lib/models';
 
 export const mapDocumentSize = (format: DocumentSize): LabelLayouts => {
   switch (format) {

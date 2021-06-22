@@ -1,8 +1,12 @@
-import { ShipmentIdentifier } from "../../carriers";
-import type { AddressWithContactInfoAndPickupLocation, AddressWithContactInfo, Charge, DateTimeZone } from "../../common";
-import { SalesOrderPackageItem } from "./sales-order-package-item";
-import type { SalesOrderIdentifier } from "../../orders";
-
+import { ShipmentIdentifier } from '../../carriers';
+import type {
+  AddressWithContactInfoAndPickupLocation,
+  AddressWithContactInfo,
+  Charge,
+  DateTimeZone,
+} from '../../common';
+import { SalesOrderPackageItem } from './sales-order-package-item';
+import type { SalesOrderIdentifier } from '../../orders';
 
 /**
  * A shipment that fulfills all or part of one or more sales orders
@@ -27,7 +31,7 @@ export interface SalesOrderShipment extends ShipmentIdentifier {
    * The code for the carrier service that is being used to fulfill the sales order.
    */
   readonly carrierServiceCode?: string;
-  
+
   /**
    * The sender's contact info and address
    */

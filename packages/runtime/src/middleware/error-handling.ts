@@ -1,8 +1,8 @@
-import { NextFunction, Request, Response } from "express";
-import logger from "../util/logger";
-import { serializeError } from "serialize-error";
-import { BaseError, HttpStatusCode } from "../errors";
-import { getTransactionId } from "../util/storage";
+import { NextFunction, Request, Response } from 'express';
+import logger from '../util/logger';
+import { serializeError } from 'serialize-error';
+import { BaseError, HttpStatusCode } from '../errors';
+import { getTransactionId } from '../util/storage';
 
 export default (error: any, request: Request, response: Response, next: NextFunction) => {
   const transactionId = getTransactionId();

@@ -1,15 +1,15 @@
-import { OrderApp } from "@shipengine/connect-sdk/lib/internal";
-import * as api from "@shipengine/connect-order-source-api";
-import { mapTransaction } from "../transaction";
-import { mapNotification } from "./input";
-import logger from "../../util/logger";
+import { OrderApp } from '@shipengine/connect-sdk/lib/internal';
+import * as api from '@shipengine/connect-order-source-api';
+import { mapTransaction } from '../transaction';
+import { mapNotification } from './input';
+import logger from '../../util/logger';
 
 export async function dispatchShipmentNotification(
   app: OrderApp,
-  body: api.ShipmentNotificationRequest
+  body: api.ShipmentNotificationRequest,
 ): Promise<api.ShipmentNotificationResponse> {
   if (!app.shipmentCreated) {
-    throw new Error("notify not implemented");
+    throw new Error('notify not implemented');
   }
 
   const transaction = mapTransaction(body.transaction_id, body.auth);
@@ -19,7 +19,7 @@ export async function dispatchShipmentNotification(
   for (const notification of body.notifications) {
     const shipment = mapNotification(notification);
 
-    logger.debug("Starting shipment notification", { transaction, shipment });
+    logger.debug('Starting shipment notification', { transaction, shipment });
 
     /*
      * TODO:

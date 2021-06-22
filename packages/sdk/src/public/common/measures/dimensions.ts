@@ -2,8 +2,8 @@
  * A length measurement unit
  */
 export enum LengthUnit {
-  Inches = "in",
-  Centimeters = "cm"
+  Inches = 'in',
+  Centimeters = 'cm',
 }
 
 /**

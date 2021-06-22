@@ -1,11 +1,11 @@
-import { TrackingRequest } from "@shipengine/connect-carrier-api/lib/requests";
+import { TrackingRequest } from '@shipengine/connect-carrier-api/lib/requests';
 import {
   IdentifiersPOJO,
   TrackingCriteriaPOJO,
-} from "@shipengine/connect-sdk/lib/internal";
+} from '@shipengine/connect-sdk/lib/internal';
 
 export const mapTrackingRequest = (
-  request: TrackingRequest
+  request: TrackingRequest,
 ): TrackingCriteriaPOJO => {
   const identifiers: IdentifiersPOJO = {};
 
@@ -16,16 +16,16 @@ export const mapTrackingRequest = (
       }
     });
   }
-  const trackingNumber = identifiers["tracking_number"];
+  const trackingNumber = identifiers['tracking_number'];
 
   return {
     identifiers,
     metadata: request.metadata ?? undefined,
     returns: {
       isReturn:
-        request.attributes?.find((a) => a.type === "is_return")?.value ===
-          "true" ?? false,
+        request.attributes?.find((a) => a.type === 'is_return')?.value ===
+          'true' ?? false,
     },
-    trackingNumber: trackingNumber ?? "",
+    trackingNumber: trackingNumber ?? '',
   };
 };

@@ -1,6 +1,6 @@
-import type { Identifiers, NotePOJO } from "../../common";
-import type { Document } from "../../common/document";
-import type { ShipmentIdentifierPOJO } from "../shipments/shipment-identifier";
+import type { Identifiers, NotePOJO } from '../../common';
+import type { Document } from '../../common/document';
+import type { ShipmentIdentifierPOJO } from '../shipments/shipment-identifier';
 
 /**
  * An end-of-day manifest

@@ -1,18 +1,18 @@
-import { ShipmentStatus, Transaction } from "@shipengine/connect-sdk";
+import { ShipmentStatus, Transaction } from '@shipengine/connect-sdk';
 import {
   TrackEvent,
   StandardizedStatusCodes,
   TrackingInfo as CapiTrackingInfo,
-} from "@shipengine/connect-carrier-api/lib/models";
-import { TrackingResponse } from "@shipengine/connect-carrier-api/lib/responses";
+} from '@shipengine/connect-carrier-api/lib/models';
+import { TrackingResponse } from '@shipengine/connect-carrier-api/lib/responses';
 
 import {
   TrackingEvent,
   TrackingInfo,
-} from "@shipengine/connect-sdk/lib/internal";
+} from '@shipengine/connect-sdk/lib/internal';
 
 export const mapTrackingStatus = (
-  shipmentStatus: ShipmentStatus
+  shipmentStatus: ShipmentStatus,
 ): StandardizedStatusCodes => {
   switch (shipmentStatus) {
     case ShipmentStatus.Accepted:
@@ -50,12 +50,12 @@ export const mapTrackEvent = (event: TrackingEvent): TrackEvent => {
 
 export const mapTrackingResponse = (
   trackingInfo: TrackingInfo,
-  transaction: Transaction
+  transaction: Transaction,
 ): TrackingResponse => {
   const errorEvent = {
-    description: "",
-    problemCode: "",
-    problemDescription: "",
+    description: '',
+    problemCode: '',
+    problemDescription: '',
   };
 
   if (trackingInfo.hasError) {

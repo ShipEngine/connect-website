@@ -1,6 +1,6 @@
 /**
- * Shipping options that are specific to the carrier. There is currently only 
- * support for DHL specific shipment options. More universal handling to come 
+ * Shipping options that are specific to the carrier. There is currently only
+ * support for DHL specific shipment options. More universal handling to come
  * in the future.
  */
 

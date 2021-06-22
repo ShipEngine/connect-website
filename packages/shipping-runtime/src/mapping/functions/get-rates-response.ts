@@ -1,20 +1,20 @@
-import { GetRatesResponse } from "@shipengine/connect-carrier-api/lib/responses";
-import { Charge, ChargeType, Transaction } from "@shipengine/connect-sdk";
-import { Rate } from "@shipengine/connect-sdk/lib/internal";
+import { GetRatesResponse } from '@shipengine/connect-carrier-api/lib/responses';
+import { Charge, ChargeType, Transaction } from '@shipengine/connect-sdk';
+import { Rate } from '@shipengine/connect-sdk/lib/internal';
 
 import {
   BillingCategories,
   BillingLineItem,
   Rate as capiRate,
-} from "@shipengine/connect-carrier-api/lib/models";
-import { mapDateTime } from "./datetime";
+} from '@shipengine/connect-carrier-api/lib/models';
+import { mapDateTime } from './datetime';
 import {
   confirmationChargeFilter,
   insuranceChargeFilter,
   otherChargeFilter,
   shippingChargeFilter,
   getTotalCosts,
-} from ".";
+} from '.';
 
 export const mapChargeType = (chargeType: ChargeType): BillingCategories => {
   switch (chargeType) {
@@ -75,13 +75,13 @@ export const mapBillingLineItems = (charge: Charge): BillingLineItem => {
 
 export const mapRate = (rate: Rate): capiRate => {
   const shippingAmount = getTotalCosts(
-    rate.charges.filter(shippingChargeFilter)
+    rate.charges.filter(shippingChargeFilter),
   );
   const confirmationAmount = getTotalCosts(
-    rate.charges.filter(confirmationChargeFilter)
+    rate.charges.filter(confirmationChargeFilter),
   );
   const insuranceAmount = getTotalCosts(
-    rate.charges.filter(insuranceChargeFilter)
+    rate.charges.filter(insuranceChargeFilter),
   );
   const otherAmount = getTotalCosts(rate.charges.filter(otherChargeFilter));
 
@@ -98,7 +98,7 @@ export const mapRate = (rate: Rate): capiRate => {
 
 export const mapGetRatesResponse = (
   transaction: Transaction,
-  rateQuotes: Rate[]
+  rateQuotes: Rate[],
 ): GetRatesResponse => {
   const rateResponse: GetRatesResponse = {
     rates: rateQuotes.map(mapRate),

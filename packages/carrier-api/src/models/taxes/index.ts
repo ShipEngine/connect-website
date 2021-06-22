@@ -1,2 +1,2 @@
-export * from "./tax-identifier-type";
-export * from "./tax-identifier";
+export * from './tax-identifier-type';
+export * from './tax-identifier';

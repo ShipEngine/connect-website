@@ -1,14 +1,14 @@
-import { Charge } from "./charge";
-import { LabelVoucher } from "./label-voucher";
+import { Charge } from './charge';
+import { LabelVoucher } from './label-voucher';
 
 /** @description The status of whether or not an order has been paid for */
 export enum PaymentStatus {
-  AwaitingPayment = "AwaitingPayment",
-  PaymentCancelled = "PaymentCancelled",
-  PaymentFailed = "PaymentFailed",
-  PaymentInProcess = "PaymentInProcess",
-  Paid = "Paid",
-  Other = "Other",
+  AwaitingPayment = 'AwaitingPayment',
+  PaymentCancelled = 'PaymentCancelled',
+  PaymentFailed = 'PaymentFailed',
+  PaymentInProcess = 'PaymentInProcess',
+  Paid = 'Paid',
+  Other = 'Other',
 }
 
 /** @description This represents a payment made for an order */

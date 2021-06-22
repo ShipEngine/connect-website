@@ -9,7 +9,6 @@ export interface PersonNamePOJO {
   suffix?: string;
 }
 
-
 /**
  * A person's complete name
  */

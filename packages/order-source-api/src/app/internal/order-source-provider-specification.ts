@@ -1,6 +1,6 @@
-import { Connector } from "../metadata/connector";
-import { AuthSpecification } from "../metadata/auth-specification";
-import { OrderSourceSpecification } from ".";
+import { Connector } from '../metadata/connector';
+import { AuthSpecification } from '../metadata/auth-specification';
+import { OrderSourceSpecification } from '.';
 
 /** @description This represents a single integration which may contain multiple branded order sources */
 export interface OrderSourceProviderSpecification {

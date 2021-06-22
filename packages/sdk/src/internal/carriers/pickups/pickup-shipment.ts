@@ -1,8 +1,21 @@
-import { DeliveryServiceIdentifierPOJO, ShipmentIdentifierPOJO, PickupShipment as IPickupShipment } from "../../../public";
-import { App, DefinitionIdentifier, hideAndFreeze, Joi, _internal } from "../../common";
-import { DeliveryService } from "../delivery-service";
-import { ShipmentIdentifier, ShipmentIdentifierBase } from "../shipments/shipment-identifier";
-import { PickupPackage, PickupPackagePOJO } from "./pickup-package";
+import {
+  DeliveryServiceIdentifierPOJO,
+  ShipmentIdentifierPOJO,
+  PickupShipment as IPickupShipment,
+} from '../../../public';
+import {
+  App,
+  DefinitionIdentifier,
+  hideAndFreeze,
+  Joi,
+  _internal,
+} from '../../common';
+import { DeliveryService } from '../delivery-service';
+import {
+  ShipmentIdentifier,
+  ShipmentIdentifierBase,
+} from '../shipments/shipment-identifier';
+import { PickupPackage, PickupPackagePOJO } from './pickup-package';
 
 export interface PickupShipmentPOJO extends ShipmentIdentifierPOJO {
   deliveryService: DeliveryServiceIdentifierPOJO | string;
@@ -10,16 +23,22 @@ export interface PickupShipmentPOJO extends ShipmentIdentifierPOJO {
   packages: readonly PickupPackagePOJO[];
 }
 
-export class PickupShipment extends ShipmentIdentifierBase implements IPickupShipment {
+export class PickupShipment
+  extends ShipmentIdentifierBase
+  implements IPickupShipment
+{
   public static readonly [_internal] = {
-    label: "shipment",
+    label: 'shipment',
     schema: ShipmentIdentifier[_internal].schema.keys({
       deliveryService: Joi.alternatives(
         DefinitionIdentifier[_internal].schema.unknown(true),
-        Joi.string()
+        Joi.string(),
       ).required(),
       metadata: Joi.object(),
-      packages: Joi.array().min(1).items(PickupPackage[_internal].schema).required(),
+      packages: Joi.array()
+        .min(1)
+        .items(PickupPackage[_internal].schema)
+        .required(),
     }),
   };
 
@@ -34,9 +53,14 @@ export class PickupShipment extends ShipmentIdentifierBase implements IPickupShi
   public constructor(pojo: PickupShipmentPOJO, app: App) {
     super(pojo);
 
-    this.deliveryService = app[_internal].references.lookup(pojo.deliveryService, DeliveryService);
+    this.deliveryService = app[_internal].references.lookup(
+      pojo.deliveryService,
+      DeliveryService,
+    );
     this.metadata = pojo.metadata || {};
-    this.packages = pojo.packages.map((parcel) => new PickupPackage(parcel, app));
+    this.packages = pojo.packages.map(
+      (parcel) => new PickupPackage(parcel, app),
+    );
 
     // Make this object immutable
     hideAndFreeze(this);

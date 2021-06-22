@@ -1,4 +1,4 @@
-import type { UUID } from "./types";
+import type { UUID } from './types';
 
 /**
  * Session data that may include auth data set by a data driven auth processes.
@@ -8,8 +8,8 @@ import type { UUID } from "./types";
  */
 export type Session<T extends object = object> = T & {
   /**
-  * Auth object set by a data driven auth processes.
-  */
+   * Auth object set by a data driven auth processes.
+   */
   readonly auth?: {
     /**
      * Populated by the data driven auth processes for basic auth integrations.
@@ -30,8 +30,8 @@ export type Session<T extends object = object> = T & {
      * Populated by the data driven auth processes for API Key integrations.
      */
     readonly apiKey?: string;
-  }
-}
+  };
+};
 
 /**
  * The ShpEngine Connect passes this object to every method call. It provides information about the

@@ -1,4 +1,4 @@
-import { PickupShipment } from "./pickup-shipment";
+import { PickupShipment } from './pickup-shipment';
 
 /** @description Details for a pickup shipment */
 export interface PickupShipmentDetails {

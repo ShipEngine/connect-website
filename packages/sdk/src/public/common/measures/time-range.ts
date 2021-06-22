@@ -1,4 +1,4 @@
-import type { DateTimeZone, DateTimeZonePOJO } from "./date-time-zone";
+import type { DateTimeZone, DateTimeZonePOJO } from './date-time-zone';
 
 /**
  * A range of time
@@ -14,7 +14,6 @@ export interface TimeRangePOJO {
    */
   endDateTime?: DateTimeZonePOJO | Date | string;
 }
-
 
 /**
  * A range of time

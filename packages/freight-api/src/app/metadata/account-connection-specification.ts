@@ -1,6 +1,6 @@
-import { ApiContractMapping } from "./api-contract-mapping";
-import { JsonSchema } from "./json-schema";
-import { UiSchema } from "./ui-schema";
+import { ApiContractMapping } from './api-contract-mapping';
+import { JsonSchema } from './json-schema';
+import { UiSchema } from './ui-schema';
 
 /**
  * Form schemas are defined using react-jsonschema-form:

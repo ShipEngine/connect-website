@@ -1,4 +1,4 @@
-import type { ShipmentIdentifier } from "../shipments/shipment-identifier";
+import type { ShipmentIdentifier } from '../shipments/shipment-identifier';
 
 /**
  * The information needed to request tracking information for a shipment

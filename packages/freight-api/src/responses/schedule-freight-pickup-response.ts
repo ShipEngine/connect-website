@@ -1,4 +1,4 @@
-import { BaseCarrierResponse } from "./base-carrier-response";
+import { BaseCarrierResponse } from './base-carrier-response';
 
 export interface ScheduleFreightPickupResponse extends BaseCarrierResponse {
   /**

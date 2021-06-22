@@ -1,6 +1,9 @@
-import type { ConnectionAppDefinition, InlineOrReference } from "../common";
-import type { GetSalesOrdersByDate, ShipmentCreated, AcknowledgeOrders } from "./methods";
-
+import type { ConnectionAppDefinition, InlineOrReference } from '../common';
+import type {
+  GetSalesOrdersByDate,
+  ShipmentCreated,
+  AcknowledgeOrders,
+} from './methods';
 
 /**
  * A ShipEngine Connect order app

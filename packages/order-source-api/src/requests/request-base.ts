@@ -1,4 +1,4 @@
-import { SalesOrderStatus } from "../models";
+import { SalesOrderStatus } from '../models';
 
 /**
  * @description Represents the auth information sent with every request

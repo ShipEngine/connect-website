@@ -1,9 +1,9 @@
-import { GetRatesRequest } from "@shipengine/connect-carrier-api/lib/requests";
+import { GetRatesRequest } from '@shipengine/connect-carrier-api/lib/requests';
 import {
   RateCriteriaPOJO,
   PackageRateCriteriaPOJO,
-} from "@shipengine/connect-sdk/lib/internal";
-import { Currency, Package } from "@shipengine/connect-carrier-api/lib/models";
+} from '@shipengine/connect-sdk/lib/internal';
+import { Currency, Package } from '@shipengine/connect-carrier-api/lib/models';
 import {
   mapCurrency,
   mapWeightGrams,
@@ -11,12 +11,12 @@ import {
   mapConfirmation,
   mapAddressWithContact,
   mapAddressWithContactAndPickup,
-} from "./";
-import { mapShippingOptions } from "./shipping-options";
+} from './';
+import { mapShippingOptions } from './shipping-options';
 
 export const mapRatePackage = (
   pckg: Package,
-  request: GetRatesRequest
+  request: GetRatesRequest,
 ): PackageRateCriteriaPOJO => {
   const insuredValue: Currency = request.packages
     .map((p) => p.insured_value)
@@ -24,15 +24,15 @@ export const mapRatePackage = (
       (prev: Currency, curr: Currency) => {
         return {
           currency: curr.currency,
-          amount: String(Number(prev.amount || "") + Number(curr.amount || "")),
+          amount: String(Number(prev.amount || '') + Number(curr.amount || '')),
         };
       },
-      { amount: "", currency: "" }
+      { amount: '', currency: '' },
     );
   return {
-    packaging: pckg.package_code || "",
+    packaging: pckg.package_code || '',
     dimensions: mapDimensionsCM(
-      pckg.dimension_details?.dimensions_in_centimeters
+      pckg.dimension_details?.dimensions_in_centimeters,
     ),
     weight: mapWeightGrams(pckg.weight_details?.weight_in_grams),
     insuredValue: mapCurrency(insuredValue),
@@ -42,7 +42,7 @@ export const mapRatePackage = (
 };
 
 export const mapGetRatesRequest = (
-  request: GetRatesRequest
+  request: GetRatesRequest,
 ): RateCriteriaPOJO => {
   const rateCriteria: RateCriteriaPOJO = {
     deliveryService: request.service_code || undefined,

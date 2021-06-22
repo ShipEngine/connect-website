@@ -1,15 +1,23 @@
-import { PackageTrackingInfo as PackageTrackingInfoPOJO } from "../../../public";
-import { App, DefinitionIdentifier, Dimensions, hideAndFreeze, Joi, Weight, _internal } from "../../common";
-import { Packaging } from "../packaging";
-import { setPackaging } from "../utils";
+import { PackageTrackingInfo as PackageTrackingInfoPOJO } from '../../../public';
+import {
+  App,
+  DefinitionIdentifier,
+  Dimensions,
+  hideAndFreeze,
+  Joi,
+  Weight,
+  _internal,
+} from '../../common';
+import { Packaging } from '../packaging';
+import { setPackaging } from '../utils';
 
 export class PackageTrackingInfo {
   public static readonly [_internal] = {
-    label: "package",
+    label: 'package',
     schema: Joi.object({
       packaging: Joi.alternatives(
         DefinitionIdentifier[_internal].schema.unknown(true),
-        Joi.string().allow("")
+        Joi.string().allow(''),
       ).optional(),
       dimensions: Dimensions[_internal].schema,
       weight: Weight[_internal].schema,
@@ -21,7 +29,6 @@ export class PackageTrackingInfo {
   public readonly weight?: Weight;
 
   public constructor(pojo: PackageTrackingInfoPOJO, app: App) {
-
     this.packaging = setPackaging(app, pojo.packaging);
     this.dimensions = pojo.dimensions && new Dimensions(pojo.dimensions);
     this.weight = pojo.weight && new Weight(pojo.weight);

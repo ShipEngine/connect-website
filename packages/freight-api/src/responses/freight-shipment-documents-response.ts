@@ -1,5 +1,5 @@
-import { DocumentType } from "../models";
-import { BaseCarrierResponse } from "./base-carrier-response";
+import { DocumentType } from '../models';
+import { BaseCarrierResponse } from './base-carrier-response';
 
 export interface FreightShipmentDocumentsResponse extends BaseCarrierResponse {
   documents: {
@@ -8,6 +8,6 @@ export interface FreightShipmentDocumentsResponse extends BaseCarrierResponse {
      * Base64-encoded image of the document
      */
     image: string;
-    format: "pdf";
+    format: 'pdf';
   }[];
 }

@@ -10,8 +10,8 @@ import {
   RequestingParty,
   Weight,
   WeightUnitType,
-} from "../models";
-import { BaseCarrierRequest } from "./base-carrier-request";
+} from '../models';
+import { BaseCarrierRequest } from './base-carrier-request';
 
 /**
  * Obtain a price quote for a freight shipment using contractual rates.

@@ -1,5 +1,5 @@
-import { RequestBase } from "./request-base";
-import { SalesOrderStatus } from "../index";
+import { RequestBase } from './request-base';
+import { SalesOrderStatus } from '../index';
 
 /** @description This represents the requested criteria for exporting order sources */
 export interface SalesOrderExportCriteria {

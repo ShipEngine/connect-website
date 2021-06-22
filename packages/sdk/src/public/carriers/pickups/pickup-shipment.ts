@@ -1,6 +1,6 @@
-import type { DeliveryService } from "../delivery-service";
-import type { ShipmentIdentifier } from "../shipments/shipment-identifier";
-import type { PickupPackage } from "./pickup-package";
+import type { DeliveryService } from '../delivery-service';
+import type { ShipmentIdentifier } from '../shipments/shipment-identifier';
+import type { PickupPackage } from './pickup-package';
 
 /**
  * The shipment information needed to schedule a pickup

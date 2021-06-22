@@ -1,20 +1,20 @@
-import { CancelPickupRequest } from "@shipengine/connect-carrier-api/lib/requests";
-import { PickupCancellationReason, NoteType } from "@shipengine/connect-sdk";
-import { PickupCancellationPOJO } from "@shipengine/connect-sdk/lib/internal";
+import { CancelPickupRequest } from '@shipengine/connect-carrier-api/lib/requests';
+import { PickupCancellationReason, NoteType } from '@shipengine/connect-sdk';
+import { PickupCancellationPOJO } from '@shipengine/connect-sdk/lib/internal';
 import {
   CancellationReason,
   Identifier as capiIdentifier,
-} from "@shipengine/connect-carrier-api/lib/models";
+} from '@shipengine/connect-carrier-api/lib/models';
 import {
   mapAddress,
   mapPickupContact,
   mapPickupShipment,
   mapTimeWindow,
-} from ".";
+} from '.';
 
 export const identifierReducer = (
   result: any,
-  identifier: capiIdentifier
+  identifier: capiIdentifier,
 ): any => {
   if (identifier.value && identifier.type) {
     result[identifier.type] = identifier.value;
@@ -23,7 +23,7 @@ export const identifierReducer = (
 };
 
 export const mapCancellationReason = (
-  reason: CancellationReason | null | undefined
+  reason: CancellationReason | null | undefined,
 ): PickupCancellationReason => {
   switch (reason) {
     case CancellationReason.CarrierFailedPickup:
@@ -40,22 +40,22 @@ export const mapCancellationReason = (
 };
 
 export const mapCancelPickupRequest = (
-  request: CancelPickupRequest
+  request: CancelPickupRequest,
 ): PickupCancellationPOJO => {
   return {
     cancellationID: request.transaction_id,
-    id: request.confirmation?.confirmation_id || "",
-    pickupService: request.pickup_details?.pickup_service_code || "",
+    id: request.confirmation?.confirmation_id || '',
+    pickupService: request.pickup_details?.pickup_service_code || '',
     identifiers:
       request.confirmation?.alternate_identifiers?.reduce(
         identifierReducer,
-        {}
+        {},
       ) || undefined,
     reason: mapCancellationReason(request.cancellation_details?.reason),
     notes: [
       {
         type: NoteType.Internal,
-        text: request.cancellation_details?.remarks || "",
+        text: request.cancellation_details?.remarks || '',
       },
     ],
     address: mapAddress(request.location?.pickup_address),

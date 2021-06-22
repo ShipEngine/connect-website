@@ -1,18 +1,26 @@
-import APIClient from "./api-client";
-import cli from "cli-ux";
-import fs from "fs";
-import logSymbols from "log-symbols";
-import path from "path";
-import { Deployment, DeploymentStatus } from "./types";
-import { loadApp } from "@shipengine/connect-loader";
-import { watchDeployment } from "./publish-app/watch-deployment";
-import { green, red, yellow } from "chalk";
+import APIClient from './api-client';
+import cli from 'cli-ux';
+import fs from 'fs';
+import logSymbols from 'log-symbols';
+import path from 'path';
+import { Deployment, DeploymentStatus } from './types';
+import { loadApp } from '@shipengine/connect-loader';
+import { watchDeployment } from './publish-app/watch-deployment';
+import { green, red, yellow } from 'chalk';
 import parseDeploymentErrors from './utils/parse-deployment-errors';
 import Table from 'cli-table';
-import { createOrFindTestAccounts, TestAccountInfo } from './utils/create-or-find-test-account';
-import { AppType } from "@shipengine/connect-sdk";
-import { App, CarrierApp, DeliveryService, DeploymentType } from "@shipengine/connect-sdk/lib/internal";
-import { updateAppId } from "./update-app-id";
+import {
+  createOrFindTestAccounts,
+  TestAccountInfo,
+} from './utils/create-or-find-test-account';
+import { AppType } from '@shipengine/connect-sdk';
+import {
+  App,
+  CarrierApp,
+  DeliveryService,
+  DeploymentType,
+} from '@shipengine/connect-sdk/lib/internal';
+import { updateAppId } from './update-app-id';
 
 class AppFailedToPackageError extends Error {
   code: string;
@@ -21,7 +29,7 @@ class AppFailedToPackageError extends Error {
     super(message);
     Object.setPrototypeOf(this, new.target.prototype); // restore prototype chain
     this.name = AppFailedToPackageError.name; // stack traces display correctly now
-    this.code = "APP_FAILED_TO_PACKAGE";
+    this.code = 'APP_FAILED_TO_PACKAGE';
   }
 }
 
@@ -32,23 +40,27 @@ class AppFailedToDeployError extends Error {
     super(message);
     Object.setPrototypeOf(this, new.target.prototype); // restore prototype chain
     this.name = AppFailedToPackageError.name; // stack traces display correctly now
-    this.code = "APP_FAILED_TO_DEPLOY";
+    this.code = 'APP_FAILED_TO_DEPLOY';
   }
 }
 
-export function isAppFailedToPackageError(obj: unknown): obj is AppFailedToPackageError {
-  if (typeof obj === "object" && obj !== null) {
-    const code = Reflect.get(obj, "code") as string | undefined;
-    return code === "APP_FAILED_TO_PACKAGE";
+export function isAppFailedToPackageError(
+  obj: unknown,
+): obj is AppFailedToPackageError {
+  if (typeof obj === 'object' && obj !== null) {
+    const code = Reflect.get(obj, 'code') as string | undefined;
+    return code === 'APP_FAILED_TO_PACKAGE';
   }
 
   return false;
 }
 
-export function isAppFailedToDeployError(obj: unknown): obj is AppFailedToDeployError {
-  if (typeof obj === "object" && obj !== null) {
-    const code = Reflect.get(obj, "code") as string | undefined;
-    return code === "APP_FAILED_TO_DEPLOY";
+export function isAppFailedToDeployError(
+  obj: unknown,
+): obj is AppFailedToDeployError {
+  if (typeof obj === 'object' && obj !== null) {
+    const code = Reflect.get(obj, 'code') as string | undefined;
+    return code === 'APP_FAILED_TO_DEPLOY';
   }
 
   return false;
@@ -61,34 +73,45 @@ interface PublishAppOptions {
 export const getSupportedCountries = (app: App): string[] => {
   const unitedStates: string[] = ['US'];
   // TODO: We will need to add this functionality for the new apps as well.
-  if (app.type === AppType.Carrier && app.deploymentType === DeploymentType.LegacyConnectCarrier) {
-    const countries = (app as CarrierApp).deliveryServices?.map(service => service?.availableCountries)?.flat();
-    const uniqueCountries = [...new Set(countries)].filter(country => country);
+  if (
+    app.type === AppType.Carrier &&
+    app.deploymentType === DeploymentType.LegacyConnectCarrier
+  ) {
+    const countries = (app as CarrierApp).deliveryServices
+      ?.map((service) => service?.availableCountries)
+      ?.flat();
+    const uniqueCountries = [...new Set(countries)].filter(
+      (country) => country,
+    );
     if (uniqueCountries.length >= 1) {
       return uniqueCountries;
-    } 
+    }
   }
   return unitedStates;
-}
+};
 
 export default async function publishApp(
   tarballName: string,
   client: APIClient,
   { noWatch = false }: PublishAppOptions,
 ): Promise<Deployment> {
-
-  cli.action.start("Publishing app");
+  cli.action.start('Publishing app');
   let supportedCountries: string[] = [];
   let newDeployment;
   let platformApp;
   try {
     const app = await loadApp(process.cwd());
     try {
-      const deployedApp = await client.apps.getByIdOrName(app.manifest.name, app.manifest.appId);
-      if(!app.manifest.appId) {
+      const deployedApp = await client.apps.getByIdOrName(
+        app.manifest.name,
+        app.manifest.appId,
+      );
+      if (!app.manifest.appId) {
         updateAppId(path.join(process.cwd(), 'package.json'), deployedApp.id);
         app.manifest.appId = deployedApp.id;
-        console.log(yellow(`Updated package.json set appId to ${deployedApp.id}`));
+        console.log(
+          yellow(`Updated package.json set appId to ${deployedApp.id}`),
+        );
       }
     } catch {}
 
@@ -118,7 +141,11 @@ export default async function publishApp(
   cli.action.stop(`${logSymbols.success}`);
 
   if (!noWatch) {
-    const deployment = await watchDeployment(newDeployment, platformApp, client);
+    const deployment = await watchDeployment(
+      newDeployment,
+      platformApp,
+      client,
+    );
 
     if (deployment.status === DeploymentStatus.Error) {
       console.log(
@@ -140,44 +167,46 @@ export default async function publishApp(
         );
       } else {
         errors.forEach((error) => {
-          console.log(
-            red(
-              `- ${error}`,
-            ),
-          );
-        })
+          console.log(red(`- ${error}`));
+        });
       }
-
     } else if (deployment.status === DeploymentStatus.Terminated) {
-      console.log(red("Your app was terminated "));
+      console.log(red('Your app was terminated '));
     } else {
       console.log(
         green(`Your app was published successfully ${logSymbols.success} `),
       );
-      const accountInfo = await createOrFindTestAccounts(client, platformApp, supportedCountries);
+      const accountInfo = await createOrFindTestAccounts(
+        client,
+        platformApp,
+        supportedCountries,
+      );
       displayAccountInfo(accountInfo);
     }
 
     return newDeployment;
   }
 
-  const accountInfo = await createOrFindTestAccounts(client, platformApp, supportedCountries);
+  const accountInfo = await createOrFindTestAccounts(
+    client,
+    platformApp,
+    supportedCountries,
+  );
   displayAccountInfo(accountInfo);
 
   return newDeployment;
 }
 
 export const displayAccountInfo = (accounts: TestAccountInfo[]) => {
-  console.log("Test your app with the accounts below:");
-  accounts.forEach(account => {
+  console.log('Test your app with the accounts below:');
+  accounts.forEach((account) => {
     const table = new Table();
     table.push(
       { 'Seller Country': [account.country] },
-      { 'Email': [account.email] },
-      { 'Password': [account.password] },
-      { 'Test URL': [account.testUrl] }
+      { Email: [account.email] },
+      { Password: [account.password] },
+      { 'Test URL': [account.testUrl] },
     );
     console.log(table.toString());
-  })
-
-}
+  });
+};

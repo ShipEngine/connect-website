@@ -8,8 +8,8 @@
     "build": "yarn build:ts",
     "bump": "yarn version:bump",
     "clean": "yarn build:clean",
-    "format": "prettier --write \"src/**/*.ts\"",
-    "lint": "prettier --check \"src/**/*.ts\"",
+    "format": "prettier --single-quote --trailing-comma=all --write \"src/**/*.ts\"",
+    "lint": "prettier --single-quote --trailing-comma=all --check \"src/**/*.ts\"",
     "release": "yarn version:release",
     "test": "true",
     "watch": "yarn build:watch"
@@ -48,7 +48,6 @@
     "@types/uuid": "8.0.0",
     "@typescript-eslint/eslint-plugin": "3.6.0",
     "@typescript-eslint/parser": "3.1.0",
-    "eslint": "6.8.0",
     "eslint-config-google": "0.14.0",
     "eslint-config-prettier": "6.11.0",
     "eslint-plugin-jest": "23.18.0",

@@ -1,4 +1,4 @@
-import { ReactForm } from "./react-form";
+import { ReactForm } from './react-form';
 
 export interface AccountConnectionSpecification {
   Name: string;

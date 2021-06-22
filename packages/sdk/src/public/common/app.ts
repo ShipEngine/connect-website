@@ -1,5 +1,4 @@
-import type { UUID } from "./types";
-
+import type { UUID } from './types';
 
 /**
  * A ShipEngine Connect app
@@ -17,7 +16,6 @@ export interface AppDefinition {
    */
   providerId?: UUID;
 }
-
 
 /**
  * A ShipEngine Connect app manifest (package.json file)

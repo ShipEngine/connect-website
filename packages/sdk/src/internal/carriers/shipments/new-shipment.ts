@@ -1,11 +1,29 @@
-import { AddressWithContactInfoPOJO, DateTimeZonePOJO, DeliveryServiceIdentifierPOJO, NewShipment as INewShipment, DeliveryConfirmationIdentifierPOJO, DeliveryConfirmationType, AddressWithContactInfoAndPickupLocationPOJO } from "../../../public";
-import { AddressWithContactInfo, AddressWithContactInfoAndPickupLocation, App, DateTimeZone, DefinitionIdentifier, hideAndFreeze, Joi, MonetaryValue, _internal } from "../../common";
-import { DeliveryService } from "../delivery-service";
-import { NewPackage, NewPackagePOJO } from "../packages/new-package";
-import { calculateTotalInsuranceAmount } from "../utils";
-import { DeliveryConfirmation } from "../delivery-confirmation";
-import { ShippingOptions } from "../shipping-options";
-import { ShippingOptions as ShippingOptionsPOJO} from "../../../public"
+import {
+  AddressWithContactInfoPOJO,
+  DateTimeZonePOJO,
+  DeliveryServiceIdentifierPOJO,
+  NewShipment as INewShipment,
+  DeliveryConfirmationIdentifierPOJO,
+  DeliveryConfirmationType,
+  AddressWithContactInfoAndPickupLocationPOJO,
+} from '../../../public';
+import {
+  AddressWithContactInfo,
+  AddressWithContactInfoAndPickupLocation,
+  App,
+  DateTimeZone,
+  DefinitionIdentifier,
+  hideAndFreeze,
+  Joi,
+  MonetaryValue,
+  _internal,
+} from '../../common';
+import { DeliveryService } from '../delivery-service';
+import { NewPackage, NewPackagePOJO } from '../packages/new-package';
+import { calculateTotalInsuranceAmount } from '../utils';
+import { DeliveryConfirmation } from '../delivery-confirmation';
+import { ShippingOptions } from '../shipping-options';
+import { ShippingOptions as ShippingOptionsPOJO } from '../../../public';
 
 export interface NewShipmentPOJO {
   deliveryService: DeliveryServiceIdentifierPOJO | string;
@@ -19,34 +37,39 @@ export interface NewShipmentPOJO {
     rmaNumber?: string;
   };
   packages: readonly NewPackagePOJO[];
-  deliveryConfirmation?: DeliveryConfirmationIdentifierPOJO | DeliveryConfirmationType;
+  deliveryConfirmation?:
+    | DeliveryConfirmationIdentifierPOJO
+    | DeliveryConfirmationType;
   shippingOptions?: ShippingOptionsPOJO;
 }
 
-
 export class NewShipment implements INewShipment {
   public static readonly [_internal] = {
-    label: "shipment",
+    label: 'shipment',
     schema: Joi.object({
       deliveryService: Joi.alternatives(
         DefinitionIdentifier[_internal].schema.unknown(true),
-        Joi.string()
+        Joi.string(),
       ).required(),
       shipFrom: AddressWithContactInfo[_internal].schema.required(),
       shipTo: AddressWithContactInfo[_internal].schema.required(),
-      pickupLocation: AddressWithContactInfoAndPickupLocation[_internal].schema.required(),
+      pickupLocation:
+        AddressWithContactInfoAndPickupLocation[_internal].schema.required(),
       returnTo: AddressWithContactInfo[_internal].schema,
       shipDateTime: DateTimeZone[_internal].schema.required(),
       returns: Joi.object({
         isReturn: Joi.boolean(),
-        rmaNumber: Joi.string().trim().singleLine().allow("")
+        rmaNumber: Joi.string().trim().singleLine().allow(''),
       }),
       deliveryConfirmation: Joi.alternatives(
         DefinitionIdentifier[_internal].schema.unknown(true),
-        Joi.string()
+        Joi.string(),
       ),
-      packages: Joi.array().min(1).items(NewPackage[_internal].schema).required(),
-      shippingOptions: ShippingOptions[_internal].schema
+      packages: Joi.array()
+        .min(1)
+        .items(NewPackage[_internal].schema)
+        .required(),
+      shippingOptions: ShippingOptions[_internal].schema,
     }),
   };
 
@@ -76,26 +99,38 @@ export class NewShipment implements INewShipment {
   }
 
   public constructor(pojo: NewShipmentPOJO, app: App) {
-    this.deliveryService = app[_internal].references.lookup(pojo.deliveryService, DeliveryService);
+    this.deliveryService = app[_internal].references.lookup(
+      pojo.deliveryService,
+      DeliveryService,
+    );
     this.shipFrom = new AddressWithContactInfo(pojo.shipFrom);
     this.shipTo = new AddressWithContactInfo(pojo.shipTo);
-    this.pickupLocation = pojo.pickupLocation ? new AddressWithContactInfoAndPickupLocation(pojo.pickupLocation) : undefined;
-    this.returnTo = pojo.returnTo ? new AddressWithContactInfo(pojo.returnTo) : this.shipFrom;
+    this.pickupLocation = pojo.pickupLocation
+      ? new AddressWithContactInfoAndPickupLocation(pojo.pickupLocation)
+      : undefined;
+    this.returnTo = pojo.returnTo
+      ? new AddressWithContactInfo(pojo.returnTo)
+      : this.shipFrom;
     this.shipDateTime = new DateTimeZone(pojo.shipDateTime);
 
-    this.deliveryConfirmation = app[_internal].references.lookup(pojo.deliveryConfirmation, DeliveryConfirmation);
+    this.deliveryConfirmation = app[_internal].references.lookup(
+      pojo.deliveryConfirmation,
+      DeliveryConfirmation,
+    );
 
     // If there's no return info, then the shipment is not a return
     const returns = pojo.returns || {};
     this.returns = {
       isReturn: returns.isReturn || false,
-      rmaNumber: returns.rmaNumber || ""
+      rmaNumber: returns.rmaNumber || '',
     };
 
     this.packages = pojo.packages.map((parcel) => new NewPackage(parcel, app));
     this.totalInsuredValue = calculateTotalInsuranceAmount(this.packages);
 
-    this.shippingOptions = pojo.shippingOptions ? new ShippingOptions(pojo.shippingOptions) : undefined;
+    this.shippingOptions = pojo.shippingOptions
+      ? new ShippingOptions(pojo.shippingOptions)
+      : undefined;
 
     // Make this object immutable
     hideAndFreeze(this);

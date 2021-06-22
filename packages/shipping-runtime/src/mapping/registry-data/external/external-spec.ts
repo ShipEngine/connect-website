@@ -1,5 +1,5 @@
-import ShippingProviderConnector from "./shipping-provider-connector";
-import Carrier from "./carrier";
+import ShippingProviderConnector from './shipping-provider-connector';
+import Carrier from './carrier';
 
 export default interface ExternalSpec {
   Connector?: ShippingProviderConnector | null;

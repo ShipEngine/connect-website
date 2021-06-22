@@ -1,5 +1,5 @@
-import { FunctionSpecification } from "./function";
-import DiagnosticRoutes from "./diagnostic-routes";
+import { FunctionSpecification } from './function';
+import DiagnosticRoutes from './diagnostic-routes';
 
 export interface ShippingProviderConnector {
   Functions: FunctionSpecification[];

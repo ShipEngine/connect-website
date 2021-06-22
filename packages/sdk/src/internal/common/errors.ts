@@ -1,13 +1,13 @@
-import { ErrorCode, UUID } from "../../public";
+import { ErrorCode, UUID } from '../../public';
 
 /**
  * Error codes for ShipEngine Connect SDK runtime errors
  */
 export enum SystemErrorCode {
-  InvalidInput = "ERR_INVALID_INPUT",
-  CurrencyMismatch = "ERR_CURRENCY_MISMATCH",
-  Syntax = "ERR_SYNTAX",          // Used by the loader
-  Filesystem = "ERR_FILESYSTEM",  // Used by the loader
+  InvalidInput = 'ERR_INVALID_INPUT',
+  CurrencyMismatch = 'ERR_CURRENCY_MISMATCH',
+  Syntax = 'ERR_SYNTAX', // Used by the loader
+  Filesystem = 'ERR_FILESYSTEM', // Used by the loader
 }
 
 /**
@@ -32,7 +32,11 @@ export interface ErrorProps {
 /**
  * Creates a ShipEngine Connect SDK error
  */
-export function error(code: ErrorCode | SystemErrorCode, message: string, props: ErrorProps = {}): SystemError {
+export function error(
+  code: ErrorCode | SystemErrorCode,
+  message: string,
+  props: ErrorProps = {},
+): SystemError {
   let originalError = props.originalError as SystemError | undefined;
 
   /*
@@ -40,7 +44,7 @@ export function error(code: ErrorCode | SystemErrorCode, message: string, props:
    * When this error wrapping is moved into middleware in the app layer, this won't be needed
    */
   if (originalError && originalError.stack) {
-    console.log(originalError.stack)
+    console.log(originalError.stack);
   }
 
   if (originalError) {
@@ -58,7 +62,8 @@ export function error(code: ErrorCode | SystemErrorCode, message: string, props:
 
   // Set the original error to the TRUE original error
   while (originalError && originalError.originalError) {
-    error.originalError = originalError = originalError.originalError as SystemError;
+    error.originalError = originalError =
+      originalError.originalError as SystemError;
   }
 
   return error;

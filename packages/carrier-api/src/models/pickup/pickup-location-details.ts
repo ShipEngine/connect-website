@@ -1,4 +1,4 @@
-import { ShipFrom } from "../addresses/ship-from";
+import { ShipFrom } from '../addresses/ship-from';
 
 /** @description Location details for pickup */
 export interface PickupLocationDetails {

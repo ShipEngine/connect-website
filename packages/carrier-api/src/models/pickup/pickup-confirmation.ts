@@ -1,5 +1,5 @@
-import { Identifier } from "../identifier";
-import { ShipmentIdentifier } from "./shipment-identifier";
+import { Identifier } from '../identifier';
+import { ShipmentIdentifier } from './shipment-identifier';
 
 /** @description Basic structure for a pickup confirmation */
 export interface PickupConfirmation {

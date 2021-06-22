@@ -1,7 +1,7 @@
-import { QuantityPOJO } from "@shipengine/connect-sdk";
+import { QuantityPOJO } from '@shipengine/connect-sdk';
 
 export const mapQuantity = (
-  quantity: string | number | null | undefined
+  quantity: string | number | null | undefined,
 ): QuantityPOJO => {
   if (!quantity || isNaN(Number(quantity)) || Number(quantity) === 0) {
     return {

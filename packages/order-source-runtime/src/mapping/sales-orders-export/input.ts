@@ -1,5 +1,5 @@
-import { Input } from "@shipengine/connect-sdk/lib/internal";
-import * as api from "@shipengine/connect-order-source-api";
+import { Input } from '@shipengine/connect-sdk/lib/internal';
+import * as api from '@shipengine/connect-order-source-api';
 
 export function isoDate(date: string | undefined): Date | undefined {
   if (!date) {

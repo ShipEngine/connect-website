@@ -1,9 +1,9 @@
-import { Input } from "@shipengine/connect-sdk/lib/internal";
-import * as api from "@shipengine/connect-order-source-api";
-import { mapCountry } from "../input";
+import { Input } from '@shipengine/connect-sdk/lib/internal';
+import * as api from '@shipengine/connect-order-source-api';
+import { mapCountry } from '../input';
 
 export function mapAddress(
-  address: api.Address | undefined
+  address: api.Address | undefined,
 ): Input.AddressWithContactInfoAndPickupLocation | undefined {
   if (!address) {
     return;
@@ -23,18 +23,18 @@ export function mapAddress(
     : undefined;
 
   return {
-    name: address.name || "",
+    name: address.name || '',
     addressLines,
-    cityLocality: address.city || "",
+    cityLocality: address.city || '',
     postalCode: address.postal_code,
-    stateProvince: address.state_province || "",
+    stateProvince: address.state_province || '',
     country: mapCountry(address.country_code),
     pickupLocation,
   };
 }
 
 export function mapNotificationItem(
-  item: api.ShipmentNotificationItem
+  item: api.ShipmentNotificationItem,
 ): Input.SalesOrderPackageItem {
   let product;
   if (item.product_id) {
@@ -62,7 +62,7 @@ export function mapShippingCode(code: string | undefined): string | undefined {
     return;
   }
 
-  return code.toLocaleLowerCase().replace(" ", "_");
+  return code.toLocaleLowerCase().replace(' ', '_');
 }
 
 export function mapNotification(notification: api.ShipmentNotification): Input.SalesOrderShipment {

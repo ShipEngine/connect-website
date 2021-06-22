@@ -1,10 +1,14 @@
-import type { AddressWithContactInfo, AddressWithContactInfoAndPickupLocation, DateTimeZone, MonetaryValue } from "../../common";
-import type { DeliveryService } from "../delivery-service";
-import type { FulfillmentService } from "../fulfillment-service";
-import type { PackageRateCriteria } from "./package-rate-criteria";
-import type { DeliveryConfirmation } from "../delivery-confirmation";
-import { ShippingOptions } from "../shipping-options";
-
+import type {
+  AddressWithContactInfo,
+  AddressWithContactInfoAndPickupLocation,
+  DateTimeZone,
+  MonetaryValue,
+} from '../../common';
+import type { DeliveryService } from '../delivery-service';
+import type { FulfillmentService } from '../fulfillment-service';
+import type { PackageRateCriteria } from './package-rate-criteria';
+import type { DeliveryConfirmation } from '../delivery-confirmation';
+import { ShippingOptions } from '../shipping-options';
 
 /**
  * Specifies the criteria for rate quotes
@@ -55,7 +59,7 @@ export interface RateCriteria {
    * If this is a pickup shipment, a pickup location will be populated for where the recipient can
    * pickup the shipment.
    */
-   readonly pickupLocation?: AddressWithContactInfoAndPickupLocation;
+  readonly pickupLocation?: AddressWithContactInfoAndPickupLocation;
 
   /**
    * The total insured value of all packages in the shipment.
@@ -88,5 +92,4 @@ export interface RateCriteria {
    * Custom carrier shipping options for creating rates.
    */
   readonly shippingOptions?: ShippingOptions;
-
 }

@@ -1,19 +1,32 @@
-import { ShipmentConfirmation as ShipmentConfirmationPOJO } from "../../../public";
-import { calculateTotalCharges, Charge, DateTimeZone, hideAndFreeze, Joi, MonetaryValue, _internal } from "../../common";
-import { Document } from "../../common/document";
-import { Label } from "../documents/label";
-import { PackageConfirmation } from "../packages/package-confirmation";
-import { ShipmentIdentifier, ShipmentIdentifierBase } from "./shipment-identifier";
+import { ShipmentConfirmation as ShipmentConfirmationPOJO } from '../../../public';
+import {
+  calculateTotalCharges,
+  Charge,
+  DateTimeZone,
+  hideAndFreeze,
+  Joi,
+  MonetaryValue,
+  _internal,
+} from '../../common';
+import { Document } from '../../common/document';
+import { Label } from '../documents/label';
+import { PackageConfirmation } from '../packages/package-confirmation';
+import {
+  ShipmentIdentifier,
+  ShipmentIdentifierBase,
+} from './shipment-identifier';
 
 export class ShipmentConfirmation extends ShipmentIdentifierBase {
   public static readonly [_internal] = {
-    label: "shipment",
+    label: 'shipment',
     schema: ShipmentIdentifier[_internal].schema.keys({
       label: Label[_internal].schema.required(),
       form: Document[_internal].schema,
       deliveryDateTime: DateTimeZone[_internal].schema,
       charges: Joi.array().min(1).items(Charge[_internal].schema).required(),
-      packages: Joi.array().items(PackageConfirmation[_internal].schema).optional(),
+      packages: Joi.array()
+        .items(PackageConfirmation[_internal].schema)
+        .optional(),
     }),
   };
 
@@ -35,10 +48,14 @@ export class ShipmentConfirmation extends ShipmentIdentifierBase {
   public constructor(pojo: ShipmentConfirmationPOJO) {
     super(pojo);
 
-    this.deliveryDateTime = pojo.deliveryDateTime ? new DateTimeZone(pojo.deliveryDateTime) : undefined;
+    this.deliveryDateTime = pojo.deliveryDateTime
+      ? new DateTimeZone(pojo.deliveryDateTime)
+      : undefined;
     this.charges = pojo.charges.map((charge) => new Charge(charge));
     this.totalAmount = calculateTotalCharges(this.charges);
-    this.packages = pojo.packages ? pojo.packages.map((parcel) => new PackageConfirmation(parcel)) : [];
+    this.packages = pojo.packages
+      ? pojo.packages.map((parcel) => new PackageConfirmation(parcel))
+      : [];
     this.label = new Label(pojo.label);
     this.form = pojo.form && new Document(pojo.form);
 
@@ -46,5 +63,3 @@ export class ShipmentConfirmation extends ShipmentIdentifierBase {
     hideAndFreeze(this);
   }
 }
-
-

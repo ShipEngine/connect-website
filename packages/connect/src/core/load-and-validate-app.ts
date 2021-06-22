@@ -1,6 +1,6 @@
-import { loadApp } from "@shipengine/connect-loader";
-import { ValidationErrorItem } from "joi";
-import { SdkApp } from "./types";
+import { loadApp } from '@shipengine/connect-loader';
+import { ValidationErrorItem } from 'joi';
+import { SdkApp } from './types';
 
 class InvalidAppError extends Error {
   errors: string[];
@@ -12,7 +12,7 @@ class InvalidAppError extends Error {
     Object.setPrototypeOf(this, new.target.prototype); // restore prototype chain
     this.name = InvalidAppError.name; // stack traces display correctly now
     this.errors = errors;
-    this.code = "INVALID_APP";
+    this.code = 'INVALID_APP';
   }
 }
 
@@ -40,13 +40,11 @@ export default async function loadAndValidateApp(
 }
 
 export function isInvalidAppError(obj: unknown): obj is InvalidAppError {
-
-  if (typeof obj === "object" && obj !== null) {
-    const code = Reflect.get(obj, "code") as string | undefined;
-    if (code === "INVALID_APP") {
+  if (typeof obj === 'object' && obj !== null) {
+    const code = Reflect.get(obj, 'code') as string | undefined;
+    if (code === 'INVALID_APP') {
       return true;
     }
   }
-  return false
-
+  return false;
 }

@@ -1,4 +1,4 @@
-import { TaxIdentifierType } from "./tax-identifier-type";
+import { TaxIdentifierType } from './tax-identifier-type';
 
 /** @description Entity representing a Tax Identification number, type, and country of registration. */
 export interface TaxIdentifier {

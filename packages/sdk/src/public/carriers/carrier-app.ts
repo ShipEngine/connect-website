@@ -1,8 +1,20 @@
-import type { ConnectionAppDefinition, InlineOrReference, InlineOrReferenceArray } from "../common";
-import type { DeliveryServiceDefinition } from "./delivery-service";
-import type { ManifestLocation, ManifestShipment, ManifestType } from "./enums";
-import type { CancelPickups, CancelShipments, CreateManifest, CreateShipment, RateShipment, SchedulePickup, TrackShipment } from "./methods";
-import type { PickupServiceDefinition } from "./pickups/pickup-service";
+import type {
+  ConnectionAppDefinition,
+  InlineOrReference,
+  InlineOrReferenceArray,
+} from '../common';
+import type { DeliveryServiceDefinition } from './delivery-service';
+import type { ManifestLocation, ManifestShipment, ManifestType } from './enums';
+import type {
+  CancelPickups,
+  CancelShipments,
+  CreateManifest,
+  CreateShipment,
+  RateShipment,
+  SchedulePickup,
+  TrackShipment,
+} from './methods';
+import type { PickupServiceDefinition } from './pickups/pickup-service';
 
 /**
  * A ShipEngine Connect carrier app
@@ -24,7 +36,6 @@ export interface CarrierAppDefinition extends ConnectionAppDefinition {
    * Indicates what type of manifests the carrier supports
    */
   manifestType?: ManifestType;
-
 
   /**
    * Tracking url format for the carrier.

@@ -6,8 +6,8 @@
   "types": "./lib/index.d.ts",
   "scripts": {
     "build": "yarn build:ts",
-    "format": "prettier --write \"src/**/*.ts\"",
-    "lint": "prettier --check \"src/**/*.ts\"",
+    "format": "prettier --single-quote --trailing-comma=all --write \"src/**/*.ts\"",
+    "lint": "prettier --single-quote --trailing-comma=all --check \"src/**/*.ts\"",
     "test": "true"
   },
   "repository": {

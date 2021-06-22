@@ -1,7 +1,7 @@
-import { NotePOJO, NoteType } from "@shipengine/connect-sdk";
+import { NotePOJO, NoteType } from '@shipengine/connect-sdk';
 
 export const mapLocationNotes = (
-  locationNotes: string | undefined | null
+  locationNotes: string | undefined | null,
 ): NotePOJO[] | undefined => {
   if (!locationNotes) {
     return undefined;

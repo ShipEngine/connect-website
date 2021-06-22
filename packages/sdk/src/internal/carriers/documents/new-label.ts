@@ -1,5 +1,9 @@
-import { DocumentFormat, DocumentSize, NewLabel as INewLabel } from "../../../public";
-import { hideAndFreeze, Joi, _internal } from "../../common";
+import {
+  DocumentFormat,
+  DocumentSize,
+  NewLabel as INewLabel,
+} from '../../../public';
+import { hideAndFreeze, Joi, _internal } from '../../common';
 
 export interface NewLabelPOJO {
   size: DocumentSize;
@@ -7,15 +11,14 @@ export interface NewLabelPOJO {
   referenceFields?: string[];
 }
 
-
 export class NewLabel implements INewLabel {
   public static readonly [_internal] = {
-    label: "label",
+    label: 'label',
     schema: Joi.object({
       format: Joi.string().enum(DocumentFormat).required(),
       size: Joi.string().enum(DocumentSize).required(),
       referenceFields: Joi.array().items(
-        Joi.string().trim().singleLine().allow("")
+        Joi.string().trim().singleLine().allow(''),
       ),
     }),
   };

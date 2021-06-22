@@ -1,18 +1,18 @@
-import { format, LoggerOptions, transports, createLogger } from "winston";
-import { TransformableInfo } from "logform";
-const redact = require("fast-redact");
-import { serializeError } from "serialize-error";
-import { getTransactionId } from "./storage";
+import { format, LoggerOptions, transports, createLogger } from 'winston';
+import { TransformableInfo } from 'logform';
+const redact = require('fast-redact');
+import { serializeError } from 'serialize-error';
+import { getTransactionId } from './storage';
 
-const LOG_LEVEL = process.env.LOG_LEVEL || "debug";
-const LOG_FORMAT = process.env.NODE_ENV === "production" ? "json" : "console";
+const LOG_LEVEL = process.env.LOG_LEVEL || 'debug';
+const LOG_FORMAT = process.env.NODE_ENV === 'production' ? 'json' : 'console';
 
 const redactor = redact({
   paths: [
-    "request.headers.authorization",
-    "request.body.metadata.*",
-    "response.body.metadata.*",
-    "request.body.auth.*",
+    'request.headers.authorization',
+    'request.body.metadata.*',
+    'response.body.metadata.*',
+    'request.body.auth.*',
   ],
 });
 
@@ -34,13 +34,13 @@ const jsonOptions: LoggerOptions = {
     format.metadata(),
     redactBody(),
     attachTransactionId(),
-    format.json()
+    format.json(),
   ),
   transports: [new transports.Console({ level: LOG_LEVEL })],
 };
 
 function print(msg: any): string {
-  if (typeof msg === "string") {
+  if (typeof msg === 'string') {
     return msg;
   } else if (msg instanceof Error) {
   } else if (msg && Object.keys(msg).length > 0) {
@@ -51,18 +51,18 @@ function print(msg: any): string {
      */
     return JSON.stringify(serializeError(msg));
   }
-  return "";
+  return '';
 }
 
 const debugPrint = (info: TransformableInfo) => {
   const metadata = info.metadata;
-  const transactionId = info.transactionId?.slice(0, 8) ?? "";
-  const timestamp = metadata?.timestamp.slice(11) ?? "";
+  const transactionId = info.transactionId?.slice(0, 8) ?? '';
+  const timestamp = metadata?.timestamp.slice(11) ?? '';
   const metadataCopy = { ...metadata };
   delete metadataCopy.timestamp;
 
   return `${timestamp} ${transactionId} ${info.level}: ${print(info.message)} ${print(
-    metadataCopy
+    metadataCopy,
   )}`;
 };
 
@@ -73,15 +73,15 @@ const consoleOptions: LoggerOptions = {
     format.timestamp(),
     format.metadata(),
     attachTransactionId(),
-    format.printf(debugPrint)
+    format.printf(debugPrint),
   ),
   transports: [new transports.Console({ level: LOG_LEVEL })],
 };
 
-const logJson = LOG_FORMAT === "json";
+const logJson = LOG_FORMAT === 'json';
 
 const logger = createLogger(logJson ? jsonOptions : consoleOptions);
 
-logger.info(`Logging initialized with ${logger.level} level and ${logJson ? "json" : "console"}`);
+logger.info(`Logging initialized with ${logger.level} level and ${logJson ? 'json' : 'console'}`);
 
 export default logger;

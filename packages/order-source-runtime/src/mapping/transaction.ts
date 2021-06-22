@@ -1,10 +1,10 @@
-import * as sdk from "@shipengine/connect-sdk";
-import * as api from "@shipengine/connect-order-source-api";
+import * as sdk from '@shipengine/connect-sdk';
+import * as api from '@shipengine/connect-order-source-api';
 
 export function mapTransaction(transaction_id: string, auth: api.Auth): sdk.Transaction {
   // This gets parsed out and attached directly to the session
   const context =
-    typeof auth.connection_context === "string"
+    typeof auth.connection_context === 'string'
       ? JSON.parse(auth.connection_context)
       : auth.connection_context;
 
@@ -18,7 +18,7 @@ export function mapTransaction(transaction_id: string, auth: api.Auth): sdk.Tran
 
   return {
     id: transaction_id,
-    language: "TODO",
+    language: 'TODO',
     session: {
       ...context,
       auth: authWithoutContext,

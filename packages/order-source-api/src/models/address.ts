@@ -12,8 +12,8 @@ export interface PickupLocation {
  * @description Used to indicate whether an address is in a residential or commercial area
  */
 export enum ResidentialIndicator {
-  Residential = "R",
-  Commercial = "C",
+  Residential = 'R',
+  Commercial = 'C',
 }
 
 /**

@@ -1,8 +1,8 @@
-import { Currency } from "@shipengine/connect-carrier-api/lib/models";
-import { Charge } from "@shipengine/connect-sdk";
+import { Currency } from '@shipengine/connect-carrier-api/lib/models';
+import { Charge } from '@shipengine/connect-sdk';
 
 export const getTotalCosts = (
-  charges: readonly Charge[] | undefined
+  charges: readonly Charge[] | undefined,
 ): Currency | undefined => {
   if (!charges || charges.length < 1) {
     return undefined;

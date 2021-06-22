@@ -1,12 +1,16 @@
 import ono from '@jsdevtools/ono';
 import path from 'path';
-import { promises as fs } from "fs";
+import { promises as fs } from 'fs';
 import { readFile } from './read-file';
 
-const defaultFile = ".shipconnect"
+const defaultFile = '.shipconnect';
 
 function getHomePath(): string {
-  return process.env.HOME || process.env.HOMEPATH || process.env.USERPROFILE as string;
+  return (
+    process.env.HOME ||
+    process.env.HOMEPATH ||
+    (process.env.USERPROFILE as string)
+  );
 }
 
 function getKeyFilePath(): string {
@@ -14,8 +18,8 @@ function getKeyFilePath(): string {
 }
 
 export enum Errors {
-  NotFound = "ERR_API_KEY_NOT_FOUND",
-  SetError = "ERR_SETTING_API_KEY"
+  NotFound = 'ERR_API_KEY_NOT_FOUND',
+  SetError = 'ERR_SETTING_API_KEY',
 }
 
 /**
@@ -25,9 +29,9 @@ export enum Errors {
 export async function get(): Promise<string> {
   try {
     const key = await readFile<string>(getKeyFilePath());
-    return key
+    return key;
   } catch (error) {
-    throw ono(error, { code: Errors.NotFound }, "API key not found");
+    throw ono(error, { code: Errors.NotFound }, 'API key not found');
   }
 }
 
@@ -39,10 +43,10 @@ export async function get(): Promise<string> {
  */
 export async function set(apiKey: string): Promise<string> {
   try {
-    await fs.writeFile(getKeyFilePath(), apiKey, "utf8")
+    await fs.writeFile(getKeyFilePath(), apiKey, 'utf8');
     return apiKey;
   } catch (error) {
-    throw ono(error, { code: Errors.SetError }, "API key was not set");
+    throw ono(error, { code: Errors.SetError }, 'API key was not set');
   }
 }
 
@@ -52,7 +56,7 @@ export async function set(apiKey: string): Promise<string> {
  */
 export async function clear(): Promise<void> {
   try {
-    await fs.unlink(getKeyFilePath())
+    await fs.unlink(getKeyFilePath());
   } catch {
     // If the file doesnt exist swallow the error
   }

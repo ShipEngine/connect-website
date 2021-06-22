@@ -1,16 +1,31 @@
-import { PickupConfirmation as PickupConfirmationPOJO } from "../../../public";
-import { calculateTotalCharges, Charge, hideAndFreeze, Identifiers, Joi, MonetaryValue, Note, TimeRange, _internal } from "../../common";
-import { ShipmentIdentifier } from "../shipments/shipment-identifier";
+import { PickupConfirmation as PickupConfirmationPOJO } from '../../../public';
+import {
+  calculateTotalCharges,
+  Charge,
+  hideAndFreeze,
+  Identifiers,
+  Joi,
+  MonetaryValue,
+  Note,
+  TimeRange,
+  _internal,
+} from '../../common';
+import { ShipmentIdentifier } from '../shipments/shipment-identifier';
 
 export class PickupConfirmation {
   public static readonly [_internal] = {
-    label: "pickup",
+    label: 'pickup',
     schema: Joi.object({
       id: Joi.string().trim().singleLine().min(1).required(),
       identifiers: Identifiers[_internal].schema,
-      timeWindows: Joi.array().min(1).items(TimeRange[_internal].schema).required(),
+      timeWindows: Joi.array()
+        .min(1)
+        .items(TimeRange[_internal].schema)
+        .required(),
       charges: Joi.array().min(1).items(Charge[_internal].schema).required(),
-      shipments: Joi.array().min(1).items(ShipmentIdentifier[_internal].schema.unknown(true)),
+      shipments: Joi.array()
+        .min(1)
+        .items(ShipmentIdentifier[_internal].schema.unknown(true)),
       notes: Note[_internal].notesSchema,
       metadata: Joi.object(),
     }),
@@ -31,7 +46,9 @@ export class PickupConfirmation {
     this.timeWindows = pojo.timeWindows.map((window) => new TimeRange(window));
     this.charges = pojo.charges.map((charge) => new Charge(charge));
     this.totalAmount = calculateTotalCharges(this.charges);
-    this.shipments = pojo.shipments!.map((shipment) => new ShipmentIdentifier(shipment));
+    this.shipments = pojo.shipments!.map(
+      (shipment) => new ShipmentIdentifier(shipment),
+    );
     this.notes = pojo.notes || [];
     this.metadata = pojo.metadata || {};
 

@@ -1,7 +1,6 @@
-import type { Address, ContactInfo, Note, TimeRange } from "../../common";
-import type { PickupService } from "./pickup-service";
-import type { PickupShipment } from "./pickup-shipment";
-
+import type { Address, ContactInfo, Note, TimeRange } from '../../common';
+import type { PickupService } from './pickup-service';
+import type { PickupShipment } from './pickup-shipment';
 
 /**
  * A request for a carrier to pickup package(s) at a time and place
@@ -36,5 +35,4 @@ export interface PickupRequest {
    * The shipments to be picked up
    */
   readonly shipments: readonly PickupShipment[];
-
 }

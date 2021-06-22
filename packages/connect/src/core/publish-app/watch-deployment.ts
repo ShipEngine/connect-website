@@ -1,9 +1,9 @@
-import APIClient from "../api-client";
-import { Deployment, DeploymentStatus, ConnectApp } from "../types";
-import { promisify } from "util";
-import * as readline from "readline";
-import { green } from "chalk";
-import cli from "cli-ux";
+import APIClient from '../api-client';
+import { Deployment, DeploymentStatus, ConnectApp } from '../types';
+import { promisify } from 'util';
+import * as readline from 'readline';
+import { green } from 'chalk';
+import cli from 'cli-ux';
 
 const sleep = promisify(setTimeout);
 

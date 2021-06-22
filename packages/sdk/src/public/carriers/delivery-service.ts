@@ -1,8 +1,22 @@
-import type { Country, Definition, DefinitionIdentifier, InlineOrReference, InlineOrReferenceArray } from "../common";
-import type { DeliveryConfirmation, DeliveryConfirmationDefinition } from "./delivery-confirmation";
-import type { DocumentFormat, DocumentSize, ManifestType, ServiceArea } from "./enums";
-import type { FulfillmentService } from "./fulfillment-service";
-import type { Packaging, PackagingDefinition } from "./packaging";
+import type {
+  Country,
+  Definition,
+  DefinitionIdentifier,
+  InlineOrReference,
+  InlineOrReferenceArray,
+} from '../common';
+import type {
+  DeliveryConfirmation,
+  DeliveryConfirmationDefinition,
+} from './delivery-confirmation';
+import type {
+  DocumentFormat,
+  DocumentSize,
+  ManifestType,
+  ServiceArea,
+} from './enums';
+import type { FulfillmentService } from './fulfillment-service';
+import type { Packaging, PackagingDefinition } from './packaging';
 
 /**
  * A delivery service that is offered by a carrier
@@ -90,7 +104,6 @@ export interface DeliveryServiceDefinition extends Definition {
   deliveryConfirmations?: InlineOrReferenceArray<DeliveryConfirmationDefinition>;
 }
 
-
 /**
  * Identifies a delivery service that is offered by a carrier
  */
@@ -100,7 +113,6 @@ export type DeliveryServiceIdentifier = DefinitionIdentifier;
  * Identifies a delivery service that is offered by a carrier
  */
 export type DeliveryServiceIdentifierPOJO = Definition;
-
 
 /**
  * A delivery service that is offered by a carrier

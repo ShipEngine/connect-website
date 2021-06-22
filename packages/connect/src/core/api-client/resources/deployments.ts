@@ -1,7 +1,7 @@
-import * as fs from "fs";
-import FormData from "form-data";
-import ShipengineAPIClient from "..";
-import { Deployment, PaginatedItems } from "../../types";
+import * as fs from 'fs';
+import FormData from 'form-data';
+import ShipengineAPIClient from '..';
+import { Deployment, PaginatedItems } from '../../types';
 import getVersions from '../../utils/get-versions';
 
 export default class Deployments {
@@ -24,15 +24,15 @@ export default class Deployments {
   }): Promise<Deployment> {
     const form = new FormData();
 
-    form.append("deployment", fs.createReadStream(pathToTarball));
-    form.append("versions", JSON.stringify(getVersions()))
+    form.append('deployment', fs.createReadStream(pathToTarball));
+    form.append('versions', JSON.stringify(getVersions()));
 
     const response = await this.client.call<Deployment>({
       endpoint: `apps/${appId}/deploys`,
-      method: "POST",
+      method: 'POST',
       body: form,
       headers: {
-        "content-type": `multipart/form-data; boundary=${form.getBoundary()}`,
+        'content-type': `multipart/form-data; boundary=${form.getBoundary()}`,
       },
       isFileUpload: true,
     });
@@ -47,7 +47,7 @@ export default class Deployments {
   async getAllForAppId(appId: string): Promise<PaginatedItems<Deployment>> {
     const response = await this.client.call<PaginatedItems<Deployment>>({
       endpoint: `apps/${appId}/deploys`,
-      method: "GET",
+      method: 'GET',
     });
 
     return response;
@@ -66,7 +66,7 @@ export default class Deployments {
   }): Promise<Deployment> {
     const response = await this.client.call<Deployment>({
       endpoint: `apps/${appId}/deploys/${deployId}`,
-      method: "GET",
+      method: 'GET',
     });
 
     return response;
@@ -85,7 +85,7 @@ export default class Deployments {
   }): Promise<string> {
     const response = await this.client.call<string>({
       endpoint: `apps/${appId}/deploys/${deployId}/logs`,
-      method: "GET",
+      method: 'GET',
     });
 
     return response;

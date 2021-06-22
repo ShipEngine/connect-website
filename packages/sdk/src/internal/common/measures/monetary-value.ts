@@ -1,15 +1,18 @@
-import * as currency from "currency.js";
-import { MonetaryValue as IMonetaryValue, MonetaryValuePOJO } from "../../../public";
-import { error, SystemErrorCode } from "../errors";
-import { hideAndFreeze, _internal } from "../utils";
-import { Joi } from "../validation";
+import * as currency from 'currency.js';
+import {
+  MonetaryValue as IMonetaryValue,
+  MonetaryValuePOJO,
+} from '../../../public';
+import { error, SystemErrorCode } from '../errors';
+import { hideAndFreeze, _internal } from '../utils';
+import { Joi } from '../validation';
 
 /**
  * A monetary value in a supported currency
  */
 export class MonetaryValue implements IMonetaryValue {
   public static readonly [_internal] = {
-    label: "monetary value",
+    label: 'monetary value',
     schema: Joi.object({
       value: Joi.alternatives(Joi.number()).required(),
       currency: Joi.string().required(),
@@ -47,13 +50,15 @@ export class MonetaryValue implements IMonetaryValue {
       const currencies = [...uniqueCurrencies];
       throw error(
         SystemErrorCode.CurrencyMismatch,
-        `Currency mismatch: ${currencies.join(", ")}. All monetary values must be in the same currency.`,
-        { currencies }
+        `Currency mismatch: ${currencies.join(
+          ', ',
+        )}. All monetary values must be in the same currency.`,
+        { currencies },
       );
     }
 
     return new MonetaryValue({
-      currency: [...uniqueCurrencies][0] || "usd",
+      currency: [...uniqueCurrencies][0] || 'usd',
       value: total.value,
     });
   }

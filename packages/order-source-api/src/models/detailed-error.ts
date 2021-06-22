@@ -1,9 +1,9 @@
 /** @description The standard error codes used by the platform */
 export enum ShipEngineErrorCode {
-  generic = "generic",
-  serialization = "serialization",
-  validation = "validation",
-  external_client_error = "external_client_error",
+  generic = 'generic',
+  serialization = 'serialization',
+  validation = 'validation',
+  external_client_error = 'external_client_error',
 }
 /** @description This represents information that can be gathered about an error */
 export interface DetailedError {

@@ -1,4 +1,4 @@
-import type { Definition, DefinitionIdentifier } from "../../common";
+import type { Definition, DefinitionIdentifier } from '../../common';
 
 /**
  * A package pickup service that is offered by a carrier
@@ -15,12 +15,10 @@ export interface PickupServiceDefinition extends Definition {
   description?: string;
 }
 
-
 /**
  * Identifies a pickup service that is offered by a carrier
  */
 export type PickupServiceIdentifier = DefinitionIdentifier;
-
 
 /**
  * A package pickup service that is offered by a carrier

@@ -1,5 +1,5 @@
-import { RequestBase } from "./request-base";
-import { Address, Note } from "../models";
+import { RequestBase } from './request-base';
+import { Address, Note } from '../models';
 
 /** @description  */
 export interface ShipmentNotificationItem {

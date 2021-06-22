@@ -1,5 +1,5 @@
-import { TrackingStatusCode } from "../models";
-import { BaseCarrierResponse } from "./base-carrier-response";
+import { TrackingStatusCode } from '../models';
+import { BaseCarrierResponse } from './base-carrier-response';
 
 export interface TrackFreightShipmentResponse extends BaseCarrierResponse {
   pro_number: string;

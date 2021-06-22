@@ -1,6 +1,5 @@
-import type { UUID } from "../../common";
-import type { ShipmentIdentifier } from "./shipment-identifier";
-
+import type { UUID } from '../../common';
+import type { ShipmentIdentifier } from './shipment-identifier';
 
 /**
  * Cancellation of a previously-created shipment

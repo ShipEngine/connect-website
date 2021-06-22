@@ -19,5 +19,5 @@ export type ErrorResponse = {
 };
 
 export type NotSupportedResponse = ErrorResponse & {
-  message: "This operation is not supported by this Inventory App. See app metadata details.";
+  message: 'This operation is not supported by this Inventory App. See app metadata details.';
 };

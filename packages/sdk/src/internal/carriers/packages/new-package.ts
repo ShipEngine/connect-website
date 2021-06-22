@@ -1,10 +1,26 @@
-import { CustomsPOJO, DimensionsPOJO, MonetaryValuePOJO, NewPackage as INewPackage, PackagingIdentifierPOJO, WeightPOJO } from "../../../public";
-import { App, DefinitionIdentifier, Dimensions, hideAndFreeze, Joi, MonetaryValue, Weight, _internal } from "../../common";
-import { Customs } from "../customs/customs";
-import { NewLabel, NewLabelPOJO } from "../documents/new-label";
-import { Packaging } from "../packaging";
-import { setPackaging } from "../utils";
-import { PackageItem, PackageItemPOJO } from "./package-item";
+import {
+  CustomsPOJO,
+  DimensionsPOJO,
+  MonetaryValuePOJO,
+  NewPackage as INewPackage,
+  PackagingIdentifierPOJO,
+  WeightPOJO,
+} from '../../../public';
+import {
+  App,
+  DefinitionIdentifier,
+  Dimensions,
+  hideAndFreeze,
+  Joi,
+  MonetaryValue,
+  Weight,
+  _internal,
+} from '../../common';
+import { Customs } from '../customs/customs';
+import { NewLabel, NewLabelPOJO } from '../documents/new-label';
+import { Packaging } from '../packaging';
+import { setPackaging } from '../utils';
+import { PackageItem, PackageItemPOJO } from './package-item';
 
 export interface NewPackagePOJO {
   packaging: PackagingIdentifierPOJO | string;
@@ -18,14 +34,13 @@ export interface NewPackagePOJO {
   contents?: readonly PackageItemPOJO[];
 }
 
-
 export class NewPackage implements INewPackage {
   public static readonly [_internal] = {
-    label: "package",
+    label: 'package',
     schema: Joi.object({
       packaging: Joi.alternatives(
         DefinitionIdentifier[_internal].schema.unknown(true),
-        Joi.string().allow("")
+        Joi.string().allow(''),
       ).optional(),
       dimensions: Dimensions[_internal].schema,
       weight: Weight[_internal].schema,
@@ -49,11 +64,12 @@ export class NewPackage implements INewPackage {
   public readonly customs: Customs;
 
   public constructor(pojo: NewPackagePOJO, app: App) {
-
     this.packaging = setPackaging(app, pojo.packaging);
     this.dimensions = pojo.dimensions && new Dimensions(pojo.dimensions);
     this.weight = pojo.weight && new Weight(pojo.weight);
-    this.insuredValue = new MonetaryValue(pojo.insuredValue || { value: 0, currency: "usd" });
+    this.insuredValue = new MonetaryValue(
+      pojo.insuredValue || { value: 0, currency: 'usd' },
+    );
     this.containsAlcohol = pojo.containsAlcohol || false;
     this.isNonMachinable = pojo.isNonMachinable || false;
     this.label = new NewLabel(pojo.label);

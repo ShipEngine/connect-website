@@ -2,15 +2,15 @@ import {
   Packaging,
   ServiceArea,
   ValidationError,
-} from "@shipengine/connect-sdk";
+} from '@shipengine/connect-sdk';
 import PackageType, {
   PackageAttribute,
-} from "../../mapping/registry-data/external/package-type";
-import { RequiredProperty } from "../../mapping/registry-data/external/enums";
-import { DeliveryService } from "@shipengine/connect-sdk/lib/public/carriers/delivery-service";
+} from '../../mapping/registry-data/external/package-type';
+import { RequiredProperty } from '../../mapping/registry-data/external/enums';
+import { DeliveryService } from '@shipengine/connect-sdk/lib/public/carriers/delivery-service';
 
 const serviceAreaToPackageAttribute = (
-  serviceArea: ServiceArea
+  serviceArea: ServiceArea,
 ): PackageAttribute => {
   switch (serviceArea) {
     case ServiceArea.Regional:
@@ -26,7 +26,7 @@ const serviceAreaToPackageAttribute = (
 
 const resolvePackageAttributes = (
   packaging: Packaging,
-  services: ReadonlyArray<DeliveryService>
+  services: ReadonlyArray<DeliveryService>,
 ): PackageAttribute[] => {
   const packagingId = packaging.id;
 
@@ -34,10 +34,10 @@ const resolvePackageAttributes = (
     ...new Set(
       services
         .filter((service) =>
-          service.packaging.some((pkg) => pkg.id === packagingId)
+          service.packaging.some((pkg) => pkg.id === packagingId),
         )
         .map((service) => service.serviceArea)
-        .filter((area) => area) as ServiceArea[]
+        .filter((area) => area) as ServiceArea[],
     ),
   ];
 
@@ -53,14 +53,14 @@ const getAbbreviation = (name: string): string => {
 
 const dxToCapiSpecPackageType = (
   packaging: readonly Packaging[],
-  services: ReadonlyArray<DeliveryService>
+  services: ReadonlyArray<DeliveryService>,
 ): PackageType[] => {
   const packageTypes: PackageType[] = [];
   packaging.forEach((dxPackage) => {
     const packageAttributes = resolvePackageAttributes(dxPackage, services);
     if (!packageAttributes || packageAttributes.length === 0) {
       throw new ValidationError(
-        `Could not resolve package attribute (domestic/int'l) for PackageId ${dxPackage.id}`
+        `Could not resolve package attribute (domestic/int'l) for PackageId ${dxPackage.id}`,
       );
     }
 

@@ -1,1 +1,1 @@
-export type BillingPartyType = "consignee" | "shipper" | "third_party";
+export type BillingPartyType = 'consignee' | 'shipper' | 'third_party';

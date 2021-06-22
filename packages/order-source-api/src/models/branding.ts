@@ -1,4 +1,4 @@
-import { PackingSlip } from "./packing-slip";
+import { PackingSlip } from './packing-slip';
 
 /** @description The brand requested for a fulfillment */
 export interface Branding {

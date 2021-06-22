@@ -1,5 +1,5 @@
-import type { Identifiers, IdentifiersPOJO } from "./identifiers";
-import type { UUID } from "./types";
+import type { Identifiers, IdentifiersPOJO } from './identifiers';
+import type { UUID } from './types';
 
 /**
  * Identifies an object in an app definition

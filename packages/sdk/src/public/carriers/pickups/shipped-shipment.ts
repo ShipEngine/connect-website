@@ -1,8 +1,7 @@
-import type { DeliveryService } from "../delivery-service";
-import type { ShipmentIdentifier } from "../shipments/shipment-identifier";
-import type { ShippedPackage } from "./shipped-package";
-import type { AddressWithContactInfo } from "../../common";
-
+import type { DeliveryService } from '../delivery-service';
+import type { ShipmentIdentifier } from '../shipments/shipment-identifier';
+import type { ShippedPackage } from './shipped-package';
+import type { AddressWithContactInfo } from '../../common';
 
 /**
  * Information about a shipment that is ready to be shipped or has already been shipped.
@@ -32,5 +31,5 @@ export interface ShippedShipment extends ShipmentIdentifier {
   /**
    * The recipient's contact info and address
    */
-   readonly shipTo?: AddressWithContactInfo;
+  readonly shipTo?: AddressWithContactInfo;
 }

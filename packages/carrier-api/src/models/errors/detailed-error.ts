@@ -1,4 +1,4 @@
-import { StandardizedErrorCode } from "./standardized-error-code";
+import { StandardizedErrorCode } from './standardized-error-code';
 
 /** @description Basic structure for an error */
 export interface DetailedError {

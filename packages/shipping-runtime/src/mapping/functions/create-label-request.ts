@@ -1,7 +1,7 @@
-import { AddressBase } from "@shipengine/connect-carrier-api/lib/models";
-import { CreateLabelRequest } from "@shipengine/connect-carrier-api/lib/requests";
-import { AddressWithContactInfoPOJO } from "@shipengine/connect-sdk";
-import { NewShipmentPOJO } from "@shipengine/connect-sdk/lib/internal";
+import { AddressBase } from '@shipengine/connect-carrier-api/lib/models';
+import { CreateLabelRequest } from '@shipengine/connect-carrier-api/lib/requests';
+import { AddressWithContactInfoPOJO } from '@shipengine/connect-sdk';
+import { NewShipmentPOJO } from '@shipengine/connect-sdk/lib/internal';
 import {
   mapConfirmation,
   mapLabelLayout,
@@ -9,15 +9,15 @@ import {
   mapNewPackage,
   mapAddressWithContact,
   mapAddressWithContactAndPickup,
-} from "./";
-import { mapCustomsItem } from "./customs-item";
-import { mapCustomsPOJO } from "./new-package";
-import { mapShippingOptions } from "./shipping-options";
+} from './';
+import { mapCustomsItem } from './customs-item';
+import { mapCustomsPOJO } from './new-package';
+import { mapShippingOptions } from './shipping-options';
 
 export const getReturnToAddress = (
   isReturn?: boolean,
   from?: AddressBase | null,
-  display?: AddressBase | null
+  display?: AddressBase | null,
 ): AddressWithContactInfoPOJO | undefined => {
   if (!isReturn || (!from && !display)) {
     return undefined;
@@ -26,10 +26,10 @@ export const getReturnToAddress = (
 };
 
 export const mapCreateLabelRequest = (
-  request: CreateLabelRequest
+  request: CreateLabelRequest,
 ): NewShipmentPOJO => {
   const mappedRequest = {
-    deliveryService: request.service_code || "",
+    deliveryService: request.service_code || '',
     deliveryConfirmation: mapConfirmation(request.confirmation),
     shipFrom: mapAddressWithContact(request.ship_from),
     shipTo: mapAddressWithContact(request.ship_to),
@@ -37,7 +37,7 @@ export const mapCreateLabelRequest = (
     returnTo: getReturnToAddress(
       request.is_return_label,
       request.ship_from,
-      request.ship_from_display
+      request.ship_from_display,
     ),
     shipDateTime: new Date(request.ship_datetime),
     returns: {
@@ -51,8 +51,8 @@ export const mapCreateLabelRequest = (
         mapLabelFormat(request.label_format),
         mapLabelLayout(request.label_layout),
         request.insurance_provider || undefined,
-        request.reference
-      )
+        request.reference,
+      ),
     ),
     shippingOptions: mapShippingOptions(request.advanced_options),
   };

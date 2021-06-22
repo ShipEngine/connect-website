@@ -1,5 +1,8 @@
-import type { ChargeType } from "./enums";
-import type { MonetaryValue, MonetaryValuePOJO } from "./measures/monetary-value";
+import type { ChargeType } from './enums';
+import type {
+  MonetaryValue,
+  MonetaryValuePOJO,
+} from './measures/monetary-value';
 
 /**
  * An itemized charge or credit for a shipment or sales order
@@ -19,7 +22,6 @@ export interface ChargePOJO {
    * The amount of the charge (negative amount for a credit)
    */
   amount: MonetaryValuePOJO;
-
 }
 
 /**

@@ -2,8 +2,8 @@
  * @description The unit of measurement of dimensions
  */
 export enum DimensionsUnit {
-  Centimeter = "Centimeter",
-  Inch = "Inch",
+  Centimeter = 'Centimeter',
+  Inch = 'Inch',
 }
 
 /**

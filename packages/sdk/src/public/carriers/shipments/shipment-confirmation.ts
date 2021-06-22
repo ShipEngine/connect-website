@@ -1,8 +1,8 @@
-import type { ChargePOJO, DateTimeZonePOJO } from "../../common";
-import type { Document } from "../../common/document";
-import type { Label } from "../documents/label";
-import type { PackageConfirmation } from "../packages/package-confirmation";
-import type { ShipmentIdentifierPOJO } from "./shipment-identifier";
+import type { ChargePOJO, DateTimeZonePOJO } from '../../common';
+import type { Document } from '../../common/document';
+import type { Label } from '../documents/label';
+import type { PackageConfirmation } from '../packages/package-confirmation';
+import type { ShipmentIdentifierPOJO } from './shipment-identifier';
 
 /**
  * Confirmation that a shipment has been created
@@ -34,5 +34,4 @@ export interface ShipmentConfirmation extends ShipmentIdentifierPOJO {
    * Confirmation details about each package in the shipment
    */
   packages?: readonly PackageConfirmation[];
-
 }

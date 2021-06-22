@@ -14,13 +14,13 @@ export interface Document {
 }
 
 export enum DocumentType {
-  "Label" = "label",
-  "CustomsForm" = "customs_form",
-  "CommercialInvoice" = "commercial_invoice",
+  'Label' = 'label',
+  'CustomsForm' = 'customs_form',
+  'CommercialInvoice' = 'commercial_invoice',
 }
 
 export enum DocumentFormat {
-  "Pdf" = "PDF",
-  "Zpl" = "ZPL",
-  "Png" = "PNG",
+  'Pdf' = 'PDF',
+  'Zpl' = 'ZPL',
+  'Png' = 'PNG',
 }

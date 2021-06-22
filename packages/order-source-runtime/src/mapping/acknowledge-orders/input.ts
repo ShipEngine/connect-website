@@ -1,8 +1,8 @@
-import { Input } from "@shipengine/connect-sdk/lib/internal";
-import * as api from "@shipengine/connect-order-source-api";
+import { Input } from '@shipengine/connect-sdk/lib/internal';
+import * as api from '@shipengine/connect-order-source-api';
 
 export function mapAcknowledgement(
-  ack: api.OrderAcknowledgement
+  ack: api.OrderAcknowledgement,
 ): Input.SalesOrderNotificationPOJO {
   return {
     id: ack.order_id,

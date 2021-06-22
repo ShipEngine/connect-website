@@ -1,4 +1,4 @@
-import { Address } from "./address";
+import { Address } from './address';
 
 /**
  * @description This model represents information for who is being billed

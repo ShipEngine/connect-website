@@ -1,4 +1,4 @@
-import type { AddressPOJO, ContactInfoPOJO } from "../common";
+import type { AddressPOJO, ContactInfoPOJO } from '../common';
 
 /**
  * The person who bought a sales order

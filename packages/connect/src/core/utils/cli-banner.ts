@@ -1,4 +1,4 @@
-import chalk from "chalk";
+import chalk from 'chalk';
 
 const cliBanner = (): string => {
   return chalk.blueBright(`
@@ -27,6 +27,6 @@ const cliBanner = (): string => {
                      ++++++++++++++
                           ++++
   `);
-}
+};
 
 export default cliBanner;

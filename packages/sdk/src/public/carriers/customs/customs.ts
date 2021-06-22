@@ -1,6 +1,6 @@
-import { MonetaryValuePOJO, MonetaryValue } from "../../common";
-import { NonDeliveryOption } from "../enums";
-import { CustomsItemPOJO, CustomsItem } from "./customs-item";
+import { MonetaryValuePOJO, MonetaryValue } from '../../common';
+import { NonDeliveryOption } from '../enums';
+import { CustomsItemPOJO, CustomsItem } from './customs-item';
 
 /**
  * Customs declarations for international shipments
@@ -50,5 +50,5 @@ export interface Customs {
 
   readonly buyerShippingAmountPaid?: MonetaryValue;
 
-  readonly dutiesPaid?: MonetaryValue
+  readonly dutiesPaid?: MonetaryValue;
 }

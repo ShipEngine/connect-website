@@ -1,4 +1,4 @@
-import { AppUser } from "../../types";
+import { AppUser } from '../../types';
 import AppsAPIClient from '..';
 
 export default class Users {
@@ -14,8 +14,8 @@ export default class Users {
    */
   async getCurrent(): Promise<AppUser> {
     const response = await this.client.call<AppUser>({
-      endpoint: "diagnostics/whoami",
-      method: "GET",
+      endpoint: 'diagnostics/whoami',
+      method: 'GET',
     });
 
     return response;

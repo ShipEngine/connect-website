@@ -1,5 +1,5 @@
-import { DateTimeZone } from "../../internal/input";
-import { SalesOrderIdentifierPOJO } from "./sales-order-identifier";
+import { DateTimeZone } from '../../internal/input';
+import { SalesOrderIdentifierPOJO } from './sales-order-identifier';
 
 export interface SalesOrderNotification extends SalesOrderIdentifierPOJO {
   /**

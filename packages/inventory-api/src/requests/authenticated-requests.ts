@@ -1,4 +1,4 @@
-import { RequestAuth } from "../models";
+import { RequestAuth } from '../models';
 
 /**
  * All requests from clients to Inventory Apps must include an `Authorization`

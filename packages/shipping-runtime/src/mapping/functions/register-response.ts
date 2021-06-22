@@ -1,5 +1,5 @@
-import { Transaction } from "@shipengine/connect-sdk";
-import { RegisterResponse } from "@shipengine/connect-carrier-api/lib/responses";
+import { Transaction } from '@shipengine/connect-sdk';
+import { RegisterResponse } from '@shipengine/connect-carrier-api/lib/responses';
 
 interface BasicAuth {
   userId?: string;
@@ -9,19 +9,19 @@ interface BasicAuth {
 export const getCredentials = (auth?: BasicAuth) => {
   if (!auth) {
     return {
-      username: "N/A",
-      password: "N/A",
+      username: 'N/A',
+      password: 'N/A',
     };
   } else {
     return {
-      username: auth.userId || "N/A",
-      password: auth.password || "N/A",
+      username: auth.userId || 'N/A',
+      password: auth.password || 'N/A',
     };
   }
 };
 
 export const mapRegisterResponse = (
-  transaction: Transaction
+  transaction: Transaction,
 ): RegisterResponse => {
   const session = transaction.session as any;
   const { _basicAuth } = session;

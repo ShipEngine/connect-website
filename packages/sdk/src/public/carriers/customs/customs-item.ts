@@ -1,5 +1,5 @@
-import type { Country, MonetaryValuePOJO, QuantityPOJO } from "../../common";
-import type { CustomsItemType } from "../enums";
+import type { Country, MonetaryValuePOJO, QuantityPOJO } from '../../common';
+import type { CustomsItemType } from '../enums';
 
 /**
  * Customs declarations for an item in a package

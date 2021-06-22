@@ -1,26 +1,69 @@
-import { AppType, CancellationStatus, CancelPickups, CancelShipments, CarrierAppDefinition, Connect, Country, CreateManifest, CreateShipment, DocumentFormat, DocumentSize, ErrorCode, ManifestLocation, ManifestShipment, ManifestType, Packaging, RateShipment, SchedulePickup, ServiceArea, TrackShipment } from "../../public";
-import { AppPOJO, ConnectionApp, error, FormPOJO, hideAndFreeze, Joi, SystemErrorCode, Transaction, TransactionPOJO, validateArray, _internal, OAuthConfigPOJO, DeploymentType } from "../common";
-import { DeliveryConfirmation } from "./delivery-confirmation";
-import { DeliveryService, DeliveryServicePOJO } from "./delivery-service";
-import { ManifestConfirmation } from "./manifests/manifest-confirmation";
-import { NewManifest, NewManifestPOJO } from "./manifests/new-manifest";
-import { PickupCancellation, PickupCancellationPOJO } from "./pickups/pickup-cancellation";
-import { PickupCancellationOutcome } from "./pickups/pickup-cancellation-outcome";
-import { PickupConfirmation } from "./pickups/pickup-confirmation";
-import { PickupRequest, PickupRequestPOJO } from "./pickups/pickup-request";
-import { PickupService, PickupServicePOJO } from "./pickups/pickup-service";
-import { Rate } from "./rates/rate";
-import { RateCriteria, RateCriteriaPOJO } from "./rates/rate-criteria";
-import { NewShipment, NewShipmentPOJO } from "./shipments/new-shipment";
-import { ShipmentCancellation, ShipmentCancellationPOJO } from "./shipments/shipment-cancellation";
-import { ShipmentCancellationOutcome } from "./shipments/shipment-cancellation-outcome";
-import { ShipmentConfirmation } from "./shipments/shipment-confirmation";
-import { TrackingCriteria, TrackingCriteriaPOJO } from "./tracking/tracking-criteria";
-import { TrackingInfo } from "./tracking/tracking-info";
-import { getMaxServiceArea } from "./utils";
+import {
+  AppType,
+  CancellationStatus,
+  CancelPickups,
+  CancelShipments,
+  CarrierAppDefinition,
+  Connect,
+  Country,
+  CreateManifest,
+  CreateShipment,
+  DocumentFormat,
+  DocumentSize,
+  ErrorCode,
+  ManifestLocation,
+  ManifestShipment,
+  ManifestType,
+  Packaging,
+  RateShipment,
+  SchedulePickup,
+  ServiceArea,
+  TrackShipment,
+} from '../../public';
+import {
+  AppPOJO,
+  ConnectionApp,
+  error,
+  FormPOJO,
+  hideAndFreeze,
+  Joi,
+  SystemErrorCode,
+  Transaction,
+  TransactionPOJO,
+  validateArray,
+  _internal,
+  OAuthConfigPOJO,
+  DeploymentType,
+} from '../common';
+import { DeliveryConfirmation } from './delivery-confirmation';
+import { DeliveryService, DeliveryServicePOJO } from './delivery-service';
+import { ManifestConfirmation } from './manifests/manifest-confirmation';
+import { NewManifest, NewManifestPOJO } from './manifests/new-manifest';
+import {
+  PickupCancellation,
+  PickupCancellationPOJO,
+} from './pickups/pickup-cancellation';
+import { PickupCancellationOutcome } from './pickups/pickup-cancellation-outcome';
+import { PickupConfirmation } from './pickups/pickup-confirmation';
+import { PickupRequest, PickupRequestPOJO } from './pickups/pickup-request';
+import { PickupService, PickupServicePOJO } from './pickups/pickup-service';
+import { Rate } from './rates/rate';
+import { RateCriteria, RateCriteriaPOJO } from './rates/rate-criteria';
+import { NewShipment, NewShipmentPOJO } from './shipments/new-shipment';
+import {
+  ShipmentCancellation,
+  ShipmentCancellationPOJO,
+} from './shipments/shipment-cancellation';
+import { ShipmentCancellationOutcome } from './shipments/shipment-cancellation-outcome';
+import { ShipmentConfirmation } from './shipments/shipment-confirmation';
+import {
+  TrackingCriteria,
+  TrackingCriteriaPOJO,
+} from './tracking/tracking-criteria';
+import { TrackingInfo } from './tracking/tracking-info';
+import { getMaxServiceArea } from './utils';
 
-const _private = Symbol("private fields");
-
+const _private = Symbol('private fields');
 
 export interface CarrierAppPOJO extends CarrierAppDefinition, AppPOJO {
   connectionForm: FormPOJO;
@@ -38,19 +81,29 @@ export interface CarrierAppPOJO extends CarrierAppDefinition, AppPOJO {
   cancelPickups?: CancelPickups;
 }
 
-
 export class CarrierApp extends ConnectionApp {
   // #region Private/Internal Fields
 
   public static readonly [_internal] = {
-    label: "ShipEngine Connect carrier app",
+    label: 'ShipEngine Connect carrier app',
     schema: ConnectionApp[_internal].schema.keys({
-      manifestLocations: Joi.string().enum(ManifestLocation)
-        .when("createManifest", { is: Joi.function().required(), then: Joi.required() }),
-      manifestShipments: Joi.string().enum(ManifestShipment)
-        .when("createManifest", { is: Joi.function().required(), then: Joi.required() }),
+      manifestLocations: Joi.string()
+        .enum(ManifestLocation)
+        .when('createManifest', {
+          is: Joi.function().required(),
+          then: Joi.required(),
+        }),
+      manifestShipments: Joi.string()
+        .enum(ManifestShipment)
+        .when('createManifest', {
+          is: Joi.function().required(),
+          then: Joi.required(),
+        }),
       manifestType: Joi.string().enum(ManifestType),
-      deliveryServices: Joi.array().min(1).items(DeliveryService[_internal].schema).required(),
+      deliveryServices: Joi.array()
+        .min(1)
+        .items(DeliveryService[_internal].schema)
+        .required(),
       pickupServices: Joi.array().items(PickupService[_internal].schema),
       trackingURLTemplate: Joi.string().pattern(new RegExp(/{}/)).website(),
       createShipment: Joi.function(),
@@ -151,7 +204,10 @@ export class CarrierApp extends ConnectionApp {
     const deliveryConfirmations = new Map<string, DeliveryConfirmation>();
     for (const service of this.deliveryServices) {
       for (const deliveryConfirmation of service.deliveryConfirmations) {
-        deliveryConfirmations.set(deliveryConfirmation.id, deliveryConfirmation);
+        deliveryConfirmations.set(
+          deliveryConfirmation.id,
+          deliveryConfirmation,
+        );
       }
     }
     return Object.freeze(Array.from(deliveryConfirmations.values()));
@@ -167,24 +223,43 @@ export class CarrierApp extends ConnectionApp {
     this.manifestLocations = pojo.manifestLocations;
     this.manifestShipments = pojo.manifestShipments;
     this.manifestType = pojo.manifestType;
-    this.deliveryServices = pojo.deliveryServices.map((svc) => new DeliveryService(svc, this));
+    this.deliveryServices = pojo.deliveryServices.map(
+      (svc) => new DeliveryService(svc, this),
+    );
     this.pickupServices = pojo.pickupServices
-      ? pojo.pickupServices.map((svc) => new PickupService(svc, this)) : [];
+      ? pojo.pickupServices.map((svc) => new PickupService(svc, this))
+      : [];
 
-    this.supportsReturns = this.deliveryServices.some((ds) => ds.supportsReturns);
+    this.supportsReturns = this.deliveryServices.some(
+      (ds) => ds.supportsReturns,
+    );
 
     this.trackingURLTemplate = pojo.trackingURLTemplate;
 
     this[_private] = {
       // Store any user-defined methods as private fields.
       // For any methods that aren't implemented, set the corresponding class method implements Imethod to undefined.
-      createShipment: pojo.createShipment ? pojo.createShipment : (this.createShipment = undefined),
-      cancelShipments: pojo.cancelShipments ? pojo.cancelShipments : (this.cancelShipments = undefined),
-      rateShipment: pojo.rateShipment ? pojo.rateShipment : (this.rateShipment = undefined),
-      trackShipment: pojo.trackShipment ? pojo.trackShipment : (this.trackShipment = undefined),
-      createManifest: pojo.createManifest ? pojo.createManifest : (this.createManifest = undefined),
-      schedulePickup: pojo.schedulePickup ? pojo.schedulePickup : (this.schedulePickup = undefined),
-      cancelPickups: pojo.cancelPickups ? pojo.cancelPickups : (this.cancelPickups = undefined),
+      createShipment: pojo.createShipment
+        ? pojo.createShipment
+        : (this.createShipment = undefined),
+      cancelShipments: pojo.cancelShipments
+        ? pojo.cancelShipments
+        : (this.cancelShipments = undefined),
+      rateShipment: pojo.rateShipment
+        ? pojo.rateShipment
+        : (this.rateShipment = undefined),
+      trackShipment: pojo.trackShipment
+        ? pojo.trackShipment
+        : (this.trackShipment = undefined),
+      createManifest: pojo.createManifest
+        ? pojo.createManifest
+        : (this.createManifest = undefined),
+      schedulePickup: pojo.schedulePickup
+        ? pojo.schedulePickup
+        : (this.schedulePickup = undefined),
+      cancelPickups: pojo.cancelPickups
+        ? pojo.cancelPickups
+        : (this.cancelPickups = undefined),
     };
 
     // Make this object immutable
@@ -197,42 +272,53 @@ export class CarrierApp extends ConnectionApp {
   // #region  Methods
 
   public async createShipment?(
-    transaction: TransactionPOJO, shipment: NewShipmentPOJO): Promise<ShipmentConfirmation> {
-
+    transaction: TransactionPOJO,
+    shipment: NewShipmentPOJO,
+  ): Promise<ShipmentConfirmation> {
     let _transaction, _shipment;
     const { createShipment } = this[_private];
 
     try {
       _transaction = new Transaction(transaction);
       _shipment = new NewShipment(shipment, this);
-    }
-    catch (originalError: unknown) {
-      throw error(SystemErrorCode.InvalidInput, "Invalid input to the createShipment method.", { originalError });
+    } catch (originalError: unknown) {
+      throw error(
+        SystemErrorCode.InvalidInput,
+        'Invalid input to the createShipment method.',
+        { originalError },
+      );
     }
 
     try {
       const confirmation = await createShipment!(_transaction, _shipment);
       return new ShipmentConfirmation(confirmation);
-    }
-    catch (originalError: unknown) {
+    } catch (originalError: unknown) {
       const transactionID = _transaction.id;
-      throw error(ErrorCode.AppError, "Error in the createShipment method.", { originalError, transactionID });
+      throw error(ErrorCode.AppError, 'Error in the createShipment method.', {
+        originalError,
+        transactionID,
+      });
     }
   }
 
   public async cancelShipments?(
-    transaction: TransactionPOJO, shipments: ShipmentCancellationPOJO[]): Promise<ShipmentCancellationOutcome[]> {
-
+    transaction: TransactionPOJO,
+    shipments: ShipmentCancellationPOJO[],
+  ): Promise<ShipmentCancellationOutcome[]> {
     let _transaction, _shipments;
     const { cancelShipments } = this[_private];
 
     try {
       _transaction = new Transaction(transaction);
-      _shipments = shipments
-        .map((shipment) => new ShipmentCancellation(shipment));
-    }
-    catch (originalError: unknown) {
-      throw error(SystemErrorCode.InvalidInput, "Invalid input to the cancelShipments method.", { originalError });
+      _shipments = shipments.map(
+        (shipment) => new ShipmentCancellation(shipment),
+      );
+    } catch (originalError: unknown) {
+      throw error(
+        SystemErrorCode.InvalidInput,
+        'Invalid input to the cancelShipments method.',
+        { originalError },
+      );
     }
 
     try {
@@ -246,99 +332,124 @@ export class CarrierApp extends ConnectionApp {
         }));
       }
 
-      return validateArray(confirmations, ShipmentCancellationOutcome)
-        .map((confirmation) => new ShipmentCancellationOutcome(confirmation));
-    }
-    catch (originalError: unknown) {
+      return validateArray(confirmations, ShipmentCancellationOutcome).map(
+        (confirmation) => new ShipmentCancellationOutcome(confirmation),
+      );
+    } catch (originalError: unknown) {
       const transactionID = _transaction.id;
-      throw error(ErrorCode.AppError, "Error in the cancelShipments method.", { originalError, transactionID });
+      throw error(ErrorCode.AppError, 'Error in the cancelShipments method.', {
+        originalError,
+        transactionID,
+      });
     }
   }
 
   public async rateShipment?(
-    transaction: TransactionPOJO, shipment: RateCriteriaPOJO): Promise<Rate[]> {
-
+    transaction: TransactionPOJO,
+    shipment: RateCriteriaPOJO,
+  ): Promise<Rate[]> {
     let _transaction, _shipment;
     const { rateShipment } = this[_private];
 
     try {
       _transaction = new Transaction(transaction);
       _shipment = new RateCriteria(shipment, this);
-    }
-    catch (originalError: unknown) {
-      throw error(SystemErrorCode.InvalidInput, "Invalid input to the rateShipment method.", { originalError });
+    } catch (originalError: unknown) {
+      throw error(
+        SystemErrorCode.InvalidInput,
+        'Invalid input to the rateShipment method.',
+        { originalError },
+      );
     }
 
     try {
       const rates = await rateShipment!(_transaction, _shipment);
       return rates.map((rate) => new Rate(rate, this));
-    }
-    catch (originalError: unknown) {
+    } catch (originalError: unknown) {
       const transactionID = _transaction.id;
-      throw error(ErrorCode.AppError, "Error in the rateShipment method.", { originalError, transactionID });
+      throw error(ErrorCode.AppError, 'Error in the rateShipment method.', {
+        originalError,
+        transactionID,
+      });
     }
   }
 
   public async trackShipment?(
-    transaction: TransactionPOJO, shipment: TrackingCriteriaPOJO): Promise<TrackingInfo> {
-
+    transaction: TransactionPOJO,
+    shipment: TrackingCriteriaPOJO,
+  ): Promise<TrackingInfo> {
     let _transaction, _shipment;
     const { trackShipment } = this[_private];
 
     try {
       _transaction = new Transaction(transaction);
       _shipment = new TrackingCriteria(shipment);
-    }
-    catch (originalError: unknown) {
-      throw error(SystemErrorCode.InvalidInput, "Invalid input to the trackShipment method.", { originalError });
+    } catch (originalError: unknown) {
+      throw error(
+        SystemErrorCode.InvalidInput,
+        'Invalid input to the trackShipment method.',
+        { originalError },
+      );
     }
 
     try {
       const trackingInfo = await trackShipment!(_transaction, _shipment);
       return new TrackingInfo(trackingInfo, this);
-    }
-    catch (originalError: unknown) {
+    } catch (originalError: unknown) {
       const transactionID = _transaction.id;
-      throw error(ErrorCode.AppError, "Error in the trackShipment method.", { originalError, transactionID });
+      throw error(ErrorCode.AppError, 'Error in the trackShipment method.', {
+        originalError,
+        transactionID,
+      });
     }
   }
 
   public async createManifest?(
-    transaction: TransactionPOJO, manifest: NewManifestPOJO): Promise<ManifestConfirmation> {
-
+    transaction: TransactionPOJO,
+    manifest: NewManifestPOJO,
+  ): Promise<ManifestConfirmation> {
     let _transaction, _manifest;
     const { createManifest } = this[_private];
 
     try {
       _transaction = new Transaction(transaction);
       _manifest = new NewManifest(manifest, this);
-    }
-    catch (originalError: unknown) {
-      throw error(SystemErrorCode.InvalidInput, "Invalid input to the createManifest method.", { originalError });
+    } catch (originalError: unknown) {
+      throw error(
+        SystemErrorCode.InvalidInput,
+        'Invalid input to the createManifest method.',
+        { originalError },
+      );
     }
 
     try {
       const confirmation = await createManifest!(_transaction, _manifest);
       return new ManifestConfirmation(confirmation);
-    }
-    catch (originalError: unknown) {
+    } catch (originalError: unknown) {
       const transactionID = _transaction.id;
-      throw error(ErrorCode.AppError, "Error in the createManifest method.", { originalError, transactionID });
+      throw error(ErrorCode.AppError, 'Error in the createManifest method.', {
+        originalError,
+        transactionID,
+      });
     }
   }
 
   public async schedulePickup?(
-    transaction: TransactionPOJO, pickup: PickupRequestPOJO): Promise<PickupConfirmation> {
-
+    transaction: TransactionPOJO,
+    pickup: PickupRequestPOJO,
+  ): Promise<PickupConfirmation> {
     let _transaction, _pickup;
     const { schedulePickup } = this[_private];
 
     try {
       _transaction = new Transaction(transaction);
       _pickup = new PickupRequest(pickup, this);
-    }
-    catch (originalError: unknown) {
-      throw error(SystemErrorCode.InvalidInput, "Invalid input to the schedulePickup method.", { originalError });
+    } catch (originalError: unknown) {
+      throw error(
+        SystemErrorCode.InvalidInput,
+        'Invalid input to the schedulePickup method.',
+        { originalError },
+      );
     }
 
     try {
@@ -350,25 +461,31 @@ export class CarrierApp extends ConnectionApp {
       }
 
       return new PickupConfirmation(confirmation);
-    }
-    catch (originalError: unknown) {
+    } catch (originalError: unknown) {
       const transactionID = _transaction.id;
-      throw error(ErrorCode.AppError, "Error in the schedulePickup method.", { originalError, transactionID });
+      throw error(ErrorCode.AppError, 'Error in the schedulePickup method.', {
+        originalError,
+        transactionID,
+      });
     }
   }
 
   public async cancelPickups?(
-    transaction: TransactionPOJO, pickups: PickupCancellationPOJO[]): Promise<PickupCancellationOutcome[]> {
-
+    transaction: TransactionPOJO,
+    pickups: PickupCancellationPOJO[],
+  ): Promise<PickupCancellationOutcome[]> {
     let _transaction, _pickups;
     const { cancelPickups } = this[_private];
 
     try {
       _transaction = new Transaction(transaction);
       _pickups = pickups.map((pickup) => new PickupCancellation(pickup, this));
-    }
-    catch (originalError: unknown) {
-      throw error(SystemErrorCode.InvalidInput, "Invalid input to the cancelPickups method.", { originalError });
+    } catch (originalError: unknown) {
+      throw error(
+        SystemErrorCode.InvalidInput,
+        'Invalid input to the cancelPickups method.',
+        { originalError },
+      );
     }
 
     try {
@@ -382,12 +499,15 @@ export class CarrierApp extends ConnectionApp {
         }));
       }
 
-      return validateArray(confirmations, PickupCancellationOutcome)
-        .map((confirmation) => new PickupCancellationOutcome(confirmation));
-    }
-    catch (originalError: unknown) {
+      return validateArray(confirmations, PickupCancellationOutcome).map(
+        (confirmation) => new PickupCancellationOutcome(confirmation),
+      );
+    } catch (originalError: unknown) {
       const transactionID = _transaction.id;
-      throw error(ErrorCode.AppError, "Error in the cancelPickups method.", { originalError, transactionID });
+      throw error(ErrorCode.AppError, 'Error in the cancelPickups method.', {
+        originalError,
+        transactionID,
+      });
     }
   }
 

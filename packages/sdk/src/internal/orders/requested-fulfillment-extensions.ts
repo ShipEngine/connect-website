@@ -1,16 +1,15 @@
-import Joi = require("joi");
-import { RequestedFulfillmentExtensions as RequestedFulfillmentExtensionsPOJO } 
-  from "../../public/orders/requested-fulfillment";
-import { _internal } from "../common";
+import Joi = require('joi');
+import { RequestedFulfillmentExtensions as RequestedFulfillmentExtensionsPOJO } from '../../public/orders/requested-fulfillment';
+import { _internal } from '../common';
 
 export class RequestedFulfillmentExtensions {
   public static readonly [_internal] = {
-    label: "requested fulfillment extensions",
+    label: 'requested fulfillment extensions',
     schema: Joi.object({
-      customField1: Joi.string().allow(""),
-      customField2: Joi.string().allow(""),
-      customField3: Joi.string().allow("")
-    })
+      customField1: Joi.string().allow(''),
+      customField2: Joi.string().allow(''),
+      customField3: Joi.string().allow(''),
+    }),
   };
 
   public readonly customField1: string;

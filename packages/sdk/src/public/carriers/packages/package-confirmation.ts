@@ -1,5 +1,4 @@
-
-import type { PackageIdentifierPOJO } from "./package-identifier";
+import type { PackageIdentifierPOJO } from './package-identifier';
 
 /**
  * Confirmation details about a package in a shipment

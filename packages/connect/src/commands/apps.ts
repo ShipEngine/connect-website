@@ -1,21 +1,21 @@
-import BaseCommand from "../base-command";
-import { flags } from "@oclif/command";
+import BaseCommand from '../base-command';
+import { flags } from '@oclif/command';
 import Login from './login';
 import Table from 'cli-table';
 
 export default class Apps extends BaseCommand {
-  public static description = "List your apps";
+  public static description = 'List your apps';
 
   public static flags = {
     help: flags.help({
-      char: "h",
-      description: "Show help for the apps commands",
+      char: 'h',
+      description: 'Show help for the apps commands',
     }),
     debug: flags.boolean({
-      char: "d",
-      description: "Show network debugging information",
+      char: 'd',
+      description: 'Show network debugging information',
       default: false,
-      hidden: true
+      hidden: true,
     }),
   };
 
@@ -27,18 +27,18 @@ export default class Apps extends BaseCommand {
     try {
       await this.getCurrentUser();
     } catch {
-      await Login.run([])
+      await Login.run([]);
     }
 
     const table = new Table({
-      head: ['ID', 'Name', "Type"]
+      head: ['ID', 'Name', 'Type'],
     });
 
-    const apiClient = await this.apiClient(flags.debug)
+    const apiClient = await this.apiClient(flags.debug);
     const apps = apiClient.apps.getAll();
 
     (await apps).items.forEach((app) => {
-      table.push([app.id, app.name, app.type])
+      table.push([app.id, app.name, app.type]);
     });
 
     this.log(table.toString());

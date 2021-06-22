@@ -1,10 +1,10 @@
-import { Weight as IWeight, WeightPOJO, WeightUnit } from "../../../public";
-import { hideAndFreeze, _internal } from "../utils";
-import { Joi } from "../validation";
+import { Weight as IWeight, WeightPOJO, WeightUnit } from '../../../public';
+import { hideAndFreeze, _internal } from '../utils';
+import { Joi } from '../validation';
 
 export class Weight implements IWeight {
   public static readonly [_internal] = {
-    label: "weight",
+    label: 'weight',
     schema: Joi.object({
       value: Joi.number().greater(0).required(),
       unit: Joi.string().enum(WeightUnit).required(),

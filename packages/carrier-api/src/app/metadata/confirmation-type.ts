@@ -8,9 +8,9 @@ export type ConfirmationDictionary = {
 };
 
 export enum ConfirmationTypeEnum {
-  None = "None",
-  Delivery = "Delivery",
-  Signature = "Signature",
-  AdultSignature = "AdultSignature",
-  DirectSignature = "DirectSignature",
+  None = 'None',
+  Delivery = 'Delivery',
+  Signature = 'Signature',
+  AdultSignature = 'AdultSignature',
+  DirectSignature = 'DirectSignature',
 }

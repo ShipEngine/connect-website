@@ -1,5 +1,5 @@
-import { InventoryFetchItem, OperationStatus } from "../models";
-import { ErrorResponse, NotSupportedResponse } from "./error-responses";
+import { InventoryFetchItem, OperationStatus } from '../models';
+import { ErrorResponse, NotSupportedResponse } from './error-responses';
 
 /**
  * Any

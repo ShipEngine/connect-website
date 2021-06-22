@@ -1,4 +1,4 @@
-import { LatLong } from "./lat-long";
+import { LatLong } from './lat-long';
 
 /** @description Basic structure for tracking events */
 export interface TrackEvent {

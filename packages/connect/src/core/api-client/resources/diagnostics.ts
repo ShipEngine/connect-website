@@ -1,4 +1,4 @@
-import { Pulse } from "../../types";
+import { Pulse } from '../../types';
 import AppsAPIClient from '..';
 
 export default class Diagnostics {
@@ -14,8 +14,8 @@ export default class Diagnostics {
    */
   async heartBeat(): Promise<Pulse> {
     const response = await this.client.call<Pulse>({
-      endpoint: "diagnostics/heartbeat",
-      method: "GET",
+      endpoint: 'diagnostics/heartbeat',
+      method: 'GET',
     });
 
     return response;

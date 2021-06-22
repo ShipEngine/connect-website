@@ -1,31 +1,31 @@
-import BaseCommand from "../base-command";
+import BaseCommand from '../base-command';
 import Login from './login';
-import publishApp, { isAppFailedToDeployError } from "../core/publish-app";
-import { flags } from "@oclif/command";
+import publishApp, { isAppFailedToDeployError } from '../core/publish-app';
+import { flags } from '@oclif/command';
 import { packageApp, isAppFailedToPackageError } from '../core/package-app';
-import testApp from "../core/test-app";
+import testApp from '../core/test-app';
 
 export default class Publish extends BaseCommand {
-  static description = "Packages and publishes your app to the dev server";
+  static description = 'Packages and publishes your app to the dev server';
 
-  static examples = ["$ connect publish"];
+  static examples = ['$ connect publish'];
 
   // TODO: come up with a convention for turning off spinners if the user desires
   // TODO: implement a quiet command?
   static flags = {
     help: flags.help({
-      char: "h",
-      description: "Show help for the publish command",
+      char: 'h',
+      description: 'Show help for the publish command',
     }),
-    "no-watch": flags.boolean({
-      char: "n",
-      description: "Does not track the status of the deployment",
+    'no-watch': flags.boolean({
+      char: 'n',
+      description: 'Does not track the status of the deployment',
     }),
     debug: flags.boolean({
-      char: "d",
-      description: "Show network debugging information",
+      char: 'd',
+      description: 'Show network debugging information',
       default: false,
-      hidden: true
+      hidden: true,
     }),
   };
 
@@ -37,10 +37,10 @@ export default class Publish extends BaseCommand {
     try {
       await this.getCurrentUser(flags.debug);
     } catch {
-      await Login.run([])
+      await Login.run([]);
     }
 
-    const apiClient = await this.apiClient(flags.debug)
+    const apiClient = await this.apiClient(flags.debug);
     const pathToApp = process.cwd();
     const results = await testApp(pathToApp);
 
@@ -52,10 +52,9 @@ export default class Publish extends BaseCommand {
       const tarballName = await packageApp();
 
       await publishApp(tarballName, apiClient, {
-        noWatch: flags["no-watch"],
+        noWatch: flags['no-watch'],
       });
     } catch (error) {
-
       if (isAppFailedToPackageError(error)) {
         return this.error(error.message, {
           exit: 1,

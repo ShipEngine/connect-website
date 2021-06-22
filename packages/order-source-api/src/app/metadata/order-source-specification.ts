@@ -1,4 +1,4 @@
-import { AccountConnectionSpecification } from "./account-connection-specification";
+import { AccountConnectionSpecification } from './account-connection-specification';
 
 /** @description This represents a single branded order source within our system */
 export interface OrderSourceDefinition {

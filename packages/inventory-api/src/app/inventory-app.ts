@@ -1,21 +1,21 @@
-import { resolve } from "path";
-import { readFileSync } from "fs";
-import { InventoryAppDefinition } from "./inventory-app-definition";
-import { FetchType, InventoryAppMetadata } from "./inventory-app-metadata";
-import { InventoryHandler, Operation } from "./types";
-import { BrandedImage, ConnectRuntimeApp, Method, Route } from "./internal";
-import { Request } from "express";
-import { RequestAuth, isRequestAuth } from "../models";
+import { resolve } from 'path';
+import { readFileSync } from 'fs';
+import { InventoryAppDefinition } from './inventory-app-definition';
+import { FetchType, InventoryAppMetadata } from './inventory-app-metadata';
+import { InventoryHandler, Operation } from './types';
+import { BrandedImage, ConnectRuntimeApp, Method, Route } from './internal';
+import { Request } from 'express';
+import { RequestAuth, isRequestAuth } from '../models';
 import {
   BadRequestError,
   NotImplementedError,
   UnauthorizedError,
-} from "@shipengine/connect-runtime";
+} from '@shipengine/connect-runtime';
 
 export class InventoryApp implements ConnectRuntimeApp {
   routes: Route[];
   data: InventoryAppMetadata;
-  redoc = readFileSync(resolve(__dirname, "../../spec.yaml")).toString();
+  redoc = readFileSync(resolve(__dirname, '../../spec.yaml')).toString();
   getImages = (): BrandedImage[] => [];
 
   constructor(def: InventoryAppDefinition) {
@@ -88,12 +88,12 @@ const extractCursor = (request: Request): string | undefined =>
  * decoding / parsing fails.
  */
 const extractAuth = (request: Request): RequestAuth => {
-  const rawAuth = request.get("Authorization");
+  const rawAuth = request.get('Authorization');
   if (!rawAuth) {
-    throw new UnauthorizedError("Must provide Authorization");
+    throw new UnauthorizedError('Must provide Authorization');
   }
 
-  const decoded = Buffer.from(rawAuth, "base64").toString();
+  const decoded = Buffer.from(rawAuth, 'base64').toString();
 
   try {
     const parsed = JSON.parse(decoded);
@@ -101,16 +101,16 @@ const extractAuth = (request: Request): RequestAuth => {
       return parsed;
     } else {
       throw new BadRequestError(
-        "Auth header must match `RequestAuth` definition"
+        'Auth header must match `RequestAuth` definition',
       );
     }
   } catch (error) {
     if (error instanceof SyntaxError) {
       throw new UnauthorizedError(
-        "Authorization header must decode to a valid JSON object"
+        'Authorization header must decode to a valid JSON object',
       );
     } else {
-      throw new BadRequestError("Authorization error:", error.message);
+      throw new BadRequestError('Authorization error:', error.message);
     }
   }
 };
@@ -124,42 +124,42 @@ const validateAppDef = (definition: InventoryAppDefinition) => {
   const meta = definition.metadata;
 
   // Support for 'full' inventory fetch
-  if (typeof definition.fetchInventoryFull !== "function") {
-    throw new Error("Handler for fetchInventoryFull must be implemented.");
+  if (typeof definition.fetchInventoryFull !== 'function') {
+    throw new Error('Handler for fetchInventoryFull must be implemented.');
   }
 
   // Support for 'partial' inventory fetch
   const partialShouldBeImplemented = meta.supportedFetchTypes.includes(
-    FetchType.PARTIAL
+    FetchType.PARTIAL,
   );
   const partialIsImplemented =
-    typeof definition.fetchInventoryPartial === "function";
+    typeof definition.fetchInventoryPartial === 'function';
   if (partialShouldBeImplemented !== partialIsImplemented) {
     throw new Error(
-      "App implementation does not match metadata for fetchInventoryPartial"
+      'App implementation does not match metadata for fetchInventoryPartial',
     );
   }
 
   // Support for 'delta' inventory fetch
   const deltaShouldBeImplemented = meta.supportedFetchTypes.includes(
-    FetchType.DELTA
+    FetchType.DELTA,
   );
   const deltaIsImplemented =
-    typeof definition.fetchInventoryDelta === "function";
+    typeof definition.fetchInventoryDelta === 'function';
   if (deltaShouldBeImplemented !== deltaIsImplemented) {
     throw new Error(
-      "App implementation does not match metadata for fetchInventorydelta"
+      'App implementation does not match metadata for fetchInventorydelta',
     );
   }
 
   // Support for inventory push
   const pushShouldBeImplemented = meta.supportsInventoryPush;
   const pushIsImplemented =
-    typeof definition.pushInventory === "function" &&
-    typeof definition.getPushResults === "function";
+    typeof definition.pushInventory === 'function' &&
+    typeof definition.getPushResults === 'function';
   if (pushShouldBeImplemented !== pushIsImplemented) {
     throw new Error(
-      "App implementation does not match metadata for pushInventory / getPushResults"
+      'App implementation does not match metadata for pushInventory / getPushResults',
     );
   }
 };

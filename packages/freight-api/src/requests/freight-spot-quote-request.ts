@@ -10,8 +10,8 @@ import {
   RequestingParty,
   Weight,
   WeightUnitType,
-} from "../models";
-import { BaseCarrierRequest } from "./base-carrier-request";
+} from '../models';
+import { BaseCarrierRequest } from './base-carrier-request';
 
 /**
  * Obtain a spot price quote for a freight shipment. Spot quotes are typically discounted rates based on excess carrier capacity vs contractual rates. The carrier will return the service level they are able to offer as opposed to specifying the desired service level in the request.

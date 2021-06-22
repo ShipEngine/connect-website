@@ -1,5 +1,5 @@
-import { AuthSpecification } from "./metadata/auth-specification";
-import { OrderSourceDefinition } from "./metadata";
+import { AuthSpecification } from './metadata/auth-specification';
+import { OrderSourceDefinition } from './metadata';
 import {
   AcknowledgeOrdersRequest,
   AcknowledgeOrdersResponse,
@@ -9,7 +9,7 @@ import {
   SalesOrdersExportResponse,
   ShipmentNotificationRequest,
   ShipmentNotificationResponse,
-} from "..";
+} from '..';
 
 /** @description This represents a single integration which may contain multiple branded order sources */
 export interface OrderSourceAppMetadata {
@@ -33,27 +33,27 @@ export interface OrderSourceAppDefinition {
    * @param request The criteria of which sales orders to retrieve
    */
   SalesOrdersExport?: (
-    request: SalesOrdersExportRequest
+    request: SalesOrdersExportRequest,
   ) => SalesOrdersExportResponse | Promise<SalesOrdersExportResponse>;
   /**
    * @description This method notifies a marketplace of a shipment
    * @param request The information necessary to update the order source that this order has been shipped.
    */
   ShipmentNotification?: (
-    request: ShipmentNotificationRequest
+    request: ShipmentNotificationRequest,
   ) => ShipmentNotificationResponse | Promise<ShipmentNotificationResponse>;
   /**
    * @description This method notifies a marketplace that an order has been imported
    * @param request The information necessary to acknowledge that the order has been imported
    */
   AcknowledgeOrders?: (
-    request: AcknowledgeOrdersRequest
+    request: AcknowledgeOrdersRequest,
   ) => AcknowledgeOrdersResponse | Promise<AcknowledgeOrdersResponse>;
   /**
    * @description This method gets extra data for a product that was unavailable during export
    * @param request The list of product ids to get data for
    */
   GetProducts?: (
-    request: GetProductsRequest
+    request: GetProductsRequest,
   ) => GetProductsResponse | Promise<GetProductsResponse>;
 }

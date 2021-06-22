@@ -1,7 +1,7 @@
-import type { InlineOrReference } from "./types";
-import type { OAuthAuthorizationProcessDefinition, } from "./oauth/authorization-process";
-import type { OAuthRefreshTokenProcessDefinition } from "./oauth/refresh-token-process";
-import type { OAuthTokenPropertiesDefinition } from "./oauth/token-properties";
+import type { InlineOrReference } from './types';
+import type { OAuthAuthorizationProcessDefinition } from './oauth/authorization-process';
+import type { OAuthRefreshTokenProcessDefinition } from './oauth/refresh-token-process';
+import type { OAuthTokenPropertiesDefinition } from './oauth/token-properties';
 
 /**
  * Configuration that defines a data driven OAuth flow.

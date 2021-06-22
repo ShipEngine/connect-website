@@ -1,4 +1,4 @@
-import logger from "./util/logger";
+import logger from './util/logger';
 
 const newRelicAppName = process.env.NEW_RELIC_APP_NAME;
 const enabled = !!process.env.NEW_RELIC_LICENSE_KEY;
@@ -12,7 +12,7 @@ logger.info(`NewRelic agent enabled: ${enabled}. AppName: ${newRelicAppName}`);
 exports.config = {
   app_name: newRelicAppName,
   logging: {
-    level: "info",
+    level: 'info',
   },
   agent_enabled: enabled,
   error_collector: {
@@ -34,18 +34,18 @@ exports.config = {
      * @env NEW_RELIC_ATTRIBUTES_EXCLUDE
      */
     exclude: [
-      "request.headers.cookie",
-      "request.headers.authorization",
-      "request.headers.proxyAuthorization",
-      "request.headers.setCookie*",
-      "request.headers.x*",
-      "request.headers.apiKey",
-      "request.headers.sharedSecret",
-      "response.headers.cookie",
-      "response.headers.authorization",
-      "response.headers.proxyAuthorization",
-      "response.headers.setCookie*",
-      "response.headers.x*",
+      'request.headers.cookie',
+      'request.headers.authorization',
+      'request.headers.proxyAuthorization',
+      'request.headers.setCookie*',
+      'request.headers.x*',
+      'request.headers.apiKey',
+      'request.headers.sharedSecret',
+      'response.headers.cookie',
+      'response.headers.authorization',
+      'response.headers.proxyAuthorization',
+      'response.headers.setCookie*',
+      'response.headers.x*',
     ],
   },
 };

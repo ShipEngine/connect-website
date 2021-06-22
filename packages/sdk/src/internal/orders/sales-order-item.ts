@@ -1,22 +1,35 @@
-import * as currency from "currency.js";
-import { SalesOrderItem as SalesOrderItemPOJO } from "../../public";
-import { hideAndFreeze, Joi, MonetaryValue, Quantity, Weight, _internal } from "../common";
-import { ProductIdentifier } from "../products";
-import { SalesOrderItemIdentifier, SalesOrderItemIdentifierBase } from "./sales-order-item-identifier";
+import * as currency from 'currency.js';
+import { SalesOrderItem as SalesOrderItemPOJO } from '../../public';
+import {
+  hideAndFreeze,
+  Joi,
+  MonetaryValue,
+  Quantity,
+  Weight,
+  _internal,
+} from '../common';
+import { ProductIdentifier } from '../products';
+import {
+  SalesOrderItemIdentifier,
+  SalesOrderItemIdentifierBase,
+} from './sales-order-item-identifier';
 
 export class SalesOrderItem extends SalesOrderItemIdentifierBase {
   public static readonly [_internal] = {
-    label: "sales order item",
+    label: 'sales order item',
     schema: SalesOrderItemIdentifier[_internal].schema.keys({
       name: Joi.string().singleLine().min(1).required(),
-      description: Joi.string().singleLine().allow(""),
+      description: Joi.string().singleLine().allow(''),
       product: ProductIdentifier[_internal].schema.required(),
       quantity: Quantity[_internal].schema.required(),
       unitPrice: MonetaryValue[_internal].schema.required(),
       unitWeight: Weight[_internal].schema,
       itemURL: Joi.alternatives(Joi.object().website(), Joi.string().website()),
-      thumbnailURL: Joi.alternatives(Joi.object().website(), Joi.string().website()),
-      location: Joi.string().optional().allow(""),
+      thumbnailURL: Joi.alternatives(
+        Joi.object().website(),
+        Joi.string().website(),
+      ),
+      location: Joi.string().optional().allow(''),
     }),
   };
 
@@ -35,7 +48,7 @@ export class SalesOrderItem extends SalesOrderItemIdentifierBase {
     super(pojo);
 
     this.name = pojo.name;
-    this.description = pojo.description || "";
+    this.description = pojo.description || '';
     this.product = new ProductIdentifier(pojo.product);
     this.quantity = new Quantity(pojo.quantity);
     this.unitPrice = new MonetaryValue(pojo.unitPrice);
@@ -45,7 +58,9 @@ export class SalesOrderItem extends SalesOrderItemIdentifierBase {
     });
     this.unitWeight = pojo.unitWeight && new Weight(pojo.unitWeight);
     this.itemURL = pojo.itemURL ? new URL(pojo.itemURL as string) : undefined;
-    this.thumbnailURL = pojo.thumbnailURL ? new URL(pojo.thumbnailURL as string) : undefined;
+    this.thumbnailURL = pojo.thumbnailURL
+      ? new URL(pojo.thumbnailURL as string)
+      : undefined;
     this.location = pojo.location;
     // Make this object immutable
     hideAndFreeze(this);

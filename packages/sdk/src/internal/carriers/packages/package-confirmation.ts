@@ -1,11 +1,10 @@
-import { PackageConfirmation as PackageConfirmationPOJO } from "../../../public";
-import { hideAndFreeze, Joi, _internal } from "../../common";
-import { PackageIdentifier, PackageIdentifierBase } from "./package-identifier";
-
+import { PackageConfirmation as PackageConfirmationPOJO } from '../../../public';
+import { hideAndFreeze, Joi, _internal } from '../../common';
+import { PackageIdentifier, PackageIdentifierBase } from './package-identifier';
 
 export class PackageConfirmation extends PackageIdentifierBase {
   public static readonly [_internal] = {
-    label: "package",
+    label: 'package',
     schema: PackageIdentifier[_internal].schema.keys({
       metadata: Joi.object(),
     }),

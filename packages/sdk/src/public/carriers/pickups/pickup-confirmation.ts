@@ -1,5 +1,10 @@
-import type { ChargePOJO, Identifiers, NotePOJO, TimeRangePOJO } from "../../common";
-import type { ShipmentIdentifierPOJO } from "../shipments/shipment-identifier";
+import type {
+  ChargePOJO,
+  Identifiers,
+  NotePOJO,
+  TimeRangePOJO,
+} from '../../common';
+import type { ShipmentIdentifierPOJO } from '../shipments/shipment-identifier';
 
 /**
  * Confirmation that a package pickup has been scheduled

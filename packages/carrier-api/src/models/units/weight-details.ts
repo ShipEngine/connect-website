@@ -1,4 +1,4 @@
-import { WeightUnit } from "./weight-unit";
+import { WeightUnit } from './weight-unit';
 
 /** @description Basic structure for weight */
 export interface WeightDetails {

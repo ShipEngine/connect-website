@@ -1,5 +1,5 @@
-import { OrderApp, OAuthRequest, OAuthResponse } from "@shipengine/connect-sdk/lib/internal";
-import { OAuthParameterDefinition } from "@shipengine/connect-sdk";
+import { OrderApp, OAuthRequest, OAuthResponse } from '@shipengine/connect-sdk/lib/internal';
+import { OAuthParameterDefinition } from '@shipengine/connect-sdk';
 
 export function mapOAuthParameters(params: readonly OAuthParameterDefinition[] | undefined) {
   if (!params) {
@@ -45,14 +45,14 @@ export function mapOAuthResponse(res: OAuthResponse | undefined) {
 export function detectBasicAuth(app: OrderApp): boolean {
   const formFields = Object.keys(app.connectionForm.dataSchema.properties ?? {});
 
-  return formFields.includes("username");
+  return formFields.includes('username');
 }
 
 export function mapAuthProcess(app: OrderApp) {
   if (!app.oauthConfig) {
     return {
       Identifier: {
-        AuthenticationType: detectBasicAuth(app) ? "basic" : "apikey",
+        AuthenticationType: detectBasicAuth(app) ? 'basic' : 'apikey',
         IsSandbox: false,
       },
     };
@@ -78,17 +78,17 @@ export function mapAuthProcess(app: OrderApp) {
   const RefreshTokenProcess = app.oauthConfig.refreshTokenProcess
     ? {
         RefreshTokenRequest: mapOAuthRequest(
-          app.oauthConfig.refreshTokenProcess.refreshTokenRequest
+          app.oauthConfig.refreshTokenProcess.refreshTokenRequest,
         ),
         RefreshTokenResponse: mapOAuthResponse(
-          app.oauthConfig.refreshTokenProcess.refreshTokenResponse
+          app.oauthConfig.refreshTokenProcess.refreshTokenResponse,
         ),
       }
     : {};
 
   return {
     Identifier: {
-      AuthenticationType: "oauth",
+      AuthenticationType: 'oauth',
       IsSandbox: false,
     },
     TokenProperties,
@@ -102,21 +102,21 @@ export function mapFunctions(app: OrderApp) {
 
   if (app.getSalesOrdersByDate) {
     functions.push({
-      Name: "SalesOrdersExport",
+      Name: 'SalesOrdersExport',
       IsSandboxed: false,
     });
   }
 
   if (app.shipmentCreated) {
     functions.push({
-      Name: "ShipmentNotification",
+      Name: 'ShipmentNotification',
       IsSandboxed: false,
     });
   }
 
   if (app.acknowledgeOrders) {
     functions.push({
-      Name: "AcknowledgeOrders",
+      Name: 'AcknowledgeOrders',
       IsSandboxed: false,
     });
   }
@@ -155,13 +155,13 @@ export function mapMetadata(app: OrderApp): any {
       },
     ],
     Connector: {
-      ExternallyHosted: "false",
+      ExternallyHosted: 'false',
       DiagnosticRoutes: {
-        Liveness: "/diagnostics/liveness",
-        Readiness: "/diagnostics/readiness",
-        Version: "/diagnostics/version",
+        Liveness: '/diagnostics/liveness',
+        Readiness: '/diagnostics/readiness',
+        Version: '/diagnostics/version',
       },
-      ApiVersion: "2.0.0",
+      ApiVersion: '2.0.0',
       Functions: mapFunctions(app),
       HasSandbox: false,
       IsHostedExternally: false,

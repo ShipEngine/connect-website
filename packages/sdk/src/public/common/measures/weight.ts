@@ -2,10 +2,10 @@
  * A weight measurement unit
  */
 export enum WeightUnit {
-  Grams = "g",
-  Ounces = "oz",
-  Kilograms = "kg",
-  Pounds = "lb"
+  Grams = 'g',
+  Ounces = 'oz',
+  Kilograms = 'kg',
+  Pounds = 'lb',
 }
 
 /**

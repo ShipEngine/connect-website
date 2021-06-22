@@ -1,7 +1,6 @@
-import type { Dimensions, MonetaryValue, Weight } from "../../common";
-import type { Packaging } from "../packaging";
-import { Customs } from "../customs/customs";
-
+import type { Dimensions, MonetaryValue, Weight } from '../../common';
+import type { Packaging } from '../packaging';
+import { Customs } from '../customs/customs';
 
 /**
  * The package details needed for a rate quote

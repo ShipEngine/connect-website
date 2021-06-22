@@ -1,4 +1,4 @@
-import { Identifier } from "../identifier";
+import { Identifier } from '../identifier';
 
 /** @description Identifier object for shiments */
 export interface ShipmentIdentifier {

@@ -1,4 +1,4 @@
-import { BrandedImage, Route } from ".";
+import { BrandedImage, Route } from '.';
 
 /** @description This exposes the base needs for an app to be successful in the generic connect runtime */
 export interface ConnectRuntimeApp {

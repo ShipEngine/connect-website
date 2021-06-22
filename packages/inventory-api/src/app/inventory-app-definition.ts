@@ -1,6 +1,6 @@
-import * as Requests from "../requests";
-import * as Responses from "../responses";
-import { InventoryAppMetadata } from "./inventory-app-metadata";
+import * as Requests from '../requests';
+import * as Responses from '../responses';
+import { InventoryAppMetadata } from './inventory-app-metadata';
 
 /**
  * @description This defines a Connect Inventory App
@@ -9,7 +9,7 @@ export interface InventoryAppDefinition {
   metadata: InventoryAppMetadata;
 
   fetchInventoryFull: (
-    request: Requests.FetchInventoryRequestFull
+    request: Requests.FetchInventoryRequestFull,
   ) => Promise<
     | Responses.InventoryFetchSuccess
     | Responses.InventoryFetchPending
@@ -17,24 +17,24 @@ export interface InventoryAppDefinition {
   >;
 
   fetchInventoryPartial: (
-    request: Requests.FetchInventoryRequestPartial
+    request: Requests.FetchInventoryRequestPartial,
   ) => Promise<Responses.AnyInventoryFetchResponse>;
 
   fetchInventoryDelta: (
-    request: Requests.FetchInventoryRequestDelta
+    request: Requests.FetchInventoryRequestDelta,
   ) => Promise<Responses.AnyInventoryFetchResponse>;
 
   getFetchResults: (
-    request: Requests.OperationResults
+    request: Requests.OperationResults,
   ) => Promise<
     Responses.InventoryFetchPending | Responses.InventoryFetchSuccess
   >;
 
   pushInventory: (
-    request: Requests.PushInventoryRequest
+    request: Requests.PushInventoryRequest,
   ) => Promise<Responses.AnyInventoryPushResponse>;
 
   getPushResults: (
-    request: Requests.OperationResults
+    request: Requests.OperationResults,
   ) => Promise<Responses.AnyInventoryPushResponse>;
 }

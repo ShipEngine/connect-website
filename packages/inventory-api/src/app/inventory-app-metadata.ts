@@ -1,7 +1,7 @@
 export enum FetchType {
-  FULL = "full",
-  DELTA = "delta",
-  PARTIAL = "partial",
+  FULL = 'full',
+  DELTA = 'delta',
+  PARTIAL = 'partial',
 }
 
 export type InventoryAppMetadata = {

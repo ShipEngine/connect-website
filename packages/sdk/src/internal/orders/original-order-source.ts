@@ -1,14 +1,14 @@
-import { OriginalOrderSource as OriginalOrderSourcePOJO } from "../../public";
-import { hideAndFreeze, Joi, _internal } from "../common";
+import { OriginalOrderSource as OriginalOrderSourcePOJO } from '../../public';
+import { hideAndFreeze, Joi, _internal } from '../common';
 
 export class OriginalOrderSource {
   public static readonly [_internal] = {
-    label: "original order source",
+    label: 'original order source',
     schema: Joi.object({
-        sourceId: Joi.string().required(),
-        marketplaceCode: Joi.string().required(),
-        orderId: Joi.string().required()
-    })
+      sourceId: Joi.string().required(),
+      marketplaceCode: Joi.string().required(),
+      orderId: Joi.string().required(),
+    }),
   };
 
   public readonly sourceId: string;

@@ -1,4 +1,4 @@
-import { DetailedError } from "../models";
+import { DetailedError } from '../models';
 
 /** @description This represents an error caused by "unhandled" exceptions in the implementation */
 export interface InternalServerErrorResponse {

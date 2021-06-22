@@ -1,7 +1,7 @@
-import type { DateTimeZonePOJO } from "../../common";
-import type { ShipmentIdentifierPOJO } from "../shipments/shipment-identifier";
-import type { PackageTrackingInfo } from "./package-tracking-info";
-import type { TrackingEvent } from "./tracking-event";
+import type { DateTimeZonePOJO } from '../../common';
+import type { ShipmentIdentifierPOJO } from '../shipments/shipment-identifier';
+import type { PackageTrackingInfo } from './package-tracking-info';
+import type { TrackingEvent } from './tracking-event';
 
 /**
  * Tracking information about a shipment

@@ -1,10 +1,15 @@
-import { hideAndFreeze, _internal } from "../utils";
-import { Joi } from "../validation";
-import { OAuthAuthorizationProcessDefinition, OAuthRequestDefinition, OAuthResponseDefinition } from "../../../public";
+import { hideAndFreeze, _internal } from '../utils';
+import { Joi } from '../validation';
+import {
+  OAuthAuthorizationProcessDefinition,
+  OAuthRequestDefinition,
+  OAuthResponseDefinition,
+} from '../../../public';
 import { OAuthResponse } from './response';
 import { OAuthRequest } from './request';
 
-export interface OAuthAuthorizationProcessPOJO extends OAuthAuthorizationProcessDefinition {
+export interface OAuthAuthorizationProcessPOJO
+  extends OAuthAuthorizationProcessDefinition {
   loginRequest: OAuthRequestDefinition;
   redirectRequest: OAuthResponseDefinition;
   authorizeRequest?: OAuthRequestDefinition;
@@ -13,13 +18,13 @@ export interface OAuthAuthorizationProcessPOJO extends OAuthAuthorizationProcess
 
 export class OAuthAuthorizationProcess {
   public static readonly [_internal] = {
-    label: "oauth-authorization-process",
+    label: 'oauth-authorization-process',
     schema: Joi.object({
       loginRequest: OAuthRequest[_internal].schema.required(),
       redirectRequest: OAuthResponse[_internal].schema.required(),
       authorizeRequest: OAuthRequest[_internal].schema.optional(),
       authorizeResponse: OAuthResponse[_internal].schema.optional(),
-    })
+    }),
   };
 
   public readonly loginRequest: OAuthRequest;
@@ -30,7 +35,9 @@ export class OAuthAuthorizationProcess {
   public constructor(pojo: OAuthAuthorizationProcessPOJO) {
     this.loginRequest = new OAuthRequest(pojo.loginRequest);
     this.redirectRequest = pojo.redirectRequest;
-    this.authorizeRequest = pojo.authorizeRequest ? new OAuthRequest(pojo.authorizeRequest) : undefined;
+    this.authorizeRequest = pojo.authorizeRequest
+      ? new OAuthRequest(pojo.authorizeRequest)
+      : undefined;
     this.authorizeResponse = pojo.authorizeResponse;
 
     // Make this object immutable

@@ -1,11 +1,11 @@
-import { AuthIdentifier } from "./auth-identifier";
+import { AuthIdentifier } from './auth-identifier';
 import {
   AccessToken,
   AuthorizationConfiguration,
   Parameter,
   RefreshTokenConfiguration,
   RequestTokenConfiguration,
-} from "./monoauth";
+} from './monoauth';
 
 /** @description Used to specify information about an integrations authentication */
 export interface AuthSpecification {

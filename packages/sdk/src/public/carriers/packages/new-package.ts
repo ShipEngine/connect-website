@@ -1,8 +1,8 @@
-import type { Dimensions, MonetaryValue, Weight } from "../../common";
-import { Customs } from "../customs/customs";
-import type { NewLabel } from "../documents/new-label";
-import type { Packaging } from "../packaging";
-import type { PackageItem } from "./package-item";
+import type { Dimensions, MonetaryValue, Weight } from '../../common';
+import { Customs } from '../customs/customs';
+import type { NewLabel } from '../documents/new-label';
+import type { Packaging } from '../packaging';
+import type { PackageItem } from './package-item';
 
 /**
  * The package information needed when creating a new shipment

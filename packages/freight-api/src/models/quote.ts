@@ -1,4 +1,4 @@
-import { Money } from ".";
+import { Money } from '.';
 
 export interface Quote {
   quote: {
@@ -38,7 +38,7 @@ export interface Quote {
     };
   };
   charges: {
-    type: "total" | "discount" | "accessorial" | "container" | "uncategorized";
+    type: 'total' | 'discount' | 'accessorial' | 'container' | 'uncategorized';
     description?: string;
     amount: Money;
   }[];

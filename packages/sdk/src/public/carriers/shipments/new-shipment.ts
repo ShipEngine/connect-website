@@ -1,8 +1,13 @@
-import type { AddressWithContactInfo, AddressWithContactInfoAndPickupLocation, DateTimeZone, MonetaryValue } from "../../common";
-import type { DeliveryService } from "../delivery-service";
-import type { NewPackage } from "../packages/new-package";
-import { DeliveryConfirmation } from "../delivery-confirmation";
-import { ShippingOptions } from "../shipping-options";
+import type {
+  AddressWithContactInfo,
+  AddressWithContactInfoAndPickupLocation,
+  DateTimeZone,
+  MonetaryValue,
+} from '../../common';
+import type { DeliveryService } from '../delivery-service';
+import type { NewPackage } from '../packages/new-package';
+import { DeliveryConfirmation } from '../delivery-confirmation';
+import { ShippingOptions } from '../shipping-options';
 
 /**
  * The information needed to create a new shipment

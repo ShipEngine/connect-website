@@ -1,4 +1,4 @@
-import { Carrier } from "./carrier";
+import { Carrier } from './carrier';
 
 export interface CarrierAppMetadata {
   /** @description Id of the carrier app */

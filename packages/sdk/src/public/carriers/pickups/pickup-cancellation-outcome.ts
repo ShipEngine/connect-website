@@ -1,4 +1,4 @@
-import type { CancellationStatus, NotePOJO, UUID } from "../../common";
+import type { CancellationStatus, NotePOJO, UUID } from '../../common';
 
 /**
  * The outcome of a pickup cancellation

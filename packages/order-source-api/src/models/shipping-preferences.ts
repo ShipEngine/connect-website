@@ -1,4 +1,4 @@
-import { Document } from "./document";
+import { Document } from './document';
 
 /** @description This represents the shipping preferences specified for an order */
 export interface ShippingPreferences {

@@ -1,7 +1,7 @@
-import { ShipTo } from "../addresses/ship-to";
-import { AdvancedOptions } from "../advanced-options";
-import { Identifier } from "../identifier";
-import { PickupPackage } from "./pickup-package";
+import { ShipTo } from '../addresses/ship-to';
+import { AdvancedOptions } from '../advanced-options';
+import { Identifier } from '../identifier';
+import { PickupPackage } from './pickup-package';
 
 /** @description Basic structure for a pickup shipment */
 export interface PickupShipment {

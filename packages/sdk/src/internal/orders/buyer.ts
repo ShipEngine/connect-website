@@ -1,13 +1,20 @@
-import { Buyer as BuyerPOJO } from "../../public";
-import { Address, ContactInfo, ContactInfoBase, hideAndFreeze, Joi, _internal } from "../common";
+import { Buyer as BuyerPOJO } from '../../public';
+import {
+  Address,
+  ContactInfo,
+  ContactInfoBase,
+  hideAndFreeze,
+  Joi,
+  _internal,
+} from '../common';
 
 export class Buyer extends ContactInfoBase {
   public static readonly [_internal] = {
-    label: "buyer",
+    label: 'buyer',
     schema: ContactInfo[_internal].schema.keys({
       id: Joi.string().trim().singleLine().min(1),
-      address: Address[_internal].schema
-    })
+      address: Address[_internal].schema,
+    }),
   };
 
   public readonly id?: string;

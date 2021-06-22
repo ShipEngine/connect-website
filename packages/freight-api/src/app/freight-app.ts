@@ -1,14 +1,14 @@
-import { resolve } from "path";
-import { readFileSync } from "fs";
-import { FreightAppDefinition } from "./freight-app-definition";
+import { resolve } from 'path';
+import { readFileSync } from 'fs';
+import { FreightAppDefinition } from './freight-app-definition';
 import {
   BrandedImage,
   ConnectRuntimeApp,
   FreightProvider,
   Method,
   Route,
-} from "./internal";
-import { FreightProviderSpecification } from "./metadata";
+} from './internal';
+import { FreightProviderSpecification } from './metadata';
 
 const handleRequest = (implementation?: Function): any => {
   if (implementation) {
@@ -21,7 +21,7 @@ const handleRequest = (implementation?: Function): any => {
 const route = (
   method: Method,
   operation: string,
-  handler?: Function
+  handler?: Function,
 ): Route => {
   return {
     method: method,
@@ -38,34 +38,34 @@ export class FreightApp implements ConnectRuntimeApp {
     this.routes = [
       route(
         Method.POST,
-        "connect-freight-carrier",
-        definition.ConnectFreightCarrier
+        'connect-freight-carrier',
+        definition.ConnectFreightCarrier,
       ),
-      route(Method.POST, "freight-quote", definition.FreightQuote),
+      route(Method.POST, 'freight-quote', definition.FreightQuote),
       route(
         Method.POST,
-        "freight-shipment-documents",
-        definition.FreightShipmentDocuments
+        'freight-shipment-documents',
+        definition.FreightShipmentDocuments,
       ),
-      route(Method.POST, "freight-spot-quote", definition.FreightSpotQuote),
+      route(Method.POST, 'freight-spot-quote', definition.FreightSpotQuote),
       route(
         Method.POST,
-        "provision-freight-provider-account",
-        definition.ProvisionFreightProviderAccount
-      ),
-      route(
-        Method.POST,
-        "schedule-freight-pickup",
-        definition.ScheduleFreightPickup
+        'provision-freight-provider-account',
+        definition.ProvisionFreightProviderAccount,
       ),
       route(
         Method.POST,
-        "track-freight-shipment",
-        definition.TrackFreightShipment
+        'schedule-freight-pickup',
+        definition.ScheduleFreightPickup,
+      ),
+      route(
+        Method.POST,
+        'track-freight-shipment',
+        definition.TrackFreightShipment,
       ),
     ];
     this.data = new FreightProvider(definition);
-    this.redoc = readFileSync(resolve(__dirname, "../../spec.yaml")).toString();
+    this.redoc = readFileSync(resolve(__dirname, '../../spec.yaml')).toString();
   }
   getImages(): BrandedImage[] {
     return this.data.FreightCarriers.map((carrier) => {

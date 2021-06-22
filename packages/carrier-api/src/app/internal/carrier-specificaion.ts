@@ -1,21 +1,21 @@
-import { Carrier } from "../metadata/carrier";
-import { AccountModals } from "../metadata/account-modals";
-import { PackageType } from "../metadata/package-type";
-import { ShippingService } from "../metadata/shipping-service";
+import { Carrier } from '../metadata/carrier';
+import { AccountModals } from '../metadata/account-modals';
+import { PackageType } from '../metadata/package-type';
+import { ShippingService } from '../metadata/shipping-service';
 import {
   ShippingOption,
   ShippingOptionDictionary,
   ShippingOptionEnum,
-} from "../metadata/shipping-option";
-import { CountryAssociation } from "../metadata/country-association";
+} from '../metadata/shipping-option';
+import { CountryAssociation } from '../metadata/country-association';
 import {
   ConfirmationDictionary,
   ConfirmationType,
   ConfirmationTypeEnum,
-} from "../metadata/confirmation-type";
-import { LabelFormatsEnum } from "../metadata/label-formats";
-import { LabelSizesEnum } from "../metadata/label-sizes";
-import { CarrierAttributeEnum } from "../metadata/carrier-attributes";
+} from '../metadata/confirmation-type';
+import { LabelFormatsEnum } from '../metadata/label-formats';
+import { LabelSizesEnum } from '../metadata/label-sizes';
+import { CarrierAttributeEnum } from '../metadata/carrier-attributes';
 
 /** @description This represents what we send to data manager */
 export class CarrierSpecification {
@@ -71,7 +71,7 @@ export class CarrierSpecification {
           Name,
           Type,
         });
-      }
+      },
     );
     this.CarrierAttributes = definition.CarrierAttributes;
     this.TrackingUrl = definition.TrackingUrl;

@@ -1,5 +1,10 @@
-import type { AddressPOJO, DateTimeZonePOJO, NotePOJO, PersonNamePOJO } from "../../common";
-import type { ShipmentStatus } from "../enums";
+import type {
+  AddressPOJO,
+  DateTimeZonePOJO,
+  NotePOJO,
+  PersonNamePOJO,
+} from '../../common';
+import type { ShipmentStatus } from '../enums';
 
 /**
  * An event or status change that occurred while processing a shipment

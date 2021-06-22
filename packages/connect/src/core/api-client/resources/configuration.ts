@@ -1,6 +1,6 @@
-import ShipengineAPIClient from "..";
-import {NetworkErrorCollection} from "../../types";
-import {ConfigurationKey} from "../../types/configuration-key";
+import ShipengineAPIClient from '..';
+import { NetworkErrorCollection } from '../../types';
+import { ConfigurationKey } from '../../types/configuration-key';
 
 export default class Configuration {
   private client: ShipengineAPIClient;
@@ -13,7 +13,7 @@ export default class Configuration {
     try {
       const response = await this.client.call<ConfigurationKey[]>({
         endpoint: `apps/${appId}/configuration/keys`,
-        method: "GET"
+        method: 'GET',
       });
       return response;
     } catch (error) {
@@ -21,12 +21,15 @@ export default class Configuration {
     }
   }
 
-  async set(appId: string, configurationKey: ConfigurationKey): Promise<ConfigurationKey> {
+  async set(
+    appId: string,
+    configurationKey: ConfigurationKey,
+  ): Promise<ConfigurationKey> {
     try {
       const response = await this.client.call<ConfigurationKey>({
         endpoint: `apps/${appId}/configuration/keys`,
-        method: "PUT",
-        body: configurationKey
+        method: 'PUT',
+        body: configurationKey,
       });
       return response;
     } catch (error) {
@@ -38,7 +41,7 @@ export default class Configuration {
     try {
       const response = await this.client.call<ConfigurationKey>({
         endpoint: `apps/${appId}/configuration/keys/${name}`,
-        method: "DELETE",
+        method: 'DELETE',
       });
       return response;
     } catch (error) {

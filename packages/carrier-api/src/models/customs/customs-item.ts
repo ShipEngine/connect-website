@@ -1,5 +1,5 @@
-import { Currency } from "../currency";
-import { WeightDetails } from "../units";
+import { Currency } from '../currency';
+import { WeightDetails } from '../units';
 
 /** @description Basic structure of an item in a customs declaration */
 export interface CustomsItem {

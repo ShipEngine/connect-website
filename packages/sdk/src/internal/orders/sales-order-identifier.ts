@@ -1,8 +1,12 @@
-import { SalesOrderIdentifier as ISalesOrderIdentifier, SalesOrderIdentifierPOJO } from "../../public";
-import { hideAndFreeze, Identifiers, Joi, _internal } from "../common";
+import {
+  SalesOrderIdentifier as ISalesOrderIdentifier,
+  SalesOrderIdentifierPOJO,
+} from '../../public';
+import { hideAndFreeze, Identifiers, Joi, _internal } from '../common';
 
-
-export abstract class SalesOrderIdentifierBase implements ISalesOrderIdentifier {
+export abstract class SalesOrderIdentifierBase
+  implements ISalesOrderIdentifier
+{
   public readonly id: string;
   public readonly orderNumber: string;
   public readonly identifiers: Identifiers;
@@ -10,17 +14,16 @@ export abstract class SalesOrderIdentifierBase implements ISalesOrderIdentifier 
   public constructor(pojo: SalesOrderIdentifierPOJO) {
     this.id = pojo.id;
     this.identifiers = new Identifiers(pojo.identifiers);
-    this.orderNumber = pojo.orderNumber || "";
+    this.orderNumber = pojo.orderNumber || '';
   }
 }
 
-
 export class SalesOrderIdentifier extends SalesOrderIdentifierBase {
   public static readonly [_internal] = {
-    label: "sales order",
+    label: 'sales order',
     schema: Joi.object({
       id: Joi.string().trim().singleLine().min(1).required(),
-      orderNumber: Joi.string().optional().allow(""),
+      orderNumber: Joi.string().optional().allow(''),
       identifiers: Identifiers[_internal].schema,
     }),
   };

@@ -1,12 +1,12 @@
-import { Quantity as IQuantity, QuantityPOJO } from "../../../public";
-import { hideAndFreeze, _internal } from "../utils";
-import { Joi } from "../validation";
+import { Quantity as IQuantity, QuantityPOJO } from '../../../public';
+import { hideAndFreeze, _internal } from '../utils';
+import { Joi } from '../validation';
 
 export class Quantity implements IQuantity {
   public static readonly [_internal] = {
-    label: "quantity",
+    label: 'quantity',
     schema: Joi.object({
-      value: Joi.number().integer().min(1).required()
+      value: Joi.number().integer().min(1).required(),
     }),
   };
 

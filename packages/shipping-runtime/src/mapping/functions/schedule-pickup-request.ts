@@ -1,18 +1,18 @@
-import { SchedulePickupRequest } from "@shipengine/connect-carrier-api/lib/requests";
-import { PickupRequestPOJO } from "@shipengine/connect-sdk/lib/internal";
+import { SchedulePickupRequest } from '@shipengine/connect-carrier-api/lib/requests';
+import { PickupRequestPOJO } from '@shipengine/connect-sdk/lib/internal';
 import {
   mapAddress,
   mapPickupContact,
   mapTimeWindow,
   mapLocationNotes,
   mapPickupShipments,
-} from "./";
+} from './';
 
 export const mapSchedulePickupRequest = (
-  request: SchedulePickupRequest
+  request: SchedulePickupRequest,
 ): PickupRequestPOJO => {
   const mappedRequest: PickupRequestPOJO = {
-    pickupService: request.pickup_details?.pickup_service_code || "",
+    pickupService: request.pickup_details?.pickup_service_code || '',
     timeWindow: mapTimeWindow(request.requested_pickup_window),
     address: mapAddress(request.location?.pickup_address),
     notes: mapLocationNotes(request.location?.location_notes),

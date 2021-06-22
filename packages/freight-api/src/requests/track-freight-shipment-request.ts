@@ -1,4 +1,4 @@
-import { BaseCarrierRequest } from "./base-carrier-request";
+import { BaseCarrierRequest } from './base-carrier-request';
 
 /**
  * Get the status of a freight shipment via the assigned PRO number.

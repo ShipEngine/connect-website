@@ -1,4 +1,4 @@
-import chalk from "chalk";
+import chalk from 'chalk';
 
 function log(logLine: string): void {
   // eslint-disable-next-line no-console
@@ -10,7 +10,7 @@ function repeat(str: string, n: number): string {
 }
 
 function indent(n: number): string {
-  return repeat("    ", n);
+  return repeat('    ', n);
 }
 
 function indentLines(str: string, n: number): string {
@@ -18,19 +18,19 @@ function indentLines(str: string, n: number): string {
 }
 
 function logPass(logLine: string): void {
-  log(`${indent(2)}${chalk.bgGreen.black(" PASS ")} ${chalk.green(logLine)}`);
+  log(`${indent(2)}${chalk.bgGreen.black(' PASS ')} ${chalk.green(logLine)}`);
 }
 
 function logFail(logLine: string, withTag = true): void {
   if (withTag) {
-    log(`${indent(2)}${chalk.bgRed.black(" FAIL ")} ${chalk.red(logLine)}`);
+    log(`${indent(2)}${chalk.bgRed.black(' FAIL ')} ${chalk.red(logLine)}`);
   } else {
     log(`${indent(2)}${chalk.red(logLine)}`);
   }
 }
 
 function logSkip(logLine: string): void {
-  log(`${indent(2)}${chalk.bgWhite.black(" SKIP ")} ${chalk.gray(logLine)}`);
+  log(`${indent(2)}${chalk.bgWhite.black(' SKIP ')} ${chalk.gray(logLine)}`);
 }
 
 function logSkipStep(logLine: string): void {
@@ -44,12 +44,12 @@ function logStep(logLine: string): void {
 function logObject(obj: object): void {
   /* eslint-disable no-console */
   // console.dir(obj, { depth: null });
-  const jsonString = JSON.stringify([obj], null, 4).replace("[", "");
+  const jsonString = JSON.stringify([obj], null, 4).replace('[', '');
 
   console.log(
-    jsonString.substring(0, jsonString.lastIndexOf("]")) +
-      "" +
-      jsonString.substring(jsonString.lastIndexOf("]") + 1),
+    jsonString.substring(0, jsonString.lastIndexOf(']')) +
+      '' +
+      jsonString.substring(jsonString.lastIndexOf(']') + 1),
   );
 }
 
@@ -59,9 +59,9 @@ function logResults(results: {
   skipped: number;
 }): void {
   log(
-    `${chalk.green(results.passed.toString() + " passing")} , ${chalk.red(
-      results.failed.toString() + " failing",
-    )}, ${results.skipped.toString() + " skipped"}`,
+    `${chalk.green(results.passed.toString() + ' passing')} , ${chalk.red(
+      results.failed.toString() + ' failing',
+    )}, ${results.skipped.toString() + ' skipped'}`,
   );
 }
 

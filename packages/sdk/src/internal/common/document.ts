@@ -1,5 +1,11 @@
-import { Document as DocumentPOJO, DocumentFormat, DocumentSize, DocumentType, ErrorCode } from "../../public";
-import { error, hideAndFreeze, Joi, _internal } from ".";
+import {
+  Document as DocumentPOJO,
+  DocumentFormat,
+  DocumentSize,
+  DocumentType,
+  ErrorCode,
+} from '../../public';
+import { error, hideAndFreeze, Joi, _internal } from '.';
 
 export abstract class DocumentBase {
   public readonly name: string;
@@ -23,9 +29,9 @@ export abstract class DocumentBase {
 
 export class Document extends DocumentBase {
   public static readonly [_internal] = {
-    label: "document",
+    label: 'document',
     schema: Joi.object({
-      name: Joi.string().trim().singleLine().allow(""),
+      name: Joi.string().trim().singleLine().allow(''),
       type: Joi.string().enum(DocumentType).required(),
       size: Joi.string().enum(DocumentSize).required(),
       format: Joi.string().enum(DocumentFormat).required(),
@@ -41,7 +47,6 @@ export class Document extends DocumentBase {
   }
 }
 
-
 /**
  * Returns the default document name if the document doesn't already have a name
  */
@@ -50,18 +55,18 @@ function getDocumentName(document: DocumentPOJO): string {
 
   switch (document.type) {
     case DocumentType.Label:
-      return "Label";
+      return 'Label';
 
     case DocumentType.CustomsForm:
-      return "Customs Form";
+      return 'Customs Form';
 
     case DocumentType.ScanForm:
-      return "SCAN Form";
+      return 'SCAN Form';
 
     case DocumentType.BillOfLading:
-      return "Bill of Lading";
+      return 'Bill of Lading';
 
     default:
-      return "Document";
+      return 'Document';
   }
 }

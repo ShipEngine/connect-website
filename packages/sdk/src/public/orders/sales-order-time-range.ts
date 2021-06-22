@@ -1,6 +1,5 @@
-import { SalesOrderStatus } from ".";
-import type { TimeRange } from "../common";
-
+import { SalesOrderStatus } from '.';
+import type { TimeRange } from '../common';
 
 /**
  * Specifies a date/time range to retrieve sales orders for
@@ -10,7 +9,7 @@ export interface SalesOrderTimeRange extends TimeRange {
 
   /**
    * A mapping of custom user-defined statuses to ShipEngine Connect statuses.
-   * 
+   *
    * Each key is a user-defined status string, and the value is the corresponding
    * ShipEngine Connect order status.
    */
@@ -38,7 +37,6 @@ export interface SalesOrderPaging {
   cursor?: string;
 }
 
-
 export interface SalesOrderPagingPOJO {
   /** The number of items per page */
   pageSize?: number;
@@ -56,5 +54,5 @@ export interface SalesOrderPagingPOJO {
 export interface SalesOrderCustomFieldMappingPOJO {
   customField1?: string;
   customField2?: string;
-  customField3?: string; 
+  customField3?: string;
 }

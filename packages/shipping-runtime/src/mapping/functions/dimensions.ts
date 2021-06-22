@@ -1,8 +1,8 @@
-import { Dimensions } from "@shipengine/connect-carrier-api/lib/models";
-import { DimensionsPOJO, LengthUnit } from "@shipengine/connect-sdk";
+import { Dimensions } from '@shipengine/connect-carrier-api/lib/models';
+import { DimensionsPOJO, LengthUnit } from '@shipengine/connect-sdk';
 
 export const mapDimensionsCM = (
-  dimensions?: Dimensions | null
+  dimensions?: Dimensions | null,
 ): DimensionsPOJO | undefined => {
   if (!dimensions) {
     return undefined;

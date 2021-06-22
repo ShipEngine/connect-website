@@ -1,15 +1,15 @@
-import { IRouter, Router, Request, Response, NextFunction } from "express";
+import { IRouter, Router, Request, Response, NextFunction } from 'express';
 import {
   SalesOrdersExportRequest,
   AcknowledgeOrdersRequest,
   ShipmentNotificationRequest,
-} from "@shipengine/connect-order-source-api";
-import { OrderApp } from "@shipengine/connect-sdk/lib/internal";
+} from '@shipengine/connect-order-source-api';
+import { OrderApp } from '@shipengine/connect-sdk/lib/internal';
 import {
   dispatchSalesOrdersExport,
   dispatchAcknowledgeOrders,
   dispatchShipmentNotification,
-} from "../mapping";
+} from '../mapping';
 
 export function salesOrdersExport(req: Request, res: Response, next: NextFunction) {
   const body = req.body as SalesOrdersExportRequest;
@@ -49,8 +49,8 @@ export function shipmentNotification(req: Request, res: Response, next: NextFunc
 
 const router: IRouter = Router();
 
-router.post("/acknowledge_orders", acknowledgeOrders);
-router.post("/sales_orders_export", salesOrdersExport);
-router.post("/shipment_notification", shipmentNotification);
+router.post('/acknowledge_orders', acknowledgeOrders);
+router.post('/sales_orders_export', salesOrdersExport);
+router.post('/shipment_notification', shipmentNotification);
 
 export default router;

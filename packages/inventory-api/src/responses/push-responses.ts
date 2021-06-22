@@ -1,5 +1,5 @@
-import { OperationStatus } from "../models";
-import { ErrorResponse, NotSupportedResponse } from "./error-responses";
+import { OperationStatus } from '../models';
+import { ErrorResponse, NotSupportedResponse } from './error-responses';
 
 /**
  * Any possible response shape from a push operation.

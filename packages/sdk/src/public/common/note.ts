@@ -1,4 +1,4 @@
-import type { NoteType } from "./enums";
+import type { NoteType } from './enums';
 
 /**
  * A note associated with a resource or result
@@ -14,7 +14,6 @@ export interface NotePOJO {
    */
   text: string;
 }
-
 
 /**
  * A note associated with a resource or result

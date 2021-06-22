@@ -7,29 +7,29 @@ import {
   LabelMessage,
   CustomsNonDelivery,
   CustomsItem,
-} from "@shipengine/connect-carrier-api/lib/models";
+} from '@shipengine/connect-carrier-api/lib/models';
 import {
   CustomsPOJO,
   DocumentFormat,
   DocumentSize,
   MonetaryValuePOJO,
   NonDeliveryOption,
-} from "@shipengine/connect-sdk";
+} from '@shipengine/connect-sdk';
 
 import {
   NewPackagePOJO,
   NewLabelPOJO,
-} from "@shipengine/connect-sdk/lib/internal";
+} from '@shipengine/connect-sdk/lib/internal';
 import {
   mapWeightGrams,
   mapCurrency,
   mapCustomsItem,
   mapDimensionsCM,
-} from "./";
+} from './';
 
 export const mapInsuredValue = (
   provider?: InsuranceProviders,
-  insuredValue?: Currency
+  insuredValue?: Currency,
 ): MonetaryValuePOJO | undefined => {
   if (!provider || provider !== InsuranceProviders.Carrier) {
     return undefined;
@@ -40,7 +40,7 @@ export const mapInsuredValue = (
 export const mapNewLabelPOJO = (
   format: DocumentFormat,
   size: DocumentSize,
-  messages?: LabelMessage
+  messages?: LabelMessage,
 ): NewLabelPOJO => {
   if (
     !messages ||
@@ -63,7 +63,7 @@ export const mapNewLabelPOJO = (
 };
 
 export const mapNonDeliveryOption = (
-  option?: CustomsNonDelivery
+  option?: CustomsNonDelivery,
 ): NonDeliveryOption | undefined => {
   switch (option) {
     case CustomsNonDelivery.ReturnToSender:
@@ -90,7 +90,7 @@ export const nonEmptyCustomsItemsFilter = (item?: CustomsItem | null) => {
 
 const customsExist = (customs: Customs): boolean => {
   const filledOutCustomsItems = customs.customs_items.filter(
-    nonEmptyCustomsItemsFilter
+    nonEmptyCustomsItemsFilter,
   );
   return filledOutCustomsItems.length > 0;
 };
@@ -114,30 +114,30 @@ export const mapNewPackage = (
   documentFormat: DocumentFormat,
   documentSize: DocumentSize,
   insuranceProvider?: InsuranceProviders,
-  reference?: string
+  reference?: string,
 ): NewPackagePOJO => {
   const mappedPackage: NewPackagePOJO = {
-    packaging: capiPackage.package_code || "",
+    packaging: capiPackage.package_code || '',
     dimensions: mapDimensionsCM(
-      capiPackage?.dimension_details?.dimensions_in_centimeters
+      capiPackage?.dimension_details?.dimensions_in_centimeters,
     ),
     weight: mapWeightGrams(capiPackage.weight_details?.weight_in_grams),
     insuredValue: mapInsuredValue(
       insuranceProvider,
-      capiPackage?.insured_value
+      capiPackage?.insured_value,
     ),
     containsAlcohol: advancedOptions?.contains_alcohol || false,
     isNonMachinable: advancedOptions?.nonmachineable || false,
     label: mapNewLabelPOJO(
       documentFormat,
       documentSize,
-      capiPackage.label_messages || undefined
+      capiPackage.label_messages || undefined,
     ),
     customs: mapCustomsPOJO(capiPackage.customs),
     contents: [
       {
         salesOrder: {
-          id: reference || "",
+          id: reference || '',
         },
       },
     ],

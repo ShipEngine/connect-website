@@ -1,5 +1,5 @@
-import { Dimensions } from "./dimensions";
-import { DimensionUnit } from "./dimension-unit";
+import { Dimensions } from './dimensions';
+import { DimensionUnit } from './dimension-unit';
 
 /** @description Basic structure for package dimensions */
 export interface DimensionDetails {

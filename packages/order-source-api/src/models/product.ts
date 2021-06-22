@@ -1,5 +1,5 @@
-import { Weight } from "./weight";
-import { Dimensions } from "./dimensions";
+import { Weight } from './weight';
+import { Dimensions } from './dimensions';
 
 /** @description A set of identifiers for a product */
 export interface ProductIdentifiers {

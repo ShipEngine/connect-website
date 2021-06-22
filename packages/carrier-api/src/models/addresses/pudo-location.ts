@@ -1,4 +1,4 @@
-import { AddressBase } from "./address-base";
+import { AddressBase } from './address-base';
 
 /** @description Pickup/Dropoff location used by carriers */
 export interface PudoLocation extends AddressBase {

@@ -1,4 +1,4 @@
-import { RequestBase } from "./request-base";
+import { RequestBase } from './request-base';
 
 /** @description A request to get product information */
 export interface GetProductsRequest extends RequestBase {

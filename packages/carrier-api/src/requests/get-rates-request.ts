@@ -1,4 +1,4 @@
-import { BaseRequest } from "./base-request";
+import { BaseRequest } from './base-request';
 import {
   ConfirmationTypes,
   AdvancedOptions,
@@ -9,7 +9,7 @@ import {
   ShipTo,
   PudoLocation,
   FulfillmentPlanDetails,
-} from "../models";
+} from '../models';
 
 /** @description Basic structure for a request to get rates */
 export interface GetRatesRequest extends BaseRequest {

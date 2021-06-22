@@ -1,4 +1,4 @@
-import { BillingLineItem } from "../billing/billing-line-item";
+import { BillingLineItem } from '../billing/billing-line-item';
 
 /** @description Basic structure for a rate */
 export interface Rate {

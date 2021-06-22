@@ -1,16 +1,24 @@
-import { ShipmentIdentifierPOJO, TrackingCriteria as ITrackingCriteria } from "../../../public";
-import { hideAndFreeze, Joi, _internal } from "../../common";
-import { ShipmentIdentifier, ShipmentIdentifierBase } from "../shipments/shipment-identifier";
+import {
+  ShipmentIdentifierPOJO,
+  TrackingCriteria as ITrackingCriteria,
+} from '../../../public';
+import { hideAndFreeze, Joi, _internal } from '../../common';
+import {
+  ShipmentIdentifier,
+  ShipmentIdentifierBase,
+} from '../shipments/shipment-identifier';
 
 export interface TrackingCriteriaPOJO extends ShipmentIdentifierPOJO {
   returns?: { isReturn?: boolean };
   metadata?: object;
 }
 
-
-export class TrackingCriteria extends ShipmentIdentifierBase implements ITrackingCriteria {
+export class TrackingCriteria
+  extends ShipmentIdentifierBase
+  implements ITrackingCriteria
+{
   public static readonly [_internal] = {
-    label: "shipment",
+    label: 'shipment',
     schema: ShipmentIdentifier[_internal].schema.keys({
       returns: Joi.object({
         isReturn: Joi.boolean(),

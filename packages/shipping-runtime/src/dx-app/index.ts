@@ -1,12 +1,12 @@
-import { CarrierApp } from "@shipengine/connect-sdk/lib/internal";
-import logger from "../util/logger";
-import * as fs from "fs";
-import { loadApp } from "@shipengine/connect-loader";
+import { CarrierApp } from '@shipengine/connect-sdk/lib/internal';
+import logger from '../util/logger';
+import * as fs from 'fs';
+import { loadApp } from '@shipengine/connect-loader';
 
 const dxAppPath = process.env.DX_APP_PATH;
 const checkAppPathExists = () => {
   if (!dxAppPath) {
-    logger.error("DX_APP_PATH was not set- no DX app to load!");
+    logger.error('DX_APP_PATH was not set- no DX app to load!');
     process.exit(1);
   }
   if (!fs.existsSync(dxAppPath)) {
@@ -22,10 +22,10 @@ export default async (): Promise<CarrierApp> => {
   try {
     const app = await loadApp(dxAppPath);
     logger.info(
-      `Successfully loaded ${app.manifest.name} v${app.manifest.version}`
+      `Successfully loaded ${app.manifest.name} v${app.manifest.version}`,
     );
     logger.info(
-      `This is a ${app.type} app that uses v${app.sdkVersion} of the SDK`
+      `This is a ${app.type} app that uses v${app.sdkVersion} of the SDK`,
     );
     return (app as unknown) as CarrierApp;
   } catch (error) {

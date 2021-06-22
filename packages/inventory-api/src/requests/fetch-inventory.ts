@@ -1,4 +1,4 @@
-import { AuthenticatedRequest } from ".";
+import { AuthenticatedRequest } from '.';
 
 /**
  * The shape of request bodies when making a "full" inventory fetch. This

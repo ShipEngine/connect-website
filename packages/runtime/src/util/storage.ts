@@ -1,5 +1,5 @@
-import { AsyncLocalStorage } from "async_hooks";
-import { v4 as uuid } from "uuid";
+import { AsyncLocalStorage } from 'async_hooks';
+import { v4 as uuid } from 'uuid';
 
 interface RequestSession {
   transaction_id?: string;

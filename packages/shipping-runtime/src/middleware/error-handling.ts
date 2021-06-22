@@ -1,7 +1,7 @@
-import { NextFunction, Request, Response } from "express";
-import { ErrorCode } from "../errors";
-import { captureException } from "@sentry/node";
-import { serializeError } from "serialize-error";
+import { NextFunction, Request, Response } from 'express';
+import { ErrorCode } from '../errors';
+import { captureException } from '@sentry/node';
+import { serializeError } from 'serialize-error';
 
 export enum HttpStatusCode {
   BadRequest = 400,
@@ -12,11 +12,11 @@ export enum HttpStatusCode {
   ExternalServerError = 520,
 }
 export const enum StandardizedErrorCode {
-  Generic = "generic",
-  Validation = "validation",
-  UnAuthorized = "external_unauthorized_error",
-  ExternalServerError = "external_server_error",
-  ExternalClientError = "external_client_error",
+  Generic = 'generic',
+  Validation = 'validation',
+  UnAuthorized = 'external_unauthorized_error',
+  ExternalServerError = 'external_server_error',
+  ExternalClientError = 'external_client_error',
 }
 
 /**
@@ -27,8 +27,8 @@ const removeErrorMessagePrefix = (value?: string): string | undefined => {
   if (!value) {
     return undefined;
   }
-  if (value.startsWith("Error in the")) {
-    const realError = value.substring(value.indexOf(".") + 2).trim();
+  if (value.startsWith('Error in the')) {
+    const realError = value.substring(value.indexOf('.') + 2).trim();
     return realError;
   }
   return value;
@@ -36,17 +36,17 @@ const removeErrorMessagePrefix = (value?: string): string | undefined => {
 
 export const formatErrorMessage = (
   error: any,
-  standardErrorCode: StandardizedErrorCode
+  standardErrorCode: StandardizedErrorCode,
 ) => {
   const mergeStringArray = (value?: string[]): string | undefined => {
     if (!Array.isArray(value)) {
       return undefined;
     }
-    return value.join(", ");
+    return value.join(', ');
   };
 
   const message = removeErrorMessagePrefix(
-    error.message || error?.originalError?.message
+    error.message || error?.originalError?.message,
   );
   return {
     errors: [message],
@@ -54,7 +54,7 @@ export const formatErrorMessage = (
       {
         standardized_error_code: standardErrorCode,
         external_error_code: mergeStringArray(
-          error?.originalError?.externalErrors
+          error?.originalError?.externalErrors,
         ),
         message: message,
         external_http_status_code: error?.originalError?.statusCode,
@@ -66,7 +66,7 @@ export const formatErrorMessage = (
 
 export const getStatusCode = (
   code?: ErrorCode,
-  statusCode?: number
+  statusCode?: number,
 ): number => {
   if (!code) {
     return HttpStatusCode.ServerError;
@@ -93,7 +93,7 @@ export const getStatusCode = (
 
 export const getStandardizedErrorCode = (
   code?: ErrorCode,
-  statusCode?: number
+  statusCode?: number,
 ): StandardizedErrorCode => {
   switch (code) {
     case ErrorCode.UnAuthorized:
@@ -114,15 +114,15 @@ export const errorHandler = (
   error: any,
   request: Request,
   response: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   const statusCode = getStatusCode(
     error.originalError?.code || error.code,
-    error.originalError?.statusCode
+    error.originalError?.statusCode,
   );
   const standartizedErrorCode = getStandardizedErrorCode(
     error.originalError?.code || error.code,
-    error.originalError?.statusCode
+    error.originalError?.statusCode,
   );
   const errorMessage = formatErrorMessage(error, standartizedErrorCode);
   if (statusCode === HttpStatusCode.ServerError) {

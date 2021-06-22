@@ -1,7 +1,7 @@
-import { AdvancedOptions } from "@shipengine/connect-carrier-api/lib/models";
-import { ShippingOptions } from "@shipengine/connect-sdk";
+import { AdvancedOptions } from '@shipengine/connect-carrier-api/lib/models';
+import { ShippingOptions } from '@shipengine/connect-sdk';
 export const mapShippingOptions = (
-  capiOptions?: AdvancedOptions
+  capiOptions?: AdvancedOptions,
 ): ShippingOptions => {
   const dxOptions: ShippingOptions = {
     dangerousGoodsCategory: capiOptions?.dangerous_goods_category,

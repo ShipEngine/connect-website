@@ -1,20 +1,20 @@
-import { Address } from "./address";
-import { ShippingPreferences } from "./shipping-preferences";
-import { SalesOrderItem } from "./sales-order-item";
-import { Buyer } from "./buyer";
-import { BillTo } from "./bill-to";
-import { Payment } from "./payment";
-import { Note } from "./note";
-import { Branding } from "./branding";
+import { Address } from './address';
+import { ShippingPreferences } from './shipping-preferences';
+import { SalesOrderItem } from './sales-order-item';
+import { Buyer } from './buyer';
+import { BillTo } from './bill-to';
+import { Payment } from './payment';
+import { Note } from './note';
+import { Branding } from './branding';
 
 /** @description The status of a sales order */
 export enum SalesOrderStatus {
-  AwaitingPayment = "AwaitingPayment",
-  AwaitingShipment = "AwaitingShipment",
-  Cancelled = "Cancelled",
-  Completed = "Completed",
-  OnHold = "OnHold",
-  PendingFulfillment = "PendingFulfillment",
+  AwaitingPayment = 'AwaitingPayment',
+  AwaitingShipment = 'AwaitingShipment',
+  Cancelled = 'Cancelled',
+  Completed = 'Completed',
+  OnHold = 'OnHold',
+  PendingFulfillment = 'PendingFulfillment',
 }
 
 /** @description Represents information from the source marketplace. (This is common with reselling goods) */

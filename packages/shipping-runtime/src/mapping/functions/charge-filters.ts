@@ -1,4 +1,4 @@
-import { Charge, ChargeType } from "@shipengine/connect-sdk";
+import { Charge, ChargeType } from '@shipengine/connect-sdk';
 
 export const everythingButInsuranceFilter = (charge: Charge) =>
   charge.type !== ChargeType.Insurance;

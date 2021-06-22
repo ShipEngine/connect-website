@@ -1,4 +1,4 @@
-import { BaseCarrierRequest } from "./base-carrier-request";
+import { BaseCarrierRequest } from './base-carrier-request';
 
 /**
  * Connect a freight carrier account. This is used to supply the appropriate credentials required for connecting to a single freight carrier as identified by the SCAC.

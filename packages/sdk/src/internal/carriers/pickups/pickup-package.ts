@@ -1,8 +1,25 @@
-import { DimensionsPOJO, PackageIdentifierPOJO, PackagingIdentifierPOJO, PickupPackage as IPickupPackage, WeightPOJO } from "../../../public";
-import { App, DefinitionIdentifier, Dimensions, hideAndFreeze, Joi, Weight, _internal } from "../../common";
-import { PackageIdentifier, PackageIdentifierBase } from "../packages/package-identifier";
-import { Packaging } from "../packaging";
-import { setPackaging } from "../utils";
+import {
+  DimensionsPOJO,
+  PackageIdentifierPOJO,
+  PackagingIdentifierPOJO,
+  PickupPackage as IPickupPackage,
+  WeightPOJO,
+} from '../../../public';
+import {
+  App,
+  DefinitionIdentifier,
+  Dimensions,
+  hideAndFreeze,
+  Joi,
+  Weight,
+  _internal,
+} from '../../common';
+import {
+  PackageIdentifier,
+  PackageIdentifierBase,
+} from '../packages/package-identifier';
+import { Packaging } from '../packaging';
+import { setPackaging } from '../utils';
 
 export interface PickupPackagePOJO extends PackageIdentifierPOJO {
   packaging: PackagingIdentifierPOJO | string;
@@ -11,13 +28,16 @@ export interface PickupPackagePOJO extends PackageIdentifierPOJO {
   metadata?: object;
 }
 
-export class PickupPackage extends PackageIdentifierBase implements IPickupPackage {
+export class PickupPackage
+  extends PackageIdentifierBase
+  implements IPickupPackage
+{
   public static readonly [_internal] = {
-    label: "package",
+    label: 'package',
     schema: PackageIdentifier[_internal].schema.keys({
       packaging: Joi.alternatives(
         DefinitionIdentifier[_internal].schema.unknown(true),
-        Joi.string().allow("")
+        Joi.string().allow(''),
       ).optional(),
       dimensions: Dimensions[_internal].schema,
       weight: Weight[_internal].schema,

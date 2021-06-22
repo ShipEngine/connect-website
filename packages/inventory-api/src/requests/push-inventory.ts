@@ -1,5 +1,5 @@
-import { InventoryItemBase } from "../models";
-import { AuthenticatedRequest } from ".";
+import { InventoryItemBase } from '../models';
+import { AuthenticatedRequest } from '.';
 
 /**
  * Incoming request shape when clients are pushing new stock quantities to

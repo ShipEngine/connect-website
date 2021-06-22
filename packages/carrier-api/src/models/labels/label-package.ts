@@ -1,5 +1,5 @@
-import { Identifier } from "../identifier";
-import { Document } from "../documents";
+import { Identifier } from '../identifier';
+import { Document } from '../documents';
 
 /** @description Package information provided by the carrier */
 export interface LabelPackage {

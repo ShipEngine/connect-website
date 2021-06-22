@@ -3,57 +3,57 @@ import {
   FreightCarrierSpecification,
   FreightProviderSpecification,
   FunctionSpecification,
-} from "../metadata";
-import { FreightAppDefinition } from "../freight-app-definition";
+} from '../metadata';
+import { FreightAppDefinition } from '../freight-app-definition';
 
 const mapFunctions = (app: FreightAppDefinition): FunctionSpecification[] => {
   const functions: FunctionSpecification[] = [];
 
   if (app.ConnectFreightCarrier) {
     functions.push({
-      Name: "ConnectFreightCarrier",
+      Name: 'ConnectFreightCarrier',
       IsSandboxed: false,
     });
   }
 
   if (app.FreightQuote) {
     functions.push({
-      Name: "FreightQuote",
+      Name: 'FreightQuote',
       IsSandboxed: false,
     });
   }
 
   if (app.FreightShipmentDocuments) {
     functions.push({
-      Name: "FreightShipmentDocuments",
+      Name: 'FreightShipmentDocuments',
       IsSandboxed: false,
     });
   }
 
   if (app.FreightSpotQuote) {
     functions.push({
-      Name: "FreightSpotQuote",
+      Name: 'FreightSpotQuote',
       IsSandboxed: false,
     });
   }
 
   if (app.ProvisionFreightProviderAccount) {
     functions.push({
-      Name: "ProvisionFreightProviderAccount",
+      Name: 'ProvisionFreightProviderAccount',
       IsSandboxed: false,
     });
   }
 
   if (app.ScheduleFreightPickup) {
     functions.push({
-      Name: "ScheduleFreightPickup",
+      Name: 'ScheduleFreightPickup',
       IsSandboxed: false,
     });
   }
 
   if (app.TrackFreightShipment) {
     functions.push({
-      Name: "TrackFreightShipment",
+      Name: 'TrackFreightShipment',
       IsSandboxed: false,
     });
   }
@@ -74,11 +74,11 @@ export class FreightProvider implements FreightProviderSpecification {
     this.FreightCarriers = app.Metadata.FreightCarriers;
     this.Connector = {
       DiagnosticRoutes: {
-        Liveness: "/diagnostics/liveness",
-        Readiness: "/diagnostics/readiness",
-        Version: "/diagnostics/version",
+        Liveness: '/diagnostics/liveness',
+        Readiness: '/diagnostics/readiness',
+        Version: '/diagnostics/version',
       },
-      ApiVersion: "1.0.0",
+      ApiVersion: '1.0.0',
       Functions: mapFunctions(app),
     };
   }

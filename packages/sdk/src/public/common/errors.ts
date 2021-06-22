@@ -1,15 +1,14 @@
-import { UUID } from "./types";
+import { UUID } from './types';
 
 /**
  * Error codes for ShipEngine Connect SDK runtime errors
  */
 export enum ErrorCode {
-  AppError = "ERR_APP_ERROR",
-  Invalid = "ERR_INVALID",
-  Unauthorized = "ERR_UNAUTHORIZED",
-  External = "ERR_EXTERNAL",
+  AppError = 'ERR_APP_ERROR',
+  Invalid = 'ERR_INVALID',
+  Unauthorized = 'ERR_UNAUTHORIZED',
+  External = 'ERR_EXTERNAL',
 }
-
 
 /**
  * An error that is thrown by a ShipEngine Connect app
@@ -24,7 +23,6 @@ export interface AppError extends Error {
   [key: string]: unknown;
 }
 
-
 /**
  * The arguments that can be passsed to a ShipEngine Connect error constructor.
  */
@@ -32,7 +30,7 @@ export interface AppErrorArgs {
   /**
    * The error message.
    */
-  message: string
+  message: string;
 
   /**
    * The numeric status code associated with the error, if any.
@@ -51,7 +49,6 @@ export interface AppErrorArgs {
    */
   [key: string]: unknown;
 }
-
 
 /**
  * An error that is thrown by a ShipEngine Connect app
@@ -79,7 +76,6 @@ export class AppError extends Error implements AppError {
   }
 }
 
-
 /**
  * An error indicating that input data is invalid or does not comply with business rules.
  */
@@ -94,7 +90,6 @@ export class ValidationError extends AppError {
   }
 }
 
-
 /**
  * An error indicating that the user is unauthorized or not permitted to perform the requested action.
  */
@@ -108,7 +103,6 @@ export class UnauthorizedError extends AppError {
     this.code = ErrorCode.Unauthorized;
   }
 }
-
 
 /**
  * The arguments that can be passsed to the `ExternalError` constructor.
@@ -125,7 +119,6 @@ export interface ExternalErrorArgs extends AppErrorArgs {
   externalWarnings?: string[];
 }
 
-
 /**
  * An error that originated from an external service, such as an API call.
  */
@@ -141,15 +134,13 @@ export class ExternalError extends AppError {
   }
 }
 
-
 /**
  * Normalizes the arguments that are passed to an error's constructor
  */
 function normalizeArgs<T extends AppErrorArgs>(args: string | T): T {
-  if (typeof args === "string") {
+  if (typeof args === 'string') {
     return { message: args } as T;
-  }
-  else {
+  } else {
     return args;
   }
 }

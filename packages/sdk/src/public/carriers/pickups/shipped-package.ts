@@ -1,6 +1,6 @@
-import type { Dimensions, Weight } from "../../common";
-import type { PackageIdentifier } from "../packages/package-identifier";
-import type { PackagingIdentifier } from "../packaging";
+import type { Dimensions, Weight } from '../../common';
+import type { PackageIdentifier } from '../packages/package-identifier';
+import type { PackagingIdentifier } from '../packaging';
 
 /**
  * Information about a package that is ready to be shipped or has already been shipped.

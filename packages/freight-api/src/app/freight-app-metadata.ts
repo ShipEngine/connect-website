@@ -1,4 +1,4 @@
-import { FreightCarrierSpecification } from "./metadata";
+import { FreightCarrierSpecification } from './metadata';
 
 export interface FreightAppMetadata {
   Id: string;

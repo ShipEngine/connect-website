@@ -1,4 +1,4 @@
-import { AccountConnectionSpecification, OrderSourceDefinition } from "..";
+import { AccountConnectionSpecification, OrderSourceDefinition } from '..';
 
 /** @description This represents what we send to data manager */
 export class OrderSourceSpecification {

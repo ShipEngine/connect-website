@@ -1,8 +1,8 @@
-import logger from "../util/logger";
-import { ErrorCode } from "@shipengine/connect-sdk";
-import { NextFunction, Request, Response } from "express";
-import { captureException } from "@sentry/node";
-import { serializeError } from "serialize-error";
+import logger from '../util/logger';
+import { ErrorCode } from '@shipengine/connect-sdk';
+import { NextFunction, Request, Response } from 'express';
+import { captureException } from '@sentry/node';
+import { serializeError } from 'serialize-error';
 
 export enum HttpStatusCode {
   BadRequest = 400,
@@ -14,11 +14,11 @@ export enum HttpStatusCode {
 }
 
 export const enum StandardizedErrorCode {
-  Generic = "generic",
-  Validation = "validation",
-  Unauthorized = "external_unauthorized_error",
-  ExternalServerError = "external_server_error",
-  ExternalClientError = "external_client_error",
+  Generic = 'generic',
+  Validation = 'validation',
+  Unauthorized = 'external_unauthorized_error',
+  ExternalServerError = 'external_server_error',
+  ExternalClientError = 'external_client_error',
 }
 
 export function getStatusCode(code?: ErrorCode, statusCode?: number): number {
@@ -46,7 +46,7 @@ export function getStatusCode(code?: ErrorCode, statusCode?: number): number {
 
 export function getStandardizedErrorCode(
   code?: ErrorCode,
-  statusCode?: number
+  statusCode?: number,
 ): StandardizedErrorCode {
   switch (code) {
     case ErrorCode.Unauthorized:
@@ -76,7 +76,7 @@ export default (error: any, request: Request, response: Response, next: NextFunc
       {
         standardized_error_code: getStandardizedErrorCode(
           error.originalError?.code,
-          error.originalError?.statusCode
+          error.originalError?.statusCode,
         ),
         message: error?.originalError?.message || error.message,
         external_http_status_code: error?.originalError?.statusCode,

@@ -1,18 +1,21 @@
-import * as moment from "moment-timezone";
-import { DateTimeZone as IDateTimeZone, DateTimeZonePOJO } from "../../../public";
-import { hideAndFreeze, regex, _internal } from "../utils";
-import { Joi } from "../validation";
+import * as moment from 'moment-timezone';
+import {
+  DateTimeZone as IDateTimeZone,
+  DateTimeZonePOJO,
+} from '../../../public';
+import { hideAndFreeze, regex, _internal } from '../utils';
+import { Joi } from '../validation';
 
 export class DateTimeZone implements IDateTimeZone {
   public static readonly [_internal] = {
-    label: "date/time",
+    label: 'date/time',
     schema: Joi.alternatives(
       Joi.date(),
       Joi.string().isoDateTime({ timeZone: true }),
       Joi.object({
         value: Joi.string().isoDateTime({ timeZone: false }).required(),
         timeZone: Joi.string().timeZone().required(),
-      })
+      }),
     ),
   };
 
@@ -21,32 +24,30 @@ export class DateTimeZone implements IDateTimeZone {
   public readonly offset: string;
 
   public get isUTC(): boolean {
-    return this.offset.slice(1) === "00:00";
+    return this.offset.slice(1) === '00:00';
   }
 
   public constructor(pojo: DateTimeZonePOJO | Date | string) {
-    if (typeof pojo === "string") {
+    if (typeof pojo === 'string') {
       pojo = parse(pojo);
-    }
-    else if (pojo instanceof Date) {
+    } else if (pojo instanceof Date) {
       pojo = {
         value: pojo.toISOString().slice(0, 23),
-        timeZone: "UTC",
+        timeZone: 'UTC',
       };
     }
 
     const { value, timeZone } = pojo;
 
     this.value = value;
-    this.timeZone = timeZone || "UTC";
+    this.timeZone = timeZone || 'UTC';
 
-    if (this.timeZone.startsWith("+") || this.timeZone.startsWith("-")) {
+    if (this.timeZone.startsWith('+') || this.timeZone.startsWith('-')) {
       // The timeZone is already a UTC offset
       this.offset = timeZone;
-    }
-    else {
+    } else {
       // Get the UTC offset for this date/time and time zone
-      this.offset = moment.tz(value, timeZone).format("Z");
+      this.offset = moment.tz(value, timeZone).format('Z');
     }
 
     // Make this object immutable
@@ -82,15 +83,14 @@ export class DateTimeZone implements IDateTimeZone {
   }
 }
 
-
 /**
  * Parses an ISO 8601 date/time string with a time zone
  */
 function parse(isoDateTime: string): DateTimeZonePOJO {
   // eslint-disable-next-line prefer-const
   let [, value, timeZone] = regex.isoDateTime.exec(isoDateTime)!;
-  if (timeZone === "Z") {
-    timeZone = "UTC";
+  if (timeZone === 'Z') {
+    timeZone = 'UTC';
   }
   return { value, timeZone };
 }

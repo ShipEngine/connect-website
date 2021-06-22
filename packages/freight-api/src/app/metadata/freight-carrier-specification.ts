@@ -1,8 +1,8 @@
-import { AccessorialServiceGroupSpecification } from "./accessorial-service-group-specification";
-import { ContainerTypeSpecification } from "./container-type-specification";
-import { FreightProviderAccountType } from "./freight-provider-account-type";
-import { AccountConnectionSpecification } from "./account-connection-specification";
-import { ServiceLevelSpecification } from "./service-level-specification";
+import { AccessorialServiceGroupSpecification } from './accessorial-service-group-specification';
+import { ContainerTypeSpecification } from './container-type-specification';
+import { FreightProviderAccountType } from './freight-provider-account-type';
+import { AccountConnectionSpecification } from './account-connection-specification';
+import { ServiceLevelSpecification } from './service-level-specification';
 
 export interface FreightCarrierSpecification {
   Id: string;

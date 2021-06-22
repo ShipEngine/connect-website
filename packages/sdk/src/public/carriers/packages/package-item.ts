@@ -1,7 +1,9 @@
-import type { Identifiers, MonetaryValue, Quantity } from "../../common";
-import type { SalesOrderIdentifier, SalesOrderItemIdentifier } from "../../orders";
-import type { ProductIdentifier } from "../../products";
-
+import type { Identifiers, MonetaryValue, Quantity } from '../../common';
+import type {
+  SalesOrderIdentifier,
+  SalesOrderItemIdentifier,
+} from '../../orders';
+import type { ProductIdentifier } from '../../products';
 
 /**
  * An item inside a package

@@ -1,4 +1,4 @@
-import type { Country } from "../country";
+import type { Country } from '../country';
 
 /**
  * A mailing address
@@ -12,7 +12,6 @@ export interface AddressPOJO {
   country: Country;
   isResidential?: boolean;
 }
-
 
 /**
  * A mailing address

@@ -1,15 +1,15 @@
-import { hideAndFreeze, _internal } from "../utils";
-import { Joi } from "../validation";
-import { OAuthTokenPropertiesDefinition } from "../../../public";
+import { hideAndFreeze, _internal } from '../utils';
+import { Joi } from '../validation';
+import { OAuthTokenPropertiesDefinition } from '../../../public';
 
 export class OAuthTokenProperties {
   public static readonly [_internal] = {
-    label: "oauth-token-properties",
+    label: 'oauth-token-properties',
     schema: Joi.object({
       accessTokenExpirationLength: Joi.number().min(1).optional(),
       refreshTokenExpirationLength: Joi.number().min(1).optional(),
       tokenExpirationLengthTimeUnit: Joi.string().optional(),
-    })
+    }),
   };
 
   public readonly accessTokenExpirationLength?: number;

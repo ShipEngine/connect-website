@@ -1,5 +1,5 @@
-import { Product } from "./product";
-import { Charge } from "./charge";
+import { Product } from './product';
+import { Charge } from './charge';
 
 /** @description An individual item in a sales order */
 export interface SalesOrderItem {

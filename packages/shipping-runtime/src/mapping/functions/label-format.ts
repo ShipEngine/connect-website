@@ -1,5 +1,5 @@
-import { DocumentFormat as LabelFormats } from "@shipengine/connect-carrier-api/lib/models";
-import { DocumentFormat } from "@shipengine/connect-sdk";
+import { DocumentFormat as LabelFormats } from '@shipengine/connect-carrier-api/lib/models';
+import { DocumentFormat } from '@shipengine/connect-sdk';
 
 export const mapLabelFormat = (format?: LabelFormats): DocumentFormat => {
   switch (format) {

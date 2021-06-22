@@ -1,6 +1,6 @@
-import { Document as DocumentPOJO, DocumentType } from "../../../public";
-import { Document } from "../../common/document";
-import { Label } from "./label";
+import { Document as DocumentPOJO, DocumentType } from '../../../public';
+import { Document } from '../../common/document';
+import { Label } from './label';
 
 /**
  * A factory function that instantiates the correct document class based implements Ibased on the document type.
@@ -8,12 +8,10 @@ import { Label } from "./label";
 export function createDocument(pojo: DocumentPOJO): Document {
   if (pojo.type === DocumentType.Label) {
     return new Label(pojo);
-  }
-  else {
+  } else {
     return new Document(pojo);
   }
 }
-
 
 /**
  * Determines whether the given document is a label

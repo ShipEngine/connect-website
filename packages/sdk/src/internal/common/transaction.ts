@@ -1,8 +1,8 @@
-import { Transaction as ITransaction, UUID } from "../../public";
-import { hideAndFreeze, _internal } from "./utils";
-import { Joi } from "./validation";
+import { Transaction as ITransaction, UUID } from '../../public';
+import { hideAndFreeze, _internal } from './utils';
+import { Joi } from './validation';
 
-const _private = Symbol("private fields");
+const _private = Symbol('private fields');
 
 export type SessionPOJO<T extends object = object> = T & {
   readonly auth?: {
@@ -10,8 +10,8 @@ export type SessionPOJO<T extends object = object> = T & {
     readonly password?: string;
     readonly accessToken?: string;
     readonly apiKey?: string;
-  }
-}
+  };
+};
 
 export interface TransactionPOJO<T extends object = object> {
   id: UUID;
@@ -21,7 +21,7 @@ export interface TransactionPOJO<T extends object = object> {
 
 export class Transaction<T extends object = object> implements ITransaction {
   public static readonly [_internal] = {
-    label: "transaction",
+    label: 'transaction',
     schema: Joi.object({
       id: Joi.string().uuid().required(),
       language: Joi.string().optional(),
@@ -46,13 +46,14 @@ export class Transaction<T extends object = object> implements ITransaction {
     }
 
     const session = this[_private].session as Record<string, unknown>;
-    const keys = Object.getOwnPropertyNames(session).concat(Object.getOwnPropertyNames(value));
+    const keys = Object.getOwnPropertyNames(session).concat(
+      Object.getOwnPropertyNames(value),
+    );
 
     for (const key of keys) {
       if (key in value) {
         session[key] = (value as Record<string, unknown>)[key];
-      }
-      else {
+      } else {
         // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
         delete session[key];
       }
@@ -63,16 +64,19 @@ export class Transaction<T extends object = object> implements ITransaction {
     this.id = pojo.id;
     this.language = pojo.language;
     this[_private] = {
-      session: pojo.session || {} as unknown as T,
+      session: pojo.session || ({} as unknown as T),
     };
 
     // Make the session getter/setter look like a normal property
-    Object.defineProperty(this, "session", {
-      ...Object.getOwnPropertyDescriptor(Object.getPrototypeOf(this), "session"),
+    Object.defineProperty(this, 'session', {
+      ...Object.getOwnPropertyDescriptor(
+        Object.getPrototypeOf(this),
+        'session',
+      ),
       enumerable: true,
     });
 
     // Make this object immutable (except for the session property)
-    hideAndFreeze(this, "session");
+    hideAndFreeze(this, 'session');
   }
 }

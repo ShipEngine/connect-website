@@ -3,7 +3,7 @@ export class EndpointNotSupportedError extends Error {
   body: string;
   constructor(endpointName: string) {
     super();
-    this.name = "EndpointNotSupported";
+    this.name = 'EndpointNotSupported';
     this.message = this.body = `${endpointName} is not supported by this app.`;
   }
 }

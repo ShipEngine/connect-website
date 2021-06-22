@@ -1,6 +1,6 @@
 import ono from '@jsdevtools/ono';
-import ShipengineAPIClient, { ApiClientErrors } from "..";
-import { ConnectApp, PaginatedItems } from "../../types";
+import ShipengineAPIClient, { ApiClientErrors } from '..';
+import { ConnectApp, PaginatedItems } from '../../types';
 import { DeploymentType } from '@shipengine/connect-sdk/lib/internal';
 
 export default class Apps {
@@ -24,8 +24,8 @@ export default class Apps {
     type: DeploymentType;
   }): Promise<ConnectApp> {
     const response = await this.client.call<ConnectApp>({
-      endpoint: "apps",
-      method: "POST",
+      endpoint: 'apps',
+      method: 'POST',
       body: { appId, name, type },
     });
 
@@ -51,7 +51,7 @@ export default class Apps {
       app = await this.getByName(name);
       return app;
     } catch (error) {
-      const code = Reflect.get(error, "code") as string | undefined;
+      const code = Reflect.get(error, 'code') as string | undefined;
 
       if (code === ApiClientErrors.NotFound) {
         app = await this.create({
@@ -71,8 +71,8 @@ export default class Apps {
    */
   async getAll(): Promise<PaginatedItems<ConnectApp>> {
     const response = await this.client.call<PaginatedItems<ConnectApp>>({
-      endpoint: "apps",
-      method: "GET",
+      endpoint: 'apps',
+      method: 'GET',
     });
 
     return response;
@@ -85,7 +85,7 @@ export default class Apps {
   async getById(id: string): Promise<ConnectApp> {
     const response = await this.client.call<ConnectApp>({
       endpoint: `apps/${id}`,
-      method: "GET",
+      method: 'GET',
     });
 
     return response;
@@ -98,14 +98,17 @@ export default class Apps {
   async getByName(name: string): Promise<ConnectApp> {
     const response = await this.client.call<PaginatedItems<ConnectApp>>({
       endpoint: `apps?name=${encodeURI(name)}`,
-      method: "GET",
+      method: 'GET',
     });
 
     if (response.items[0]) {
       return response.items[0];
     }
 
-    throw ono({ code: ApiClientErrors.NotFound }, "The record could not be found");
+    throw ono(
+      { code: ApiClientErrors.NotFound },
+      'The record could not be found',
+    );
   }
 
   /**
@@ -114,7 +117,7 @@ export default class Apps {
    * @param appId The appId found in the manifest of the package.json file
    */
   async getByIdOrName(name: string, appId?: string): Promise<ConnectApp> {
-    if(appId) {
+    if (appId) {
       return this.getById(appId);
     }
     return this.getByName(name);

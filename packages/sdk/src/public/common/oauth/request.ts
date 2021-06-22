@@ -1,6 +1,6 @@
 import type { OAuthParameterDefinition } from './parameter';
 
-export type OAuthRequestMethods = "GET" | "POST" | "PUT";
+export type OAuthRequestMethods = 'GET' | 'POST' | 'PUT';
 
 export interface OAuthRequestDefinition {
   method: OAuthRequestMethods;

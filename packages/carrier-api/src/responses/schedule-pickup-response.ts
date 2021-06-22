@@ -1,5 +1,5 @@
-import { BaseResponse } from "./base-response";
-import { PickupConfirmation, PickupWindow, BillingLineItem } from "../models";
+import { BaseResponse } from './base-response';
+import { PickupConfirmation, PickupWindow, BillingLineItem } from '../models';
 
 /** @description Basic structure for a response to schedule a pickup */
 export interface SchedulePickupResponse extends BaseResponse {

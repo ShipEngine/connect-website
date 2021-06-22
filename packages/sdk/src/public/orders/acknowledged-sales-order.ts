@@ -1,7 +1,6 @@
-import { SalesOrderIdentifierPOJO } from "./sales-order-identifier";
+import { SalesOrderIdentifierPOJO } from './sales-order-identifier';
 
 export interface AcknowledgedSalesOrder extends SalesOrderIdentifierPOJO {
-
   /**
    * Indicate whether the sales order's import was successfully processed.
    */

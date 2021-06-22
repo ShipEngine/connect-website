@@ -1,4 +1,4 @@
-import { BaseRequest } from "./base-request";
+import { BaseRequest } from './base-request';
 import {
   AdvancedOptions,
   ConfirmationTypes,
@@ -13,7 +13,7 @@ import {
   ShipFromDisplay,
   ShipTo,
   Document,
-} from "../models";
+} from '../models';
 
 /** @description Basic structure for a request to create a label */
 export interface CreateLabelRequest extends BaseRequest {

@@ -1,4 +1,4 @@
-import { OrderSourceAppDefinition } from ".";
+import { OrderSourceAppDefinition } from '.';
 import {
   ConnectRuntimeApp,
   BrandedImages,
@@ -6,9 +6,9 @@ import {
   Method,
   OrderSourceProviderSpecification,
   Route,
-} from "./internal";
-import { resolve } from "path";
-import { readFileSync } from "fs";
+} from './internal';
+import { resolve } from 'path';
+import { readFileSync } from 'fs';
 
 const handleRequest = (implementation?: Function): any => {
   if (implementation) {
@@ -25,26 +25,26 @@ export class OrderSourceApp implements ConnectRuntimeApp {
   constructor(definition: OrderSourceAppDefinition) {
     this.routes.push({
       method: Method.POST,
-      path: "/acknowledge_orders",
+      path: '/acknowledge_orders',
       handler: handleRequest(definition.AcknowledgeOrders),
     });
     this.routes.push({
       method: Method.POST,
-      path: "/sales_orders_export",
+      path: '/sales_orders_export',
       handler: handleRequest(definition.SalesOrdersExport),
     });
     this.routes.push({
       method: Method.POST,
-      path: "/shipment_notification",
+      path: '/shipment_notification',
       handler: handleRequest(definition.ShipmentNotification),
     });
     this.routes.push({
       method: Method.POST,
-      path: "/get_products",
+      path: '/get_products',
       handler: handleRequest(definition.GetProducts),
     });
     this.data = new Metadata(definition);
-    this.redoc = readFileSync(resolve(__dirname, "../../spec.yaml")).toString();
+    this.redoc = readFileSync(resolve(__dirname, '../../spec.yaml')).toString();
   }
   getImages(): BrandedImages[] {
     return this.data.OrderSources.map((ordersource) => {

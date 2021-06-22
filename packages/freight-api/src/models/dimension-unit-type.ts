@@ -1,4 +1,4 @@
 export enum DimensionUnitType {
-  inches = "inches",
-  centimeters = "centimeters",
+  inches = 'inches',
+  centimeters = 'centimeters',
 }

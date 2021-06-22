@@ -28,7 +28,8 @@
     "bump": "yarn version:bump",
     "clean": "yarn build:clean",
     "coverage": "yarn test:coverage",
-    "lint": "eslint src test",
+    "format": "prettier --single-quote --trailing-comma=all --write \"src/**/*.ts\"",
+    "lint": "prettier --single-quote --trailing-comma=all --check \"src/**/*.ts\"",
     "release": "yarn version:release",
     "test": "mocha && yarn lint",
     "watch": "yarn build:watch"
@@ -49,11 +50,11 @@
     "@typescript-eslint/parser": "^4.7.0",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
-    "eslint": "^7.13.0",
     "json-schema": "^0.2.5",
     "mocha": "^8.2.1",
     "npm-check": "^5.9.0",
     "nyc": "^15.1.0",
+    "prettier": "^2.3.1",
     "shx": "^0.3.3",
     "typescript": "^4.0.5"
   },

@@ -1,9 +1,19 @@
-import { DeliveryConfirmationType, ShippingPreferences as ShippingPreferencesPOJO } from "../../public";
-import { Document, DateTimeZone, hideAndFreeze, Joi, MonetaryValue, _internal } from "../common";
+import {
+  DeliveryConfirmationType,
+  ShippingPreferences as ShippingPreferencesPOJO,
+} from '../../public';
+import {
+  Document,
+  DateTimeZone,
+  hideAndFreeze,
+  Joi,
+  MonetaryValue,
+  _internal,
+} from '../common';
 
 export class ShippingPreferences {
   public static readonly [_internal] = {
-    label: "shipping preferences",
+    label: 'shipping preferences',
     schema: Joi.object({
       deliveryConfirmationType: Joi.string().enum(DeliveryConfirmationType),
       containsAlcohol: Joi.boolean(),
@@ -15,7 +25,7 @@ export class ShippingPreferences {
       shipByDate: DateTimeZone[_internal].schema,
       isPremiumProgram: Joi.boolean(),
       premiumProgramName: Joi.string(),
-      requestedWarehouse: Joi.string().optional().allow(""),
+      requestedWarehouse: Joi.string().optional().allow(''),
     }),
   };
 
@@ -37,15 +47,20 @@ export class ShippingPreferences {
     this.containsAlcohol = pojo.containsAlcohol || false;
     this.saturdayDelivery = pojo.saturdayDelivery || false;
     this.isGift = pojo.isGift || false;
-    this.insuredValue = pojo.insuredValue && new MonetaryValue(pojo.insuredValue);
-    this.requestedShippingService = pojo.requestedShippingService || "";
-    this.deliverByDate = pojo.deliverByDate ? new DateTimeZone(pojo.deliverByDate) : undefined;
-    this.shipByDate = pojo.shipByDate ? new DateTimeZone(pojo.shipByDate) : undefined;
+    this.insuredValue =
+      pojo.insuredValue && new MonetaryValue(pojo.insuredValue);
+    this.requestedShippingService = pojo.requestedShippingService || '';
+    this.deliverByDate = pojo.deliverByDate
+      ? new DateTimeZone(pojo.deliverByDate)
+      : undefined;
+    this.shipByDate = pojo.shipByDate
+      ? new DateTimeZone(pojo.shipByDate)
+      : undefined;
     this.isPremiumProgram = pojo.isPremiumProgram || false;
-    this.premiumProgramName = pojo.premiumProgramName || "";
+    this.premiumProgramName = pojo.premiumProgramName || '';
     this.requestedWarehouse = pojo.requestedWarehouse;
-    this.documents = (pojo.documents || []).map(doc => new Document(doc));
-  
+    this.documents = (pojo.documents || []).map((doc) => new Document(doc));
+
     // Make this object immutable
     hideAndFreeze(this);
   }

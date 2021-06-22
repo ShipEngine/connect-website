@@ -1,5 +1,8 @@
-import { hideAndFreeze, Joi, _internal, DateTimeZone } from "../common";
-import { SalesOrderIdentifier, SalesOrderIdentifierBase } from "./sales-order-identifier";
+import { hideAndFreeze, Joi, _internal, DateTimeZone } from '../common';
+import {
+  SalesOrderIdentifier,
+  SalesOrderIdentifierBase,
+} from './sales-order-identifier';
 
 export interface SalesOrderNotificationPOJO extends SalesOrderIdentifier {
   orderNumber: string;
@@ -7,16 +10,16 @@ export interface SalesOrderNotificationPOJO extends SalesOrderIdentifier {
   importedDate: DateTimeZone | Date | string;
 }
 
-export class SalesOrderNotification extends SalesOrderIdentifierBase{
+export class SalesOrderNotification extends SalesOrderIdentifierBase {
   // TODO: Add better validation and unit tests
   public static readonly [_internal] = {
-    label: "sales order notification",
+    label: 'sales order notification',
     schema: SalesOrderIdentifier[_internal].schema.keys({
       orderNumber: Joi.string().required(),
-      importedDate: DateTimeZone[_internal].schema.required()
-    })
+      importedDate: DateTimeZone[_internal].schema.required(),
+    }),
   };
-  
+
   public readonly orderNumber: string;
   public readonly importedDate: DateTimeZone;
 

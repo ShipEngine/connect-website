@@ -1,4 +1,4 @@
-import type { PersonName, PersonNamePOJO } from "./person-name";
+import type { PersonName, PersonNamePOJO } from './person-name';
 
 /**
  * A person's contact information

@@ -1,12 +1,12 @@
-import { OrderApp } from "@shipengine/connect-sdk/lib/internal";
-import logger from "../util/logger";
-import * as fs from "fs";
-import { loadApp } from "@shipengine/connect-loader";
+import { OrderApp } from '@shipengine/connect-sdk/lib/internal';
+import logger from '../util/logger';
+import * as fs from 'fs';
+import { loadApp } from '@shipengine/connect-loader';
 
 const dxAppPath = process.env.DX_APP_PATH;
 
 if (!dxAppPath) {
-  logger.error("DX_APP_PATH was not set- no DX app to load!");
+  logger.error('DX_APP_PATH was not set- no DX app to load!');
   process.exit(1);
 }
 

@@ -1,24 +1,24 @@
-import { BaseError } from "./errors";
-import * as Sentry from "@sentry/node";
-import * as Tracing from "@sentry/tracing";
-import logger from "./util/logger";
-import { getRoutes } from "./routes";
-import { App } from "./app";
-import { serializeError } from "serialize-error";
+import { BaseError } from './errors';
+import * as Sentry from '@sentry/node';
+import * as Tracing from '@sentry/tracing';
+import logger from './util/logger';
+import { getRoutes } from './routes';
+import { App } from './app';
+import { serializeError } from 'serialize-error';
 
-process.on("uncaughtException", (err) => {
+process.on('uncaughtException', (err) => {
   logger.error(err.message, err);
 });
 
-process.on("unhandledRejection", (reason, promise) => {
-  logger.error("unhandled promise rejection", reason);
+process.on('unhandledRejection', (reason, promise) => {
+  logger.error('unhandled promise rejection', reason);
 });
 
 export enum Environment {
-  Local = "local",
-  Development = "development",
-  Stage = "staging",
-  Production = "production",
+  Local = 'local',
+  Development = 'development',
+  Stage = 'staging',
+  Production = 'production',
 }
 
 /**
@@ -42,24 +42,24 @@ export const captureException = (exception: any) => {
   if (process.env.SENTRY_DSN) {
     Sentry.captureException(exception);
   } else {
-    logger.debug("captureException did not create an alert");
+    logger.debug('captureException did not create an alert');
   }
 };
 
 const initializeEnvironmentVariables = (config?: ServerConfig) => {
   process.env.NODE_ENV = process.env.NODE_ENV || config?.environment || Environment.Local;
-  process.env.PORT = process.env.PORT || config?.port || "3005";
-  process.env.NEW_RELIC_NO_CONFIG_FILE = process.env.NEW_RELIC_NO_CONFIG_FILE || "true";
-  process.env.NEW_RELIC_APP_NAME = process.env.NEW_RELIC_APP_NAME || "custom-store-template";
+  process.env.PORT = process.env.PORT || config?.port || '3005';
+  process.env.NEW_RELIC_NO_CONFIG_FILE = process.env.NEW_RELIC_NO_CONFIG_FILE || 'true';
+  process.env.NEW_RELIC_APP_NAME = process.env.NEW_RELIC_APP_NAME || 'custom-store-template';
 
-  logger.info("Initializing Environment Variables");
-  logger.info("##################################################################");
+  logger.info('Initializing Environment Variables');
+  logger.info('##################################################################');
   logger.info(`NODE_ENV=${process.env.NODE_ENV}`);
   logger.info(`PORT=${process.env.PORT}`);
   logger.info(`SENTRY_DSN=${process.env.SENTRY_DSN}`);
   logger.info(`NEW_RELIC_NO_CONFIG_FILE=${process.env.NEW_RELIC_NO_CONFIG_FILE}`);
   logger.info(`NEW_RELIC_APP_NAME=${process.env.NEW_RELIC_APP_NAME}`);
-  logger.info("##################################################################");
+  logger.info('##################################################################');
 };
 /**
  * This method starts a server that can handle Order Source API Requests
@@ -67,8 +67,8 @@ const initializeEnvironmentVariables = (config?: ServerConfig) => {
  */
 export const start = (app: App, config?: ServerConfig) => {
   initializeEnvironmentVariables(config);
-  require("newrelic");
-  const express = require("express");
+  require('newrelic');
+  const express = require('express');
   const server = express();
 
   if (process.env.SENTRY_DSN) {
@@ -88,9 +88,9 @@ export const start = (app: App, config?: ServerConfig) => {
     server.use(Sentry.Handlers.tracingHandler());
   }
 
-  const bodyParser = require("body-parser");
-  const middlewareLogging = require("./middleware/logging");
-  const errorHandler = require("./middleware/error-handling");
+  const bodyParser = require('body-parser');
+  const middlewareLogging = require('./middleware/logging');
+  const errorHandler = require('./middleware/error-handling');
   server.use(bodyParser.json());
   server.use(middlewareLogging.default);
   server.use(getRoutes(app));
@@ -101,7 +101,7 @@ export const start = (app: App, config?: ServerConfig) => {
           const handledError = error as BaseError;
           return handledError.isIntentional !== true;
         },
-      })
+      }),
     );
   }
   server.use(errorHandler.default);

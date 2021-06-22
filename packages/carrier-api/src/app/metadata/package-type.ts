@@ -6,11 +6,11 @@ export interface PackageType {
   Description?: string;
   Abbreviation?: string;
   PackageAttributes: PackageAttribute[];
-  RequiredToShip?: ("Weight" | "Dimensions")[];
+  RequiredToShip?: ('Weight' | 'Dimensions')[];
 }
 
 export enum PackageAttribute {
-  International = "International",
-  Domestic = "Domestic",
-  Consolidator = "Consolidator",
+  International = 'International',
+  Domestic = 'Domestic',
+  Consolidator = 'Consolidator',
 }

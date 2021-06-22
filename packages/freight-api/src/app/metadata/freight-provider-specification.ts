@@ -1,5 +1,5 @@
-import { Connector } from "./connector";
-import { FreightCarrierSpecification } from "./freight-carrier-specification";
+import { Connector } from './connector';
+import { FreightCarrierSpecification } from './freight-carrier-specification';
 
 export interface FreightProviderSpecification {
   Id: string;

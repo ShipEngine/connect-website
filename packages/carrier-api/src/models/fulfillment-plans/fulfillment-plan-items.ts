@@ -1,4 +1,4 @@
-import { Identifier } from "../identifier";
+import { Identifier } from '../identifier';
 
 /** @description Information about the fulfillment plan for a set of items */
 export interface FulfillmentPlanItems {

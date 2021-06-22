@@ -1,4 +1,4 @@
-import type { Document } from "../../common/document";
+import type { Document } from '../../common/document';
 
 /**
  * A shipping label

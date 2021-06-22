@@ -1,5 +1,5 @@
-import type { DimensionsPOJO, WeightPOJO } from "../../common";
-import type { PackagingIdentifierPOJO } from "../packaging";
+import type { DimensionsPOJO, WeightPOJO } from '../../common';
+import type { PackagingIdentifierPOJO } from '../packaging';
 
 /**
  * The actual package info, as determined by the carrier

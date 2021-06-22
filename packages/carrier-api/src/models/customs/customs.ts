@@ -1,7 +1,7 @@
-import { CustomsContentTypes } from "./customs-content-types";
-import { CustomsNonDelivery } from "./customs-non-delivery";
-import { CustomsItem } from "./customs-item";
-import { Currency } from "../currency";
+import { CustomsContentTypes } from './customs-content-types';
+import { CustomsNonDelivery } from './customs-non-delivery';
+import { CustomsItem } from './customs-item';
+import { Currency } from '../currency';
 
 /** @description Basic structure for a customs declaration. */
 export interface Customs {

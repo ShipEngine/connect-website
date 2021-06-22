@@ -1,10 +1,14 @@
-import { Dimensions as IDimensions, DimensionsPOJO, LengthUnit } from "../../../public";
-import { hideAndFreeze, _internal } from "../utils";
-import { Joi } from "../validation";
+import {
+  Dimensions as IDimensions,
+  DimensionsPOJO,
+  LengthUnit,
+} from '../../../public';
+import { hideAndFreeze, _internal } from '../utils';
+import { Joi } from '../validation';
 
 export class Dimensions implements IDimensions {
   public static readonly [_internal] = {
-    label: "dimensions",
+    label: 'dimensions',
     schema: Joi.object({
       length: Joi.number().min(0).optional(),
       width: Joi.number().min(0).optional(),
@@ -19,7 +23,6 @@ export class Dimensions implements IDimensions {
   public readonly unit: LengthUnit;
 
   public constructor(pojo: DimensionsPOJO) {
-
     this.length = pojo.length || 0;
     this.width = pojo.width || 0;
     this.height = pojo.height || 0;

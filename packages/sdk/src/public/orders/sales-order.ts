@@ -1,9 +1,15 @@
-import type { MonetaryValuePOJO, DateTimeZonePOJO, NotePOJO, URLString, Charge } from "../common";
-import type { Buyer } from "./buyer";
-import type { PaymentMethod, PaymentStatus, SalesOrderStatus } from "./enums";
-import { OriginalOrderSource } from "./original-order-source";
-import { RequestedFulfillmentPOJO } from "./requested-fulfillment";
-import type { SalesOrderIdentifierPOJO } from "./sales-order-identifier";
+import type {
+  MonetaryValuePOJO,
+  DateTimeZonePOJO,
+  NotePOJO,
+  URLString,
+  Charge,
+} from '../common';
+import type { Buyer } from './buyer';
+import type { PaymentMethod, PaymentStatus, SalesOrderStatus } from './enums';
+import { OriginalOrderSource } from './original-order-source';
+import { RequestedFulfillmentPOJO } from './requested-fulfillment';
+import type { SalesOrderIdentifierPOJO } from './sales-order-identifier';
 
 /**
  * A sales order
@@ -33,7 +39,7 @@ export interface SalesOrder extends SalesOrderIdentifierPOJO {
    * Indicates what the status of the customer payment for this order is.
    */
   paymentStatus?: PaymentStatus;
-  
+
   /**
    * The amount paid by the customer
    */
@@ -43,18 +49,17 @@ export interface SalesOrder extends SalesOrderIdentifierPOJO {
    * The URL of a webpage where the customer can view the order
    */
   orderURL?: URLString | URL;
-  
+
   /**
    * The buyer who bought the order. This is not necessarily the same person as the `shipTo`
    */
   buyer: Buyer;
-  
+
   /**
    * Any additional charges for this order that aren't tied to a line item.
    */
   charges?: Charge[];
-  
-  
+
   requestedFulfillments: Array<RequestedFulfillmentPOJO>;
 
   /**

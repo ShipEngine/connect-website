@@ -1,18 +1,18 @@
-import capitalization from "@shipengine/capitalization";
-import { AppType } from "@shipengine/connect-sdk";
-import * as fs from "fs";
-import _ from "lodash";
-import * as path from "path";
-import { v4 as uuidv4 } from "uuid";
-import { SdkAppTypes } from "../types";
-import Generator = require("yeoman-generator");
+import capitalization from '@shipengine/capitalization';
+import { AppType } from '@shipengine/connect-sdk';
+import * as fs from 'fs';
+import _ from 'lodash';
+import * as path from 'path';
+import { v4 as uuidv4 } from 'uuid';
+import { SdkAppTypes } from '../types';
+import Generator = require('yeoman-generator');
 
-const fixpack = require("@oclif/fixpack");
-const sortPjson = require("sort-pjson");
+const fixpack = require('@oclif/fixpack');
+const sortPjson = require('sort-pjson');
 
-const isWindows = process.platform === "win32";
+const isWindows = process.platform === 'win32';
 
-type DefinitionTypes = "pojo" | "json" | "yaml";
+type DefinitionTypes = 'pojo' | 'json' | 'yaml';
 
 class AppsNew extends Generator {
   appId: string;
@@ -69,29 +69,31 @@ class AppsNew extends Generator {
       engines: {},
       devDependencies: {},
       dependencies: {},
-      ...this.fs.readJSON("package.json", {}) as object,
+      ...(this.fs.readJSON('package.json', {}) as object),
     };
 
-    const scopePresentInName = (name = ""): boolean => {
+    const scopePresentInName = (name = ''): boolean => {
       return !!name.match(/^@[a-z0-9-*~][a-z0-9-*._~]*/);
     };
 
     const defaults = {
-      name: capitalization.kebabCase(this.determineAppname(), { prefix: "shipengine" }),
-      scope: "@your-company-name",
-      type: "carrier",
-      version: "1.0.0",
+      name: capitalization.kebabCase(this.determineAppname(), {
+        prefix: 'shipengine',
+      }),
+      scope: '@your-company-name',
+      type: 'carrier',
+      version: '1.0.0',
       author: this.githubUser
         ? `${this.user.git.name()} @${this.githubUser}`
         : this.user.git.name(),
       dependencies: {},
       ...this.pjson,
       engines: {
-        node: ">=12.8.0",
+        node: '>=12.8.0',
         ...this.pjson.engines,
       },
       typescript: false,
-      definitions: "yaml",
+      definitions: 'yaml',
       vscode: true,
     };
 
@@ -100,26 +102,27 @@ class AppsNew extends Generator {
     } else {
       this.answers = (await this.prompt([
         {
-          type: "input",
-          name: "name",
-          message: "npm package name",
+          type: 'input',
+          name: 'name',
+          message: 'npm package name',
           default: defaults.name,
           when: !this.pjson.name,
           validate: (value: string) => {
-            const re = /^(?:@[a-z0-9-*~][a-z0-9-*._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/;
+            const re =
+              /^(?:@[a-z0-9-*~][a-z0-9-*._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/;
             const pass = value.match(re);
 
             if (pass) {
               return true;
             }
 
-            return "please enter a valid npm package name";
+            return 'please enter a valid npm package name';
           },
         },
         {
-          type: "input",
-          name: "scope",
-          message: "npm package scope (e.g. @your-company-name)",
+          type: 'input',
+          name: 'scope',
+          message: 'npm package scope (e.g. @your-company-name)',
           when: (answers: Generator.Answers) => {
             return !scopePresentInName(answers.name);
           },
@@ -131,83 +134,83 @@ class AppsNew extends Generator {
               return true;
             }
 
-            return "please enter a valid npm scope (ex: @your-company-name)";
+            return 'please enter a valid npm scope (ex: @your-company-name)';
           },
         },
         {
-          type: "list",
-          name: "type",
-          message: "what type of app are you building",
+          type: 'list',
+          name: 'type',
+          message: 'what type of app are you building',
           choices: [
-            { name: "Carrier app ", value: "carrier" },
-            { name: "Order app", value: "order" },
+            { name: 'Carrier app ', value: 'carrier' },
+            { name: 'Order app', value: 'order' },
           ],
           default: defaults.type,
         },
         {
-          type: "input",
-          name: "description",
-          message: "description",
+          type: 'input',
+          name: 'description',
+          message: 'description',
           default: defaults.description,
           when: !this.pjson.description,
         },
         {
-          type: "input",
-          name: "author",
-          message: "author",
+          type: 'input',
+          name: 'author',
+          message: 'author',
           default: defaults.author,
           when: !this.pjson.author,
         },
         {
-          type: "input",
-          name: "version",
-          message: "version",
+          type: 'input',
+          name: 'version',
+          message: 'version',
           default: defaults.version,
           when: !this.pjson.version,
         },
         {
-          type: "list",
-          name: "typescript",
-          message: "which language would you like to use",
+          type: 'list',
+          name: 'typescript',
+          message: 'which language would you like to use',
           choices: [
             {
-              name: "JavaScript",
+              name: 'JavaScript',
               value: false,
             },
             {
-              name: "TypeScript",
+              name: 'TypeScript',
               value: true,
             },
           ],
           default: defaults.typescript,
         },
         {
-          type: "list",
-          name: "definitions",
-          message: "app definitions file type",
+          type: 'list',
+          name: 'definitions',
+          message: 'app definitions file type',
           choices: (answers: Generator.Answers) => [
             {
-              name: "YAML",
-              value: "yaml",
+              name: 'YAML',
+              value: 'yaml',
             },
             {
-              name: "JSON",
-              value: "json",
+              name: 'JSON',
+              value: 'json',
             },
             {
-              name: answers.typescript ? "TypeScript" : "JavaScript",
-              value: "pojo",
+              name: answers.typescript ? 'TypeScript' : 'JavaScript',
+              value: 'pojo',
             },
           ],
 
           default(answers: Generator.Answers) {
-            return answers.typescript ? "pojo" : defaults.definitions;
+            return answers.typescript ? 'pojo' : defaults.definitions;
           },
         },
         {
-          type: "confirm",
-          name: "vscode",
-          message: "are you using vscode",
+          type: 'confirm',
+          name: 'vscode',
+          message: 'are you using vscode',
           default: defaults.vscode,
         },
       ])) as any;
@@ -222,7 +225,7 @@ class AppsNew extends Generator {
     } else {
       this.pjson.name = `${this.answers.scope || defaults.scope}/${
         this.answers.name || defaults.name
-        }`;
+      }`;
     }
 
     this.pjson.description = this.answers.description || defaults.description;
@@ -231,74 +234,75 @@ class AppsNew extends Generator {
     this.pjson.author = this.answers.author || defaults.author;
 
     this.pjson.keywords = defaults.keywords || [
-      "ShipEngine",
+      'ShipEngine',
       `${this.type} app`,
     ];
 
     this.pjson.main = this.pJsonMain();
     this.pjson.scripts = {
-      start: "connect start",
-      test: "connect test"
-    }
+      start: 'connect start',
+      test: 'connect test',
+    };
 
     if (this.ts) {
-      this.pjson.scripts.build = "tsc";
-      this.pjson.scripts.watch = "tsc --watch";
-      this.pjson.scripts.postbuild = "copyfiles -u 1 \"src/**/!(*.ts)\" lib";
-      this.pjson.main = `lib/index.${this._definitionExt === "ts" ? "js" : this._definitionExt}`;
+      this.pjson.scripts.build = 'tsc';
+      this.pjson.scripts.watch = 'tsc --watch';
+      this.pjson.scripts.postbuild = 'copyfiles -u 1 "src/**/!(*.ts)" lib';
+      this.pjson.main = `lib/index.${
+        this._definitionExt === 'ts' ? 'js' : this._definitionExt
+      }`;
     }
     this.pjson.appId = this.appId;
   }
 
   writing() {
-    this.sourceRoot(path.join(__dirname, "../../../templates"));
+    this.sourceRoot(path.join(__dirname, '../../../templates'));
 
     if (this.answers.vscode) {
       this.fs.copyTpl(
-        this.templatePath("vscode/launch.json"),
-        this.destinationPath(".vscode/launch.json"),
+        this.templatePath('vscode/launch.json'),
+        this.destinationPath('.vscode/launch.json'),
         this,
       );
     }
 
-    if (this.fs.exists(this.destinationPath("./package.json"))) {
+    if (this.fs.exists(this.destinationPath('./package.json'))) {
       fixpack(
-        this.destinationPath("./package.json"),
-        require("@oclif/fixpack/config.json"),
+        this.destinationPath('./package.json'),
+        require('@oclif/fixpack/config.json'),
       );
     }
 
     this.fs.writeJSON(
-      this.destinationPath("./package.json"),
+      this.destinationPath('./package.json'),
       sortPjson(this.pjson),
     );
 
     this.fs.copyTpl(
-      this.templatePath("README.md.ejs"),
-      this.destinationPath("README.md"),
+      this.templatePath('README.md.ejs'),
+      this.destinationPath('README.md'),
       this,
     );
 
-    if(this.ts) {
+    if (this.ts) {
       this.fs.copyTpl(
-        this.templatePath(".npmignore-ts"),
-        this.destinationPath(".npmignore"),
+        this.templatePath('.npmignore-ts'),
+        this.destinationPath('.npmignore'),
         this,
       );
-    }
-    else {
+    } else {
       this.fs.copyTpl(
-        this.templatePath(".npmignore-js"),
-        this.destinationPath(".npmignore"),
+        this.templatePath('.npmignore-js'),
+        this.destinationPath('.npmignore'),
         this,
       );
     }
 
-    this.fs.write(this.destinationPath(".gitignore"), this._gitignore());
+    this.fs.write(this.destinationPath('.gitignore'), this._gitignore());
 
     switch (this.type) {
       case AppType.Carrier:
-        if (!fs.existsSync("src")) {
+        if (!fs.existsSync('src')) {
           this.fs.copyTpl(
             this.templatePath(`carrier/index.${this._definitionExt}`),
             this.destinationPath(`src/index.${this._definitionExt}`),
@@ -422,8 +426,8 @@ class AppsNew extends Generator {
           );
 
           this.fs.copyTpl(
-            this.templatePath("logo.svg"),
-            this.destinationPath("src/logo.svg"),
+            this.templatePath('logo.svg'),
+            this.destinationPath('src/logo.svg'),
             this,
           );
 
@@ -436,14 +440,14 @@ class AppsNew extends Generator {
 
             this.fs.copyTpl(
               this.templatePath(`tsconfig.json`),
-              this.destinationPath("tsconfig.json"),
+              this.destinationPath('tsconfig.json'),
               this,
             );
           }
         }
         break;
       case AppType.Order:
-        if (!fs.existsSync("src")) {
+        if (!fs.existsSync('src')) {
           this.fs.copyTpl(
             this.templatePath(`order-source/index.${this._definitionExt}`),
             this.destinationPath(`src/index.${this._definitionExt}`),
@@ -515,13 +519,13 @@ class AppsNew extends Generator {
     const dependencies: string[] = [];
     const devDependencies: string[] = [];
 
-    devDependencies.push("@shipengine/connect-sdk");
-    devDependencies.push("@types/node@^13.13.5");
-    devDependencies.push("typescript");
-    devDependencies.push("copyfiles");
+    devDependencies.push('@shipengine/connect-sdk');
+    devDependencies.push('@types/node@^13.13.5');
+    devDependencies.push('typescript');
+    devDependencies.push('copyfiles');
 
     await this.npmInstall(devDependencies, {
-      "save-dev": true,
+      'save-dev': true,
       ignoreScripts: true,
     });
 
@@ -533,14 +537,14 @@ class AppsNew extends Generator {
   }
 
   get _definitionExt() {
-    if (this.definitions === "pojo") {
-      return this.ts ? "ts" : "js";
+    if (this.definitions === 'pojo') {
+      return this.ts ? 'ts' : 'js';
     }
     return this.definitions;
   }
 
   get _codeExt() {
-    return this.ts ? "ts" : "js";
+    return this.ts ? 'ts' : 'js';
   }
 
   get _uuidv4() {
@@ -548,7 +552,7 @@ class AppsNew extends Generator {
   }
 
   get _appName() {
-    const name = this.pjson.name.replace("@", "").replace("/", " ");
+    const name = this.pjson.name.replace('@', '').replace('/', ' ');
     return capitalization.titleCase(name);
   }
 
@@ -557,30 +561,30 @@ class AppsNew extends Generator {
   }
 
   private _gitignore(): string {
-    const existing = this.fs.exists(this.destinationPath(".gitignore"))
-      ? this.fs.read(this.destinationPath(".gitignore")).split("\n")
+    const existing = this.fs.exists(this.destinationPath('.gitignore'))
+      ? this.fs.read(this.destinationPath('.gitignore')).split('\n')
       : [];
     return (
       _([
-        "*-debug.log",
-        "*-error.log",
-        "node_modules",
-        "/tmp",
-        "/dist",
-        "/.nyc_output",
-        ".env.test",
+        '*-debug.log',
+        '*-error.log',
+        'node_modules',
+        '/tmp',
+        '/dist',
+        '/.nyc_output',
+        '.env.test',
       ])
         .concat(existing)
         .compact()
         .uniq()
         .sort()
-        .join("\n") + "\n"
+        .join('\n') + '\n'
     );
   }
 
   private pJsonMain() {
-    if (this.definitions === "pojo") {
-      return this.ts ? "src/index.ts" : "src/index.js";
+    if (this.definitions === 'pojo') {
+      return this.ts ? 'src/index.ts' : 'src/index.js';
     }
     return `src/index.${this.definitions}`;
   }

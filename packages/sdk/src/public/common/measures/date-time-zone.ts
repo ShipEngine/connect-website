@@ -15,7 +15,6 @@ export interface DateTimeZonePOJO {
   timeZone: string;
 }
 
-
 /**
  * A date/time in a specific time zone
  */

@@ -2,7 +2,7 @@ import {
   AddressBase,
   AddressResidentialIndicator,
   PudoLocation,
-} from "@shipengine/connect-carrier-api/lib/models";
+} from '@shipengine/connect-carrier-api/lib/models';
 import {
   AddressPOJO,
   AddressWithContactInfoPOJO,
@@ -10,14 +10,14 @@ import {
   PickupLocationPOJO,
   Country,
   PersonNamePOJO,
-} from "@shipengine/connect-sdk";
+} from '@shipengine/connect-sdk';
 
 export const excludeNullsFromAddressLines = (
-  addressLines: (string | null)[] | null | undefined
+  addressLines: (string | null)[] | null | undefined,
 ): string[] => {
   const cleanedAddress: string[] = [];
   addressLines?.forEach((line) => {
-    if (line !== null && line !== "") {
+    if (line !== null && line !== '') {
       cleanedAddress.push(line);
     }
   });
@@ -25,7 +25,7 @@ export const excludeNullsFromAddressLines = (
 };
 
 export const convertResidentialIndicatorToBoolean = (
-  residentialIndicator: AddressResidentialIndicator | null | undefined
+  residentialIndicator: AddressResidentialIndicator | null | undefined,
 ): boolean | undefined => {
   if (!residentialIndicator) {
     return undefined;
@@ -36,117 +36,117 @@ export const convertResidentialIndicatorToBoolean = (
   return residentialIndicator === AddressResidentialIndicator.Yes;
 };
 
-const emptyDxPersonName: PersonNamePOJO = { given: "" };
+const emptyDxPersonName: PersonNamePOJO = { given: '' };
 
 const emptyDxAddressWithContact: AddressWithContactInfoPOJO = {
   addressLines: [],
-  cityLocality: "",
-  stateProvince: "",
+  cityLocality: '',
+  stateProvince: '',
   country: Country.UnitedStates,
-  postalCode: "",
-  email: "",
-  phoneNumber: "",
+  postalCode: '',
+  email: '',
+  phoneNumber: '',
   name: emptyDxPersonName,
   isResidential: undefined,
-  company: "",
+  company: '',
 };
 const emptyDxAddress: AddressPOJO = {
   addressLines: [],
-  cityLocality: "",
-  stateProvince: "",
+  cityLocality: '',
+  stateProvince: '',
   country: Country.UnitedStates,
-  postalCode: "",
+  postalCode: '',
   isResidential: undefined,
-  company: "",
+  company: '',
 };
 
 const emptyDxPickupLocation: PickupLocationPOJO = {
-  carrierId: "",
-  relayId: "",
+  carrierId: '',
+  relayId: '',
 };
 
 const emptyDxAddressWithContactAndPickup: AddressWithContactInfoAndPickupLocationPOJO = {
   addressLines: [],
-  cityLocality: "",
-  stateProvince: "",
+  cityLocality: '',
+  stateProvince: '',
   country: Country.UnitedStates,
-  postalCode: "",
-  email: "",
-  phoneNumber: "",
+  postalCode: '',
+  email: '',
+  phoneNumber: '',
   name: emptyDxPersonName,
   isResidential: undefined,
-  company: "",
+  company: '',
   pickupLocation: emptyDxPickupLocation,
 };
 
 export const mapAddressWithContact = (
-  address: AddressBase | null | undefined
+  address: AddressBase | null | undefined,
 ): AddressWithContactInfoPOJO => {
   if (!address) {
     return emptyDxAddressWithContact;
   }
   const dxAddress: AddressWithContactInfoPOJO = {
     addressLines: excludeNullsFromAddressLines(address.address_lines),
-    cityLocality: address.city_locality || "",
-    stateProvince: address.state_province || "",
+    cityLocality: address.city_locality || '',
+    stateProvince: address.state_province || '',
     country: address.country_code as Country,
     postalCode: address.postal_code,
-    email: address.email || "",
-    phoneNumber: address.phone_number || "",
-    name: address.name || "",
+    email: address.email || '',
+    phoneNumber: address.phone_number || '',
+    name: address.name || '',
     isResidential: convertResidentialIndicatorToBoolean(
-      address.address_residential_indicator
+      address.address_residential_indicator,
     ),
-    company: address.company_name || "",
+    company: address.company_name || '',
   };
 
   return dxAddress;
 };
 
 export const mapAddress = (
-  address: AddressBase | null | undefined
+  address: AddressBase | null | undefined,
 ): AddressPOJO => {
   if (!address) {
     return emptyDxAddress;
   }
   return {
     addressLines: excludeNullsFromAddressLines(address.address_lines),
-    cityLocality: address.city_locality || "",
-    stateProvince: address.state_province || "",
+    cityLocality: address.city_locality || '',
+    stateProvince: address.state_province || '',
     country: address.country_code as Country,
     postalCode: address.postal_code,
     isResidential: convertResidentialIndicatorToBoolean(
-      address.address_residential_indicator
+      address.address_residential_indicator,
     ),
-    company: address.company_name || "",
+    company: address.company_name || '',
   };
 };
 
 export const mapAddressWithContactAndPickup = (
-  address: PudoLocation | null | undefined
+  address: PudoLocation | null | undefined,
 ): AddressWithContactInfoAndPickupLocationPOJO => {
   if (!address) {
     return emptyDxAddressWithContactAndPickup;
   }
 
   const dxPickup: PickupLocationPOJO = {
-    carrierId: address.carrier_code || "",
-    relayId: address.location_id || "",
+    carrierId: address.carrier_code || '',
+    relayId: address.location_id || '',
   };
 
   const dxAddress: AddressWithContactInfoAndPickupLocationPOJO = {
     addressLines: excludeNullsFromAddressLines(address.address_lines),
-    cityLocality: address.city_locality || "",
-    stateProvince: address.state_province || "",
+    cityLocality: address.city_locality || '',
+    stateProvince: address.state_province || '',
     country: address.country_code as Country,
     postalCode: address.postal_code,
-    email: address.email || "",
-    phoneNumber: address.phone_number || "",
-    name: address.name || "",
+    email: address.email || '',
+    phoneNumber: address.phone_number || '',
+    name: address.name || '',
     isResidential: convertResidentialIndicatorToBoolean(
-      address.address_residential_indicator
+      address.address_residential_indicator,
     ),
-    company: address.company_name || "",
+    company: address.company_name || '',
     pickupLocation: dxPickup,
   };
 

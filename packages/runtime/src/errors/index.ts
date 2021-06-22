@@ -1,8 +1,8 @@
 export enum ErrorCode {
-  Generic = "generic",
-  Serialization = "serialization",
-  Validation = "validation",
-  ExternalClientError = "external_client_error",
+  Generic = 'generic',
+  Serialization = 'serialization',
+  Validation = 'validation',
+  ExternalClientError = 'external_client_error',
 }
 
 export const enum HttpStatusCode {
@@ -15,11 +15,11 @@ export const enum HttpStatusCode {
 }
 
 export const enum StandardizedErrorCode {
-  Generic = "generic",
-  Validation = "validation",
-  Unauthorized = "external_unauthorized_error",
-  ExternalServerError = "external_server_error",
-  ExternalClientError = "external_client_error",
+  Generic = 'generic',
+  Validation = 'validation',
+  Unauthorized = 'external_unauthorized_error',
+  ExternalServerError = 'external_server_error',
+  ExternalClientError = 'external_client_error',
 }
 
 export interface ErrorDetail {
@@ -49,7 +49,7 @@ export class BaseError extends Error {
 /** @description This error is used to describe an endpoint that has not yet been implemented */
 export class NotImplementedError extends BaseError {
   constructor() {
-    super(HttpStatusCode.NotFound, "This endpoint is not implemented");
+    super(HttpStatusCode.NotFound, 'This endpoint is not implemented');
   }
 }
 

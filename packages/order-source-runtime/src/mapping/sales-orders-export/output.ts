@@ -1,8 +1,8 @@
-import { Output } from "@shipengine/connect-sdk/lib/internal";
-import { RequestedFulfillmentExtensions as OutputRequestedFulfillmentExtensions } from "@shipengine/connect-sdk/lib/public/orders/requested-fulfillment";
-import { mapAddress, mapName, ignoreEmpty } from "../output";
-import * as api from "@shipengine/connect-order-source-api";
-import logger from "../../util/logger";
+import { Output } from '@shipengine/connect-sdk/lib/internal';
+import { RequestedFulfillmentExtensions as OutputRequestedFulfillmentExtensions } from '@shipengine/connect-sdk/lib/public/orders/requested-fulfillment';
+import { mapAddress, mapName, ignoreEmpty } from '../output';
+import * as api from '@shipengine/connect-order-source-api';
+import logger from '../../util/logger';
 
 // TODO I can't find the internal export for these
 import {
@@ -13,10 +13,10 @@ import {
   DocumentFormat,
   LengthUnit,
   WeightUnit,
-} from "@shipengine/connect-sdk";
+} from '@shipengine/connect-sdk';
 
 export function mapProductDetails(
-  identifiers?: Output.Identifiers
+  identifiers?: Output.Identifiers,
 ): api.ProductDetail[] | undefined {
   if (!identifiers) {
     return undefined;
@@ -124,12 +124,12 @@ export function mapDocument(doc: Output.Document): api.Document {
   return {
     type,
     format,
-    data: doc.data.toString("base64"),
+    data: doc.data.toString('base64'),
   };
 }
 
 export function mapShippingPreferences(
-  pref: Output.ShippingPreferences | undefined
+  pref: Output.ShippingPreferences | undefined,
 ): api.ShippingPreferences | undefined {
   if (!pref) {
     return;
@@ -150,7 +150,7 @@ export function mapShippingPreferences(
 }
 
 export function mapFulfillmentExtensions(
-  extensions: OutputRequestedFulfillmentExtensions | undefined
+  extensions: OutputRequestedFulfillmentExtensions | undefined,
 ): api.RequestedFulfillmentExtensions {
   return {
     custom_field_1: extensions?.customField1,
@@ -160,7 +160,7 @@ export function mapFulfillmentExtensions(
 }
 
 export function mapRequestedFulfillment(
-  fill: Output.RequestedFulfillment
+  fill: Output.RequestedFulfillment,
 ): api.RequestedFulfillment {
   return {
     ship_to: mapAddress(fill.shipTo)!,
@@ -189,7 +189,7 @@ export function mapBillTo(buyer: Output.Buyer): api.BillTo | undefined {
 
   let residential_indicator: string | undefined;
   if (buyer.address.isResidential !== undefined) {
-    residential_indicator = buyer.address.isResidential ? "R" : "C";
+    residential_indicator = buyer.address.isResidential ? 'R' : 'C';
   }
 
   return {
@@ -320,7 +320,7 @@ export function getSingleCurrency(order: Output.SalesOrder): string {
 }
 
 export function mapSalesOrder(order: Output.SalesOrder): api.SalesOrder {
-  logger.debug("Mapping order", order);
+  logger.debug('Mapping order', order);
 
   return {
     order_id: order.id,

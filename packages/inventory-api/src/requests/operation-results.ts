@@ -1,4 +1,4 @@
-import { AuthenticatedRequest } from ".";
+import { AuthenticatedRequest } from '.';
 
 /**
  * Clients can check the status of long-running Inventory operations,

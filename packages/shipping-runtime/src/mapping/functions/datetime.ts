@@ -1,4 +1,4 @@
-import { DateTimeZone } from "@shipengine/connect-sdk";
+import { DateTimeZone } from '@shipengine/connect-sdk';
 
 export const mapDateTime = (date?: DateTimeZone): string | undefined => {
   if (!date) {
@@ -12,8 +12,8 @@ export const mapDateTime = (date?: DateTimeZone): string | undefined => {
       dt.getUTCDate(),
       dt.getUTCHours(),
       dt.getUTCMinutes(),
-      dt.getUTCSeconds()
-    )
+      dt.getUTCSeconds(),
+    ),
   );
   return utcDate.toISOString();
 };

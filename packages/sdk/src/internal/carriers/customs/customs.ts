@@ -1,10 +1,14 @@
-import { CustomsPOJO, Customs as ICustoms, NonDeliveryOption } from "../../../public";
-import { hideAndFreeze, Joi, MonetaryValue, _internal } from "../../common";
-import { CustomsItem } from "./customs-item";
+import {
+  CustomsPOJO,
+  Customs as ICustoms,
+  NonDeliveryOption,
+} from '../../../public';
+import { hideAndFreeze, Joi, MonetaryValue, _internal } from '../../common';
+import { CustomsItem } from './customs-item';
 
 export class Customs implements ICustoms {
   public static readonly [_internal] = {
-    label: "customs",
+    label: 'customs',
     schema: Joi.object({
       nonDeliveryOption: Joi.string().enum(NonDeliveryOption),
       contents: Joi.array().items(CustomsItem[_internal].schema),
@@ -20,9 +24,15 @@ export class Customs implements ICustoms {
 
   public constructor(pojo: CustomsPOJO) {
     this.nonDeliveryOption = pojo.nonDeliveryOption;
-    this.contents = pojo.contents ? pojo.contents.map((item) => new CustomsItem(item)) : [];
-    this.buyerShippingAmountPaid = pojo.buyerShippingAmountPaid ? new MonetaryValue(pojo.buyerShippingAmountPaid) : undefined;
-    this.dutiesPaid = pojo.dutiesPaid ? new MonetaryValue(pojo.dutiesPaid) : undefined;
+    this.contents = pojo.contents
+      ? pojo.contents.map((item) => new CustomsItem(item))
+      : [];
+    this.buyerShippingAmountPaid = pojo.buyerShippingAmountPaid
+      ? new MonetaryValue(pojo.buyerShippingAmountPaid)
+      : undefined;
+    this.dutiesPaid = pojo.dutiesPaid
+      ? new MonetaryValue(pojo.dutiesPaid)
+      : undefined;
     // Make this object immutable
     hideAndFreeze(this);
   }

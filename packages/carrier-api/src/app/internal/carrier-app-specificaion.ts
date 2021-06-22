@@ -1,5 +1,5 @@
-import { ShippingProviderConnector } from "../metadata/shipping-provider-connector";
-import { CarrierSpecification } from "./carrier-specificaion";
+import { ShippingProviderConnector } from '../metadata/shipping-provider-connector';
+import { CarrierSpecification } from './carrier-specificaion';
 
 /** @description This represents a single integration which may contain multiple carrier sources */
 export interface CarrierAppSpecification {

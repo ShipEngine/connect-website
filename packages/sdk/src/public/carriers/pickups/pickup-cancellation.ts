@@ -1,7 +1,14 @@
-import type { Address, ContactInfo, Identifiers, Note, TimeRange, UUID } from "../../common";
-import type { PickupCancellationReason } from "../enums";
-import type { PickupService } from "./pickup-service";
-import type { PickupShipment } from "./pickup-shipment";
+import type {
+  Address,
+  ContactInfo,
+  Identifiers,
+  Note,
+  TimeRange,
+  UUID,
+} from '../../common';
+import type { PickupCancellationReason } from '../enums';
+import type { PickupService } from './pickup-service';
+import type { PickupShipment } from './pickup-shipment';
 
 /**
  * Cancellation of a previously-scheduled package pickup

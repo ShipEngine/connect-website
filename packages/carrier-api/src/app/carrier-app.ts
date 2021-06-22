@@ -1,11 +1,11 @@
-import { CarrierAppDefinition } from ".";
-import { ConnectRuntimeApp, Method, Route, BrandedImages } from "./internal";
+import { CarrierAppDefinition } from '.';
+import { ConnectRuntimeApp, Method, Route, BrandedImages } from './internal';
 
-import { resolve } from "path";
-import { readFileSync } from "fs";
+import { resolve } from 'path';
+import { readFileSync } from 'fs';
 
-import { Metadata } from "./internal/metadata";
-import { CarrierSpecification } from "./internal/carrier-specificaion";
+import { Metadata } from './internal/metadata';
+import { CarrierSpecification } from './internal/carrier-specificaion';
 
 const handleRequest = (implementation?: Function): any => {
   if (implementation) {
@@ -18,42 +18,42 @@ const handleRequest = (implementation?: Function): any => {
 const registerRoutes = (routes: Route[], definition: CarrierAppDefinition) => {
   routes.push({
     method: Method.POST,
-    path: "/Register",
+    path: '/Register',
     handler: handleRequest(definition.Register),
   });
   routes.push({
     method: Method.POST,
-    path: "/CreateLabel",
+    path: '/CreateLabel',
     handler: handleRequest(definition.CreateLabel),
   });
   routes.push({
     method: Method.POST,
-    path: "/VoidLabels",
+    path: '/VoidLabels',
     handler: handleRequest(definition.VoidLabels),
   });
   routes.push({
     method: Method.POST,
-    path: "/GetRates",
+    path: '/GetRates',
     handler: handleRequest(definition.GetRates),
   });
   routes.push({
     method: Method.POST,
-    path: "/CreateManifest",
+    path: '/CreateManifest',
     handler: handleRequest(definition.CreateManifest),
   });
   routes.push({
     method: Method.POST,
-    path: "/SchedulePickup",
+    path: '/SchedulePickup',
     handler: handleRequest(definition.SchedulePickup),
   });
   routes.push({
     method: Method.POST,
-    path: "/CancelPickup",
+    path: '/CancelPickup',
     handler: handleRequest(definition.CancelPickup),
   });
   routes.push({
     method: Method.POST,
-    path: "/Track",
+    path: '/Track',
     handler: handleRequest(definition.Track),
   });
 };
@@ -65,7 +65,7 @@ export class CarrierApp implements ConnectRuntimeApp {
   constructor(definition: CarrierAppDefinition) {
     registerRoutes(this.routes, definition);
     this.data = new Metadata(definition);
-    this.redoc = readFileSync(resolve(__dirname, "../../spec.yaml")).toString();
+    this.redoc = readFileSync(resolve(__dirname, '../../spec.yaml')).toString();
   }
   getImages(): BrandedImages[] {
     const mapBrandedImages = (carrier: CarrierSpecification): BrandedImages => {

@@ -1,10 +1,10 @@
-import { IRouter, NextFunction, Request, Router, Response } from "express";
-import { session, setTransactionId } from "../util/storage";
-import diagnostics from "./diagnostics";
-import docs from "./docs";
-import { App } from "../app";
-import { NotImplementedError } from "..";
-import { getImageRoutes } from "./images";
+import { IRouter, NextFunction, Request, Router, Response } from 'express';
+import { session, setTransactionId } from '../util/storage';
+import diagnostics from './diagnostics';
+import docs from './docs';
+import { App } from '../app';
+import { NotImplementedError } from '..';
+import { getImageRoutes } from './images';
 
 export const executeImplementation = (implementation?: Function) => {
   return async (req: Request, res: Response, next: NextFunction) => {
@@ -25,10 +25,10 @@ export const executeImplementation = (implementation?: Function) => {
 
 export const getRoutes = (app: App) => {
   const router: IRouter = Router();
-  router.use("/diagnostics", diagnostics);
+  router.use('/diagnostics', diagnostics);
   router.use(docs(app));
   router.use(getImageRoutes(app.getImages()));
-  router.get("/GetRegistryData", (req, res, next) => {
+  router.get('/GetRegistryData', (req, res, next) => {
     res.status(200).send(app.data);
   });
   app.routes.forEach((route) => {

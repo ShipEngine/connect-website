@@ -1,5 +1,5 @@
-import type { NotePOJO } from "../../common";
-import type { ShipmentIdentifierPOJO } from "../shipments/shipment-identifier";
+import type { NotePOJO } from '../../common';
+import type { ShipmentIdentifierPOJO } from '../shipments/shipment-identifier';
 
 /**
  * A shipment that could not be manifested, along with details about why

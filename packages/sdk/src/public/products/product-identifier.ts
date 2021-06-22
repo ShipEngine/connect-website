@@ -1,4 +1,9 @@
-import type { Identifiers, IdentifiersPOJO, Dimensions, DimensionsPOJO } from "../common";
+import type {
+  Identifiers,
+  IdentifiersPOJO,
+  Dimensions,
+  DimensionsPOJO,
+} from '../common';
 
 /**
  * Identifies a product

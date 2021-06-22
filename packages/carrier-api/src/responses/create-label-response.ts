@@ -1,4 +1,4 @@
-import { BaseResponse } from "./base-response";
+import { BaseResponse } from './base-response';
 import {
   LabelDownload,
   FormDownload,
@@ -6,7 +6,7 @@ import {
   BillingLineItem,
   LabelPackage,
   Identifier,
-} from "../models";
+} from '../models';
 
 /** @description Basic structure for a response to create a label */
 export interface CreateLabelResponse extends BaseResponse {

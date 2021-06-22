@@ -1,12 +1,12 @@
-import { CancellationStatus } from "@shipengine/connect-sdk";
-import { PickupCancellationOutcome } from "@shipengine/connect-sdk/lib/internal";
-import { TransactionPOJO } from "@shipengine/connect-sdk/lib/internal";
+import { CancellationStatus } from '@shipengine/connect-sdk';
+import { PickupCancellationOutcome } from '@shipengine/connect-sdk/lib/internal';
+import { TransactionPOJO } from '@shipengine/connect-sdk/lib/internal';
 
-import { CancelPickupResponse } from "@shipengine/connect-carrier-api/lib/responses";
+import { CancelPickupResponse } from '@shipengine/connect-carrier-api/lib/responses';
 
 export const mapCancelPickupResponse = (
   response: PickupCancellationOutcome,
-  transaction: TransactionPOJO
+  transaction: TransactionPOJO,
 ): CancelPickupResponse => {
   return {
     confirmation_id: response.confirmationNumber,

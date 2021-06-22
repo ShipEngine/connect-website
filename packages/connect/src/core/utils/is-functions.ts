@@ -1,9 +1,6 @@
-import {
-  CarrierApp,
-  OrderApp,
-} from "@shipengine/connect-sdk/lib/internal";
+import { CarrierApp, OrderApp } from '@shipengine/connect-sdk/lib/internal';
 
-import { AppType } from "@shipengine/connect-sdk";
+import { AppType } from '@shipengine/connect-sdk';
 
 /**
  * Confirm object is a carrier app

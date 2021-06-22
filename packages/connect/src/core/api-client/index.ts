@@ -1,12 +1,12 @@
-import axios, { Method, AxiosRequestConfig, AxiosError } from "axios";
-import axiosRetry from "axios-retry";
+import axios, { Method, AxiosRequestConfig, AxiosError } from 'axios';
+import axiosRetry from 'axios-retry';
 import ono from '@jsdevtools/ono';
-import Apps from "./resources/apps";
-import Deployments from "./resources/deployments";
-import Diagnostics from "./resources/diagnostics";
-import Sellers from "./resources/sellers";
-import Users from "./resources/users";
-import Configuration from "./resources/configuration";
+import Apps from './resources/apps';
+import Deployments from './resources/deployments';
+import Diagnostics from './resources/diagnostics';
+import Sellers from './resources/sellers';
+import Users from './resources/users';
+import Configuration from './resources/configuration';
 
 export interface ApiClientParams {
   endpoint: string;
@@ -17,11 +17,11 @@ export interface ApiClientParams {
 }
 
 export enum ApiClientErrors {
-  BadRequest = "ERR_BAD_REQUEST",
-  NotFound = "ERR_NOT_FOUND",
-  Unauthorized = "ERR_UNAUTHORIZED",
-  InternalServerError = "ERR_INTERNAL_SERVER",
-  UnhandledError = "ERR_UNHANDLED"
+  BadRequest = 'ERR_BAD_REQUEST',
+  NotFound = 'ERR_NOT_FOUND',
+  Unauthorized = 'ERR_UNAUTHORIZED',
+  InternalServerError = 'ERR_INTERNAL_SERVER',
+  UnhandledError = 'ERR_UNHANDLED',
 }
 
 export interface ApiClientError {
@@ -50,7 +50,8 @@ export default class APIClient {
 
   private readonly debug: boolean;
 
-  private _apiAuthority = process.env.API_AUTHORITY ?? "https://connect-api.shipengine.com/api";
+  private _apiAuthority =
+    process.env.API_AUTHORITY ?? 'https://connect-api.shipengine.com/api';
 
   constructor(apiKey: string, debug = false) {
     this.apiKey = apiKey;
@@ -84,20 +85,20 @@ export default class APIClient {
     isFileUpload = false,
   }: ApiClientParams): Promise<T> {
     const defaultHeaders = {
-      "content-type": "application/json",
-      "api-key": this.apiKey,
+      'content-type': 'application/json',
+      'api-key': this.apiKey,
     };
 
     if (this.debug) {
-      axios.interceptors.request.use(request => {
-        console.log('Starting Request', request)
-        return request
-      })
+      axios.interceptors.request.use((request) => {
+        console.log('Starting Request', request);
+        return request;
+      });
 
-      axios.interceptors.response.use(response => {
-        console.log('Response:', response)
-        return response
-      })
+      axios.interceptors.response.use((response) => {
+        console.log('Response:', response);
+        return response;
+      });
     }
 
     const mergedHeaders = {
@@ -109,7 +110,10 @@ export default class APIClient {
       headers: mergedHeaders,
       method: method,
       url: `${this._apiAuthority}/${endpoint}`,
-      ...(isFileUpload && { maxContentLength: Infinity, maxBodyLength: Infinity }),
+      ...(isFileUpload && {
+        maxContentLength: Infinity,
+        maxBodyLength: Infinity,
+      }),
     };
 
     if (body) request.data = body;
@@ -121,18 +125,30 @@ export default class APIClient {
       const err = error as AxiosError;
 
       if (this.debug) {
-        console.log('Response:', err.response)
+        console.log('Response:', err.response);
       }
 
       switch (err.response?.status) {
         case 400:
-          throw ono({ code: ApiClientErrors.BadRequest }, err.response.data.message || "The request was invalid");
+          throw ono(
+            { code: ApiClientErrors.BadRequest },
+            err.response.data.message || 'The request was invalid',
+          );
         case 401:
-          throw ono({ code: ApiClientErrors.Unauthorized }, "The given API key is not valid");
+          throw ono(
+            { code: ApiClientErrors.Unauthorized },
+            'The given API key is not valid',
+          );
         case 404:
-          throw ono({ code: ApiClientErrors.NotFound }, "The record could not be found");
+          throw ono(
+            { code: ApiClientErrors.NotFound },
+            'The record could not be found',
+          );
         case 500:
-          throw ono({ code: ApiClientErrors.InternalServerError }, "The Connect API is experiencing issues");
+          throw ono(
+            { code: ApiClientErrors.InternalServerError },
+            'The Connect API is experiencing issues',
+          );
         default:
           throw error;
       }

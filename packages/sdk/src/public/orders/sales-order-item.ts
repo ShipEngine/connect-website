@@ -1,6 +1,11 @@
-import type { MonetaryValuePOJO, QuantityPOJO, URLString, WeightPOJO } from "../common";
-import type { ProductIdentifierPOJO } from "../products";
-import type { SalesOrderItemIdentifierPOJO } from "./sales-order-item-identifier";
+import type {
+  MonetaryValuePOJO,
+  QuantityPOJO,
+  URLString,
+  WeightPOJO,
+} from '../common';
+import type { ProductIdentifierPOJO } from '../products';
+import type { SalesOrderItemIdentifierPOJO } from './sales-order-item-identifier';
 
 /**
  * An item in a sales order

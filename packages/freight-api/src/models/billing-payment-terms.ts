@@ -1,1 +1,1 @@
-export type BillingPaymentTerms = "collect" | "prepaid" | "third_party";
+export type BillingPaymentTerms = 'collect' | 'prepaid' | 'third_party';

@@ -1,12 +1,12 @@
-import { Output } from "@shipengine/connect-sdk/lib/internal";
-import * as api from "@shipengine/connect-order-source-api";
+import { Output } from '@shipengine/connect-sdk/lib/internal';
+import * as api from '@shipengine/connect-order-source-api';
 
 export function mapName(name: Output.PersonName): string {
-  return [name.title, name.given, name.middle, name.family, name.suffix].filter((s) => s).join(" ");
+  return [name.title, name.given, name.middle, name.family, name.suffix].filter((s) => s).join(' ');
 }
 
 export function mapAddress(
-  address: Output.AddressWithContactInfoAndPickupLocation | undefined
+  address: Output.AddressWithContactInfoAndPickupLocation | undefined,
 ): api.Address | undefined {
   if (!address) {
     return;
@@ -16,7 +16,7 @@ export function mapAddress(
 
   let residential_indicator: string | undefined;
   if (address.isResidential !== undefined) {
-    residential_indicator = address.isResidential ? "R" : "C";
+    residential_indicator = address.isResidential ? 'R' : 'C';
   }
 
   const pickup_location: api.PickupLocation | undefined = address.pickupLocation

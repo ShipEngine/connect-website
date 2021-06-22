@@ -4,5 +4,5 @@ export interface Seller {
   firstName?: string;
   lastName?: string;
   countryCode?: string;
-  type: "shipstation";
+  type: 'shipstation';
 }

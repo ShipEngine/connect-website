@@ -1,4 +1,4 @@
-import { RequestBase } from "./request-base";
+import { RequestBase } from './request-base';
 
 /**
  * @description This is a request for acknowledging that an order has been imported

@@ -1,4 +1,4 @@
-import { DimensionUnitType } from "./dimension-unit-type";
+import { DimensionUnitType } from './dimension-unit-type';
 
 export interface Dimensions {
   width: number;

@@ -1,17 +1,30 @@
-import { PickupService as IPickupService, PickupServiceDefinition } from "../../../public";
-import { App, DefinitionIdentifier, DefinitionIdentifierPOJO, hideAndFreeze, Joi, _internal } from "../../common";
+import {
+  PickupService as IPickupService,
+  PickupServiceDefinition,
+} from '../../../public';
+import {
+  App,
+  DefinitionIdentifier,
+  DefinitionIdentifierPOJO,
+  hideAndFreeze,
+  Joi,
+  _internal,
+} from '../../common';
 
-const _private = Symbol("private fields");
+const _private = Symbol('private fields');
 
 export type PickupServicePOJO = PickupServiceDefinition;
 export type PickupServiceIdentifierPOJO = DefinitionIdentifierPOJO;
 
-export class PickupService extends DefinitionIdentifier implements IPickupService {
+export class PickupService
+  extends DefinitionIdentifier
+  implements IPickupService
+{
   public static readonly [_internal] = {
-    label: "pickup service",
+    label: 'pickup service',
     schema: DefinitionIdentifier[_internal].schema.keys({
       name: Joi.string().singleLine().min(1).required(),
-      description: Joi.string().singleLine().allow(""),
+      description: Joi.string().singleLine().allow(''),
     }),
   };
 
@@ -26,10 +39,10 @@ export class PickupService extends DefinitionIdentifier implements IPickupServic
     super(pojo);
 
     this.name = pojo.name;
-    this.description = pojo.description || "";
+    this.description = pojo.description || '';
 
     this[_private] = {
-      app
+      app,
     };
 
     // Make this object immutable

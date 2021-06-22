@@ -1,7 +1,7 @@
 export enum AuthenticationType {
-  OAuth = "oauth",
-  Basic = "basic",
-  ApiKey = "apikey",
+  OAuth = 'oauth',
+  Basic = 'basic',
+  ApiKey = 'apikey',
 }
 
 export interface AuthIdentifier {

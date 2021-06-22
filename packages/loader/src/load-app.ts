@@ -1,36 +1,54 @@
-import { AppType, CarrierAppDefinition, ErrorCode, OrderAppDefinition } from "@shipengine/connect-sdk";
-import { App, AppManifestPOJO, CarrierApp, DeploymentType, error, OrderApp } from "@shipengine/connect-sdk/lib/internal";
-import { readCarrierAppDefinition } from "./definitions/read-carrier-app-definition";
-import { readOrderAppDefinition } from "./definitions/read-order-app-definition";
-import { fileCache } from "./file-cache";
-import { readAppManifest } from "./read-app-manifest";
-import { readDefinition } from "./read-definition";
+import {
+  AppType,
+  CarrierAppDefinition,
+  ErrorCode,
+  OrderAppDefinition,
+} from '@shipengine/connect-sdk';
+import {
+  App,
+  AppManifestPOJO,
+  CarrierApp,
+  DeploymentType,
+  error,
+  OrderApp,
+} from '@shipengine/connect-sdk/lib/internal';
+import { readCarrierAppDefinition } from './definitions/read-carrier-app-definition';
+import { readOrderAppDefinition } from './definitions/read-order-app-definition';
+import { fileCache } from './file-cache';
+import { readAppManifest } from './read-app-manifest';
+import { readDefinition } from './read-definition';
 
 type AppDefinition = CarrierAppDefinition | OrderAppDefinition;
 
 const usesGenericRuntime = (manifest: AppManifestPOJO): boolean => {
-  const dependencies = [...Object.keys(manifest.devDependencies || {}), ...Object.keys(manifest.dependencies || {})];
+  const dependencies = [
+    ...Object.keys(manifest.devDependencies || {}),
+    ...Object.keys(manifest.dependencies || {}),
+  ];
   return dependencies.includes('@shipengine/connect-runtime');
-}
+};
 
 const getGenericRuntimeAppType = (manifest: AppManifestPOJO): AppType => {
-  const dependencies = [...Object.keys(manifest.devDependencies || {}), ...Object.keys(manifest.dependencies || {})];
+  const dependencies = [
+    ...Object.keys(manifest.devDependencies || {}),
+    ...Object.keys(manifest.dependencies || {}),
+  ];
   const orderSourceApi = '@shipengine/connect-order-source-api';
   const carrierApi = '@shipengine/connect-carrier-api';
   const freightApi = '@shipengine/connect-freight-api';
-  if(dependencies.includes(orderSourceApi)) {
+  if (dependencies.includes(orderSourceApi)) {
     return AppType.Order;
-  } else if(dependencies.includes(carrierApi)) {
+  } else if (dependencies.includes(carrierApi)) {
     return AppType.Carrier;
-  } else if(dependencies.includes(freightApi)) {
+  } else if (dependencies.includes(freightApi)) {
     return AppType.Freight;
   } else {
     throw new Error('Unknown App Type');
   }
-}
+};
 
 const getGenericRuntimeDeploymentType = (type: AppType): DeploymentType => {
-  switch(type) {
+  switch (type) {
     case AppType.Carrier:
       return DeploymentType.CarrierAPI;
     case AppType.Freight:
@@ -38,12 +56,12 @@ const getGenericRuntimeDeploymentType = (type: AppType): DeploymentType => {
     case AppType.Order:
       return DeploymentType.OrderSourceAPI;
   }
-}
+};
 
 /**
  * Loads a ShipEngine Connect App
  */
-export async function loadApp(appPath = "."): Promise<App> {
+export async function loadApp(appPath = '.'): Promise<App> {
   try {
     fileCache.startedLoading();
 
@@ -51,7 +69,11 @@ export async function loadApp(appPath = "."): Promise<App> {
     const manifest = await readAppManifest(appPath);
 
     // Read the app's exported definition
-    const [definition, definitionPath] = await readDefinition<AppDefinition>(appPath, ".", "ShipEngine Connect app");
+    const [definition, definitionPath] = await readDefinition<AppDefinition>(
+      appPath,
+      '.',
+      'ShipEngine Connect app',
+    );
     if (usesGenericRuntime(manifest)) {
       const type = getGenericRuntimeAppType(manifest);
       const deploymentType = getGenericRuntimeDeploymentType(type);
@@ -64,20 +86,29 @@ export async function loadApp(appPath = "."): Promise<App> {
         deploymentType,
       });
     } else if (isCarrierApp(definition)) {
-      const pojo = await readCarrierAppDefinition(definition, definitionPath, manifest);
+      const pojo = await readCarrierAppDefinition(
+        definition,
+        definitionPath,
+        manifest,
+      );
       pojo.deploymentType = DeploymentType.LegacyConnectCarrier;
       return new CarrierApp(pojo);
-    }
-    else {
-      const pojo = await readOrderAppDefinition(definition, definitionPath, manifest);
+    } else {
+      const pojo = await readOrderAppDefinition(
+        definition,
+        definitionPath,
+        manifest,
+      );
       pojo.deploymentType = DeploymentType.LegacyConnectOrder;
       return new OrderApp(pojo);
     }
-  }
-  catch (originalError: unknown) {
-    throw error(ErrorCode.AppError, "Error loading the ShipEngine Connect app:", { originalError });
-  }
-  finally {
+  } catch (originalError: unknown) {
+    throw error(
+      ErrorCode.AppError,
+      'Error loading the ShipEngine Connect app:',
+      { originalError },
+    );
+  } finally {
     // Let the cache know that we're done loading the app,
     // so the cache can be cleared to free-up memory
     fileCache.finishedLoading();
@@ -87,10 +118,22 @@ export async function loadApp(appPath = "."): Promise<App> {
 /**
  * Checks to make sure that an app has enough required and distinguishing properties to determine its type.
  */
-function isCarrierApp(definition: AppDefinition): definition is CarrierAppDefinition {
-  const requiredCarrierProperties = ["deliveryServices"];
-  const optionalCarrierProperties = ["manifestLocations", "manifestShipments", "pickupServices", "createShipment", "cancelShipments",
-    "rateShipment", "trackShipment", "createManifest", "schedulePickup", "cancelPickups"];
+function isCarrierApp(
+  definition: AppDefinition,
+): definition is CarrierAppDefinition {
+  const requiredCarrierProperties = ['deliveryServices'];
+  const optionalCarrierProperties = [
+    'manifestLocations',
+    'manifestShipments',
+    'pickupServices',
+    'createShipment',
+    'cancelShipments',
+    'rateShipment',
+    'trackShipment',
+    'createManifest',
+    'schedulePickup',
+    'cancelPickups',
+  ];
 
   for (const property of requiredCarrierProperties) {
     if (property in definition) {
@@ -100,11 +143,13 @@ function isCarrierApp(definition: AppDefinition): definition is CarrierAppDefini
 
   for (const property of optionalCarrierProperties) {
     if (property in definition) {
-      throw new Error("Carrier app is missing required 'deliveryServices` property");
+      throw new Error(
+        "Carrier app is missing required 'deliveryServices` property",
+      );
     }
   }
 
-  const optionalOrderProperties = ["getSalesOrdersByDate", "shipmentCreated"];
+  const optionalOrderProperties = ['getSalesOrdersByDate', 'shipmentCreated'];
 
   for (const property of optionalOrderProperties) {
     if (property in definition) {
@@ -112,5 +157,7 @@ function isCarrierApp(definition: AppDefinition): definition is CarrierAppDefini
     }
   }
 
-  throw new Error("Your app is missing some required fields. Please refer to the documentation.");
+  throw new Error(
+    'Your app is missing some required fields. Please refer to the documentation.',
+  );
 }

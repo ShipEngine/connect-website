@@ -5,18 +5,26 @@ interface ErrorMessage {
   message: string;
 }
 
-export default function parseDeploymentErrors(deployment: Deployment): string[] {
+export default function parseDeploymentErrors(
+  deployment: Deployment,
+): string[] {
   if (!deployment.errors) return [];
 
-  const errorCodeWithMessages = deployment.errors.find((error: Record<string, unknown>) => Reflect.get(error, "code") === "app_definition_upload");
+  const errorCodeWithMessages = deployment.errors.find(
+    (error: Record<string, unknown>) =>
+      Reflect.get(error, 'code') === 'app_definition_upload',
+  );
 
   if (!errorCodeWithMessages) return [];
 
-  const errorWithMessages = Reflect.get(errorCodeWithMessages, "error");
+  const errorWithMessages = Reflect.get(errorCodeWithMessages, 'error');
 
   if (!errorWithMessages) return [];
 
-  const errorMessages = Reflect.get(errorWithMessages, "detailed_errors") as ErrorMessage[];
+  const errorMessages = Reflect.get(
+    errorWithMessages,
+    'detailed_errors',
+  ) as ErrorMessage[];
 
   if (!errorMessages) return [];
 

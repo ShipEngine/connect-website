@@ -1,10 +1,10 @@
 /** @description The Http Verb associated with a given call */
 export enum Method {
-  POST = "post",
-  GET = "get",
-  PUT = "put",
-  PATCH = "patch",
-  DELETE = "delete",
+  POST = 'post',
+  GET = 'get',
+  PUT = 'put',
+  PATCH = 'patch',
+  DELETE = 'delete',
 }
 
 /** @description The definition for a route and how it will be handled */

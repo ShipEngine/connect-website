@@ -1,5 +1,8 @@
-import type { Definition, DefinitionIdentifier, DeliveryConfirmationType } from "../common";
-
+import type {
+  Definition,
+  DefinitionIdentifier,
+  DeliveryConfirmationType,
+} from '../common';
 
 /**
  * A delivery confirmation option offered by a carrier
@@ -19,21 +22,17 @@ export interface DeliveryConfirmationDefinition extends Definition {
    * The type of confirmation
    */
   type: DeliveryConfirmationType;
-
 }
-
 
 /**
  * Identifies a delivery confirmation option offered by a carrier
  */
 export type DeliveryConfirmationIdentifier = DefinitionIdentifier;
 
-
 /**
  * Identifies a delivery confirmation option offered by a carrier
  */
 export type DeliveryConfirmationIdentifierPOJO = Definition;
-
 
 /**
  * Delivery confirmation options offered by a carrier

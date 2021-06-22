@@ -1,7 +1,7 @@
 export interface JsonSchema {
   title?: string;
   description?: string;
-  type: "object";
+  type: 'object';
   required?: string[];
   properties: Record<
     string,

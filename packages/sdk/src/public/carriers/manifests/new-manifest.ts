@@ -1,6 +1,5 @@
-import type { Address, DateTimeZone } from "../../common";
-import { ShippedShipment } from "../pickups/shipped-shipment";
-
+import type { Address, DateTimeZone } from '../../common';
+import { ShippedShipment } from '../pickups/shipped-shipment';
 
 /**
  * The information needed to create an end-of-day manifest
@@ -34,5 +33,4 @@ export interface NewManifest {
    * All other shipments will be manifested.
    */
   readonly shipments: readonly ShippedShipment[];
-
 }

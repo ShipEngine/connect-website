@@ -1,8 +1,8 @@
-import { ConfirmationTypes } from "@shipengine/connect-carrier-api/lib/models";
-import { DeliveryConfirmationType } from "@shipengine/connect-sdk";
+import { ConfirmationTypes } from '@shipengine/connect-carrier-api/lib/models';
+import { DeliveryConfirmationType } from '@shipengine/connect-sdk';
 
 export const mapConfirmation = (
-  confirmation?: ConfirmationTypes | null
+  confirmation?: ConfirmationTypes | null,
 ): DeliveryConfirmationType | undefined => {
   switch (confirmation) {
     case ConfirmationTypes.AdultSignature:

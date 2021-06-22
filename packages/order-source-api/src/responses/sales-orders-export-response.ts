@@ -1,4 +1,4 @@
-import { SalesOrder } from "../models";
+import { SalesOrder } from '../models';
 
 /**
  * @description The response from an ExportSalesOrders method

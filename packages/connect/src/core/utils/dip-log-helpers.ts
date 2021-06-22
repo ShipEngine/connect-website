@@ -1,15 +1,18 @@
-import chalk from "chalk";
+import chalk from 'chalk';
 
 /**
  * Parse logs from DIP into a more human readable format.
  */
-export function parseDIPLogs(logs: string, lines = 500, showAll = false): string[] {
-
+export function parseDIPLogs(
+  logs: string,
+  lines = 500,
+  showAll = false,
+): string[] {
   // Strip tailing logs that are greater than the line parameter
-  const splitLogs = logs.split("\n");
+  const splitLogs = logs.split('\n');
 
   // Remove empty space tail to prevent unnecessary newline at the end of the logs
-  if (splitLogs[splitLogs.length - 1] === "") {
+  if (splitLogs[splitLogs.length - 1] === '') {
     splitLogs.pop();
   }
 
@@ -18,15 +21,17 @@ export function parseDIPLogs(logs: string, lines = 500, showAll = false): string
     try {
       const parsedLog = JSON.parse(log) as object;
       if (isDIPLog(parsedLog)) {
-        if (!showAll && (isHTTPLog(parsedLog.metadata) || parsedLog.message.includes("HTTP"))) {
+        if (
+          !showAll &&
+          (isHTTPLog(parsedLog.metadata) || parsedLog.message.includes('HTTP'))
+        ) {
           return false;
         }
         return true;
       }
 
       return true;
-    }
-    catch {
+    } catch {
       return true;
     }
   });
@@ -45,11 +50,10 @@ export function parseDIPLogs(logs: string, lines = 500, showAll = false): string
       // If not valid JSON object then output raw string data.
       const parsedLog = JSON.parse(log) as object;
 
-      // Check for DIP specifc 
+      // Check for DIP specifc
       if (isDIPLog(parsedLog)) {
         parsedLogs.push(formatDIPLog(parsedLog));
-      }
-      else {
+      } else {
         parsedLogs.push(JSON.stringify(parsedLog));
       }
     } catch {
@@ -61,7 +65,7 @@ export function parseDIPLogs(logs: string, lines = 500, showAll = false): string
 }
 
 interface DIPLog {
-  level: "info" | "warning" | "error";
+  level: 'info' | 'warning' | 'error';
   message: string;
   transactionId: string;
   metadata: {
@@ -72,34 +76,35 @@ interface DIPLog {
 }
 
 function isDIPLog(obj: object): obj is DIPLog {
-  return "level" in obj && "message" in obj;
+  return 'level' in obj && 'message' in obj;
 }
 
 interface MetadataHTTP {
   meta: {
     request: Record<string, unknown>;
-    response: Record<string, unknown>
-  }
+    response: Record<string, unknown>;
+  };
 }
 
-function isHTTPLog(obj: { meta?: Record<string, unknown> }): obj is MetadataHTTP {
-  if ("meta" in obj) {
-    return "request" in obj.meta! && "response" in obj.meta;
+function isHTTPLog(obj: {
+  meta?: Record<string, unknown>;
+}): obj is MetadataHTTP {
+  if ('meta' in obj) {
+    return 'request' in obj.meta! && 'response' in obj.meta;
   }
   return false;
 }
 
 function formatDIPLog(log: DIPLog): string {
-
-  let formattedMessage = "";
+  let formattedMessage = '';
   switch (log.level) {
-    case "info":
+    case 'info':
       formattedMessage = chalk.green(`${log.metadata.timestamp}`);
       break;
-    case "warning":
+    case 'warning':
       formattedMessage = chalk.yellow(`${log.metadata.timestamp}`);
       break;
-    case "error":
+    case 'error':
       formattedMessage = chalk.red(`${log.metadata.timestamp}`);
       break;
     default:
@@ -110,16 +115,21 @@ function formatDIPLog(log: DIPLog): string {
 
   formattedMessage += `: message=${chalk.grey(log.message)}`;
 
-  if (tid !== "no-txid" && tid !== undefined) {
+  if (tid !== 'no-txid' && tid !== undefined) {
     formattedMessage += ` transactionId=${tid}`;
   }
 
   if (isHTTPLog(log.metadata)) {
-    formattedMessage += ` meta=${chalk.grey(JSON.stringify(log.metadata.meta))}`;
+    formattedMessage += ` meta=${chalk.grey(
+      JSON.stringify(log.metadata.meta),
+    )}`;
   }
 
   for (const key of Object.keys(log.metadata)) {
-    if (!["meta", "timestamp"].includes(key) && typeof log.metadata[key] === "string") {
+    if (
+      !['meta', 'timestamp'].includes(key) &&
+      typeof log.metadata[key] === 'string'
+    ) {
       formattedMessage += ` ${key}=${chalk.grey(log.metadata[key])}`;
     }
   }

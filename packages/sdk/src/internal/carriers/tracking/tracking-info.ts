@@ -1,15 +1,23 @@
-import { ShipmentStatus, TrackingInfo as TrackingInfoPOJO } from "../../../public";
-import { App, DateTimeZone, hideAndFreeze, Joi, _internal } from "../../common";
-import { ShipmentIdentifierBase, ShipmentIdentifier } from "../shipments/shipment-identifier";
-import { PackageTrackingInfo } from "./package-tracking-info";
-import { TrackingEvent } from "./tracking-event";
+import {
+  ShipmentStatus,
+  TrackingInfo as TrackingInfoPOJO,
+} from '../../../public';
+import { App, DateTimeZone, hideAndFreeze, Joi, _internal } from '../../common';
+import {
+  ShipmentIdentifierBase,
+  ShipmentIdentifier,
+} from '../shipments/shipment-identifier';
+import { PackageTrackingInfo } from './package-tracking-info';
+import { TrackingEvent } from './tracking-event';
 
 export class TrackingInfo extends ShipmentIdentifierBase {
   public static readonly [_internal] = {
-    label: "tracking info",
+    label: 'tracking info',
     schema: ShipmentIdentifier[_internal].schema.keys({
       deliveryDateTime: DateTimeZone[_internal].schema,
-      packages: Joi.array().items(PackageTrackingInfo[_internal].schema).optional(),
+      packages: Joi.array()
+        .items(PackageTrackingInfo[_internal].schema)
+        .optional(),
       events: Joi.array().min(1).items(TrackingEvent[_internal].schema),
     }),
   };
@@ -52,9 +60,12 @@ export class TrackingInfo extends ShipmentIdentifierBase {
   public constructor(pojo: TrackingInfoPOJO, app: App) {
     super(pojo);
 
-    this.deliveryDateTime =
-      pojo.deliveryDateTime ? new DateTimeZone(pojo.deliveryDateTime) : undefined;
-    this.packages = pojo.packages ? pojo.packages.map((parcel) => new PackageTrackingInfo(parcel, app)) : [];
+    this.deliveryDateTime = pojo.deliveryDateTime
+      ? new DateTimeZone(pojo.deliveryDateTime)
+      : undefined;
+    this.packages = pojo.packages
+      ? pojo.packages.map((parcel) => new PackageTrackingInfo(parcel, app))
+      : [];
     this.events = pojo.events.map((event) => new TrackingEvent(event));
 
     // Make this object immutable

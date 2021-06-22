@@ -1,4 +1,4 @@
-import { CancellationReason } from "./cancellation-reason";
+import { CancellationReason } from './cancellation-reason';
 
 /** @description Basic structure for a cancellation */
 export interface CancellationDetails {

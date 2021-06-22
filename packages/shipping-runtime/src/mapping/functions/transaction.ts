@@ -6,8 +6,8 @@ import {
   GetRatesRequest,
   RegisterRequest,
   CreateLabelRequest,
-} from "@shipengine/connect-carrier-api/lib/requests";
-import { Transaction } from "@shipengine/connect-sdk";
+} from '@shipengine/connect-carrier-api/lib/requests';
+import { Transaction } from '@shipengine/connect-sdk';
 
 export interface HeaderArgs {
   language: string;
@@ -22,10 +22,10 @@ export const mapTransaction = (
     | TrackingRequest
     | SchedulePickupRequest
     | CancelPickupRequest,
-  header: HeaderArgs
+  header: HeaderArgs,
 ): Transaction => {
   return {
-    id: request.transaction_id || "",
+    id: request.transaction_id || '',
     language: header.language,
     session: {
       ...request.metadata,

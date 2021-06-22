@@ -1,5 +1,5 @@
-import { Quote } from "../models/quote";
-import { BaseCarrierResponse } from "./base-carrier-response";
+import { Quote } from '../models/quote';
+import { BaseCarrierResponse } from './base-carrier-response';
 
 interface SpotQuote extends Quote {
   /**

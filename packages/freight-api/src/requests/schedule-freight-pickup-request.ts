@@ -8,8 +8,8 @@ import {
   RequestingParty,
   Time,
   Weight,
-} from "../models";
-import { BaseCarrierRequest } from "./base-carrier-request";
+} from '../models';
+import { BaseCarrierRequest } from './base-carrier-request';
 
 /**
  * Schedule a freight pickup / dispatch.
