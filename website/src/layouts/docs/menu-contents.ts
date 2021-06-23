@@ -145,6 +145,20 @@ export const menu: MenuContents = [
         title: "Methods",
         menuItems: [
           { title: "Register", href: "/docs/beta/reference/methods/register" },
+          { title: "Create Label", href: "/docs/beta/reference/methods/create-label" },
+        ]
+      },
+      {
+        title: "Reference",
+        menuItems: [
+          { title: "Address", href: "/docs/beta/reference/address" },
+          { title: "Package", href: "/docs/beta/reference/package" },
+          { title: "Customs", href: "/docs/beta/reference/customs" },
+          { title: "Document", href: "/docs/beta/reference/document" },
+          { title: "Units", href: "/docs/beta/reference/units" },
+          { title: "Country Codes", href: "/docs/beta/reference/country-codes" },
+          { title: "Common types", href: "/docs/beta/reference/common-types" },
+          { title: "Billing Line Item", href: "/docs/beta/reference/billing-line-item" },
         ]
       },
     ]
