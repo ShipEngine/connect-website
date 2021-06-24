@@ -1204,7 +1204,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@shipengine/connect-carrier-api@workspace:packages/carrier-api":
+"@shipengine/connect-carrier-api@^2.1.2, @shipengine/connect-carrier-api@workspace:packages/carrier-api":
   version: 0.0.0-use.local
   resolution: "@shipengine/connect-carrier-api@workspace:packages/carrier-api"
   dependencies:
@@ -1381,12 +1381,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@shipengine/connect-shipping-runtime@^1.6.4, @shipengine/connect-shipping-runtime@workspace:packages/shipping-runtime":
+"@shipengine/connect-shipping-runtime@^1.6.5, @shipengine/connect-shipping-runtime@workspace:packages/shipping-runtime":
   version: 0.0.0-use.local
   resolution: "@shipengine/connect-shipping-runtime@workspace:packages/shipping-runtime"
   dependencies:
     "@sentry/node": ^5.24.2
-    "@shipengine/connect-carrier-api": "workspace:packages/carrier-api"
+    "@shipengine/connect-carrier-api": ^2.1.2
     "@shipengine/connect-loader": ^3.5.4
     "@shipengine/connect-sdk": ^12.14.3
     "@types/continuation-local-storage": 3.2.2
@@ -1440,7 +1440,7 @@ __metadata:
     "@shipengine/connect-loader": ^3.5.4
     "@shipengine/connect-order-source-runtime": ^1.11.3
     "@shipengine/connect-sdk": ^12.14.3
-    "@shipengine/connect-shipping-runtime": ^1.6.4
+    "@shipengine/connect-shipping-runtime": ^1.6.5
     "@types/chai": ^4.2.14
     "@types/cli-table": ^0.3.0
     "@types/cross-spawn": ^6.0.2
