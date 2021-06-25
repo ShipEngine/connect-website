@@ -2,7 +2,7 @@ import { format, LoggerOptions, transports, createLogger } from 'winston';
 import { TransformableInfo } from 'logform';
 const redact = require('fast-redact');
 import { serializeError } from 'serialize-error';
-import { getTransactionId } from './storage';
+import { getTransactionId, getTenantId } from './storage';
 
 const LOG_LEVEL = process.env.LOG_LEVEL || 'debug';
 const LOG_FORMAT = process.env.NODE_ENV === 'production' ? 'json' : 'console';
@@ -28,11 +28,17 @@ const attachTransactionId = format((info) => {
   return info;
 });
 
+const attachTenantId = format((info) => {
+  info.tenantId = getTenantId();
+  return info;
+});
+
 const jsonOptions: LoggerOptions = {
   format: format.combine(
     format.timestamp(),
     format.metadata(),
     redactBody(),
+    attachTenantId(),
     attachTransactionId(),
     format.json(),
   ),
@@ -72,6 +78,7 @@ const consoleOptions: LoggerOptions = {
     format.colorize(),
     format.timestamp(),
     format.metadata(),
+    attachTenantId(),
     attachTransactionId(),
     format.printf(debugPrint),
   ),

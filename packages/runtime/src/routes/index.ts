@@ -1,5 +1,5 @@
 import { IRouter, NextFunction, Request, Router, Response } from 'express';
-import { session, setTransactionId } from '../util/storage';
+import { session, setTransactionId, setTenantId } from '../util/storage';
 import diagnostics from './diagnostics';
 import docs from './docs';
 import { App } from '../app';
@@ -10,6 +10,7 @@ export const executeImplementation = (implementation?: Function) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     await session.run({}, async () => {
       setTransactionId(req?.body?.transaction_id);
+      setTenantId(req?.headers['tenant-id']?.toString() || '');
       try {
         if (!implementation) {
           throw new NotImplementedError();
