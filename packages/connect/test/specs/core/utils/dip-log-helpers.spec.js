@@ -1,5 +1,3 @@
-/* eslint-disable no-useless-escape */
-
 const { expect } = require("chai");
 const { parseDIPLogs } = require("../../../../lib/core/utils/dip-log-helpers");
 

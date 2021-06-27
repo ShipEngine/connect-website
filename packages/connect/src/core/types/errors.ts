@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 export interface NetworkError {
   message: string;
   error: Error;

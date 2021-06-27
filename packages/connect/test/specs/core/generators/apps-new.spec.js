@@ -1,4 +1,3 @@
-/* eslint-disable max-nested-callbacks */
 "use strict";
 
 const helpers = require("yeoman-test");

@@ -1,5 +1,3 @@
-/* eslint-disable no-multi-assign */
-
 "use strict";
 
 const path = require("path");

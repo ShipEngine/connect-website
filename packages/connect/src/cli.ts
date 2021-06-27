@@ -16,7 +16,6 @@ export async function main(args: string[]): Promise<void> {
       args = ['versions'];
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
     await cli(args);
 
     // The CLI finished successfully, but there may still be STDIO in process,
@@ -34,7 +33,6 @@ export async function main(args: string[]): Promise<void> {
 function checkForUpdate() {
   // We have to use `require()` here instad of `import`
   // because the "package.json" file is outside of the "src" directory.
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-var-requires
   const pkg = require('../package.json') as updateNotifier.Package;
 
   const notifier = updateNotifier({

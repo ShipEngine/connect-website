@@ -1,7 +1,6 @@
 import chalk from 'chalk';
 
 function log(logLine: string): void {
-  // eslint-disable-next-line no-console
   console.log(logLine);
 }
 
@@ -42,8 +41,6 @@ function logStep(logLine: string): void {
 }
 
 function logObject(obj: object): void {
-  /* eslint-disable no-console */
-  // console.dir(obj, { depth: null });
   const jsonString = JSON.stringify([obj], null, 4).replace('[', '');
 
   console.log(
