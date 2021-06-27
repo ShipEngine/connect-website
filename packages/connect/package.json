@@ -29,7 +29,7 @@
   "bin": "bin/connect.js",
   "engineStrict": true,
   "engines": {
-    "node": ">=10.5.0"
+    "node": ">=14.0.0"
   },
   "files": [
     "/bin",

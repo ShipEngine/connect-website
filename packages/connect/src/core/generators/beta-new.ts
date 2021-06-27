@@ -75,7 +75,7 @@ class BetaNew extends Generator {
       dependencies: {},
       ...this.pjson,
       engines: {
-        node: '>=14.16.1',
+        node: '>=14.0.0',
         ...this.pjson.engines,
       },
       typescript: true,

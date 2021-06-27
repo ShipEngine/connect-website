@@ -89,7 +89,7 @@ class AppsNew extends Generator {
       dependencies: {},
       ...this.pjson,
       engines: {
-        node: '>=12.8.0',
+        node: '>=14.0.0',
         ...this.pjson.engines,
       },
       typescript: false,
