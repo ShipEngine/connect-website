@@ -37,7 +37,7 @@ describe("api-key-store", () => {
         errorResponse = error;
       }
       expect(response).to.be.undefined;
-      expect(errorResponse.code).equal("ERR_API_KEY_NOT_FOUND")
+      expect(errorResponse.code).equal("ENOENT")
     });
   });
 
@@ -92,7 +92,7 @@ describe("api-key-store", () => {
         errorResponse = error;
       }
       expect(response).to.be.undefined;
-      expect(errorResponse.code).equal("ERR_API_KEY_NOT_FOUND")
+      expect(errorResponse.code).equal("ENOENT")
     })
   });
 });

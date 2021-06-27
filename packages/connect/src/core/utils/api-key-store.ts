@@ -1,38 +1,35 @@
-import ono from '@jsdevtools/ono';
 import path from 'path';
 import { promises as fs } from 'fs';
-import { readFile } from './read-file';
+import xdg from '@folder/xdg';
+import mkdirp from 'mkdirp';
+import os from 'os';
 
-const defaultFile = '.shipconnect';
-
-function getHomePath(): string {
-  return (
-    process.env.HOME ||
-    process.env.HOMEPATH ||
-    (process.env.USERPROFILE as string)
-  );
-}
-
-function getKeyFilePath(): string {
-  return path.resolve(getHomePath(), defaultFile);
-}
-
-export enum Errors {
-  NotFound = 'ERR_API_KEY_NOT_FOUND',
-  SetError = 'ERR_SETTING_API_KEY',
-}
+const CONFIG_DIR = path.resolve(xdg().config, 'connect');
+const CONFIG_FILE = path.resolve(CONFIG_DIR, 'key');
+const LEGACY_CONFIG_FILE = path.resolve(os.homedir(), '.shipconnect');
 
 /**
  * Retrieves a key if it exist in the file system
  * @returns {Promise<string>} A promise w/ the key value
  */
 export async function get(): Promise<string> {
+  let apiKey;
   try {
-    const key = await readFile<string>(getKeyFilePath());
-    return key;
+    apiKey = await fs.readFile(CONFIG_FILE, 'utf8');
   } catch (error) {
-    throw ono(error, { code: Errors.NotFound }, 'API key not found');
+    if (error?.code !== 'ENOENT') {
+      throw error;
+    }
   }
+  if (!apiKey) {
+    apiKey = await fs.readFile(LEGACY_CONFIG_FILE, 'utf8');
+    await set(apiKey);
+    await fs.unlink(LEGACY_CONFIG_FILE);
+  }
+  if (!apiKey) {
+    throw new Error(`${CONFIG_FILE} not found`);
+  }
+  return apiKey.trim();
 }
 
 /**
@@ -41,13 +38,12 @@ export async function get(): Promise<string> {
  * @param {string} apiKey The key that should be set
  * @returns {Promise<string>} A promise with the value of the key that was set
  */
-export async function set(apiKey: string): Promise<string> {
-  try {
-    await fs.writeFile(getKeyFilePath(), apiKey, 'utf8');
-    return apiKey;
-  } catch (error) {
-    throw ono(error, { code: Errors.SetError }, 'API key was not set');
-  }
+export async function set(apiKey: string): Promise<void> {
+  await mkdirp(CONFIG_DIR);
+  await fs.writeFile(CONFIG_FILE, `${apiKey.trim()}\n`, {
+    encoding: 'utf8',
+    mode: '600',
+  });
 }
 
 /**
@@ -56,8 +52,12 @@ export async function set(apiKey: string): Promise<string> {
  */
 export async function clear(): Promise<void> {
   try {
-    await fs.unlink(getKeyFilePath());
-  } catch {
-    // If the file doesnt exist swallow the error
+    await fs.unlink(CONFIG_FILE);
+    await fs.unlink(LEGACY_CONFIG_FILE);
+  } catch (error) {
+    if (error?.code === 'ENOENT') {
+      return;
+    }
+    throw error;
   }
 }

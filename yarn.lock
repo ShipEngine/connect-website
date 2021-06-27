@@ -417,6 +417,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@folder/xdg@npm:^3.1.2":
+  version: 3.1.2
+  resolution: "@folder/xdg@npm:3.1.2"
+  dependencies:
+    write: ^2.0.0
+  checksum: a410cbc90dfcaab083690931ffa8f5373a2081d23088c1d7c5bd03b7bfc276ff4dae877e86a4dd952d72ca96fa6e4d1f791df65ceb1dac3d2cf532d3f68a43a3
+  languageName: node
+  linkType: hard
+
 "@grpc/grpc-js@npm:1.0.4":
   version: 1.0.4
   resolution: "@grpc/grpc-js@npm:1.0.4"
@@ -1425,6 +1434,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@shipengine/connect@workspace:packages/connect"
   dependencies:
+    "@folder/xdg": ^3.1.2
     "@jsdevtools/chai-exec": ^2.1.1
     "@jsdevtools/ono": ^7.1.3
     "@oclif/command": ^1.8.0
@@ -1447,10 +1457,9 @@ __metadata:
     "@types/form-data": ^2.5.0
     "@types/hapi__joi": ^17.1.6
     "@types/inquirer": ^7.3.0
-    "@types/js-yaml": ^3.12.5
     "@types/json-schema-faker": ^0.5.1
-    "@types/json5": 0.0.30
     "@types/luxon": ^1.25.0
+    "@types/mkdirp": ^1.0.1
     "@types/mocha": ^8.0.4
     "@types/node": ^14.14.14
     "@types/nodemon": ^1.19.0
@@ -1477,13 +1486,12 @@ __metadata:
     globby: ^11.0.1
     inquirer: ^7.3.3
     joi: ^17.3.0
-    js-yaml: ^3.14.1
     json-schema: ^0.2.5
     json-schema-faker: ^0.5.0-rcv.29
-    json5: ^2.1.3
     lodash: ^4.17.20
     log-symbols: ^4.1.0
     luxon: ^1.24.1
+    mkdirp: ^1.0.4
     mocha: ^8.2.1
     nodemon: ^2.0.6
     npm-check: ^5.9.0
@@ -1942,6 +1950,15 @@ __metadata:
   version: 3.0.3
   resolution: "@types/minimatch@npm:3.0.3"
   checksum: 672ccdac197e8176eed1a9441d0caf8a29a90eb139b1cefdd4c9e71b1c48f5c749f5d101a2d85da15c6259214ebda95072835021407d60330a731a2672964b82
+  languageName: node
+  linkType: hard
+
+"@types/mkdirp@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "@types/mkdirp@npm:1.0.1"
+  dependencies:
+    "@types/node": "*"
+  checksum: 075e821a8fe69349a3b642f798b4632139982f039c8890b83bcd9068bfac3787dd536c9f3bb18bb3f9c68277431514b38e6c57509cdb766c8d7ebff9a1427ecb
   languageName: node
   linkType: hard
 
@@ -2558,6 +2575,15 @@ __metadata:
   bin:
     acorn: bin/acorn
   checksum: 99ccf30832b00ff7e19dff353479fd303c5a82c4ae0a5c5904a6c03316658b89bbdca40f5d8473e6aedd988a404190abd7b431dbd3160df4c09a10398b84bf1c
+  languageName: node
+  linkType: hard
+
+"add-filename-increment@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "add-filename-increment@npm:1.0.0"
+  dependencies:
+    strip-filename-increment: ^2.0.1
+  checksum: 8f15451cc5a2b5130bb0dcccfdad120c634c59068fe91168aa694ce26f5249814c1fbeff81d7b2fe4f1bbb1203f88d9f5492246f775af4c455ba904dd29f1dea
   languageName: node
   linkType: hard
 
@@ -11775,6 +11801,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"strip-filename-increment@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "strip-filename-increment@npm:2.0.1"
+  checksum: 1fac6528d49c148fbccd5299ad814ee7be3b4fc2619e1a6b0d1abe6684ff8128d82f4b71c19de1d8701a98ee2d281c53670a712d6211544fb0057f6fd807058d
+  languageName: node
+  linkType: hard
+
 "strip-final-newline@npm:^2.0.0":
   version: 2.0.0
   resolution: "strip-final-newline@npm:2.0.0"
@@ -12922,6 +12955,15 @@ __metadata:
     sort-keys: ^4.0.0
     write-file-atomic: ^3.0.0
   checksum: 0803c5856575c648d80b656c32fc0305a31946fcff53f04e2240094025db1ab7c583963418701c3ded336dbfe9bf448fa4639e0741f624a2ae26a5f0096847a7
+  languageName: node
+  linkType: hard
+
+"write@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "write@npm:2.0.0"
+  dependencies:
+    add-filename-increment: ^1.0.0
+  checksum: 2c03d624195a35a55c9853cfa9cb35af5bb06c49ce02af7be8210a3a45c97f16b45f4ac3b12bef79cb735d52ffa36c4eee0bac550fdd9bc399cf3e4c90794b55
   languageName: node
   linkType: hard
 

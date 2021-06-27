@@ -24,7 +24,7 @@ describe("connect logout", () => {
         }
 
         expect(result).to.be.undefined;
-        expect(errorResult.code).equal("ERR_API_KEY_NOT_FOUND");
+        expect(errorResult.code).equal("ENOENT");
       });
   });
 });
