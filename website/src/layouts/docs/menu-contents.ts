@@ -146,6 +146,7 @@ export const menu: MenuContents = [
         menuItems: [
           { title: "Register", href: "/docs/beta/reference/methods/register" },
           { title: "Create Label", href: "/docs/beta/reference/methods/create-label" },
+          { title: "Get Rates", href: "/docs/beta/reference/methods/get-rates" },
         ]
       },
       {
@@ -159,6 +160,7 @@ export const menu: MenuContents = [
           { title: "Country Codes", href: "/docs/beta/reference/country-codes" },
           { title: "Common types", href: "/docs/beta/reference/common-types" },
           { title: "Billing Line Item", href: "/docs/beta/reference/billing-line-item" },
+          { title: "Fulfillment Plan Details", href: "/docs/beta/reference/fulfillment-plan-details" },
         ]
       },
     ]

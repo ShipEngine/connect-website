@@ -66,7 +66,7 @@ An object containing information about the new label to create.
     <Description>
       The requested document format for this label.
       
-      Valid values inclue the following:
+      Valid values include the following:
       * `PDF`
       * `ZPL`
       * `PNG`
@@ -77,7 +77,7 @@ An object containing information about the new label to create.
     <Description>
       The requested label layout for this label.
       
-      Valid values inclue the following:
+      Valid values include the following:
       * `4x6`
       * `letter`
     </Description>
@@ -104,7 +104,7 @@ An object containing information about the new label to create.
       `carrier` indicates that the user is requesting insurance from the carrier directly, 
       anything else is extra information that should not result in a transaction.
       
-      Valid values inclue the following:
+      Valid values include the following:
       * `None`
       * `Shipstation`
       * `Carrier`
@@ -197,6 +197,24 @@ An object containing information about the new label to create.
   <Field name="return_details.rma_number" type="string" nullable={false}>
     <Description>
       A [return merchandise authorization (RMA)](https://en.wikipedia.org/wiki/Return_merchandise_authorization) is an associated number assigned to process the return. This number is often printed on the label and used when the original shipper processes the inbound return. This string will not contain newline characters.
+    </Description>
+  </Field>
+  
+  <Field name="fulfillment_plan_details" nullable={true}>
+    <Type>
+      [fulfillment plan details object](./../fulfillment-plan-details.mdx#fulfillment-plan-details-object)
+    </Type>
+    <Description>
+      Details regarding the fulfillment plan and/or original sales order, only if the carrier provider requires this info for label generation.
+    </Description>
+  </Field>
+  
+  <Field name="attachments" nullable={true}>
+    <Type>
+      [document object[]](./../document.mdx)
+    </Type>
+    <Description>
+      Attachments that may be required to be sent to the carrier, in particular customs documents or commercial invoices.
     </Description>
   </Field>
 
@@ -346,7 +364,7 @@ module.exports = async function CreateLabel(request) {
   const response = await apiClient.request({ data });
 
   // STEP 4: Create the output data that ShipEngine expects
-  return await formatShipment(response.data);
+  return formatShipment(response.data);
 }
 ```
 

@@ -1,0 +1,107 @@
+---
+title: Fulfillment Plan Details object
+description: Fulfillment Plan Details Object representing a fulfilment plan used in shipments.
+---
+
+Fulfillment Plan Details Object
+===============================================
+An fulfillment plan details object representing a fulfilment plan.
+
+<Reference>
+
+  <Field name="external_sales_order_identifiers" type="object" nullable={true}>
+    <Description>
+      A list of identifiers for the sales order.
+    </Description>
+  </Field>
+
+  <Field name="external_sales_order_identifiers[].type" type="string" required={false}>
+    <Description>
+      A key describing the identifier.
+    </Description>
+  </Field>
+
+  <Field name="external_sales_order_identifiers[].value" type="string" required={false}>
+    <Description>
+      The value of the identifier.
+    </Description>
+  </Field>
+
+  <Field name="items" nullable={true}>
+    <Type>
+      [fulfillment plan item object[]](#fulfillment-plan-item-object)
+    </Type>
+    <Description>
+      Information about the fulfillment plan item.
+    </Description>
+  </Field>
+
+  <Field name="raw_external_source" type="object" nullable={true}>
+    <Description>
+      This model represents a raw external source of information.
+    </Description>
+  </Field>
+
+  <Field name="raw_external_source.marketplace_code" type="string" required={true}>
+    <Description>
+      Canonical representation of the fulfillment plan's and/or sales order's original source.
+    </Description>
+  </Field>
+
+</Reference>
+
+Fulfillment Plan Item Object
+===============================================
+An fulfillment plan item object representing a single item on a fulfilment plan.
+
+<Reference>
+
+  <Field name="external_sales_order_identifiers" type="object" nullable={true}>
+    <Description>
+      A list of identifiers for the sales order.
+    </Description>
+  </Field>
+
+  <Field name="external_sales_order_identifiers[].type" type="string" required={false}>
+    <Description>
+      A key describing the identifier.
+    </Description>
+  </Field>
+
+  <Field name="external_sales_order_identifiers[].value" type="string" required={false}>
+    <Description>
+      The value of the identifier.
+    </Description>
+  </Field>
+
+  <Field name="external_product_identifiers" type="object" nullable={true}>
+    <Description>
+      A list of identifiers specific to the selling channel.
+    </Description>
+  </Field>
+
+  <Field name="external_product_identifiers[].type" type="string" required={false}>
+    <Description>
+      A key describing the identifier.
+    </Description>
+  </Field>
+
+  <Field name="external_product_identifiers[].value" type="string" required={false}>
+    <Description>
+      The value of the identifier.
+    </Description>
+  </Field>
+
+  <Field name="name" type="string" nullable={true}>
+    <Description>
+      The name of the item.
+    </Description>
+  </Field>
+
+  <Field name="quantity" type="number" nullable={true}>
+    <Description>
+      The number of items.
+    </Description>
+  </Field>
+
+</Reference>
