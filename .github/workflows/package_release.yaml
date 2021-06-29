@@ -32,7 +32,7 @@ jobs:
             let [keyword, release_type] = process.env.COMMENT.split(' ');
             const result = {
               comment_id: '',
-              release_type: release_type || 'patch'
+              release_type: release_type.trim() || 'patch'
             };
             try {
               const response = await github.issues.createComment({
