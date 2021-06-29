@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "skipLibCheck": true,
     "paths": {
       "@shipengine/connect": ["./packages/connect/src"],
       "@shipengine/connect-runtime": ["./packages/runtime/src"],

@@ -2,16 +2,14 @@ import {
   InventoryApp,
   InventoryAppDefinition,
 } from "@shipengine/connect-inventory-api";
-import * as handlers from "./handlers";
+import * as handlers from "./app";
 import { sampleMetadata } from "./metadata";
 
 const appDefinition: InventoryAppDefinition = {
   metadata: sampleMetadata,
-  fetchInventoryFull: handlers.fetchFull,
-  fetchInventoryPartial: handlers.fetchPartial,
-  fetchInventoryDelta: handlers.fetchDelta,
+  startFetch: handlers.startFetch,
   getFetchResults: handlers.fetchResults,
-  pushInventory: handlers.push,
+  startPush: handlers.startPush,
   getPushResults: handlers.pushResults,
 };
 

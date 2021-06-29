@@ -1,18 +1,29 @@
+import { Request } from 'express';
 import { InventoryAppDefinition } from './inventory-app-definition';
 
+/**
+ * Union of all types / method signatures for all InventoryApp methods.
+ */
 export type InventoryHandler = InventoryAppDefinition[
-  | 'fetchInventoryFull'
-  | 'fetchInventoryPartial'
-  | 'fetchInventoryDelta'
+  | 'startFetch'
   | 'getFetchResults'
-  | 'pushInventory'
+  | 'startPush'
   | 'getPushResults'];
 
+/**
+ * Enumeration of all endpoints / routes for all InventoryApp methods.
+ */
 export enum Operation {
-  FETCH_FULL = '/fetch_inventory/full',
-  FETCH_PARTIAL = '/fetch_inventory/partial',
-  FETCH_DELTA = '/fetch_inventory/delta',
-  FETCH_RESULTS = '/fetch_inventory/:cursor',
-  PUSH = '/push_inventory',
-  PUSH_RESULTS = '/push_inventory/:cursor',
+  START_FETCH = '/fetch',
+  FETCH_RESULTS = '/fetch/:cursor',
+  START_PUSH = '/push',
+  PUSH_RESULTS = '/push/:cursor',
 }
+
+/**
+ * Minimal interface derived from Express `Request`, adequate
+ * to allow extraction of `Authorization` header.
+ */
+export type RequestWithAuth = {
+  get(name: string): string | undefined;
+};

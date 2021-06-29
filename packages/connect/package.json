@@ -46,7 +46,7 @@
     "release": "yarn version:release",
     "test": "HOME=. yarn test:javascript && yarn test:typescript",
     "test:javascript": "mocha",
-    "test:typescript": "tsc --noEmit test/specs/typescript.spec.ts",
+    "test:typescript": "tsc --noEmit --skipLibCheck test/specs/typescript.spec.ts",
     "watch": "yarn build:watch"
   },
   "oclif": {

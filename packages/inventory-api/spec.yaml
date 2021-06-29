@@ -2,152 +2,65 @@ openapi: 3.0.0
 info:
   title: Inventory API
   description: API specification for Inventory Apps in ShipEngine Connect.
-  version: 0.0.1
+  version: 0.1.0
 
 paths:
   # ----------------------------
   # ---- Fetch Inventory -------
   # ----------------------------
 
-  /fetch_inventory/full:
+  /fetch:
     post:
-      summary: Fetch all stock levels
-      operationId: FetchInventoryFull
+      summary: Start an inventory fetch operation
+      operationId: StartFetchOperation
       description: |
-        Starts an operation to fetch all available stock levels from the 3rd-party inventory source or provider.
-
-        Note: this operation must be supported by all Inventory Apps.
-        
-        ### Completion of operations
-        How this operation completes will vary among 3rd-party inventory providers:
-        1. **In-band responses**\
-          Some providers will return results in-band, in which case the response will show `status: 'success'`.
-          - If `has_more_data: false`, clients can consider the operation concluded.
-          - If `has_more_data: true`, a `cursor` will be provided to allow clients to page through all result data.\
-          In this scenario, clients should continue processing the remaining results via `GET /push_inventory/{cursor}`.\
-          See notes on that route for follow-up actions.
-        2. **Out-of-band responses**\
-          Some inventory providers will return results out-of-band, in which case the response will show `status: 'pending'`.\
-
-          In this scenario `status` will be `'pending'` and a `cursor` string will be provided. Clients should reuse this cursor
-          at `GET /push_inventory/{cursor}` after waiting for the suggested `poll_after_seconds`.\
-          See notes on that route for follow-up actions.
-      tags: 
+        Start a fetch operation with the inventory provider.
+      tags:
         - Fetch Inventory
-      responses:
-        '200':
-          $ref: "#/components/responses/FetchInventoryResponse"
-
-        '4XX':
-          $ref: "#/components/responses/ErrorResponse"
+      requestBody:
+        description: |
+          - For a full inventory fetch, send no request body
+          - For a partial fetch only for the given SKUs, provide an array of `skus`
+          - For a delta fetch only for inventory levels changed since the given date, provide a `sinceDate`
           
-  /fetch_inventory/partial:
-    post:
-      summary: Fetch only stock levels for particular SKUs
-      operationId: FetchInventoryPartial
-      description: |
-        Starts an operation to fetch stock levels – only for the given SKUs – from the 3rd-party inventory source or provider.
-
-        Note: this operation may not be supported by a given Inventory App.
-
-        ### Completion of operations
-        How this operation completes will vary among 3rd-party inventory providers:
-        1. **In-band responses**\
-          Some providers will return results in-band, in which case the response will show `status: 'success'`.
-          - If `has_more_data: false`, clients can consider the operation concluded.
-          - If `has_more_data: true`, a `cursor` will be provided to allow clients to page through all result data.\
-          In this scenario, clients should continue processing the remaining results via `GET /push_inventory/{cursor}`.\
-          See notes on that route for follow-up actions.
-        2. **Out-of-band responses**\
-          Some inventory providers will return results out-of-band, in which case the response will show `status: 'pending'`.\
-
-          In this scenario `status` will be `'pending'` and a `cursor` string will be provided. Clients should reuse this cursor
-          at `GET /push_inventory/{cursor}` after waiting for the suggested `poll_after_seconds`.\
-          See notes on that route for follow-up actions.
-      tags: 
-        - Fetch Inventory
-      requestBody:
-        required: true
+        required: false
         content:
           application/json:
             schema:
-              type: object
-              required:
-                - skus
-              properties:
-                skus:
-                  $ref:  "#/components/schemas/SkuIdentifiers"
-                
+              oneOf:
+                - $ref:  "#/components/schemas/FetchInventoryBySku"
+                - $ref:  "#/components/schemas/FetchInventoryByDate"
+
+            examples:
+              full_fetch:
+                summary: Full fetch – fetch all inventory from the inventory source.
+                value: {}
+              by_sku:
+                summary: Partial fetch – only get inventory for the given SKUs.
+                value:
+                  skus: [shirt,shoes,mug]
+              by_date:
+                summary: Delta fetch – only get inventory changed since the given date.
+                value:
+                  sinceDate: 2021-01-01T08:30:00+0000
+            
       responses:
-        '200':
-          $ref: "#/components/responses/FetchInventoryResponse"
-
+        201:
+          $ref: "#/components/responses/OperationReady"
+        202:
+          $ref: "#/components/responses/OperationProcessing"
         '4XX':
-          $ref: "#/components/responses/ErrorResponse"
-
+          $ref:  "#/components/responses/ErrorResponse"
         '501':
           $ref:  "#/components/responses/NotSupportedResponse"
+        '5XX':
+          $ref:  "#/components/responses/ErrorResponse"
 
-  /fetch_inventory/delta:
-    post:
-      summary: Fetch only stock levels changed after a given date
-      operationId: FetchInventoryDelta
-      description: |
-        Starts an operation to fetch stock levels – only those changed since the given date – from the 3rd-party inventory source or provider.
-
-        Note: this operation may not be supported by a given Inventory App.
-
-        ### Completion of operations
-        How this operation completes will vary among 3rd-party inventory providers:
-        1. **In-band responses**\
-          Some providers will return results in-band, in which case the response will show `status: 'success'`.
-          - If `has_more_data: false`, clients can consider the operation concluded.
-          - If `has_more_data: true`, a `cursor` will be provided to allow clients to page through all result data.\
-          In this scenario, clients should continue processing the remaining results via `GET /push_inventory/{cursor}`.\
-          See notes on that route for follow-up actions.
-        2. **Out-of-band responses**\
-          Some inventory providers will return results out-of-band, in which case the response will show `status: 'pending'`.\
-
-          In this scenario `status` will be `'pending'` and a `cursor` string will be provided. Clients should reuse this cursor
-          at `GET /push_inventory/{cursor}` after waiting for the suggested `poll_after_seconds`.\
-          See notes on that route for follow-up actions.
-      tags: 
-        - Fetch Inventory
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - sinceDate
-              properties:
-                sinceDate:
-                  $ref:   "#/components/schemas/DateTime"
-      responses:
-        '200':
-          $ref: "#/components/responses/FetchInventoryResponse"
-
-        '4XX':
-          $ref: "#/components/responses/ErrorResponse"
-
-        '501':
-          $ref:  "#/components/responses/NotSupportedResponse"
-
-  /fetch_inventory/{cursor}:
+  /fetch/{cursor}:
     get:
       summary: Get results from fetch operations
       description: |
-        Use this endpoint for either of:
-
-        1. **Checking the status of out-of-band / long-running operations**
-          - If a response yields `status: 'pending'`, await the suggested `poll_after_seconds` and repeat polling with the given `cursor`.
-          - If a response yields `status: 'success'`, result data will appear in `inventory_items`. Continue to item #2, below ⬇
-        2. **Paging through the result data of completed operations**
-          - If `status: 'success'` and `has_more_data: false`, the operation is concluded and no more data is available.
-          - If `has_more_data: true`, clients should page through the rest of the result data by reusing the given `cursor` values.
-          - Clients ⬆ should continue paging with each new `cursor` until `has_more_data: false` appears.
-          At this point, all result data has been consumed and the operation can be considered concluded.
+        Get results from a completed fetch operation, or scrub through multiple pages of results.
         
       tags:
         - Fetch Inventory
@@ -159,39 +72,26 @@ paths:
             $ref: '#/components/schemas/Cursor'
       responses:
         '200':
-          $ref: '#/components/responses/FetchInventoryResponse'
+          $ref:  "#/components/responses/FetchResults"
         '4XX':
-          $ref: "#/components/responses/ErrorResponse"
+          $ref:  "#/components/responses/ErrorResponse"
+        '501':
+          $ref:  "#/components/responses/NotSupportedResponse"
+        '5XX':
+          $ref:  "#/components/responses/ErrorResponse"
 
   # ----------------------------
   # ---- Push Inventory --------
   # ----------------------------
 
-  /push_inventory:
+  /push:
     post:
-      summary: Push new stock levels to inventory source
-      operationId: PushInventory
+      summary: Start an inventory push operation
+      operationId: StartPushOperation
+      description: |
+        Start a push operation with the inventory provider.
       tags:
         - Push Inventory
-      description: |
-        Starts an operation to push new or updated stock levels to the 3rd-party inventory source or provider.
-
-        Note: this operation may not be supported by a given Inventory App.
-
-        ### Completion of operations
-        How this operation completes will vary among 3rd-party inventory providers:
-        1. **In-band responses**\
-          Some providers will return results in-band, in which case the response will show `status: 'success'`.
-          - If `has_more_data: false`, clients can consider the operation concluded.
-          - If `has_more_data: true`, a `cursor` will be provided to allow clients to page through all result data.\
-          In this scenario, clients should continue processing the remaining results via `GET /push_inventory/{cursor}`.\
-          See notes on that route for follow-up actions.
-        2. **Out-of-band responses**\
-          Some inventory providers will return results out-of-band, in which case the response will show `status: 'pending'`.\
-
-          In this scenario `status` will be `'pending'` and a `cursor` string will be provided. Clients should reuse this cursor
-          at `GET /push_inventory/{cursor}` after waiting for the suggested `poll_after_seconds`.\
-          See notes on that route for follow-up actions.
       requestBody:
         required: true
         content:
@@ -206,29 +106,23 @@ paths:
                   items:
                     $ref: "#/components/schemas/InventoryItemBase"
       responses:
-        '200':
-          $ref:  "#/components/responses/PushInventoryResponse"
-          
+        201:
+          $ref: "#/components/responses/OperationReady"
+        202:
+          $ref: "#/components/responses/OperationProcessing"
         '4XX':
-          $ref: "#/components/responses/ErrorResponse"
-
+          $ref:  "#/components/responses/ErrorResponse"
         '501':
           $ref:  "#/components/responses/NotSupportedResponse"
+        '5XX':
+          $ref:  "#/components/responses/ErrorResponse"
 
-  /push_inventory/{cursor}:
+  /push/{cursor}:
     get:
       summary: Get results from push operations
       description: |
-        Use this endpoint for either of:
-
-        1. **Checking the status of out-of-band / long-running operations**
-          - If a response yields `status: 'pending'`, await the suggested `poll_after_seconds` and repeat polling with the given `cursor`.
-          - If a response yields `status: 'success'`, result data will appear in `skus_updated`. Continue to item #2, below ⬇
-        2. **Paging through the result data of completed operations**
-          - If `status: 'success'` and `has_more_data: false`, the operation is concluded and no more data is available.
-          - If `has_more_data: true`, clients should page through the rest of the result data by reusing the given `cursor` values.
-          - Clients ⬆ should continue paging with each new `cursor` until `has_more_data: false` appears.
-          At this point, all result data has been consumed and the operation can be considered concluded.
+        Get results from a completed push operation, or scrub through multiple pages of results.
+        
       tags:
         - Push Inventory
       parameters:
@@ -239,9 +133,13 @@ paths:
             $ref: '#/components/schemas/Cursor'
       responses:
         '200':
-          $ref: "#/components/responses/PushInventoryResponse"
+          $ref:  "#/components/responses/PushResults"
         '4XX':
-          $ref: "#/components/responses/ErrorResponse"
+          $ref:  "#/components/responses/ErrorResponse"
+        '501':
+          $ref:  "#/components/responses/NotSupportedResponse"
+        '5XX':
+          $ref:  "#/components/responses/ErrorResponse"
 
 # ----------------------
 # ---- Security --------
@@ -299,7 +197,6 @@ components:
       required:
         - sku
         - integration_entity_id
-        - fetched_at
         - available_quantity
       properties:
         sku:
@@ -350,166 +247,186 @@ components:
               type: string
               description: Unique identifier for a warehouse or other location tracked in the source system.
 
-    # -------------------------------
-    # InventoryFetch response schemas
-    # -------------------------------
+    # ------------------------------------
+    # Start inventory fetch request bodies
+    # ------------------------------------
 
-    InventoryFetchSuccess:
-      description: |
-        Response shape for a successful inventory fetch request.
-        - If all results fit into a single response, `cursor` will be omitted and `has_more_data` will be false.
-        - If the total result set requires paging, clients should capture the provided `cursor` and pass it to `GET /fetch_inventory/{cursor}`, repeating with each successive cursor until `has_more_data` is false. 
+    FetchInventoryBySku:
+      description: A request to fetch only inventory levels for the given SKUs.
       type: object
-      required:
-        - inventory_items
-        - status
-        - has_more_data
+      required: [skus]
+      properties:
+        skus:
+          $ref: '#/components/schemas/SkuIdentifiers'
+
+    FetchInventoryByDate:
+      description: A request to fetch only inventory levels changed since the given date.
+      type: object
+      required: [sinceDate]
+      properties:
+        sinceDate:
+          $ref:  "#/components/schemas/DateTime"
+
+    # ------------------------------------
+    # Responses – shared operation schemas
+    # ------------------------------------
+
+    OperationReady:
+      description: A completed fetch/push operation with data ready to be consumed.
+      type: object
       properties:
         status:
           type: string
-          enum: [success]
-        inventory_items:
+          enum: [READY]
+          example: READY
+        cursor:
+          $ref:  "#/components/schemas/Cursor"
+        message:
+          type: string
+          example: Poll immediately at `/fetch/cGFnZTozMDo6cGVyX3BhZ2U6NTAw`.
+
+    OperationProcessing:
+      description: A fetch/push operation that's still processing at the inventory source.
+      type: object
+      required: [status, cursor, message, poll_after_seconds]
+      properties:
+        status: 
+          type: string
+          enum: [PROCESSING]
+          example: PROCESSING
+        cursor:
+          $ref:  "#/components/schemas/Cursor"
+        message:
+          type: string
+          example: Poll at `/fetch/cGFnZTozMDo6cGVyX3BhZ2U6NTAw` after 10 seconds.
+        poll_after_seconds:
+          type: integer
+          example: 10
+
+    # ------------------------------------
+    # Responses – fetch schemas
+    # ------------------------------------
+
+    FetchPaging:
+      description: A completed fetch operation that still has more data for the client to consume.
+      type: object
+      required: [status, items, message, next_cursor]
+      properties:
+        status:
+          type: string
+          enum: [PAGING]
+          example: PAGING
+        items:
           type: array
           items:
-            $ref: "#/components/schemas/InventoryFetchItem"
-        has_more_data:
-          type: boolean
-        cursor:
-          $ref: "#/components/schemas/Cursor"
-      example:
-        status: success
-        inventory_items:
-          - sku: t-shirt-small-red
-            integration_entity_id: t-shirt-small-red
-            fetched_at: 2021-01-01T08:30:00+0000
-            updated_at: 2021-01-01T08:20:00+0000
-            available_quantity: 20
-            allocated_quantity: 2
-          - sku: blue-shoes-8.5
-            integration_entity_id: blue-shoes-8.5
-            fetched_at: 2021-01-15T08:30:00+0000
-            updated_at: 2021-01-15T08:20:00+0000
-            available_quantity: 40
-            onhand_quantity: 50
-        has_more_data: true
-        cursor: cGFnZTozMDo6cGVyX3BhZ2U6NTAw
-
-    InventoryFetchPending:
-      description: Response shape for a pending inventory fetch request.
-      type: object
-      required:
-        - status
-        - cursor
-        - poll_after_seconds
-      properties:
-        status:
+            $ref:  "#/components/schemas/InventoryFetchItem"
+        message:
           type: string
-          enum: [pending]
-        cursor:
+          example: Next page ready at `/fetch/cGFnZTozMDo6cGVyX3BhZ2U6NTAw`.
+        next_cursor:
           $ref:  "#/components/schemas/Cursor"
-        poll_after_seconds:
-          type: integer
-          description: A suggested wait time before clients should poll with the given cursor to check on completion.
-          example: 10
-      example:
-        status: pending
-        poll_after_seconds: 10
-        cursor: cGFnZTozMDo6cGVyX3BhZ2U6NTAw
 
-    InventoryFetchFailure:
-      description: Response shape for a failed inventory fetch request.
+    FetchDone:
+      description: A completed fetch operation that has no further data to consume.
       type: object
-      required:
-        - status
+      required: [status, items, message]
       properties:
         status:
           type: string
-          enum: [failure]
-        error:
-          $ref:  "#/components/schemas/Error"
-      example:
-        status: failure
-        error: "#components/schemas/Error/example"
-
-    # ------------------------------
-    # InventoryPush response schemas
-    # ------------------------------
-
-    InventoryPushSuccess:
-      description: Response shape for a successful `push_inventory` operation
-      type: object
-      required:
-        - has_more_data
-        - skus_updated
-      properties:
-        transaction_id:
+          enum: [DONE]
+          example: DONE
+        items:
+          type: array
+          items:
+            $ref:  "#/components/schemas/InventoryFetchItem"
+        message:
           type: string
-          description: A unique identifier for the completed operation, which may refer to a resource
-                      at the inventory source, such as a feed or document ID.
-          example: abcd-1234
+          example: Operation complete – no further inventorydata to fetch.
+
+    # ------------------------------------
+    # Responses – push schemas
+    # ------------------------------------
+
+    PushPaging:
+      description: A completed push operation that still has more data for the client to consume.
+      type: object
+      required: [status, skus_updated, message, next_cursor]
+      properties:
+        status:
+          type: string
+          enum: [PAGING]
+          example: PAGING
         skus_updated:
           $ref:  "#/components/schemas/SkuIdentifiers"
-        has_more_data:
-          type: boolean
-        cursor:
-          $ref: "#/components/schemas/Cursor"
-      example:
-        transaction_id: abcd-1234
-        skus_updated: [t-shirt-small-red, blue-shoe-8.5]
-        has_more_data: false
+        message:
+          type: string
+          example: Next page ready at `/push/cGFnZTozMDo6cGVyX3BhZ2U6NTAw`.
+        next_cursor:
+          $ref:  "#/components/schemas/Cursor"
 
-    InventoryPushPending:
-      description: Response shape for a pending or long-running `push_inventory` operation
+    PushDone:
+      description: A completed push operation that has no further data to consume.
       type: object
-      required:
-        - status
-        - cursor
-        - poll_after_seconds
+      required: [status, skus_updated, message]
       properties:
         status:
           type: string
-          enum: [pending]
-        cursor:
-          $ref:  "#/components/schemas/Cursor"
-        poll_after_seconds:
-          type: integer
-          description: A suggested wait time before clients should poll with the given cursor to check on completion.
-          example: 10
-      example:
-        status: pending
-        poll_after_seconds: 10
-        cursor: cGFnZTozMDo6cGVyX3BhZ2U6NTAw
+          enum: [DONE]
+          example: DONE
+        skus_updated:
+          $ref:  "#/components/schemas/SkuIdentifiers"
+        message:
+          type: string
+          example: Operation complete – no further inventorydata to fetch.
 
-
-    # ---------------
-    # --- Errors ----
-    # ---------------
+    # ------------------------------------
+    # Responses – errors
+    # ------------------------------------
 
     Error:
+      title: Error
       type: object
-      required:
-        - message
+      required: [message]
       properties:
-        message:
-          description: Summary of what went wrong.
-          type: string
         transaction_id:
-          description: Unique identifier for the request or operation that produced the error, if available.
           type: string
-        external_error_code:
-          type: integer
-          description: Error code received from the remote inventory source
-        details:
-          description: Additional detail about what went wrong.
+        message:
           type: string
+        detailed_errors:
+          type: array
+          items:
+            type: object
+            properties:
+              external_error_code:
+                type: string
+              message:
+                type: string
+              external_http_status_code:
+                type: string
+              raw_external_context:
+                type: string
+              standardized_error_code:
+                type: string
+                enum:
+                  - generic
+                  - validation
+                  - external_unauthorized_error
+                  - external_server_error
+                  - external_client_error
         retry_after_seconds:
-          description: A suggested wait interval before the request should be retried, if applicable.
           type: number
+        retry_after_time:
+          type: string
+        throttling_context:
+          type: object
       example:
-        message: Throttled due to exceeding available query capacity
+        message: Throttled at inventory source, exceeded available query capacity
         transaction_id: 12345
         external_error_code: 429
-        details: Calculated cost was 5400, but only 1200 units are currently available. (Restore Rate 100)
+        detailed_errors:
+          - message: Calculated cost was 5400, but only 1200 units are currently available. (Restore Rate 100)
+            external_http_status_code: 429
+
         retry_after_seconds: 42
 
   # -----------------
@@ -517,50 +434,57 @@ components:
   # -----------------
 
   responses:
-    FetchInventoryResponse:
-      description: A successful or pending response for any `fetch_inventory` operation.
+    OperationReady:
+      description: A completed fetch/push operation with data ready to be consumed.
+      content:
+        application/json:
+          schema:
+            $ref:  "#/components/schemas/OperationReady"
+          
+    OperationProcessing:
+      description: A fetch/push operation that's still processing at the inventory source.
+      content:
+        application/json:
+          schema:
+            $ref:  "#/components/schemas/OperationProcessing"
+
+    FetchResults:
+      description: Results from a completed fetch operation, either PAGING or DONE.
       content:
         application/json:
           schema:
             oneOf:
-              - $ref:  "#/components/schemas/InventoryFetchSuccess"
-              - $ref:  "#/components/schemas/InventoryFetchPending"
+              - $ref:  "#/components/schemas/FetchPaging"
+              - $ref:  "#/components/schemas/FetchDone"
             discriminator:
               propertyName: status
               mapping:
-                success: "#/components/schemas/InventoryFetchSuccess"
-                pending: "#/components/schemas/InventoryFetchPending"
+                PAGING: "#/components/schemas/FetchPaging"
+                DONE: "#/components/schemas/FetchDone"
 
-    FetchInventoryErrorResponse:
-      description: An error response  for a `fetch_inventory` operation
-      content:
-        application/json:
-          schema:
-            $ref:  "#/components/schemas/InventoryFetchFailure"
-
-    PushInventoryResponse:
-      description: A successful response for a `push_inventory` operation
+    PushResults:
+      description: Results from a completed push operation, either PAGING or DONE.
       content:
         application/json:
           schema:
             oneOf:
-              - $ref:   "#/components/schemas/InventoryPushSuccess"
-              - $ref:   "#/components/schemas/InventoryPushPending"
+              - $ref:  "#/components/schemas/PushPaging"
+              - $ref:  "#/components/schemas/PushDone"
             discriminator:
               propertyName: status
               mapping:
-                success: "#/components/schemas/InventoryPushSuccess"
-                pending: "#/components/schemas/InventoryPushPending"
+                PAGING: "#/components/schemas/PushPaging"
+                DONE: "#/components/schemas/PushDone"
 
     ErrorResponse:
-      description: Any standardized Error response
+      description: Any error response.
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/Error"
+            $ref:  "#/components/schemas/Error"
 
     NotSupportedResponse:
-      description: Responses for inventory operations that are not supported by a particular Inventory App.
+      description: Response when the requested operation is not supported by this Inventory App.
       content:
         application/json:
           schema:

@@ -12,11 +12,6 @@
     "resolveJsonModule": true,
     "composite": true
   },
-  "include": [
-    "src/**/*.ts",
-    "src/schemas/*.json"
-  ],
-  "references": [
-    { "path": "../runtime" }
-  ]
+  "include": ["src/**/*.ts", "src/schemas/*.json"],
+  "references": [{ "path": "../runtime" }]
 }

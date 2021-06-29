@@ -1,40 +1,38 @@
-import * as Requests from '../requests';
-import * as Responses from '../responses';
+import {
+  AnyFetchRequest,
+  OperationResults,
+  PushInventoryRequest,
+} from '../requests/requests';
+import { FetchResults, OperationStarted, PushResults } from '../responses';
 import { InventoryAppMetadata } from './inventory-app-metadata';
 
 /**
- * @description This defines a Connect Inventory App
+ * Definition for an Inventory App implementation
  */
 export interface InventoryAppDefinition {
   metadata: InventoryAppMetadata;
 
-  fetchInventoryFull: (
-    request: Requests.FetchInventoryRequestFull,
-  ) => Promise<
-    | Responses.InventoryFetchSuccess
-    | Responses.InventoryFetchPending
-    | Responses.ErrorResponse
-  >;
+  /**
+   * Initiate an inventory fetch of any kind. The incoming req body for
+   * this method has a varying shape which maps to different fetch types:
+   * - No request body: `full` fetch
+   * - Skus: `partial` fetch by sku
+   * - SinceDate: `delta` fetch by date
+   */
+  startFetch: (request: AnyFetchRequest) => Promise<OperationStarted>;
 
-  fetchInventoryPartial: (
-    request: Requests.FetchInventoryRequestPartial,
-  ) => Promise<Responses.AnyInventoryFetchResponse>;
+  /**
+   * Check for completion and results of a fetch operation.
+   */
+  getFetchResults: (request: OperationResults) => Promise<FetchResults>;
 
-  fetchInventoryDelta: (
-    request: Requests.FetchInventoryRequestDelta,
-  ) => Promise<Responses.AnyInventoryFetchResponse>;
+  /**
+   * Initiate an inventory push.
+   */
+  startPush: (request: PushInventoryRequest) => Promise<OperationStarted>;
 
-  getFetchResults: (
-    request: Requests.OperationResults,
-  ) => Promise<
-    Responses.InventoryFetchPending | Responses.InventoryFetchSuccess
-  >;
-
-  pushInventory: (
-    request: Requests.PushInventoryRequest,
-  ) => Promise<Responses.AnyInventoryPushResponse>;
-
-  getPushResults: (
-    request: Requests.OperationResults,
-  ) => Promise<Responses.AnyInventoryPushResponse>;
+  /**
+   * Check for completion and results of a push operation.
+   */
+  getPushResults: (request: OperationResults) => Promise<PushResults>;
 }

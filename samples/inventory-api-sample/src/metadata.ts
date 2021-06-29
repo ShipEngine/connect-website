@@ -4,6 +4,6 @@ import {
 } from "@shipengine/connect-inventory-api";
 
 export const sampleMetadata: InventoryAppMetadata = {
-  supportedFetchTypes: [FetchType.FULL, FetchType.PARTIAL, FetchType.DELTA],
+  supportedFetchTypes: [FetchType.FULL, FetchType.PARTIAL],
   supportsInventoryPush: true,
 };
