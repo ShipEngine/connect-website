@@ -14,12 +14,15 @@ export default function parseDeploymentErrors(
     (error: Record<string, unknown>) =>
       Reflect.get(error, 'code') === 'app_definition_upload',
   );
-
   if (!errorCodeWithMessages) return [];
 
-  const errorWithMessages = Reflect.get(errorCodeWithMessages, 'error');
+  let errorWithMessages = Reflect.get(errorCodeWithMessages, 'error');
 
   if (!errorWithMessages) return [];
+
+  if (typeof errorWithMessages === 'string') {
+    errorWithMessages = JSON.parse(errorWithMessages);
+  }
 
   const errorMessages = Reflect.get(
     errorWithMessages,
