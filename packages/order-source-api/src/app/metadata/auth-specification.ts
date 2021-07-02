@@ -1,11 +1,17 @@
-import { AuthIdentifier } from './auth-identifier';
+import { AuthIdentifier, AuthIdentifierSchema } from './auth-identifier';
 import {
   AccessToken,
+  AccessTokenSchema,
   AuthorizationConfiguration,
+  AuthorizationConfigurationSchema,
   Parameter,
+  ParameterSchema,
   RefreshTokenConfiguration,
+  RefreshTokenConfigurationSchema,
   RequestTokenConfiguration,
+  RequestTokenConfigurationSchema,
 } from './monoauth';
+import Joi from 'joi';
 
 /** @description Used to specify information about an integrations authentication */
 export interface AuthSpecification {
@@ -22,3 +28,12 @@ export interface AuthSpecification {
   /** @description Advanced configurations used for oauth 1.0 */
   advanced_configuration?: Parameter[];
 }
+
+export const AuthSpecificationSchema = Joi.object({
+  Identifier: AuthIdentifierSchema,
+  access_token: AccessTokenSchema.optional(),
+  authorization: AuthorizationConfigurationSchema.optional(),
+  request_token: RequestTokenConfigurationSchema.optional(),
+  refresh_token: RefreshTokenConfigurationSchema.optional(),
+  advanced_configuration: Joi.array().optional().items(ParameterSchema),
+});

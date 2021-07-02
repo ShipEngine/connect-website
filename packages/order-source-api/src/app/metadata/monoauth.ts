@@ -1,6 +1,35 @@
+import Joi from 'joi';
+
+export interface Parameter {
+  /** @description The name of the parameter */
+  name: string;
+  /** @description The value associated with the parameter */
+  value: string;
+}
+
+export const MethodSchema = Joi.string().valid(
+  'GET',
+  'POST',
+  'DELETE',
+  'PUT',
+  'get',
+  'post',
+  'delete',
+  'put',
+);
+
+export const ParameterSchema = Joi.object({
+  name: Joi.string().required(),
+  value: Joi.string().required(),
+});
+
 export interface AccessToken {
   url_template: string;
 }
+
+export const AccessTokenSchema = Joi.object({
+  url_template: Joi.string().required(),
+});
 
 export interface RequestTokenConfiguration {
   /** @description The url to obtain the access token using the authorization code on the backend @example "http://{auth_state:store_name}.store.com/admin/oauth/request", "http://store.com/oauth/request" */
@@ -13,6 +42,13 @@ export interface RequestTokenConfiguration {
   headers?: Parameter[];
 }
 
+export const RequestTokenConfigurationSchema = Joi.object({
+  url_template: Joi.string().required(),
+  method: MethodSchema.optional(),
+  body: Joi.array().optional().items(ParameterSchema),
+  headers: Joi.array().optional().items(ParameterSchema),
+});
+
 export interface RefreshTokenConfiguration {
   /** @description The url to refresh the access token using the authorization code on the backend @example "http://{auth_state:store_name}.store.com/admin/oauth/refresh", "http://store.com/oauth/refresh" */
   url_template: string;
@@ -24,6 +60,13 @@ export interface RefreshTokenConfiguration {
   headers?: Parameter[];
 }
 
+export const RefreshTokenConfigurationSchema = Joi.object({
+  url_template: Joi.string().required(),
+  method: MethodSchema.optional(),
+  body: Joi.array().optional().items(ParameterSchema),
+  headers: Joi.array().optional().items(ParameterSchema),
+});
+
 export interface AuthorizationConfiguration {
   /** @description The url to obtain the access token using the authorization code on the backend @example "http://{auth_state:store_name}.store.com/admin/oauth/authorize", "http://store.com/oauth/authorize" */
   url_template: string;
@@ -31,9 +74,7 @@ export interface AuthorizationConfiguration {
   query_parameters?: Parameter[];
 }
 
-export interface Parameter {
-  /** @description The name of the parameter */
-  name: string;
-  /** @description The value associated with the parameter */
-  value: string;
-}
+export const AuthorizationConfigurationSchema = Joi.object({
+  url_template: Joi.string().required(),
+  query_parameters: Joi.array().optional().items(ParameterSchema),
+});

@@ -10,4 +10,6 @@ export interface ConnectRuntimeApp {
   getImages: () => BrandedImages[];
   /** @description String containing yaml file to display with redoc  */
   redoc?: string;
+  /** @description called to validate the metadata for this app */
+  validate: () => void;
 }

@@ -1,5 +1,9 @@
-import { AuthSpecification } from './metadata/auth-specification';
-import { OrderSourceDefinition } from './metadata';
+import {
+  AuthSpecification,
+  AuthSpecificationSchema,
+} from './metadata/auth-specification';
+import { OrderSourceDefinition, OrderSourceDefinitionSchema } from './metadata';
+import Joi from 'joi';
 import {
   AcknowledgeOrdersRequest,
   AcknowledgeOrdersResponse,
@@ -22,6 +26,21 @@ export interface OrderSourceAppMetadata {
   /** @description A list of branded order sources associated with this integration */
   OrderSources: OrderSourceDefinition[];
 }
+
+export const OrderSourceAppMetadataSchema = Joi.object({
+  Id: Joi.string()
+    .uuid({ version: ['uuidv4'] })
+    .required(),
+  Name: Joi.string().required(),
+  AuthProcess: AuthSpecificationSchema.required(),
+  OrderSources: Joi.array()
+    .unique('Id')
+    .message(`Found duplicate OrderSource Id's in OrderSources[]`)
+    .required()
+    .min(1)
+    .message('There must be at least 1 OrderSource defined')
+    .items(OrderSourceDefinitionSchema),
+});
 
 /**
  * @description This defines a connect order source app

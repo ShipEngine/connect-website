@@ -1,3 +1,5 @@
+import Joi from 'joi';
+
 export enum AuthenticationType {
   OAuth = 'oauth',
   Basic = 'basic',
@@ -9,3 +11,9 @@ export interface AuthIdentifier {
   Version?: string;
   IsSandbox?: boolean;
 }
+
+export const AuthIdentifierSchema = Joi.object({
+  AuthenticationType: Joi.string().required().valid('oauth', 'basic', 'apikey'),
+  Version: Joi.string().optional(),
+  IsSandbox: Joi.bool().optional(),
+});

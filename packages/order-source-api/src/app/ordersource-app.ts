@@ -1,4 +1,4 @@
-import { OrderSourceAppDefinition } from '.';
+import { OrderSourceAppDefinition, OrderSourceAppMetadataSchema } from '.';
 import {
   ConnectRuntimeApp,
   BrandedImages,
@@ -22,7 +22,21 @@ export class OrderSourceApp implements ConnectRuntimeApp {
   routes: Route[] = [];
   data: OrderSourceProviderSpecification;
   redoc: string;
+  validate: () => string[] | undefined;
   constructor(definition: OrderSourceAppDefinition) {
+    this.validate = () => {
+      const results = OrderSourceAppMetadataSchema.validate(
+        definition.Metadata,
+        {
+          allowUnknown: true,
+          abortEarly: false,
+        },
+      );
+      if (results.error) {
+        return results.error.details.map((detail) => `${detail.message}`);
+      }
+    };
+
     this.routes.push({
       method: Method.POST,
       path: '/acknowledge_orders',

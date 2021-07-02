@@ -1,4 +1,9 @@
-import { AccountConnectionSpecification } from './account-connection-specification';
+import {
+  AccountConnectionSpecification,
+  AccountConnectionSpecificationSchema,
+} from './account-connection-specification';
+import { existsSync } from 'fs';
+import Joi from 'joi';
 
 /** @description This represents a single branded order source within our system */
 export interface OrderSourceDefinition {
@@ -34,3 +39,38 @@ export interface OrderSourceDefinition {
     Icon: string;
   };
 }
+
+const fileExists = (value: string, helpers: any) => {
+  if (existsSync(value)) {
+    return value;
+  }
+  throw new Error("the file doesn't exist");
+};
+
+export const OrderSourceDefinitionSchema = Joi.object({
+  Id: Joi.string()
+    .uuid({ version: ['uuidv4'] })
+    .required(),
+  Name: Joi.string().required(),
+  SendEmail: Joi.bool().strict().required(),
+  HasCustomMappings: Joi.bool().strict().required(),
+  CanRefresh: Joi.bool().strict().required(),
+  CanLeaveFeedback: Joi.bool().strict().required(),
+  CanConfirmShipments: Joi.bool().strict().required(),
+  IsRefreshDisabled: Joi.bool().strict().optional(),
+  HasCustomStatuses: Joi.bool().strict().optional(),
+  HasInventoryLevels: Joi.bool().strict().optional(),
+  AccountConnection: AccountConnectionSpecificationSchema.required(),
+  Images: Joi.object({
+    Icon: Joi.string()
+      .required()
+      .custom(fileExists, 'icon exists')
+      .pattern(new RegExp('^.*.(svg)$'))
+      .message('Images.Icon must be a svg file.'),
+    Logo: Joi.string()
+      .required()
+      .custom(fileExists, 'logo exists')
+      .pattern(new RegExp('^.*.(svg)$'))
+      .message('Images.Logo must be a svg file.'),
+  }).required(),
+});
