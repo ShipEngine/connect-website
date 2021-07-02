@@ -1,3 +1,5 @@
+import Joi from 'joi';
+
 /** @description Common shipping service classes */
 export enum ServiceClassEnum {
   Unspecified = 'Unspecified',
@@ -9,3 +11,7 @@ export enum ServiceClassEnum {
   TwoDayEarly = 'TwoDayEarly',
   ThreeDay = 'ThreeDay',
 }
+
+export const ServiceClassEnumSchema = Joi.string().valid(
+  ...Object.values(ServiceClassEnum),
+);

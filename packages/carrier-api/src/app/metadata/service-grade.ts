@@ -1,3 +1,5 @@
+import Joi from 'joi';
+
 /** @description Common shipping service grades */
 export enum ServiceGradeEnum {
   Unspecified = 'Unspecified',
@@ -6,3 +8,7 @@ export enum ServiceGradeEnum {
   Overnight = 'Overnight',
   Standard = 'Standard',
 }
+
+export const ServiceGradeEnumSchema = Joi.string().valid(
+  ...Object.values(ServiceGradeEnum),
+);

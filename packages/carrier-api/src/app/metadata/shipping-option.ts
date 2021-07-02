@@ -1,8 +1,40 @@
+import Joi from 'joi';
+
 export interface ShippingOption {
   Name: string;
   Type: ShippingOptionEnum;
 }
+
 export type ShippingOptionDictionary = { [Key in ShippingOptionEnum]?: string };
+
+export const ShippingOptionDictionarySchema = Joi.object({
+  alcohol: Joi.string().optional(),
+  'b13a-canada': Joi.string().optional(),
+  'bill-to-sender': Joi.string().optional(),
+  'bill-to-third-party': Joi.string().optional(),
+  'collect-on-delivery': Joi.string().optional(),
+  'consequential-loss': Joi.string().optional(),
+  'dangerous-goods': Joi.string().optional(),
+  'delivery-message': Joi.string().optional(),
+  'dont-prepay-postage': Joi.string().optional(),
+  'dry-ice': Joi.string().optional(),
+  'email-notification': Joi.string().optional(),
+  'freight-class': Joi.string().optional(),
+  'hold-for-pickup': Joi.string().optional(),
+  'include-return-label': Joi.string().optional(),
+  'local-collect': Joi.string().optional(),
+  'non-machinable': Joi.string().optional(),
+  'notification-type': Joi.string().optional(),
+  'shipper-release': Joi.string().optional(),
+  'additional-handling': Joi.string().optional(),
+  safeplace: Joi.string().optional(),
+  'saturday-delivery': Joi.string().optional(),
+  'saturday-guarantee': Joi.string().optional(),
+  'sms-notification': Joi.string().optional(),
+  'special-handling': Joi.string().optional(),
+  'third-party-consignee': Joi.string().optional(),
+  'carrier-insurance': Joi.string().optional(),
+});
 
 export enum ShippingOptionEnum {
   ContainsAlcohol = 'alcohol',

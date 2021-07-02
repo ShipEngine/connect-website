@@ -8,6 +8,8 @@ export interface ConnectRuntimeApp {
   data: any;
   /** @description A method that returns an array of images associated with branded entities within your app */
   getImages: () => BrandedImages[];
+  /** @description A method that validates the metadata for an app and returns an array of errors if they exist */
+  validate: () => string[] | undefined;
   /** @description String containing yaml file to display with redoc  */
   redoc?: string;
 }

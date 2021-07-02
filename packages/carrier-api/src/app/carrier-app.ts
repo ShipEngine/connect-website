@@ -6,6 +6,7 @@ import { readFileSync } from 'fs';
 
 import { Metadata } from './internal/metadata';
 import { CarrierSpecification } from './internal/carrier-specificaion';
+import { CarrierAppMetadataSchema } from './metadata';
 
 const handleRequest = (implementation?: Function): any => {
   if (implementation) {
@@ -62,8 +63,18 @@ export class CarrierApp implements ConnectRuntimeApp {
   routes: Route[] = [];
   data: Metadata;
   redoc: string;
+  validate: () => string[] | undefined;
   constructor(definition: CarrierAppDefinition) {
     registerRoutes(this.routes, definition);
+    this.validate = () => {
+      const results = CarrierAppMetadataSchema.validate(definition.Metadata, {
+        allowUnknown: true,
+        abortEarly: false,
+      });
+      if (results.error) {
+        return results.error.details.map((detail) => `${detail.message}`);
+      }
+    };
     this.data = new Metadata(definition);
     this.redoc = readFileSync(resolve(__dirname, '../../spec.yaml')).toString();
   }

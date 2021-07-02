@@ -1,3 +1,10 @@
+import Joi from 'joi';
+
+export enum RequiredToShipEnum {
+  Weight = 'Weight',
+  Dimensions = 'Dimensions',
+}
+
 /** @description Package details */
 export interface PackageType {
   Id: string;
@@ -6,7 +13,7 @@ export interface PackageType {
   Description?: string;
   Abbreviation?: string;
   PackageAttributes: PackageAttribute[];
-  RequiredToShip?: ('Weight' | 'Dimensions')[];
+  RequiredToShip?: RequiredToShipEnum[];
 }
 
 export enum PackageAttribute {
@@ -14,3 +21,19 @@ export enum PackageAttribute {
   Domestic = 'Domestic',
   Consolidator = 'Consolidator',
 }
+
+export const PackageTypeSchema = Joi.object({
+  Id: Joi.string()
+    .uuid({ version: ['uuidv4'] })
+    .required(),
+  Name: Joi.string().required(),
+  CarrierPackageTypeCode: Joi.string().required(),
+  Description: Joi.string().optional(),
+  Abbreviation: Joi.string().optional(),
+  PackageAttributes: Joi.array()
+    .required()
+    .items(Joi.string().valid(...Object.values(PackageAttribute))),
+  RequiredToShip: Joi.array()
+    .optional()
+    .items(Joi.string().valid(...Object.values(RequiredToShipEnum))),
+});
