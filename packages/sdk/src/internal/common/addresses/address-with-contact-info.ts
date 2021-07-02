@@ -2,6 +2,7 @@ import {
   AddressWithContactInfo as IAddressWithContactInfo,
   AddressWithContactInfoPOJO,
 } from '../../../public';
+import { TaxIdentifier } from '../tax-identifier';
 import { hideAndFreeze, _internal } from '../utils';
 import { Address, AddressBase } from './address';
 import { ContactInfo } from './contact-info';
@@ -19,6 +20,7 @@ export class AddressWithContactInfo
   public readonly name: PersonName;
   public readonly email: string;
   public readonly phoneNumber: string;
+  public readonly taxIdentifiers: TaxIdentifier[];
 
   public constructor(pojo: AddressWithContactInfoPOJO) {
     super(pojo);
@@ -26,6 +28,8 @@ export class AddressWithContactInfo
     this.name = new PersonName(pojo.name);
     this.email = pojo.email || '';
     this.phoneNumber = pojo.phoneNumber || '';
+    this.taxIdentifiers =
+      pojo.taxIdentifiers?.map((id) => new TaxIdentifier(id)) || [];
 
     // Make this object immutable
     hideAndFreeze(this);
