@@ -21,6 +21,14 @@ export default async function loadAndValidateApp(
 ): Promise<SdkApp> {
   try {
     const app = (await loadApp(pathToApp)) as unknown as SdkApp;
+    if (app.validate) {
+      const errors = await app.validate();
+      if (errors) {
+        return Promise.reject(
+          new InvalidAppError('Your app metadata is invalid', errors),
+        );
+      }
+    }
     return app;
   } catch (error) {
     const err = error as Error & { details?: ValidationErrorItem[] };

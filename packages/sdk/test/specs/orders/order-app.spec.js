@@ -24,6 +24,7 @@ describe("OrderApp", () => {
 
     expect(app).to.deep.equal({
       type: "order",
+      validate: undefined,
       deploymentType: "order",
       id: "12345678-1234-1234-1234-123456789012",
       providerId: "",
@@ -87,6 +88,7 @@ describe("OrderApp", () => {
 
     expect(app).to.deep.equal({
       type: "order",
+      validate: undefined,
       deploymentType: "order",
       id: "12345678-1234-1234-1234-123456789012",
       providerId: "12345678-1234-1234-1234-123456789012",
@@ -137,6 +139,7 @@ describe("OrderApp", () => {
 
     expect(app).to.deep.equal({
       type: "order",
+      validate: undefined,
       deploymentType: "order",
       id: "12345678-1234-1234-1234-123456789012",
       providerId: "",

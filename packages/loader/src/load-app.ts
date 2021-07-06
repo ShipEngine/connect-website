@@ -84,6 +84,7 @@ export async function loadApp(appPath = '.'): Promise<App> {
         manifest,
         type,
         deploymentType,
+        validate: app.validate,
       });
     } else if (isCarrierApp(definition)) {
       const pojo = await readCarrierAppDefinition(

@@ -16,6 +16,7 @@ export interface AppPOJO extends AppDefinition {
   manifest: AppManifestPOJO;
   type: AppType;
   deploymentType: DeploymentType;
+  validate?: () => Promise<string[] | undefined>;
 }
 
 export class App {
@@ -47,6 +48,7 @@ export class App {
   public readonly providerId: UUID;
   public readonly manifest: AppManifest;
   public readonly sdkVersion: number;
+  public readonly validate?: () => Promise<string[] | undefined>;
 
   public constructor(pojo: AppPOJO) {
     this.type = pojo.type;
@@ -54,6 +56,7 @@ export class App {
     this.id = pojo.id;
     this.providerId = pojo.providerId || '';
     this.sdkVersion = Number.parseFloat(sdk.version);
+    this.validate = pojo.validate;
     this.manifest = {
       ...pojo.manifest,
       description: pojo.manifest.description || '',

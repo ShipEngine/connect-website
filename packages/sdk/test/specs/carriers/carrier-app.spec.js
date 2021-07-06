@@ -25,6 +25,7 @@ describe("CarrierApp", () => {
       },
     });
     expect(app).to.deep.equal({
+      validate: undefined,
       type: "carrier",
       deploymentType: "carrier",
       id: "12345678-1234-1234-1234-123456789012",
@@ -106,6 +107,7 @@ describe("CarrierApp", () => {
 
     expect(app).to.deep.equal({
       type: "carrier",
+      validate: undefined,
       deploymentType: "carrier",
       id: "12345678-1234-1234-1234-123456789012",
       providerId: "12345678-1234-1234-1234-123456789012",
@@ -161,6 +163,7 @@ describe("CarrierApp", () => {
 
     expect(app).to.deep.equal({
       type: "carrier",
+      validate: undefined,
       deploymentType: "carrier",
       id: "12345678-1234-1234-1234-123456789012",
       providerId: "",
