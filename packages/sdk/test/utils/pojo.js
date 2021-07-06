@@ -478,6 +478,12 @@ const pojo = module.exports = {
         tokenExpirationLengthTimeUnit: "s"
       },
       authorizationProcess: {
+        monoAuth: false,
+        refreshToken: undefined,
+        requestToken: undefined,
+        accessToken: undefined,
+        advancedConfiguration: undefined,
+        authorization: undefined,
         loginRequest: {
           method: 'GET',
           url: 'https://sandbox.merchant.wish.com/v3/oauth/authorize',

@@ -32,3 +32,7 @@ export * from './transaction';
 export * from './types';
 export * from './document';
 export * from './tax-identifier';
+export * from './oauth/access-token-definition';
+export * from './oauth/authorization-definition';
+export * from './oauth/refresh-token-definition';
+export * from './oauth/request-token-definition';

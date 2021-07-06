@@ -105,7 +105,8 @@ describe("CarrierApp", () => {
       },
     });
 
-    expect(app).to.deep.equal({
+    expect(app).to.deep.
+    equal({
       type: "carrier",
       validate: undefined,
       deploymentType: "carrier",
