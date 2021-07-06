@@ -1,4 +1,9 @@
-import { OrderApp, OAuthRequest, OAuthResponse } from '@shipengine/connect-sdk/lib/internal';
+import {
+  OrderApp,
+  OAuthRequest,
+  OAuthResponse,
+  OAuthAuthorizationProcess,
+} from '@shipengine/connect-sdk/lib/internal';
 import { OAuthParameterDefinition } from '@shipengine/connect-sdk';
 
 export function mapOAuthParameters(params: readonly OAuthParameterDefinition[] | undefined) {
@@ -48,17 +53,8 @@ export function detectBasicAuth(app: OrderApp): boolean {
   return formFields.includes('username');
 }
 
-export function mapAuthProcess(app: OrderApp) {
-  if (!app.oauthConfig) {
-    return {
-      Identifier: {
-        AuthenticationType: detectBasicAuth(app) ? 'basic' : 'apikey',
-        IsSandbox: false,
-      },
-    };
-  }
-
-  const TokenProperties = app.oauthConfig.tokenProperties
+export const mapOldAuthProcess = (app: OrderApp) => {
+  const TokenProperties = app.oauthConfig?.tokenProperties
     ? {
         AccessTokenExpirationLength: app.oauthConfig.tokenProperties?.accessTokenExpirationLength?.toString(),
         RefreshTokenExpirationLength: app.oauthConfig.tokenProperties?.refreshTokenExpirationLength?.toString(),
@@ -68,14 +64,14 @@ export function mapAuthProcess(app: OrderApp) {
     : undefined;
 
   const AuthorizationProcess = {
-    AcceptRequest: mapOAuthRequest(app.oauthConfig.authorizationProcess.loginRequest),
+    AcceptRequest: mapOAuthRequest(app.oauthConfig?.authorizationProcess.loginRequest),
     // The name of this is request, but the type is response?
-    RedirectRequest: mapOAuthResponse(app.oauthConfig.authorizationProcess.redirectRequest),
-    AuthorizeRequest: mapOAuthRequest(app.oauthConfig.authorizationProcess.authorizeRequest),
-    AuthorizeResponse: mapOAuthResponse(app.oauthConfig.authorizationProcess.authorizeResponse),
+    RedirectRequest: mapOAuthResponse(app.oauthConfig?.authorizationProcess.redirectRequest),
+    AuthorizeRequest: mapOAuthRequest(app.oauthConfig?.authorizationProcess.authorizeRequest),
+    AuthorizeResponse: mapOAuthResponse(app.oauthConfig?.authorizationProcess.authorizeResponse),
   };
 
-  const RefreshTokenProcess = app.oauthConfig.refreshTokenProcess
+  const RefreshTokenProcess = app.oauthConfig?.refreshTokenProcess
     ? {
         RefreshTokenRequest: mapOAuthRequest(
           app.oauthConfig.refreshTokenProcess.refreshTokenRequest,
@@ -95,6 +91,70 @@ export function mapAuthProcess(app: OrderApp) {
     AuthorizationProcess,
     RefreshTokenProcess,
   };
+};
+
+export const mapMonoAuthProcess = (auth: OAuthAuthorizationProcess) => {
+  const { accessToken, authorization, requestToken, refreshToken, advancedConfiguration } = auth;
+
+  const mapParam = (param: any): any => {
+    const { name, value } = param;
+    return {
+      name,
+      value,
+    };
+  };
+
+  const mapToSnakeCase = (obj: any) => {
+    if (!obj) {
+      return undefined;
+    }
+    let ret: any = {};
+    if (obj.urlTemplate) {
+      ret.url_template = obj.urlTemplate;
+    }
+    if (obj.method) {
+      ret.method = obj.method;
+    }
+    if (obj.body) {
+      ret.body = obj.body.map(mapParam);
+    }
+    if (obj.headers) {
+      ret.headers = obj.headers.map(mapParam);
+    }
+    if (obj.queryParameters) {
+      ret.query_parameters = obj.queryParameters.map(mapParam);
+    }
+    return ret;
+  };
+
+  return {
+    Identifier: {
+      AuthenticationType: 'oauth',
+      Version: '2.0',
+      IsSandbox: false,
+    },
+    access_token: mapToSnakeCase(accessToken),
+    authorization: mapToSnakeCase(authorization),
+    request_token: mapToSnakeCase(requestToken),
+    refresh_token: mapToSnakeCase(refreshToken),
+    advanced_configuration: advancedConfiguration ? advancedConfiguration.map(mapParam) : undefined,
+  };
+};
+
+export function mapAuthProcess(app: OrderApp) {
+  if (!app.oauthConfig) {
+    return {
+      Identifier: {
+        AuthenticationType: detectBasicAuth(app) ? 'basic' : 'apikey',
+        IsSandbox: false,
+      },
+    };
+  }
+  const auth = app.oauthConfig.authorizationProcess;
+  if (auth.monoAuth) {
+    return mapMonoAuthProcess(auth);
+  }
+  return mapOldAuthProcess(app);
 }
 
 export function mapFunctions(app: OrderApp) {
