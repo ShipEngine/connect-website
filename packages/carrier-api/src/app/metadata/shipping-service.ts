@@ -38,7 +38,7 @@ export const ShippingServiceSchema = Joi.object({
     .optional()
     .items(ConfirmationTypeSchema)
     .unique('Type'),
-  ServiceAttributes: ServiceAttributesEnumSchema.optional(),
+  ServiceAttributes: Joi.array().items(ServiceAttributesEnumSchema).optional(),
   SupportedCountries: Joi.array()
     .optional()
     .items(CountryAssociationSchema)

@@ -1,6 +1,7 @@
 import {
   PackageAttribute,
   PackageType,
+  RequiredToShipEnum,
 } from '@shipengine/connect-carrier-api';
 
 export const Box: PackageType = {
@@ -14,5 +15,5 @@ export const Box: PackageType = {
     PackageAttribute.International,
     PackageAttribute.Domestic,
   ],
-  RequiredToShip: ["Weight"],
+  RequiredToShip: [RequiredToShipEnum.Weight],
 };

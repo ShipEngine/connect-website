@@ -5,8 +5,8 @@
   "author": "Doug Wile",
   "appId": "89ebe16c-29fb-4dc5-b949-349bd4625656",
   "dependencies": {
-    "@shipengine/connect-carrier-api": "^2.1.1",
-    "@shipengine/connect-runtime": "^0.6.1"
+    "@shipengine/connect-carrier-api": "^2.1.3",
+    "@shipengine/connect-runtime": "^0.6.2"
   },
   "devDependencies": {
     "@types/node": "^15.12.2",

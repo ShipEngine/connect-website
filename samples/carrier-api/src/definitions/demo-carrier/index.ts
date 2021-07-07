@@ -37,7 +37,6 @@ export const DemoCarrier: Carrier = {
     [ConfirmationTypeEnum.None]: "No Confirmation Required",
     [ConfirmationTypeEnum.AdultSignature]: "Adult Required",
   },
-  CarrierAttributes: null,
   TrackingUrl: "https://the.carrier.com/track",
   CarrierUrl: "https://the.carrier.com",
   Images: {
@@ -46,62 +45,66 @@ export const DemoCarrier: Carrier = {
   },
   AccountModals: {
     RegistrationFormSchema: {
-      jsonSchema: {
-        type: "object",
-        title: "Login Form Example",
-        required: ["email", "password"],
-        properties: {
+      formSchema: {
+        jsonSchema: {
+          type: "object",
+          title: "Login Form Example",
+          required: ["email", "password"],
+          properties: {
+            email: {
+              type: "string",
+              title: "Email Address",
+              format: "email",
+            },
+            password: {
+              type: "string",
+              title: "Password",
+              minLength: 8,
+            },
+          },
+          description: "Connect to your account.",
+        },
+        uiSchema: {
           email: {
-            type: "string",
-            title: "Email Address",
-            format: "email",
+            "ui:autofocus": true,
+            "ui:emptyValue": "you@example.com",
           },
           password: {
-            type: "string",
-            title: "Password",
-            minLength: 8,
+            "ui:help": "Note: password is case sensitive",
+            "ui:widget": "password",
           },
-        },
-        description: "Connect to your account.",
-      },
-      uiSchema: {
-        email: {
-          "ui:autofocus": true,
-          "ui:emptyValue": "you@example.com",
-        },
-        password: {
-          "ui:help": "Note: password is case sensitive",
-          "ui:widget": "password",
         },
       },
     },
     SettingsFormSchema: {
-      jsonSchema: {
-        type: "object",
-        title: "Login Form Example",
-        required: ["email", "password"],
-        properties: {
+      formSchema: {
+        jsonSchema: {
+          type: "object",
+          title: "Login Form Example",
+          required: ["email", "password"],
+          properties: {
+            email: {
+              type: "string",
+              title: "Email Address",
+              format: "email",
+            },
+            password: {
+              type: "string",
+              title: "Password",
+              minLength: 8,
+            },
+          },
+          description: "Connect to your account.",
+        },
+        uiSchema: {
           email: {
-            type: "string",
-            title: "Email Address",
-            format: "email",
+            "ui:autofocus": true,
+            "ui:emptyValue": "you@example.com",
           },
           password: {
-            type: "string",
-            title: "Password",
-            minLength: 8,
+            "ui:help": "Note: password is case sensitive",
+            "ui:widget": "password",
           },
-        },
-        description: "Connect to your account.",
-      },
-      uiSchema: {
-        email: {
-          "ui:autofocus": true,
-          "ui:emptyValue": "you@example.com",
-        },
-        password: {
-          "ui:help": "Note: password is case sensitive",
-          "ui:widget": "password",
         },
       },
     },
