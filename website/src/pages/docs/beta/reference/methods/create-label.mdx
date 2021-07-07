@@ -351,7 +351,7 @@ module.exports = async function CreateLabel(request) {
   // STEP 2: Create the data that the carrier's API expects
   let data = {
     operation: "generate_label",
-    session_id: transaction.session.id,
+    session_id: request.metadata.id,
     service_code: request.service_code,
     confirmation_code: request.confirmation,
     ship_date: request.ship_datetime,
@@ -390,7 +390,7 @@ export default async function CreateLabel(request: CreateLabelRequest): Promise<
   // STEP 2: Create the data that the carrier's API expects
   let data: GenerateLabelRequest = {
     operation: "generate_label",
-    session_id: transaction.session.id,
+    session_id: request.metadata.id,
     service_code: request.service_code,
     confirmation_code: request.confirmation,
     ship_date: request.ship_datetime,

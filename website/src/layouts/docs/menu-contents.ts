@@ -147,6 +147,7 @@ export const menu: MenuContents = [
           { title: "Register", href: "/docs/beta/reference/methods/register" },
           { title: "Create Label", href: "/docs/beta/reference/methods/create-label" },
           { title: "Get Rates", href: "/docs/beta/reference/methods/get-rates" },
+          { title: "Void Labels", href: "/docs/beta/reference/methods/void-labels" },
         ]
       },
       {

@@ -1,0 +1,169 @@
+---
+title: VoidLabels Method
+description: This method is used to void a previously created label.
+---
+
+
+`VoidLabels()`
+===========================
+This method is used to void a previously created label.
+
+
+Syntax
+-----------------------------------------------
+<CodeWrapper>
+```javascript
+module.exports = async function VoidLabels(request) {
+  // Your code here
+}
+```
+
+```typescript
+import { VoidLabelsRequest, VoidLabelsResponse } from "@shipengine/connect-carrier-api";
+
+export default async function VoidLabels(
+  request: VoidLabelsRequest
+): Promise<VoidLabelsResponse> {
+  // Your code here
+}
+```
+</CodeWrapper>
+
+
+
+Parameters
+-----------------------------------------------
+
+### `VoidLabelsRequest`
+An object containing information about the labels to void.
+
+<Reference>
+
+  <Field name="void_requests" type="object[]" nullable={false}>
+    <Description>
+      Array of void requests
+    </Description>
+  </Field>
+
+  <Field name="void_requests[].void_request_id" type="string" nullable={false}>
+    <Description>
+      Uniquely identifies this request to void a label. Must be returned in a void response.
+    </Description>
+  </Field>
+
+ <Field name="void_requests[].tracking_number" type="string" nullable={true}>
+    <Description>
+      The Carrier provided tracking number for the label.
+    </Description>
+  </Field>
+
+ <Field name="void_requests[].carrier_transaction_id" type="string" nullable={true}>
+    <Description>
+      The Carrier provided unique transaction id from creating the label.
+    </Description>
+  </Field>
+
+</Reference>
+
+
+
+Return Value
+-----------------------------------------------
+### `VoidLabelsResponse`
+This object model represents the response from a successful void labels request.
+
+<Reference>
+
+  <Field name="void_responses" type="object[]" required={true}>
+    <Description>
+      Array of void responses
+    </Description>
+  </Field>
+
+  <Field name="void_requests[].void_request_id" type="string" required={true}>
+    <Description>
+      This unique identifier should be related to the void_request_id in the VoidLabelsRequest.
+    </Description>
+  </Field>
+
+ <Field name="void_requests[].message" type="string" required={false}>
+    <Description>
+      User facing text describing the void process. May be left blank to present a default value.
+    </Description>
+  </Field>
+
+ <Field name="void_requests[].errors" type="string[]" required={false}>
+    <Description>
+      A list of errors preventing this label from being voided. 
+      If no errors are returned the void is considered successful. 
+      If any errors are returned the void is considered failed.
+    </Description>
+  </Field>
+
+</Reference>
+
+
+
+Example
+-----------------------------------------------
+<CodeWrapper>
+```javascript
+module.exports = async function VoidLabels(request) {
+
+  // STEP 1: Validation
+
+  // STEP 2: Create the data that the carrier's API expects
+
+  let data = {
+    operation: "void_labels",
+    session_id: request.metadata.id,
+    void_labels: void_requests.map((void_request) => {
+      const { void_request_id, tracking_number, carrier_transaction_id } = void_request;
+      return {
+        void_request_id: void_request_id,
+        tracking_number: tracking_number,
+        carrier_transaction_id: carrier_transaction_id
+      };
+    }),
+  };
+
+  // STEP 3: Call the carrier's API
+  const response = await apiClient.request({ data });
+
+  // STEP 4: Create the output data that ShipEngine expects
+  return formatVoidLabel(response.data);
+}
+```
+
+```typescript
+import {
+  VoidLabelsRequest,
+  VoidLabelsResponse
+} from "@shipengine/connect-carrier-api";
+
+export default async function VoidLabels(request: VoidLabelsRequest): Promise<VoidLabelsResponse> {
+
+  // STEP 1: Validation
+
+  // STEP 2: Create the data that the carrier's API expects
+  let data: VoidLabelsAPIRequest = {
+    operation: "void_labels",
+    session_id: request.metadata.id,
+    void_labels: void_requests.map((void_request) => {
+      const { void_request_id, tracking_number, carrier_transaction_id } = void_request;
+      return {
+        void_request_id: void_request_id,
+        tracking_number: tracking_number,
+        carrier_transaction_id: carrier_transaction_id
+      };
+    }),
+  };
+
+  // STEP 3: Call the carrier's API
+  const response = await apiClient.request<VoidLabelsAPIResponse>({ data });
+
+  // STEP 4: Create the output data that ShipEngine expects
+  return formatVoidLabel(response.data);
+}
+```
+</CodeWrapper>
