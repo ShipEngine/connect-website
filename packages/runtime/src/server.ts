@@ -91,7 +91,11 @@ export const start = (app: App, config?: ServerConfig) => {
   const bodyParser = require('body-parser');
   const middlewareLogging = require('./middleware/logging');
   const errorHandler = require('./middleware/error-handling');
-  server.use(bodyParser.json());
+  server.use(
+    bodyParser.json({
+      limit: '30mb',
+    }),
+  );
   server.use(middlewareLogging.default);
   server.use(getRoutes(app));
   if (process.env.SENTRY_DSN) {

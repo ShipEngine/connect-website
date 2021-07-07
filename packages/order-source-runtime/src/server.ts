@@ -39,7 +39,11 @@ loadApp().then((app) => {
   const middlewareLogging = require('./middleware/logging');
   const routes = require('./routes');
   const errorHandler = require('./middleware/error-handling');
-  server.use(bodyParser.json());
+  server.use(
+    bodyParser.json({
+      limit: '30mb',
+    }),
+  );
   server.use(middlewareLogging.default);
   server.use(routes.default);
   server.use(errorHandler.default);

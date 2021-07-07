@@ -63,7 +63,11 @@ loadApp().then((app) => {
     Sentry.init({ dsn: SENTRY_DSN, environment: NODE_ENV });
     server.use(Sentry.Handlers.errorHandler());
   }
-  server.use(bodyParser.json());
+  server.use(
+    bodyParser.json({
+      limit: '30mb',
+    }),
+  );
   server.use(middlewareLogging.default);
   server.use(routes.default);
   server.use(errorHandler);
