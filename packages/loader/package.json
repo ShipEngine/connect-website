@@ -59,7 +59,7 @@
     "typescript": "^4.0.5"
   },
   "dependencies": {
-    "@shipengine/connect-sdk": "^12.15.0",
+    "@shipengine/connect-sdk": "workspace:*",
     "js-yaml": "^3.14.1",
     "json5": "^2.1.3",
     "resolve-from": "^5.0.0",
