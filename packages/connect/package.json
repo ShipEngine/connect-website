@@ -1,6 +1,6 @@
 {
   "name": "@shipengine/connect",
-  "version": "1.14.3",
+  "version": "1.14.4",
   "description": "The official developer tooling for building ShipEngine connect apps",
   "keywords": [
     "shipengine",

@@ -19,7 +19,7 @@ export const brandOne: OrderSourceDefinition = {
         ConnectionFormSchema
     },
     Images: {
-        Logo: join(__dirname, "../../assets/brand-one/logo.svg"),
-        Icon: join(__dirname, "../../assets/brand-one/icon.svg"),
+        Logo: join(__dirname, "../../assets/logo.svg"),
+        Icon: join(__dirname, "../../assets/icon.svg"),
     }
 };
