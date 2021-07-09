@@ -20,4 +20,5 @@ export interface CreateLabelResponse extends BaseResponse {
   trackable?: boolean;
   alternative_identifiers?: Identifier[];
   estimated_delivery_datetime?: string;
+  consolidator_service_code?: string;
 }
