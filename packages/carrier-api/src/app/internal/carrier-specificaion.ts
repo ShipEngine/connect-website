@@ -4,6 +4,7 @@ import { PackageType } from '../metadata/package-type';
 import { ShippingService } from '../metadata/shipping-service';
 import {
   ShippingOption,
+  ShippingOptionDescription,
   ShippingOptionDictionary,
   ShippingOptionEnum,
 } from '../metadata/shipping-option';
@@ -16,6 +17,44 @@ import {
 import { LabelFormatsEnum } from '../metadata/label-formats';
 import { LabelSizesEnum } from '../metadata/label-sizes';
 import { CarrierAttributeEnum } from '../metadata/carrier-attributes';
+
+export const mapShippingOptions = (
+  options?: ShippingOptionDictionary,
+): ShippingOption[] | undefined => {
+  if (!options) {
+    return undefined;
+  }
+  const ret: ShippingOption[] = [];
+  Object.keys(options).forEach((key: string) => {
+    const Type = key as ShippingOptionEnum;
+    const { Name, Description } = options[Type] as ShippingOptionDescription;
+    ret.push({
+      Name,
+      Description,
+      Type,
+    });
+  });
+  return ret;
+};
+
+export const mapConfirmationTypes = (
+  types?: ConfirmationDictionary,
+): ConfirmationType[] => {
+  if (!types) {
+    return [];
+  }
+  const ret: ConfirmationType[] = [];
+  Object.keys(types).forEach((key: any) => {
+    const confirmations = types as ConfirmationDictionary;
+    const Type = key as ConfirmationTypeEnum;
+    const Name = confirmations[Type] as string;
+    ret.push({
+      Name,
+      Type,
+    });
+  });
+  return ret;
+};
 
 /** @description This represents what we send to data manager */
 export class CarrierSpecification {
@@ -48,30 +87,12 @@ export class CarrierSpecification {
     this.AccountModals = definition.AccountModals;
     this.PackageTypes = definition.PackageTypes;
     this.ShippingServices = definition.ShippingServices;
-    this.ShippingOptions = [];
-    Object.keys(definition.ShippingOptions || {}).forEach((key: any) => {
-      const options = definition.ShippingOptions as ShippingOptionDictionary;
-      const Type = key as ShippingOptionEnum;
-      const Name = options[Type] as string;
-      this.ShippingOptions?.push({
-        Name,
-        Type,
-      });
-    });
+    this.ShippingOptions = mapShippingOptions(definition.ShippingOptions);
     this.DefaultSupportedCountries = definition.DefaultSupportedCountries;
     this.DefaultLabelSizes = definition.DefaultLabelSizes;
     this.LabelFormats = definition.LabelFormats;
-    this.DefaultConfirmationTypes = [];
-    Object.keys(definition.DefaultConfirmationTypes || {}).forEach(
-      (key: any) => {
-        const confirmations = definition.DefaultConfirmationTypes as ConfirmationDictionary;
-        const Type = key as ConfirmationTypeEnum;
-        const Name = confirmations[Type] as string;
-        this.DefaultConfirmationTypes.push({
-          Name,
-          Type,
-        });
-      },
+    this.DefaultConfirmationTypes = mapConfirmationTypes(
+      definition.DefaultConfirmationTypes,
     );
     this.CarrierAttributes = definition.CarrierAttributes;
     this.TrackingUrl = definition.TrackingUrl;

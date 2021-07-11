@@ -20,8 +20,18 @@ export const DemoCarrier: Carrier = {
   PackageTypes: [Box, Bag],
   ShippingServices: [NextDayAir, BudgetDelivery],
   ShippingOptions: {
-    [ShippingOptionEnum.DryIce]: "Contains Dry Ice",
-    [ShippingOptionEnum.ContainsAlcohol]: undefined, // default name will be used
+    [ShippingOptionEnum.DryIce]: {
+      Name: "Contains Dry Ice",
+      Description: "This shipment contains dry ice."
+    },
+    [ShippingOptionEnum.ContainsAlcohol]: {
+      Name: 'Contains Booze',
+      Description: 'The person signing needs to be of legal drinking age'
+    }, 
+    [ShippingOptionEnum.B13ACanada]: {
+      Name: "B13A Canadian Export Decleration",
+      Description: "The B13A is an Export Declaration and is mandatory for all export shipments valued at CAD 2000.00 and over. Shipments going to U.S. Destinations (including Puerto Rico and the U.S. Virgin Islands) are not required to fill in the B13A form."
+    }
   },
   DefaultSupportedCountries: [
     {
