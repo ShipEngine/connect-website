@@ -58,7 +58,7 @@
     ],
     "topics": {
       "env": {
-        "description": "Manage environment variables for your published app"
+        "description": "Manage environment variables for your published app."
       }
     }
   },
