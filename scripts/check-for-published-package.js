@@ -1,4 +1,4 @@
-#!/usr/bin/env yarn node
+#!/usr/bin/env node
 const { accessSync } = require('fs');
 const { promisify } = require('util');
 const exec  = promisify(require('child_process').exec);
@@ -29,6 +29,8 @@ const main = async () => {
     if (publishedVersions.includes(packageJson.version)) {
       console.log(`${packageJson.name} v${packageJson.version} already published.`);
       exitCode = 1;
+    } else {
+      console.log(`${packageJson.name} v${packageJson.version} not yet published.`);
     }
   } catch (err) {
     exitCode = 1;
