@@ -55,10 +55,6 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
-    defaults:
-      run:
-        working-directory: packages/loader
-
     steps:
       - name: Checkout source
         uses: actions/checkout@v2
@@ -77,35 +73,48 @@ jobs:
           always-auth: true
           node-version: 14
 
-      - name: Install dependencies
+      - id: check
+        name: Check for Published Package
+        run: |
+          set +e
+          ./scripts/check-for-published-package.js loader
+          echo ::set-output name=status::$?
+
+      - if: steps.check.outputs.status == '0'
+        name: Install dependencies
         run: yarn install --immutable --immutable-cache
 
-      - name: Build
+      - if: steps.check.outputs.status == '0'
+        name: Build
         working-directory: packages/loader
         run: yarn build
 
       - id: publish
+        if: steps.check.outputs.status == '0'
         name: Publish to NPM
-        uses: JS-DevTools/npm-publish@v1
-        with:
-          package: packages/loader/package.json
-          token: ${{ secrets.NPM_TOKEN }}
+        run: |
+          yarn publish
+          echo ::set-output name=version::$(yarn run version::lookup)
+        working-directory: packages/loader
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Tag Release
-        if: ${{ steps.publish.outputs.type != 'none' }}
+      - if: steps.check.outputs.status == '0'
+        name: Tag Release
         working-directory: packages/loader
         run: |
           yarn run clean:tags
+          OLD_VERSION=$(git tag -l 'loader_v*' --sort=v:refname | tail -n 1)
           yarn run version:tag
           git push --tags
 
           cd ${{ github.workspace }}
-          git log --oneline loader_v${{ steps.publish.outputs.old-version }}..loader_v${{ steps.publish.outputs.version }} -- packages/loader > release-changelog.txt
+          git log --oneline loader_v${OLD_VERSION}..loader_v${{ steps.publish.outputs.version }} -- packages/loader > release-changelog.txt
         env:
           NEW_VERSION: ${{ steps.publish.outputs.version }}
 
       - name: Create GitHub Release
-        if: ${{ steps.publish.outputs.type != 'none' }}
+        if: steps.check.outputs.status == '0'
         uses: actions/github-script@v3
         with:
           script: |
