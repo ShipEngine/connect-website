@@ -95,7 +95,7 @@ jobs:
         run: |
           yarn config set npmAuthToken "${NODE_AUTH_TOKEN}"
           yarn npm publish
-          echo ::set-output name=version::$(yarn run version::lookup)
+          echo ::set-output name=version::$(yarn run version:lookup)
         working-directory: packages/connect
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
