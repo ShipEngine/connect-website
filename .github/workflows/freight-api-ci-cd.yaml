@@ -105,12 +105,12 @@ jobs:
         working-directory: packages/freight-api
         run: |
           yarn run clean:tags
-          OLD_VERSION=$(git tag -l 'freight-api_v*' --sort=v:refname | tail -n 1)
+          PREVIOUS_TAG=$(git tag -l 'freight-api_v*' --sort=v:refname | tail -n 1)
           yarn run version:tag
           git push --tags
 
           cd ${{ github.workspace }}
-          git log --oneline freight-api_v${OLD_VERSION}..freight-api_v${{ steps.publish.outputs.version }} -- packages/freight-api > release-changelog.txt
+          git log --oneline ${PREVIOUS_TAG}..freight-api_v${{ steps.publish.outputs.version }} -- packages/freight-api > release-changelog.txt
         env:
           NEW_VERSION: ${{ steps.publish.outputs.version }}
 

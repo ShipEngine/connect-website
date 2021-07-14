@@ -105,12 +105,12 @@ jobs:
         working-directory: packages/runtime
         run: |
           yarn run clean:tags
-          OLD_VERSION=$(git tag -l 'runtime_v*' --sort=v:refname | tail -n 1)
+          PREVIOUS_TAG=$(git tag -l 'runtime_v*' --sort=v:refname | tail -n 1)
           yarn run version:tag
           git push --tags
 
           cd ${{ github.workspace }}
-          git log --oneline runtime_v${OLD_VERSION}..runtime_v${{ steps.publish.outputs.version }} -- packages/runtime > release-changelog.txt
+          git log --oneline ${PREVIOUS_TAG}..runtime_v${{ steps.publish.outputs.version }} -- packages/runtime > release-changelog.txt
         env:
           NEW_VERSION: ${{ steps.publish.outputs.version }}
 

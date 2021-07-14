@@ -105,12 +105,12 @@ jobs:
         working-directory: packages/connect
         run: |
           yarn run clean:tags
-          OLD_VERSION=$(git tag -l 'connect_v*' --sort=v:refname | tail -n 1)
+          PREVIOUS_TAG=$(git tag -l 'connect_v*' --sort=v:refname | tail -n 1)
           yarn run version:tag
           git push --tags
 
           cd ${{ github.workspace }}
-          git log --oneline connect_v${OLD_VERSION}..connect_v${{ steps.publish.outputs.version }} -- packages/connect > release-changelog.txt
+          git log --oneline ${PREVIOUS_TAG}..connect_v${{ steps.publish.outputs.version }} -- packages/connect > release-changelog.txt
         env:
           NEW_VERSION: ${{ steps.publish.outputs.version }}
 

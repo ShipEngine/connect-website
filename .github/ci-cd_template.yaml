@@ -105,12 +105,12 @@ jobs:
         working-directory: packages/{{ PACKAGE }}
         run: |
           yarn run clean:tags
-          OLD_VERSION=$(git tag -l '{{ PACKAGE }}_v*' --sort=v:refname | tail -n 1)
+          PREVIOUS_TAG=$(git tag -l '{{ PACKAGE }}_v*' --sort=v:refname | tail -n 1)
           yarn run version:tag
           git push --tags
 
           cd ${{ github.workspace }}
-          git log --oneline {{ PACKAGE }}_v${OLD_VERSION}..{{ PACKAGE }}_v${{ steps.publish.outputs.version }} -- packages/{{ PACKAGE }} > release-changelog.txt
+          git log --oneline ${PREVIOUS_TAG}..{{ PACKAGE }}_v${{ steps.publish.outputs.version }} -- packages/{{ PACKAGE }} > release-changelog.txt
         env:
           NEW_VERSION: ${{ steps.publish.outputs.version }}
 
