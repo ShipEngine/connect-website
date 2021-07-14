@@ -5,39 +5,13 @@ import {
   FunctionSpecification,
   OrderSourceAppDefinition,
 } from '..';
+import { Route } from './route';
 
-const mapFunctions = (
-  app: OrderSourceAppDefinition,
-): FunctionSpecification[] => {
-  const functions: FunctionSpecification[] = [];
-  if (app.SalesOrdersExport) {
-    functions.push({
-      Name: 'sales_orders_export',
-      IsSandboxed: false,
-    });
-  }
-
-  if (app.ShipmentNotification) {
-    functions.push({
-      Name: 'shipment_notification',
-      IsSandboxed: false,
-    });
-  }
-
-  if (app.AcknowledgeOrders) {
-    functions.push({
-      Name: 'acknowledge_orders',
-      IsSandboxed: false,
-    });
-  }
-
-  if (app.GetProducts) {
-    functions.push({
-      Name: 'get_products',
-      IsSandboxed: false,
-    });
-  }
-  return functions;
+const mapRoutes = (route: Route): FunctionSpecification => {
+  return {
+    Name: route.path.replace('/', ''),
+    IsSandboxed: false,
+  };
 };
 
 export class Metadata implements OrderSourceProviderSpecification {
@@ -46,7 +20,7 @@ export class Metadata implements OrderSourceProviderSpecification {
   Connector: Connector;
   AuthProcess: AuthSpecification;
   OrderSources: OrderSourceSpecification[];
-  constructor(app: OrderSourceAppDefinition) {
+  constructor(app: OrderSourceAppDefinition, routes: Route[]) {
     this.Id = app.Metadata.Id;
     this.Name = app.Metadata.Name;
     this.AuthProcess = app.Metadata.AuthProcess;
@@ -62,7 +36,7 @@ export class Metadata implements OrderSourceProviderSpecification {
         Version: '/diagnostics/version',
       },
       ApiVersion: '2.0.0',
-      Functions: mapFunctions(app),
+      Functions: routes.map(mapRoutes),
     };
   }
 }

@@ -269,6 +269,81 @@ paths:
       x-codegen-request-body-name: body
       tags:
         - Order Source
+  /notification_status:
+    post:
+      summary: Notification Status
+      description: This endpoint takes a list of previously pending notifications and tries to resolve their status with the third party
+      operationId: post-notification_statuses
+      parameters:
+        - name: OrderSourceApiCode
+          in: header
+          description: The unique identifier for the type of order source
+          schema:
+            type: string
+        - name: Tenant-ID
+          in: header
+          description: An ID to identify the platform tenant
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NotificationStatusRequest'
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/NotificationStatusResponse'
+              examples:
+                example-1:
+                  value:
+                    notification_results:
+                      - notification_id: string
+                        succeeded: true
+                        confirmation_code: string
+                        failure_reason: string
+                        status: pending
+                        submission_id: A12B2324C
+        '400':
+          description: A response to indicate that there was either a module level client error or an external client error.
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+        '401':
+          description: A response to indicate that the request failed to authenticate with the shipping provider.
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+        '404':
+          description: A response to indicate that the module does not implement this endpoint.
+          content: {}
+        '429':
+          description: A response indicates that the shipping service provider has denied a request due to too many requests.
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/RateLimitResponse'
+        '500':
+          description: A response indicating a server level error with the module.
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/InternalServerErrorResponse'
+        '520':
+          description: A response indicating a server level error with the external world.
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ExternalServerErrorResponse'
+      x-codegen-request-body-name: body
+      tags:
+        - Order Source
 components:
   schemas:
     Product:
@@ -358,6 +433,7 @@ components:
               $ref: '#/components/schemas/OriginalOrderSource'
             requested_fulfillments:
               type: array
+              description: A list of tax charges. The description can convey the jurisdiction
               items:
                 required:
                   - items
@@ -1032,38 +1108,24 @@ components:
     ShipmentNotificationResponse:
       title: ''
       allOf:
-        - required:
-            - notification_results
-          type: object
-          properties:
+        - properties:
             notification_results:
               type: array
               description: The result of each notification.
               items:
-                required:
-                  - notification_id
-                type: object
-                properties:
-                  notification_id:
-                    type: string
-                    description: A unique identifier for a notification provided in the request
-                  succeeded:
-                    type: boolean
-                    description: 'Deprecated: Please use status instead.'
-                    x-deprecated: true
-                  confirmation_code:
-                    type: string
-                    description: An identifier provided by the order source to acknowledge the fulfillment
-                  failure_reason:
-                    type: string
-                    description: Additional context for why the notification failed.
-                  status:
-                    $ref: '#/components/schemas/NotificationStatus'
-                  status_identifiers:
-                    type: object
-                    additionalProperties:
-                      type: string
-                    description: A key value pair of identifiers used to poll the order source when a notification is marked as pending.
+                $ref: '#/components/schemas/NotificationStatus'
+          required:
+            - notification_results
+      x-examples:
+        Success:
+          value:
+            notification_results:
+              - notification_id: b3d8aae5-7fe0-4064-9900-8d3e962ef618
+                confirmation_code: confirmed_123abc
+                failure_reason: string
+                status: success
+                submission_id: 12134BCD232342
+      type: object
     SalesOrdersExportResponse:
       allOf:
         - required:
@@ -1244,15 +1306,20 @@ components:
           type: string
           description: Token needed to authenticate with the Carrier API implementation
       description: Represents information needed to leverage a third party Carrier API implementation
-    NotificationStatus:
-      title: NotificationStatus
-      type: string
-      description: This contains the state a notification can be in.
-      example: pending
-      enum:
-        - success
-        - failure
-        - pending
+    NotificationStatusRequest:
+      title: NotificationStatusRequest
+      allOf:
+        - $ref: '#/components/schemas/RequestBase'
+        - type: object
+          properties:
+            notifications:
+              type: array
+              description: A list of pending notifications that were previously submitted and need to be resolved with the third party.
+              minItems: 1
+              items:
+                $ref: '#/components/schemas/PendingNotification'
+          required:
+            - notifications
     ShipmentNotification:
       title: ShipmentNotification
       required:
@@ -1322,6 +1389,59 @@ components:
           properties: {}
           description: The integration context specified on the ExportSalesOrders response
       description: An individual notification that an order has been shipped
+    PendingNotification:
+      title: Pending Notification
+      type: object
+      description: A notification that has been submitted to the third party but not confirmed as being successful or failed.
+      properties:
+        notification_id:
+          type: string
+          description: A generated unique identifier used by the caller to correlate the response to this notification.
+        submission_id:
+          type: string
+          description: 'A unique identifier that is used to query the third party about the status of this notification, set in the shipment_notification response.'
+      required:
+        - notification_id
+    NotificationStatusResponse:
+      title: NotificationStatusResponse
+      type: object
+      description: ''
+      properties:
+        notifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/NotificationStatus'
+    NotificationStatus:
+      title: Notification Status
+      type: object
+      description: This represents the current state of a notification
+      properties:
+        notification_id:
+          type: string
+          description: The identifier used to correlate this notification result with the notification from the request.
+        succeeded:
+          type: boolean
+          deprecated: true
+          description: 'Deprecated: Please use status instead.'
+        confirmation_code:
+          type: string
+          description: An identifier provided by the order source to acknowledge the fulfillment.
+        failure_reason:
+          type: string
+          description: Additional context for why the notification failed
+        status:
+          type: string
+          enum:
+            - success
+            - failure
+            - pending
+          example: success
+          description: The state of the notification.
+        submission_id:
+          type: string
+          description: A unique identifier that is used to query the third party about the status of this notification in the notification_status endpoint.
+      required:
+        - notification_id
 x-generator: NSwag v12.0.11.0 (NJsonSchema v9.13.13.0 (Newtonsoft.Json v11.0.0.0))
 tags:
   - name: Order Source

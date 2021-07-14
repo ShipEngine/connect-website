@@ -14,6 +14,8 @@ import {
   ShipmentNotificationRequest,
   ShipmentNotificationResponse,
 } from '..';
+import { NotificationStatusRequest } from '../requests/notification-status-request';
+import { NotificationStatusResponse } from '../responses';
 
 /** @description This represents a single integration which may contain multiple branded order sources */
 export interface OrderSourceAppMetadata {
@@ -75,4 +77,11 @@ export interface OrderSourceAppDefinition {
   GetProducts?: (
     request: GetProductsRequest,
   ) => GetProductsResponse | Promise<GetProductsResponse>;
+  /**
+   * @description This method takes a list of previously pending notifications and tries to resolve their status with the third party
+   * @param request A list of notifications that have been submitted to the third party but not confirmed as being successful or failed.
+   */
+  NotificationStatus?: (
+    request: NotificationStatusRequest,
+  ) => NotificationStatusResponse | Promise<NotificationStatusResponse>;
 }

@@ -7,3 +7,4 @@ export * from './sales-orders-export-response';
 export * from './shipment-notification-response';
 export * from './unauthorized-response';
 export * from './get-products-response';
+export * from './notification-status-response';

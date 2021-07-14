@@ -12,3 +12,4 @@ export * from './sales-order-item';
 export * from './shipping-preferences';
 export * from './weight';
 export * from './document';
+export * from './shipment-notification-result';
