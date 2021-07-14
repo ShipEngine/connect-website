@@ -72,6 +72,7 @@ jobs:
         with:
           always-auth: true
           node-version: 14
+          registry-url: 'https://registry.npmjs.org'
 
       - id: check
         name: Check for Published Package
@@ -97,6 +98,7 @@ jobs:
           echo ::set-output name=version::$(yarn run version::lookup)
         working-directory: packages/carrier-api
         env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - if: steps.check.outputs.status == '0'
