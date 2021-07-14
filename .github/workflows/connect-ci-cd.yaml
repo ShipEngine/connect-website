@@ -97,6 +97,7 @@ jobs:
           echo ::set-output name=version::$(yarn run version::lookup)
         working-directory: packages/connect
         env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - if: steps.check.outputs.status == '0'
