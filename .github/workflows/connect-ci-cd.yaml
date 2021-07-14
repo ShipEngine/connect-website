@@ -72,6 +72,7 @@ jobs:
         with:
           always-auth: true
           node-version: 14
+          registry-url: 'https://registry.npmjs.org'
 
       - id: check
         name: Check for Published Package
