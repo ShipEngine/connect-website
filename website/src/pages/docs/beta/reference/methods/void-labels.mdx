@@ -117,7 +117,7 @@ module.exports = async function VoidLabels(request) {
   let data = {
     operation: "void_labels",
     session_id: request.metadata.id,
-    void_labels: void_requests.map((void_request) => {
+    void_labels: request.void_requests.map((void_request) => {
       const { void_request_id, tracking_number, carrier_transaction_id } = void_request;
       return {
         void_request_id: void_request_id,
@@ -149,7 +149,7 @@ export default async function VoidLabels(request: VoidLabelsRequest): Promise<Vo
   let data: VoidLabelsAPIRequest = {
     operation: "void_labels",
     session_id: request.metadata.id,
-    void_labels: void_requests.map((void_request) => {
+    void_labels: request.void_requests.map((void_request) => {
       const { void_request_id, tracking_number, carrier_transaction_id } = void_request;
       return {
         void_request_id: void_request_id,
