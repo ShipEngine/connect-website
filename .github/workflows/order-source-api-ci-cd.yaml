@@ -94,7 +94,7 @@ jobs:
         name: Publish to NPM
         run: |
           yarn config set npmAuthToken "${NODE_AUTH_TOKEN}"
-          yarn npm publish
+          yarn npm publish --access public
           echo ::set-output name=version::$(yarn run version:lookup)
         working-directory: packages/order-source-api
         env:
