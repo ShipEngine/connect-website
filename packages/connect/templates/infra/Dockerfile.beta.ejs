@@ -14,7 +14,7 @@ RUN set -ex; \
     apk add --no-cache ca-certificates tini; \
     npm install --no-progress --global node-gyp;
 ENV CXXFLAGS='-Wno-cast-function-type'
-WORKDIR /
+WORKDIR /srv
 <% if (hasBuild) { %>
 COPY --from=builder /srv/package.json /srv/package-lock.json ./
 <% } else { %>
