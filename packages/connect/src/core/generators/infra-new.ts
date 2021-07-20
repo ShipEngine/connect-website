@@ -173,6 +173,7 @@ class InfraNew extends Generator {
         dest: `../../infra/helm/${this.appName}/values.yaml`,
       },
       { src: 'Makefile.ejs', dest: 'Makefile' },
+      { src: 'dockerignore.ejs', dest: '.dockerignore' },
     ];
     if (this.beta) {
       filesToCopy.push(

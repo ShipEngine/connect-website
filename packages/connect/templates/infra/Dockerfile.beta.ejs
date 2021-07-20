@@ -8,7 +8,7 @@ RUN npm run-script build
 
 <% } %>FROM node:lts-alpine as runtime
 ARG PROJECT_ROOT=.
-# This sets our os package dependencies up for NewRelic 
+# This sets our os package dependencies up for NewRelic
 RUN set -ex; \
     apk add --no-cache build-base python; \
     apk add --no-cache ca-certificates tini; \
@@ -16,12 +16,16 @@ RUN set -ex; \
 ENV CXXFLAGS='-Wno-cast-function-type'
 WORKDIR /
 <% if (hasBuild) { %>
-COPY --from=builder /srv/lib ./lib
 COPY --from=builder /srv/package.json /srv/package-lock.json ./
 <% } else { %>
-COPY ./package.json ./package-lock.json ./
+COPY ${PROJECT_ROOT}/package.json ${PROJECT_ROOT}/package-lock.json ./
 <% } %>
 RUN npm ci --no-progress --production
+<% if (hasBuild) { %>
+COPY --from=builder /srv/lib ./lib
+<% } else { %>
+COPY ${PROJECT_ROOT}/ ./
+<% } %>
 ARG GIT_SHA
 ARG GIT_BRANCH
 ENV GIT_SHA ${GIT_SHA:-snapshot}
