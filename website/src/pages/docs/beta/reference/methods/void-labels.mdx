@@ -99,22 +99,22 @@ This object model represents the response from a successful void labels request.
     </Description>
   </Field>
 
-  <Field name="void_requests[].void_request_id" type="string" required={true}>
+  <Field name="void_responses[].void_request_id" type="string" required={true}>
     <Description>
       This unique identifier should be related to the void_request_id in the VoidLabelsRequest.
     </Description>
   </Field>
 
- <Field name="void_requests[].message" type="string" required={false}>
+ <Field name="void_responses[].message" type="string" required={false}>
     <Description>
       User facing text describing the void process. May be left blank to present a default value.
     </Description>
   </Field>
 
- <Field name="void_requests[].errors" type="string[]" required={false}>
+ <Field name="void_responses[].errors" type="string[]" required={false}>
     <Description>
-      A list of errors preventing this label from being voided. 
-      If no errors are returned the void is considered successful. 
+      A list of errors preventing this label from being voided.
+      If no errors are returned the void is considered successful.
       If any errors are returned the void is considered failed.
     </Description>
   </Field>

@@ -47,7 +47,7 @@ An object containing information about the new label to create.
 
   <Field name="ship_datetime" type="string" nullable={false}>
     <Description>
-      When the package is expected to ship. Not guaranteed to be in the future. 
+      When the package is expected to ship. Not guaranteed to be in the future.
       Formatted per the https://tools.ietf.org/html/rfc3339 spec. Will always be in UTC.
     </Description>
   </Field>
@@ -57,7 +57,7 @@ An object containing information about the new label to create.
       [confirmation type](./../common-types.mdx#delivery-confirmation-types)
     </Type>
     <Description>
-      The requested [confirmation](./../common-types.mdx) for this label. 
+      The requested [confirmation](./../common-types.mdx) for this label.
       If the field is absent it should be interpreted as "None".
     </Description>
   </Field>
@@ -65,28 +65,28 @@ An object containing information about the new label to create.
  <Field name="label_format" type="string" nullable={true}>
     <Description>
       The requested document format for this label.
-      
+
       Valid values include the following:
       * `PDF`
       * `ZPL`
       * `PNG`
     </Description>
   </Field>
-  
+
  <Field name="label_layout" type="string" nullable={true}>
     <Description>
       The requested label layout for this label.
-      
+
       Valid values include the following:
       * `4x6`
       * `letter`
     </Description>
   </Field>
-  
+
  <Field name="is_test_label" type="boolean" nullable={true}>
     <Description>
-      Whether this request is the result of a test. 
-      When true the request must not result in any financial charges to any party. 
+      Whether this request is the result of a test.
+      When true the request must not result in any financial charges to any party.
       If the field is absent it should be interpreted as false
     </Description>
   </Field>
@@ -97,13 +97,13 @@ An object containing information about the new label to create.
       If the field is absent it should be interpreted as the default value for any applicable options, e.g. false for booleans.
     </Description>
   </Field>
-  
+
   <Field name="insurance_provider" type="string" nullable={true}>
     <Description>
-      The insurance provider for the insured value of the label, 
-      `carrier` indicates that the user is requesting insurance from the carrier directly, 
+      The insurance provider for the insured value of the label,
+      `carrier` indicates that the user is requesting insurance from the carrier directly,
       anything else is extra information that should not result in a transaction.
-      
+
       Valid values include the following:
       * `None`
       * `Shipstation`
@@ -111,7 +111,7 @@ An object containing information about the new label to create.
       * `External`
     </Description>
   </Field>
-   
+
   <Field name="is_return_label" type="boolean" nullable={false}>
     <Description>
       Indicates whether the label is a return.
@@ -171,7 +171,7 @@ An object containing information about the new label to create.
 
   <Field name="next_day" type="boolean" nullable={true}>
     <Description>
-      Indicates whether this shipment is expected to use a next day service class. 
+      Indicates whether this shipment is expected to use a next day service class.
       If the field is absent it should be interpreted as false
     </Description>
   </Field>
@@ -199,7 +199,7 @@ An object containing information about the new label to create.
       A [return merchandise authorization (RMA)](https://en.wikipedia.org/wiki/Return_merchandise_authorization) is an associated number assigned to process the return. This number is often printed on the label and used when the original shipper processes the inbound return. This string will not contain newline characters.
     </Description>
   </Field>
-  
+
   <Field name="fulfillment_plan_details" nullable={true}>
     <Type>
       [fulfillment plan details object](./../fulfillment-plan-details.mdx#fulfillment-plan-details-object)
@@ -208,7 +208,7 @@ An object containing information about the new label to create.
       Details regarding the fulfillment plan and/or original sales order, only if the carrier provider requires this info for label generation.
     </Description>
   </Field>
-  
+
   <Field name="attachments" nullable={true}>
     <Type>
       [document object[]](./../document.mdx)
@@ -247,13 +247,13 @@ This object model represents the response from a successful create label request
     </Description>
   </Field>
 
-  <Field name="from_download" type="object" required={false}>
+  <Field name="form_download" type="object" required={false}>
     <Description>
       This provides any additional forms that go with the label. For example, customs forms.
     </Description>
   </Field>
 
-  <Field name="from_download.from_data" type="string" required={true}>
+  <Field name="form_download.form_data" type="string" required={true}>
     <Description>
       The base64 encoded form image.
     </Description>
@@ -265,7 +265,7 @@ This object model represents the response from a successful create label request
     </Type>
     <Description>
       Shipment level documents should be used if documents are not returned at a package level.
-      
+
       DO NOT include duplicate documents intentionally, a document should only be added to the CreateLabelResponse or to the LabelPackage.
     </Description>
   </Field>
@@ -276,7 +276,7 @@ This object model represents the response from a successful create label request
     </Type>
     <Description>
       Package information returned for each requested package in the shipment.
-      
+
       Note: The order of the packages returned should match the order of the packages in the request.
     </Description>
   </Field>
@@ -313,7 +313,7 @@ This object model represents the response from a successful create label request
 
   <Field name="estimated_delivery_datetime" type="string" required={false}>
     <Description>
-      The estimated date and time for when the shipment will be delivered. 
+      The estimated date and time for when the shipment will be delivered.
       Formatted per the https://tools.ietf.org/html/rfc3339 spec.
     </Description>
   </Field>
