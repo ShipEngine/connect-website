@@ -40,20 +40,11 @@ An object containing information about the label to track.
 <Reference>
 
   <Field name="identifiers" type="object[]" nullable={true}>
+    <Type>
+      [identifier object[]](./../identifier.mdx)
+    </Type>
     <Description>
       Array of identifiers describing the label to be tracked.
-    </Description>
-  </Field>
-
-  <Field name="identifiers[].type" type="string" nullable={false}>
-    <Description>
-      The tracking identifier type, either `tracking_number` or `carrier_transaction_id`.
-    </Description>
-  </Field>
-
- <Field name="identifiers[].value" type="string" nullable={false}>
-    <Description>
-      The value associated with that key.
     </Description>
   </Field>
 

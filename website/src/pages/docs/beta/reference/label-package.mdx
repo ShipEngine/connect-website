@@ -22,21 +22,12 @@ This table lists the properties of a label package and identifies those properti
     </Description>
   </Field>
 
-  <Field name="alternative_identifiers[]" type="object" required={false}>
+  <Field name="alternative_identifiers" required={false}>
+    <Type>
+      [identifier object[]](./identifier.mdx)
+    </Type>
     <Description>
       Alternative identifiers associated with this package, not including the tracking number.
-    </Description>
-  </Field>
-
-  <Field name="alternative_identifiers[].type" type="string" required={false}>
-    <Description>
-      A key describing the identifier.
-    </Description>
-  </Field>
-
-  <Field name="alternative_identifiers[].value" type="string" required={false}>
-    <Description>
-      The value of the identifier.
     </Description>
   </Field>
 

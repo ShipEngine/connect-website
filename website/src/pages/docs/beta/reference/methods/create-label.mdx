@@ -302,21 +302,12 @@ This object model represents the response from a successful create label request
     </Description>
   </Field>
 
-  <Field name="alternative_identifiers" type="object" required={false}>
+  <Field name="alternative_identifiers" required={false}>
+    <Type>
+      [identifier object[]](./../identifier.mdx)
+    </Type>
     <Description>
       Alternative identifiers associated with this shipment.
-    </Description>
-  </Field>
-
-  <Field name="alternative_identifiers[].type" type="string" required={false}>
-    <Description>
-      A key describing the identifier.
-    </Description>
-  </Field>
-
-  <Field name="alternative_identifiers[].value" type="string" required={false}>
-    <Description>
-      The value of the identifier.
     </Description>
   </Field>
 

@@ -149,6 +149,7 @@ export const menu: MenuContents = [
           { title: "Void Labels", href: "/docs/beta/reference/methods/void-labels" },
           { title: "Track", href: "/docs/beta/reference/methods/track" },
           { title: "Get Rates", href: "/docs/beta/reference/methods/get-rates" },
+          { title: "Create Manifest", href: "/docs/beta/reference/methods/create-manifest" },
         ]
       },
       {
@@ -164,6 +165,8 @@ export const menu: MenuContents = [
           { title: "Billing Line Item", href: "/docs/beta/reference/billing-line-item" },
           { title: "Fulfillment Plan Details", href: "/docs/beta/reference/fulfillment-plan-details" },
           { title: "Track Event", href: "/docs/beta/reference/track-event" },
+          { title: "Shipped Shipment", href: "/docs/beta/reference/shipped-shipment" },
+          { title: "Shipped Package", href: "/docs/beta/reference/shipped-package" },
         ]
       },
     ]

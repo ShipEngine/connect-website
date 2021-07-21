@@ -37,29 +37,48 @@ Parameters
 ### `VoidLabelsRequest`
 An object containing information about the labels to void.
 
+
 <Reference>
 
   <Field name="void_requests" type="object[]" nullable={false}>
+    <Type>
+      [void requests[]](#void-requests-object)
+    </Type>
     <Description>
       Array of void requests
     </Description>
   </Field>
 
-  <Field name="void_requests[].void_request_id" type="string" nullable={false}>
+</Reference>
+
+### Void Requests Object
+
+This object extends [Shipped Shipment](./../shipped-shipment.mdx)
+
+<Reference>
+
+  <Field name="...Shipped Shipment" nullable={false}>
+    <Type>
+      [shipped shipment](./../shipped-shipment.mdx)
+    </Type>
+    <Description>
+      All fields described in the [shipped shipment](./../shipped-shipment.mdx).
+    </Description>
+  </Field>
+
+
+  <Field name="void_request_id" type="string" nullable={false}>
     <Description>
       Uniquely identifies this request to void a label. Must be returned in a void response.
     </Description>
   </Field>
 
- <Field name="void_requests[].tracking_number" type="string" nullable={true}>
+ <Field name="ship_from" nullable={false}>
+    <Type>
+      [shipping address object](./../address.mdx#shipping-address-object)
+    </Type>
     <Description>
-      The Carrier provided tracking number for the label.
-    </Description>
-  </Field>
-
- <Field name="void_requests[].carrier_transaction_id" type="string" nullable={true}>
-    <Description>
-      The Carrier provided unique transaction id from creating the label.
+      The shipment sender's address. It may or may not have been validated.
     </Description>
   </Field>
 

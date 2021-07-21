@@ -1,0 +1,51 @@
+---
+title: ShippedPackage objects
+description: An object representing shipped packages on manifests.
+---
+
+Shipped Package Object
+===============================================
+A shipped packge object is used to describe the pacakges on labels inside manifest requests.
+
+<Reference>
+
+  <Field name="tracking_number" type="string" nullable={true}>
+    <Description>
+      The carrier tracking number for this shipment.
+    </Description>
+  </Field>
+
+  <Field name="alternative_identifiers" nullable={true}>
+    <Type>
+      [identifier object[]](./identifier.mdx)
+    </Type>
+    <Description>
+      Alternative identifiers associated with this package.
+    </Description>
+  </Field>
+
+  <Field name="dimension_details" nullable={true}>
+    <Type>
+      [dimension details object](./units.mdx#demension-details-object)
+    </Type>
+    <Description>
+      The dimensions for the package.
+    </Description>
+  </Field>
+
+  <Field name="weight_details" type="object" nullable={true}>
+    <Type>
+      [weight details object](./units.mdx#weight-details-object)
+    </Type>
+    <Description>
+      The weight for the package.
+    </Description>
+  </Field>
+
+  <Field name="package_code" type="string" nullable={true}>
+    <Description>
+      The code associated with the package type.
+    </Description>
+  </Field>
+
+</Reference>

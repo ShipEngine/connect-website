@@ -9,21 +9,12 @@ An fulfillment plan details object representing a fulfilment plan.
 
 <Reference>
 
-  <Field name="external_sales_order_identifiers" type="object" nullable={true}>
+  <Field name="external_sales_order_identifiers" nullable={true}>
+    <Type>
+      [identifier object[]](./identifier.mdx)
+    </Type>
     <Description>
       A list of identifiers for the sales order.
-    </Description>
-  </Field>
-
-  <Field name="external_sales_order_identifiers[].type" type="string" required={false}>
-    <Description>
-      A key describing the identifier.
-    </Description>
-  </Field>
-
-  <Field name="external_sales_order_identifiers[].value" type="string" required={false}>
-    <Description>
-      The value of the identifier.
     </Description>
   </Field>
 
@@ -56,39 +47,21 @@ An fulfillment plan item object representing a single item on a fulfilment plan.
 
 <Reference>
 
-  <Field name="external_sales_order_identifiers" type="object" nullable={true}>
+  <Field name="external_sales_order_identifiers" nullable={true}>
+    <Type>
+      [identifier object[]](./identifier.mdx)
+    </Type>
     <Description>
       A list of identifiers for the sales order.
     </Description>
   </Field>
 
-  <Field name="external_sales_order_identifiers[].type" type="string" required={false}>
-    <Description>
-      A key describing the identifier.
-    </Description>
-  </Field>
-
-  <Field name="external_sales_order_identifiers[].value" type="string" required={false}>
-    <Description>
-      The value of the identifier.
-    </Description>
-  </Field>
-
-  <Field name="external_product_identifiers" type="object" nullable={true}>
+  <Field name="external_product_identifiers" nullable={true}>
+    <Type>
+      [identifier object[]](./identifier.mdx)
+    </Type>
     <Description>
       A list of identifiers specific to the selling channel.
-    </Description>
-  </Field>
-
-  <Field name="external_product_identifiers[].type" type="string" required={false}>
-    <Description>
-      A key describing the identifier.
-    </Description>
-  </Field>
-
-  <Field name="external_product_identifiers[].value" type="string" required={false}>
-    <Description>
-      The value of the identifier.
     </Description>
   </Field>
 
