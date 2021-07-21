@@ -150,6 +150,7 @@ export const menu: MenuContents = [
           { title: "Track", href: "/docs/beta/reference/methods/track" },
           { title: "Get Rates", href: "/docs/beta/reference/methods/get-rates" },
           { title: "Create Manifest", href: "/docs/beta/reference/methods/create-manifest" },
+          { title: "Schedule Pickup", href: "/docs/beta/reference/methods/schedule-pickup" },
         ]
       },
       {
@@ -167,6 +168,7 @@ export const menu: MenuContents = [
           { title: "Track Event", href: "/docs/beta/reference/track-event" },
           { title: "Shipped Shipment", href: "/docs/beta/reference/shipped-shipment" },
           { title: "Shipped Package", href: "/docs/beta/reference/shipped-package" },
+          { title: "Pickup Window", href: "/docs/beta/reference/pickup-window" },
         ]
       },
     ]
