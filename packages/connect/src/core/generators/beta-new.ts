@@ -81,7 +81,7 @@ class BetaNew extends Generator {
       typescript: true,
     };
 
-    if (this.options.skipQuestions) {
+    if (this.options.useDefaults) {
       this.answers = defaults;
     } else {
       this.answers = (await this.prompt([
@@ -156,7 +156,7 @@ class BetaNew extends Generator {
 
     this.type = this.answers.type;
     this.ts = this.answers.typescript;
-    this.pjson.name = this.answers.name;
+    this.pjson.name = this.answers.name || defaults.name;
 
     this.pjson.description = this.answers.description || defaults.description;
     this.pjson.version = this.answers.version || defaults.version;
@@ -181,6 +181,8 @@ class BetaNew extends Generator {
       this.pjson.main = 'src/index.js';
       this.pjson.scripts.start = 'node src/serve.js';
     }
+
+    this.options.env.sharedOptions.integrationType = this.type;
   }
 
   writing() {

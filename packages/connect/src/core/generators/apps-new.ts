@@ -97,7 +97,7 @@ class AppsNew extends Generator {
       vscode: true,
     };
 
-    if (this.options.skipQuestions) {
+    if (this.options.useDefaults) {
       this.answers = defaults;
     } else {
       this.answers = (await this.prompt([

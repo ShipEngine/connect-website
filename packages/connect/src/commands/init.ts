@@ -3,6 +3,12 @@ import { createEnv } from 'yeoman-environment';
 import { flags } from '@oclif/command';
 import cliBanner from '../core/utils/cli-banner';
 
+const GENERATOR_TYPES = {
+  APP: 'app',
+  BETA: 'beta',
+  INFRA: 'infra',
+};
+
 export default class New extends BaseCommand {
   static description =
     'Create a new package to develop a custom ShipEngine app';
@@ -46,59 +52,53 @@ export default class New extends BaseCommand {
   async run(): Promise<void> {
     const { flags, args } = this.parse(New);
     const env = createEnv();
-
-    // If the infra flag is present, use the infra generator
-    if (flags.infra) {
-      env.register(require.resolve('../core/generators/infra-new'), 'new');
-
-      const generatorOptions = {
-        path: args.path,
-      };
-
-      await new Promise((resolve, reject) => {
-        env.run('new', generatorOptions, (err: Error | null) => {
-          if (err) reject(err);
-          else resolve('done');
-        });
-      });
-
-      return;
-    }
-    if (flags.beta) {
-      env.register(require.resolve('../core/generators/beta-new'), 'new');
-      const generatorOptions = {
-        path: args.path,
-        skipQuestions: flags.yes,
-        force: flags.force,
-      };
-
-      this.log(cliBanner());
-      this.log('Time to build a Connect app!');
-
-      await new Promise((resolve, reject) => {
-        env.run('new', generatorOptions, (err: Error | null) => {
-          if (err) reject(err);
-          else resolve('done');
-        });
-      });
-      return;
-    }
-
-    env.register(require.resolve('../core/generators/apps-new'), 'new');
-
     const generatorOptions = {
-      path: args.path,
-      skipQuestions: flags.yes,
+      beta: flags.beta,
       force: flags.force,
+      path: args.path,
+      useDefaults: flags.yes,
     };
+
+    env.register(
+      require.resolve('../core/generators/apps-new'),
+      GENERATOR_TYPES.APP,
+    );
+    env.register(
+      require.resolve('../core/generators/beta-new'),
+      GENERATOR_TYPES.BETA,
+    );
+    env.register(
+      require.resolve('../core/generators/infra-new'),
+      GENERATOR_TYPES.INFRA,
+    );
+
+    let generatorType = GENERATOR_TYPES.APP;
+    if (flags.infra) {
+      generatorType = GENERATOR_TYPES.INFRA;
+    } else if (flags.beta) {
+      generatorType = GENERATOR_TYPES.BETA;
+    }
 
     this.log(cliBanner());
     this.log('Time to build a Connect app!');
 
-    await new Promise((resolve, reject) => {
-      env.run('new', generatorOptions, (err: Error | null) => {
-        if (err) reject(err);
-        else resolve('done');
+    return await new Promise((resolve, reject) => {
+      env.run(generatorType, generatorOptions, (err: Error | null) => {
+        if (err) return reject(err);
+
+        if (generatorType === GENERATOR_TYPES.BETA) {
+          const infraOptions = {
+            ...generatorOptions,
+            type: (env as any).sharedOptions.integrationType,
+            useDefaults: true,
+          };
+          env.run(GENERATOR_TYPES.INFRA, infraOptions, (err: Error | null) => {
+            if (err) return reject(err);
+            resolve();
+          });
+        } else {
+          resolve();
+        }
       });
     });
   }
