@@ -36,6 +36,7 @@ export default class Start extends BaseCommand {
         watch: ['src/'],
       })
         .on('start', async () => {
+          await new Promise((resolve) => setTimeout(resolve, 1000));
           if (app.type === 'order') {
             await open('http://localhost:3006/docs');
           } else {
