@@ -163,33 +163,30 @@ This object extends the Address Base.
 
 </Reference>
 
-Pickup Location Object
+Pickup Location Details Object
 ---------------------------
 Pickup/Dropoff location address used by carriers.
 
-This object extends the Address Base.
-
-
 <Reference>
 
-  <Field name="...Address Base" nullable={false}>
+  <Field name="pickup_address" nullable={true}>
     <Type>
-      [address base](#address-base-object)
+      [shipping address object](#shipping-address-object)
     </Type>
     <Description>
-      All fields described in the [address base](#address-base-object) defined above.
+      The physical address of the warehouse or pickup address.
     </Description>
   </Field>
 
-  <Field name="carrier_code" type="string" nullable={true}>
+  <Field name="location_notes" type="string" nullable={true}>
     <Description>
-      Standardized carrier code the location id belongs to.
+      Human readable location information for the driver to find the location.
     </Description>
   </Field>
 
-  <Field name="location_id" type="string" nullable={false}>
+  <Field name="pickup_options" type="object" nullable={true}>
     <Description>
-      Location id needed to look up the location.
+      Custom options that are used by the carrier to determine pickup locations.
     </Description>
   </Field>
 

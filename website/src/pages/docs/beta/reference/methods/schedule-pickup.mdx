@@ -41,7 +41,7 @@ An object containing information about the pickup being scheduled.
 
   <Field name="location" nullable={true}>
     <Type>
-      [pickup location object](./../address.mdx#pickut-location-object)
+      [pickup location details object](./../address.mdx#pickup-location-details-object)
     </Type>
     <Description>
       Where it's being picked up. 
@@ -126,45 +126,12 @@ This object model represents the response from a successful schedule pickup requ
 
 <Reference>
 
-  <Field name="confirmation" type="object" required={false}>
+  <Field name="confirmation" required={false}>
+    <Type>
+      [pickup confirmation object](./../pickup-confirmation.mdx)
+    </Type>
     <Description>
       The confirmation code associated with the successful creation of a pickup.
-    </Description>
-  </Field>
-
-  <Field name="confirmation.confirmation_id" type="string" required={false}>
-    <Description>
-      The primary confirmation ID for this request.
-    </Description>
-  </Field>
-
-  <Field name="confirmation.alternate_identifiers" required={false}>
-    <Type>
-      [identifier object[]](./../identifier.mdx)
-    </Type>
-    <Description>
-      Other identifiers potentially needed in other calls.
-    </Description>
-  </Field>
-
-  <Field name="confirmation.shipment_identifiers" type="object[]" required={false}>
-    <Description>
-      List of the shipments added for this pickup.
-    </Description>
-  </Field>
-
-  <Field name="confirmation.shipment_identifiers[].tracking_number" type="string" required={false}>
-    <Description>
-      The tracking number associated with the shipment.
-    </Description>
-  </Field>
-
-  <Field name="confirmation.shipment_identifiers[].alternate_identifiers" required={false}>
-    <Type>
-      [identifier object[]](./../identifier.mdx)
-    </Type>
-    <Description>
-      A list of alternate identifiers that can be used to identify a shipment.
     </Description>
   </Field>
 
@@ -224,7 +191,7 @@ module.exports = async function SchedulePickup(request) {
   const response = await apiClient.request({ data });
 
   // STEP 4: Create the output data that ShipEngine expects
-  return formatVoidLabel(response.data);
+  return formatSchedulePickup(response.data);
 }
 ```
 
@@ -251,7 +218,7 @@ export default async function SchedulePickup(request: SchedulePickupRequest): Pr
   const response = await apiClient.request<SchedulePickupAPIResponse>({ data });
 
   // STEP 4: Create the output data that ShipEngine expects
-  return formatVoidLabel(response.data);
+  return formatSchedulePickup(response.data);
 }
 ```
 </CodeWrapper>

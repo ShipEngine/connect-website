@@ -147,10 +147,11 @@ export const menu: MenuContents = [
           { title: "Register", href: "/docs/beta/reference/methods/register" },
           { title: "Create Label", href: "/docs/beta/reference/methods/create-label" },
           { title: "Void Labels", href: "/docs/beta/reference/methods/void-labels" },
-          { title: "Track", href: "/docs/beta/reference/methods/track" },
-          { title: "Get Rates", href: "/docs/beta/reference/methods/get-rates" },
           { title: "Create Manifest", href: "/docs/beta/reference/methods/create-manifest" },
           { title: "Schedule Pickup", href: "/docs/beta/reference/methods/schedule-pickup" },
+          { title: "Cancel Pickup", href: "/docs/beta/reference/methods/cancel-pickup" },
+          { title: "Get Rates", href: "/docs/beta/reference/methods/get-rates" },
+          { title: "Track", href: "/docs/beta/reference/methods/track" },
         ]
       },
       {
@@ -169,6 +170,7 @@ export const menu: MenuContents = [
           { title: "Shipped Shipment", href: "/docs/beta/reference/shipped-shipment" },
           { title: "Shipped Package", href: "/docs/beta/reference/shipped-package" },
           { title: "Pickup Window", href: "/docs/beta/reference/pickup-window" },
+          { title: "Pickup Confirmation", href: "/docs/beta/reference/pickup-confirmation" },
         ]
       },
     ]

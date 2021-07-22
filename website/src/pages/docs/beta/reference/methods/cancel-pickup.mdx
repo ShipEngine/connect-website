@@ -1,0 +1,256 @@
+---
+title: CancelPickup Method
+description: This method is used to cancel a pickup with a carrier.
+---
+
+
+`CancelPickup()`
+===========================
+This method is used to cancel a pickup with a carrier.
+
+
+Syntax
+-----------------------------------------------
+<CodeWrapper>
+```javascript
+module.exports = async function CancelPickup(request) {
+  // Your code here
+}
+```
+
+```typescript
+import { CancelPickupRequest, CancelPickupResponse } from "@shipengine/connect-carrier-api";
+
+export default async function CancelPickup(
+  request: CancelPickupRequest
+): Promise<CancelPickupResponse> {
+  // Your code here
+}
+```
+</CodeWrapper>
+
+
+
+Parameters
+-----------------------------------------------
+
+### `CancelPickupRequest`
+An object containing information about the pickup being canceled.
+
+<Reference>
+
+  <Field name="confirmation" nullable={true}>
+    <Type>
+      [pickup confirmation object](./../pickup-confirmation.mdx)
+    </Type>
+    <Description>
+      The confirmation information provided by the [SchedulePickup](./schedule-pickup.mdx#return-value) response.
+    </Description>
+  </Field>
+
+  <Field name="location" nullable={true}>
+    <Type>
+      [pickup location details object](./../address.mdx#pickup-location-details-object)
+    </Type>
+    <Description>
+      Where was it going to be picked up. 
+    </Description>
+  </Field>
+
+  <Field name="cancellation_details" type="object" nullable={true}>
+    <Description>
+      Why the pickup is being cancelled.
+    </Description>
+  </Field>
+
+  <Field name="cancellation_details.reason" type="string" nullable={false}>
+    <Description>
+      The reason the customer is cancelling their pickup request.
+
+      Valid values include the following:
+      * `other` - There is a reason not defined below
+      * `not_ready` - The customer is not ready to have their packages picked up
+      * `cost_too_high` - The cost for picking up was too much
+      * `service_too_slow` - The service pick up would have been too slow
+      * `carrier_failed_pickup` - The carrier didn't pick up when they said they would
+    </Description>
+  </Field>
+
+  <Field name="cancellation_details.cancellation_options" type="object" nullable={true}>
+    <Description>
+      Additional properties about the cancellation.
+    </Description>
+  </Field>
+
+  <Field name="cancellation_details.remarks" type="string" nullable={true}>
+    <Description>
+      Remarks about why the customer is cancelling the pickup.
+    </Description>
+  </Field>
+
+  <Field name="contact" type="object" nullable={true}>
+    <Description>
+      Contact information about the person there to meet the driver.
+    </Description>
+  </Field>
+
+  <Field name="contact.first_name" type="string" nullable={false}>
+    <Description>
+      The first name of the person who will be there for the pickup.
+    </Description>
+  </Field>
+
+  <Field name="contact.last_name" type="string" nullable={true}>
+    <Description>
+      The last name of the person who will be there for the pickup.
+    </Description>
+  </Field>
+
+  <Field name="contact.email" type="string" nullable={false}>
+    <Description>
+      The e-mail address of the person who will be there for the pickup.
+    </Description>
+  </Field>
+
+  <Field name="contact.phone_number" type="string" nullable={false}>
+    <Description>
+      The phone number of the person who will be there for the pickup.
+    </Description>
+  </Field>
+
+  <Field name="contact.phone_number_extension" type="string" nullable={true}>
+    <Description>
+      The phone extension of the person who will be there for the pickup.
+    </Description>
+  </Field>
+
+ <Field name="pickup_details" type="object" nullable={true}>
+    <Description>
+      What was scheduled to be picked up.
+    </Description>
+  </Field>
+
+ <Field name="pickup_details.pickup_service_code" type="string" nullable={true}>
+    <Description>
+      Service category for the carrier (ground, express, next_day).
+    </Description>
+  </Field>
+
+ <Field name="pickup_details.shipments" nullable={true}>
+    <Type>
+      [shipped shipment[]](./../shipped-shipment.mdx)
+    </Type>
+    <Description>
+      The shipments that were scheduled to be picked up.
+    </Description>
+  </Field>
+
+ <Field name="pickup_windows" nullable={false}>
+    <Type>
+      [pickup window object[]](./../pickup-window.mdx)
+    </Type>
+    <Description>
+      The time windows that the carrier returned in the [SchedulePickup](./schedule-pickup.mdx#return-value) Response.
+    </Description>
+  </Field>
+
+ <Field name="custom_properties" type="object" nullable={true}>
+    <Description>
+      The grab bag of properties necessary to cancel the pickup.
+    </Description>
+  </Field>
+
+</Reference>
+
+
+
+Return Value
+-----------------------------------------------
+### `CancelPickupResponse`
+This object model represents the response from a successful cancel pickup request.
+
+<Reference>
+
+  <Field name="confirmation_id" type="string" required={false}>
+    <Description>
+      The confirmation id from the carrier associated with the cancellation request.
+    </Description>
+  </Field>
+
+  <Field name="successful" type="boolean" required={true}>
+    <Description>
+      A flag for whether or not the cancellation was successful.
+    </Description>
+  </Field>
+
+  <Field name="status" type="string" required={false}>
+    <Description>
+      The optional status returned by the carrier.
+    </Description>
+  </Field>
+
+ <Field name="custom_properties" type="object" required={false}>
+    <Description>
+      A grab bag of custom properties that will be persisted and sent back with the cancel pickup request.
+    </Description>
+  </Field>
+
+</Reference>
+
+
+
+Example
+-----------------------------------------------
+<CodeWrapper>
+```javascript
+module.exports = async function CancelPickup(request) {
+
+  // STEP 1: Validation
+
+  // STEP 2: Create the data that the carrier's API expects
+
+  let data = {
+    operation: "cancel_pickup",
+    session_id: request.metadata.id,
+    pickup_id: request.confirmation.confirmation_id,
+    pickup_location: request.location,
+    packages: request.pickup_details.shipments,
+    reason: request.cancellation_details.reason
+  };
+
+  // STEP 3: Call the carrier's API
+  const response = await apiClient.request({ data });
+
+  // STEP 4: Create the output data that ShipEngine expects
+  return formatCancelPickup(response.data);
+}
+```
+
+```typescript
+import {
+  CancelPickupRequest,
+  CancelPickupResponse
+} from "@shipengine/connect-carrier-api";
+
+export default async function CancelPickup(request: CancelPickupRequest): Promise<CancelPickupResponse> {
+
+  // STEP 1: Validation
+
+  // STEP 2: Create the data that the carrier's API expects
+  let data: CancelPickupAPIRequest = {
+    operation: "cancel_pickup",
+    session_id: request.metadata.id,
+    pickup_id: request.confirmation.confirmation_id,
+    pickup_location: request.location,
+    packages: request.pickup_details.shipments,
+    reason: request.cancellation_details.reason
+  };
+
+  // STEP 3: Call the carrier's API
+  const response = await apiClient.request<CancelPickupAPIResponse>({ data });
+
+  // STEP 4: Create the output data that ShipEngine expects
+  return formatCancelPickup(response.data);
+}
+```
+</CodeWrapper>
