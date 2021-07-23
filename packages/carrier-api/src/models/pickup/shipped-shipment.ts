@@ -13,3 +13,5 @@ export interface ShippedShipment extends Label {
   packages?: ShippedPackage[];
   advanced_options?: AdvancedOptions;
 }
+
+export interface PickupShipment extends ShippedShipment {}

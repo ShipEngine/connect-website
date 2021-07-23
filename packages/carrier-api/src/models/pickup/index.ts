@@ -9,4 +9,3 @@ export * from './pickup-window';
 export * from './shipment-identifier';
 export * from './shipped-package';
 export * from './pickup-package';
-export * from './pickup-shipment';
