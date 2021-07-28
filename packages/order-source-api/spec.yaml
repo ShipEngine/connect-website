@@ -45,38 +45,17 @@ paths:
               schema:
                 $ref: '#/components/schemas/ShipmentNotificationResponse'
         '400':
-          description: A response to indicate that there was either a module level client error or an external client error.
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/BadRequestResponse'
+          $ref: '#/components/responses/BadRequest'
         '401':
-          description: A response to indicate that the request failed to authenticate with the shipping provider.
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/UnauthorizedResponse'
+          $ref: '#/components/responses/Unauthorized'
         '404':
-          description: A response to indicate that the module does not implement this endpoint.
-          content: {}
+          $ref: '#/components/responses/NotFound'
         '429':
-          description: A response indicates that the shipping service provider has denied a request due to too many requests.
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/RateLimitResponse'
+          $ref: '#/components/responses/TooManyRequests'
         '500':
-          description: A response indicating a server level error with the module.
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/InternalServerErrorResponse'
+          $ref: '#/components/responses/InternalServerError'
         '520':
-          description: A response indicating a server level error with the external world.
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ExternalServerErrorResponse'
+          $ref: '#/components/responses/ExternalServerError'
       x-codegen-request-body-name: shipmentNotificationRequest
       tags:
         - Order Source
@@ -122,38 +101,17 @@ paths:
               schema:
                 $ref: '#/components/schemas/SalesOrdersExportResponse'
         '400':
-          description: A response to indicate that there was either a module level client error or an external client error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadRequestResponse'
+          $ref: '#/components/responses/BadRequest'
         '401':
-          description: A response to indicate that the request failed to authenticate with the shipping provider.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UnauthorizedResponse'
+          $ref: '#/components/responses/Unauthorized'
         '404':
-          description: A response to indicate that the module does not implement this endpoint.
-          content: {}
+          $ref: '#/components/responses/NotFound'
         '429':
-          description: A response indicates that the shipping service provider has denied a request due to too many requests.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RateLimitResponse'
+          $ref: '#/components/responses/TooManyRequests'
         '500':
-          description: A response indicating a server level error with the module.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/InternalServerErrorResponse'
+          $ref: '#/components/responses/InternalServerError'
         '520':
-          description: A response indicating a server level error with the external world.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ExternalServerErrorResponse'
+          $ref: '#/components/responses/ExternalServerError'
       x-codegen-request-body-name: salesOrdersExportRequest
       tags:
         - Order Source
@@ -189,38 +147,17 @@ paths:
               schema:
                 $ref: '#/components/schemas/AcknowledgeOrdersResponse'
         '400':
-          description: A response to indicate that there was either a module level client error or an external client error.
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/BadRequestResponse'
+          $ref: '#/components/responses/BadRequest'
         '401':
-          description: A response to indicate that the request failed to authenticate with the shipping provider.
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/UnauthorizedResponse'
+          $ref: '#/components/responses/Unauthorized'
         '404':
-          description: A response to indicate that the module does not implement this endpoint.
-          content: {}
+          $ref: '#/components/responses/NotFound'
         '429':
-          description: A response indicates that the shipping service provider has denied a request due to too many requests.
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/RateLimitResponse'
+          $ref: '#/components/responses/TooManyRequests'
         '500':
-          description: A response indicating a server level error with the module.
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/InternalServerErrorResponse'
+          $ref: '#/components/responses/InternalServerError'
         '520':
-          description: A response indicating a server level error with the external world.
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ExternalServerErrorResponse'
+          $ref: '#/components/responses/ExternalServerError'
       x-codegen-request-body-name: AcknowledgeOrdersRequest
       tags:
         - Order Source
@@ -266,6 +203,18 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Product'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '520':
+          $ref: '#/components/responses/ExternalServerError'
       x-codegen-request-body-name: body
       tags:
         - Order Source
@@ -309,42 +258,187 @@ paths:
                         status: pending
                         submission_id: A12B2324C
         '400':
-          description: A response to indicate that there was either a module level client error or an external client error.
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/BadRequestResponse'
+          $ref: '#/components/responses/BadRequest'
         '401':
-          description: A response to indicate that the request failed to authenticate with the shipping provider.
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/UnauthorizedResponse'
+          $ref: '#/components/responses/Unauthorized'
         '404':
-          description: A response to indicate that the module does not implement this endpoint.
-          content: {}
+          $ref: '#/components/responses/NotFound'
         '429':
-          description: A response indicates that the shipping service provider has denied a request due to too many requests.
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/RateLimitResponse'
+          $ref: '#/components/responses/TooManyRequests'
         '500':
-          description: A response indicating a server level error with the module.
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/InternalServerErrorResponse'
+          $ref: '#/components/responses/InternalServerError'
         '520':
-          description: A response indicating a server level error with the external world.
+          $ref: '#/components/responses/ExternalServerError'
+      x-codegen-request-body-name: body
+      tags:
+        - Order Source
+  /register_delivery_options:
+    post:
+      summary: Register Delivery Options
+      description: Initiates registeration of a delivery options entry in the order source
+      operationId: post-register_delivery_options
+      parameters:
+        - name: OrderSourceApiCode
+          in: header
+          description: A code that identifies the type of Order Source
+          schema:
+            type: string
+        - name: Tenant-ID
+          in: header
+          description: An ID to identify the platform tenant
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterDeliveryOptionsRequest'
+        required: false
+      responses:
+        '200':
+          description: OK
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/ExternalServerErrorResponse'
+                $ref: '#/components/schemas/RegisterDeliveryOptionsResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '520':
+          $ref: '#/components/responses/ExternalServerError'
+      x-codegen-request-body-name: body
+      tags:
+        - Order Source
+  /remove_delivery_options:
+    post:
+      summary: Remove Delivery Options
+      description: Requests that the delivery options entry in the order source be deleted
+      operationId: post-remove_delivery_options
+      parameters:
+        - name: OrderSourceApiCode
+          in: header
+          description: A code that identifies the type of Order Source
+          schema:
+            type: string
+        - name: Tenant-ID
+          in: header
+          description: An ID to identify the platform tenant
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RemoveDeliveryOptionsRequest'
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/RemoveDeliveryOptionsResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '520':
+          $ref: '#/components/responses/ExternalServerError'
+      x-codegen-request-body-name: body
+      tags:
+        - Order Source
+  /verify_delivery_options:
+    post:
+      summary: Verify Delivery Options
+      description: Verifies that the order source supports delivery options. Additionally the user has setup all required conditions to accept incoming registeration requests for delivery options.
+      operationId: post-verify_delivery_options
+      parameters:
+        - name: OrderSourceApiCode
+          in: header
+          description: A code that identifies the type of Order Source
+          schema:
+            type: string
+        - name: Tenant-ID
+          in: header
+          description: An ID to identify the platform tenant
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyDeliveryOptionsRequest'
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/VerifyDeliveryOptionsResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '520':
+          $ref: '#/components/responses/ExternalServerError'
       x-codegen-request-body-name: body
       tags:
         - Order Source
 components:
+  responses:
+    BadRequest:
+      description: A response to indicate that there was either a module level client error or an external client error.
+      content:
+        '*/*':
+          schema:
+            $ref: '#/components/schemas/BadRequestResponse'
+    Unauthorized:
+      description: A response to indicate that the request failed to authenticate with the shipping provider.
+      content:
+        '*/*':
+          schema:
+            $ref: '#/components/schemas/UnauthorizedResponse'
+    NotFound:
+      description: A response to indicate that the module does not implement this endpoint.
+      content: {}
+    TooManyRequests:
+      description: A response indicates that the shipping service provider has denied a request due to too many requests.
+      content:
+        '*/*':
+          schema:
+            $ref: '#/components/schemas/RateLimitResponse'
+    InternalServerError:
+      description: A response indicating a server level error with the module.
+      content:
+        '*/*':
+          schema:
+            $ref: '#/components/schemas/InternalServerErrorResponse'
+    ExternalServerError:
+      description: A response indicating a server level error with the external world.
+      content:
+        '*/*':
+          schema:
+            $ref: '#/components/schemas/ExternalServerErrorResponse'
   schemas:
     Product:
       allOf:
@@ -1442,6 +1536,72 @@ components:
           description: A unique identifier that is used to query the third party about the status of this notification in the notification_status endpoint.
       required:
         - notification_id
+    RegisterDeliveryOptionsRequest:
+      title: RegisterDeliveryOptionsRequest
+      allOf:
+      - $ref: '#/components/schemas/RequestBase'
+      - type: object
+        properties:
+          callback_url:
+            type: string
+            description: 'Callback url to register with the order source'
+          marketplace_key:
+            type: string
+            description: 'Marketplace key to be returned in delivery options calls from the order source'
+          option_key:
+            type: string
+            description: 'Option metadata to be returned in delivery options calls from the order source'
+    RegisterDeliveryOptionsResponse:
+      title: RegisterDeliveryOptionsResponse
+      type: object
+      description: ''
+      properties:
+        connection_id:
+          type: string
+          description: ''
+        succeeded:
+          type: boolean
+          description: ''
+        failure_reason:
+          type: string
+          description: ''
+    RemoveDeliveryOptionsRequest:
+      title: RemoveDeliveryOptionsRequest
+      allOf:
+      - $ref: '#/components/schemas/RequestBase'
+      - type: object
+        properties:
+          connection_id:
+            type: string
+            description: 'Identifier for the delivery options connection in an order source'
+    RemoveDeliveryOptionsResponse:
+      title: RemoveDeliveryOptionsResponse
+      type: object
+      description: ''
+      properties:
+        succeeded:
+          type: boolean
+          description: ''
+        failure_reason:
+          type: string
+          description: ''
+    VerifyDeliveryOptionsRequest:
+      title: VerifyDeliveryOptionsRequest
+      allOf:
+      - $ref: '#/components/schemas/RequestBase'
+      - type: object
+        properties:
+          connection_id:
+            type: string
+            description: 'Identifier for the delivery options connection in an order source'
+    VerifyDeliveryOptionsResponse:
+      title: VerifyDeliveryOptionsResponse
+      type: object
+      description: ''
+      properties:
+        is_supported:
+          type: boolean
+          description: ''
 x-generator: NSwag v12.0.11.0 (NJsonSchema v9.13.13.0 (Newtonsoft.Json v11.0.0.0))
 tags:
   - name: Order Source

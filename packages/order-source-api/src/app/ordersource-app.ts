@@ -40,6 +40,21 @@ export class OrderSourceApp implements ConnectRuntimeApp {
       [Method.POST, '/shipment_notification', definition.ShipmentNotification],
       [Method.POST, '/get_products', definition.GetProducts],
       [Method.POST, '/notification_status', definition.NotificationStatus],
+      [
+        Method.POST,
+        '/register_delivery_options',
+        definition.RegisterDeliveryOptions,
+      ],
+      [
+        Method.POST,
+        '/remove_delivery_options',
+        definition.RemoveDeliveryOptions,
+      ],
+      [
+        Method.POST,
+        '/verify_delivery_options',
+        definition.VerifyDeliveryOptions,
+      ],
     ).forEach(([method, path, implementation]) => {
       if (implementation) {
         this.routes.push({

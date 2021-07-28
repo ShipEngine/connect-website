@@ -8,3 +8,6 @@ export * from './shipment-notification-response';
 export * from './unauthorized-response';
 export * from './get-products-response';
 export * from './notification-status-response';
+export * from './register-delivery-options-response';
+export * from './verify-delivery-options-response';
+export * from './remove-delivery-options-response';

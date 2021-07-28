@@ -1,6 +1,6 @@
 {
   "name": "@shipengine/connect-order-source-api",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "This is the typescript/javascript definitions for the order source api",
   "homepage": "https://github.com/ShipEngine/connect",
   "main": "./lib/index.js",

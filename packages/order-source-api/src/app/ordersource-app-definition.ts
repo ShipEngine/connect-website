@@ -9,10 +9,16 @@ import {
   AcknowledgeOrdersResponse,
   GetProductsRequest,
   GetProductsResponse,
+  RegisterDeliveryOptionsRequest,
+  RegisterDeliveryOptionsResponse,
+  RemoveDeliveryOptionsRequest,
+  RemoveDeliveryOptionsResponse,
   SalesOrdersExportRequest,
   SalesOrdersExportResponse,
   ShipmentNotificationRequest,
   ShipmentNotificationResponse,
+  VerifyDeliveryOptionsRequest,
+  VerifyDeliveryOptionsResponse,
 } from '..';
 import { NotificationStatusRequest } from '../requests/notification-status-request';
 import { NotificationStatusResponse } from '../responses';
@@ -84,4 +90,27 @@ export interface OrderSourceAppDefinition {
   NotificationStatus?: (
     request: NotificationStatusRequest,
   ) => NotificationStatusResponse | Promise<NotificationStatusResponse>;
+  /**
+   * @description This method configures the order source to use an external service for in-cart rates also known as delivery options
+   * @param request The information required to register delivery options with an order source
+   */
+  RegisterDeliveryOptions?: (
+    request: RegisterDeliveryOptionsRequest,
+  ) =>
+    | RegisterDeliveryOptionsResponse
+    | Promise<RegisterDeliveryOptionsResponse>;
+  /**
+   * @description This method removes a delivery options configuration from an order source
+   * @param request The information required to register delivery options with an order source
+   */
+  RemoveDeliveryOptions?: (
+    request: RemoveDeliveryOptionsRequest,
+  ) => RemoveDeliveryOptionsResponse | Promise<RemoveDeliveryOptionsResponse>;
+  /**
+   * @description This method checks if delivery options are supported by the order source
+   * @param request The information needed to verify delivery options are available within the user's order source
+   */
+  VerifyDeliveryOptions?: (
+    request: VerifyDeliveryOptionsRequest,
+  ) => VerifyDeliveryOptionsResponse | Promise<VerifyDeliveryOptionsResponse>;
 }
