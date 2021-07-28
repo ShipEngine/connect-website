@@ -73,7 +73,14 @@ export const CarrierSchema = Joi.object({
     .optional()
     .items(CarrierAttributeEnumSchema)
     .unique(),
-  TrackingUrl: Joi.string().optional().uri(),
+  TrackingUrl: Joi.string()
+    .optional()
+    .pattern(
+      new RegExp(
+        /^((http|https):\/\/)([^\/\s]+)\.([^(.:)\/\s]+)((\/\w+)*\/?)([\w\-\.]+[^#?\s]+)(.*)?(#[\w\-]+)?$/,
+      ),
+    )
+    .message('Invalid TrackingUrl'),
   CarrierUrl: Joi.string().optional().uri(),
   Description: Joi.string().optional(),
   Name: Joi.string().required(),
