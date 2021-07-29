@@ -1,4 +1,5 @@
 import { LatLong } from './lat-long';
+import { StandardizedStatusCodes } from './standardized-status-codes';
 
 /** @description Basic structure for tracking events */
 export interface TrackEvent {
@@ -16,4 +17,5 @@ export interface TrackEvent {
   signer?: string;
   /** @description Geographical location */
   geo?: LatLong;
+  status_code?: StandardizedStatusCodes;
 }
