@@ -39,6 +39,16 @@ An object containing information about the new label to create.
 
 <Reference>
 
+  <Field name="metadata" nullable={true}>
+    <Type>
+      [metadata object](./../metadata.mdx)
+    </Type>
+    <Description>
+      This object should contain all of the necessary properties needed to make authenticated requests with the carrier.
+      Every property included here will be persisted by ShipEngine Connect and included on each subsequent request from this user.
+    </Description>
+  </Field>
+
   <Field name="service_code" type="string" nullable={false}>
     <Description>
       Code used to map to what the carrier uses to identify the service.
@@ -228,6 +238,16 @@ Return Value
 This object model represents the response from a successful create label request.
 
 <Reference>
+  
+  <Field name="metadata" required={false}>
+    <Type>
+      [metadata object](./../metadata.mdx)
+    </Type>
+    <Description>
+      This object should contain all of the necessary properties needed to make authenticated requests with the carrier.
+      Every property included here will be persisted by ShipEngine Connect and included on each subsequent request from this user.
+    </Description>
+  </Field>
 
   <Field name="transaction_id" type="string" required={true}>
     <Description>

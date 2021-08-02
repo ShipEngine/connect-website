@@ -39,6 +39,16 @@ An object containing information about the labels to manifest.
 
 <Reference>
 
+  <Field name="metadata" nullable={true}>
+    <Type>
+      [metadata object](./../metadata.mdx)
+    </Type>
+    <Description>
+      This object should contain all of the necessary properties needed to make authenticated requests with the carrier.
+      Every property included here will be persisted by ShipEngine Connect and included on each subsequent request from this user.
+    </Description>
+  </Field>
+
   <Field name="ship_from" nullable={true}>
     <Type>
       [shipping address object](./../address.mdx#shipping-address-object)
@@ -99,6 +109,17 @@ Return Value
 This object model represents the response from a successful create manifest request.
 
 <Reference>
+  
+  <Field name="metadata" required={false}>
+    <Type>
+      [metadata object](./../metadata.mdx)
+    </Type>
+    <Description>
+      This object should contain all of the necessary properties needed to make authenticated requests with the carrier.
+      Every property included here will be persisted by ShipEngine Connect and included on each subsequent request from this user.
+    </Description>
+  </Field>
+
 
   <Field name="transaction_id" type="string" required={true}>
     <Description>

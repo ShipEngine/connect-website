@@ -157,6 +157,7 @@ export const menu: MenuContents = [
       {
         title: "Reference",
         menuItems: [
+          { title: "Metadata", href: "/docs/beta/reference/metadata" },
           { title: "Address", href: "/docs/beta/reference/address" },
           { title: "Package", href: "/docs/beta/reference/package" },
           { title: "Customs", href: "/docs/beta/reference/customs" },

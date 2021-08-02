@@ -69,25 +69,28 @@ The `Register` method returns the result of the carrier's authentication process
 
 <Reference>
 
-  <Field name="credentials" type="object" nullable={false}>
+  <Field name="credentials" type="object" required={true}>
     <Description>
       An object containing basic authentication information for the integration.
     </Description>
   </Field>
 
-  <Field name="credentials.username" type="object" nullable={false}>
+  <Field name="credentials.username" type="string" required={true}>
     <Description>
       The user's username
     </Description>
   </Field>
 
-  <Field name="credentials.password" type="object" nullable={false}>
+  <Field name="credentials.password" type="string" required={true}>
     <Description>
       The user's password
     </Description>
   </Field>
 
-  <Field name="metadata" type="object" nullable={false} required={true}>
+  <Field name="metadata" required={true}>
+    <Type>
+      [metadata object](./../metadata.mdx)
+    </Type>
     <Description>
       This object should contain all of the necessary properties needed to make authenticated requests with the carrier.
       Every property included here will be persisted by ShipEngine Connect and included on each subsequent request from this user.
