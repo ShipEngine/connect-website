@@ -1,0 +1,136 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+:global(span.select).languageList {
+  display: inline-block;
+  width: auto;
+  background-color: $lighter-purple;
+
+  // These properties change when the code sample is hovered
+  border-color: $lighter-purple;
+  background-image: unset;
+  padding-right: 15px;
+  font-size: $tiny-font-size;
+  white-space: nowrap;
+
+  &:hover {
+    background-color: $white;
+    border-color: $dark-purple !important;
+    transition-property: background-color, border-color;
+    transition-duration: .4s;
+    transition-timing-function: ease-in-out;
+  }
+
+  &::before {
+    content: "";
+    display: inline-block;
+    position: relative;
+    top: 3px;
+    height: 20px;
+    width: 20px;
+    background-size: 20px 20px;
+    background-repeat: no-repeat;
+  }
+
+  > :global(.select-label) {
+    @include visually-hidden;
+  }
+}
+
+.languageIcon {
+  height: 20px;
+  vertical-align: middle;
+  margin: 7px 15px;
+}
+
+.language {
+  padding-left: 40px;
+  background-size: 15px 15px;
+  background-position: 10px 7px;
+  background-repeat: no-repeat;
+}
+
+.languageList.http::before,
+.language.http {
+  background-image: url("../../../public/img/logos/languages/http.svg");
+}
+
+.languageList.curl::before,
+.language.curl {
+  background-image: url("../../../public/img/logos/languages/bash.svg");
+}
+
+.languageList.csharp::before,
+.language.csharp {
+  background-image: url("../../../public/img/logos/languages/csharp.svg");
+}
+
+.languageList.java::before,
+.language.java {
+  background-image: url("../../../public/img/logos/languages/java.svg");
+}
+
+.languageList.javascript-fetch::before,
+.language.javascript-fetch {
+  background-image: url("../../../public/img/logos/languages/javascript.svg");
+}
+
+.languageList.javascript::before,
+.language.javascript {
+  background-image: url("../../../public/img/logos/languages/javascript.svg");
+}
+
+.languageList.json::before,
+.language.json {
+  background-image: url("../../../public/img/logos/languages/json.svg");
+}
+
+.languageList.node-request::before,
+.language.node-request {
+  background-image: url("../../../public/img/logos/languages/nodejs.svg");
+}
+
+.languageList.native::before,
+.language.native {
+  background-image: url("../../../public/img/logos/languages/go.svg");
+}
+
+.languageList.php::before,
+.language.php {
+  background-image: url("../../../public/img/logos/languages/php.svg");
+}
+
+.languageList.objectivec::before,
+.language.objectivec {
+  background-image: url("../../../public/img/logos/languages/objectivec.svg");
+}
+
+.languageList.powershell::before,
+.language.powershell {
+  background-image: url("../../../public/img/logos/languages/powershell.svg");
+}
+
+.languageList.python::before,
+.language.python {
+  background-image: url("../../../public/img/logos/languages/python.svg");
+}
+
+.languageList.ruby::before,
+.language.ruby {
+  background-image: url("../../../public/img/logos/languages/ruby.svg");
+}
+
+.languageList.swift::before,
+.language.swift {
+  background-image: url("../../../public/img/logos/languages/swift.svg");
+}
+
+.languageList.typescript::before,
+.language.typescript {
+  background-image: url("../../../public/img/logos/languages/typescript.svg");
+}
+
+.languageList.yaml::before,
+.language.yaml {
+  background-image: url("../../../public/img/logos/languages/yaml.svg");
+}

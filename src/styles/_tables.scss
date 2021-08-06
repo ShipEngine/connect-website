@@ -1,0 +1,55 @@
+@use "variables" as *;
+
+$table-border-color: transparentize($medium-purple, .75);
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: $medium-vertical-space;
+}
+
+thead {
+  border-bottom: 2px solid $table-border-color;
+}
+
+tr {
+  border-bottom: 1px solid $table-border-color;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+td, th {
+  font-size: $small-font-size;
+  border-left: 1px solid $table-border-color;
+
+  &:first-child {
+    border-left: none;
+  }
+
+  &.centered {
+    text-align: center;
+  }
+}
+
+th {
+  font-weight: 400;
+  text-align: left;
+  color: $medium-purple;
+  white-space: nowrap;
+  padding: $tiny-vertical-space $tiny-horizontal-space;
+}
+
+td {
+  font-weight: 300;
+  padding: $tiny-horizontal-space;
+
+  > :first-child {
+    margin-top: 0;
+  }
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+}

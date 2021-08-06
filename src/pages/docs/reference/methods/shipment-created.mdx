@@ -1,0 +1,366 @@
+---
+title: shipmentCreated Method
+description: This method is called when a shipment is created for one or more items in one or more sales orders.
+---
+
+
+`shipmentCreated()`
+===========================
+This method is called when a shipment is created for one or more items in one or more sales orders.
+  A single shipment may contain items from multiple sales orders, and a single sales order
+  may be fulfilled by multiple shipments.
+
+
+Syntax
+-----------------------------------------------
+<CodeWrapper>
+```javascript
+module.exports = async function shipmentCreated(transaction, shipment) {
+  // Your code here
+}
+```
+
+```typescript
+import { Transaction, SalesOrderShipment } from "@shipengine/connect";
+
+export default async function shipmentCreated(
+  transaction: Transaction,
+  shipment: SalesOrderShipment
+): Promise<void> {
+  // Your code here
+}
+```
+</CodeWrapper>
+
+
+
+Parameters
+-----------------------------------------------
+
+### `transaction`
+A [transaction object](../order-transaction.mdx) containing information about the transaction and session state.
+
+### `shipment`
+The shipment that was created.
+
+<Reference>
+
+  <Field name="trackingNumber" type="string" nullable={false}>
+    <Description>
+      The master tracking number for the entire shipment. For single-piece shipments, this will be the same as the package tracking number. For multi-piece shipments, this may be a separate tracking number, or the same tracking number as one of the packages. This string will not contain newline characters.
+    </Description>
+  </Field>
+
+  <Field name="identifiers" nullable={false}>
+    <Description>
+      Your own identifiers for this shipment.
+    </Description>
+    <Type>
+      [identifiers object](./../identifiers-object.mdx)
+    </Type>
+  </Field>
+
+  <Field name="salesOrder" type="object" nullable={false}>
+    <Description>
+      The sales order associated with this shipment.
+    </Description>
+  </Field>
+
+  <Field name="salesOrder.id" nullable={false}>
+    <Type>
+      [UUID](https://www.npmjs.com/package/uuid)
+    </Type>
+    <Description>
+      The marketplace's unique ID for the sales order. This string must not contain newline characters.
+    </Description>
+  </Field>
+
+  <Field name="salesOrder.identifiers" nullable={false}>
+    <Description>
+      Your own identifiers for this sales order.
+    </Description>
+    <Type>
+      [identifiers object](./../identifiers-object.mdx)
+    </Type>
+  </Field>
+
+  <Field name="shipTo" nullable={false}>
+    <Type>
+      [address + contact info + pickup location object](./../address.mdx#address-contact-info-pickup-location-properties)
+    </Type>
+    <Description>
+      The recipient's contact info and address.
+    </Description>
+  </Field>
+
+  <Field name="shipDateTime" nullable={false}>
+    <Type>
+      [date/time object](./../date-time.mdx)
+    </Type>
+    <Description>
+      The date/time that the shipment was shipped or is expected to ship. This is not guaranteed to be in the future.
+    </Description>
+  </Field>
+
+  <Field name="contents" type="object[]" nullable={false}>
+    <Description>
+      The items inside the package.
+    </Description>
+  </Field>
+
+  <Field name="contents[].quantity" type="object" nullable={false}>
+      <Description>
+        The quantity of this item in the sales order.
+      </Description>
+    </Field>
+
+    <Field name="contents[].quantity.value" type="number" nullable={false}>
+      <Description>
+        The quantity of items in this sales order item. The minimum value for this property is `1`.
+      </Description>
+    </Field>
+
+    <Field name="contents[].currency" type="string" nullable={true}>
+      <Description>
+        The three character ISO 4217 code of the currency used for all monetary amounts.
+      </Description>
+    </Field>
+
+    <Field name="contents[].notes" nullable={true}>
+      <Type>
+        object[]
+      </Type>
+      <Description>
+        Additional notes associated with this notification or its sales order.
+      </Description>
+    </Field>
+
+    <Field name="contents[].notes[].type" nullable={true}>
+      <Type>
+        [notes type string](../reference/common-types#notes-types)
+      </Type>
+      <Description>
+        The type for this note.
+      </Description>
+    </Field>
+
+    <Field name="contents[].notes[].text" nullable={true}>
+      <Type>
+        string
+      </Type>
+      <Description>
+        The note text itself.
+      </Description>
+    </Field>
+
+  <Field name="contents[].salesOrderItem" type="object" nullable={true}>
+    <Description>
+      The sales order associated with this item.
+
+      This property may be null. If it is provided, all its required properties, listed below, will be included.
+    </Description>
+  </Field>
+
+  <Field name="contents[].salesOrderItem.id" type="string" nullable={false}>
+    <Description>
+      The marketplace's unique ID for the sales order item. This string must not contain newline characters.
+    </Description>
+  </Field>
+
+  <Field name="contents[].salesOrderItem.sku" type="string" nullable={false}>
+    <Description>
+      The [Stock Keeping Unit](https://en.wikipedia.org/wiki/Stock_keeping_unit). This string must not contain newline characters.
+    </Description>
+  </Field>
+
+  <Field name="contents[].salesOrderItem.identifiers" nullable={false}>
+    <Description>
+      Your own identifiers for this sales order item.
+    </Description>
+    <Type>
+      [identifiers object](./../identifiers-object.mdx)
+    </Type>
+  </Field>
+
+  <Field name="contents[].product" type="object" nullable={true}>
+    <Description>
+      The product associated with this item.
+
+      This property may be null. If it is provided, all its required properties, listed below, will be included.
+    </Description>
+  </Field>
+
+  <Field name="contents[].product.id" type="string" nullable={false}>
+    <Description>
+      The product catalog's unique ID for the order. This string must not contain newline characters.
+    </Description>
+  </Field>
+
+  <Field name="contents[].product.sku" type="string" nullable={false}>
+    <Description>
+      The [Stock Keeping Unit](https://en.wikipedia.org/wiki/Stock_keeping_unit). This string must not contain newline characters.
+    </Description>
+  </Field>
+
+  <Field name="contents[].product.upc" type="string" nullable={false}>
+    <Description>
+      The [Universal Product Code](https://en.wikipedia.org/wiki/Universal_Product_Code) for this item. This string must not contain newline characters.
+    </Description>
+  </Field>
+
+  <Field name="contents[].product.isbn" type="string" nullable={false}>
+    <Description>
+      The [International Standard Book Number](https://www.isbn-international.org/) for this item. This string must not contain newline characters.
+    </Description>
+  </Field>
+
+  <Field name="contents[].product.asin" type="string" nullable={false}>
+    <Description>
+      The [Amazon Standard Identification Number](https://www.amazon.com/gp/seller/asin-upc-isbn-info.html) for this item. This string must not contain newline characters.
+    </Description>
+  </Field>
+
+  <Field name="contents[].product.fulfillmentSku" type="string" nullable={false}>
+    <Description>
+      The [Stock Keeping Unit](https://en.wikipedia.org/wiki/Stock_keeping_unit) related to the fulfillment of this item. This string must not contain newline characters.
+    </Description>
+  </Field>
+
+  <Field name="contents[].product.inventoryID" type="string" nullable={false}>
+    <Description>
+      The inventory ID for this item. This string must not contain newline characters.
+    </Description>
+  </Field>
+
+  <Field name="contents[].product.identifiers" nullable={false}>
+    <Description>
+      Your own identifiers for this product.
+    </Description>
+    <Type>
+      [identifiers object](./../identifiers-object.mdx)
+    </Type>
+  </Field>
+
+  <Field name="contents[].product.details" nullable={false}>
+    <Description>
+      A list of details associated with this product.
+    </Description>
+    <Type>
+      [identifiers object](./../identifiers-object.mdx)
+    </Type>
+  </Field>
+
+  <Field name="trackingURL" nullable={true}>
+    <Type>
+      [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL/URL)
+    </Type>
+    <Description>
+      The URL of a webpage where the customer can track the shipment.
+    </Description>
+  </Field>
+
+  <Field name="carrierCode" nullable={true} type="string">
+    <Description>
+      If the shipment is being fulfilled using a well-known third-party carrier, such as UPS, FedEx, DHL, etc., then this field specifies the carrier.
+    </Description>
+  </Field>
+
+  <Field name="carrierServiceCode" nullable={true} type="string">
+    <Description>
+      If the shipment is being fulfilled using a well-known third-party carrier, such as UPS, FedEx, DHL, etc., then this field specifies the service code.
+    </Description>
+  </Field>
+
+  <Field name="fulfillmentService" nullable={true}>
+    <Description>
+      If the shipment is being fulfilled using a well-known third-party carrier, such as UPS, FedEx, DHL, etc., then this field specifies the carrier service.
+    </Description>
+    <Type>
+      [fulfillment service string](./../fulfillment-service.mdx)
+    </Type>
+  </Field>
+
+  <Field name="shipFrom" nullable={true}>
+      <Type>
+        [address + contact object](./../address.mdx)
+      </Type>
+      <Description>
+        The sender's contact info and address.
+      </Description>
+    </Field>
+
+    <Field name="notifyBuyer" nullable={true} type="boolean">
+      <Description>
+        Instructs the order source on whether to notify the buyer. 
+        Omit, or set to null, to retain the order source's default behavior.
+      </Description>
+    </Field>
+
+    <Field name="fulfillmentCost" nullable={true}>
+      <Type>
+        [charge object](../charge.mdx)
+      </Type>
+      <Description>
+        The amount it costs to fulfill this shipment.
+      </Description>
+    </Field>
+
+    <Field name="insuranceCost" nullable={true}>
+      <Type>
+        [charge object](../charge.mdx)
+      </Type>
+      <Description>
+        The amount of insurance purchased for this shipment.
+      </Description>
+    </Field>
+
+</Reference>
+
+
+
+Return Value
+-----------------------------------------------
+### `void`
+This method is used to notify your application when a shipment is created. It does not return a value.
+
+
+
+
+Example
+-----------------------------------------------
+<CodeWrapper>
+```javascript
+async function shipmentCreated(transaction, shipment) {
+  // STEP 1: Validation
+  // Add any desired validation here
+
+  // STEP 2: Create the data that the order source's API expects
+  const data = {
+    operation: "create_shipment",
+    session_id: transaction.session.id,
+    shipment_id: shipment.trackingNumber
+  };
+  // STEP 3: Call the order source's API
+  await apiClient.request({ data });
+}
+```
+
+```typescript
+export default async function shipmentCreated(
+  transaction: Transaction<Session>,
+  shipment: SalesOrderShipment,
+): Promise<void> {
+  // STEP 1: Validation
+  // Add any desired validation here
+
+  // STEP 2: Create the data that the order source's API expects
+  const data = {
+    operation: "create_shipment",
+    session_id: transaction.session.id,
+    shipment_id: shipment.trackingNumber
+  };
+  // STEP 3: Call the order source's API
+  await apiClient.request({ data });
+}
+```
+</CodeWrapper>

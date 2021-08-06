@@ -1,0 +1,37 @@
+@use "../../styles/variables" as *;
+
+.codeToolbar {
+  position: absolute;
+  top: $small-vertical-space;
+  right: $small-horizontal-space;
+  z-index: $code-toolbar-z-index;
+
+  button {
+    margin-right: $tiny-horizontal-space;
+    background-color: $lighter-purple;
+    outline: 0;
+    opacity: 0;
+
+    &:hover {
+      background-color: $white;
+    }
+  }
+}
+
+:global(:hover) > .codeToolbar {
+  button {
+    opacity: 1;
+  }
+
+  :global(.select) {
+    border-color: transparentize($dark-purple, .8);
+    background-image: url("../../../public/img/icons/select-arrows.svg");
+    padding-right: 40px;
+
+    &::before {
+      height: 15px;
+      width: 15px;
+      background-size: 15px 15px;
+    }
+  }
+}

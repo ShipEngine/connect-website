@@ -1,0 +1,21 @@
+---
+title: v1.0.9 Changelog
+description: This page describes what changed in @shipengine/connect v1.0.9
+image: /img/changelog/card.png
+---
+
+Changelog `v1.0.9` <small>(2020-09-24)</small>
+=========================================================
+
+SDK
+---------------------------------------
+### Changed
+- Changed validation error formatting by removing carriage return character `\n`.
+- Added support for custom customer packaging to `NewPackage`. The `packaging` field will now attempt to set a package defined in the app and when a package cannot be found it will default to the given string.
+- Added support for custom customer packaging to `PickupPackage`. The `packaging` field will now attempt to set a package defined in the app and when a package cannot be found it will default to the given string.
+- Added support for custom customer packaging to `PackageRateCriteria`. The `packaging` field will now attempt to set a package defined in the app and when a package cannot be found it will default to the given string.
+- Added support for custom customer packaging to `RatePackage`. The `packaging` field will now attempt to set a package defined in the app and when a package cannot be found it will default to the given string.
+- Loosened address validation by making `company`, `addressLines`, `cityLocality`, and `stateProvince` optional.
+- Loosened dimensions validation by allowing `length`, `width`, and `height` to be optional and support min value of 0.
+- Loosened weight validation by allowing the `value` attribute to support a min value of 0.
+- Removed all references to `useSandbox` and `hasSandbox` since this is not yet supported.

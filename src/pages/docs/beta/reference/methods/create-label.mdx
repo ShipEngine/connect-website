@@ -1,0 +1,420 @@
+---
+title: CreateLabel Method
+description: This method creates a new label.
+---
+
+
+`CreateLabel()`
+===========================
+This method creates a new label.
+
+
+Syntax
+-----------------------------------------------
+<CodeWrapper>
+```javascript
+module.exports = async function CreateLabel(request) {
+  // Your code here
+}
+```
+
+```typescript
+import { CreateLabelRequest, CreateLabelResponse } from "@shipengine/connect-carrier-api";
+
+export default async function CreateLabel(
+  request: CreateLabelRequest
+): Promise<CreateLabelResponse> {
+  // Your code here
+}
+```
+</CodeWrapper>
+
+
+
+Parameters
+-----------------------------------------------
+
+### `CreateLabelRequest`
+An object containing information about the new label to create.
+
+<Reference>
+
+  <Field name="metadata" nullable={true}>
+    <Type>
+      [metadata object](./../metadata.mdx)
+    </Type>
+    <Description>
+      This object should contain all of the necessary properties needed to make authenticated requests with the carrier.
+      Every property included here will be persisted by ShipEngine Connect and included on each subsequent request from this user.
+    </Description>
+  </Field>
+
+  <Field name="service_code" type="string" nullable={false}>
+    <Description>
+      Code used to map to what the carrier uses to identify the service.
+    </Description>
+  </Field>
+
+  <Field name="ship_datetime" type="string" nullable={false}>
+    <Description>
+      When the package is expected to ship. Not guaranteed to be in the future.
+      Formatted per the https://tools.ietf.org/html/rfc3339 spec. Will always be in UTC.
+    </Description>
+  </Field>
+
+ <Field name="confirmation" type="string" nullable={true}>
+    <Type>
+      [confirmation type](./../common-types.mdx#delivery-confirmation-types)
+    </Type>
+    <Description>
+      The requested [confirmation](./../common-types.mdx) for this label.
+      If the field is absent it should be interpreted as "None".
+    </Description>
+  </Field>
+
+ <Field name="label_format" type="string" nullable={true}>
+    <Description>
+      The requested document format for this label.
+
+      Valid values include the following:
+      * `PDF`
+      * `ZPL`
+      * `PNG`
+    </Description>
+  </Field>
+
+ <Field name="label_layout" type="string" nullable={true}>
+    <Description>
+      The requested label layout for this label.
+
+      Valid values include the following:
+      * `4x6`
+      * `letter`
+    </Description>
+  </Field>
+
+ <Field name="is_test_label" type="boolean" nullable={true}>
+    <Description>
+      Whether this request is the result of a test.
+      When true the request must not result in any financial charges to any party.
+      If the field is absent it should be interpreted as false
+    </Description>
+  </Field>
+
+  <Field name="advanced_options" type="object" nullable={true}>
+    <Description>
+      This is a schemaless object. It is for open ended customizations unique to particular carriers.
+      If the field is absent it should be interpreted as the default value for any applicable options, e.g. false for booleans.
+    </Description>
+  </Field>
+
+  <Field name="insurance_provider" type="string" nullable={true}>
+    <Description>
+      The insurance provider for the insured value of the label,
+      `carrier` indicates that the user is requesting insurance from the carrier directly,
+      anything else is extra information that should not result in a transaction.
+
+      Valid values include the following:
+      * `None`
+      * `Shipstation`
+      * `Carrier`
+      * `External`
+    </Description>
+  </Field>
+
+  <Field name="is_return_label" type="boolean" nullable={false}>
+    <Description>
+      Indicates whether the label is a return.
+    </Description>
+  </Field>
+
+  <Field name="is_residential" type="boolean" nullable={false}>
+    <Description>
+      Indicates whether the label is to a residential address.
+    </Description>
+  </Field>
+
+  <Field name="packages" nullable={false}>
+    <Type>
+      [package object[]](./../package.mdx)
+    </Type>
+    <Description>
+      All the packages that make up this shipment. There will always be at least one package defined.
+    </Description>
+  </Field>
+
+  <Field name="ship_to" nullable={false}>
+    <Type>
+      [shipping address object](./../address.mdx#shipping-address-object)
+    </Type>
+    <Description>
+      The shipment recipient's address. It may or may not have been validated.
+    </Description>
+  </Field>
+
+  <Field name="ship_from" nullable={false}>
+    <Type>
+      [shipping address object](./../address.mdx#shipping-address-object)
+    </Type>
+    <Description>
+      The shipment sender's address. It may or may not have been validated.
+    </Description>
+  </Field>
+
+  <Field name="pickup_location" nullable={true}>
+    <Type>
+      [pickup location object](./../address.mdx#pickup-location-object)
+    </Type>
+    <Description>
+      If this is a pickup shipment, a pickup location will be populated for where the recipient can pickup the shipment.
+    </Description>
+  </Field>
+
+  <Field name="ship_from_display" nullable={true}>
+    <Type>
+      [shipping address object](./../address.mdx#shipping-address-object)
+    </Type>
+    <Description>
+      The address that should be displayed as the return address, only if the carrier supports this functionality.
+    </Description>
+  </Field>
+
+  <Field name="next_day" type="boolean" nullable={true}>
+    <Description>
+      Indicates whether this shipment is expected to use a next day service class.
+      If the field is absent it should be interpreted as false
+    </Description>
+  </Field>
+
+  <Field name="international" type="boolean" nullable={true}>
+    <Description>
+      Indicates Whether the shipment is international.
+    </Description>
+  </Field>
+
+  <Field name="reference" type="string" nullable={true}>
+    <Description>
+      A user specified free form string to identify this shipment in their own system.
+    </Description>
+  </Field>
+
+  <Field name="return_details" type="object" nullable={true}>
+    <Description>
+      If the label is for a return, return details should be specified.
+    </Description>
+  </Field>
+
+  <Field name="return_details.rma_number" type="string" nullable={false}>
+    <Description>
+      A [return merchandise authorization (RMA)](https://en.wikipedia.org/wiki/Return_merchandise_authorization) is an associated number assigned to process the return. This number is often printed on the label and used when the original shipper processes the inbound return. This string will not contain newline characters.
+    </Description>
+  </Field>
+
+  <Field name="fulfillment_plan_details" nullable={true}>
+    <Type>
+      [fulfillment plan details object](./../fulfillment-plan-details.mdx#fulfillment-plan-details-object)
+    </Type>
+    <Description>
+      Details regarding the fulfillment plan and/or original sales order, only if the carrier provider requires this info for label generation.
+    </Description>
+  </Field>
+
+  <Field name="attachments" nullable={true}>
+    <Type>
+      [document object[]](./../document.mdx)
+    </Type>
+    <Description>
+      Attachments that may be required to be sent to the carrier, in particular customs documents or commercial invoices.
+    </Description>
+  </Field>
+
+</Reference>
+
+
+
+Return Value
+-----------------------------------------------
+### `CreateLabelResponse`
+This object model represents the response from a successful create label request.
+
+<Reference>
+  
+  <Field name="metadata" required={false}>
+    <Type>
+      [metadata object](./../metadata.mdx)
+    </Type>
+    <Description>
+      This object should contain all of the necessary properties needed to make authenticated requests with the carrier.
+      Every property included here will be persisted by ShipEngine Connect and included on each subsequent request from this user.
+    </Description>
+  </Field>
+
+  <Field name="transaction_id" type="string" required={true}>
+    <Description>
+      The transaction ID uniquely represents this request.
+    </Description>
+  </Field>
+
+  <Field name="label_download" type="object" required={false}>
+    <Description>
+      This object provides the requested label that was just created.
+    </Description>
+  </Field>
+
+  <Field name="label_download.label_data" type="string" required={true}>
+    <Description>
+      The base64 encoded label image.
+    </Description>
+  </Field>
+
+  <Field name="form_download" type="object" required={false}>
+    <Description>
+      This provides any additional forms that go with the label. For example, customs forms.
+    </Description>
+  </Field>
+
+  <Field name="form_download.form_data" type="string" required={true}>
+    <Description>
+      The base64 encoded form image.
+    </Description>
+  </Field>
+
+  <Field name="document" required={false}>
+    <Type>
+      [document object[]](./../document.mdx)
+    </Type>
+    <Description>
+      Shipment level documents should be used if documents are not returned at a package level.
+
+      DO NOT include duplicate documents intentionally, a document should only be added to the CreateLabelResponse or to the LabelPackage.
+    </Description>
+  </Field>
+
+  <Field name="packages" required={false}>
+    <Type>
+      [label package object[]](./../label-package.mdx)
+    </Type>
+    <Description>
+      Package information returned for each requested package in the shipment.
+
+      Note: The order of the packages returned should match the order of the packages in the request.
+    </Description>
+  </Field>
+
+  <Field name="billing_line_items" required={false}>
+    <Type>
+      [billing line item object[]](./../billing-line-item.mdx)
+    </Type>
+    <Description>
+      Individual Billing Line items for the label.
+    </Description>
+  </Field>
+
+  <Field name="tracking_number" type="string" required={false}>
+    <Description>
+      The carrier specific tracking identifier for this shipment; if a multi-package shipment, this should be the lead tracking number.
+    </Description>
+  </Field>
+
+  <Field name="trackable" type="boolean" required={false}>
+    <Description>
+      Indicates whether this shipment can be tracked.
+    </Description>
+  </Field>
+
+  <Field name="alternative_identifiers" required={false}>
+    <Type>
+      [identifier object[]](./../identifier.mdx)
+    </Type>
+    <Description>
+      Alternative identifiers associated with this shipment.
+    </Description>
+  </Field>
+
+  <Field name="estimated_delivery_datetime" type="string" required={false}>
+    <Description>
+      The estimated date and time for when the shipment will be delivered.
+      Formatted per the https://tools.ietf.org/html/rfc3339 spec.
+    </Description>
+  </Field>
+
+</Reference>
+
+
+
+Example
+-----------------------------------------------
+<CodeWrapper>
+```javascript
+module.exports = async function CreateLabel(request) {
+
+  let totalWeight = 0;
+
+  // STEP 1: Validation
+  for (let parcel of request.packages) {
+    if (parcel.weight_details.weight_in_grams > 100000) {
+      throw new Error(`${parcel.package_code} cannot weigh more than 100 kilograms`);
+    }
+
+    totalWeight += parcel.weight_details.weight_in_grams;
+  }
+
+  // STEP 2: Create the data that the carrier's API expects
+  let data = {
+    operation: "generate_label",
+    session_id: request.metadata.id,
+    service_code: request.service_code,
+    confirmation_code: request.confirmation,
+    ship_date: request.ship_datetime,
+    from_zone: parseInt(request.ship_from.postal_code, 10),
+    to_zone: parseInt(request.ship_to.postal_code, 10),
+    total_weight: totalWeight,
+  };
+
+  // STEP 3: Call the carrier's API
+  const response = await apiClient.request({ data });
+
+  // STEP 4: Create the output data that ShipEngine expects
+  return formatShipment(response.data);
+}
+```
+
+```typescript
+import {
+  CreateLabelRequest,
+  CreateLabelResponse
+} from "@shipengine/connect-carrier-api";
+
+export default async function CreateLabel(request: CreateLabelRequest): Promise<CreateLabelResponse> {
+
+  let totalWeight = 0;
+
+  // STEP 1: Validation
+  for (let parcel of request.packages) {
+    if (parcel.weight_details.weight_in_grams > 100000) {
+      throw new Error(`${parcel.package_code} cannot weigh more than 100 kilograms`);
+    }
+
+    totalWeight += parcel.weight_details.weight_in_grams;
+  }
+
+  // STEP 2: Create the data that the carrier's API expects
+  let data: GenerateLabelRequest = {
+    operation: "generate_label",
+    session_id: request.metadata.id,
+    service_code: request.service_code,
+    confirmation_code: request.confirmation,
+    ship_date: request.ship_datetime,
+    from_zone: parseInt(request.ship_from.postal_code, 10),
+    to_zone: parseInt(request.ship_to.postal_code, 10),
+    total_weight: totalWeight,
+  };
+
+  // STEP 3: Call the carrier's API
+  const response = await apiClient.request<GenerateLabelResponse>({ data });
+
+  // STEP 4: Create the output data that ShipEngine expects
+  return formatShipment(response.data);
+}
+```
+</CodeWrapper>

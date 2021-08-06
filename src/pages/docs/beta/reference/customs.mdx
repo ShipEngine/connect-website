@@ -1,0 +1,152 @@
+---
+title: Customs objects
+description: An object representing customs for international shipments.
+---
+
+Customs Object
+===============================================
+A customs object is used to represent customs information for international shipments.
+
+
+Properties
+--------------------------------
+
+This table lists the properties of a customs object and identifies those properties that are required. The `nullable`
+column indicates which properties may be null when the object is provided as an argument to one of your methods, and the `required`
+column indicates which properties are required when the object is returned from one of your methods.
+
+
+<Reference>
+
+  <Field name="customs" type="object" nullable={false}>
+    <Description>
+      Customs declarations for this package.
+    </Description>
+  </Field>
+
+  <Field name="customs.contents" nullable={true}>
+    <Type>
+      [confirmation type](./common-types.mdx)
+    </Type>
+    <Description>
+      The customs type category.
+    </Description>
+  </Field>
+
+  <Field name="customs.non_delivery" type="string" nullable={true}>
+    <Description>
+      Indicates what should be done if the package cannot be delivered. If `undefined`, the default behavior
+      of the receiving country's customs department applies, which may incur charges.
+      Valid values include the following:
+        * `return_to_sender` - Return to sender.
+        * `treat_as_abandoned` - Treat as abandoned.
+    </Description>
+  </Field>
+
+  <Field name="customs.customs_items[]" type="object[]" nullable={false}>
+    <Description>
+      Describes the contents of the package for customs purposes.
+    </Description>
+  </Field>
+
+  <Field name="customs.customs_items[].description" type="string" nullable={true}>
+    <Description> 
+      A description of the item. Usually required if `type` is `other`. This string will not contain newline characters.
+    </Description>
+  </Field>
+
+  <Field name="customs.customs_items[].quantity" type="number" nullable={true}>
+    <Description>
+      The quantity of items in the package.
+    </Description>
+  </Field>
+
+  <Field name="customs.customs_items[].value" type="object" nullable={false}>
+    <Description>
+      The monetary value of each unit in the package.
+    </Description>
+  </Field>
+
+  <Field name="customs.customs_items[].value.amount" type="number" nullable={false}>
+    <Description>
+      The amount of this value.
+    </Description>
+  </Field>
+
+  <Field name="customs.customs_items[].value.currency" type="string" nullable={false}>
+    <Description>
+      The currency that the value represents.
+    </Description>
+  </Field>
+
+  <Field name="customs.customs_items[].country_of_origin" nullable={true}>
+    <Type>
+      [country code string](./country-codes.mdx)
+    </Type>
+    <Description>
+      The [ISO 3166 country code](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) for the [country](./country-codes.mdx) of origin. This is usually the same as `countryOfManufacture`, but some countries distinguish between the two for certain products.
+    </Description>
+  </Field>
+
+  <Field name="customs.customs_items[].harmonized_tariff_code" type="string" nullable={true}>
+    <Description>
+      The [Harmonized Tariff Code](https://hts.usitc.gov/) for the item. This string must not contain newline characters.
+    </Description>
+  </Field>
+
+  <Field name="customs.customs_items[].sku" type="string" nullable={true}>
+    <Description>
+      The [Stock Keeping Unit](https://en.wikipedia.org/wiki/Stock_keeping_unit) of this customs item. This field is completely free form.
+    </Description>
+  </Field>
+
+  <Field name="customs.customs_items[].sku_description" type="string" nullable={true}>
+    <Description>
+      The user specified SKU description of this customs item. This field is completely free form.
+    </Description>
+  </Field>
+
+  <Field name="customs.customs_items[].item_weight" type="object" nullable={true}>
+    <Description>
+      The [ISO 3166 country code](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_code) for the [country](./country-codes.mdx) where the item was manufactured.
+    </Description>
+  </Field>
+
+  <Field name="customs.buyer_shipping_amount_paid" type="object" nullable={true}>
+    <Description>
+      Indicates how much the buyer paid for shipping, if any. This amount may be different than the shipping cost billed to the shipper.
+    </Description>
+  </Field>
+
+  <Field name="customs.buyer_shipping_amount_paid.amount" type="number" nullable={false}>
+    <Description>
+      The amount of this value.
+    </Description>
+  </Field>
+
+  <Field name="customs.buyer_shipping_amount_paid.currency" type="string" nullable={false}>
+    <Description>
+      The currency that the value represents.
+    </Description>
+  </Field>
+
+  <Field name="customs.duties_paid" type="object" nullable={true}>
+    <Description>
+      The amount of duties paid by the shipper, if any. This is generally only necessary for DDP (bill duties to sender) shipments.
+    </Description>
+  </Field>
+
+  <Field name="customs.duties_paid.value" type="number" nullable={false}>
+    <Description>
+      The amount of this value.
+    </Description>
+  </Field>
+
+  <Field name="customs.duties_paid.currency" type="string" nullable={false}>
+    <Description>
+      The currency that the value represents.
+    </Description>
+  </Field>
+
+</Reference>
+

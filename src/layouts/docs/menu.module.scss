@@ -1,0 +1,83 @@
+@use "../../styles/variables" as *;
+
+.menu {
+  font-size: $small-font-size;
+}
+
+.menuButton {
+  width: 4.5rem;
+  height: 4.5rem;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  z-index: $docs-nav-menu-button-z-index;
+
+  &::before {
+    content: "";
+    display: block;
+    height: 100%;
+    width: 100%;
+    background: url("../../../public/img/icons/menu-dots.svg") no-repeat center center;
+    background-size: contain;
+    background-clip: content-box;
+  }
+}
+
+.menuList > li:first-child > .group {
+  margin-top: 0;
+}
+
+.group {
+  margin-top: 3.5rem;
+
+  > summary {
+    font-family: $script-font;
+    font-size: $small-font-size;
+    font-weight: 500;
+    text-transform: uppercase;
+    cursor: default;
+    outline: none;
+
+    &:hover {
+      color: $medium-purple;
+      cursor: pointer;
+    }
+  }
+}
+
+.groupList {
+  margin: 2.5rem 0 5rem 2rem;
+}
+
+.subGroup {
+  font-weight: 300;
+  margin: .5rem 0;
+  cursor: default;
+
+  &.selected {
+    font-weight: 500;
+    color: $medium-purple;
+  }
+}
+
+.subGroupList {
+  margin-left: 2.25rem;
+  margin-bottom: 2rem;
+}
+
+a.menuItem {
+  display: block;
+  padding: .25rem 0;
+  font-weight: 300;
+  color: $text-color;
+
+  &:hover {
+    font-weight: 400;
+    color: $link-color;
+  }
+
+  &.selected {
+    font-weight: 500;
+    color: $medium-purple;
+  }
+}

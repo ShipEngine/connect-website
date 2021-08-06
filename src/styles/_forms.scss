@@ -1,0 +1,159 @@
+@use "variables" as *;
+@use "mixins" as *;
+
+$placeholder-color: transparentize($darker-blue, .5);
+$input-color: $darker-blue;
+
+form {
+  @include box;
+  padding: 8rem;
+
+  &.invisible {
+    background-color: transparent;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  > ul {
+    list-style: none;
+    display: block;
+    margin: 0;
+    padding: 0;
+
+    > li,
+    > li + li {
+      display: block;
+      margin: 0 0 10px 0;
+      padding: 0;
+    }
+  }
+
+  input,
+  textarea,
+  select,
+  .select {
+    font-size: $text-font-size;
+    font-weight: 300;
+    line-height: 1.3;
+    color: $input-color;
+    background-color: $white;
+    border: 1px solid transparentize($darker-blue, .85);
+    border-radius: $tiny-border-radius;
+    outline: 0;
+    width: 100%;
+    margin: 0;
+    padding: 7px 15px;
+  }
+
+  ::-webkit-input-placeholder {
+    color: $placeholder-color;
+  }
+
+  ::-moz-placeholder {
+    color: $placeholder-color;
+  }
+
+  ::-ms-input-placeholder {
+    color: $placeholder-color;
+  }
+
+  ::placeholder {
+    color: $placeholder-color;
+  }
+
+  // input[type=text],
+  // input[type=password],
+  // input[type=search],
+  // input[type=email] {
+  // }
+
+  textarea {
+    padding-top: 1.5rem;
+    min-height: 200px;
+  }
+
+  select,
+  .select {
+    color: $placeholder-color;
+    background: $white url("../../public/img/icons/select-arrows.svg") no-repeat 95% center;
+    background-position-x: calc(100% - #{$tiny-horizontal-space});
+    padding-right: 40px;
+    cursor: pointer;
+
+    // Disable default appearance
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    &::-ms-expand {
+      display: none;
+    }
+
+    &:focus {
+      color: $input-color;
+    }
+  }
+
+
+  input[type="checkbox"] {
+    opacity: 0;
+    outline: 0;
+    z-index: 100;
+    position: absolute;
+    width: 0;
+    height: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+
+    + label {
+      font-size: $small-font-size;
+      color: $placeholder-color;
+      position: relative;
+      z-index: 101;
+      cursor: pointer;
+
+      &::before {
+        content: "";
+        display: inline-block;
+        top: 3px;
+        width: 20px;
+        height: 20px;
+        margin-right: $tiny-horizontal-space;
+        background-color: $white;
+        border: 1px solid transparentize($darker-blue, .85);
+        border-radius: $tiny-border-radius;
+        vertical-align: text-bottom;
+        transition: background-color 100ms;
+      }
+
+      &::after {
+        content: "";
+        opacity: 0;
+        display: block;
+        position: absolute;
+        top: 0px;
+        left: 7px;
+        width: 6px;
+        height: 13px;
+        border: solid #fff;
+        border-width: 0 1px 1px 0;
+        transform: rotate(45deg);
+        transition: opacity 100ms;
+      }
+    }
+
+    &:checked {
+      + label {
+        &::before {
+          background-color: $dark-purple;
+        }
+
+        &::after {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,328 @@
+---
+title: ShipEngine Connect code style guide
+description: The ShipEngine Connect style guide provides style guidance for 3rd party app developers
+tags:
+- contrib
+- ShipEngine Connect
+- contribution
+- best
+- practices
+- style guide
+---
+
+
+## Code style conventions
+
+We suggest that you use the latest ES6 conventions, many are described below.
+
+----
+
+1. Name things logically... [See reference](https://www.nikola-breznjak.com/blog/books/programming/code-complete-2-steve-mcconnell-power-variable-names/).
+
+2. Do not use `eval`. [See reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval#never_use_eval!).
+
+3. Do not use `with`. [See reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/with#ambiguity_contra).
+
+4. As a general rule do not use primitive type wrapper constructors: `new Number`, `new String`, `new Boolean`, `new Array`, `new Object`
+
+   - If the usage of the type wrapper signifigantly improves the readability of the code, then it may be considered as being worth the trade off.
+
+     - Example, `Boolean(foo) ` over `!!isFoo`.
+
+   - Primitive type wrappers are slower than their primitive counterparts.
+
+   - They also cause subtle bugs with `instanceof`.
+
+   - Object's should be created using the object literal syntax.
+
+     ```js
+     // Bad.
+     var obj = new Object();
+     const obj = Object.create(Object.prototype);
+     
+     // Good.
+     const obj = {};
+     ```
+
+   - Object declarations should:
+
+     - Have a space between the curly braces.
+
+     - For single-line declarations, the last value should not end in a comma.
+       For multi-line declarations, each line should end with a comma (including the last line). This will make it easier to add properties and result in a smaller diff for the reviewer.
+
+     - There should not be a space before the colon, but there should be one after it.
+
+       ```js
+       // Bad.
+       const a = {
+         k1 : v1,
+         k2: v2
+       };
+       const b = { k1: v1, k2 : v2, };
+       const c = {k1:v1};
+       
+       // Good.
+       const a = {
+         k1: v1,
+         k2: v2,
+       };
+       const b = { k1: v1, k2: v2 };
+       const c = { k1: v2 };
+       ```
+
+   - Arrays should be created using the array literal syntax.
+
+     ```js
+     // Bad.
+     const a = new Array();
+     
+     // Good.
+     const a = [];
+     ```
+
+5. Favor `const` and `let` over `var`.
+
+   - `var` is a legacy keyword and there are no practical use cases for `var` in modern ES6.
+
+     - Never use `var`.
+   - `const` is the default. This prevents the variable from being re-assigned, however a `const` object can still be mutated; if you need true immutability, consider using [`immutable-js`](http://facebook.github.io/immutable-js/).
+   - `let` only when the value of the variable must be re-assigned. This is allowed, but it is commonly a sign that you should refactor the code to prevent the need to use `let`.
+
+6. When applicable, use [`for..of`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of) and [`for..in`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...in) instead of [`for..i`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for).
+
+   - In most cases you should favor [`forEach`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach) and [`map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map).
+   - Also in instances when you need to [`filter`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) and then [`map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) the results of the [`filter`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) operation... You should use a single iteration to achieve the same result via the [`reduce`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce) function.
+
+7. Use the [`class`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes) keyword instead of the [`function`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions) keyword for ES6 classes. IE, you should not be calling [`new`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new) against a [`function`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions).
+
+   ```js
+   // Bad.
+   function MyClass() {
+     this.someProp = "A value";
+   }
+   const instance = new MyClass();
+   
+   // Good.
+   class MyClass {
+     constructor(prop) {
+   		this.someProp = prop
+     }
+   }
+   const instance = new MyClass();
+   ```
+
+8. When anonymous funcitons are used, you should use a lambda / [arrow functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions).
+
+   ```js
+   const array1 = [1, 4, 9, 16];
+   
+   // Bad.
+   const badMap = array1.map(function( x ) { return x * 2});
+   const lessBadMap = array1.map(function mapData( x ) { return x * 2});
+   
+   // Good.
+   const goodMap = array1.map(x => x * 2);
+   const bestMap = array1.map((x) => x * 2);
+   ```
+
+9. Favor [arrow functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) over context binding.
+
+   ```js
+   function myMethod(...params) { /* logic here*/ }
+   
+   // Bad.
+   const self = this;
+   const boundMethod = function(...params) {
+     return myMethod.apply(self, params);
+   }
+   
+   // Less bad.
+   const boundMethod = myMethod.bind(this);
+   
+   // Best.
+   const boundMethod = (...params) => myMethod.apply(this, params);
+   ```
+
+10. Use [destructuring](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) when applicable.
+
+    ```js
+    function myFunction(person) {
+      const { firstName, lastName } = person
+    }
+    ```
+
+11. Named params are preferred, however if varaidic expansion is required... always favor the ES6 [`...rest`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters) syntax over inspecting the [`arguments` object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments).
+
+12. Options params should be passed in via an object... instead of as a named param.
+
+    - This allows the options to be passed with differing data without changing how the function is called.
+
+    - Additionally it helps to prevent truthiness bugs when booleans are passed. See [boolean trap anti-pattern](https://ariya.io/2011/08/hall-of-api-shame-boolean-trap).
+
+      ```js
+      // Bad.
+      function apiCall(a, b, isMock = false ) { }
+      
+      // Good.
+      function apiCall(a, b, { isMock = false } = {}) {}
+      ```
+
+13. Dot notation usage should be consistent.
+
+    ```js
+    // Bad.
+    obj.x = 123;
+    obj['y'] = 321;
+    
+    // Ok, if needed.
+    obj['x'] = 123;
+    obj['y-z'] = 321;
+    
+    // Best.
+    obj.x = 123;
+    obj.y = 321;
+    ```
+
+14. Always use strict comparison operators.
+
+    - Do not use `!=` and `==`.
+    - Use these instead `!==` and `===`.
+    - Prefer explicit strict value checks over truthiness checks.
+    - Do not use forced boolean casting => `if(!!value)`.
+
+15. Method chains must start with a leading dot.
+
+    ```js
+    // Bad.
+    myPromise.then(() => {}).
+      then(() => {}).
+      catch((ex) => {})
+    
+    // Good.
+    myPromise
+      .then(() => {})
+      .catch((ex) => {})
+    ```
+
+16. Though the example above uses a [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) to demonstrate preferred syntax for method chaining, you should prefer the [`async`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function) / [`await`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await) pattern over the [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) pattern, [see reference](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Async_await). Suggested [further reading here](https://javascript.info/async-await#:~:text=The%20word%20%E2%80%9Casync%E2%80%9D%20before%20a,in%20a%20resolved%20promise%20automatically.&text=So%2C%20async%20ensures%20that%20the,wraps%20non%2Dpromises%20in%20it.).
+
+    ```js
+    import axios from "axios"
+    
+    // Best: no await needed, just return the Promise from the async call
+    // made within your function.
+    async function makeGetCall(endpoint) {
+      return axios.get(endpoint)
+    }
+
+    // Good: Await the response and return its resolved value.
+    async function makeGetCall(endpoint) {
+        try {
+          const response = await axios.get(endpoint)
+          // Do work with response.
+          return response
+        } catch(error) {
+          // Handle error.
+        }
+    }
+
+    // ########################################################################
+
+    // Bad: There is no asyncronous processing happening here, so this
+    // should not be marked as an async function.
+    async function parseJson( jsonStr ) {
+      try {
+        return Promise.resolve(JSON.parse(jsonStr))
+      }
+      catch(error) {
+        return Pomise.reject(error)
+      }
+    }
+    
+    // Bad: Prefer to await Promises instead of then() / catch() handlers.
+    async function makeGetCall(endpoint) {
+      return new Promise( (resolve, reject) => {
+        axios.get(endpoint)
+          .then( (response) => {
+            resolve(response)
+          })
+          .catch( (error) => {
+            reject(error)
+          })
+      })
+    }
+
+    // Bad: When awaiting a Promise there is no need to
+    // chain then() / catch() handlers.
+    async function makeGetCall(endpoint) {
+      const response = await axios.get(endpoint)
+        // These handlers add no functional value.
+        .then( (response) => response )
+        .catch( (error) => { throw error } );
+
+        return response
+    }
+
+    // Bad: There is no need to create our own Promise, as the axios.get()
+    // function returns a Promise that can be used as the return value.
+    async function makeGetCall(endpoint) {
+      return new Promise( (resolve, reject) => {
+        try {
+          const response = await axios.get(endpoint)
+          resolve(response)
+        } catch(error) {
+          reject(error)
+        }
+      })
+    }
+    ```
+
+    
+
+
+17. Prefer the **[optional chaining (`.?`)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining)** operator over explicit `null` / `undefined` / truthy checks for nested data (requires >= node 14).
+
+    ```js
+    let person = { employer: { name: 'Acme' }, fistName: 'John', lastName: 'Doe' };
+    // console.log(person.employer.name) => 'Acme'
+    
+    // Re-defined the person, without an employer name.
+    person = { employer: {}, fistName: 'John', lastName: 'Doe' };
+    
+    // Bad
+    const coNameBad = (
+      person.employer !== undefined &&
+      person.employer !== null &&
+      person.employer.name !== undefined &&
+      person.employer.name !== null
+    ) ? person.name : undefined;
+    // coNameBad => undefined
+    
+    // Good.
+    const coNameGood = person.employer?.name;
+    // coNameGood => undefined
+    ```
+
+18. Prefer the **[nullish coalescing operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing_operator)** (`??`) over explicit `null` / `undefined` / truthy checks  (requires >= node 14).
+
+    ```js
+    const y = null;
+    
+    // Bad
+    const x = (y === undefined || y === null || !y) ? "default value" : y;
+    
+    // Good.
+    const x = y ?? "default value"
+    ```
+
+19. Do not nest **[ternary operators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator)** `(?:)`. This is a readability issue.
+
+20. Favor `import { myFunc } from './path/to/module';` instead of `const myFunc = require('./path/to/module');`, [see reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import).
+
+21. Do not use the `delete` keyword unless you have to... Instead prefer setting the value of the key to `null` instead. This is a performance consideration.
+
+<Pager
+  prev="./contributing.mdx" prevTitle="Contribution Guide"
+  next="./cli.mdx" nextTitle="Using the CLI"
+/>

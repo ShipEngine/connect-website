@@ -1,0 +1,11 @@
+@use "../../styles/variables" as *;
+
+.pre {
+  padding: 0;
+}
+
+.codeBlock {
+  display: block;
+  cursor: text;
+  padding: $small-vertical-space 0;
+}

@@ -1,0 +1,73 @@
+---
+title: Weight object
+description: The weight of an item.
+---
+
+Weight Object
+===============================================
+Weight objects are used throughout [ShipEngine Connect](./../../index.mdx), such as for specifying the weight
+of a package.
+
+Properties
+-----------------------------------------------
+This table lists the properties of a weight object and identifies those properties that are required. The `nullable`
+column indicates which properties may be null when the object is provided as an argument to one of your methods, and the `required`
+column indicates which properties are required when the object is returned from one of your methods
+
+<Reference>
+
+  <Field name="value" type="number" required={true} nullable={false}>
+    <Description>
+      The weight value for this package. This value may contain decimals.
+    </Description>
+  </Field>
+
+  <Field name="unit" type="string" required={true} nullable={false}>
+    <Description>
+      The unit of measure for this weight. Valid values include the following:
+      * `g` - grams
+      * `oz` - ounces
+      * `kg` - kilograms
+      * `lb` - pounds
+    </Description>
+  </Field>
+</Reference>
+
+Additional Convenience Properties
+-------------------------------------------------------------
+This table lists some additional convenience properties and methods that are included when a weight object is
+passed to one of your methods. None of these will ever be `null`.
+
+<Reference>
+  <Field name="ounces" type="number" >
+    <Description>
+      The weight value in ounces.
+    </Description>
+  </Field>
+
+  <Field name="grams" type="number">
+    <Description>
+      The weight value in grams.
+    </Description>
+  </Field>
+
+  <Field name="toOunces()" >
+    <Type>
+      method
+    </Type>
+    <Description>
+      A method that returns a new weight object in ounces.
+    </Description>
+  </Field>
+
+  <Field name="toGrams()">
+    <Type>
+      method
+    </Type>
+    <Description>
+      A method that returns a new weight object in grams.
+    </Description>
+  </Field>
+
+</Reference>
+

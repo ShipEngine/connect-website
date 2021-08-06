@@ -1,0 +1,154 @@
+---
+title: acknowledgeOrders Method
+description: This method is called when an order is imported.
+---
+
+
+`acknowledgeOrders()`
+===========================
+This method is called when a sales order is imported into one of our e-commerce applications.
+
+
+Syntax
+-----------------------------------------------
+<CodeWrapper>
+```javascript
+module.exports = async function acknowledgeOrders(transaction, notifications[] {
+  // Your code here
+}
+```
+
+```typescript
+import { Transaction, SalesOrderNotification, AcknowledgeSalesOrder} from "@shipengine/connect-sdk";
+
+export default async function acknowledgeOrders(
+  transaction: Transaction,
+  notifications: SalesOrderNotifications
+): Promise<void> {
+  // Your code here
+}
+```
+</CodeWrapper>
+
+
+
+Parameters
+-----------------------------------------------
+
+### `transaction`
+A [transaction object](../order-transaction.mdx) containing information about the transaction and session state.
+
+### `notifications[]`
+An array of notifications regarding sales orders that have been imported.
+
+<Reference>
+
+  <Field name="id" type="string" nullable={false}>
+    <Description>
+      The marketplace's unique ID for the sales order. This string must not contain newline characters.
+    </Description>
+  </Field>
+
+  <Field name="identifiers" nullable={false}>
+    <Description>
+      Your own identifiers for this sales order.
+    </Description>
+    <Type>
+      [identifiers object](./../identifiers-object.mdx)
+    </Type>
+  </Field>
+
+  <Field name="orderNumber" nullable={false} type="string">
+    <Description>
+      The customer facing identifier of the sales order.
+    </Description>
+  </Field>
+
+  <Field name="importedDate" nullable={false}>
+    <Type>
+      [date/time object](./../date-time.mdx)
+    </Type>
+    <Description>
+      The date that the order was imported.
+    </Description>
+  </Field>
+
+</Reference>
+
+
+
+Return Value
+-----------------------------------------------
+### `acknowledgedSalesOrder[]`
+
+<Reference>
+
+  <Field name="id" type="string" required={true}>
+    <Description>
+      The marketplace's unique ID for the sales order. This string must not contain newline characters.
+    </Description>
+  </Field>
+
+  <Field name="identifiers" required={false}>
+    <Description>
+      Your own identifiers for this sales order.
+    </Description>
+    <Type>
+      [identifiers object](./../identifiers-object.mdx)
+    </Type>
+  </Field>
+
+  <Field name="succeeded" type="boolean" required={true}>
+    <Description>
+      Indicate whether the sales order's import was successfully processed.
+    </Description>
+  </Field>
+
+  <Field name="failureReason" type="string" required={false}>
+    <Description>
+      Additional context for why the acknowledgement failed.
+    </Description>
+  </Field>
+
+</Reference>
+
+
+
+Example
+-----------------------------------------------
+<CodeWrapper>
+```javascript
+async function acknowledgeSalesOrder(transaction, notifications) {
+  // STEP 1: Validation
+  // Add any desired validation here
+
+  // STEP 2: Create the data that the order source's API expects
+  const data = {
+    operation: "ack_order",
+    session_id: transaction.session.id,
+    shipment_id: shipment.trackingNumber
+  };
+  // STEP 3: Call the order source's API
+  await apiClient.request({ data });
+}
+```
+
+```typescript
+export default async function shipmentCreated(
+  transaction: Transaction<Session>,
+  notifications: SalesOrderNotification,
+): Promise<void> {
+  // STEP 1: Validation
+  // Add any desired validation here
+
+  // STEP 2: Create the data that the order source's API expects
+  const data = {
+    operation: "ack_order",
+    session_id: transaction.session.id,
+    order_number: shipment.orderNumber
+  };
+  // STEP 3: Call the order source's API
+  await apiClient.request({ data });
+}
+```
+</CodeWrapper>
