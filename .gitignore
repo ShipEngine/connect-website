@@ -53,6 +53,7 @@ node_modules
 
 # Yarn files
 .yarn/*
+!.yarn/cache
 !.yarn/patches
 !.yarn/releases
 !.yarn/plugins
