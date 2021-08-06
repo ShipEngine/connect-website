@@ -1,0 +1,30 @@
+name: website
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  ci:
+    name: Test
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: install node@14
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: yarn install
+        run: yarn install --immutable --immutable-cache
+
+      - name: yarn lint
+        run: yarn lint
