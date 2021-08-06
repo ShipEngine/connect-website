@@ -86,4 +86,19 @@ A tracking event object is used to represent different events that happen throug
     </Description>
   </Field>
 
+  <Field name="status_code" type="string" required={false}>
+    <Description>
+      The standardized status code used for shipment tracking information
+
+      Valid values include the following:
+       * `UN` - Unknown 
+       * `AC` - Accepted
+       * `IT` - InTransit
+       * `DE` - Delivered
+       * `EX` - Exception
+       * `AT` - DeliveryAttempt
+       * `NY` - NotYetInSystem
+    </Description>
+  </Field>
+
 </Reference>
