@@ -1,6 +1,0 @@
-id: 5c59b2b3-49fb-41c6-9e77-e97a75067f36
-code: SIG-R
-name: Recipient Signature
-description: Requires a signature from the person named in the delivery address
-type: direct_signature
-

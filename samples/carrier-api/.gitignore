@@ -1,7 +1,0 @@
-*-debug.log
-*-error.log
-.env.test
-/.nyc_output
-/dist
-/tmp
-node_modules
