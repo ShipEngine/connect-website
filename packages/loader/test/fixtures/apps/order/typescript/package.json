@@ -1,8 +1,0 @@
-{
-  "name": "@order/typescript-app",
-  "version": "0.0.1",
-  "main": "src/app.ts",
-  "devDependencies": {
-    "@shipengine/connect-sdk": "1.0.0"
-  }
-}

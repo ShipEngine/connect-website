@@ -1,8 +1,0 @@
-{
-  "name": "@carrier/typescript-app",
-  "version": "0.0.1",
-  "main": "src/carrier.ts",
-  "devDependencies": {
-    "@shipengine/connect-sdk": "1.0.0"
-  }
-}

@@ -1,8 +1,0 @@
-{
-  "name": "@order/yaml-app",
-  "version": "0.0.1",
-  "main": "app.yml",
-  "devDependencies": {
-    "@shipengine/connect-sdk": "1.0.0"
-  }
-}
