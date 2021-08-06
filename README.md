@@ -36,10 +36,10 @@ Start the local Next.js development server, which automatically cleans the outpu
 yarn dev
 ```
 
-Anytime you make code changes, you should run the tests to confirm that your code didn't break anything. Currently the `test` script simply runs ESLint to verify that the code complies with our lint rules.
+Anytime you make code changes, you should run the tests to confirm that your code didn't break anything. Currently the `lint` script simply runs ESLint to verify that the code complies with our lint rules.
 
 ```bash
-yarn test
+yarn lint
 ```
 
 You should also periodically update dependencies using this command:
