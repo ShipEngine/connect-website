@@ -1,0 +1,31 @@
+name: CI-CD
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  ci:
+    name: Test
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: install node@14
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: yarn install
+        run: yarn install --immutable --immutable-cache
+
+      - name: yarn lint
+        working-directory: website
+        run: yarn lint
