@@ -60,3 +60,5 @@ overrides:
       # Annoying rules that makes code harder to read, write, and/or undrstand
       no-case-declarations: off
       "@typescript-eslint/ban-types": off
+
+      "@typescript-eslint/no-extra-semi": off
