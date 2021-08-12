@@ -50,6 +50,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-react-hooks", "virtual:acc0dbca37a9f83f4274f147eea93efc3767cc7ef7ea1657162c0e1affe9eaeda2c729f662638273b51b9fa989ac227055d90aa35fb0c65b01589b6118b7e1c9#npm:4.2.0"],
             ["next", "virtual:acc0dbca37a9f83f4274f147eea93efc3767cc7ef7ea1657162c0e1affe9eaeda2c729f662638273b51b9fa989ac227055d90aa35fb0c65b01589b6118b7e1c9#npm:9.5.5"],
             ["npm-check", "npm:5.9.2"],
+            ["prettier", "npm:2.3.2"],
             ["prism-react-renderer", "virtual:acc0dbca37a9f83f4274f147eea93efc3767cc7ef7ea1657162c0e1affe9eaeda2c729f662638273b51b9fa989ac227055d90aa35fb0c65b01589b6118b7e1c9#npm:1.1.1"],
             ["react", "npm:16.14.0"],
             ["react-dom", "virtual:acc0dbca37a9f83f4274f147eea93efc3767cc7ef7ea1657162c0e1affe9eaeda2c729f662638273b51b9fa989ac227055d90aa35fb0c65b01589b6118b7e1c9#npm:16.14.0"],
@@ -3029,6 +3030,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-react-hooks", "virtual:acc0dbca37a9f83f4274f147eea93efc3767cc7ef7ea1657162c0e1affe9eaeda2c729f662638273b51b9fa989ac227055d90aa35fb0c65b01589b6118b7e1c9#npm:4.2.0"],
             ["next", "virtual:acc0dbca37a9f83f4274f147eea93efc3767cc7ef7ea1657162c0e1affe9eaeda2c729f662638273b51b9fa989ac227055d90aa35fb0c65b01589b6118b7e1c9#npm:9.5.5"],
             ["npm-check", "npm:5.9.2"],
+            ["prettier", "npm:2.3.2"],
             ["prism-react-renderer", "virtual:acc0dbca37a9f83f4274f147eea93efc3767cc7ef7ea1657162c0e1affe9eaeda2c729f662638273b51b9fa989ac227055d90aa35fb0c65b01589b6118b7e1c9#npm:1.1.1"],
             ["react", "npm:16.14.0"],
             ["react-dom", "virtual:acc0dbca37a9f83f4274f147eea93efc3767cc7ef7ea1657162c0e1affe9eaeda2c729f662638273b51b9fa989ac227055d90aa35fb0c65b01589b6118b7e1c9#npm:16.14.0"],
@@ -10449,6 +10451,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/prepend-http-npm-1.0.4-cd78a41247-01e7baf4ad.zip/node_modules/prepend-http/",
           "packageDependencies": [
             ["prepend-http", "npm:1.0.4"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["prettier", [
+        ["npm:2.3.2", {
+          "packageLocation": "./.yarn/cache/prettier-npm-2.3.2-4467ec48dc-17ce5784ac.zip/node_modules/prettier/",
+          "packageDependencies": [
+            ["prettier", "npm:2.3.2"]
           ],
           "linkType": "HARD",
         }]

@@ -13,7 +13,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint src --ext=.ts,.tsx",
-    "upgrade": "npm-check -u && npm audit fix"
+    "upgrade": "npm-check -u && npm audit fix",
+    "fmt": "prettier --write \"src/**/*.{mdx,ts,js}\"",
+    "fmt:check": "prettier --check \"src/**/*.{mdx,ts,js}\""
   },
   "dependencies": {
     "@charlietango/use-script": "^2.2.0",
@@ -37,6 +39,7 @@
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-react": "^7.20.5",
     "eslint-plugin-react-hooks": "^4.1.0",
-    "npm-check": "^5.9.2"
+    "npm-check": "^5.9.2",
+    "prettier": "^2.3.2"
   }
 }
