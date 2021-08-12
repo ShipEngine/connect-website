@@ -12,8 +12,7 @@
     "dev": "next dev -p 3005",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint src --ext=.ts,.tsx",
-    "upgrade": "npm-check -u && npm audit fix"
+    "lint": "eslint src --ext=.ts,.tsx"
   },
   "dependencies": {
     "@charlietango/use-script": "^2.2.0",
@@ -36,7 +35,6 @@
     "eslint": "^7.8.1",
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-react": "^7.20.5",
-    "eslint-plugin-react-hooks": "^4.1.0",
-    "npm-check": "^5.9.2"
+    "eslint-plugin-react-hooks": "^4.1.0"
   }
 }
