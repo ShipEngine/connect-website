@@ -26,5 +26,8 @@ jobs:
       - name: yarn install
         run: yarn install --immutable --immutable-cache
 
+      - name: yarn fmt:check
+        run: yarn fmt:check
+
       - name: yarn lint
         run: yarn lint
