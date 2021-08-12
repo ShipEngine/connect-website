@@ -32,3 +32,6 @@ Specify the necessary authentication data in the [connection form](./../referenc
 These fields will be included on the [`transaction` object](./../reference/order-transaction.mdx) passed to the other methods of your app.
 If your form includes `username`, `password`, and/or `api_key` fields, they will be available via the `transaction.session.auth` object.
 All other fields will be attached to `transaction.session`.
+
+## Authorizing Using an API Key
+If no [OAuth Config](./oauth-config.mdx) is defined, and the fields associated with Basic Auth are not included in the [connection form](./../reference/forms.mdx#connection-form-examples), we will assume the integration is using API Key Auth. In this case, you must specify that key inside the field `api_key` in the [connection form](./../reference/forms.mdx#connection-form-examples). It can be referenced in the `transaction.session.auth` object.
