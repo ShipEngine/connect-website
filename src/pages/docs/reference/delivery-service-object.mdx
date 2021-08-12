@@ -3,232 +3,306 @@ title: Delivery Service Objects
 description: This page describes the delivery service object that is passed to a ShipEngine Connect Carrier app. For example, the [createShipment method](./methods/create-shipment.mdx) accepts a `shipment` parameter with a `deliveryService` property that corresponds to this object. The property details include whether or not they are `required` or `nullable`. These details may differ depending on whether the delivery service is part of a parameter passed to a method or part of an argument returned from a method.
 ---
 
-
-Delivery Service Objects
-====================
+# Delivery Service Objects
 
 A delivery service is a type of delivery that is offered by a carrier, such as `international` or `standard overnight`.
 You defined the delivery service options available through your app in [Delivery Service Definition](./delivery-service.mdx)
 files.
 
-Properties
--------------------------------------
+## Properties
+
 This table lists the properties of a delivery service object and identifies those properties that are required. The `nullable`
 column indicates which properties may be null when the object is provided as an argument to one of your methods, and the `required`
 column indicates which properties are required when the object is returned from one of your methods.
 
 <Reference>
 
-  <Field name="id" nullable={false} required={true} >
-    <Type>
-      [UUID](https://www.npmjs.com/package/uuid)
-    </Type>
-    <Description>
-      UUID that uniquely identifies the delivery service. This is the UUID you used in the [Delivery Service Definition](./delivery-service.mdx) file for this delivery service.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="identifiers" nullable={false}>
-    <Description>
-      Your own identifiers for this delivery service.
-    </Description>
-    <Type>
-      [identifiers object](./identifiers-object.mdx)
-    </Type>
-  </Field>
+<Field name="id" nullable={false} required={true}>
+  <Type>[UUID](https://www.npmjs.com/package/uuid)</Type>
+  <Description>
+    UUID that uniquely identifies the delivery service. This is the UUID you
+    used in the [Delivery Service Definition](./delivery-service.mdx) file for
+    this delivery service.
+  </Description>
+</Field>
 
-  <Field name="code" type="string" nullable={false}>
-    <Description>
-      Optional code used to map to what the carrier uses to identify the delivery service.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="name" type="string" nullable={false} required={true}>
-    <Description>
-      The user-friendly service name (e.g. "Priority Overnight", "2-Day Air").
-    </Description>
-  </Field>
+<Field name="identifiers" nullable={false}>
+  <Description>Your own identifiers for this delivery service.</Description>
+  <Type>[identifiers object](./identifiers-object.mdx)</Type>
+</Field>
 
-  <Field name="description" type="string" nullable={false}>
-    <Description>
-      A short, user-friendly description of the service.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="fulfillmentService" type="string" nullable={true}>
-    <Description>
-      A well-known [fulfillment service](./fulfillment-service.mdx) that's used to fulfill this delivery service, such as "fedex_ground".
-    </Description>
-  </Field>
+<Field name="code" type="string" nullable={false}>
+  <Description>
+    Optional code used to map to what the carrier uses to identify the delivery
+    service.
+  </Description>
+</Field>
 
-  <Field name="serviceArea" type="string" nullable={true}>
-    <Description>
-      The service area this delivery service covers. Valid values include the following:
-      * `regional` - Delivery based on the shipment's distance to its destination. Rates typically vary by zone.
-      * `domestic` - Delivery with an origin address and a destination address within the same country.
-      * `international` - Delivery to a from address in at least one other country.
-      * `global` - Delivery to a from address anywhere in the world.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="isConsolidatedService" type="boolean" nullable={false}>
-    <Description>
-      Indicates whether this delivery service is a consolidation of multiple carrier services.
-    </Description>
-  </Field>
+<Field name="name" type="string" nullable={false} required={true}>
+  <Description>
+    The user-friendly service name (e.g. "Priority Overnight", "2-Day Air").
+  </Description>
+</Field>
 
-  <Field name="allowsMultiplePackages" type="boolean" nullable={false}>
-    <Description>
-      Indicates whether the delivery service allows multiple packages in a single shipment.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="isInsurable" type="boolean" nullable={false}>
-    <Description>
-      Indicates whether shippers can purchase insurance from the carrier for this delivery service.
-    </Description>
-  </Field>
+<Field name="description" type="string" nullable={false}>
+  <Description>A short, user-friendly description of the service.</Description>
+</Field>
 
-  <Field name="isTrackable" type="boolean" nullable={false}>
-    <Description>
-      Indicates whether tracking numbers are provided by this delivery service.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="supportsReturns" type="boolean" nullable={false}>
-    <Description>
-      Indicates whether the carrier supports return shipments. Defaults to `false` if not specified.
-    </Description>
-  </Field>
+<Field name="fulfillmentService" type="string" nullable={true}>
+  <Description>
+    A well-known [fulfillment service](./fulfillment-service.mdx) that's used to
+    fulfill this delivery service, such as "fedex_ground".
+  </Description>
+</Field>
 
-  <Field name="labelFormats" type="string[]" nullable={false}>
-    <Description>
-      The list of label formats that are offered for this delivery service. Valid values include the following:
-      * `pdf` - Potable Document Format (PDF)
-      * `zpl` - Zebra Printer Label (ZPL)
-      * `png` - Portable Graphics Format (PNG)
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="labelSizes" type="string[]" nullable={false}>
-    <Description>
-      The list of label sizes that are offered for this delivery service. Valid values include the following:
-      * `A4` - A4 sized paper. 8.27 inches x 11.69 inches.
-      * `letter` - Letter sized paper. 8.5 inches by 11 inches.
-      * `4x6` - Paper sized 4 inches by 6 inches.
-      * `4x8` - Paper sized 4 inches by 8 inches.
-    </Description>
-  </Field>
+<Field name="serviceArea" type="string" nullable={true}>
+  <Description>
+    The service area this delivery service covers. Valid values include the
+    following: * `regional` - Delivery based on the shipment's distance to its
+    destination. Rates typically vary by zone. * `domestic` - Delivery with an
+    origin address and a destination address within the same country. *
+    `international` - Delivery to a from address in at least one other country.
+    * `global` - Delivery to a from address anywhere in the world.
+  </Description>
+</Field>
 
-  <Field name="availableCountries" nullable={false}>
-    <Type>
-      [country code](./country-codes.mdx)[]
-    </Type>
-    <Description>
-      The list of [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) for the
-      [countries](./country-codes.mdx) that can be shipped _from_ using this delivery service.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="countries" nullable={false}>
-    <Type>
-      [country code](./country-codes.mdx)[]
-    </Type>
-    <Description>
-      All countries that this service ships to or from. This list includes all unique origin and destination countries.
-      This list must contain [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes).
-    </Description>
-  </Field>
+<Field name="isConsolidatedService" type="boolean" nullable={false}>
+  <Description>
+    Indicates whether this delivery service is a consolidation of multiple
+    carrier services.
+  </Description>
+</Field>
 
-  <Field name="requiresWeight" type="boolean" required={true}>
-    <Description>
-      Indicates whether the weight may be required when using this service. This property is `true` if any of the service's packaging requires weight.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="requiresDimensions" type="boolean" required={true}>
-    <Description>
-      Indicates whether the dimensions may be required when using this service. This property is `true` if any of the service's packaging requires dimensions.
-    </Description>
-  </Field>
+<Field name="allowsMultiplePackages" type="boolean" nullable={false}>
+  <Description>
+    Indicates whether the delivery service allows multiple packages in a single
+    shipment.
+  </Description>
+</Field>
 
-  <Field name="packaging" type="object[]" nullable={false}>
-    <Description>
-      The types of packaging that are provided or allowed for this delivery service. This array will contain at least one value.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="packaging[].id" nullable={false}>
-    <Type>
-      [UUID](https://www.npmjs.com/package/uuid)
-    </Type>
-    <Description>
-      A UUID that uniquely identifies the packaging. This is the UUID you used in the [Packaging Definition](./packaging.mdx) file for this packaging.
-    </Description>
-  </Field>
+<Field name="isInsurable" type="boolean" nullable={false}>
+  <Description>
+    Indicates whether shippers can purchase insurance from the carrier for this
+    delivery service.
+  </Description>
+</Field>
 
-  <Field name="packaging[].identifiers" type="string[]" nullable={false}>
-    <Description>
-      Your own identifiers for this packaging.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="packaging[].name" type="string" nullable={false}>
-    <Description>
-      The user-friendly name for this packaging (e.g. "Flat-Rate Box", "Large Padded Envelope"). This string must not contain newline characters.
-    </Description>
-  </Field>
+<Field name="isTrackable" type="boolean" nullable={false}>
+  <Description>
+    Indicates whether tracking numbers are provided by this delivery service.
+  </Description>
+</Field>
 
-  <Field name="packaging[].description" type="string" nullable={false}>
-    <Description>
-      A short, user-friendly description of the packaging. This string must not contain newline characters.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="packaging[].requiresWeight" type="boolean" nullable={false}>
-    <Description>
-      Indicates whether the weight must be specified when using this packaging.
-    </Description>
-  </Field>
+<Field name="supportsReturns" type="boolean" nullable={false}>
+  <Description>
+    Indicates whether the carrier supports return shipments. Defaults to `false`
+    if not specified.
+  </Description>
+</Field>
 
-  <Field name="packaging[].requiresDimensions" type="boolean" nullable={false}>
-    <Description>
-      Indicates whether the dimensions must be specified when using this packaging.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="deliveryConfirmations" type="object[]" nullable={false}>
-    <Description>
-      The types of package [delivery confirmations](./delivery-confirmation.mdx) offered for this service.
-    </Description>
-  </Field>
+<Field name="labelFormats" type="string[]" nullable={false}>
+  <Description>
+    The list of label formats that are offered for this delivery service. Valid
+    values include the following: * `pdf` - Potable Document Format (PDF) *
+    `zpl` - Zebra Printer Label (ZPL) * `png` - Portable Graphics Format (PNG)
+  </Description>
+</Field>
 
-  <Field name="deliveryConfirmations[].id" nullable={false}>
-    <Type>
-      [UUID](https://www.npmjs.com/package/uuid)
-    </Type>
-    <Description>
-      A UUID that uniquely identifies this delivery confirmation. This is the UUID you used in the [Delivery Confirmation Definition](./delivery-confirmation.mdx) file for this delivery confirmation.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="deliveryConfirmations[].identifiers" type="object" nullable={false}>
-    <Description>
-      Your own identifiers for this delivery confirmation.
-    </Description>
-  </Field>
+<Field name="labelSizes" type="string[]" nullable={false}>
+  <Description>
+    The list of label sizes that are offered for this delivery service. Valid
+    values include the following: * `A4` - A4 sized paper. 8.27 inches x 11.69
+    inches. * `letter` - Letter sized paper. 8.5 inches by 11 inches. * `4x6` -
+    Paper sized 4 inches by 6 inches. * `4x8` - Paper sized 4 inches by 8
+    inches.
+  </Description>
+</Field>
 
-  <Field name="deliveryConfirmations[].name" type="string" nullable={false}>
-    <Description>
-      The user-friendly name for this delivery confirmation (e.g. "Adult Signature", "Authority to Leave"). This string must not contain newline characters.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="deliveryConfirmations[].description" type="string" nullable={false}>
-    <Description>
-      A short, user-friendly description of the delivery confirmation type. This string must not contain newline characters.
-    </Description>
-  </Field>
+<Field name="availableCountries" nullable={false}>
+  <Type>[country code](./country-codes.mdx)[]</Type>
+  <Description>
+    The list of [ISO 3166-1
+    alpha-2](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) for
+    the [countries](./country-codes.mdx) that can be shipped _from_ using this
+    delivery service.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="countries" nullable={false}>
+  <Type>[country code](./country-codes.mdx)[]</Type>
+  <Description>
+    All countries that this service ships to or from. This list includes all
+    unique origin and destination countries. This list must contain [ISO 3166-1
+    alpha-2](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes).
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="requiresWeight" type="boolean" required={true}>
+  <Description>
+    Indicates whether the weight may be required when using this service. This
+    property is `true` if any of the service's packaging requires weight.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="requiresDimensions" type="boolean" required={true}>
+  <Description>
+    Indicates whether the dimensions may be required when using this service.
+    This property is `true` if any of the service's packaging requires
+    dimensions.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="packaging" type="object[]" nullable={false}>
+  <Description>
+    The types of packaging that are provided or allowed for this delivery
+    service. This array will contain at least one value.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="packaging[].id" nullable={false}>
+  <Type>[UUID](https://www.npmjs.com/package/uuid)</Type>
+  <Description>
+    A UUID that uniquely identifies the packaging. This is the UUID you used in
+    the [Packaging Definition](./packaging.mdx) file for this packaging.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="packaging[].identifiers" type="string[]" nullable={false}>
+  <Description>Your own identifiers for this packaging.</Description>
+</Field>
+
+{' '}
+
+<Field name="packaging[].name" type="string" nullable={false}>
+  <Description>
+    The user-friendly name for this packaging (e.g. "Flat-Rate Box", "Large
+    Padded Envelope"). This string must not contain newline characters.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="packaging[].description" type="string" nullable={false}>
+  <Description>
+    A short, user-friendly description of the packaging. This string must not
+    contain newline characters.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="packaging[].requiresWeight" type="boolean" nullable={false}>
+  <Description>
+    Indicates whether the weight must be specified when using this packaging.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="packaging[].requiresDimensions" type="boolean" nullable={false}>
+  <Description>
+    Indicates whether the dimensions must be specified when using this
+    packaging.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="deliveryConfirmations" type="object[]" nullable={false}>
+  <Description>
+    The types of package [delivery confirmations](./delivery-confirmation.mdx)
+    offered for this service.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="deliveryConfirmations[].id" nullable={false}>
+  <Type>[UUID](https://www.npmjs.com/package/uuid)</Type>
+  <Description>
+    A UUID that uniquely identifies this delivery confirmation. This is the UUID
+    you used in the [Delivery Confirmation
+    Definition](./delivery-confirmation.mdx) file for this delivery
+    confirmation.
+  </Description>
+</Field>
+
+{' '}
+
+<Field
+  name="deliveryConfirmations[].identifiers"
+  type="object"
+  nullable={false}
+>
+  <Description>
+    Your own identifiers for this delivery confirmation.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="deliveryConfirmations[].name" type="string" nullable={false}>
+  <Description>
+    The user-friendly name for this delivery confirmation (e.g. "Adult
+    Signature", "Authority to Leave"). This string must not contain newline
+    characters.
+  </Description>
+</Field>
+
+{' '}
+
+<Field
+  name="deliveryConfirmations[].description"
+  type="string"
+  nullable={false}
+>
+  <Description>
+    A short, user-friendly description of the delivery confirmation type. This
+    string must not contain newline characters.
+  </Description>
+</Field>
 
   <Field name="deliveryConfirmations[].type" type="string" nullable={false} required={true}>
     <Description>
@@ -240,14 +314,19 @@ column indicates which properties are required when the object is returned from 
 
       This array will contain at least one value.
     </Description>
+
   </Field>
 
-  <Field name="manifestType" type="string" nullable={true}>
-    <Description>
-      Indicates whether the service supports digital or physical manifests. Valid values include the following:
-      *  `Physical` - This service will require physical documents even if the carrier default is digital transmission.
-      *  `Digital` - This service will *not* require physical documents even if the carrier default is for physical documents.
-    </Description>
-  </Field>
+{' '}
+
+<Field name="manifestType" type="string" nullable={true}>
+  <Description>
+    Indicates whether the service supports digital or physical manifests. Valid
+    values include the following: * `Physical` - This service will require
+    physical documents even if the carrier default is digital transmission. *
+    `Digital` - This service will *not* require physical documents even if the
+    carrier default is for physical documents.
+  </Description>
+</Field>
 
 </Reference>

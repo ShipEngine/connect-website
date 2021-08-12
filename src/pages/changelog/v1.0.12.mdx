@@ -4,29 +4,30 @@ description: This page describes what changed in @shipengine/connect v1.0.12
 image: /img/changelog/card.png
 ---
 
-Changelog `v1.0.12` <small>(2020-10-14)</small>
-=========================================================
+# Changelog `v1.0.12` <small>(2020-10-14)</small>
 
-SDK
----------------------------------------
+## SDK
+
 ### Removed
-* Removed unused `InsuranceProvider` enum
-* All maximum length for string properties in the SDK have been removed.
 
+- Removed unused `InsuranceProvider` enum
+- All maximum length for string properties in the SDK have been removed.
 
-CLI
-----------------------------
+## CLI
+
 ### Added
-* Add [connect_all_fields](../docs/carrier-app/tests/connect/connect-all-fields) acceptance tests.
-* Add [trackShipment_return](../docs/carrier-app/tests/track-shipment/track-shipment-return) acceptance tests.
-* Add [rateShipment_return](../docs/carrier-app/tests/track-shipment/rate-shipment-return) acceptance tests.
-* Add [cancelPickups_next_day](../docs/carrier-app/tests/cancel-pickup/cancel-pickups-next-day) acceptance tests.
-* Add [cancelPickups_next_day](../docs/carrier-app/tests/cancel-pickup/cancel-pickups-next-day) acceptance tests.
-* add [cancelShipments_multiple](../docs/carrier-app/tests/cancel-shipmentkup/cancel-shipments-multiple) acceptance tests.
+
+- Add [connect_all_fields](../docs/carrier-app/tests/connect/connect-all-fields) acceptance tests.
+- Add [trackShipment_return](../docs/carrier-app/tests/track-shipment/track-shipment-return) acceptance tests.
+- Add [rateShipment_return](../docs/carrier-app/tests/track-shipment/rate-shipment-return) acceptance tests.
+- Add [cancelPickups_next_day](../docs/carrier-app/tests/cancel-pickup/cancel-pickups-next-day) acceptance tests.
+- Add [cancelPickups_next_day](../docs/carrier-app/tests/cancel-pickup/cancel-pickups-next-day) acceptance tests.
+- add [cancelShipments_multiple](../docs/carrier-app/tests/cancel-shipmentkup/cancel-shipments-multiple) acceptance tests.
 
 ### Changed
-* `cancelShipments` acceptance test was renamed to [cancelShipments_single](../docs/carrier-app/tests/cancel-shipmentkup/cancel-shipments-single).
 
+- `cancelShipments` acceptance test was renamed to [cancelShipments_single](../docs/carrier-app/tests/cancel-shipmentkup/cancel-shipments-single).
 
 ### Bugs
-* Fixed error where `connect test` would fail if the `connect.config.js` file was missing
+
+- Fixed error where `connect test` would fail if the `connect.config.js` file was missing

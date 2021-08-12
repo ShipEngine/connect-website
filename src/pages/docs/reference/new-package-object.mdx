@@ -3,44 +3,40 @@ title: New Package Object
 description: The page describes the New Package object.
 ---
 
-New Package Object
-===============================================
+# New Package Object
+
 The new package object describes the package information needed when creating a new shipment.
 
-
-Properties
------------------------------------------------
+## Properties
 
 This table lists the properties of a new package object and identifies those properties that are required. This object
 is passed as an argument to the [`createShipment`](./methods/create-shipment.mdx) method and is never returned from a method.
 Therefore, only the `nullable` column is listed below.
 
-
 <Reference>
 
-  <Field name="packaging" type="object" nullable={false}>
-    <Description>
-      The packaging used for this package.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="packaging.id" nullable={false}>
-    <Type>
-      [UUID](https://www.npmjs.com/package/uuid)
-    </Type>
-    <Description>
-      A UUID that uniquely identifies this packaging. This is the UUID you used in the [Packaging Definition](./packaging.mdx) file for this packaging..
-    </Description>
-  </Field>
+<Field name="packaging" type="object" nullable={false}>
+  <Description>The packaging used for this package.</Description>
+</Field>
 
-  <Field name="packaging.identifiers" nullable={false}>
-    <Description>
-      Your own identifiers for this packaging.
-    </Description>
-    <Type>
-      [identifiers object](./identifiers-object.mdx)
-    </Type>
-  </Field>
+{' '}
+
+<Field name="packaging.id" nullable={false}>
+  <Type>[UUID](https://www.npmjs.com/package/uuid)</Type>
+  <Description>
+    A UUID that uniquely identifies this packaging. This is the UUID you used in
+    the [Packaging Definition](./packaging.mdx) file for this packaging..
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="packaging.identifiers" nullable={false}>
+  <Description>Your own identifiers for this packaging.</Description>
+  <Type>[identifiers object](./identifiers-object.mdx)</Type>
+</Field>
 
   <Field name="packaging.code" type="string" nullable={false}>
     <Description>
@@ -48,89 +44,107 @@ Therefore, only the `nullable` column is listed below.
 
       The value `custom` indicates user-defined packaging. Some of our products allow users to enter custom packaging instead of one of your app's pre-defined packaging types.
     </Description>
+
   </Field>
 
-  <Field name="packaging.name" type="string" nullable={false}>
-    <Description>
-      The user-friendly name for this packaging (e.g. "Flat-Rate Box", "Large Padded Envelope"). This string will not contain newline characters.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="packaging.description" type="string" nullable={false}>
-    <Description>
-      A short, user-friendly description of the packaging. This string will not contain newline characters.
-    </Description>
-  </Field>
+<Field name="packaging.name" type="string" nullable={false}>
+  <Description>
+    The user-friendly name for this packaging (e.g. "Flat-Rate Box", "Large
+    Padded Envelope"). This string will not contain newline characters.
+  </Description>
+</Field>
 
-  <Field name="packaging.requiresWeight" type="boolean" nullable={false}>
-    <Description>
-      Indicates whether the weight must be specified when using this packaging.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="packaging.requiresDimensions" type="boolean" nullable={false}>
-    <Description>
-      Indicates whether the dimensions must be specified when using this packaging.
-    </Description>
-  </Field>
+<Field name="packaging.description" type="string" nullable={false}>
+  <Description>
+    A short, user-friendly description of the packaging. This string will not
+    contain newline characters.
+  </Description>
+</Field>
 
-  <Field name="insuredValue" type="object" nullable={false}>
-    <Description>
-      The insured value of this shipment.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="insuredValue.value" type="number" nullable={false}>
-    <Description>
-      The value of the insured amount.
-    </Description>
-  </Field>
+<Field name="packaging.requiresWeight" type="boolean" nullable={false}>
+  <Description>
+    Indicates whether the weight must be specified when using this packaging.
+  </Description>
+</Field>
 
-  <Field name="insuredValue.currency" type="string" nullable={false}>
-    <Description>
-      The currency that the value represents.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="containsAlcohol" type="boolean" nullable={false}>
-    <Description>
-      Indicates whether the package contains alcohol.
-    </Description>
-  </Field>
+<Field name="packaging.requiresDimensions" type="boolean" nullable={false}>
+  <Description>
+    Indicates whether the dimensions must be specified when using this
+    packaging.
+  </Description>
+</Field>
 
-  <Field name="isNonMachineable" type="boolean" nullable={false}>
-    <Description>
-      Indicates whether the package cannot be processed automatically due to size, shape, weight, etc. and requires manual handling.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="label" type="object" nullable={false}>
-    <Description>
-      An object representing the information required to create a new label.
-    </Description>
-  </Field>
+<Field name="insuredValue" type="object" nullable={false}>
+  <Description>The insured value of this shipment.</Description>
+</Field>
 
-  <Field name="label.format" type="string" nullable={false}>
-    <Description>
-      The preferred file format of the label. The carrier should return the label in this format, if possible.
-      Valid values include the following:
-      * `pdf` - Portable Document Format (PDF)
-      * `zpl` - Zebra Printer Label (ZPL)
-      * `png` - Portable Graphics Format (PNG)
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="label.size" type="string" nullable={false}>
-    <Description>
-      The preferred label size. The carrier should return the label in this size, if possible.
-      Valid values include the following:
-      * `A4`- A4 sized paper ( 8.27 inches x 11.69 inches)
-      * `A6` - A6 sized paper (4 1/8 inches x 5 7/8 inches)
-      * `letter` - Letter sized paper (8.5 inches by 11 inches)
-      * `4x6` - Paper sized 4 inches by 6 inches
-      * `4x8` - Paper sized 4 inches by 8 inches
-    </Description>
-  </Field>
+<Field name="insuredValue.value" type="number" nullable={false}>
+  <Description>The value of the insured amount.</Description>
+</Field>
+
+{' '}
+
+<Field name="insuredValue.currency" type="string" nullable={false}>
+  <Description>The currency that the value represents.</Description>
+</Field>
+
+{' '}
+
+<Field name="containsAlcohol" type="boolean" nullable={false}>
+  <Description>Indicates whether the package contains alcohol.</Description>
+</Field>
+
+{' '}
+
+<Field name="isNonMachineable" type="boolean" nullable={false}>
+  <Description>
+    Indicates whether the package cannot be processed automatically due to size,
+    shape, weight, etc. and requires manual handling.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="label" type="object" nullable={false}>
+  <Description>
+    An object representing the information required to create a new label.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="label.format" type="string" nullable={false}>
+  <Description>
+    The preferred file format of the label. The carrier should return the label
+    in this format, if possible. Valid values include the following: * `pdf` -
+    Portable Document Format (PDF) * `zpl` - Zebra Printer Label (ZPL) * `png` -
+    Portable Graphics Format (PNG)
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="label.size" type="string" nullable={false}>
+  <Description>
+    The preferred label size. The carrier should return the label in this size,
+    if possible. Valid values include the following: * `A4`- A4 sized paper (
+    8.27 inches x 11.69 inches) * `A6` - A6 sized paper (4 1/8 inches x 5 7/8
+    inches) * `letter` - Letter sized paper (8.5 inches by 11 inches) * `4x6` -
+    Paper sized 4 inches by 6 inches * `4x8` - Paper sized 4 inches by 8 inches
+  </Description>
+</Field>
 
   <Field name="label.referenceFields" type="string[]" nullable={false}>
     <Description>
@@ -150,37 +164,37 @@ Therefore, only the `nullable` column is listed below.
 
       Each string in this array will not contain newline characters.
     </Description>
+
   </Field>
 
-  <Field name="customs" nullable={false}>
-    <Type>
-      [customs object](./customs.mdx)
-    </Type>
-    <Description>
-      The customs associated with this package.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="contents" type="object" nullable={false}>
-    <Description>
-      Describes the items inside the package.
-    </Description>
-  </Field>
+<Field name="customs" nullable={false}>
+  <Type>[customs object](./customs.mdx)</Type>
+  <Description>The customs associated with this package.</Description>
+</Field>
 
-  <Field name="contents.sku" type="string" nullable={false}>
-    <Description>
-      The [Stock Keeping Unit](https://en.wikipedia.org/wiki/Stock_keeping_unit). This string will not contain newline characters.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="contents.identifiers" nullable={false}>
-    <Description>
-      Your own identifiers for this item.
-    </Description>
-    <Type>
-      [identifiers object](./identifiers-object.mdx)
-    </Type>
-  </Field>
+<Field name="contents" type="object" nullable={false}>
+  <Description>Describes the items inside the package.</Description>
+</Field>
+
+{' '}
+
+<Field name="contents.sku" type="string" nullable={false}>
+  <Description>
+    The [Stock Keeping Unit](https://en.wikipedia.org/wiki/Stock_keeping_unit).
+    This string will not contain newline characters.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="contents.identifiers" nullable={false}>
+  <Description>Your own identifiers for this item.</Description>
+  <Type>[identifiers object](./identifiers-object.mdx)</Type>
+</Field>
 
   <Field name="contents.salesOrder" type="object" nullable={true}>
     <Description>
@@ -188,22 +202,24 @@ Therefore, only the `nullable` column is listed below.
 
       This property may be null. If it is provided, all its required properties, listed below, will be included.
     </Description>
+
   </Field>
 
-  <Field name="contents.salesOrder.id" type="string" nullable={false}>
-    <Description>
-      The marketplace's unique ID for the sales order. This string will not contain newline characters.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="contents.salesOrder.identifiers" nullable={false}>
-    <Description>
-      Your own identifiers for this sales order.
-    </Description>
-    <Type>
-      [identifiers object](./identifiers-object.mdx)
-    </Type>
-  </Field>
+<Field name="contents.salesOrder.id" type="string" nullable={false}>
+  <Description>
+    The marketplace's unique ID for the sales order. This string will not
+    contain newline characters.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="contents.salesOrder.identifiers" nullable={false}>
+  <Description>Your own identifiers for this sales order.</Description>
+  <Type>[identifiers object](./identifiers-object.mdx)</Type>
+</Field>
 
   <Field name="contents.salesOrderItem" type="object" nullable={true}>
     <Description>
@@ -211,28 +227,33 @@ Therefore, only the `nullable` column is listed below.
 
       This property may be null. If it is provided, all its required properties, listed below, will be included.
     </Description>
+
   </Field>
 
-  <Field name="contents.salesOrderItem.id" type="string" nullable={false}>
-    <Description>
-      The marketplace's unique ID for the sales order item. This string will not contain newline characters.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="contents.salesOrderItem.sku" type="string" nullable={false}>
-    <Description>
-      The [Stock Keeping Unit](https://en.wikipedia.org/wiki/Stock_keeping_unit). This string will not contain newline characters.
-    </Description>
-  </Field>
+<Field name="contents.salesOrderItem.id" type="string" nullable={false}>
+  <Description>
+    The marketplace's unique ID for the sales order item. This string will not
+    contain newline characters.
+  </Description>
+</Field>
 
-  <Field name="contents.salesOrderItem.identifiers" nullable={false}>
-    <Description>
-      Your own identifiers for this sales order item.
-    </Description>
-    <Type>
-      [identifiers object](./identifiers-object.mdx)
-    </Type>
-  </Field>
+{' '}
+
+<Field name="contents.salesOrderItem.sku" type="string" nullable={false}>
+  <Description>
+    The [Stock Keeping Unit](https://en.wikipedia.org/wiki/Stock_keeping_unit).
+    This string will not contain newline characters.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="contents.salesOrderItem.identifiers" nullable={false}>
+  <Description>Your own identifiers for this sales order item.</Description>
+  <Type>[identifiers object](./identifiers-object.mdx)</Type>
+</Field>
 
   <Field name="contents.product" type="object" nullable={false}>
     <Description>
@@ -240,73 +261,94 @@ Therefore, only the `nullable` column is listed below.
 
       This property may be null. If it is provided, all its required properties, listed below, will be included.
     </Description>
+
   </Field>
 
-  <Field name="contents.product.id" type="string" nullable={false}>
-    <Description>
-      The product catalog's unique ID for the order. This string must not contain newline characters.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="contents.product.sku" type="string" nullable={false}>
-    <Description>
-      The [Stock Keeping Unit](https://en.wikipedia.org/wiki/Stock_keeping_unit). This must not contain newline characters.
-    </Description>
-  </Field>
+<Field name="contents.product.id" type="string" nullable={false}>
+  <Description>
+    The product catalog's unique ID for the order. This string must not contain
+    newline characters.
+  </Description>
+</Field>
 
-  <Field name="contents.product.upc" type="string" nullable={false}>
-    <Description>
-      The [Universal Product Code](https://en.wikipedia.org/wiki/Universal_Product_Code) for this item. This must not contain newline characters.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="contents.product.isbn" type="string" nullable={false}>
-    <Description>
-      The [International Standard Book Number](https://www.isbn-international.org/) for this item. This must not contain newline characters.
-    </Description>
-  </Field>
+<Field name="contents.product.sku" type="string" nullable={false}>
+  <Description>
+    The [Stock Keeping Unit](https://en.wikipedia.org/wiki/Stock_keeping_unit).
+    This must not contain newline characters.
+  </Description>
+</Field>
 
-  <Field name="contents.product.asin" type="string" nullable={false}>
-    <Description>
-      The [Amazon Standard Identification Number](https://www.amazon.com/gp/seller/asin-upc-isbn-info.html) for this item. This must not contain newline characters.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="contents.product.fulfillmentSku" type="string" nullable={false}>
-    <Description>
-      The [Stock Keeping Unit](https://en.wikipedia.org/wiki/Stock_keeping_unit) related to the fulfillment of this item. This must not contain newline characters.
-    </Description>
-  </Field>
+<Field name="contents.product.upc" type="string" nullable={false}>
+  <Description>
+    The [Universal Product
+    Code](https://en.wikipedia.org/wiki/Universal_Product_Code) for this item.
+    This must not contain newline characters.
+  </Description>
+</Field>
 
-  <Field name="contents.product.inventoryID" type="string" nullable={false}>
-    <Description>
-      The inventory ID for this item. This must not contain newline characters.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="contents.product.identifiers" nullable={false}>
-    <Description>
-      Your own identifiers for this product.
-    </Description>
-    <Type>
-      [identifiers object](./identifiers-object.mdx)
-    </Type>
-  </Field>
+<Field name="contents.product.isbn" type="string" nullable={false}>
+  <Description>
+    The [International Standard Book
+    Number](https://www.isbn-international.org/) for this item. This must not
+    contain newline characters.
+  </Description>
+</Field>
 
-  <Field name="contents.product.details" nullable={false}>
-    <Description>
-      A list of details associated with this product
-    </Description>
-    <Type>
-      [identifiers object](./identifiers-object.mdx)
-    </Type>
-  </Field>
+{' '}
 
-  <Field name="contents.quantity" type="object" nullable={true}>
-      <Description>
-        The quantity of this item in the package.
-      </Description>
-    </Field>
+<Field name="contents.product.asin" type="string" nullable={false}>
+  <Description>
+    The [Amazon Standard Identification
+    Number](https://www.amazon.com/gp/seller/asin-upc-isbn-info.html) for this
+    item. This must not contain newline characters.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="contents.product.fulfillmentSku" type="string" nullable={false}>
+  <Description>
+    The [Stock Keeping Unit](https://en.wikipedia.org/wiki/Stock_keeping_unit)
+    related to the fulfillment of this item. This must not contain newline
+    characters.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="contents.product.inventoryID" type="string" nullable={false}>
+  <Description>
+    The inventory ID for this item. This must not contain newline characters.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="contents.product.identifiers" nullable={false}>
+  <Description>Your own identifiers for this product.</Description>
+  <Type>[identifiers object](./identifiers-object.mdx)</Type>
+</Field>
+
+{' '}
+
+<Field name="contents.product.details" nullable={false}>
+  <Description>A list of details associated with this product</Description>
+  <Type>[identifiers object](./identifiers-object.mdx)</Type>
+</Field>
+
+{' '}
+
+<Field name="contents.quantity" type="object" nullable={true}>
+  <Description>The quantity of this item in the package.</Description>
+</Field>
 
     <Field name="contents.quantity.value" type="number" nullable={false}>
       <Description>

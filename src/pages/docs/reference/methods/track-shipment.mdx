@@ -3,17 +3,15 @@ title: trackShipment Method
 description: This method returns tracking information for a shipment.
 ---
 
+# `trackShipment()`
 
-`trackShipment()`
-===========================
 This method returns tracking information for a shipment, including each of the tracking events that have occurred for
 the shipment.
 
 Most carrier applications should implement this method, unless you don't support tracking shipments.
 
+## Syntax
 
-Syntax
------------------------------------------------
 <CodeWrapper>
 ```javascript
 module.exports = async function trackShipment(transaction, shipment) {
@@ -22,81 +20,95 @@ module.exports = async function trackShipment(transaction, shipment) {
 ```
 
 ```typescript
-import { Transaction, TrackingCriteria, TrackingInfo } from "@shipengine/connect";
+import {
+  Transaction,
+  TrackingCriteria,
+  TrackingInfo,
+} from '@shipengine/connect'
 
 export default async function trackShipment(
   transaction: Transaction,
-  shipment: TrackingCriteria
+  shipment: TrackingCriteria,
 ): Promise<TrackingInfo> {
   // Your code here
 }
 ```
+
 </CodeWrapper>
 
-
-
-Parameters
------------------------------------------------
+## Parameters
 
 ### `transaction`
+
 A [transaction object](../transaction.mdx) containing information about the transaction and session state.
 
 ### `shipment`
+
 An object containing information about which shipment to track.
 
 <Reference>
 
-  <Field name="trackingNumber" type="string" nullable={false}>
-    <Description>
-      The master tracking number for the entire shipment. For single-piece shipments, this will be the same as the package
-      tracking number. For multi-piece shipments, this may be a separate tracking number,
-      or the same tracking number as one of the packages. This string will not contain newline characters.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="identifiers" nullable={false}>
-    <Description>
-      Your own identifiers for this shipment.
-    </Description>
-   <Type>
-      [identifiers object](./../identifiers-object.mdx)
-    </Type>
-  </Field>
+<Field name="trackingNumber" type="string" nullable={false}>
+  <Description>
+    The master tracking number for the entire shipment. For single-piece
+    shipments, this will be the same as the package tracking number. For
+    multi-piece shipments, this may be a separate tracking number, or the same
+    tracking number as one of the packages. This string will not contain newline
+    characters.
+  </Description>
+</Field>
 
-  <Field name="returns" type="object" nullable={false}>
-    <Description>
-      An object that indicates whether or not this shipment is a return shipment.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="returns.isReturn" type="boolean" nullable={false}>
-    <Description>
-      Indicates whether or not this shipment is a return shipment.
-    </Description>
-  </Field>
+<Field name="identifiers" nullable={false}>
+  <Description>Your own identifiers for this shipment.</Description>
+  <Type>[identifiers object](./../identifiers-object.mdx)</Type>
+</Field>
 
-  <Field name="metadata" type="object" nullable={false}>
-    <Description>
-      Custom data about this shipment that was persisted by ShipEngine Connect. Must be JSON serializable.
-    </Description>
-  </Field>
+{' '}
+
+<Field name="returns" type="object" nullable={false}>
+  <Description>
+    An object that indicates whether or not this shipment is a return shipment.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="returns.isReturn" type="boolean" nullable={false}>
+  <Description>
+    Indicates whether or not this shipment is a return shipment.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="metadata" type="object" nullable={false}>
+  <Description>
+    Custom data about this shipment that was persisted by ShipEngine Connect.
+    Must be JSON serializable.
+  </Description>
+</Field>
 
 </Reference>
 
+## Return Value
 
-
-Return Value
------------------------------------------------
 ### `trackingInfo`
+
 An object with tracking information for the specified shipment.
 
 <Reference>
 
-  <Field name="events" type="object[]" required={true}>
-      <Description>
-        The events and status changes that have occurred for this shipment.
-      </Description>
-    </Field>
+{' '}
+
+<Field name="events" type="object[]" required={true}>
+  <Description>
+    The events and status changes that have occurred for this shipment.
+  </Description>
+</Field>
 
     <Field name="events[].name" type="string" required={false}>
       <Description>
@@ -201,35 +213,40 @@ An object with tracking information for the specified shipment.
       </Description>
     </Field>
 
-  <Field name="trackingNumber" type="string" required={false}>
-    <Description>
-      The master tracking number for the entire shipment. For single-piece shipments, this will be the same as the package
-      tracking number. For multi-piece shipments, this may be a separate tracking number,
-      or the same tracking number as one of the packages. This string contain
-      no newline characters.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="identifiers" required={false}>
-    <Description>
-      Your own identifiers for this shipment.
-    </Description>
-    <Type>
-      [identifiers object](./../identifiers-object.mdx)
-    </Type>
-  </Field>
+<Field name="trackingNumber" type="string" required={false}>
+  <Description>
+    The master tracking number for the entire shipment. For single-piece
+    shipments, this will be the same as the package tracking number. For
+    multi-piece shipments, this may be a separate tracking number, or the same
+    tracking number as one of the packages. This string contain no newline
+    characters.
+  </Description>
+</Field>
 
-  <Field name="deliveryDateTime" required={false}>
-    <Type>
-      [date/time object](./../date-time.mdx), <br/>
-      or [Date object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) object, <br/>
-      or a string representing the date and time in [ISO](https://www.w3.org/TR/NOTE-datetime) format.
-    </Type>
-    <Description>
-      The date and time that the shipment is now expected to be delivered. Once the shipment has been delivered, this is
-      the actual delivery date/time.
-    </Description>
-  </Field>
+{' '}
+
+<Field name="identifiers" required={false}>
+  <Description>Your own identifiers for this shipment.</Description>
+  <Type>[identifiers object](./../identifiers-object.mdx)</Type>
+</Field>
+
+{' '}
+
+<Field name="deliveryDateTime" required={false}>
+  <Type>
+    [date/time object](./../date-time.mdx), <br />
+    or [Date object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)
+    object, <br />
+    or a string representing the date and time in
+    [ISO](https://www.w3.org/TR/NOTE-datetime) format.
+  </Type>
+  <Description>
+    The date and time that the shipment is now expected to be delivered. Once
+    the shipment has been delivered, this is the actual delivery date/time.
+  </Description>
+</Field>
 
   <Field name="packages" type="object[]" required={false}>
     <Description>
@@ -237,36 +254,36 @@ An object with tracking information for the specified shipment.
 
       This property is not required. If it is provided, it must contain all of its required properties, listed below.
     </Description>
+
   </Field>
 
-  <Field name="packages[].packaging" required={false}>
-    <Type>
-      object or string
-    </Type>
-    <Description>
-      The actual packaging that was used, as determined by the carrier. This property accepts an object or a string
-      representing the `code`. If an object is provided, it will have the following properties.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="packages[].packaging.id" required={true}>
-    <Type>
-      [UUID](https://www.npmjs.com/package/uuid)
-    </Type>
-    <Description>
-      UUID that uniquely identifies the object. This is the UUID you used in the [Packaging Definition](./../packaging.mdx)
-      file for this packaging.
-    </Description>
-  </Field>
+<Field name="packages[].packaging" required={false}>
+  <Type>object or string</Type>
+  <Description>
+    The actual packaging that was used, as determined by the carrier. This
+    property accepts an object or a string representing the `code`. If an object
+    is provided, it will have the following properties.
+  </Description>
+</Field>
 
-  <Field name="packages[].packaging.identifiers" required={false}>
-    <Description>
-      Your own identifiers for this packaging.
-    </Description>
-    <Type>
-      [identifiers object](./../identifiers-object.mdx)
-    </Type>
-  </Field>
+{' '}
+
+<Field name="packages[].packaging.id" required={true}>
+  <Type>[UUID](https://www.npmjs.com/package/uuid)</Type>
+  <Description>
+    UUID that uniquely identifies the object. This is the UUID you used in the
+    [Packaging Definition](./../packaging.mdx) file for this packaging.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="packages[].packaging.identifiers" required={false}>
+  <Description>Your own identifiers for this packaging.</Description>
+  <Type>[identifiers object](./../identifiers-object.mdx)</Type>
+</Field>
 
   <Field name="packages[].packaging.code" type="string" required={false}>
     <Description>
@@ -274,6 +291,7 @@ An object with tracking information for the specified shipment.
 
       The value `custom` indicates user-defined packaging. Some of our products allow users to enter custom packaging instead of one of your app's pre-defined packaging types.
     </Description>
+
   </Field>
 
   <Field name="packages[].dimensions" type="object" required={false}>
@@ -282,33 +300,41 @@ An object with tracking information for the specified shipment.
 
       This property is not required. If it is provided, it must contain all of its required properties, listed below.
     </Description>
+
   </Field>
 
-  <Field name="packages[].dimensions.length" type="number" required={true}>
-    <Description>
-      The length of the package. This value may contain decimals.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="packages[].dimensions.width" type="number" required={true}>
-    <Description>
-      The width of the package. This value may contain decimals.
-    </Description>
-  </Field>
+<Field name="packages[].dimensions.length" type="number" required={true}>
+  <Description>
+    The length of the package. This value may contain decimals.
+  </Description>
+</Field>
 
-  <Field name="packages[].dimensions.height" type="number" required={true}>
-    <Description>
-      The height of the package. This value may contain decimals.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="packages[].dimensions.unit" type="string" required={true}>
-    <Description>
-      The unit of measurement for the dimensions. Valid values include the following:
-      * `in` - inches
-      * `cm` - centimeters
-    </Description>
-  </Field>
+<Field name="packages[].dimensions.width" type="number" required={true}>
+  <Description>
+    The width of the package. This value may contain decimals.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="packages[].dimensions.height" type="number" required={true}>
+  <Description>
+    The height of the package. This value may contain decimals.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="packages[].dimensions.unit" type="string" required={true}>
+  <Description>
+    The unit of measurement for the dimensions. Valid values include the
+    following: * `in` - inches * `cm` - centimeters
+  </Description>
+</Field>
 
   <Field name="packages[].weight" type="object" required={false}>
     <Description>
@@ -316,23 +342,25 @@ An object with tracking information for the specified shipment.
 
       This property is not required. If it is provided, it must contain all of its required properties, listed below.
     </Description>
+
   </Field>
 
-  <Field name="packages[].weight.value" type="number" required={true}>
-    <Description>
-      The weight value for this package. This value may not contain decimals.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="packages[].weight.unit" type="string" required={true}>
-    <Description>
-      The unit of measure for this weight. Valid values include the following:
-      * `g` - grams
-      * `oz` - ounces
-      * `kg` - kilograms
-      * `lb` - pounds
-    </Description>
-  </Field>
+<Field name="packages[].weight.value" type="number" required={true}>
+  <Description>
+    The weight value for this package. This value may not contain decimals.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="packages[].weight.unit" type="string" required={true}>
+  <Description>
+    The unit of measure for this weight. Valid values include the following: *
+    `g` - grams * `oz` - ounces * `kg` - kilograms * `lb` - pounds
+  </Description>
+</Field>
 
   <Field name="notes" type="object[]" required={false}>
     <Description>
@@ -340,53 +368,50 @@ An object with tracking information for the specified shipment.
 
       This property is not required. If it is provided, it must contain all of its required properties, listed below.
     </Description>
+
   </Field>
 
-  <Field name="notes[].type" required={true}>
-    <Type>
-      [notes type string](./../common-types.mdx#notes-types)
-    </Type>
-    <Description>
-      The type for this note.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="notes[].text" type="string" required={true}>
-    <Description>
-      The note text itself.
-    </Description>
-  </Field>
+<Field name="notes[].type" required={true}>
+  <Type>[notes type string](./../common-types.mdx#notes-types)</Type>
+  <Description>The type for this note.</Description>
+</Field>
+
+{' '}
+
+<Field name="notes[].text" type="string" required={true}>
+  <Description>The note text itself.</Description>
+</Field>
 
 </Reference>
 
+## Example
 
-
-Example
------------------------------------------------
 <CodeWrapper>
 ```javascript
 module.exports = async function trackShipment(transaction, trackingCriteria) {
   // STEP 1: Validation
 
+// STEP 2: Create the data that the carrier"s API expects
 
-  // STEP 2: Create the data that the carrier"s API expects
+const { trackingNumber, returns } = trackingCriteria;
 
-  const { trackingNumber, returns } = trackingCriteria;
+const data = {
+operation: "location_history",
+trackingNumber,
+isReturn: returns.isReturn
+};
 
-  const data = {
-    operation: "location_history",
-    trackingNumber,
-    isReturn: returns.isReturn
-  };
+// STEP 3: Call the carrier"s API
+const response = await apiClient.request({ data });
 
-  // STEP 3: Call the carrier"s API
-  const response = await apiClient.request({ data });
-
-  // STEP 4: Create the output data that ShipEngine expects
-  return await formatTrackingResponse(response.data);
+// STEP 4: Create the output data that ShipEngine expects
+return await formatTrackingResponse(response.data);
 
 }
-```
+
+````
 
 ```typescript
 import {
@@ -416,5 +441,6 @@ export default async function trackShipment(
   // STEP 4: Create the output data that ShipEngine expects
   return await formatTrackingResponse(response.data);
 }
-```
+````
+
 </CodeWrapper>

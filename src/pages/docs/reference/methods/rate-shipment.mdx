@@ -3,16 +3,14 @@ title: rateShipment Method
 description: This method calculates the shipping costs for a shipment, or multiple permutations of a shipment, to allow your customers to select the best rate.
 ---
 
+# `rateShipment()`
 
-`rateShipment()`
-===========================
 This method calculates the shipping costs for a shipment, or multiple permutations of a shipment, to allow your customers to select the best rate.
 
 Most carrier apps should implement this method, unless you don't support rating shipments.
 
+## Syntax
 
-Syntax
------------------------------------------------
 <CodeWrapper>
 ```javascript
 module.exports = async function rateShipment(transaction, criteria) {
@@ -21,26 +19,26 @@ module.exports = async function rateShipment(transaction, criteria) {
 ```
 
 ```typescript
-import { Transaction, RateCriteria, Rate } from "@shipengine/connect";
+import { Transaction, RateCriteria, Rate } from '@shipengine/connect'
 
 export default async function rateShipment(
   transaction: Transaction,
-  criteria: RateCriteria
+  criteria: RateCriteria,
 ): Promise<Rate[]> {
   // Your code here
 }
 ```
+
 </CodeWrapper>
 
-
-
-Parameters
------------------------------------------------
+## Parameters
 
 ### `transaction`
+
 A [transaction object](../transaction.mdx) containing information about the transaction and session state.
 
 ### `criteria`
+
 An _array_ of objects containing information used to calculate shipping charges. This object may include a `deliveryService` and/or a `fulfillmentService`.
 
 If these are provided, your method should only return rates that
@@ -55,52 +53,60 @@ match all the required criteria. If none of these are provided, your method shou
     <Description>
       The date/time that the shipment is expected to ship. This is not guaranteed to be in the future.
     </Description>
+
   </Field>
 
-  <Field name="shipFrom" nullable={false}>
-    <Type>
-      [address + contact Info object](./../address.mdx#address-contact-info-properties)
-    </Type>
-    <Description>
-      The sender's contact info and address.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="shipTo" nullable={false}>
-    <Type>
-      [address + contact info object](./../address.mdx#address-contact-info-properties)
-    </Type>
-    <Description>
-      The recipient's contact info and address.
-    </Description>
-  </Field>
+<Field name="shipFrom" nullable={false}>
+  <Type>
+    [address + contact Info
+    object](./../address.mdx#address-contact-info-properties)
+  </Type>
+  <Description>The sender's contact info and address.</Description>
+</Field>
 
-  <Field name="pickupLocation" nullable={true}>
-    <Type>
-      [address + contact info + pickup location object](./../address.mdx#address-contact-info-pickup-location-properties)
-    </Type>
-    <Description>
-      The location where the recipient can pick up the shipment.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="returns" type="object" nullable={false}>
-    <Description>
-      An object that indicates whether or not this shipment is a return shipment.
-    </Description>
-  </Field>
+<Field name="shipTo" nullable={false}>
+  <Type>
+    [address + contact info
+    object](./../address.mdx#address-contact-info-properties)
+  </Type>
+  <Description>The recipient's contact info and address.</Description>
+</Field>
 
-  <Field name="returns.isReturn" type="boolean" nullable={false}>
-    <Description>
-      Indicates whether or not this shipment is a return shipment.
-    </Description>
-  </Field>
+{' '}
+
+<Field name="pickupLocation" nullable={true}>
+  <Type>
+    [address + contact info + pickup location
+    object](./../address.mdx#address-contact-info-pickup-location-properties)
+  </Type>
+  <Description>
+    The location where the recipient can pick up the shipment.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="returns" type="object" nullable={false}>
+  <Description>
+    An object that indicates whether or not this shipment is a return shipment.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="returns.isReturn" type="boolean" nullable={false}>
+  <Description>
+    Indicates whether or not this shipment is a return shipment.
+  </Description>
+</Field>
 
 <Field name="packages" type="object[]" nullable={false}>
-    <Description>
-      The list of packages in the shipment.
-    </Description>
-  </Field>
+  <Description>The list of packages in the shipment.</Description>
+</Field>
 
   <Field name="packages[].packaging" type="object" nullable={true}>
     <Description>
@@ -108,25 +114,25 @@ match all the required criteria. If none of these are provided, your method shou
 
       This property may be null. If it is provided, all its required properties, listed below, will be included.
     </Description>
+
   </Field>
 
-  <Field name="packages[].packaging.id" nullable={false}>
-    <Type>
-      [UUID](https://www.npmjs.com/package/uuid)
-    </Type>
-    <Description>
-      A UUID that uniquely identifies the object. This is the UUID you used in the [Packaging Definition](./../packaging.mdx) file for this packaging.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="packages[].packaging.identifiers" nullable={false}>
-    <Description>
-      Your own identifiers for this packaging.
-    </Description>
-    <Type>
-      [identifiers object](./../identifiers-object.mdx)
-    </Type>
-  </Field>
+<Field name="packages[].packaging.id" nullable={false}>
+  <Type>[UUID](https://www.npmjs.com/package/uuid)</Type>
+  <Description>
+    A UUID that uniquely identifies the object. This is the UUID you used in the
+    [Packaging Definition](./../packaging.mdx) file for this packaging.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="packages[].packaging.identifiers" nullable={false}>
+  <Description>Your own identifiers for this packaging.</Description>
+  <Type>[identifiers object](./../identifiers-object.mdx)</Type>
+</Field>
 
   <Field name="packages[].packaging.code" type="string" nullable={false}>
     <Description>
@@ -134,31 +140,51 @@ match all the required criteria. If none of these are provided, your method shou
 
       The value `custom` indicates user-defined packaging. Some of our products allow users to enter custom packaging instead of one of your app's pre-defined packaging types.
     </Description>
+
   </Field>
 
-  <Field name="packages[].packaging.name" type="string" nullable={false}>
-    <Description>
-      The user-friendly name for this packaging (e.g. "Flat-Rate Box", "Large Padded Envelope"). This string will not contain newline characters.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="packages[].packaging.description" type="string" nullable={false}>
-    <Description>
-      A short, user-friendly description of the packaging. This string will not contain newline characters.
-    </Description>
-  </Field>
+<Field name="packages[].packaging.name" type="string" nullable={false}>
+  <Description>
+    The user-friendly name for this packaging (e.g. "Flat-Rate Box", "Large
+    Padded Envelope"). This string will not contain newline characters.
+  </Description>
+</Field>
 
-  <Field name="packages[].packaging.requiresWeight" type="boolean" nullable={false}>
-    <Description>
-      Indicates whether the weight must be specified when using this packaging.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="packages[].packaging.requiresDimensions" type="boolean" nullable={false}>
-    <Description>
-      Indicates whether the dimensions must be specified when using this packaging.
-    </Description>
-  </Field>
+<Field name="packages[].packaging.description" type="string" nullable={false}>
+  <Description>
+    A short, user-friendly description of the packaging. This string will not
+    contain newline characters.
+  </Description>
+</Field>
+
+{' '}
+
+<Field
+  name="packages[].packaging.requiresWeight"
+  type="boolean"
+  nullable={false}
+>
+  <Description>
+    Indicates whether the weight must be specified when using this packaging.
+  </Description>
+</Field>
+
+{' '}
+
+<Field
+  name="packages[].packaging.requiresDimensions"
+  type="boolean"
+  nullable={false}
+>
+  <Description>
+    Indicates whether the dimensions must be specified when using this
+    packaging.
+  </Description>
+</Field>
 
   <Field name="packages[].dimensions" type="object" nullable={true}>
     <Description>
@@ -166,19 +192,24 @@ match all the required criteria. If none of these are provided, your method shou
 
       This property may be null. If it is provided, all its required properties, listed below, will be included.
     </Description>
+
   </Field>
 
-  <Field name="packages[].dimensions.length" type="number" nullable={false}>
-    <Description>
-      The length of the package. This value may contain decimals.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="packages[].dimensions.width" type="number" nullable={false}>
-    <Description>
-      The width of the package. This value may contain decimals.
-    </Description>
-  </Field>
+<Field name="packages[].dimensions.length" type="number" nullable={false}>
+  <Description>
+    The length of the package. This value may contain decimals.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="packages[].dimensions.width" type="number" nullable={false}>
+  <Description>
+    The width of the package. This value may contain decimals.
+  </Description>
+</Field>
 
   <Field name="packages[].dimensions.height" type="number" nullable={false}>
     <Description>
@@ -186,15 +217,17 @@ match all the required criteria. If none of these are provided, your method shou
 
       This property may be null. If it is provided, all its required properties, listed below, will be included.
     </Description>
+
   </Field>
 
-  <Field name="packages[].dimensions.unit" type="string" nullable={false}>
-    <Description>
-      The unit of measurement for the dimensions. Valid values include the following:
-      * `in` - inches
-      * `cm` - centimeters
-    </Description>
-  </Field>
+{' '}
+
+<Field name="packages[].dimensions.unit" type="string" nullable={false}>
+  <Description>
+    The unit of measurement for the dimensions. Valid values include the
+    following: * `in` - inches * `cm` - centimeters
+  </Description>
+</Field>
 
   <Field name="packages[].weight" type="object" nullable={true}>
     <Description>
@@ -202,23 +235,25 @@ match all the required criteria. If none of these are provided, your method shou
 
       This property may be null. If it is provided, all its required properties, listed below, will be included.
     </Description>
+
   </Field>
 
-  <Field name="packages[].weight.value" type="number" nullable={false}>
-    <Description>
-      The weight value for this package. This value may contain decimals.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="packages[].weight.unit" type="string" nullable={false}>
-    <Description>
-      The unit of measure for this weight. Valid values include the following:
-      * `g` - grams
-      * `oz` - ounces
-      * `kg` - kilograms
-      * `lb` - pounds
-    </Description>
-  </Field>
+<Field name="packages[].weight.value" type="number" nullable={false}>
+  <Description>
+    The weight value for this package. This value may contain decimals.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="packages[].weight.unit" type="string" nullable={false}>
+  <Description>
+    The unit of measure for this weight. Valid values include the following: *
+    `g` - grams * `oz` - ounces * `kg` - kilograms * `lb` - pounds
+  </Description>
+</Field>
 
   <Field name="packages[].insuredValue" type="object" nullable={true}>
     <Description>
@@ -226,31 +261,35 @@ match all the required criteria. If none of these are provided, your method shou
 
       This property may be null. If it is provided, all its required properties, listed below, will be included.
     </Description>
+
   </Field>
 
-  <Field name="packages[].insuredValue.value" type="number" nullable={false}>
-    <Description>
-      The value of the insured amount.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="packages[].insuredValue.currency" type="string" nullable={false}>
-    <Description>
-      The currency that the value represents.
-    </Description>
-  </Field>
+<Field name="packages[].insuredValue.value" type="number" nullable={false}>
+  <Description>The value of the insured amount.</Description>
+</Field>
 
-  <Field name="packages[].containsAlcohol" type="boolean" nullable={false}>
-    <Description>
-      Indicates whether the package contains alcohol.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="packages[].isNonMachineable" type="boolean" nullable={false}>
-    <Description>
-      Indicates whether the package cannot be processed automatically due to size, shape, weight, etc. and requires manual handling.
-    </Description>
-  </Field>
+<Field name="packages[].insuredValue.currency" type="string" nullable={false}>
+  <Description>The currency that the value represents.</Description>
+</Field>
+
+{' '}
+
+<Field name="packages[].containsAlcohol" type="boolean" nullable={false}>
+  <Description>Indicates whether the package contains alcohol.</Description>
+</Field>
+
+{' '}
+
+<Field name="packages[].isNonMachineable" type="boolean" nullable={false}>
+  <Description>
+    Indicates whether the package cannot be processed automatically due to size,
+    shape, weight, etc. and requires manual handling.
+  </Description>
+</Field>
 
   <Field name="packages[].customs" nullable={true}>
     <Type>
@@ -261,48 +300,60 @@ match all the required criteria. If none of these are provided, your method shou
 
       This property may be null. If it is provided, all its required properties, listed in the linked page, will be included.
     </Description>
+
   </Field>
 
-  <Field name="package" type="object" nullable={false}>
-    <Description>
-      Returns the first package in the `packages` array. Useful for carriers that only support single-piece shipments. This object has all the same properties as the objects in the `packages` array described above.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="deliveryService" nullable={true}>
-    <Type>
-      [delivery service object](../delivery-service-object.mdx#delivery-service-argument)
-    </Type>
-    <Description>
-      An object that indicates the [delivery service](../delivery-service.mdx) to get rates for. If neither `deliveryService` nor `fulfillmentService` are specified, then rate quotes should be returned for all applicable services.
-    </Description>
-  </Field>
+<Field name="package" type="object" nullable={false}>
+  <Description>
+    Returns the first package in the `packages` array. Useful for carriers that
+    only support single-piece shipments. This object has all the same properties
+    as the objects in the `packages` array described above.
+  </Description>
+</Field>
 
-  <Field name="fulfillmentService" nullable={true}>
-    <Type>
-      [fulfillment service string](./../fulfillment-service.mdx)
-    </Type>
-    <Description>
-      The [fulfillment service](./../fulfillment-service.mdx) that may be used to fulfill the shipment. If neither `deliveryService` nor `fulfillmentService` are specified, then rate quotes should be returned for all applicable services.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="deliveryConfirmation" nullable={true}>
-    <Type>
-      [delivery confirmation object](./../delivery-confirmation.mdx)
-    </Type>
-    <Description>
-      The type of package [delivery confirmation](./../delivery-confirmation.mdx) to use for this rate request.
-    </Description>
-  </Field>
-  <Field name="deliveryDateTime" nullable={true}>
-    <Type>
-      [date/time object](./../date-time.mdx)
-    </Type>
-    <Description>
-      The latest date and time that the shipment can be delivered.
-    </Description>
-  </Field>
+<Field name="deliveryService" nullable={true}>
+  <Type>
+    [delivery service
+    object](../delivery-service-object.mdx#delivery-service-argument)
+  </Type>
+  <Description>
+    An object that indicates the [delivery service](../delivery-service.mdx) to
+    get rates for. If neither `deliveryService` nor `fulfillmentService` are
+    specified, then rate quotes should be returned for all applicable services.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="fulfillmentService" nullable={true}>
+  <Type>[fulfillment service string](./../fulfillment-service.mdx)</Type>
+  <Description>
+    The [fulfillment service](./../fulfillment-service.mdx) that may be used to
+    fulfill the shipment. If neither `deliveryService` nor `fulfillmentService`
+    are specified, then rate quotes should be returned for all applicable
+    services.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="deliveryConfirmation" nullable={true}>
+  <Type>[delivery confirmation object](./../delivery-confirmation.mdx)</Type>
+  <Description>
+    The type of package [delivery confirmation](./../delivery-confirmation.mdx)
+    to use for this rate request.
+  </Description>
+</Field>
+<Field name="deliveryDateTime" nullable={true}>
+  <Type>[date/time object](./../date-time.mdx)</Type>
+  <Description>
+    The latest date and time that the shipment can be delivered.
+  </Description>
+</Field>
 
    <Field name="totalInsuredValue" type="object" nullable={true}>
      <Description>
@@ -310,19 +361,20 @@ match all the required criteria. If none of these are provided, your method shou
 
        This property may be null. If it is provided, all its required properties, listed below, will be included.
      </Description>
+
    </Field>
 
-   <Field name="totalInsuredValue.currency" type="string" nullable={false}>
-      <Description>
-        The currency for this value.
-      </Description>
-    </Field>
+{' '}
 
-  <Field name="totalInsuredValue.value" type="number" nullable={false}>
-    <Description>
-      The amount of this value.
-    </Description>
-  </Field>
+<Field name="totalInsuredValue.currency" type="string" nullable={false}>
+  <Description>The currency for this value.</Description>
+</Field>
+
+{' '}
+
+<Field name="totalInsuredValue.value" type="number" nullable={false}>
+  <Description>The amount of this value.</Description>
+</Field>
 
   <Field name="shippingOptions" nullable={true}>
     <Type>
@@ -334,11 +386,10 @@ match all the required criteria. If none of these are provided, your method shou
   </Field>
 </Reference>
 
+## Return Value
 
-
-Return Value
------------------------------------------------
 ### `rates[]`
+
 An array of objects representing the quoted shipping rates based on the specified rate criteria.
 
 <Reference>
@@ -353,74 +404,92 @@ An array of objects representing the quoted shipping rates based on the specifie
 
       If an object is provided, it must have the following properties.
     </Description>
+
   </Field>
 
-  <Field name="deliveryService.id" required={true}>
-    <Type>
-      [UUID](https://www.npmjs.com/package/uuid)
-    </Type>
-    <Description>
-      A UUID that uniquely identifies the object. This is the UUID you used in the [Delivery Service Definition](./../delivery-service.mdx) file for this delivery service.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="deliveryService.identifiers"  required={false}>
-    <Description>
-      Your own identifiers for this delivery service.
-    </Description>
-    <Type>
-      [identifiers object](./../identifiers-object.mdx)
-    </Type>
-  </Field>
+<Field name="deliveryService.id" required={true}>
+  <Type>[UUID](https://www.npmjs.com/package/uuid)</Type>
+  <Description>
+    A UUID that uniquely identifies the object. This is the UUID you used in the
+    [Delivery Service Definition](./../delivery-service.mdx) file for this
+    delivery service.
+  </Description>
+</Field>
 
-  <Field name="deliveryService.code" type="string" required={false}>
-    <Description>
-      Optional code used to map to what the carrier or marketplace uses to identify the delivery service.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="charges" required={true}>
-    <Type>
-      [charge object[]](./../charge.mdx)
-    </Type>
-    <Description>
-      The breakdown of charges for this shipment.  If the carrier does not provide a detailed breakdown, then just use a single charge of type "shipping". If the carrier does not provide any charges values at all, return a $0 value charge.
-    </Description>
-  </Field>
+<Field name="deliveryService.identifiers" required={false}>
+  <Description>Your own identifiers for this delivery service.</Description>
+  <Type>[identifiers object](./../identifiers-object.mdx)</Type>
+</Field>
 
-  <Field name="shipDateTime" required={false}>
-   <Type>
-     [date/time object](./../date-time.mdx), <br/>
-     or [Date object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) object, <br/>
-     or a string representing the date and time in [ISO](https://www.w3.org/TR/NOTE-datetime) format.
-   </Type>
-    <Description>
-      The date/time that the shipment is expected to ship.  This is not guaranteed to be in the future.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="deliveryDateTime" required={false}>
-   <Type>
-     [date/time object](./../date-time.mdx), <br/>
-     or [Date object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) object, <br/>
-     or a string representing the date and time in [ISO](https://www.w3.org/TR/NOTE-datetime) format.
-   </Type>
-    <Description>
-      The estimated date and time the shipment will be delivered.
-    </Description>
-  </Field>
+<Field name="deliveryService.code" type="string" required={false}>
+  <Description>
+    Optional code used to map to what the carrier or marketplace uses to
+    identify the delivery service.
+  </Description>
+</Field>
 
-  <Field name="isNegotiatedRate" type="boolean" required={false}>
-    <Description>
-      Indicates whether this shipment used a pre-negotiated terms.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="isTrackable" type="boolean" required={false}>
-    <Description>
-      Indicates whether tracking numbers are provided.
-    </Description>
-  </Field>
+<Field name="charges" required={true}>
+  <Type>[charge object[]](./../charge.mdx)</Type>
+  <Description>
+    The breakdown of charges for this shipment. If the carrier does not provide
+    a detailed breakdown, then just use a single charge of type "shipping". If
+    the carrier does not provide any charges values at all, return a $0 value
+    charge.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="shipDateTime" required={false}>
+  <Type>
+    [date/time object](./../date-time.mdx), <br />
+    or [Date object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)
+    object, <br />
+    or a string representing the date and time in
+    [ISO](https://www.w3.org/TR/NOTE-datetime) format.
+  </Type>
+  <Description>
+    The date/time that the shipment is expected to ship. This is not guaranteed
+    to be in the future.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="deliveryDateTime" required={false}>
+  <Type>
+    [date/time object](./../date-time.mdx), <br />
+    or [Date object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)
+    object, <br />
+    or a string representing the date and time in
+    [ISO](https://www.w3.org/TR/NOTE-datetime) format.
+  </Type>
+  <Description>
+    The estimated date and time the shipment will be delivered.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="isNegotiatedRate" type="boolean" required={false}>
+  <Description>
+    Indicates whether this shipment used a pre-negotiated terms.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="isTrackable" type="boolean" required={false}>
+  <Description>Indicates whether tracking numbers are provided.</Description>
+</Field>
 
    <Field name="deliveryConfirmation" required={false}>
      <Type>
@@ -431,32 +500,36 @@ An array of objects representing the quoted shipping rates based on the specifie
 
        If an object is provided, it must have the following properties.
      </Description>
+
    </Field>
 
-   <Field name="deliveryConfirmation.id" required={true}>
-     <Type>
-       [UUID](https://www.npmjs.com/package/uuid)
-     </Type>
-     <Description>
-       UUID that uniquely identifies the delivery confirmation. This ID should never change.
-     </Description>
-   </Field>
+{' '}
 
-   <Field name="deliveryConfirmation.identifiers" required={false}>
-     <Description>
-       Your own identifiers for this delivery confirmation.
-     </Description>
-   <Type>
-     [identifiers object](./../identifiers-object.mdx)
-   </Type>
-   </Field>
+<Field name="deliveryConfirmation.id" required={true}>
+  <Type>[UUID](https://www.npmjs.com/package/uuid)</Type>
+  <Description>
+    UUID that uniquely identifies the delivery confirmation. This ID should
+    never change.
+  </Description>
+</Field>
 
-   <Field name="deliveryConfirmation.code" type="string" required={false}>
-     <Description>
-       Optional code used to map to what the carrier or marketplace uses to identify the packaging.
-     </Description>
-   </Field>
+{' '}
 
+<Field name="deliveryConfirmation.identifiers" required={false}>
+  <Description>
+    Your own identifiers for this delivery confirmation.
+  </Description>
+  <Type>[identifiers object](./../identifiers-object.mdx)</Type>
+</Field>
+
+{' '}
+
+<Field name="deliveryConfirmation.code" type="string" required={false}>
+  <Description>
+    Optional code used to map to what the carrier or marketplace uses to
+    identify the packaging.
+  </Description>
+</Field>
 
   <Field name="notes" type="object[]" required={false}>
     <Description>
@@ -464,28 +537,29 @@ An array of objects representing the quoted shipping rates based on the specifie
 
       This property is not required. If it is provided, it must contain all of its required properties, listed below.
     </Description>
+
   </Field>
 
-  <Field name="notes[].type" required={true}>
-    <Type>
-      [notes type string](./../common-types.mdx#notes-types)
-    </Type>
-    <Description>
-      The type for this note.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="notes[].text" type="string" required={true}>
-    <Description>
-      The note text itself.
-    </Description>
-  </Field>
+<Field name="notes[].type" required={true}>
+  <Type>[notes type string](./../common-types.mdx#notes-types)</Type>
+  <Description>The type for this note.</Description>
+</Field>
 
-  <Field name="packages" type="object[]" required={false}>
-    <Description>
-      An array of objects describing the list of packages in the shipment.
-    </Description>
-  </Field>
+{' '}
+
+<Field name="notes[].text" type="string" required={true}>
+  <Description>The note text itself.</Description>
+</Field>
+
+{' '}
+
+<Field name="packages" type="object[]" required={false}>
+  <Description>
+    An array of objects describing the list of packages in the shipment.
+  </Description>
+</Field>
 
   <Field name="packages[].packaging" required={true}>
     <Type>
@@ -496,25 +570,25 @@ An array of objects representing the quoted shipping rates based on the specifie
 
       This property is not required. If it is provided, it must contain all of its required properties, listed below.
     </Description>
+
   </Field>
 
-  <Field name="packages[].packaging.id" required={true}>
-    <Type>
-      [UUID](https://www.npmjs.com/package/uuid)
-    </Type>
-    <Description>
-      A UUID that uniquely identifies the object. This is the UUID you used in the [Packaging Definition](./../packaging.mdx) file for this packaging type.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="packages[].packaging.identifiers" required={false}>
-    <Description>
-      Your own identifiers for this packaging.
-    </Description>
-    <Type>
-       [identifiers object](./../identifiers-object.mdx)
-     </Type>
-  </Field>
+<Field name="packages[].packaging.id" required={true}>
+  <Type>[UUID](https://www.npmjs.com/package/uuid)</Type>
+  <Description>
+    A UUID that uniquely identifies the object. This is the UUID you used in the
+    [Packaging Definition](./../packaging.mdx) file for this packaging type.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="packages[].packaging.identifiers" required={false}>
+  <Description>Your own identifiers for this packaging.</Description>
+  <Type>[identifiers object](./../identifiers-object.mdx)</Type>
+</Field>
 
   <Field name="packages[].packaging.code" type="string" required={false}>
     <Description>
@@ -522,42 +596,42 @@ An array of objects representing the quoted shipping rates based on the specifie
 
       The value `custom` indicates user-defined packaging. Some of our products allow users to enter custom packaging instead of one of your app's pre-defined packaging types.
     </Description>
+
   </Field>
 
 </Reference>
 
+## Example
 
-
-Example
------------------------------------------------
 <CodeWrapper>
 ```javascript
 module.exports = async function rateShipment(transaction, shipment) {
 
-  // STEP 1: Validation
-  // TODO: add any validation logic here
+// STEP 1: Validation
+// TODO: add any validation logic here
 
-  // STEP 2: Create the data that the carrier's API expects
-  let data = {
-    operation: "quote_rates",
-    session_id: transaction.session.id,
-    service_codes: [shipment.deliveryService.code],
-    confirmation_codes: [shipment.deliveryConfirmation.code],
-    parcel_codes: [shipment.packages[0].packaging.code],
-    ship_date: shipment.shipDateTime.toISOString(),
-    delivery_date: shipment.deliveryDateTime.toISOString(),
-    from_zone: parseInt(shipment.shipFrom.postalCode, 10),
-    to_zone: parseInt(shipment.shipTo.postalCode, 10),
-    total_weight: shipment.packages[0].weight.ounces,
-  };
+// STEP 2: Create the data that the carrier's API expects
+let data = {
+operation: "quote_rates",
+session_id: transaction.session.id,
+service_codes: [shipment.deliveryService.code],
+confirmation_codes: [shipment.deliveryConfirmation.code],
+parcel_codes: [shipment.packages[0].packaging.code],
+ship_date: shipment.shipDateTime.toISOString(),
+delivery_date: shipment.deliveryDateTime.toISOString(),
+from_zone: parseInt(shipment.shipFrom.postalCode, 10),
+to_zone: parseInt(shipment.shipTo.postalCode, 10),
+total_weight: shipment.packages[0].weight.ounces,
+};
 
-  // STEP 3: Call the carrier's API
-  const response = await apiClient.request({ data });
+// STEP 3: Call the carrier's API
+const response = await apiClient.request({ data });
 
-  // STEP 4: Create the output data that ShipEngine expects
-  return response.data.map(formatRate);
+// STEP 4: Create the output data that ShipEngine expects
+return response.data.map(formatRate);
 }
-```
+
+````
 
 ```typescript
 import {
@@ -593,5 +667,6 @@ export default async function rateShipment(
   // STEP 4: Create the output data that ShipEngine expects
   return response.data.map(formatRate);
 }
-```
+````
+
 </CodeWrapper>

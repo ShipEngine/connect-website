@@ -2,38 +2,34 @@
 title: ShipEngine Connect application Overview
 description: Learn about how a ShipEngine Connect application is structured.
 tags:
-- ShipEngine Connect
+  - ShipEngine Connect
 ---
 
+# Application Structure
 
-Application Structure
-==================
 ShipEngine Connect applications are just [NPM](https://www.npmjs.com/) packages that meet the following requirements:
 
-* Have a [`package.json`](https://docs.npmjs.com/creating-a-package-json-file) file in the root directory, which specifies its name, version number, and dependencies.
+- Have a [`package.json`](https://docs.npmjs.com/creating-a-package-json-file) file in the root directory, which specifies its name, version number, and dependencies.
 
-* Have the [`@shipengine/connect`](https://www.npmjs.com/package/@shipengine/connect) package as a `dependency` or `devDependency` in the `package.json` file.
+- Have the [`@shipengine/connect`](https://www.npmjs.com/package/@shipengine/connect) package as a `dependency` or `devDependency` in the `package.json` file.
 
-* Export an object with properties and methods that define the app's capabilities and functionality. This must be the main export of the NPM package.
+- Export an object with properties and methods that define the app's capabilities and functionality. This must be the main export of the NPM package.
 
 Other than that, everything else is up to you. We don't impose any specific folder structure or file naming convention. You can build your app just as you would build any other NPM package.
 
+## Getting Started
 
-
-Getting Started
----------------------
 The [ShipEngine Connect CLI](cli.mdx) makes it easy to get started with your app. It comes with built-in templates for each app type.
 Just run the `connect init` command, answer a few questions, and it'll create all the files and pre-populate much of the basic scaffolding for you.
 
 For more details, see [Creating Your First App](create-first-app.mdx).
 
-
 <Section>
   <Left>
 
-Application Definition
----------------------
-The main export of your app's NPM package must be an object that defines your app's capabilities and functionality.  The properties and methods of this object depend on the type of app you're building.
+## Application Definition
+
+The main export of your app's NPM package must be an object that defines your app's capabilities and functionality. The properties and methods of this object depend on the type of app you're building.
 
 - For a [Carrier app](carrier-app/index.mdx), you should export a [Carrier Application Definition](reference/carrier.mdx).
 
@@ -47,7 +43,8 @@ You'll make this the main export by setting the `main` property of your `package
   <Right>
 
 ### Example
-Here's an example of a [Carrier Application Definition](reference/carrier.mdx) that consists of multiple files in multiple formats.  The main file is in YAML format,
+
+Here's an example of a [Carrier Application Definition](reference/carrier.mdx) that consists of multiple files in multiple formats. The main file is in YAML format,
 each of the [methods](#methods) are in separate JavaScript files, the [`connectionForm` and `settingsForm`](#forms) are in separate JSON files, and each of the [`deliveryServices`](#definitions) is in a separate YAML file.
 
 ```yaml
@@ -75,36 +72,37 @@ For more complete examples, see our [complete sample apps](https://github.com/Sh
   </Right>
 </Section>
 
+## Methods
 
-Methods
----------------------
-As mentioned above, the main export of your application package must be an [Application Definition object](#application-definition), which has properties and methods.  The properties define your app's capabilities and features, but the methods provide your app's actual implementation, such as [logging in](reference/methods/connect.mdx), [creating a shipment](reference/methods/create-shipment.mdx), or [retrieving shipping rates](reference/methods/rate-shipment.mdx).
+As mentioned above, the main export of your application package must be an [Application Definition object](#application-definition), which has properties and methods. The properties define your app's capabilities and features, but the methods provide your app's actual implementation, such as [logging in](reference/methods/connect.mdx), [creating a shipment](reference/methods/create-shipment.mdx), or [retrieving shipping rates](reference/methods/rate-shipment.mdx).
 As you can imagine, the methods are probably where you'll spend most of your time when building an app.
 
-Methods are just JavaScript functions that take input from ShipEngine Connect and return results to the platform.  What happens in-between those two is entirely up to you.  But, in general, most methods will consist of the following steps:
+Methods are just JavaScript functions that take input from ShipEngine Connect and return results to the platform. What happens in-between those two is entirely up to you. But, in general, most methods will consist of the following steps:
 
-1) Transform the input data into whatever structure is needed by your API.
+1. Transform the input data into whatever structure is needed by your API.
 
-2) Call your API(s) to perform whatever operations are necessary and/or to retrieve whatever data was requested.
+2. Call your API(s) to perform whatever operations are necessary and/or to retrieve whatever data was requested.
 
-3) Transform the data from your API into the structure that's needed by ShipEngine Connect.
+3. Transform the data from your API into the structure that's needed by ShipEngine Connect.
 
-4) Return the data.
+4. Return the data.
 
-Forms
----------------------
+## Forms
+
 [Forms](./reference/forms.mdx) are used gather data from an end-user that is interacting with your application from within on of our e-commerce applications.
 For example, you will need to supply a [connection form](./reference/forms.mdx#connection-form-examples) that gathers login credentials
 from the end user so they can be authenticated with your API. In the [example above](#example), you can see that the
 path to the `connectionForm` is specified in the app definition.
 
-Definitions
--------------------------
+## Definitions
+
 In addition to the [application definition](#application-definition), some application types, such as the [Carrier app](carrier-app/index.mdx), include definition files for the services it provides. For example, each type of delivery service
 offered by a Carrier app will be described by a [Delivery Service Definition](./reference/delivery-service.mdx) file. In the application definition
 [above](#example), you can see these definition files referenced in the `deliveryServices` array.
 
 <Pager
-  prev="index.mdx" prevTitle="Getting Started"
-  next="tools/index.mdx" nextTitle="Recommended Tools"
+  prev="index.mdx"
+  prevTitle="Getting Started"
+  next="tools/index.mdx"
+  nextTitle="Recommended Tools"
 />

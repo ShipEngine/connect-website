@@ -3,22 +3,25 @@ title: Identifier object
 description: An object representing various identifiers.
 ---
 
-Identifier Object
-===============================================
+# Identifier Object
+
 An identifier object is used to describe any identifier used through out Connect.
 
 <Reference>
 
-  <Field name="type" type="string" nullable={false}>
-    <Description>
-      They key associated with the identifier. Examples include `tracking_number` or `carrier_transaction_id`.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="value" type="string" nullable={false}>
-    <Description>
-      The value of the identifier.
-    </Description>
-  </Field>
+<Field name="type" type="string" nullable={false}>
+  <Description>
+    They key associated with the identifier. Examples include `tracking_number`
+    or `carrier_transaction_id`.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="value" type="string" nullable={false}>
+  <Description>The value of the identifier.</Description>
+</Field>
 
 </Reference>

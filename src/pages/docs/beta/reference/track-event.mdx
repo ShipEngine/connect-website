@@ -3,95 +3,110 @@ title: TrackEvent objects
 description: An object representing tracking events.
 ---
 
-Track Event Object
-===============================================
+# Track Event Object
+
 A tracking event object is used to represent different events that happen throughout a shipments lifetime with a carrier.
 
 <Reference>
 
-  <Field name="event_datetime" type="string" required={false}>
-    <Description>
-      When this tracking event occurred. Formatted per https://tools.ietf.org/html/rfc3339. Must be in UTC.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="event_datetime_local" type="string" required={false}>
-    <Description>
-      Most providers do not provide tracking events in UTC, and without time zone or geo information its hard to deduce.
-    </Description>
-  </Field>
+<Field name="event_datetime" type="string" required={false}>
+  <Description>
+    When this tracking event occurred. Formatted per
+    https://tools.ietf.org/html/rfc3339. Must be in UTC.
+  </Description>
+</Field>
 
-  <Field name="event_code" type="string" required={false}>
-    <Description>
-      Carrier's specific event code.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="description" type="string" required={false}>
-    <Description>
-      Description of the package status at this event.
-    </Description>
-  </Field>
+<Field name="event_datetime_local" type="string" required={false}>
+  <Description>
+    Most providers do not provide tracking events in UTC, and without time zone
+    or geo information its hard to deduce.
+  </Description>
+</Field>
 
-  <Field name="city" type="string" required={false}>
-    <Description>
-      City or Locality for this event.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="state" type="string" required={false}>
-    <Description>
-      State or Province for this event.
-    </Description>
-  </Field>
+<Field name="event_code" type="string" required={false}>
+  <Description>Carrier's specific event code.</Description>
+</Field>
 
-  <Field name="postal_code" type="string" required={false}>
-    <Description>
-      Postal Code for this event.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="country" type="string" required={false}>
-    <Description>
-      Country for this event
-    </Description>
-  </Field>
+<Field name="description" type="string" required={false}>
+  <Description>Description of the package status at this event.</Description>
+</Field>
 
-  <Field name="company" type="string" required={false}>
-    <Description>
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="signer" type="string" required={false}>
-    <Description>
-      If the event had a signer associated, normally on delivery.
-    </Description>
-  </Field>
+<Field name="city" type="string" required={false}>
+  <Description>City or Locality for this event.</Description>
+</Field>
 
-  <Field name="geo" type="object" required={false}>
-    <Description>
-      Coordinates for the event
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="geo.lat" type="number" required={true}>
-    <Description>
-      The latitude of the point. Represented as signed degrees. http://www.geomidpoint.com/latlon.html
-    </Description>
-  </Field>
+<Field name="state" type="string" required={false}>
+  <Description>State or Province for this event.</Description>
+</Field>
 
-  <Field name="geo.long" type="number" required={true}>
-    <Description>
-      The longitude of the point. Represented as signed degrees http://www.geomidpoint.com/latlon.html
-    </Description>
-  </Field>
+{' '}
+
+<Field name="postal_code" type="string" required={false}>
+  <Description>Postal Code for this event.</Description>
+</Field>
+
+{' '}
+
+<Field name="country" type="string" required={false}>
+  <Description>Country for this event</Description>
+</Field>
+
+{' '}
+
+<Field name="company" type="string" required={false}>
+  <Description></Description>
+</Field>
+
+{' '}
+
+<Field name="signer" type="string" required={false}>
+  <Description>
+    If the event had a signer associated, normally on delivery.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="geo" type="object" required={false}>
+  <Description>Coordinates for the event</Description>
+</Field>
+
+{' '}
+
+<Field name="geo.lat" type="number" required={true}>
+  <Description>
+    The latitude of the point. Represented as signed degrees.
+    http://www.geomidpoint.com/latlon.html
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="geo.long" type="number" required={true}>
+  <Description>
+    The longitude of the point. Represented as signed degrees
+    http://www.geomidpoint.com/latlon.html
+  </Description>
+</Field>
 
   <Field name="status_code" type="string" required={false}>
     <Description>
       The standardized status code used for shipment tracking information
 
       Valid values include the following:
-       * `UN` - Unknown 
+       * `UN` - Unknown
        * `AC` - Accepted
        * `IT` - InTransit
        * `DE` - Delivered
@@ -99,6 +114,7 @@ A tracking event object is used to represent different events that happen throug
        * `AT` - DeliveryAttempt
        * `NY` - NotYetInSystem
     </Description>
+
   </Field>
 
 </Reference>

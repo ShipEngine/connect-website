@@ -3,76 +3,75 @@ title: Document object
 description: An object representing a document.
 ---
 
-Document Object
-===============================================
+# Document Object
+
 A document object is used to represent a document.
 
+## Properties
 
-Properties
---------------------------------
-
-This table lists the properties of a document and identifies those properties that are required. 
-
+This table lists the properties of a document and identifies those properties that are required.
 
 <Reference>
 
-  <Field name="type" required={true}>
-    <Type>
-      [document type[]](#document-types)
-    </Type>
-    <Description>
-      An array of [document types](#document-types) describing this document.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="data" type="string" required={true}>
-    <Description>
-      Base64 encoded data for the document.
-    </Description>
-  </Field>
+<Field name="type" required={true}>
+  <Type>[document type[]](#document-types)</Type>
+  <Description>
+    An array of [document types](#document-types) describing this document.
+  </Description>
+</Field>
 
-  <Field name="format" type="string" required={true}>
-    <Description>
-      The requested document format for this document.
-      
-      Valid values include the following:
-      * `PDF`
-      * `ZPL`
-      * `PNG`
-    </Description>
-  </Field>
+{' '}
+
+<Field name="data" type="string" required={true}>
+  <Description>Base64 encoded data for the document.</Description>
+</Field>
+
+{' '}
+
+<Field name="format" type="string" required={true}>
+  <Description>
+    The requested document format for this document. Valid values include the
+    following: * `PDF` * `ZPL` * `PNG`
+  </Description>
+</Field>
 
 </Reference>
 
-Document Types
--------------------------
+## Document Types
+
 This table lists the valid values for document types.
 
 <Reference>
 
-  <Field name="label" >
-    <Description>
-      Shipping label.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="customs_form" >
-    <Description>
-      Generic customs form.
-    </Description>
-  </Field>
+<Field name="label">
+  <Description>Shipping label.</Description>
+</Field>
 
-  <Field name="commercial_invoice" >
-    <Description>
-      Invoice associated or included with the package or shipment.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="bill_of_lading" >
-    <Description>
-      Bill of Lading for a Freight Shipment.
-      A bill of lading is a document issued by a carrier to acknowledge receipt of cargo for shipment.
-    </Description>
-  </Field>
+<Field name="customs_form">
+  <Description>Generic customs form.</Description>
+</Field>
+
+{' '}
+
+<Field name="commercial_invoice">
+  <Description>
+    Invoice associated or included with the package or shipment.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="bill_of_lading">
+  <Description>
+    Bill of Lading for a Freight Shipment. A bill of lading is a document issued
+    by a carrier to acknowledge receipt of cargo for shipment.
+  </Description>
+</Field>
 
 </Reference>

@@ -3,82 +3,89 @@ title: Type Reference
 description: This page lists the valid values for the types seen in a Create Label request.
 ---
 
+# Create Label Types
 
-Create Label Types
-==========================
 This page lists the valid values for the types seen in a [Create Label](./methods/create-label) request.
 
-Delivery Confirmation Types
---------------------------
+## Delivery Confirmation Types
+
 This is the list of valid values for delivery confirmation types.
 
 <Reference>
 
-  <Field name="None">
-    <Description>
-      No confirmation is requested.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="Delivery">
-    <Description>
-      Delivery confirmation is requested.
-    </Description>
-  </Field>
+<Field name="None">
+  <Description>No confirmation is requested.</Description>
+</Field>
 
-  <Field name="Signature">
-    <Description>
-      A signature is required. This signature may be a neighbor, building manager, or the recipient can authorize the release of the package (without being present).
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="AdultSignature">
-    <Description>
-      A signature of an adult is required.
-    </Description>
-  </Field>
+<Field name="Delivery">
+  <Description>Delivery confirmation is requested.</Description>
+</Field>
 
-  <Field name="DirectSignature">
-    <Description>
-      Only supported by FedEx. The signature of somebody at the address is required.
-    </Description>
-  </Field>
+{' '}
+
+<Field name="Signature">
+  <Description>
+    A signature is required. This signature may be a neighbor, building manager,
+    or the recipient can authorize the release of the package (without being
+    present).
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="AdultSignature">
+  <Description>A signature of an adult is required.</Description>
+</Field>
+
+{' '}
+
+<Field name="DirectSignature">
+  <Description>
+    Only supported by FedEx. The signature of somebody at the address is
+    required.
+  </Description>
+</Field>
 
 </Reference>
 
-Custom Content Types
-----------------------
+## Custom Content Types
 
 <Reference>
 
-  <Field name="merchandise">
-    <Description>
-      The package contains merchandise.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="documents">
-    <Description>
-      The package contains documents.
-    </Description>
-  </Field>
+<Field name="merchandise">
+  <Description>The package contains merchandise.</Description>
+</Field>
 
-  <Field name="gift">
-    <Description>
-      The package contains a gift.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="sample">
-    <Description>
-      The package contains a commercial sample, such as a flooring sample.
-    </Description>
-  </Field>
+<Field name="documents">
+  <Description>The package contains documents.</Description>
+</Field>
 
-  <Field name="returned_goods">
-    <Description>
-      The package is a returned shipment.
-    </Description>
-  </Field>
+{' '}
+
+<Field name="gift">
+  <Description>The package contains a gift.</Description>
+</Field>
+
+{' '}
+
+<Field name="sample">
+  <Description>
+    The package contains a commercial sample, such as a flooring sample.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="returned_goods">
+  <Description>The package is a returned shipment.</Description>
+</Field>
 
 </Reference>

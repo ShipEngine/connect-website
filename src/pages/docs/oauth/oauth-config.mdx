@@ -3,8 +3,7 @@ title: OAuth
 description: The page describes how to define an OAuth config definition.
 ---
 
-OAuth Config Definition
-====================
+# OAuth Config Definition
 
 An `OAuthConfigDefinition` specifies the data required for the [OAuth 2.0](https://oauth.net/2/) login flow.
 
@@ -15,80 +14,112 @@ An `OAuthConfigDefinition` specifies the data required for the [OAuth 2.0](https
     </Description>
   </Field>
 
-  <Field name="tokenProperties.accessTokenExpirationLength" type="number" required={false}>
-    <Description>
-      Access token expiration length in seconds. The minimum value is `1`.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="tokenProperties.refreshTokenExpirationLength" type="number" required={false}>
-    <Description>
-       Refresh token expiration length in seconds. The minimum value is `1`.
-    </Description>
-  </Field>
+<Field
+  name="tokenProperties.accessTokenExpirationLength"
+  type="number"
+  required={false}
+>
+  <Description>
+    Access token expiration length in seconds. The minimum value is `1`.
+  </Description>
+</Field>
 
-  <Field name="tokenProperties.tokenExpirationLengthTimeUnit" type="string" required={false}>
-    <Description>
-       Token Expiration Unit of Time. This is required if `accessTokenExpirationLength` or `refreshTokenExpirationLength` is set.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="authorizationProcess" type="object" required={true}>
-    <Description>
-      An object that describes the authorization process.
-    </Description>
-  </Field>
+<Field
+  name="tokenProperties.refreshTokenExpirationLength"
+  type="number"
+  required={false}
+>
+  <Description>
+    Refresh token expiration length in seconds. The minimum value is `1`.
+  </Description>
+</Field>
 
-  <Field name="authorizationProcess.loginRequest" required={true}>
-    <Type>
-      [OAuth request definition object](./oauth-objects.mdx#oauth-request-definition-object)
-    </Type>
-    <Description>
-      The login request made to the identity provider.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="authorizationProcess.redirectRequest" required={true}>
-    <Type>
-      [OAuth request definition object](./oauth-objects.mdx#oauth-request-definition-object)
-    </Type>
-    <Description>
-      The expected redirect request after the identity provider has attempted to authenticate the user.
-    </Description>
-  </Field>
+<Field
+  name="tokenProperties.tokenExpirationLengthTimeUnit"
+  type="string"
+  required={false}
+>
+  <Description>
+    Token Expiration Unit of Time. This is required if
+    `accessTokenExpirationLength` or `refreshTokenExpirationLength` is set.
+  </Description>
+</Field>
 
-  <Field name="authorizationProcess.authorizeRequest" required={false}>
-    <Type>
-      [OAuth request definition object](./oauth-objects.mdx#oauth-request-definition-object)
-    </Type>
-    <Description>
-      An request made to the identity provider to authorize the user after the identity has been established.
-    </Description>
-    </Field>
+{' '}
 
-  <Field name="authorizationProcess.authorizeResponse" required={false}>
-    <Type>
-      [OAuth response definition object](./oauth-objects.mdx#oauth-response-definition-object)
-    </Type>
-    <Description>
-      The expected response to an authorization request.
-    </Description>
-  </Field>
+<Field name="authorizationProcess" type="object" required={true}>
+  <Description>An object that describes the authorization process.</Description>
+</Field>
 
-  <Field name="refreshTokenProcess" type="object" required={true}>
-    <Description>
-       An object that describes the process for refreshing an authorization token.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="refreshTokenProcess.refreshTokenRequest" required={true}>
-    <Type>
-      [OAuth request definition object](./oauth-objects.mdx#oauth-request-definition-object)
-    </Type>
-    <Description>
-       The request to refresh the authorization token.
-    </Description>
-  </Field>
+<Field name="authorizationProcess.loginRequest" required={true}>
+  <Type>
+    [OAuth request definition
+    object](./oauth-objects.mdx#oauth-request-definition-object)
+  </Type>
+  <Description>The login request made to the identity provider.</Description>
+</Field>
+
+{' '}
+
+<Field name="authorizationProcess.redirectRequest" required={true}>
+  <Type>
+    [OAuth request definition
+    object](./oauth-objects.mdx#oauth-request-definition-object)
+  </Type>
+  <Description>
+    The expected redirect request after the identity provider has attempted to
+    authenticate the user.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="authorizationProcess.authorizeRequest" required={false}>
+  <Type>
+    [OAuth request definition
+    object](./oauth-objects.mdx#oauth-request-definition-object)
+  </Type>
+  <Description>
+    An request made to the identity provider to authorize the user after the
+    identity has been established.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="authorizationProcess.authorizeResponse" required={false}>
+  <Type>
+    [OAuth response definition
+    object](./oauth-objects.mdx#oauth-response-definition-object)
+  </Type>
+  <Description>The expected response to an authorization request.</Description>
+</Field>
+
+{' '}
+
+<Field name="refreshTokenProcess" type="object" required={true}>
+  <Description>
+    An object that describes the process for refreshing an authorization token.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="refreshTokenProcess.refreshTokenRequest" required={true}>
+  <Type>
+    [OAuth request definition
+    object](./oauth-objects.mdx#oauth-request-definition-object)
+  </Type>
+  <Description>The request to refresh the authorization token.</Description>
+</Field>
 
   <Field name="refreshTokenProcess.refreshTokenResponse" required={true}>
     <Type>
@@ -99,11 +130,3 @@ An `OAuthConfigDefinition` specifies the data required for the [OAuth 2.0](https
     </Description>
   </Field>
 </Reference>
-
-
-
-
-
-
-
-

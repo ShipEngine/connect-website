@@ -3,12 +3,10 @@ title: Order Application Definition
 description: The page describes how to define an Order application.
 ---
 
+# Order Application Definition
 
-Order Application Definition
-===============================================
 The Order Application Definition file tells the [ShipEngine Connect](./../index.mdx) where to find the resources that define
 your application, such as methods and forms.
-
 
 This file can reside anywhere within your application as long as its location is specified
 in the `main` property of your `package.json` file.
@@ -17,106 +15,130 @@ The definition may be specified in [JavaScript](https://developer.mozilla.org/en
 
 > **WARNING:** Once you have published your app, you must not change the `id` or `name` of the app.
 
-Order Application
-----------------------------------------------
+## Order Application
+
 <Reference>
 
-  <Field name="id" required={true}>
-    <Type>
-      [UUID](https://www.npmjs.com/package/uuid)
-    </Type>
-    <Description>
-      A UUID that uniquely identifies the application for internal ShipEngine Connect purposes. This ID should never change.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="providerId" required={false}>
-    <Type>
-      [UUID](https://www.npmjs.com/package/uuid)
-    </Type>
-    <Description>
-      A UUID that is used to relate this app to an existing production application. Do not set this field unless instructed to by the ShipEngine Connect team.
-    </Description>
-  </Field>
+<Field name="id" required={true}>
+  <Type>[UUID](https://www.npmjs.com/package/uuid)</Type>
+  <Description>
+    A UUID that uniquely identifies the application for internal ShipEngine
+    Connect purposes. This ID should never change.
+  </Description>
+</Field>
 
-  <Field name="name" type="string" required={true}>
-    <Description>
-      The user-friendly name for this Order application.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="description" type="string" required={false}>
-    <Description>
-      A short, user-friendly description of this Order application.
-    </Description>
-  </Field>
+<Field name="providerId" required={false}>
+  <Type>[UUID](https://www.npmjs.com/package/uuid)</Type>
+  <Description>
+    A UUID that is used to relate this app to an existing production
+    application. Do not set this field unless instructed to by the ShipEngine
+    Connect team.
+  </Description>
+</Field>
 
-  <Field name="websiteURL" type="string" required={true}>
-    <Description>
-      The URL of your company's website.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="logo" type="string" required={true}>
-    <Description>
-      The file path to your company's logo image.
-    </Description>
-  </Field>
+<Field name="name" type="string" required={true}>
+  <Description>The user-friendly name for this Order application.</Description>
+</Field>
 
-  <Field name="icon" type="string" required={true}>
-    <Description>
-      The file path to the Carrier's icon image.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="sendMail" type="boolean" required={false}>
-    <Description>
-      Indicates whether or not emails should be sent to communicate shipping updates on behalf of the seller for orders imported through this Order App.
-    </Description>
-  </Field>
+<Field name="description" type="string" required={false}>
+  <Description>
+    A short, user-friendly description of this Order application.
+  </Description>
+</Field>
 
-  <Field name="canConfigureTimeZone" type="boolean" required={false}>
-    <Description>
-      Indicates whether or not to display time zone related settings when this app is used within one of our e-commerce applications, such as ShipStation.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="connectionForm" required={true}>
-    <Type>
-      [Form](./forms.mdx)
-    </Type>
-    <Description>
-      A form that allows the user to specify the credentials needed to generate the OAuth token.
-    </Description>
-  </Field>
+<Field name="websiteURL" type="string" required={true}>
+  <Description>The URL of your company's website.</Description>
+</Field>
 
+{' '}
 
-  <Field name="getSalesOrdersByDate" required={false}>
-    <Type>
-      method *or* string
-    </Type>
-    <Description>
-      A method that returns all orders that were created and/or modified within a given time frame. You may define this method direcly inline inside of this file or you may specify the path to the file that exports your [`getSalesOrdersByDate`](./methods/get-sales-orders-by-date.mdx) method.
-    </Description>
-  </Field>
+<Field name="logo" type="string" required={true}>
+  <Description>The file path to your company's logo image.</Description>
+</Field>
 
-  <Field name="shipmentCreated" required={false}>
-    <Type>
-      method *or* string
-    </Type>
-    <Description>
-      A method that's called when a shipment is created for one or more items in one or more sales orders. A single shipment may contain items from multiple sales orders, and a single sales order may be fulfilled by multiple shipments. You may define this method direcly inline inside of this file or you may specify the path to the file that exports your [`shipmentCreated`](./methods/shipment-created.mdx) method.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="acknowledgeOrders" required={false}>
-    <Type>
-      method *or* string
-    </Type>
-    <Description>
-      A method that's called when a shipment is cancelled for one or more items in one or more sales orders. A single shipment may contain items from multiple sales orders, and a single sales order may be fulfilled by multiple shipments. You may define this method direcly inline inside of this file or you may specify the path to the file that exports your [`shipmentCancelled`](./methods/shipment-cancelled.mdx) method.
-    </Description>
-  </Field>
+<Field name="icon" type="string" required={true}>
+  <Description>The file path to the Carrier's icon image.</Description>
+</Field>
+
+{' '}
+
+<Field name="sendMail" type="boolean" required={false}>
+  <Description>
+    Indicates whether or not emails should be sent to communicate shipping
+    updates on behalf of the seller for orders imported through this Order App.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="canConfigureTimeZone" type="boolean" required={false}>
+  <Description>
+    Indicates whether or not to display time zone related settings when this app
+    is used within one of our e-commerce applications, such as ShipStation.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="connectionForm" required={true}>
+  <Type>[Form](./forms.mdx)</Type>
+  <Description>
+    A form that allows the user to specify the credentials needed to generate
+    the OAuth token.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="getSalesOrdersByDate" required={false}>
+  <Type>method *or* string</Type>
+  <Description>
+    A method that returns all orders that were created and/or modified within a
+    given time frame. You may define this method direcly inline inside of this
+    file or you may specify the path to the file that exports your
+    [`getSalesOrdersByDate`](./methods/get-sales-orders-by-date.mdx) method.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="shipmentCreated" required={false}>
+  <Type>method *or* string</Type>
+  <Description>
+    A method that's called when a shipment is created for one or more items in
+    one or more sales orders. A single shipment may contain items from multiple
+    sales orders, and a single sales order may be fulfilled by multiple
+    shipments. You may define this method direcly inline inside of this file or
+    you may specify the path to the file that exports your
+    [`shipmentCreated`](./methods/shipment-created.mdx) method.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="acknowledgeOrders" required={false}>
+  <Type>method *or* string</Type>
+  <Description>
+    A method that's called when a shipment is cancelled for one or more items in
+    one or more sales orders. A single shipment may contain items from multiple
+    sales orders, and a single sales order may be fulfilled by multiple
+    shipments. You may define this method direcly inline inside of this file or
+    you may specify the path to the file that exports your
+    [`shipmentCancelled`](./methods/shipment-cancelled.mdx) method.
+  </Description>
+</Field>
 
   <Field name="oauthConfig" required={false}>
     <Type>
@@ -128,28 +150,27 @@ Order Application
   </Field>
 </Reference>
 
+## Examples
 
-Examples
-------------
 <CodeWrapper>
 ```typescript
 import { OrderAppDefinition } from "@shipengine/connect";
 
 const orderSource: OrderAppDefinition = {
-  id: "5e386891-f693-4cdf-8b0c-82d7eb7542d0",
-  name: "IBuy MarketPlace",
-  description: "Welcome to iBuy, the international marketplace for all of your needs.",
-  websiteURL: "https://www.iBuy.net",
-  logo: "./../logo.svg",
-  icon: "./../icon.svg",
-  connectionForm: import("./forms/connect"),
+id: "5e386891-f693-4cdf-8b0c-82d7eb7542d0",
+name: "IBuy MarketPlace",
+description: "Welcome to iBuy, the international marketplace for all of your needs.",
+websiteURL: "https://www.iBuy.net",
+logo: "./../logo.svg",
+icon: "./../icon.svg",
+connectionForm: import("./forms/connect"),
 
-  getSalesOrdersByDate: import("./methods/get-sales-orders-by-date"),
-  shipmentCreated: import("./methods/shipment-created"),
-  acknowledgeOrders: import("./methods/acknowledge-orders"),
-  sendMail: false,
-  canConfigureTimeZone: false,
-  oauthConfig: import("./oauth-config"
+getSalesOrdersByDate: import("./methods/get-sales-orders-by-date"),
+shipmentCreated: import("./methods/shipment-created"),
+acknowledgeOrders: import("./methods/acknowledge-orders"),
+sendMail: false,
+canConfigureTimeZone: false,
+oauthConfig: import("./oauth-config"
 }
 
 export default orderSource;
@@ -157,23 +178,24 @@ export default orderSource;
 
 ```javascript
 const orderSource = {
-  id: "5e386891-f693-4cdf-8b0c-82d7eb7542d0",
-  name: "IBuy MarketPlace",
-  description: "Welcome to iBuy, the international marketplace for all of your needs.",
-  websiteURL: "https://www.iBuy.net",
-  logo: "./../logo.svg",
-  icon: "./../icon.svg",
-  connectionForm: "./forms/connect.js",
+  id: '5e386891-f693-4cdf-8b0c-82d7eb7542d0',
+  name: 'IBuy MarketPlace',
+  description:
+    'Welcome to iBuy, the international marketplace for all of your needs.',
+  websiteURL: 'https://www.iBuy.net',
+  logo: './../logo.svg',
+  icon: './../icon.svg',
+  connectionForm: './forms/connect.js',
 
-  getSalesOrdersByDate: "./methods/get-sales-orders-by-date.js",
-  shipmentCreated: "./methods/shipment-created.js",
-  acknowledgeOrders: "./methods/acknowledge-orders.js",
+  getSalesOrdersByDate: './methods/get-sales-orders-by-date.js',
+  shipmentCreated: './methods/shipment-created.js',
+  acknowledgeOrders: './methods/acknowledge-orders.js',
   sendMail: false,
   canConfigureTimeZone: false,
-  oauthConfig: "./definitions/oauth-config.js"
+  oauthConfig: './definitions/oauth-config.js',
 }
 
-module.exports = orderSource;
+module.exports = orderSource
 ```
 
 ```yaml
@@ -181,7 +203,7 @@ id: 5e386891-f693-4cdf-8b0c-82d7eb7542d0
 
 name: IBuy MarketPlace
 
-description:  Welcome to iBuy, the international marketplace for all of your needs.
+description: Welcome to iBuy, the international marketplace for all of your needs.
 
 websiteURL: https://www.ibuy.net
 
@@ -200,4 +222,5 @@ canConfigureTimeZone: false
 
 oauthConfig: ./definitions/oauth-config.js
 ```
+
 </CodeWrapper>

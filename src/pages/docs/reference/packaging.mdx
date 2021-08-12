@@ -3,72 +3,80 @@ title: Packaging Definition
 description: The page describes how to define a type of packaging.
 ---
 
+# Packaging Definition
 
-Packaging Definition
-===============================================
 Carrier packaging options are defined inside files that are then used by the [ShipEngine Connect](./../index.mdx) to offer these
 packaging options to users who utilize the carrier within one of our e-commerce applications. Each packaging type that you wish to offer
 should have its own definition file. These files can reside anywhere within your application as long as their locations are specified in the [Carrier Application Definition](./carrier.mdx) file.
- The definition may be specified in [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript), [TypeScript](https://www.typescriptlang.org/), [JSON](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON), or
-  [YAML](https://en.wikipedia.org/wiki/YAML).
+The definition may be specified in [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript), [TypeScript](https://www.typescriptlang.org/), [JSON](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON), or
+[YAML](https://en.wikipedia.org/wiki/YAML).
 
 > **WARNING:** Once you have published your app, you must not change the `id`, `name` or `code` for any of your definitions.
 
-Packaging Properties
-----------------------------------------------
+## Packaging Properties
+
 <Reference>
 
-  <Field name="id" required={true}>
-    <Type>
-      [UUID](https://www.npmjs.com/package/uuid)
-    </Type>
-    <Description>
-      UUID that uniquely identifies the packaging. This ID should never change.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="identifiers" type="object" required={false}>
-    <Description>
-      Your own identifiers for this packaging option.
-    </Description>
-  </Field>
+<Field name="id" required={true}>
+  <Type>[UUID](https://www.npmjs.com/package/uuid)</Type>
+  <Description>
+    UUID that uniquely identifies the packaging. This ID should never change.
+  </Description>
+</Field>
 
-  <Field name="code" type="string" required={false}>
-    <Description>
-      Optional code used to map to what the carrier identify the packaging.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="name" type="string" required={true}>
-    <Description>
-      The user-friendly name for this packaging (e.g. "Flat-Rate Box", "Large Padded Envelope").
-    </Description>
-  </Field>
+<Field name="identifiers" type="object" required={false}>
+  <Description>Your own identifiers for this packaging option.</Description>
+</Field>
 
-  <Field name="description" type="string" required={false}>
-    <Description>
-      A short, user-friendly description of the packaging.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="requiresWeight" type="boolean" required={false}>
-    <Description>
-      Indicates whether the weight must be specified when using this packaging.
-    </Description>
-  </Field>
+<Field name="code" type="string" required={false}>
+  <Description>
+    Optional code used to map to what the carrier identify the packaging.
+  </Description>
+</Field>
 
-  <Field name="requiresDimensions" type="boolean" required={false}>
-    <Description>
-      Indicates whether the dimensions must be specified when using this packaging.
-    </Description>
-  </Field>
+{' '}
+
+<Field name="name" type="string" required={true}>
+  <Description>
+    The user-friendly name for this packaging (e.g. "Flat-Rate Box", "Large
+    Padded Envelope").
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="description" type="string" required={false}>
+  <Description>
+    A short, user-friendly description of the packaging.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="requiresWeight" type="boolean" required={false}>
+  <Description>
+    Indicates whether the weight must be specified when using this packaging.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="requiresDimensions" type="boolean" required={false}>
+  <Description>
+    Indicates whether the dimensions must be specified when using this
+    packaging.
+  </Description>
+</Field>
 
 </Reference>
 
-
-
-Examples
------------------------------------------------
+## Examples
 
 <CodeWrapper>
 ```yaml
@@ -108,19 +116,18 @@ requiresDimensions: true
 ```
 
 ```typescript
-import { PackagingDefinition } from "@shipengine/connect";
+import { PackagingDefinition } from '@shipengine/connect'
 
 const packagePackaging: PackagingDefinition = {
-  id: "03318192-3e6c-475f-a496-a4f17c1dbcae",
-  code: "PAK",
-  name: "Package",
-  description:
-    "Your own packaging, up to 100 kilograms",
+  id: '03318192-3e6c-475f-a496-a4f17c1dbcae',
+  code: 'PAK',
+  name: 'Package',
+  description: 'Your own packaging, up to 100 kilograms',
   requiresWeight: true,
-  requiresDimensions: true
-};
+  requiresDimensions: true,
+}
 
-export default packagePackaging;
-
+export default packagePackaging
 ```
+
 </CodeWrapper>

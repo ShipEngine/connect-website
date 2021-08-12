@@ -3,14 +3,12 @@ title: SchedulePickup Method
 description: This method is used to schedule a pickup with a carrier.
 ---
 
+# `SchedulePickup()`
 
-`SchedulePickup()`
-===========================
 This method is used to schedule a pickup with a carrier.
 
+## Syntax
 
-Syntax
------------------------------------------------
 <CodeWrapper>
 ```javascript
 module.exports = async function SchedulePickup(request) {
@@ -19,119 +17,137 @@ module.exports = async function SchedulePickup(request) {
 ```
 
 ```typescript
-import { SchedulePickupRequest, SchedulePickupResponse } from "@shipengine/connect-carrier-api";
+import {
+  SchedulePickupRequest,
+  SchedulePickupResponse,
+} from '@shipengine/connect-carrier-api'
 
 export default async function SchedulePickup(
-  request: SchedulePickupRequest
+  request: SchedulePickupRequest,
 ): Promise<SchedulePickupResponse> {
   // Your code here
 }
 ```
+
 </CodeWrapper>
 
-
-
-Parameters
------------------------------------------------
+## Parameters
 
 ### `SchedulePickupRequest`
+
 An object containing information about the pickup being scheduled.
 
 <Reference>
 
-  <Field name="metadata" nullable={true}>
-    <Type>
-      [metadata object](./../metadata.mdx)
-    </Type>
-    <Description>
-      This object should contain all of the necessary properties needed to make authenticated requests with the carrier.
-      Every property included here will be persisted by ShipEngine Connect and included on each subsequent request from this user.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="location" nullable={true}>
-    <Type>
-      [pickup location details object](./../address.mdx#pickup-location-details-object)
-    </Type>
-    <Description>
-      Where it's being picked up. 
-      Contact information for the pickup, like an on-duty manager that would be able to oversee the pickup at the location.
-    </Description>
-  </Field>
+<Field name="metadata" nullable={true}>
+  <Type>[metadata object](./../metadata.mdx)</Type>
+  <Description>
+    This object should contain all of the necessary properties needed to make
+    authenticated requests with the carrier. Every property included here will
+    be persisted by ShipEngine Connect and included on each subsequent request
+    from this user.
+  </Description>
+</Field>
 
-  <Field name="contact" type="object" nullable={true}>
-    <Description>
-      Contact information about the person there to meet the driver.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="contact.first_name" type="string" nullable={false}>
-    <Description>
-      The first name of the person who will be there for the pickup.
-    </Description>
-  </Field>
+<Field name="location" nullable={true}>
+  <Type>
+    [pickup location details
+    object](./../address.mdx#pickup-location-details-object)
+  </Type>
+  <Description>
+    Where it's being picked up. Contact information for the pickup, like an
+    on-duty manager that would be able to oversee the pickup at the location.
+  </Description>
+</Field>
 
-  <Field name="contact.last_name" type="string" nullable={true}>
-    <Description>
-      The last name of the person who will be there for the pickup.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="contact.email" type="string" nullable={false}>
-    <Description>
-      The e-mail address of the person who will be there for the pickup.
-    </Description>
-  </Field>
+<Field name="contact" type="object" nullable={true}>
+  <Description>
+    Contact information about the person there to meet the driver.
+  </Description>
+</Field>
 
-  <Field name="contact.phone_number" type="string" nullable={false}>
-    <Description>
-      The phone number of the person who will be there for the pickup.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="contact.phone_number_extension" type="string" nullable={true}>
-    <Description>
-      The phone extension of the person who will be there for the pickup.
-    </Description>
-  </Field>
+<Field name="contact.first_name" type="string" nullable={false}>
+  <Description>
+    The first name of the person who will be there for the pickup.
+  </Description>
+</Field>
 
- <Field name="pickup_details" type="object" nullable={true}>
-    <Description>
-      What is being picked up.
-    </Description>
-  </Field>
+{' '}
 
- <Field name="pickup_details.pickup_service_code" type="string" nullable={true}>
-    <Description>
-      Service category for the carrier (ground, express, next_day).
-    </Description>
-  </Field>
+<Field name="contact.last_name" type="string" nullable={true}>
+  <Description>
+    The last name of the person who will be there for the pickup.
+  </Description>
+</Field>
 
- <Field name="pickup_details.shipments" nullable={true}>
-    <Type>
-      [shipped shipment[]](./../shipped-shipment.mdx)
-    </Type>
-    <Description>
-      The shipments that will be picked up.
-    </Description>
-  </Field>
+{' '}
 
- <Field name="requested_pickup_window" nullable={false}>
-    <Type>
-      [pickup window object](./../pickup-window.mdx)
-    </Type>
-    <Description>
-      The time window that the user is requesting for the pickup to be made.
-    </Description>
-  </Field>
+<Field name="contact.email" type="string" nullable={false}>
+  <Description>
+    The e-mail address of the person who will be there for the pickup.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="contact.phone_number" type="string" nullable={false}>
+  <Description>
+    The phone number of the person who will be there for the pickup.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="contact.phone_number_extension" type="string" nullable={true}>
+  <Description>
+    The phone extension of the person who will be there for the pickup.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="pickup_details" type="object" nullable={true}>
+  <Description>What is being picked up.</Description>
+</Field>
+
+{' '}
+
+<Field name="pickup_details.pickup_service_code" type="string" nullable={true}>
+  <Description>
+    Service category for the carrier (ground, express, next_day).
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="pickup_details.shipments" nullable={true}>
+  <Type>[shipped shipment[]](./../shipped-shipment.mdx)</Type>
+  <Description>The shipments that will be picked up.</Description>
+</Field>
+
+{' '}
+
+<Field name="requested_pickup_window" nullable={false}>
+  <Type>[pickup window object](./../pickup-window.mdx)</Type>
+  <Description>
+    The time window that the user is requesting for the pickup to be made.
+  </Description>
+</Field>
 
 </Reference>
 
+## Return Value
 
-
-Return Value
------------------------------------------------
 ### `SchedulePickupResponse`
+
 This object model represents the response from a successful schedule pickup request.
 
 <Reference>
@@ -146,75 +162,75 @@ This object model represents the response from a successful schedule pickup requ
     </Description>
   </Field>
 
+{' '}
 
-  <Field name="confirmation" required={false}>
-    <Type>
-      [pickup confirmation object](./../pickup-confirmation.mdx)
-    </Type>
-    <Description>
-      The confirmation code associated with the successful creation of a pickup.
-    </Description>
-  </Field>
+<Field name="confirmation" required={false}>
+  <Type>[pickup confirmation object](./../pickup-confirmation.mdx)</Type>
+  <Description>
+    The confirmation code associated with the successful creation of a pickup.
+  </Description>
+</Field>
 
-  <Field name="pickup_windows" required={true}>
-    <Type>
-      [pickup window object[]](./../pickup-window.mdx)
-    </Type>
-    <Description>
-      A list of dates and times when the carrier intends to be available to pickup.
-    </Description>
-  </Field>
+{' '}
 
- <Field name="remarks" type="string" required={false}>
-    <Description>
-      A custom message returned from the carrier.
-    </Description>
-  </Field>
+<Field name="pickup_windows" required={true}>
+  <Type>[pickup window object[]](./../pickup-window.mdx)</Type>
+  <Description>
+    A list of dates and times when the carrier intends to be available to
+    pickup.
+  </Description>
+</Field>
 
- <Field name="custom_properties" type="object" required={false}>
-    <Description>
-      A grab bag of custom properties that will be persisted and sent back with the cancel pickup request.
-    </Description>
-  </Field>
+{' '}
 
- <Field name="billing_line_items" required={false}>
-    <Type>
-      [billing line item object[]](./../billing-line-item.mdx)
-    </Type>
-    <Description>
-      Individual Billing Line items for the rate.
-    </Description>
-  </Field>
+<Field name="remarks" type="string" required={false}>
+  <Description>A custom message returned from the carrier.</Description>
+</Field>
+
+{' '}
+
+<Field name="custom_properties" type="object" required={false}>
+  <Description>
+    A grab bag of custom properties that will be persisted and sent back with
+    the cancel pickup request.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="billing_line_items" required={false}>
+  <Type>[billing line item object[]](./../billing-line-item.mdx)</Type>
+  <Description>Individual Billing Line items for the rate.</Description>
+</Field>
 
 </Reference>
 
+## Example
 
-
-Example
------------------------------------------------
 <CodeWrapper>
 ```javascript
 module.exports = async function SchedulePickup(request) {
 
-  // STEP 1: Validation
+// STEP 1: Validation
 
-  // STEP 2: Create the data that the carrier's API expects
+// STEP 2: Create the data that the carrier's API expects
 
-  let data = {
-    operation: "schedule_pickup",
-    session_id: request.metadata.id,
-    pickup_time: request.requested_pickup_window,
-    pickup_location: request.location,
-    packages: request.pickup_details.shipments,
-  };
+let data = {
+operation: "schedule_pickup",
+session_id: request.metadata.id,
+pickup_time: request.requested_pickup_window,
+pickup_location: request.location,
+packages: request.pickup_details.shipments,
+};
 
-  // STEP 3: Call the carrier's API
-  const response = await apiClient.request({ data });
+// STEP 3: Call the carrier's API
+const response = await apiClient.request({ data });
 
-  // STEP 4: Create the output data that ShipEngine expects
-  return formatSchedulePickup(response.data);
+// STEP 4: Create the output data that ShipEngine expects
+return formatSchedulePickup(response.data);
 }
-```
+
+````
 
 ```typescript
 import {
@@ -241,5 +257,6 @@ export default async function SchedulePickup(request: SchedulePickupRequest): Pr
   // STEP 4: Create the output data that ShipEngine expects
   return formatSchedulePickup(response.data);
 }
-```
+````
+
 </CodeWrapper>

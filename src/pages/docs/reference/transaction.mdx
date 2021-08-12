@@ -3,10 +3,10 @@ title: Transaction object
 description: The transaction object provides important information about a method invocation. It also allows you to pass session state between methods, which is especially important for authentication credentials.
 ---
 
-Transaction Object
-===============================================
+# Transaction Object
+
 Every method in a [ShipEngine Connect](./../index.mdx) Carrier App receives a transaction object as the first parameter. This object contains useful information about the method invocation, such as a unique `transactionID`,
- and includes session state such as authentication credentials.
+and includes session state such as authentication credentials.
 
 Any of your methods may modify the `session` property of a transaction object. For example, your [`connect method`](./methods/connect.mdx)
 can set authentication information in the `session` property so that when the transaction object is passed to other methods, they can access it and use
@@ -14,43 +14,47 @@ it when calling the backend API or service. Likewise, if a method finds the auth
 expired, they may update the `session` property with a new value so that subsequent method calls have valid authentication
 information available.
 
+## Properties
 
-
-Properties
------------------------------------------------
 This table lists the properties of a transaction object and identifies those properties that are required. The `nullable`
 column indicates which properties may be null when the object is provided as an argument to one of your methods, and the `required`
 column indicates which properties are required when the object is returned from one of your methods
 
 <Reference>
 
-  <Field name="id" required={true} nullable={false}>
-    <Type>
-      [UUID](https://www.npmjs.com/package/uuid)
-    </Type>
-    <Description>
-      Uniquely identifies the current transaction. If the transaction is retried, then this `id` will remain the same. You can use this to detect and prevent duplicate operations.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="language" type="string" required={true} nullable={false}>
-    <Description>
-      Represents the desired language of the request. This property should be a string that contains a BCP 47 language tag (e.g. en-US, en-GB).
-    </Description>
-  </Field>
+<Field name="id" required={true} nullable={false}>
+  <Type>[UUID](https://www.npmjs.com/package/uuid)</Type>
+  <Description>
+    Uniquely identifies the current transaction. If the transaction is retried,
+    then this `id` will remain the same. You can use this to detect and prevent
+    duplicate operations.
+  </Description>
+</Field>
 
-  <Field name="session" type="object" required={true} nullable={false}>
-    <Description>
-      The application's session data. Any method may update the session data, such as renewing a session token or updating a timestamp. Must be JSON serializable.
-    </Description>
-  </Field>
+{' '}
+
+<Field name="language" type="string" required={true} nullable={false}>
+  <Description>
+    Represents the desired language of the request. This property should be a
+    string that contains a BCP 47 language tag (e.g. en-US, en-GB).
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="session" type="object" required={true} nullable={false}>
+  <Description>
+    The application's session data. Any method may update the session data, such
+    as renewing a session token or updating a timestamp. Must be JSON
+    serializable.
+  </Description>
+</Field>
 
 </Reference>
 
-
-
-Example
--------------------------------------------------
+## Example
 
 Here's an example transaction object:
 

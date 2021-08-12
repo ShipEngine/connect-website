@@ -3,16 +3,14 @@ title: cancelShipments Method
 description: This method cancels shipments, which may include voiding labels, refunding charges, invalidating tracking numbers, updating manifests, or anything else that needs to happen when a shipment is canceled.
 ---
 
+# `cancelShipments()`
 
-`cancelShipments()`
-===========================
 This method cancels shipments, which may include voiding labels, refunding charges, invalidating tracking numbers, updating manifests, or anything else that needs to happen when a shipment is canceled.
 
 Most carrier applications should implement this method, unless you don't allow shipments to be canceled or voided after creation.
 
+## Syntax
 
-Syntax
------------------------------------------------
 <CodeWrapper>
 ```javascript
 module.exports = async function cancelShipments(transaction, shipments) {
@@ -22,172 +20,198 @@ module.exports = async function cancelShipments(transaction, shipments) {
 
 ```typescript
 import {
-  Transaction, ShipmentCancellation, ShipmentCancellationOutcome
-} from "@shipengine/connect";
+  Transaction,
+  ShipmentCancellation,
+  ShipmentCancellationOutcome,
+} from '@shipengine/connect'
 
 export default async function cancelShipments(
   transaction: Transaction,
-  shipments: ShipmentCancellation[]
+  shipments: ShipmentCancellation[],
 ): Promise<void | ShipmentCancellationOutcome[]> {
   // Your code here
 }
 ```
+
 </CodeWrapper>
 
-
-
-Parameters
------------------------------------------------
+## Parameters
 
 ### `transaction`
+
 A [transaction object](../transaction.mdx) containing information about the transaction and session state.
 
 ### `shipments[]`
+
 An array of objects that indicate which shipments to cancel. This array will always contain at least one object.
 
 Each object has the `trackingNumber` and `identifiers` of the shipment being canceled. It also has a `cancellationID` property, which is the ID of the cancellation request. You'll use this `cancellationID` to return the outcome of each cancellation, such as whether it was successful, failed, or could not be completed.
 
 <Reference>
 
-  <Field name="cancellationID" nullable={false}>
-    <Type>
-      [UUID](https://www.npmjs.com/package/uuid)
-    </Type>
-    <Description>
-      The unique ID of this cancellation. This ID is used to correlate cancellations with outcomes.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="trackingNumber" type="string" nullable={false}>
-    <Description>
-      The master tracking number for the entire shipment. For single-piece shipments, this will be the same as the package tracking number. For multi-piece shipments, this may be a separate tracking number, or the same tracking number as one of the packages. This string will not contain newline characters.
-    </Description>
-  </Field>
+<Field name="cancellationID" nullable={false}>
+  <Type>[UUID](https://www.npmjs.com/package/uuid)</Type>
+  <Description>
+    The unique ID of this cancellation. This ID is used to correlate
+    cancellations with outcomes.
+  </Description>
+</Field>
 
-  <Field name="identifiers" nullable={false}>
-    <Description>
-      Your own identifiers for this shipment cancellation.
-    </Description>
-    <Type>
-      [identifiers object](./../identifiers-object.mdx)
-    </Type>
-  </Field>
+{' '}
 
-  <Field name="metadata" type="object" nullable={false}>
-    <Description>
-      Custom data about this shipment that was persisted by ShipEngine Connect when this shipment was created. Must be JSON serializable.
-    </Description>
-  </Field>
+<Field name="trackingNumber" type="string" nullable={false}>
+  <Description>
+    The master tracking number for the entire shipment. For single-piece
+    shipments, this will be the same as the package tracking number. For
+    multi-piece shipments, this may be a separate tracking number, or the same
+    tracking number as one of the packages. This string will not contain newline
+    characters.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="identifiers" nullable={false}>
+  <Description>
+    Your own identifiers for this shipment cancellation.
+  </Description>
+  <Type>[identifiers object](./../identifiers-object.mdx)</Type>
+</Field>
+
+{' '}
+
+<Field name="metadata" type="object" nullable={false}>
+  <Description>
+    Custom data about this shipment that was persisted by ShipEngine Connect
+    when this shipment was created. Must be JSON serializable.
+  </Description>
+</Field>
 
 </Reference>
 
+## Return Value
 
-
-Return Value
------------------------------------------------
 ### `cancellationOutcomes`
+
 An array of objects that indicate the outcome of cancelling the shipments. This array will always contain at least one object. You may also choose not to return a value from this method.
 
 <Reference>
 
-  <Field name="cancellationID" required={true}>
-    <Type>
-      [UUID](https://www.npmjs.com/package/uuid)
-    </Type>
-    <Description>
-      The unique ID of this cancellation. This ID is used to correlate the outcome to the cancellation request.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="status" type="string" required={true}>
-    <Description>
-      The status of the cancellation. Valid values include the following:
-      * `success` - Cancellation was successful.
-      * `error` - Cancellation encountered an error.
-      * `timeout` - Cancellation call timed out, probably related to a network error.
-      * `skipped` - Cancellation was skipped.
-      * `throttled` - Cancellation could not be made because requests are being throttled.
-    </Description>
-  </Field>
+<Field name="cancellationID" required={true}>
+  <Type>[UUID](https://www.npmjs.com/package/uuid)</Type>
+  <Description>
+    The unique ID of this cancellation. This ID is used to correlate the outcome
+    to the cancellation request.
+  </Description>
+</Field>
 
-  <Field name="confirmationNumber" type="string" required={false}>
-    <Description>
-      The confirmation number of the cancellation. This string must not contain newline characters.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="code" type="string" required={false}>
-    <Description>
-      The carrier's code for this cancellation outcome. This string must not contain newline characters.
-    </Description>
-  </Field>
+<Field name="status" type="string" required={true}>
+  <Description>
+    The status of the cancellation. Valid values include the following: *
+    `success` - Cancellation was successful. * `error` - Cancellation
+    encountered an error. * `timeout` - Cancellation call timed out, probably
+    related to a network error. * `skipped` - Cancellation was skipped. *
+    `throttled` - Cancellation could not be made because requests are being
+    throttled.
+  </Description>
+</Field>
 
-  <Field name="description" type="string" required={false}>
-    <Description>
-      The carrier's description of the cancellation outcome. This description should not be specific to this particular shipment. This string must not contain newline characters.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="notes" type="object[]" required={false}>
-    <Description>
-      An array of objects containing additional information about this shipment.
-    </Description>
-  </Field>
+<Field name="confirmationNumber" type="string" required={false}>
+  <Description>
+    The confirmation number of the cancellation. This string must not contain
+    newline characters.
+  </Description>
+</Field>
 
-  <Field name="notes[].type" required={true}>
-    <Type>
-      [notes type string](./../common-types.mdx#notes-types)
-    </Type>
-    <Description>
-      The type for this note.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="notes[].text" type="string" required={true}>
-    <Description>
-      The note text itself.
-    </Description>
-  </Field>
+<Field name="code" type="string" required={false}>
+  <Description>
+    The carrier's code for this cancellation outcome. This string must not
+    contain newline characters.
+  </Description>
+</Field>
 
-  <Field name="metadata" type="object" required={false}>
-    <Description>
-      Custom data about this shipment that was persisted by ShipEngine Connect. Must be JSON serializable.
-    </Description>
-  </Field>
+{' '}
+
+<Field name="description" type="string" required={false}>
+  <Description>
+    The carrier's description of the cancellation outcome. This description
+    should not be specific to this particular shipment. This string must not
+    contain newline characters.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="notes" type="object[]" required={false}>
+  <Description>
+    An array of objects containing additional information about this shipment.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="notes[].type" required={true}>
+  <Type>[notes type string](./../common-types.mdx#notes-types)</Type>
+  <Description>The type for this note.</Description>
+</Field>
+
+{' '}
+
+<Field name="notes[].text" type="string" required={true}>
+  <Description>The note text itself.</Description>
+</Field>
+
+{' '}
+
+<Field name="metadata" type="object" required={false}>
+  <Description>
+    Custom data about this shipment that was persisted by ShipEngine Connect.
+    Must be JSON serializable.
+  </Description>
+</Field>
 
 </Reference>
 
+## Example
 
-
-Example
------------------------------------------------
 <CodeWrapper>
 ```javascript
 module.exports = async function cancelShipments(transaction, shipmentCancellations) {
   // STEP 1: Validation
 
-  // STEP 2: Create the data that the carrier's API expects
+// STEP 2: Create the data that the carrier's API expects
 
-  let data = {
-    operation: "void_labels",
-    session_id: transaction.session.id,
-    cancellations: shipmentCancellations.map((cancellation) => {
-      const { cancellationID, trackingNumber } = cancellation;
-      return {
-        cancellationID: cancellationID,
-        internalReferenceID: cancellation.identifiers.internalReferenceID,
-        trackingNumber: trackingNumber,
-      };
-    }),
-  };
+let data = {
+operation: "void_labels",
+session_id: transaction.session.id,
+cancellations: shipmentCancellations.map((cancellation) => {
+const { cancellationID, trackingNumber } = cancellation;
+return {
+cancellationID: cancellationID,
+internalReferenceID: cancellation.identifiers.internalReferenceID,
+trackingNumber: trackingNumber,
+};
+}),
+};
 
-  // STEP 3: Call the carrier's API
-  const response = await apiClient.request({ data });
+// STEP 3: Call the carrier's API
+const response = await apiClient.request({ data });
 
-  // STEP 4: Create the output data that ShipEngine expects
-  return await formatCancellationResponse(response.data);
+// STEP 4: Create the output data that ShipEngine expects
+return await formatCancellationResponse(response.data);
 }
-```
+
+````
 
 ```typescript
 import {
@@ -221,5 +245,6 @@ export default async function cancelShipments(
   // STEP 4: Create the output data that ShipEngine expects
   return await formatCancellationResponse(response.data);
 }
-```
+````
+
 </CodeWrapper>

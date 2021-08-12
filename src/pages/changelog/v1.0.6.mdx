@@ -4,17 +4,14 @@ description: This page describes what changed in @shipengine/connect v1.0.6
 image: /img/changelog/card.png
 ---
 
-Changelog `v1.0.6` <small>(2020-09-06)</small>
-=========================================================
+# Changelog `v1.0.6` <small>(2020-09-06)</small>
 
 Previously, app developers needed to install `@shipengine/connect-cli` globally and `@shipengine/connect-sdk` locally as an app dependency. They then had to keep them both up-to-date and in-sync with each other, which also required them to be aware of which SDK versions were compatible with which CLI versions.
 
 To simplify things, we've combined the CLI and SDK into a single package called [`@shipengine/connect`](https://www.npmjs.com/package/@shipengine/connect). So there's only one thing to install, one version number to know, and the CLI and SDK will always be in-sync.
 
+## Action Required
 
-
-Action Required
-----------------------------------
 Uninstall the old CLI, and install the new one instead:
 
 ```
@@ -29,10 +26,8 @@ npm uninstall @shipengine/connect-sdk
 npm install --save-dev @shipengine/connect
 ```
 
+## CLI
 
-
-CLI
----------------------------------------
 - Several changes to the [`connect init`](../docs/cli.mdx#initialize-a-new-app) command:
   - It now scaffolds new apps with a dependency on `@shipengine/connect` instead of `@shipengine/connect-sdk`
   - The NPM scope no longer defaults to `@shipengine`, which was confusing
@@ -43,10 +38,8 @@ CLI
   - The `.editorconfig` or `LICENSE` files are no longer generated
   - Fixed an error that occurred when running `connect init` in an existing app directory
 
+## SDK
 
-
-SDK
----------------------------------------
 - Removed error codes that were only meant for internal use (`ERR_FILESYSTEM`, `ERR_SYNTAX`, `ERR_INVALID_INPUT`, `ERR_CURRENCY_MISMATCH`)
 
 - Removed error codes and error classes that were HTTP-specific (e.g. `BadRequestError`, `NotFoundError`, `RateLimitError`) and replaced them with a single `ExternalError` class and `ERR_EXTERNAL` code
