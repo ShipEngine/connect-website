@@ -191,6 +191,12 @@ export const menu: MenuContents = [
           { title: "Order App", href: "/docs/beta/app-definition/order-source" },
         ]
       },
+      {
+        title: "Methods",
+        menuItems: [
+          { title: "SalesOrdersExport", href: "/docs/beta/reference/methods/sales-orders-export" }
+        ]
+      }
     ]
   }
 ];

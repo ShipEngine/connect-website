@@ -1,0 +1,69 @@
+---
+title: SalesOrdersExport Method
+description: This method exports sales orders from an order source.
+---
+
+`SalesOrdersExport()`
+===========================
+This method exports a list of sales orders from an order source given a set of parameters.
+
+
+Syntax
+-----------------------------------------------
+<CodeWrapper>
+```javascript
+module.exports = async function SalesOrdersExport(request) {
+  // Your code here
+}
+```
+
+```typescript
+import {
+  SalesOrdersExportRequest,
+  SalesOrdersExportResponse
+  } from "@shipengine/connect-order-source-api";
+
+export const SalesOrdersExport = async (
+  request: SalesOrdersExportRequest
+): Promise<SalesOrdersExportResponse> => {
+  // Your code here
+}
+```
+</CodeWrapper>
+
+
+
+Parameters
+-----------------------------------------------
+
+### `SalesOrdersExportRequest`
+An object containing parameters to use when querying the order source for sales orders.
+
+<Reference>
+
+  <Field name="criteria" nullable={true}>
+    <Type>
+      [criteria object](./../criteria.mdx)
+    </Type>
+    <Description>
+      This object will contain properies that help create the search query to poll the order source for sales orders.
+    </Description>
+  </Field>
+
+  <Field name="cursor" type="string" nullable={true}>
+    <Description>
+      Information needed to get a current batch of sales orders if necessary. This should be set by SalesOrdersExportResponse
+      if there are additional orders to be retrieved.
+    </Description>
+  </Field>
+
+  <Field name="sales_order_field_mappings" nullable="true">
+    <Type>
+      [sales order field mappings](./../custom-field-mappings.mdx)
+    </Type>
+    <Description>
+      Allows for mapping of user defined fields to properies on the SalesOrderExportResponse.
+    </Description>
+  </Field>
+
+</Reference>

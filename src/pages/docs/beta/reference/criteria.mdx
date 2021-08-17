@@ -1,0 +1,26 @@
+---
+title: criteria object
+description: An object representing the requested query criteria
+---
+
+Criteria Object
+===============================================
+An object representing the requested query criteria.
+
+<Reference>
+
+  <Field name="from_date_time" type="string" nullable={true}>
+    <Description>
+      The datetime associated with the beginning of the range that the request should pull orders from.
+      Formatted per the https://tools.ietf.org/html/rfc3339 spec. Will always be in UTC. 
+    </Description>
+  </Field>
+
+  <Field name="to_date_time" type="string" nullable={true}>
+    <Description>
+      The datetime associated with the end of the range that the request should pull orders from.
+      Formatted per the https://tools.ietf.org/html/rfc3339 spec. Will always be in UTC. 
+    </Description>
+  </Field>
+
+</Reference>
