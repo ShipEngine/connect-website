@@ -1,0 +1,24 @@
+---
+title: Charge object
+description: This represents an amount charged.
+---
+
+Charge Object
+===============================================
+Charge objects are used throughout the Order Source specifications to describe monetary charges This includes adjustments, taxes, and coupons.
+
+<Reference>
+
+  <Field name="amount" type="number" required={true} nullable={false}>
+    <Description>
+      The amount of the currency.
+    </Description>
+  </Field>
+
+  <Field name="description" type="string" required={true} nullable={false}>
+    <Description>
+      A description for display purposes only.
+    </Description>
+  </Field>
+
+</Reference>
