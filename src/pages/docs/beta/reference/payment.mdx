@@ -1,0 +1,93 @@
+---
+title: Payment object
+description: Represents the Payment of the sales order.
+---
+
+Payment Object
+===============================================
+Payment objects are used throughout the Order Source specifications to describe the payment of the sales order.
+
+<Reference>
+
+  <Field name="payment_id" type="string" required={false}>
+    <Description>
+      An identifier for this payment in the vendor API.
+    </Description>
+  </Field>
+
+  <Field name="payment_status" type="string" required={false}>
+    <Description>
+      The status of whether or not an order has been paid for. Valid values include the following:
+      * `AwaitingPayment` - The sales order is still waiting on the customer's payment.
+      * `PaymentCancelled` - The sales order payment was cancelled.
+      * `PaymentFailed` - The sales order payment failed.
+      * `PaymentInProcess` - The sales order payment is currently being processed.
+      * `Paid` - The sales order has been payed for.
+      * `Other` - The sales order payment is in an unknown state.
+    </Description>
+  </Field>
+
+  <Field name="taxes" required={false}>
+    <Type>
+      [charge object[]](./charge.mdx)
+    </Type>
+    <Description>
+      A list of tax charges. The description can convey the jurisdiction.
+    </Description>
+  </Field>
+
+  <Field name="shipping_charges" required={false}>
+    <Type>
+      [charge object[]](./charge.mdx)
+    </Type>
+    <Description>
+      A list of shipping charges.
+    </Description>
+  </Field>
+
+  <Field name="adjustments" required={false}>
+    <Type>
+      [charge object[]](./charge.mdx)
+    </Type>
+    <Description>
+      A list of adjustments applied that influence the order total. For example, promotions/discounts/coupons. The amount should always be a quantify of currency, not a percentage.
+    </Description>
+  </Field>
+
+  <Field name="amount_paid" type="number" required={false}>
+    <Description>
+      The amount of the currency.
+    </Description>
+  </Field>
+
+  <Field name="coupon_code" type="string[]" required={false}>
+    <Description>
+      Coupon codes applied to obtain a discount. The discount amounts should be included as one of the adjustments.
+    </Description>
+  </Field>
+
+  <Field name="payment_method" type="string" required={false}>
+    <Description>
+      The payment method.
+    </Description>
+  </Field>
+
+  <Field name="label_voucher" type="object" required={false}>
+    <Description>
+      Represents information needed to leverage a third party Carrier API implementation.
+    </Description>
+  </Field>
+
+  <Field name="label_voucher.url" type="string" required={false}>
+    <Description>
+      Base URL for the Carrier API implementation.
+    </Description>
+  </Field>
+
+  <Field name="label_voucher.token" type="string" required={false}>
+    <Description>
+      Token needed to authenticate with the Carrier API implementation.
+    </Description>
+  </Field>
+
+</Reference>

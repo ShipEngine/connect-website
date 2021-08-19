@@ -28,141 +28,12 @@ not passed as an argument to any method.
     </Description>
   </Field>
 
-  <Field name="product" type="object" required={true}>
+  <Field name="product" required={false}>
+    <Type>
+      [product object](./product.mdx)
+    </Type>
     <Description>
       The product associated with this item.
-    </Description>
-  </Field>
-
-  <Field name="product.product_id" type="string" required={true}>
-    <Description>
-      A unique identifier for the product provided by the order source.
-    </Description>
-  </Field>
-
-  <Field name="product.name" type="string" required={true}>
-    <Description>
-      The product name.
-    </Description>
-  </Field>
-
-  <Field name="product.description" type="string" required={false}>
-    <Description>
-      The product description.
-    </Description>
-  </Field>
-
-  <Field name="product.identifiers" type="object" required={false}>
-    <Description>
-      Additional identifiers associated with this product.
-    </Description>
-  </Field>
-
-  <Field name="product.identifiers.sku" type="string" required={false}>
-    <Description>
-      A stock-keeping unit associated with a product by the order source. This string must not contain newline characters.
-    </Description>
-  </Field>
-
-  <Field name="product.identifiers.upc" type="string" required={false}>
-    <Description>
-      A universal product code associated with a product. This string must not contain newline characters.
-    </Description>
-  </Field>
-
-  <Field name="product.identifiers.isbn" type="string" required={false}>
-    <Description>
-      An international standard book number associated with a product. This string must not contain newline characters.
-    </Description>
-  </Field>
-
-  <Field name="product.identifiers.asin" type="string" required={false}>
-    <Description>
-      An Amzon standard identification number associated with a product. This string must not contain newline characters.
-    </Description>
-  </Field>
-
-  <Field name="product.identifiers.fulfillmentSku" type="string" required={false}>
-    <Description>
-      A stock-keeping unit associated with the fulfillment of an order. This string must not contain newline characters.
-    </Description>
-  </Field>
-
-  <Field name="product.identifiers.inventory_id" type="string" required={false}>
-    <Description>
-      The identifier needed to set and retrieve inventory levels. This string must not contain newline characters.
-    </Description>
-  </Field>
-
-  <Field name="product.details" type="object" required={false}>
-    <Description>
-      Details about a product.
-    </Description>
-  </Field>
-
-  <Field name="product.details.name" type="string" required={true}>
-    <Description>
-      The type of the product detail. Only required if `product.details` is specified.
-    </Description>
-  </Field>
-
-  <Field name="product.details.value" type="string" required={true}>
-    <Description>
-      The value of the product detail. Only required if `product.details` is specified.
-    </Description>
-  </Field>
-
-  <Field name="product.unit_cost" type="number" required={false}>
-    <Description>
-      The cost of a single product.
-    </Description>
-  </Field>
-
-  <Field name="product.weight" required={false}>
-    <Type>
-      [weight object](./weight.mdx)
-    </Type>
-    <Description>
-      The weight of the product.
-    </Description>
-  </Field>
-
-  <Field name="product.dimensions" required={false}>
-    <Type>
-      [dimensions object](./dimensions.mdx)
-    </Type>
-    <Description>
-       The dimensions for the product.
-    </Description>
-  </Field>
-
-  <Field name="product.urls" type="object" required={false}>
-    <Description>
-      The urls associated with a product.
-    </Description>
-  </Field>
-
-  <Field name="product.urls.product_url" type="string" required={false}>
-    <Description>
-      A link to the product page.
-    </Description>
-  </Field>
-
-  <Field name="product.urls.image_url" type="string" required={false}>
-    <Description>
-      A link to the image for a product.
-    </Description>
-  </Field>
-
-  <Field name="product.urls.thumbnail_url" type="string" required={false}>
-    <Description>
-      A link to the image for use in platform thumbnails.
-    </Description>
-  </Field>
-
-  <Field name="product.location" type="string" required={false}>
-    <Description>
-      The location the product can be found in a warehouse.
     </Description>
   </Field>
 
@@ -180,7 +51,7 @@ not passed as an argument to any method.
 
   <Field name="taxes" required={false}>
     <Type>
-      [charge object](./charge.mdx)
+      [charge object[]](./charge.mdx)
     </Type>
     <Description>
       A list of tax charges. The description can convey the jurisdiction.
@@ -189,7 +60,7 @@ not passed as an argument to any method.
 
   <Field name="shipping_charges" required={false}>
     <Type>
-      [charge object](./charge.mdx)
+      [charge object[]](./charge.mdx)
     </Type>
     <Description>
       A list of shipping charges.
@@ -198,7 +69,7 @@ not passed as an argument to any method.
 
   <Field name="adjustments" required={false}>
     <Type>
-      [charge object](./charge.mdx)
+      [charge object[]](./charge.mdx)
     </Type>
     <Description>
       A list of adjustments applied that influence the order total. For example, promotions/discounts/coupons. The amount should always be a quantify of currency, not a percentage.

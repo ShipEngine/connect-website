@@ -159,93 +159,95 @@ This object model represents the response from a successful sales orders export 
     </Description>
   </Field>
 
-  <Field name="sales_orders[].original_order_source" type="object" required={false}>
+  <Field name="sales_orders[].original_order_source" required={false}>
+    <Type>
+      [original order source object](./../original-order-source.mdx)
+    </Type>
     <Description>
       Information regarding the original order source. This is used when an order source is acting on behalf of other order sources, in order to persist information regarding the original order.
     </Description>
   </Field>
 
-  <Field name="sales_orders[].original_order_source.source_id" type="string" required={false}>
-    <Description>
-      A unique identifier for the source marketplace.
-    </Description>
-  </Field>
-
-  <Field name="sales_orders[].original_order_source.marketplace_code" type="string" required={false}>
-    <Description>
-      The code for the type of marketplace.
-    </Description>
-  </Field>
-
-  <Field name="sales_orders[].original_order_source.order_id" type="string" required={false}>
-    <Description>
-      The unique identifier for the order at the source marketplace.
-    </Description>
-  </Field>
-
-  <Field name="sales_orders[].requested_fulfillments" type="object[]" required={false}>
-    <Description>
-      The fulfillment requested by the marketplace or the buyer.
-    </Description>
-  </Field>
-
-  <Field name="sales_orders[].requested_fulfillments.shipTo" required={true}>
+  <Field name="sales_orders[].requested_fulfillments" required={false}>
     <Type>
-      [order source address object](./../address.mdx)
+      [requested fulfillments object[]](./../requested-fulfillments.mdx)
     </Type>
     <Description>
       The fulfillment requested by the marketplace or the buyer.
     </Description>
   </Field>
 
-  <Field name="sales_orders[].requested_fulfillments.items" required={true}>
+  <Field name="sales_orders[].buyer" required={false}>
     <Type>
-      [sales order item object](./../sales-order-item.mdx)
+      [buyer object](./../buyer.mdx)
     </Type>
     <Description>
-      The fulfillment requested by the marketplace or the buyer.
+      The buyer of this sales order.
     </Description>
   </Field>
 
-  <Field name="sales_orders[].requested_fulfillments.extensions" type="object" required={false}>
-    <Description>
-      Additional information about this fulfillment.
-    </Description>
-  </Field>
-
-  <Field name="sales_orders[].requested_fulfillments.extensions.custom_field_1" type="string" required={false}>
-    <Description>
-      Custom field 1.
-    </Description>
-  </Field>
-
-  <Field name="sales_orders[].requested_fulfillments.extensions.custom_field_2" type="string" required={false}>
-    <Description>
-      Custom field 2.
-    </Description>
-  </Field>
-
-  <Field name="sales_orders[].requested_fulfillments.extensions.custom_field_3" type="string" required={false}>
-    <Description>
-      Custom field 3.
-    </Description>
-  </Field>
-
-  <Field name="sales_orders[].requested_fulfillments.shipping_preferences" required={false}>
+  <Field name="sales_orders[].bill_to" required={false}>
     <Type>
-      [shipping preferences object](./../shipping-preferences.mdx)
+      [bill to address object](./../address.mdx#billto-address-object)
     </Type>
     <Description>
-      Preferences about how the order is shipped.
+      The person being billed for this sales order.
     </Description>
   </Field>
 
-  <Field name="sales_orders[].requested_fulfillments.branding" required={false}>
+  <Field name="sales_orders[].currency" type="string" required={false}>
+    <Description>
+      The three character ISO 4217 code of the currency used for all monetary amounts.
+    </Description>
+  </Field>
+
+  <Field name="sales_orders[].payment" type="object" required={false}>
+    <Description>
+      Information about the payment.
+    </Description>
+  </Field>
+
+  <Field name="sales_orders[].ship_from" required={false}>
     <Type>
-      [branding object](./../branding.mdx)
+      [order source address object](./../address.mdx#order-source-address-object)
     </Type>
     <Description>
-      Brand information about this fulfillment.
+      The origin address that the order is shipping from.
+    </Description>
+  </Field>
+
+  <Field name="sales_orders[].order_url" type="string" required={false}>
+    <Description>
+      A unique url associated with the order.
+    </Description>
+  </Field>
+
+  <Field name="sales_orders[].notes" required={false}>
+    <Type>
+      [note object[]](./../note.mdx)
+    </Type>
+    <Description>
+      Notes about the order.
+    </Description>
+  </Field>
+
+  <Field name="sales_orders[].integration_context" type="string" required={false}>
+    <Description>
+      Data provided by the order source that should be included in calls back to the order source. This data is only meaningful to the integration and not otherwise used by the platform.
+    </Description>
+  </Field>
+
+  <Field name="sales_orders[].created_date_time" type="string" required={false}>
+    <Description>
+      The datetime associated with when the sales order was created. Should always be in UTC and
+      formatted per the https://tools.ietf.org/html/rfc3339 spec.
+    </Description>
+  </Field>
+
+  <Field name="sales_orders[].modified_date_time" type="string" required={false}>
+    <Description>
+      The datetime associated with when the sales order was modified. Should always be in UTC and
+      formatted per the https://tools.ietf.org/html/rfc3339 spec.
     </Description>
   </Field>
 

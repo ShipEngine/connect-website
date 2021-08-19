@@ -194,7 +194,7 @@ Pickup/Dropoff location address used by carriers.
 
 Order Source Address Object
 ---------------------------
-Pickup/Dropoff location address used by carriers.
+An address object used by the Order Source Apps to map sales order addresses.
 
 <Reference>
 
@@ -288,6 +288,32 @@ Pickup/Dropoff location address used by carriers.
   <Field name="pickup_location.relay_id" type="string" required={true}>
     <Description>
       The id of a relay point used for the drop off / pickup location. Only required if `pickup_location` is specified.
+    </Description>
+  </Field>
+
+</Reference>
+
+BillTo Address Object
+---------------------------
+This address object is used in places related to order sources like `bill_to` in [SalesOrdersExport](./methods/sales-orders-export.mdx).
+
+This object extends the Order Source Address object.
+
+
+<Reference>
+
+  <Field name="...Order Source Address" nullable={false}>
+    <Type>
+      [order source address object](#order-source-address-object)
+    </Type>
+    <Description>
+      All fields described in the [order source address object](#order-source-address-object) defined above.
+    </Description>
+  </Field>
+
+  <Field name="email" type="string" nullable={false}>
+    <Description>
+      The email address of the person being billed.
     </Description>
   </Field>
 
