@@ -1,0 +1,280 @@
+---
+title: ShipmentNotification Method
+description: This method is called when a shipment is created for one or more items in one or more sales orders.
+---
+
+
+`ShipmentNotification()`
+===========================
+This method is called when a shipment is created for one or more items in one or more sales orders.
+  A single shipment may contain items from multiple sales orders, and a single sales order
+  may be fulfilled by multiple shipments.
+
+
+Syntax
+-----------------------------------------------
+<CodeWrapper>
+```javascript
+module.exports = async function ShipmentNotification(request) {
+  // Your code here
+}
+```
+
+```typescript
+import {
+  ShipmentNotificationRequest,
+  ShipmentNotificationResponse
+  } from "@shipengine/connect-order-source-api";
+
+export const ShipmentNotification = async (
+  request: ShipmentNotificationRequest
+): Promise<ShipmentNotificationResponse> => {
+  // Your code here
+}
+```
+</CodeWrapper>
+
+
+
+Parameters
+-----------------------------------------------
+
+### `ShipmentNotificationRequest`
+A request to notify an order source that a order has been shipped.
+
+<Reference>
+
+  <Field name="notifications" nullable={false}>
+    <Type>
+      [shipment notification object[]](#shipmentnotification)
+    </Type>
+    <Description>
+      A list of orders to notify the order source about.
+    </Description>
+  </Field>
+
+</Reference>
+
+### `ShipmentNotification`
+An individual notification that an order has been shipped.
+
+<Reference>
+
+  <Field name="notification_id" type="string" nullable={false}>
+    <Description>
+      A unique identifier to correlate this shipment notification with its result in the response.
+    </Description>
+  </Field>
+
+  <Field name="order_id" type="string" nullable={false}>
+    <Description>
+      The unique identifier of the sales order from the order source.
+    </Description>
+  </Field>
+
+  <Field name="order_number" type="string" nullable={true}>
+    <Description>
+      The customer facing identifier of the sales order.
+    </Description>
+  </Field>
+
+  <Field name="tracking_number" type="string" nullable={true}>
+    <Description>
+      The identifier provided by the fulfiller for tracking the delivery progress.
+    </Description>
+  </Field>
+
+  <Field name="tracking_url" type="string" nullable={true}>
+    <Description>
+       The url where the shipment can be tracked.
+    </Description>
+  </Field>
+
+  <Field name="carrier_code" type="string" nullable={true}>
+    <Description>
+       The carrier code the order was shipped through.
+    </Description>
+  </Field>
+
+  <Field name="carrier_service_code" type="string" nullable={true}>
+    <Description>
+       The shipping service used to ship this order.
+    </Description>
+  </Field>
+
+  <Field name="ext_location_id" type="string" nullable={true}>
+    <Description>
+       The order source's identifier for the location that items were shipped from.
+    </Description>
+  </Field>
+
+  <Field name="items" nullable={true}>
+    <Type>
+      [shipment notification item object[]](#shipmentnotificationitem)
+    </Type>
+    <Description>
+      The items shipped in this shipment.
+    </Description>
+  </Field>
+
+  <Field name="ship_to" nullable={true}>
+    <Type>
+      [order source address object](./../address.mdx#order-source-address-object)
+    </Type>
+    <Description>
+      Where the shipment was shipped to.
+    </Description>
+  </Field>
+
+  <Field name="ship_from" nullable={true}>
+    <Type>
+      [order source address object](./../address.mdx#order-source-address-object)
+    </Type>
+    <Description>
+      Where the shipment was shipped from.
+    </Description>
+  </Field>
+
+  <Field name="return_address" nullable={true}>
+    <Type>
+      [order source address object](./../address.mdx#order-source-address-object)
+    </Type>
+    <Description>
+      The return address specified on the shipment.
+    </Description>
+  </Field>
+
+  <Field name="ship_date" type="string" nullable={true}>
+    <Description>
+      The datetime associated with when the sales order was shipped. Should always be in UTC and
+      formatted per the https://tools.ietf.org/html/rfc3339 spec.
+    </Description>
+  </Field>
+
+  <Field name="currency" type="string" nullable={true}>
+    <Description>
+       The (ISO 4217) code describing the currency used for all amounts on this payload.
+    </Description>
+  </Field>
+
+  <Field name="fulfillment_cost" type="string" nullable={true}>
+    <Description>
+       The amount of money it cost to fulfill this shipment.
+    </Description>
+  </Field>
+
+  <Field name="notes" nullable={true}>
+    <Type>
+      [notes object[]](./../note.mdx)
+    </Type>
+    <Description>
+      Additional notes associated with this notification or its sales order.
+    </Description>
+  </Field>
+
+  <Field name="insurance_cost" type="string" nullable={true}>
+    <Description>
+       The total amount of insurance purchased.
+    </Description>
+  </Field>
+
+  <Field name="notify_buyer" type="boolean" nullable={true}>
+    <Description>
+       Indicates whether or not the buyer should be notified that this item has been shipped.
+    </Description>
+  </Field>
+
+  <Field name="integration_context" type="string" nullable={true}>
+    <Description>
+      Data provided by the order source that was included in the SalesOrderExport response.
+    </Description>
+  </Field>
+
+</Reference>
+
+### `ShipmentNotificationItem`
+An individual item in the shipment notification.
+
+<Reference>
+
+  <Field name="line_item_id" type="string" nullable={true}>
+    <Description>
+      The order source's unique identifier for the line item.
+    </Description>
+  </Field>
+
+  <Field name="description" type="string" nullable={false}>
+    <Description>
+      A description of the sales order item - which may differ from the product description.
+    </Description>
+  </Field>
+
+  <Field name="sku" type="string" nullable={true}>
+    <Description>
+      The stock keeping unit identifier for the item that was shipped.
+    </Description>
+  </Field>
+
+  <Field name="product_id" type="string" nullable={true}>
+    <Description>
+       Identifier of the product in the vendor API.
+    </Description>
+  </Field>
+
+  <Field name="quantity" type="number" nullable={false}>
+    <Description>
+       The number of items of this SKU that were shipped.
+    </Description>
+  </Field>
+
+</Reference>
+
+Return Value
+-----------------------------------------------
+### `ShipmentNotificationResult[]`
+
+<Reference>
+  <Field name="notification_results" nullable={false}>
+    <Type>
+      [shipment notification result object[]](./../shipment-notification-result.mdx)
+    </Type>
+    <Description>
+      A list of results for shipment notifications.
+    </Description>
+  </Field>
+</Reference>
+
+Example
+-----------------------------------------------
+<CodeWrapper>
+```javascript
+async function ShipmentNotification(request) {
+  // STEP 1: Validation
+  // Add any desired validation here
+
+  // STEP 2: Create the data that the order source's API expects
+  const thirdPartyRequest = mapRequest(request);
+  // STEP 3: Call the order source's API
+  const response = await callApi(thirdPartyRequest);
+  // Step 4: Create the output data that ShipEngine expects
+  const mappedResponse = mapResponse(response);
+  return mappedResponse;
+}
+```
+```typescript
+export const ShipmentNotification = async (
+  request: ShipmentNotificationRequest
+): Promise<ShipmentNotificationResponse> => {
+  // STEP 1: Validation
+  // Add any desired validation here
+
+  // STEP 2: Create the data that the order source's API expects
+  const thirdPartyRequest = mapRequest(request);
+  // STEP 3: Call the order source's API
+  const response = await callApi(thirdPartyRequest);
+  // Step 4: Create the output data that ShipEngine expects
+  const mappedResponse = mapResponse(response);
+  return mappedResponse;
+};
+```
+</CodeWrapper>

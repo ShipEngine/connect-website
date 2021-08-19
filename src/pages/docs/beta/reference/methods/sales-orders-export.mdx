@@ -252,3 +252,38 @@ This object model represents the response from a successful sales orders export 
   </Field>
 
 </Reference>
+
+Example
+-----------------------------------------------
+<CodeWrapper>
+```javascript
+async function SalesOrdersExport(request) {
+  // STEP 1: Validation
+  // Add any desired validation here
+
+  // STEP 2: Create the data that the order source's API expects
+  const thirdPartyRequest = mapRequest(request);
+  // STEP 3: Call the order source's API
+  const response = await callApi(thirdPartyRequest);
+  // Step 4: Create the output data that ShipEngine expects
+  const mappedResponse = mapResponse(response);
+  return mappedResponse;
+}
+```
+```typescript
+export const SalesOrdersExport = async (
+  request: SalesOrdersExportRequest
+): Promise<SalesOrdersExportResponse> => {
+  // STEP 1: Validation
+  // Add any desired validation here
+
+  // STEP 2: Create the data that the order source's API expects
+  const thirdPartyRequest = mapRequest(request);
+  // STEP 3: Call the order source's API
+  const response = await callApi(thirdPartyRequest);
+  // Step 4: Create the output data that ShipEngine expects
+  const mappedResponse = mapResponse(response);
+  return mappedResponse;
+};
+```
+</CodeWrapper>

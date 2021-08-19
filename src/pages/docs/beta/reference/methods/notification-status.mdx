@@ -1,0 +1,123 @@
+---
+title: NotificationStatus Method
+description: This method is called to get the status of an async notification in an order source.
+---
+
+
+`NotificationStatus()`
+===========================
+This method is called to check the status of a notifciation in an async process from the order source.
+
+
+Syntax
+-----------------------------------------------
+<CodeWrapper>
+```javascript
+module.exports = async function NotificationStatus(request) {
+  // Your code here
+}
+```
+
+```typescript
+import {
+  NotificationStatusRequest,
+  NotificationStatusResponse
+  } from "@shipengine/connect-order-source-api";
+
+export const NotificationStatus = async (
+  request: NotificationStatusRequest
+): Promise<NotificationStatusResponse> => {
+  // Your code here
+}
+```
+</CodeWrapper>
+
+
+
+Parameters
+-----------------------------------------------
+
+### `NotificationStatusRequest`
+A request to notify an order source that a order has been shipped.
+
+<Reference>
+
+  <Field name="notifications" nullable={false}>
+    <Type>
+      [pending notification object[]](#pendingnotification)
+    </Type>
+    <Description>
+      A list of notifications that were pending confirmation from the third party.
+    </Description>
+  </Field>
+
+</Reference>
+
+### `PendingNotification`
+An individual pending notification.
+
+<Reference>
+
+  <Field name="notification_id" type="string" nullable={false}>
+    <Description>
+      A unique identifier to correlate this notification with its result in the response.
+    </Description>
+  </Field>
+
+  <Field name="submission_id" type="string" nullable={false}>
+    <Description>
+      A unique identifier that is used to query the third party about the status of this notification, set in the shipment_notification response.
+    </Description>
+  </Field>
+
+</Reference>
+
+Return Value
+-----------------------------------------------
+### `NotificationStatusResult[]`
+
+<Reference>
+  <Field name="notification_results" nullable={false}>
+    <Type>
+      [shipment notification result object[]](./../shipment-notification-result.mdx)
+    </Type>
+    <Description>
+      A list of results for shipment notifications.
+    </Description>
+  </Field>
+</Reference>
+
+Example
+-----------------------------------------------
+<CodeWrapper>
+```javascript
+async function NotificationStatus(request) {
+  // STEP 1: Validation
+  // Add any desired validation here
+
+  // STEP 2: Create the data that the order source's API expects
+  const thirdPartyRequest = mapRequest(request);
+  // STEP 3: Call the order source's API
+  const response = await callApi(thirdPartyRequest);
+  // Step 4: Create the output data that ShipEngine expects
+  const mappedResponse = mapResponse(response);
+  return mappedResponse;
+}
+```
+```typescript
+export const NotificationStatus = async (
+  request: NotificationStatusRequest
+): Promise<NotificationStatusResponse> => {
+  // STEP 1: Validation
+  // Add any desired validation here
+
+  // STEP 2: Create the data that the order source's API expects
+  const thirdPartyRequest = mapRequest(request);
+  // STEP 3: Call the order source's API
+  const response = await callApi(thirdPartyRequest);
+  // Step 4: Create the output data that ShipEngine expects
+  const mappedResponse = mapResponse(response);
+  return mappedResponse;
+};
+```
+</CodeWrapper>

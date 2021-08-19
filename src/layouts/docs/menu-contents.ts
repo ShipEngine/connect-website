@@ -194,7 +194,11 @@ export const menu: MenuContents = [
       {
         title: "Methods",
         menuItems: [
-          { title: "SalesOrdersExport", href: "/docs/beta/reference/methods/sales-orders-export" }
+          { title: "SalesOrdersExport", href: "/docs/beta/reference/methods/sales-orders-export" },
+          { title: "GetProducts", href: "/docs/beta/reference/methods/get-products" },
+          { title: "AcknowledgeOrders", href: "/docs/beta/reference/methods/acknowledge-orders" },
+          { title: "ShipmentNotification", href: "/docs/beta/reference/methods/shipment-notification" },
+          { title: "NotificationStatus", href: "/docs/beta/reference/methods/notification-status" }
         ]
       },
       {
@@ -212,6 +216,7 @@ export const menu: MenuContents = [
           { title: "Payment", href: "/docs/beta/reference/payment" },
           { title: "Product", href: "/docs/beta/reference/product" },
           { title: "SalesOrderItem", href: "/docs/beta/reference/sales-order-item" },
+          { title: "ShipmentNotificationResult", href: "/docs/beta/reference/shipment-notification-result" },
           { title: "ShippingPreferences", href: "/docs/beta/reference/shipping-preferences" },
           { title: "Weight", href: "/docs/beta/reference/weight" },
         ]
