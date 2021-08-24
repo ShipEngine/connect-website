@@ -202,6 +202,8 @@ export const menu: MenuContents = [
           { title: "RegisterDeliveryOptions", href: "/docs/beta/reference/methods/register-delivery-options" },
           { title: "VerifyDeliveryOptions", href: "/docs/beta/reference/methods/verify-delivery-options" },
           { title: "RemoveDeliveryOptions", href: "/docs/beta/reference/methods/remove-delivery-options" },
+          { title: "AcceptSalesOrderItems", href: "/docs/beta/reference/methods/accept-sales-order-items" },
+          { title: "CancelSalesOrderItems", href: "/docs/beta/reference/methods/cancel-sales-order-items" },
         ]
       },
       {

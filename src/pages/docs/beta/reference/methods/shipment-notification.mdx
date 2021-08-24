@@ -108,7 +108,7 @@ An individual notification that an order has been shipped.
     </Description>
   </Field>
 
-  <Field name="items" nullable={true}>
+  <Field name="items" nullable={false}>
     <Type>
       [shipment notification item object[]](#shipmentnotificationitem)
     </Type>
@@ -184,7 +184,7 @@ An individual notification that an order has been shipped.
     </Description>
   </Field>
 
-  <Field name="integration_context" type="string" nullable={true}>
+  <Field name="integration_context" type="string" nullable={false}>
     <Description>
       Data provided by the order source that was included in the SalesOrderExport response.
     </Description>
@@ -234,7 +234,7 @@ Return Value
 ### `ShipmentNotificationResult[]`
 
 <Reference>
-  <Field name="notification_results" nullable={false}>
+  <Field name="notification_results" required={true}>
     <Type>
       [shipment notification result object[]](./../shipment-notification-result.mdx)
     </Type>
