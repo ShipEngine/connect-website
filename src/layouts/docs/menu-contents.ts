@@ -198,7 +198,10 @@ export const menu: MenuContents = [
           { title: "GetProducts", href: "/docs/beta/reference/methods/get-products" },
           { title: "AcknowledgeOrders", href: "/docs/beta/reference/methods/acknowledge-orders" },
           { title: "ShipmentNotification", href: "/docs/beta/reference/methods/shipment-notification" },
-          { title: "NotificationStatus", href: "/docs/beta/reference/methods/notification-status" }
+          { title: "NotificationStatus", href: "/docs/beta/reference/methods/notification-status" },
+          { title: "RegisterDeliveryOptions", href: "/docs/beta/reference/methods/register-delivery-options" },
+          { title: "VerifyDeliveryOptions", href: "/docs/beta/reference/methods/verify-delivery-options" },
+          { title: "RemoveDeliveryOptions", href: "/docs/beta/reference/methods/remove-delivery-options" },
         ]
       },
       {

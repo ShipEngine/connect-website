@@ -1,0 +1,125 @@
+---
+title: RegisterDeliveryOptions Method
+description: This method is called when a user is initiating the process to register delivery options.
+---
+
+
+`RegisterDeliveryOptions()`
+===========================
+This method is called when a user is initiating the registration process to add delivery options.
+
+
+Syntax
+-----------------------------------------------
+<CodeWrapper>
+```javascript
+module.exports = async function RegisterDeliveryOptions(request) {
+  // Your code here
+}
+```
+
+```typescript
+import {
+  RegisterDeliveryOptionsRequest,
+  RegisterDeliveryOptionsResponse
+  } from "@shipengine/connect-order-source-api";
+
+export const RegisterDeliveryOptions = async (
+  request: RegisterDeliveryOptionsRequest
+): Promise<RegisterDeliveryOptionsResponse> => {
+  // Your code here
+}
+```
+</CodeWrapper>
+
+
+
+Parameters
+-----------------------------------------------
+
+### `RegisterDeliveryOptionsRequest`
+An object containing parameters to use when registering delivery options with an order source.
+
+<Reference>
+
+  <Field name="callback_url" type="string" nullable={false}>
+    <Description>
+      Callback url to register with the order source.
+    </Description>
+  </Field>
+
+  <Field name="marketplace_key" type="string" nullable={false}>
+    <Description>
+      Key to be returned in delivery options calls from the order source. This could be a GUID that is defined by the caller of the OrderSourceAPI and returned by the order source in later calls.
+    </Description>
+  </Field>
+
+  <Field name="option_key" type="string" nullable={false}>
+    <Description>
+      Option set identifier to be returned in delivery options calls from the order source.
+    </Description>
+  </Field>
+
+</Reference>
+
+Return Value
+-----------------------------------------------
+
+### `RegisterDeliveryOptionsResponse`
+
+<Reference>
+
+  <Field name="connection_id" type="string" required={true}>
+    <Description>
+      The unique identifier for the connection from the order source.
+    </Description>
+  </Field>
+
+  <Field name="succeeded" type="boolean" required={true}>
+    <Description>
+      Indicates whether or not we were able to register delivery options with the order source.
+    </Description>
+  </Field>
+
+  <Field name="failure_reason" type="string" required={false}>
+    <Description>
+      Additional context for why the registration attempt failed.
+    </Description>
+  </Field>
+
+</Reference>
+
+Example
+-----------------------------------------------
+<CodeWrapper>
+```javascript
+async function RegisterDeliveryOptions(request) {
+  // STEP 1: Validation
+  // Add any desired validation here
+
+  // STEP 2: Create the data that the order source's API expects
+  const thirdPartyRequest = mapRequest(request);
+  // STEP 3: Call the order source's API
+  const response = await callApi(thirdPartyRequest);
+  // Step 4: Create the output data that ShipEngine expects
+  const mappedResponse = mapResponse(response);
+  return mappedResponse;
+}
+```
+```typescript
+export const RegisterDeliveryOptions = async (
+  request: RegisterDeliveryOptionsRequest
+): Promise<RegisterDeliveryOptionsResponse> => {
+  // STEP 1: Validation
+  // Add any desired validation here
+
+  // STEP 2: Create the data that the order source's API expects
+  const thirdPartyRequest = mapRequest(request);
+  // STEP 3: Call the order source's API
+  const response = await callApi(thirdPartyRequest);
+  // Step 4: Create the output data that ShipEngine expects
+  const mappedResponse = mapResponse(response);
+  return mappedResponse;
+};
+```
+</CodeWrapper>
