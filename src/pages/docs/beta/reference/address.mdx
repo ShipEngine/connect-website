@@ -191,3 +191,130 @@ Pickup/Dropoff location address used by carriers.
   </Field>
 
 </Reference>
+
+Order Source Address Object
+---------------------------
+An address object used by the Order Source Apps to map sales order addresses.
+
+<Reference>
+
+  <Field name="name" type="string" required={false}>
+    <Description>
+      The name of the individual associated with this address.
+    </Description>
+  </Field>
+
+  <Field name="company" type="string" required={false}>
+    <Description>
+      The name of the company associated with this address.
+    </Description>
+  </Field>
+
+  <Field name="phone" type="string" required={false}>
+    <Description>
+      The phone number associated with this address.
+    </Description>
+  </Field>
+
+  <Field name="address_line_1" type="string" required={false}>
+    <Description>
+      The first line of the address.
+    </Description>
+  </Field>
+
+  <Field name="address_line_2" type="string" required={false}>
+    <Description>
+      The second line of the address.
+    </Description>
+  </Field>
+
+  <Field name="address_line_3" type="string" required={false}>
+    <Description>
+      The third line of the address.
+    </Description>
+  </Field>
+
+  <Field name="city" type="string" required={false}>
+    <Description>
+      The city associated with this address.
+    </Description>
+  </Field>
+
+  <Field name="state_province" type="string" required={false}>
+    <Description>
+      The state, province, or municipality of the addres.
+    </Description>
+  </Field>
+
+  <Field name="postal_code" type="string" required={false}>
+    <Description>
+      The postal code associated with this address.
+    </Description>
+  </Field>
+
+  <Field name="country_code" type="string" required={false}>
+    <Description>
+      The two character ISO 3166 country code of this address.
+    </Description>
+  </Field>
+
+  <Field name="residential_indicator" type="string" required={false}>
+    <Description>
+      Indicates this is a residential or commercial address. Valid values include the following:
+      * `R` - Residential
+      * `C` - Commerical
+      * 'null'
+    </Description>
+  </Field>
+
+  <Field name="is_verified" type="boolean" required={false}>
+    <Description>
+      Indicates whether or not this address has been verified using an Address Verification Service.
+    </Description>
+  </Field>
+
+  <Field name="pickup_location" type="object" required={false}>
+    <Description>
+      Indicates whether or not this address has been verified using an Address Verification Service.
+    </Description>
+  </Field>
+
+  <Field name="pickup_location.carrier_id" type="string" required={true}>
+    <Description>
+      An id specific to the carrier about this drop off / pickup location. Only required if `pickup_location` is specified.
+    </Description>
+  </Field>
+
+  <Field name="pickup_location.relay_id" type="string" required={true}>
+    <Description>
+      The id of a relay point used for the drop off / pickup location. Only required if `pickup_location` is specified.
+    </Description>
+  </Field>
+
+</Reference>
+
+BillTo Address Object
+---------------------------
+This address object is used in places related to order sources like `bill_to` in [SalesOrdersExport](./methods/sales-orders-export.mdx).
+
+This object extends the Order Source Address object.
+
+
+<Reference>
+
+  <Field name="...Order Source Address" nullable={false}>
+    <Type>
+      [order source address object](#order-source-address-object)
+    </Type>
+    <Description>
+      All fields described in the [order source address object](#order-source-address-object) defined above.
+    </Description>
+  </Field>
+
+  <Field name="email" type="string" nullable={false}>
+    <Description>
+      The email address of the person being billed.
+    </Description>
+  </Field>
+
+</Reference>

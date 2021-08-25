@@ -191,6 +191,41 @@ export const menu: MenuContents = [
           { title: "Order App", href: "/docs/beta/app-definition/order-source" },
         ]
       },
+      {
+        title: "Methods",
+        menuItems: [
+          { title: "SalesOrdersExport", href: "/docs/beta/reference/methods/sales-orders-export" },
+          { title: "GetProducts", href: "/docs/beta/reference/methods/get-products" },
+          { title: "AcknowledgeOrders", href: "/docs/beta/reference/methods/acknowledge-orders" },
+          { title: "ShipmentNotification", href: "/docs/beta/reference/methods/shipment-notification" },
+          { title: "NotificationStatus", href: "/docs/beta/reference/methods/notification-status" },
+          { title: "RegisterDeliveryOptions", href: "/docs/beta/reference/methods/register-delivery-options" },
+          { title: "VerifyDeliveryOptions", href: "/docs/beta/reference/methods/verify-delivery-options" },
+          { title: "RemoveDeliveryOptions", href: "/docs/beta/reference/methods/remove-delivery-options" },
+          { title: "AcceptSalesOrderItems", href: "/docs/beta/reference/methods/accept-sales-order-items" },
+          { title: "CancelSalesOrderItems", href: "/docs/beta/reference/methods/cancel-sales-order-items" },
+        ]
+      },
+      {
+        title: "Reference",
+        menuItems: [
+          { title: "Address", href: "/docs/beta/reference/address#order-source-address-object" },
+          { title: "BillTo", href: "/docs/beta/reference/address#billto-address-object" },
+          { title: "Branding", href: "/docs/beta/reference/branding" },
+          { title: "Buyer", href: "/docs/beta/reference/buyer" },
+          { title: "Charge", href: "/docs/beta/reference/charge" },
+          { title: "Dimensions", href: "/docs/beta/reference/dimensions" },
+          { title: "Note", href: "/docs/beta/reference/note" },
+          { title: "OriginalOrderSource", href: "/docs/beta/reference/original-order-source" },
+          { title: "PackingSlip", href: "/docs/beta/reference/packing-slip" },
+          { title: "Payment", href: "/docs/beta/reference/payment" },
+          { title: "Product", href: "/docs/beta/reference/product" },
+          { title: "SalesOrderItem", href: "/docs/beta/reference/sales-order-item" },
+          { title: "ShipmentNotificationResult", href: "/docs/beta/reference/shipment-notification-result" },
+          { title: "ShippingPreferences", href: "/docs/beta/reference/shipping-preferences" },
+          { title: "Weight", href: "/docs/beta/reference/weight" },
+        ]
+      }
     ]
   }
 ];

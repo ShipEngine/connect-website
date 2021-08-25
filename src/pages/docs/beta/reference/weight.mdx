@@ -1,0 +1,28 @@
+---
+title: Weight object
+description: The weight of an item.
+---
+
+Weight Object
+===============================================
+Weight objects are used throughout the Order Source specifications to describe the physical weight of a product/item.
+
+<Reference>
+
+  <Field name="value" type="number" required={true} nullable={false}>
+    <Description>
+      The weight value for this package. This value may contain decimals.
+    </Description>
+  </Field>
+
+  <Field name="unit" type="string" required={true} nullable={false}>
+    <Description>
+      The unit of measure for this weight. Valid values include the following:
+      * `Gram`
+      * `Ounce`
+      * `Kilogram`
+      * `Pound`
+    </Description>
+  </Field>
+
+</Reference>

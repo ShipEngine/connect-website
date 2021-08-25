@@ -1,0 +1,107 @@
+---
+title: RemoveDeliveryOptions Method
+description: This method is called when a user is removing delivery options from the order source.
+---
+
+
+`RemoveDeliveryOptions()`
+===========================
+This method is called when a user is removing delivery options from the order source.
+
+
+Syntax
+-----------------------------------------------
+<CodeWrapper>
+```javascript
+module.exports = async function RemoveDeliveryOptions(request) {
+  // Your code here
+}
+```
+
+```typescript
+import {
+  RemoveDeliveryOptionsRequest,
+  RemoveDeliveryOptionsResponse
+  } from "@shipengine/connect-order-source-api";
+
+export const RemoveDeliveryOptions = async (
+  request: RemoveDeliveryOptionsRequest
+): Promise<RemoveDeliveryOptionsResponse> => {
+  // Your code here
+}
+```
+</CodeWrapper>
+
+
+
+Parameters
+-----------------------------------------------
+
+### `RemoveDeliveryOptionsRequest`
+An object containing parameters to use when removing delivery options from an order source.
+
+<Reference>
+
+  <Field name="connection_id" type="string" required={true}>
+    <Description>
+      The unique identifier for the connection from the order source.
+    </Description>
+  </Field>
+
+</Reference>
+
+Return Value
+-----------------------------------------------
+
+### `OrderAcknowledgementResponse`
+
+<Reference>
+
+  <Field name="succeeded" type="boolean" required={true}>
+    <Description>
+      Indicates whether or not we were able to remove register delivery options with the order source.
+    </Description>
+  </Field>
+
+  <Field name="failure_reason" type="string" required={false}>
+    <Description>
+      Additional context for why the removal attempt failed.
+    </Description>
+  </Field>
+
+</Reference>
+
+Example
+-----------------------------------------------
+<CodeWrapper>
+```javascript
+async function RemoveDeliveryOptions(request) {
+  // STEP 1: Validation
+  // Add any desired validation here
+
+  // STEP 2: Create the data that the order source's API expects
+  const thirdPartyRequest = mapRequest(request);
+  // STEP 3: Call the order source's API
+  const response = await callApi(thirdPartyRequest);
+  // Step 4: Create the output data that ShipEngine expects
+  const mappedResponse = mapResponse(response);
+  return mappedResponse;
+}
+```
+```typescript
+export const RemoveDeliveryOptions = async (
+  request: RemoveDeliveryOptionsRequest
+): Promise<RemoveDeliveryOptionsResponse> => {
+  // STEP 1: Validation
+  // Add any desired validation here
+
+  // STEP 2: Create the data that the order source's API expects
+  const thirdPartyRequest = mapRequest(request);
+  // STEP 3: Call the order source's API
+  const response = await callApi(thirdPartyRequest);
+  // Step 4: Create the output data that ShipEngine expects
+  const mappedResponse = mapResponse(response);
+  return mappedResponse;
+};
+```
+</CodeWrapper>

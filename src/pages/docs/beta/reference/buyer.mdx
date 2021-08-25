@@ -1,0 +1,36 @@
+---
+title: Buyer object
+description: Represents the buyer of the sales order.
+---
+
+Buyer Object
+===============================================
+Buyer objects are used throughout the Order Source specifications to describe the buyer of the sales order.
+
+<Reference>
+
+  <Field name="buyer_id" type="string" required={false}>
+    <Description>
+      An indentifier for this buyer in the vendor API.
+    </Description>
+  </Field>
+
+  <Field name="name" type="string" required={false}>
+    <Description>
+      The full name of the buyer.
+    </Description>
+  </Field>
+
+  <Field name="email" type="string" required={false}>
+    <Description>
+      The primary email address of the buyer.
+    </Description>
+  </Field>
+
+  <Field name="phone" type="string" required={false}>
+    <Description>
+      The primary phone number of the buyer.
+    </Description>
+  </Field>
+
+</Reference>

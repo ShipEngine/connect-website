@@ -1,0 +1,72 @@
+---
+title: Requested Fulfillments object
+description: Represents the fulfillment requested by the order source or buyer.
+---
+
+Requested Fulfillments Object
+===============================================
+Requested Fulfillments objects are used throughout the Order Source specifications to describe the fulfillment requested by the order source or the buyer.
+
+<Reference>
+
+  <Field name="shipTo" required={true}>
+    <Type>
+      [order source address object](./address.mdx#order-source-address-object)
+    </Type>
+    <Description>
+      The fulfillment requested by the marketplace or the buyer.
+    </Description>
+  </Field>
+
+  <Field name="items" required={true}>
+    <Type>
+      [sales order item object[]](./sales-order-item.mdx)
+    </Type>
+    <Description>
+      The fulfillment requested by the marketplace or the buyer.
+    </Description>
+  </Field>
+
+  <Field name="extensions" type="object" required={false}>
+    <Description>
+      Additional information about this fulfillment.
+    </Description>
+  </Field>
+
+  <Field name="extensions.custom_field_1" type="string" required={false}>
+    <Description>
+      Custom field 1.
+    </Description>
+  </Field>
+
+  <Field name="extensions.custom_field_2" type="string" required={false}>
+    <Description>
+      Custom field 2.
+    </Description>
+  </Field>
+
+  <Field name="extensions.custom_field_3" type="string" required={false}>
+    <Description>
+      Custom field 3.
+    </Description>
+  </Field>
+
+  <Field name="shipping_preferences" required={false}>
+    <Type>
+      [shipping preferences object](./shipping-preferences.mdx)
+    </Type>
+    <Description>
+      Preferences about how the order is shipped.
+    </Description>
+  </Field>
+
+  <Field name="branding" required={false}>
+    <Type>
+      [branding object](./branding.mdx)
+    </Type>
+    <Description>
+      Brand information about this fulfillment.
+    </Description>
+  </Field>
+
+</Reference>
