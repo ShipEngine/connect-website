@@ -8,6 +8,7 @@ import { Pre } from "./html/pre";
 import { Pager } from "./pager/pager";
 import { DefaultValue, Description, Field, Reference, Type } from "./reference/reference";
 import { Left, Right, Section } from "./section/section";
+import { RedocStandalone } from 'redoc';
 
 /**
  * Components that are used on MDX pages
@@ -49,4 +50,5 @@ export const components = {
   DefaultValue,
   Description,
   Type,
+  RedocStandalone
 };

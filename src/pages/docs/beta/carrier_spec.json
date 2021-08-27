@@ -1,0 +1,3371 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "ShipEngine Connect Carrier API",
+    "description": "This API specification describes the canonical ShipEngine Carrier API connector module. A module which implements one or more endpoints from this specification can be integrated with the ShipEngine Carrier Platform.",
+    "version": "1.14.8"
+  },
+  "paths": {
+    "/Register": {
+      "post": {
+        "tags": [
+          "Account Setup"
+        ],
+        "description": "This method is used to authenticate with your application. It is responsible for verifying the supplied\r\nuser credentials and establishing or renewing a connection. The authentication information will be\r\nstored in the metadata object and will be included in all request bodies. All applications must\r\nimplement the Register method.",
+        "operationId": "Register",
+        "parameters": [
+          {
+            "name": "ShipStation-TransactionID",
+            "in": "header",
+            "description": "Uniquely identifies the current transaction. If the transaction is retried,\r\n            then this transaction_id will remain the same. You can use this to detect and prevent duplicate\r\n            operations.",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "An object containing the authentication information gathered using the\r\n            connection form you created for your application. It will contain whatever fields you defined in this form.\r\n            Your method must then use this data to perform authentication with your backend service.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExampleRegisterRequest"
+              },
+              "example": {"registration_info":{"username":"auctane-next-day","password":"password!","meter_number":"8675309"},"transaction_id":"00000000-0000-0000-0000-000000000000","metadata":{"username":"auctane-next-day","password":"password!","meter_number":"8675309"}}
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Can be an internal or external error indicating an issue with the request that must be corrected.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Use this to indicate an authentication or authorization error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred in the carrier app.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponse"
+                }
+              }
+            }
+          },
+          "520": {
+            "description": "Use this when an error is the result of calling an external service, such as an API. This indicates that the error came from a downstream service rather than directly in your app.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExternalServerErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Use this when the behavior is not supported or the behavior is not available for the user."
+          },
+          "200": {
+            "description": "The Register method returns the result of the carrier's authentication process. This information will be included in the metadata of every subsequent request to your application.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegisterResponse"
+                },
+                "example": {"credentials":{"username":"auctane-next-day","password":"password!"},"metadata":{"username":"auctane-next-day","password":"password!","meter_number":"8675309"}}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/CreateLabel": {
+      "post": {
+        "tags": [
+          "Labels"
+        ],
+        "description": "This method creates a new label.",
+        "operationId": "Create a Label",
+        "parameters": [
+          {
+            "name": "ShipStation-TransactionID",
+            "in": "header",
+            "description": "The transaction ID uniquely represents this request.",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "An object containing information about the new label to create.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateLabelRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Can be an internal or external error indicating an issue with the request that must be corrected.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Use this to indicate an authentication or authorization error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred in the carrier app.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponse"
+                }
+              }
+            }
+          },
+          "520": {
+            "description": "Use this when an error is the result of calling an external service, such as an API. This indicates that the error came from a downstream service rather than directly in your app.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExternalServerErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Use this when the behavior is not supported or the behavior is not available for the user."
+          },
+          "200": {
+            "description": "This object model represents the response from a successful create label request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateLabelResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/VoidLabels": {
+      "post": {
+        "tags": [
+          "Labels"
+        ],
+        "description": "This method is used to void a previously created labels.",
+        "operationId": "Void a Label",
+        "parameters": [
+          {
+            "name": "ShipStation-TransactionID",
+            "in": "header",
+            "description": "The transaction ID uniquely represents this request.",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "An object containing information about the labels to void.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VoidLabelsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Can be an internal or external error indicating an issue with the request that must be corrected.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Use this to indicate an authentication or authorization error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred in the carrier app.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponse"
+                }
+              }
+            }
+          },
+          "520": {
+            "description": "Use this when an error is the result of calling an external service, such as an API. This indicates that the error came from a downstream service rather than directly in your app.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExternalServerErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Use this when the behavior is not supported or the behavior is not available for the user."
+          },
+          "200": {
+            "description": "This object model represents the response from a successful void labels request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VoidLabelsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/CreateManifest": {
+      "post": {
+        "tags": [
+          "Manifesting"
+        ],
+        "description": "This method creates an end-of-day manifest and should be implemented by carrier apps that support\r\nend-of-day manifesting.",
+        "operationId": "Create Manifest",
+        "parameters": [
+          {
+            "name": "ShipStation-TransactionID",
+            "in": "header",
+            "description": "The transaction ID uniquely represents this request.",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "An object containing information about the labels to manifest.",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateManifestRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateManifestRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateManifestRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateManifestRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "This object model represents the response from a successful create manifest request.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateManifestResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateManifestResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateManifestResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/CreateNotification": {
+      "post": {
+        "tags": [
+          "Shipment Notifications"
+        ],
+        "operationId": "Create Notification",
+        "parameters": [
+          {
+            "name": "ShipStation-TransactionID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateNotificationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Can be an internal or external error indicating an issue with the request that must be corrected.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Use this to indicate an authentication or authorization error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred in the carrier app.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponse"
+                }
+              }
+            }
+          },
+          "520": {
+            "description": "Use this when an error is the result of calling an external service, such as an API. This indicates that the error came from a downstream service rather than directly in your app.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExternalServerErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Use this when the behavior is not supported or the behavior is not available for the user."
+          },
+          "200": {
+            "description": "This object model represents the response from a successful create notification request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateNotificationResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/CancelNotification": {
+      "post": {
+        "tags": [
+          "Shipment Notifications"
+        ],
+        "operationId": "Cancel Notification",
+        "parameters": [
+          {
+            "name": "ShipStation-TransactionID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CancelNotificationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Can be an internal or external error indicating an issue with the request that must be corrected.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Use this to indicate an authentication or authorization error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred in the carrier app.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponse"
+                }
+              }
+            }
+          },
+          "520": {
+            "description": "Use this when an error is the result of calling an external service, such as an API. This indicates that the error came from a downstream service rather than directly in your app.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExternalServerErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Use this when the behavior is not supported or the behavior is not available for the user."
+          },
+          "200": {
+            "description": "This object model represents the response from a successful cancel notification request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CancelNotificationResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/SchedulePickup": {
+      "post": {
+        "tags": [
+          "Scheduled Pickups"
+        ],
+        "description": "This method is used to schedule a pickup with a carrier.",
+        "operationId": "Schedule Adhoc Pickup",
+        "parameters": [
+          {
+            "name": "ShipStation-TransactionID",
+            "in": "header",
+            "description": "The transaction ID uniquely represents this request.",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "An object containing information about the pickup being scheduled.",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SchedulePickupRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SchedulePickupRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SchedulePickupRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SchedulePickupRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "This object model represents the response from a successful schedule pickup request.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchedulePickupResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchedulePickupResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchedulePickupResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/CancelPickup": {
+      "post": {
+        "tags": [
+          "Scheduled Pickups"
+        ],
+        "operationId": "Cancel Adhoc Pickup",
+        "parameters": [
+          {
+            "name": "ShipStation-TransactionID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CancelPickupRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CancelPickupRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CancelPickupRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CancelPickupRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "This object model represents the response from a successful cancel pickup request.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CancelPickupResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CancelPickupResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CancelPickupResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/GetRates": {
+      "post": {
+        "tags": [
+          "Rating"
+        ],
+        "description": "This method calculates the shipping costs for a shipment, or multiple permutations of a shipment, to allow\r\nyour customers to select the best rate.\r\n            \r\nMost carrier apps should implement this method, unless you don't support rating shipments.",
+        "operationId": "Get Rates",
+        "parameters": [
+          {
+            "name": "ShipStation-TransactionID",
+            "in": "header",
+            "description": "",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetRatesRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Can be an internal or external error indicating an issue with the request that must be corrected.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Use this to indicate an authentication or authorization error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred in the carrier app.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponse"
+                }
+              }
+            }
+          },
+          "520": {
+            "description": "Use this when an error is the result of calling an external service, such as an API. This indicates that the error came from a downstream service rather than directly in your app.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExternalServerErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Use this when the behavior is not supported or the behavior is not available for the user."
+          },
+          "200": {
+            "description": "This object model represents the response from a successful get rates request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetRatesResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Track": {
+      "post": {
+        "tags": [
+          "Tracking"
+        ],
+        "description": "This method returns tracking information for a shipment, including each of the tracking events that\r\nhave occurred for the shipment.\r\n            \r\nMost carrier applications should implement this method, unless you don't support tracking shipments.",
+        "operationId": "Track a Shipment",
+        "parameters": [
+          {
+            "name": "ShipStation-TransactionID",
+            "in": "header",
+            "description": "Unique transaction ID, use this transaction ID in your logs to correlate a\r\n             request together.",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "An object containing information about the label to track.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TrackingRequest"
+              },
+              "example": {"tracking_number":"12345678901234567890","is_return":false,"identifiers":[{"type":"tracking_number","value":"12345678901234567890"},{"type":"carrier_transaction_id","value":"US-12345678901234567890-1"}],"attributes":[{"type":"marketplace_order_token","value":"123456abcdefg7890"}],"transaction_id":"00000000-0000-0000-0000-000000000000","metadata":{"username":"auctane-next-day","password":"password!","meter_number":"8675309"}}
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Can be an internal or external error indicating an issue with the request that must be corrected.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Use this to indicate an authentication or authorization error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred in the carrier app.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponse"
+                }
+              }
+            }
+          },
+          "520": {
+            "description": "Use this when an error is the result of calling an external service, such as an API. This indicates that the error came from a downstream service rather than directly in your app.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExternalServerErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Use this when the behavior is not supported or the behavior is not available for the user."
+          },
+          "200": {
+            "description": "An object with tracking information for the specified shipment.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TrackingResponse"
+                },
+                "examples": {
+                  "Delivered with Event History": {
+                    "summary": "Delivered with Event History",
+                    "value": {"tracking_info":{"carrier_name":"UPS","tracking_number":"12345678901234567890","standardized_status_code":"DE","carrier_status_code":"11","carrier_status_description":"Delivered","estimated_delivery_datetime":"2021-08-11T00:00:00","actual_delivery_datetime":"2021-08-11T21:15:00Z","weight":500.0,"dimensions":{"length":10.0,"width":10.0,"height":10.0},"service":{"code":"03","name":"UPS® Ground"},"packaging":"package","package_count":1,"events":[{"event_datetime":"2021-08-08T21:15:00Z","event_datetime_local":"2021-08-08T16:15:00","event_code":"3","description":"Order Processed: Ready for UPS","city":"Austin","state":"TX","postal_code":"78756","country":"US","geo":{"lat":30.31,"long":-97.74},"status_code":"AC"},{"event_datetime":"2021-08-09T09:15:00Z","event_datetime_local":"2021-08-09T04:15:00","event_code":"5","description":"In Transit","city":"Austin","state":"TX","postal_code":"78756","country":"US","geo":{"lat":30.2,"long":-97.66},"status_code":"IT"},{"event_datetime":"2021-08-10T09:15:00Z","event_datetime_local":"2021-08-10T04:15:00","event_code":"6","description":"On Vehicle for Delivery","city":"Los Angeles","state":"CA","postal_code":"90045","country":"US","geo":{"lat":33.95,"long":-118.38},"status_code":"IT"},{"event_datetime":"2021-08-10T15:15:00Z","event_datetime_local":"2021-08-10T10:15:00","event_code":"21","description":"On Vehicle for Delivery Today","city":"Los Angeles","state":"CA","postal_code":"90045","country":"US","geo":{"lat":33.95,"long":-118.38},"status_code":"IT"},{"event_datetime":"2021-08-10T21:15:00Z","event_datetime_local":"2021-08-10T16:15:00","event_code":"22","description":"First Attempt Made","city":"El Segundo","state":"CA","postal_code":"90245","country":"US","geo":{"lat":33.95,"long":-118.38},"status_code":"AT"},{"event_datetime":"2021-08-11T03:15:00Z","event_datetime_local":"2021-08-10T22:15:00","event_code":"21","description":"On Vehicle for Delivery Today","city":"Los Angeles","state":"CA","postal_code":"90045","country":"US","geo":{"lat":33.95,"long":-118.38},"status_code":"IT"},{"event_datetime":"2021-08-11T21:15:00Z","event_datetime_local":"2021-08-11T16:15:00","event_code":"11","description":"Delivered","city":"El Segundo","state":"CA","postal_code":"90245","country":"US","geo":{"lat":33.95,"long":-118.38},"status_code":"DE"}],"shipping_problem":false,"carrierEnum":0}}
+                  },
+                  "Not Yet in System": {
+                    "summary": "Not Yet in System",
+                    "value": {"tracking_info":{"carrier_name":"UPS","tracking_number":"12345678901234567890","standardized_status_code":"NY","events":[],"shipping_problem":false,"carrierEnum":0}}
+                  },
+                  "Fatal Exception": {
+                    "summary": "Fatal Exception",
+                    "value": {"tracking_info":{"carrier_name":"UPS","tracking_number":"12345678901234567890","standardized_status_code":"EX","carrier_status_code":"64","carrier_status_description":"Delivery Refused","estimated_delivery_datetime":"2021-08-11T00:00:00","actual_delivery_datetime":"2021-08-11T21:15:00Z","weight":500.0,"dimensions":{"length":10.0,"width":10.0,"height":10.0},"service":{"code":"03","name":"UPS® Ground"},"packaging":"package","package_count":1,"events":[{"event_datetime":"2021-08-09T09:15:00Z","event_datetime_local":"2021-08-09T04:15:00","event_code":"5","description":"In Transit","city":"Austin","state":"TX","postal_code":"78756","country":"US","geo":{"lat":30.2,"long":-97.66},"status_code":"IT"},{"event_datetime":"2021-08-11T21:15:00Z","event_datetime_local":"2021-08-11T16:15:00","event_code":"59","description":"Delivery Refused","city":"El Segundo","state":"CA","postal_code":"90245","country":"US","geo":{"lat":33.95,"long":-118.38},"status_code":"EX"}],"shipping_problem":false,"carrierEnum":0}}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AddressResidentialIndicator": {
+        "enum": [
+          "unknown",
+          "yes",
+          "no",
+          "commercial",
+          "residential"
+        ],
+        "type": "string"
+      },
+      "AdvancedOptions": {
+        "type": "object",
+        "properties": {
+          "contains_alcohol": {
+            "type": "boolean",
+            "description": "Describes whether or not the shipment contains alcohol."
+          },
+          "no_postage": {
+            "type": "boolean",
+            "description": "Describes whether no postage is necessary"
+          },
+          "nonmachineable": {
+            "type": "boolean",
+            "description": "Describes whether or not the shipment is non automatically sortable with machines."
+          },
+          "saturday_delivery": {
+            "type": "boolean",
+            "description": "Describes whether or not the shipment is requested to be delivered on a Saturday."
+          }
+        },
+        "additionalProperties": { },
+        "description": "This is a schemaless object. It is for open ended customizations unique to particular carriers. The documented\r\nkeys are some common options shared by many carriers, but are not definitive. Advanced options you support will\r\nbe defined in ShipEngine. If the field is absent it should be interpreted as the default value for any\r\napplicable options, e.g. false for booleans."
+      },
+      "BadRequestResponse": {
+        "type": "object",
+        "properties": {
+          "detailed_errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DetailedError"
+            },
+            "description": "A list of detailed errors that occurred for this request.\r\nRemove all personally identifiable information.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "This model represents a response where there was a client error."
+      },
+      "BillingCategories": {
+        "enum": [
+          "uncategorized",
+          "shipping",
+          "insurance",
+          "confirm",
+          "discount",
+          "fuel_charge",
+          "additional_fees",
+          "tariff",
+          "tax",
+          "delivery",
+          "handling",
+          "special_goods",
+          "pickup",
+          "location_fee",
+          "oversize",
+          "returns",
+          "notifications"
+        ],
+        "type": "string"
+      },
+      "BillingLineItem": {
+        "type": "object",
+        "properties": {
+          "billing_category": {
+            "$ref": "#/components/schemas/BillingCategories"
+          },
+          "carrier_description": {
+            "type": "string",
+            "description": "If the carrier provides a description from their API about the billing charge (not specific to the user). Maximum length of 100 characters.",
+            "nullable": true
+          },
+          "carrier_billing_code": {
+            "type": "string",
+            "description": "If the carrier provides a billing code for",
+            "nullable": true
+          },
+          "memo": {
+            "type": "string",
+            "description": "Maximum length of 250 characters. This will often be empty; however, if there was additionally specific information about the charge it should go here, could also be a reference number. Maximum length of 250 characters.",
+            "nullable": true
+          },
+          "amount": {
+            "properties": {
+              "amount": {
+                "type": "string",
+                "description": "Decimal currency value, as a string."
+              },
+              "currency_code": {
+                "type": "string",
+                "description": "Alpha-3 currency code complying with ISO 4217."
+              }
+            },
+            "description": "Total amount of the line item",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "BillTo": {
+        "type": "object",
+        "properties": {
+          "bill_to_party": {
+            "$ref": "#/components/schemas/BillToParty"
+          },
+          "account_number": {
+            "type": "string",
+            "description": "Specified if there is an account number associated with the Bill To Party, and the Bill To Party is\r\nnot the account holder.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "The full name of the contact contact associated with the address",
+            "nullable": true
+          },
+          "first_name": {
+            "type": "string",
+            "description": "The first name of the contact associated with the address",
+            "nullable": true
+          },
+          "last_name": {
+            "type": "string",
+            "description": "The last name of the contact associated with the address",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "description": "The email of the contact associated with the address",
+            "nullable": true
+          },
+          "phone_number": {
+            "type": "string",
+            "description": "The phone number of the contact associated with the address",
+            "nullable": true
+          },
+          "company_name": {
+            "type": "string",
+            "description": "The name of the company associated with this address.",
+            "nullable": true
+          },
+          "address_lines": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "The address lines of the address.",
+            "nullable": true
+          },
+          "city_locality": {
+            "type": "string",
+            "description": "The city or locality of the address, where applicable.",
+            "nullable": true
+          },
+          "state_province": {
+            "type": "string",
+            "description": "The state or province of the address, where applicable.",
+            "nullable": true
+          },
+          "postal_code": {
+            "type": "string",
+            "description": "The postal code of the address.",
+            "nullable": true
+          },
+          "country_code": {
+            "type": "string",
+            "description": "The two character country code of the shipment address. The codes are specified by ISO 3166-1 alpha-2.",
+            "nullable": true
+          },
+          "address_residential_indicator": {
+            "$ref": "#/components/schemas/AddressResidentialIndicator"
+          },
+          "address_metadata": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "Additional metadata provided for specific requests.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Bill to is a generic object used for billing a part of the shipment, duties, taxes, or otherwise to a party\r\nother than the shipper (the shipper is considered the default party responsible).  CarrierApi.Common.Request.CarrierApi.Common.Models.BillTo\r\nextends CarrierApi.Common.Models.Addresses.AddressBase since address fields are often required when associating billing to\r\nanother account.  Additionally, this allows for a contact to be specified, if necessary."
+      },
+      "BillToParty": {
+        "enum": [
+          "shipper",
+          "recipient",
+          "third_party_account"
+        ],
+        "type": "string",
+        "description": "The type of party responsible for a given category of charges associated with a shipment, such as shipping charges or import duties."
+      },
+      "CancellationDetails": {
+        "type": "object",
+        "properties": {
+          "reason": {
+            "$ref": "#/components/schemas/CancellationReason"
+          },
+          "cancellation_options": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "Additional properties about the cancellation",
+            "nullable": true
+          },
+          "remarks": {
+            "type": "string",
+            "description": "Remarks about why the customer is cancelling the pickup",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "This model contains the explanation of why a user is cancelling a pickup."
+      },
+      "CancellationReason": {
+        "enum": [
+          "other",
+          "not_ready",
+          "cost_too_high",
+          "service_too_slow",
+          "carrier_failed_pickup"
+        ],
+        "type": "string",
+        "description": "An enumeration of common reasons cancellations occur"
+      },
+      "CancelNotificationRequest": {
+        "type": "object",
+        "properties": {
+          "notification_id": {
+            "type": "string",
+            "description": "The id of the notification.",
+            "nullable": true
+          },
+          "shipment_information": {
+            "$ref": "#/components/schemas/ShippedShipment"
+          },
+          "transaction_id": {
+            "type": "string",
+            "description": "The transaction ID uniquely represents this request. If the request is retried then this transaction ID will be the same. You should only perform the requested action once per given transaction ID.",
+            "format": "uuid"
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": { },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "A request to cancel the pending notification of a shipment."
+      },
+      "CancelNotificationResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "User facing text describing the cancellation process. May be left \r\nblank to present a default value.",
+            "nullable": true
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "A list of errors preventing this notification from being cancelled.\r\nIf no errors are returned the void is considered successful. If \r\nany errors are returned the void is considered failed.",
+            "nullable": true
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": { },
+            "description": "This is an optional schemaless object that you may return with a successful response. Anything returned\r\nunder this key will be included in all future requests. For example, you may store additional static\r\nproperties about the end user or their connection to the carrier. The maximum storage size\r\nfor data under this key is 4KB.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "The response to the cancellation of a pending shipment notification."
+      },
+      "CancelPickupRequest": {
+        "type": "object",
+        "properties": {
+          "confirmation": {
+            "$ref": "#/components/schemas/PickupConfirmation"
+          },
+          "location": {
+            "$ref": "#/components/schemas/PickupLocationDetails"
+          },
+          "cancellation_details": {
+            "$ref": "#/components/schemas/CancellationDetails"
+          },
+          "contact": {
+            "$ref": "#/components/schemas/PickupContactDetails"
+          },
+          "pickup_details": {
+            "$ref": "#/components/schemas/PickupShipmentDetails"
+          },
+          "pickup_windows": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PickupWindow"
+            },
+            "description": "The time windows that the carrier returned in the Schedule Pickup Response",
+            "nullable": true
+          },
+          "custom_properties": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "The grab bag of properties necessary to cancel the pickup",
+            "nullable": true
+          },
+          "transaction_id": {
+            "type": "string",
+            "description": "The transaction ID uniquely represents this request. If the request is retried then this transaction ID will be the same. You should only perform the requested action once per given transaction ID.",
+            "format": "uuid"
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": { },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "A request to cancel a previously scheduled pickup"
+      },
+      "CancelPickupResponse": {
+        "type": "object",
+        "properties": {
+          "confirmation_id": {
+            "type": "string",
+            "description": "The confirmation id from the carrier associated with the cancellation request",
+            "nullable": true
+          },
+          "successful": {
+            "type": "boolean",
+            "description": "A flag for whether or not the cancellation was successful"
+          },
+          "status": {
+            "type": "string",
+            "description": "The optional status returned by the carrier",
+            "nullable": true,
+            "example": "Your pickup was cancelled. Unable to cancel over the network, please call ### ### ####."
+          },
+          "custom_properties": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "A grab bag used to store additional information that might be useful for logging or internal reporting.",
+            "nullable": true
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": { },
+            "description": "This is an optional schemaless object that you may return with a successful response. Anything returned\r\nunder this key will be included in all future requests. For example, you may store additional static\r\nproperties about the end user or their connection to the carrier. The maximum storage size\r\nfor data under this key is 4KB.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "This model represents a response for a successful cancel pickup request."
+      },
+      "ConfirmationTypes": {
+        "enum": [
+          "None",
+          "Delivery",
+          "Signature",
+          "AdultSignature",
+          "DirectSignature"
+        ],
+        "type": "string"
+      },
+      "CreateLabelRequest": {
+        "type": "object",
+        "properties": {
+          "service_code": {
+            "type": "string",
+            "description": "The service code uniquely identifies a shipping service that you offer. Which service codes can be passed\r\nto you will be configured in ShipEngine.",
+            "nullable": true
+          },
+          "ship_datetime": {
+            "type": "string",
+            "description": "When the package is expected to ship. Not guaranteed to be in the future. Formatted per the\r\nhttps://tools.ietf.org/html/rfc3339 spec. Will always be in UTC.",
+            "format": "date-time"
+          },
+          "confirmation": {
+            "$ref": "#/components/schemas/ConfirmationTypes"
+          },
+          "label_format": {
+            "$ref": "#/components/schemas/DocumentFormat"
+          },
+          "label_layout": {
+            "$ref": "#/components/schemas/LabelLayouts"
+          },
+          "is_test_label": {
+            "type": "boolean",
+            "description": "Whether this request is the result of a test. When true the request must not result in any financial charges\r\nto any party. If the field is absent it should be interpreted as false"
+          },
+          "advanced_options": {
+            "$ref": "#/components/schemas/AdvancedOptions"
+          },
+          "insurance_provider": {
+            "$ref": "#/components/schemas/InsuranceProviders"
+          },
+          "is_return_label": {
+            "type": "boolean",
+            "description": "Whether this label is to return a previously shipped package. If the field is absent it should be\r\ninterpreted as false."
+          },
+          "is_residential": {
+            "type": "boolean",
+            "description": "Whether this package ships from a residential address. If the field is absent it should be\r\ninterpreted as false"
+          },
+          "packages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Package"
+            },
+            "description": "All the packages that make up this shipment. There will always be at least one package defined.",
+            "nullable": true
+          },
+          "ship_to": {
+            "$ref": "#/components/schemas/ShipTo"
+          },
+          "ship_from": {
+            "$ref": "#/components/schemas/ShipFrom"
+          },
+          "pickup_location": {
+            "$ref": "#/components/schemas/PudoLocation"
+          },
+          "ship_from_display": {
+            "$ref": "#/components/schemas/ShipFromDisplay"
+          },
+          "next_day": {
+            "type": "boolean",
+            "description": "Whether this shipment is expected to use a next day service class. If the field is absent it\r\nshould be interpreted as false",
+            "nullable": true
+          },
+          "international": {
+            "type": "boolean",
+            "description": "Whether this shipment is deemed international.",
+            "nullable": true
+          },
+          "reference": {
+            "type": "string",
+            "description": "A user specified free form string to identify this shipment in their own system.",
+            "nullable": true
+          },
+          "return_details": {
+            "$ref": "#/components/schemas/ReturnLabelDetails"
+          },
+          "fulfillment_plan_details": {
+            "$ref": "#/components/schemas/FulfillmentPlanDetails"
+          },
+          "attachments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Document"
+            },
+            "description": "Attachments that may be required to be sent to the carrier, in particular customs documents or\r\ncommercial invoices.",
+            "nullable": true
+          },
+          "bill_shipping_to": {
+            "$ref": "#/components/schemas/BillTo"
+          },
+          "transaction_id": {
+            "type": "string",
+            "description": "The transaction ID uniquely represents this request. If the request is retried then this transaction ID will be the same. You should only perform the requested action once per given transaction ID.",
+            "format": "uuid"
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": { },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateLabelResponse": {
+        "type": "object",
+        "properties": {
+          "transaction_id": {
+            "type": "string",
+            "description": "The transaction ID uniquely represents this request.",
+            "format": "uuid"
+          },
+          "documents": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Document"
+            },
+            "description": "Shipment level documents should be used if documents are not returned at a package level.\r\nDO NOT include duplicate documents intentionally, a document should only be added to the CreateLabelResponse\r\nor to the LabelPackage.",
+            "nullable": true
+          },
+          "packages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LabelPackage"
+            },
+            "description": "Package information returned for each requested package in the shipment.\r\nNote: The order of the packages returned should match the order of the packages in the request.",
+            "nullable": true
+          },
+          "billing_line_items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BillingLineItem"
+            },
+            "description": "Individual Billing Line items for the label.",
+            "nullable": true
+          },
+          "tracking_number": {
+            "type": "string",
+            "description": "The carrier specific tracking identifier for this shipment; if a multi-package shipment, this should be\r\nthe lead tracking number.",
+            "nullable": true
+          },
+          "trackable": {
+            "type": "boolean",
+            "description": "Whether this shipment can be tracked.",
+            "nullable": true
+          },
+          "alternative_identifiers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Identifier"
+            },
+            "description": "Alternative identifiers associated with this shipment.",
+            "nullable": true
+          },
+          "estimated_delivery_datetime": {
+            "type": "string",
+            "description": "The estimated date and time for when the shipment will be delivered. Formatted per the\r\nhttps://tools.ietf.org/html/rfc3339 spec.",
+            "format": "date-time",
+            "nullable": true,
+            "example": "1937-01-01T12:00:27.87+00:20"
+          },
+          "consolidator_service_code": {
+            "type": "string",
+            "description": "For consolidated shipping services, this should map to the service code of the actual carrier used.",
+            "nullable": true
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": { },
+            "description": "This is an optional schemaless object that you may return with a successful response. Anything returned\r\nunder this key will be included in all future requests. For example, you may store additional static\r\nproperties about the end user or their connection to the carrier. The maximum storage size\r\nfor data under this key is 4KB.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "This model represents the response from a successful create label request."
+      },
+      "CreateManifestRequest": {
+        "type": "object",
+        "properties": {
+          "ship_from": {
+            "$ref": "#/components/schemas/ShipFrom"
+          },
+          "included_labels": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ShippedShipment"
+            },
+            "description": "The shipments to include in the manifest. There should be at least one shipment included in a manifest.",
+            "nullable": true
+          },
+          "excluded_labels": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ShippedShipment"
+            },
+            "description": "The shipments to exclude from the manifest.",
+            "nullable": true
+          },
+          "open_datetime": {
+            "type": "string",
+            "description": "The date and time of the earliest shipment being manifested. Formatted per the\r\nhttps://tools.ietf.org/html/rfc3339 spec",
+            "format": "date-time",
+            "nullable": true
+          },
+          "close_datetime": {
+            "type": "string",
+            "description": "The date and time of the last shipment being manifested. Formatted per the\r\nhttps://tools.ietf.org/html/rfc3339 spec",
+            "format": "date-time"
+          },
+          "advanced_options": {
+            "$ref": "#/components/schemas/AdvancedOptions"
+          },
+          "transaction_id": {
+            "type": "string",
+            "description": "The transaction ID uniquely represents this request. If the request is retried then this transaction ID will be the same. You should only perform the requested action once per given transaction ID.",
+            "format": "uuid"
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": { },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "This model represents the request payload needed to manifest with a shipping provider."
+      },
+      "CreateManifestResponse": {
+        "type": "object",
+        "properties": {
+          "transaction_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "manifests": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Manifest"
+            },
+            "description": "The manifests created from this request. It should contain either a href or data, but not both.",
+            "nullable": true
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": { },
+            "description": "This is an optional schemaless object that you may return with a successful response. Anything returned\r\nunder this key will be included in all future requests. For example, you may store additional static\r\nproperties about the end user or their connection to the carrier. The maximum storage size\r\nfor data under this key is 4KB.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "This model represents the successful response for a create manifest request."
+      },
+      "CreateNotificationRequest": {
+        "type": "object",
+        "properties": {
+          "shipment_information": {
+            "$ref": "#/components/schemas/ShippedShipment"
+          },
+          "create_label_request": {
+            "$ref": "#/components/schemas/CreateLabelRequest"
+          },
+          "transaction_id": {
+            "type": "string",
+            "description": "The transaction ID uniquely represents this request. If the request is retried then this transaction ID will be the same. You should only perform the requested action once per given transaction ID.",
+            "format": "uuid"
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": { },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "A request to notify a third party of a shipment."
+      },
+      "CreateNotificationResponse": {
+        "type": "object",
+        "properties": {
+          "notification_id": {
+            "type": "string",
+            "description": "The id of the successfully created notification.",
+            "nullable": true
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": { },
+            "description": "This is an optional schemaless object that you may return with a successful response. Anything returned\r\nunder this key will be included in all future requests. For example, you may store additional static\r\nproperties about the end user or their connection to the carrier. The maximum storage size\r\nfor data under this key is 4KB.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "The response to a notification request."
+      },
+      "Credentials": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "The credentials that will be used to access this carrier's services. These will be sent as a\r\nBasic Authorization header with all future requests."
+      },
+      "Customs": {
+        "type": "object",
+        "properties": {
+          "contents": {
+            "$ref": "#/components/schemas/CustomsContentTypes"
+          },
+          "non_delivery": {
+            "$ref": "#/components/schemas/CustomsNonDelivery"
+          },
+          "customs_items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CustomsItem"
+            },
+            "description": "List of customs items to declare",
+            "nullable": true
+          },
+          "buyer_shipping_amount_paid": {
+            "properties": {
+              "amount": {
+                "type": "string",
+                "description": "Decimal currency value, as a string."
+              },
+              "currency_code": {
+                "type": "string",
+                "description": "Alpha-3 currency code complying with ISO 4217."
+              }
+            },
+            "description": "Indicates how much the buyer paid for shipping, if any. This amount may be different than the shipping cost billed\r\nto the shipper.",
+            "nullable": true
+          },
+          "duties_paid": {
+            "properties": {
+              "amount": {
+                "type": "string",
+                "description": "Decimal currency value, as a string."
+              },
+              "currency_code": {
+                "type": "string",
+                "description": "Alpha-3 currency code complying with ISO 4217."
+              }
+            },
+            "description": "The amount of duties paid by the shipper, if any. This is generally only necessary for DDP\r\n(bill_duties_to_sender) shipments.",
+            "nullable": true
+          },
+          "bill_duties_to": {
+            "$ref": "#/components/schemas/BillTo"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CustomsContentTypes": {
+        "enum": [
+          "merchandise",
+          "documents",
+          "gift",
+          "sample",
+          "returned_goods"
+        ],
+        "type": "string"
+      },
+      "CustomsItem": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string",
+            "description": "A user specified free form string describing this customs item. If the field is absent the user has\r\nnot specified a description.",
+            "nullable": true
+          },
+          "quantity": {
+            "type": "integer",
+            "description": "The user specified count of items in this declaration. This value should be 1 or greater",
+            "format": "int32"
+          },
+          "value": {
+            "properties": {
+              "amount": {
+                "type": "string",
+                "description": "Decimal currency value, as a string."
+              },
+              "currency_code": {
+                "type": "string",
+                "description": "Alpha-3 currency code complying with ISO 4217."
+              }
+            },
+            "description": "The user specified declared customs value of this customs item. Generally, this value needs to be greater\r\nthan 0 to be accepted through customs.",
+            "nullable": true
+          },
+          "country_of_origin": {
+            "type": "string",
+            "description": "The user specified declared country of origin of this customs item.",
+            "nullable": true
+          },
+          "harmonized_tariff_code": {
+            "type": "string",
+            "description": "The user specified Harmonized Tariff Code. See https://hts.usitc.gov/ for more information.",
+            "nullable": true
+          },
+          "sku": {
+            "type": "string",
+            "description": "The user specified SKU of this customs item. This field is completely free form.",
+            "nullable": true
+          },
+          "sku_description": {
+            "type": "string",
+            "description": "The user specified SKU description of this customs item. This field is completely free form.",
+            "nullable": true
+          },
+          "item_weight": {
+            "$ref": "#/components/schemas/WeightDetails"
+          }
+        },
+        "additionalProperties": false,
+        "description": "This model represents the customs declaration for a single item."
+      },
+      "CustomsNonDelivery": {
+        "enum": [
+          "return_to_sender",
+          "treat_as_abandoned"
+        ],
+        "type": "string",
+        "description": "What to do if the shipment is undeliverable."
+      },
+      "DetailedError": {
+        "type": "object",
+        "properties": {
+          "standardized_error_code": {
+            "$ref": "#/components/schemas/StandardizedErrorCode"
+          },
+          "external_error_code": {
+            "type": "string",
+            "description": "This is a shipping provider specific error code.",
+            "nullable": true,
+            "example": "0016"
+          },
+          "message": {
+            "type": "string",
+            "description": "A user friendly message about this error.",
+            "nullable": true,
+            "example": "Severe error return code"
+          },
+          "external_http_status_code": {
+            "type": "integer",
+            "description": "The HTTP status code returned from the external service provider.",
+            "format": "int32",
+            "nullable": true,
+            "example": 400
+          },
+          "raw_external_context": {
+            "type": "string",
+            "description": "The serialized response containing the error from an external service provider.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "This model represented a detailed error"
+      },
+      "DimensionDetails": {
+        "type": "object",
+        "properties": {
+          "dimensions_in_centimeters": {
+            "$ref": "#/components/schemas/Dimensions"
+          },
+          "dimensions_in_inches": {
+            "$ref": "#/components/schemas/Dimensions"
+          },
+          "source_dimensions": {
+            "$ref": "#/components/schemas/Dimensions"
+          },
+          "source_dimension_unit": {
+            "$ref": "#/components/schemas/DimensionUnit"
+          }
+        },
+        "additionalProperties": false,
+        "description": "This model represents the dimensions for a package represented in its original unit, inches, and centimeters."
+      },
+      "Dimensions": {
+        "type": "object",
+        "properties": {
+          "length": {
+            "type": "number",
+            "description": "The length of the package.",
+            "format": "double",
+            "nullable": true
+          },
+          "width": {
+            "type": "number",
+            "description": "The width of the package.",
+            "format": "double",
+            "nullable": true
+          },
+          "height": {
+            "type": "number",
+            "description": "The height of the package.",
+            "format": "double",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "This model represents the measurements for dimensions."
+      },
+      "DimensionUnit": {
+        "enum": [
+          "inches",
+          "centimeters"
+        ],
+        "type": "string",
+        "description": "This model represents the supported units for dimensions."
+      },
+      "Document": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DocumentType"
+            },
+            "description": "The document type(s) being returned. In most cases this is just a single document type; however, some\r\ncarriers return multiple document types in the same PDF or ZPL.",
+            "nullable": true
+          },
+          "data": {
+            "type": "string",
+            "description": "Base64 encoded data for the document.",
+            "nullable": true
+          },
+          "format": {
+            "$ref": "#/components/schemas/DocumentFormat"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Container for a document."
+      },
+      "DocumentFormat": {
+        "enum": [
+          "PDF",
+          "ZPL",
+          "PNG"
+        ],
+        "type": "string"
+      },
+      "DocumentType": {
+        "enum": [
+          "label",
+          "customs_form",
+          "commercial_invoice",
+          "bill_of_lading"
+        ],
+        "type": "string"
+      },
+      "ExampleRegisterRequest": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "ExternalServerErrorResponse": {
+        "type": "object",
+        "properties": {
+          "detailed_errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DetailedError"
+            },
+            "description": "A list of detailed errors that occurred for this request.\r\nRemove all personally identifiable information.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "This model represents a server error with the external services the module depends on."
+      },
+      "FulfillmentPlanDetails": {
+        "type": "object",
+        "properties": {
+          "external_sales_order_identifiers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Identifier"
+            },
+            "description": "A list of identifiers for the sales order.",
+            "nullable": true
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FulfillmentPlanItems"
+            },
+            "description": "Information about the fulfillment plan item.",
+            "nullable": true
+          },
+          "raw_external_source": {
+            "$ref": "#/components/schemas/RawExternalSource"
+          }
+        },
+        "additionalProperties": false,
+        "description": "This model contains information about the fulfillment plan."
+      },
+      "FulfillmentPlanItems": {
+        "type": "object",
+        "properties": {
+          "external_sales_order_identifiers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Identifier"
+            },
+            "description": "A list of identifiers for the sales order.",
+            "nullable": true
+          },
+          "external_product_identifiers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Identifier"
+            },
+            "description": "A list of identifiers specific to the selling channel.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the item.",
+            "nullable": true
+          },
+          "quantity": {
+            "type": "integer",
+            "description": "The number of items.",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "This contains information about the fulfillment plan for a set of items."
+      },
+      "GetRatesRequest": {
+        "type": "object",
+        "properties": {
+          "service_code": {
+            "type": "string",
+            "description": "If present, a specific service is being requested, and that is the only rate required to fulfill the request.\r\nThe service code uniquely identifies a shipping service that you offer.\r\nWhich service codes can be passed to you will be configured in ShipEngine.",
+            "nullable": true
+          },
+          "ship_datetime": {
+            "type": "string",
+            "description": "When the package is expected to ship. Not guaranteed to be in the future. Formatted per the\r\nhttps://tools.ietf.org/html/rfc3339 spec. Will always be in UTC.",
+            "format": "date-time"
+          },
+          "confirmation": {
+            "$ref": "#/components/schemas/ConfirmationTypes"
+          },
+          "advanced_options": {
+            "$ref": "#/components/schemas/AdvancedOptions"
+          },
+          "insurance_provider": {
+            "$ref": "#/components/schemas/InsuranceProviders"
+          },
+          "is_return_label": {
+            "type": "boolean",
+            "description": "Whether this label is to return a previously shipped package. If the field is absent it should be\r\ninterpreted as false."
+          },
+          "is_residential": {
+            "type": "boolean",
+            "description": "Whether this package ships from a residential address. If the field is absent it should be\r\ninterpreted as false."
+          },
+          "packages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Package"
+            },
+            "description": "All the packages that make up this shipment. There will always be at least one package defined.",
+            "nullable": true
+          },
+          "customs": {
+            "$ref": "#/components/schemas/Customs"
+          },
+          "ship_to": {
+            "$ref": "#/components/schemas/ShipTo"
+          },
+          "ship_from": {
+            "$ref": "#/components/schemas/ShipFrom"
+          },
+          "pickup_location": {
+            "$ref": "#/components/schemas/PudoLocation"
+          },
+          "international": {
+            "type": "boolean",
+            "description": "Whether this shipment is deemed international.",
+            "nullable": true
+          },
+          "next_day": {
+            "type": "boolean",
+            "description": "Whether this shipment is expected to use a next day service class. If the field is absent it\r\nshould be interpreted as false",
+            "nullable": true
+          },
+          "fulfillment_plan_details": {
+            "$ref": "#/components/schemas/FulfillmentPlanDetails"
+          },
+          "bill_shipping_to": {
+            "$ref": "#/components/schemas/BillTo"
+          },
+          "transaction_id": {
+            "type": "string",
+            "description": "The transaction ID uniquely represents this request. If the request is retried then this transaction ID will be the same. You should only perform the requested action once per given transaction ID.",
+            "format": "uuid"
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": { },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "This model represents the payload sent to get a rate for a shipment."
+      },
+      "GetRatesResponse": {
+        "type": "object",
+        "properties": {
+          "rates": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Rate"
+            },
+            "description": "A list of rates for shipping services. If you use service codes there may be exactly one rate returned for\r\nthe requested service. If you use service codes there may be more than one rate to provide additional\r\noptions. If you don't use service codes there may be one or more rates. If you don't provide real time\r\nrates you should return a single hard coded zero value rate.",
+            "nullable": true
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": { },
+            "description": "This is an optional schemaless object that you may return with a successful response. Anything returned\r\nunder this key will be included in all future requests. For example, you may store additional static\r\nproperties about the end user or their connection to the carrier. The maximum storage size\r\nfor data under this key is 4KB.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "This model represents the response for a get rates request."
+      },
+      "Identifier": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "The key.",
+            "nullable": true
+          },
+          "value": {
+            "type": "string",
+            "description": "The value.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "A key value pair, allowing custom properties to be stored."
+      },
+      "InsuranceProviders": {
+        "enum": [
+          "None",
+          "ShipStation",
+          "Carrier",
+          "External"
+        ],
+        "type": "string"
+      },
+      "InternalServerErrorResponse": {
+        "type": "object",
+        "properties": {
+          "detailed_errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DetailedError"
+            },
+            "description": "A list of detailed errors that occurred for this request.\r\nRemove all personally identifiable information.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "This model represents a module level error that was caught."
+      },
+      "LabelLayouts": {
+        "enum": [
+          "4x6",
+          "letter"
+        ],
+        "type": "string"
+      },
+      "LabelMessage": {
+        "type": "object",
+        "properties": {
+          "reference1": {
+            "type": "string",
+            "nullable": true
+          },
+          "reference2": {
+            "type": "string",
+            "nullable": true
+          },
+          "reference3": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LabelPackage": {
+        "type": "object",
+        "properties": {
+          "tracking_number": {
+            "type": "string",
+            "description": "Tracking number for the package.",
+            "nullable": true
+          },
+          "alternative_identifiers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Identifier"
+            },
+            "description": "Alternative identifiers associated with this package, not including the tracking number.",
+            "nullable": true
+          },
+          "documents": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Document"
+            },
+            "description": "Documents associated with this package, if documents are not specified at a package level, use the\r\nDocuments array at the CarrierApi.Common.Response.CreateLabelResponse level.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Package information provided from the carrier"
+      },
+      "LatLong": {
+        "type": "object",
+        "properties": {
+          "lat": {
+            "type": "number",
+            "description": "The latitude of the point. Represented as signed degrees. http://www.geomidpoint.com/latlon.html",
+            "format": "double",
+            "example": -31.9543
+          },
+          "long": {
+            "type": "number",
+            "description": "The longitude of the point. Represented as signed degrees http://www.geomidpoint.com/latlon.html",
+            "format": "double",
+            "example": -120.9762
+          }
+        },
+        "additionalProperties": false,
+        "description": "This model represents a geographic point."
+      },
+      "Manifest": {
+        "type": "object",
+        "properties": {
+          "manifest_id": {
+            "type": "string",
+            "description": "The unique identifier for this manifest.",
+            "nullable": true
+          },
+          "document_download": {
+            "$ref": "#/components/schemas/ResourceDownload"
+          }
+        },
+        "additionalProperties": false,
+        "description": "This model represents a single manifest created with a shipping provider."
+      },
+      "Package": {
+        "type": "object",
+        "properties": {
+          "package_code": {
+            "type": "string",
+            "description": "Package code defined for the carrier in ShipEngine.",
+            "nullable": true
+          },
+          "dimension_details": {
+            "$ref": "#/components/schemas/DimensionDetails"
+          },
+          "weight_details": {
+            "$ref": "#/components/schemas/WeightDetails"
+          },
+          "insured_value": {
+            "properties": {
+              "amount": {
+                "type": "string",
+                "description": "Decimal currency value, as a string."
+              },
+              "currency_code": {
+                "type": "string",
+                "description": "Alpha-3 currency code complying with ISO 4217."
+              }
+            },
+            "description": "The insured value of this package.",
+            "nullable": true
+          },
+          "label_messages": {
+            "$ref": "#/components/schemas/LabelMessage"
+          },
+          "customs": {
+            "$ref": "#/components/schemas/Customs"
+          }
+        },
+        "additionalProperties": false,
+        "description": "This model represents an individual package that is part of a shipment."
+      },
+      "PickupConfirmation": {
+        "type": "object",
+        "properties": {
+          "confirmation_id": {
+            "type": "string",
+            "description": "The primary confirmation ID for this request.",
+            "nullable": true
+          },
+          "alternate_identifiers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Identifier"
+            },
+            "description": "Other identifiers potentially needed in other calls.",
+            "nullable": true
+          },
+          "shipment_identifiers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ShipmentIdentifier"
+            },
+            "description": "List of the shipments added for this pickup.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "This model contains the confirmation information for a scheduled pickup."
+      },
+      "PickupContactDetails": {
+        "type": "object",
+        "properties": {
+          "first_name": {
+            "type": "string",
+            "description": "The first name of the person who will be there for the pickup.",
+            "nullable": true
+          },
+          "last_name": {
+            "type": "string",
+            "description": "The last name of the person who will be there for the pickup.",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "description": "The e-mail address of the person who will be there for the pickup.",
+            "nullable": true
+          },
+          "phone_number": {
+            "type": "string",
+            "description": "The phone number of the person who will be there for the pickup.",
+            "nullable": true
+          },
+          "phone_number_extension": {
+            "type": "string",
+            "description": "The phone extension of the person who will be there for the pickup.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Contact information for the person who will be present for the pickup."
+      },
+      "PickupLocationDetails": {
+        "type": "object",
+        "properties": {
+          "pickup_address": {
+            "$ref": "#/components/schemas/ShipFrom"
+          },
+          "location_notes": {
+            "type": "string",
+            "description": "Human readable location information for the driver to find the location",
+            "nullable": true,
+            "example": "Our loading dock is near the Denny's entrance."
+          },
+          "pickup_options": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "Custom options that are used by the carrier to determine pickup locations",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "This model represents the place where the pickup should occur"
+      },
+      "PickupShipmentDetails": {
+        "type": "object",
+        "properties": {
+          "pickup_service_code": {
+            "type": "string",
+            "description": "Service category for the carrier (ground, express, next_day)",
+            "nullable": true
+          },
+          "shipments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ShippedShipment"
+            },
+            "description": "The shipments that will be picked up",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Contains information regarding the service code for the pickup request and the packages that will be picked up"
+      },
+      "PickupWindow": {
+        "type": "object",
+        "properties": {
+          "time_zone_iana": {
+            "type": "string",
+            "description": "The local time zone represented in IANA. See https://www.iana.org/time-zones",
+            "nullable": true,
+            "example": "America/Chicago"
+          },
+          "pickup_date": {
+            "type": "string",
+            "description": "The local date the pickup will occur. Formatted per https://tools.ietf.org/html/rfc3339",
+            "format": "date-time",
+            "example": "2002-10-02T10:00:00-05:00"
+          },
+          "start_time": {
+            "type": "string",
+            "description": "The time relative to the time_zone_iana that the carrier says that the pickup could occur. Formatted per https://tools.ietf.org/html/rfc3339",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2002-10-02T10:00:00-05:00"
+          },
+          "end_time": {
+            "type": "string",
+            "description": "The end of the window when the pickup could be made relative to the time_zone_iana. Formatted per https://tools.ietf.org/html/rfc3339",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2002-10-02T10:00:00-05:00"
+          }
+        },
+        "additionalProperties": false,
+        "description": "This model represents a window of time a pickup could be made."
+      },
+      "PudoLocation": {
+        "type": "object",
+        "properties": {
+          "carrier_code": {
+            "type": "string",
+            "description": "Standardized carrier code the location ID belongs to.",
+            "nullable": true
+          },
+          "location_id": {
+            "type": "string",
+            "description": "Location ID necessary to lookup the location.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "The full name of the contact contact associated with the address",
+            "nullable": true
+          },
+          "first_name": {
+            "type": "string",
+            "description": "The first name of the contact associated with the address",
+            "nullable": true
+          },
+          "last_name": {
+            "type": "string",
+            "description": "The last name of the contact associated with the address",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "description": "The email of the contact associated with the address",
+            "nullable": true
+          },
+          "phone_number": {
+            "type": "string",
+            "description": "The phone number of the contact associated with the address",
+            "nullable": true
+          },
+          "company_name": {
+            "type": "string",
+            "description": "The name of the company associated with this address.",
+            "nullable": true
+          },
+          "address_lines": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "The address lines of the address.",
+            "nullable": true
+          },
+          "city_locality": {
+            "type": "string",
+            "description": "The city or locality of the address, where applicable.",
+            "nullable": true
+          },
+          "state_province": {
+            "type": "string",
+            "description": "The state or province of the address, where applicable.",
+            "nullable": true
+          },
+          "postal_code": {
+            "type": "string",
+            "description": "The postal code of the address.",
+            "nullable": true
+          },
+          "country_code": {
+            "type": "string",
+            "description": "The two character country code of the shipment address. The codes are specified by ISO 3166-1 alpha-2.",
+            "nullable": true
+          },
+          "address_residential_indicator": {
+            "$ref": "#/components/schemas/AddressResidentialIndicator"
+          },
+          "address_metadata": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "Additional metadata provided for specific requests.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Pickup/Dropoff Location used by carriers that offer this service."
+      },
+      "Rate": {
+        "type": "object",
+        "properties": {
+          "service_code": {
+            "type": "string",
+            "description": "The service code uniquely identifies a shipping service that you offer. Which service codes can be passed\r\nto you will be configured in ShipEngine.\r\nIf this field is missing, the rate will be discarded.",
+            "nullable": true
+          },
+          "package_type": {
+            "type": "string",
+            "description": "The packaging used for the package.",
+            "nullable": true
+          },
+          "ship_datetime": {
+            "type": "string",
+            "description": "When the package should ship for this rate to be valid. ** This differs from previous documentation\r\nFormatted per the https://tools.ietf.org/html/rfc3339 spec. Must be in UTC.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "estimated_delivery_datetime": {
+            "type": "string",
+            "description": "When the package(s) in this shipment are expected to arrive at their destination.\r\nFormatted per https://tools.ietf.org/html/rfc3339. Must be in UTC.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "billing_line_items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BillingLineItem"
+            },
+            "description": "Individual Billing Line items for the rate.",
+            "nullable": true
+          },
+          "error_messages": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "A list of discrete errors.",
+            "nullable": true
+          },
+          "warning_messages": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "A list of discrete warnings. This should be data the end user needs to be aware of.\r\nThese should not stop the request from succeeding, or a label being purchased with this rate.",
+            "nullable": true
+          },
+          "negotiated_rate": {
+            "type": "boolean",
+            "description": "Whether these are negotiated rates."
+          }
+        },
+        "additionalProperties": false,
+        "description": "This model represents a rate for a given service code."
+      },
+      "RawExternalSource": {
+        "type": "object",
+        "properties": {
+          "marketplace_code": {
+            "type": "string",
+            "description": "Canonical representation of the fulfillment plan's and/or sales order's original source",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "This model represents a raw external source of information."
+      },
+      "RegisterResponse": {
+        "type": "object",
+        "properties": {
+          "credentials": {
+            "$ref": "#/components/schemas/Credentials"
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": { },
+            "description": "This is an optional schemaless object that should be returned for persisted auth and user information.\r\nAnything returned under this key will be included in all future requests. For example, you may store\r\nadditional static properties about the end user or their connection to the carrier. The maximum\r\nstorage size for data under this key is 4KB.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "This model represents the successful response for a registration request."
+      },
+      "ResourceDownload": {
+        "type": "object",
+        "properties": {
+          "href": {
+            "type": "string",
+            "description": "The public url where the created resource can be downloaded.",
+            "nullable": true
+          },
+          "data": {
+            "type": "string",
+            "description": "The base64 encoded resource data.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Used for generic downloads, containing the resource itself or a link to where it can be found"
+      },
+      "ReturnLabelDetails": {
+        "type": "object",
+        "properties": {
+          "rma_number": {
+            "type": "string",
+            "description": "A return merchandise authorization (RMA) is an associated number assigned to process the return, this\r\nnumber is often printed on the label, and used when the original shipper processes the inbound return.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Return Label Information (Added 1.13)"
+      },
+      "SchedulePickupRequest": {
+        "type": "object",
+        "properties": {
+          "location": {
+            "$ref": "#/components/schemas/PickupLocationDetails"
+          },
+          "contact": {
+            "$ref": "#/components/schemas/PickupContactDetails"
+          },
+          "pickup_details": {
+            "$ref": "#/components/schemas/PickupShipmentDetails"
+          },
+          "requested_pickup_window": {
+            "$ref": "#/components/schemas/PickupWindow"
+          },
+          "transaction_id": {
+            "type": "string",
+            "description": "The transaction ID uniquely represents this request. If the request is retried then this transaction ID will be the same. You should only perform the requested action once per given transaction ID.",
+            "format": "uuid"
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": { },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "A request to schedule a pickup with a carrier"
+      },
+      "SchedulePickupResponse": {
+        "type": "object",
+        "properties": {
+          "confirmation": {
+            "$ref": "#/components/schemas/PickupConfirmation"
+          },
+          "pickup_windows": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PickupWindow"
+            },
+            "description": "A list of dates and times when the carrier intends to be available to pickup",
+            "nullable": true
+          },
+          "remarks": {
+            "type": "string",
+            "description": "A custom message returned from the carrier",
+            "nullable": true
+          },
+          "custom_properties": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "A grab bag of custom properties that will be persisted and sent back with the cancel pickup request",
+            "nullable": true
+          },
+          "billing_line_items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BillingLineItem"
+            },
+            "description": "Individual Billing Line items for the rate.",
+            "nullable": true
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": { },
+            "description": "This is an optional schemaless object that you may return with a successful response. Anything returned\r\nunder this key will be included in all future requests. For example, you may store additional static\r\nproperties about the end user or their connection to the carrier. The maximum storage size\r\nfor data under this key is 4KB.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "The response for scheduling a pickup."
+      },
+      "Service": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "The code specific to a shipping provider service.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of this shipping provider service.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "A shipping provider specific service."
+      },
+      "ShipFrom": {
+        "type": "object",
+        "properties": {
+          "tax_identifiers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TaxIdentifier"
+            },
+            "description": "Tax IDs associated with the exporter.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "The full name of the contact contact associated with the address",
+            "nullable": true
+          },
+          "first_name": {
+            "type": "string",
+            "description": "The first name of the contact associated with the address",
+            "nullable": true
+          },
+          "last_name": {
+            "type": "string",
+            "description": "The last name of the contact associated with the address",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "description": "The email of the contact associated with the address",
+            "nullable": true
+          },
+          "phone_number": {
+            "type": "string",
+            "description": "The phone number of the contact associated with the address",
+            "nullable": true
+          },
+          "company_name": {
+            "type": "string",
+            "description": "The name of the company associated with this address.",
+            "nullable": true
+          },
+          "address_lines": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "The address lines of the address.",
+            "nullable": true
+          },
+          "city_locality": {
+            "type": "string",
+            "description": "The city or locality of the address, where applicable.",
+            "nullable": true
+          },
+          "state_province": {
+            "type": "string",
+            "description": "The state or province of the address, where applicable.",
+            "nullable": true
+          },
+          "postal_code": {
+            "type": "string",
+            "description": "The postal code of the address.",
+            "nullable": true
+          },
+          "country_code": {
+            "type": "string",
+            "description": "The two character country code of the shipment address. The codes are specified by ISO 3166-1 alpha-2.",
+            "nullable": true
+          },
+          "address_residential_indicator": {
+            "$ref": "#/components/schemas/AddressResidentialIndicator"
+          },
+          "address_metadata": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "Additional metadata provided for specific requests.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "The shipment sender's address. It may or may not have been validated."
+      },
+      "ShipFromDisplay": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The full name of the contact contact associated with the address",
+            "nullable": true
+          },
+          "first_name": {
+            "type": "string",
+            "description": "The first name of the contact associated with the address",
+            "nullable": true
+          },
+          "last_name": {
+            "type": "string",
+            "description": "The last name of the contact associated with the address",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "description": "The email of the contact associated with the address",
+            "nullable": true
+          },
+          "phone_number": {
+            "type": "string",
+            "description": "The phone number of the contact associated with the address",
+            "nullable": true
+          },
+          "company_name": {
+            "type": "string",
+            "description": "The name of the company associated with this address.",
+            "nullable": true
+          },
+          "address_lines": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "The address lines of the address.",
+            "nullable": true
+          },
+          "city_locality": {
+            "type": "string",
+            "description": "The city or locality of the address, where applicable.",
+            "nullable": true
+          },
+          "state_province": {
+            "type": "string",
+            "description": "The state or province of the address, where applicable.",
+            "nullable": true
+          },
+          "postal_code": {
+            "type": "string",
+            "description": "The postal code of the address.",
+            "nullable": true
+          },
+          "country_code": {
+            "type": "string",
+            "description": "The two character country code of the shipment address. The codes are specified by ISO 3166-1 alpha-2.",
+            "nullable": true
+          },
+          "address_residential_indicator": {
+            "$ref": "#/components/schemas/AddressResidentialIndicator"
+          },
+          "address_metadata": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "Additional metadata provided for specific requests.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "The address that should be displayed as the return address, only if the shipping provider supports\r\nthis functionality."
+      },
+      "ShipmentIdentifier": {
+        "type": "object",
+        "properties": {
+          "tracking_number": {
+            "type": "string",
+            "description": "The tracking number associated with the shipment",
+            "nullable": true
+          },
+          "alternate_identifiers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Identifier"
+            },
+            "description": "A list of alternate identifiers that can be used to identify a shipment",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "This model represents identifying information about a shipment."
+      },
+      "ShippedPackage": {
+        "type": "object",
+        "properties": {
+          "tracking_number": {
+            "type": "string",
+            "description": "The carrier tracking number associated with this package",
+            "nullable": true
+          },
+          "alternative_identifiers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Identifier"
+            },
+            "description": "Alternative identifiers associated with this package",
+            "nullable": true
+          },
+          "dimension_details": {
+            "$ref": "#/components/schemas/DimensionDetails"
+          },
+          "weight_details": {
+            "$ref": "#/components/schemas/WeightDetails"
+          },
+          "package_code": {
+            "type": "string",
+            "description": "The code associated with the package type",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "This is the model for a package that has had a label generated for it"
+      },
+      "ShippedShipment": {
+        "type": "object",
+        "properties": {
+          "tracking_number": {
+            "type": "string",
+            "description": "The carrier tracking number for this shipment",
+            "nullable": true
+          },
+          "ship_to": {
+            "$ref": "#/components/schemas/ShipTo"
+          },
+          "alternative_identifiers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Identifier"
+            },
+            "description": "Alternative identifiers associated with this package",
+            "nullable": true
+          },
+          "service_code": {
+            "type": "string",
+            "description": "The service code used for this shipment",
+            "nullable": true
+          },
+          "packages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ShippedPackage"
+            },
+            "description": "The list of packages associated with this shipment",
+            "nullable": true
+          },
+          "advanced_options": {
+            "$ref": "#/components/schemas/AdvancedOptions"
+          }
+        },
+        "additionalProperties": false,
+        "description": "This model represents a shipment that has already been shipped, and contains\r\nsummary information about the shipment."
+      },
+      "ShipTo": {
+        "type": "object",
+        "properties": {
+          "tax_identifiers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TaxIdentifier"
+            },
+            "description": "Tax IDs associated with the consignee.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "The full name of the contact contact associated with the address",
+            "nullable": true
+          },
+          "first_name": {
+            "type": "string",
+            "description": "The first name of the contact associated with the address",
+            "nullable": true
+          },
+          "last_name": {
+            "type": "string",
+            "description": "The last name of the contact associated with the address",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "description": "The email of the contact associated with the address",
+            "nullable": true
+          },
+          "phone_number": {
+            "type": "string",
+            "description": "The phone number of the contact associated with the address",
+            "nullable": true
+          },
+          "company_name": {
+            "type": "string",
+            "description": "The name of the company associated with this address.",
+            "nullable": true
+          },
+          "address_lines": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "The address lines of the address.",
+            "nullable": true
+          },
+          "city_locality": {
+            "type": "string",
+            "description": "The city or locality of the address, where applicable.",
+            "nullable": true
+          },
+          "state_province": {
+            "type": "string",
+            "description": "The state or province of the address, where applicable.",
+            "nullable": true
+          },
+          "postal_code": {
+            "type": "string",
+            "description": "The postal code of the address.",
+            "nullable": true
+          },
+          "country_code": {
+            "type": "string",
+            "description": "The two character country code of the shipment address. The codes are specified by ISO 3166-1 alpha-2.",
+            "nullable": true
+          },
+          "address_residential_indicator": {
+            "$ref": "#/components/schemas/AddressResidentialIndicator"
+          },
+          "address_metadata": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "Additional metadata provided for specific requests.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "StandardizedErrorCode": {
+        "enum": [
+          "generic",
+          "serialization",
+          "unhandled_module_exception",
+          "validation",
+          "external_bad_request",
+          "external_unauthorized",
+          "external_unprocessable_entity",
+          "external_too_many_requests",
+          "external_not_implemented",
+          "external_bad_gateway",
+          "external_service_unavailable",
+          "external_gateway_timeout",
+          "external_server_error"
+        ],
+        "type": "string",
+        "description": "A list of standard error identifiers for errors the module can return"
+      },
+      "StandardizedStatusCodes": {
+        "enum": [
+          "UN",
+          "AC",
+          "IT",
+          "DE",
+          "EX",
+          "AT",
+          "NY"
+        ],
+        "type": "string",
+        "description": "This represents the ShipEngine supported status codes for a shipment.\r\nUN - Unknown\r\nAC - Accepted\r\nIT - In Transit\r\nDE - Delivered\r\nEX - Exception\r\nAT - Delivery Attempted\r\nNY - Not Yet In System"
+      },
+      "TaxIdentificationType": {
+        "enum": [
+          "tin",
+          "ein",
+          "ssn",
+          "vat",
+          "eori",
+          "ioss",
+          "pan",
+          "voec"
+        ],
+        "type": "string",
+        "description": "Specifies the supported tax identification types."
+      },
+      "TaxIdentifier": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Identification number.",
+            "nullable": true
+          },
+          "type": {
+            "$ref": "#/components/schemas/TaxIdentificationType"
+          },
+          "registration_country": {
+            "type": "string",
+            "description": "The country where the Tax ID is registered with.",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the tax ID that may give the customs agent more context.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Entity representing a Tax Identification number, type, and country of registration."
+      },
+      "TrackEvent": {
+        "type": "object",
+        "properties": {
+          "event_datetime": {
+            "type": "string",
+            "description": "When this tracking event occurred. Formatted per https://tools.ietf.org/html/rfc3339. Must be in UTC.",
+            "format": "date-time"
+          },
+          "event_datetime_local": {
+            "type": "string",
+            "description": "Most providers do not provide tracking events in UTC, and without time zone or geo information its hard to deduce.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "event_code": {
+            "type": "string",
+            "description": "Carrier's specific event code",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the package status at this event",
+            "nullable": true
+          },
+          "city": {
+            "type": "string",
+            "description": "City or Locality for this event",
+            "nullable": true
+          },
+          "state": {
+            "type": "string",
+            "description": "State or Province for this event",
+            "nullable": true
+          },
+          "postal_code": {
+            "type": "string",
+            "description": "Postal Code for this event",
+            "nullable": true
+          },
+          "country": {
+            "type": "string",
+            "description": "Country for this event",
+            "nullable": true
+          },
+          "company": {
+            "type": "string",
+            "nullable": true
+          },
+          "signer": {
+            "type": "string",
+            "description": "If the event had a signer associated, normally on delivery",
+            "nullable": true
+          },
+          "geo": {
+            "$ref": "#/components/schemas/LatLong"
+          },
+          "status_code": {
+            "$ref": "#/components/schemas/StandardizedStatusCodes"
+          }
+        },
+        "additionalProperties": false,
+        "description": "This model represents a tracking event for a shipment."
+      },
+      "TrackingAttribute": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "value": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "This model represents attributes from the shipping provider about a shipment necessary for tracking."
+      },
+      "TrackingIdentifier": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "The tracking identifier type, either `tracking_number` or `carrier_transaction_id`.",
+            "nullable": true
+          },
+          "value": {
+            "type": "string",
+            "description": "The value associated with that key.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "This model represents a key value pair for identifying a shipment for tracking."
+      },
+      "TrackingInfo": {
+        "type": "object",
+        "properties": {
+          "carrier_name": {
+            "type": "string",
+            "description": "The human readable name of the carrier tracking this shipment.",
+            "nullable": true
+          },
+          "tracking_number": {
+            "type": "string",
+            "description": "The carrier specific tracking identifier for this shipment.",
+            "nullable": true
+          },
+          "standardized_status_code": {
+            "$ref": "#/components/schemas/StandardizedStatusCodes"
+          },
+          "carrier_status_code": {
+            "type": "string",
+            "description": "The carrier specific status code of this shipment's tracking status.",
+            "nullable": true
+          },
+          "carrier_status_description": {
+            "type": "string",
+            "description": "The human readable description of this shipment's tracking status.",
+            "nullable": true
+          },
+          "shipped_datetime": {
+            "type": "string",
+            "description": "When the package(s) in this shipment were turned over to the carrier. Formatted per https://tools.ietf.org/html/rfc3339. Must be in UTC.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "estimated_delivery_datetime": {
+            "type": "string",
+            "description": "When the package(s) in this shipment are expected to arrive at their destination. Formatted per https://tools.ietf.org/html/rfc3339. Must be in UTC.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "actual_delivery_datetime": {
+            "type": "string",
+            "description": "When the package(s) in this shipment arrived at their destination. Formatted per https://tools.ietf.org/html/rfc3339. Must be in UTC.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "shipping_problem_description": {
+            "type": "string",
+            "description": "A human readable description of why the shipment is in an error state.",
+            "nullable": true
+          },
+          "weight": {
+            "type": "number",
+            "description": "The weight measured by the carrier of the package(s) in this shipment.",
+            "format": "double",
+            "nullable": true
+          },
+          "dimensions": {
+            "$ref": "#/components/schemas/Dimensions"
+          },
+          "service": {
+            "$ref": "#/components/schemas/Service"
+          },
+          "packaging": {
+            "type": "string",
+            "description": "The carrier observed count of packages in this shipment.",
+            "nullable": true
+          },
+          "package_count": {
+            "type": "integer",
+            "description": "The carrier observed count of packages in this shipment.",
+            "format": "int32",
+            "nullable": true
+          },
+          "events": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TrackEvent"
+            },
+            "nullable": true
+          },
+          "shipping_problem": {
+            "type": "boolean",
+            "description": "Whether or not this shipment has entered an error state."
+          },
+          "shipping_problem_code": {
+            "type": "string",
+            "description": "The unique identifying code for the type of error encountered by this shipment.",
+            "nullable": true
+          },
+          "error_description": {
+            "type": "string",
+            "description": "The human readable explanation of the error encountered by this shipment.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "This model represents tracking information for a shipment."
+      },
+      "TrackingRequest": {
+        "type": "object",
+        "properties": {
+          "identifiers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TrackingIdentifier"
+            },
+            "description": "This array represents the custom identifiers for a carrier.",
+            "nullable": true
+          },
+          "attributes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TrackingAttribute"
+            },
+            "description": "Extra attributes of a shipment needed in tracking",
+            "nullable": true
+          },
+          "transaction_id": {
+            "type": "string",
+            "description": "The transaction ID uniquely represents this request. If the request is retried then this transaction ID will be the same. You should only perform the requested action once per given transaction ID.",
+            "format": "uuid"
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": { },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "This model represents the payload that is sent to request tracking information."
+      },
+      "TrackingResponse": {
+        "type": "object",
+        "properties": {
+          "tracking_info": {
+            "$ref": "#/components/schemas/TrackingInfo"
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": { },
+            "description": "This is an optional schemaless object that you may return with a successful response. Anything returned\r\nunder this key will be included in all future requests. For example, you may store additional static\r\nproperties about the end user or their connection to the carrier. The maximum storage size\r\nfor data under this key is 4KB.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "This model represents the successful response from a tracking request."
+      },
+      "UnauthorizedResponse": {
+        "type": "object",
+        "properties": {
+          "detailed_errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DetailedError"
+            },
+            "description": "A list of detailed errors that occurred for this request.\r\nRemove all personally identifiable information.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "This model represents a response that the request was unauthorized to perform some action."
+      },
+      "VoidLabelsRequest": {
+        "type": "object",
+        "properties": {
+          "void_requests": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/VoidRequest"
+            },
+            "description": "Requests to void labels.",
+            "nullable": true
+          },
+          "transaction_id": {
+            "type": "string",
+            "description": "The transaction ID uniquely represents this request. If the request is retried then this transaction ID will be the same. You should only perform the requested action once per given transaction ID.",
+            "format": "uuid"
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": { },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "This model represents the payload sent to void a set of labels."
+      },
+      "VoidLabelsResponse": {
+        "type": "object",
+        "properties": {
+          "void_responses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/VoidResponse"
+            },
+            "description": "Responses to void a particular label.",
+            "nullable": true
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": { },
+            "description": "This is an optional schemaless object that you may return with a successful response. Anything returned\r\nunder this key will be included in all future requests. For example, you may store additional static\r\nproperties about the end user or their connection to the carrier. The maximum storage size\r\nfor data under this key is 4KB.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "This model represents the successful attempt to void a set of labels."
+      },
+      "VoidRequest": {
+        "type": "object",
+        "properties": {
+          "void_request_id": {
+            "type": "string",
+            "description": "Uniquely identifies this request to void a label. Must be returned in a void response.",
+            "format": "uuid"
+          },
+          "ship_from": {
+            "$ref": "#/components/schemas/ShipFrom"
+          },
+          "tracking_number": {
+            "type": "string",
+            "description": "The carrier tracking number for this shipment",
+            "nullable": true
+          },
+          "ship_to": {
+            "$ref": "#/components/schemas/ShipTo"
+          },
+          "alternative_identifiers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Identifier"
+            },
+            "description": "Alternative identifiers associated with this package",
+            "nullable": true
+          },
+          "service_code": {
+            "type": "string",
+            "description": "The service code used for this shipment",
+            "nullable": true
+          },
+          "packages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ShippedPackage"
+            },
+            "description": "The list of packages associated with this shipment",
+            "nullable": true
+          },
+          "advanced_options": {
+            "$ref": "#/components/schemas/AdvancedOptions"
+          }
+        },
+        "additionalProperties": false,
+        "description": "A request to void a particular label."
+      },
+      "VoidResponse": {
+        "type": "object",
+        "properties": {
+          "void_request_id": {
+            "type": "string",
+            "description": "This unique identifier should be related to the void_request_id in the VoidLabelsRequest.",
+            "format": "uuid"
+          },
+          "message": {
+            "type": "string",
+            "description": "User facing text describing the void process. May be left blank to present a default value.",
+            "nullable": true
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "A list of errors preventing this label from being voided. If no errors are returned the void is considered\r\nsuccessful. If any errors are returned the void is considered failed.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "This model represents the success or failure of an individual label being voided."
+      },
+      "WeightDetails": {
+        "type": "object",
+        "properties": {
+          "weight_in_ounces": {
+            "type": "number",
+            "description": "The weight in ounces rounded to the fourth decimal place.",
+            "format": "double"
+          },
+          "weight_in_grams": {
+            "type": "number",
+            "description": "The weight in grams rounded to the fourth decimal place.",
+            "format": "double"
+          },
+          "source_weight": {
+            "type": "number",
+            "description": "The weight in its original unit of measurement rounded to the fourth decimal place.",
+            "format": "double"
+          },
+          "source_weight_unit": {
+            "$ref": "#/components/schemas/WeightUnit"
+          }
+        },
+        "additionalProperties": false,
+        "description": "This model represents the weight of a package in its original unit, ounces, and grams."
+      },
+      "WeightUnit": {
+        "enum": [
+          "grams",
+          "ounces",
+          "kilograms",
+          "pounds"
+        ],
+        "type": "string",
+        "description": "This model describes the possible units of weight."
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Account Setup",
+      "description": ""
+    },
+    {
+      "name": "Rating",
+      "description": ""
+    },
+    {
+      "name": "Labels",
+      "description": ""
+    },
+    {
+      "name": "Tracking",
+      "description": ""
+    },
+    {
+      "name": "Manifesting",
+      "description": ""
+    },
+    {
+      "name": "Scheduled Pickups",
+      "description": ""
+    },
+    {
+      "name": "Shipment Notifications",
+      "description": "Shipment notifications were designed to notify a Pickup/Drop Off (PUDO) provider that a parcel is enroute to their location.  These endpoints allow for carrier agnostic PUDO locations to expect and plan for the arrival of the parcel."
+    }
+  ]
+}
