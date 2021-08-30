@@ -157,7 +157,7 @@ export const menu: MenuContents = [
       {
         title: "Reference",
         menuItems: [
-          { title: "Carrier API ReDoc", href: "https://shipstation.github.io/integrations-shipping/carrierapi-redoc.html" },
+          { title: "Carrier API Reference", href: "https://shipstation.github.io/integrations-shipping/carrierapi-redoc.html" },
           { title: "Metadata", href: "/docs/beta/reference/metadata" },
           { title: "Address", href: "/docs/beta/reference/address" },
           { title: "Package", href: "/docs/beta/reference/package" },
