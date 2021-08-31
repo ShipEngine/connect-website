@@ -35,9 +35,9 @@ Application Definition
 ---------------------
 The main export of your app's NPM package must be an object that defines your app's capabilities and functionality.  The properties and methods of this object depend on the type of app you're building.
 
-- For a [Carrier app](./v1/carrier-app/index.mdx), you should export a [Carrier Application Definition](./v1/reference/carrier.mdx).
+- For a [Carrier app](./carrier-app/index.mdx), you should export a [Carrier Application Definition](./reference/carrier.mdx).
 
-- For an [Order app](./v1/order-app/index.mdx), you should export an [Order Application Definition](./v1/reference/order.mdx).
+- For an [Order app](./order-app/index.mdx), you should export an [Order Application Definition](./reference/order.mdx).
 
 To make things even easier for you, your Application Definition object can be a [JSON](https://www.w3schools.com/js/js_json_intro.asp), [JSON5](https://json5.org/), [YAML](https://en.wikipedia.org/wiki/YAML), or [TypeScript](https://www.typescriptlang.org/) file in addition
 to plain [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript). You can even split your app definition into many separate files if you want, and each file can be any of these file types.
@@ -47,7 +47,7 @@ You'll make this the main export by setting the `main` property of your `package
   <Right>
 
 ### Example
-Here's an example of a [Carrier Application Definition](./v1/reference/carrier.mdx) that consists of multiple files in multiple formats.  The main file is in YAML format,
+Here's an example of a [Carrier Application Definition](./reference/carrier.mdx) that consists of multiple files in multiple formats.  The main file is in YAML format,
 each of the [methods](#methods) are in separate JavaScript files, the [`connectionForm` and `settingsForm`](#forms) are in separate JSON files, and each of the [`deliveryServices`](#definitions) is in a separate YAML file.
 
 ```yaml
@@ -78,7 +78,7 @@ For more complete examples, see our [complete sample apps](https://github.com/Sh
 
 Methods
 ---------------------
-As mentioned above, the main export of your application package must be an [Application Definition object](#application-definition), which has properties and methods.  The properties define your app's capabilities and features, but the methods provide your app's actual implementation, such as [logging in](./v1/reference/methods/connect.mdx), [creating a shipment](./v1/reference/methods/create-shipment.mdx), or [retrieving shipping rates](./v1/reference/methods/rate-shipment.mdx).
+As mentioned above, the main export of your application package must be an [Application Definition object](#application-definition), which has properties and methods.  The properties define your app's capabilities and features, but the methods provide your app's actual implementation, such as [logging in](./reference/methods/connect.mdx), [creating a shipment](./reference/methods/create-shipment.mdx), or [retrieving shipping rates](./reference/methods/rate-shipment.mdx).
 As you can imagine, the methods are probably where you'll spend most of your time when building an app.
 
 Methods are just JavaScript functions that take input from ShipEngine Connect and return results to the platform.  What happens in-between those two is entirely up to you.  But, in general, most methods will consist of the following steps:
@@ -93,18 +93,18 @@ Methods are just JavaScript functions that take input from ShipEngine Connect an
 
 Forms
 ---------------------
-[Forms](./v1/reference/forms.mdx) are used gather data from an end-user that is interacting with your application from within on of our e-commerce applications.
-For example, you will need to supply a [connection form](./v1/reference/forms.mdx#connection-form-examples) that gathers login credentials
+[Forms](./reference/forms.mdx) are used gather data from an end-user that is interacting with your application from within on of our e-commerce applications.
+For example, you will need to supply a [connection form](./reference/forms.mdx#connection-form-examples) that gathers login credentials
 from the end user so they can be authenticated with your API. In the [example above](#example), you can see that the
 path to the `connectionForm` is specified in the app definition.
 
 Definitions
 -------------------------
-In addition to the [application definition](#application-definition), some application types, such as the [Carrier app](./v1/carrier-app/index.mdx), include definition files for the services it provides. For example, each type of delivery service
-offered by a Carrier app will be described by a [Delivery Service Definition](./v1/reference/delivery-service.mdx) file. In the application definition
+In addition to the [application definition](#application-definition), some application types, such as the [Carrier app](./carrier-app/index.mdx), include definition files for the services it provides. For example, each type of delivery service
+offered by a Carrier app will be described by a [Delivery Service Definition](./reference/delivery-service.mdx) file. In the application definition
 [above](#example), you can see these definition files referenced in the `deliveryServices` array.
 
 <Pager
-  prev="index.mdx" prevTitle="Getting Started"
+  prev="getting-started.mdx" prevTitle="Getting Started"
   next="tools/index.mdx" nextTitle="Recommended Tools"
 />

@@ -2,30 +2,30 @@ import { MenuContents } from "./menu-types";
 
 export const menu: MenuContents = [
   {
-    title: "Start Here",
+    title: "Legacy Docs",
     subGroups: [
       {
         title: "Overview",
         menuItems: [
-          { title: "Welcome", href: "/" },
-          { title: "Getting Started", href: "/docs" },
-          { title: "App Structure", href: "/docs/structure" },
-          { title: "Recommended Tools", href: "/docs/tools" },
+          { title: "Welcome", href: "/docs/v1" },
+          { title: "Getting Started", href: "/docs/v1/getting-started" },
+          { title: "App Structure", href: "/docs//v1/structure" },
+          { title: "Recommended Tools", href: "/docs/v1/tools" },
         ]
       },
       {
         title: "Guides",
         menuItems: [
-          { title: "Contribution Guide", href: "/docs/contributing" },
-          { title: "Style Guide", href: "/docs/style" },
-          { title: "Using the CLI", href: "/docs/cli" },
-          { title: "Creating Your First App", href: "/docs/create-first-app" },
-          { title: "Implementing Your Methods", href: "/docs/implementation" },
-          { title: "Developing in TypeScript", href: "/docs/typescript" },
-          { title: "Environment Variables", href: "/docs/environment-variables"},
-          { title: "Error Handling", href: "/docs/error-handling" },
-          { title: "Testing", href: "/docs/testing" },
-          { title: "Publishing", href: "/docs/publish" },
+          { title: "Contribution Guide", href: "/docs/v1/contributing" },
+          { title: "Style Guide", href: "/docs/v1/style" },
+          { title: "Using the CLI", href: "/docs/v1/cli" },
+          { title: "Creating Your First App", href: "/docs/v1/create-first-app" },
+          { title: "Implementing Your Methods", href: "/docs/v1/implementation" },
+          { title: "Developing in TypeScript", href: "/docs/v1/typescript" },
+          { title: "Environment Variables", href: "/docs/v1/environment-variables"},
+          { title: "Error Handling", href: "/docs/v1/error-handling" },
+          { title: "Testing", href: "/docs/v1/testing" },
+          { title: "Publishing", href: "/docs/v1/publish" },
         ]
       },
       {

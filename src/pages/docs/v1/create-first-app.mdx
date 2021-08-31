@@ -30,7 +30,7 @@ by running the following command: `cd my-project-directory`
 
 1. Enter the npm package scope you would like to give your application. In most cases, you should use your company name (e.g. `@your-company-name`)
 
-1. Use the arrow keys to select whether you want to create a [Carrier App](./v1/carrier-app/index.mdx) or [Order App](./v1/order-app/index.mdx), then press `Enter`.
+1. Use the arrow keys to select whether you want to create a [Carrier App](./carrier-app/index.mdx) or [Order App](./order-app/index.mdx), then press `Enter`.
 
 1. Enter a description for your application, and press `Enter`.
 
@@ -61,7 +61,7 @@ In the `src/methods` directory, you will find a file for each [method](./structu
 contains a stubbed out method in the language you specified when you ran the command. It contains comments to remind you of the steps
 required to [implement each method](./implementation.mdx). You aren't required to maintain this directory structure. You
 can choose to implement all your methods in one file or choose a different directory structure. As long as your [application definition](./structure.mdx#application-definition)
-specifies the path to a file that exports the method, the structure is up to you. This is an example of the method stub that is generated for the `createShipment` method of a [Carrier Application](./v1/carrier-app/index.mdx).
+specifies the path to a file that exports the method, the structure is up to you. This is an example of the method stub that is generated for the `createShipment` method of a [Carrier Application](./carrier-app/index.mdx).
 
 <CodeWrapper>
 ```javascript
@@ -113,8 +113,8 @@ export default async function createShipment(
 
 ### Definitions
 In the `src/definitions` directory, you will find a sample file with the required properties for each type of [definition](./structure.mdx#definitions) you can provide for your application. For example,
-in a Carrier Application, you may provide one or more definitions for the following: [delivery service](./v1/reference/delivery-service.mdx), [delivery confirmation](./v1/reference/delivery-confirmation.mdx),
-and [packaging](./v1/reference/packaging.mdx).
+in a Carrier Application, you may provide one or more definitions for the following: [delivery service](./reference/delivery-service.mdx), [delivery confirmation](./reference/delivery-confirmation.mdx),
+and [packaging](./reference/packaging.mdx).
 
 As with methods, you aren't required to maintain this directory structure. As long as your [application definition](./structure.mdx#application-definition) specifies the correct paths to the definitions you want to include, you can organize your files however you'd like.
 In addition to the definitions for the services that are offered, running this command creates a sample application definition as well. It uses the values you provided when you ran the command along with some default values. This definition resides in an `index` file in the

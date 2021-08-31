@@ -6,7 +6,7 @@ description: This guide describes how to test a ShipEngine Carrier Connect app w
 Carrier App Testing Guide
 =========================
 
-The purpose of a [ShipEngine Connect](./../../index.mdx) Carrier App is to integrate your carrier with our many e-commerce
+The purpose of a [ShipEngine Connect](../index.mdx) Carrier App is to integrate your carrier with our many e-commerce
 solutions, so it is important to see how your app behaves when running in one of these applications.
 
 This guide describes the steps required to access and test your app within
@@ -36,14 +36,14 @@ for more information.
 Be sure to add a [Ship From location](https://help.shipstation.com/hc/en-us/articles/360026157571-Set-Ship-From-Return-Address) as this will be required to create a label.
 
 
-> **INFO:** These tests exercise your [`connect` method](./../v1/reference/methods/connect.mdx) and your
-> [connection form](./../v1/reference/forms.mdx#connect-form).
+> **INFO:** These tests exercise your [`connect` method](../reference/methods/connect.mdx) and your
+> [connection form](../reference/forms.mdx#connect-form).
 
 1. Expand the **_Shipping_** option in the left navigation.
 2. Click **_Carriers & Fulfillments_**
 3. Click the **_Add a Provider Account_** button.
 4. You will see a modal similar to the one below. Locate your carrier’s logo in the modal and verify that it looks
-correct. Click on the logo to access your app's [connection form](./../v1/reference/forms.mdx#connection-form).
+correct. Click on the logo to access your app's [connection form](../reference/forms.mdx#connection-form).
 
 ![](/img/testing/carriers.png)
 
@@ -78,7 +78,7 @@ Once you create the order and click the Save button, you will be taken to a scre
 ### Validate Error Handling
 
 > **INFO:**
-> These tests exercise your [`rateShipment` method](./../v1/reference/methods/rate-shipment).
+> These tests exercise your [`rateShipment` method](../reference/methods/rate-shipment).
 
 This page gets new rates as you make changes to the shipment details. You can refresh the rate information that
 is displayed by clicking the refresh button circled in red in the screenshot below. On this screen, you can enter
@@ -96,7 +96,7 @@ country supported by the carrier.
 
 ### Create Labels
 
-> **INFO:** These tests exercise your [`createShipment` method](./../v1/reference/methods/create-shipment.mdx).
+> **INFO:** These tests exercise your [`createShipment` method](../reference/methods/create-shipment.mdx).
 
 1. Create a manual order for a domestic shipment.
 2. Click the Create + Print Label button.
@@ -110,7 +110,7 @@ You should repeat the steps above for the following cases:
 
 ## Testing in the Rate Calculator
 
-> **INFO:** These tests execute your [`rateShipment` method](./../v1/reference/methods/rate-shipment.mdx).
+> **INFO:** These tests execute your [`rateShipment` method](../reference/methods/rate-shipment.mdx).
 
 You should validate that your app performs properly when getting rates from the rate calculator in the toolbar.
 Note that this functionality is not supported for some carrier apps. If your carrier’s backend API call to retrieve
@@ -120,7 +120,7 @@ rates requires a full address, you will not be able to get rates from the carrie
 
 ### Validate Definitions
 > **INFO:**
-> These tests validate that your [definitions](./../structure.mdx#definition-files) were processed correctly
+> These tests validate that your [definitions](../structure.mdx#definition-files) were processed correctly
 and that all your metadata appears as expected when viewed through ShipStation.
 
 1. Inspect the **_Package_** drop-down, and verify that all your packages are listed as expected.
@@ -128,7 +128,7 @@ and that all your metadata appears as expected when viewed through ShipStation.
 
 ### Validate Rates
 
-> **INFO:** These tests exercise your [`rateShipment` method](./../v1/reference/methods/rate-shipment.mdx).
+> **INFO:** These tests exercise your [`rateShipment` method](../reference/methods/rate-shipment.mdx).
 
 Clicking the **_Browse Rates_** button in the rate calculator makes a call to your `rateShipment` method. In this
 screen, it is useful to change the rate criteria and verify that the rates returned when you click the **_Browse Rates_**
@@ -136,7 +136,7 @@ button are accurate for the given criteria. This is especially useful if your me
 that don't match the specified criteria.
 
 ### Create Labels
-> **INFO:** These tests exercise your [`createShipment` method](./../v1/reference/methods/create-shipment.mdx).
+> **INFO:** These tests exercise your [`createShipment` method](../reference/methods/create-shipment.mdx).
 
 1. Enter rate criteria that matches a rate provided by your carrier.
 2. Click the **_Browse Rates_** button
@@ -159,7 +159,7 @@ after you created a new manual order. It is a good idea to verify all your servi
 
 ## Voiding Labels
 
-> **INFO:** These tests exercise your [`cancelShipments` method](./../v1/reference/methods/cancel-shipments.mdx).
+> **INFO:** These tests exercise your [`cancelShipments` method](../reference/methods/cancel-shipments.mdx).
 
 If you have run through the tests above, you should now have several shipments available in the shipments grid in
 ShipStation. Click the **_Shipments_** tab in at the top of screen to access the list of labels, or shipments, you have
@@ -181,7 +181,7 @@ created.
 
 ## Tracking Shipments
 
-> **INFO:** These tests exercise your [`trackShipment` method](./../v1/reference/methods/track-shipment.mdx).
+> **INFO:** These tests exercise your [`trackShipment` method](../reference/methods/track-shipment.mdx).
 
 ## Getting Tracking Info
 
@@ -190,7 +190,7 @@ if you have voided all the ones you created in previous tests.
 2. Go to the Shipments tab, underlined in green in the screenshot below.
 3. Click on a tracking number for one of your shipments, underlined in red in the screenshot below.
 4. Verify that clicking the tracking number takes you to a valid tracking page for your carrier.
-This test validates the `trackingUrlTemplate` property in your [Carrier App definition](./../v1/reference/carrier.mdx).
+This test validates the `trackingUrlTemplate` property in your [Carrier App definition](../reference/carrier.mdx).
 
 ![](/img/testing/track.png)
 
@@ -212,7 +212,7 @@ If the status has changed in your backend system since you created the label, yo
 
 ## Scheduling a Pickup
 
-> **INFO:** These tests exercise your [`schedulePickup` method](./../v1/reference/methods/schedule-pickup.mdx).
+> **INFO:** These tests exercise your [`schedulePickup` method](../reference/methods/schedule-pickup.mdx).
 
 1. [Create a label](https://help.shipstation.com/hc/en-us/articles/360026157651-Create-Single-Labels)
 if you have voided all the ones you created in previous tests.
@@ -240,7 +240,7 @@ Schedule a pickup for the shipment for which you just created.
 
 ## Canceling a Pickup
 
-> **INFO:** These tests exercise your [`cancelPickups` method](./../v1/reference/methods/cancel-pickups.mdx).
+> **INFO:** These tests exercise your [`cancelPickups` method](../reference/methods/cancel-pickups.mdx).
 
 At this point, you should have a pickup scheduled that is available to cancel.
 
@@ -251,7 +251,7 @@ At this point, you should have a pickup scheduled that is available to cancel.
 
 ## Creating a Manifest
 
-> **INFO:** These tests exercise your [`createManifest` method](./../v1/reference/methods/create-manifest.mdx).
+> **INFO:** These tests exercise your [`createManifest` method](../reference/methods/create-manifest.mdx).
 
 A manifest, also known as a SCAN form or end-of-day form, allows you to provide the carrier with a single form that can
 be scanned to input all your shipments into the carrier's system at once. Before you can create a manifest, you must
