@@ -2,3 +2,77 @@
 title: Publishing Your ShipEngine Connect app
 description: Learn how to publish your ShipEngine Connect application with ShipEngine Connect CLI
 ---
+
+
+
+Publishing Your Application
+===========================
+
+One of the key benefits of integrating your service with [ShipEngine Connect](../../index.mdx) is that we will take care of hosting your application, ensuring that it scales to meet the
+needs of end users, and making it highly available at all times.
+
+Part of your application's development cycle will involve end-to-end testing. To facilitate this, you can publish your application to our development environment for further testing before submitting it for production review.
+
+> **NOTE:** ShipEngine Connect currently runs Node.js v12
+
+
+Before you Publish
+------------------
+
+### Publishing a Carrier App
+Before you can publish your Carrier application to ShipEngine Connect, you must define at least one of each of the following:
+- Connection form
+- Settings form
+- Delivery service
+- Packaging
+- Delivery confirmation
+
+This gives ShipEngine Connect the minimum amount of information it needs to present your app as a service provider inside one of our e-commerce applications,
+where you may further test and interact with your application.
+
+### Tests
+Before publishing, you should verify that the [tests run by ShipEngine Connect CLI](testing/index.mdx#automated-testing) are all passing. This will tell you if you have any structural
+issues with your application, such as missing the minimum implementation required for publishing. It also runs an extensive set
+of functional tests that help validate your application further.
+
+### Application Name
+Your application's identity in ShipEngine Connect will be determined by the scoped `name` property in your project's `package.json`
+<br></br>(ie `@org/app-name`) along with the `id` specified in your application definition file.
+
+The scoped package name as well as the `id` will be used to uniquely identify your application within ShipEngine Connect. For this reason,
+it is important that you not change either of these values once you have published your app.
+
+> **WARNING:** Once you have published your app, you must not change the `id` or `name` of the app.
+
+
+### Definition Immutability
+
+[Definition](structure.mdx#Definitions) `id`, `name`,  and `code` properties are used internally to uniquely identify your application's resources.
+Each `id`, `name`, and `code` property should contain a unique value. The properties should
+never be changed once the application is published to ShipEngine Connect.
+
+Only one delivery confirmation definition file should be created for
+each unique delivery confirmation `type` as this value may be used internally to lookup the specified delivery confirmation
+when no other identifiers are present.
+
+> **WARNING:** Once you have published your app, you must not change the `id`, `name` or `code` for any of your definitions.
+
+
+### API Key
+Before you publish your application, you will need to contact the [ShipEngine Connect Team](mailto:connect@shipengine.com) to have an API Key provisioned for you.
+
+
+Publish
+-------
+From the root of your project run the [`connect publish` command](./cli.mdx#publish-your-app).
+
+Once all the tests executed by the CLI are passing, your application will be packaged and published to our development environment.
+
+By default, the CLI will watch your app while it is being published to give you an update on where it is in the publishing process. If you
+do not wish to watch your app, simply use the `--no-watch` option when you run the command.
+
+Once you have completed your end-to-end testing, you can submit your application for production review. After it has been reviewed, it will be promoted to our production environment where
+end users can begin to use your services.
+
+
+<Pager prev="./testing/index.mdx" prevTitle="Testing" />
