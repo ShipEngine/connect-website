@@ -25,25 +25,12 @@ export const menu: MenuContents = [
           { title: "Testing", href: "/docs/v2/testing" },
           { title: "Publishing", href: "/docs/v2/publish" },
         ]
-      },
-      {
-        title: "Reference",
-        menuItems: [
-          { title: "Changelog", href: "/changelog" },
-          { title: "Form Definitions", href: "/docs/v1/reference/forms" },
-        ]
-      },
+      }
     ]
   },
   {
     title: "Carrier Apps",
     subGroups: [
-      {
-        title: "Overview",
-        menuItems: [
-          { title: "Connect Apps 2.0", href: "/docs/v2" },
-        ]
-      },
       {
         title: "App Structure",
         menuItems: [
@@ -89,12 +76,6 @@ export const menu: MenuContents = [
   {
     title: "Order Apps",
     subGroups: [
-      {
-        title: "Overview",
-        menuItems: [
-          { title: "Connect Apps 2.0", href: "/docs/v2" },
-        ]
-      },
       {
         title: "App Structure",
         menuItems: [
