@@ -27,9 +27,9 @@ Each method will generally have the following structure and flow:
 Example
 --------
 
-Let's look at an example implementation of the [createShipment method](reference/methods/create-shipment.mdx).
+Let's look at an example implementation of the [createShipment method](./v1/reference/methods/create-shipment.mdx).
 
-The following block of code shows the method taking a `shipment` argument, which is a [NewShipment](reference/methods/create-shipment.mdx#parameters) object, and does the following:
+The following block of code shows the method taking a `shipment` argument, which is a [NewShipment](./v1/reference/methods/create-shipment.mdx#parameters) object, and does the following:
 1. Transforms the data passed to the method by ShipEngine Connect into the structure expected by the backend API. For example, the backend API we are calling expects a property called `confirmation_code`.
 We extract this value from the `package.deliveryConfirmation.code` property of the `shipment` object that was passed to this method from ShipEngine Connect.
 2. Calls the backend API or service. In this example, we are calling a REST API for a carrier service and passing the `data` object we created in step 1.

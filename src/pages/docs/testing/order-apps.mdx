@@ -29,7 +29,7 @@ You can refer to our [quick start guide](https://help.shipstation.com/hc/en-us/a
 for more information.
 
 > **INFO:** These tests exercise your [`OAuth 2.0 configuration`](./../oauth) and your
-> [connection form](./../reference/forms.mdx#connect-form).
+> [connection form](./../v1/reference/forms.mdx#connect-form).
 
 1. Click the **_Settings_** icon to expose the settings menu on the left.
 2. Expand the **_Selling Channels_** option on the left.
@@ -49,8 +49,8 @@ To access the _**Settings page**_, click the gear icon in the upper right corner
 
 ## Importing Orders
 
-> **INFO:** These testes exercise your [`getSaleOrderByDate` method](./../reference/methods/get-sales-orders-by-date.mdx).
-If your app implements an [`acknowledgeOrders` method](./../reference/methods/acknowledge-orders.mdx), it will be called
+> **INFO:** These testes exercise your [`getSaleOrderByDate` method](./../v1/reference/methods/get-sales-orders-by-date.mdx).
+If your app implements an [`acknowledgeOrders` method](./../v1/reference/methods/acknowledge-orders.mdx), it will be called
 after the orders are imported.
 
 1. Make sure you have new orders in your backend system that have not yet been imported into ShipStation.
@@ -66,8 +66,8 @@ after the orders are imported.
 
 
 ## Creating Labels
-> **INFO:** These tests exercise your [`shipmentCreated` method](./../reference/methods/shipment-created.mdx).
+> **INFO:** These tests exercise your [`shipmentCreated` method](./../v1/reference/methods/shipment-created.mdx).
 
 1. [Create a label](https://help.shipstation.com/hc/en-us/articles/360026157651-Create-Single-Labels) for one of your imported orders. If you have not previously done so, you will need to first [add a Ship From location](https://help.shipstation.com/hc/en-us/articles/360026157571-Set-Ship-From-Return-Address).
 2. Verify that the order is updated accordingly in your backend system. The specific update depends on what is implemented
-in your [`shipmentCreated method`](./../reference/methods/shipment-created).
+in your [`shipmentCreated method`](./../v1/reference/methods/shipment-created).

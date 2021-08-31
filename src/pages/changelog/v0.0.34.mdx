@@ -23,13 +23,13 @@ npm install @shipengine/integration-platform-cli -g
 
 
 ## Carrier App
-These changes affect the [Carrier App](../docs/carrier-app/index.mdx).
+These changes affect the [Carrier App](../docs/v1/carrier-app/index.mdx).
 
-### [Carrier App Definition](../docs/reference/carrier.mdx)
+### [Carrier App Definition](../docs/v1/reference/carrier.mdx)
 * Added an `icon` property similar to the logo property.
 * Added a `manifestType` property.
 
-### [createShipment()](../docs/reference/methods/create-shipment.mdx) Method
+### [createShipment()](../docs/v1/reference/methods/create-shipment.mdx) Method
 #### Parameter: `NewShipment`
 
 #### Removed properties:
@@ -84,7 +84,7 @@ These changes affect the [Carrier App](../docs/carrier-app/index.mdx).
     * `charges.amount.value` - now accepts a number rather than a string
     * `charges.amount.value.currency` - now accepts any string rather than an enum value
 
-###  [rateShipment()](../docs/reference/methods/rate-shipment.mdx) Method
+###  [rateShipment()](../docs/v1/reference/methods/rate-shipment.mdx) Method
 
 #### Parameter: `RateCriteria`
 
@@ -123,7 +123,7 @@ These changes affect the [Carrier App](../docs/carrier-app/index.mdx).
     * `charges.amount.value.currency` - now accepts any string rather than an enum value
     * `deliveryService` now acceptes an object or a string containing the `code`.
 
-### [trackShipment()](../docs/reference/methods/track-shipment.mdx)
+### [trackShipment()](../docs/v1/reference/methods/track-shipment.mdx)
 
 
 ### Return Value: `TrackingInfo`
@@ -135,7 +135,7 @@ These changes affect the [Carrier App](../docs/carrier-app/index.mdx).
 #### Changes:
     * `packages[].packaging` now acceptes an object or a string containing the `code`.
 
-### [schedulePickup()](../docs/reference/methods/schedule-pickup.mdx)
+### [schedulePickup()](../docs/v1/reference/methods/schedule-pickup.mdx)
 
 #### Parameter: `PickupRequest`
 
@@ -157,7 +157,7 @@ These changes affect the [Carrier App](../docs/carrier-app/index.mdx).
     * `charges.amount.value` - now accepts a number rather than a string
     * `charges.amount.value.currency` - now accepts any string rather than an enum value
 
-### [cancelPickup()](../docs/reference/methods/cancel-pickups.mdx)
+### [cancelPickup()](../docs/v1/reference/methods/cancel-pickups.mdx)
 
 #### Parameter: `PickupCancellation`
 
@@ -169,27 +169,27 @@ These changes affect the [Carrier App](../docs/carrier-app/index.mdx).
     * `contact.phoneExtension`
 
 ### Definition Changes
-[Delivery Service](../docs/reference/delivery-service.mdx)
+[Delivery Service](../docs/v1/reference/delivery-service.mdx)
     *  Added `supportsReturns` property.
     *  Added  `manifestType` property.
     *  Added `code` property.
 
-[Pickup Service](../docs/reference/pickup-service.mdx)
+[Pickup Service](../docs/v1/reference/pickup-service.mdx)
   * Added `code` property.
 
-[Packaging](../docs/reference/packaging.mdx)
+[Packaging](../docs/v1/reference/packaging.mdx)
   * Added `code` property.
 
-[Delivery Confirmation](../docs/reference/delivery-confirmation.mdx)
+[Delivery Confirmation](../docs/v1/reference/delivery-confirmation.mdx)
   * Added `code` property.
 
 ## Order  App
-These changes affect the [Order App](../docs/order-app/index.mdx).
+These changes affect the [Order App](../docs/v1/order-app/index.mdx).
 
-### [Order App Definition](../docs/reference/order.mdx)
+### [Order App Definition](../docs/v1/reference/order.mdx)
 Added an icon property similar to the logo property.
 
-### [getSalesOrdersByDate()](../docs/reference/methods/get-sales-orders-by-date.mdx)
+### [getSalesOrdersByDate()](../docs/v1/reference/methods/get-sales-orders-by-date.mdx)
 
 #### Parameter: `SalesOrderTimeRange`
 #### Added properties:
@@ -231,7 +231,7 @@ Added an icon property similar to the logo property.
     * `shippingPreferences.insuredValue.currency` - now accepts any string rather than an enum value
 
 
-### [shipmentCreated()](../docs/reference/methods/shipment-created.mdx)
+### [shipmentCreated()](../docs/v1/reference/methods/shipment-created.mdx)
 #### Parameter: `SalesOrderShipment`
 #### Removed properties:
     * `deliveryDateTime`
@@ -267,7 +267,7 @@ Added an icon property similar to the logo property.
     * `items.product` is now required
     * `fulfillmentStatus` now accepts a string instead of an enum
 
-### [shipmentCancelled()](../docs/reference/methods/shipment-cancelled.mdx)
+### [shipmentCancelled()](../docs/v1/reference/methods/shipment-cancelled.mdx)
 #### Parameter: `SalesOrderShipment`
 #### Removed properties:
     * `deliveryDateTime`
