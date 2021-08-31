@@ -2,30 +2,28 @@ import { MenuContents } from "./menu-types";
 
 export const menu: MenuContents = [
   {
-    title: "Legacy Docs",
+    title: "Start Here",
     subGroups: [
       {
         title: "Overview",
         menuItems: [
-          { title: "Welcome", href: "/docs/v1" },
-          { title: "Getting Started", href: "/docs/v1/getting-started" },
-          { title: "App Structure", href: "/docs//v1/structure" },
-          { title: "Recommended Tools", href: "/docs/v1/tools" },
+          { title: "Welcome", href: "/" },
+          { title: "Getting Started", href: "/docs/v2/getting-started" },
+          { title: "App Structure", href: "/docs//v2/structure" },
+          { title: "Recommended Tools", href: "/docs/v2/tools" },
         ]
       },
       {
         title: "Guides",
         menuItems: [
-          { title: "Contribution Guide", href: "/docs/v1/contributing" },
-          { title: "Style Guide", href: "/docs/v1/style" },
-          { title: "Using the CLI", href: "/docs/v1/cli" },
-          { title: "Creating Your First App", href: "/docs/v1/create-first-app" },
-          { title: "Implementing Your Methods", href: "/docs/v1/implementation" },
-          { title: "Developing in TypeScript", href: "/docs/v1/typescript" },
-          { title: "Environment Variables", href: "/docs/v1/environment-variables"},
-          { title: "Error Handling", href: "/docs/v1/error-handling" },
-          { title: "Testing", href: "/docs/v1/testing" },
-          { title: "Publishing", href: "/docs/v1/publish" },
+          { title: "Using the CLI", href: "/docs/v2/cli" },
+          { title: "Creating Your First App", href: "/docs/v2/create-first-app" },
+          { title: "Implementing Your Methods", href: "/docs/v2/implementation" },
+          { title: "Developing in TypeScript", href: "/docs/v2/typescript" },
+          { title: "Environment Variables", href: "/docs/v2/environment-variables"},
+          { title: "Error Handling", href: "/docs/v2/error-handling" },
+          { title: "Testing", href: "/docs/v2/testing" },
+          { title: "Publishing", href: "/docs/v2/publish" },
         ]
       },
       {
@@ -33,13 +31,6 @@ export const menu: MenuContents = [
         menuItems: [
           { title: "Changelog", href: "/changelog" },
           { title: "Form Definitions", href: "/docs/v1/reference/forms" },
-          { title: "Carrier App Transaction", href: "/docs/v1/reference/transaction" },
-          { title: "Order App Transaction", href: "/docs/v1/reference/order-transaction" },
-          { title: "Address", href: "/docs/v1/reference/address" },
-          { title: "Common Types", href: "/docs/v1/reference/common-types" },
-          { title: "Country Codes", href: "/docs/v1/reference/country-codes" },
-          { title: "Shipping Preference", href: "/docs/v1/reference/shipping-preferences" },
-          { title: "Charge", href: "/docs/v1/reference/charge" },
         ]
       },
     ]
@@ -165,6 +156,49 @@ export const menu: MenuContents = [
       { title: "Blog", href: "https://www.shipengine.com/blog/" },
       { title: "Meetup Group", href: "https://www.meetup.com/Austin-Homegrown-API/" },
     ],
+  },
+  {
+    title: "Legacy Docs",
+    subGroups: [
+      {
+        title: "Overview",
+        menuItems: [
+          { title: "Welcome", href: "/docs/v1" },
+          { title: "Getting Started", href: "/docs/v1/getting-started" },
+          { title: "App Structure", href: "/docs//v1/structure" },
+          { title: "Recommended Tools", href: "/docs/v1/tools" },
+        ]
+      },
+      {
+        title: "Guides",
+        menuItems: [
+          { title: "Contribution Guide", href: "/docs/v1/contributing" },
+          { title: "Style Guide", href: "/docs/v1/style" },
+          { title: "Using the CLI", href: "/docs/v1/cli" },
+          { title: "Creating Your First App", href: "/docs/v1/create-first-app" },
+          { title: "Implementing Your Methods", href: "/docs/v1/implementation" },
+          { title: "Developing in TypeScript", href: "/docs/v1/typescript" },
+          { title: "Environment Variables", href: "/docs/v1/environment-variables"},
+          { title: "Error Handling", href: "/docs/v1/error-handling" },
+          { title: "Testing", href: "/docs/v1/testing" },
+          { title: "Publishing", href: "/docs/v1/publish" },
+        ]
+      },
+      {
+        title: "Reference",
+        menuItems: [
+          { title: "Changelog", href: "/changelog" },
+          { title: "Form Definitions", href: "/docs/v1/reference/forms" },
+          { title: "Carrier App Transaction", href: "/docs/v1/reference/transaction" },
+          { title: "Order App Transaction", href: "/docs/v1/reference/order-transaction" },
+          { title: "Address", href: "/docs/v1/reference/address" },
+          { title: "Common Types", href: "/docs/v1/reference/common-types" },
+          { title: "Country Codes", href: "/docs/v1/reference/country-codes" },
+          { title: "Shipping Preference", href: "/docs/v1/reference/shipping-preferences" },
+          { title: "Charge", href: "/docs/v1/reference/charge" },
+        ]
+      },
+    ]
   },
   {
     title: "Legacy Carrier Apps",

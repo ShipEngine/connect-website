@@ -1,28 +1,47 @@
 ---
-title: Beta
-description: This describes the new application types
+title: Getting Started With Your ShipEngine Connect Application
+description: Learn how to begin developing your ShipEngine Connect application
 tags:
   - ShipEngine Connect
 ---
 
-
-Connect Apps 2.0 Beta
+Getting Started
 ================
 
-In an attempt to bridge the disconnect between our existing platform API's and ShipEngine Connect Integrators we are changing the shape of Connect Apps and how they function.
+In order to add your service to ShipEngine Connect and make it available within our suite of e-commerce applications,
+you'll need to create a JavaScript application.
 
-Getting Started
-------------------------
+Our documentation assumes that you understand:
+* Basic programming concepts
+* How to use a terminal on your computer
+* [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)/[NodeJS](https://nodejs.org/)
+* [TypeScript](https://www.typescriptlang.org/) (_optional - you can use plain JavaScript_)
+
 After upgrading your @shipengine/connect to at least **1.12.0** using the `npm install -g @shipengine/connect`, you now have access to a new flag for the init command `connect init --beta`.
 This will walk you through a similar process as the connect init command but will generate the brand new template.
 
 These new application types contain both the runtime & the domain specific library needed for your app to run (Order Source/Carrier). The hope is that you will have a normal JavaScript/TypeScript development lifecycle while working on these projects using familiar commands like `npm start`, `npm run-script build`, `npm test` to work on your project locally.
 
+ShipEngine Connect Apps
+------------------------
+ShipEngine Connect apps are NPM packages that export an object matching a certain structure. Please see our app definitions and sample apps for more information.
 
-Project Structure
+[Carrier app definition](./app-definition/carrier.mdx)
+[Sample carrier apps](https://github.com/ShipEngine/connect/tree/master/samples/carrier-api)
+
+[Order source app definition](./app-definition/order-source.mdx)
+[Sample order source apps](https://github.com/ShipEngine/connect/tree/master/samples/order-source)
+
+Your app will run in our hosted Node.js runtime environment. We take care of hosting, scaling, and providing high-availability access to your application, so you can just focus on the core functionality.
+
+Developer Tooling
 ------------------------------------------
-The main entry point of your project should export an app object of the corresponding type, there will also be a serve file which will act as the runtime starting your application server.
-Since the main export is an app object you are free to define the methods and metadata for your project anyway you please, but examples are available in the shipengine connect repository for how we would structure these application [Carrier](https://github.com/ShipEngine/connect/tree/master/samples/carrier-api), [Order Source](https://github.com/ShipEngine/connect/tree/master/samples/order-source).
+The [ShipEngine Connect NPM package](https://www.npmjs.com/package/@shipengine/connect) provides TypeScript type definitions, enumerations, and helper classes for you to use in your app. It also provides a [command-line interface](./cli.mdx) to aid you in your application development.
+
+Use it to:
+* [Scaffold a new application](create-first-app.mdx#create-new-project)
+* [Test your application](testing.mdx)
+* [Publish your application](publish.mdx)
 
 API Documentation
 ------------------------------------------
@@ -45,3 +64,8 @@ There are a few ways to test your application.
  * Run the `connect publish` command and test your application in the ShipEngine Connect ShipStation Development Environment
 
 A helpful tip is to publish your application to the development environment to test out the expected functionality and then do a `connect logs` to get request response logs from your module, and then use those requests to create unit tests or postman requests for local trouble shooting.
+
+<Pager
+  prev="../../index.mdx" prevTitle="Introduction"
+  next="tools.mdx" nextTitle="Recommended Tools"
+/>

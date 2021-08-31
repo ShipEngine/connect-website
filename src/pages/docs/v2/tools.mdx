@@ -1,0 +1,45 @@
+---
+title: Recommended ShipEngine Connect Development Tools
+description: A quick overview of the recommended IDE's and Development tools that are available for your app development.
+tags:
+  - ShipEngine
+  - ShipEngine Connect
+  - IDEs
+  - programming
+---
+
+import styles from "./tools.module.scss";
+
+
+Developer Tools
+=================
+There are many great developer tools for working with [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) and [TypeScript](https://www.typescriptlang.org/). Even better, most of them are free and open source. Here are a few that we really like here at ShipEngine.
+
+<div className={styles.toolList}>
+
+![](/img/tools/vscode.svg) Visual Studio Code
+----------------------------------------------
+[Visual Studio Code](https://code.visualstudio.com/) is a free source-code editor built on open-source technology and developed by Microsoft for Windows, Linux and macOS. It includes support for debugging, embedded [Git](https://git-scm.com/_) and [GitHub](https://github.com/) support, syntax highlighting, intelligent code completion, code snippets, and code refactoring.
+
+[The `connect init` command](./cli.mdx#initialize-a-new-app) generates a `.vscode/launch.json` file if you indicate you are using VS Code as your development environment. This file is configured to allow you to run the [`connect start` command](./cli.mdx#run-your-app-locally) and the [`connect test` command](./cli.mdx#test-your-app) directly from VS Code. You can select `Start App` from the drop-down box in the debug
+pane to run the `connect start` command or select `Run Tests` to run the `connect test` command.
+
+You can set breakpoints inside your methods in VS Code to help troubleshoot issues. During iterative development, you can select `Start App`, execute your methods and view the breakpoints to troubleshoot application issues. When your application is complete, you can select `Run Tests` and use breakpoints to troubleshoot any test failures before [publishing](./publish.mdx) your application.
+
+
+![](/img/tools/atom.svg) Atom
+----------------------------------------------
+[Atom](https://atom.io/) is a free and open-source text and source-code editor developed by GitHub for macOS, Linux, and Microsoft Windows with support for plug-ins written in [NodeJS](https://nodejs.org/) and embedded Git support. Atom is a desktop application built using web technologies.
+
+
+![](/img/tools/sublime-text.svg) Sublime Text
+----------------------------------------------
+[Sublime Text](https://www.sublimetext.com/) is a shareware cross-platform source-code editor with a Python application programming interface.
+It natively supports many programming and markup languages, and functions can be added by users via plugins which are typically community-built and maintained under free-software licenses.
+
+</div>
+
+<Pager
+  prev="getting-started.mdx" prevTitle="Getting Started"
+  next="cli.mdx" nextTitle="Using the CLI"
+/>
