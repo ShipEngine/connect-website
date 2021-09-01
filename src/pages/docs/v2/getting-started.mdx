@@ -1,0 +1,75 @@
+---
+title: Getting Started With Your ShipEngine Connect Application
+description: Learn how to begin developing your ShipEngine Connect application
+tags:
+  - ShipEngine Connect
+---
+
+Getting Started
+================
+
+In order to add your service to ShipEngine Connect and make it available within our suite of e-commerce applications,
+you'll need to create a JavaScript application.
+
+Our documentation assumes that you understand:
+* Basic programming concepts
+* How to use a terminal on your computer
+* [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)/[NodeJS](https://nodejs.org/)
+* [TypeScript](https://www.typescriptlang.org/) (_optional - you can use plain JavaScript_)
+
+After upgrading your @shipengine/connect to at least **2.0.0** using the `npm install -g @shipengine/connect`, you now have access to a new flag for the init command `connect init`.
+This will walk you through a similar process as the connect init command but will generate the brand new template.
+
+These new application types contain both the runtime & the domain specific library needed for your app to run (Order Source/Carrier).
+The hope is that you will have a normal JavaScript/TypeScript development lifecycle while working on these projects
+using familiar commands like `npm start`, `npm run-script build`, `npm test` to work on your project locally.
+
+ShipEngine Connect Apps
+------------------------
+ShipEngine Connect apps are NPM packages that export an object matching a certain structure. Please see our app definitions and sample apps for more information.
+
+* [Carrier app definition](./app-definition/carrier.mdx)
+* [Carrier app samples](https://github.com/ShipEngine/connect/tree/master/samples/carrier-api)
+* [Order source app definition](./app-definition/order-source.mdx)
+* [Order source app samples](https://github.com/ShipEngine/connect/tree/master/samples/order-source)
+
+Your app will run in our hosted Node.js runtime environment. We take care of hosting, scaling, and providing high-availability access to your application,
+so you can just focus on the core functionality.
+
+Developer Tooling
+------------------------------------------
+The [ShipEngine Connect NPM package](https://www.npmjs.com/package/@shipengine/connect) provides TypeScript type definitions, enumerations,
+and helper classes for you to use in your app. It also provides a [command-line interface](./cli.mdx) to aid you in your application development.
+
+Use it to:
+* [Scaffold a new application](create-first-app.mdx#create-new-project)
+* [Test your application](testing/index.mdx)
+* [Publish your application](publish.mdx)
+
+API Documentation
+------------------------------------------
+[Carrier API Reference](https://shipstation.github.io/integrations-shipping/carrierapi-redoc.html)
+
+Using the `npm start` command will bring up a locally running server (port 3005 by default), going to `localhost:3005/docs` will bring up the documentation associated with your application type.
+
+App Definition Documentation
+------------------------------------------
+The metadata associated with an app is used to drive behavior in our products and is what our customers see.
+You can learn more about the metadata associated with your app type at the following links.
+* [Carrier](./app-definition/carrier.mdx)
+* [Order Source](./app-definition/order-source.mdx)
+
+Testing
+------------------------------------------
+There are a few ways to test your application.
+ * Install a testing framework like [Jest](https://jestjs.io/), [Mocha](https://mochajs.org/), etc and write local unit tests
+ * Run `npm start` and hit your module locally using something like [Postman](https://www.postman.com/)
+ * Run the `connect publish` command and test your application in the ShipEngine Connect ShipStation Development Environment
+
+A helpful tip is to publish your application to the development environment to test out the expected functionality and then do a `connect logs` to get request response logs from your module,
+and then use those requests to create unit tests or postman requests for local trouble shooting.
+
+<Pager
+  prev="../../index.mdx" prevTitle="Introduction"
+  next="structure.mdx" nextTitle="App Structure"
+/>

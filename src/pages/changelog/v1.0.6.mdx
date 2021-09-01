@@ -33,7 +33,7 @@ npm install --save-dev @shipengine/connect
 
 CLI
 ---------------------------------------
-- Several changes to the [`connect init`](../docs/cli.mdx#initialize-a-new-app) command:
+- Several changes to the [`connect init`](../docs/v1/cli.mdx#initialize-a-new-app) command:
   - It now scaffolds new apps with a dependency on `@shipengine/connect` instead of `@shipengine/connect-sdk`
   - The NPM scope no longer defaults to `@shipengine`, which was confusing
   - The version number defaults to `1.0.0` instead of `0.0.0`, just like `npm init`
@@ -51,4 +51,4 @@ SDK
 
 - Removed error codes and error classes that were HTTP-specific (e.g. `BadRequestError`, `NotFoundError`, `RateLimitError`) and replaced them with a single `ExternalError` class and `ERR_EXTERNAL` code
 
-- See our [Error Handling Guide](../docs/error-handling.mdx) for the latest documentation on how to use error codes and classes
+- See our [Error Handling Guide](../docs/v1/error-handling.mdx) for the latest documentation on how to use error codes and classes
