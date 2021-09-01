@@ -48,7 +48,7 @@ An object containing the authentication information gathered using the connectio
 
   <Field name="transaction_id" type="string" nullable={false}>
     <Description>
-      Uniquely identifies the current transaction. If the transaction is retried, then this `transaction_id` will remain the same. You can use this to detect and prevent duplicate operations.
+      The transaction ID uniquely represents this request. If the request is retried then this transaction ID will be the same. You should only perform the requested action once per given transaction ID.
     </Description>
   </Field>
 
