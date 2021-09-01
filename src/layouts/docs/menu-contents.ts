@@ -9,7 +9,7 @@ export const menu: MenuContents = [
         menuItems: [
           { title: "Welcome", href: "/" },
           { title: "Getting Started", href: "/docs/v2/getting-started" },
-          { title: "App Structure", href: "/docs//v2/structure" },
+          { title: "App Structure", href: "/docs/v2/structure" },
           { title: "Recommended Tools", href: "/docs/v2/tools" },
         ]
       },
