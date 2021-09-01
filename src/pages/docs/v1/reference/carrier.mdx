@@ -1,0 +1,341 @@
+---
+title: Carrier Application Definition
+description: The page describes how to define a carrier service.
+---
+
+
+Carrier Application Definition
+===============================================
+The Carrier Application Definition file pulls all the other definitions and implementations together to tell the [ShipEngine Connect](../index.mdx) how your
+carrier application is structured. This file can reside anywhere within your application as long as its location is specified
+in the `main` property of your `package.json` file.
+The definition may be specified in [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript), [TypeScript](https://www.typescriptlang.org/), [JSON](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON), or
+[YAML](https://en.wikipedia.org/wiki/YAML).
+
+
+> **WARNING:** Once you have published your app, you must not change the `id` or `name` of the app.
+
+Carrier Application
+----------------------------------------------
+<Reference>
+
+  <Field name="id" required={true}>
+    <Type>
+      [UUID](https://www.npmjs.com/package/uuid)
+    </Type>
+    <Description>
+      A UUID that uniquely identifies the application for internal ShipEngine Connect purposes. This ID should never change.
+    </Description>
+  </Field>
+
+  <Field name="providerId" required={false}>
+    <Type>
+      [UUID](https://www.npmjs.com/package/uuid)
+    </Type>
+    <Description>
+      A UUID that is used to relate this app to an existing production application. Do not set this field unless instructed to by the ShipEngine Connect team.
+    </Description>
+  </Field>
+
+  <Field name="name" type="string" required={true}>
+    <Description>
+      The user-friendly name for this Carrier application.
+    </Description>
+  </Field>
+
+  <Field name="description" type="string" required={false}>
+    <Description>
+      A short, user-friendly description of this Carrier application.
+    </Description>
+  </Field>
+
+  <Field name="websiteURL" type="string" required={true}>
+    <Description>
+      The URL of the carrier's website.
+    </Description>
+  </Field>
+
+  <Field name="logo" type="string" required={true}>
+    <Description>
+      The file path to the Carrier's logo image.
+    </Description>
+  </Field>
+
+  <Field name="icon" type="string" required={true}>
+    <Description>
+      The file path to the Carrier's icon image.
+    </Description>
+  </Field>
+
+  <Field name="trackingURLTemplate" type="string" required={true}>
+    <Description>
+      Tracking URL format for the carrier. It must be a valid URL that contains curly braces (`{ }`) where the tracking number will be inserted. For example, `http://www.parcel-post.com/tracking/{}`.
+    </Description>
+  </Field>
+
+  <Field name="connectionForm" required={true}>
+    <Type>
+      [Form](./forms.mdx)
+    </Type>
+    <Description>
+      A form that allows the user to connect to the service. This form will usually prompt for an account number and login credentials.
+    </Description>
+  </Field>
+
+  <Field name="settingsForm" required={true}>
+    <Type>
+      [Form](./forms.mdx)
+    </Type>
+    <Description>
+      A form that allows the user update their connection settings, such as when a password is changed.
+    </Description>
+  </Field>
+
+  <Field name="manifestLocations" type="string" required={false}>
+    <Description>
+      Indicates which locations are included in end-of-day manifests. This field is required if the
+      [`createManifest`](./methods/create-manifest.mdx) method is implemented.
+      Valid values include the following.
+      * `all_locations` - The manifest includes all warehouse locations.
+      * `single_location` - The manifest includes only the specified warehouse location.
+    </Description>
+  </Field>
+
+  <Field name="manifestShipments" type="string" required={false}>
+    <Description>
+      Indicates which shipments are included in end-of-day manifests. This field is required if the
+       [`createManifest`](./methods/create-manifest.mdx) method is implemented.
+      Valid values include the following.
+      * `all_shipments` - All shipments for the current date will be included in the manifest.
+      * `explicit_shipments` - Only the explicitly selected shipments for the current date will be included in the manifest.
+      * `exclude_shipments` - All shipments for the current date except for those explicitly excluded will be included in the manifest.
+    </Description>
+  </Field>
+
+  <Field name="manifestType" type="string" required={false}>
+    <Description>
+      Indicates the type of manifesting supported by the carrier. Valid values include the following:
+      * `Physical` - Use this value if the carrier supports physical manifests, even if some of the delivery services only support digital manifests.
+      * `Digital` - Use this value if the carrier supports digital manifests, even if some of the delivery services only support phyiscal manifests.
+    </Description>
+  </Field>
+
+  <Field name="deliveryServices" required={true}>
+    <Type>
+      object[] *or*  string[]
+    </Type>
+    <Description>
+      The delivery services that are offered by the carrier. These services can be defined directly inline inside this file or you may specify the path to one or more [Delivery Service Definition](./delivery-service.mdx) files.
+    </Description>
+  </Field>
+
+  <Field name="pickupServices" required={true}>
+    <Type>
+      object[] *or* string[]
+    </Type>
+    <Description>
+      The pickup services that are offered for this carrier. These services can be defined directly inline insdie this file or you may specify the path to one or more [Pickup Service Definition](./pickup-service.mdx) files.
+    </Description>
+  </Field>
+
+  <Field name="connect" required={false}>
+    <Type>
+      method *or* string
+    </Type>
+    <Description>
+      A method that connects to an existing account using the data that was gathered in the
+      [`connectionform`](./forms.mdx).
+      Note that this function does not return a value but rather updates the
+      [`transaction.session`](./transaction.mdx) property.
+      You may define this method direcly inline inside of this file or you may specify the path to the file
+      that exports your [`connect`](./methods/connect.mdx) method.
+    </Description>
+  </Field>
+
+  <Field name="createShipment" required={false}>
+    <Type>
+      method *or* string
+    </Type>
+    <Description>
+      A method that creates a new shipment. You may define this method direcly inline inside of this file or you may specify the path to the file that exports your [`createShipment`](./methods/create-shipment.mdx) method.
+    </Description>
+  </Field>
+
+  <Field name="cancelShipments" required={false}>
+    <Type>
+      method *or* string
+    </Type>
+    <Description>
+      A method that cancels one or more shipments. You may define this method direcly inline inside
+      of this file or you may specify the path to the file that exports your [`cancelShipments`](./methods/cancel-shipments.mdx)
+       method. This property is required for carriers who allow shipments to be cancelled.
+    </Description>
+  </Field>
+
+  <Field name="rateShipment" required={true}>
+    <Type>
+      method *or* string
+    </Type>
+    <Description>
+      A method used to calculate shipping costs for a shipment, or multiple permutations of a shipment. You may define this method direcly inline inside of this file or you may specify the path to the file that exports your [`rateShipment`](./methods/rate-shipment.mdx) method. If the shipping service provider does not support rates, the platform expects to receive an empty array.
+    </Description>
+  </Field>
+
+  <Field name="trackShipment" required={false}>
+    <Type>
+      method *or* string
+    </Type>
+    <Description>
+      A method used to get tracking details for a shipment. You may define this method direcly inline inside of this file or you may specify the path to the file that exports your [`trackShipment`](./methods/track-shipment.mdx) method.
+    </Description>
+  </Field>
+
+  <Field name="createManifest" required={false}>
+    <Type>
+      method *or* string
+    </Type>
+    <Description>
+      A method that creates an end-of-date manifest. You may define this method direcly inline inside of this file or you may specify the path to the file that exports your [`createManifest`](./methods/create-manifest.mdx) method.
+    </Description>
+  </Field>
+
+  <Field name="schedulePickup" required={false}>
+    <Type>
+      method *or* string
+    </Type>
+    <Description>
+      A method used to schedule a package pickup at a particular time and place. You may define this method direcly inline inside of this file or you may specify the path to the file that exports your [`schedulePickup`](./methods/schedule-pickup.mdx) method.
+    </Description>
+  </Field>
+
+  <Field name="cancelPickups" required={false}>
+    <Type>
+      method *or* string
+    </Type>
+    <Description>
+      A method used to cancel a previously scheduled package pickup. You may define this method direcly inline inside of this file or you may specify the path to the file that exports your [`cancelPickups`](./methods/cancel-pickups.mdx) method.
+    </Description>
+  </Field>
+
+</Reference>
+
+
+Examples
+------------
+<CodeWrapper>
+```typescript
+import { CarrierAppDefinition } from "@shipengine/connect";
+
+const address:CarrierAppDefinition = {
+  id: "8ea1989e-d504-433f-b031-b04d5d9ace94",
+  name: "Cargo Incorporated",
+  description: "Cargo Incorporated is the global leader in air cargo.",
+  websiteURL: "https://cargo-inc.net",
+  trackingURLTemplate: "https://cargo-inc.net/tracking/{}",
+  logo: "./logo.svg",
+  connectionForm: "src/connection-form.js",
+  manifestType: "Digital",
+  connect: "src/connect.ts",
+  createShipment: "src/create-shipment.ts",
+  rateShipment: "src/rate-shipment.ts",
+
+  deliveryServices: [
+    "delivery-services/economy-parcel.yaml",
+    "delivery-services/ground-parcel.yaml",
+    "delivery-services/overnight-parcel.yaml"
+  ],
+  pickupServices: [
+    "pickup-services/one-time.yaml",
+    "pickup-services/recurring.yaml",
+    "pickup-services/drop-off.yaml"
+  ]
+}
+```
+
+```javascript
+const address = {
+  id: "8ea1989e-d504-433f-b031-b04d5d9ace94",
+  name: "Cargo Incorporated",
+  description: "Cargo Incorporated is the global leader in air cargo.",
+  websiteURL: "https://cargo-inc.net",
+  trackingURLTemplate: "https://cargo-inc.net/tracking/{}",
+  logo: "./logo.svg",
+  manifestType: "Digital",
+  connectionForm: "src/connection-form.js",
+
+  connect: "src/connect.js",
+  createShipment: "src/create-shipment.js",
+  rateShipment: "src/rate-shipment.js",
+
+  deliveryServices: [
+    "delivery-services/economy-parcel.yaml",
+    "delivery-services/ground-parcel.yaml",
+    "delivery-services/overnight-parcel.yaml"
+  ],
+  pickupServices: [
+    "pickup-services/one-time.yaml",
+    "pickup-services/recurring.yaml",
+    "pickup-services/drop-off.yaml"
+  ]
+}
+```
+
+```yaml
+id: 8ea1989e-d504-433f-b031-b04d5d9ace94
+
+name: Cargo Incorporated
+
+description:
+  Cargo Incorporated is the global leader in air cargo.
+
+websiteURL: https://cargo-inc.net
+
+trackingURLTemplate: https://cargo-inc.net/tracking/{}
+
+logo: ./logo.svg
+
+manifestType: Digital
+
+connectionForm: src/connection-form.js
+
+connect: src/connect.js
+createShipment: src/create-shipment.js
+rateShipment: src/rate-shipment.js
+
+deliveryServices:
+  - delivery-services/economy-parcel.yaml
+  - delivery-services/ground-parcel.yaml
+  - delivery-services/overnight-parcel.yaml
+
+pickupServices:
+  - pickup-services/one-time.yaml
+  - pickup-services/recurring.yaml
+  - pickup-services/drop-off.yaml
+```
+
+```json
+{
+  "id": "8ea1989e-d504-433f-b031-b04d5d9ace94",
+  "name": "Cargo Incorporated",
+  "description": "Cargo Incorporated is the global leader in air cargo.",
+  "websiteURL": "https://cargo-inc.net",
+  "trackingURLTemplate": "https://cargo-inc.net/tracking/{}",
+  "logo": "./logo.svg",
+  "manifestType": "Digital",
+  "connectionForm": "src/connection-form.js",
+  "deliveryServices": [
+    "delivery-services/economy-parcel.yaml",
+    "delivery-services/ground-parcel.yaml",
+    "delivery-services/overnight-parcel.yaml"
+  ],
+  "pickupServices": [
+    "pickup-services/one-time.yaml",
+    "pickup-services/recurring.yaml",
+    "pickup-services/drop-off.yaml"
+  ],
+  "connect": "src/connect.js",
+  "createShipment": "src/create-shipment.js",
+  "rateShipment": "src/rate-shipment.js"
+}
+```
+</CodeWrapper>

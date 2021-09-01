@@ -8,74 +8,67 @@ export const menu: MenuContents = [
         title: "Overview",
         menuItems: [
           { title: "Welcome", href: "/" },
-          { title: "Getting Started", href: "/docs" },
-          { title: "App Structure", href: "/docs/structure" },
-          { title: "Recommended Tools", href: "/docs/tools" },
+          { title: "Getting Started", href: "/docs/v2/getting-started" },
+          { title: "App Structure", href: "/docs//v2/structure" },
+          { title: "Recommended Tools", href: "/docs/v2/tools" },
         ]
       },
       {
         title: "Guides",
         menuItems: [
-          { title: "Contribution Guide", href: "/docs/contributing" },
-          { title: "Style Guide", href: "/docs/style" },
-          { title: "Using the CLI", href: "/docs/cli" },
-          { title: "Creating Your First App", href: "/docs/create-first-app" },
-          { title: "Implementing Your Methods", href: "/docs/implementation" },
-          { title: "Developing in TypeScript", href: "/docs/typescript" },
-          { title: "Environment Variables", href: "/docs/environment-variables"},
-          { title: "Error Handling", href: "/docs/error-handling" },
-          { title: "Testing", href: "/docs/testing" },
-          { title: "Publishing", href: "/docs/publish" },
+          { title: "Using the CLI", href: "/docs/v2/cli" },
+          { title: "Creating Your First App", href: "/docs/v2/create-first-app" },
+          { title: "Implementing Your Methods", href: "/docs/v2/implementation" },
+          { title: "Developing in TypeScript", href: "/docs/v2/typescript" },
+          { title: "Environment Variables", href: "/docs/v2/environment-variables"},
+          { title: "Error Handling", href: "/docs/v2/error-handling" },
+          { title: "Testing", href: "/docs/v2/testing" },
+          { title: "Publishing", href: "/docs/v2/publish" },
         ]
-      },
-      {
-        title: "Reference",
-        menuItems: [
-          { title: "Changelog", href: "/changelog" },
-          { title: "Form Definitions", href: "/docs/reference/forms" },
-          { title: "Carrier App Transaction", href: "/docs/reference/transaction" },
-          { title: "Order App Transaction", href: "/docs/reference/order-transaction" },
-          { title: "Address", href: "/docs/reference/address" },
-          { title: "Common Types", href: "/docs/reference/common-types" },
-          { title: "Country Codes", href: "/docs/reference/country-codes" },
-          { title: "Shipping Preference", href: "/docs/reference/shipping-preferences" },
-          { title: "Charge", href: "/docs/reference/charge" },
-        ]
-      },
+      }
     ]
   },
   {
     title: "Carrier Apps",
     subGroups: [
       {
-        title: "Overview",
-        menuItems: [
-          { title: "Overview", href: "/docs/carrier-app" },
-          { title: "How to map services", href: "/docs/carrier-app/map-services" },
-        ]
-      },
-      {
         title: "App Structure",
         menuItems: [
-          { title: "Carrier App", href: "/docs/reference/carrier" },
-          { title: "Delivery Service", href: "/docs/reference/delivery-service" },
-          { title: "Pickup Service", href: "/docs/reference/pickup-service" },
-          { title: "Packaging", href: "/docs/reference/packaging" },
-          { title: "Delivery Confirmation", href: "/docs/reference/delivery-confirmation" },
-          { title: "Form Definitions", href: "/docs/reference/forms " },
+          { title: "Carrier App", href: "/docs/v2/app-definition/carrier" },
         ]
       },
       {
         title: "Methods",
         menuItems: [
-          { title: "connect", href: "/docs/reference/methods/connect" },
-          { title: "createShipment", href: "/docs/reference/methods/create-shipment" },
-          { title: "cancelShipments", href: "/docs/reference/methods/cancel-shipments" },
-          { title: "trackShipment", href: "/docs/reference/methods/track-shipment" },
-          { title: "rateShipment", href: "/docs/reference/methods/rate-shipment" },
-          { title: "createManifest", href: "/docs/reference/methods/create-manifest" },
-          { title: "schedulePickup", href: "/docs/reference/methods/schedule-pickup" },
-          { title: "cancelPickups", href: "/docs/reference/methods/cancel-pickups" },
+          { title: "Register", href: "/docs/v2/reference/methods/register" },
+          { title: "Create Label", href: "/docs/v2/reference/methods/create-label" },
+          { title: "Void Labels", href: "/docs/v2/reference/methods/void-labels" },
+          { title: "Create Manifest", href: "/docs/v2/reference/methods/create-manifest" },
+          { title: "Schedule Pickup", href: "/docs/v2/reference/methods/schedule-pickup" },
+          { title: "Cancel Pickup", href: "/docs/v2/reference/methods/cancel-pickup" },
+          { title: "Get Rates", href: "/docs/v2/reference/methods/get-rates" },
+          { title: "Track", href: "/docs/v2/reference/methods/track" },
+        ]
+      },
+      {
+        title: "Reference",
+        menuItems: [
+          { title: "Carrier API Reference", href: "https://shipstation.github.io/integrations-shipping/carrierapi-redoc.html" },
+          { title: "Metadata", href: "/docs/v2/reference/metadata" },
+          { title: "Address", href: "/docs/v2/reference/address" },
+          { title: "Package", href: "/docs/v2/reference/package" },
+          { title: "Customs", href: "/docs/v2/reference/customs" },
+          { title: "Document", href: "/docs/v2/reference/document" },
+          { title: "Units", href: "/docs/v2/reference/units" },
+          { title: "Country Codes", href: "/docs/v2/reference/country-codes" },
+          { title: "Common types", href: "/docs/v2/reference/common-types" },
+          { title: "Billing Line Item", href: "/docs/v2/reference/billing-line-item" },
+          { title: "Fulfillment Plan Details", href: "/docs/v2/reference/fulfillment-plan-details" },
+          { title: "Track Event", href: "/docs/v2/reference/track-event" },
+          { title: "Shipped Shipment", href: "/docs/v2/reference/shipped-shipment" },
+          { title: "Shipped Package", href: "/docs/v2/reference/shipped-package" },
+          { title: "Pickup Window", href: "/docs/v2/reference/pickup-window" },
+          { title: "Pickup Confirmation", href: "/docs/v2/reference/pickup-confirmation" },
         ]
       },
     ]
@@ -84,27 +77,46 @@ export const menu: MenuContents = [
     title: "Order Apps",
     subGroups: [
       {
-        title: "Overview",
-        menuItems: [
-          { title: "Overview", href: "/docs/order-app" },
-          { title: "Authorization", href: "/docs/oauth" },
-        ]
-      },
-      {
         title: "App Structure",
         menuItems: [
-          { title: "Order App", href: "/docs/reference/order" },
-          { title: "Form Definitions", href: "/docs/reference/forms#order-apps" },
+          { title: "Order App", href: "/docs/v2/app-definition/order-source" },
         ]
       },
       {
         title: "Methods",
         menuItems: [
-          { title: "getSalesOrdersByDate", href: "/docs/reference/methods/get-sales-orders-by-date" },
-          { title: "shipmentCreated", href: "/docs/reference/methods/shipment-created" },
-          { title: "acknowledgeOrders", href: "/docs/reference/methods/acknowledge-orders"}
+          { title: "SalesOrdersExport", href: "/docs/v2/reference/methods/sales-orders-export" },
+          { title: "GetProducts", href: "/docs/v2/reference/methods/get-products" },
+          { title: "AcknowledgeOrders", href: "/docs/v2/reference/methods/acknowledge-orders" },
+          { title: "ShipmentNotification", href: "/docs/v2/reference/methods/shipment-notification" },
+          { title: "NotificationStatus", href: "/docs/v2/reference/methods/notification-status" },
+          { title: "RegisterDeliveryOptions", href: "/docs/v2/reference/methods/register-delivery-options" },
+          { title: "VerifyDeliveryOptions", href: "/docs/v2/reference/methods/verify-delivery-options" },
+          { title: "RemoveDeliveryOptions", href: "/docs/v2/reference/methods/remove-delivery-options" },
+          { title: "AcceptSalesOrderItems", href: "/docs/v2/reference/methods/accept-sales-order-items" },
+          { title: "CancelSalesOrderItems", href: "/docs/v2/reference/methods/cancel-sales-order-items" },
         ]
       },
+      {
+        title: "Reference",
+        menuItems: [
+          { title: "Address", href: "/docs/v2/reference/address#order-source-address-object" },
+          { title: "BillTo", href: "/docs/v2/reference/address#billto-address-object" },
+          { title: "Branding", href: "/docs/v2/reference/branding" },
+          { title: "Buyer", href: "/docs/v2/reference/buyer" },
+          { title: "Charge", href: "/docs/v2/reference/charge" },
+          { title: "Dimensions", href: "/docs/v2/reference/dimensions" },
+          { title: "Note", href: "/docs/v2/reference/note" },
+          { title: "OriginalOrderSource", href: "/docs/v2/reference/original-order-source" },
+          { title: "PackingSlip", href: "/docs/v2/reference/packing-slip" },
+          { title: "Payment", href: "/docs/v2/reference/payment" },
+          { title: "Product", href: "/docs/v2/reference/product" },
+          { title: "SalesOrderItem", href: "/docs/v2/reference/sales-order-item" },
+          { title: "ShipmentNotificationResult", href: "/docs/v2/reference/shipment-notification-result" },
+          { title: "ShippingPreferences", href: "/docs/v2/reference/shipping-preferences" },
+          { title: "Weight", href: "/docs/v2/reference/weight" },
+        ]
+      }
     ]
   },
   {
@@ -127,106 +139,109 @@ export const menu: MenuContents = [
     ],
   },
   {
-    title: "Beta Carrier Apps",
+    title: "Legacy Docs",
     subGroups: [
       {
         title: "Overview",
         menuItems: [
-          { title: "Connect Apps 2.0", href: "/docs/beta" },
+          { title: "Welcome", href: "/docs/v1" },
+          { title: "Getting Started", href: "/docs/v1/getting-started" },
+          { title: "App Structure", href: "/docs//v1/structure" },
+          { title: "Recommended Tools", href: "/docs/v1/tools" },
         ]
       },
       {
-        title: "App Structure",
+        title: "Guides",
         menuItems: [
-          { title: "Carrier App", href: "/docs/beta/app-definition/carrier" },
-        ]
-      },
-      {
-        title: "Methods",
-        menuItems: [
-          { title: "Register", href: "/docs/beta/reference/methods/register" },
-          { title: "Create Label", href: "/docs/beta/reference/methods/create-label" },
-          { title: "Void Labels", href: "/docs/beta/reference/methods/void-labels" },
-          { title: "Create Manifest", href: "/docs/beta/reference/methods/create-manifest" },
-          { title: "Schedule Pickup", href: "/docs/beta/reference/methods/schedule-pickup" },
-          { title: "Cancel Pickup", href: "/docs/beta/reference/methods/cancel-pickup" },
-          { title: "Get Rates", href: "/docs/beta/reference/methods/get-rates" },
-          { title: "Track", href: "/docs/beta/reference/methods/track" },
+          { title: "Contribution Guide", href: "/docs/v1/contributing" },
+          { title: "Style Guide", href: "/docs/v1/style" },
+          { title: "Using the CLI", href: "/docs/v1/cli" },
+          { title: "Creating Your First App", href: "/docs/v1/create-first-app" },
+          { title: "Implementing Your Methods", href: "/docs/v1/implementation" },
+          { title: "Developing in TypeScript", href: "/docs/v1/typescript" },
+          { title: "Environment Variables", href: "/docs/v1/environment-variables"},
+          { title: "Error Handling", href: "/docs/v1/error-handling" },
+          { title: "Testing", href: "/docs/v1/testing" },
+          { title: "Publishing", href: "/docs/v1/publish" },
         ]
       },
       {
         title: "Reference",
         menuItems: [
-          { title: "Carrier API Reference", href: "https://shipstation.github.io/integrations-shipping/carrierapi-redoc.html" },
-          { title: "Metadata", href: "/docs/beta/reference/metadata" },
-          { title: "Address", href: "/docs/beta/reference/address" },
-          { title: "Package", href: "/docs/beta/reference/package" },
-          { title: "Customs", href: "/docs/beta/reference/customs" },
-          { title: "Document", href: "/docs/beta/reference/document" },
-          { title: "Units", href: "/docs/beta/reference/units" },
-          { title: "Country Codes", href: "/docs/beta/reference/country-codes" },
-          { title: "Common types", href: "/docs/beta/reference/common-types" },
-          { title: "Billing Line Item", href: "/docs/beta/reference/billing-line-item" },
-          { title: "Fulfillment Plan Details", href: "/docs/beta/reference/fulfillment-plan-details" },
-          { title: "Track Event", href: "/docs/beta/reference/track-event" },
-          { title: "Shipped Shipment", href: "/docs/beta/reference/shipped-shipment" },
-          { title: "Shipped Package", href: "/docs/beta/reference/shipped-package" },
-          { title: "Pickup Window", href: "/docs/beta/reference/pickup-window" },
-          { title: "Pickup Confirmation", href: "/docs/beta/reference/pickup-confirmation" },
+          { title: "Changelog", href: "/changelog" },
+          { title: "Form Definitions", href: "/docs/v1/reference/forms" },
+          { title: "Carrier App Transaction", href: "/docs/v1/reference/transaction" },
+          { title: "Order App Transaction", href: "/docs/v1/reference/order-transaction" },
+          { title: "Address", href: "/docs/v1/reference/address" },
+          { title: "Common Types", href: "/docs/v1/reference/common-types" },
+          { title: "Country Codes", href: "/docs/v1/reference/country-codes" },
+          { title: "Shipping Preference", href: "/docs/v1/reference/shipping-preferences" },
+          { title: "Charge", href: "/docs/v1/reference/charge" },
         ]
       },
     ]
   },
   {
-    title: "Beta Order Apps",
+    title: "Legacy Carrier Apps",
     subGroups: [
       {
         title: "Overview",
         menuItems: [
-          { title: "Connect Apps 2.0", href: "/docs/beta" },
+          { title: "Overview", href: "/docs/v1/carrier-app" },
+          { title: "How to map services", href: "/docs/v1/carrier-app/map-services" },
         ]
       },
       {
         title: "App Structure",
         menuItems: [
-          { title: "Order App", href: "/docs/beta/app-definition/order-source" },
+          { title: "Carrier App", href: "/docs/v1/reference/carrier" },
+          { title: "Delivery Service", href: "/docs/v1/reference/delivery-service" },
+          { title: "Pickup Service", href: "/docs/v1/reference/pickup-service" },
+          { title: "Packaging", href: "/docs/v1/reference/packaging" },
+          { title: "Delivery Confirmation", href: "/docs/v1/reference/delivery-confirmation" },
+          { title: "Form Definitions", href: "/docs/v1/reference/forms " },
         ]
       },
       {
         title: "Methods",
         menuItems: [
-          { title: "SalesOrdersExport", href: "/docs/beta/reference/methods/sales-orders-export" },
-          { title: "GetProducts", href: "/docs/beta/reference/methods/get-products" },
-          { title: "AcknowledgeOrders", href: "/docs/beta/reference/methods/acknowledge-orders" },
-          { title: "ShipmentNotification", href: "/docs/beta/reference/methods/shipment-notification" },
-          { title: "NotificationStatus", href: "/docs/beta/reference/methods/notification-status" },
-          { title: "RegisterDeliveryOptions", href: "/docs/beta/reference/methods/register-delivery-options" },
-          { title: "VerifyDeliveryOptions", href: "/docs/beta/reference/methods/verify-delivery-options" },
-          { title: "RemoveDeliveryOptions", href: "/docs/beta/reference/methods/remove-delivery-options" },
-          { title: "AcceptSalesOrderItems", href: "/docs/beta/reference/methods/accept-sales-order-items" },
-          { title: "CancelSalesOrderItems", href: "/docs/beta/reference/methods/cancel-sales-order-items" },
+          { title: "connect", href: "/docs/v1/reference/methods/connect" },
+          { title: "createShipment", href: "/docs/v1/reference/methods/create-shipment" },
+          { title: "cancelShipments", href: "/docs/v1/reference/methods/cancel-shipments" },
+          { title: "trackShipment", href: "/docs/v1/reference/methods/track-shipment" },
+          { title: "rateShipment", href: "/docs/v1/reference/methods/rate-shipment" },
+          { title: "createManifest", href: "/docs/v1/reference/methods/create-manifest" },
+          { title: "schedulePickup", href: "/docs/v1/reference/methods/schedule-pickup" },
+          { title: "cancelPickups", href: "/docs/v1/reference/methods/cancel-pickups" },
+        ]
+      },
+    ]
+  },
+  {
+    title: "Legacy Order Apps",
+    subGroups: [
+      {
+        title: "Overview",
+        menuItems: [
+          { title: "Overview", href: "/docs/v1/order-app" },
+          { title: "Authorization", href: "/docs/v1/oauth" },
         ]
       },
       {
-        title: "Reference",
+        title: "App Structure",
         menuItems: [
-          { title: "Address", href: "/docs/beta/reference/address#order-source-address-object" },
-          { title: "BillTo", href: "/docs/beta/reference/address#billto-address-object" },
-          { title: "Branding", href: "/docs/beta/reference/branding" },
-          { title: "Buyer", href: "/docs/beta/reference/buyer" },
-          { title: "Charge", href: "/docs/beta/reference/charge" },
-          { title: "Dimensions", href: "/docs/beta/reference/dimensions" },
-          { title: "Note", href: "/docs/beta/reference/note" },
-          { title: "OriginalOrderSource", href: "/docs/beta/reference/original-order-source" },
-          { title: "PackingSlip", href: "/docs/beta/reference/packing-slip" },
-          { title: "Payment", href: "/docs/beta/reference/payment" },
-          { title: "Product", href: "/docs/beta/reference/product" },
-          { title: "SalesOrderItem", href: "/docs/beta/reference/sales-order-item" },
-          { title: "ShipmentNotificationResult", href: "/docs/beta/reference/shipment-notification-result" },
-          { title: "ShippingPreferences", href: "/docs/beta/reference/shipping-preferences" },
-          { title: "Weight", href: "/docs/beta/reference/weight" },
+          { title: "Order App", href: "/docs/v1/reference/order" },
+          { title: "Form Definitions", href: "/docs/v1/reference/forms#order-apps" },
         ]
-      }
+      },
+      {
+        title: "Methods",
+        menuItems: [
+          { title: "getSalesOrdersByDate", href: "/docs/v1/reference/methods/get-sales-orders-by-date" },
+          { title: "shipmentCreated", href: "/docs/v1/reference/methods/shipment-created" },
+          { title: "acknowledgeOrders", href: "/docs/v1/reference/methods/acknowledge-orders"}
+        ]
+      },
     ]
   }
 ];
