@@ -16,7 +16,6 @@ Development Environment Setup
 - [Node.js v14](https://nodejs.org/) or later
 - [yarn](https://yarnpkg.com/)
 - This project works on MacOS, Windows (including WSL), or Linux
-- This project uses private ShipEngine NPM packages, so you need to be signed into an NPM account with access to the [@ShipEngine org](https://www.npmjs.com/settings/shipengine/packages)
 
 ### Installation
 Use yarn to install all dependencies needed for local development:
