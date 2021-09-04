@@ -101,8 +101,9 @@ export function getTypeName(node: ReactNode): string {
     case "function":
       return element.type.name;
 
-    case "object":
+    case "object": {
       const mdxElement = node as MDXCreateElement;
       return mdxElement.props.mdxType;
+    }
   }
 }
