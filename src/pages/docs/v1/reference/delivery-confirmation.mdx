@@ -3,79 +3,73 @@ title: Delivery Confirmation Definition
 description: The page describes how to define a delivery confirmation.
 ---
 
+# Delivery Confirmation Definition
 
-Delivery Confirmation Definition
-===============================================
 Delivery Confirmation refers to any method by which a carrier might notify or confirm for the sender that a shipment has
 successfully reached its final destination. This can include special services such as obtaining a signature upon delivery.
 
 Your delivery confirmation options are defined inside files that are then used by the [ShipEngine Connect](../index.mdx) to offer these
 delivery confirmation options to users who utilize your carrier within one of our e-commerce applications. Each delivery service that you wish to offer
 should have its own definition file. These files can reside anywhere within your application as long as their locations are specified in the [Carrier Application Definition](./carrier.mdx) file.
- The definition may be specified in [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript), [TypeScript](https://www.typescriptlang.org/), [JSON](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON), or
-  [YAML](https://en.wikipedia.org/wiki/YAML).
+The definition may be specified in [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript), [TypeScript](https://www.typescriptlang.org/), [JSON](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON), or
+[YAML](https://en.wikipedia.org/wiki/YAML).
 
-  Note that at least one Delivery Confirmation value is required. If your app doesn’t require them, you will just need have one defined as “None”.
-
+Note that at least one Delivery Confirmation value is required. If your app doesn’t require them, you will just need have one defined as “None”.
 
 > **WARNING:**
 > You may define only one delivery confirmation for each of the delivery confirmation types. Additionally, each delivery confirmation must
 > have a unique `id`, `name`, and `code`. Once you have published your app, these unique properties must not be changed.
 
-Delivery Confirmation Properties
-----------------------------------------------
+## Delivery Confirmation Properties
+
 <Reference>
 
-  <Field name="id" required={true}>
-    <Type>
-      [UUID](https://www.npmjs.com/package/uuid)
-    </Type>
-    <Description>
-      UUID that uniquely identifies the delivery confirmation. This ID should never change.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="identifiers" type="object" required={false}>
-    <Description>
-      Your own identifiers for this delivery confirmation.
-    </Description>
-  </Field>
+<Field name="id" required={true}>
+  <Type>[UUID](https://www.npmjs.com/package/uuid)</Type>
+  <Description>UUID that uniquely identifies the delivery confirmation. This ID should never change.</Description>
+</Field>
 
-  <Field name="code" type="string" required={false}>
-    <Description>
-      Optional code used to map to what the carrier uses to identify the delivery confirmation.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="name" type="string" required={true}>
-    <Description>
-      The user-friendly name for this delivery confirmation (e.g. "Adult Signature", "Authority to Leave").
-    </Description>
-  </Field>
+<Field name="identifiers" type="object" required={false}>
+  <Description>Your own identifiers for this delivery confirmation.</Description>
+</Field>
 
-  <Field name="description" type="string" required={false}>
-    <Description>
-      A short, user-friendly description of this delivery confirmation type.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="type" type="string" required={true}>
-    <Description>
-      The type of the delivery confirmation. Valid values include the following:
-      * `delivery`
-      * `signature`
-      * `adult_signature`
-      * `direct_signature`
-      * `none` - Many carriers refer to this as _Authority to Leave_ or _No Signature Required_.
-    </Description>
-  </Field>
+<Field name="code" type="string" required={false}>
+  <Description>Optional code used to map to what the carrier uses to identify the delivery confirmation.</Description>
+</Field>
+
+{' '}
+
+<Field name="name" type="string" required={true}>
+  <Description>
+    The user-friendly name for this delivery confirmation (e.g. "Adult Signature", "Authority to Leave").
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="description" type="string" required={false}>
+  <Description>A short, user-friendly description of this delivery confirmation type.</Description>
+</Field>
+
+{' '}
+
+<Field name="type" type="string" required={true}>
+  <Description>
+    The type of the delivery confirmation. Valid values include the following: * `delivery` * `signature` *
+    `adult_signature` * `direct_signature` * `none` - Many carriers refer to this as _Authority to Leave_ or _No
+    Signature Required_.
+  </Description>
+</Field>
 
 </Reference>
 
-
-
-Examples
------------------------------------------------
+## Examples
 
 <CodeWrapper>
 ```yaml
@@ -100,24 +94,21 @@ type: adult_signature
 }
 
 ```
+
 ```typescript
-import {
-  DeliveryConfirmationDefinition,
-  DeliveryConfirmationType,
-} from "@shipengine/connect";
+import { DeliveryConfirmationDefinition, DeliveryConfirmationType } from '@shipengine/connect'
 
 const adultSignatureDeliveryConfirmation: DeliveryConfirmationDefinition = {
-  id: "cc10a05a-78eb-11ea-bc55-0242ac130003",
-  name: "Adult Signature",
-  code: "ASIG",
-  description:
-    "Requires a signature from a resident of at least 18 years of age.",
-  type: DeliveryConfirmationType.AdultSignature
-};
+  id: 'cc10a05a-78eb-11ea-bc55-0242ac130003',
+  name: 'Adult Signature',
+  code: 'ASIG',
+  description: 'Requires a signature from a resident of at least 18 years of age.',
+  type: DeliveryConfirmationType.AdultSignature,
+}
 
-export default adultSignatureDeliveryConfirmation;
-
+export default adultSignatureDeliveryConfirmation
 ```
+
 ```json
 {
   "id": "cc10a05a-78eb-11ea-bc55-0242ac130003",
@@ -127,4 +118,5 @@ export default adultSignatureDeliveryConfirmation;
   "type": "adult_signature"
 }
 ```
+
 </CodeWrapper>

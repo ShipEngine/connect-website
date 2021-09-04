@@ -3,123 +3,119 @@ title: Note object
 description: Represents a note to the buyer, seller, or recipient.
 ---
 
-Note Object
-===============================================
+# Note Object
+
 Note objects are used throughout the Order Source specifications to describe order notes.
 
+## Properties
 
-Properties
---------------------------------
-
-This table lists the properties of a note and identifies those properties that are required. 
+This table lists the properties of a note and identifies those properties that are required.
 
 <Reference>
 
-  <Field name="type" type="string" required={true} nullable={false}>
-    <Type>
-      [note type](#note-types)
-    </Type>
-    <Description>
-      The type of note being sent.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="text" type="string" required={true} nullable={false}>
-    <Description>
-      The contents of the note.
-    </Description>
-  </Field>
+<Field name="type" type="string" required={true} nullable={false}>
+  <Type>[note type](#note-types)</Type>
+  <Description>The type of note being sent.</Description>
+</Field>
+
+{' '}
+
+<Field name="text" type="string" required={true} nullable={false}>
+  <Description>The contents of the note.</Description>
+</Field>
 
 </Reference>
 
-Note Types
--------------------------
+## Note Types
+
 This table lists the valid values for note types.
 
 <Reference>
 
-  <Field name="BackOrderMessage" >
-    <Description>
-      Back order message.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="ConditionNote" >
-    <Description>
-      Message about the condition of an item or order.
-    </Description>
-  </Field>
+<Field name="BackOrderMessage">
+  <Description>Back order message.</Description>
+</Field>
 
-  <Field name="GiftMessage" >
-    <Description>
-      Buyer requested gift message.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="InternalNotes" >
-    <Description>
-      Shipper facing notes.
-    </Description>
-  </Field>
+<Field name="ConditionNote">
+  <Description>Message about the condition of an item or order.</Description>
+</Field>
 
-  <Field name="InStockMessage" >
-    <Description>
-      In stock message.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="MPN" >
-    <Description>
-      Manufacturer Part Number.
-    </Description>
-  </Field>
+<Field name="GiftMessage">
+  <Description>Buyer requested gift message.</Description>
+</Field>
 
-  <Field name="NotesFromBuyer" >
-    <Description>
-      Notes left by the buyer.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="NotesToBuyer" >
-    <Description>
-      Notes left by the shipper to the buyer.
-    </Description>
-  </Field>
+<Field name="InternalNotes">
+  <Description>Shipper facing notes.</Description>
+</Field>
 
-  <Field name="Other" >
-    <Description>
-      All other note types.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="OutOfStockMessage" >
-    <Description>
-      Out of stock message.
-    </Description>
-  </Field>
+<Field name="InStockMessage">
+  <Description>In stock message.</Description>
+</Field>
 
-  <Field name="Reason" >
-    <Description>
-      Generic reason message.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="SpecialInstructions" >
-    <Description>
-      Special instructions about the order.
-    </Description>
-  </Field>
+<Field name="MPN">
+  <Description>Manufacturer Part Number.</Description>
+</Field>
 
-  <Field name="WarningLabel" >
-    <Description>
-      Warning label.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="FeedbackMessage" >
-    <Description>
-      Feedback message.
-    </Description>
-  </Field>
+<Field name="NotesFromBuyer">
+  <Description>Notes left by the buyer.</Description>
+</Field>
+
+{' '}
+
+<Field name="NotesToBuyer">
+  <Description>Notes left by the shipper to the buyer.</Description>
+</Field>
+
+{' '}
+
+<Field name="Other">
+  <Description>All other note types.</Description>
+</Field>
+
+{' '}
+
+<Field name="OutOfStockMessage">
+  <Description>Out of stock message.</Description>
+</Field>
+
+{' '}
+
+<Field name="Reason">
+  <Description>Generic reason message.</Description>
+</Field>
+
+{' '}
+
+<Field name="SpecialInstructions">
+  <Description>Special instructions about the order.</Description>
+</Field>
+
+{' '}
+
+<Field name="WarningLabel">
+  <Description>Warning label.</Description>
+</Field>
+
+{' '}
+
+<Field name="FeedbackMessage">
+  <Description>Feedback message.</Description>
+</Field>
 
 </Reference>

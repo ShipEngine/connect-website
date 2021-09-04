@@ -3,9 +3,8 @@ title: Identifiers Object
 description: The page describes the identifiers object.
 ---
 
+# Identifiers Object
 
-Identifiers Object
-===============================================
 Most resources in your application support an `identifiers` property. This property is useful for storing
 any custom data that may be needed by your application.
 
@@ -17,20 +16,18 @@ information in the `identifiers` object for the `shipment`. Then when the `shipm
 you will have access to the `shipTo` details via the `identifiers` property.
 
 Your application definition files, such as the definition for a [`delivery service`](./delivery-service.mdx) or [`delivery confirmation`](./delivery-confirmation.mdx)
- also include the `identifiers` property. You can use this to store additional information about the service that may be needed later
+also include the `identifiers` property. You can use this to store additional information about the service that may be needed later
 by your app when a `delivery service` is passed as an argument to one of your methods.
 
 The `identifiers` object stores an array of key-value pair strings. Each string must be between `0` and `100` characters
 and must not contain newline characters or leading or trailing spaces.
 
-Examples
-============================
+# Examples
 
 ### Adding to an object returned from a method
 
 This method uses the `identifiers` object to store data on a shipment that will be needed by another method when it receives
 the shipment as an argument.
-
 
 ```javascript
 
@@ -76,26 +73,25 @@ to access internal data needed by the [`cancelShipments` method](./methods/cance
 
 ```javascript
 module.exports = async function cancelShipments(transaction, shipmentCancellations) {
-
- // STEP 2: Create the data that the carrier's API expects
+  // STEP 2: Create the data that the carrier's API expects
   let data = {
-    operation: "void_labels",
+    operation: 'void_labels',
     session_id: transaction.session.id,
     cancellations: shipmentCancellations.map((cancellation) => {
-      const { cancellationID, trackingNumber } = cancellation;
+      const { cancellationID, trackingNumber } = cancellation
       return {
         cancellationID: cancellationID,
         internalReferenceID: cancellation.identifiers.internalReferenceID,
         trackingNumber: trackingNumber,
-      };
+      }
     }),
-  };
+  }
 
   // STEP 3: Call the carrier's API
-  const response = await apiClient.request({ data });
+  const response = await apiClient.request({ data })
 
   // STEP 4: Create the output data that ShipEngine expects
-  return await formatCancellationResponse(response.data);
+  return await formatCancellationResponse(response.data)
 }
 ```
 
@@ -116,5 +112,3 @@ will be available whenever this delivery confirmation is passed as an argument t
 }
 
 ```
-
-

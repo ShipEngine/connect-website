@@ -3,14 +3,12 @@ title: AcknowledgeOrders Method
 description: This method is called when an order is imported.
 ---
 
+# `AcknowledgeOrders()`
 
-`AcknowledgeOrders()`
-===========================
 This method is called when a sales order is imported into one of our e-commerce applications.
 
+## Syntax
 
-Syntax
------------------------------------------------
 <CodeWrapper>
 ```javascript
 module.exports = async function AcknowledgeOrders(request) {
@@ -19,84 +17,77 @@ module.exports = async function AcknowledgeOrders(request) {
 ```
 
 ```typescript
-import {
-  AcknowledgeOrdersRequest,
-  AcknowledgeOrdersResponse
-  } from "@shipengine/connect-order-source-api";
+import { AcknowledgeOrdersRequest, AcknowledgeOrdersResponse } from '@shipengine/connect-order-source-api'
 
-export const AcknowledgeOrders = async (
-  request: AcknowledgeOrdersRequest
-): Promise<AcknowledgeOrdersResponse> => {
+export const AcknowledgeOrders = async (request: AcknowledgeOrdersRequest): Promise<AcknowledgeOrdersResponse> => {
   // Your code here
 }
 ```
+
 </CodeWrapper>
 
-
-
-Parameters
------------------------------------------------
+## Parameters
 
 ### `AcknowledgeOrdersRequest`
+
 An object containing parameters to use when acknowledging orders to an order source.
 
 <Reference>
 
-  <Field name="orders" nullable={false}>
-    <Type>
-      [order acknowledge object[]](#orderacknowledgement)
-    </Type>
-    <Description>
-      A list of orders needing to be acknowledged in order to successfully be imported into our system.
-    </Description>
-  </Field>
+{' '}
+
+<Field name="orders" nullable={false}>
+  <Type>[order acknowledge object[]](#orderacknowledgement)</Type>
+  <Description>
+    A list of orders needing to be acknowledged in order to successfully be imported into our system.
+  </Description>
+</Field>
 
 </Reference>
 
 ### `OrderAcknowledgement`
+
 An object containing order acknowledge information.
 
 <Reference>
 
-  <Field name="order_id" type="string" nullable={false}>
-    <Description>
-      The unique identifier of the sales order from the order source.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="order_number" type="string" nullable={true}>
-    <Description>
-      The customer facing identifier of the sales order.
-    </Description>
-  </Field>
+<Field name="order_id" type="string" nullable={false}>
+  <Description>The unique identifier of the sales order from the order source.</Description>
+</Field>
 
-  <Field name="imported_date" type="string" nullable={false}>
-    <Description>
-      The datetime associated with when the sales order was imported. Should always be in UTC and
-      formatted per the https://tools.ietf.org/html/rfc3339 spec.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="integration_context" type="string" nullable={true}>
-    <Description>
-      Data provided by the order source that was included in the SalesOrderExport response.
-    </Description>
-  </Field>
+<Field name="order_number" type="string" nullable={true}>
+  <Description>The customer facing identifier of the sales order.</Description>
+</Field>
+
+{' '}
+
+<Field name="imported_date" type="string" nullable={false}>
+  <Description>
+    The datetime associated with when the sales order was imported. Should always be in UTC and formatted per the
+    https://tools.ietf.org/html/rfc3339 spec.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="integration_context" type="string" nullable={true}>
+  <Description>Data provided by the order source that was included in the SalesOrderExport response.</Description>
+</Field>
 
 </Reference>
 
-Return Value
------------------------------------------------
+## Return Value
+
 ### `OrderAcknowledgementResponse[]`
 
 <Reference>
   <Field name="responses" nullable={false}>
-    <Type>
-      [order acknowledgement response object](#orderacknowledgementresponse)
-    </Type>
-    <Description>
-      A list of acknowledgement responses.
-    </Description>
+    <Type>[order acknowledgement response object](#orderacknowledgementresponse)</Type>
+    <Description>A list of acknowledgement responses.</Description>
   </Field>
 </Reference>
 
@@ -104,43 +95,46 @@ Return Value
 
 <Reference>
 
-  <Field name="order_id" type="string" required={true}>
-    <Description>
-      The unique identifier of the sales order from the order source.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="succeeded" type="boolean" required={true}>
-    <Description>
-      Indicates whether or not we were able to acknowledge our import of the order with the order source.
-    </Description>
-  </Field>
+<Field name="order_id" type="string" required={true}>
+  <Description>The unique identifier of the sales order from the order source.</Description>
+</Field>
 
-  <Field name="failure_reason" type="string" required={false}>
-    <Description>
-      Additional context for why the acknowledgement failed.
-    </Description>
-  </Field>
+{' '}
+
+<Field name="succeeded" type="boolean" required={true}>
+  <Description>
+    Indicates whether or not we were able to acknowledge our import of the order with the order source.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="failure_reason" type="string" required={false}>
+  <Description>Additional context for why the acknowledgement failed.</Description>
+</Field>
 
 </Reference>
 
-Example
------------------------------------------------
+## Example
+
 <CodeWrapper>
 ```javascript
 async function AcknowledgeOrders(request) {
   // STEP 1: Validation
   // Add any desired validation here
 
-  // STEP 2: Create the data that the order source's API expects
-  const thirdPartyRequest = mapRequest(request);
-  // STEP 3: Call the order source's API
-  const response = await callApi(thirdPartyRequest);
-  // Step 4: Create the output data that ShipEngine expects
-  const mappedResponse = mapResponse(response);
-  return mappedResponse;
+// STEP 2: Create the data that the order source's API expects
+const thirdPartyRequest = mapRequest(request);
+// STEP 3: Call the order source's API
+const response = await callApi(thirdPartyRequest);
+// Step 4: Create the output data that ShipEngine expects
+const mappedResponse = mapResponse(response);
+return mappedResponse;
 }
-```
+
+````
 ```typescript
 export const AcknowledgeOrders = async (
   request: AcknowledgeOrdersRequest
@@ -156,5 +150,6 @@ export const AcknowledgeOrders = async (
   const mappedResponse = mapResponse(response);
   return mappedResponse;
 };
-```
+````
+
 </CodeWrapper>

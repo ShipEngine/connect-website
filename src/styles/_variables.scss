@@ -1,10 +1,9 @@
 // Fonts
 // ===============================
-$text-font: "TT_Commons", Helvetica, Arial, sans-serif;
+$text-font: 'TT_Commons', Helvetica, Arial, sans-serif;
 $heading-font: $text-font;
-$script-font: "IBM Plex Mono", monospace, serif;
-$code-font: "IBM Plex Mono", "Source Code Pro", "Liberation Mono", "Courier New", Courier, monospace;
-
+$script-font: 'IBM Plex Mono', monospace, serif;
+$code-font: 'IBM Plex Mono', 'Source Code Pro', 'Liberation Mono', 'Courier New', Courier, monospace;
 
 // Colors
 // ===============================
@@ -43,7 +42,6 @@ $link-hover-color: $light-blue;
 
 $scrollbar-color: darken($light-purple, 5%);
 $scrollbar-bg-color: $lighter-purple;
-
 
 // Sizes
 // ===============================
@@ -108,7 +106,6 @@ $side-bar-max-width: 750px;
 
 $toc-min-width: 100px;
 $sticky-offset: 4rem;
-
 
 // Z-Indexes
 // ===============================

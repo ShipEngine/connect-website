@@ -3,20 +3,17 @@ title: Error Handling
 description: ShipEngine Connect applications can throw errors just like any other JavaScript application. We also support custom error properties and classes to make things easier.
 ---
 
-
-
-Error Handling
-=================
+# Error Handling
 
 [ShipEngine Connect](../../index.mdx) applications can throw [Errors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)
-just like any other JavaScript application.  Any uncaught exception will terminate the currently executing method and generate an error log.
+just like any other JavaScript application. Any uncaught exception will terminate the currently executing method and generate an error log.
 
 For example, the methods you implement will often need to perform input validation. If this validation fails, you can throw an error as in the example below.
 
 ```javascript highlight=3
 for (let parcel of shipment.packages) {
-  if (parcel.packaging.code === "BOX" && parcel.weight.grams > 100000) {
-    throw new RangeError(`${parcel.packaging.name} cannot weigh more than 100 kilograms`);
+  if (parcel.packaging.code === 'BOX' && parcel.weight.grams > 100000) {
+    throw new RangeError(`${parcel.packaging.name} cannot weigh more than 100 kilograms`)
   }
 }
 ```
@@ -34,32 +31,42 @@ Before throwing an error, you can set additional properties that provide more co
     </Description>
   </Field>
 
-  <Field name="statusCode" type="number">
-    <Description>
-      The numeric status code associated with the error, if any. For errors that originate from an HTTP response, this should be the HTTP status code (e.g. 400, 404, 500)
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="externalErrors" type="string[]">
-    <Description>
-      If the error is the result of calling an external service, then put any error messages that were returned by the service here.
-    </Description>
-  </Field>
+<Field name="statusCode" type="number">
+  <Description>
+    The numeric status code associated with the error, if any. For errors that originate from an HTTP response, this
+    should be the HTTP status code (e.g. 400, 404, 500)
+  </Description>
+</Field>
 
-  <Field name="externalWarnings" type="string[]">
-    <Description>
-      If the error is the result of calling an external service, then put any warning messages that were returned by the service here.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="originalError">
-    <Type>
-      [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)
-    </Type>
-    <Description>
-      The original error that occurred, if any. This is especially useful for debugging, since it will allow you to see the error message and stack trace where the problem occurred.
-    </Description>
-  </Field>
+<Field name="externalErrors" type="string[]">
+  <Description>
+    If the error is the result of calling an external service, then put any error messages that were returned by the
+    service here.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="externalWarnings" type="string[]">
+  <Description>
+    If the error is the result of calling an external service, then put any warning messages that were returned by the
+    service here.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="originalError">
+  <Type>[Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)</Type>
+  <Description>
+    The original error that occurred, if any. This is especially useful for debugging, since it will allow you to see
+    the error message and stack trace where the problem occurred.
+  </Description>
+</Field>
 
   <Field name="*" type="any value">
     <Description>
@@ -68,9 +75,8 @@ Before throwing an error, you can set additional properties that provide more co
   </Field>
 </Reference>
 
+## Error Codes
 
-Error Codes
----------------------
 Most errors that occur in Node.js have a `code` property. When throwing your own errors, we encourage you to include a `code` as well. Using one of the following codes will help the ShipEngine Connect platform know how to handle your error appropriately.
 
 <Reference>
@@ -80,11 +86,14 @@ Most errors that occur in Node.js have a `code` property. When throwing your own
     </Description>
   </Field>
 
-  <Field name="ERR_UNAUTHORIZED">
-    <Description>
-      Use this code to indicate an authentication or authorization error. For example, if the `transaction.session` object is missing some required data or the session has expired.
-    </Description>
-  </Field>
+{' '}
+
+<Field name="ERR_UNAUTHORIZED">
+  <Description>
+    Use this code to indicate an authentication or authorization error. For example, if the `transaction.session` object
+    is missing some required data or the session has expired.
+  </Description>
+</Field>
 
   <Field name="ERR_EXTERNAL">
     <Description>
@@ -92,6 +101,7 @@ Most errors that occur in Node.js have a `code` property. When throwing your own
 
       You should also set the `statusCode` property if possible to indicate the type of external error that occurred. For HTTP errors, you can use the HTTP status code (e.g. 400, 404, 500). For APIs that don't use HTTP status codes, we recomend using the most appropriate [HTTP status code](https://httpstatuses.com/) and also put the raw error/warning messages in `externalErrors` or `externalWarnings`.
     </Description>
+
   </Field>
 
   <Field name="ERR_APP_ERROR">
@@ -107,44 +117,37 @@ This example demonstrates throwing a validation error with additional properties
 
 ```javascript
 if (package.weight.grams > 100000) {
-  throw Object.assign(
-    new Error("Weight cannot exceed 100 kilograms"),
-    {
-      code: "ERR_INVALID",
-      actualWeight: package.weight.grams,
-      maxWeight: 100000,
-    }
-  );
+  throw Object.assign(new Error('Weight cannot exceed 100 kilograms'), {
+    code: 'ERR_INVALID',
+    actualWeight: package.weight.grams,
+    maxWeight: 100000,
+  })
 }
 ```
 
 ### External Error Example
+
 This example rethrows an error from an external service, but first it adds additional properties.
 
 ```javascript
 try {
   // Some code that makes an HTTP call
-}
-catch (error) {
-  error.code = "ERR_EXTERNAL";
-  error.statusCode = httpResponse.status;
-  error.externalErrors = [httpResponse.body.errorMessage];
-  error.headers = httpResponse.headers;
-  throw error;
+} catch (error) {
+  error.code = 'ERR_EXTERNAL'
+  error.statusCode = httpResponse.status
+  error.externalErrors = [httpResponse.body.errorMessage]
+  error.headers = httpResponse.headers
+  throw error
 }
 ```
+
 </Right>
 </Section>
 
+## Error Classes
 
-Error Classes
---------------------------
 In addition to [JavaScript's built-in error classes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects#Error_objects),
 ShipEngine Connect includes several [error classes](https://github.com/ShipEngine/connect/blob/master/packages/runtime/src/errors/index.ts)
 and other helpful objects you can use in your app. Each class corresponds to one of the [error codes](#error-codes) listed above and automatically sets the `code` property for you.
 
-
-<Pager
-  prev="./typescript.mdx" prevTitle="Developing in TypeScript"
-  next="./testing/index.mdx" nextTitle="Testing"
-/>
+<Pager prev="./typescript.mdx" prevTitle="Developing in TypeScript" next="./testing/index.mdx" nextTitle="Testing" />

@@ -1,24 +1,24 @@
-import { NextRouter } from "next/router";
-import { isDev } from "./utils";
+import { NextRouter } from 'next/router'
+import { isDev } from './utils'
 
 /**
  * The URL of the ShipEngine Connect website
  */
-export const siteURL = new URL(isDev ? "http://localhost:3000" : "https://connect.shipengine.com");
+export const siteURL = new URL(isDev ? 'http://localhost:3000' : 'https://connect.shipengine.com')
 
 /**
  * The ShipEngine Connect logo image URL
  */
-export const logoURL = new URL("img/logos/shipengine-connect-logo.png", siteURL);
+export const logoURL = new URL('img/logos/shipengine-connect-logo.png', siteURL)
 
 /**
  * The default image that's used when a page is shared on social media
  */
-export const defaultImageURL = new URL("img/media/card-square.png", siteURL);
+export const defaultImageURL = new URL('img/media/card-square.png', siteURL)
 
 /**
  * Returns the canonical URL of the current page
  */
 export function getPageURL(router: NextRouter): URL {
-  return new URL(router.pathname, siteURL);
+  return new URL(router.pathname, siteURL)
 }

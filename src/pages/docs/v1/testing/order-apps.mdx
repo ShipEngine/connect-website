@@ -3,8 +3,8 @@ title: Testing in ShipStation
 description: This guide describes how to test a ShipEngine Connect Order app within ShipStation.
 ---
 
-Order App Testing Guide
-=========================
+# Order App Testing Guide
+
 The purpose of a [ShipEngine Connect](../index.mdx) Order App is to integrate your store or marketplace
 with our many e-commerce solutions, so it is important to see how your app behaves when running in one of these applications.
 
@@ -13,11 +13,13 @@ This guide describes the steps required to access and test your app within
 offer your store or marketplace as an option to online sellers who use ShipStation to manage and ship online orders.
 
 ## Logging in to ShipStation
+
 When you [publish](./../cli.mdx#publish-your-app) your app to ShipEngine Connect, a URL and set of credentials will be displayed on the console
 once the publishing process completes. You can use this URL to access a ShipStation staging environment where you can
 login with the provided credentials and execute the test scenarios described below.
 
 ## Setting up a Store
+
 Once you login to ShipStation, you will interact with your app by setting up a store.
 ShipStation ties each of its users, referred to as sellers, to a home country. Your store or marketplace will only be
 visible to sellers who have a home country within the countries you operate. Once you publish your app, a seller account
@@ -36,38 +38,37 @@ for more information.
 3. Click **_Store Setup_** on the left.
 4. Click the **_Connect a Store or Marketplace_** button.
 5. Locate your store’s logo in the modal and verify that it looks correct. Click on the logo to access your apps
-connection form and run tests below.
+   connection form and run tests below.
 
 ![Marketplaces](/img/testing/marketplaces.png)
 
 1. Verify that you can create a new connection using to your store using valid credentials.
 2. Verify that a failed authentication is handled cleanly.
 3. Verify that you can remove the store from the _**Settings**_ page.
-To access the _**Settings page**_, click the gear icon in the upper right corner.
+   To access the _**Settings page**_, click the gear icon in the upper right corner.
 
 ![Import](/img/testing/gear.png)
 
 ## Importing Orders
 
 > **INFO:** These testes exercise your [`getSaleOrderByDate` method](../reference/methods/get-sales-orders-by-date.mdx).
-If your app implements an [`acknowledgeOrders` method](../reference/methods/acknowledge-orders.mdx), it will be called
-after the orders are imported.
+> If your app implements an [`acknowledgeOrders` method](../reference/methods/acknowledge-orders.mdx), it will be called
+> after the orders are imported.
 
 1. Make sure you have new orders in your backend system that have not yet been imported into ShipStation.
 2. Click the **_Sync_** button in the upper right corner to import your orders.
 
 ![Sync](/img/testing/sync.png)
 
-
 3. Verify that the sync completes with no errors.
 4. Verify that all new orders in your backend system now appear in ShipStation.
 5. Verify that no duplicate orders exist in ShipStation.
 6. Verify that all fields from your backend order source are mapped correctly to the fields in the ShipStation order grid.
 
-
 ## Creating Labels
+
 > **INFO:** These tests exercise your [`shipmentCreated` method](../reference/methods/shipment-created.mdx).
 
 1. [Create a label](https://help.shipstation.com/hc/en-us/articles/360026157651-Create-Single-Labels) for one of your imported orders. If you have not previously done so, you will need to first [add a Ship From location](https://help.shipstation.com/hc/en-us/articles/360026157571-Set-Ship-From-Return-Address).
 2. Verify that the order is updated accordingly in your backend system. The specific update depends on what is implemented
-in your [`shipmentCreated method`](../reference/methods/shipment-created).
+   in your [`shipmentCreated method`](../reference/methods/shipment-created).

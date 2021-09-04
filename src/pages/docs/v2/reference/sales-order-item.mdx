@@ -3,90 +3,88 @@ title: Sales Order Item objects
 description: An object representing an item in a sales order.
 ---
 
-Sales Order Item Object
-===============================================
+# Sales Order Item Object
+
 Sales order item objects are used throughout Order Source Apps to describe single items in a sales order.
 
+## Properties
 
-Properties
------------------------------------------------
 This table lists the properties of a sales order item object and identifies those properties that are required. This object
 is used for a property of the object returned from the [`SalesOrdersExport`](./methods/sales-orders-export.mdx) method and is
 not passed as an argument to any method.
 
 <Reference>
 
-  <Field name="line_item_id" type="string" required={false}>
-    <Description>
-      A unique identifier for the line item in the order provided by the order source.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="description" type="string" required={true}>
-    <Description>
-      A description of the sales order item.
-    </Description>
-  </Field>
+<Field name="line_item_id" type="string" required={false}>
+  <Description>A unique identifier for the line item in the order provided by the order source.</Description>
+</Field>
 
-  <Field name="product" required={false}>
-    <Type>
-      [product object](./product.mdx)
-    </Type>
-    <Description>
-      The product associated with this item.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="quantity" type="number" required={true}>
-    <Description>
-      The quantity of this item in the sales order.
-    </Description>
-  </Field>
+<Field name="description" type="string" required={true}>
+  <Description>A description of the sales order item.</Description>
+</Field>
 
-  <Field name="unit_price" type="number" required={false}>
-    <Description>
-      The sale price of each item. This should NOT include additional charges or adjustments, such as taxes or discounts.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="taxes" required={false}>
-    <Type>
-      [charge object[]](./charge.mdx)
-    </Type>
-    <Description>
-      A list of tax charges. The description can convey the jurisdiction.
-    </Description>
-  </Field>
+<Field name="product" required={false}>
+  <Type>[product object](./product.mdx)</Type>
+  <Description>The product associated with this item.</Description>
+</Field>
 
-  <Field name="shipping_charges" required={false}>
-    <Type>
-      [charge object[]](./charge.mdx)
-    </Type>
-    <Description>
-      A list of shipping charges.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="adjustments" required={false}>
-    <Type>
-      [charge object[]](./charge.mdx)
-    </Type>
-    <Description>
-      A list of adjustments applied that influence the order total. For example, promotions/discounts/coupons. The amount should always be a quantify of currency, not a percentage.
-    </Description>
-  </Field>
+<Field name="quantity" type="number" required={true}>
+  <Description>The quantity of this item in the sales order.</Description>
+</Field>
 
-  <Field name="item_url" type="string" required={false}>
-    <Description>
-      The url for the item being purchased.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="modified_date_time" type="string" required={false}>
-    <Description>
-      The datetime associated with when the item was last modified. Should always be in UTC and
-      formatted per the https://tools.ietf.org/html/rfc3339 spec.
-    </Description>
-  </Field>
+<Field name="unit_price" type="number" required={false}>
+  <Description>
+    The sale price of each item. This should NOT include additional charges or adjustments, such as taxes or discounts.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="taxes" required={false}>
+  <Type>[charge object[]](./charge.mdx)</Type>
+  <Description>A list of tax charges. The description can convey the jurisdiction.</Description>
+</Field>
+
+{' '}
+
+<Field name="shipping_charges" required={false}>
+  <Type>[charge object[]](./charge.mdx)</Type>
+  <Description>A list of shipping charges.</Description>
+</Field>
+
+{' '}
+
+<Field name="adjustments" required={false}>
+  <Type>[charge object[]](./charge.mdx)</Type>
+  <Description>
+    A list of adjustments applied that influence the order total. For example, promotions/discounts/coupons. The amount
+    should always be a quantify of currency, not a percentage.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="item_url" type="string" required={false}>
+  <Description>The url for the item being purchased.</Description>
+</Field>
+
+{' '}
+
+<Field name="modified_date_time" type="string" required={false}>
+  <Description>
+    The datetime associated with when the item was last modified. Should always be in UTC and formatted per the
+    https://tools.ietf.org/html/rfc3339 spec.
+  </Description>
+</Field>
 
 </Reference>

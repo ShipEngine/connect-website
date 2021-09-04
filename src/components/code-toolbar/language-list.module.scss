@@ -17,12 +17,12 @@
     background-color: $white;
     border-color: $dark-purple !important;
     transition-property: background-color, border-color;
-    transition-duration: .4s;
+    transition-duration: 0.4s;
     transition-timing-function: ease-in-out;
   }
 
   &::before {
-    content: "";
+    content: '';
     display: inline-block;
     position: relative;
     top: 3px;
@@ -52,85 +52,85 @@
 
 .languageList.http::before,
 .language.http {
-  background-image: url("../../../public/img/logos/languages/http.svg");
+  background-image: url('../../../public/img/logos/languages/http.svg');
 }
 
 .languageList.curl::before,
 .language.curl {
-  background-image: url("../../../public/img/logos/languages/bash.svg");
+  background-image: url('../../../public/img/logos/languages/bash.svg');
 }
 
 .languageList.csharp::before,
 .language.csharp {
-  background-image: url("../../../public/img/logos/languages/csharp.svg");
+  background-image: url('../../../public/img/logos/languages/csharp.svg');
 }
 
 .languageList.java::before,
 .language.java {
-  background-image: url("../../../public/img/logos/languages/java.svg");
+  background-image: url('../../../public/img/logos/languages/java.svg');
 }
 
 .languageList.javascript-fetch::before,
 .language.javascript-fetch {
-  background-image: url("../../../public/img/logos/languages/javascript.svg");
+  background-image: url('../../../public/img/logos/languages/javascript.svg');
 }
 
 .languageList.javascript::before,
 .language.javascript {
-  background-image: url("../../../public/img/logos/languages/javascript.svg");
+  background-image: url('../../../public/img/logos/languages/javascript.svg');
 }
 
 .languageList.json::before,
 .language.json {
-  background-image: url("../../../public/img/logos/languages/json.svg");
+  background-image: url('../../../public/img/logos/languages/json.svg');
 }
 
 .languageList.node-request::before,
 .language.node-request {
-  background-image: url("../../../public/img/logos/languages/nodejs.svg");
+  background-image: url('../../../public/img/logos/languages/nodejs.svg');
 }
 
 .languageList.native::before,
 .language.native {
-  background-image: url("../../../public/img/logos/languages/go.svg");
+  background-image: url('../../../public/img/logos/languages/go.svg');
 }
 
 .languageList.php::before,
 .language.php {
-  background-image: url("../../../public/img/logos/languages/php.svg");
+  background-image: url('../../../public/img/logos/languages/php.svg');
 }
 
 .languageList.objectivec::before,
 .language.objectivec {
-  background-image: url("../../../public/img/logos/languages/objectivec.svg");
+  background-image: url('../../../public/img/logos/languages/objectivec.svg');
 }
 
 .languageList.powershell::before,
 .language.powershell {
-  background-image: url("../../../public/img/logos/languages/powershell.svg");
+  background-image: url('../../../public/img/logos/languages/powershell.svg');
 }
 
 .languageList.python::before,
 .language.python {
-  background-image: url("../../../public/img/logos/languages/python.svg");
+  background-image: url('../../../public/img/logos/languages/python.svg');
 }
 
 .languageList.ruby::before,
 .language.ruby {
-  background-image: url("../../../public/img/logos/languages/ruby.svg");
+  background-image: url('../../../public/img/logos/languages/ruby.svg');
 }
 
 .languageList.swift::before,
 .language.swift {
-  background-image: url("../../../public/img/logos/languages/swift.svg");
+  background-image: url('../../../public/img/logos/languages/swift.svg');
 }
 
 .languageList.typescript::before,
 .language.typescript {
-  background-image: url("../../../public/img/logos/languages/typescript.svg");
+  background-image: url('../../../public/img/logos/languages/typescript.svg');
 }
 
 .languageList.yaml::before,
 .language.yaml {
-  background-image: url("../../../public/img/logos/languages/yaml.svg");
+  background-image: url('../../../public/img/logos/languages/yaml.svg');
 }

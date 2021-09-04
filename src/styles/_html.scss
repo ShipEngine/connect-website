@@ -27,7 +27,12 @@ body {
   font-family: $text-font;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: $heading-font;
   font-weight: 500;
   line-height: 1;
@@ -78,7 +83,7 @@ a code {
   // Different styles of links throughout the site change the color and/or border-color on hover.
   // Provide a smooth transition effect, rather than a sudden change
   transition-property: color, border-color;
-  transition-duration: .4s;
+  transition-duration: 0.4s;
   transition-timing-function: ease-in-out;
 
   &:hover {
@@ -102,7 +107,9 @@ blockquote {
   border-left: 10px solid $light-blue;
 }
 
-ul, ol, dl {
+ul,
+ol,
+dl {
   margin-bottom: $small-vertical-space;
 }
 
@@ -119,7 +126,7 @@ ol {
 }
 
 li + li {
-  margin-top: .25em;
+  margin-top: 0.25em;
 }
 
 ul li ul {

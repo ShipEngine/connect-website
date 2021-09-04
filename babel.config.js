@@ -1,12 +1,12 @@
 module.exports = {
   presets: [
     [
-      "next/babel",
+      'next/babel',
       {
-        "preset-react": {
-          runtime: 'classic'
-        }
-      }
-    ]
-  ]
+        'preset-react': {
+          runtime: 'classic',
+        },
+      },
+    ],
+  ],
 }

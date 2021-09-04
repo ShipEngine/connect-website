@@ -2,14 +2,13 @@
 title: ShipEngine Connect contribution guide
 description: The ShipEngine Connect contribution guide provides guidance for 3rd party app developers
 tags:
-- contrib
-- ShipEngine Connect
-- contribution
-- best practices
+  - contrib
+  - ShipEngine Connect
+  - contribution
+  - best practices
 ---
 
-
-##  Contributing (Connect apps)
+## Contributing (Connect apps)
 
 When contributing a Connect app to the ShipEngine Connect platform, please follow the guidelines outlined in this document. Adherence to this set of standards will help to ensure that both the contributor as well as the reviewer have similar expectations related to the code contained herein.
 
@@ -68,6 +67,7 @@ When contributing a Connect app to the ShipEngine Connect platform, please follo
 ### Code quality
 
 1. **Security is paramount**. As such there is a lot of time and thought that should be taken to ensure both the code as well as the process is secure. Listed below are some common considerations that should be taken to help ensure security gaps are considered and mitigated during the development phase.
+
    - Never store credentials inside the git repository.
 
    - Frequently `client_id` and `client_secret`'s are needed to allow an integration to authenticate with 3rd party apis. The secret should always remain secret.
@@ -101,14 +101,14 @@ We suggest that you use the latest ES6 conventions. Please see our [coding style
    - Bad: `Refactored entire app as requested.`
    - Good: `Updated yarn version from '1.17.0' to version '1.22.10', so we no longer get errors when node has not been installed as root.`
    - Note that a good commit message should describe both what was changed, as well as why the change was needed.
-4. Break up the commits into logical chunks.  Each commit should be self contained, such that a single commit can be reverted and it will revert all that is needed to get back to a functional state.
+4. Break up the commits into logical chunks. Each commit should be self contained, such that a single commit can be reverted and it will revert all that is needed to get back to a functional state.
    - For example, if a dependency is updated which required code changes to take into use... You should include the update as well as the changes needed to make it function.
      - These changes can be included within a single commit if the PR contains more changes than just this individual item.
      - Or alternatively in seperate commits, with both inside a PR related to this specific change.
      - Basically, commit related work together.
 5. Do not re-write the history of published branches, like `release ` / `master`.
    - Git rebasing is fine for your topic branch, but not for published branches, like `release` / ` master` branches.
-6. Keep your working branch up-to-date with `master`.  When working inside a long lived topic branch, it is easy to find that your branch has gone out-of-date with the `master` or branch you originally based from.
+6. Keep your working branch up-to-date with `master`. When working inside a long lived topic branch, it is easy to find that your branch has gone out-of-date with the `master` or branch you originally based from.
    - Writing and testing new code against a branch that is out of date is not useful since you cannot be sure that it will function properly once merged.
    - You should frequently rebase against or merge the upstream branch into your local branch often.
 
@@ -116,20 +116,20 @@ We suggest that you use the latest ES6 conventions. Please see our [coding style
 
 1. `README.md` - Always include a readme file that clearly describes the requirements of the integration, as well as how to get the app up and running after cloning it from the git repository.
    - README sections should include but are not limited to:
-      - Link to the website of the company being integrated with.
-      - Links to the relevant documentation.
-      - Include any relevant documentation files in a `/docs` directory when possible.
-      - Descriptions of the supported
-         - Services
-         - Supported label types
-         - Application ID
+     - Link to the website of the company being integrated with.
+     - Links to the relevant documentation.
+     - Include any relevant documentation files in a `/docs` directory when possible.
+     - Descriptions of the supported
+       - Services
+       - Supported label types
+       - Application ID
 2. Partners are responsible for peer review iterations of their own modules prior to requesting a review from ShipEngine.
    - Make those efforts transparent via Github.
    - This keeps our engineering out of the minutiae of code quality, and other obvious technical issues.
 3. When creating a Pull Request (PR), you should be very clear and concise in both the `Title` as well as the `Summary / Description`.
    - A good title will breifly describe what the PR is intended to do or change.
    - A good description will provide a concise breakdown of what was changed and why... In addition any additional reference information and context should be linked or explicitly provided inside the PR summary.
-4. A PR should not be huge. Much like well designed code, a well made PR should adhere to a single responsibility principal.  Multiple PRs with a clear seperation of responsibilities between each are far better than a huge PR with multiple changes with varying purposes throughout.
+4. A PR should not be huge. Much like well designed code, a well made PR should adhere to a single responsibility principal. Multiple PRs with a clear seperation of responsibilities between each are far better than a huge PR with multiple changes with varying purposes throughout.
    - Prefer multiple PRs with a single responsibility instead of a single PR with the whole app's implementation for review.
 5. Once review comments have been made on a PR:
    - For suggested changes create, accepted, and commited via the [GitHub Suggested Changes Feature](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/incorporating-feedback-in-your-pull-request)... once you have accepted and commited the suggested changes, the converstation will automatically be marked as resolved in the PR.
@@ -137,8 +137,4 @@ We suggest that you use the latest ES6 conventions. Please see our [coding style
    - For more general requested changes, you should make the changes and await or request a re-review. Once the reviewer has signed off on the changes, the reviewer will mark the conversation as resolved.
      - IE, Refactor the api call to use the XML endpoint instead of the JSON endpoint when calling the API... there are know issues with the JSON endpoint.
 
-
-<Pager
-  prev="./tools/index.mdx" prevTitle="Recommended Tools"
-  next="./style.mdx" nextTitle="Style Guide"
-/>
+<Pager prev="./tools/index.mdx" prevTitle="Recommended Tools" next="./style.mdx" nextTitle="Style Guide" />

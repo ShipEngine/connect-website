@@ -3,13 +3,12 @@ title: GetProducts Method
 description: This method exports products from an order source.
 ---
 
-`GetProducts()`
-===========================
+# `GetProducts()`
+
 This method exports products from an order source given a set of parameters.
 
+## Syntax
 
-Syntax
------------------------------------------------
 <CodeWrapper>
 ```javascript
 module.exports = async function GetProducts(request) {
@@ -18,74 +17,66 @@ module.exports = async function GetProducts(request) {
 ```
 
 ```typescript
-import {
-  GetProductsRequest,
-  GetProductsResponse
-  } from "@shipengine/connect-order-source-api";
+import { GetProductsRequest, GetProductsResponse } from '@shipengine/connect-order-source-api'
 
-export const GetProducts = async (
-  request: GetProductsRequest
-): Promise<GetProductsResponse> => {
+export const GetProducts = async (request: GetProductsRequest): Promise<GetProductsResponse> => {
   // Your code here
 }
 ```
+
 </CodeWrapper>
 
-
-
-Parameters
------------------------------------------------
+## Parameters
 
 ### `GetProductsRequest`
+
 An object containing parameters to use when querying products from an order source.
 
 <Reference>
 
-  <Field name="product_ids" type="string[]" nullable={true}>
-    <Description>
-      A list of product ids to get data from the order source.
-    </Description>
-  </Field>
+{' '}
+
+<Field name="product_ids" type="string[]" nullable={true}>
+  <Description>A list of product ids to get data from the order source.</Description>
+</Field>
 
 </Reference>
 
+## Return Value
 
-
-Return Value
------------------------------------------------
 ### `GetProductsResponse`
+
 This object model represents the response from a successful sales orders export request.
 
 <Reference>
 
-  <Field name="products" required={true}>
-    <Type>
-      [products object[]](./../product.mdx)
-    </Type>
-    <Description>
-      A list of sales orders to be imported.
-    </Description>
-  </Field>
+{' '}
+
+<Field name="products" required={true}>
+  <Type>[products object[]](./../product.mdx)</Type>
+  <Description>A list of sales orders to be imported.</Description>
+</Field>
 
 </Reference>
 
-Example
------------------------------------------------
+## Example
+
 <CodeWrapper>
 ```javascript
 async function GetProducts(request) {
   // STEP 1: Validation
   // Add any desired validation here
 
-  // STEP 2: Create the data that the order source's API expects
-  const thirdPartyRequest = mapRequest(request);
-  // STEP 3: Call the order source's API
-  const response = await callApi(thirdPartyRequest);
-  // Step 4: Create the output data that ShipEngine expects
-  const mappedResponse = mapResponse(response);
-  return mappedResponse;
+// STEP 2: Create the data that the order source's API expects
+const thirdPartyRequest = mapRequest(request);
+// STEP 3: Call the order source's API
+const response = await callApi(thirdPartyRequest);
+// Step 4: Create the output data that ShipEngine expects
+const mappedResponse = mapResponse(response);
+return mappedResponse;
 }
-```
+
+````
 ```typescript
 export const GetProducts = async (
   request: GetProductsRequest
@@ -101,5 +92,6 @@ export const GetProducts = async (
   const mappedResponse = mapResponse(response);
   return mappedResponse;
 };
-```
+````
+
 </CodeWrapper>

@@ -3,13 +3,17 @@
 
 $selection-color: darken($light-purple, 5%);
 
-pre, code, samp, kbd {
+pre,
+code,
+samp,
+kbd {
   font-family: $code-font;
   font-size: $code-font-size;
   color: $darker-purple;
 }
 
-code, kbd {
+code,
+kbd {
   display: inline-block;
   background-color: $lighter-purple;
   padding: ($tiny-vertical-space / 2) ($tiny-horizontal-space / 2);

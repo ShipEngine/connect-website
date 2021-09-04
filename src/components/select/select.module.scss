@@ -18,7 +18,7 @@
   right: 0;
   min-width: 100%;
   background-color: $white;
-  border: 1px solid transparentize($darker-blue, .85);
+  border: 1px solid transparentize($darker-blue, 0.85);
   border-radius: $tiny-border-radius;
   z-index: $dropdown-list-z-index;
   display: none;

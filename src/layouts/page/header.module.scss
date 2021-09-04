@@ -3,7 +3,7 @@
 
 .siteHeader {
   background-color: $white;
-  box-shadow: 0 5px 20px transparentize($darker-blue, .96);
+  box-shadow: 0 5px 20px transparentize($darker-blue, 0.96);
   position: fixed;
   padding: 1.8rem 3% 0 3%;
   top: 0;
@@ -32,7 +32,7 @@
 
   :global(.st-default-search-input) {
     @include reset-swiftype;
-    background: $white url("../../../public/img/icons/search.svg") no-repeat 13px 11px;
+    background: $white url('../../../public/img/icons/search.svg') no-repeat 13px 11px;
   }
 }
 

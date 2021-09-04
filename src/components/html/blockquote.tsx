@@ -1,13 +1,13 @@
-import React, { ReactElement, ReactNode, ReactNodeArray } from "react";
-import { getFirstChild, getText, getTypeName, Props } from "../../lib/react-nodes";
-import { Callout, CalloutProps } from "../callout/callout";
+import React, { ReactElement, ReactNode, ReactNodeArray } from 'react'
+import { getFirstChild, getText, getTypeName, Props } from '../../lib/react-nodes'
+import { Callout, CalloutProps } from '../callout/callout'
 
-const badgePattern = /^[A-Z0-9; _-]+[:!?]$/;
+const badgePattern = /^[A-Z0-9; _-]+[:!?]$/
 
 interface BlockquoteProps {
-  markdown?: boolean;
-  children?: ReactNode;
-  [key: string]: unknown;
+  markdown?: boolean
+  children?: ReactNode
+  [key: string]: unknown
 }
 
 /**
@@ -33,77 +33,72 @@ interface BlockquoteProps {
  */
 export function Blockquote({ markdown, children, ...props }: BlockquoteProps) {
   if (markdown) {
-    const calloutProps = getCalloutProps(children);
+    const calloutProps = getCalloutProps(children)
     if (calloutProps) {
       // Render this blockquote as a Callout
-      return <Callout {...calloutProps} />;
+      return <Callout {...calloutProps} />
     }
   }
 
-  return <blockquote {...props}>{children}</blockquote>;
+  return <blockquote {...props}>{children}</blockquote>
 }
-
 
 /**
  * Returns the badge, title, and children for a callout
  */
 function getCalloutProps(node: ReactNode): CalloutProps | undefined {
-  const children = React.Children.toArray(node);
+  const children = React.Children.toArray(node)
 
-  const badge = extractBadge(children);
-  if (!badge) return;
+  const badge = extractBadge(children)
+  if (!badge) return
 
-  const title = extractTitle(children);
+  const title = extractTitle(children)
 
-  return { badge, title, children };
+  return { badge, title, children }
 }
-
 
 function extractBadge(children: ReactNodeArray): string | undefined {
   // We expect the first child to be a <p> element
-  const p = children[0] as ReactElement<Props>;
+  const p = children[0] as ReactElement<Props>
 
-  if (getTypeName(p) === "p") {
+  if (getTypeName(p) === 'p') {
     // We expect the first child of the <p> to be a <strong>
-    const strong = getFirstChild(p) as ReactElement<Props>;
+    const strong = getFirstChild(p) as ReactElement<Props>
 
-    if (getTypeName(strong) === "strong") {
+    if (getTypeName(strong) === 'strong') {
       // If the <strong> contains a short, all-caps string, then it's a badge
-      const text = getText(strong);
+      const text = getText(strong)
 
       if (badgePattern.test(text)) {
         if (Array.isArray(p.props.children) && p.props.children.length > 1) {
           // Clone the <p> elment, without the <strong> in it
           children[0] = React.cloneElement(p, {
-            children: React.Children.toArray(p.props.children).slice(1)
-          });
-        }
-        else {
+            children: React.Children.toArray(p.props.children).slice(1),
+          })
+        } else {
           // Remove the <p> from the <blockquote>
-          children.shift();
+          children.shift()
         }
 
-        if (text[text.length - 1] === ":") {
+        if (text[text.length - 1] === ':') {
           // Remove the trailing colon character
-          return text.slice(0, -1);
-        }
-        else {
-          return text;
+          return text.slice(0, -1)
+        } else {
+          return text
         }
       }
     }
   }
 }
 
-
 function extractTitle(children: ReactNodeArray): string | undefined {
   // We expect the first child to be an <h3> element
-  const h3 = children[0] as ReactElement<Props>;
+  const h3 = children[0] as ReactElement<Props>
 
-  if (getTypeName(h3) === "h3") {
+  if (getTypeName(h3) === 'h3') {
     // Remove the <h3> from the <blockquote>
-    children.shift();
+    children.shift()
 
-    return getText(h3);
+    return getText(h3)
   }
 }

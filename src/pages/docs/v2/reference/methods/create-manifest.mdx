@@ -3,14 +3,12 @@ title: CreateManifest Method
 description: This method is used to create a manifest.
 ---
 
+# `CreateManifest()`
 
-`CreateManifest()`
-===========================
 This method is used to create a manifest.
 
+## Syntax
 
-Syntax
------------------------------------------------
 <CodeWrapper>
 ```javascript
 module.exports = async function CreateManifest(request) {
@@ -19,62 +17,56 @@ module.exports = async function CreateManifest(request) {
 ```
 
 ```typescript
-import { CreateManifestRequest, CreateManifestResponse } from "@shipengine/connect-carrier-api";
+import { CreateManifestRequest, CreateManifestResponse } from '@shipengine/connect-carrier-api'
 
-export default async function CreateManifest(
-  request: CreateManifestRequest
-): Promise<CreateManifestResponse> {
+export default async function CreateManifest(request: CreateManifestRequest): Promise<CreateManifestResponse> {
   // Your code here
 }
 ```
+
 </CodeWrapper>
 
-
-
-Parameters
------------------------------------------------
+## Parameters
 
 ### `CreateManifestRequest`
+
 An object containing information about the labels to manifest.
 
 <Reference>
 
-  <Field name="metadata" nullable={true}>
-    <Type>
-      [metadata object](./../metadata.mdx)
-    </Type>
-    <Description>
-      This object should contain all of the necessary properties needed to make authenticated requests with the carrier.
-      Every property included here will be persisted by ShipEngine Connect and included on each subsequent request from this user.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="ship_from" nullable={true}>
-    <Type>
-      [shipping address object](./../address.mdx#shipping-address-object)
-    </Type>
-    <Description>
-      The shipment sender's address. It may or may not have been validated.
-    </Description>
-  </Field>
+<Field name="metadata" nullable={true}>
+  <Type>[metadata object](./../metadata.mdx)</Type>
+  <Description>
+    This object should contain all of the necessary properties needed to make authenticated requests with the carrier.
+    Every property included here will be persisted by ShipEngine Connect and included on each subsequent request from
+    this user.
+  </Description>
+</Field>
 
-  <Field name="included_labels" nullable={true}>
-    <Type>
-      [shipped shipment object](./../shipped-shipment.mdx)
-    </Type>
-    <Description>
-      The shipments to include in the manifest. There should be at least one shipment included in a manifest.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="excluded_labels" nullable={true}>
-    <Type>
-      [shipped shipment object](./../shipped-shipment.mdx)
-    </Type>
-    <Description>
-      The shipments to exclude from the manifest.
-    </Description>
-  </Field>
+<Field name="ship_from" nullable={true}>
+  <Type>[shipping address object](./../address.mdx#shipping-address-object)</Type>
+  <Description>The shipment sender's address. It may or may not have been validated.</Description>
+</Field>
+
+{' '}
+
+<Field name="included_labels" nullable={true}>
+  <Type>[shipped shipment object](./../shipped-shipment.mdx)</Type>
+  <Description>
+    The shipments to include in the manifest. There should be at least one shipment included in a manifest.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="excluded_labels" nullable={true}>
+  <Type>[shipped shipment object](./../shipped-shipment.mdx)</Type>
+  <Description>The shipments to exclude from the manifest.</Description>
+</Field>
 
  <Field name="open_datetime" type="string" nullable={true}>
     <Description>
@@ -82,6 +74,7 @@ An object containing information about the labels to manifest.
 
       Formatted per the https://tools.ietf.org/html/rfc3339 spec
     </Description>
+
   </Field>
 
  <Field name="close_datetime" type="string" nullable={true}>
@@ -90,107 +83,113 @@ An object containing information about the labels to manifest.
 
       Formatted per the https://tools.ietf.org/html/rfc3339 spec
     </Description>
+
   </Field>
 
-  <Field name="advanced_options" type="object" nullable={true}>
-    <Description>
-      This is a schemaless object. It is for open ended customizations unique to particular carriers.
-      If the field is absent it should be interpreted as the default value for any applicable options, e.g. false for booleans.
-    </Description>
-  </Field>
+{' '}
+
+<Field name="advanced_options" type="object" nullable={true}>
+  <Description>
+    This is a schemaless object. It is for open ended customizations unique to particular carriers. If the field is
+    absent it should be interpreted as the default value for any applicable options, e.g. false for booleans.
+  </Description>
+</Field>
 
 </Reference>
 
+## Return Value
 
-
-Return Value
------------------------------------------------
 ### `CreateManifestResponse`
+
 This object model represents the response from a successful create manifest request.
 
 <Reference>
 
-  <Field name="metadata" required={false}>
-    <Type>
-      [metadata object](./../metadata.mdx)
-    </Type>
-    <Description>
-      This object should contain all of the necessary properties needed to make authenticated requests with the carrier.
-      Every property included here will be persisted by ShipEngine Connect and included on each subsequent request from this user.
-    </Description>
-  </Field>
+{' '}
 
+<Field name="metadata" required={false}>
+  <Type>[metadata object](./../metadata.mdx)</Type>
+  <Description>
+    This object should contain all of the necessary properties needed to make authenticated requests with the carrier.
+    Every property included here will be persisted by ShipEngine Connect and included on each subsequent request from
+    this user.
+  </Description>
+</Field>
 
-  <Field name="transaction_id" type="string" required={true}>
-    <Description>
-      The transaction ID uniquely represents this request. If the request is retried then this transaction ID will be the same. You should only perform the requested action once per given transaction ID.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="manifests" type="object[]" required={true}>
-    <Description>
-      The manifests created from this request. It should contain either a href or data, but not both.
-    </Description>
-  </Field>
+<Field name="transaction_id" type="string" required={true}>
+  <Description>
+    The transaction ID uniquely represents this request. If the request is retried then this transaction ID will be the
+    same. You should only perform the requested action once per given transaction ID.
+  </Description>
+</Field>
 
- <Field name="manifests[].manifest_id" type="string" required={false}>
-    <Description>
-      The unique identifier for this manifest.
-    </Description>
-  </Field>
+{' '}
 
- <Field name="manifests[].document_download" type="object" required={false}>
-    <Description>
-      The resource for where the manifest documentation can be downloaded.
-    </Description>
-  </Field>
+<Field name="manifests" type="object[]" required={true}>
+  <Description>
+    The manifests created from this request. It should contain either a href or data, but not both.
+  </Description>
+</Field>
 
- <Field name="manifests[].document_download.href" type="string" required={false}>
-    <Description>
-      The public url where the manifest documentation can be downloaded.
-    </Description>
-  </Field>
+{' '}
 
- <Field name="manifests[].document_download.data" type="string" required={false}>
-    <Description>
-      The base64 encoded resource data.
-    </Description>
-  </Field>
+<Field name="manifests[].manifest_id" type="string" required={false}>
+  <Description>The unique identifier for this manifest.</Description>
+</Field>
+
+{' '}
+
+<Field name="manifests[].document_download" type="object" required={false}>
+  <Description>The resource for where the manifest documentation can be downloaded.</Description>
+</Field>
+
+{' '}
+
+<Field name="manifests[].document_download.href" type="string" required={false}>
+  <Description>The public url where the manifest documentation can be downloaded.</Description>
+</Field>
+
+{' '}
+
+<Field name="manifests[].document_download.data" type="string" required={false}>
+  <Description>The base64 encoded resource data.</Description>
+</Field>
 
 </Reference>
 
+## Example
 
-
-Example
------------------------------------------------
 <CodeWrapper>
 ```javascript
 module.exports = async function CreateManifest(request) {
 
-  // STEP 1: Validation
+// STEP 1: Validation
 
-  // STEP 2: Create the data that the carrier's API expects
+// STEP 2: Create the data that the carrier's API expects
 
-  let data = {
-    operation: "create_manifest",
-    session_id: request.metadata.id,
-    create_manifest: request.included_labels.map((label) => {
-      const { tracking_number } = label;
-      const { value : carrier_transaction_id } = label.alternative_identifiers.filter(id => id.type === 'carrier_transaction_id');
-      return {
-        tracking_number: tracking_number,
-        carrier_transaction_id: carrier_transaction_id
-      };
-    }),
-  };
+let data = {
+operation: "create_manifest",
+session_id: request.metadata.id,
+create_manifest: request.included_labels.map((label) => {
+const { tracking_number } = label;
+const { value : carrier_transaction_id } = label.alternative_identifiers.filter(id => id.type === 'carrier_transaction_id');
+return {
+tracking_number: tracking_number,
+carrier_transaction_id: carrier_transaction_id
+};
+}),
+};
 
-  // STEP 3: Call the carrier's API
-  const response = await apiClient.request({ data });
+// STEP 3: Call the carrier's API
+const response = await apiClient.request({ data });
 
-  // STEP 4: Create the output data that ShipEngine expects
-  return formatCreateManifest(response.data);
+// STEP 4: Create the output data that ShipEngine expects
+return formatCreateManifest(response.data);
 }
-```
+
+````
 
 ```typescript
 import {
@@ -222,5 +221,6 @@ export default async function CreateManifest(request: CreateManifestRequest): Pr
   // STEP 4: Create the output data that ShipEngine expects
   return formatCreateManifest(response.data);
 }
-```
+````
+
 </CodeWrapper>

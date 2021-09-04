@@ -2,19 +2,19 @@
 
 button,
 .button,
-input[type=button],
-input[type=submit],
-input[type=reset] {
+input[type='button'],
+input[type='submit'],
+input[type='reset'] {
   font-weight: 500;
   line-height: 1;
   color: $dark-purple;
   background-color: transparent;
-  border: 1px solid transparentize($dark-purple, .8);
+  border: 1px solid transparentize($dark-purple, 0.8);
   border-radius: $large-border-radius;
   display: inline-block;
   padding: 15px 25px 12px 25px;
   transition-property: background-color, border-color;
-  transition-duration: .4s;
+  transition-duration: 0.4s;
   transition-timing-function: ease-in-out;
   cursor: pointer;
 

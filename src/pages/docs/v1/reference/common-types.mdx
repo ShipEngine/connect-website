@@ -3,198 +3,197 @@ title: Type Reference
 description: This page lists the valid values for some of the common types.
 ---
 
+# Common Types
 
-Common Types
-==========================
 This page lists the valid values for some of the common types that are used throughout a [ShipEngine Connect](../index.mdx) application.
 
-Charge Types
------------------------------------
+## Charge Types
+
 This is the list of values for charge types. You will use one of these values in the type property of a charges array. For example, the [rateShipment](./methods/rate-shipment.mdx) returns a rate object that includes
 a charges array since the total shipping charges are a large factor in selecting a rate.
 
-
 <Reference>
 
-  <Field name="shipping">
-    <Description>
-      The charge is for shipping.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="handling">
-    <Description>
-      The charge is for handling of the item.
-    </Description>
-  </Field>
+<Field name="shipping">
+  <Description>The charge is for shipping.</Description>
+</Field>
 
-  <Field name="oversize">
-    <Description>
-      The charge is accessed because the packaging is a non-standard size.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="special_goods">
-    <Description>
-      The charge is for special goods.
-    </Description>
-  </Field>
+<Field name="handling">
+  <Description>The charge is for handling of the item.</Description>
+</Field>
 
-  <Field name="delivery_confirmation">
-    <Description>
-      The charge is for a delivery confirmation, such as requiring an adult signature.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="insurance">
-    <Description>
-      The charge is for insurance.
-    </Description>
-  </Field>
+<Field name="oversize">
+  <Description>The charge is accessed because the packaging is a non-standard size.</Description>
+</Field>
 
-  <Field name="discount">
-    <Description>
-      The charge is for a discount. This would be reflected by a negative value.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="fuel">
-    <Description>
-      The charge is for fuel.
-    </Description>
-  </Field>
+<Field name="special_goods">
+  <Description>The charge is for special goods.</Description>
+</Field>
 
-  <Field name="location_fee">
-    <Description>
-      The charge is because of the location of the origin or destination address.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="fee">
-    <Description>
-      This charge is for a general purpose fee.
-    </Description>
-  </Field>
+<Field name="delivery_confirmation">
+  <Description>The charge is for a delivery confirmation, such as requiring an adult signature.</Description>
+</Field>
 
-  <Field name="pickup">
-    <Description>
-      The charge is for a package pickup.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="return">
-    <Description>
-      The charge is for a return.
-    </Description>
-  </Field>
+<Field name="insurance">
+  <Description>The charge is for insurance.</Description>
+</Field>
 
-  <Field name="notification">
-    <Description>
-      The charge is for a notification.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="duty">
-    <Description>
-      The charge is for a foreign duty.
-    </Description>
-  </Field>
+<Field name="discount">
+  <Description>The charge is for a discount. This would be reflected by a negative value.</Description>
+</Field>
 
-  <Field name="tax">
-    <Description>
-      The charge is for a tax.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="adjustment">
-    <Description>
-      The charge is for an adjustment. This can happen if the package dimensions or weight are different from what was used when the label was generated. It would be negative for a refund.
-    </Description>
-  </Field>
+<Field name="fuel">
+  <Description>The charge is for fuel.</Description>
+</Field>
 
-  <Field name="coupon">
-    <Description>
-      The charge is because a coupon was applied. This would be reflected by a negative value.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="credit">
-    <Description>
-      The charge is because a credit was applied. This would be reflected by a negative value.
-    </Description>
-  </Field>
+<Field name="location_fee">
+  <Description>The charge is because of the location of the origin or destination address.</Description>
+</Field>
 
-  <Field name="debit">
-    <Description>
-      The charge is because of a debit.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="gift_certificate">
-    <Description>
-      The charge is because a gift certificate was applied. This would be reflected by a negative value.
-    </Description>
-  </Field>
+<Field name="fee">
+  <Description>This charge is for a general purpose fee.</Description>
+</Field>
 
-  <Field name="gift_wrapping">
-    <Description>
-      The charge is for gift wrapping.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="promotion">
-    <Description>
-      The charge is because of a promotion. This would be reflected by a negative value.
-    </Description>
-  </Field>
+<Field name="pickup">
+  <Description>The charge is for a package pickup.</Description>
+</Field>
 
-  <Field name="refund">
-    <Description>
-      The charge is for a refund. This would be reflected by a negative value.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="uncategorized">
-    <Description>
-      The charge is for something that does not fit into any of the other categories.
-    </Description>
-  </Field>
+<Field name="return">
+  <Description>The charge is for a return.</Description>
+</Field>
+
+{' '}
+
+<Field name="notification">
+  <Description>The charge is for a notification.</Description>
+</Field>
+
+{' '}
+
+<Field name="duty">
+  <Description>The charge is for a foreign duty.</Description>
+</Field>
+
+{' '}
+
+<Field name="tax">
+  <Description>The charge is for a tax.</Description>
+</Field>
+
+{' '}
+
+<Field name="adjustment">
+  <Description>
+    The charge is for an adjustment. This can happen if the package dimensions or weight are different from what was
+    used when the label was generated. It would be negative for a refund.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="coupon">
+  <Description>The charge is because a coupon was applied. This would be reflected by a negative value.</Description>
+</Field>
+
+{' '}
+
+<Field name="credit">
+  <Description>The charge is because a credit was applied. This would be reflected by a negative value.</Description>
+</Field>
+
+{' '}
+
+<Field name="debit">
+  <Description>The charge is because of a debit.</Description>
+</Field>
+
+{' '}
+
+<Field name="gift_certificate">
+  <Description>
+    The charge is because a gift certificate was applied. This would be reflected by a negative value.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="gift_wrapping">
+  <Description>The charge is for gift wrapping.</Description>
+</Field>
+
+{' '}
+
+<Field name="promotion">
+  <Description>The charge is because of a promotion. This would be reflected by a negative value.</Description>
+</Field>
+
+{' '}
+
+<Field name="refund">
+  <Description>The charge is for a refund. This would be reflected by a negative value.</Description>
+</Field>
+
+{' '}
+
+<Field name="uncategorized">
+  <Description>The charge is for something that does not fit into any of the other categories.</Description>
+</Field>
 
 </Reference>
 
+## Notes Types
 
-Notes Types
-------------------------------------------
 This is the list of values for note types. You will use one of these values in the type property of a notes array. For example, the [createShipment](./methods/create-shipment.mdx) method receives a new shipment object that includes
 a notes array. Most of the objects passed to and from your methods will contain a notes array.
 
-
-
 <Reference>
 
-  <Field name="gift_message">
-    <Description>
-      The note contains a gift message.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="message_to_buyer">
-    <Description>
-      The note contains a message to the buyer.
-    </Description>
-  </Field>
+<Field name="gift_message">
+  <Description>The note contains a gift message.</Description>
+</Field>
 
-  <Field name="message_from_buyer">
-    <Description>
-      The not contains a message from the buyer.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="internal">
-    <Description>
-      The note is for internal use.
-    </Description>
-  </Field>
+<Field name="message_to_buyer">
+  <Description>The note contains a message to the buyer.</Description>
+</Field>
+
+{' '}
+
+<Field name="message_from_buyer">
+  <Description>The not contains a message from the buyer.</Description>
+</Field>
+
+{' '}
+
+<Field name="internal">
+  <Description>The note is for internal use.</Description>
+</Field>
 
 </Reference>
-

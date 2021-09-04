@@ -7,39 +7,44 @@ image: /img/changelog/card.png
 # Changelog `v0.0.34` <small>(2020-07-30)</small>
 
 ## Overall Changes
-* HTML label format is no longer supported
-* Removed geo-coordinates from all Address properties
-* Removed support for Localization
-* Updated [CLI](../docs/v1/cli.mdx) namespace. You should uninstall the old one before the latest version.
 
+- HTML label format is no longer supported
+- Removed geo-coordinates from all Address properties
+- Removed support for Localization
+- Updated [CLI](../docs/v1/cli.mdx) namespace. You should uninstall the old one before the latest version.
 
 ```
 npm uninstall @shipengine/cli -g
 npm install @shipengine/integration-platform-cli -g
 ```
-* [CLI](../docs/v1/cli.mdx) commands are no longer prefaced with `apps:`. The documentation has been updated.
-* The `shipengine test` command has changed. We are in the process of updating the documentation for this.
 
-
+- [CLI](../docs/v1/cli.mdx) commands are no longer prefaced with `apps:`. The documentation has been updated.
+- The `shipengine test` command has changed. We are in the process of updating the documentation for this.
 
 ## Carrier App
+
 These changes affect the [Carrier App](../docs/v1/carrier-app/index.mdx).
 
 ### [Carrier App Definition](../docs/v1/reference/carrier.mdx)
-* Added an `icon` property similar to the logo property.
-* Added a `manifestType` property.
+
+- Added an `icon` property similar to the logo property.
+- Added a `manifestType` property.
 
 ### [createShipment()](../docs/v1/reference/methods/create-shipment.mdx) Method
+
 #### Parameter: `NewShipment`
 
 #### Removed properties:
+
      * `outboundShipment`
      * `packages.contents.quantity.unit`
 
 #### Added properties:
+
     * `deliveryService.supportsReturns`
 
 #### Changes:
+
     * `packages.customs.contents.unitValue.value` -  now a number rather than a string
     * `packages.customs.contents.unitValue.currency` - now accepts any string rather than an enum value
     * `packages.customs.contents.totalValue.value` - now a number rather than a string
@@ -49,10 +54,10 @@ These changes affect the [Carrier App](../docs/v1/carrier-app/index.mdx).
     * `packages.contents.totalPrice.value` - now a number rather than a string
     * `packages.contents.totalPrice.currency` - now accepts any string rather than an enum value
 
-
 #### Return Value: `ShipmentConfirmation`
 
 #### Removed properties:
+
     * `deliveryWindow`
     * `fulfillmentService`
     * `zone`
@@ -74,21 +79,24 @@ These changes affect the [Carrier App](../docs/v1/carrier-app/index.mdx).
     * `packages.customs.contents.totalValue.unit`
 
 #### Added properties: (moved from the packages property up a level)
+
     * `documents`
     * `label`
     * `customsForm`
 
 #### Changes:
+
     * `packages.insuredValue.value` - now a number rather than a string
     * `packages.insuredValue.currency` - now accepts any string rather than an enum value
     * `charges.amount.value` - now accepts a number rather than a string
     * `charges.amount.value.currency` - now accepts any string rather than an enum value
 
-###  [rateShipment()](../docs/v1/reference/methods/rate-shipment.mdx) Method
+### [rateShipment()](../docs/v1/reference/methods/rate-shipment.mdx) Method
 
 #### Parameter: `RateCriteria`
 
 #### Removed properties:
+
     * `outboundShipment`
     * `deliveryWindow`
     * `fulfillmentService`
@@ -98,10 +106,12 @@ These changes affect the [Carrier App](../docs/v1/carrier-app/index.mdx).
     * `maximumDeliveryDays`
 
 #### Added properties:
+
     * `deliveryService.supportsReturns`
     * `deliveryService.manifestType`
 
 #### Changes:
+
     * Renamed `deliveryServices` to `deliveryService` and changed it from an array to a single object
     * Renamed `fulfillmentServices` to `fulfillmentService` and changed it from an array to a single object
     * `totalInsuredValue.value` - now a number rather than a string
@@ -110,29 +120,33 @@ These changes affect the [Carrier App](../docs/v1/carrier-app/index.mdx).
 #### Return Value: `Rate`
 
 #### Removed properties:
+
     * `charges.code`
     * `charges.description`
     * `charges.notes`
 
 #### Added properties:
+
     * `deliveryService.supportsReturns`
     * `deliveryService.manifestType`
 
 #### Changes:
+
     * `charges.amount.value` - now accepts a number rather than a string
     * `charges.amount.value.currency` - now accepts any string rather than an enum value
     * `deliveryService` now acceptes an object or a string containing the `code`.
 
 ### [trackShipment()](../docs/v1/reference/methods/track-shipment.mdx)
 
-
 ### Return Value: `TrackingInfo`
 
 #### Added properties:
+
     * `packages[].packaging.deliveryService.supportsReturns`
     * `packages[].packaging.deliveryService.manifestType`
 
 #### Changes:
+
     * `packages[].packaging` now acceptes an object or a string containing the `code`.
 
 ### [schedulePickup()](../docs/v1/reference/methods/schedule-pickup.mdx)
@@ -140,20 +154,24 @@ These changes affect the [Carrier App](../docs/v1/carrier-app/index.mdx).
 #### Parameter: `PickupRequest`
 
 #### Added properties:
+
     * `pickupService.shipments[].deliveryService.supportsReturns`
     * `pickupService.shipments[].deliveryService.manifestType`
 
 #### Removed properties:
+
     * `contact.phoneExtension`
 
 #### Return Value: `PickupConfirmation`
 
 #### Removed properties:
+
     * `charges.code`
     * `charges.description`
     * `charges.notes`
 
 #### Changes:
+
     * `charges.amount.value` - now accepts a number rather than a string
     * `charges.amount.value.currency` - now accepts any string rather than an enum value
 
@@ -162,37 +180,46 @@ These changes affect the [Carrier App](../docs/v1/carrier-app/index.mdx).
 #### Parameter: `PickupCancellation`
 
 #### Added properties:
+
     * `shipments[].deliveryService.supportsReturns`
     * `shipments[].deliveryService.manifestType`
 
 #### Removed properties:
+
     * `contact.phoneExtension`
 
 ### Definition Changes
+
 [Delivery Service](../docs/v1/reference/delivery-service.mdx)
-    *  Added `supportsReturns` property.
-    *  Added  `manifestType` property.
-    *  Added `code` property.
+_ Added `supportsReturns` property.
+_ Added `manifestType` property. \* Added `code` property.
 
 [Pickup Service](../docs/v1/reference/pickup-service.mdx)
-  * Added `code` property.
+
+- Added `code` property.
 
 [Packaging](../docs/v1/reference/packaging.mdx)
-  * Added `code` property.
+
+- Added `code` property.
 
 [Delivery Confirmation](../docs/v1/reference/delivery-confirmation.mdx)
-  * Added `code` property.
 
-## Order  App
+- Added `code` property.
+
+## Order App
+
 These changes affect the [Order App](../docs/v1/order-app/index.mdx).
 
 ### [Order App Definition](../docs/v1/reference/order.mdx)
+
 Added an icon property similar to the logo property.
 
 ### [getSalesOrdersByDate()](../docs/v1/reference/methods/get-sales-orders-by-date.mdx)
 
 #### Parameter: `SalesOrderTimeRange`
+
 #### Added properties:
+
     * `paging`
     * `paging.pageSize`
     * `paging.pageNumber`
@@ -200,7 +227,9 @@ Added an icon property similar to the logo property.
     * `paging.cursor`
 
 #### Return Value: `SalesOrderArray` (Previously returned `<Iterable>SalesOrder`)
+
 #### Removed properties:
+
     * `fulfillmentStatus`
     * `paymentStatus`
     * `seller`
@@ -215,6 +244,7 @@ Added an icon property similar to the logo property.
     * `items.quantity.unit`
 
 #### Added properties:
+
     * `paging`
     * `paging.pageSize`
     * `paging.pageNumber`
@@ -223,6 +253,7 @@ Added an icon property similar to the logo property.
     * `buyer.address` (optional)
 
 #### Changes:
+
     * `charges.amount.value` - now accepts a number rather than a string
     * `charges.amount.value.currency` - now accepts any string rather than an enum value
     * `totalCharges.amount.value` - now accepts a number rather than a string
@@ -230,10 +261,12 @@ Added an icon property similar to the logo property.
     * `shippingPreferences.insuredValue.value` - now accepts a number rather than a string
     * `shippingPreferences.insuredValue.currency` - now accepts any string rather than an enum value
 
-
 ### [shipmentCreated()](../docs/v1/reference/methods/shipment-created.mdx)
+
 #### Parameter: `SalesOrderShipment`
+
 #### Removed properties:
+
     * `deliveryDateTime`
     * `minimumDeliveryDays`
     * `maximumDeliveryDays`
@@ -247,6 +280,7 @@ Added an icon property similar to the logo property.
     * `items.totalCharges`
 
 #### Added properties:
+
     * `contents` (moved from packages up a level)
     * `contents.salesOrder`
     * `contents.salesOrder.id`
@@ -264,12 +298,16 @@ Added an icon property similar to the logo property.
     * `items.thumbnailURL`
 
 #### Changes:
+
     * `items.product` is now required
     * `fulfillmentStatus` now accepts a string instead of an enum
 
 ### [shipmentCancelled()](../docs/v1/reference/methods/shipment-cancelled.mdx)
+
 #### Parameter: `SalesOrderShipment`
+
 #### Removed properties:
+
     * `deliveryDateTime`
     * `minimumDeliveryDays`
     * `maximumDeliveryDays`
@@ -281,7 +319,9 @@ Added an icon property similar to the logo property.
     * `items.charges`
     * `items.totalAmount`
     * `items.totalCharges`
+
 #### Added properties:
+
     * `contents` (moved from packages up a level)
     * `contents.salesOrder`
     * `contents.salesOrder.id`
@@ -299,11 +339,14 @@ Added an icon property similar to the logo property.
     * `items.thumbnailURL`
 
 #### Changes:
+
     * `items.product` is now required
     * `fulfillmentStatus` now accepts a string instead of an enum
 
 ### getSalesOrder() Method
+
 No longer supported.
 
 ### getSeller() Method
+
 No longer supported.

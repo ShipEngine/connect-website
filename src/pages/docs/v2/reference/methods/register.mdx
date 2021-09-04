@@ -3,16 +3,14 @@ title: Register Method
 description: This method is used to authenticate with your application.
 ---
 
+# `Register()`
 
-`Register()`
-===========================
 This method is used to authenticate with your application. It is responsible for verifying the supplied user credentials and establishing or
-  renewing a connection. The authentication information will be stored in the metadata object and will be included in all request bodies.
-  All applications must implement the Register method.
+renewing a connection. The authentication information will be stored in the metadata object and will be included in all request bodies.
+All applications must implement the Register method.
 
+## Syntax
 
-Syntax
------------------------------------------------
 <CodeWrapper>
 ```javascript
 module.exports = async function Register(request) {
@@ -21,80 +19,83 @@ module.exports = async function Register(request) {
 ```
 
 ```typescript
-import { RegisterRequest, RegisterResponse } from "@shipengine/connect-carrier-api";
+import { RegisterRequest, RegisterResponse } from '@shipengine/connect-carrier-api'
 
 export const Register = async (request: RegisterRequest): Promise<RegisterResponse> => {
   // Your code here
 }
 ```
+
 </CodeWrapper>
 
-
-
-Parameters
------------------------------------------------
+## Parameters
 
 ### `RegisterRequest`
+
 An object containing the authentication information gathered using the connection form you created for your application.
- It will contain whatever fields you defined in this form. Your method must then use this data to perform authentication with your backend service.
+It will contain whatever fields you defined in this form. Your method must then use this data to perform authentication with your backend service.
 
 <Reference>
 
-  <Field name="registration_info" type="object" nullable={false}>
-    <Description>
-      An object containing the fields defined in your connecion form.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="transaction_id" type="string" nullable={false}>
-    <Description>
-      The transaction ID uniquely represents this request. If the request is retried then this transaction ID will be the same. You should only perform the requested action once per given transaction ID.
-    </Description>
-  </Field>
+<Field name="registration_info" type="object" nullable={false}>
+  <Description>An object containing the fields defined in your connecion form.</Description>
+</Field>
 
-  <Field name="metadata" type="object" nullable={true}>
-    <Description>
-      Custom data about this request.
-    </Description>
-  </Field>
+{' '}
+
+<Field name="transaction_id" type="string" nullable={false}>
+  <Description>
+    The transaction ID uniquely represents this request. If the request is retried then this transaction ID will be the
+    same. You should only perform the requested action once per given transaction ID.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="metadata" type="object" nullable={true}>
+  <Description>Custom data about this request.</Description>
+</Field>
 
 </Reference>
 
+## Return Value
 
-Return Value
------------------------------------------------
 ### `RegisterResponse`
+
 The `Register` method returns the result of the carrier's authentication process.
- This information will be included in the `metadata` of every subsequent request to your application.
+This information will be included in the `metadata` of every subsequent request to your application.
 
 <Reference>
 
-  <Field name="credentials" type="object" required={true}>
-    <Description>
-      An object containing basic authentication information for the integration.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="credentials.username" type="string" required={true}>
-    <Description>
-      The user's username
-    </Description>
-  </Field>
+<Field name="credentials" type="object" required={true}>
+  <Description>An object containing basic authentication information for the integration.</Description>
+</Field>
 
-  <Field name="credentials.password" type="string" required={true}>
-    <Description>
-      The user's password
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="metadata" required={true}>
-    <Type>
-      [metadata object](./../metadata.mdx)
-    </Type>
-    <Description>
-      This object should contain all of the necessary properties needed to make authenticated requests with the carrier.
-      Every property included here will be persisted by ShipEngine Connect and included on each subsequent request from this user.
-    </Description>
-  </Field>
+<Field name="credentials.username" type="string" required={true}>
+  <Description>The user's username</Description>
+</Field>
+
+{' '}
+
+<Field name="credentials.password" type="string" required={true}>
+  <Description>The user's password</Description>
+</Field>
+
+{' '}
+
+<Field name="metadata" required={true}>
+  <Type>[metadata object](./../metadata.mdx)</Type>
+  <Description>
+    This object should contain all of the necessary properties needed to make authenticated requests with the carrier.
+    Every property included here will be persisted by ShipEngine Connect and included on each subsequent request from
+    this user.
+  </Description>
+</Field>
 
 </Reference>

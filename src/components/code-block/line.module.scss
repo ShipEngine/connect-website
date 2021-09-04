@@ -1,6 +1,6 @@
 @use "../../styles/variables" as *;
 
-$highlight-color: transparentize($medium-purple, .9);
+$highlight-color: transparentize($medium-purple, 0.9);
 
 .lineNumber {
   &::before {
@@ -42,7 +42,7 @@ $highlight-color: transparentize($medium-purple, .9);
   }
 
   .namespace {
-    opacity: .7;
+    opacity: 0.7;
   }
 
   :global .property,

@@ -13,11 +13,11 @@
   z-index: $docs-nav-menu-button-z-index;
 
   &::before {
-    content: "";
+    content: '';
     display: block;
     height: 100%;
     width: 100%;
-    background: url("../../../public/img/icons/menu-dots.svg") no-repeat center center;
+    background: url('../../../public/img/icons/menu-dots.svg') no-repeat center center;
     background-size: contain;
     background-clip: content-box;
   }
@@ -51,7 +51,7 @@
 
 .subGroup {
   font-weight: 300;
-  margin: .5rem 0;
+  margin: 0.5rem 0;
   cursor: default;
 
   &.selected {
@@ -67,7 +67,7 @@
 
 a.menuItem {
   display: block;
-  padding: .25rem 0;
+  padding: 0.25rem 0;
   font-weight: 300;
   color: $text-color;
 

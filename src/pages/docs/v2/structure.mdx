@@ -2,70 +2,64 @@
 title: ShipEngine Connect application Overview
 description: Learn about how a ShipEngine Connect application is structured.
 tags:
-- ShipEngine Connect
+  - ShipEngine Connect
 ---
 
+# Application Structure
 
-Application Structure
-==================
 ShipEngine Connect applications are just [NPM](https://www.npmjs.com/) packages that meet the following requirements:
 
-* Have a [`package.json`](https://docs.npmjs.com/creating-a-package-json-file) file in the root directory, which specifies its name, version number, and dependencies.
+- Have a [`package.json`](https://docs.npmjs.com/creating-a-package-json-file) file in the root directory, which specifies its name, version number, and dependencies.
 
-* Have the [`@shipengine/connect-runtime`](https://www.npmjs.com/package/@shipengine/connect-runtime) package as a `dependency` in the `package.json` file.
-* Have the appropriate app definition package as a `dependency` in the `package.json` file based on the type of app you're developing.
-  * [`@shipengine/connect-carrier-api`](https://www.npmjs.com/package/@shipengine/connect-carrier-api)
-  * [`@shipengine/connect-order-source-api`](https://www.npmjs.com/package/@shipengine/connect-order-source-api)
+- Have the [`@shipengine/connect-runtime`](https://www.npmjs.com/package/@shipengine/connect-runtime) package as a `dependency` in the `package.json` file.
+- Have the appropriate app definition package as a `dependency` in the `package.json` file based on the type of app you're developing.
 
-* Export an object with properties and methods that define the app's capabilities and functionality.
+  - [`@shipengine/connect-carrier-api`](https://www.npmjs.com/package/@shipengine/connect-carrier-api)
+  - [`@shipengine/connect-order-source-api`](https://www.npmjs.com/package/@shipengine/connect-order-source-api)
+
+- Export an object with properties and methods that define the app's capabilities and functionality.
 
 Other than that, everything else is up to you. We don't impose any specific folder structure or file naming convention. You can build your app just as you would build any other NPM package.
 
+## Getting Started
 
-Getting Started
----------------------
 The [ShipEngine Connect CLI](cli.mdx) makes it easy to get started with your app. It comes with built-in templates for each app type.
 Just run the `connect init` command, answer a few questions, and it'll create all the files and pre-populate much of the basic scaffolding for you.
 
 For more details, see [Creating Your First App](create-first-app.mdx).
 
+## Application Definition
 
-Application Definition
----------------------
-The main export of your app's NPM package must be an object that defines your app's capabilities and functionality.  The properties and methods of this object depend on the type of app you're building.
+The main export of your app's NPM package must be an object that defines your app's capabilities and functionality. The properties and methods of this object depend on the type of app you're building.
 
-* [Carrier app](./app-definition/carrier.mdx)
-* [Order source app](./app-definition/order-source.mdx)
+- [Carrier app](./app-definition/carrier.mdx)
+- [Order source app](./app-definition/order-source.mdx)
 
+## Methods
 
-Methods
----------------------
 As mentioned above, the main export of your application package must be an [Application Definition object](#application-definition), which has properties and methods.
 The properties define your app's capabilities and features, but the methods provide your app's actual implementation.
 As you can imagine, the methods are probably where you'll spend most of your time when building an app.
 
-Methods are just JavaScript functions that take input from ShipEngine Connect and return results to the platform.  What happens in-between those two is entirely up to you.  But, in general, most methods will consist of the following steps:
+Methods are just JavaScript functions that take input from ShipEngine Connect and return results to the platform. What happens in-between those two is entirely up to you. But, in general, most methods will consist of the following steps:
 
-1) Transform the input data into whatever structure is needed by your API.
+1. Transform the input data into whatever structure is needed by your API.
 
-2) Call your API(s) to perform whatever operations are necessary and/or to retrieve whatever data was requested.
+2. Call your API(s) to perform whatever operations are necessary and/or to retrieve whatever data was requested.
 
-3) Transform the data from your API into the structure that's needed by ShipEngine Connect.
+3. Transform the data from your API into the structure that's needed by ShipEngine Connect.
 
-4) Return the data.
+4. Return the data.
 
-Forms
----------------------
+## Forms
+
 Forms are used gather data from an end-user that is interacting with your application from within one of our e-commerce applications.
 For example, you will need to supply a connection form that gathers login credentials
 from the end user so they can be authenticated with your API.
 
-Definitions
--------------------------
+## Definitions
+
 In addition to the [application definition](#application-definition), some application types include definition files for the services it provides. For example, each type of delivery service
 offered by a Carrier app will be described by a delivery service definition file.
 
-<Pager
-  prev="getting-started.mdx" prevTitle="Getting Started"
-  next="tools.mdx" nextTitle="Recommended Tools"
-/>
+<Pager prev="getting-started.mdx" prevTitle="Getting Started" next="tools.mdx" nextTitle="Recommended Tools" />

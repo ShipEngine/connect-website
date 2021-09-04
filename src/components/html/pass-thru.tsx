@@ -1,9 +1,9 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode } from 'react'
 
 export interface MarkdownProps {
-  markdown?: boolean;
-  children?: ReactNode;
-  [key: string]: unknown;
+  markdown?: boolean
+  children?: ReactNode
+  [key: string]: unknown
 }
 
 /**
@@ -12,6 +12,6 @@ export interface MarkdownProps {
 export function passThru(tagName: string) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   return function PassThru({ markdown, children, ...props }: MarkdownProps) {
-    return React.createElement(tagName, props, children);
-  };
+    return React.createElement(tagName, props, children)
+  }
 }

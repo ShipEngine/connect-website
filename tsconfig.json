@@ -21,20 +21,10 @@
     "strictBindCallApply": true,
     "strictPropertyInitialization": true,
 
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ]
+    "lib": ["dom", "dom.iterable", "esnext"]
   },
 
-  "exclude": [
-    "node_modules"
-  ],
+  "exclude": ["node_modules"],
 
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
 }

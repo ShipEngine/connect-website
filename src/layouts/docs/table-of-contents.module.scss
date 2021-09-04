@@ -4,7 +4,7 @@
   font-size: $tiny-font-size;
 
   &::before {
-    content: "On This Page";
+    content: 'On This Page';
     display: block;
     font-size: $text-font-size;
     margin-bottom: 1.3rem;
@@ -16,7 +16,7 @@
     color: $text-color;
     line-height: 1;
     white-space: nowrap;
-    border-bottom: 1px solid transparentize($darker-blue, .85);
+    border-bottom: 1px solid transparentize($darker-blue, 0.85);
 
     &:hover {
       font-weight: 400;

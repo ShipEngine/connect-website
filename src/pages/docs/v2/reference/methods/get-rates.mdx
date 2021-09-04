@@ -3,14 +3,12 @@ title: GetRates Method
 description: This method creates a new label.
 ---
 
+# `GetRates()`
 
-`GetRates()`
-===========================
 This method get possible rates for labels between two addresses.
 
+## Syntax
 
-Syntax
------------------------------------------------
 <CodeWrapper>
 ```javascript
 module.exports = async function GetRates(request) {
@@ -19,158 +17,146 @@ module.exports = async function GetRates(request) {
 ```
 
 ```typescript
-import { GetRatesRequest, GetRatesResponse } from "@shipengine/connect-carrier-api";
+import { GetRatesRequest, GetRatesResponse } from '@shipengine/connect-carrier-api'
 
-export default async function GetRates(
-  request: GetRatesRequest
-): Promise<GetRatesResponse> {
+export default async function GetRates(request: GetRatesRequest): Promise<GetRatesResponse> {
   // Your code here
 }
 ```
+
 </CodeWrapper>
 
-
-
-Parameters
------------------------------------------------
+## Parameters
 
 ### `GetRatesRequest`
+
 An object containing information about the shipment to get rates for. The more information provided the more accurate rates (usually).
 
 <Reference>
 
-  <Field name="metadata" nullable={true}>
-    <Type>
-      [metadata object](./../metadata.mdx)
-    </Type>
-    <Description>
-      This object should contain all of the necessary properties needed to make authenticated requests with the carrier.
-      Every property included here will be persisted by ShipEngine Connect and included on each subsequent request from this user.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="service_code" type="string" nullable={true}>
-    <Description>
-      Code used to map to what the carrier uses to identify the service.
-    </Description>
-  </Field>
+<Field name="metadata" nullable={true}>
+  <Type>[metadata object](./../metadata.mdx)</Type>
+  <Description>
+    This object should contain all of the necessary properties needed to make authenticated requests with the carrier.
+    Every property included here will be persisted by ShipEngine Connect and included on each subsequent request from
+    this user.
+  </Description>
+</Field>
 
-  <Field name="ship_datetime" type="string" nullable={false}>
-    <Description>
-      When the package is expected to ship. Not guaranteed to be in the future. 
-      Formatted per the https://tools.ietf.org/html/rfc3339 spec. Will always be in UTC.
-    </Description>
-  </Field>
+{' '}
 
- <Field name="confirmation" type="string" nullable={true}>
-    <Type>
-      [confirmation type](./../common-types.mdx#delivery-confirmation-types)
-    </Type>
-    <Description>
-      The requested [confirmation](./../common-types.mdx) for this label. 
-      If the field is absent it should be interpreted as "None".
-    </Description>
-  </Field>
+<Field name="service_code" type="string" nullable={true}>
+  <Description>Code used to map to what the carrier uses to identify the service.</Description>
+</Field>
 
-  <Field name="advanced_options" type="object" nullable={true}>
-    <Description>
-      This is a schemaless object. It is for open ended customizations unique to particular carriers.
-      If the field is absent it should be interpreted as the default value for any applicable options, e.g. false for booleans.
-    </Description>
-  </Field>
-  
-  <Field name="insurance_provider" type="string" nullable={true}>
-    <Description>
-      The insurance provider for the insured value of the label, 
-      `carrier` indicates that the user is requesting insurance from the carrier directly, 
-      anything else is extra information that should not result in a transaction.
-      
-      Valid values include the following:
-      * `None`
-      * `Shipstation`
-      * `Carrier`
-      * `External`
-    </Description>
-  </Field>
-  
-  <Field name="is_return_label" type="boolean" nullable={false}>
-    <Description>
-      Indicates whether the label is a return.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="is_residential" type="boolean" nullable={false}>
-    <Description>
-      Indicates whether the label is to a residential address.
-    </Description>
-  </Field>
+<Field name="ship_datetime" type="string" nullable={false}>
+  <Description>
+    When the package is expected to ship. Not guaranteed to be in the future. Formatted per the
+    https://tools.ietf.org/html/rfc3339 spec. Will always be in UTC.
+  </Description>
+</Field>
 
-  <Field name="packages" nullable={false}>
-    <Type>
-      [package object[]](./../package.mdx)
-    </Type>
-    <Description>
-      All the packages that make up this shipment. There will always be at least one package defined.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="customs" nullable={true}>
-    <Type>
-      [customs object](./../customs.mdx)
-    </Type>
-    <Description>
-      The customs associated with this shipment.
-    </Description>
-  </Field>
+<Field name="confirmation" type="string" nullable={true}>
+  <Type>[confirmation type](./../common-types.mdx#delivery-confirmation-types)</Type>
+  <Description>
+    The requested [confirmation](./../common-types.mdx) for this label. If the field is absent it should be interpreted
+    as "None".
+  </Description>
+</Field>
 
-  <Field name="ship_to" nullable={false}>
-    <Type>
-      [shipping address object](./../address.mdx#shipping-address-object)
-    </Type>
-    <Description>
-      The shipment recipient's address. It may or may not have been validated.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="ship_from" nullable={false}>
-    <Type>
-      [shipping address object](./../address.mdx#shipping-address-object)
-    </Type>
-    <Description>
-      The shipment sender's address. It may or may not have been validated.
-    </Description>
-  </Field>
+<Field name="advanced_options" type="object" nullable={true}>
+  <Description>
+    This is a schemaless object. It is for open ended customizations unique to particular carriers. If the field is
+    absent it should be interpreted as the default value for any applicable options, e.g. false for booleans.
+  </Description>
+</Field>
+<Field name="insurance_provider" type="string" nullable={true}>
+  <Description>
+    The insurance provider for the insured value of the label, `carrier` indicates that the user is requesting insurance
+    from the carrier directly, anything else is extra information that should not result in a transaction. Valid values
+    include the following: * `None` * `Shipstation` * `Carrier` * `External`
+  </Description>
+</Field>
+<Field name="is_return_label" type="boolean" nullable={false}>
+  <Description>Indicates whether the label is a return.</Description>
+</Field>
 
-  <Field name="pickup_location" nullable={true}>
-    <Type>
-      [pickup location object](./../address.mdx#pickup-location-object)
-    </Type>
-    <Description>
-      If this is a pickup shipment, a pickup location will be populated for where the recipient can pickup the shipment.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="ship_from_display" nullable={true}>
-    <Type>
-      [shipping address object](./../address.mdx#shipping-address-object)
-    </Type>
-    <Description>
-      The address that should be displayed as the return address, only if the carrier supports this functionality.
-    </Description>
-  </Field>
+<Field name="is_residential" type="boolean" nullable={false}>
+  <Description>Indicates whether the label is to a residential address.</Description>
+</Field>
 
-  <Field name="next_day" type="boolean" nullable={true}>
-    <Description>
-      Indicates whether this shipment is expected to use a next day service class. 
-      If the field is absent it should be interpreted as false
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="international" type="boolean" nullable={true}>
-    <Description>
-      Indicates Whether the shipment is international.
-    </Description>
-  </Field>
+<Field name="packages" nullable={false}>
+  <Type>[package object[]](./../package.mdx)</Type>
+  <Description>
+    All the packages that make up this shipment. There will always be at least one package defined.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="customs" nullable={true}>
+  <Type>[customs object](./../customs.mdx)</Type>
+  <Description>The customs associated with this shipment.</Description>
+</Field>
+
+{' '}
+
+<Field name="ship_to" nullable={false}>
+  <Type>[shipping address object](./../address.mdx#shipping-address-object)</Type>
+  <Description>The shipment recipient's address. It may or may not have been validated.</Description>
+</Field>
+
+{' '}
+
+<Field name="ship_from" nullable={false}>
+  <Type>[shipping address object](./../address.mdx#shipping-address-object)</Type>
+  <Description>The shipment sender's address. It may or may not have been validated.</Description>
+</Field>
+
+{' '}
+
+<Field name="pickup_location" nullable={true}>
+  <Type>[pickup location object](./../address.mdx#pickup-location-object)</Type>
+  <Description>
+    If this is a pickup shipment, a pickup location will be populated for where the recipient can pickup the shipment.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="ship_from_display" nullable={true}>
+  <Type>[shipping address object](./../address.mdx#shipping-address-object)</Type>
+  <Description>
+    The address that should be displayed as the return address, only if the carrier supports this functionality.
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="next_day" type="boolean" nullable={true}>
+  <Description>
+    Indicates whether this shipment is expected to use a next day service class. If the field is absent it should be
+    interpreted as false
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="international" type="boolean" nullable={true}>
+  <Description>Indicates Whether the shipment is international.</Description>
+</Field>
 
   <Field name="fulfillment_plan_details" nullable={true}>
     <Type>
@@ -183,11 +169,10 @@ An object containing information about the shipment to get rates for. The more i
   
 </Reference>
 
+## Return Value
 
-
-Return Value
------------------------------------------------
 ### `GetRatesResponse`
+
 This object model represents the response from a successful get rates request.
 
 <Reference>
@@ -202,94 +187,97 @@ This object model represents the response from a successful get rates request.
     </Description>
   </Field>
 
+{' '}
 
-  <Field name="rates" type="object[]" required={true}>
-    <Description>
-      A list of rates for shipping services. If you use service codes there may be exactly one rate returned for the requested service. 
-      If you use service codes there may be more than one rate to provide additional options. 
-      If you don't use service codes there may be one or more rates. 
-      If you don't provide real time rates you should return a single hard coded zero value rate.
-    </Description>
-  </Field>
+<Field name="rates" type="object[]" required={true}>
+  <Description>
+    A list of rates for shipping services. If you use service codes there may be exactly one rate returned for the
+    requested service. If you use service codes there may be more than one rate to provide additional options. If you
+    don't use service codes there may be one or more rates. If you don't provide real time rates you should return a
+    single hard coded zero value rate.
+  </Description>
+</Field>
 
-  <Field name="rates[].service_code" type="string" required={false}>
-    <Description>
-        The service code uniquely identifies a shipping service that you offer. Which service codes can be passed
-        to you will be configured in ShipEngine.
-        If this field is missing, the rate will be discarded.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="rates[].ship_datetime" type="string" required={false}>
-    <Description>
-        When the package should ship for this rate to be valid.
-        Formatted per the https://tools.ietf.org/html/rfc3339 spec. Must be in UTC.
-    </Description>
-  </Field>
+<Field name="rates[].service_code" type="string" required={false}>
+  <Description>
+    The service code uniquely identifies a shipping service that you offer. Which service codes can be passed to you
+    will be configured in ShipEngine. If this field is missing, the rate will be discarded.
+  </Description>
+</Field>
 
-  <Field name="rates[].estimated_delivery_datetime" type="string" required={false}>
-    <Description>
-        When the package(s) in this shipment are expected to arrive at their destination.
-        Formatted per the https://tools.ietf.org/html/rfc3339 spec. Must be in UTC.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="rates[].billing_line_items" required={false}>
-    <Type>
-      [billing line item object[]](./../billing-line-item.mdx)
-    </Type>
-    <Description>
-      Individual Billing Line items for the rate.
-    </Description>
-  </Field>
+<Field name="rates[].ship_datetime" type="string" required={false}>
+  <Description>
+    When the package should ship for this rate to be valid. Formatted per the https://tools.ietf.org/html/rfc3339 spec.
+    Must be in UTC.
+  </Description>
+</Field>
 
-  <Field name="rates[].error_messages" type="string[]" required={false}>
-    <Description>
-      Any error messages that resulted while trying to get the rate.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="rates[].warning_messages" type="string[]" required={false}>
-    <Description>
-      Any warning messages that resulted while trying to get the rate.
-    </Description>
-  </Field>
+<Field name="rates[].estimated_delivery_datetime" type="string" required={false}>
+  <Description>
+    When the package(s) in this shipment are expected to arrive at their destination. Formatted per the
+    https://tools.ietf.org/html/rfc3339 spec. Must be in UTC.
+  </Description>
+</Field>
 
-  <Field name="rates[].negotiated_rate" type="boolean" required={false}>
-    <Description>
-      Indicates whether this is a pre-negotiated rate.
-    </Description>
-  </Field>
+{' '}
+
+<Field name="rates[].billing_line_items" required={false}>
+  <Type>[billing line item object[]](./../billing-line-item.mdx)</Type>
+  <Description>Individual Billing Line items for the rate.</Description>
+</Field>
+
+{' '}
+
+<Field name="rates[].error_messages" type="string[]" required={false}>
+  <Description>Any error messages that resulted while trying to get the rate.</Description>
+</Field>
+
+{' '}
+
+<Field name="rates[].warning_messages" type="string[]" required={false}>
+  <Description>Any warning messages that resulted while trying to get the rate.</Description>
+</Field>
+
+{' '}
+
+<Field name="rates[].negotiated_rate" type="boolean" required={false}>
+  <Description>Indicates whether this is a pre-negotiated rate.</Description>
+</Field>
 
 </Reference>
 
+## Example
 
-
-Example
------------------------------------------------
 <CodeWrapper>
 ```javascript
 module.exports = async function GetRates(request) {
   // STEP 1: Validation
   // TODO: add any validation logic here
 
-  // STEP 2: Create the data that the carrier's API expects
-  let data = {
-    operation: "quote_rates",
-    service_codes: [request.service_code],
-    confirmation_codes: [request.confirmation],
-    ship_date: request.ship_datetime,
-    from_zone: parseInt(request.ship_from.postal_code, 10),
-    to_zone: parseInt(request.ship_to.postal_code, 10),
-  };
+// STEP 2: Create the data that the carrier's API expects
+let data = {
+operation: "quote_rates",
+service_codes: [request.service_code],
+confirmation_codes: [request.confirmation],
+ship_date: request.ship_datetime,
+from_zone: parseInt(request.ship_from.postal_code, 10),
+to_zone: parseInt(request.ship_to.postal_code, 10),
+};
 
-  // STEP 3: Call the carrier's API
-  const response = await apiClient.request({ data });
+// STEP 3: Call the carrier's API
+const response = await apiClient.request({ data });
 
-  // STEP 4: Create the output data that ShipEngine expects
-  return formatRates(response.data);
+// STEP 4: Create the output data that ShipEngine expects
+return formatRates(response.data);
 }
-```
+
+````
 
 ```typescript
 import {
@@ -317,5 +305,6 @@ export default async function GetRates(request: GetRatesRequest): Promise<GetRat
   // STEP 4: Create the output data that ShipEngine expects
   return formatRates(response.data);
 }
-```
+````
+
 </CodeWrapper>

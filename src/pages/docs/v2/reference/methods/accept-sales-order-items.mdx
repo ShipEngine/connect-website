@@ -3,15 +3,13 @@ title: AcceptSalesOrderItems Method
 description: This method is called when a items are required to be accepted by the order source.
 ---
 
+# `AcceptSalesOrderItems()`
 
-`AcceptSalesOrderItems()`
-===========================
-This method is called when a items are required to be accepted by the order source. 
+This method is called when a items are required to be accepted by the order source.
 Typically the action of accepting orders & order items is initiated by the user through a manual action.
 
+## Syntax
 
-Syntax
------------------------------------------------
 <CodeWrapper>
 ```javascript
 module.exports = async function AcceptSalesOrderItems(request) {
@@ -20,129 +18,120 @@ module.exports = async function AcceptSalesOrderItems(request) {
 ```
 
 ```typescript
-import {
-  AcceptSalesOrderItemsRequest,
-  AcceptSalesOrderItemsResponse
-  } from "@shipengine/connect-order-source-api";
+import { AcceptSalesOrderItemsRequest, AcceptSalesOrderItemsResponse } from '@shipengine/connect-order-source-api'
 
 export const AcceptSalesOrderItems = async (
-  request: AcceptSalesOrderItemsRequest
+  request: AcceptSalesOrderItemsRequest,
 ): Promise<AcceptSalesOrderItemsResponse> => {
   // Your code here
 }
 ```
+
 </CodeWrapper>
 
-
-
-Parameters
------------------------------------------------
+## Parameters
 
 ### `AcceptSalesOrderItemsRequest`
+
 A list of requests to accept orders in an order source.
 
 <Reference>
 
-  <Field name="notifications" nullable={false}>
-    <Type>
-      [accept sales order items notification object[]](#AcceptSalesOrderItems)
-    </Type>
-    <Description>
-      A list of orders to accept in the order source about.
-    </Description>
-  </Field>
+{' '}
+
+<Field name="notifications" nullable={false}>
+  <Type>[accept sales order items notification object[]](#AcceptSalesOrderItems)</Type>
+  <Description>A list of orders to accept in the order source about.</Description>
+</Field>
 
 </Reference>
 
 ### `AcceptSalesOrderItemsNotification`
+
 An individual notification representing an order and items that should be accepted.
 
 <Reference>
 
-  <Field name="notification_id" type="string" nullable={false}>
-    <Description>
-      A unique identifier to correlate this accept notification with its result in the response.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="order_id" type="string" nullable={false}>
-    <Description>
-      The unique identifier of the sales order from the order source.
-    </Description>
-  </Field>
+<Field name="notification_id" type="string" nullable={false}>
+  <Description>A unique identifier to correlate this accept notification with its result in the response.</Description>
+</Field>
 
-  <Field name="items" nullable={false}>
-    <Type>
-      [requested accept item object[]](#RequestedAcceptItem)
-    </Type>
-    <Description>
-      The items to be accepted in this accept notification.
-    </Description>
-  </Field>
+{' '}
+
+<Field name="order_id" type="string" nullable={false}>
+  <Description>The unique identifier of the sales order from the order source.</Description>
+</Field>
+
+{' '}
+
+<Field name="items" nullable={false}>
+  <Type>[requested accept item object[]](#RequestedAcceptItem)</Type>
+  <Description>The items to be accepted in this accept notification.</Description>
+</Field>
 
 </Reference>
 
 ### `RequestedAcceptItem`
+
 An individual item in the accept notification.
 
 <Reference>
 
-  <Field name="line_item_id" type="string" nullable={false}>
-    <Description>
-      The order source's unique identifier for the line item.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="message" type="string" nullable={true}>
-    <Description>
-      Message that the shipper can provide about the action being performed on the item.
-    </Description>
-  </Field>
+<Field name="line_item_id" type="string" nullable={false}>
+  <Description>The order source's unique identifier for the line item.</Description>
+</Field>
 
-  <Field name="quantity" type="number" nullable={false}>
-    <Description>
-       Quantity of the item.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="product" nullable={true}>
-    <Type>
-      [product object](#RequestedAcceptProduct)
-    </Type>
-    <Description>
-       Product information about the item.
-    </Description>
-  </Field>
+<Field name="message" type="string" nullable={true}>
+  <Description>Message that the shipper can provide about the action being performed on the item.</Description>
+</Field>
+
+{' '}
+
+<Field name="quantity" type="number" nullable={false}>
+  <Description>Quantity of the item.</Description>
+</Field>
+
+{' '}
+
+<Field name="product" nullable={true}>
+  <Type>[product object](#RequestedAcceptProduct)</Type>
+  <Description>Product information about the item.</Description>
+</Field>
 
 </Reference>
 
 ### `RequestedAcceptProduct`
+
 Product details about the requested item to accept.
 
 <Reference>
 
-  <Field name="product_id" type="string" nullable={true}>
-    <Description>
-      Product identifier provided by the order source.
-    </Description>
-  </Field>
+{' '}
+
+<Field name="product_id" type="string" nullable={true}>
+  <Description>Product identifier provided by the order source.</Description>
+</Field>
 
 </Reference>
 
-Return Value
------------------------------------------------
+## Return Value
+
 ### `AcceptSalesOrderItemsResult[]`
 
 <Reference>
 
-  <Field name="results" required={true}>
-    <Type>
-      [accept sales order items result object[]](#AcceptSalesOrderItemsResult)
-    </Type>
-    <Description>
-      A list of results for order item accept notifications.
-    </Description>
-  </Field>
+{' '}
+
+<Field name="results" required={true}>
+  <Type>[accept sales order items result object[]](#AcceptSalesOrderItemsResult)</Type>
+  <Description>A list of results for order item accept notifications.</Description>
+</Field>
 
 </Reference>
 
@@ -150,51 +139,52 @@ Return Value
 
 <Reference>
 
-  <Field name="notification_id" type="string" required={true}>
-    <Description>
-      Identifier for the requested accept notification.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="confimation_code" type="string" required={false}>
-    <Description>
-      An identifier provided by the order source to accept the items on the fulfillment.
-    </Description>
-  </Field>
+<Field name="notification_id" type="string" required={true}>
+  <Description>Identifier for the requested accept notification.</Description>
+</Field>
 
-  <Field name="failure_reason" type="string" required={false}>
-    <Description>
-      Details given by the order source if the accept action fails.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="status" type="string" required={true}>
-    <Description>
-      Result status from the accept action performed on the item. Only supported values are: 
-      - `success`
-      - `failure`
-    </Description>
-  </Field>
+<Field name="confimation_code" type="string" required={false}>
+  <Description>An identifier provided by the order source to accept the items on the fulfillment.</Description>
+</Field>
+
+{' '}
+
+<Field name="failure_reason" type="string" required={false}>
+  <Description>Details given by the order source if the accept action fails.</Description>
+</Field>
+
+{' '}
+
+<Field name="status" type="string" required={true}>
+  <Description>
+    Result status from the accept action performed on the item. Only supported values are: - `success` - `failure`
+  </Description>
+</Field>
 
 </Reference>
 
-Example
------------------------------------------------
+## Example
+
 <CodeWrapper>
 ```javascript
 async function AcceptSalesOrderItems(request) {
   // STEP 1: Validation
   // Add any desired validation here
 
-  // STEP 2: Create the data that the order source's API expects
-  const thirdPartyRequest = mapRequest(request);
-  // STEP 3: Call the order source's API
-  const response = await callApi(thirdPartyRequest);
-  // Step 4: Create the output data that ShipEngine expects
-  const mappedResponse = mapResponse(response);
-  return mappedResponse;
+// STEP 2: Create the data that the order source's API expects
+const thirdPartyRequest = mapRequest(request);
+// STEP 3: Call the order source's API
+const response = await callApi(thirdPartyRequest);
+// Step 4: Create the output data that ShipEngine expects
+const mappedResponse = mapResponse(response);
+return mappedResponse;
 }
-```
+
+````
 ```typescript
 export const AcceptSalesOrderItems = async (
   request: AcceptSalesOrderItemsRequest
@@ -210,5 +200,6 @@ export const AcceptSalesOrderItems = async (
   const mappedResponse = mapResponse(response);
   return mappedResponse;
 };
-```
+````
+
 </CodeWrapper>

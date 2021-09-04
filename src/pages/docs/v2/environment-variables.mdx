@@ -3,8 +3,7 @@ title: Environment Variables for Your ShipEngine Connect app
 description: Learn how to manage environment variables for your ShipEngine Connect application with the ShipEngine Connect CLI
 ---
 
-Managing Environment Variables
-===========================
+# Managing Environment Variables
 
 One of the key benefits of integrating your service with [ShipEngine Connect](../../index.mdx) is that we will handle
 hosting your application for you. In order for us to do that, ShipEngine Connect may need access to sensitive data,
@@ -23,8 +22,8 @@ considering when planning your application.
 > Your app will use the environment variable values set at the time it is published. If you makes changes to those
 > variables, you will need to re-publish your app before they take effect in ShipEngine Connect.
 
-Using the CLI
-------------------
+## Using the CLI
+
 The [ShipEngine Connect CLI](./cli.mdx#manage-environment-variables) provides an `env` command with several subcommands that help you manage the
 environment variables available within your application.
 
@@ -37,7 +36,9 @@ environment variables available within your application.
 The `connect env:set` subcommand is used to set one or more environment variables.
 
 #### Example
+
 This example shows running the `connect env:set` command and its output.
+
 ```bash
 $ connect env:set MY_VARIABLE=foo my_second_variable=bar
 MY_VARIABLE=foo has been set.
@@ -52,7 +53,9 @@ The `connect env:get` subcommand is used get the value of one or more environmen
 have a lot of environment variables to be able to get the value of the variable(s) of interest.
 
 #### Example
+
 This example shows running the `connect env:get` command for the `MY_VARIABLE` environment variable.
+
 ```bash
 $ connect env:get my_second_variable
 ┌─────────────┬───────┐
@@ -63,21 +66,27 @@ $ connect env:get my_second_variable
 ```
 
 ### Removing an Unwanted Environment Variable
+
 The `connect env:unset` command is used to unset one or more environment variables. After running this command,
 the specified environment variable will no longer be set the next time you publish your app.
 
 #### Example
+
 This example shows running the `connect env:unset` command and its output.
+
 ```bash
 $ connect env:unset my_second_variable
 MY_VARIABLE has been removed as an environment variable.
 ```
 
 ### Listing Environment Variables
+
 The `connect env:list` command is used to list all the environment variables that are set along with their values.
 
 #### Example
+
 This example shows running the `connect env:list` command and its default output.
+
 ```bash
 $ connect env:list
 ┌────────────────────┬─────────┐
@@ -93,7 +102,9 @@ You can use the `--format` option to list environment variables in table format 
 for easy use with [dotenv](https://www.npmjs.com/package/dotenv).
 
 #### Example
+
 This example shows running the `connect env:list` command using the `--format` option (`-f` for short), specifying the `dotenv` format.
+
 ```
 $ connect env:list -f dotenv
 MY_SECOND_VARIABLE=bar
@@ -106,12 +117,16 @@ It is easy to access environment variables from within your Node.js application 
 that is available out-of-the-box with Node.js.
 
 #### Example
+
 This examples shows how to access an environment variable from within your ShipEngine Connect application.
+
 ```javascript
-console.log(`MY_VARIABLE is: ${process.env.MY_VARIABLE}`);
+console.log(`MY_VARIABLE is: ${process.env.MY_VARIABLE}`)
 ```
 
 <Pager
-prev="./typescript.mdx" prevTitle="Developing in Typescript"
-next="./error-handling.mdx" nextTitle="Error Handling"
+  prev="./typescript.mdx"
+  prevTitle="Developing in Typescript"
+  next="./error-handling.mdx"
+  nextTitle="Error Handling"
 />

@@ -1,10 +1,10 @@
-import { siteURL } from "../../lib/url";
-import styles from "./header.module.scss";
-import React from "react";
-import useSwiftType from "../../components/swiftype/use-swiftype";
+import { siteURL } from '../../lib/url'
+import styles from './header.module.scss'
+import React from 'react'
+import useSwiftType from '../../components/swiftype/use-swiftype'
 
 export function Header() {
-  useSwiftType();
+  useSwiftType()
   return (
     <header className={styles.siteHeader}>
       <a id="site-logo" className={styles.siteLogo} href={siteURL.pathname}>
@@ -16,10 +16,9 @@ export function Header() {
         <label htmlFor="site-search" className="visually-hidden">
           ShipEngine Connect Docs Search
         </label>
-        <input id="site-search" className="st-default-search-input"
-          name="q" type="search" placeholder="Search" />
+        <input id="site-search" className="st-default-search-input" name="q" type="search" placeholder="Search" />
         <input type="hidden" name="as_sitesearch" value="connect.shipengine.com" />
       </form>
     </header>
-  );
+  )
 }

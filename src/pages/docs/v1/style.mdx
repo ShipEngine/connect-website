@@ -2,20 +2,19 @@
 title: ShipEngine Connect code style guide
 description: The ShipEngine Connect style guide provides style guidance for 3rd party app developers
 tags:
-- contrib
-- ShipEngine Connect
-- contribution
-- best
-- practices
-- style guide
+  - contrib
+  - ShipEngine Connect
+  - contribution
+  - best
+  - practices
+  - style guide
 ---
-
 
 ## Code style conventions
 
 We suggest that you use the latest ES6 conventions, many are described below.
 
-----
+---
 
 1. Name things logically... [See reference](https://www.nikola-breznjak.com/blog/books/programming/code-complete-2-steve-mcconnell-power-variable-names/).
 
@@ -37,11 +36,11 @@ We suggest that you use the latest ES6 conventions, many are described below.
 
      ```js
      // Bad.
-     var obj = new Object();
-     const obj = Object.create(Object.prototype);
-     
+     var obj = new Object()
+     const obj = Object.create(Object.prototype)
+
      // Good.
-     const obj = {};
+     const obj = {}
      ```
 
    - Object declarations should:
@@ -56,29 +55,29 @@ We suggest that you use the latest ES6 conventions, many are described below.
        ```js
        // Bad.
        const a = {
-         k1 : v1,
-         k2: v2
-       };
-       const b = { k1: v1, k2 : v2, };
-       const c = {k1:v1};
-       
+         k1: v1,
+         k2: v2,
+       }
+       const b = { k1: v1, k2: v2 }
+       const c = { k1: v1 }
+
        // Good.
        const a = {
          k1: v1,
          k2: v2,
-       };
-       const b = { k1: v1, k2: v2 };
-       const c = { k1: v2 };
+       }
+       const b = { k1: v1, k2: v2 }
+       const c = { k1: v2 }
        ```
 
    - Arrays should be created using the array literal syntax.
 
      ```js
      // Bad.
-     const a = new Array();
-     
+     const a = new Array()
+
      // Good.
-     const a = [];
+     const a = []
      ```
 
 5. Favor `const` and `let` over `var`.
@@ -86,6 +85,7 @@ We suggest that you use the latest ES6 conventions, many are described below.
    - `var` is a legacy keyword and there are no practical use cases for `var` in modern ES6.
 
      - Never use `var`.
+
    - `const` is the default. This prevents the variable from being re-assigned, however a `const` object can still be mutated; if you need true immutability, consider using [`immutable-js`](http://facebook.github.io/immutable-js/).
    - `let` only when the value of the variable must be re-assigned. This is allowed, but it is commonly a sign that you should refactor the code to prevent the need to use `let`.
 
@@ -99,49 +99,55 @@ We suggest that you use the latest ES6 conventions, many are described below.
    ```js
    // Bad.
    function MyClass() {
-     this.someProp = "A value";
+     this.someProp = 'A value'
    }
-   const instance = new MyClass();
-   
+   const instance = new MyClass()
+
    // Good.
    class MyClass {
      constructor(prop) {
-   		this.someProp = prop
+       this.someProp = prop
      }
    }
-   const instance = new MyClass();
+   const instance = new MyClass()
    ```
 
 8. When anonymous funcitons are used, you should use a lambda / [arrow functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions).
 
    ```js
-   const array1 = [1, 4, 9, 16];
-   
+   const array1 = [1, 4, 9, 16]
+
    // Bad.
-   const badMap = array1.map(function( x ) { return x * 2});
-   const lessBadMap = array1.map(function mapData( x ) { return x * 2});
-   
+   const badMap = array1.map(function (x) {
+     return x * 2
+   })
+   const lessBadMap = array1.map(function mapData(x) {
+     return x * 2
+   })
+
    // Good.
-   const goodMap = array1.map(x => x * 2);
-   const bestMap = array1.map((x) => x * 2);
+   const goodMap = array1.map((x) => x * 2)
+   const bestMap = array1.map((x) => x * 2)
    ```
 
 9. Favor [arrow functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) over context binding.
 
    ```js
-   function myMethod(...params) { /* logic here*/ }
-   
-   // Bad.
-   const self = this;
-   const boundMethod = function(...params) {
-     return myMethod.apply(self, params);
+   function myMethod(...params) {
+     /* logic here*/
    }
-   
+
+   // Bad.
+   const self = this
+   const boundMethod = function (...params) {
+     return myMethod.apply(self, params)
+   }
+
    // Less bad.
-   const boundMethod = myMethod.bind(this);
-   
+   const boundMethod = myMethod.bind(this)
+
    // Best.
-   const boundMethod = (...params) => myMethod.apply(this, params);
+   const boundMethod = (...params) => myMethod.apply(this, params)
    ```
 
 10. Use [destructuring](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) when applicable.
@@ -162,8 +168,8 @@ We suggest that you use the latest ES6 conventions, many are described below.
 
       ```js
       // Bad.
-      function apiCall(a, b, isMock = false ) { }
-      
+      function apiCall(a, b, isMock = false) {}
+
       // Good.
       function apiCall(a, b, { isMock = false } = {}) {}
       ```
@@ -172,16 +178,16 @@ We suggest that you use the latest ES6 conventions, many are described below.
 
     ```js
     // Bad.
-    obj.x = 123;
-    obj['y'] = 321;
-    
+    obj.x = 123
+    obj['y'] = 321
+
     // Ok, if needed.
-    obj['x'] = 123;
-    obj['y-z'] = 321;
-    
+    obj['x'] = 123
+    obj['y-z'] = 321
+
     // Best.
-    obj.x = 123;
-    obj.y = 321;
+    obj.x = 123
+    obj.y = 321
     ```
 
 14. Always use strict comparison operators.
@@ -195,21 +201,20 @@ We suggest that you use the latest ES6 conventions, many are described below.
 
     ```js
     // Bad.
-    myPromise.then(() => {}).
-      then(() => {}).
-      catch((ex) => {})
-    
-    // Good.
     myPromise
       .then(() => {})
+      .then(() => {})
       .catch((ex) => {})
+
+    // Good.
+    myPromise.then(() => {}).catch((ex) => {})
     ```
 
 16. Though the example above uses a [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) to demonstrate preferred syntax for method chaining, you should prefer the [`async`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function) / [`await`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await) pattern over the [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) pattern, [see reference](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Async_await). Suggested [further reading here](https://javascript.info/async-await#:~:text=The%20word%20%E2%80%9Casync%E2%80%9D%20before%20a,in%20a%20resolved%20promise%20automatically.&text=So%2C%20async%20ensures%20that%20the,wraps%20non%2Dpromises%20in%20it.).
 
     ```js
-    import axios from "axios"
-    
+    import axios from 'axios'
+
     // Best: no await needed, just return the Promise from the async call
     // made within your function.
     async function makeGetCall(endpoint) {
@@ -218,36 +223,36 @@ We suggest that you use the latest ES6 conventions, many are described below.
 
     // Good: Await the response and return its resolved value.
     async function makeGetCall(endpoint) {
-        try {
-          const response = await axios.get(endpoint)
-          // Do work with response.
-          return response
-        } catch(error) {
-          // Handle error.
-        }
+      try {
+        const response = await axios.get(endpoint)
+        // Do work with response.
+        return response
+      } catch (error) {
+        // Handle error.
+      }
     }
 
     // ########################################################################
 
     // Bad: There is no asyncronous processing happening here, so this
     // should not be marked as an async function.
-    async function parseJson( jsonStr ) {
+    async function parseJson(jsonStr) {
       try {
         return Promise.resolve(JSON.parse(jsonStr))
-      }
-      catch(error) {
+      } catch (error) {
         return Pomise.reject(error)
       }
     }
-    
+
     // Bad: Prefer to await Promises instead of then() / catch() handlers.
     async function makeGetCall(endpoint) {
-      return new Promise( (resolve, reject) => {
-        axios.get(endpoint)
-          .then( (response) => {
+      return new Promise((resolve, reject) => {
+        axios
+          .get(endpoint)
+          .then((response) => {
             resolve(response)
           })
-          .catch( (error) => {
+          .catch((error) => {
             reject(error)
           })
       })
@@ -256,64 +261,65 @@ We suggest that you use the latest ES6 conventions, many are described below.
     // Bad: When awaiting a Promise there is no need to
     // chain then() / catch() handlers.
     async function makeGetCall(endpoint) {
-      const response = await axios.get(endpoint)
+      const response = await axios
+        .get(endpoint)
         // These handlers add no functional value.
-        .then( (response) => response )
-        .catch( (error) => { throw error } );
+        .then((response) => response)
+        .catch((error) => {
+          throw error
+        })
 
-        return response
+      return response
     }
 
     // Bad: There is no need to create our own Promise, as the axios.get()
     // function returns a Promise that can be used as the return value.
     async function makeGetCall(endpoint) {
-      return new Promise( (resolve, reject) => {
+      return new Promise((resolve, reject) => {
         try {
           const response = await axios.get(endpoint)
           resolve(response)
-        } catch(error) {
+        } catch (error) {
           reject(error)
         }
       })
     }
     ```
 
-    
-
-
 17. Prefer the **[optional chaining (`.?`)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining)** operator over explicit `null` / `undefined` / truthy checks for nested data (requires >= node 14).
 
     ```js
-    let person = { employer: { name: 'Acme' }, fistName: 'John', lastName: 'Doe' };
+    let person = { employer: { name: 'Acme' }, fistName: 'John', lastName: 'Doe' }
     // console.log(person.employer.name) => 'Acme'
-    
+
     // Re-defined the person, without an employer name.
-    person = { employer: {}, fistName: 'John', lastName: 'Doe' };
-    
+    person = { employer: {}, fistName: 'John', lastName: 'Doe' }
+
     // Bad
-    const coNameBad = (
+    const coNameBad =
       person.employer !== undefined &&
       person.employer !== null &&
       person.employer.name !== undefined &&
       person.employer.name !== null
-    ) ? person.name : undefined;
+        ? person.name
+        : undefined
     // coNameBad => undefined
-    
+
     // Good.
-    const coNameGood = person.employer?.name;
+    const coNameGood = person.employer?.name
     // coNameGood => undefined
     ```
 
-18. Prefer the **[nullish coalescing operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing_operator)** (`??`) over explicit `null` / `undefined` / truthy checks  (requires >= node 14).
+18. Prefer the **[nullish coalescing operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing_operator)** (`??`) over explicit `null` / `undefined` / truthy checks (requires >= node 14).
 
     ```js
-    const y = null;
-    
+    const y = null
+
     // Bad
-    const x = (y === undefined || y === null || !y) ? "default value" : y;
-    
+    const x = y === undefined || y === null || !y ? 'default value' : y
+
     // Good.
-    const x = y ?? "default value"
+    const x = y ?? 'default value'
     ```
 
 19. Do not nest **[ternary operators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator)** `(?:)`. This is a readability issue.
@@ -322,7 +328,4 @@ We suggest that you use the latest ES6 conventions, many are described below.
 
 21. Do not use the `delete` keyword unless you have to... Instead prefer setting the value of the key to `null` instead. This is a performance consideration.
 
-<Pager
-  prev="./contributing.mdx" prevTitle="Contribution Guide"
-  next="./cli.mdx" nextTitle="Using the CLI"
-/>
+<Pager prev="./contributing.mdx" prevTitle="Contribution Guide" next="./cli.mdx" nextTitle="Using the CLI" />

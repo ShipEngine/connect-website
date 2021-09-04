@@ -2,7 +2,7 @@
 
 .referenceListWrapper {
   &::before {
-    content: "Properties";
+    content: 'Properties';
     font-weight: 400;
     color: $dark-purple;
     float: left;
@@ -24,7 +24,7 @@
 }
 
 .listItemBody {
-  margin-left: .5rem;
+  margin-left: 0.5rem;
 }
 
 .small {

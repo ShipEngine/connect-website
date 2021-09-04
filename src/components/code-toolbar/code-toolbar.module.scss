@@ -24,8 +24,8 @@
   }
 
   :global(.select) {
-    border-color: transparentize($dark-purple, .8);
-    background-image: url("../../../public/img/icons/select-arrows.svg");
+    border-color: transparentize($dark-purple, 0.8);
+    background-image: url('../../../public/img/icons/select-arrows.svg');
     padding-right: 40px;
 
     &::before {

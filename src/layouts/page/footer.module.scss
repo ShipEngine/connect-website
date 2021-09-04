@@ -41,7 +41,7 @@ $social-media-icon-size: 28px;
   font-size: $tiny-font-size;
   font-weight: 600;
   text-transform: uppercase;
-  color: transparentize($darker-blue, .65);
+  color: transparentize($darker-blue, 0.65);
   margin: 0 0 1.5rem 0;
 }
 
@@ -67,37 +67,36 @@ $social-media-icon-size: 28px;
     background-color: $gray;
     background-repeat: no-repeat;
     background-position: center center;
-    transition: background-color .4s ease-in-out;
+    transition: background-color 0.4s ease-in-out;
 
     &:hover {
       background-color: $blue;
     }
 
     &.instagram {
-      background-image: url("../../../public/img/logos/social/instagram.svg");
+      background-image: url('../../../public/img/logos/social/instagram.svg');
     }
 
     &.facebook {
-      background-image: url("../../../public/img/logos/social/facebook.svg");
+      background-image: url('../../../public/img/logos/social/facebook.svg');
     }
 
     &.twitter {
-      background-image: url("../../../public/img/logos/social/twitter.svg");
+      background-image: url('../../../public/img/logos/social/twitter.svg');
     }
 
     &.linkedin {
-      background-image: url("../../../public/img/logos/social/linkedin.svg");
+      background-image: url('../../../public/img/logos/social/linkedin.svg');
     }
   }
 }
 
 .copyright {
   font-size: $small-font-size;
-  opacity: .5;
+  opacity: 0.5;
   margin: 20px 0 0 0;
-  padding: 0 .75rem;
+  padding: 0 0.75rem;
 }
-
 
 /**
   * Landscape Phone screens

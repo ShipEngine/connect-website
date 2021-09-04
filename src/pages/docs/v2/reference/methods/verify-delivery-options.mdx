@@ -3,14 +3,12 @@ title: VerifyDeliveryOptions Method
 description: This method is called when a user is initiating the process to register delivery options.
 ---
 
+# `VerifyDeliveryOptions()`
 
-`VerifyDeliveryOptions()`
-===========================
 This method is called when a user is initiating the registration process to add delivery options.
 
+## Syntax
 
-Syntax
------------------------------------------------
 <CodeWrapper>
 ```javascript
 module.exports = async function VerifyDeliveryOptions(request) {
@@ -19,62 +17,61 @@ module.exports = async function VerifyDeliveryOptions(request) {
 ```
 
 ```typescript
-import {
-  VerifyDeliveryOptionsRequest,
-  VerifyDeliveryOptionsResponse
-  } from "@shipengine/connect-order-source-api";
+import { VerifyDeliveryOptionsRequest, VerifyDeliveryOptionsResponse } from '@shipengine/connect-order-source-api'
 
 export const VerifyDeliveryOptions = async (
-  request: VerifyDeliveryOptionsRequest
+  request: VerifyDeliveryOptionsRequest,
 ): Promise<VerifyDeliveryOptionsResponse> => {
   // Your code here
 }
 ```
+
 </CodeWrapper>
 
-
-
-Parameters
------------------------------------------------
+## Parameters
 
 ### `VerifyDeliveryOptionsRequest`
+
 An object containing parameters to use when registering delivery options with an order source. Currently there are no VerifyDeliveryOptions parameters.
 Implemenatations for this method should just call to the order source to verify delivery options if possible.
 
-Return Value
------------------------------------------------
+## Return Value
 
 ### `OrderAcknowledgementResponse`
 
 <Reference>
 
-  <Field name="is_supported" type="string" required={true}>
-    <Description>
-      Indicates whether or not delivery options is supported in the order source. 
-      Cases where this might not always be true for every merchant happen when the order source has placed limitations on the order source account to enable delivery options.
-      Examples would be the delivery options feature is locked behind a specific plan level or additional setup must be done by the merchant to enable it in the order source.
-    </Description>
-  </Field>
+{' '}
+
+<Field name="is_supported" type="string" required={true}>
+  <Description>
+    Indicates whether or not delivery options is supported in the order source. Cases where this might not always be
+    true for every merchant happen when the order source has placed limitations on the order source account to enable
+    delivery options. Examples would be the delivery options feature is locked behind a specific plan level or
+    additional setup must be done by the merchant to enable it in the order source.
+  </Description>
+</Field>
 
 </Reference>
 
-Example
------------------------------------------------
+## Example
+
 <CodeWrapper>
 ```javascript
 async function VerifyDeliveryOptions(request) {
   // STEP 1: Validation
   // Add any desired validation here
 
-  // STEP 2: Create the data that the order source's API expects
-  const thirdPartyRequest = mapRequest(request);
-  // STEP 3: Call the order source's API
-  const response = await callApi(thirdPartyRequest);
-  // Step 4: Create the output data that ShipEngine expects
-  const mappedResponse = mapResponse(response);
-  return mappedResponse;
+// STEP 2: Create the data that the order source's API expects
+const thirdPartyRequest = mapRequest(request);
+// STEP 3: Call the order source's API
+const response = await callApi(thirdPartyRequest);
+// Step 4: Create the output data that ShipEngine expects
+const mappedResponse = mapResponse(response);
+return mappedResponse;
 }
-```
+
+````
 ```typescript
 export const VerifyDeliveryOptions = async (
   request: VerifyDeliveryOptionsRequest
@@ -90,5 +87,6 @@ export const VerifyDeliveryOptions = async (
   const mappedResponse = mapResponse(response);
   return mappedResponse;
 };
-```
+````
+
 </CodeWrapper>

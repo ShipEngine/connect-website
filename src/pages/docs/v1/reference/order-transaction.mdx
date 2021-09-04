@@ -3,41 +3,41 @@ title: Transaction object
 description: The transaction object provides important information about a method invocation. It also allows you to pass session state between methods, which is especially important for authentication credentials.
 ---
 
-Transaction Object
-===============================================
+# Transaction Object
+
 Every method in a [ShipEngine Connect](../index.mdx) Order App receives a transaction object as the first parameter. This object contains useful information about the method invocation, such as a unique `transactionID`,
- and includes session state such as authentication credentials.
+and includes session state such as authentication credentials.
 
 Your Order App should use the `transaction.session.auth.accessToken` property to obtain the [OAuth 2.0](./../oauth/index.mdx) access token
 required for making calls to your backend API on behalf of the user.
 
+## Properties
 
-Properties
------------------------------------------------
 This table lists the properties of a transaction object and identifies those properties that are nullable.
 
 <Reference>
 
-  <Field name="id" nullable={false}>
-    <Type>
-      UUID
-    </Type>
-    <Description>
-      Uniquely identifies the current transaction. If the transaction is retried, then this `id` will remain the same. You can use this to detect and prevent duplicate operations.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="session" type="object" nullable={false}>
-    <Description>
-      The application's session data.
-    </Description>
-  </Field>
+<Field name="id" nullable={false}>
+  <Type>UUID</Type>
+  <Description>
+    Uniquely identifies the current transaction. If the transaction is retried, then this `id` will remain the same. You
+    can use this to detect and prevent duplicate operations.
+  </Description>
+</Field>
 
-  <Field name="session.auth" type="object" nullable={true}>
-    <Description>
-      An object representing authorization data.
-    </Description>
-  </Field>
+{' '}
+
+<Field name="session" type="object" nullable={false}>
+  <Description>The application's session data.</Description>
+</Field>
+
+{' '}
+
+<Field name="session.auth" type="object" nullable={true}>
+  <Description>An object representing authorization data.</Description>
+</Field>
 
    <Field name="session.auth.accessToken" type="string" nullable={true}>
       <Description>
@@ -46,10 +46,8 @@ This table lists the properties of a transaction object and identifies those pro
     </Field>
 </Reference>
 
+## Examples
 
-
-Examples
--------------------------------------------------
 <CodeWrapper>
 ```javascript
 transaction:
@@ -64,8 +62,3 @@ transaction:
 ```
 
 </CodeWrapper>
-
-
-
-
-

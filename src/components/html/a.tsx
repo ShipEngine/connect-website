@@ -1,11 +1,11 @@
-import Link from "next/link";
-import { ReactNode } from "react";
+import Link from 'next/link'
+import { ReactNode } from 'react'
 
 interface AProps {
-  href: string;
-  markdown?: boolean;
-  children?: ReactNode;
-  [key: string]: unknown;
+  href: string
+  markdown?: boolean
+  children?: ReactNode
+  [key: string]: unknown
 }
 
 /**
@@ -14,10 +14,17 @@ interface AProps {
 export function A({ markdown, href, children, ...props }: AProps) {
   if (markdown) {
     // Convert Markdown links to Next.js Link elements
-    return <Link href={href}><a {...props}>{ children }</a></Link>;
-  }
-  else {
+    return (
+      <Link href={href}>
+        <a {...props}>{children}</a>
+      </Link>
+    )
+  } else {
     // Leave other links as-is
-    return <a href={href} {...props}>{ children }</a>;
+    return (
+      <a href={href} {...props}>
+        {children}
+      </a>
+    )
   }
 }

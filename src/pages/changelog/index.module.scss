@@ -9,7 +9,7 @@ $line-thickness: 3px;
   margin-top: $large-vertical-space;
 
   &::before {
-    content: "";
+    content: '';
     display: block;
     width: $line-thickness;
     height: 5rem;
@@ -18,7 +18,7 @@ $line-thickness: 3px;
 
   > h2 {
     display: grid;
-    grid-template-columns: 1fr .5fr $line-thickness .5fr 1fr;
+    grid-template-columns: 1fr 0.5fr $line-thickness 0.5fr 1fr;
     font-size: $h4-font-size;
     text-align: center;
     margin: 0;
@@ -46,7 +46,7 @@ $line-thickness: 3px;
     &::before {
       grid-row: 1;
       grid-column: 3;
-      content: "";
+      content: '';
       width: $line-thickness;
       height: 8rem;
       background-color: $text-color;
@@ -54,7 +54,7 @@ $line-thickness: 3px;
 
     &::after {
       align-self: center;
-      content: "";
+      content: '';
       height: $line-thickness;
       background-color: $text-color;
     }
@@ -95,7 +95,6 @@ $line-thickness: 3px;
     }
   }
 }
-
 
 /**
   * Small Phone screens

@@ -3,14 +3,12 @@ title: CancelSalesOrderItems Method
 description: This method is called when a items are requesting to be cancelled on the order if the order source supports it.
 ---
 
+# `CancelSalesOrderItems()`
 
-`CancelSalesOrderItems()`
-===========================
 This method is called when a items are requesting to be cancelled on the order if the order source supports it.
 
+## Syntax
 
-Syntax
------------------------------------------------
 <CodeWrapper>
 ```javascript
 module.exports = async function CancelSalesOrderItems(request) {
@@ -19,129 +17,120 @@ module.exports = async function CancelSalesOrderItems(request) {
 ```
 
 ```typescript
-import {
-  CancelSalesOrderItemsRequest,
-  CancelSalesOrderItemsResponse
-  } from "@shipengine/connect-order-source-api";
+import { CancelSalesOrderItemsRequest, CancelSalesOrderItemsResponse } from '@shipengine/connect-order-source-api'
 
 export const CancelSalesOrderItems = async (
-  request: CancelSalesOrderItemsRequest
+  request: CancelSalesOrderItemsRequest,
 ): Promise<CancelSalesOrderItemsResponse> => {
   // Your code here
 }
 ```
+
 </CodeWrapper>
 
-
-
-Parameters
------------------------------------------------
+## Parameters
 
 ### `CancelSalesOrderItemsRequest`
+
 A list of requests to cancel items on orders in an order source.
 
 <Reference>
 
-  <Field name="notifications" nullable={false}>
-    <Type>
-      [cancel sales order items notification object[]](#CancelSalesOrderItems)
-    </Type>
-    <Description>
-      A list of orders to cancel items on.
-    </Description>
-  </Field>
+{' '}
+
+<Field name="notifications" nullable={false}>
+  <Type>[cancel sales order items notification object[]](#CancelSalesOrderItems)</Type>
+  <Description>A list of orders to cancel items on.</Description>
+</Field>
 
 </Reference>
 
 ### `CancelSalesOrderItemsNotification`
+
 An individual notification representing an items that should be cancelled.
 
 <Reference>
 
-  <Field name="notification_id" type="string" nullable={false}>
-    <Description>
-      A unique identifier to correlate this cancel notification with its result in the response.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="order_id" type="string" nullable={false}>
-    <Description>
-      The unique identifier of the sales order from the order source.
-    </Description>
-  </Field>
+<Field name="notification_id" type="string" nullable={false}>
+  <Description>A unique identifier to correlate this cancel notification with its result in the response.</Description>
+</Field>
 
-  <Field name="items" nullable={false}>
-    <Type>
-      [requested cancel item object[]](#RequestedCancelItem)
-    </Type>
-    <Description>
-      The items to be cancelled in this cancel request.
-    </Description>
-  </Field>
+{' '}
+
+<Field name="order_id" type="string" nullable={false}>
+  <Description>The unique identifier of the sales order from the order source.</Description>
+</Field>
+
+{' '}
+
+<Field name="items" nullable={false}>
+  <Type>[requested cancel item object[]](#RequestedCancelItem)</Type>
+  <Description>The items to be cancelled in this cancel request.</Description>
+</Field>
 
 </Reference>
 
 ### `RequestedCancelItem`
+
 An individual item in the cancel request.
 
 <Reference>
 
-  <Field name="line_item_id" type="string" nullable={false}>
-    <Description>
-      The order source's unique identifier for the line item.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="message" type="string" nullable={true}>
-    <Description>
-      Message that the shipper can provide about the action being performed on the item.
-    </Description>
-  </Field>
+<Field name="line_item_id" type="string" nullable={false}>
+  <Description>The order source's unique identifier for the line item.</Description>
+</Field>
 
-  <Field name="quantity" type="number" nullable={false}>
-    <Description>
-       Quantity of the item.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="product" nullable={true}>
-    <Type>
-      [product object](#RequestedCancelProduct)
-    </Type>
-    <Description>
-       Product information about the item.
-    </Description>
-  </Field>
+<Field name="message" type="string" nullable={true}>
+  <Description>Message that the shipper can provide about the action being performed on the item.</Description>
+</Field>
+
+{' '}
+
+<Field name="quantity" type="number" nullable={false}>
+  <Description>Quantity of the item.</Description>
+</Field>
+
+{' '}
+
+<Field name="product" nullable={true}>
+  <Type>[product object](#RequestedCancelProduct)</Type>
+  <Description>Product information about the item.</Description>
+</Field>
 
 </Reference>
 
 ### `RequestedCancelProduct`
+
 Product details about the requested item to cancel.
 
 <Reference>
 
-  <Field name="product_id" type="string" nullable={true}>
-    <Description>
-      Product identifier provided by the order source.
-    </Description>
-  </Field>
+{' '}
+
+<Field name="product_id" type="string" nullable={true}>
+  <Description>Product identifier provided by the order source.</Description>
+</Field>
 
 </Reference>
 
-Return Value
------------------------------------------------
+## Return Value
+
 ### `CancelSalesOrderItemsResult[]`
 
 <Reference>
 
-  <Field name="results" required={true}>
-    <Type>
-      [cancel sales order items result object[]](#CancelSalesOrderItemsResult)
-    </Type>
-    <Description>
-      A list of results for order item cancel notifications.
-    </Description>
-  </Field>
+{' '}
+
+<Field name="results" required={true}>
+  <Type>[cancel sales order items result object[]](#CancelSalesOrderItemsResult)</Type>
+  <Description>A list of results for order item cancel notifications.</Description>
+</Field>
 
 </Reference>
 
@@ -149,51 +138,52 @@ Return Value
 
 <Reference>
 
-  <Field name="notification_id" type="string" required={true}>
-    <Description>
-      Identifier for the requested cancel notification.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="confimation_code" type="string" required={false}>
-    <Description>
-      An identifier provided by the order source to cancel the items on the fulfillment.
-    </Description>
-  </Field>
+<Field name="notification_id" type="string" required={true}>
+  <Description>Identifier for the requested cancel notification.</Description>
+</Field>
 
-  <Field name="failure_reason" type="string" required={false}>
-    <Description>
-      Details given by the order source if the cancel action fails.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="status" type="string" required={true}>
-    <Description>
-      Result status from the cancel action performed on the item. Only supported values are: 
-      - `success`
-      - `failure`
-    </Description>
-  </Field>
+<Field name="confimation_code" type="string" required={false}>
+  <Description>An identifier provided by the order source to cancel the items on the fulfillment.</Description>
+</Field>
+
+{' '}
+
+<Field name="failure_reason" type="string" required={false}>
+  <Description>Details given by the order source if the cancel action fails.</Description>
+</Field>
+
+{' '}
+
+<Field name="status" type="string" required={true}>
+  <Description>
+    Result status from the cancel action performed on the item. Only supported values are: - `success` - `failure`
+  </Description>
+</Field>
 
 </Reference>
 
-Example
------------------------------------------------
+## Example
+
 <CodeWrapper>
 ```javascript
 async function CancelSalesOrderItems(request) {
   // STEP 1: Validation
   // Add any desired validation here
 
-  // STEP 2: Create the data that the order source's API expects
-  const thirdPartyRequest = mapRequest(request);
-  // STEP 3: Call the order source's API
-  const response = await callApi(thirdPartyRequest);
-  // Step 4: Create the output data that ShipEngine expects
-  const mappedResponse = mapResponse(response);
-  return mappedResponse;
+// STEP 2: Create the data that the order source's API expects
+const thirdPartyRequest = mapRequest(request);
+// STEP 3: Call the order source's API
+const response = await callApi(thirdPartyRequest);
+// Step 4: Create the output data that ShipEngine expects
+const mappedResponse = mapResponse(response);
+return mappedResponse;
 }
-```
+
+````
 ```typescript
 export const CancelSalesOrderItems = async (
   request: CancelSalesOrderItemsRequest
@@ -209,5 +199,6 @@ export const CancelSalesOrderItems = async (
   const mappedResponse = mapResponse(response);
   return mappedResponse;
 };
-```
+````
+
 </CodeWrapper>

@@ -3,89 +3,81 @@ title: Package Definition
 description: The page describes the Package object.
 ---
 
-Package Object
-===============================================
+# Package Object
+
 The new package object describes the package information needed when creating a new label.
 
-Properties
------------------------------------------------
-
+## Properties
 
 <Reference>
 
-  <Field name="package_code" type="string" nullable={true}>
-    <Description>
-      Optional code used to map to what the carrier uses to identify the packaging.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="dimension_details" nullable={true}>
-    <Type>
-      [dimension details object](./units.mdx#demension-details-object)
-    </Type>
-    <Description>
-      The dimensions for the package.
-    </Description>
-  </Field>
+<Field name="package_code" type="string" nullable={true}>
+  <Description>Optional code used to map to what the carrier uses to identify the packaging.</Description>
+</Field>
 
-  <Field name="weight_details" type="object" nullable={true}>
-    <Type>
-      [weight details object](./units.mdx#weight-details-object)
-    </Type>
-    <Description>
-      The weight for the package.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="insured_value" type="object" nullable={false}>
-    <Description>
-      The insured value of this shipment.
-    </Description>
-  </Field>
+<Field name="dimension_details" nullable={true}>
+  <Type>[dimension details object](./units.mdx#demension-details-object)</Type>
+  <Description>The dimensions for the package.</Description>
+</Field>
 
-  <Field name="insured_value.amount" type="number" nullable={false}>
-    <Description>
-      The value of the insured amount.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="insured_value.currency" type="string" nullable={false}>
-    <Description>
-      The currency that the value represents.
-    </Description>
-  </Field>
+<Field name="weight_details" type="object" nullable={true}>
+  <Type>[weight details object](./units.mdx#weight-details-object)</Type>
+  <Description>The weight for the package.</Description>
+</Field>
 
-  <Field name="label_messages" type="object" nullable={true}>
-    <Description>
-      User defined messages for the label.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="label_messages.reference1" type="string" nullable={true}>
-    <Description>
-      The first custom message text.
-    </Description>
-  </Field>
+<Field name="insured_value" type="object" nullable={false}>
+  <Description>The insured value of this shipment.</Description>
+</Field>
 
-  <Field name="label_messages.reference2" type="string" nullable={true}>
-    <Description>
-      The second custom message text.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="label_messages.reference3" type="string" nullable={true}>
-    <Description>
-      The third custom message text.
-    </Description>
-  </Field>
+<Field name="insured_value.amount" type="number" nullable={false}>
+  <Description>The value of the insured amount.</Description>
+</Field>
 
-  <Field name="customs" nullable={false}>
-    <Type>
-      [customs object](./customs.mdx)
-    </Type>
-    <Description>
-      The customs associated with this package.
-    </Description>
-  </Field>
+{' '}
+
+<Field name="insured_value.currency" type="string" nullable={false}>
+  <Description>The currency that the value represents.</Description>
+</Field>
+
+{' '}
+
+<Field name="label_messages" type="object" nullable={true}>
+  <Description>User defined messages for the label.</Description>
+</Field>
+
+{' '}
+
+<Field name="label_messages.reference1" type="string" nullable={true}>
+  <Description>The first custom message text.</Description>
+</Field>
+
+{' '}
+
+<Field name="label_messages.reference2" type="string" nullable={true}>
+  <Description>The second custom message text.</Description>
+</Field>
+
+{' '}
+
+<Field name="label_messages.reference3" type="string" nullable={true}>
+  <Description>The third custom message text.</Description>
+</Field>
+
+{' '}
+
+<Field name="customs" nullable={false}>
+  <Type>[customs object](./customs.mdx)</Type>
+  <Description>The customs associated with this package.</Description>
+</Field>
 
 </Reference>

@@ -3,43 +3,38 @@ title: Label Package object
 description: An object representing a label package.
 ---
 
-Label Package Object
-===============================================
+# Label Package Object
+
 A label package object is used to represent a package on a label.
 
+## Properties
 
-Properties
---------------------------------
-
-This table lists the properties of a label package and identifies those properties that are required. 
-
+This table lists the properties of a label package and identifies those properties that are required.
 
 <Reference>
 
-  <Field name="tracking_number" type="string" required={false}>
-    <Description>
-      Tracking number for the package.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="alternative_identifiers" required={false}>
-    <Type>
-      [identifier object[]](./identifier.mdx)
-    </Type>
-    <Description>
-      Alternative identifiers associated with this package, not including the tracking number.
-    </Description>
-  </Field>
+<Field name="tracking_number" type="string" required={false}>
+  <Description>Tracking number for the package.</Description>
+</Field>
 
-  <Field name="document" required={false}>
-    <Type>
-      [document object[]](./document.mdx)
-    </Type>
-    <Description>
-      Package level documents for the specific package not included in the shipment level documents.
-      
-      DO NOT include duplicate documents intentionally, a document should only be added to the CreateLabelResponse or to the LabelPackage.
-    </Description>
-  </Field>
+{' '}
+
+<Field name="alternative_identifiers" required={false}>
+  <Type>[identifier object[]](./identifier.mdx)</Type>
+  <Description>Alternative identifiers associated with this package, not including the tracking number.</Description>
+</Field>
+
+{' '}
+
+<Field name="document" required={false}>
+  <Type>[document object[]](./document.mdx)</Type>
+  <Description>
+    Package level documents for the specific package not included in the shipment level documents. DO NOT include
+    duplicate documents intentionally, a document should only be added to the CreateLabelResponse or to the
+    LabelPackage.
+  </Description>
+</Field>
 
 </Reference>

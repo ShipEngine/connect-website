@@ -3,46 +3,42 @@ title: Pickup Confirmation object
 description: An object representing pickup identification information.
 ---
 
-Pickup Confirmation Object
-===============================================
+# Pickup Confirmation Object
+
 An Pickup Confirmation object is used to describe pickup identification information.
 
 <Reference>
 
-  <Field name="confirmation_id" type="string" required={false}>
-    <Description>
-      The primary confirmation ID for this request.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="alternate_identifiers" required={false}>
-    <Type>
-      [identifier object[]](./identifier.mdx)
-    </Type>
-    <Description>
-      Other identifiers potentially needed in other calls.
-    </Description>
-  </Field>
+<Field name="confirmation_id" type="string" required={false}>
+  <Description>The primary confirmation ID for this request.</Description>
+</Field>
 
-  <Field name="shipment_identifiers" type="object[]" required={false}>
-    <Description>
-      List of the shipments added for this pickup.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="shipment_identifiers[].tracking_number" type="string" required={false}>
-    <Description>
-      The tracking number associated with the shipment.
-    </Description>
-  </Field>
+<Field name="alternate_identifiers" required={false}>
+  <Type>[identifier object[]](./identifier.mdx)</Type>
+  <Description>Other identifiers potentially needed in other calls.</Description>
+</Field>
 
-  <Field name="shipment_identifiers[].alternate_identifiers" required={false}>
-    <Type>
-      [identifier object[]](./identifier.mdx)
-    </Type>
-    <Description>
-      A list of alternate identifiers that can be used to identify a shipment.
-    </Description>
-  </Field>
+{' '}
+
+<Field name="shipment_identifiers" type="object[]" required={false}>
+  <Description>List of the shipments added for this pickup.</Description>
+</Field>
+
+{' '}
+
+<Field name="shipment_identifiers[].tracking_number" type="string" required={false}>
+  <Description>The tracking number associated with the shipment.</Description>
+</Field>
+
+{' '}
+
+<Field name="shipment_identifiers[].alternate_identifiers" required={false}>
+  <Type>[identifier object[]](./identifier.mdx)</Type>
+  <Description>A list of alternate identifiers that can be used to identify a shipment.</Description>
+</Field>
 
 </Reference>

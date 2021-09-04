@@ -3,36 +3,36 @@ title: Dimensions object
 description: The dimensions of an item.
 ---
 
-Dimensions Object
-===============================================
+# Dimensions Object
+
 Dimensions objects are used throughout the Order Source specifications to describe the physical dimensions of a product/item.
 
 <Reference>
 
-  <Field name="unit" type="string" required={true} nullable={false}>
-    <Description>
-      The unit of measure associated with these dimensions. Valid values include the following:
-      * `Centimeter`
-      * `Inch`
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="height" type="number" required={true} nullable={false}>
-    <Description>
-      The height of the item in dimension units.
-    </Description>
-  </Field>
+<Field name="unit" type="string" required={true} nullable={false}>
+  <Description>
+    The unit of measure associated with these dimensions. Valid values include the following: * `Centimeter` * `Inch`
+  </Description>
+</Field>
 
-  <Field name="width" type="number" required={true} nullable={false}>
-    <Description>
-      The width of the item in dimension units.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="length" type="number" required={true} nullable={false}>
-    <Description>
-      The length of the item in dimension units.
-    </Description>
-  </Field>
+<Field name="height" type="number" required={true} nullable={false}>
+  <Description>The height of the item in dimension units.</Description>
+</Field>
+
+{' '}
+
+<Field name="width" type="number" required={true} nullable={false}>
+  <Description>The width of the item in dimension units.</Description>
+</Field>
+
+{' '}
+
+<Field name="length" type="number" required={true} nullable={false}>
+  <Description>The length of the item in dimension units.</Description>
+</Field>
 
 </Reference>

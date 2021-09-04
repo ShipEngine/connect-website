@@ -5,11 +5,7 @@
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended"
   ],
-  "plugins": [
-    "@typescript-eslint/eslint-plugin",
-    "react-hooks",
-    "jsx-a11y"
-  ],
+  "plugins": ["@typescript-eslint/eslint-plugin", "react-hooks", "jsx-a11y"],
   "rules": {
     "@typescript-eslint/explicit-module-boundary-types": 0,
     "@typescript-eslint/ban-types": 0

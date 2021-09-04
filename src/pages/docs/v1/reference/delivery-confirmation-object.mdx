@@ -3,16 +3,13 @@ title: Delivery Confirmation Object
 description: The page describes how to define a delivery confirmation.
 ---
 
-
-Delivery Confirmation Object
-====================
+# Delivery Confirmation Object
 
 A delivery confirmation is a way of ensuring that the shipment reaches its final destination, such as obtaining
 a signature upon delivery. You defined the delivery confirmation options available through your app in [Delivery Confirmation Definition](./delivery-confirmation.mdx)
 files.
 
-Properties
------------------------------
+## Properties
 
 This table lists the properties of a delivery confirmation object and identifies those properties that are required. The `nullable`
 column indicates which properties may be null when the object is provided as an argument to one of your methods, and the `required`
@@ -20,55 +17,48 @@ column indicates which properties are required when the object is returned from 
 
 <Reference>
 
-  <Field name="id" nullable={false} required={true}>
-    <Type>
-      [UUID](https://www.npmjs.com/package/uuid)
-    </Type>
-    <Description>
-      UUID that uniquely identifies the delivery confirmation. This ID should never change.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="identifiers" nullable={true} required={false}>
-    <Description>
-      Your own identifiers for this delivery confirmation.
-    </Description>
-    <Type>
-      [identifiers object](./identifiers-object.mdx)
-    </Type>
-  </Field>
+<Field name="id" nullable={false} required={true}>
+  <Type>[UUID](https://www.npmjs.com/package/uuid)</Type>
+  <Description>UUID that uniquely identifies the delivery confirmation. This ID should never change.</Description>
+</Field>
 
-  <Field name="code" type="string" nullable={true}>
-    <Description>
-      Optional code used to map to what the carrier uses to identify the delivery confirmation.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="name" type="string" nullable={true}>
-    <Description>
-      The user-friendly name for this delivery confirmation (e.g. "Adult Signature", "Authority to Leave").
-    </Description>
-  </Field>
+<Field name="identifiers" nullable={true} required={false}>
+  <Description>Your own identifiers for this delivery confirmation.</Description>
+  <Type>[identifiers object](./identifiers-object.mdx)</Type>
+</Field>
 
-  <Field name="description" type="string" nullable={true}>
-    <Description>
-      A short, user-friendly description of this delivery confirmation type.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="type" type="string" nullable={true}>
-    <Description>
-      The type of the delivery confirmation. Valid values include the following:
-      * `delivery`
-      * `signature`
-      * `adult_signature`
-      * `direct_signature`
-      * `none` - Many carriers refer to this as _Authority to Leave_ or _No Signature Required_.
-    </Description>
-  </Field>
+<Field name="code" type="string" nullable={true}>
+  <Description>Optional code used to map to what the carrier uses to identify the delivery confirmation.</Description>
+</Field>
+
+{' '}
+
+<Field name="name" type="string" nullable={true}>
+  <Description>
+    The user-friendly name for this delivery confirmation (e.g. "Adult Signature", "Authority to Leave").
+  </Description>
+</Field>
+
+{' '}
+
+<Field name="description" type="string" nullable={true}>
+  <Description>A short, user-friendly description of this delivery confirmation type.</Description>
+</Field>
+
+{' '}
+
+<Field name="type" type="string" nullable={true}>
+  <Description>
+    The type of the delivery confirmation. Valid values include the following: * `delivery` * `signature` *
+    `adult_signature` * `direct_signature` * `none` - Many carriers refer to this as _Authority to Leave_ or _No
+    Signature Required_.
+  </Description>
+</Field>
 
 </Reference>
-
-
-
-

@@ -1,6 +1,6 @@
 @use "variables" as *;
 
-$table-border-color: transparentize($medium-purple, .75);
+$table-border-color: transparentize($medium-purple, 0.75);
 
 table {
   width: 100%;
@@ -20,7 +20,8 @@ tr {
   }
 }
 
-td, th {
+td,
+th {
   font-size: $small-font-size;
   border-left: 1px solid $table-border-color;
 

@@ -3,14 +3,12 @@ title: Track Method
 description: This method is used to track a previously created label.
 ---
 
+# `Track()`
 
-`Track()`
-===========================
 This method is used to track a previously created label.
 
+## Syntax
 
-Syntax
------------------------------------------------
 <CodeWrapper>
 ```javascript
 module.exports = async function Track(request) {
@@ -19,70 +17,65 @@ module.exports = async function Track(request) {
 ```
 
 ```typescript
-import { TrackingRequest, TrackingResponse } from "@shipengine/connect-carrier-api";
+import { TrackingRequest, TrackingResponse } from '@shipengine/connect-carrier-api'
 
-export default async function Track(
-  request: TrackingRequest
-): Promise<TrackingResponse> {
+export default async function Track(request: TrackingRequest): Promise<TrackingResponse> {
   // Your code here
 }
 ```
+
 </CodeWrapper>
 
-
-
-Parameters
------------------------------------------------
+## Parameters
 
 ### `TrackingRequest`
+
 An object containing information about the label to track.
 
 <Reference>
 
-  <Field name="metadata" nullable={true}>
-    <Type>
-      [metadata object](./../metadata.mdx)
-    </Type>
-    <Description>
-      This object should contain all of the necessary properties needed to make authenticated requests with the carrier.
-      Every property included here will be persisted by ShipEngine Connect and included on each subsequent request from this user.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="identifiers" type="object[]" nullable={true}>
-    <Type>
-      [identifier object[]](./../identifier.mdx)
-    </Type>
-    <Description>
-      Array of identifiers describing the label to be tracked.
-    </Description>
-  </Field>
+<Field name="metadata" nullable={true}>
+  <Type>[metadata object](./../metadata.mdx)</Type>
+  <Description>
+    This object should contain all of the necessary properties needed to make authenticated requests with the carrier.
+    Every property included here will be persisted by ShipEngine Connect and included on each subsequent request from
+    this user.
+  </Description>
+</Field>
 
-  <Field name="attributes" type="object[]" nullable={true}>
-    <Description>
-      Extra attributes of a shipment needed in tracking.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="attributes[].type" type="string" nullable={false}>
-    <Description>
-      The attribute type.
-    </Description>
-  </Field>
+<Field name="identifiers" type="object[]" nullable={true}>
+  <Type>[identifier object[]](./../identifier.mdx)</Type>
+  <Description>Array of identifiers describing the label to be tracked.</Description>
+</Field>
 
- <Field name="attributes[].value" type="string" nullable={false}>
-    <Description>
-      The value associated with that key.
-    </Description>
-  </Field>
+{' '}
+
+<Field name="attributes" type="object[]" nullable={true}>
+  <Description>Extra attributes of a shipment needed in tracking.</Description>
+</Field>
+
+{' '}
+
+<Field name="attributes[].type" type="string" nullable={false}>
+  <Description>The attribute type.</Description>
+</Field>
+
+{' '}
+
+<Field name="attributes[].value" type="string" nullable={false}>
+  <Description>The value associated with that key.</Description>
+</Field>
 
 </Reference>
 
+## Return Value
 
-
-Return Value
------------------------------------------------
 ### `TrackingResponse`
+
 This object model represents the response from a successful tracking request.
 
 <Reference>
@@ -97,175 +90,173 @@ This object model represents the response from a successful tracking request.
     </Description>
   </Field>
 
+{' '}
 
-  <Field name="tracking_info" type="object" required={true}>
-    <Description>
-      This model represents tracking information for a shipment.
-    </Description>
-  </Field>
+<Field name="tracking_info" type="object" required={true}>
+  <Description>This model represents tracking information for a shipment.</Description>
+</Field>
 
-  <Field name="tracking_info.carrier_name" type="string" required={false}>
-    <Description>
-      The human readable name of the carrier tracking this shipment.
-    </Description>
-  </Field>
+{' '}
 
- <Field name="tracking_info.tracking_number" type="string" required={false}>
-    <Description>
-      The carrier specific tracking identifier for this shipment.
-    </Description>
-  </Field>
+<Field name="tracking_info.carrier_name" type="string" required={false}>
+  <Description>The human readable name of the carrier tracking this shipment.</Description>
+</Field>
 
- <Field name="tracking_info.standardized_status_code" type="string" required={true}>
-    <Description>
-      This represents the ShipEngine supported status codes for a shipment.
-      
-      Valid values include the following:
-      * `UN` - Unknown
-      * `AC` - Accepted
-      * `IT` - In Transit
-      * `DE` - Delivered
-      * `EX` - Exception
-      * `AT` - Delivery Attempt
-      * `NY` - Not Yet in system
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="tracking_info.carrier_status_code" type="string" required={false}>
-    <Description>
-      The carrier specific status code of this shipment's tracking status.
-    </Description>
-  </Field>
+<Field name="tracking_info.tracking_number" type="string" required={false}>
+  <Description>The carrier specific tracking identifier for this shipment.</Description>
+</Field>
 
- <Field name="tracking_info.carrier_status_description" type="string" required={false}>
-    <Description>
-      The human readable description of this shipment's tracking status.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="tracking_info.shipped_datetime" type="string" required={false}>
-    <Description>
-      When the package(s) in this shipment were turned over to the carrier. Formatted per https://tools.ietf.org/html/rfc3339. Must be in UTC.
-    </Description>
-  </Field>
+<Field name="tracking_info.standardized_status_code" type="string" required={true}>
+  <Description>
+    This represents the ShipEngine supported status codes for a shipment. Valid values include the following: * `UN` -
+    Unknown * `AC` - Accepted * `IT` - In Transit * `DE` - Delivered * `EX` - Exception * `AT` - Delivery Attempt * `NY`
+    - Not Yet in system
+  </Description>
+</Field>
 
- <Field name="tracking_info.estimated_delivery_datetime" type="string" required={false}>
-    <Description>
-      When the package(s) in this shipment are expected to arrive at their destination. Formatted per https://tools.ietf.org/html/rfc3339. Must be in UTC.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="tracking_info.actual_delivery_datetime" type="string" required={false}>
-    <Description>
-      When the package(s) in this shipment arrived at their destination. Formatted per https://tools.ietf.org/html/rfc3339. Must be in UTC.
-    </Description>
-  </Field>
+<Field name="tracking_info.carrier_status_code" type="string" required={false}>
+  <Description>The carrier specific status code of this shipment's tracking status.</Description>
+</Field>
 
- <Field name="tracking_info.shipping_problem_description" type="string" required={false}>
-    <Description>
-      A human readable description of why the shipment is in an error state.
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="tracking_info.weight" type="number" required={false}>
-    <Description>
-      The weight measured by the carrier of the package(s) in this shipment.
-    </Description>
-  </Field>
+<Field name="tracking_info.carrier_status_description" type="string" required={false}>
+  <Description>The human readable description of this shipment's tracking status.</Description>
+</Field>
 
-  <Field name="tracking_info.dimensions" required={false}>
-    <Type>
-      [demension object](../units.mdx#demension-object)
-    </Type>
-    <Description>
-      The dimensions measured by the carrier of the package(s).
-    </Description>
-  </Field>
+{' '}
 
-  <Field name="tracking_info.service" type="object" required={false}>
-    <Description>
-      A shipping provider specific service.
-    </Description>
-  </Field>
+<Field name="tracking_info.shipped_datetime" type="string" required={false}>
+  <Description>
+    When the package(s) in this shipment were turned over to the carrier. Formatted per
+    https://tools.ietf.org/html/rfc3339. Must be in UTC.
+  </Description>
+</Field>
 
- <Field name="tracking_info.service.code" type="string" required={false}>
-    <Description>
-      The code specific to a shipping provider service.
-    </Description>
-  </Field>
+{' '}
 
- <Field name="tracking_info.service.name" type="string" required={false}>
-    <Description>
-      The name of this shipping provider service.
-    </Description>
-  </Field>
+<Field name="tracking_info.estimated_delivery_datetime" type="string" required={false}>
+  <Description>
+    When the package(s) in this shipment are expected to arrive at their destination. Formatted per
+    https://tools.ietf.org/html/rfc3339. Must be in UTC.
+  </Description>
+</Field>
 
- <Field name="tracking_info.packaging" type="string" required={false}>
-    <Description>
-      The carrier observed type of packages in this shipment.
-    </Description>
-  </Field>
+{' '}
 
- <Field name="tracking_info.package_count" type="number" required={false}>
-    <Description>
-      The carrier observed count of packages in this shipment.
-    </Description>
-  </Field>
+<Field name="tracking_info.actual_delivery_datetime" type="string" required={false}>
+  <Description>
+    When the package(s) in this shipment arrived at their destination. Formatted per
+    https://tools.ietf.org/html/rfc3339. Must be in UTC.
+  </Description>
+</Field>
 
- <Field name="tracking_info.events" required={false}>
-    <Type>
-      [track events object[]](../track-event.mdx)
-    </Type>
-    <Description>
-      The carrier observed type of packages in this shipment.
-    </Description>
-  </Field>
+{' '}
 
- <Field name="tracking_info.shipping_problem" type="boolean" required={false}>
-    <Description>
-      Whether or not this shipment has entered an error state.
-    </Description>
-  </Field>
+<Field name="tracking_info.shipping_problem_description" type="string" required={false}>
+  <Description>A human readable description of why the shipment is in an error state.</Description>
+</Field>
 
- <Field name="tracking_info.shipping_problem_code" type="string" required={false}>
-    <Description>
-      The unique identifying code for the type of error encountered by this shipment.
-    </Description>
-  </Field>
+{' '}
 
- <Field name="tracking_info.error_description" type="string" required={false}>
-    <Description>
-      The human readable explanation of the error encountered by this shipment.
-    </Description>
-  </Field>
+<Field name="tracking_info.weight" type="number" required={false}>
+  <Description>The weight measured by the carrier of the package(s) in this shipment.</Description>
+</Field>
+
+{' '}
+
+<Field name="tracking_info.dimensions" required={false}>
+  <Type>[demension object](../units.mdx#demension-object)</Type>
+  <Description>The dimensions measured by the carrier of the package(s).</Description>
+</Field>
+
+{' '}
+
+<Field name="tracking_info.service" type="object" required={false}>
+  <Description>A shipping provider specific service.</Description>
+</Field>
+
+{' '}
+
+<Field name="tracking_info.service.code" type="string" required={false}>
+  <Description>The code specific to a shipping provider service.</Description>
+</Field>
+
+{' '}
+
+<Field name="tracking_info.service.name" type="string" required={false}>
+  <Description>The name of this shipping provider service.</Description>
+</Field>
+
+{' '}
+
+<Field name="tracking_info.packaging" type="string" required={false}>
+  <Description>The carrier observed type of packages in this shipment.</Description>
+</Field>
+
+{' '}
+
+<Field name="tracking_info.package_count" type="number" required={false}>
+  <Description>The carrier observed count of packages in this shipment.</Description>
+</Field>
+
+{' '}
+
+<Field name="tracking_info.events" required={false}>
+  <Type>[track events object[]](../track-event.mdx)</Type>
+  <Description>The carrier observed type of packages in this shipment.</Description>
+</Field>
+
+{' '}
+
+<Field name="tracking_info.shipping_problem" type="boolean" required={false}>
+  <Description>Whether or not this shipment has entered an error state.</Description>
+</Field>
+
+{' '}
+
+<Field name="tracking_info.shipping_problem_code" type="string" required={false}>
+  <Description>The unique identifying code for the type of error encountered by this shipment.</Description>
+</Field>
+
+{' '}
+
+<Field name="tracking_info.error_description" type="string" required={false}>
+  <Description>The human readable explanation of the error encountered by this shipment.</Description>
+</Field>
 
 </Reference>
 
+## Example
 
-
-Example
------------------------------------------------
 <CodeWrapper>
 ```javascript
 module.exports = async function Track(request) {
 
-  // STEP 1: Validation
+// STEP 1: Validation
 
-  // STEP 2: Create the data that the carrier's API expects
+// STEP 2: Create the data that the carrier's API expects
 
-  let data = {
-    operation: "track",
-    session_id: request.metadata.id,
-    tracking_number: request.identifiers.filter((identifier) => identifier.type === 'tracking_number').value,
-  };
+let data = {
+operation: "track",
+session_id: request.metadata.id,
+tracking_number: request.identifiers.filter((identifier) => identifier.type === 'tracking_number').value,
+};
 
-  // STEP 3: Call the carrier's API
-  const response = await apiClient.request({ data });
+// STEP 3: Call the carrier's API
+const response = await apiClient.request({ data });
 
-  // STEP 4: Create the output data that ShipEngine expects
-  return formatTrack(response.data);
+// STEP 4: Create the output data that ShipEngine expects
+return formatTrack(response.data);
 }
-```
+
+````
 
 ```typescript
 import {
@@ -291,5 +282,6 @@ export default async function Track(request: TrackingRequest): Promise<TrackingR
   // STEP 4: Create the output data that ShipEngine expects
   return formatTrack(response.data);
 }
-```
+````
+
 </CodeWrapper>

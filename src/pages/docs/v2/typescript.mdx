@@ -3,9 +3,7 @@ title: Developing in TypeScript
 description: Learn about TypeScript best practices for building ShipEngine Connect apps
 ---
 
-
-Developing in TypeScript
-==================================
+# Developing in TypeScript
 
 [ShipEngine Connect](../../index.mdx) gives you the flexibility to develop your integration application in either TypeScript or JavasScript as long as it matches the required [application structure](./structure.mdx).
 
@@ -13,20 +11,20 @@ Developing in TypeScript
 
 When you run [the `connect init` command](./cli.mdx#initialize-a-new-app) to [create a new app](./create-first-app.mdx), you'll have the option of selecting JavaScript or TypeScript. Selecting TypeScript will generate `.ts` files that import the necessary type definitions from our NPM package. It will also create a [`tsconfig.json`](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html), which allows you to adjust TypeScript's settings.
 
+## Build Step Required
 
-Build Step Required
-----------------------------
 You will need to build your TypeScript before running commands such as `connect test` or `connect publish` to ensure that the command is using your latest code. To make this easier, we add the following scripts to your `package.json` file:
 
 - **build**<br/>
-The "build" script compiles your TypeScript code to JavaScript so ShipEngine Connect can run it. You can run this script via `npm run build`. You can also customize the build script however you need, such as passing options to the compiler or add pre-build or post-build steps.
+  The "build" script compiles your TypeScript code to JavaScript so ShipEngine Connect can run it. You can run this script via `npm run build`. You can also customize the build script however you need, such as passing options to the compiler or add pre-build or post-build steps.
 
 - **watch**<br/>
-The "watch" script runs the TypeScript compiler in ["watch mode"](https://www.typescriptlang.org/docs/handbook/configuring-watch.html), which automatically detects source code changes and does a fast,
-differential rebuild. Note that you'll need to leave your terminal window running, and you'll need to open a new terminal window to perform any other commands, such as [`connect test`](./cli.mdx#test-your-app).
-
+  The "watch" script runs the TypeScript compiler in ["watch mode"](https://www.typescriptlang.org/docs/handbook/configuring-watch.html), which automatically detects source code changes and does a fast,
+  differential rebuild. Note that you'll need to leave your terminal window running, and you'll need to open a new terminal window to perform any other commands, such as [`connect test`](./cli.mdx#test-your-app).
 
 <Pager
-  prev="./implementation.mdx" prevTitle="Implementing Your Methods"
-  next="./environment-variables.mdx" nextTitle="Managing Environment Variables"
+  prev="./implementation.mdx"
+  prevTitle="Implementing Your Methods"
+  next="./environment-variables.mdx"
+  nextTitle="Managing Environment Variables"
 />
