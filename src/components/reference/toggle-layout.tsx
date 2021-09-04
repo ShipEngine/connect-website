@@ -16,22 +16,22 @@ export function ToggleLayout({ className }: Props) {
         <>
           <button className={styles.button} title="Switch to table view"
           onClick={() => settings.update({ referenceLayout: "table" })}>
-            <Image src="/img/icons/reference-table.svg" alt="Switch to table view" />
+            <Image src="/img/icons/reference-table.svg" width="15px" height="13px" alt="Switch to table view" />
           </button>
           <button className={styles.button} disabled={true} title="List view"
           onClick={() => settings.update({ referenceLayout: "list" })}>
-            <Image src="/img/icons/reference-list.svg" alt="List view" />
+            <Image src="/img/icons/reference-list.svg" width="15px" height="13px" alt="List view" />
           </button>
         </>
         :
         <>
           <button className={styles.button} disabled={true} title="Table view"
           onClick={() => settings.update({ referenceLayout: "table" })}>
-            <Image src="/img/icons/reference-table.svg" alt="Table view" />
+            <Image src="/img/icons/reference-table.svg" width="15px" height="13px" alt="Table view" />
           </button>
           <button className={styles.button} title="Switch to list view"
           onClick={() => settings.update({ referenceLayout: "list" })}>
-            <Image src="/img/icons/reference-list.svg" alt="Switch to list view" />
+            <Image src="/img/icons/reference-list.svg" width="15px" height="13px" alt="Switch to list view" />
           </button>
         </>
       }

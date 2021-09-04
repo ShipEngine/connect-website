@@ -25,7 +25,7 @@ export default function DocsLayout(props: DocsLayoutProps) {
     <PageLayout {...props}>
       <div id="docs-page">
         <Menu contents={menu} />
-        <main data-swiftype-name="body" data-swiftype-type="text">
+        <main>
           <article>
             <Section>
               <Left>{firstSectionChildren}</Left>

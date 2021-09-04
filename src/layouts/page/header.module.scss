@@ -31,7 +31,6 @@
   max-width: 400px;
 
   :global(.st-default-search-input) {
-    @include reset-swiftype;
     background: $white url("../../../public/img/icons/search.svg") no-repeat 13px 11px;
   }
 }
