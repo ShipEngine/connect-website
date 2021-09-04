@@ -35,7 +35,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         [null, {
           "packageLocation": "./",
           "packageDependencies": [
-            ["@charlietango/use-script", "virtual:acc0dbca37a9f83f4274f147eea93efc3767cc7ef7ea1657162c0e1affe9eaeda2c729f662638273b51b9fa989ac227055d90aa35fb0c65b01589b6118b7e1c9#npm:2.2.0"],
             ["@jsdevtools/next-mdx", "npm:1.2.0"],
             ["@mdx-js/react", "virtual:acc0dbca37a9f83f4274f147eea93efc3767cc7ef7ea1657162c0e1affe9eaeda2c729f662638273b51b9fa989ac227055d90aa35fb0c65b01589b6118b7e1c9#npm:2.0.0-next.9"],
             ["@types/mdx-js__react", "npm:1.5.4"],
@@ -484,59 +483,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
-      ["@charlietango/use-client-hydrated", [
-        ["npm:1.9.0", {
-          "packageLocation": "./.yarn/cache/@charlietango-use-client-hydrated-npm-1.9.0-89b0f55440-4a60698eec.zip/node_modules/@charlietango/use-client-hydrated/",
-          "packageDependencies": [
-            ["@charlietango/use-client-hydrated", "npm:1.9.0"]
-          ],
-          "linkType": "SOFT",
-        }],
-        ["virtual:aa81b3bea0d072943ad6e29604938650743c39234d8cd73eca2380643e9ddf930e59411e2a888acce360e1cdb36939664305d0ee1b5b318190930887c1b2deb0#npm:1.9.0", {
-          "packageLocation": "./.yarn/__virtual__/@charlietango-use-client-hydrated-virtual-aacc0feaac/0/cache/@charlietango-use-client-hydrated-npm-1.9.0-89b0f55440-4a60698eec.zip/node_modules/@charlietango/use-client-hydrated/",
-          "packageDependencies": [
-            ["@charlietango/use-client-hydrated", "virtual:aa81b3bea0d072943ad6e29604938650743c39234d8cd73eca2380643e9ddf930e59411e2a888acce360e1cdb36939664305d0ee1b5b318190930887c1b2deb0#npm:1.9.0"],
-            ["@types/react", "npm:17.0.19"],
-            ["@types/react-dom", "npm:17.0.9"],
-            ["react", "npm:17.0.2"],
-            ["react-dom", "virtual:acc0dbca37a9f83f4274f147eea93efc3767cc7ef7ea1657162c0e1affe9eaeda2c729f662638273b51b9fa989ac227055d90aa35fb0c65b01589b6118b7e1c9#npm:17.0.2"]
-          ],
-          "packagePeers": [
-            "@types/react-dom",
-            "@types/react",
-            "react-dom",
-            "react"
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
-      ["@charlietango/use-script", [
-        ["npm:2.2.0", {
-          "packageLocation": "./.yarn/cache/@charlietango-use-script-npm-2.2.0-a323fe9345-3dcf4d309e.zip/node_modules/@charlietango/use-script/",
-          "packageDependencies": [
-            ["@charlietango/use-script", "npm:2.2.0"]
-          ],
-          "linkType": "SOFT",
-        }],
-        ["virtual:acc0dbca37a9f83f4274f147eea93efc3767cc7ef7ea1657162c0e1affe9eaeda2c729f662638273b51b9fa989ac227055d90aa35fb0c65b01589b6118b7e1c9#npm:2.2.0", {
-          "packageLocation": "./.yarn/__virtual__/@charlietango-use-script-virtual-aa81b3bea0/0/cache/@charlietango-use-script-npm-2.2.0-a323fe9345-3dcf4d309e.zip/node_modules/@charlietango/use-script/",
-          "packageDependencies": [
-            ["@charlietango/use-script", "virtual:acc0dbca37a9f83f4274f147eea93efc3767cc7ef7ea1657162c0e1affe9eaeda2c729f662638273b51b9fa989ac227055d90aa35fb0c65b01589b6118b7e1c9#npm:2.2.0"],
-            ["@charlietango/use-client-hydrated", "virtual:aa81b3bea0d072943ad6e29604938650743c39234d8cd73eca2380643e9ddf930e59411e2a888acce360e1cdb36939664305d0ee1b5b318190930887c1b2deb0#npm:1.9.0"],
-            ["@types/react", "npm:17.0.19"],
-            ["@types/react-dom", "npm:17.0.9"],
-            ["react", "npm:17.0.2"],
-            ["react-dom", "virtual:acc0dbca37a9f83f4274f147eea93efc3767cc7ef7ea1657162c0e1affe9eaeda2c729f662638273b51b9fa989ac227055d90aa35fb0c65b01589b6118b7e1c9#npm:17.0.2"]
-          ],
-          "packagePeers": [
-            "@types/react-dom",
-            "@types/react",
-            "react-dom",
-            "react"
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
       ["@eslint/eslintrc", [
         ["npm:0.4.3", {
           "packageLocation": "./.yarn/cache/@eslint-eslintrc-npm-0.4.3-ee1bbcab87-03a7704150.zip/node_modules/@eslint/eslintrc/",
@@ -943,7 +889,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",
           "packageDependencies": [
             ["@shipengine/connect-website", "workspace:."],
-            ["@charlietango/use-script", "virtual:acc0dbca37a9f83f4274f147eea93efc3767cc7ef7ea1657162c0e1affe9eaeda2c729f662638273b51b9fa989ac227055d90aa35fb0c65b01589b6118b7e1c9#npm:2.2.0"],
             ["@jsdevtools/next-mdx", "npm:1.2.0"],
             ["@mdx-js/react", "virtual:acc0dbca37a9f83f4274f147eea93efc3767cc7ef7ea1657162c0e1affe9eaeda2c729f662638273b51b9fa989ac227055d90aa35fb0c65b01589b6118b7e1c9#npm:2.0.0-next.9"],
             ["@types/mdx-js__react", "npm:1.5.4"],
