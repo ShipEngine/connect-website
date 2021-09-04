@@ -35,7 +35,7 @@ export function LanguageList(props: LanguageListProps) {
  */
 export function LanguageIcon({ languages: [language] }: LanguageListProps) {
   return (
-    <Image src={`/img/logos/languages/${language}.svg`} alt={humanizeLanguage(language)}
+    <Image src={`/img/logos/languages/${language}.svg`} width="15px" height="15px" alt={humanizeLanguage(language)}
     className={`${styles.languageIcon} ${styles[language]}`} />
   );
 }
