@@ -2,7 +2,6 @@ import { CodeWrapper } from "./code-wrapper/code-wrapper";
 import { A } from "./html/a";
 import { Blockquote } from "./html/blockquote";
 import { H1, H2, H3, H4, H5, H6 } from "./html/headings";
-import { Img } from "./html/img";
 import { passThru } from "./html/pass-thru";
 import { Pre } from "./html/pre";
 import { Pager } from "./pager/pager";
@@ -15,7 +14,6 @@ import { Left, Right, Section } from "./section/section";
 export const components = {
   a: A,
   blockquote: Blockquote,
-  img: Img,
   pre: Pre,
   h1: H1,
   h2: H2,

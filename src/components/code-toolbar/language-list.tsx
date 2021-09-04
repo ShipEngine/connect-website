@@ -1,6 +1,7 @@
 import { Language } from "prism-react-renderer";
 import { Option, Select } from "../select/select";
 import styles from "./language-list.module.scss";
+import Image from "next/image";
 
 const languageOrder = ["javascript", "typescript", "json", "yaml"];
 
@@ -34,7 +35,7 @@ export function LanguageList(props: LanguageListProps) {
  */
 export function LanguageIcon({ languages: [language] }: LanguageListProps) {
   return (
-    <img src={`/img/logos/languages/${language}.svg`} alt={humanizeLanguage(language)}
+    <Image src={`/img/logos/languages/${language}.svg`} alt={humanizeLanguage(language)}
     className={`${styles.languageIcon} ${styles[language]}`} />
   );
 }
