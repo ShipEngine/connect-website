@@ -12,7 +12,8 @@
     "dev": "next dev -p 3005",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "fmt": "prettier --write ./"
   },
   "dependencies": {
     "@charlietango/use-script": "^2.2.0",
@@ -35,7 +36,8 @@
     "eslint": "^7.32.0",
     "eslint-config-next": "11.1.2",
     "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-react-hooks": "^4.2.0"
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "prettier": "^2.3.2"
   },
   "packageManager": "yarn@3.0.2"
 }
