@@ -25,17 +25,6 @@
   }
 }
 
-.siteSearchForm {
-  float: right;
-  width: 40%;
-  max-width: 400px;
-
-  :global(.st-default-search-input) {
-    @include reset-swiftype;
-    background: $white url('../../../public/img/icons/search.svg') no-repeat 13px 11px;
-  }
-}
-
 /**
   * Phone and Tablet screens
   */
@@ -54,12 +43,5 @@
     float: none;
     display: block;
     padding-bottom: 2.2rem;
-  }
-
-  .siteSearchForm {
-    float: none;
-    display: block;
-    width: 100%;
-    max-width: none;
   }
 }
