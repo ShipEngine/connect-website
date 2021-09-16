@@ -42,6 +42,15 @@ An object containing parameters to use when acknowledging orders to an order sou
 
 <Reference>
 
+  <Field name="auth" nullable={false}>
+    <Type>
+      [auth object](#auth)
+    </Type>
+    <Description>
+      Represents the auth information sent with every request
+    </Description>
+  </Field>
+
   <Field name="orders" nullable={false}>
     <Type>
       [order acknowledge object[]](#orderacknowledgement)
