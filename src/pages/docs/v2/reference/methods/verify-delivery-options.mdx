@@ -48,6 +48,15 @@ Return Value
 
 <Reference>
 
+  <Field name="auth" nullable={false}>
+    <Type>
+      [auth object](./../auth.mdx)
+    </Type>
+    <Description>
+      Represents the auth information sent with every request
+    </Description>
+  </Field>
+
   <Field name="is_supported" type="string" required={true}>
     <Description>
       Indicates whether or not delivery options is supported in the order source. 

@@ -44,6 +44,15 @@ A request to notify an order source that a order has been shipped.
 
 <Reference>
 
+  <Field name="auth" nullable={false}>
+    <Type>
+      [auth object](./../auth.mdx)
+    </Type>
+    <Description>
+      Represents the auth information sent with every request
+    </Description>
+  </Field>
+
   <Field name="notifications" nullable={false}>
     <Type>
       [shipment notification object[]](#shipmentnotification)

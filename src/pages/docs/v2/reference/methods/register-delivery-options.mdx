@@ -42,6 +42,15 @@ An object containing parameters to use when registering delivery options with an
 
 <Reference>
 
+  <Field name="auth" nullable={false}>
+    <Type>
+      [auth object](./../auth.mdx)
+    </Type>
+    <Description>
+      Represents the auth information sent with every request
+    </Description>
+  </Field>
+
   <Field name="callback_url" type="string" nullable={false}>
     <Description>
       Callback url to register with the order source.

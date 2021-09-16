@@ -42,6 +42,15 @@ An object containing parameters to use when removing delivery options from an or
 
 <Reference>
 
+  <Field name="auth" nullable={false}>
+    <Type>
+      [auth object](./../auth.mdx)
+    </Type>
+    <Description>
+      Represents the auth information sent with every request
+    </Description>
+  </Field>
+
   <Field name="connection_id" type="string" required={true}>
     <Description>
       The unique identifier for the connection from the order source.

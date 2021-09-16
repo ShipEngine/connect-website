@@ -41,6 +41,15 @@ An object containing parameters to use when querying the order source for sales 
 
 <Reference>
 
+  <Field name="auth" nullable={false}>
+    <Type>
+      [auth object](./../auth.mdx)
+    </Type>
+    <Description>
+      Represents the auth information sent with every request
+    </Description>
+  </Field>
+
   <Field name="criteria" type="object" nullable={true}>
     <Description>
       This object will contain properies that help create the search query to poll the order source for sales orders.
