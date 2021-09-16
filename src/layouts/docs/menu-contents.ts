@@ -101,6 +101,7 @@ export const menu: MenuContents = [
         title: "Reference",
         menuItems: [
           { title: "Address", href: "/docs/v2/reference/address#order-source-address-object" },
+          { title: "Auth", href: "/docs/v2/reference/auth" },
           { title: "BillTo", href: "/docs/v2/reference/address#billto-address-object" },
           { title: "Branding", href: "/docs/v2/reference/branding" },
           { title: "Buyer", href: "/docs/v2/reference/buyer" },

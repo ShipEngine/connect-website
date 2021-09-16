@@ -41,6 +41,15 @@ An object containing parameters to use when querying products from an order sour
 
 <Reference>
 
+  <Field name="auth" nullable={false}>
+    <Type>
+      [auth object](./../auth.mdx)
+    </Type>
+    <Description>
+      Represents the auth information sent with every request
+    </Description>
+  </Field>
+
   <Field name="product_ids" type="string[]" nullable={true}>
     <Description>
       A list of product ids to get data from the order source.
