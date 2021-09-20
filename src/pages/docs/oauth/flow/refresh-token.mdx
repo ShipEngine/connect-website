@@ -22,6 +22,8 @@ that it does not require any interaction in the user's browser. The ShipEngine C
 See the [OAuth 2.0 RFC - Refresh Token](https://tools.ietf.org/html/rfc6749#section-1.5)
 for details on refresh tokens.
 
+> **INFO:** The `{result_token_response:refresh_token}` will be resolved using the [result token response resolver](../resolver/result-token-response.mdx).
+
 ```json
 "refresh_token": {
     "url_template": "http://localhost:3002/access/token/request",
@@ -55,5 +57,5 @@ for details on refresh tokens.
 
 <Pager
   prev="./request-token.mdx" prevTitle="Request Token"
-  next="../index.mdx" nextTitle="Auth Bridge Overview"
+  next="../index.mdx#templating" nextTitle="Templating"
 />
