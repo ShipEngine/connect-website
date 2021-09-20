@@ -22,14 +22,6 @@ Values in the `connection_context` can use some _template expressions_, like
 [`{callback:`](./TEMPLATING_REF.md#callback). This allows
 an integration definition to capture values from the `redirect_uri` from the
 3rd party to include in the connection context.
-For more information on this feature see
-[PLAT-3246](https://auctane.atlassian.net/browse/PLAT-3246).
-
-The name `connection_context` comes from the ShipEngine Connect Platform and
-iPaaS as a whole. `connection_context` may include data entered by the user
-from the data-driven connection UI described by an integration and/or data
-extracted by the `connection_context` response transformer in an integration's
-MonoAuth DSL.
 
 Including _any_ response transformer shifts the burden of response
 parsing from the standard OAuth2 parser to the author of the DSL. The
