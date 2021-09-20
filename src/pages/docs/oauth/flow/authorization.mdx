@@ -51,6 +51,7 @@ for more information on what standards expect.
 - `query_parameters` Any query parameters that the integration's OAuth authorize
 endpoint expects to receive.
 - `nonce` A random string included in the authorization request and returned in the redirect. [This is used to prevent cross-site request forgery.](https://datatracker.ietf.org/doc/html/rfc6749#section-10.12)
+- `{system:authorize_callback_url}` will be updated using the [system resolver](../resolver/system.mdx) with the url in ShipEngine Connect that will handle the callback.
 
 <Pager
   prev="../index.mdx" prevTitle="Auth Bridge Overview"
