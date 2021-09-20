@@ -1,0 +1,58 @@
+---
+title: OAuth Refresh Token
+description: This describes the refresh token step
+tags:
+  - ShipEngine Connect
+  - OAuth
+---
+
+# Refresh Token
+
+Some, but not all, 3rd parties return short-lived Access Tokens that must be
+refreshed using a "refresh token". The `refresh_token` component describes the
+server-server interaction MonoAuth can make to refresh an access token using a
+refresh token.
+
+The `refresh_token` flow differs from the other components of the auth flow in
+that it does not require any interaction in the user's browser. The MonoAuth
+client (Application) makes a server-to-server request to the *internal* endpoint
+`/internal/api/<integration-api-code>/<app-id>/refresh_token`.
+
+:brain: See the [OAuth 2.0 RFC - Refresh Token](https://tools.ietf.org/html/rfc6749#section-1.5)
+for details on refresh tokens.
+
+```json
+"refresh_token": {
+    "url_template": "http://localhost:3002/access/token/request",
+    "method": "POST",
+    "headers": [
+        {
+            "name": "Content-Type",
+            "value": "application/x-www-form-urlencoded"
+        }
+    ],
+    "body": [
+      {
+        "name": "grant_type",
+        "value": "refresh_token"
+      },
+      {
+        "name": "refresh_token",
+        "value": "{result_token_response:refresh_token}"
+      },
+      {
+        "name": "client_id",
+        "value": "{installation:client_id}"
+      },
+      {
+        "name": "client_secret",
+        "value": "{installation:client_secret}"
+      }
+    ]
+  }
+```
+
+<Pager
+  prev="./request-token.mdx" prevTitle="Request Token"
+  next="../index.mdx" nextTitle="Mono Auth Overview"
+/>

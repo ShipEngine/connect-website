@@ -1,0 +1,110 @@
+---
+title: OAuth
+description: This describes the oauth config used for applications
+tags:
+  - ShipEngine Connect
+  - OAuth
+---
+
+# Mono Auth Overview
+The ShipEngine Connect platform uses an internal system called `MonoAuth` to handle Oauth 1 and 2 auth handshake flows.
+This internal system works with a DSL that you define inside of your application definition, and supports property injection in the form of tags.
+
+## Installation Process
+- Define your application as using OAuth as seen in the following [example]()
+- Publish your application to ShipEngine Connect using the `connect publish`
+- Contact a member of the [ShipEngine Connect Team]() in order to establish a MonoAuth installation
+    - Provide a ClientId & ClientSecret used for initiating the oauth workflow
+- Once the installation has been created you will recieve back a callback url Ex: `https://authbridge-sec.auctane.com/authflow/{application_code}/accept`
+
+## OAuth 2
+An Integration Definition consists of three main components, which match the
+OAuth2.0 code-exchange flow. In order, they are:
+
+1. [Authorization](./flow/authorization.mdx)
+1. [Request Token](./flow/request-token.mdx)
+1. [Refresh Token](./flow/refresh-token.mdx)
+
+> **PRO TIP:** If you are not familiar with OAuth2 code-exchange flow there are many
+sites online that provide information:
+- [Auth0 Authorization Code Flow](https://auth0.com/docs/flows/authorization-code-flow)
+- [Okta: Authorization](https://www.oauth.com/oauth2-servers/authorization/)
+- [Okta: What the Heck is OAuth?](https://developer.okta.com/blog/2017/06/21/what-the-heck-is-oauth)
+
+## OAuth 1
+
+To support the 3 legged OAuth1.0 flow two more top level components are available:
+- `access_token` element
+    - `url_template` is the only available property. As always the `url_template` field may be templatized.
+- `advanced_configuration`
+    - `redirector` is currently the only available advanced option. Specifying `oauth1` will initiate and lock a flow into OAuth1.
+
+```json
+{
+  "access_token": {
+    "url_template": "http://localhost:4000/v1/AccessToken"
+  },
+  "request_token": {
+    "url_template": "http://localhost:4000/v1/RequestToken"
+  },
+  "authorization": {
+    "url_template": "http://localhost:4000/v1/Authorise"
+  },
+  "advanced_configuration": [
+    {
+      "name": "redirector",
+      "value": "oauth1"
+    }
+  ]
+}
+```
+
+## Advanced Topics
+- [Response Transformation](./advanced/response-transformation.mdx) *(specify how responses from the two exchanges can be mapped into the MonoAuth canonical model)*
+- [Connection Context](./advanced/connection-context.mdx) *(allows a response transformer to specify a collection of properties in connection_context)*
+
+## Templating
+
+The Integration Definition DSL JSON is processed with a simple templating engine
+that supports variable substitution and some basic operations.
+
+The sample data in [dev_integration_data.json](../sample-data/dev_integration_data.json)
+contains some basic examples of this:
+
+```json
+{
+    "name": "client_id",
+    "value": "{installation:client_id}"
+}
+...
+{
+    "name": "refresh_token",
+    "value": "{result_token_response:refresh_token}"
+},
+...
+{
+    "name": "redirect_uri",
+    "value": "{system:authorize_callback_url}"
+},
+```
+
+### Value Resolvers
+
+The example above shows these templating expressions:
+`{installation:}`, `{result_token_response:}` and `{system:}`. A template expression
+is defined by a value enclosed in curly brackets `{}`. The value always
+contains at least one colon `:`. The part before the colon identifies the Value Resolver.
+The part after the colon is a parameter passed to the Value Resolver.
+
+A value resolver is a component in the templating engine that can look up or 
+compute data. The simplest value resolvers in MonoAuth simply use the RHS to point to a property.
+
+| Expression  | Resolver |
+| ----------- | ----------- |
+| `{auth_state:` | [Auth State](./resolver/auth-state.mdx) |
+| `{base64:` | [Base64](./resolver/base64.mdx) |
+| `{callback:` | [Callback](./resolver/callback.mdx) |
+| `{integration:` | [Integration](./resolver/integration.mdx) |
+| `{installation:` | [Installation](./resolver/installation.mdx) |
+| `{result_token_response:` | [Result Token Response](./resolver/result-token-response.mdx) |
+| `{system:` | [System](./resolver/system.mdx) |

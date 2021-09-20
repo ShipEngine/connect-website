@@ -121,6 +121,18 @@ export const menu: MenuContents = [
     ]
   },
   {
+    title: "OAuth",
+    open: true,
+    menuItems: [
+      { title: "Mono Auth Overview", href: "/docs/oauth" },
+      { title: "Authorization", href: "/docs/oauth/flow/authorization" },
+      { title: "Request Token", href: "/docs/oauth/flow/request-token" },
+      { title: "Refresh Token", href: "/docs/oauth/flow/refresh-token" },
+      { title: "Templating", href: "/docs/oauth#templating" },
+      { title: "Examples", href: "/docs/oauth/examples" }
+    ]
+  },
+  {
     title: "Service",
     open: true,
     menuItems: [
