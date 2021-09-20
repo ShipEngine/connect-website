@@ -13,15 +13,6 @@ refreshed using a "refresh token". The `refresh_token` component describes the
 server-server interaction Auth Bridge can make to refresh an access token using a
 refresh token.
 
-The `refresh_token` flow differs from the other components of the auth flow in
-that it does not require any interaction in the user's browser. The Auth Bridge
-client (Application) makes a server-to-server request to the *internal* endpoint
-`/internal/api/<integration-api-code>/<app-id>/refresh_token`.
-The `refresh_token` flow differs from the other components of the auth flow in
-that it does not require any interaction in the user's browser. The ShipEngine Connect Platform will handle any token refreshing that is required.
-See the [OAuth 2.0 RFC - Refresh Token](https://tools.ietf.org/html/rfc6749#section-1.5)
-for details on refresh tokens.
-
 > **INFO:** The `{result_token_response:refresh_token}` will be resolved using the [result token response resolver](../resolver/result-token-response.mdx).
 
 ```json
