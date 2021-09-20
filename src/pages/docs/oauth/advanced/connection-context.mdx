@@ -14,12 +14,10 @@ access token in the response and authenticated requests, respectively.
 To accommodate for this, Auth Bridge allows a response transformer to specify
 a collection of properties in `connection_context`. Properties defined in
 `connection_context` are included in the 'code for token' (`POST /authflow/token`)
-exchange response (the
-[``](https://github.com/shipstation/Auth Bridge/blob/main/Auth Bridge/Server/Controllers/Contracts/TokenResponse.cs#L11)
-object).
+exchange response.
 
 Values in the `connection_context` can use some _template expressions_, like
-[`{callback:`](./TEMPLATING_REF.md#callback). This allows
+[`{callback:`](../resolver/callback.mdx). This allows
 an integration definition to capture values from the `redirect_uri` from the
 3rd party to include in the connection context.
 
