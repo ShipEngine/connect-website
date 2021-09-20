@@ -20,14 +20,14 @@ can be evaluated:
 {
     "app_Id": "sample-application",
     "integration_api_code": "sample-server",
-    "client_id": "dummy-client-id",
-    "client_secret": "dummy-client-secret"
+    "client_id": "example-client-id",
+    "client_secret": "example-client-id"
 }
 ```
 
 1. template expression: `{base64:{installation:client_secret}}`
-1. rendering pass 1: `{base64:dummy-client-secret}`
-1. rendering pass 2: `ZHVtbXktY2xpZW50LXNlY3JldA==`
+1. rendering pass 1: `{base64:example-client-id}`
+1. rendering pass 2: `e2Jhc2U2NDpleGFtcGxlLWNsaWVudC1pZH0=`
 
 <Pager
   prev="../index.mdx" prevTitle="Mono Auth Overview"
