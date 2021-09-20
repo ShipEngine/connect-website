@@ -10,11 +10,11 @@ tags:
 
 Some, but not all, 3rd parties return short-lived Access Tokens that must be
 refreshed using a "refresh token". The `refresh_token` component describes the
-server-server interaction MonoAuth can make to refresh an access token using a
+server-server interaction Auth Bridge can make to refresh an access token using a
 refresh token.
 
 The `refresh_token` flow differs from the other components of the auth flow in
-that it does not require any interaction in the user's browser. The MonoAuth
+that it does not require any interaction in the user's browser. The Auth Bridge
 client (Application) makes a server-to-server request to the *internal* endpoint
 `/internal/api/<integration-api-code>/<app-id>/refresh_token`.
 The `refresh_token` flow differs from the other components of the auth flow in
@@ -55,5 +55,5 @@ for details on refresh tokens.
 
 <Pager
   prev="./request-token.mdx" prevTitle="Request Token"
-  next="../index.mdx" nextTitle="Mono Auth Overview"
+  next="../index.mdx" nextTitle="Auth Bridge Overview"
 />

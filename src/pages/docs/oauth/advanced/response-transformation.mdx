@@ -10,8 +10,8 @@ tags:
 
 For integrations that do not conform to the OAuth 2.0 specifications for
 a token and refresh token exchange, an Integration DSL may specify how responses
-from the two exchanges can be mapped into the MonoAuth canonical model, the
-[`IntegrationTokenResponse`](../MonoAuth/Server/Data/IntegrationTokenResponse.cs).
+from the two exchanges can be mapped into the Auth Bridge canonical model, the
+[`IntegrationTokenResponse`](../Auth Bridge/Server/Data/IntegrationTokenResponse.cs).
 
 Transformation is done by adding an additional property `response`
 configuration to the `request_token` and `refresh_token` configuration
@@ -58,7 +58,7 @@ Given the response payload from an integration token request:
 }
 ```
 
-The `response` object defines a JSONPath expression that MonoAuth
+The `response` object defines a JSONPath expression that Auth Bridge
 uses to access a value from the response, then populates the associated property
 ie. `$.data.access_token` maps into the `IntegrationTokenResponse.AccessToken`
 property.
@@ -68,7 +68,7 @@ This example also demonstrates two additional features:
 1. The value `Bearer` for `token_type` maps directly into the
 `IntegrationTokenResponse.TokenType` property with a value of `Bearer`.
 1. `expires_at` Is an object, rather than a JSONPath.
-    * The `path` property is JSONPath informing MonoAuth where to obtain the
+    * The `path` property is JSONPath informing Auth Bridge where to obtain the
     value.
     * The `date_time_format` property is a date-time format string that can be
     either a [standard](https://docs.microsoft.com/en-us/dotnet/standard/base-types/standard-date-and-time-format-strings) format string in .NET or a
@@ -79,8 +79,8 @@ This example also demonstrates two additional features:
 field informing the client how long, in seconds, until the `access_token`
 expires. In the example above the integration provides `expires_at`. An integration
 DSL may specify either `expires_in` or `expires_at` but **not both**. In the case 
-of the latter, `expires_at` MonoAuth will parse the date-time and compute an
+of the latter, `expires_at` Auth Bridge will parse the date-time and compute an
 `expires_in` value.
 <Pager
-  prev="../index.mdx" prevTitle="Mono Auth Overview"
+  prev="../index.mdx" prevTitle="Auth Bridge Overview"
 />

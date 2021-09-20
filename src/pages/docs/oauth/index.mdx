@@ -6,14 +6,14 @@ tags:
   - OAuth
 ---
 
-# Mono Auth Overview
-The ShipEngine Connect platform uses an internal system called `MonoAuth` to handle Oauth 1 and 2 auth handshake flows.
+# Auth Bridge Overview
+The ShipEngine Connect platform uses an internal system called `Auth Bridge` to handle Oauth 1 and 2 auth handshake flows.
 This internal system works with a DSL that you define inside of your application definition, and supports property injection in the form of tags.
 
 ## Installation Process
-- Define your application as using OAuth as seen in the following [example]()
+- Define your application as using OAuth as seen in the following [example](./examples/definition.mdx)
 - Publish your application to ShipEngine Connect using the `connect publish`
-- Contact a member of the [ShipEngine Connect Team]() in order to establish a MonoAuth installation
+- Contact a member of the [ShipEngine Connect Team]() in order to establish a Auth Bridge installation
     - Provide a ClientId & ClientSecret used for initiating the oauth workflow
 - Once the installation has been created you will recieve back a callback url Ex: `https://authbridge-sec.auctane.com/authflow/{application_code}/accept`
 
@@ -60,7 +60,7 @@ To support the 3 legged OAuth1.0 flow two more top level components are availabl
 ```
 
 ## Advanced Topics
-- [Response Transformation](./advanced/response-transformation.mdx) *(specify how responses from the two exchanges can be mapped into the MonoAuth canonical model)*
+- [Response Transformation](./advanced/response-transformation.mdx) *(specify how responses from the two exchanges can be mapped into the Auth Bridge canonical model)*
 - [Connection Context](./advanced/connection-context.mdx) *(allows a response transformer to specify a collection of properties in connection_context)*
 
 ## Templating
@@ -95,7 +95,7 @@ contains at least one colon `:`. The part before the colon identifies the Value 
 The part after the colon is a parameter passed to the Value Resolver.
 
 A value resolver is a component in the templating engine that can look up or 
-compute data. The simplest value resolvers in MonoAuth simply use the RHS to point to a property.
+compute data. The simplest value resolvers in Auth Bridge simply use the RHS to point to a property.
 
 | Expression  | Resolver |
 | ----------- | ----------- |

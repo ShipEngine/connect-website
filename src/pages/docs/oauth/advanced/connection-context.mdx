@@ -11,11 +11,11 @@ tags:
 Nonstandard OAuth integrations occasionally both send and expect more than an
 access token in the response and authenticated requests, respectively.
 
-To accommodate for this, MonoAuth allows a response transformer to specify
+To accommodate for this, Auth Bridge allows a response transformer to specify
 a collection of properties in `connection_context`. Properties defined in
 `connection_context` are included in the 'code for token' (`POST /authflow/token`)
 exchange response (the
-[``](https://github.com/shipstation/monoauth/blob/main/MonoAuth/Server/Controllers/Contracts/TokenResponse.cs#L11)
+[``](https://github.com/shipstation/Auth Bridge/blob/main/Auth Bridge/Server/Controllers/Contracts/TokenResponse.cs#L11)
 object).
 
 Values in the `connection_context` can use some _template expressions_, like
@@ -51,7 +51,7 @@ An example:
       }
 }
 
-/* results in the following MonoAuth TokenResponse */
+/* results in the following Auth Bridge TokenResponse */
 {
     "access_token": "foo",
     "token_type": "bearer",
@@ -64,8 +64,8 @@ An example:
       \"store_id\":\"42\",
       \"token_type\":\"bearer\"
     }",
-    "monoauth_created_at": "2021-07-12T18:50:27.7451244Z",
-    "monoauth_application_id": "sample-application",
+    "Auth Bridge_created_at": "2021-07-12T18:50:27.7451244Z",
+    "Auth Bridge_application_id": "sample-application",
     "integration_api_code": "sample-server",
     "connection_context": {
         "store_id": "42" 
@@ -74,5 +74,5 @@ An example:
 
 ```
 <Pager
-  prev="../index.mdx" prevTitle="Mono Auth Overview"
+  prev="../index.mdx" prevTitle="Auth Bridge Overview"
 />

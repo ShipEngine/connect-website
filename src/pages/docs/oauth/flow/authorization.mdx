@@ -7,7 +7,7 @@ tags:
 ---
 
 # Authorization
-Authorization begins with MonoAuth acting on behalf of a ShipEnine Connect Application,
+Authorization begins with Auth Bridge acting on behalf of a ShipEnine Connect Application,
 asking an end user to give permission for the Application to access the user's
 data in the Integration. This is done by redirecting the user's browser to the
 integration, ensuring they are logged in, and accepting the scope of data-access
@@ -42,7 +42,7 @@ that a given Integration Definition may specify.
 ```
 
 In the example above the Definition contains templated information describing
-how MonoAuth should construct and redirect the user's browser. 
+how Auth Bridge should construct and redirect the user's browser. 
 
 See the [OAuth 2.0 RFC - Authorization Request](https://tools.ietf.org/html/rfc6749#section-4.1.1)
 for more information on what standards expect.
@@ -53,6 +53,6 @@ endpoint expects to receive.
 - `nonce` A random string included in the authorization request and returned in the redirect. [This is used to prevent cross-site request forgery.](https://datatracker.ietf.org/doc/html/rfc6749#section-10.12)
 
 <Pager
-  prev="../index.mdx" prevTitle="Mono Auth Overview"
+  prev="../index.mdx" prevTitle="Auth Bridge Overview"
   next="./request-token.mdx" nextTitle="Request Token"
 />
