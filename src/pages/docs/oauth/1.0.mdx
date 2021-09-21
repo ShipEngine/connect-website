@@ -60,50 +60,9 @@ export const Metadata: OrderSourceAppMetadata = {
 ## Advanced Topics
 - [Response Transformation](./advanced/response-transformation.mdx) *(specify how responses from the two exchanges can be mapped into the the platform canonical model)*
 - [Connection Context](./advanced/connection-context.mdx) *(allows a response transformer to specify a collection of properties in connection_context)*
-
-## Templating
-
-The Integration Definition DSL JSON is processed with a simple templating engine
-that supports variable substitution and some basic operations.
+- [Templating](./templating/index.mdx) *(substituting values in your configuration)*
 
 
-```json
-{
-    "name": "client_id",
-    "value": "{installation:client_id}"
-}
-...
-{
-    "name": "refresh_token",
-    "value": "{result_token_response:refresh_token}"
-},
-...
-{
-    "name": "redirect_uri",
-    "value": "{system:authorize_callback_url}"
-},
-```
-
-### Value Resolvers
-
-The example above shows these templating expressions:
-`{installation:}`, `{result_token_response:}` and `{system:}`. A template expression
-is defined by a value enclosed in curly brackets `{}`. The value always
-contains at least one colon `:`. The part before the colon identifies the Value Resolver.
-The part after the colon is a parameter passed to the Value Resolver.
-
-A value resolver is a component in the templating engine that can look up or 
-compute data. The simplest value resolvers in the platform simply use the RHS to point to a property.
-
-| Expression  | Resolver |
-| ----------- | ----------- |
-| `{auth_state:` | [Auth State](./resolver/auth-state.mdx) |
-| `{base64:` | [Base64](./resolver/base64.mdx) |
-| `{callback:` | [Callback](./resolver/callback.mdx) |
-| `{integration:` | [Integration](./resolver/integration.mdx) |
-| `{installation:` | [Installation](./resolver/installation.mdx) |
-| `{result_token_response:` | [Result Token Response](./resolver/result-token-response.mdx) |
-| `{system:` | [System](./resolver/system.mdx) |
 
 <Pager
   prev="./index.mdx" prevTitle="OAuth Configuration"

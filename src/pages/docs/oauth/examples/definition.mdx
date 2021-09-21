@@ -19,7 +19,7 @@ export const AuthProcess: AuthSpecification = {
     IsSandbox: false,
   },
   authorization: {
-    url_template: "https://accounts.google.com/o/oauth2/v2/auth",
+    url_template: "https://accounts.example.com/o/oauth2/v2/auth",
     query_parameters: [
       {
         name: "client_id",
@@ -35,7 +35,7 @@ export const AuthProcess: AuthSpecification = {
       },
       {
         name: "scope",
-        value: "https://www.googleapis.com/auth/content",
+        value: "https://www.exampleapis.com/auth/content",
       },
       {
         name: "access_type",
@@ -49,7 +49,7 @@ export const AuthProcess: AuthSpecification = {
     nonce: null,
   },
   request_token: {
-    url_template: "https://oauth2.googleapis.com/token",
+    url_template: "https://oauth2.exampleapis.com/token",
     method: "POST",
     body: [
       {
@@ -82,7 +82,7 @@ export const AuthProcess: AuthSpecification = {
     query_parameters: [],
   },
   refresh_token: {
-    url_template: "https://oauth2.googleapis.com/token",
+    url_template: "https://oauth2.exampleapis.com/token",
     method: "POST",
     body: [
       {

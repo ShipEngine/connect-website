@@ -5,8 +5,11 @@ tags:
   - ShipEngine Connect
   - OAuth
 ---
+
 # OAuth 2.0 Configuration
+
 ## OAuth 2
+
 An Integration Definition consists of three main components, which match the
 OAuth2.0 code-exchange flow. In order, they are:
 
@@ -15,59 +18,132 @@ OAuth2.0 code-exchange flow. In order, they are:
 1. [Refresh Token](./flow/refresh-token.mdx)
 
 > **PRO TIP:** If you are not familiar with OAuth2 code-exchange flow there are many
-sites online that provide information:
+> sites online that provide information:
 - [Auth0 Authorization Code Flow](https://auth0.com/docs/flows/authorization-code-flow)
 - [Okta: Authorization](https://www.oauth.com/oauth2-servers/authorization/)
 - [Okta: What the Heck is OAuth?](https://developer.okta.com/blog/2017/06/21/what-the-heck-is-oauth)
 
-## Advanced Topics
-- [Response Transformation](./advanced/response-transformation.mdx) *(specify how responses from the two exchanges can be mapped into the the platform canonical model)*
-- [Connection Context](./advanced/connection-context.mdx) *(allows a response transformer to specify a collection of properties in connection_context)*
+### Example Specification
+```typescript
+import {
+  AuthenticationType,
+  AuthSpecification,
+  OrderSourceAppMetadata,
+} from "@shipengine/connect-order-source-api";
 
-## Templating
+export const AuthProcess: AuthSpecification = {
+  Identifier: {
+    AuthenticationType: AuthenticationType.OAuth,
+    IsSandbox: false,
+  },
+  authorization: {
+    url_template: "https://accounts.example.com/o/oauth2/v2/auth",
+    query_parameters: [
+      {
+        name: "client_id",
+        value: "{installation:client_id}",
+      },
+      {
+        name: "redirect_uri",
+        value: "{system:authorize_callback_url}",
+      },
+      {
+        name: "response_type",
+        value: "code",
+      },
+      {
+        name: "scope",
+        value: "https://www.exampleapis.com/auth/content",
+      },
+      {
+        name: "access_type",
+        value: "offline",
+      },
+      {
+        name: "prompt",
+        value: "consent",
+      },
+    ],
+    nonce: null,
+  },
+  request_token: {
+    url_template: "https://oauth2.exampleapis.com/token",
+    method: "POST",
+    body: [
+      {
+        name: "redirect_uri",
+        value: "{system:authorize_callback_url}",
+      },
+      {
+        name: "code",
+        value: "{callback:code}",
+      },
+      {
+        name: "grant_type",
+        value: "authorization_code",
+      },
+      {
+        name: "client_id",
+        value: "{installation:client_id}",
+      },
+      {
+        name: "client_secret",
+        value: "{installation:client_secret}",
+      },
+    ],
+    headers: [
+      {
+        name: "Content-Type",
+        value: "application/x-www-form-urlencoded",
+      },
+    ],
+    query_parameters: [],
+  },
+  refresh_token: {
+    url_template: "https://oauth2.exampleapis.com/token",
+    method: "POST",
+    body: [
+      {
+        name: "client_secret",
+        value: "{installation:client_secret}",
+      },
+      {
+        name: "grant_type",
+        value: "refresh_token",
+      },
+      {
+        name: "client_id",
+        value: "{installation:client_id}",
+      },
+      {
+        name: "refresh_token",
+        value: "{result_token_response:refresh_token}",
+      },
+    ],
+    headers: [
+      {
+        name: "Content-Type",
+        value: "application/x-www-form-urlencoded",
+      },
+    ],
+    query_parameters: [],
+  },
+  advanced_configuration: [],
+};
 
-The Integration Definition DSL JSON is processed with a simple templating engine
-that supports variable substitution and some basic operations.
-
-
-```json
-{
-    "name": "client_id",
-    "value": "{installation:client_id}"
-}
-...
-{
-    "name": "refresh_token",
-    "value": "{result_token_response:refresh_token}"
-},
-...
-{
-    "name": "redirect_uri",
-    "value": "{system:authorize_callback_url}"
-},
+export const Metadata: OrderSourceAppMetadata = {
+  // DO NOT CHANGE THIS ID AFTER PUBLISHING
+  Id: "bcce593b-dce3-4491-8722-a56e653c173f",
+  Name: "Example",
+  AuthProcess,
+  OrderSources: [Example],
+};
 ```
 
-### Value Resolvers
+## Advanced Topics
 
-The example above shows these templating expressions:
-`{installation:}`, `{result_token_response:}` and `{system:}`. A template expression
-is defined by a value enclosed in curly brackets `{}`. The value always
-contains at least one colon `:`. The part before the colon identifies the Value Resolver.
-The part after the colon is a parameter passed to the Value Resolver.
+- [Response Transformation](./advanced/response-transformation.mdx) _(specify how responses from the two exchanges can be mapped into the the platform canonical model)_
+- [Connection Context](./advanced/connection-context.mdx) _(allows a response transformer to specify a collection of properties in connection_context)_
+- [Templating](./templating/index.mdx) _(substituting values in your configuration \{installation:client_id\}, etc...)_
 
-A value resolver is a component in the templating engine that can look up or 
-compute data. The simplest value resolvers in the platform simply use the RHS to point to a property.
-
-| Expression  | Resolver |
-| ----------- | ----------- |
-| `{auth_state:` | [Auth State](./resolver/auth-state.mdx) |
-| `{base64:` | [Base64](./resolver/base64.mdx) |
-| `{callback:` | [Callback](./resolver/callback.mdx) |
-| `{integration:` | [Integration](./resolver/integration.mdx) |
-| `{installation:` | [Installation](./resolver/installation.mdx) |
-| `{result_token_response:` | [Result Token Response](./resolver/result-token-response.mdx) |
-| `{system:` | [System](./resolver/system.mdx) |
-
-<Pager
-  prev="./index.mdx" prevTitle="OAuth Configuration"
-/>
+<Pager prev="./index.mdx" prevTitle="OAuth Configuration" />
