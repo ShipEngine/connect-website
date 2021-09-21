@@ -17,8 +17,8 @@ Our documentation assumes that you understand:
 * [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)/[NodeJS](https://nodejs.org/)
 * [TypeScript](https://www.typescriptlang.org/) (_optional - you can use plain JavaScript_)
 
-After upgrading your @shipengine/connect to at least **2.0.0** using the `npm install -g @shipengine/connect`, you now have access to a new flag for the init command `connect init`.
-This will walk you through a similar process as the connect init command but will generate the brand new template.
+After upgrading your @shipengine/connect to at least **2.0.0** using the `npm install -g @shipengine/connect`, run the init command `connect init`.
+This will walk you through the initialization process and will generate the brand new template.
 
 These new application types contain both the runtime & the domain specific library needed for your app to run (Order Source/Carrier).
 The hope is that you will have a normal JavaScript/TypeScript development lifecycle while working on these projects
@@ -29,11 +29,11 @@ ShipEngine Connect Apps
 ShipEngine Connect apps are NPM packages that export an object matching a certain structure. Please see our app definitions and sample apps for more information.
 
 * [Carrier app definition](./app-definition/carrier.mdx)
-* [Carrier app samples](https://github.com/ShipEngine/connect/tree/master/samples/carrier-api)
+* [Carrier app samples](https://github.com/ShipEngine/connect/tree/master/samples/carrier)
 * [Order source app definition](./app-definition/order-source.mdx)
 * [Order source app samples](https://github.com/ShipEngine/connect/tree/master/samples/order-source)
 
-Your app will run in our hosted Node.js runtime environment. We take care of hosting, scaling, and providing high-availability access to your application,
+Your app will run in our hosted Node.js runtime environment. We take care of hosting, scaling, and providing high-availability access to your application 
 so you can just focus on the core functionality.
 
 Developer Tooling
