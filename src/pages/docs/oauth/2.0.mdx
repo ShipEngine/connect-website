@@ -1,0 +1,149 @@
+---
+title: OAuth 2.0
+description: This describes the oauth 2.0 config used for applications
+tags:
+  - ShipEngine Connect
+  - OAuth
+---
+
+# OAuth 2.0 Configuration
+
+## OAuth 2
+
+An Integration Definition consists of three main components, which match the
+OAuth2.0 code-exchange flow. In order, they are:
+
+1. [Authorization](./flow/authorization.mdx)
+1. [Request Token](./flow/request-token.mdx)
+1. [Refresh Token](./flow/refresh-token.mdx)
+
+> **PRO TIP:** If you are not familiar with OAuth2 code-exchange flow there are many
+> sites online that provide information:
+- [Auth0 Authorization Code Flow](https://auth0.com/docs/flows/authorization-code-flow)
+- [Okta: Authorization](https://www.oauth.com/oauth2-servers/authorization/)
+- [Okta: What the Heck is OAuth?](https://developer.okta.com/blog/2017/06/21/what-the-heck-is-oauth)
+
+### Example Specification
+```typescript
+import {
+  AuthenticationType,
+  AuthSpecification,
+  OrderSourceAppMetadata,
+} from "@shipengine/connect-order-source-api";
+
+export const AuthProcess: AuthSpecification = {
+  Identifier: {
+    AuthenticationType: AuthenticationType.OAuth,
+    IsSandbox: false,
+  },
+  authorization: {
+    url_template: "https://accounts.example.com/o/oauth2/v2/auth",
+    query_parameters: [
+      {
+        name: "client_id",
+        value: "{installation:client_id}",
+      },
+      {
+        name: "redirect_uri",
+        value: "{system:authorize_callback_url}",
+      },
+      {
+        name: "response_type",
+        value: "code",
+      },
+      {
+        name: "scope",
+        value: "https://www.exampleapis.com/auth/content",
+      },
+      {
+        name: "access_type",
+        value: "offline",
+      },
+      {
+        name: "prompt",
+        value: "consent",
+      },
+    ],
+    nonce: null,
+  },
+  request_token: {
+    url_template: "https://oauth2.exampleapis.com/token",
+    method: "POST",
+    body: [
+      {
+        name: "redirect_uri",
+        value: "{system:authorize_callback_url}",
+      },
+      {
+        name: "code",
+        value: "{callback:code}",
+      },
+      {
+        name: "grant_type",
+        value: "authorization_code",
+      },
+      {
+        name: "client_id",
+        value: "{installation:client_id}",
+      },
+      {
+        name: "client_secret",
+        value: "{installation:client_secret}",
+      },
+    ],
+    headers: [
+      {
+        name: "Content-Type",
+        value: "application/x-www-form-urlencoded",
+      },
+    ],
+    query_parameters: [],
+  },
+  refresh_token: {
+    url_template: "https://oauth2.exampleapis.com/token",
+    method: "POST",
+    body: [
+      {
+        name: "client_secret",
+        value: "{installation:client_secret}",
+      },
+      {
+        name: "grant_type",
+        value: "refresh_token",
+      },
+      {
+        name: "client_id",
+        value: "{installation:client_id}",
+      },
+      {
+        name: "refresh_token",
+        value: "{result_token_response:refresh_token}",
+      },
+    ],
+    headers: [
+      {
+        name: "Content-Type",
+        value: "application/x-www-form-urlencoded",
+      },
+    ],
+    query_parameters: [],
+  },
+  advanced_configuration: [],
+};
+
+export const Metadata: OrderSourceAppMetadata = {
+  // DO NOT CHANGE THIS ID AFTER PUBLISHING
+  Id: "bcce593b-dce3-4491-8722-a56e653c173f",
+  Name: "Example",
+  AuthProcess,
+  OrderSources: [Example],
+};
+```
+
+## Advanced Topics
+
+- [Response Transformation](./advanced/response-transformation.mdx) _(specify how responses from the two exchanges can be mapped into the the platform canonical model)_
+- [Connection Context](./advanced/connection-context.mdx) _(allows a response transformer to specify a collection of properties in connection_context)_
+- [Templating](./templating/index.mdx) _(substituting values in your configuration \{installation:client_id\}, etc...)_
+
+<Pager prev="./index.mdx" prevTitle="OAuth Configuration" />
