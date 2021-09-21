@@ -16,14 +16,15 @@ Trade Me uses a 3 legged OAuth 1 strategy, so for them we needed to make use of 
     }
   ]
 ```
-It also needed to take advantage of [response transformation](../advanced/response-transformation.mdx) to map the response payload from the `RequestToken` endpoint.
+It also needs to take advantage of [response transformation](../advanced/response-transformation.mdx) to map the response payload from the `RequestToken` endpoint.
 ### Example Response Payload:
 ``` JSON
 {
-  "access_token": "ACCT-fmY4FS",
+  "access_token": "TOKEN",
+  "access_token_SECRET": "SECRET",
   "expires_in": "3600",
-  "refresh_token": "REFT-z3p5xY",
-  "id_token": "IDT-W51yEr",
+  "refresh_token": "REFRESH_TOKEN",
+  "id_token": "ID_TOKEN",
   "state": "some-state",
   "date_of_creation": 1626115827,
   "token_type": "Bearer"
