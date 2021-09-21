@@ -7,7 +7,7 @@ description: Learn about TypeScript best practices for building ShipEngine Conne
 Developing in TypeScript
 ==================================
 
-[ShipEngine Connect](../../index.mdx) gives you the flexibility to develop your integration application in either TypeScript or JavasScript as long as it matches the required [application structure](./structure.mdx).
+[ShipEngine Connect](../../index.mdx) gives you the flexibility to develop your integration application in either TypeScript or JavaScript as long as it matches the required [application structure](./structure.mdx).
 
 [The `@shipengine/connect` NPM package](https://www.npmjs.com/package/@shipengine/connect) is written in TypeScript and provides type definitions to help you build your app more easily. Many editors, such as [VSCode](https://code.visualstudio.com/) and [WebStorm](https://www.jetbrains.com/webstorm/), will automatically detect our type definitions and provide you with auto-completion and intellisense functionality — sometimes even if you're writing plain JavaScript.
 
@@ -16,10 +16,12 @@ When you run [the `connect init` command](./cli.mdx#initialize-a-new-app) to [cr
 
 Build Step Required
 ----------------------------
-You will need to build your TypeScript before running commands such as `connect test` or `connect publish` to ensure that the command is using your latest code. To make this easier, we add the following scripts to your `package.json` file:
+You will need to build your TypeScript before running commands such as `connect test` or `connect publish` to ensure that the command is using your latest code. 
+
+To make this easier, we add the following scripts to your `package.json` file:
 
 - **build**<br/>
-The "build" script compiles your TypeScript code to JavaScript so ShipEngine Connect can run it. You can run this script via `npm run build`. You can also customize the build script however you need, such as passing options to the compiler or add pre-build or post-build steps.
+The "build" script compiles your TypeScript code to JavaScript so ShipEngine Connect can run it. You can run this script via `npm run build`. You can also customize the build script however you need, such as passing options to the compiler or adding pre-build or post-build steps.
 
 - **watch**<br/>
 The "watch" script runs the TypeScript compiler in ["watch mode"](https://www.typescriptlang.org/docs/handbook/configuring-watch.html), which automatically detects source code changes and does a fast,
