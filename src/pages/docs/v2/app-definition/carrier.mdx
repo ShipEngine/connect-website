@@ -106,7 +106,7 @@ The code for your app definition can be seen [here on github](https://github.com
     </Description>
     </Field>
 
-    <Field name="ShippingOptions" type="object" nullable={false} required={false}>
+    <Field name="ShippingOptions" type="object" nullable={true} required={false}>
     <Description>
       This object defines which shipping options should be made available and what those shipping options should be called in the ui
     </Description>
@@ -118,36 +118,15 @@ The code for your app definition can be seen [here on github](https://github.com
     </Description>
     </Field>
 
-    <Field name="PackageTypes[]" type="object[]" nullable={false} required={false}>
+    <Field name="PackageTypes[]" type="object[]" nullable={true} required={false}>
     <Description>
       A list of [package types](#package-type) associated with this branded carrier
     </Description>
     </Field>
 
-    <Field name="AccountModals" type="object" nullable={false} required={false}>
+    <Field name="AccountModals" type="object" nullable={false} required={true}>
     <Description>
       This defines the connection modal and the settings modals in the ui, along with branded images.
-    </Description>
-    </Field>
-
-    <Field name="AccountModals.Logos[]" type="object" nullable={false} required={false}>
-    <Description>
-      This defines a list of images associated with this branded carrier
-    </Description>
-    </Field>
-    <Field name="AccountModals.Logos[].Url" type="object" nullable={false} required={false}>
-    <Description>
-      This is the full file path to the branded logo
-    </Description>
-    </Field>
-    <Field name="AccountModals.Logos[].Type" type="object" nullable={false} required={false}>
-    <Description>
-      `Color`, `BlackAndWhite`, or `Icon`
-    </Description>
-    </Field>
-    <Field name="AccountModals.Logos[].ImageFormat" type="object" nullable={false} required={false}>
-    <Description>
-      `SVG`
     </Description>
     </Field>
 
@@ -183,6 +162,22 @@ The code for your app definition can be seen [here on github](https://github.com
     </Description>
     </Field>
     
+    <Field name="Images" type="object" nullable={false} required={true}>
+    <Description>
+      This defines a list of images associated with this branded carrier
+    </Description>
+    </Field>
+    <Field name="Images.Logo" type="string" nullable={false} required={true}>
+    <Description>
+      This is the full file path to the branded logo
+    </Description>
+    </Field>
+    <Field name="Images.Icon" type="string" nullable={false} required={true}>
+    <Description>
+      This is the full file path to the branded icon
+    </Description>
+    </Field>
+    
 </Reference>
 
 ## Package Type
@@ -202,7 +197,7 @@ The code for your app definition can be seen [here on github](https://github.com
 
     <Field name="CarrierPackageTypeCode" type="string" nullable={false} required={true}>
     <Description>
-      This is the code that will be sent to requests, this should be the same code as the carriers api's would expect
+      This is the code that will be sent to requests, this should be the same code the carrier's api would expect
     </Description>
     </Field>
 
@@ -243,13 +238,13 @@ The code for your app definition can be seen [here on github](https://github.com
 
     <Field name="Name" type="string" nullable={false} required={true}>
     <Description>
-      The name of this shipping service ex: 'Overnight Gaurantee'
+      The name of this shipping service ex: 'Overnight Guarantee'
     </Description>
     </Field>
 
     <Field name="Code" type="string" nullable={false} required={true}>
     <Description>
-      This is the code that will be sent to requests, this should be the same code as the carriers api's would expect
+      This is the code that will be sent to requests, this should be the same code the carrier's api would expect
     </Description>
     </Field>
 
@@ -273,13 +268,13 @@ The code for your app definition can be seen [here on github](https://github.com
 
     <Field name="Class" type="string" nullable={true} required={false}>
     <Description>
-      The class of service ex: `Ground`, `OneDay`, `ThreeDay` [info](https://github.com/ShipEngine/connect/blob/2cdd2e17c5eea1e6273937b41fce7c41c7d171ab/packages/carrier-api/src/app/metadata/enums.ts#L23)
+      The class of service. ex: `Ground`, `OneDay`, `ThreeDay` [info](https://github.com/ShipEngine/connect/blob/2cdd2e17c5eea1e6273937b41fce7c41c7d171ab/packages/carrier-api/src/app/metadata/enums.ts#L23)
     </Description>
     </Field>
 
     <Field name="Grade" type="string" nullable={true} required={false}>
     <Description>
-      The grade of the service ex: `Economy`, `Expedited`, `Overnight` [info](https://github.com/ShipEngine/connect/blob/2cdd2e17c5eea1e6273937b41fce7c41c7d171ab/packages/carrier-api/src/app/metadata/enums.ts#L34)
+      The grade of the service. ex: `Economy`, `Expedited`, `Overnight` [info](https://github.com/ShipEngine/connect/blob/2cdd2e17c5eea1e6273937b41fce7c41c7d171ab/packages/carrier-api/src/app/metadata/enums.ts#L34)
     </Description>
     </Field>
 

@@ -39,8 +39,9 @@ of functional tests that help validate your application further.
 Your application's identity in ShipEngine Connect will be determined by the scoped `name` property in your project's `package.json`
 <br></br>(ie `@org/app-name`) along with the `id` specified in your application definition file.
 
-The scoped package name as well as the `id` will be used to uniquely identify your application within ShipEngine Connect. For this reason,
-it is important that you not change either of these values once you have published your app.
+The scoped package name as well as the `id` will be used to uniquely identify your application within ShipEngine Connect. 
+
+For this reason, it is important that you not change either of these values once you have published your app.
 
 > **WARNING:** Once you have published your app, you must not change the `id` or `name` of the app.
 
@@ -48,11 +49,10 @@ it is important that you not change either of these values once you have publish
 ### Definition Immutability
 
 [Definition](structure.mdx#Definitions) `id`, `name`,  and `code` properties are used internally to uniquely identify your application's resources.
-Each `id`, `name`, and `code` property should contain a unique value. The properties should
-never be changed once the application is published to ShipEngine Connect.
 
-Only one delivery confirmation definition file should be created for
-each unique delivery confirmation `type` as this value may be used internally to lookup the specified delivery confirmation
+Each `id`, `name`, and `code` property should contain a unique value. The properties should never be changed once the application is published to ShipEngine Connect.
+
+Only one delivery confirmation definition file should be created for each unique delivery confirmation `type` as this value may be used internally to lookup the specified delivery confirmation
 when no other identifiers are present.
 
 > **WARNING:** Once you have published your app, you must not change the `id`, `name` or `code` for any of your definitions.
@@ -71,8 +71,9 @@ Once all the tests executed by the CLI are passing, your application will be pac
 By default, the CLI will watch your app while it is being published to give you an update on where it is in the publishing process. If you
 do not wish to watch your app, simply use the `--no-watch` option when you run the command.
 
-Once you have completed your end-to-end testing, you can submit your application for production review. After it has been reviewed, it will be promoted to our production environment where
-end users can begin to use your services.
+Once you have completed your end-to-end testing, you can submit your application for production review. 
+
+After it has been reviewed, it will be promoted to our production environment where end users can begin to use your services.
 
 
 <Pager prev="./testing/index.mdx" prevTitle="Testing" />
