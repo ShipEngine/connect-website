@@ -124,12 +124,8 @@ export const menu: MenuContents = [
     title: "OAuth",
     open: true,
     menuItems: [
-      { title: "Auth Bridge Overview", href: "/docs/oauth" },
-      { title: "Authorization", href: "/docs/oauth/flow/authorization" },
-      { title: "Request Token", href: "/docs/oauth/flow/request-token" },
-      { title: "Refresh Token", href: "/docs/oauth/flow/refresh-token" },
-      { title: "Templating", href: "/docs/oauth#templating" },
-      { title: "Examples", href: "/docs/oauth/examples" }
+      { title: "OAuth Configuration", href: "/docs/oauth" },
+      { title: "Examples", href: "/docs/oauth#examples" }
     ]
   },
   {

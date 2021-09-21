@@ -1,0 +1,110 @@
+---
+title: OAuth 1.0
+description: This describes the oauth 1.0 config used for applications
+tags:
+  - ShipEngine Connect
+  - OAuth
+---
+
+# OAuth 1.0 Configuration
+An Integration Definition consists of three main components, which match the
+OAuth code-exchange flow. In order, they are:
+
+1. [Access Token]()
+1. [Request Token](./flow/request-token.mdx)
+1. [Authorization](./flow/authorization.mdx)
+
+
+To support the 3 legged OAuth1.0 flow two more top level components are available:
+
+- `access_token` element
+  - `url_template` is the only available property. As always the `url_template` field may be templatized.
+- `advanced_configuration`
+  - `redirector` is currently the only available advanced option. Specifying `oauth1` will initiate and lock a flow into OAuth1.
+
+```typescript
+import {
+  AuthenticationType,
+  AuthSpecification,
+  OrderSourceAppMetadata,
+} from "@shipengine/connect-order-source-api";
+export const AuthProcess: AuthSpecification = {
+  Identifier: {
+    AuthenticationType: AuthenticationType.OAuth,
+    IsSandbox: false,
+  },
+  access_token: {
+    url_template: "http://www.example.com/v1/AccessToken",
+  },
+  request_token: {
+    url_template: "http://www.example.com/v1/RequestToken",
+  },
+  authorization: {
+    url_template: "http://www.example.com/v1/Authorise",
+  },
+  advanced_configuration: [
+    {
+      name: "redirector",
+      value: "oauth1",
+    },
+  ],
+};
+export const Metadata: OrderSourceAppMetadata = {
+  // DO NOT CHANGE THIS ID AFTER PUBLISHING
+  Id: "bcce593b-dce3-4491-8722-a56e653c173f",
+  Name: "Example",
+  AuthProcess,
+  OrderSources: [Example],
+};
+```
+## Advanced Topics
+- [Response Transformation](./advanced/response-transformation.mdx) *(specify how responses from the two exchanges can be mapped into the the platform canonical model)*
+- [Connection Context](./advanced/connection-context.mdx) *(allows a response transformer to specify a collection of properties in connection_context)*
+
+## Templating
+
+The Integration Definition DSL JSON is processed with a simple templating engine
+that supports variable substitution and some basic operations.
+
+
+```json
+{
+    "name": "client_id",
+    "value": "{installation:client_id}"
+}
+...
+{
+    "name": "refresh_token",
+    "value": "{result_token_response:refresh_token}"
+},
+...
+{
+    "name": "redirect_uri",
+    "value": "{system:authorize_callback_url}"
+},
+```
+
+### Value Resolvers
+
+The example above shows these templating expressions:
+`{installation:}`, `{result_token_response:}` and `{system:}`. A template expression
+is defined by a value enclosed in curly brackets `{}`. The value always
+contains at least one colon `:`. The part before the colon identifies the Value Resolver.
+The part after the colon is a parameter passed to the Value Resolver.
+
+A value resolver is a component in the templating engine that can look up or 
+compute data. The simplest value resolvers in the platform simply use the RHS to point to a property.
+
+| Expression  | Resolver |
+| ----------- | ----------- |
+| `{auth_state:` | [Auth State](./resolver/auth-state.mdx) |
+| `{base64:` | [Base64](./resolver/base64.mdx) |
+| `{callback:` | [Callback](./resolver/callback.mdx) |
+| `{integration:` | [Integration](./resolver/integration.mdx) |
+| `{installation:` | [Installation](./resolver/installation.mdx) |
+| `{result_token_response:` | [Result Token Response](./resolver/result-token-response.mdx) |
+| `{system:` | [System](./resolver/system.mdx) |
+
+<Pager
+  prev="./index.mdx" prevTitle="OAuth Configuration"
+/>

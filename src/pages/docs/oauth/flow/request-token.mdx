@@ -9,9 +9,9 @@ tags:
 # Request Token
 
 After the end-user grants the Application access the integration redirects back
-to Auth Bridge with a `code`. Auth Bridge makes a server-server request to the 3rd
+to the platform with a `code`. the platform makes a server-server request to the 3rd
 party to exchange the code for an access token.
-The `request_token` component of the DSL describes how Auth Bridge should
+The `request_token` component of the DSL describes how the platform should
 construct and execute that request.
 
 See the [OAuth 2.0 RFC - Access Token Request](https://tools.ietf.org/html/rfc6749#section-4.1.3)

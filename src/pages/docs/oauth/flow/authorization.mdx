@@ -7,7 +7,7 @@ tags:
 ---
 
 # Authorization
-Authorization begins with Auth Bridge acting on behalf of a ShipEnine Connect Application,
+Authorization begins with the platform acting on behalf of a ShipEnine Connect Application,
 asking an end user to give permission for the Application to access the user's
 data in the Integration. This is done by redirecting the user's browser to the
 integration, ensuring they are logged in, and accepting the scope of data-access
@@ -42,7 +42,7 @@ that a given Integration Definition may specify.
 ```
 
 In the example above the Definition contains templated information describing
-how Auth Bridge should construct and redirect the user's browser. 
+how the platform should construct and redirect the user's browser. 
 
 See the [OAuth 2.0 RFC - Authorization Request](https://tools.ietf.org/html/rfc6749#section-4.1.1)
 for more information on what standards expect.
@@ -54,6 +54,6 @@ endpoint expects to receive.
 - `{system:authorize_callback_url}` will be updated using the [system resolver](../resolver/system.mdx) with the url in ShipEngine Connect that will handle the callback.
 
 <Pager
-  prev="../index.mdx" prevTitle="Auth Bridge Overview"
+  prev="../index.mdx" prevTitle="OAuth Configuration"
   next="./request-token.mdx" nextTitle="Request Token"
 />
