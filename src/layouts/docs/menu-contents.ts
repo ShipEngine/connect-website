@@ -225,9 +225,9 @@ export const menu: MenuContents = [
       {
         title: "Advanced",
         menuItems: [
-          { title: "Connection Context", href: "/docs/oauth/advanced/connection-context" },
           { title: "Response Transformation", href: "/docs/oauth/advanced/response-transformation" },
           { title: "Templating", href: "/docs/oauth/templating" },
+          { title: "Connection Context", href: "/docs/oauth/advanced/connection-context" },
         ],
       },
       {
