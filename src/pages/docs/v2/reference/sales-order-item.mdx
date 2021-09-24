@@ -10,7 +10,7 @@ An individual item in a sales order
 <Reference>
   <Field name="adjustments" nullable={true}>
     <Type>
-      Charge[]
+      [Charge](./charge.mdx)[]
     </Type>
     <Description>
       A list of adjustments applied that influence the order total. For example, promotions/discounts/coupons. The amount should always be a quantify of currency, not a percentage.
@@ -51,7 +51,7 @@ An individual item in a sales order
   </Field>
   <Field name="shipping_charges" nullable={true}>
     <Type>
-      Charge[]
+      [Charge](./charge.mdx)[]
     </Type>
     <Description>
       A list of shipping charges.
@@ -59,7 +59,7 @@ An individual item in a sales order
   </Field>
   <Field name="taxes" nullable={true}>
     <Type>
-      Charge[]
+      [Charge](./charge.mdx)[]
     </Type>
     <Description>
       A list of tax charges. The description can convey the jurisdiction

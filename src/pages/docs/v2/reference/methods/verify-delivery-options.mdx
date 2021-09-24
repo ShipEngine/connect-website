@@ -32,72 +32,42 @@ export const VerifyDeliveryOptions = async (
 ```
 </CodeWrapper>
 
-
-
-Parameters
------------------------------------------------
-
-### `VerifyDeliveryOptionsRequest`
-An object containing parameters to use when registering delivery options with an order source. Currently there are no VerifyDeliveryOptions parameters.
-Implemenatations for this method should just call to the order source to verify delivery options if possible.
-
-Return Value
------------------------------------------------
-
-### `OrderAcknowledgementResponse`
+VerifyDeliveryOptionsRequest
+----
+A request to verify if a user's order source is configured properly for delivery options
 
 <Reference>
-
   <Field name="auth" nullable={false}>
     <Type>
-      [auth object](./../auth.mdx)
+      [Auth](../auth.mdx)
     </Type>
     <Description>
-      Represents the auth information sent with every request
+      The authorization information necessary to fulfill this request.
     </Description>
   </Field>
-
-  <Field name="is_supported" type="string" required={true}>
+  <Field name="sales_order_status_mapping" nullable={false}>
+    <Type>
+      [SalesOrderStatusMapping](../sales-order-status-mapping.mdx)[]
+    </Type>
     <Description>
-      Indicates whether or not delivery options is supported in the order source. 
-      Cases where this might not always be true for every merchant happen when the order source has placed limitations on the order source account to enable delivery options.
-      Examples would be the delivery options feature is locked behind a specific plan level or additional setup must be done by the merchant to enable it in the order source.
+      seller specified mappings for custom statuses coming from the 3rd parties api and the SalesOrderStatus they should map to.
     </Description>
   </Field>
-
+  <Field name="transaction_id" type="string" nullable={false}>
+    <Description>
+      A randomly generated transaction ID, used to correlate the request and response
+    </Description>
+  </Field>
 </Reference>
 
-Example
------------------------------------------------
-<CodeWrapper>
-```javascript
-async function VerifyDeliveryOptions(request) {
-  // STEP 1: Validation
-  // Add any desired validation here
+VerifyDeliveryOptionsResponse
+----
+The response to a SupportsDeliveryOptions method
 
-  // STEP 2: Create the data that the order source's API expects
-  const thirdPartyRequest = mapRequest(request);
-  // STEP 3: Call the order source's API
-  const response = await callApi(thirdPartyRequest);
-  // Step 4: Create the output data that ShipEngine expects
-  const mappedResponse = mapResponse(response);
-  return mappedResponse;
-}
-```
-```typescript
-export const VerifyDeliveryOptions = async (
-  request: VerifyDeliveryOptionsRequest
-): Promise<VerifyDeliveryOptionsResponse> => {
-  // STEP 1: Validation
-  // Add any desired validation here
-
-  // STEP 2: Create the data that the order source's API expects
-  const thirdPartyRequest = mapRequest(request);
-  // STEP 3: Call the order source's API
-  const response = await callApi(thirdPartyRequest);
-  // Step 4: Create the output data that ShipEngine expects
-  const mappedResponse = mapResponse(response);
-  return mappedResponse;
-};
-```
-</CodeWrapper>
+<Reference>
+  <Field name="is_supported" type="boolean" nullable={false}>
+    <Description>
+      Indicates whether or not a delivery option is supported
+    </Description>
+  </Field>
+</Reference>

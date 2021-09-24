@@ -33,191 +33,52 @@ export const AcceptSalesOrderItems = async (
 ```
 </CodeWrapper>
 
-
-
-Parameters
------------------------------------------------
-
-### `AcceptSalesOrderItemsRequest`
-A list of requests to accept orders in an order source.
-
+AcceptSalesOrderItemsRequest
+----------
 <Reference>
-
   <Field name="auth" nullable={false}>
     <Type>
-      [auth object](./../auth.mdx)
+      [Auth](../auth.mdx)
     </Type>
     <Description>
-      Represents the auth information sent with every request
+      The authorization information necessary to fulfill this request.
     </Description>
   </Field>
-
   <Field name="notifications" nullable={false}>
     <Type>
-      [accept sales order items notification object[]](#AcceptSalesOrderItems)
+      [AcceptSalesOrderItemsNotification](../accept-sales-order-items-notification.mdx)[]
     </Type>
     <Description>
-      A list of orders to accept in the order source about.
+      The notifications for accepting sales order items.
     </Description>
   </Field>
-
-</Reference>
-
-### `AcceptSalesOrderItemsNotification`
-An individual notification representing an order and items that should be accepted.
-
-<Reference>
-
-  <Field name="notification_id" type="string" nullable={false}>
-    <Description>
-      A unique identifier to correlate this accept notification with its result in the response.
-    </Description>
-  </Field>
-
-  <Field name="order_id" type="string" nullable={false}>
-    <Description>
-      The unique identifier of the sales order from the order source.
-    </Description>
-  </Field>
-
-  <Field name="items" nullable={false}>
+  <Field name="sales_order_status_mapping" nullable={false}>
     <Type>
-      [requested accept item object[]](#RequestedAcceptItem)
+      [SalesOrderStatusMapping](../sales-order-status-mapping.mdx)[]
     </Type>
     <Description>
-      The items to be accepted in this accept notification.
+      seller specified mappings for custom statuses coming from the 3rd parties api and the SalesOrderStatus they should map to.
     </Description>
   </Field>
-
+  <Field name="transaction_id" type="string" nullable={false}>
+    <Description>
+      A randomly generated transaction ID, used to correlate the request and response
+    </Description>
+  </Field>
 </Reference>
 
-### `RequestedAcceptItem`
-An individual item in the accept notification.
+
+AcceptSalesOrderItemsResponse
+-----------
+A response for the accept action that was performed on any number of sales order items
 
 <Reference>
-
-  <Field name="line_item_id" type="string" nullable={false}>
-    <Description>
-      The order source's unique identifier for the line item.
-    </Description>
-  </Field>
-
-  <Field name="message" type="string" nullable={true}>
-    <Description>
-      Message that the shipper can provide about the action being performed on the item.
-    </Description>
-  </Field>
-
-  <Field name="quantity" type="number" nullable={false}>
-    <Description>
-       Quantity of the item.
-    </Description>
-  </Field>
-
-  <Field name="product" nullable={true}>
+  <Field name="results" nullable={false}>
     <Type>
-      [product object](#RequestedAcceptProduct)
+      [AcceptSalesOrderItemsResult](../accept-sales-order-items-result.mdx)[]
     </Type>
     <Description>
-       Product information about the item.
+      The results for each notification in the request.notifications[]
     </Description>
   </Field>
-
 </Reference>
-
-### `RequestedAcceptProduct`
-Product details about the requested item to accept.
-
-<Reference>
-
-  <Field name="product_id" type="string" nullable={true}>
-    <Description>
-      Product identifier provided by the order source.
-    </Description>
-  </Field>
-
-</Reference>
-
-Return Value
------------------------------------------------
-### `AcceptSalesOrderItemsResult[]`
-
-<Reference>
-
-  <Field name="results" required={true}>
-    <Type>
-      [accept sales order items result object[]](#AcceptSalesOrderItemsResult)
-    </Type>
-    <Description>
-      A list of results for order item accept notifications.
-    </Description>
-  </Field>
-
-</Reference>
-
-### `AcceptSalesOrderItemsResult`
-
-<Reference>
-
-  <Field name="notification_id" type="string" required={true}>
-    <Description>
-      Identifier for the requested accept notification.
-    </Description>
-  </Field>
-
-  <Field name="confimation_code" type="string" required={false}>
-    <Description>
-      An identifier provided by the order source to accept the items on the fulfillment.
-    </Description>
-  </Field>
-
-  <Field name="failure_reason" type="string" required={false}>
-    <Description>
-      Details given by the order source if the accept action fails.
-    </Description>
-  </Field>
-
-  <Field name="status" type="string" required={true}>
-    <Description>
-      Result status from the accept action performed on the item. Only supported values are: 
-      - `success`
-      - `failure`
-    </Description>
-  </Field>
-
-</Reference>
-
-Example
------------------------------------------------
-<CodeWrapper>
-```javascript
-async function AcceptSalesOrderItems(request) {
-  // STEP 1: Validation
-  // Add any desired validation here
-
-  // STEP 2: Create the data that the order source's API expects
-  const thirdPartyRequest = mapRequest(request);
-  // STEP 3: Call the order source's API
-  const response = await callApi(thirdPartyRequest);
-  // Step 4: Create the output data that ShipEngine expects
-  const mappedResponse = mapResponse(response);
-  return mappedResponse;
-}
-```
-```typescript
-export const AcceptSalesOrderItems = async (
-  request: AcceptSalesOrderItemsRequest
-): Promise<AcceptSalesOrderItemsResponse> => {
-  // STEP 1: Validation
-  // Add any desired validation here
-
-  // STEP 2: Create the data that the order source's API expects
-  const thirdPartyRequest = mapRequest(request);
-  // STEP 3: Call the order source's API
-  const response = await callApi(thirdPartyRequest);
-  // Step 4: Create the output data that ShipEngine expects
-  const mappedResponse = mapResponse(response);
-  return mappedResponse;
-};
-```
-</CodeWrapper>

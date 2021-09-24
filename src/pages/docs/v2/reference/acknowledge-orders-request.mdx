@@ -18,7 +18,7 @@ This is a request for acknowledging that an order has been imported
   </Field>
   <Field name="orders" nullable={false}>
     <Type>
-      OrderAcknowledgement[]
+      [OrderAcknowledgement](./order-acknowledgement.mdx)[]
     </Type>
     <Description>
       A list of orders needing to be acknowledged in order to successfully be imported into our system.
@@ -26,7 +26,7 @@ This is a request for acknowledging that an order has been imported
   </Field>
   <Field name="sales_order_status_mapping" nullable={false}>
     <Type>
-      SalesOrderStatusMapping[]
+      [SalesOrderStatusMapping](./sales-order-status-mapping.mdx)[]
     </Type>
     <Description>
       seller specified mappings for custom statuses coming from the 3rd parties api and the SalesOrderStatus they should map to.

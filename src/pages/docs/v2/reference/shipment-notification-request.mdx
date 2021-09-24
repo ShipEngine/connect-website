@@ -18,7 +18,7 @@ A request to notify an order source that a order has been shipped
   </Field>
   <Field name="notifications" nullable={false}>
     <Type>
-      ShipmentNotification[]
+      [ShipmentNotification](./shipment-notification.mdx)[]
     </Type>
     <Description>
       A list of orders to notify the order source about
@@ -26,7 +26,7 @@ A request to notify an order source that a order has been shipped
   </Field>
   <Field name="sales_order_status_mapping" nullable={false}>
     <Type>
-      SalesOrderStatusMapping[]
+      [SalesOrderStatusMapping](./sales-order-status-mapping.mdx)[]
     </Type>
     <Description>
       seller specified mappings for custom statuses coming from the 3rd parties api and the SalesOrderStatus they should map to.

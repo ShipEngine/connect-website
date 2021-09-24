@@ -33,100 +33,51 @@ export const NotificationStatus = async (
 </CodeWrapper>
 
 
-
-Parameters
------------------------------------------------
-
-### `NotificationStatusRequest`
-A request to notify an order source that a order has been shipped.
-
+NotificationStatusRequest
+----
 <Reference>
-
   <Field name="auth" nullable={false}>
     <Type>
-      [auth object](./../auth.mdx)
+      [Auth](../auth.mdx)
     </Type>
     <Description>
-      Represents the auth information sent with every request
+      The authorization information necessary to fulfill this request.
     </Description>
   </Field>
-
   <Field name="notifications" nullable={false}>
     <Type>
-      [pending notification object[]](#pendingnotification)
+      [PendingNotification](../pending-notification.mdx)[]
     </Type>
     <Description>
-      A list of notifications that were pending confirmation from the third party.
+      An array of notifications that were pending confirmation from the third party
     </Description>
   </Field>
-
-</Reference>
-
-### `PendingNotification`
-An individual pending notification.
-
-<Reference>
-
-  <Field name="notification_id" type="string" nullable={false}>
-    <Description>
-      A unique identifier to correlate this notification with its result in the response.
-    </Description>
-  </Field>
-
-  <Field name="submission_id" type="string" nullable={false}>
-    <Description>
-      A unique identifier that is used to query the third party about the status of this notification, set in the shipment_notification response.
-    </Description>
-  </Field>
-
-</Reference>
-
-Return Value
------------------------------------------------
-### `NotificationStatusResult[]`
-
-<Reference>
-  <Field name="notification_results" required={true}>
+  <Field name="sales_order_status_mapping" nullable={false}>
     <Type>
-      [shipment notification result object[]](./../shipment-notification-result.mdx)
+      [SalesOrderStatusMapping](../sales-order-status-mapping.mdx)[]
     </Type>
     <Description>
-      A list of results for shipment notifications.
+      seller specified mappings for custom statuses coming from the 3rd parties api and the SalesOrderStatus they should map to.
+    </Description>
+  </Field>
+  <Field name="transaction_id" type="string" nullable={false}>
+    <Description>
+      A randomly generated transaction ID, used to correlate the request and response
     </Description>
   </Field>
 </Reference>
 
-Example
------------------------------------------------
-<CodeWrapper>
-```javascript
-async function NotificationStatus(request) {
-  // STEP 1: Validation
-  // Add any desired validation here
+NotificationStatusResponse
+----
+The response for a NotifyShipments method
 
-  // STEP 2: Create the data that the order source's API expects
-  const thirdPartyRequest = mapRequest(request);
-  // STEP 3: Call the order source's API
-  const response = await callApi(thirdPartyRequest);
-  // Step 4: Create the output data that ShipEngine expects
-  const mappedResponse = mapResponse(response);
-  return mappedResponse;
-}
-```
-```typescript
-export const NotificationStatus = async (
-  request: NotificationStatusRequest
-): Promise<NotificationStatusResponse> => {
-  // STEP 1: Validation
-  // Add any desired validation here
-
-  // STEP 2: Create the data that the order source's API expects
-  const thirdPartyRequest = mapRequest(request);
-  // STEP 3: Call the order source's API
-  const response = await callApi(thirdPartyRequest);
-  // Step 4: Create the output data that ShipEngine expects
-  const mappedResponse = mapResponse(response);
-  return mappedResponse;
-};
-```
-</CodeWrapper>
+<Reference>
+  <Field name="notification_results" nullable={false}>
+    <Type>
+      [ShipmentNotificationResult](../shipment-notification-result.mdx)[]
+    </Type>
+    <Description>
+      A list of results for shipment notifications
+    </Description>
+  </Field>
+</Reference>

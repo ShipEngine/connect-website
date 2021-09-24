@@ -45,7 +45,7 @@ An individual notification that an order has been shipped
   </Field>
   <Field name="items" nullable={false}>
     <Type>
-      ShipmentNotificationItem[]
+      [ShipmentNotificationItem](./shipment-notification-item.mdx)[]
     </Type>
     <Description>
       The items shipped in this shipment
@@ -53,7 +53,7 @@ An individual notification that an order has been shipped
   </Field>
   <Field name="notes" nullable={true}>
     <Type>
-      Note[]
+      [Note](./note.mdx)[]
     </Type>
     <Description>
       Additional notes associated with this notification or its sales order
