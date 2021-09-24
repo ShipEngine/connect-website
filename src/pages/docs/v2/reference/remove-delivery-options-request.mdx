@@ -1,0 +1,37 @@
+---
+title: RemoveDeliveryOptionsRequest
+description: The properties associated with a RemoveDeliveryOptionsRequest
+---
+
+RemoveDeliveryOptionsRequest
+===============================================
+A request to remove delivery options connection with an order source
+
+<Reference>
+  <Field name="auth" nullable={false}>
+    <Type>
+      [Auth](./auth.mdx)
+    </Type>
+    <Description>
+      The authorization information necessary to fulfill this request.
+    </Description>
+  </Field>
+  <Field name="connection_id" type="string" nullable={false}>
+    <Description>
+      Identifier for the connection in the order source
+    </Description>
+  </Field>
+  <Field name="sales_order_status_mapping" nullable={false}>
+    <Type>
+      SalesOrderStatusMapping[]
+    </Type>
+    <Description>
+      seller specified mappings for custom statuses coming from the 3rd parties api and the SalesOrderStatus they should map to.
+    </Description>
+  </Field>
+  <Field name="transaction_id" type="string" nullable={false}>
+    <Description>
+      A randomly generated transaction ID, used to correlate the request and response
+    </Description>
+  </Field>
+</Reference>

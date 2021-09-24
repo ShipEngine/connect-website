@@ -1,320 +1,80 @@
 ---
-title: Address objects
-description: Address Objects representing address information used in shipments.
+title: Address
+description: The properties associated with a Address
 ---
 
-Address Base Object
+Address
 ===============================================
-An address object representing address information.
+This defines the shape of an address
+
 
 <Reference>
-
+  <Field name="address_line_1" type="string" nullable={true}>
+    <Description>
+      The first line of the address
+    </Description>
+  </Field>
+  <Field name="address_line_2" type="string" nullable={true}>
+    <Description>
+      The second line of the address
+    </Description>
+  </Field>
+  <Field name="address_line_3" type="string" nullable={true}>
+    <Description>
+      The third line of the address
+    </Description>
+  </Field>
+  <Field name="city" type="string" nullable={true}>
+    <Description>
+      The city associated with this address
+    </Description>
+  </Field>
+  <Field name="company" type="string" nullable={true}>
+    <Description>
+      The name of the company associated with this address
+    </Description>
+  </Field>
+  <Field name="country_code" type="string" nullable={true}>
+    <Description>
+      The two character ISO 3166 country code of this address @example ("US","MX","CA")
+    </Description>
+  </Field>
+  <Field name="is_verified" type="boolean" nullable={true}>
+    <Description>
+      Indicates whether or not this address has been verified using an Address Verification Service. Values: true, false, and null
+    </Description>
+  </Field>
   <Field name="name" type="string" nullable={true}>
     <Description>
-      Name of the contact.
+      The name of the individual associated with this address
     </Description>
   </Field>
-
-  <Field name="first_name" type="string" nullable={true}>
+  <Field name="phone" type="string" nullable={true}>
     <Description>
-      First or given name of the contact.
+      The phone number associated with this address
     </Description>
   </Field>
-
-  <Field name="last_name" type="string" nullable={true}>
+  <Field name="pickup_location" nullable={true}>
+    <Type>
+      [PickupLocation](./pickup-location.mdx)
+    </Type>
     <Description>
-      Last or family name of the contact.
+      Information details related to a pickup location if applicable
     </Description>
   </Field>
-
-  <Field name="email" type="string" nullable={true}>
+  <Field name="postal_code" type="string" nullable={true}>
     <Description>
-      Email of the contact.
+      The postal code associated with this address
     </Description>
   </Field>
-
-  <Field name="phone_number" type="string" nullable={true}>
+  <Field name="residential_indicator" type="string" nullable={true}>
     <Description>
-      Phone number of the contact. Cannot include newline chars.
+      Indicates this is a residential or commercial address. Values: 'R', 'C', and null
     </Description>
   </Field>
-
-  <Field name="company_name" type="string" nullable={true}>
-    <Description>
-        Company name, if applicable. Cannot include newline chars.
-    </Description>
-  </Field>
-
-  <Field name="address_lines[]" type="string[]" nullable={true}>
-    <Description>
-      Address fields separated by line. Up to 100 chars per line. Cannot include newline chars.
-    </Description>
-  </Field>
-
-  <Field name="city_locality" type="string" nullable={true}>
-    <Description> 
-      City or locality. Cannot contain newline chars.
-    </Description>
-  </Field>
-
   <Field name="state_province" type="string" nullable={true}>
     <Description>
-      State or province. Cannot contain newline chars.
+      The state, province, or municipality of the address
     </Description>
   </Field>
-
-  <Field name="postal_code" type="string" nullable={false}>
-    <Description>
-      Zip or postal code. Cannot include newline chars.
-    </Description>
-  </Field>
-
-  <Field name="country_code" nullable={false}>
-    <Type>
-      [country code string](./country-codes.mdx)
-    </Type>
-    <Description>
-      The [ISO 3166 country code](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) for the [country](./country-codes.mdx) of origin. This is usually the same as `countryOfManufacture`, but some countries distinguish between the two for certain products.
-    </Description>
-  </Field>
-
-  <Field name="address_residential_indicator" type="string" nullable={true}>
-    <Description>
-      Indicates whether the address is residential or commercial.
-
-      Valid values include the following:
-      * `unknown`
-      * `yes`
-      * `no`
-    </Description>
-  </Field>
-
-  <Field name="is_eu" type="boolean" nullable={true}>
-    <Description>
-      Indicates whether the country of the shipment address is a member of the EU.
-    </Description>
-  </Field>
-
-  <Field name="address_metadata" type="object" nullable={true}>
-    <Description>
-      Schemaless object representing the metadata related to this address.
-    </Description>
-  </Field>
-
-</Reference>
-
-Shipping Address Object
----------------------------
-This address object is used in places related to shipments like `ship_to` and `ship_from` in [CreateLabel()](./methods/create-label.mdx).
-
-This object extends the Address Base.
-
-
-<Reference>
-
-  <Field name="...Address Base" nullable={false}>
-    <Type>
-      [address base](#address-base-object)
-    </Type>
-    <Description>
-      All fields described in the [address base](#address-base-object) defined above.
-    </Description>
-  </Field>
-
-  <Field name="tax_identifiers" type="object" nullable={true}>
-    <Description>
-      Tax IDs associated with the contact related to this address.
-    </Description>
-  </Field>
-
-  <Field name="tax_identifiers.id" type="string" nullable={false}>
-    <Description>
-      Identification number.
-    </Description>
-  </Field>
-
-  <Field name="tax_identifiers.type" type="string" nullable={false}>
-    <Description>
-      The Tax ID type.
-
-      Valid values include the following:
-      * `tin` - Tax Identification Number
-      * `ein` - Employer Identification Number
-      * `ssn` - Social Security Number
-      * `vat` - Value Added Tax Identification Number
-      * `eori` - Economic Operators Registration and Identification Number
-      * `ioss` - Import One-Stop Shop Number
-      * `pan` - Permanent Account Number
-      * `voec` - Norway's VAT on E-Commerce number
-    </Description>
-  </Field>
-
-  <Field name="tax_identifiers.registration_county" type="string" nullable={true}>
-    <Description>
-      The country where the Tax ID is registered with.
-    </Description>
-  </Field>
-
-  <Field name="tax_identifiers.description" type="string" nullable={true}>
-    <Description>
-      Description of the tax ID that may give the customs agent more context.
-    </Description>
-  </Field>
-
-</Reference>
-
-Pickup Location Details Object
----------------------------
-Pickup/Dropoff location address used by carriers.
-
-<Reference>
-
-  <Field name="pickup_address" nullable={true}>
-    <Type>
-      [shipping address object](#shipping-address-object)
-    </Type>
-    <Description>
-      The physical address of the warehouse or pickup address.
-    </Description>
-  </Field>
-
-  <Field name="location_notes" type="string" nullable={true}>
-    <Description>
-      Human readable location information for the driver to find the location.
-    </Description>
-  </Field>
-
-  <Field name="pickup_options" type="object" nullable={true}>
-    <Description>
-      Custom options that are used by the carrier to determine pickup locations.
-    </Description>
-  </Field>
-
-</Reference>
-
-Order Source Address Object
----------------------------
-An address object used by the Order Source Apps to map sales order addresses.
-
-<Reference>
-
-  <Field name="name" type="string" required={false}>
-    <Description>
-      The name of the individual associated with this address.
-    </Description>
-  </Field>
-
-  <Field name="company" type="string" required={false}>
-    <Description>
-      The name of the company associated with this address.
-    </Description>
-  </Field>
-
-  <Field name="phone" type="string" required={false}>
-    <Description>
-      The phone number associated with this address.
-    </Description>
-  </Field>
-
-  <Field name="address_line_1" type="string" required={false}>
-    <Description>
-      The first line of the address.
-    </Description>
-  </Field>
-
-  <Field name="address_line_2" type="string" required={false}>
-    <Description>
-      The second line of the address.
-    </Description>
-  </Field>
-
-  <Field name="address_line_3" type="string" required={false}>
-    <Description>
-      The third line of the address.
-    </Description>
-  </Field>
-
-  <Field name="city" type="string" required={false}>
-    <Description>
-      The city associated with this address.
-    </Description>
-  </Field>
-
-  <Field name="state_province" type="string" required={false}>
-    <Description>
-      The state, province, or municipality of the addres.
-    </Description>
-  </Field>
-
-  <Field name="postal_code" type="string" required={false}>
-    <Description>
-      The postal code associated with this address.
-    </Description>
-  </Field>
-
-  <Field name="country_code" type="string" required={false}>
-    <Description>
-      The two character ISO 3166 country code of this address.
-    </Description>
-  </Field>
-
-  <Field name="residential_indicator" type="string" required={false}>
-    <Description>
-      Indicates this is a residential or commercial address. Valid values include the following:
-      * `R` - Residential
-      * `C` - Commerical
-      * 'null'
-    </Description>
-  </Field>
-
-  <Field name="is_verified" type="boolean" required={false}>
-    <Description>
-      Indicates whether or not this address has been verified using an Address Verification Service.
-    </Description>
-  </Field>
-
-  <Field name="pickup_location" type="object" required={false}>
-    <Description>
-      Indicates whether or not this address has been verified using an Address Verification Service.
-    </Description>
-  </Field>
-
-  <Field name="pickup_location.carrier_id" type="string" required={true}>
-    <Description>
-      An id specific to the carrier about this drop off / pickup location. Only required if `pickup_location` is specified.
-    </Description>
-  </Field>
-
-  <Field name="pickup_location.relay_id" type="string" required={true}>
-    <Description>
-      The id of a relay point used for the drop off / pickup location. Only required if `pickup_location` is specified.
-    </Description>
-  </Field>
-
-</Reference>
-
-BillTo Address Object
----------------------------
-This address object is used in places related to order sources like `bill_to` in [SalesOrdersExport](./methods/sales-orders-export.mdx).
-
-This object extends the Order Source Address object.
-
-
-<Reference>
-
-  <Field name="...Order Source Address" nullable={false}>
-    <Type>
-      [order source address object](#order-source-address-object)
-    </Type>
-    <Description>
-      All fields described in the [order source address object](#order-source-address-object) defined above.
-    </Description>
-  </Field>
-
-  <Field name="email" type="string" nullable={false}>
-    <Description>
-      The email address of the person being billed.
-    </Description>
-  </Field>
-
 </Reference>

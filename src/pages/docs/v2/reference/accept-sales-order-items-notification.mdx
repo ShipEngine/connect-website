@@ -1,0 +1,29 @@
+---
+title: AcceptSalesOrderItemsNotification
+description: The properties associated with a AcceptSalesOrderItemsNotification
+---
+
+AcceptSalesOrderItemsNotification
+===============================================
+Requested accept item(s) notification
+
+<Reference>
+  <Field name="items" nullable={false}>
+    <Type>
+      RequestedAcceptItem[]
+    </Type>
+    <Description>
+      Items the action should be applied to
+    </Description>
+  </Field>
+  <Field name="notification_id" type="string" nullable={false}>
+    <Description>
+      Identifier for the requested accept notification
+    </Description>
+  </Field>
+  <Field name="order_id" type="string" nullable={false}>
+    <Description>
+      Unique order identifier from the order source
+    </Description>
+  </Field>
+</Reference>

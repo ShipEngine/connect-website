@@ -1,38 +1,35 @@
 ---
-title: Dimensions object
-description: The dimensions of an item.
+title: Dimensions
+description: The properties associated with a Dimensions
 ---
 
-Dimensions Object
+Dimensions
 ===============================================
-Dimensions objects are used throughout the Order Source specifications to describe the physical dimensions of a product/item.
+The definition of dimensions for an item or package
+
 
 <Reference>
-
-  <Field name="unit" type="string" required={true} nullable={false}>
+  <Field name="height" type="number" nullable={false}>
     <Description>
-      The unit of measure associated with these dimensions. Valid values include the following:
-      * `Centimeter`
-      * `Inch`
+      The height of the item in dimension units
     </Description>
   </Field>
-
-  <Field name="height" type="number" required={true} nullable={false}>
+  <Field name="length" type="number" nullable={false}>
     <Description>
-      The height of the item in dimension units.
+      The length of the item in dimension units
     </Description>
   </Field>
-
-  <Field name="width" type="number" required={true} nullable={false}>
+  <Field name="unit" nullable={false}>
+    <Type>
+      [DimensionsUnit](./dimensions-unit.mdx)
+    </Type>
     <Description>
-      The width of the item in dimension units.
+      The unit associated with these dimensions
     </Description>
   </Field>
-
-  <Field name="length" type="number" required={true} nullable={false}>
+  <Field name="width" type="number" nullable={false}>
     <Description>
-      The length of the item in dimension units.
+      The width of the item in dimension units
     </Description>
   </Field>
-
 </Reference>

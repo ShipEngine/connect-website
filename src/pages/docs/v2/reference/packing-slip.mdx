@@ -1,18 +1,16 @@
 ---
-title: Packing Slip object
-description: The packing slip associated with the brand or fulfillment.
+title: PackingSlip
+description: The properties associated with a PackingSlip
 ---
 
-Packing Slip Object
+PackingSlip
 ===============================================
-Packing Slip objects are used throughout the Order Source specifications to describe the requested packing slip from an order source for a fulfillment.
+Packing slip details for a fulfillment brand
 
 <Reference>
-
-  <Field name="url" type="string" required={false}>
+  <Field name="url" type="string" nullable={true}>
     <Description>
-      The url from which the packing slip can be downloaded.
+      The url from which the packing slip can be downloaded
     </Description>
   </Field>
-
 </Reference>

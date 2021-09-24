@@ -1,0 +1,40 @@
+---
+title: ShipmentNotificationRequest
+description: The properties associated with a ShipmentNotificationRequest
+---
+
+ShipmentNotificationRequest
+===============================================
+A request to notify an order source that a order has been shipped
+
+<Reference>
+  <Field name="auth" nullable={false}>
+    <Type>
+      [Auth](./auth.mdx)
+    </Type>
+    <Description>
+      The authorization information necessary to fulfill this request.
+    </Description>
+  </Field>
+  <Field name="notifications" nullable={false}>
+    <Type>
+      ShipmentNotification[]
+    </Type>
+    <Description>
+      A list of orders to notify the order source about
+    </Description>
+  </Field>
+  <Field name="sales_order_status_mapping" nullable={false}>
+    <Type>
+      SalesOrderStatusMapping[]
+    </Type>
+    <Description>
+      seller specified mappings for custom statuses coming from the 3rd parties api and the SalesOrderStatus they should map to.
+    </Description>
+  </Field>
+  <Field name="transaction_id" type="string" nullable={false}>
+    <Description>
+      A randomly generated transaction ID, used to correlate the request and response
+    </Description>
+  </Field>
+</Reference>

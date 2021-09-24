@@ -1,0 +1,26 @@
+---
+title: OrderAcknowledgementResponse
+description: The properties associated with a OrderAcknowledgementResponse
+---
+
+OrderAcknowledgementResponse
+===============================================
+An individual order acknowledgement
+
+<Reference>
+  <Field name="failure_reason" type="string" nullable={true}>
+    <Description>
+      If succeeded was false, this is where details can be put to describe why it failed
+    </Description>
+  </Field>
+  <Field name="order_id" type="string" nullable={false}>
+    <Description>
+      The unique identifier of the sales order from the order source
+    </Description>
+  </Field>
+  <Field name="succeeded" type="boolean" nullable={false}>
+    <Description>
+      Indicates whether or not we were able to acknowledge our import of the order with the order source
+    </Description>
+  </Field>
+</Reference>

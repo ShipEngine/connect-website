@@ -1,27 +1,24 @@
 ---
-title: Branding object
-description: The brand requested for a fulfillment.
+title: Branding
+description: The properties associated with a Branding
 ---
 
-Branding Object
+Branding
 ===============================================
-Branding objects are used throughout the Order Source specifications to describe the brand request for a fulfillment.
+The brand requested for a fulfillment
 
 <Reference>
-
-  <Field name="packing_slip" required={false}>
+  <Field name="company_name" type="string" nullable={true}>
+    <Description>
+      Company name associated with the brand
+    </Description>
+  </Field>
+  <Field name="packing_slip" nullable={true}>
     <Type>
-      [packing slip object](./packing-slip.mdx)
+      [PackingSlip](./packing-slip.mdx)
     </Type>
     <Description>
-      Packing slip associated with the brand.
+      Packing slip associated with the brand
     </Description>
   </Field>
-
-  <Field name="company_name" type="string" required={false}>
-    <Description>
-      Company name associated with the brand.
-    </Description>
-  </Field>
-
 </Reference>

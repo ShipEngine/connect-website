@@ -1,190 +1,134 @@
 ---
-title: Shipping Preference objects
-description: Shipping preferences are conveyed using the ShippingPreference object.
+title: ShippingPreferences
+description: The properties associated with a ShippingPreferences
 ---
 
-Shipping Preferences Object
+ShippingPreferences
 ===============================================
-Shipping preference objects are used in Order Source App to convey shipping preferences
-for a sales order.
-
-Properties
------------------------------------------------
-This table lists the properties of a shipping preference object and identifies those properties that are required when
-it is returned from a method.
+This represents the shipping preferences specified for an order
 
 <Reference>
-
-  <Field name="digital_fulfillment" type="boolean" required={false}>
+  <Field name="additional_handling" type="boolean" nullable={true}>
     <Description>
-      Indicates whether or not the item being delivered is a digital good or not.
+      Indicates whether or not this shipment will require additional handling
     </Description>
   </Field>
-
-  <Field name="additional_handling" type="boolean" required={false}>
+  <Field name="bill_duties_to_sender" type="boolean" nullable={true}>
     <Description>
-      Indicates whether or not this shipment will require additional handling.
+      Indicates whether duties should be billed to the sender of the package
     </Description>
   </Field>
-
-  <Field name="bill_duties_to_sender" type="boolean" required={false}>
+  <Field name="deliver_by_date" type="string" nullable={true}>
     <Description>
-      Indicates whether duties should be billed to the sender of the package.
+      The (ISO 8601) datetime (UTC) associated with when the order needs to be delivered by @example "2021-03-31T18:21:14.858Z"
     </Description>
   </Field>
-
-  <Field name="do_not_prepay_postage" type="boolean" required={false}>
+  <Field name="digital_fulfillment" type="boolean" nullable={true}>
+    <Description>
+      Indicates whether or not the item being delivered is a digital good or not
+    </Description>
+  </Field>
+  <Field name="do_not_prepay_postage" type="boolean" nullable={true}>
     <Description>
       Indicates whether you must pay for postage at drop off, for carriers that usually require prepaid postage.
     </Description>
   </Field>
-
-  <Field name="gift" type="boolean" required={false}>
+  <Field name="documents" nullable={true}>
+    <Type>
+      Document[]
+    </Type>
     <Description>
-      Indicates whether or not this order is a gift.
+      Any documents relevant to shipping that the order source provides
     </Description>
   </Field>
-
-  <Field name="has_alcohol" type="boolean" required={false}>
+  <Field name="gift" type="boolean" nullable={true}>
     <Description>
-      Indicates whether or not this order contains alcohol.
+      Indicates whether or not this order is a gift
     </Description>
   </Field>
-
-  <Field name="insurance_requested" type="boolean" required={false}>
+  <Field name="has_alcohol" type="boolean" nullable={true}>
     <Description>
-      Indicates whether or not insurance has been requested for shipping this order.
+      Indicates whether or not this order contains alcohol
     </Description>
   </Field>
-
-  <Field name="non_machinable" type="boolean" required={false}>
+  <Field name="hold_until_date" type="string" nullable={true}>
     <Description>
-      Indicates whether or not this order is nonmachinable (must be sorted outside of the standard, automated mail process).
+      The (ISO 8601) datetime (UTC) associated with how long to hold the order @example "2021-03-31T18:21:14.858Z"
     </Description>
   </Field>
-
-  <Field name="saturday_delivery" type="boolean" required={false}>
+  <Field name="insurance_requested" type="boolean" nullable={true}>
     <Description>
-      Indicates whether or not this order should be delivered on a saturday.
+      Indicates whether or not insurance has been requested for shipping this order
     </Description>
   </Field>
-
-  <Field name="show_postage" type="boolean" required={false}>
+  <Field name="insured_value" type="number" nullable={true}>
     <Description>
-      Indicates whether or not to allow display of postage paid on the shipping label.
+      The amount of money being request for insurance on this shipment
     </Description>
   </Field>
-
-  <Field name="suppress_email_notify" type="boolean" required={false}>
+  <Field name="is_premium_program" type="boolean" nullable={true}>
     <Description>
-      Indicates whether or not to supress email notifications to the buyer.
+      true if the order was placed under the terms of the order source's premium program (Amazon Prime, Walmart+, etc)
     </Description>
   </Field>
-
-  <Field name="suppress_marketplace_notify" type="boolean" required={false}>
+  <Field name="non_machinable" type="boolean" nullable={true}>
     <Description>
-      Indicates whether or not to supress email notifications to the seller.
+      Indicates whether or not this order is nonmachinable (must be sorted outside of the standard, automated mail process)
     </Description>
   </Field>
-
-  <Field name="deliver_by_date" type="string" required={false}>
+  <Field name="package_type" type="string" nullable={true}>
     <Description>
-      The datetime associated with when the sales order needs to be delivered by. Should always be in UTC and
-      formatted per the https://tools.ietf.org/html/rfc3339 spec.
+      The requested package type for this fulfillment
     </Description>
   </Field>
-
-  <Field name="hold_until_date" type="string" required={false}>
-    <Description>
-      The datetime associated with how long to hold the sales order. Should always be in UTC and
-      formatted per the https://tools.ietf.org/html/rfc3339 spec.
-    </Description>
-  </Field>
-
-  <Field name="ready_to_ship_date" type="string" required={false}>
-    <Description>
-      The datetime associated with when the sales order is ready to ship. Should always be in UTC and
-      formatted per the https://tools.ietf.org/html/rfc3339 spec.
-    </Description>
-  </Field>
-
-  <Field name="ship_by_date" type="string" required={false}>
-    <Description>
-      The datetime associated with when the sales order needs to be shipped by. Should always be in UTC and
-      formatted per the https://tools.ietf.org/html/rfc3339 spec.
-    </Description>
-  </Field>
-
-  <Field name="preplanned_fulfillment_id" type="string" required={false}>
-    <Description>
-      The identifer assigned by a fulfillment planning system at checkout (Delivery Options).
-    </Description>
-  </Field>
-
-  <Field name="shipping_service" type="string" required={false}>
-    <Description>
-      The requested shipping service for this fulfillment.
-    </Description>
-  </Field>
-
-  <Field name="package_type" type="string" required={false}>
-    <Description>
-      The requested package type for this fulfillment.
-    </Description>
-  </Field>
-
-  <Field name="insured_value" type="number" required={false}>
-    <Description>
-      The amount of money being request for insurance on this shipment.
-    </Description>
-  </Field>
-
-  <Field name="is_premium_program" type="boolean" required={false}>
-    <Description>
-      Indicates whether the fulfillment is part of a premium program (Amazon Prime, Walmart+, etc.)
-    </Description>
-  </Field>
-
-  <Field name="premium_program_name" type="string" required={false}>
+  <Field name="premium_program_name" type="string" nullable={true}>
     <Description>
       The name of the premium program, if any. This is for informational purposes. Consumers should base all logic on is_premium_program flag.
     </Description>
   </Field>
-
-  <Field name="requested_warehouse" type="string" required={false}>
+  <Field name="preplanned_fulfillment_id" type="string" nullable={true}>
     <Description>
-      The warehouse name associated with the requested warehouse.
+      The identifer assigned by a fulfillment planning system at checkout (Delivery Options).
     </Description>
   </Field>
-
-  <Field name="documents" type="array" required={false}>
+  <Field name="ready_to_ship_date" type="string" nullable={true}>
     <Description>
-      Any documents relevant to shipping that the order source provides.
+      The (ISO 8601) datetime (UTC) associated with when the order is ready to ship @example "2021-03-31T18:21:14.858Z"
     </Description>
   </Field>
-
-  <Field name="documents[].type" type="string" required={true}>
+  <Field name="requested_warehouse" type="string" nullable={true}>
     <Description>
-      The type of document (e.g. label, customs form). Only required if `documents` is specified. Valid values include the following:
-      * `label`
-      * `customs_form`
-      * `commercial_invoice`
+      The warehouse name associated with the requested warehouse
     </Description>
   </Field>
-
-  <Field name="documents[].data" type="string" required={true}>
+  <Field name="saturday_delivery" type="boolean" nullable={true}>
     <Description>
-      Base64 encoded string of the document in the specified format. Only required if `documents` is specified.
+      Indicates whether or not this order should be delivered on a saturday
     </Description>
   </Field>
-
-  <Field name="documents[].format" type="string" required={true}>
+  <Field name="ship_by_date" type="string" nullable={true}>
     <Description>
-      The file format of the document.       Only required if `documents` is specified. Valid values include the following:
-      * `pdf` - Portable Document Format (PDF)
-      * `zpl` - Zebra Printer Label (ZPL)
-      * `png` - Portable Graphics Format (PNG)
+      The (ISO 8601) datetime (UTC) associated with when the order needs to be shipped by @example "2021-03-31T18:21:14.858Z"
     </Description>
   </Field>
-
+  <Field name="shipping_service" type="string" nullable={true}>
+    <Description>
+      The requested shipping service for this fulfillment
+    </Description>
+  </Field>
+  <Field name="show_postage" type="boolean" nullable={true}>
+    <Description>
+      Indicates whether or not to allow display of postage paid on the shipping label
+    </Description>
+  </Field>
+  <Field name="suppress_email_notify" type="boolean" nullable={true}>
+    <Description>
+      Indicates whether or not to supress email notifications to the buyer
+    </Description>
+  </Field>
+  <Field name="suppress_marketplace_notify" type="boolean" nullable={true}>
+    <Description>
+      Indicates whether or not to supress email notifications to the seller
+    </Description>
+  </Field>
 </Reference>
