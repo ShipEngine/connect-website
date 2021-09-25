@@ -1,92 +1,73 @@
 ---
-title: Sales Order Item objects
-description: An object representing an item in a sales order.
+title: SalesOrderItem
+description: The properties associated with a SalesOrderItem
 ---
 
-Sales Order Item Object
+SalesOrderItem
 ===============================================
-Sales order item objects are used throughout Order Source Apps to describe single items in a sales order.
-
-
-Properties
------------------------------------------------
-This table lists the properties of a sales order item object and identifies those properties that are required. This object
-is used for a property of the object returned from the [`SalesOrdersExport`](./methods/sales-orders-export.mdx) method and is
-not passed as an argument to any method.
+An individual item in a sales order
 
 <Reference>
-
-  <Field name="line_item_id" type="string" required={false}>
-    <Description>
-      A unique identifier for the line item in the order provided by the order source.
-    </Description>
-  </Field>
-
-  <Field name="description" type="string" required={true}>
-    <Description>
-      A description of the sales order item.
-    </Description>
-  </Field>
-
-  <Field name="product" required={false}>
+  <Field name="adjustments" nullable={true}>
     <Type>
-      [product object](./product.mdx)
-    </Type>
-    <Description>
-      The product associated with this item.
-    </Description>
-  </Field>
-
-  <Field name="quantity" type="number" required={true}>
-    <Description>
-      The quantity of this item in the sales order.
-    </Description>
-  </Field>
-
-  <Field name="unit_price" type="number" required={false}>
-    <Description>
-      The sale price of each item. This should NOT include additional charges or adjustments, such as taxes or discounts.
-    </Description>
-  </Field>
-
-  <Field name="taxes" required={false}>
-    <Type>
-      [charge object[]](./charge.mdx)
-    </Type>
-    <Description>
-      A list of tax charges. The description can convey the jurisdiction.
-    </Description>
-  </Field>
-
-  <Field name="shipping_charges" required={false}>
-    <Type>
-      [charge object[]](./charge.mdx)
-    </Type>
-    <Description>
-      A list of shipping charges.
-    </Description>
-  </Field>
-
-  <Field name="adjustments" required={false}>
-    <Type>
-      [charge object[]](./charge.mdx)
+      [Charge](./charge.mdx)[]
     </Type>
     <Description>
       A list of adjustments applied that influence the order total. For example, promotions/discounts/coupons. The amount should always be a quantify of currency, not a percentage.
     </Description>
   </Field>
-
-  <Field name="item_url" type="string" required={false}>
+  <Field name="description" type="string" nullable={false}>
     <Description>
-      The url for the item being purchased.
+      A description of the sales order item - which may differ from the product description
     </Description>
   </Field>
-
-  <Field name="modified_date_time" type="string" required={false}>
+  <Field name="item_url" type="string" nullable={true}>
     <Description>
-      The datetime associated with when the item was last modified. Should always be in UTC and
-      formatted per the https://tools.ietf.org/html/rfc3339 spec.
+      The url for the item being purchased
     </Description>
   </Field>
-
+  <Field name="line_item_id" type="string" nullable={true}>
+    <Description>
+      An ID for the line item for the vendor API
+    </Description>
+  </Field>
+  <Field name="modified_date_time" type="string" nullable={true}>
+    <Description>
+      The (ISO 8601) datetime (UTC) associated with when this item was last modified @example "2021-03-31T18:21:14.858Z"
+    </Description>
+  </Field>
+  <Field name="product" nullable={true}>
+    <Type>
+      [Product](./product.mdx)
+    </Type>
+    <Description>
+      The product associated with this order item
+    </Description>
+  </Field>
+  <Field name="quantity" type="number" nullable={false}>
+    <Description>
+      The item quantity for this sales order item
+    </Description>
+  </Field>
+  <Field name="shipping_charges" nullable={true}>
+    <Type>
+      [Charge](./charge.mdx)[]
+    </Type>
+    <Description>
+      A list of shipping charges.
+    </Description>
+  </Field>
+  <Field name="taxes" nullable={true}>
+    <Type>
+      [Charge](./charge.mdx)[]
+    </Type>
+    <Description>
+      A list of tax charges. The description can convey the jurisdiction
+    </Description>
+  </Field>
+  <Field name="unit_price" type="number" nullable={true}>
+    <Description>
+      The amount of the currency per unit
+    </Description>
+  </Field>
 </Reference>

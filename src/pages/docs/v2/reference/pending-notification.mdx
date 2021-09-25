@@ -1,0 +1,21 @@
+---
+title: PendingNotification
+description: The properties associated with a PendingNotification
+---
+
+PendingNotification
+===============================================
+
+
+<Reference>
+  <Field name="notification_id" type="string" nullable={false}>
+    <Description>
+      A unique identifier to correlate this shipment notification with its result in the response
+    </Description>
+  </Field>
+  <Field name="submission_id" type="string" nullable={false}>
+    <Description>
+      A unique identifier that is used to query the third party about the status of this notification, set in the shipment_notification response
+    </Description>
+  </Field>
+</Reference>

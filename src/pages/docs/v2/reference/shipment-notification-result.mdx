@@ -1,48 +1,44 @@
 ---
-title: ShipmentNotificationResult object
-description: The brand requested for a fulfillment.
+title: ShipmentNotificationResult
+description: The properties associated with a ShipmentNotificationResult
 ---
 
-ShipmentNotificationResult Object
+ShipmentNotificationResult
 ===============================================
-ShipmentNotificationResult objects are used throughout the Order Source specifications to describe the result of an individual shipment notification request.
+The result of an individual shipment notification request
 
 <Reference>
-
-  <Field name="notification_id" type="string" required={true}>
+  <Field name="confirmation_code" type="string" nullable={true}>
     <Description>
-      The notification id from the request.
+      An optional confirmation code associated with this notification
     </Description>
   </Field>
-
-  <Field name="succeeded" type="boolean" required={true}>
+  <Field name="failure_reason" type="string" nullable={true}>
     <Description>
-      This property has been deprecated, please use `status`.
+      If succeeded was false use this field to indicate why
     </Description>
   </Field>
-
-  <Field name="status" type="string" required={false}>
+  <Field name="notification_id" type="string" nullable={false}>
     <Description>
-      Indicates the status for the third party receiving this notification.
+      The notification id from the request
     </Description>
   </Field>
-
-  <Field name="confirmation_code" type="string" required={false}>
+  <Field name="status" nullable={true}>
+    <Type>
+      [NotificationStatus](./notification-status.mdx)
+    </Type>
     <Description>
-      An optional confirmation code associated with this notification.
+      Indicates the status for the third party receiving this notification
     </Description>
   </Field>
-
-  <Field name="failure_reason" type="string" required={false}>
+  <Field name="submission_id" type="string" nullable={true}>
     <Description>
-      If `succeeded` is `false` use this field to indicate why.
+      A unique identifier that is used to query the third party about the status of this notification in the notification_status endpoint
     </Description>
   </Field>
-
-  <Field name="submission_id" type="string" required={false}>
+  <Field name="succeeded" type="boolean" nullable={true}>
     <Description>
-      A unique identifier that is used to query the third party about the status of this notification in the notification_status endpoint.
+      Indicates whether or not this request was successful.
     </Description>
   </Field>
-
 </Reference>

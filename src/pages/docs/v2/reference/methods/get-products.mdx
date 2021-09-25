@@ -31,84 +31,53 @@ export const GetProducts = async (
 ```
 </CodeWrapper>
 
-
-
-Parameters
------------------------------------------------
-
-### `GetProductsRequest`
-An object containing parameters to use when querying products from an order source.
+GetProductsRequest
+----
+A request to get product information
 
 <Reference>
-
   <Field name="auth" nullable={false}>
     <Type>
-      [auth object](./../auth.mdx)
+      [Auth](../auth.mdx)
     </Type>
     <Description>
-      Represents the auth information sent with every request
+      The authorization information necessary to fulfill this request.
     </Description>
   </Field>
-
-  <Field name="product_ids" type="string[]" nullable={true}>
+  <Field name="product_ids" nullable={true}>
+    <Type>
+      string[]
+    </Type>
     <Description>
-      A list of product ids to get data from the order source.
+      The product ids to get data for
     </Description>
   </Field>
-
+  <Field name="sales_order_status_mapping" nullable={false}>
+    <Type>
+      [SalesOrderStatusMapping](../sales-order-status-mapping.mdx)[]
+    </Type>
+    <Description>
+      seller specified mappings for custom statuses coming from the 3rd parties api and the SalesOrderStatus they should map to.
+    </Description>
+  </Field>
+  <Field name="transaction_id" type="string" nullable={false}>
+    <Description>
+      A randomly generated transaction ID, used to correlate the request and response
+    </Description>
+  </Field>
 </Reference>
 
-
-
-Return Value
------------------------------------------------
-### `GetProductsResponse`
-This object model represents the response from a successful sales orders export request.
+GetProductsResponse
+----
+The response for the GetProducts method
 
 <Reference>
-
-  <Field name="products" required={true}>
+  <Field name="products" nullable={false}>
     <Type>
-      [products object[]](./../product.mdx)
+      [Product](../product.mdx)[]
     </Type>
     <Description>
-      A list of sales orders to be imported.
+      The list of Products
     </Description>
   </Field>
-
 </Reference>
-
-Example
------------------------------------------------
-<CodeWrapper>
-```javascript
-async function GetProducts(request) {
-  // STEP 1: Validation
-  // Add any desired validation here
-
-  // STEP 2: Create the data that the order source's API expects
-  const thirdPartyRequest = mapRequest(request);
-  // STEP 3: Call the order source's API
-  const response = await callApi(thirdPartyRequest);
-  // Step 4: Create the output data that ShipEngine expects
-  const mappedResponse = mapResponse(response);
-  return mappedResponse;
-}
-```
-```typescript
-export const GetProducts = async (
-  request: GetProductsRequest
-): Promise<GetProductsResponse> => {
-  // STEP 1: Validation
-  // Add any desired validation here
-
-  // STEP 2: Create the data that the order source's API expects
-  const thirdPartyRequest = mapRequest(request);
-  // STEP 3: Call the order source's API
-  const response = await callApi(thirdPartyRequest);
-  // Step 4: Create the output data that ShipEngine expects
-  const mappedResponse = mapResponse(response);
-  return mappedResponse;
-};
-```
-</CodeWrapper>

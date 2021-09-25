@@ -173,39 +173,321 @@ export const menu: MenuContents = [
         title: "Reference",
         menuItems: [
           {
-            title: "Address",
-            href: "/docs/v2/reference/address#order-source-address-object",
-          },
-          { title: "Auth", href: "/docs/v2/reference/auth" },
-          {
-            title: "BillTo",
-            href: "/docs/v2/reference/address#billto-address-object",
-          },
-          { title: "Branding", href: "/docs/v2/reference/branding" },
-          { title: "Buyer", href: "/docs/v2/reference/buyer" },
-          { title: "Charge", href: "/docs/v2/reference/charge" },
-          { title: "Dimensions", href: "/docs/v2/reference/dimensions" },
-          { title: "Note", href: "/docs/v2/reference/note" },
-          {
-            title: "OriginalOrderSource",
-            href: "/docs/v2/reference/original-order-source",
-          },
-          { title: "PackingSlip", href: "/docs/v2/reference/packing-slip" },
-          { title: "Payment", href: "/docs/v2/reference/payment" },
-          { title: "Product", href: "/docs/v2/reference/product" },
-          {
-            title: "SalesOrderItem",
-            href: "/docs/v2/reference/sales-order-item",
+            "title": "ResidentialIndicator",
+            "href": "/docs/v2/reference/residential-indicator"
           },
           {
-            title: "ShipmentNotificationResult",
-            href: "/docs/v2/reference/shipment-notification-result",
+            "title": "Address",
+            "href": "/docs/v2/reference/address"
           },
           {
-            title: "ShippingPreferences",
-            href: "/docs/v2/reference/shipping-preferences",
+            "title": "PickupLocation",
+            "href": "/docs/v2/reference/pickup-location"
           },
-          { title: "Weight", href: "/docs/v2/reference/weight" },
+          {
+            "title": "BillTo",
+            "href": "/docs/v2/reference/bill-to"
+          },
+          {
+            "title": "Branding",
+            "href": "/docs/v2/reference/branding"
+          },
+          {
+            "title": "Buyer",
+            "href": "/docs/v2/reference/buyer"
+          },
+          {
+            "title": "Charge",
+            "href": "/docs/v2/reference/charge"
+          },
+          {
+            "title": "ShipEngineErrorCode",
+            "href": "/docs/v2/reference/ship-engine-error-code"
+          },
+          {
+            "title": "DetailedError",
+            "href": "/docs/v2/reference/detailed-error"
+          },
+          {
+            "title": "DimensionsUnit",
+            "href": "/docs/v2/reference/dimensions-unit"
+          },
+          {
+            "title": "Dimensions",
+            "href": "/docs/v2/reference/dimensions"
+          },
+          {
+            "title": "DocumentFormat",
+            "href": "/docs/v2/reference/document-format"
+          },
+          {
+            "title": "DocumentType",
+            "href": "/docs/v2/reference/document-type"
+          },
+          {
+            "title": "Document",
+            "href": "/docs/v2/reference/document"
+          },
+          {
+            "title": "LabelVoucher",
+            "href": "/docs/v2/reference/label-voucher"
+          },
+          {
+            "title": "NoteType",
+            "href": "/docs/v2/reference/note-type"
+          },
+          {
+            "title": "Note",
+            "href": "/docs/v2/reference/note"
+          },
+          {
+            "title": "PackingSlip",
+            "href": "/docs/v2/reference/packing-slip"
+          },
+          {
+            "title": "PaymentStatus",
+            "href": "/docs/v2/reference/payment-status"
+          },
+          {
+            "title": "Payment",
+            "href": "/docs/v2/reference/payment"
+          },
+          {
+            "title": "Product",
+            "href": "/docs/v2/reference/product"
+          },
+          {
+            "title": "ProductDetail",
+            "href": "/docs/v2/reference/product-detail"
+          },
+          {
+            "title": "ProductIdentifiers",
+            "href": "/docs/v2/reference/product-identifiers"
+          },
+          {
+            "title": "ProductUrls",
+            "href": "/docs/v2/reference/product-urls"
+          },
+          {
+            "title": "SalesOrderItem",
+            "href": "/docs/v2/reference/sales-order-item"
+          },
+          {
+            "title": "SalesOrderStatus",
+            "href": "/docs/v2/reference/sales-order-status"
+          },
+          {
+            "title": "OriginalOrderSource",
+            "href": "/docs/v2/reference/original-order-source"
+          },
+          {
+            "title": "RequestedFulfillment",
+            "href": "/docs/v2/reference/requested-fulfillment"
+          },
+          {
+            "title": "RequestedFulfillmentExtensions",
+            "href": "/docs/v2/reference/requested-fulfillment-extensions"
+          },
+          {
+            "title": "SalesOrder",
+            "href": "/docs/v2/reference/sales-order"
+          },
+          {
+            "title": "NotificationStatus",
+            "href": "/docs/v2/reference/notification-status"
+          },
+          {
+            "title": "ShipmentNotificationResult",
+            "href": "/docs/v2/reference/shipment-notification-result"
+          },
+          {
+            "title": "ShippingPreferences",
+            "href": "/docs/v2/reference/shipping-preferences"
+          },
+          {
+            "title": "WeightUnit",
+            "href": "/docs/v2/reference/weight-unit"
+          },
+          {
+            "title": "Weight",
+            "href": "/docs/v2/reference/weight"
+          },
+          {
+            "title": "AcceptSalesOrderItemsNotification",
+            "href": "/docs/v2/reference/accept-sales-order-items-notification"
+          },
+          {
+            "title": "AcceptSalesOrderItemsRequest",
+            "href": "/docs/v2/reference/accept-sales-order-items-request"
+          },
+          {
+            "title": "RequestedAcceptItem",
+            "href": "/docs/v2/reference/requested-accept-item"
+          },
+          {
+            "title": "RequestedAcceptProduct",
+            "href": "/docs/v2/reference/requested-accept-product"
+          },
+          {
+            "title": "AcknowledgeOrdersRequest",
+            "href": "/docs/v2/reference/acknowledge-orders-request"
+          },
+          {
+            "title": "OrderAcknowledgement",
+            "href": "/docs/v2/reference/order-acknowledgement"
+          },
+          {
+            "title": "CancelSalesOrderItemsNotification",
+            "href": "/docs/v2/reference/cancel-sales-order-items-notification"
+          },
+          {
+            "title": "CancelSalesOrderItemsRequest",
+            "href": "/docs/v2/reference/cancel-sales-order-items-request"
+          },
+          {
+            "title": "RequestedCancelItem",
+            "href": "/docs/v2/reference/requested-cancel-item"
+          },
+          {
+            "title": "RequestedCancelProduct",
+            "href": "/docs/v2/reference/requested-cancel-product"
+          },
+          {
+            "title": "GetProductsRequest",
+            "href": "/docs/v2/reference/get-products-request"
+          },
+          {
+            "title": "NotificationStatusRequest",
+            "href": "/docs/v2/reference/notification-status-request"
+          },
+          {
+            "title": "PendingNotification",
+            "href": "/docs/v2/reference/pending-notification"
+          },
+          {
+            "title": "RegisterDeliveryOptionsRequest",
+            "href": "/docs/v2/reference/register-delivery-options-request"
+          },
+          {
+            "title": "RemoveDeliveryOptionsRequest",
+            "href": "/docs/v2/reference/remove-delivery-options-request"
+          },
+          {
+            "title": "Auth",
+            "href": "/docs/v2/reference/auth"
+          },
+          {
+            "title": "RequestBase",
+            "href": "/docs/v2/reference/request-base"
+          },
+          {
+            "title": "SalesOrderStatusMapping",
+            "href": "/docs/v2/reference/sales-order-status-mapping"
+          },
+          {
+            "title": "SalesOrderCustomFieldMappings",
+            "href": "/docs/v2/reference/sales-order-custom-field-mappings"
+          },
+          {
+            "title": "SalesOrderCustomStatusMappings",
+            "href": "/docs/v2/reference/sales-order-custom-status-mappings"
+          },
+          {
+            "title": "SalesOrderExportCriteria",
+            "href": "/docs/v2/reference/sales-order-export-criteria"
+          },
+          {
+            "title": "SalesOrdersExportRequest",
+            "href": "/docs/v2/reference/sales-orders-export-request"
+          },
+          {
+            "title": "ShipmentNotification",
+            "href": "/docs/v2/reference/shipment-notification"
+          },
+          {
+            "title": "ShipmentNotificationItem",
+            "href": "/docs/v2/reference/shipment-notification-item"
+          },
+          {
+            "title": "ShipmentNotificationRequest",
+            "href": "/docs/v2/reference/shipment-notification-request"
+          },
+          {
+            "title": "VerifyDeliveryOptionsRequest",
+            "href": "/docs/v2/reference/verify-delivery-options-request"
+          },
+          {
+            "title": "AcceptSalesOrderItemsResponse",
+            "href": "/docs/v2/reference/accept-sales-order-items-response"
+          },
+          {
+            "title": "AcceptSalesOrderItemsResult",
+            "href": "/docs/v2/reference/accept-sales-order-items-result"
+          },
+          {
+            "title": "AcknowledgeOrdersResponse",
+            "href": "/docs/v2/reference/acknowledge-orders-response"
+          },
+          {
+            "title": "OrderAcknowledgementResponse",
+            "href": "/docs/v2/reference/order-acknowledgement-response"
+          },
+          {
+            "title": "BadRequestResponse",
+            "href": "/docs/v2/reference/bad-request-response"
+          },
+          {
+            "title": "CancelSalesOrderItemsResponse",
+            "href": "/docs/v2/reference/cancel-sales-order-items-response"
+          },
+          {
+            "title": "CancelSalesOrderItemsResult",
+            "href": "/docs/v2/reference/cancel-sales-order-items-result"
+          },
+          {
+            "title": "ExternalServerErrorResponse",
+            "href": "/docs/v2/reference/external-server-error-response"
+          },
+          {
+            "title": "GetProductsResponse",
+            "href": "/docs/v2/reference/get-products-response"
+          },
+          {
+            "title": "InternalServerErrorResponse",
+            "href": "/docs/v2/reference/internal-server-error-response"
+          },
+          {
+            "title": "NotificationStatusResponse",
+            "href": "/docs/v2/reference/notification-status-response"
+          },
+          {
+            "title": "RateLimitResponse",
+            "href": "/docs/v2/reference/rate-limit-response"
+          },
+          {
+            "title": "RegisterDeliveryOptionsResponse",
+            "href": "/docs/v2/reference/register-delivery-options-response"
+          },
+          {
+            "title": "RemoveDeliveryOptionsResponse",
+            "href": "/docs/v2/reference/remove-delivery-options-response"
+          },
+          {
+            "title": "SalesOrdersExportResponse",
+            "href": "/docs/v2/reference/sales-orders-export-response"
+          },
+          {
+            "title": "ShipmentNotificationResponse",
+            "href": "/docs/v2/reference/shipment-notification-response"
+          },
+          {
+            "title": "UnauthorizedResponse",
+            "href": "/docs/v2/reference/unauthorized-response"
+          },
+          {
+            "title": "VerifyDeliveryOptionsResponse",
+            "href": "/docs/v2/reference/verify-delivery-options-response"
+          }
         ],
       },
     ],

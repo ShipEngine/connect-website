@@ -32,85 +32,52 @@ export const RemoveDeliveryOptions = async (
 ```
 </CodeWrapper>
 
-
-
-Parameters
------------------------------------------------
-
-### `RemoveDeliveryOptionsRequest`
-An object containing parameters to use when removing delivery options from an order source.
+RemoveDeliveryOptionsRequest
+----
+A request to remove delivery options connection with an order source
 
 <Reference>
-
   <Field name="auth" nullable={false}>
     <Type>
-      [auth object](./../auth.mdx)
+      [Auth](../auth.mdx)
     </Type>
     <Description>
-      Represents the auth information sent with every request
+      The authorization information necessary to fulfill this request.
     </Description>
   </Field>
-
-  <Field name="connection_id" type="string" required={true}>
+  <Field name="connection_id" type="string" nullable={false}>
     <Description>
-      The unique identifier for the connection from the order source.
+      Identifier for the connection in the order source
     </Description>
   </Field>
-
+  <Field name="sales_order_status_mapping" nullable={false}>
+    <Type>
+      [SalesOrderStatusMapping](../sales-order-status-mapping.mdx)[]
+    </Type>
+    <Description>
+      seller specified mappings for custom statuses coming from the 3rd parties api and the SalesOrderStatus they should map to.
+    </Description>
+  </Field>
+  <Field name="transaction_id" type="string" nullable={false}>
+    <Description>
+      A randomly generated transaction ID, used to correlate the request and response
+    </Description>
+  </Field>
 </Reference>
 
-Return Value
------------------------------------------------
-
-### `OrderAcknowledgementResponse`
+RemoveDeliveryOptionsResponse
+----
+The response for a RemoveDeliveryOptions method
 
 <Reference>
-
-  <Field name="succeeded" type="boolean" required={true}>
+  <Field name="failure_reason" type="string" nullable={true}>
     <Description>
-      Indicates whether or not we were able to remove register delivery options with the order source.
+      The reason why removing this request failed.
     </Description>
   </Field>
-
-  <Field name="failure_reason" type="string" required={false}>
+  <Field name="succeeded" type="boolean" nullable={false}>
     <Description>
-      Additional context for why the removal attempt failed.
+      Indicates whether or not this request succeeded.
     </Description>
   </Field>
-
 </Reference>
-
-Example
------------------------------------------------
-<CodeWrapper>
-```javascript
-async function RemoveDeliveryOptions(request) {
-  // STEP 1: Validation
-  // Add any desired validation here
-
-  // STEP 2: Create the data that the order source's API expects
-  const thirdPartyRequest = mapRequest(request);
-  // STEP 3: Call the order source's API
-  const response = await callApi(thirdPartyRequest);
-  // Step 4: Create the output data that ShipEngine expects
-  const mappedResponse = mapResponse(response);
-  return mappedResponse;
-}
-```
-```typescript
-export const RemoveDeliveryOptions = async (
-  request: RemoveDeliveryOptionsRequest
-): Promise<RemoveDeliveryOptionsResponse> => {
-  // STEP 1: Validation
-  // Add any desired validation here
-
-  // STEP 2: Create the data that the order source's API expects
-  const thirdPartyRequest = mapRequest(request);
-  // STEP 3: Call the order source's API
-  const response = await callApi(thirdPartyRequest);
-  // Step 4: Create the output data that ShipEngine expects
-  const mappedResponse = mapResponse(response);
-  return mappedResponse;
-};
-```
-</CodeWrapper>

@@ -1,144 +1,76 @@
 ---
-title: Product object
-description: Represents the Product of the sales order item.
+title: Product
+description: The properties associated with a Product
 ---
 
-Product Object
+Product
 ===============================================
-Product objects are used throughout the Order Source specifications to describe the product of the sales order item.
+This represents a product
 
 <Reference>
-
-  <Field name="product_id" type="string" required={true}>
+  <Field name="description" type="string" nullable={true}>
     <Description>
-      A unique identifier for the product provided by the order source.
+      The product description
     </Description>
   </Field>
-
-  <Field name="name" type="string" required={true}>
-    <Description>
-      The product name.
-    </Description>
-  </Field>
-
-  <Field name="description" type="string" required={false}>
-    <Description>
-      The product description.
-    </Description>
-  </Field>
-
-  <Field name="identifiers" type="object" required={false}>
-    <Description>
-      Additional identifiers associated with this product.
-    </Description>
-  </Field>
-
-  <Field name="identifiers.sku" type="string" required={false}>
-    <Description>
-      A stock-keeping unit associated with a product by the order source. This string must not contain newline characters.
-    </Description>
-  </Field>
-
-  <Field name="identifiers.upc" type="string" required={false}>
-    <Description>
-      A universal product code associated with a product. This string must not contain newline characters.
-    </Description>
-  </Field>
-
-  <Field name="identifiers.isbn" type="string" required={false}>
-    <Description>
-      An international standard book number associated with a product. This string must not contain newline characters.
-    </Description>
-  </Field>
-
-  <Field name="identifiers.asin" type="string" required={false}>
-    <Description>
-      An Amzon standard identification number associated with a product. This string must not contain newline characters.
-    </Description>
-  </Field>
-
-  <Field name="identifiers.fulfillmentSku" type="string" required={false}>
-    <Description>
-      A stock-keeping unit associated with the fulfillment of an order. This string must not contain newline characters.
-    </Description>
-  </Field>
-
-  <Field name="identifiers.inventory_id" type="string" required={false}>
-    <Description>
-      The identifier needed to set and retrieve inventory levels. This string must not contain newline characters.
-    </Description>
-  </Field>
-
-  <Field name="details" type="object" required={false}>
-    <Description>
-      Details about a product.
-    </Description>
-  </Field>
-
-  <Field name="details.name" type="string" required={true}>
-    <Description>
-      The type of the product detail. Only required if `product.details` is specified.
-    </Description>
-  </Field>
-
-  <Field name="details.value" type="string" required={true}>
-    <Description>
-      The value of the product detail. Only required if `product.details` is specified.
-    </Description>
-  </Field>
-
-  <Field name="unit_cost" type="number" required={false}>
-    <Description>
-      The cost of a single product.
-    </Description>
-  </Field>
-
-  <Field name="weight" required={false}>
+  <Field name="details" nullable={true}>
     <Type>
-      [weight object](./weight.mdx)
+      [ProductDetail](./product-detail.mdx)[]
     </Type>
     <Description>
-      The weight of the product.
+      A list of details associated with this product
     </Description>
   </Field>
-
-  <Field name="dimensions" required={false}>
+  <Field name="dimensions" nullable={true}>
     <Type>
-      [dimensions object](./dimensions.mdx)
+      [Dimensions](./dimensions.mdx)
     </Type>
     <Description>
-       The dimensions for the product.
+      The dimensions of the product
     </Description>
   </Field>
-
-  <Field name="urls" type="object" required={false}>
+  <Field name="identifiers" nullable={true}>
+    <Type>
+      [ProductIdentifiers](./product-identifiers.mdx)
+    </Type>
     <Description>
-      The urls associated with a product.
+      Additional identifiers associated with this product
     </Description>
   </Field>
-
-  <Field name="urls.product_url" type="string" required={false}>
+  <Field name="location" type="string" nullable={true}>
     <Description>
-      A link to the product page.
+      The location the product can be found in a warehouse
     </Description>
   </Field>
-
-  <Field name="urls.image_url" type="string" required={false}>
+  <Field name="name" type="string" nullable={false}>
     <Description>
-      A link to the image for a product.
+      The product name
     </Description>
   </Field>
-
-  <Field name="urls.thumbnail_url" type="string" required={false}>
+  <Field name="product_id" type="string" nullable={false}>
     <Description>
-      A link to the image for use in platform thumbnails.
+      This ID of this product in the vendor API
     </Description>
   </Field>
-
-  <Field name="location" type="string" required={false}>
+  <Field name="unit_cost" type="number" nullable={true}>
     <Description>
-      The location the product can be found in a warehouse.
+      The cost of a single product
     </Description>
   </Field>
-
+  <Field name="urls" nullable={true}>
+    <Type>
+      [ProductUrls](./product-urls.mdx)
+    </Type>
+    <Description>
+      The urls associated with a product
+    </Description>
+  </Field>
+  <Field name="weight" nullable={true}>
+    <Type>
+      [Weight](./weight.mdx)
+    </Type>
+    <Description>
+      The weight of the product
+    </Description>
+  </Field>
 </Reference>

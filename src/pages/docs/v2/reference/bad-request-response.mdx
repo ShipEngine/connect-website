@@ -1,0 +1,19 @@
+---
+title: BadRequestResponse
+description: The properties associated with a BadRequestResponse
+---
+
+BadRequestResponse
+===============================================
+Represents an error response to a request that had client errors
+
+<Reference>
+  <Field name="detailed_errors" nullable={true}>
+    <Type>
+      [DetailedError](./detailed-error.mdx)[]
+    </Type>
+    <Description>
+      a list of errors associated with this response
+    </Description>
+  </Field>
+</Reference>

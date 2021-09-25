@@ -31,268 +31,79 @@ export const SalesOrdersExport = async (
 ```
 </CodeWrapper>
 
-
-
-Parameters
------------------------------------------------
-
-### `SalesOrdersExportRequest`
-An object containing parameters to use when querying the order source for sales orders.
+SalesOrdersExportRequest
+----
+A request to export a range of sales orders
 
 <Reference>
-
   <Field name="auth" nullable={false}>
     <Type>
-      [auth object](./../auth.mdx)
+      [Auth](../auth.mdx)
     </Type>
     <Description>
-      Represents the auth information sent with every request
+      The authorization information necessary to fulfill this request.
     </Description>
   </Field>
-
-  <Field name="criteria" type="object" nullable={true}>
+  <Field name="criteria" nullable={true}>
+    <Type>
+      [SalesOrderExportCriteria](../sales-order-export-criteria.mdx)
+    </Type>
     <Description>
-      This object will contain properies that help create the search query to poll the order source for sales orders.
+      The criteria of which sales orders to retrieve
     </Description>
   </Field>
-
-  <Field name="criteria.from_date_time" type="string" nullable={true}>
-    <Description>
-      The datetime associated with the beginning of the range that the request should pull orders from.
-      Formatted per the https://tools.ietf.org/html/rfc3339 spec. Will always be in UTC. 
-    </Description>
-  </Field>
-
-  <Field name="criteria.to_date_time" type="string" nullable={true}>
-    <Description>
-      The datetime associated with the end of the range that the request should pull orders from.
-      Formatted per the https://tools.ietf.org/html/rfc3339 spec. Will always be in UTC. 
-    </Description>
-  </Field>
-
   <Field name="cursor" type="string" nullable={true}>
     <Description>
-      Information needed to get a current batch of sales orders if necessary. This should be set by SalesOrdersExportResponse
-      if there are additional orders to be retrieved.
+      Information needed to get this current batch of orders if necessary, this will be set by the export sales order response if there are additional orders to be retrieved. @example "23", "65f3873f-8ece-4429-935d-e35cbeeab5d5"
     </Description>
   </Field>
-
-  <Field name="sales_order_field_mappings" type="object" nullable={true}>
+  <Field name="sales_order_field_mappings" nullable={true}>
+    <Type>
+      [SalesOrderCustomFieldMappings](../sales-order-custom-field-mappings.mdx)
+    </Type>
     <Description>
-      Allows for mapping of user defined fields to properies on the SalesOrderExportResponse.
+      Allows for mapping of custom 3rd party SalesOrder fields to properties on RequestedFulfillmentExtensions
     </Description>
   </Field>
-
-  <Field name="sales_order_field_mappings.custom_field_1" type="string" nullable={true}>
+  <Field name="sales_order_status_mapping" nullable={false}>
+    <Type>
+      [SalesOrderStatusMapping](../sales-order-status-mapping.mdx)[]
+    </Type>
     <Description>
-      Custom field 1
+      seller specified mappings for custom statuses coming from the 3rd parties api and the SalesOrderStatus they should map to.
     </Description>
   </Field>
-
-    <Field name="sales_order_field_mappings.custom_field_2" type="string" nullable={true}>
+  <Field name="sales_order_status_mappings" nullable={true}>
+    <Type>
+      [SalesOrderCustomStatusMappings](../sales-order-custom-status-mappings.mdx)
+    </Type>
     <Description>
-      Custom field 2
+      seller specified mappings for custom statuses coming from the 3rd parties api and the SalesOrderStatus they should map to.
     </Description>
   </Field>
-
-    <Field name="sales_order_field_mappings.custom_field_3" type="string" nullable={true}>
+  <Field name="transaction_id" type="string" nullable={false}>
     <Description>
-      Custom field 3
+      A randomly generated transaction ID, used to correlate the request and response
     </Description>
   </Field>
-
-  <Field name="sales_order_status_mappings" type="object" nullable={true}>
-    <Description>
-      Merchant specified mappings for custom statuses coming from the 3rd parties api and the SalesOrderStatus they should map to. The keys of this object will be the custom status strings provided by a user, and the values will be one of the following valid status codes: 
-        * `AwaitingPayment` - The sales order is awaiting payment.
-        * `AwaitingShipment` - This sales order is awaiting shipment.
-        * `OnHold` - This sales order is on hold.
-        * `PendingFulfillment` - This sales order is pending fulfillment.
-        * `Completed` - This sales order is completed.
-        * `Cancelled` - This sales order has been cancelled.
-    </Description>
-  </Field>
-
 </Reference>
 
-
-
-Return Value
------------------------------------------------
-### `SalesOrdersExportResponse`
-This object model represents the response from a successful sales orders export request.
+SalesOrdersExportResponse
+----
+The response from an ExportSalesOrders method
 
 <Reference>
-
-  <Field name="sales_orders" type="object[]" required={true}>
+  <Field name="cursor" type="string" nullable={true}>
     <Description>
-      A list of sales orders to be imported.
+      Any information necessary to make the next call to retrieve orders (paging, etc). If all orders have been retrieved return undefined @example '343', 'f356bf8c-665d-4164-96ef-337876d958ea'
     </Description>
   </Field>
-
-  <Field name="sales_orders[].order_id" type="string" required={true}>
-    <Description>
-      The unique identifier of the sales order from the order source.
-    </Description>
-  </Field>
-
-  <Field name="sales_orders[].order_number" type="string" required={false}>
-    <Description>
-      The customer facing identifier of the sales order.
-    </Description>
-  </Field>
-
-  <Field name="sales_orders[].status" type="string" required={true}>
-    <Description>
-      The sales order status. Valid values include the following:
-      * `AwaitingPayment` - The sales order is awaiting payment.
-      * `AwaitingShipment` - This sales order is awaiting shipment.
-      * `PendingFulfillment` - This sales order is pending fulfillment.
-      * `OnHold` - This sales order is on hold.
-      * `Completed` - This sales order is completed.
-      * `Cancelled` - This sales order has been cancelled.
-    </Description>
-  </Field>
-
-  <Field name="sales_orders[].paid_date" type="string" required={false}>
-    <Description>
-      The datetime associated with when the sales order was paid. Should always be in UTC and
-      formatted per the https://tools.ietf.org/html/rfc3339 spec.
-    </Description>
-  </Field>
-
-  <Field name="sales_orders[].fulfilled_date" type="string" required={false}>
-    <Description>
-      The datetime associated with when the sales order was fulfilled/shipped. Should always be in UTC and
-      formatted per the https://tools.ietf.org/html/rfc3339 spec.
-    </Description>
-  </Field>
-
-  <Field name="sales_orders[].original_order_source" required={false}>
+  <Field name="sales_orders" nullable={false}>
     <Type>
-      [original order source object](./../original-order-source.mdx)
+      [SalesOrder](../sales-order.mdx)[]
     </Type>
     <Description>
-      Information regarding the original order source. This is used when an order source is acting on behalf of other order sources, in order to persist information regarding the original order.
+      A list of sales orders to be imported
     </Description>
   </Field>
-
-  <Field name="sales_orders[].requested_fulfillments" required={true}>
-    <Type>
-      [requested fulfillments object[]](./../requested-fulfillments.mdx)
-    </Type>
-    <Description>
-      The fulfillment requested by the marketplace or the buyer.
-    </Description>
-  </Field>
-
-  <Field name="sales_orders[].buyer" required={false}>
-    <Type>
-      [buyer object](./../buyer.mdx)
-    </Type>
-    <Description>
-      The buyer of this sales order.
-    </Description>
-  </Field>
-
-  <Field name="sales_orders[].bill_to" required={false}>
-    <Type>
-      [bill to address object](./../address.mdx#billto-address-object)
-    </Type>
-    <Description>
-      The person being billed for this sales order.
-    </Description>
-  </Field>
-
-  <Field name="sales_orders[].currency" type="string" required={false}>
-    <Description>
-      The three character ISO 4217 code of the currency used for all monetary amounts.
-    </Description>
-  </Field>
-
-  <Field name="sales_orders[].payment" type="object" required={false}>
-    <Description>
-      Information about the payment.
-    </Description>
-  </Field>
-
-  <Field name="sales_orders[].ship_from" required={false}>
-    <Type>
-      [order source address object](./../address.mdx#order-source-address-object)
-    </Type>
-    <Description>
-      The origin address that the order is shipping from.
-    </Description>
-  </Field>
-
-  <Field name="sales_orders[].order_url" type="string" required={false}>
-    <Description>
-      A unique url associated with the order.
-    </Description>
-  </Field>
-
-  <Field name="sales_orders[].notes" required={false}>
-    <Type>
-      [note object[]](./../note.mdx)
-    </Type>
-    <Description>
-      Notes about the order.
-    </Description>
-  </Field>
-
-  <Field name="sales_orders[].integration_context" type="string" required={false}>
-    <Description>
-      Data provided by the order source that should be included in calls back to the order source. This data is only meaningful to the integration and not otherwise used by the platform.
-    </Description>
-  </Field>
-
-  <Field name="sales_orders[].created_date_time" type="string" required={false}>
-    <Description>
-      The datetime associated with when the sales order was created. Should always be in UTC and
-      formatted per the https://tools.ietf.org/html/rfc3339 spec.
-    </Description>
-  </Field>
-
-  <Field name="sales_orders[].modified_date_time" type="string" required={false}>
-    <Description>
-      The datetime associated with when the sales order was modified. Should always be in UTC and
-      formatted per the https://tools.ietf.org/html/rfc3339 spec.
-    </Description>
-  </Field>
-
 </Reference>
-
-Example
------------------------------------------------
-<CodeWrapper>
-```javascript
-async function SalesOrdersExport(request) {
-  // STEP 1: Validation
-  // Add any desired validation here
-
-  // STEP 2: Create the data that the order source's API expects
-  const thirdPartyRequest = mapRequest(request);
-  // STEP 3: Call the order source's API
-  const response = await callApi(thirdPartyRequest);
-  // Step 4: Create the output data that ShipEngine expects
-  const mappedResponse = mapResponse(response);
-  return mappedResponse;
-}
-```
-```typescript
-export const SalesOrdersExport = async (
-  request: SalesOrdersExportRequest
-): Promise<SalesOrdersExportResponse> => {
-  // STEP 1: Validation
-  // Add any desired validation here
-
-  // STEP 2: Create the data that the order source's API expects
-  const thirdPartyRequest = mapRequest(request);
-  // STEP 3: Call the order source's API
-  const response = await callApi(thirdPartyRequest);
-  // Step 4: Create the output data that ShipEngine expects
-  const mappedResponse = mapResponse(response);
-  return mappedResponse;
-};
-```
-</CodeWrapper>

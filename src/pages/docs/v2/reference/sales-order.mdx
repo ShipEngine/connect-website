@@ -1,0 +1,120 @@
+---
+title: SalesOrder
+description: The properties associated with a SalesOrder
+---
+
+SalesOrder
+===============================================
+This represents a sales order
+
+<Reference>
+  <Field name="bill_to" nullable={true}>
+    <Type>
+      [BillTo](./bill-to.mdx)
+    </Type>
+    <Description>
+      The person being billed for this sales order
+    </Description>
+  </Field>
+  <Field name="buyer" nullable={true}>
+    <Type>
+      [Buyer](./buyer.mdx)
+    </Type>
+    <Description>
+      The buyer of this sales order
+    </Description>
+  </Field>
+  <Field name="created_date_time" type="string" nullable={true}>
+    <Description>
+      The (ISO 8601) datetime (UTC) associated with when this order was created @example "2021-03-31T18:21:14.858Z"
+    </Description>
+  </Field>
+  <Field name="currency" type="string" nullable={true}>
+    <Description>
+      The three character ISO 4217 code of the currency used for all monetary amounts @example "USD", "EUR", "NZD"
+    </Description>
+  </Field>
+  <Field name="fulfilled_date" type="string" nullable={true}>
+    <Description>
+      The (ISO 8601) datetime (UTC) associated with when this order shipped @example "2021-03-31T18:21:14.858Z"
+    </Description>
+  </Field>
+  <Field name="integration_context" type="string" nullable={true}>
+    <Description>
+      Data provided by the order source that should be included in calls back to the order source. This data is only meaningful to the integration and not otherwise used by the platform.
+    </Description>
+  </Field>
+  <Field name="modified_date_time" type="string" nullable={true}>
+    <Description>
+      The (ISO 8601) datetime (UTC) associated with when this order was last modified @example "2021-03-31T18:21:14.858Z"
+    </Description>
+  </Field>
+  <Field name="notes" nullable={true}>
+    <Type>
+      [Note](./note.mdx)[]
+    </Type>
+    <Description>
+      Notes about the order
+    </Description>
+  </Field>
+  <Field name="order_id" type="string" nullable={true}>
+    <Description>
+      The unique identifier of the sales order from the order source
+    </Description>
+  </Field>
+  <Field name="order_number" type="string" nullable={true}>
+    <Description>
+      The customer facing identifier of the sales order
+    </Description>
+  </Field>
+  <Field name="order_url" type="string" nullable={true}>
+    <Description>
+      A unique url associated with the order
+    </Description>
+  </Field>
+  <Field name="original_order_source" nullable={true}>
+    <Type>
+      [OriginalOrderSource](./original-order-source.mdx)
+    </Type>
+    <Description>
+      Represents information from the source marketplace. (This is common with reselling goods)
+    </Description>
+  </Field>
+  <Field name="paid_date" type="string" nullable={true}>
+    <Description>
+      The (ISO 8601) datetime (UTC) associated with when this sales order was paid for @example "2021-03-31T18:21:14.858Z"
+    </Description>
+  </Field>
+  <Field name="payment" nullable={true}>
+    <Type>
+      [Payment](./payment.mdx)
+    </Type>
+    <Description>
+      Information about the payment
+    </Description>
+  </Field>
+  <Field name="requested_fulfillments" nullable={false}>
+    <Type>
+      [RequestedFulfillment](./requested-fulfillment.mdx)[]
+    </Type>
+    <Description>
+      The fulfillment requested by the marketplace or the buyer
+    </Description>
+  </Field>
+  <Field name="ship_from" nullable={true}>
+    <Type>
+      [Address](./address.mdx)
+    </Type>
+    <Description>
+      The source that the order is shipping from
+    </Description>
+  </Field>
+  <Field name="status" nullable={false}>
+    <Type>
+      [SalesOrderStatus](./sales-order-status.mdx)
+    </Type>
+    <Description>
+      The sales order status
+    </Description>
+  </Field>
+</Reference>
