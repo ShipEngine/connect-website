@@ -1,0 +1,34 @@
+---
+title: RequestedAcceptItem
+description: The properties associated with a RequestedAcceptItem
+---
+
+RequestedAcceptItem
+===============================================
+Details about the requested item to accept
+
+<Reference>
+  <Field name="line_item_id" type="string" nullable={false}>
+    <Description>
+      Line item idenifier provided by the order source
+    </Description>
+  </Field>
+  <Field name="message" type="string" nullable={true}>
+    <Description>
+      The message
+    </Description>
+  </Field>
+  <Field name="product" nullable={true}>
+    <Type>
+      [RequestedAcceptProduct](./requested-accept-product.mdx)
+    </Type>
+    <Description>
+      Product information about the item
+    </Description>
+  </Field>
+  <Field name="quantity" type="number" nullable={false}>
+    <Description>
+      Quantity of the item
+    </Description>
+  </Field>
+</Reference>

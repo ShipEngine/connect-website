@@ -1,30 +1,26 @@
 ---
-title: Original Order Source object
-description: Represents the Original Order Source of the sales order.
+title: OriginalOrderSource
+description: The properties associated with a OriginalOrderSource
 ---
 
-Original Order Source Object
+OriginalOrderSource
 ===============================================
-Original Order Source objects are used throughout the Order Source specifications to describe information about the original source of the sales order.
+Represents information from the source marketplace. (This is common with reselling goods)
 
 <Reference>
-
-  <Field name="source_id" type="string" required={false}>
+  <Field name="marketplace_code" type="string" nullable={true}>
     <Description>
-      A unique identifier for the source marketplace.
+      The code for the type of marketplace
     </Description>
   </Field>
-
-  <Field name="marketplace_code" type="string" required={false}>
+  <Field name="order_id" type="string" nullable={true}>
     <Description>
-      The code for the type of marketplace.
+      The unique identifier for the order at the source marketplace
     </Description>
   </Field>
-
-  <Field name="order_id" type="string" required={false}>
+  <Field name="source_id" type="string" nullable={true}>
     <Description>
-      The unique identifier for the order at the source marketplace.
+      A unique identifier for the source marketplace
     </Description>
   </Field>
-
 </Reference>

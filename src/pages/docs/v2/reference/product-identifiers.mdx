@@ -1,0 +1,41 @@
+---
+title: ProductIdentifiers
+description: The properties associated with a ProductIdentifiers
+---
+
+ProductIdentifiers
+===============================================
+A set of identifiers for a product
+
+<Reference>
+  <Field name="asin" type="string" nullable={true}>
+    <Description>
+      An Amzon standard identification number associated with a product
+    </Description>
+  </Field>
+  <Field name="fulfillment_sku" type="string" nullable={true}>
+    <Description>
+      A stock-keeping unit associated with the fulfillment of an order
+    </Description>
+  </Field>
+  <Field name="inventory_id" type="string" nullable={true}>
+    <Description>
+      The identifier needed to set and retrieve inventory levels
+    </Description>
+  </Field>
+  <Field name="isbn" type="string" nullable={true}>
+    <Description>
+      An international standard book number associated with a product
+    </Description>
+  </Field>
+  <Field name="sku" type="string" nullable={true}>
+    <Description>
+      A stock-keeping unit associated with a product by the order source
+    </Description>
+  </Field>
+  <Field name="upc" type="string" nullable={true}>
+    <Description>
+      A universal product code associated with a product
+    </Description>
+  </Field>
+</Reference>

@@ -32,138 +32,53 @@ export const AcknowledgeOrders = async (
 ```
 </CodeWrapper>
 
-
-
-Parameters
------------------------------------------------
-
-### `AcknowledgeOrdersRequest`
-An object containing parameters to use when acknowledging orders to an order source.
+AcknowledgeOrdersRequest
+----
+This is a request for acknowledging that an order has been imported
 
 <Reference>
-
   <Field name="auth" nullable={false}>
     <Type>
-      [auth object](./../auth.mdx)
+      [Auth](../auth.mdx)
     </Type>
     <Description>
-      Represents the auth information sent with every request
+      The authorization information necessary to fulfill this request.
     </Description>
   </Field>
-
   <Field name="orders" nullable={false}>
     <Type>
-      [order acknowledge object[]](#orderacknowledgement)
+      [OrderAcknowledgement](../order-acknowledgement.mdx)[]
     </Type>
     <Description>
       A list of orders needing to be acknowledged in order to successfully be imported into our system.
     </Description>
   </Field>
-
+  <Field name="sales_order_status_mapping" nullable={false}>
+    <Type>
+      [SalesOrderStatusMapping](../sales-order-status-mapping.mdx)[]
+    </Type>
+    <Description>
+      seller specified mappings for custom statuses coming from the 3rd parties api and the SalesOrderStatus they should map to.
+    </Description>
+  </Field>
+  <Field name="transaction_id" type="string" nullable={false}>
+    <Description>
+      A randomly generated transaction ID, used to correlate the request and response
+    </Description>
+  </Field>
 </Reference>
 
-### `OrderAcknowledgement`
-An object containing order acknowledge information.
-
-<Reference>
-
-  <Field name="order_id" type="string" nullable={false}>
-    <Description>
-      The unique identifier of the sales order from the order source.
-    </Description>
-  </Field>
-
-  <Field name="order_number" type="string" nullable={true}>
-    <Description>
-      The customer facing identifier of the sales order.
-    </Description>
-  </Field>
-
-  <Field name="imported_date" type="string" nullable={false}>
-    <Description>
-      The datetime associated with when the sales order was imported. Should always be in UTC and
-      formatted per the https://tools.ietf.org/html/rfc3339 spec.
-    </Description>
-  </Field>
-
-  <Field name="integration_context" type="string" nullable={true}>
-    <Description>
-      Data provided by the order source that was included in the SalesOrderExport response.
-    </Description>
-  </Field>
-
-</Reference>
-
-Return Value
------------------------------------------------
-### `OrderAcknowledgementResponse[]`
+AcknowledgeOrdersResponse
+----
+The response for the AcknowledgeOrders method
 
 <Reference>
   <Field name="responses" nullable={false}>
     <Type>
-      [order acknowledgement response object](#orderacknowledgementresponse)
+      [OrderAcknowledgementResponse](../order-acknowledgement-response.mdx)[]
     </Type>
     <Description>
-      A list of acknowledgement responses.
+      A list of acknowledgement responses
     </Description>
   </Field>
 </Reference>
-
-### `OrderAcknowledgementResponse`
-
-<Reference>
-
-  <Field name="order_id" type="string" required={true}>
-    <Description>
-      The unique identifier of the sales order from the order source.
-    </Description>
-  </Field>
-
-  <Field name="succeeded" type="boolean" required={true}>
-    <Description>
-      Indicates whether or not we were able to acknowledge our import of the order with the order source.
-    </Description>
-  </Field>
-
-  <Field name="failure_reason" type="string" required={false}>
-    <Description>
-      Additional context for why the acknowledgement failed.
-    </Description>
-  </Field>
-
-</Reference>
-
-Example
------------------------------------------------
-<CodeWrapper>
-```javascript
-async function AcknowledgeOrders(request) {
-  // STEP 1: Validation
-  // Add any desired validation here
-
-  // STEP 2: Create the data that the order source's API expects
-  const thirdPartyRequest = mapRequest(request);
-  // STEP 3: Call the order source's API
-  const response = await callApi(thirdPartyRequest);
-  // Step 4: Create the output data that ShipEngine expects
-  const mappedResponse = mapResponse(response);
-  return mappedResponse;
-}
-```
-```typescript
-export const AcknowledgeOrders = async (
-  request: AcknowledgeOrdersRequest
-): Promise<AcknowledgeOrdersResponse> => {
-  // STEP 1: Validation
-  // Add any desired validation here
-
-  // STEP 2: Create the data that the order source's API expects
-  const thirdPartyRequest = mapRequest(request);
-  // STEP 3: Call the order source's API
-  const response = await callApi(thirdPartyRequest);
-  // Step 4: Create the output data that ShipEngine expects
-  const mappedResponse = mapResponse(response);
-  return mappedResponse;
-};
-```
-</CodeWrapper>

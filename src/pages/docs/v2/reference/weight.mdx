@@ -1,28 +1,24 @@
 ---
-title: Weight object
-description: The weight of an item.
+title: Weight
+description: The properties associated with a Weight
 ---
 
-Weight Object
+Weight
 ===============================================
-Weight objects are used throughout the Order Source specifications to describe the physical weight of a product/item.
+A measurement of weight
 
 <Reference>
-
-  <Field name="value" type="number" required={true} nullable={false}>
+  <Field name="unit" nullable={false}>
+    <Type>
+      [WeightUnit](./weight-unit.mdx)
+    </Type>
     <Description>
-      The weight value for this package. This value may contain decimals.
+      The unit this weight was measured in
     </Description>
   </Field>
-
-  <Field name="unit" type="string" required={true} nullable={false}>
+  <Field name="value" type="number" nullable={false}>
     <Description>
-      The unit of measure for this weight. Valid values include the following:
-      * `Gram`
-      * `Ounce`
-      * `Kilogram`
-      * `Pound`
+      The value of the weight in weight units
     </Description>
   </Field>
-
 </Reference>

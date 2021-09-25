@@ -1,0 +1,32 @@
+---
+title: OrderAcknowledgement
+description: The properties associated with a OrderAcknowledgement
+---
+
+OrderAcknowledgement
+===============================================
+This is a request for acknowledging that an order has been imported
+
+
+<Reference>
+  <Field name="imported_date" type="string" nullable={false}>
+    <Description>
+      The (ISO 8601) datetime (UTC) of when the order was imported @example "2021-03-31T18:21:14.858Z"
+    </Description>
+  </Field>
+  <Field name="integration_context" type="string" nullable={true}>
+    <Description>
+      Data provided by the order source that was included in the ExportSalesOrder response
+    </Description>
+  </Field>
+  <Field name="order_id" type="string" nullable={false}>
+    <Description>
+      The unique identifier of the sales order from the order source
+    </Description>
+  </Field>
+  <Field name="order_number" type="string" nullable={true}>
+    <Description>
+      The customer facing identifier of the sales order
+    </Description>
+  </Field>
+</Reference>

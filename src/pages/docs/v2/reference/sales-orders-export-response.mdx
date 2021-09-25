@@ -1,0 +1,25 @@
+---
+title: SalesOrdersExportResponse
+description: The properties associated with a SalesOrdersExportResponse
+---
+
+SalesOrdersExportResponse
+===============================================
+The response from an ExportSalesOrders method
+
+
+<Reference>
+  <Field name="cursor" type="string" nullable={true}>
+    <Description>
+      Any information necessary to make the next call to retrieve orders (paging, etc). If all orders have been retrieved return undefined @example '343', 'f356bf8c-665d-4164-96ef-337876d958ea'
+    </Description>
+  </Field>
+  <Field name="sales_orders" nullable={false}>
+    <Type>
+      [SalesOrder](./sales-order.mdx)[]
+    </Type>
+    <Description>
+      A list of sales orders to be imported
+    </Description>
+  </Field>
+</Reference>

@@ -1,78 +1,35 @@
 ---
-title: Document object
-description: An object representing a document.
+title: Document
+description: The properties associated with a Document
 ---
 
-Document Object
+Document
 ===============================================
-A document object is used to represent a document.
-
-
-Properties
---------------------------------
-
-This table lists the properties of a document and identifies those properties that are required. 
 
 
 <Reference>
+  <Field name="data" type="string" nullable={true}>
+    <Description>
+      Base64 encoded string of the document in the specified format
 
-  <Field name="type" required={true}>
+    </Description>
+  </Field>
+  <Field name="format" nullable={false}>
     <Type>
-      [document type[]](#document-types)
+      [DocumentFormat](./document-format.mdx)
     </Type>
     <Description>
-      An array of [document types](#document-types) describing this document.
+      The format the document is in
+
     </Description>
   </Field>
-
-  <Field name="data" type="string" required={true}>
+  <Field name="type" nullable={true}>
+    <Type>
+      [DocumentType](./document-type.mdx)[]
+    </Type>
     <Description>
-      Base64 encoded data for the document.
+      Usually there will only be 1 type present, but sometimes multiple documents can be combined
+
     </Description>
   </Field>
-
-  <Field name="format" type="string" required={true}>
-    <Description>
-      The requested document format for this document.
-      
-      Valid values include the following:
-      * `PDF`
-      * `ZPL`
-      * `PNG`
-    </Description>
-  </Field>
-
-</Reference>
-
-Document Types
--------------------------
-This table lists the valid values for document types.
-
-<Reference>
-
-  <Field name="label" >
-    <Description>
-      Shipping label.
-    </Description>
-  </Field>
-
-  <Field name="customs_form" >
-    <Description>
-      Generic customs form.
-    </Description>
-  </Field>
-
-  <Field name="commercial_invoice" >
-    <Description>
-      Invoice associated or included with the package or shipment.
-    </Description>
-  </Field>
-
-  <Field name="bill_of_lading" >
-    <Description>
-      Bill of Lading for a Freight Shipment.
-      A bill of lading is a document issued by a carrier to acknowledge receipt of cargo for shipment.
-    </Description>
-  </Field>
-
 </Reference>

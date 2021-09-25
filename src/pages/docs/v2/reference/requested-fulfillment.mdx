@@ -1,0 +1,56 @@
+---
+title: RequestedFulfillment
+description: The properties associated with a RequestedFulfillment
+---
+
+RequestedFulfillment
+===============================================
+The fulfillment requested by the marketplace or the buyer
+
+<Reference>
+  <Field name="branding" nullable={true}>
+    <Type>
+      [Branding](./branding.mdx)
+    </Type>
+    <Description>
+      Brand information about this fulfillment
+    </Description>
+  </Field>
+  <Field name="extensions" nullable={true}>
+    <Type>
+      [RequestedFulfillmentExtensions](./requested-fulfillment-extensions.mdx)
+    </Type>
+    <Description>
+      Additional information about this fulfillment
+    </Description>
+  </Field>
+  <Field name="items" nullable={false}>
+    <Type>
+      [SalesOrderItem](./sales-order-item.mdx)[]
+    </Type>
+    <Description>
+      The items that should be shipped
+    </Description>
+  </Field>
+  <Field name="requested_fulfillment_id" type="string" nullable={true}>
+    <Description>
+      Identifier for the requested fulfillment from the order source
+    </Description>
+  </Field>
+  <Field name="ship_to" nullable={false}>
+    <Type>
+      [Address](./address.mdx)
+    </Type>
+    <Description>
+      Who the order should be shipped to
+    </Description>
+  </Field>
+  <Field name="shipping_preferences" nullable={true}>
+    <Type>
+      [ShippingPreferences](./shipping-preferences.mdx)
+    </Type>
+    <Description>
+      Preferences about how the order is shipped
+    </Description>
+  </Field>
+</Reference>
