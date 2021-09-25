@@ -38,12 +38,6 @@ Anytime you make code changes, you should run the tests to confirm that your cod
 yarn lint
 ```
 
-You should also periodically update dependencies using this command:
-
-```bash
-yarn upgrade-interactive
-```
-
 ### QA / Review
 
 We use [Vercel](https://vercel.com/) to host the ShipEngine Connect website. One of the nice features of Vercel is that it creates a preview URL for every Git branch and PR, so you can see how the site will look in production and share the link with others to review .
