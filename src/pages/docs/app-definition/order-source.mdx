@@ -1,0 +1,369 @@
+---
+title: Order Source App Definition
+description: This describes the metadata associated with an app definition for an order source
+tags:
+  - ShipEngine Connect
+---
+
+# Order Source App Definition
+
+The code for your app definition can be seen [here on github](https://github.com/ShipEngine/connect/blob/master/packages/order-source-api/src/app/ordersource-app-definition.ts).
+
+## Metadata
+
+<Reference>
+    <Field name="Id" type="GUID" nullable={false} required={true}>
+    <Description>
+        The id for this integration **(this GUID should not be changed after
+        publishing)**
+    </Description>
+    </Field>
+
+    <Field name="Name" type="string" nullable={false} required={true}>
+    <Description>
+      The name of this integration, used for internal purposes, can be the same as the branded OrderSource in OrderSources[]
+    </Description>
+    </Field>
+
+    <Field name="AuthProcess" type="object" nullable={false} required={true}>
+    <Description>
+      The [specification](#auth-specification) for authorizing with this order source
+    </Description>
+    </Field>
+
+    <Field name="OrderSources[]" type="object[]" nullable={false} required={true}>
+    <Description>
+      A list of branded [order sources](#order-source)
+    </Description>
+    </Field>
+
+</Reference>
+
+## Order Source
+
+<Reference>
+        <Field name="Id" type="GUID" nullable={false} required={true}>
+    <Description>
+      This is a unique GUID identifier for this order source **(this GUID should not be changed after
+        publishing)**
+    </Description>
+    </Field>
+
+    <Field name="Name" type="string" nullable={false} required={true}>
+    <Description>
+      The branded name for this order source "Shopify", "eBay", "Amazon" **(This is what our customers see)**
+    </Description>
+    </Field>
+
+    <Field name="SendEmail" type="boolean" nullable={false} required={true}>
+    <Description>
+      Indicates whether or not our system is allowed to send emails to customers
+    </Description>
+    </Field>
+
+    <Field name="HasCustomMappings" type="boolean" nullable={false} required={true}>
+    <Description>
+      Indicates whether or not this marketplace allows custom mappings
+    </Description>
+    </Field>
+
+    <Field name="CanRefresh" type="boolean" nullable={false} required={true}>
+    <Description>
+      Indicates whether or not orders can be refreshed
+    </Description>
+    </Field>
+
+    <Field name="CanLeaveFeedback" type="boolean" nullable={false} required={true}>
+    <Description>
+      Indicates whether or not the order source allows sellers to leave feedback on customers
+    </Description>
+    </Field>
+
+    <Field name="CanConfirmShipments" type="boolean" nullable={false} required={true}>
+    <Description>
+        Indicates whether or not the order source can confirm an order has been shipped
+    </Description>
+    </Field>
+
+    <Field name="IsRefreshDisabled" type="boolean" nullable={true} required={false}>
+    <Description>
+      Indicates that refreshing is disabled within our platform
+    </Description>
+    </Field>
+
+    <Field name="HasCustomStatuses" type="boolean" nullable={false} required={true}>
+    <Description>
+      Indicates whether this order source allows for custom statuses on a seller by seller basis
+    </Description>
+    </Field>
+
+    <Field name="CanConfigureTimeZone" type="boolean" nullable={false} required={true}>
+    <Description>
+      Indicates whether or not a user is allowed to configure their own timezone
+    </Description>
+    </Field>
+
+    <Field name="HasInventoryLevels" type="boolean" nullable={false} required={true}>
+    <Description>
+      Indicates whether or not the order source has inventory levels
+    </Description>
+    </Field>
+
+    <Field name="AccountConnection" type="object" nullable={false} required={true}>
+    <Description>
+      Specifies account connection information
+    </Description>
+    </Field>
+    <Field name="AccountConnection.Name" type="string" nullable={false} required={true}>
+    <Description>
+      The name of your connection form
+    </Description>
+    </Field>
+    <Field name="AccountConnection.ConnectionFormSchema" type="object" nullable={false} required={true}>
+    <Description>
+      [React JSON Schema Form](https://react-jsonschema-form.readthedocs.io/en/latest/)
+    </Description>
+    </Field>
+    <Field name="AccountConnection.ConnectionFormSchema.JsonSchema" type="object" nullable={false} required={true}>
+    <Description>
+      Defines the schema of your [React JSON Schema Form](https://react-jsonschema-form.readthedocs.io/en/latest/). This will define the shape of the data that is being returned.
+      If you are using basic auth the keywords should be `username` `password`, and if you are using api based auth `api_key` will map to your requests auth property.
+      All other fields will be mapped to auth.connection_context.
+    </Description>
+    </Field>
+    <Field name="AccountConnection.ConnectionFormSchema.UiSchema" type="object" nullable={false} required={true}>
+    <Description>
+      Defines the ui schema of your [React JSON Schema Form](https://react-jsonschema-form.readthedocs.io/en/latest/)
+    </Description>
+    </Field>
+
+    <Field name="Images" type="object" nullable={false} required={true}>
+    <Description>
+      Images that will be used for this branded order source
+    </Description>
+    </Field>
+
+    <Field name="Images.Logo" type="string" nullable={false} required={true}>
+    <Description>
+      The full path to the logo used in modals and other areas of our platform for this order source. Use join(__dirname, '../assets/logo.svg') "/dev/integration/assets/ordersource1/logo.svg"
+    </Description>
+    </Field>
+
+    <Field name="Images.Icon" type="string" nullable={false} required={true}>
+    <Description>
+      The full path to the icon used for this order source. Use join(__dirname, '../assets/logo.svg')  "/dev/integration/assets/ordersource1/icon.svg"
+    </Description>
+    </Field>
+
+</Reference>
+
+## Auth Specification
+> **INFO:** If you need additional information about configuring an OAuth connection please see [the following documentation](../oauth/index.mdx)
+
+<Reference>
+    <Field name="Identifier" type="object" nullable={false} required={true}>
+    <Description>
+        Identify the type of Auth being used by the integration
+    </Description>
+    </Field>
+
+    <Field name="Identifier.AuthenticationType" type="object" nullable={false} required={true}>
+    <Description>
+        Identify the type of Auth being used by the integration (oauth, basic, apikey)
+    </Description>
+    </Field>
+
+    <Field name="Identifier.IsSandbox" type="object" nullable={true} required={false}>
+    <Description>
+        Indicates whether or not the authentication server is sandboxed
+    </Description>
+    </Field>
+
+    <Field name="authorization" type="object" nullable={true} required={false}>
+    <Description>
+        The beginning of an OAuth2.0 flow that ensures the user is logged in and approves access to the Resource.
+    </Description>
+    </Field>
+
+    <Field name="authorization.url_template" type="string" nullable={false} required={true}>
+    <Description>
+        The url to obtain the access token using the authorization code on the backend `http://{auth_state:store_name}.store.com/authorize` `http://store.com/oauth/authorize`
+    </Description>
+    </Field>
+
+    <Field
+    name="authorization.query_parameters[]"
+    type="array"
+    nullable={false}
+    required={true}
+    >
+    <Description>
+        A list of query parameters that will be attached to the url
+    </Description>
+    </Field>
+    <Field
+    name="authorization.query_parameters[].name"
+    type="string"
+    nullable={false}
+    required={true}
+    >
+    <Description>
+        The name of the parameter
+    </Description>
+    </Field>
+
+    <Field name="authorization.query_parameters[].value" type="string" nullable={false} required={true}>
+    <Description>
+        The value associated with the parameter
+    </Description>
+    </Field>
+
+
+
+    <Field name="request_token" type="object" nullable={true} required={false}>
+    <Description>
+        The server-server code for token exchange
+    </Description>
+    </Field>
+
+    <Field name="request_token.url_template" type="string" nullable={false} required={true}>
+    <Description>
+        The url to obtain the access token using the authorization code on the backend `http://{auth_state:store_name}.store.com/request` `http://store.com/oauth/request`
+    </Description>
+    </Field>
+
+    <Field name="request_token.method" type="string" nullable={false} required={true}>
+    <Description>
+        The http method to use when making the server-server code for token request "GET", "POST"
+    </Description>
+    </Field>
+
+    <Field
+    name="request_token.body[]"
+    type="array"
+    nullable={false}
+    required={true}
+    >
+    <Description>
+        A list of query parameters that will be attached to the url
+    </Description>
+    </Field>
+    <Field
+    name="request_token.body[].name"
+    type="string"
+    nullable={false}
+    required={true}
+    >
+    <Description>
+        The name of the parameter
+    </Description>
+    </Field>
+
+    <Field name="request_token.body[].value" type="string" nullable={false} required={true}>
+    <Description>
+        The value associated with the parameter
+    </Description>
+    </Field>
+
+    <Field
+    name="request_token.headers[]"
+    type="array"
+    nullable={false}
+    required={true}
+    >
+    <Description>
+        A list of header values that will be sent to request the token
+    </Description>
+    </Field>
+    <Field
+    name="request_token.headers[].name"
+    type="string"
+    nullable={false}
+    required={true}
+    >
+    <Description>
+        The name of the parameter
+    </Description>
+    </Field>
+
+    <Field name="request_token.headers[].value" type="string" nullable={false} required={true}>
+    <Description>
+        The value associated with the parameter
+    </Description>
+    </Field>
+
+    
+
+    <Field name="refresh_token" type="object" nullable={true} required={false}>
+    <Description>
+        The server-server code for token exchange
+    </Description>
+    </Field>
+
+    <Field name="refresh_token.url_template" type="string" nullable={false} required={true}>
+    <Description>
+        The url to refresh the access token using the authorization code on the backend `http://{auth_state:store_name}.store.com/refresh` `http://store.com/oauth/refresh`
+    </Description>
+    </Field>
+
+    <Field name="refresh_token.method" type="string" nullable={false} required={true}>
+    <Description>
+        The http method to use when making the server-server code for token request "GET", "POST"
+    </Description>
+    </Field>
+
+    <Field
+    name="refresh_token.body[]"
+    type="array"
+    nullable={false}
+    required={true}
+    >
+    <Description>
+        A list of query parameters that will be attached to the url
+    </Description>
+    </Field>
+    <Field
+    name="refresh_token.body[].name"
+    type="string"
+    nullable={false}
+    required={true}
+    >
+    <Description>
+        The name of the parameter
+    </Description>
+    </Field>
+
+    <Field name="refresh_token.body[].value" type="string" nullable={false} required={true}>
+    <Description>
+        The value associated with the parameter
+    </Description>
+    </Field>
+
+    <Field
+    name="refresh_token.headers[]"
+    type="array"
+    nullable={false}
+    required={true}
+    >
+    <Description>
+        A list of header values that will be sent to request the token
+    </Description>
+    </Field>
+    <Field
+    name="refresh_token.headers[].name"
+    type="string"
+    nullable={false}
+    required={true}
+    >
+    <Description>
+        The name of the parameter
+    </Description>
+    </Field>
+
+    <Field name="refresh_token.headers[].value" type="string" nullable={false} required={true}>
+    <Description>
+        The value associated with the parameter
+    </Description>
+    </Field>
+
+</Reference>
