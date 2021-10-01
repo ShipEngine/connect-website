@@ -255,33 +255,9 @@ This object model represents the response from a successful create label request
     </Description>
   </Field>
 
-  <Field name="label_download" type="object" required={false}>
-    <Description>
-      This object provides the requested label that was just created.
-    </Description>
-  </Field>
-
-  <Field name="label_download.label_data" type="string" required={true}>
-    <Description>
-      The base64 encoded label image.
-    </Description>
-  </Field>
-
-  <Field name="form_download" type="object" required={false}>
-    <Description>
-      This provides any additional forms that go with the label. For example, customs forms.
-    </Description>
-  </Field>
-
-  <Field name="form_download.form_data" type="string" required={true}>
-    <Description>
-      The base64 encoded form image.
-    </Description>
-  </Field>
-
-  <Field name="document" required={false}>
+  <Field name="documents" required={false}>
     <Type>
-      [document object[]](./../document.mdx)
+      [documents object[]](./../document.mdx)
     </Type>
     <Description>
       Shipment level documents should be used if documents are not returned at a package level.
