@@ -39,12 +39,21 @@ An object containing information about the labels to manifest.
 
 <Reference>
 
+  <Field name="authorization" nullable={true}>
+    <Type>
+      [authorization object](../authorization.mdx)
+    </Type>
+    <Description>
+      The authorization information necessary to fulfill this request.
+    </Description>
+  </Field>
+
   <Field name="metadata" nullable={true}>
     <Type>
       [metadata object](./../metadata.mdx)
     </Type>
     <Description>
-      This object should contain all of the necessary properties needed to make authenticated requests with the carrier.
+      This object should contain all of the necessary properties needed to make authenticated requests with the carrier when an [AuthProcess](./../../app-definition/carrier.mdx#metadata) has not been configured.
       Every property included here will be persisted by ShipEngine Connect and included on each subsequent request from this user.
     </Description>
   </Field>
