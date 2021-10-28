@@ -6,10 +6,16 @@ description: This method is used to authenticate with your application.
 
 `Register()`
 ===========================
-This method is used to authenticate with your application. It is responsible for verifying the supplied user credentials and establishing or
-  renewing a connection. The authentication information will be stored in the metadata object and will be included in all request bodies.
-  All applications must implement the Register method.
+This method is used to authenticate with your application, unless your application has an `AuthProcess` specified. It is responsible for
+verifying the supplied user credentials and establishing or renewing a connection. The authentication information will be stored in the
+metadata object and will be included in all request bodies. All applications must implement the Register method.
 
+If your application has an `AuthProcess` specified then the Register method will still be called when a user creates a connection, however
+the connection will have already been authenticated via the configured type - OAuth2, etc... - and the resulting access token will be
+available in the `authorization` property of the request. Any additional steps required for connecting a user can occur at this point, such
+as validating that they have access to specific services and so on. You are not responsible for storing primary authorization information
+(access tokens, etc...) in the `metadata` as that has been delegated to the configured auth process in this scenario, but you are free to
+include any additional information that should be included in future requests relating to the connection.
 
 Syntax
 -----------------------------------------------
@@ -49,6 +55,15 @@ An object containing the authentication information gathered using the connectio
   <Field name="transaction_id" type="string" nullable={false}>
     <Description>
       The transaction ID uniquely represents this request. If the request is retried then this transaction ID will be the same. You should only perform the requested action once per given transaction ID.
+    </Description>
+  </Field>
+
+  <Field name="authorization" nullable={true}>
+    <Type>
+      [authorization object](../authorization.mdx)
+    </Type>
+    <Description>
+      The authorization information necessary to fulfill this request.
     </Description>
   </Field>
 
