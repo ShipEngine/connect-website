@@ -25,6 +25,12 @@ The code for your app definition can be seen [here on github](https://github.com
     </Description>
     </Field>
 
+    <Field name="AuthProcess" type="object" nullable={true} required={false}>
+    <Description>
+      The [specification](#auth-specification) for authorizing with this carrier
+    </Description>
+    </Field>
+
     <Field name="Carriers[]" type="object[]" nullable={false} required={true}>
     <Description>
       A list of branded [carriers](#carrier)
@@ -301,4 +307,214 @@ The code for your app definition can be seen [here on github](https://github.com
       The confirmation types associated with this service
     </Description>
     </Field>
+</Reference>
+
+## Auth Specification
+> **INFO:** If you need additional information about configuring an OAuth connection please see [the following documentation](../oauth/index.mdx)
+
+<Reference>
+    <Field name="Identifier" type="object" nullable={false} required={true}>
+    <Description>
+        Identify the type of Auth being used by the integration
+    </Description>
+    </Field>
+
+    <Field name="Identifier.AuthenticationType" type="object" nullable={false} required={true}>
+    <Description>
+        Identify the type of Auth being used by the integration (oauth)
+    </Description>
+    </Field>
+
+    <Field name="Identifier.IsSandbox" type="object" nullable={true} required={false}>
+    <Description>
+        Indicates whether or not the authentication server is sandboxed
+    </Description>
+    </Field>
+
+    <Field name="authorization" type="object" nullable={true} required={false}>
+    <Description>
+        The beginning of an OAuth2.0 flow that ensures the user is logged in and approves access to the Resource.
+    </Description>
+    </Field>
+
+    <Field name="authorization.url_template" type="string" nullable={false} required={true}>
+    <Description>
+        The url to obtain the access token using the authorization code on the backend `https://carrier.com/oauth/authorize`
+    </Description>
+    </Field>
+
+    <Field name="authorization.query_parameters[]"
+    type="array"
+    nullable={false}
+    required={true}
+    >
+    <Description>
+        A list of query parameters that will be attached to the url
+    </Description>
+    </Field>
+    <Field
+    name="authorization.query_parameters[].name"
+    type="string"
+    nullable={false}
+    required={true}
+    >
+    <Description>
+        The name of the parameter
+    </Description>
+    </Field>
+
+    <Field name="authorization.query_parameters[].value" type="string" nullable={false} required={true}>
+    <Description>
+        The value associated with the parameter
+    </Description>
+    </Field>
+
+
+
+    <Field name="request_token" type="object" nullable={true} required={false}>
+    <Description>
+        The server-server code for token exchange
+    </Description>
+    </Field>
+
+    <Field name="request_token.url_template" type="string" nullable={false} required={true}>
+    <Description>
+        The url to obtain the access token using the authorization code on the backend `https://carrier.com/oauth/request`
+    </Description>
+    </Field>
+
+    <Field name="request_token.method" type="string" nullable={false} required={true}>
+    <Description>
+        The http method to use when making the server-server code for token request "GET", "POST"
+    </Description>
+    </Field>
+
+    <Field
+    name="request_token.body[]"
+    type="array"
+    nullable={false}
+    required={true}
+    >
+    <Description>
+        A list of query parameters that will be attached to the url
+    </Description>
+    </Field>
+    <Field
+    name="request_token.body[].name"
+    type="string"
+    nullable={false}
+    required={true}
+    >
+    <Description>
+        The name of the parameter
+    </Description>
+    </Field>
+
+    <Field name="request_token.body[].value" type="string" nullable={false} required={true}>
+    <Description>
+        The value associated with the parameter
+    </Description>
+    </Field>
+
+    <Field
+    name="request_token.headers[]"
+    type="array"
+    nullable={false}
+    required={true}
+    >
+    <Description>
+        A list of header values that will be sent to request the token
+    </Description>
+    </Field>
+    <Field
+    name="request_token.headers[].name"
+    type="string"
+    nullable={false}
+    required={true}
+    >
+    <Description>
+        The name of the parameter
+    </Description>
+    </Field>
+
+    <Field name="request_token.headers[].value" type="string" nullable={false} required={true}>
+    <Description>
+        The value associated with the parameter
+    </Description>
+    </Field>
+
+
+
+    <Field name="refresh_token" type="object" nullable={true} required={false}>
+    <Description>
+        The server-server code for token exchange
+    </Description>
+    </Field>
+
+    <Field name="refresh_token.url_template" type="string" nullable={false} required={true}>
+    <Description>
+        The url to refresh the access token using the authorization code on the backend `https://carrier.com/oauth/refresh`
+    </Description>
+    </Field>
+
+    <Field name="refresh_token.method" type="string" nullable={false} required={true}>
+    <Description>
+        The http method to use when making the server-server code for token request "GET", "POST"
+    </Description>
+    </Field>
+
+    <Field
+    name="refresh_token.body[]"
+    type="array"
+    nullable={false}
+    required={true}
+    >
+    <Description>
+        A list of query parameters that will be attached to the url
+    </Description>
+    </Field>
+    <Field
+    name="refresh_token.body[].name"
+    type="string"
+    nullable={false}
+    required={true}
+    >
+    <Description>
+        The name of the parameter
+    </Description>
+    </Field>
+
+    <Field name="refresh_token.body[].value" type="string" nullable={false} required={true}>
+    <Description>
+        The value associated with the parameter
+    </Description>
+    </Field>
+
+    <Field
+    name="refresh_token.headers[]"
+    type="array"
+    nullable={false}
+    required={true}
+    >
+    <Description>
+        A list of header values that will be sent to request the token
+    </Description>
+    </Field>
+    <Field
+    name="refresh_token.headers[].name"
+    type="string"
+    nullable={false}
+    required={true}
+    >
+    <Description>
+        The name of the parameter
+    </Description>
+    </Field>
+
+    <Field name="refresh_token.headers[].value" type="string" nullable={false} required={true}>
+    <Description>
+        The value associated with the parameter
+    </Description>
+    </Field>
+
 </Reference>
