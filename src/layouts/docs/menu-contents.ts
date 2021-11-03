@@ -82,6 +82,10 @@ export const menu: MenuContents = [
             href: "https://shipstation.github.io/integrations-shipping/carrierapi-redoc.html",
           },
           { title: "Metadata", href: "/docs/reference/metadata" },
+          {
+            "title": "Forms",
+            "href": "/docs/reference/forms"
+          },
           { title: "Address", href: "/docs/reference/address" },
           { title: "Package", href: "/docs/reference/package" },
           { title: "Customs", href: "/docs/reference/customs" },
@@ -375,6 +379,10 @@ export const menu: MenuContents = [
           {
             "title": "Auth",
             "href": "/docs/reference/auth"
+          },
+          {
+            "title": "Forms",
+            "href": "/docs/reference/forms"
           },
           {
             "title": "RequestBase",

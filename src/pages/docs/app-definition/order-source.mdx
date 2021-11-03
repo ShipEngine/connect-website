@@ -119,21 +119,12 @@ The code for your app definition can be seen [here on github](https://github.com
       The name of your connection form
     </Description>
     </Field>
-    <Field name="AccountConnection.ConnectionFormSchema" type="object" nullable={false} required={true}>
+    <Field name="AccountConnection.ConnectionFormSchema" nullable={false} required={true}>
+    <Type>
+      [Form](./../reference/forms.mdx)
+    </Type>
     <Description>
-      [React JSON Schema Form](https://react-jsonschema-form.readthedocs.io/en/latest/)
-    </Description>
-    </Field>
-    <Field name="AccountConnection.ConnectionFormSchema.JsonSchema" type="object" nullable={false} required={true}>
-    <Description>
-      Defines the schema of your [React JSON Schema Form](https://react-jsonschema-form.readthedocs.io/en/latest/). This will define the shape of the data that is being returned.
-      If you are using basic auth the keywords should be `username` `password`, and if you are using api based auth `api_key` will map to your requests auth property.
-      All other fields will be mapped to auth.connection_context.
-    </Description>
-    </Field>
-    <Field name="AccountConnection.ConnectionFormSchema.UiSchema" type="object" nullable={false} required={true}>
-    <Description>
-      Defines the ui schema of your [React JSON Schema Form](https://react-jsonschema-form.readthedocs.io/en/latest/)
+      A form that allows the user to specify the credentials needed to generate the OAuth token.
     </Description>
     </Field>
 

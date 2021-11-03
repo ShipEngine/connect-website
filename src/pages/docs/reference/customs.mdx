@@ -106,9 +106,12 @@ column indicates which properties are required when the object is returned from 
     </Description>
   </Field>
 
-  <Field name="customs.customs_items[].item_weight" type="object" nullable={true}>
+  <Field name="customs.customs_items[].item_weight" nullable={true}>
+    <Type>
+      [weight details object](./units.mdx#weight-details-object)
+    </Type>
     <Description>
-      The [ISO 3166 country code](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_code) for the [country](./country-codes.mdx) where the item was manufactured.
+      The weight of a single item on this customs line.
     </Description>
   </Field>
 
