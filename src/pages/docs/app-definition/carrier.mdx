@@ -136,35 +136,21 @@ The code for your app definition can be seen [here on github](https://github.com
     </Description>
     </Field>
 
-    <Field name="AccountModals.RegistrationFormSchema" type="object" nullable={false} required={true}>
+    <Field name="AccountModals.RegistrationFormSchema" nullable={false} required={true}>
+    <Type>
+      [Form](./../reference/forms.mdx)
+    </Type>
     <Description>
-      [React JSON Schema Form](https://react-jsonschema-form.readthedocs.io/en/latest/)
-    </Description>
-    </Field>
-    <Field name="AccountModals.RegistrationFormSchema.JsonSchema" type="object" nullable={false} required={true}>
-    <Description>
-      Defines the schema of your [React JSON Schema Form](https://react-jsonschema-form.readthedocs.io/en/latest/). This will define the shape of the data that is being returned.
-    </Description>
-    </Field>
-    <Field name="AccountModals.RegistrationFormSchema.UiSchema" type="object" nullable={false} required={true}>
-    <Description>
-      Defines the ui schema of your [React JSON Schema Form](https://react-jsonschema-form.readthedocs.io/en/latest/)
+      A form that allows the user to connect to the service. This form will usually prompt for an account number and login credentials.
     </Description>
     </Field>
 
-    <Field name="AccountModals.SettingsFormSchema" type="object" nullable={false} required={true}>
+    <Field name="AccountModals.SettingsFormSchema" nullable={false} required={true}>
+    <Type>
+      [Form](./../reference/forms.mdx)
+    </Type>
     <Description>
-      [React JSON Schema Form](https://react-jsonschema-form.readthedocs.io/en/latest/)
-    </Description>
-    </Field>
-    <Field name="AccountModals.SettingsFormSchema.JsonSchema" type="object" nullable={false} required={true}>
-    <Description>
-      Defines the schema of your [React JSON Schema Form](https://react-jsonschema-form.readthedocs.io/en/latest/). This will define the shape of the data that is being returned.
-    </Description>
-    </Field>
-    <Field name="AccountModals.SettingsFormSchema.UiSchema" type="object" nullable={false} required={true}>
-    <Description>
-      Defines the ui schema of your [React JSON Schema Form](https://react-jsonschema-form.readthedocs.io/en/latest/)
+      	A form that allows the user update their connection settings, such as when a password is changed.
     </Description>
     </Field>
     
