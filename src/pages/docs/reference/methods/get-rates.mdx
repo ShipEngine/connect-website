@@ -134,7 +134,7 @@ An object containing information about the shipment to get rates for. The more i
 
   <Field name="ship_to" nullable={false}>
     <Type>
-      [shipping address object](./../address.mdx#shipping-address-object)
+      [shipping address object](./../carrier-address.mdx#shipping-address-object)
     </Type>
     <Description>
       The shipment recipient's address. It may or may not have been validated.
@@ -143,7 +143,7 @@ An object containing information about the shipment to get rates for. The more i
 
   <Field name="ship_from" nullable={false}>
     <Type>
-      [shipping address object](./../address.mdx#shipping-address-object)
+      [shipping address object](./../carrier-address.mdx#shipping-address-object)
     </Type>
     <Description>
       The shipment sender's address. It may or may not have been validated.
@@ -152,7 +152,7 @@ An object containing information about the shipment to get rates for. The more i
 
   <Field name="pickup_location" nullable={true}>
     <Type>
-      [pickup location object](./../address.mdx#pickup-location-object)
+      [pickup location object](./../carrier-address.mdx#pickup-location-object)
     </Type>
     <Description>
       If this is a pickup shipment, a pickup location will be populated for where the recipient can pickup the shipment.
@@ -161,7 +161,7 @@ An object containing information about the shipment to get rates for. The more i
 
   <Field name="ship_from_display" nullable={true}>
     <Type>
-      [shipping address object](./../address.mdx#shipping-address-object)
+      [shipping address object](./../carrier-address.mdx#shipping-address-object)
     </Type>
     <Description>
       The address that should be displayed as the return address, only if the carrier supports this functionality.
