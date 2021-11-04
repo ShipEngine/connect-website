@@ -86,7 +86,7 @@ export const menu: MenuContents = [
             "title": "Forms",
             "href": "/docs/reference/forms"
           },
-          { title: "Address", href: "/docs/reference/address" },
+          { title: "Address", href: "/docs/reference/carrier-address" },
           { title: "Package", href: "/docs/reference/package" },
           { title: "Customs", href: "/docs/reference/customs" },
           { title: "Document", href: "/docs/reference/document" },
@@ -182,7 +182,7 @@ export const menu: MenuContents = [
           },
           {
             "title": "Address",
-            "href": "/docs/reference/address"
+            "href": "/docs/reference/order-address"
           },
           {
             "title": "PickupLocation",
