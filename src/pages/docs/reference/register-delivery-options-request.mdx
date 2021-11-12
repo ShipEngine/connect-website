@@ -31,14 +31,6 @@ A request to register delivery options with an order source
       Option set identifier to be returned in delivery options calls from the order source
     </Description>
   </Field>
-  <Field name="sales_order_status_mapping" nullable={false}>
-    <Type>
-      [SalesOrderStatusMapping](./sales-order-status-mapping.mdx)[]
-    </Type>
-    <Description>
-      seller specified mappings for custom statuses coming from the 3rd parties api and the SalesOrderStatus they should map to.
-    </Description>
-  </Field>
   <Field name="transaction_id" type="string" nullable={false}>
     <Description>
       A randomly generated transaction ID, used to correlate the request and response
