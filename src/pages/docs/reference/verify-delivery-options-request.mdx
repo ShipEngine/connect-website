@@ -16,14 +16,6 @@ A request to verify if a user's order source is configured properly for delivery
       The authorization information necessary to fulfill this request.
     </Description>
   </Field>
-  <Field name="sales_order_status_mapping" nullable={false}>
-    <Type>
-      [SalesOrderStatusMapping](./sales-order-status-mapping.mdx)[]
-    </Type>
-    <Description>
-      seller specified mappings for custom statuses coming from the 3rd parties api and the SalesOrderStatus they should map to.
-    </Description>
-  </Field>
   <Field name="transaction_id" type="string" nullable={false}>
     <Description>
       A randomly generated transaction ID, used to correlate the request and response

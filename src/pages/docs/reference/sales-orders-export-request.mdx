@@ -37,14 +37,6 @@ A request to export a range of sales orders
       Allows for mapping of custom 3rd party SalesOrder fields to properties on RequestedFulfillmentExtensions
     </Description>
   </Field>
-  <Field name="sales_order_status_mapping" nullable={false}>
-    <Type>
-      [SalesOrderStatusMapping](./sales-order-status-mapping.mdx)[]
-    </Type>
-    <Description>
-      seller specified mappings for custom statuses coming from the 3rd parties api and the SalesOrderStatus they should map to.
-    </Description>
-  </Field>
   <Field name="sales_order_status_mappings" nullable={true}>
     <Type>
       [SalesOrderCustomStatusMappings](./sales-order-custom-status-mappings.mdx)
