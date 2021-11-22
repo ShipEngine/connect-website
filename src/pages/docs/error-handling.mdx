@@ -3,156 +3,207 @@ title: Error Handling
 description: ShipEngine Connect applications can throw errors just like any other JavaScript application. We also support custom error properties and classes to make things easier.
 ---
 
+# Error Handling
 
-
-Error Handling
-=================
-
-[ShipEngine Connect](../index.mdx) applications can throw [errors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)
-just like any other JavaScript application.  
+[ShipEngine Connect](../index.mdx) applications use error objects defined in the `@shipengine/connect-runtime` package to determine when an error was thrown intentionally by the implementor.
 
 Any uncaught exception will terminate the currently executing method and generate an error log.
 
 For example, the methods you implement will often need to perform input validation. If this validation fails, you can throw an error as in the example below.
 
-```javascript highlight=3
-for (let parcel of shipment.packages) {
-  if (parcel.packaging.code === "BOX" && parcel.weight.grams > 100000) {
-    throw new RangeError(`${parcel.packaging.name} cannot weigh more than 100 kilograms`);
+## Bad Request Error
+
+This type of error means that the user has submitted some information in their request that is causing the function to fail.
+This allows the user to know that if they change something about their request it could be successful.
+
+```javascript highlight=5
+import { BadRequestError } from "@shipengine/connect-runtime";
+// ...
+for (let package of request.packages) {
+  if (
+    package.package_code === "BOX" &&
+    package.weight_details.weight_in_grams > 100000
+  ) {
+    throw new BadRequestError(
+      `${package.package_code} cannot weigh more than 100 kilograms`
+    );
   }
 }
 ```
 
-<Section>
-<Left>
-Additional Error Properties
-----------------------------------------
-Before throwing an error, you can set additional properties that provide more context. 
-
-Doing this enables our platform to respond appropriately and provide meaningful feedback to users.
-
 <Reference>
-  <Field name="code" type="string">
+  <Field name="message" type="string">
     <Description>
-      A string that identifies the type of error. Most errors that occur in Node.js already have a code, but if you're throwing a new error, then we recommend that you use one of our pre-defined [error codes](#error-codes) below.
+      This is the message that will be displayed to the end users of the
+      platform.
     </Description>
   </Field>
-
-  <Field name="statusCode" type="number">
+  <Field name="details">
+    <Type>[ErrorDetail](#error-detail) | [ErrorDetail](#error-detail)[]</Type>
     <Description>
-      The numeric status code associated with the error, if any. For errors that originate from an HTTP response, this should be the HTTP status code (e.g. 400, 404, 500).
-    </Description>
-  </Field>
-
-  <Field name="externalErrors" type="string[]">
-    <Description>
-      If the error is the result of calling an external service, then put any error messages that were returned by the service here.
-    </Description>
-  </Field>
-
-  <Field name="externalWarnings" type="string[]">
-    <Description>
-      If the error is the result of calling an external service, then put any warning messages that were returned by the service here.
-    </Description>
-  </Field>
-
-  <Field name="originalError">
-    <Type>
-      [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)
-    </Type>
-    <Description>
-      The original error that occurred, if any. This is especially useful for debugging, since it will allow you to see the error message and stack trace where the problem occurred.
-    </Description>
-  </Field>
-
-  <Field name="*" type="any value">
-    <Description>
-      Any additional properties you add to the error will be logged, which is useful for debugging.
+      This contains additional information that needs to be logged along side
+      the error.
     </Description>
   </Field>
 </Reference>
 
+## Unauthorized Error
 
-Error Codes
----------------------
-Most errors that occur in Node.js have a `code` property. When throwing your own errors, we encourage you to include a `code` as well. Using one of the following codes will help the ShipEngine Connect platform know how to handle your error appropriately.
+This error lets a user know that they need to update their credentials in order to continue using their connection.
+
+```javascript highlight=5
+import { UnauthorizedError } from "@shipengine/connect-runtime";
+// ...
+const response = await axios.post(THIRD_PARTY_API_URL, { credentials });
+if (response.statusCode === 401) {
+  throw new UnauthorizedError("Invalid Credentials");
+}
+```
 
 <Reference>
-  <Field name="ERR_INVALID">
+  <Field name="message" type="string">
     <Description>
-      You should use this code to indicate a validation error. For example, your app may only allow certain values under specific conditions, or a field may be conditionally required.
+      This is the message that will be displayed to the end users of the
+      platform.
     </Description>
   </Field>
-
-  <Field name="ERR_UNAUTHORIZED">
+  <Field name="details">
+    <Type>[ErrorDetail](#error-detail) | [ErrorDetail](#error-detail)[]</Type>
     <Description>
-      Use this code to indicate an authentication or authorization error. For example, if the `transaction.session` object is missing some required data or the session has expired.
-    </Description>
-  </Field>
-
-  <Field name="ERR_EXTERNAL">
-    <Description>
-      You should use this code for any error that is the result of calling an external service, such as an API. This lets ShipEngine Connect know that the error came from a downstream service rather than directly in your app.
-
-      You should also set the `statusCode` property if possible to indicate the type of external error that occurred. For HTTP errors, you can use the HTTP status code (e.g. 400, 404, 500). 
-      
-      For APIs that don't use HTTP status codes, we recomend that you use the most appropriate [HTTP status code](https://httpstatuses.com/) and also put the raw error/warning messages in `externalErrors` or `externalWarnings`.
-    </Description>
-  </Field>
-
-  <Field name="ERR_APP_ERROR">
-    <Description>
-      This is a generic error code that simply indicates that the error was _intentionally_ thrown by your app, as opposed to an unexpected error that occurred due to a bug or runtime exception.
+      This contains additional information that needs to be logged along side
+      the error.
     </Description>
   </Field>
 </Reference>
-</Left>
-<Right>
-### Validation Error Example
-This example demonstrates throwing a validation error with additional properties.
+## External Server Error
 
-```javascript
-if (package.weight.grams > 100000) {
-  throw Object.assign(
-    new Error("Weight cannot exceed 100 kilograms"),
+This type of error lets the user know that there is an issue with the outside world that we cannot resolve.
+
+```javascript highlight=5
+import { ExternalServerError } from "@shipengine/connect-runtime";
+// ...
+const response = await axios.post(THIRD_PARTY_API_URL, { credentials });
+if (response.statusCode > 500) {
+  throw new ExternalServerError(
+    "There was an issue with the third parties api."
+  );
+}
+```
+
+<Reference>
+  <Field name="message" type="string">
+    <Description>
+      This is the message that will be displayed to the end users of the
+      platform.
+    </Description>
+  </Field>
+  <Field name="details">
+    <Type>[ErrorDetail](#error-detail) | [ErrorDetail](#error-detail)[]</Type>
+    <Description>
+      This contains additional information that needs to be logged along side
+      the error.
+    </Description>
+  </Field>
+</Reference>
+## Rate Limit Error
+
+This lets the platform know that it should hold off on making more calls due to Rate Limiting by the third party.
+
+```javascript highlight=5
+import { RateLimitError } from "@shipengine/connect-runtime";
+// ...
+const response = await axios.post(THIRD_PARTY_API_URL, { credentials });
+if (response.statusCode === 429) {
+  throw new RateLimitError(
+    "Too many requests were made to the third parties apis.",
     {
-      code: "ERR_INVALID",
-      actualWeight: package.weight.grams,
-      maxWeight: 100000,
+      retryAfterSeconds: response.body.retry_after,
+      throttlingContext: response.body,
     }
   );
 }
 ```
 
-### External Error Example
-This example rethrows an error from an external service, but first it adds additional properties.
+<Reference>
+  <Field name="message" type="string">
+    <Description>
+      This is the message that will be displayed to the end users of the
+      platform.
+    </Description>
+  </Field>
+  <Field name="details">
+    <Type>object</Type>
+    <Description>
+      This contains additional information related to a rate limiting error.
+    </Description>
+  </Field>
+  <Field name="details.retryAfterSeconds">
+    <Type>number</Type>
+    <Description>
+      The number of seconds the platform should wait before making another
+      request.
+    </Description>
+  </Field>
+  <Field name="details.retryAfterTime">
+    <Type>string</Type>
+    <Description>
+      The time the platform should wait for until it makes it's next
+      request.[`ISO-8601`](https://en.wikipedia.org/wiki/ISO_8601)
+    </Description>
+  </Field>
+  <Field name="details.throttlingContext">
+    <Type>any</Type>
+    <Description>
+      Any additional information that could be beneficial to see in the logs.
+      (Could be the full body of the response)
+    </Description>
+  </Field>
+</Reference>
+## Error Detail
 
-```javascript
-try {
-  // Some code that makes an HTTP call
-}
-catch (error) {
-  error.code = "ERR_EXTERNAL";
-  error.statusCode = httpResponse.status;
-  error.externalErrors = [httpResponse.body.errorMessage];
-  error.headers = httpResponse.headers;
-  throw error;
+Along with the base error message that can be set when throwing a new error, you also have the option of passing in additional properties through an ErrorDetail object or Array of ErrorDetail objects.
+Lets take a look at the previous example of throwing a bad request error, but lets add some more detailed information for logging purposes.
+
+```javascript highlight=5
+import { BadRequestError } from "@shipengine/connect-runtime";
+// ...
+const response = await axios.post(THIRD_PARTY_API_URL, { credentials });
+if (response.statusCode === 400) {
+  throw new BadRequestError("There was an issue with the third parties api.", {
+    externalErrorCode: response.body.custom_third_party_error_code,
+    message: response.body.custom_error_message,
+    externalHttpStatusCode: 400,
+    externalContext: response.body,
+    errorCode: StandardizedErrorCode.ExternalClientError,
+  });
 }
 ```
-</Right>
-</Section>
 
+Now when we see logs this new information will appear alongside the original error message, but will not be displayed to the end users.
 
-Error Classes
---------------------------
-In addition to [JavaScript's built-in error classes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects#Error_objects),
-ShipEngine Connect includes several [error classes](https://github.com/ShipEngine/connect/blob/master/packages/runtime/src/errors/index.ts)
-and other helpful objects you can use in your app. 
-
-Each class corresponds to one of the [error codes](#error-codes) listed above and automatically sets the `code` property for you.
-
-
+<Reference>
+  <Field name="externalErrorCode" type="string">
+    <Description>
+      This is the error code that is specific to the third party Ex: `AMAZ_2324,
+      SHOP_3435`. This can be useful for our support to help diagnose issues.
+    </Description>
+  </Field>
+  <Field name="message" type="string">
+    <Description>Any message that needs to be associated with this detail.</Description>
+  </Field>
+  <Field name="externalHttpStatusCode" type="number">
+    <Description>The http status code returned by the third parties request.</Description>
+  </Field>
+  <Field name="externalContext" type="string">
+    <Description>Any additional information that would be useful to log in the error.</Description>
+  </Field>
+  <Field name="errorCode" type="string">
+    <Description>An optional standarized error code associated with this detail. `Generic`, `Validation`, `Unauthorized`, `ExternalServerError`, `ExternalClientError`</Description>
+  </Field>
+</Reference>
 <Pager
-  prev="./typescript.mdx" prevTitle="Developing in TypeScript"
-  next="./testing/index.mdx" nextTitle="Testing"
+  prev="./typescript.mdx"
+  prevTitle="Developing in TypeScript"
+  next="./testing/index.mdx"
+  nextTitle="Testing"
 />
