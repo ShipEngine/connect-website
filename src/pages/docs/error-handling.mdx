@@ -54,7 +54,7 @@ This error lets a user know that they need to update their credentials in order 
 ```javascript highlight=5
 import { UnauthorizedError } from "@shipengine/connect-runtime";
 // ...
-const response = await axios.post(THIRD_PARTY_API_URL, { credentials });
+const response = await apiCall(THIRD_PARTY_API_URL, { credentials });
 if (response.statusCode === 401) {
   throw new UnauthorizedError("Invalid Credentials");
 }
@@ -82,7 +82,7 @@ This type of error lets the user know that there is an issue with the outside wo
 ```javascript highlight=5
 import { ExternalServerError } from "@shipengine/connect-runtime";
 // ...
-const response = await axios.post(THIRD_PARTY_API_URL, { credentials });
+const response = await apiCall(THIRD_PARTY_API_URL, { credentials });
 if (response.statusCode > 500) {
   throw new ExternalServerError(
     "There was an issue with the third parties api."
@@ -112,7 +112,7 @@ This lets the platform know that it should hold off on making more calls due to 
 ```javascript highlight=5
 import { RateLimitError } from "@shipengine/connect-runtime";
 // ...
-const response = await axios.post(THIRD_PARTY_API_URL, { credentials });
+const response = await apiCall(THIRD_PARTY_API_URL, { credentials });
 if (response.statusCode === 429) {
   throw new RateLimitError(
     "Too many requests were made to the third parties apis.",
@@ -167,7 +167,7 @@ Lets take a look at the previous example of throwing a bad request error, but le
 ```javascript highlight=5
 import { BadRequestError } from "@shipengine/connect-runtime";
 // ...
-const response = await axios.post(THIRD_PARTY_API_URL, { credentials });
+const response = await apiCall(THIRD_PARTY_API_URL, { credentials });
 if (response.statusCode === 400) {
   throw new BadRequestError("There was an issue with the third parties api.", {
     externalErrorCode: response.body.custom_third_party_error_code,
