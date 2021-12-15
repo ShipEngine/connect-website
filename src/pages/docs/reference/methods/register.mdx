@@ -92,7 +92,11 @@ The `Register` method returns the result of the carrier's authentication process
 
   <Field name="credentials.username" type="string" required={true}>
     <Description>
-      The user's username
+      The username used to authenticate with the carrier's API,
+      or another identifier for the account with the carrier such as account id.
+      This field is used to differentiate between multiple accounts with the same carrier,
+      and if the register function returns the same username for multiple accounts,
+      then the API will only allow one of the accounts to be connected.
     </Description>
   </Field>
 
