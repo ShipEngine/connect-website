@@ -245,10 +245,6 @@ export const menu: MenuContents = [
             "href": "/docs/reference/note"
           },
           {
-            "title": "PackingSlip",
-            "href": "/docs/reference/packing-slip"
-          },
-          {
             "title": "PaymentStatus",
             "href": "/docs/reference/payment-status"
           },
