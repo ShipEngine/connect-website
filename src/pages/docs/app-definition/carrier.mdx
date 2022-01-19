@@ -52,6 +52,12 @@ tags:
     </Description>
     </Field>
 
+    <Field name="ApiCode" type="string" nullable={true} required={false}>
+    <Description>
+      The identifier for this carrier to be used in API calls. Must be snake cased and unique.
+    </Description>
+    </Field>
+
     <Field name="Description" type="string" nullable={true} required={false}>
     <Description>
       This is a human readable description of the branded carrier
@@ -185,6 +191,12 @@ tags:
     </Description>
     </Field>
 
+    <Field name="ApiCode" type="string" nullable={true} required={false}>
+    <Description>
+      The identifier for this package type to be used in API calls. Must be snake cased and unique.
+    </Description>
+    </Field>
+
     <Field name="CarrierPackageTypeCode" type="string" nullable={false} required={true}>
     <Description>
       This is the code that will be sent to requests, this should be the same code the carrier's api would expect
@@ -229,6 +241,12 @@ tags:
     <Field name="Name" type="string" nullable={false} required={true}>
     <Description>
       The name of this shipping service ex: 'Overnight Guarantee'
+    </Description>
+    </Field>
+
+    <Field name="ApiCode" type="string" nullable={true} required={false}>
+    <Description>
+      The identifier for this shipping service to be used in API calls. Must be snake cased and unique.
     </Description>
     </Field>
 

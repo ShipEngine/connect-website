@@ -25,6 +25,12 @@ The code for your app definition can be seen [here on github](https://github.com
     </Description>
     </Field>
 
+    <Field name="ApiCode" type="string" nullable={true} required={false}>
+    <Description>
+      The identifier for this order source to be used in API calls. Must be snake cased and unique.
+    </Description>
+    </Field>
+
     <Field name="AuthProcess" type="object" nullable={false} required={true}>
     <Description>
       The [specification](#auth-specification) for authorizing with this order source
