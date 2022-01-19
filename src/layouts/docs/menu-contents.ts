@@ -171,6 +171,10 @@ export const menu: MenuContents = [
             title: "CancelSalesOrderItems",
             href: "/docs/reference/methods/cancel-sales-order-items",
           },
+          {
+            title: "GetConnectionContext",
+            href: "/docs/reference/methods/get-connection-context",
+          },
         ],
       },
       {
@@ -351,6 +355,14 @@ export const menu: MenuContents = [
           {
             "title": "RequestedCancelProduct",
             "href": "/docs/reference/requested-cancel-product"
+          },
+          {
+            "title": "GetConnectionContextRequest",
+            "href": "/docs/reference/get-connection-context-request"
+          },
+          {
+            "title": "GetConnectionContextResponse",
+            "href": "/docs/reference/get-connection-context-response"
           },
           {
             "title": "GetProductsRequest",
