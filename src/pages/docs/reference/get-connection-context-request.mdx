@@ -1,0 +1,26 @@
+---
+title: GetConnectionContextRequest
+description: The properties associated with a GetConnectionContextRequest
+---
+
+GetConnectionContextRequest
+===============================================
+
+This request is sent after a user authenticates with the third party,
+this allows you the chance to fetch additional properties and append them onto the connection_context.
+
+<Reference>
+  <Field name="auth" nullable={false}>
+    <Type>
+      [Auth](./auth.mdx)
+    </Type>
+    <Description>
+      The authorization information necessary to fulfill this request.
+    </Description>
+  </Field>
+  <Field name="transaction_id" type="string" nullable={false}>
+    <Description>
+      A randomly generated transaction ID, used to correlate the request and response
+    </Description>
+  </Field>
+</Reference>
