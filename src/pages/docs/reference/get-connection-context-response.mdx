@@ -1,0 +1,17 @@
+---
+title: GetConnectionContextResponse
+description: The properties associated with a GetConnectionContextResponse
+---
+
+GetConnectionContextResponse
+===============================================
+The connection context response which will allow you to update the connection_context for all future requests.
+
+<Reference>
+  <Field name="connection_context" type="object" nullable={false}>
+    <Description>
+      The connection context that will be sent as part of the auth.connection_context for other requests.
+      ex: ```{ 'user_id': 'fake_234', 'store_id': '12324' }```
+    </Description>
+  </Field>
+</Reference>

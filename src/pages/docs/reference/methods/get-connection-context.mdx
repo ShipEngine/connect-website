@@ -1,0 +1,67 @@
+---
+title: GetConnectionContext Method
+description: This method gets additional context for a connection to an order source.
+---
+
+`GetConnectionContext()`
+===========================
+This method is called during store setup with the initial credentials and connection context provided
+by the seller, and returns any additional context for the connection to the order source.
+
+
+Syntax
+-----------------------------------------------
+<CodeWrapper>
+```javascript
+module.exports = async function GetConnectionContext(request) {
+  // Your code here
+}
+```
+
+```typescript
+import {
+  GetConnectionContextRequest,
+  GetConnectionContextResponse
+  } from "@shipengine/connect-order-source-api";
+
+export const GetConnectionContext = async (
+  request: GetConnectionContextRequest
+): Promise<GetConnectionContextResponse> => {
+  // Your code here
+}
+```
+</CodeWrapper>
+
+GetConnectionContextRequest
+----
+This request is sent after a user authenticates with the third party,
+this allows you the chance to fetch additional properties and append them onto the connection_context.
+
+<Reference>
+  <Field name="auth" nullable={false}>
+    <Type>
+      [Auth](../auth.mdx)
+    </Type>
+    <Description>
+      The authorization information necessary to fulfill this request.
+    </Description>
+  </Field>
+  <Field name="transaction_id" type="string" nullable={false}>
+    <Description>
+      A randomly generated transaction ID, used to correlate the request and response
+    </Description>
+  </Field>
+</Reference>
+
+GetConnectionContextResponse
+----
+The connection context response which will allow you to update the connection_context for all future requests.
+
+<Reference>
+  <Field name="connection_context" type="object" nullable={false}>
+    <Description>
+      The connection context that will be sent as part of the auth.connection_context for other requests.
+      ex: ```{ 'user_id': 'fake_234', 'store_id': '12324' }```
+    </Description>
+  </Field>
+</Reference>
