@@ -11,7 +11,7 @@ export function Header() {
         <img src={`${siteURL.pathname}img/logos/shipengine-connect-logo.svg`} alt="Shipengine Connect" />
       </a>
 
-      {/* SwifType search, with Google Search fallback  */}
+      {/* SwifType search  */}
       <form className={`${styles.siteSearchForm} invisible`} method="get" action="https://www.google.com/search">
         <label htmlFor="site-search" className="visually-hidden">
           ShipEngine Connect Docs Search
