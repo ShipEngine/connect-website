@@ -352,6 +352,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@charlietango/use-client-hydrated@npm:^1.9.0":
+  version: 1.9.0
+  resolution: "@charlietango/use-client-hydrated@npm:1.9.0"
+  peerDependencies:
+    react: ">=16.8.0"
+    react-dom: ">=16.8.0"
+  checksum: 4a60698eec2fa68e442373488f8256103b8022863f71bc5ba29c76e69e4b3208bc1a0301475bdd62985b321f0329869cef28db11827512c835a77ec07d4a873a
+  languageName: node
+  linkType: hard
+
+"@charlietango/use-script@npm:^2.2.0":
+  version: 2.2.0
+  resolution: "@charlietango/use-script@npm:2.2.0"
+  dependencies:
+    "@charlietango/use-client-hydrated": ^1.9.0
+  peerDependencies:
+    react: ">=16.8.0"
+    react-dom: ">=16.8.0"
+  checksum: 3dcf4d309ecf7319fae3da80fd6cf0ad41f7566dc1b59937e45397e588c7c658000c44f6dfcfdc0feab4d622c496d3ca073da29eb55ce2d84cc3bd1f6b69814c
+  languageName: node
+  linkType: hard
+
 "@eslint/eslintrc@npm:^0.4.3":
   version: 0.4.3
   resolution: "@eslint/eslintrc@npm:0.4.3"
@@ -653,6 +675,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@shipengine/connect-website@workspace:."
   dependencies:
+    "@charlietango/use-script": ^2.2.0
     "@jsdevtools/next-mdx": ^1.1.1
     "@mdx-js/react": ^2.0.0-next.9
     "@types/mdx-js__react": ^1.5.4
