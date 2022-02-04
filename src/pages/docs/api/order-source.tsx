@@ -1,5 +1,5 @@
 import { RedocStandalone } from "redoc";
-import spec from "@shipengine/connect-carrier-api/spec.json";
+import spec from "@shipengine/connect-order-source-api/spec.yaml";
 
 export default function CarrierApi() {
   return (

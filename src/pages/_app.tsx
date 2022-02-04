@@ -5,7 +5,6 @@ import { useEffect } from "react";
 import { components } from "../components";
 import { UserSettingsProvider } from "../components/user-settings/user-settings-provider";
 import { BaseLayoutProps } from "../layouts/base/base-layout";
-import "../styles/global.scss";
 
 /**
  * The wrapper for all pages. Provides a place for site-wide functionality, such as error handling,
@@ -17,7 +16,11 @@ import "../styles/global.scss";
  */
 export default function App({ Component, pageProps }: AppProps<BaseLayoutProps>) {
   const router = useRouter();
-
+  if(!router.pathname.includes('docs/api/')) {
+    import("../styles/global.scss");
+  } else {
+    import("../styles/_api-docs.scss");
+  }
   useEffect(() => disableSmoothScrollingOnRouteChange(router));
 
   return (
