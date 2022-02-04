@@ -89,11 +89,14 @@ An address object representing address information.
     </Description>
   </Field>
 
-  <Field name="is_eu" type="boolean" nullable={true}>
+    <Field name="instructions" type="string" nullable={true}>
     <Description>
-      Indicates whether the country of the shipment address is a member of the EU.
+      Instructions to help the carrier navigate to the address.
+
     </Description>
   </Field>
+
+
 
   <Field name="address_metadata" type="object" nullable={true}>
     <Description>
