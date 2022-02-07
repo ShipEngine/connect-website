@@ -1,5 +1,5 @@
 import { RedocStandalone } from "redoc";
-import OpenApiSpecification from "@shipengine/connect-carrier-api/spec";
+const OpenApiSpecification = require("@shipengine/connect-carrier-api/spec");
 
 export default function CarrierApi() {
   return (

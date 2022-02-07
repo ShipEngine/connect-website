@@ -1,5 +1,5 @@
 import { RedocStandalone } from "redoc";
-import OpenApiSpecification from "@shipengine/connect-order-source-api/spec";
+const OpenApiSpecification = require("@shipengine/connect-order-source-api/spec");
 
 export default function OrderSourceApi() {
   return (
