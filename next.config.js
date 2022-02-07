@@ -11,5 +11,5 @@ const withMDX = nextMDX({
 
 // Enable MDX in Next.js
 module.exports = withMDX({
-  pageExtensions: ["tsx", "mdx"],
+  pageExtensions: ["tsx", "mdx"]
 });

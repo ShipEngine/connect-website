@@ -38,8 +38,9 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@charlietango/use-script", "virtual:acc0dbca37a9f83f4274f147eea93efc3767cc7ef7ea1657162c0e1affe9eaeda2c729f662638273b51b9fa989ac227055d90aa35fb0c65b01589b6118b7e1c9#npm:2.2.0"],
             ["@jsdevtools/next-mdx", "npm:1.2.0"],
             ["@mdx-js/react", "virtual:acc0dbca37a9f83f4274f147eea93efc3767cc7ef7ea1657162c0e1affe9eaeda2c729f662638273b51b9fa989ac227055d90aa35fb0c65b01589b6118b7e1c9#npm:2.0.0-next.9"],
-            ["@shipengine/connect-carrier-api", "npm:2.3.1"],
-            ["@shipengine/connect-order-source-api", "npm:3.12.0"],
+            ["@shipengine/connect-carrier-api", "npm:2.3.3"],
+            ["@shipengine/connect-freight-api", "npm:0.0.22"],
+            ["@shipengine/connect-order-source-api", "npm:3.12.2"],
             ["@types/mdx-js__react", "npm:1.5.4"],
             ["@types/node", "npm:14.17.14"],
             ["@types/react", "npm:17.0.19"],
@@ -53,6 +54,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-jsx-a11y", "virtual:acc0dbca37a9f83f4274f147eea93efc3767cc7ef7ea1657162c0e1affe9eaeda2c729f662638273b51b9fa989ac227055d90aa35fb0c65b01589b6118b7e1c9#npm:6.4.1"],
             ["eslint-plugin-react-hooks", "virtual:acc0dbca37a9f83f4274f147eea93efc3767cc7ef7ea1657162c0e1affe9eaeda2c729f662638273b51b9fa989ac227055d90aa35fb0c65b01589b6118b7e1c9#npm:4.2.0"],
             ["fast-safe-stringify", "npm:2.1.1"],
+            ["fs", "npm:0.0.1-security"],
             ["mobx", "npm:6.3.13"],
             ["next", "virtual:acc0dbca37a9f83f4274f147eea93efc3767cc7ef7ea1657162c0e1affe9eaeda2c729f662638273b51b9fa989ac227055d90aa35fb0c65b01589b6118b7e1c9#npm:11.1.2"],
             ["prism-react-renderer", "virtual:acc0dbca37a9f83f4274f147eea93efc3767cc7ef7ea1657162c0e1affe9eaeda2c729f662638273b51b9fa989ac227055d90aa35fb0c65b01589b6118b7e1c9#npm:1.1.1"],
@@ -1225,21 +1227,30 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@shipengine/connect-carrier-api", [
-        ["npm:2.3.1", {
-          "packageLocation": "./.yarn/cache/@shipengine-connect-carrier-api-npm-2.3.1-b424ba9a81-8d67b6b11e.zip/node_modules/@shipengine/connect-carrier-api/",
+        ["npm:2.3.3", {
+          "packageLocation": "./.yarn/cache/@shipengine-connect-carrier-api-npm-2.3.3-a4ef9e25d4-98a44e7895.zip/node_modules/@shipengine/connect-carrier-api/",
           "packageDependencies": [
-            ["@shipengine/connect-carrier-api", "npm:2.3.1"],
+            ["@shipengine/connect-carrier-api", "npm:2.3.3"],
             ["joi", "npm:17.6.0"],
             ["tslib", "npm:2.3.1"]
           ],
           "linkType": "HARD",
         }]
       ]],
-      ["@shipengine/connect-order-source-api", [
-        ["npm:3.12.0", {
-          "packageLocation": "./.yarn/cache/@shipengine-connect-order-source-api-npm-3.12.0-9c63d3c85c-c624a72ae7.zip/node_modules/@shipengine/connect-order-source-api/",
+      ["@shipengine/connect-freight-api", [
+        ["npm:0.0.22", {
+          "packageLocation": "./.yarn/cache/@shipengine-connect-freight-api-npm-0.0.22-7dacd671ee-1edcb1c03b.zip/node_modules/@shipengine/connect-freight-api/",
           "packageDependencies": [
-            ["@shipengine/connect-order-source-api", "npm:3.12.0"],
+            ["@shipengine/connect-freight-api", "npm:0.0.22"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["@shipengine/connect-order-source-api", [
+        ["npm:3.12.2", {
+          "packageLocation": "./.yarn/cache/@shipengine-connect-order-source-api-npm-3.12.2-4e0bfea77b-e064728c2a.zip/node_modules/@shipengine/connect-order-source-api/",
+          "packageDependencies": [
+            ["@shipengine/connect-order-source-api", "npm:3.12.2"],
             ["joi", "npm:17.6.0"],
             ["sanitize-html", "npm:2.7.0"],
             ["tslib", "npm:2.3.1"]
@@ -1255,8 +1266,9 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@charlietango/use-script", "virtual:acc0dbca37a9f83f4274f147eea93efc3767cc7ef7ea1657162c0e1affe9eaeda2c729f662638273b51b9fa989ac227055d90aa35fb0c65b01589b6118b7e1c9#npm:2.2.0"],
             ["@jsdevtools/next-mdx", "npm:1.2.0"],
             ["@mdx-js/react", "virtual:acc0dbca37a9f83f4274f147eea93efc3767cc7ef7ea1657162c0e1affe9eaeda2c729f662638273b51b9fa989ac227055d90aa35fb0c65b01589b6118b7e1c9#npm:2.0.0-next.9"],
-            ["@shipengine/connect-carrier-api", "npm:2.3.1"],
-            ["@shipengine/connect-order-source-api", "npm:3.12.0"],
+            ["@shipengine/connect-carrier-api", "npm:2.3.3"],
+            ["@shipengine/connect-freight-api", "npm:0.0.22"],
+            ["@shipengine/connect-order-source-api", "npm:3.12.2"],
             ["@types/mdx-js__react", "npm:1.5.4"],
             ["@types/node", "npm:14.17.14"],
             ["@types/react", "npm:17.0.19"],
@@ -1270,6 +1282,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-jsx-a11y", "virtual:acc0dbca37a9f83f4274f147eea93efc3767cc7ef7ea1657162c0e1affe9eaeda2c729f662638273b51b9fa989ac227055d90aa35fb0c65b01589b6118b7e1c9#npm:6.4.1"],
             ["eslint-plugin-react-hooks", "virtual:acc0dbca37a9f83f4274f147eea93efc3767cc7ef7ea1657162c0e1affe9eaeda2c729f662638273b51b9fa989ac227055d90aa35fb0c65b01589b6118b7e1c9#npm:4.2.0"],
             ["fast-safe-stringify", "npm:2.1.1"],
+            ["fs", "npm:0.0.1-security"],
             ["mobx", "npm:6.3.13"],
             ["next", "virtual:acc0dbca37a9f83f4274f147eea93efc3767cc7ef7ea1657162c0e1affe9eaeda2c729f662638273b51b9fa989ac227055d90aa35fb0c65b01589b6118b7e1c9#npm:11.1.2"],
             ["prism-react-renderer", "virtual:acc0dbca37a9f83f4274f147eea93efc3767cc7ef7ea1657162c0e1affe9eaeda2c729f662638273b51b9fa989ac227055d90aa35fb0c65b01589b6118b7e1c9#npm:1.1.1"],
@@ -4000,6 +4013,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/format-npm-0.2.2-679f3acc64-646a60e133.zip/node_modules/format/",
           "packageDependencies": [
             ["format", "npm:0.2.2"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["fs", [
+        ["npm:0.0.1-security", {
+          "packageLocation": "./.yarn/cache/fs-npm-0.0.1-security-5060b47e87-53c6230e1f.zip/node_modules/fs/",
+          "packageDependencies": [
+            ["fs", "npm:0.0.1-security"]
           ],
           "linkType": "HARD",
         }]

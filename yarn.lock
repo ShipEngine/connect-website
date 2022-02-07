@@ -925,24 +925,31 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@shipengine/connect-carrier-api@npm:^2.3.1":
-  version: 2.3.1
-  resolution: "@shipengine/connect-carrier-api@npm:2.3.1"
+"@shipengine/connect-carrier-api@npm:^2.3.3":
+  version: 2.3.3
+  resolution: "@shipengine/connect-carrier-api@npm:2.3.3"
   dependencies:
     joi: ^17.4.2
     tslib: ^2.3.1
-  checksum: 8d67b6b11ef7c9e299c0eefd70dec0a502998a5869c429c8c6199f5204ea35c1c55a5b75c0d21de227fdd379d961bc710859195723e8d387beb3c1b7eebd36ac
+  checksum: 98a44e7895f6fe84666123a31ea2a9dcde9ac28ed3360359ac9656af271bec58093535c8b95206f4a8de96e0dd33ecc6794ecbb6846ef6bfb59624ef04871a4e
   languageName: node
   linkType: hard
 
-"@shipengine/connect-order-source-api@npm:^3.12.0":
-  version: 3.12.0
-  resolution: "@shipengine/connect-order-source-api@npm:3.12.0"
+"@shipengine/connect-freight-api@npm:^0.0.22":
+  version: 0.0.22
+  resolution: "@shipengine/connect-freight-api@npm:0.0.22"
+  checksum: 1edcb1c03bcdc1fb04cdb16094f71edd0e828bf651c05beb75376923b20f31ca180a3a89a34580ef4cf96d5852232fc795a92666fbdbc900b3e4e768ff0aefcc
+  languageName: node
+  linkType: hard
+
+"@shipengine/connect-order-source-api@npm:^3.12.2":
+  version: 3.12.2
+  resolution: "@shipengine/connect-order-source-api@npm:3.12.2"
   dependencies:
     joi: ^17.4.2
     sanitize-html: ^2.6.1
     tslib: ^2.3.1
-  checksum: c624a72ae7ae7aa009e216c2d824aa7b20fda83a1cd80939d6a59782f8bd3eb585ab823a8385c323708b3dcb0c1c980e6849f21c1c5c6447e85b9d5365f14bdc
+  checksum: e064728c2a7c0a5488c00b67b46fd5bc5c18e4f8b7aacc2eb4fb1387ee3984442f1e391ac3a86fdf560259174a0fb5d86b4389b7569b0fe25ed9b58a39cce2b1
   languageName: node
   linkType: hard
 
@@ -953,8 +960,9 @@ __metadata:
     "@charlietango/use-script": ^2.2.0
     "@jsdevtools/next-mdx": ^1.1.1
     "@mdx-js/react": ^2.0.0-next.9
-    "@shipengine/connect-carrier-api": ^2.3.1
-    "@shipengine/connect-order-source-api": ^3.12.0
+    "@shipengine/connect-carrier-api": ^2.3.3
+    "@shipengine/connect-freight-api": ^0.0.22
+    "@shipengine/connect-order-source-api": ^3.12.2
     "@types/mdx-js__react": ^1.5.4
     "@types/node": ^14.17.14
     "@types/react": ^17.0.19
@@ -968,6 +976,7 @@ __metadata:
     eslint-plugin-jsx-a11y: ^6.4.1
     eslint-plugin-react-hooks: ^4.2.0
     fast-safe-stringify: ^2.1.1
+    fs: ^0.0.1-security
     mobx: ^6.3.13
     next: ^11.1.2
     prism-react-renderer: ^1.1.1
@@ -3218,6 +3227,13 @@ __metadata:
   version: 1.0.0
   resolution: "fs.realpath@npm:1.0.0"
   checksum: 99ddea01a7e75aa276c250a04eedeffe5662bce66c65c07164ad6264f9de18fb21be9433ead460e54cff20e31721c811f4fb5d70591799df5f85dce6d6746fd0
+  languageName: node
+  linkType: hard
+
+"fs@npm:^0.0.1-security":
+  version: 0.0.1-security
+  resolution: "fs@npm:0.0.1-security"
+  checksum: 53c6230e1faae9fa32c1df82c16a84b51b1243d20f3da2b64bd110bb472b73b9185169b703e008356e3cdc92d155088b617d9d39a63b5227a30b3621baad7f5d
   languageName: node
   linkType: hard
 

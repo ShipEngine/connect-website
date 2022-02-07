@@ -1,10 +1,10 @@
 import { RedocStandalone } from "redoc";
-import spec from "@shipengine/connect-carrier-api/spec.json";
+import OpenApiSpecification from "@shipengine/connect-carrier-api/spec";
 
 export default function CarrierApi() {
   return (
     <RedocStandalone
-      spec={spec}
+      spec={OpenApiSpecification}
       options={{
         nativeScrollbars: true,
       }}
