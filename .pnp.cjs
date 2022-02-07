@@ -38,7 +38,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@charlietango/use-script", "virtual:acc0dbca37a9f83f4274f147eea93efc3767cc7ef7ea1657162c0e1affe9eaeda2c729f662638273b51b9fa989ac227055d90aa35fb0c65b01589b6118b7e1c9#npm:2.2.0"],
             ["@jsdevtools/next-mdx", "npm:1.2.0"],
             ["@mdx-js/react", "virtual:acc0dbca37a9f83f4274f147eea93efc3767cc7ef7ea1657162c0e1affe9eaeda2c729f662638273b51b9fa989ac227055d90aa35fb0c65b01589b6118b7e1c9#npm:2.0.0-next.9"],
-            ["@shipengine/connect-carrier-api", "npm:2.3.1"],
+            ["@shipengine/connect-carrier-api", "npm:2.3.3"],
             ["@types/mdx-js__react", "npm:1.5.4"],
             ["@types/node", "npm:14.17.14"],
             ["@types/react", "npm:17.0.19"],
@@ -1224,10 +1224,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@shipengine/connect-carrier-api", [
-        ["npm:2.3.1", {
-          "packageLocation": "./.yarn/cache/@shipengine-connect-carrier-api-npm-2.3.1-b424ba9a81-8d67b6b11e.zip/node_modules/@shipengine/connect-carrier-api/",
+        ["npm:2.3.3", {
+          "packageLocation": "./.yarn/cache/@shipengine-connect-carrier-api-npm-2.3.3-a4ef9e25d4-98a44e7895.zip/node_modules/@shipengine/connect-carrier-api/",
           "packageDependencies": [
-            ["@shipengine/connect-carrier-api", "npm:2.3.1"],
+            ["@shipengine/connect-carrier-api", "npm:2.3.3"],
             ["joi", "npm:17.6.0"],
             ["tslib", "npm:2.3.1"]
           ],
@@ -1242,7 +1242,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@charlietango/use-script", "virtual:acc0dbca37a9f83f4274f147eea93efc3767cc7ef7ea1657162c0e1affe9eaeda2c729f662638273b51b9fa989ac227055d90aa35fb0c65b01589b6118b7e1c9#npm:2.2.0"],
             ["@jsdevtools/next-mdx", "npm:1.2.0"],
             ["@mdx-js/react", "virtual:acc0dbca37a9f83f4274f147eea93efc3767cc7ef7ea1657162c0e1affe9eaeda2c729f662638273b51b9fa989ac227055d90aa35fb0c65b01589b6118b7e1c9#npm:2.0.0-next.9"],
-            ["@shipengine/connect-carrier-api", "npm:2.3.1"],
+            ["@shipengine/connect-carrier-api", "npm:2.3.3"],
             ["@types/mdx-js__react", "npm:1.5.4"],
             ["@types/node", "npm:14.17.14"],
             ["@types/react", "npm:17.0.19"],

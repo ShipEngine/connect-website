@@ -1,14 +1,14 @@
-import { RedocStandalone } from "redoc";
-import spec from "@shipengine/connect-carrier-api/spec.json";
+import ApiLayout from "../../../layouts/api/api-layout";
+const OpenApiSpecification = require('@shipengine/connect-carrier-api/spec');
 
 export default function CarrierApi() {
   return (
-      <RedocStandalone
-        spec={spec}
-        options={{
-          nativeScrollbars: true,
-          theme: { colors: { primary: { main: "#162948" } } },
-        }}
-      />
+    <ApiLayout
+      title="Carrier API"
+      description="This is the carrier api"
+      createdAt={ new Date('02/07/2022')}
+      modifiedAt={ new Date('02/07/2022')}
+      OpenApiSpecification={ OpenApiSpecification }
+    ></ApiLayout>
   );
 }

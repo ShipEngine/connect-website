@@ -925,13 +925,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@shipengine/connect-carrier-api@npm:^2.3.1":
-  version: 2.3.1
-  resolution: "@shipengine/connect-carrier-api@npm:2.3.1"
+"@shipengine/connect-carrier-api@npm:^2.3.3":
+  version: 2.3.3
+  resolution: "@shipengine/connect-carrier-api@npm:2.3.3"
   dependencies:
     joi: ^17.4.2
     tslib: ^2.3.1
-  checksum: 8d67b6b11ef7c9e299c0eefd70dec0a502998a5869c429c8c6199f5204ea35c1c55a5b75c0d21de227fdd379d961bc710859195723e8d387beb3c1b7eebd36ac
+  checksum: 98a44e7895f6fe84666123a31ea2a9dcde9ac28ed3360359ac9656af271bec58093535c8b95206f4a8de96e0dd33ecc6794ecbb6846ef6bfb59624ef04871a4e
   languageName: node
   linkType: hard
 
@@ -942,7 +942,7 @@ __metadata:
     "@charlietango/use-script": ^2.2.0
     "@jsdevtools/next-mdx": ^1.1.1
     "@mdx-js/react": ^2.0.0-next.9
-    "@shipengine/connect-carrier-api": ^2.3.1
+    "@shipengine/connect-carrier-api": ^2.3.3
     "@types/mdx-js__react": ^1.5.4
     "@types/node": ^14.17.14
     "@types/react": ^17.0.19

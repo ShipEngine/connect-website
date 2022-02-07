@@ -1,0 +1,19 @@
+@use "variables" as *;
+
+$redoc-code-background: rgb(17, 23, 26);
+
+.redoc-wrap code {
+   background-color: $redoc-code-background;
+}
+
+.redoc-wrap .redoc-json code {
+    color:$white;
+}
+
+.redoc-wrap table th,td {
+    border-left-width: 0px;
+}
+
+.redoc-wrap table span {
+    color: $dark-purple;
+}
