@@ -90,47 +90,47 @@ export const menu: MenuContents = [
         menuItems: [
           {
             title: "SalesOrdersExport",
-            href: "/docs/reference/methods/sales-orders-export",
+            href: "/docs/api/order-source#operation/OrderSource_SalesOrdersExport",
           },
           {
             title: "GetProducts",
-            href: "/docs/reference/methods/get-products",
+            href: "/docs/api/order-source#operation/post-get_product_information",
           },
           {
             title: "AcknowledgeOrders",
-            href: "/docs/reference/methods/acknowledge-orders",
+            href: "/docs/api/order-source#operation/OrderSource_AcknowledgeOrders",
           },
           {
             title: "ShipmentNotification",
-            href: "/docs/reference/methods/shipment-notification",
+            href: "/docs/api/order-source#operation/OrderSource_ShipmentNotification",
           },
           {
             title: "NotificationStatus",
-            href: "/docs/reference/methods/notification-status",
+            href: "/docs/api/order-source#operation/post-notification_statuses",
           },
           {
             title: "RegisterDeliveryOptions",
-            href: "/docs/reference/methods/register-delivery-options",
+            href: "/docs/api/order-source#operation/post-register_delivery_options",
           },
           {
             title: "VerifyDeliveryOptions",
-            href: "/docs/reference/methods/verify-delivery-options",
+            href: "/docs/api/order-source#operation/post-verify_delivery_options",
           },
           {
             title: "RemoveDeliveryOptions",
-            href: "/docs/reference/methods/remove-delivery-options",
+            href: "/docs/api/order-source#operation/post-remove_delivery_options",
           },
           {
             title: "AcceptSalesOrderItems",
-            href: "/docs/reference/methods/accept-sales-order-items",
+            href: "/docs/api/order-source#operation/post-accept_sales_order_items",
           },
           {
             title: "CancelSalesOrderItems",
-            href: "/docs/reference/methods/cancel-sales-order-items",
+            href: "/docs/api/order-source#operation/post-cancel_sales_order_items",
           },
           {
             title: "GetConnectionContext",
-            href: "/docs/reference/methods/get-connection-context",
+            href: "/docs/api/order-source#operation/OrderSource_GetConnectionContext",
           },
         ],
       },

@@ -6,6 +6,12 @@ $redoc-code-background: rgb(17, 23, 26);
    background-color: $redoc-code-background;
 }
 
+.redoc-wrap pre {
+    background-color: $redoc-code-background;
+    background-image: none;
+    color:white;
+}
+
 .redoc-wrap .redoc-json code {
     color:$white;
 }
