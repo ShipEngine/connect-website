@@ -14,10 +14,10 @@ interface AProps {
 export function A({ markdown, href, children, ...props }: AProps) {
   if (markdown) {
     // Convert Markdown links to Next.js Link elements
-    return <Link href={href}><a {...props}>{ children }</a></Link>;
+    return <Link href={href}><a class="connect-a" {...props}>{ children }</a></Link>;
   }
   else {
     // Leave other links as-is
-    return <a href={href} {...props}>{ children }</a>;
+    return <a href={href} {...props} class="connect-a">{ children }</a>;
   }
 }

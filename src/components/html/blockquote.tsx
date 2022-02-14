@@ -40,7 +40,7 @@ export function Blockquote({ markdown, children, ...props }: BlockquoteProps) {
     }
   }
 
-  return <blockquote {...props}>{children}</blockquote>;
+  return <blockquote {...props} class="connect-blockquote">{children}</blockquote>;
 }
 
 

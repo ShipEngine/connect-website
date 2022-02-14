@@ -57,7 +57,7 @@ function ReferenceListItem(field: FieldProps) {
 
   return <>
     <H3>
-      <code>{field.name}</code>
+      <code class="fieldName">{field.name}</code>
       {` `}
       <small className={styles.small}>
         {humanizeType(field)}

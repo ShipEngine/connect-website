@@ -1,6 +1,7 @@
 import { CodeWrapper } from "./code-wrapper/code-wrapper";
 import { A } from "./html/a";
 import { Blockquote } from "./html/blockquote";
+import { Code } from "./html/code";
 import { H1, H2, H3, H4, H5, H6 } from "./html/headings";
 import { Img } from "./html/img";
 import { passThru } from "./html/pass-thru";
@@ -24,7 +25,7 @@ export const components = {
   h5: H5,
   h6: H6,
   code: passThru("code"),
-  inlineCode: passThru("code"),
+  inlineCode: Code,
   p: passThru("p"),
   ul: passThru("ul"),
   ol: passThru("ol"),

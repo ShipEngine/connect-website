@@ -16,11 +16,11 @@ export function Pre({ markdown, children, ...props }: PreProps) {
     // This is probably a Markdown code fence.
     // If so, then we'll render it as a rich <CodeBlock> component instead
     if (isCodeBlock(children)) {
-      return <CodeWrapper><pre {...props}>{children}</pre></CodeWrapper>;
+      return <CodeWrapper><pre {...props} class="connect-pre" >{children}</pre></CodeWrapper>;
     }
   }
 
-  return <pre {...props}>{children}</pre>;
+  return <pre {...props} class="connect-pre" >{children}</pre>;
 }
 
 
