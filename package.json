@@ -19,6 +19,7 @@
     "@jsdevtools/next-mdx": "^1.1.1",
     "@mdx-js/react": "^2.0.0-next.9",
     "@shipengine/connect-carrier-api": "^2.3.5",
+    "@shipengine/connect-order-source-api": "^3.12.2",
     "call-me-maybe": "^1.0.1",
     "core-js": "^3.21.0",
     "events": "^3.3.0",
