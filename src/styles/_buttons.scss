@@ -1,10 +1,10 @@
 @use "variables" as *;
 
 button,
-.button,
-input[type=button],
-input[type=submit],
-input[type=reset] {
+.connect .button,
+.connect input[type=button],
+.connect input[type=submit],
+.connect input[type=reset] {
   font-weight: 500;
   line-height: 1;
   color: $dark-purple;

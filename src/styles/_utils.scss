@@ -3,28 +3,28 @@
 /**
  * Creates a container that's horizontally centered
  */
-.centered-content {
+.connect .centered-content {
   @include centered-content;
 }
 
 /**
  * Styles an element's scrollbars
  */
-.styled-scrollbar {
+.connect .styled-scrollbar {
   @include styled-scrollbar;
 }
 
 /**
  * Hides content but keep it discoverable for accessibility/screen reader purposes
  */
-.visually-hidden {
+.connect .visually-hidden {
   @include visually-hidden;
 }
 
 /**
  * Hides content visually AND from screen readers
  */
-.hidden {
+.connect .hidden {
   display: none !important;
 }
 
