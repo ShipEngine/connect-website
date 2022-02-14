@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import PageLayout, { PageLayoutProps } from "../page/page-layout";
-import { RedocStandalone  } from "redoc";
+import { RedocStandalone } from "redoc";
 
 export type ApiLayoutProps = PageLayoutProps & {
-  OpenApiSpecification: any
-}
+  OpenApiSpecification: any;
+};
 
 /**
  * This is the layout for documentation pages, including all MDX files.
@@ -14,11 +14,19 @@ export type ApiLayoutProps = PageLayoutProps & {
 export default function ApiLayout(props: ApiLayoutProps) {
   const { OpenApiSpecification } = props;
   useEffect(() => {
-    document.querySelector('body')?.classList.remove('connect');
-  })
+    document.querySelector("body")?.classList.remove("connect");
+  });
   return (
     <PageLayout {...props}>
-      <RedocStandalone spec={ OpenApiSpecification } />
+        <RedocStandalone
+          spec={OpenApiSpecification}
+          options={{
+            disableSearch: true,
+            hideHostname: true,
+            hideDownloadButton: true,
+            nativeScrollbars: true,
+          }}
+        />
     </PageLayout>
   );
 }

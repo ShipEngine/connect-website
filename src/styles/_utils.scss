@@ -17,7 +17,7 @@
 /**
  * Hides content but keep it discoverable for accessibility/screen reader purposes
  */
-.connect .visually-hidden {
+.visually-hidden {
   @include visually-hidden;
 }
 

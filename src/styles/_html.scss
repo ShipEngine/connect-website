@@ -3,7 +3,6 @@
 html {
   margin: 0;
   height: 100%;
-  scroll-behavior: smooth;
 
   // Affects all rem-sized elements
   font-size: 10px;
@@ -180,4 +179,12 @@ ol {
   .connect blockquote {
     margin: $small-vertical-space $small-horizontal-space;
   }
+}
+
+.menu-content {
+  top: $site-header-small-height + 3 !important;
+}
+
+.api-content {
+  padding-top: 50px;
 }
