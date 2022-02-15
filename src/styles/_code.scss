@@ -3,19 +3,23 @@
 
 $selection-color: darken($light-purple, 5%);
 
-pre, code, samp, kbd {
+.connect pre,
+.connect code,
+.connect samp,
+.connect kbd {
   font-family: $code-font;
   font-size: $code-font-size;
   color: $darker-purple;
 }
 
-code, kbd {
+.connect code,
+.connect kbd {
   display: inline-block;
   background-color: $lighter-purple;
   padding: ($tiny-vertical-space / 2) ($tiny-horizontal-space / 2);
 }
 
-pre {
+.connect pre {
   @include styled-scrollbar;
   background: linear-gradient(to bottom, $lighter-purple, $lightest-purple 1000px);
 

@@ -26,7 +26,9 @@
 }
 
 .siteSearchForm {
+  position: fixed;
   float: right;
+  right: 50px;
   width: 40%;
   max-width: 400px;
 

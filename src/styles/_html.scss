@@ -3,7 +3,6 @@
 html {
   margin: 0;
   height: 100%;
-  scroll-behavior: smooth;
 
   // Affects all rem-sized elements
   font-size: 10px;
@@ -27,50 +26,65 @@ body {
   font-family: $text-font;
 }
 
-h1, h2, h3, h4, h5, h6 {
+.connect h1,
+.connect h2,
+.connect h3,
+.connect h4,
+.connect h5,
+.connect h6 {
   font-family: $heading-font;
   font-weight: 500;
   line-height: 1;
   color: $heading-color;
 }
 
-h1 {
+.connect h1 {
   font-size: $h1-font-size;
   font-weight: 600;
+  code: {
+    font-size: 4.32rem !important;
+  }
 }
 
-h2 {
+.connect h2 {
   font-size: $h2-font-size;
 }
 
-h3 {
+.connect h3 {
   font-size: $h3-font-size;
+  code {
+    font-size: 2rem;
+  }
+
+  small {
+    font-size: 1.8rem;
+  }
 }
 
-h4 {
+.connect h4 {
   font-size: $h4-font-size;
 }
 
-h5 {
+.connect h5 {
   font-size: $h5-font-size;
 }
 
-h6 {
+.connect h6 {
   font-size: $h6-font-size;
 }
 
-p {
+.connect p {
   margin-top: 0;
   margin-bottom: $small-vertical-space;
 }
 
-a,
-button {
+.connect a,
+.connect button {
   outline: 0;
 }
 
-a,
-a code {
+.connect a,
+.connect a code {
   text-decoration: none;
   color: $link-color;
   cursor: pointer;
@@ -86,7 +100,7 @@ a code {
   }
 }
 
-hr {
+.connect hr {
   height: 0;
   margin-top: $small-vertical-space;
   margin-bottom: $small-vertical-space;
@@ -94,7 +108,7 @@ hr {
   border-top: solid 1px $light-blue;
 }
 
-blockquote {
+.connect blockquote {
   padding: 0 0 0 $medium-horizontal-space;
   margin: $small-vertical-space $medium-horizontal-space;
   font-size: $h4-font-size;
@@ -102,7 +116,9 @@ blockquote {
   border-left: 10px solid $light-blue;
 }
 
-ul, ol, dl {
+ul,
+ol,
+dl {
   margin-bottom: $small-vertical-space;
 }
 
@@ -118,15 +134,15 @@ ol {
   padding-left: $medium-horizontal-space;
 }
 
-li + li {
+.connect li + li {
   margin-top: .25em;
 }
 
-ul li ul {
+.connect ul li ul {
   list-style: circle;
 }
 
-dl dd {
+.connect dl dd {
   font-style: italic;
   font-weight: 100;
 }
@@ -160,7 +176,15 @@ dl dd {
     font-size: 8.5px;
   }
 
-  blockquote {
+  .connect blockquote {
     margin: $small-vertical-space $small-horizontal-space;
   }
+}
+
+.menu-content {
+  top: $site-header-small-height + 3 !important;
+}
+
+.api-content {
+  padding-top: 50px;
 }

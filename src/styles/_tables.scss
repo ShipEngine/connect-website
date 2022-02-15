@@ -2,17 +2,17 @@
 
 $table-border-color: transparentize($medium-purple, .75);
 
-table {
+.connect table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: $medium-vertical-space;
 }
 
-thead {
+.connect thead {
   border-bottom: 2px solid $table-border-color;
 }
 
-tr {
+.connect tr {
   border-bottom: 1px solid $table-border-color;
 
   &:last-child {
@@ -20,7 +20,8 @@ tr {
   }
 }
 
-td, th {
+.connect td,
+.connect th {
   font-size: $small-font-size;
   border-left: 1px solid $table-border-color;
 
@@ -33,7 +34,7 @@ td, th {
   }
 }
 
-th {
+.connect th {
   font-weight: 400;
   text-align: left;
   color: $medium-purple;
@@ -41,7 +42,7 @@ th {
   padding: $tiny-vertical-space $tiny-horizontal-space;
 }
 
-td {
+.connect td {
   font-weight: 300;
   padding: $tiny-horizontal-space;
 
