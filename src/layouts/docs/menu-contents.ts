@@ -79,7 +79,7 @@ export const menu: MenuContents = [
         menuItems: [
           {
             title: "Carrier API Reference",
-            href: "/docs/api/carrier",
+            href: "https://shipstation.github.io/integrations-shipping/carrierapi-redoc.html",
           },
           { title: "Metadata", href: "/docs/reference/metadata" },
           {
@@ -180,10 +180,6 @@ export const menu: MenuContents = [
       {
         title: "Reference",
         menuItems: [
-          {
-            title: "Order Source API Reference",
-            href: "/docs/api/order-source",
-          },
           {
             "title": "ResidentialIndicator",
             "href": "/docs/reference/residential-indicator"
@@ -514,7 +510,7 @@ export const menu: MenuContents = [
   },
   {
     title: "Authentication",
-    open: false,
+    open: true,
     subGroups: [
       {
         title: "OAuth",
@@ -545,7 +541,7 @@ export const menu: MenuContents = [
   },
   {
     title: "Service",
-    open: false,
+    open: true,
     menuItems: [
       { title: "FAQ", href: "https://help.shipengine.com/" },
       {
@@ -565,7 +561,7 @@ export const menu: MenuContents = [
   },
   {
     title: "Community",
-    open: false,
+    open: true,
     menuItems: [
       { title: "Blog", href: "https://www.shipengine.com/blog/" },
       {
