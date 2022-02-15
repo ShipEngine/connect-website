@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import { defaultImageURL, getPageURL } from "../../lib/url";
 import { Favicons } from "./favicons";
 import { JsonLD } from "./json-ld";
@@ -26,6 +26,9 @@ export default function BaseLayout(props: BaseLayoutProps) {
   const { title, description, tags, createdAt, modifiedAt, image, hidden, children } = props;
   const router = useRouter();
   const pageURL = getPageURL(router);
+  useEffect(() => {
+    document.querySelector("body")?.classList.add('connect');
+  })
 
   if (typeof title !== "string" || typeof description !== "string") {
     throw new Error(`${router.pathname} is missing a title and/or description`);
