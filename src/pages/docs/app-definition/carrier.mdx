@@ -82,19 +82,28 @@ tags:
     </Description>
     </Field>
 
-    <Field name="DefaultConfirmationTypes" type="object" nullable={true} required={false}>
+    <Field name="DefaultConfirmationTypes" nullable={true} required={false}>
+    <Type>
+      [ConfirmationDictionary](./../reference/confirmation-dictionary.mdx)
+    </Type>
     <Description>
       This dictionary allows you to specify which supported delivery confirmation types the carrier offers. Setting one to undefined will use the default name in shipstation. 
     </Description>
     </Field>
 
-    <Field name="LabelFormats" type="string[]" nullable={true} required={false}>
+    <Field name="LabelFormats" nullable={true} required={false}>
+      <Type>
+      [LabelFormatsEnum[]](./../reference/label-formats-enum.mdx)
+    </Type>
     <Description>
       This provides a list of label formats supported by the carrier
     </Description>
     </Field>
 
-    <Field name="DefaultLabelSizes" type="string[]" nullable={true} required={false}>
+    <Field name="DefaultLabelSizes" nullable={true} required={false}>
+      <Type>
+      [LabelSizesEnum[]](./../reference/label-sizes-enum.mdx)
+    </Type>
     <Description>
       This provides a list of supported label sizes by the carrier
     </Description>
@@ -274,19 +283,28 @@ tags:
     </Description>
     </Field>
 
-    <Field name="Class" type="string" nullable={true} required={false}>
+    <Field name="Class" nullable={true} required={false}>
+      <Type>
+      [ServiceClassEnum](./../reference/service-class-enum.mdx)
+    </Type>
     <Description>
       The class of service. ex: `Ground`, `OneDay`, `ThreeDay` [info](https://github.com/ShipEngine/connect/blob/2cdd2e17c5eea1e6273937b41fce7c41c7d171ab/packages/carrier-api/src/app/metadata/enums.ts#L23)
     </Description>
     </Field>
 
-    <Field name="Grade" type="string" nullable={true} required={false}>
+    <Field name="Grade" nullable={true} required={false}>
+      <Type>
+      [ServiceGradeEnum](./../reference/service-grade-enum.mdx)
+    </Type>
     <Description>
       The grade of the service. ex: `Economy`, `Expedited`, `Overnight` [info](https://github.com/ShipEngine/connect/blob/2cdd2e17c5eea1e6273937b41fce7c41c7d171ab/packages/carrier-api/src/app/metadata/enums.ts#L34)
     </Description>
     </Field>
 
-    <Field name="SupportedLabelSizes" type="string[]" nullable={true} required={false}>
+    <Field name="SupportedLabelSizes" nullable={true} required={false}>
+      <Type>
+      [LabelSizesEnum[]](./../reference/label-sizes-enum.mdx)
+    </Type>
     <Description>
       A list of label sizes supported by this service
     </Description>
@@ -298,13 +316,19 @@ tags:
     </Description>
     </Field>
 
-    <Field name="ServiceAttributes" type="string[]" nullable={true} required={false}>
+    <Field name="ServiceAttributes" nullable={true} required={false}>
+      <Type>
+      [ServiceAttributesEnum[]](./../reference/service-attributes-enum.mdx)
+    </Type>
     <Description>
       A list of attributes about this service
     </Description>
     </Field>
 
-    <Field name="ConfirmationTypes" type="string[]" nullable={true} required={false}>
+    <Field name="ConfirmationTypes" nullable={true} required={false}>
+    <Type>
+      [ConfirmationType[]](./../reference/confirmation-type.mdx)
+    </Type>
     <Description>
       The confirmation types associated with this service
     </Description>
@@ -321,9 +345,12 @@ tags:
     </Description>
     </Field>
 
-    <Field name="Identifier.AuthenticationType" type="object" nullable={false} required={true}>
+    <Field name="Identifier.AuthenticationType" nullable={false} required={true}>
+      <Type>
+      [AuthenticationType](./../reference/authentication-type.mdx)
+    </Type>
     <Description>
-        Identify the type of Auth being used by the integration (oauth)
+        Identify the type of Auth being used by the integration.
     </Description>
     </Field>
 
