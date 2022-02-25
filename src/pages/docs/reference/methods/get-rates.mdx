@@ -81,7 +81,10 @@ An object containing information about the shipment to get rates for. The more i
     </Description>
   </Field>
 
-  <Field name="advanced_options" type="object" nullable={true}>
+  <Field name="advanced_options" nullable={true}>
+    <Type>
+      [AdvancedOptions](./../advanced-options.mdx)
+    </Type>
     <Description>
       This is a schemaless object. It is for open ended customizations unique to particular carriers.
       If the field is absent it should be interpreted as the default value for any applicable options, e.g. false for booleans.

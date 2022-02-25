@@ -1,0 +1,62 @@
+---
+title: Confirmation Dictionary
+description: This will customize how each potential confirmation type is displayed to users
+---
+
+# Confirmation Dictionary
+
+This will customize how each potential confirmation type is displayed to users
+
+```typescript
+import { ConfirmationDictionary } from '@shipengine/connect-carrier-api';
+
+// Specified values will be shown as options to users
+// The string value will be the text displayed to a user
+const supportedConfirmationTypes: ConfirmationDictionary = {
+    None: 'No Confirmation Required', // On Requests 'None' will be sent as the 'confirmation'
+    Signature: 'Signature Required' // On Requests 'Signature' will be sent as the 'confirmation'
+}
+```
+
+<Reference>
+  <Field name="None" nullable={true}>
+    <Type>
+      string
+    </Type>
+    <Description>
+      No confirmation is requested
+    </Description>
+  </Field>
+  <Field name="Delivery" nullable={true}>
+    <Type>
+      string
+    </Type>
+    <Description>
+      Delivery confirmation is requested
+    </Description>
+  </Field>
+  <Field name="Signature" nullable={true}>
+    <Type>
+      string
+    </Type>
+    <Description>
+      A signature is required. This signature may be a neighbor, building manager, or the recipient can authorize the release of the package (without being present)
+    </Description>
+  </Field>
+  <Field name="AdultSignature" nullable={true}>
+    <Type>
+      string
+    </Type>
+    <Description>
+      A signature of an adult is required
+    </Description>
+  </Field>
+  <Field name="DirectSignature" nullable={true}>
+    <Type>
+      string
+    </Type>
+    <Description>
+      Only supported by FedEx. The signature of somebody at the address is required
+    </Description>
+  </Field>
+</Reference>
