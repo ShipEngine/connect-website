@@ -1,0 +1,26 @@
+---
+title: Authentication Type
+description: These are the various types of auth that are currently supported by our platform.
+---
+
+# Authentication Type
+
+``` TypeScript
+import { AuthenticationType } from '@shipengine/connect-order-source-api';
+
+AuthenticationType.ApiKey;  // Corresponds to 'apikey'
+AuthenticationType.Basic;   // Corresponds to 'basic'
+AuthenticationType.OAuth;   // Corresponds to 'oauth'
+```
+
+<Reference>
+  <Field name="oauth">
+    <Description>An open standard for access delegation.</Description>
+  </Field>
+  <Field name="basic">
+    <Description>This auth strategy relies on the user providing a username and password.</Description>
+  </Field>
+  <Field name="apikey">
+    <Description>The auth strategy relies on the user providing an api key.</Description>
+  </Field>
+</Reference>
