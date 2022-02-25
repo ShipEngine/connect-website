@@ -1,0 +1,59 @@
+---
+title: Advanced Options
+description: Basic structure for shipping options
+---
+
+# Advanced Options
+
+Basic structure for shipping options
+
+<Reference>
+  <Field name="contains_alcohol" nullable={true}>
+    <Type>
+      boolean
+    </Type>
+    <Description>
+      Whether the shipment contains alcohol
+    </Description>
+  </Field>
+  <Field name="no_postage" nullable={true}>
+    <Type>
+      boolean
+    </Type>
+    <Description>
+      Whether the shipment does not require postage
+    </Description>
+  </Field>
+  <Field name="nonmachineable" nullable={true}>
+    <Type>
+      boolean
+    </Type>
+    <Description>
+      Whether the shipment can be processed by machine
+    </Description>
+  </Field>
+  <Field name="bill_duties_to_sender" nullable={true}>
+    <Type>
+      boolean
+    </Type>
+    <Description>
+      Whether the shipment duties should be billed to the sender
+    </Description>
+  </Field>
+  <Field name="saturday_delivery" nullable={true}>
+    <Type>
+      boolean
+    </Type>
+    <Description>
+      Whether Saturday delivery is permissible
+    </Description>
+  </Field>
+  <Field name="tip" nullable={true}>
+    <Type>
+      boolean
+    </Type>
+    <Description>
+      Amount to be paid to the driver, used for local delivery and courier services
+    </Description>
+  </Field>
+</Reference>
