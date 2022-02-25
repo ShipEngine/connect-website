@@ -3,14 +3,14 @@
 /**
  * Creates a container that's horizontally centered
  */
-.connect .centered-content {
+.centered-content {
   @include centered-content;
 }
 
 /**
  * Styles an element's scrollbars
  */
-.connect .styled-scrollbar {
+.styled-scrollbar {
   @include styled-scrollbar;
 }
 
@@ -24,7 +24,7 @@
 /**
  * Hides content visually AND from screen readers
  */
-.connect .hidden {
+.hidden {
   display: none !important;
 }
 
