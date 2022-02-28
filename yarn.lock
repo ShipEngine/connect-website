@@ -362,7 +362,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@charlietango/use-script@npm:^2.2.0":
+"@charlietango/use-script@npm:2.2.0":
   version: 2.2.0
   resolution: "@charlietango/use-script@npm:2.2.0"
   dependencies:
@@ -435,7 +435,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jsdevtools/next-mdx@npm:^1.1.1":
+"@jsdevtools/next-mdx@npm:1.2.0":
   version: 1.2.0
   resolution: "@jsdevtools/next-mdx@npm:1.2.0"
   dependencies:
@@ -490,21 +490,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@mdx-js/react@npm:2.0.0-next.9":
+  version: 2.0.0-next.9
+  resolution: "@mdx-js/react@npm:2.0.0-next.9"
+  peerDependencies:
+    react: ">=16"
+  checksum: c6e74fbe0f9a31c692fb575d29dc0f16d244c2f35c04fade4285431e967b317ee48e5c4d58f6b1aaefe0fefe8dd57ca80a027c10f42d61e3241dfd68b23bf63d
+  languageName: node
+  linkType: hard
+
 "@mdx-js/react@npm:^2.0.0-next.8":
   version: 2.0.0-next.8
   resolution: "@mdx-js/react@npm:2.0.0-next.8"
   peerDependencies:
     react: ^16.13.1
   checksum: 0c5966bf6bacd3dfb94cf9da47ac0dd4dcdba729d48217849d8df1fd4883c42f1184d5351ab31211ba50e6e60e47021f366500bde86e8a79dd1e2dcad399d14b
-  languageName: node
-  linkType: hard
-
-"@mdx-js/react@npm:^2.0.0-next.9":
-  version: 2.0.0-next.9
-  resolution: "@mdx-js/react@npm:2.0.0-next.9"
-  peerDependencies:
-    react: ">=16"
-  checksum: c6e74fbe0f9a31c692fb575d29dc0f16d244c2f35c04fade4285431e967b317ee48e5c4d58f6b1aaefe0fefe8dd57ca80a027c10f42d61e3241dfd68b23bf63d
   languageName: node
   linkType: hard
 
@@ -675,24 +675,24 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@shipengine/connect-website@workspace:."
   dependencies:
-    "@charlietango/use-script": ^2.2.0
-    "@jsdevtools/next-mdx": ^1.1.1
-    "@mdx-js/react": ^2.0.0-next.9
-    "@types/mdx-js__react": ^1.5.4
-    "@types/node": ^14.17.14
-    "@types/react": ^17.0.19
-    "@types/react-dom": ^17.0.9
-    "@typescript-eslint/eslint-plugin": ^4.30.0
-    "@typescript-eslint/parser": ^4.30.0
-    eslint: ^7.32.0
+    "@charlietango/use-script": 2.2.0
+    "@jsdevtools/next-mdx": 1.2.0
+    "@mdx-js/react": 2.0.0-next.9
+    "@types/mdx-js__react": 1.5.4
+    "@types/node": 14.17.14
+    "@types/react": 17.0.19
+    "@types/react-dom": 17.0.9
+    "@typescript-eslint/eslint-plugin": 4.30.0
+    "@typescript-eslint/parser": 4.30.0
+    eslint: 7.32.0
     eslint-config-next: 11.1.2
-    eslint-plugin-jsx-a11y: ^6.4.1
-    eslint-plugin-react-hooks: ^4.2.0
-    next: ^11.1.2
-    prism-react-renderer: ^1.1.1
-    react: ^17.0.2
-    react-dom: ^17.0.2
-    sass: ^1.26.10
+    eslint-plugin-jsx-a11y: 6.4.1
+    eslint-plugin-react-hooks: 4.2.0
+    next: 11.1.2
+    prism-react-renderer: 1.1.1
+    react: 17.0.2
+    react-dom: 17.0.2
+    sass: 1.26.10
     typescript: 4.3.2
   languageName: unknown
   linkType: soft
@@ -736,7 +736,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/mdx-js__react@npm:^1.5.4":
+"@types/mdx-js__react@npm:1.5.4":
   version: 1.5.4
   resolution: "@types/mdx-js__react@npm:1.5.4"
   dependencies:
@@ -752,7 +752,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^14.17.14":
+"@types/node@npm:14.17.14":
   version: 14.17.14
   resolution: "@types/node@npm:14.17.14"
   checksum: 66ed675a324fdddc4f693f1b240c0d81a9f53e1c68f7de8b84d02d65c0b447f9fa30d318481d04e1502f68dd37091b5cadc59633b57246582ad25e3fa835cd7d
@@ -773,7 +773,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:^17.0.9":
+"@types/react-dom@npm:17.0.9":
   version: 17.0.9
   resolution: "@types/react-dom@npm:17.0.9"
   dependencies:
@@ -792,7 +792,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:^17.0.19":
+"@types/react@npm:17.0.19":
   version: 17.0.19
   resolution: "@types/react@npm:17.0.19"
   dependencies:
@@ -817,7 +817,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/eslint-plugin@npm:^4.30.0":
+"@typescript-eslint/eslint-plugin@npm:4.30.0":
   version: 4.30.0
   resolution: "@typescript-eslint/eslint-plugin@npm:4.30.0"
   dependencies:
@@ -854,7 +854,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/parser@npm:^4.20.0, @typescript-eslint/parser@npm:^4.30.0":
+"@typescript-eslint/parser@npm:4.30.0, @typescript-eslint/parser@npm:^4.20.0":
   version: 4.30.0
   resolution: "@typescript-eslint/parser@npm:4.30.0"
   dependencies:
@@ -2308,7 +2308,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-jsx-a11y@npm:^6.4.1":
+"eslint-plugin-jsx-a11y@npm:6.4.1, eslint-plugin-jsx-a11y@npm:^6.4.1":
   version: 6.4.1
   resolution: "eslint-plugin-jsx-a11y@npm:6.4.1"
   dependencies:
@@ -2329,7 +2329,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-react-hooks@npm:^4.2.0":
+"eslint-plugin-react-hooks@npm:4.2.0, eslint-plugin-react-hooks@npm:^4.2.0":
   version: 4.2.0
   resolution: "eslint-plugin-react-hooks@npm:4.2.0"
   peerDependencies:
@@ -2405,7 +2405,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^7.32.0":
+"eslint@npm:7.32.0":
   version: 7.32.0
   resolution: "eslint@npm:7.32.0"
   dependencies:
@@ -4264,7 +4264,7 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"next@npm:^11.1.2":
+"next@npm:11.1.2":
   version: 11.1.2
   resolution: "next@npm:11.1.2"
   dependencies:
@@ -4960,7 +4960,7 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"prism-react-renderer@npm:^1.1.1":
+"prism-react-renderer@npm:1.1.1":
   version: 1.1.1
   resolution: "prism-react-renderer@npm:1.1.1"
   peerDependencies:
@@ -5144,7 +5144,7 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"react-dom@npm:^17.0.2":
+"react-dom@npm:17.0.2":
   version: 17.0.2
   resolution: "react-dom@npm:17.0.2"
   dependencies:
@@ -5178,7 +5178,7 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"react@npm:^17.0.2":
+"react@npm:17.0.2":
   version: 17.0.2
   resolution: "react@npm:17.0.2"
   dependencies:
@@ -5502,14 +5502,14 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"sass@npm:^1.26.10":
-  version: 1.32.8
-  resolution: "sass@npm:1.32.8"
+"sass@npm:1.26.10":
+  version: 1.26.10
+  resolution: "sass@npm:1.26.10"
   dependencies:
     chokidar: ">=2.0.0 <4.0.0"
   bin:
     sass: sass.js
-  checksum: a4d67e6be7b3c479d44065b1dd63fc76b90cfb5f5c9684a5d93fb9721c283bae4ec3f4dab478125ee21f3618dd408a9ba65bd3ba6482ab5a422fc86e1ca18b17
+  checksum: ac995d1838353444ba7e93b50f0958eb2cb18ab387f393b38f687185efa5598e73e6a96ad31cf944cde1138bc491ded586142d5230adc072be44d780d1ecdde7
   languageName: node
   linkType: hard
 
