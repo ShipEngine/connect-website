@@ -52,7 +52,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["prism-react-renderer", "virtual:acc0dbca37a9f83f4274f147eea93efc3767cc7ef7ea1657162c0e1affe9eaeda2c729f662638273b51b9fa989ac227055d90aa35fb0c65b01589b6118b7e1c9#npm:1.1.1"],
             ["react", "npm:17.0.2"],
             ["react-dom", "virtual:acc0dbca37a9f83f4274f147eea93efc3767cc7ef7ea1657162c0e1affe9eaeda2c729f662638273b51b9fa989ac227055d90aa35fb0c65b01589b6118b7e1c9#npm:17.0.2"],
-            ["sass", "npm:1.32.8"],
+            ["sass", "npm:1.26.10"],
             ["typescript", "patch:typescript@npm%3A4.3.2#~builtin<compat/typescript>::version=4.3.2&hash=32657b"]
           ],
           "linkType": "SOFT",
@@ -960,7 +960,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["prism-react-renderer", "virtual:acc0dbca37a9f83f4274f147eea93efc3767cc7ef7ea1657162c0e1affe9eaeda2c729f662638273b51b9fa989ac227055d90aa35fb0c65b01589b6118b7e1c9#npm:1.1.1"],
             ["react", "npm:17.0.2"],
             ["react-dom", "virtual:acc0dbca37a9f83f4274f147eea93efc3767cc7ef7ea1657162c0e1affe9eaeda2c729f662638273b51b9fa989ac227055d90aa35fb0c65b01589b6118b7e1c9#npm:17.0.2"],
-            ["sass", "npm:1.32.8"],
+            ["sass", "npm:1.26.10"],
             ["typescript", "patch:typescript@npm%3A4.3.2#~builtin<compat/typescript>::version=4.3.2&hash=32657b"]
           ],
           "linkType": "SOFT",
@@ -5216,7 +5216,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-dom", "virtual:acc0dbca37a9f83f4274f147eea93efc3767cc7ef7ea1657162c0e1affe9eaeda2c729f662638273b51b9fa989ac227055d90aa35fb0c65b01589b6118b7e1c9#npm:17.0.2"],
             ["react-is", "npm:17.0.2"],
             ["react-refresh", "npm:0.8.3"],
-            ["sass", "npm:1.32.8"],
+            ["sass", "npm:1.26.10"],
             ["stream-browserify", "npm:3.0.0"],
             ["stream-http", "npm:3.1.1"],
             ["string_decoder", "npm:1.3.0"],
@@ -6532,10 +6532,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["sass", [
-        ["npm:1.32.8", {
-          "packageLocation": "./.yarn/cache/sass-npm-1.32.8-6b113b5d20-a4d67e6be7.zip/node_modules/sass/",
+        ["npm:1.26.10", {
+          "packageLocation": "./.yarn/cache/sass-npm-1.26.10-3da25ce4be-ac995d1838.zip/node_modules/sass/",
           "packageDependencies": [
-            ["sass", "npm:1.32.8"],
+            ["sass", "npm:1.26.10"],
             ["chokidar", "npm:3.5.1"]
           ],
           "linkType": "HARD",
