@@ -1,0 +1,29 @@
+﻿---
+title: RejectSalesOrderItemsNotification
+description: The properties associated with a RejectSalesOrderItemsNotification
+---
+
+RejectSalesOrderItemsNotification
+===============================================
+Requested reject item(s) notification
+
+<Reference>
+  <Field name="items" nullable={false}>
+    <Type>
+      [RequestedRejectItem](./requested-reject-item.mdx)[]
+    </Type>
+    <Description>
+      Items the action should be applied to
+    </Description>
+  </Field>
+  <Field name="notification_id" type="string" nullable={false}>
+    <Description>
+      Identifier for the requested reject notification
+    </Description>
+  </Field>
+  <Field name="order_id" type="string" nullable={false}>
+    <Description>
+      Unique order identifier from the order source
+    </Description>
+  </Field>
+</Reference>

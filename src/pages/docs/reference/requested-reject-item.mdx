@@ -1,0 +1,34 @@
+﻿---
+title: RequestedRejectItem
+description: The properties associated with a RequestedRejectItem
+---
+
+RequestedCancelItem
+===============================================
+Details about the requested item to cancel
+
+<Reference>
+  <Field name="line_item_id" type="string" nullable={false}>
+    <Description>
+      Line item identifier provided by the order source
+    </Description>
+  </Field>
+  <Field name="message" type="string" nullable={true}>
+    <Description>
+      The message
+    </Description>
+  </Field>
+  <Field name="product" nullable={true}>
+    <Type>
+      [RequestedRejectProduct](./requested-reject-product.mdx)
+    </Type>
+    <Description>
+      Product information about the item
+    </Description>
+  </Field>
+  <Field name="quantity" type="number" nullable={false}>
+    <Description>
+      Quantity of the item
+    </Description>
+  </Field>
+</Reference>
