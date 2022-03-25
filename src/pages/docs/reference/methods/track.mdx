@@ -95,7 +95,7 @@ Return Value
 This object model represents the response from a successful tracking request.
 
 <Reference>
-  
+
   <Field name="metadata" required={false}>
     <Type>
       [metadata object](./../metadata.mdx)
@@ -128,7 +128,7 @@ This object model represents the response from a successful tracking request.
  <Field name="tracking_info.standardized_status_code" type="string" required={true}>
     <Description>
       This represents the ShipEngine supported status codes for a shipment.
-      
+
       Valid values include the following:
       * `UN` - Unknown
       * `AC` - Accepted
@@ -226,7 +226,7 @@ This object model represents the response from a successful tracking request.
       [track events object[]](../track-event.mdx)
     </Type>
     <Description>
-      The carrier observed type of packages in this shipment.
+      The list of events that happened throughout the shipments lifetime.
     </Description>
   </Field>
 
