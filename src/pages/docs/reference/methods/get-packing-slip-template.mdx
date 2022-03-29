@@ -1,0 +1,169 @@
+---
+title: GetPackingSlipTemplate Method
+description: This method is called by the shipstation platform when connecting to your integration. The template provided allows users to select your packing slip template when shipping items.
+---
+
+`GetPackingSlipTemplate()`
+===========================
+This method is called by the shipstation platform when connecting to your integration. 
+The template provided allows users to select your packing slip template when shipping items.
+
+> **PRO TIP:** When implementing this endpoint make sure to add the <a href="/docs/app-definition/order-source#supportedpackingsliptemplateversions-nullable-string">SupportedPackingSlipTemplateVersions</a> to your app definition.
+
+> **INFO:** Please make sure that your **@shipengine/connect-order-source-api** is upgraded to version **3.13.0** or greater to take advantage of this new feature.
+
+Method Implementation
+-----------------------------------------------
+<CodeWrapper>
+```typescript
+import {
+  GetPackingSlipTemplateRequest,
+  GetPackingSlipTemplateResponse,
+  PackingSlipSize,
+} from "@shipengine/connect-order-source-api";
+import { readFileSync } from "fs";
+import { join } from "path";
+import { header } from './packing-slip-template'
+
+// Implemented to be able to keep the various html pieces separated in html files
+const loadTemplate = (file: string): string => {
+  const packingSlipsDirectory = "../../assets/packing-slips";
+  return readFileSync(join(__dirname, packingSlipsDirectory, file), "utf-8");
+};
+
+export const GetPackingSlipTemplate = (
+  request: GetPackingSlipTemplateRequest
+): GetPackingSlipTemplateResponse => {
+  const itemsHeader = loadTemplate("items-header.html");
+  const item = loadTemplate("item.html");
+  const footer = loadTemplate("footer.html");
+
+  const styling =
+    request.size === PackingSlipSize.Letter
+      ? loadTemplate("styling/letter.html")
+      : loadTemplate("styling/four-by-six.html");
+
+  return {
+    packing_slip_template: {
+      name: "Order Source Packing Slip ™",
+      header: styling + header,
+      items_header: itemsHeader,
+      item: item,
+      footer: footer,
+    },
+  };
+};
+```
+</CodeWrapper>
+
+App Definition
+-----------------------------------------------
+<CodeWrapper>
+```typescript highlight="7, 16"
+import { OrderSourceApp } from '@shipengine/connect-order-source-api';
+import {
+  SalesOrdersExport,
+  ShipmentNotification,
+  AcknowledgeOrders,
+  GetProducts,
+  GetPackingSlipTemplate,
+} from './methods';
+import { Metadata } from './definitions';
+
+export default new OrderSourceApp({
+  SalesOrdersExport,
+  ShipmentNotification,
+  AcknowledgeOrders,
+  GetProducts,
+  GetPackingSlipTemplate,
+  Metadata,
+});
+```
+</CodeWrapper>
+
+Example OrderSourceDefinition
+-----------------------------------------------
+<CodeWrapper>
+```typescript highlight="24"
+import { ConnectionFormSchema } from './connection-form-schema';
+import { join } from 'path';
+import { OrderSourceDefinition, PackingSlipTemplateVersion } from '@shipengine/connect-order-source-api';
+
+export const brandOne: OrderSourceDefinition = {
+  Id: '3440a3bf-cd22-494f-ad02-500b6cdcedb8',
+  Name: 'Brand One',
+  SendEmail: true,
+  CanRefresh: false,
+  CanConfigureTimeZone: false,
+  CanConfirmShipments: false,
+  CanLeaveFeedback: true,
+  HasCustomMappings: false,
+  HasCustomStatuses: false,
+  HasInventoryLevels: true,
+  AccountConnection: {
+    Name: 'Brand One Connection',
+    ConnectionFormSchema,
+  },
+  Images: {
+    Logo: join(__dirname, '../../assets/brand-one/logo.svg'),
+    Icon: join(__dirname, '../../assets/brand-one/icon.svg'),
+  },
+  SupportedPackingSlipTemplateVersions: [PackingSlipTemplateVersion.ShipStation]
+};
+```
+</CodeWrapper>
+
+> **PRO TIP:** **More info about shipstations packing slip templating can be found <a target="_blank" href="https://help.shipstation.com/hc/en-us/articles/360057378051-Create-Custom-Packing-Slips#UUID-eaee971a-4b7a-051e-c377-6cd1de153496">here</a>**
+
+GetPackingSlipTemplateRequest
+----
+A request to get the packing slips for a given platform user.
+<Reference>
+  <Field name="version" type="PackingSlipTemplateVersion" nullable={false}>
+    <Description>
+        This contains the desired version being requested. **Options: ["shipstation"]**
+    </Description>
+  </Field>
+  <Field name="size" type="PackingSlipSize" nullable={false}>
+    <Description>
+      This is the size of packing slip that is being requested by the platform. **Options: ["four_by_six_inches", "letter"]**
+    </Description>
+  </Field>
+</Reference>
+
+GetPackingSlipTemplateResponse
+----
+The connection context response which will allow you to update the connection_context for all future requests.
+
+<Reference>
+  <Field name="packing_slip_template" type="PackingSlipTemplate" nullable={false}>
+    <Description>
+        The packing slips that should be used for this order source
+    </Description>
+  </Field>
+  <Field name="packing_slip_template.name" type="string" nullable={false}>
+    <Description>
+        The name that should be associated with this packing slip in the platform
+    </Description>
+  </Field>
+  <Field name="packing_slip_template.header" type="string" nullable={false}>
+    <Description>
+        The html template that should be displayed at the top of the packing slip
+    </Description>
+  </Field>
+  <Field name="packing_slip_template.items_header" type="string" nullable={false}>
+    <Description>
+        The html template that should be displayed above the items being printed out
+    </Description>
+  </Field>
+  <Field name="packing_slip_template.item" type="string" nullable={false}>
+    <Description>
+        The html template that will be rendered for each item
+    </Description>
+  </Field>
+  <Field name="packing_slip_template.footer" type="string" nullable={false}>
+    <Description>
+        The html template that should be displayed at the bottom of the packing slip
+    </Description>
+  </Field>
+</Reference>

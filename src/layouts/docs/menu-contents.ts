@@ -179,6 +179,10 @@ export const menu: MenuContents = [
             title: "GetConnectionContext",
             href: "/docs/reference/methods/get-connection-context",
           },
+          {
+            title: "GetPackingSlipTemplate",
+            href: "/docs/reference/methods/get-packing-slip-template",
+          },
         ],
       },
       {
