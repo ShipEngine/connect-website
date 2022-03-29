@@ -1,0 +1,106 @@
+---
+title: GetPackingSlipTemplate Method
+description: This method is called by the shipstation platform when connecting to your integration. The template provided allows users to select your packing slip template when shipping items.
+---
+
+`GetPackingSlipTemplate()`
+===========================
+This method is called by the shipstation platform when connecting to your integration. 
+The template provided allows users to select your packing slip template when shipping items.
+
+
+Syntax
+-----------------------------------------------
+<CodeWrapper>
+```typescript
+import {
+  GetPackingSlipTemplateRequest,
+  GetPackingSlipTemplateResponse,
+  PackingSlipSize,
+} from "@shipengine/connect-order-source-api";
+import { readFileSync } from "fs";
+import { join } from "path";
+import { header } from './packing-slip-template'
+
+const loadTemplate = (file: string): string => {
+  const packingSlipsDirectory = "../../assets/packing-slips";
+  return readFileSync(join(__dirname, packingSlipsDirectory, file), "utf-8");
+};
+
+export const GetPackingSlipTemplate = (
+  request: GetPackingSlipTemplateRequest
+): GetPackingSlipTemplateResponse => {
+  const itemsHeader = loadTemplate("items-header.html");
+  const item = loadTemplate("item.html");
+  const footer = loadTemplate("footer.html");
+
+  const styling =
+    request.size === PackingSlipSize.Letter
+      ? loadTemplate("styling/letter.html")
+      : loadTemplate("styling/four-by-six.html");
+
+  return {
+    packing_slip_template: {
+      name: "Order Source Packing Slip ™",
+      header: styling + header,
+      items_header: itemsHeader,
+      item: item,
+      footer: footer,
+    },
+  };
+};
+```
+</CodeWrapper>
+
+GetPackingSlipTemplateRequest
+----
+A request to get the packing slips for a given platform user.
+<Reference>
+  <Field name="version" type="string" nullable={false}>
+    <Description>
+        This contains the desired version being requested
+    </Description>
+  </Field>
+  <Field name="size" type="string" nullable={false}>
+    <Description>
+      This is the size of packing slip that is being requested by the platform
+    </Description>
+  </Field>
+</Reference>
+
+GetPackingSlipTemplateResponse
+----
+The connection context response which will allow you to update the connection_context for all future requests.
+
+<Reference>
+  <Field name="packing_slip_template" type="PackingSlipTemplate" nullable={false}>
+    <Description>
+        The packing slips that should be used for this order source
+    </Description>
+  </Field>
+  <Field name="packing_slip_template.name" type="string" nullable={false}>
+    <Description>
+        The name that should be associated with this packing slip in the platform
+    </Description>
+  </Field>
+  <Field name="packing_slip_template.header" type="string" nullable={false}>
+    <Description>
+        The html template that should be displayed at the top of the packing slip
+    </Description>
+  </Field>
+  <Field name="packing_slip_template.items_header" type="string" nullable={false}>
+    <Description>
+        The html template that should be displayed above the items being printed out
+    </Description>
+  </Field>
+  <Field name="packing_slip_template.item" type="string" nullable={false}>
+    <Description>
+        The html template that will be rendered for each item
+    </Description>
+  </Field>
+  <Field name="packing_slip_template.footer" type="string" nullable={false}>
+    <Description>
+        The html template that should be displayed at the bottom of the packing slip
+    </Description>
+  </Field>
+</Reference>
