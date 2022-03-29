@@ -118,14 +118,14 @@ GetPackingSlipTemplateRequest
 ----
 A request to get the packing slips for a given platform user.
 <Reference>
-  <Field name="version" type="string" nullable={false}>
+  <Field name="version" type="PackingSlipTemplateVersion" nullable={false}>
     <Description>
-        This contains the desired version being requested
+        This contains the desired version being requested. **Options: ["shipstation"]**
     </Description>
   </Field>
-  <Field name="size" type="string" nullable={false}>
+  <Field name="size" type="PackingSlipSize" nullable={false}>
     <Description>
-      This is the size of packing slip that is being requested by the platform
+      This is the size of packing slip that is being requested by the platform. **Options: ["four_by_six_inches", "letter"]**
     </Description>
   </Field>
 </Reference>
