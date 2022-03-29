@@ -8,8 +8,10 @@ description: This method is called by the shipstation platform when connecting t
 This method is called by the shipstation platform when connecting to your integration. 
 The template provided allows users to select your packing slip template when shipping items.
 
+> **PRO TIP:** When implementing this endpoint make sure to add the <a href="/docs/app-definition/order-source#supportedpackingsliptemplateversions-nullable-string">SupportedPackingSlipTemplateVersions</a> to your app definition.
 
-Syntax
+
+Method Implementation
 -----------------------------------------------
 <CodeWrapper>
 ```typescript
@@ -22,6 +24,7 @@ import { readFileSync } from "fs";
 import { join } from "path";
 import { header } from './packing-slip-template'
 
+// Implemented to be able to keep the various html pieces separated in html files
 const loadTemplate = (file: string): string => {
   const packingSlipsDirectory = "../../assets/packing-slips";
   return readFileSync(join(__dirname, packingSlipsDirectory, file), "utf-8");
@@ -51,6 +54,65 @@ export const GetPackingSlipTemplate = (
 };
 ```
 </CodeWrapper>
+
+App Definition
+-----------------------------------------------
+<CodeWrapper>
+```typescript highlight="7, 16"
+import { OrderSourceApp } from '@shipengine/connect-order-source-api';
+import {
+  SalesOrdersExport,
+  ShipmentNotification,
+  AcknowledgeOrders,
+  GetProducts,
+  GetPackingSlipTemplate,
+} from './methods';
+import { Metadata } from './definitions';
+
+export default new OrderSourceApp({
+  SalesOrdersExport,
+  ShipmentNotification,
+  AcknowledgeOrders,
+  GetProducts,
+  GetPackingSlipTemplate,
+  Metadata,
+});
+```
+</CodeWrapper>
+
+Example OrderSourceDefinition
+-----------------------------------------------
+<CodeWrapper>
+```typescript highlight="24"
+import { ConnectionFormSchema } from './connection-form-schema';
+import { join } from 'path';
+import { OrderSourceDefinition, PackingSlipTemplateVersion } from '@shipengine/connect-order-source-api';
+
+export const brandOne: OrderSourceDefinition = {
+  Id: '3440a3bf-cd22-494f-ad02-500b6cdcedb8',
+  Name: 'Brand One',
+  SendEmail: true,
+  CanRefresh: false,
+  CanConfigureTimeZone: false,
+  CanConfirmShipments: false,
+  CanLeaveFeedback: true,
+  HasCustomMappings: false,
+  HasCustomStatuses: false,
+  HasInventoryLevels: true,
+  AccountConnection: {
+    Name: 'Brand One Connection',
+    ConnectionFormSchema,
+  },
+  Images: {
+    Logo: join(__dirname, '../../assets/brand-one/logo.svg'),
+    Icon: join(__dirname, '../../assets/brand-one/icon.svg'),
+  },
+  SupportedPackingSlipTemplateVersions: [PackingSlipTemplateVersion.ShipStation]
+};
+```
+</CodeWrapper>
+
+> **INFO:** More info about shipstations packing slip templating can be found <a target="_blank" href="https://help.shipstation.com/hc/en-us/articles/360057378051-Create-Custom-Packing-Slips#UUID-eaee971a-4b7a-051e-c377-6cd1de153496">here</a>
 
 GetPackingSlipTemplateRequest
 ----
