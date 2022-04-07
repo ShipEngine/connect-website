@@ -1,0 +1,57 @@
+---
+title: RelayPointAddress object
+description: An object representing the location of a relay point.
+---
+
+Relay Point Address Object
+===============================================
+An object representing the address of a relay point.
+
+<Reference>
+  
+  <Field name="relay_point_id" type="string" required={true}>
+    <Description>
+      This should be the unique id the carrier uses for this relay point.
+    </Description>
+  </Field>
+
+  <Field name="company_name" type="string" required={false}>
+    <Description>
+        Company name, if applicable. Cannot include newline chars.
+    </Description>
+  </Field>
+
+  <Field name="address_lines[]" type="string[]" required={true}>
+    <Description>
+      Address fields separated by line. Up to 100 chars per line. Cannot include newline chars.
+    </Description>
+  </Field>
+
+ <Field name="city_locality" type="string" required={true}>
+    <Description>
+      City or locality. Cannot contain newline chars.
+    </Description>
+  </Field>
+
+ <Field name="state_province" type="string" required={true}>
+    <Description>
+      State or province. Cannot contain newline chars.
+    </Description>
+  </Field>
+
+ <Field name="postal_code" type="string" required={true}>
+    <Description>
+      Zip or postal code. Cannot include newline chars.
+    </Description>
+  </Field>
+
+ <Field name="country_code" required={true}>
+    <Type>
+      [country code string](./country-codes.mdx)
+    </Type>
+    <Description>
+      The [ISO 3166 country code](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) for the [country](./country-codes.mdx) of origin. This is usually the same as `countryOfManufacture`, but some countries distinguish between the two for certain products.
+    </Description>
+  </Field>
+
+</Reference>

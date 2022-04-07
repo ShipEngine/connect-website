@@ -181,6 +181,30 @@ An object containing information about the new label to create.
     </Description>
   </Field>
 
+  <Field name="relay_points" type="object" nullable={true}>
+    <Description>
+      If this is a shipment that uses relay points, this will show which relay points to ship from and to.
+    </Description>
+  </Field>
+
+  <Field name="relay_points.ship_to" nullable={false}>
+    <Type>
+      [relay point address object](./../relay-point-address.mdx)
+    </Type>
+    <Description>
+      The destination relay point for the shipment.
+    </Description>
+  </Field>
+
+  <Field name="relay_points.ship_from" nullable={false}>
+    <Type>
+      [relay point address object](./../relay-point-address.mdx)
+    </Type>
+    <Description>
+      The origin relay point for the shipment.
+    </Description>
+  </Field>
+
   <Field name="ship_from_display" nullable={true}>
     <Type>
       [shipping address object](./../carrier-address.mdx#shipping-address-object)
@@ -322,6 +346,30 @@ This object model represents the response from a successful create label request
     <Description>
       The estimated date and time for when the shipment will be delivered.
       Formatted per the https://tools.ietf.org/html/rfc3339 spec.
+    </Description>
+  </Field>
+
+  <Field name="relay_points" type="object" required={false}>
+    <Description>
+      If this is a shipment that uses relay points, this will show which relay points to ship from and to.
+    </Description>
+  </Field>
+
+  <Field name="relay_points.ship_to" required={true}>
+    <Type>
+      [relay point address object](./../relay-point-address.mdx)
+    </Type>
+    <Description>
+      The destination relay point for the shipment.
+    </Description>
+  </Field>
+
+  <Field name="relay_points.ship_from" required={true}>
+    <Type>
+      [relay point address object](./../relay-point-address.mdx)
+    </Type>
+    <Description>
+      The origin relay point for the shipment.
     </Description>
   </Field>
 

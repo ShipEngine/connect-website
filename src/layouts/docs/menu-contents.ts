@@ -72,6 +72,10 @@ export const menu: MenuContents = [
           },
           { title: "Get Rates", href: "/docs/reference/methods/get-rates" },
           { title: "Track", href: "/docs/reference/methods/track" },
+          {
+            title: "GetRelayPoints",
+            href: "/docs/reference/methods/get-relay-points",
+          },
         ],
       },
       {
@@ -83,8 +87,8 @@ export const menu: MenuContents = [
           },
           { title: "Metadata", href: "/docs/reference/metadata" },
           {
-            "title": "Forms",
-            "href": "/docs/reference/forms"
+            title: "Forms",
+            href: "/docs/reference/forms",
           },
           { title: "Address", href: "/docs/reference/carrier-address" },
           { title: "Package", href: "/docs/reference/package" },
@@ -114,6 +118,14 @@ export const menu: MenuContents = [
           {
             title: "Pickup Confirmation",
             href: "/docs/reference/pickup-confirmation",
+          },
+          {
+            title: "OpeningTimes",
+            href: "/docs/reference/opening-times",
+          },
+          {
+            title: "RelayPointAddress",
+            href: "/docs/reference/relay-point-address",
           },
         ],
       },
@@ -189,345 +201,345 @@ export const menu: MenuContents = [
         title: "Reference",
         menuItems: [
           {
-            "title": "ResidentialIndicator",
-            "href": "/docs/reference/residential-indicator"
+            title: "ResidentialIndicator",
+            href: "/docs/reference/residential-indicator",
           },
           {
-            "title": "Address",
-            "href": "/docs/reference/order-address"
+            title: "Address",
+            href: "/docs/reference/order-address",
           },
           {
-            "title": "PickupLocation",
-            "href": "/docs/reference/pickup-location"
+            title: "PickupLocation",
+            href: "/docs/reference/pickup-location",
           },
           {
-            "title": "BillTo",
-            "href": "/docs/reference/bill-to"
+            title: "BillTo",
+            href: "/docs/reference/bill-to",
           },
           {
-            "title": "Branding",
-            "href": "/docs/reference/branding"
+            title: "Branding",
+            href: "/docs/reference/branding",
           },
           {
-            "title": "Buyer",
-            "href": "/docs/reference/buyer"
+            title: "Buyer",
+            href: "/docs/reference/buyer",
           },
           {
-            "title": "Charge",
-            "href": "/docs/reference/charge"
+            title: "Charge",
+            href: "/docs/reference/charge",
           },
           {
-            "title": "ShipEngineErrorCode",
-            "href": "/docs/reference/ship-engine-error-code"
+            title: "ShipEngineErrorCode",
+            href: "/docs/reference/ship-engine-error-code",
           },
           {
-            "title": "DetailedError",
-            "href": "/docs/reference/detailed-error"
+            title: "DetailedError",
+            href: "/docs/reference/detailed-error",
           },
           {
-            "title": "DimensionsUnit",
-            "href": "/docs/reference/dimensions-unit"
+            title: "DimensionsUnit",
+            href: "/docs/reference/dimensions-unit",
           },
           {
-            "title": "Dimensions",
-            "href": "/docs/reference/dimensions"
+            title: "Dimensions",
+            href: "/docs/reference/dimensions",
           },
           {
-            "title": "DocumentFormat",
-            "href": "/docs/reference/document-format"
+            title: "DocumentFormat",
+            href: "/docs/reference/document-format",
           },
           {
-            "title": "DocumentType",
-            "href": "/docs/reference/document-type"
+            title: "DocumentType",
+            href: "/docs/reference/document-type",
           },
           {
-            "title": "Document",
-            "href": "/docs/reference/document"
+            title: "Document",
+            href: "/docs/reference/document",
           },
           {
-            "title": "LabelVoucher",
-            "href": "/docs/reference/label-voucher"
+            title: "LabelVoucher",
+            href: "/docs/reference/label-voucher",
           },
           {
-            "title": "NoteType",
-            "href": "/docs/reference/note-type"
+            title: "NoteType",
+            href: "/docs/reference/note-type",
           },
           {
-            "title": "Note",
-            "href": "/docs/reference/note"
+            title: "Note",
+            href: "/docs/reference/note",
           },
           {
-            "title": "PaymentStatus",
-            "href": "/docs/reference/payment-status"
+            title: "PaymentStatus",
+            href: "/docs/reference/payment-status",
           },
           {
-            "title": "Payment",
-            "href": "/docs/reference/payment"
+            title: "Payment",
+            href: "/docs/reference/payment",
           },
           {
-            "title": "Product",
-            "href": "/docs/reference/product"
+            title: "Product",
+            href: "/docs/reference/product",
           },
           {
-            "title": "ProductDetail",
-            "href": "/docs/reference/product-detail"
+            title: "ProductDetail",
+            href: "/docs/reference/product-detail",
           },
           {
-            "title": "ProductIdentifiers",
-            "href": "/docs/reference/product-identifiers"
+            title: "ProductIdentifiers",
+            href: "/docs/reference/product-identifiers",
           },
           {
-            "title": "ProductUrls",
-            "href": "/docs/reference/product-urls"
+            title: "ProductUrls",
+            href: "/docs/reference/product-urls",
           },
           {
-            "title": "SalesOrderItem",
-            "href": "/docs/reference/sales-order-item"
+            title: "SalesOrderItem",
+            href: "/docs/reference/sales-order-item",
           },
           {
-            "title": "SalesOrderStatus",
-            "href": "/docs/reference/sales-order-status"
+            title: "SalesOrderStatus",
+            href: "/docs/reference/sales-order-status",
           },
           {
-            "title": "OriginalOrderSource",
-            "href": "/docs/reference/original-order-source"
+            title: "OriginalOrderSource",
+            href: "/docs/reference/original-order-source",
           },
           {
-            "title": "RequestedFulfillment",
-            "href": "/docs/reference/requested-fulfillment"
+            title: "RequestedFulfillment",
+            href: "/docs/reference/requested-fulfillment",
           },
           {
-            "title": "RequestedFulfillmentExtensions",
-            "href": "/docs/reference/requested-fulfillment-extensions"
+            title: "RequestedFulfillmentExtensions",
+            href: "/docs/reference/requested-fulfillment-extensions",
           },
           {
-            "title": "SalesOrder",
-            "href": "/docs/reference/sales-order"
+            title: "SalesOrder",
+            href: "/docs/reference/sales-order",
           },
           {
-            "title": "NotificationStatus",
-            "href": "/docs/reference/notification-status"
+            title: "NotificationStatus",
+            href: "/docs/reference/notification-status",
           },
           {
-            "title": "ShipmentNotificationResult",
-            "href": "/docs/reference/shipment-notification-result"
+            title: "ShipmentNotificationResult",
+            href: "/docs/reference/shipment-notification-result",
           },
           {
-            "title": "ShippingPreferences",
-            "href": "/docs/reference/shipping-preferences"
+            title: "ShippingPreferences",
+            href: "/docs/reference/shipping-preferences",
           },
           {
-            "title": "WeightUnit",
-            "href": "/docs/reference/weight-unit"
+            title: "WeightUnit",
+            href: "/docs/reference/weight-unit",
           },
           {
-            "title": "Weight",
-            "href": "/docs/reference/weight"
+            title: "Weight",
+            href: "/docs/reference/weight",
           },
           {
-            "title": "AcceptSalesOrderItemsNotification",
-            "href": "/docs/reference/accept-sales-order-items-notification"
+            title: "AcceptSalesOrderItemsNotification",
+            href: "/docs/reference/accept-sales-order-items-notification",
           },
           {
-            "title": "AcceptSalesOrderItemsRequest",
-            "href": "/docs/reference/accept-sales-order-items-request"
+            title: "AcceptSalesOrderItemsRequest",
+            href: "/docs/reference/accept-sales-order-items-request",
           },
           {
-            "title": "RequestedAcceptItem",
-            "href": "/docs/reference/requested-accept-item"
+            title: "RequestedAcceptItem",
+            href: "/docs/reference/requested-accept-item",
           },
           {
-            "title": "RequestedAcceptProduct",
-            "href": "/docs/reference/requested-accept-product"
+            title: "RequestedAcceptProduct",
+            href: "/docs/reference/requested-accept-product",
           },
           {
-            "title": "AcknowledgeOrdersRequest",
-            "href": "/docs/reference/acknowledge-orders-request"
+            title: "AcknowledgeOrdersRequest",
+            href: "/docs/reference/acknowledge-orders-request",
           },
           {
-            "title": "OrderAcknowledgement",
-            "href": "/docs/reference/order-acknowledgement"
+            title: "OrderAcknowledgement",
+            href: "/docs/reference/order-acknowledgement",
           },
           {
-            "title": "CancelSalesOrderItemsNotification",
-            "href": "/docs/reference/cancel-sales-order-items-notification"
+            title: "CancelSalesOrderItemsNotification",
+            href: "/docs/reference/cancel-sales-order-items-notification",
           },
           {
-            "title": "CancelSalesOrderItemsRequest",
-            "href": "/docs/reference/cancel-sales-order-items-request"
+            title: "CancelSalesOrderItemsRequest",
+            href: "/docs/reference/cancel-sales-order-items-request",
           },
           {
-            "title": "RequestedCancelItem",
-            "href": "/docs/reference/requested-cancel-item"
+            title: "RequestedCancelItem",
+            href: "/docs/reference/requested-cancel-item",
           },
           {
-            "title": "RequestedCancelProduct",
-            "href": "/docs/reference/requested-cancel-product"
+            title: "RequestedCancelProduct",
+            href: "/docs/reference/requested-cancel-product",
           },
           {
-            "title": "RejectSalesOrderItemsNotification",
-            "href": "/docs/reference/reject-sales-order-items-notification"
+            title: "RejectSalesOrderItemsNotification",
+            href: "/docs/reference/reject-sales-order-items-notification",
           },
           {
-            "title": "RejectSalesOrderItemsRequest",
-            "href": "/docs/reference/reject-sales-order-items-request"
+            title: "RejectSalesOrderItemsRequest",
+            href: "/docs/reference/reject-sales-order-items-request",
           },
           {
-            "title": "RequestedRejectItem",
-            "href": "/docs/reference/requested-reject-item"
+            title: "RequestedRejectItem",
+            href: "/docs/reference/requested-reject-item",
           },
           {
-            "title": "RequestedRejectProduct",
-            "href": "/docs/reference/requested-reject-product"
+            title: "RequestedRejectProduct",
+            href: "/docs/reference/requested-reject-product",
           },
           {
-            "title": "GetConnectionContextRequest",
-            "href": "/docs/reference/get-connection-context-request"
+            title: "GetConnectionContextRequest",
+            href: "/docs/reference/get-connection-context-request",
           },
           {
-            "title": "GetConnectionContextResponse",
-            "href": "/docs/reference/get-connection-context-response"
+            title: "GetConnectionContextResponse",
+            href: "/docs/reference/get-connection-context-response",
           },
           {
-            "title": "GetProductsRequest",
-            "href": "/docs/reference/get-products-request"
+            title: "GetProductsRequest",
+            href: "/docs/reference/get-products-request",
           },
           {
-            "title": "NotificationStatusRequest",
-            "href": "/docs/reference/notification-status-request"
+            title: "NotificationStatusRequest",
+            href: "/docs/reference/notification-status-request",
           },
           {
-            "title": "PendingNotification",
-            "href": "/docs/reference/pending-notification"
+            title: "PendingNotification",
+            href: "/docs/reference/pending-notification",
           },
           {
-            "title": "RegisterDeliveryOptionsRequest",
-            "href": "/docs/reference/register-delivery-options-request"
+            title: "RegisterDeliveryOptionsRequest",
+            href: "/docs/reference/register-delivery-options-request",
           },
           {
-            "title": "RemoveDeliveryOptionsRequest",
-            "href": "/docs/reference/remove-delivery-options-request"
+            title: "RemoveDeliveryOptionsRequest",
+            href: "/docs/reference/remove-delivery-options-request",
           },
           {
-            "title": "Auth",
-            "href": "/docs/reference/auth"
+            title: "Auth",
+            href: "/docs/reference/auth",
           },
           {
-            "title": "Forms",
-            "href": "/docs/reference/forms"
+            title: "Forms",
+            href: "/docs/reference/forms",
           },
           {
-            "title": "RequestBase",
-            "href": "/docs/reference/request-base"
+            title: "RequestBase",
+            href: "/docs/reference/request-base",
           },
           {
-            "title": "SalesOrderStatusMapping",
-            "href": "/docs/reference/sales-order-status-mapping"
+            title: "SalesOrderStatusMapping",
+            href: "/docs/reference/sales-order-status-mapping",
           },
           {
-            "title": "SalesOrderCustomFieldMappings",
-            "href": "/docs/reference/sales-order-custom-field-mappings"
+            title: "SalesOrderCustomFieldMappings",
+            href: "/docs/reference/sales-order-custom-field-mappings",
           },
           {
-            "title": "SalesOrderCustomStatusMappings",
-            "href": "/docs/reference/sales-order-custom-status-mappings"
+            title: "SalesOrderCustomStatusMappings",
+            href: "/docs/reference/sales-order-custom-status-mappings",
           },
           {
-            "title": "SalesOrderExportCriteria",
-            "href": "/docs/reference/sales-order-export-criteria"
+            title: "SalesOrderExportCriteria",
+            href: "/docs/reference/sales-order-export-criteria",
           },
           {
-            "title": "SalesOrdersExportRequest",
-            "href": "/docs/reference/sales-orders-export-request"
+            title: "SalesOrdersExportRequest",
+            href: "/docs/reference/sales-orders-export-request",
           },
           {
-            "title": "ShipmentNotification",
-            "href": "/docs/reference/shipment-notification"
+            title: "ShipmentNotification",
+            href: "/docs/reference/shipment-notification",
           },
           {
-            "title": "ShipmentNotificationItem",
-            "href": "/docs/reference/shipment-notification-item"
+            title: "ShipmentNotificationItem",
+            href: "/docs/reference/shipment-notification-item",
           },
           {
-            "title": "ShipmentNotificationRequest",
-            "href": "/docs/reference/shipment-notification-request"
+            title: "ShipmentNotificationRequest",
+            href: "/docs/reference/shipment-notification-request",
           },
           {
-            "title": "VerifyDeliveryOptionsRequest",
-            "href": "/docs/reference/verify-delivery-options-request"
+            title: "VerifyDeliveryOptionsRequest",
+            href: "/docs/reference/verify-delivery-options-request",
           },
           {
-            "title": "AcceptSalesOrderItemsResponse",
-            "href": "/docs/reference/accept-sales-order-items-response"
+            title: "AcceptSalesOrderItemsResponse",
+            href: "/docs/reference/accept-sales-order-items-response",
           },
           {
-            "title": "AcceptSalesOrderItemsResult",
-            "href": "/docs/reference/accept-sales-order-items-result"
+            title: "AcceptSalesOrderItemsResult",
+            href: "/docs/reference/accept-sales-order-items-result",
           },
           {
-            "title": "AcknowledgeOrdersResponse",
-            "href": "/docs/reference/acknowledge-orders-response"
+            title: "AcknowledgeOrdersResponse",
+            href: "/docs/reference/acknowledge-orders-response",
           },
           {
-            "title": "OrderAcknowledgementResponse",
-            "href": "/docs/reference/order-acknowledgement-response"
+            title: "OrderAcknowledgementResponse",
+            href: "/docs/reference/order-acknowledgement-response",
           },
           {
-            "title": "BadRequestResponse",
-            "href": "/docs/reference/bad-request-response"
+            title: "BadRequestResponse",
+            href: "/docs/reference/bad-request-response",
           },
           {
-            "title": "CancelSalesOrderItemsResponse",
-            "href": "/docs/reference/cancel-sales-order-items-response"
+            title: "CancelSalesOrderItemsResponse",
+            href: "/docs/reference/cancel-sales-order-items-response",
           },
           {
-            "title": "CancelSalesOrderItemsResult",
-            "href": "/docs/reference/cancel-sales-order-items-result"
+            title: "CancelSalesOrderItemsResult",
+            href: "/docs/reference/cancel-sales-order-items-result",
           },
           {
-            "title": "ExternalServerErrorResponse",
-            "href": "/docs/reference/external-server-error-response"
+            title: "ExternalServerErrorResponse",
+            href: "/docs/reference/external-server-error-response",
           },
           {
-            "title": "GetProductsResponse",
-            "href": "/docs/reference/get-products-response"
+            title: "GetProductsResponse",
+            href: "/docs/reference/get-products-response",
           },
           {
-            "title": "InternalServerErrorResponse",
-            "href": "/docs/reference/internal-server-error-response"
+            title: "InternalServerErrorResponse",
+            href: "/docs/reference/internal-server-error-response",
           },
           {
-            "title": "NotificationStatusResponse",
-            "href": "/docs/reference/notification-status-response"
+            title: "NotificationStatusResponse",
+            href: "/docs/reference/notification-status-response",
           },
           {
-            "title": "RateLimitResponse",
-            "href": "/docs/reference/rate-limit-response"
+            title: "RateLimitResponse",
+            href: "/docs/reference/rate-limit-response",
           },
           {
-            "title": "RegisterDeliveryOptionsResponse",
-            "href": "/docs/reference/register-delivery-options-response"
+            title: "RegisterDeliveryOptionsResponse",
+            href: "/docs/reference/register-delivery-options-response",
           },
           {
-            "title": "RemoveDeliveryOptionsResponse",
-            "href": "/docs/reference/remove-delivery-options-response"
+            title: "RemoveDeliveryOptionsResponse",
+            href: "/docs/reference/remove-delivery-options-response",
           },
           {
-            "title": "SalesOrdersExportResponse",
-            "href": "/docs/reference/sales-orders-export-response"
+            title: "SalesOrdersExportResponse",
+            href: "/docs/reference/sales-orders-export-response",
           },
           {
-            "title": "ShipmentNotificationResponse",
-            "href": "/docs/reference/shipment-notification-response"
+            title: "ShipmentNotificationResponse",
+            href: "/docs/reference/shipment-notification-response",
           },
           {
-            "title": "UnauthorizedResponse",
-            "href": "/docs/reference/unauthorized-response"
+            title: "UnauthorizedResponse",
+            href: "/docs/reference/unauthorized-response",
           },
           {
-            "title": "VerifyDeliveryOptionsResponse",
-            "href": "/docs/reference/verify-delivery-options-response"
-          }
+            title: "VerifyDeliveryOptionsResponse",
+            href: "/docs/reference/verify-delivery-options-response",
+          },
         ],
       },
     ],
@@ -547,15 +559,24 @@ export const menu: MenuContents = [
       {
         title: "Advanced",
         menuItems: [
-          { title: "Response Transformation", href: "/docs/oauth/advanced/response-transformation" },
+          {
+            title: "Response Transformation",
+            href: "/docs/oauth/advanced/response-transformation",
+          },
           { title: "Templating", href: "/docs/oauth/templating" },
-          { title: "Connection Context", href: "/docs/oauth/advanced/connection-context" },
+          {
+            title: "Connection Context",
+            href: "/docs/oauth/advanced/connection-context",
+          },
         ],
       },
       {
         title: "Examples",
         menuItems: [
-          { title: "Example Definition", href: "/docs/oauth/examples/definition" },
+          {
+            title: "Example Definition",
+            href: "/docs/oauth/examples/definition",
+          },
           { title: "eBay", href: "/docs/oauth/examples/ebay" },
           { title: "Google", href: "/docs/oauth/examples/google" },
           { title: "Trade Me", href: "/docs/oauth/examples/trade-me" },
@@ -593,5 +614,5 @@ export const menu: MenuContents = [
         href: "https://www.meetup.com/Austin-Homegrown-API/",
       },
     ],
-  }
+  },
 ];
