@@ -131,9 +131,15 @@ The code for your app definition can be seen [here on github](https://github.com
     </Description>
     </Field>
 
-    <Field name="abbreviation" type="object" nullable={true} required={false}>
+    <Field name="abbreviation" type="string" nullable={true} required={false}>
     <Description>
         Shortened name of the shipping service
+    </Description>
+    </Field>
+
+    <Field name="code" type="string" nullable={true} required={false}>
+    <Description>
+        Api code used for communicating the selected service
     </Description>
     </Field>
 </Reference>
