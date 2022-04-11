@@ -548,8 +548,8 @@ export const menu: MenuContents = [
         title: "Methods",
         menuItems: [
           {
-            title: "Cancellation",
-            href: "/docs/reference/fulfillment-provider/methods/cancellation",
+            title: "Cancel Fulfillment",
+            href: "/docs/reference/fulfillment-provider/methods/cancel-fulfillment",
           },
           {
             title: "Connect",
@@ -566,16 +566,16 @@ export const menu: MenuContents = [
               "/docs/reference/fulfillment-provider/methods/get-recent-changes",
           },
           {
-            title: "Inventory",
-            href: "/docs/reference/fulfillment-provider/methods/inventory",
+            title: "Get Inventory",
+            href: "/docs/reference/fulfillment-provider/methods/get-inventory",
           },
           {
-            title: "Rates",
-            href: "/docs/reference/fulfillment-provider/methods/rates",
+            title: "Get Rates",
+            href: "/docs/reference/fulfillment-provider/methods/get-rates",
           },
           {
-            title: "Status",
-            href: "/docs/reference/fulfillment-provider/methods/status",
+            title: "Get Fulfillment",
+            href: "/docs/reference/fulfillment-provider/methods/get-fulfillment",
           },
         ],
       },
