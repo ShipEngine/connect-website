@@ -1,0 +1,243 @@
+---
+title: GetRelayPoints Method
+description: This method creates a new label.
+---
+
+
+`GetRelayPoints()`
+===========================
+This method returns a list of available relay points for a service within certain criteria.
+
+
+Syntax
+-----------------------------------------------
+<CodeWrapper>
+```javascript
+module.exports = async function GetRelayPoints(request) {
+  // Your code here
+}
+```
+
+```typescript
+import { GetRelayPointsRequest, GetRelayPointsResponse } from "@shipengine/connect-carrier-api";
+
+export default async function GetRelayPoints(
+  request: GetRelayPointsRequest
+): Promise<GetRelayPointsResponse> {
+  // Your code here
+}
+```
+</CodeWrapper>
+
+
+
+Parameters
+-----------------------------------------------
+
+### `GetRelayPointsRequest`
+An object containing information about which relay points need to be returned.
+
+<Reference>
+
+  <Field name="authorization" nullable={true}>
+    <Type>
+      [authorization object](../authorization.mdx)
+    </Type>
+    <Description>
+      The authorization information necessary to fulfill this request.
+    </Description>
+  </Field>
+
+  <Field name="metadata" nullable={true}>
+    <Type>
+      [metadata object](./../metadata.mdx)
+    </Type>
+    <Description>
+      This object should contain all of the necessary properties needed to make authenticated requests with the carrier when an [AuthProcess](./../../app-definition/carrier.mdx#metadata) has not been configured.
+      Every property included here will be persisted by ShipEngine Connect and included on each subsequent request from this user.
+    </Description>
+  </Field>
+
+  <Field name="service_code" type="string" nullable={false}>
+    <Description>
+      Code used to map to what the carrier uses to identify the service.
+    </Description>
+  </Field>
+
+  <Field name="postal_code" type="string" nullable={false}>
+    <Description>
+      Zip or postal code. Cannot include newline chars.
+    </Description>
+  </Field>
+
+  <Field name="country_code" nullable={false}>
+    <Type>
+      [country code string](./../country-codes.mdx)
+    </Type>
+    <Description>
+      The [ISO 3166 country code](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) for the [country](./../country-codes.mdx) of origin. This is usually the same as `countryOfManufacture`, but some countries distinguish between the two for certain products.
+    </Description>
+  </Field>
+
+  <Field name="city_locality" type="string" nullable={true}>
+    <Description> 
+      City or locality. Cannot contain newline chars.
+    </Description>
+  </Field>
+
+</Reference>
+
+
+
+Return Value
+-----------------------------------------------
+### `GetRelayPointsResponse`
+This object model represents the response from a successful get relay points request.
+
+<Reference>
+  
+  <Field name="metadata" required={false}>
+    <Type>
+      [metadata object](./../metadata.mdx)
+    </Type>
+    <Description>
+      This object should contain all of the necessary properties needed to make authenticated requests with the carrier.
+      Every property included here will be persisted by ShipEngine Connect and included on each subsequent request from this user.
+    </Description>
+  </Field>
+
+  <Field name="relay_points" type="object[]" required={true}>
+    <Description>
+      Array of relay points that match the filter citeria.
+    </Description>
+  </Field>
+
+  <Field name="relay_points[].relay_point_id" type="string" required={true}>
+    <Description>
+      This should be the unique id the carrier uses for this relay point.
+    </Description>
+  </Field>
+
+  <Field name="relay_points[].company_name" type="string" required={false}>
+    <Description>
+        Company name, if applicable. Cannot include newline chars.
+    </Description>
+  </Field>
+
+  <Field name="relay_points[].address_lines[]" type="string[]" required={true}>
+    <Description>
+      Address fields separated by line. Up to 100 chars per line. Cannot include newline chars.
+    </Description>
+  </Field>
+
+ <Field name="relay_points[].city_locality" type="string" required={true}>
+    <Description>
+      City or locality. Cannot contain newline chars.
+    </Description>
+  </Field>
+
+ <Field name="relay_points[].state_province" type="string" required={true}>
+    <Description>
+      State or province. Cannot contain newline chars.
+    </Description>
+  </Field>
+
+ <Field name="relay_points[].postal_code" type="string" required={true}>
+    <Description>
+      Zip or postal code. Cannot include newline chars.
+    </Description>
+  </Field>
+
+ <Field name="relay_points[].country_code" required={true}>
+    <Type>
+      [country code string](./../country-codes.mdx)
+    </Type>
+    <Description>
+      The [ISO 3166 country code](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) for the [country](./../country-codes.mdx) of origin. This is usually the same as `countryOfManufacture`, but some countries distinguish between the two for certain products.
+    </Description>
+  </Field>
+
+ <Field name="relay_points[].phone" type="string" required={false}>
+    <Description>
+      Phone number of the contact. Cannot include newline chars.
+    </Description>
+  </Field>
+
+ <Field name="relay_points[].longitdue" type="number" required={false}>
+    <Description>
+      The longitude of the point. Represented as signed degrees http://www.geomidpoint.com/latlon.html
+    </Description>
+  </Field>
+
+ <Field name="relay_points[].latitude" type="number" required={false}>
+    <Description>
+      The latitude of the point. Represented as signed degrees http://www.geomidpoint.com/latlon.html
+    </Description>
+  </Field>
+
+ <Field name="relay_points[].opening_times" required={true}>
+    <Type>
+      [Opening Times Object](./../opening-times.mdx)
+    </Type>
+    <Description>
+      An object representing when the relay point is open on each day of the week.
+    </Description>
+  </Field>
+
+</Reference>
+
+
+Example
+-----------------------------------------------
+<CodeWrapper>
+```javascript
+module.exports = async function GetRelayPoints(request) {
+
+  // STEP 1: Validation
+
+  // STEP 2: Create the data that the carrier's API expects
+  let data = {
+    operation: "get_relay_points",
+    session_id: request.metadata.id,
+    service_code: request.service_code,
+    postal_code: request.postal_code,
+    country: request.country_code,
+    city: request.city_locality,
+  };
+
+  // STEP 3: Call the carrier's API
+  const response = await apiClient.request({ data });
+
+  // STEP 4: Create the output data that ShipEngine expects
+  return formatRelayPoints(response.data);
+}
+```
+
+```typescript
+import {
+  GetRelayPointsRequest,
+  GetRelayPointsResponse
+} from "@shipengine/connect-carrier-api";
+
+export default async function GetRelayPoints(request: GetRelayPointsRequest): Promise<GetRelayPointsResponse> {
+
+  // STEP 1: Validation
+
+  // STEP 2: Create the data that the carrier's API expects
+  let data: GenerateLabelRequest = {
+    operation: "get_relay_points",
+    session_id: request.metadata.id,
+    service_code: request.service_code,
+    postal_code: request.postal_code,
+    country: request.country_code,
+    city: request.city_locality,
+  };
+
+  // STEP 3: Call the carrier's API
+  const response = await apiClient.request<GenerateLabelResponse>({ data });
+
+  // STEP 4: Create the output data that ShipEngine expects
+  return formatRelayPoints(response.data);
+}
+```
+</CodeWrapper>
