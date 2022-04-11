@@ -1,0 +1,53 @@
+---
+title: PickupShipment
+description: The properties associated with a shipment that has been picked up 
+---
+
+PickupShipment
+===============================================
+This represents a shipment that has been picked up
+
+<Reference>
+  <Field name="tracking_number" type="string" nullable={true}>
+    <Description>
+      The carrier tracking number for this shipment.
+    </Description>
+  </Field>
+  <Field name="ship_to" nullable={true}>
+    <Type>
+      [ShipTo](./../addresses/ship-to.mdx)
+    </Type>
+    <Description>
+      The shipment recipient's address. It may or may not have been validated.
+    </Description>
+  </Field>
+  <Field name="alternative_identifiers" nullable={true}>
+    <Type>
+        [Identifier](./../identifier.mdx)[]
+    </Type>
+    <Description>
+      Non-tracking alternative identifiers associated with this shipment
+    </Description>
+  </Field>
+  <Field name="service_code" type="string" nullable={true}>
+    <Description>
+      Service code used for this shipment
+    </Description>
+  </Field>
+  <Field name="packages" nullable={true}>
+    <Type>
+      [ShippedPackage](./shipped-package.mdx)[]
+    </Type>
+    <Description>
+      The list of packages associated with this shipment
+    </Description>
+  </Field>
+  <Field name="advanced_options" nullable={true}>
+    <Type>
+      [AdvancedOptions](./../advanced-options.mdx)[]
+    </Type>
+    <Description>
+      Any advanced options associated with this shipment
+    </Description>
+  </Field>
+</Reference>

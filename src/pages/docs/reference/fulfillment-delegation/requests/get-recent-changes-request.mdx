@@ -1,0 +1,30 @@
+---
+title: GetRecentChangesRequest
+description: This represents a request for recent changes for all fulfillments since a specified time.
+---
+
+GetRecentChangesRequest
+===============================================
+This represents a request for recent changes for all fulfillments since a specified time.
+
+
+<Reference>  
+  <Field name="auth" nullable={false}>
+    <Type>
+      [Auth](./../models/auth.mdx)
+    </Type>
+    <Description>
+      The Auth object for this request
+    </Description>
+  </Field>
+  <Field name="since" type="string" nullable={false}>
+    <Description>
+      The point in time since changes should have occurred
+    </Description>
+  </Field>
+  <Field name="next_request" type="any" nullable={true}>
+    <Description>
+      The next reqeust to be processed
+    </Description>
+  </Field>
+</Reference>

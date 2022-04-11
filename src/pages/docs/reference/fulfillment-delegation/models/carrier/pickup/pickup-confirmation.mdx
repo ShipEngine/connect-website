@@ -1,0 +1,32 @@
+---
+title: PickupConfirmation
+description: Basic structure for a pickup confirmation
+---
+
+PickupConfirmation
+===============================================
+This represents a pickup confirmation
+
+<Reference>
+  <Field name="confirmation_id" type="string" nullable={true}>
+    <Description>
+      The primary confirmation ID for this request.
+    </Description>
+  </Field>
+  <Field name="alternate_identifiers" nullable={true}>
+    <Type>
+      [Identifier](./../identifier.mdx)[]
+    </Type>
+    <Description>
+      Other identifiers potentially needed in other calls.
+    </Description>
+  </Field>
+  <Field name="shipment_identifiers" nullable={true}>
+    <Type>
+      [ShipmentIdentifier](./shipment-identifier.mdx)[]
+    </Type>
+    <Description>
+      List of the shipments added for this pickup.
+    </Description>
+  </Field>
+</Reference>

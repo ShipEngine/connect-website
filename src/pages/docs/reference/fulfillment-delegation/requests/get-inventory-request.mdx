@@ -1,0 +1,25 @@
+---
+title: GetInventoryRequest
+description: This represents a request to get paged results of inventory from the provider.
+---
+
+GetInventoryRequest
+===============================================
+This represents a request to get paged results of inventory from the provider.
+
+
+<Reference>  
+  <Field name="auth" nullable={false}>
+    <Type>
+      [Auth](./../models/auth.mdx)
+    </Type>
+    <Description>
+      The Auth object for this request
+    </Description>
+  </Field>
+  <Field name="next_request" type="any" nullable={true}>
+    <Description>
+        The next request in this chain
+    </Description>
+  </Field>
+</Reference>

@@ -1,0 +1,33 @@
+---
+title: StatusResponse
+description: Type that represents a response to a request for the current status of a single fulfillment from a provider.
+---
+
+StatusResponse
+===============================================
+Type that represents a response to a request for the current status of a single fulfillment from a provider.
+
+
+<Reference>  
+  <Field name="status" nullable={false}>
+    <Type>
+      [SalesOrderStatusChange](./../models/sales-order-status-change.mdx)
+    </Type>
+    <Description>
+      The information about the sales order status change for this response
+    </Description>
+  </Field>
+  <Field name="polling" type="object" nullable={true}>
+    <Description>
+      Polling data for this response
+    </Description>
+  </Field>
+  <Field name="polling.is_final_update_state" type="boolean" nullable={true}>
+    <Description>true when status updates for this order should stop</Description>
+  </Field>
+  <Field name="polling.max_age_seconds" type="number" nullable={false}>
+    <Description>
+      Maximum age of the polling request in seconds
+    </Description>
+  </Field>
+</Reference>

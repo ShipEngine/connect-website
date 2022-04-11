@@ -1,0 +1,58 @@
+---
+title: PickupPackage
+description: The properties associated with a package to be picked up
+---
+
+PickupPackage
+===============================================
+This represents a package to be picked up
+
+<Reference>
+  <Field name="tracking_number" type="string" nullable={true}>
+    <Description>
+      The carrier tracking number for this package
+    </Description>
+  </Field>
+  <Field name="alternative_identifiers" nullable={true}>
+    <Type>
+        [Identifier](./../identifier.mdx)[]
+    </Type>
+    <Description>
+      Non-tracking alternative identifiers associated with this package
+    </Description>
+  </Field>
+  <Field name="dimension_details" nullable={true}>
+    <Type>
+      [DimensionDetails](./../../units/dimension-details.mdx)[]
+    </Type>
+    <Description>
+      A list of dimension details associated with this package
+    </Description>
+  </Field>
+  <Field name="weight_details" nullable={true}>
+    <Type>
+      [WeightDetails](./../../units/weight-details.mdx)
+    </Type>
+    <Description>
+      The weight details associated with the package
+    </Description>
+  </Field>
+  <Field name="package_code" type="string" nullable={true}>
+    <Description>
+      The code associated with the package type.
+    </Description>
+  </Field>
+  <Field name="weight" type="number" nullable={true}>
+    <Description>
+      The weight of the package to be picked up
+    </Description>
+  </Field>
+  <Field name="dimensions" nullable={true}>
+    <Type>
+      [Dimensions](./../../units/dimensions.mdx)[]
+    </Type>
+    <Description>
+      Dimensions associated with this package
+    </Description>
+  </Field>
+</Reference>

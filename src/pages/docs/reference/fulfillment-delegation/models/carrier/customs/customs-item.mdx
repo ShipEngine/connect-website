@@ -1,0 +1,57 @@
+---
+title: CustomsItem
+description: Basic structure of an item in a customs declaration
+---
+
+CustomsItem
+===============================================
+This represents an line item
+
+<Reference>
+  <Field name="description" type="string" nullable={true}>
+    <Description>
+      A description of the item. Usually required if `type` is `other`. This string will not contain newline characters.
+    </Description>
+  </Field>
+  <Field name="quantity" type="number" nullable={true}>
+    <Description>
+      The quantity of items in the package.
+    </Description>
+  </Field>
+  <Field name="value" nullable={true}>
+    <Type>
+      [Currency](./../currency.mdx)
+    </Type>
+    <Description>
+      The monetary value of each unit in the package.
+    </Description>
+  </Field>
+  <Field name="country_of_origin" type="string" nullable={true}>
+    <Description>
+      The [ISO 3166 country code](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) for the [country](./../../../../country-codes.mdx) of origin. This is usually the same as `countryOfManufacture`, but some countries distinguish between the two for certain products.
+    </Description>
+  </Field>
+  <Field name="harmonized_tariff_code" type="string" nullable={true}>
+    <Description>
+      The [Harmonized Tariff Code](https://hts.usitc.gov/) for the item. This string must not contain newline characters.
+    </Description>
+  </Field>
+  <Field name="sku" type="string" nullable={true}>
+    <Description>
+      The [Stock Keeping Unit](https://en.wikipedia.org/wiki/Stock_keeping_unit) of this customs item. This field is completely free form.
+    </Description>
+  </Field>
+  <Field name="sku_description" type="string" nullable={true}>
+    <Description>
+      The user specified SKU description of this customs item. This field is completely free form.
+    </Description>
+  </Field>
+  <Field name="item_weight" nullable={true}>
+    <Type>
+      [WeightDetails](./../../units/weight-details.mdx)
+    </Type>
+    <Description>
+      Details about the item weight
+    </Description>
+  </Field>
+</Reference>

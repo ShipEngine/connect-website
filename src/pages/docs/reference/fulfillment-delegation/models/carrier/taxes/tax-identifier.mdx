@@ -1,0 +1,34 @@
+---
+title: TaxIdentifier
+description: Basic structure for a Tax Identification number, type, and country of registration
+---
+
+TaxIdentifier
+===============================================
+This represents a Tax Identification number, type, and country of registration
+
+<Reference>
+  <Field name="id" type="string" nullable={true}>
+    <Description>
+      Tax Identification Number
+    </Description>
+  </Field>
+  <Field name="type" nullable={true}>
+    <Type>
+      [TaxIdentifierType](./tax-identifier-type.mdx)
+    </Type>
+    <Description>
+      Tax ID type
+    </Description>
+  </Field>
+  <Field name="registration_county" type="string" nullable={true}>
+    <Description>
+      The country where the Tax ID is registered with
+    </Description>
+  </Field>
+  <Field name="description" type="string" nullable={true}>
+    <Description>
+      Description of the tax ID that may give the customs agent more context
+    </Description>
+  </Field>
+</Reference>

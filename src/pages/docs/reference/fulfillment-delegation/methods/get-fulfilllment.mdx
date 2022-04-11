@@ -1,0 +1,86 @@
+---
+title: Get Fulfillment Method
+description: This method gets the current status of a single fulfillment from a provider.
+---
+
+
+`GetFulfillment()`
+===========================
+This method gets the current status of a single fulfillment from a provider.
+
+
+Syntax
+-----------------------------------------------
+<CodeWrapper>
+```javascript
+module.exports = async function GetFulfillment(request) {
+  // Your code here
+}
+```
+
+```typescript
+import { GetFulfillmentRequest, GetFulfillmentResponse } from "@shipengine/connect-fulfillment-provider-api";
+
+export default async function GetFulfillment(
+  request: GetFulfillmentRequest
+): Promise<GetFulfillmentResponse> {
+  // Your code here
+}
+```
+</CodeWrapper>
+
+
+
+Parameters
+-----------------------------------------------
+
+### `GetFulfillmentRequest`
+This represents a request for the current status of a single fulfillment from a provider.
+
+<Reference>  
+  <Field name="auth" nullable={false}>
+    <Type>
+      [Auth](./../models/auth.mdx)
+    </Type>
+    <Description>
+      The Auth object for this request
+    </Description>
+  </Field>
+  <Field name="fulfillment_provider_order_id" type="string" nullable={false}>
+    <Description>
+        The fulfillment provider order ID for this get fulfillment request
+    </Description>
+  </Field>
+</Reference>
+
+
+Return Value
+-----------------------------------------------
+### `GetFulfillmentResponse`
+Type that represents a response to a request for the current status of a single fulfillment from a provider.
+
+<Reference>  
+  <Field name="fulfillment" nullable={false}>
+    <Type>
+      [SalesOrderStatusChange](./../models/sales-order-status-change.mdx)
+    </Type>
+    <Description>
+      The information about the sales order status change for this response
+    </Description>
+  </Field>
+  <Field name="polling" type="object" nullable={true}>
+    <Description>
+      Polling data for this response
+    </Description>
+  </Field>
+  <Field name="polling.is_final_update_state" type="boolean" nullable={true}>
+    <Description>true when status updates for this order should stop</Description>
+  </Field>
+  <Field name="polling.max_age_seconds" type="number" nullable={true}>
+    <Description>
+      Maximum age of the polling request in seconds
+    </Description>
+  </Field>
+</Reference>
+
+

@@ -1,0 +1,47 @@
+---
+title: AdvancedOptions
+description: Basic structure for shipping options
+---
+
+AdvancedOptions
+===============================================
+This represents a shipping options object, AdvancedOptions
+
+<Reference>
+  <Field name="contains_alcohol" type="boolean" nullable={true}>
+    <Description>
+      Indicates whether or not this order contains alcohol
+    </Description>
+  </Field>
+  <Field name="no_postage" type="boolean" nullable={true}>
+    <Description>
+      Whether the shipment does not require postage
+    </Description>
+  </Field>
+  <Field name="nonmachineable" type="boolean" nullable={true}>
+    <Description>
+      Indicates whether or not this order is nonmachinable (must be sorted outside of the standard, automated mail process)
+    </Description>
+  </Field>
+  <Field name="bill_duties_to_sender" type="boolean" nullable={true}>
+    <Description>
+      Indicates whether duties should be billed to the sender of the package
+    </Description>
+  </Field>
+  <Field name="saturday_delivery" type="boolean" nullable={true}>
+    <Description>
+      Indicates whether or not this order should be delivered on a saturday
+    </Description>
+  </Field>
+  <Field name="tip" type="number" nullable={true}>
+    <Description>
+      Amount to be paid to the driver, used for local delivery and courier services
+    </Description>
+  </Field>
+  <Field name="custom_options" type="any[]" nullable={false}>
+    <Description>
+      Any other custom shipping options
+    </Description>
+  </Field>
+
+</Reference>

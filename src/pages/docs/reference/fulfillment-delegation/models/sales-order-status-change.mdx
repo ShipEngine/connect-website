@@ -1,0 +1,40 @@
+---
+title: SalesOrderStatusChange
+description: Basic structure to describe a status change of a sales order
+---
+
+SalesOrderStatusChange
+===============================================
+Basic structure to describe a status change of a sales order
+
+<Reference>
+  <Field name="order_id" type="string" nullable={false}>
+    <Description>
+      The unique ID for the order
+    </Description>
+  </Field>
+  <Field name="status" nullable={true}>
+    <Type>
+      [SalesOrderShippingStatus](./sales-order-shipping-status.mdx)
+    </Type>
+    <Description>
+      Shipping status for the sales order
+    </Description>
+  </Field>
+  <Field name="sales_order_status_item" nullable={true}>
+    <Type>
+      [SalesOrderStatusItem](./sales-order-status-item.mdx)[]
+    </Type>
+    <Description>
+      The items for this status change
+    </Description>
+  </Field>
+  <Field name="shipments" nullable={true}>
+    <Type>
+      [ShipmentNotification](./order-source/shipment-notification.mdx)[]
+    </Type>
+    <Description>
+      The shipping notifications for the sales order
+    </Description>
+  </Field>
+</Reference>

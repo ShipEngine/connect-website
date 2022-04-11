@@ -1,0 +1,121 @@
+---
+title: ShipmentNotification
+description: An individual notification that an order has been shipped
+---
+
+ShipmentNotification
+===============================================
+An individual notification that an order has been shipped
+
+<Reference>
+  <Field name="notification_id" type="string" nullable={false}>
+    <Description>
+      A unique identifier to correlate this shipment notification with its result in the response
+    </Description>
+  </Field>
+  <Field name="order_id" type="string" nullable={false}>
+    <Description>
+      The unique identifier of the sales order from the order source
+    </Description>
+  </Field>
+  <Field name="order_number" type="string" nullable={true}>
+    <Description>
+      The customer facing identifier of the sales order
+    </Description>
+  </Field>
+  <Field name="tracking_number" type="string" nullable={true}>
+    <Description>
+      The identifier provided by the fulfiller for tracking the delivery progress
+    </Description>
+  </Field>
+  <Field name="tracking_url" type="string" nullable={true}>
+    <Description>
+      The url where the shipment can be tracked
+    </Description>
+  </Field>
+  <Field name="carrier_code" type="string" nullable={true}>
+    <Description>
+      The carrier code the order was shipped through
+    </Description>
+  </Field>
+  <Field name="carrier_service_code" type="string" nullable={true}>
+    <Description>
+      The shipping service used to ship this order
+    </Description>
+  </Field>
+  <Field name="ext_location_id" type="string" nullable={true}>
+    <Description>
+      The order source's identifier for the location that items were shipped from
+    </Description>
+  </Field>
+  <Field name="items" nullable={true}>
+    <Type>
+      [ShipmentNotificationItem](./shipment-notification-item.mdx)[]
+    </Type>
+    <Description>
+      The items shipped in this shipment
+    </Description>
+  </Field>
+  <Field name="ship_to" nullable={true}>
+    <Type>
+      [Address](./address.mdx)
+    </Type>
+    <Description>
+      Where the shipment was shipped to
+    </Description>
+  </Field>
+  <Field name="ship_from" nullable={true}>
+    <Type>
+      [Address](./address.mdx)
+    </Type>
+    <Description>
+      Where the shipment shipped from
+    </Description>
+  </Field>
+  <Field name="return_address" nullable={true}>
+    <Type>
+      [Address](./address.mdx)
+    </Type>
+    <Description>
+      The return address specified on the shipment
+    </Description>
+  </Field>
+  <Field name="ship_date" type="string" nullable={true}>
+    <Description>
+      The (ISO 8601) datetime (UTC) associated with when this item was last modified - @example "2021-03-31T18:21:14.858Z"
+    </Description>
+  </Field>
+  <Field name="currency" type="string" nullable={true}>
+    <Description>
+      The (ISO 4217) code describing the currency used for all amounts on this payload - @example "USD", "EUR", "NZD"
+    </Description>
+  </Field>
+  <Field name="fulfillment_cost" type="string" nullable={true}>
+    <Description>
+      The amount of money it cost to fulfill this shipment
+    </Description>
+  </Field>
+  <Field name="notes" nullable={true}>
+    <Type>
+      [Note](./note.mdx)[]
+    </Type>
+    <Description>
+      Additional notes associated with this notification or its sales order
+    </Description>
+  </Field>
+  <Field name="insurance_cost" type="number" nullable={true}>
+    <Description>
+      The total amount of insurance purchased
+    </Description>
+  </Field>
+  <Field name="notify_buyer" type="boolean" nullable={true}>
+    <Description>
+      Indicates whether or not the buyer should be notified that this item has been shipped
+    </Description>
+  </Field>
+  <Field name="integration_context" type="any" nullable={false}>
+    <Description>
+      The integration context specified on the ExportSalesOrders response
+    </Description>
+  </Field>
+</Reference>

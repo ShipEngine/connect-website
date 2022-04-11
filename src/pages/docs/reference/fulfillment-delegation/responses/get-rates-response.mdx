@@ -1,0 +1,20 @@
+---
+title: GetRatesResponse
+description: Basic structure for a response to a request to get rates for labels between two addresses.
+---
+
+GetRatesResponse
+===============================================
+Basic structure for a response to a request to get rates for labels between two addresses.
+
+
+<Reference>  
+  <Field name="rates" nullable={false}>
+    <Type>
+      [Rate](./../models/carrier/rates/rate.mdx)[]
+    </Type>
+    <Description>
+      The rates included in response to get rates
+    </Description>
+  </Field>
+</Reference>

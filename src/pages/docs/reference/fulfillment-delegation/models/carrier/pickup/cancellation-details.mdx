@@ -1,0 +1,29 @@
+---
+title: CancellationDetails
+description: Basic structure for details of why the pickup is being cancelled.
+---
+
+CancellationDetails
+===============================================
+This represents details of why the pickup is being cancelled.
+
+<Reference>
+  <Field name="reason" nullable={true}>
+    <Type>
+      [CancellationReason](./cancellation-reason.mdx)
+    </Type>
+    <Description>
+      The reason the customer is cancelling their pickup request.
+    </Description>
+  </Field>
+  <Field name="cancellation_options" type="object[]" nullable={true}>
+    <Description>
+      Additional properties about the cancellation
+    </Description>
+  </Field>
+  <Field name="remarks" type="string" nullable={true}>
+    <Description>
+      Remarks about why the customer is cancelling the pickup.
+    </Description>
+  </Field>
+</Reference>

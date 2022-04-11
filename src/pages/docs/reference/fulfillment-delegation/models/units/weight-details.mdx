@@ -1,0 +1,34 @@
+---
+title: WeightDetails
+description: Basic structure for weight
+---
+
+WeightDetails
+===============================================
+Basic structure for weight
+
+<Reference>
+  <Field name="weight_in_ounces" type="number" nullable={true}>
+    <Description>
+      Weight represented in ounces
+    </Description>
+  </Field>
+  <Field name="weight_in_grams" type="number" nullable={true}>
+    <Description>
+      Weight represented in grams
+    </Description>
+  </Field>
+  <Field name="source_weight" type="number" nullable={true}>
+    <Description>
+      Source weight in weight units
+    </Description>
+  </Field>
+  <Field name="source_weight_unit" nullable={true}>
+    <Type>
+      [WeightUnit](./weight-unit.mdx)
+    </Type>
+    <Description>
+      The specified weight unit of the value for source weight
+    </Description>
+  </Field>
+</Reference>

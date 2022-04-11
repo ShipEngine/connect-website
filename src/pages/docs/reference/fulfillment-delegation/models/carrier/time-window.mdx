@@ -1,0 +1,26 @@
+---
+title: TimeWindow
+description: Basic structure for defining a time window
+---
+
+TimeWindow
+===============================================
+This represents a resource for defining a time window
+
+<Reference>
+  <Field name="time_zone_iana" type="string" nullable={false}>
+    <Description>
+      The local time zone represented in IANA - See https://www.ianan.org/time-zones
+    </Description>
+  </Field>
+  <Field name="start_window" type="string" nullable={false}>
+    <Description>
+      The start of the window when the pickup could be made relative to the time_zone_iana. Formatted per https://tools.ietf.org/html/rfc3339.
+    </Description>
+  </Field>
+  <Field name="end_window" type="string" nullable={true}>
+    <Description>
+      The end of the window when the pickup could be made relative to the time_zone_iana. Formatted per https://tools.ietf.org/html/rfc3339.
+    </Description>
+  </Field>
+</Reference>

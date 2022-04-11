@@ -1,0 +1,94 @@
+---
+title: PudoLocation
+description: Represents address information for a Pickup/Dropoff location used by carriers
+---
+
+PudoLocation
+===============================================
+Represents address information for a Pickup/Dropoff location used by carriers
+
+<Reference>
+  <Field name="name" type="string" nullable={true}>
+    <Description>
+      The name of the contact
+    </Description>
+  </Field>
+  <Field name="first_name" type="string" nullable={true}>
+    <Description>
+      The first or given name of the contact
+    </Description>
+  </Field>
+  <Field name="last_name" type="string" nullable={true}>
+    <Description>
+      The last or family name of the contact
+    </Description>
+  </Field>
+  <Field name="email" type="string" nullable={true}>
+    <Description>
+      The email address of the contact
+    </Description>
+  </Field>
+  <Field name="phone_number" type="string" nullable={true}>
+    <Description>
+      The phone number of the contact (Cannot include newline chars)
+    </Description>
+  </Field>
+  <Field name="company_name" type="string" nullable={true}>
+    <Description>
+      The company name of the contact, if applicable (Cannot include newline chars)
+    </Description>
+  </Field>
+  <Field name="address_lines" type="string[]" nullable={true}>
+    <Description>
+      Address fields separated by line (Up to 100 chars per line, cannot include newline chars)
+    </Description>
+  </Field>
+  <Field name="city_locality" type="string" nullable={true}>
+    <Description>
+      The City or locality (Cannot include newline chars)
+    </Description>
+  </Field>
+  <Field name="state_province" type="string" nullable={true}>
+    <Description>
+      State or province (Cannot include newline chars)
+    </Description>
+  </Field>
+  <Field name="postal_code" type="string" nullable={false}>
+    <Description>
+      Zip or postal code (Cannot include newline chars)
+    </Description>
+  </Field>
+  <Field name="country_code" type="string" nullable={false}>
+    <Description>
+      ISO 3166-1 two-letter country code
+    </Description>
+  </Field>
+  <Field name="address_residential_indicator" nullable={true}>
+    <Type>
+      [AddressResidentialIndicator](./address-residential-indicator.mdx)
+    </Type>
+    <Description>
+      Whether the address is residential or commercial
+    </Description>
+  </Field>
+  <Field name="is_eu" type="boolean" nullable={true}>
+    <Description>
+      Whether the country of the shipment address is a member of the EU
+    </Description>
+  </Field>
+  <Field name="address_metadata" type="object" nullable={true}>
+    <Description>
+      Metadata for this address
+    </Description>
+  </Field>
+  <Field name="carrier_code" type="string" nullable={true}>
+    <Description>
+      Standardized carrier code to which the location belongs
+    </Description>
+  </Field>
+  <Field name="location_id" type="string" nullable={true}>
+    <Description>
+      Location id needed to look up the location
+    </Description>
+  </Field>
+</Reference>

@@ -1,0 +1,36 @@
+---
+title: PickupContactDetails
+description: Basic structure for the contact for a pickup
+---
+
+PickupContactDetails
+===============================================
+This represents a contact for a pickup
+
+<Reference>
+  <Field name="first_name" type="string" nullable={false}>
+    <Description>
+      The first name of the person who will be there for the pickup.
+    </Description>
+  </Field>
+  <Field name="last_name" type="string" nullable={true}>
+    <Description>
+      The last name of the person who will be there for the pickup.
+    </Description>
+  </Field>
+  <Field name="email" type="string" nullable={false}>
+    <Description>
+      The e-mail address of the person who will be there for the pickup.
+    </Description>
+  </Field>
+  <Field name="phone_number" type="string" nullable={false}>
+    <Description>
+      The phone number of the person who will be there for the pickup.
+    </Description>
+  </Field>
+  <Field name="phone_number_extension" type="string" nullable={true}>
+    <Description>
+      The phone extension of the person who will be there for the pickup.
+    </Description>
+  </Field>
+</Reference>

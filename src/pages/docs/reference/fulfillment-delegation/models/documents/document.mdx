@@ -1,0 +1,32 @@
+---
+title: Document
+description: Basic structure for a document
+---
+
+Document
+===============================================
+Basic structure for a document
+
+<Reference>
+  <Field name="type" nullable={false}>
+    <Type>
+        [DocumentType](./document-type.mdx)[]
+    </Type>
+    <Description>
+      Usually there will only be 1 type present, but sometimes multiple documents can be combined
+    </Description>
+  </Field>
+  <Field name="data" type="string" nullable={false}>
+    <Description>
+      Base64 encoded string of the document in the specified format
+    </Description>
+  </Field>
+  <Field name="format" nullable={false}>
+    <Type>
+        [DocumentFormat](./document-format.mdx)
+    </Type>
+    <Description>
+      The format the document is in
+    </Description>
+  </Field>
+</Reference>

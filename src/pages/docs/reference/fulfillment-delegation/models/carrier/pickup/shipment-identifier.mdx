@@ -1,0 +1,24 @@
+---
+title: ShipmentIdentifier
+description: Basic structure for a shipment identifier
+---
+
+ShipmentIdentifier
+===============================================
+This represents a shipment identifier
+
+<Reference>
+  <Field name="tracking_number" type="string" nullable={true}>
+    <Description>
+      Tracking number associated with the shipment
+    </Description>
+  </Field>
+  <Field name="alternate_identifiers" nullable={true}>
+    <Type>
+      [Identifier](./../identifier.mdx)[]
+    </Type>
+    <Description>
+      A list of alternate identifiers that can be used to identify a shipment.
+    </Description>
+  </Field>
+</Reference>

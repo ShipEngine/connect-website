@@ -1,0 +1,68 @@
+---
+title: Connect Method
+description: This method creates a connection to a fulfillment provider.
+---
+
+
+`Connect()`
+===========================
+This method creates a connection to a fulfillment provider.
+
+
+Syntax
+-----------------------------------------------
+<CodeWrapper>
+```javascript
+module.exports = async function Connect(request) {
+  // Your code here
+}
+```
+
+```typescript
+import { ConnectRequest, ConnectResponse } from "@shipengine/connect-fulfillment-provider-api";
+
+export default async function Connect(
+  request: ConnectRequest
+): Promise<ConnectResponse> {
+  // Your code here
+}
+```
+</CodeWrapper>
+
+
+
+Parameters
+-----------------------------------------------
+
+### `ConnectRequest`
+Type that represents a request to create a connection to a fulfillment provider.
+
+<Reference>  
+  <Field name="auth" nullable={false}>
+    <Type>
+      [Auth](./../models/auth.mdx)
+    </Type>
+    <Description>
+      The Auth object for this request
+    </Description>
+  </Field>
+</Reference>
+
+
+Return Value
+-----------------------------------------------
+### `ConnectResponse`
+Type that represents a response to a request to create a connection to a fulfillment provider.
+
+<Reference>  
+  <Field name="auth" nullable={false}>
+    <Type>
+      [Auth](./../models/auth.mdx)
+    </Type>
+    <Description>
+      The Auth object for this response
+    </Description>
+  </Field>
+</Reference>
+
+

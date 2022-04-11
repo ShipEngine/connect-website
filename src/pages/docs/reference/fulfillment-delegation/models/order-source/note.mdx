@@ -1,0 +1,24 @@
+---
+title: Note
+description: Represents a note to the buyer, seller, or recipient
+---
+
+Note
+===============================================
+Represents a note to the buyer, seller, or recipient
+
+<Reference>
+  <Field name="type" nullable={true}>
+    <Type>
+      [NoteType](./note-type.mdx)
+    </Type>
+    <Description>
+      The type of note being sent
+    </Description>
+  </Field>
+  <Field name="text" type="string" nullable={true}>
+    <Description>
+      The contents of the note
+    </Description>
+  </Field>
+</Reference>

@@ -1,0 +1,34 @@
+---
+title: Manifest
+description: Basic structure for a manifest
+---
+
+Manifest
+===============================================
+This represents a manifest
+
+<Reference>
+  <Field name="manifest_id" type="string" nullable={true}>
+    <Description>
+      The unique identifier for this manifest.
+    </Description>
+  </Field>
+  <Field name="document_download" nullable={true}>
+    <Type>
+      [ResourceDownload](./../resource-download.mdx)
+    </Type>
+    <Description>
+      The resource for where the manifest documentation can be downloaded.
+    </Description>
+  </Field>
+  <Field name="document_href" type="string" nullable={true}>
+    <Description>
+      The public url where the manifest documentation can be downloaded.
+    </Description>
+  </Field>
+  <Field name="document_data" type="string" nullable={true}>
+    <Description>
+      The base64 encoded resource data.
+    </Description>
+  </Field>
+</Reference>

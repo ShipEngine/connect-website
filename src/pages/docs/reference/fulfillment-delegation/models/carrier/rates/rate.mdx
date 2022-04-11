@@ -1,0 +1,75 @@
+---
+title: Rate
+description: Basic structure for a rate
+---
+
+Rate
+===============================================
+This represents a rate
+
+<Reference>
+  <Field name="service_code" type="string" nullable={true}>
+    <Description>
+      The service code uniquely identifies a shipping service that you offer. Which service codes can be passed to you will be configured in ShipEngine. If this field is missing, the rate will be discarded.
+    </Description>
+  </Field>
+  <Field name="ship_datetime" type="string" nullable={true}>
+    <Description>
+      When the package should ship for this rate to be valid. Formatted per the https://tools.ietf.org/html/rfc3339 spec. Must be in UTC.
+    </Description>
+  </Field>
+  <Field name="estimated_delivery_datetime" type="string" nullable={true}>
+    <Description>
+      When the package(s) in this shipment are expected to arrive at their destination. Formatted per the https://tools.ietf.org/html/rfc3339 spec. Must be in UTC.
+    </Description>
+  </Field>
+  <Field name="billing_line_items" nullable={true}>
+    <Type>
+      [BillingLineItem](./../billing/billing-line-item.mdx)[]
+    </Type>
+    <Description>
+      A list of individual Billing Line items for the rate.
+    </Description>
+  </Field>
+  <Field name="error_messages" type="string[]" nullable={true}>
+    <Description>
+      Any error messages that resulted while trying to get the rate
+    </Description>
+  </Field>
+  <Field name="warning_messages" type="string[]" nullable={true}>
+    <Description>
+      Any warning messages that resulted while trying to get the rate
+    </Description>
+  </Field>
+  <Field name="negotiated_rate" type="boolean" nullable={true}>
+    <Description>
+      Indicates whether this is a pre-negotiated rate.
+    </Description>
+  </Field>
+  <Field name="carrier_pickup_window" nullable={true}>
+    <Type>
+      [TimeWindow](./../time-window.mdx)
+    </Type>
+    <Description>
+      The carrier pickup window is the time designated when the carrier will pickup your package from the initial location
+    </Description>
+  </Field>
+  <Field name="delivery_window" nullable={true}>
+    <Type>
+      [TimeWindow](./../time-window.mdx)
+    </Type>
+    <Description>
+      The delivery window is the time designated when the carrier will drop off the package to the recipient
+    </Description>
+  </Field>
+  <Field name="carrier_rate_id" type="string" nullable={true}>
+    <Description>
+      Unique identifier for the carrier rate
+    </Description>
+  </Field>
+  <Field name="expiration_datetime" type="string" nullable={true}>
+    <Description>
+      DateTime after which the rate will no longer be accepted - ISO 8601 format, with local offset (Example: 2021-08-20T14:38:36.859237-05:00)
+    </Description>
+  </Field>
+</Reference>

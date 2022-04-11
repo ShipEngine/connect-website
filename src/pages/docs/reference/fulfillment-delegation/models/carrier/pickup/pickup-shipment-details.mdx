@@ -1,0 +1,24 @@
+---
+title: PickupShipmentDetails
+description: Basic structure for details of a pickup shipment
+---
+
+PickupShipmentDetails
+===============================================
+This represents details of a pickup shipment
+
+<Reference>
+  <Field name="pickup_service_code" type="string" nullable={true}>
+    <Description>
+      Service category for the carrier (ground, express, next_day).
+    </Description>
+  </Field>
+  <Field name="shipments" nullable={true}>
+    <Type>
+      [ShippedShipment](./shipped-shipment.mdx)[]
+    </Type>
+    <Description>
+      A list of shipments that will be picked up
+    </Description>
+  </Field>
+</Reference>

@@ -1,0 +1,29 @@
+---
+title: PickupLocationDetails
+description: Basic structure for location details for a pickup
+---
+
+PickupLocationDetails
+===============================================
+This represents location details for a pickup
+
+<Reference>
+  <Field name="pickup_address" nullable={true}>
+    <Type>
+      [ShipFrom](./../addresses/ship-from.mdx)
+    </Type>
+    <Description>
+      The physical address of the warehouse or pickup address.
+    </Description>
+  </Field>
+  <Field name="location_notes" type="string" nullable={true}>
+    <Description>
+      Human readable location information for the driver to find the location.
+    </Description>
+  </Field>
+  <Field name="pickup_options" type="object[]" nullable={true}>
+    <Description>
+      Custom options that are used by the carrier to determine pickup locations.
+    </Description>
+  </Field>
+</Reference>

@@ -1,0 +1,83 @@
+---
+title: GetRecentChanges Method
+description: This method is for a request to get recent changes for all fulfillments since a specified time.
+---
+
+
+`GetRecentChanges()`
+===========================
+This method is for a request to get recent changes for all fulfillments since a specified time.
+
+
+Syntax
+-----------------------------------------------
+<CodeWrapper>
+```javascript
+module.exports = async function GetRecentChanges(request) {
+  // Your code here
+}
+```
+
+```typescript
+import { GetRecentChangesRequest, GetRecentChangesResponse } from "@shipengine/connect-fulfillment-provider-api";
+
+export default async function GetRecentChanges(
+  request: GetRecentChangesRequest
+): Promise<GetRecentChangesResponse> {
+  // Your code here
+}
+```
+</CodeWrapper>
+
+
+
+Parameters
+-----------------------------------------------
+
+### `GetRecentChangesRequest`
+This represents a request for recent changes for all fulfillments since a specified time.
+
+<Reference>  
+  <Field name="auth" nullable={false}>
+    <Type>
+      [Auth](./../models/auth.mdx)
+    </Type>
+    <Description>
+      The Auth object for this request
+    </Description>
+  </Field>
+  <Field name="since" type="string" nullable={false}>
+    <Description>
+      The point in time since changes should have occurred
+    </Description>
+  </Field>
+  <Field name="next_request" type="any" nullable={true}>
+    <Description>
+      The next reqeust to be processed
+    </Description>
+  </Field>
+</Reference>
+
+
+Return Value
+-----------------------------------------------
+### `GetRecentChangesResponse`
+This represents a response to a request for recent changes for all fulfillments since a specified time.
+
+<Reference>  
+  <Field name="changes">
+    <Type>
+      [SalesOrderStatusChange](./../models/sales-order-status-change.mdx)[]
+    </Type>
+    <Description>
+      Information about the status change
+    </Description>
+  </Field>
+  <Field name="next_request" type="any" nullable={true}>
+    <Description>
+      The next request to be processed
+    </Description>
+  </Field>
+</Reference>
+
+

@@ -1,0 +1,78 @@
+---
+title: SalesOrderItem
+description: An individual item in a sales order
+---
+
+SalesOrderItem
+===============================================
+An individual item in a sales order
+
+<Reference>
+  <Field name="line_item_id" type="string" nullable={true}>
+    <Description>
+      An ID for the line item for the vendor API
+    </Description>
+  </Field>
+  <Field name="description" type="string" nullable={false}>
+    <Description>
+      A description of the sales order item - which may differ from the product description
+    </Description>
+  </Field>
+  <Field name="product" nullable={true}>
+    <Type>
+      [Product](./product.mdx)
+    </Type>
+    <Description>
+      The product associated with this order item
+    </Description>
+  </Field>
+  <Field name="quantity" type="number" nullable={false}>
+    <Description>
+      The item quantity for this sales order item
+    </Description>
+  </Field>
+  <Field name="unit_price" type="number" nullable={true}>
+    <Description>
+      The amount of the currency for customs to be paid per unit
+    </Description>
+  </Field>
+  <Field name="declared_value" type="number" nullable={true}>
+    <Description>
+      The amount of the currency for customs to be paid per unit
+    </Description>
+  </Field>
+  <Field name="taxes" nullable={true}>
+    <Type>
+      [Charge](./charge.mdx)
+    </Type>
+    <Description>
+      A list of tax charges. The description can convey the jurisdiction
+    </Description>
+  </Field>
+  <Field name="shipping_charges" nullable={true}>
+    <Type>
+      [Charge](./charge.mdx)
+    </Type>
+    <Description>
+      A list of shipping charges
+    </Description>
+  </Field>
+  <Field name="adjustments" nullable={true}>
+    <Type>
+      [Charge](./charge.mdx)
+    </Type>
+    <Description>
+      A list of adjustments applied that influence the order total - For example, promotions/discounts/coupons (The amount should always be a quantify of currency, not a percentage)
+    </Description>
+  </Field>
+  <Field name="item_url" type="string" nullable={true}>
+    <Description>
+      The url for the item being purchased
+    </Description>
+  </Field>
+  <Field name="modified_date_time" type="string" nullable={true}>
+    <Description>
+      The (ISO 8601) datetime (UTC) associated with when this item was last modified - @example "2021-03-31T18:21:14.858Z"
+    </Description>
+  </Field>
+</Reference>

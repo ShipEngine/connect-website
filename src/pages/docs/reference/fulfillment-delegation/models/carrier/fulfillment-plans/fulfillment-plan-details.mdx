@@ -1,0 +1,35 @@
+---
+title: FulfillmentPlanDetails
+description: Basic structure of a fulfillment plan
+---
+
+FulfillmentPlanDetails
+===============================================
+This represents a fulfillment plan
+
+<Reference>
+  <Field name="external_sales_order_identifiers" nullable={true}>
+    <Type>
+    [Identifier](./../identifier.mdx)[]
+    </Type>
+    <Description>
+      A list of identifiers for the sales order.
+    </Description>
+  </Field>
+  <Field name="items" nullable={true}>
+    <Type>
+      [FulfillmentPlanItems](./fulfillment-plan-items.mdx)[]
+    </Type>
+    <Description>
+      Information about the fulfillment plan item.
+    </Description>
+  </Field>
+  <Field name="raw_external_source" nullable={true}>
+    <Type>
+      [RawExternalSource](./raw-external-source.mdx)
+    </Type>
+    <Description>
+      Raw external source information
+    </Description>
+  </Field>
+</Reference>

@@ -1,0 +1,37 @@
+---
+title: ConfirmationTypes
+description: An Enum of the possible values for ConfirmationType
+---
+
+ConfirmationType
+===============================================
+An Enum to represent the standardized type associated with a delivery confirmation
+
+
+<Reference>  
+  <Field name="None">
+    <Description>
+      "None" - No confirmation is requested 
+    </Description>
+  </Field>
+  <Field name="Delivery">
+    <Description>
+      "Delivery" - Delivery confirmation is requestd
+    </Description>
+  </Field>
+  <Field name="Signature">
+    <Description>
+      "Signature" - A signature is required. This signature may be a neighbor, building manager, or the recipient can authorize the release of the package (without being present)
+    </Description>
+  </Field>
+  <Field name="AdultSignature">
+    <Description>
+      "AdultSignature" - A signature of an adult is required
+    </Description>
+  </Field>
+  <Field name="DirectSignature">
+    <Description>
+      "DirectSignature" - __Only supported by FedEx.__  The signature of somebody at the address is required
+    </Description>
+  </Field>
+</Reference>

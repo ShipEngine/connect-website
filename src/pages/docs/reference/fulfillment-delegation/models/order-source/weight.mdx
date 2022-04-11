@@ -1,0 +1,24 @@
+---
+title: Weight
+description: A measurement of weight
+---
+
+Weight
+===============================================
+A measurement of weight
+
+<Reference>
+  <Field name="unit" nullable={true}>
+    <Type>
+      [WeightUnit](./../units/weight-unit.mdx)
+    </Type>
+    <Description>
+      The unit this weight was measured in
+    </Description>
+  </Field>
+  <Field name="value" type="number" nullable={true}>
+    <Description>
+      The value of the weight in weight units
+    </Description>
+  </Field>
+</Reference>

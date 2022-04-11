@@ -1,0 +1,100 @@
+---
+title: Get Inventory Method
+description: This method is for a request to get paged results of inventory from the provider.
+---
+
+
+`GetInventory()`
+===========================
+This method is for a request to get paged results of inventory from the provider.
+
+
+Syntax
+-----------------------------------------------
+<CodeWrapper>
+```javascript
+module.exports = async function GetInventory(request) {
+  // Your code here
+}
+```
+
+```typescript
+import { GetInventoryRequest, GetInventoryResponse } from "@shipengine/connect-fulfillment-provider-api";
+
+export default async function GetInventory(
+  request: GetInventoryRequest
+): Promise<GetInventoryResponse> {
+  // Your code here
+}
+```
+</CodeWrapper>
+
+
+
+Parameters
+-----------------------------------------------
+
+### `GetInventoryRequest`
+This represents a request to get paged results of inventory from the provider.
+
+<Reference>  
+  <Field name="auth" nullable={false}>
+    <Type>
+      [Auth](./../models/auth.mdx)
+    </Type>
+    <Description>
+      The Auth object for this request
+    </Description>
+  </Field>
+  <Field name="next_request" type="any" nullable={true}>
+    <Description>
+        The next request in this chain
+    </Description>
+  </Field>
+</Reference>
+
+
+Return Value
+-----------------------------------------------
+### `GetInventoryResponse`
+This represents a response to a request to get paged results of inventory from the provider.
+
+<Reference>  
+  <Field name="inventory[]" type="object[]" nullable={false}>
+    <Description>
+      Data for the reponse to a reqeust to the inventory endpoint
+    </Description>
+  </Field>
+  <Field name="inventory.sku" type="string" nullable={false}>
+    <Description>
+        A stock-keeping unit associated with a product by the order source
+    </Description>
+  </Field>
+  <Field name="inventory.warehouse_id" type="string" nullable={false}>
+    <Description>
+        The unique ID for the warehouse
+    </Description>
+  </Field>
+  <Field name="inventory.available_quantity" type="number" nullable={false}>
+    <Description>
+        Number of units available
+    </Description>
+  </Field>
+  <Field name="inventory.committed_quantity" type="string" nullable={false}>
+    <Description>
+        Number of units committed to orders
+    </Description>
+  </Field>
+  <Field name="inventory.on_hand_quantity" type="string" nullable={false}>
+    <Description>
+        Number of units on hand
+    </Description>
+  </Field>
+  <Field name="next_request" type="any" nullable={true}>
+    <Description>
+      The next request to be processed
+    </Description>
+  </Field>
+</Reference>
+
+

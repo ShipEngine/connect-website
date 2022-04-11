@@ -1,0 +1,32 @@
+---
+title: InsuranceProviders
+description: An Enum of the possible values for InsuranceProviders
+---
+
+InsuranceProviders
+===============================================
+The possible values of insurance provider for the insured value of the label, `Carrier` indicates that the user is requesting insurance from the carrier directly, anything else is extra information that should not result in a transaction.
+
+
+<Reference>  
+  <Field name="None">
+    <Description>
+      "None" - No insurance provided 
+    </Description>
+  </Field>
+  <Field name="ShipStation">
+    <Description>
+      "ShipStation" - ShipStation provides insurance
+    </Description>
+  </Field>
+  <Field name="Carrier">
+    <Description>
+      "Carrier" - the carrier provides insurance
+    </Description>
+  </Field>
+  <Field name="External">
+    <Description>
+      "External" - Insurance is provided by an external provider
+    </Description>
+  </Field>
+</Reference>

@@ -1,0 +1,175 @@
+---
+title: Get Rates Method
+description: This method gets possible rates for labels between two addresses.
+---
+
+
+`GetRates()`
+===========================
+This method gets possible rates for labels between two addresses.
+
+
+Syntax
+-----------------------------------------------
+<CodeWrapper>
+```javascript
+module.exports = async function GetRates(request) {
+  // Your code here
+}
+```
+
+```typescript
+import { GetRatesRequest, GetRatesResponse } from "@shipengine/connect-fulfillment-provider-api";
+
+export default async function GetRates(
+  request: GetRatesRequest
+): Promise<GetRatesResponse> {
+  // Your code here
+}
+```
+</CodeWrapper>
+
+
+
+Parameters
+-----------------------------------------------
+
+### `GetRatesRequest`
+An object containing information about the shipment to get rates for. The more information provided the more accurate rates (usually).
+
+<Reference>  
+  <Field name="auth" type="string" nullable={false}>
+    <Type>
+      [Auth](./../models/auth.mdx)
+    </Type>
+    <Description>
+      The Auth object for this request
+    </Description>
+  </Field>
+  <Field name="service_code" type="string" nullable={true}>
+    <Description>
+        The unique identifier for the fulfillment provider's shipping service
+    </Description>
+  </Field>
+  <Field name="ship_datetime" type="string" nullable={false}>
+    <Description>
+        The DateTime value for when the item was shipped
+    </Description>
+  </Field>
+  <Field name="confirmation" nullable={true}>
+    <Type>
+        [ConfirmationTypes](./../models/carrier/confirmation-types.mdx)
+    </Type>
+    <Description>
+        The ConfirmationType value for this request
+    </Description>
+  </Field>
+  <Field name="advanced_options" nullable={true}>
+    <Type>
+        [AdvancedOptions](./../models/carrier/advanced-options.mdx)
+    </Type>
+    <Description>
+        The AdvancedOptions for this request
+    </Description>
+  </Field>
+  <Field name="insurance_provider" nullable={true}>
+    <Type>
+        [InsuranceProviders](./../models/carrier/insurance-providers.mdx)
+    </Type>
+    <Description>
+        The InsuranceProvider for this request
+    </Description>
+  </Field>
+  <Field name="is_return_label" type="boolean" nullable={false}>
+    <Description>
+        The boolean value to indicate whether or not this is a return label
+    </Description>
+  </Field>
+  <Field name="packages" nullable={false}>
+    <Type>
+        [Package](./../models/carrier/package.mdx)[]
+    </Type>
+    <Description>
+        The Packages included in this request
+    </Description>
+  </Field>
+  <Field name="customs" nullable={true}>
+    <Type>
+        [Customs](./../models/carrier/customs/customs.mdx)
+    </Type>
+    <Description>
+        The Customs information for this request
+    </Description>
+  </Field>
+  <Field name="ship_to" nullable={false}>
+    <Type>
+        [ShipTo](./../models/carrier/addresses/ship-to.mdx)
+    </Type>
+    <Description>
+        The address information for the destination for this request
+    </Description>
+  </Field>
+  <Field name="ship_from" nullable={false}>
+    <Type>
+        [ShipFrom](./../models/carrier/addresses/ship-from.mdx)
+    </Type>
+    <Description>
+        The address information for the location origin for this request
+    </Description>
+  </Field>
+  <Field name="pickup_location" nullable={true}>
+    <Type>
+        [PudoLocation](./../models/carrier/addresses/pudo-location.mdx)
+    </Type>
+    <Description>
+        The pickup location information for this request
+    </Description>
+  </Field>
+  <Field name="international" type="boolean" nullable={true}>
+    <Description>
+        The Boolean value that represents whether or not this is an international shipment for this request
+    </Description>
+  </Field>
+  <Field name="next_day" type="boolean" nullable={true}>
+    <Description>
+        The Boolean value that represents whether or not this request is being shipped Next Day
+    </Description>
+  </Field>
+  <Field name="fulfillment_plan_details" nullable={true}>
+    <Type>
+        [FulfillmentPlanDetails](./../models/carrier/fulfillment-plans/fulfillment-plan-details.mdx)
+    </Type>
+    <Description>
+        The fulfillment plan details for this request
+    </Description>
+  </Field>
+  <Field name="carrier_pickup_window" nullable={true}>
+    <Type>
+        [TimeWindow](./../models/carrier/time-window.mdx)
+    </Type>
+    <Description>
+        The carrier pickup window is the time designated when the carrier will pickup your package from the initial location
+    </Description>
+  </Field>
+</Reference>
+
+
+
+Return Value
+-----------------------------------------------
+### `GetRatesResponse`
+This object model represents the response from a successful get rates request.
+
+<Reference>  
+  <Field name="rates" nullable={false}>
+    <Type>
+      [Rate](./../models/carrier/rates/rate.mdx)[]
+    </Type>
+    <Description>
+      The rates included in response to get rates
+    </Description>
+  </Field>
+</Reference>
+
+
+

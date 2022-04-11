@@ -1,0 +1,24 @@
+---
+title: Branding
+description: Represents the brand requested for a fulfillment
+---
+
+Branding
+===============================================
+Represents the brand requested for a fulfillment
+
+<Reference>
+  <Field name="packing_slip" nullable={true}>
+    <Type>
+      [PackingSlip](./packing-slip.mdx)
+    </Type>
+    <Description>
+      Packing slip associated with the brand
+    </Description>
+  </Field>
+  <Field name="company_name" type="string" nullable={true}>
+    <Description>
+      Company name associated with the brand
+    </Description>
+  </Field>
+</Reference>

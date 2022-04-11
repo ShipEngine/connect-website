@@ -1,0 +1,119 @@
+---
+title: BillingCategories
+description: An Enum of the possible values for category of a billing line item
+---
+
+BillingCategories
+===============================================
+This table lists the valid values for billing categories.
+
+<Reference>
+
+  <Field name="Uncategorized" >
+    <Description>
+      Use this for any fees that don't align with the specific categories below.
+    </Description>
+  </Field>
+
+  <Field name="Shipping" >
+    <Description>
+      The base charge for the shipping amount.
+    </Description>
+  </Field>
+
+  <Field name="Insurance" >
+    <Description>
+      Fee for carrier insurance added to the shipment.
+    </Description>
+  </Field>
+
+  <Field name="Confirm" >
+    <Description>
+      Confirmation charges, for delivery signature, adult signature, etc.
+    </Description>
+  </Field>
+
+  <Field name="Discount" >
+    <Description>
+      A negative charge that is a discount for the user.
+    </Description>
+  </Field>
+
+  <Field name="FuelCharge" >
+    <Description>
+      Fuel surcharges.
+    </Description>
+  </Field>
+
+  <Field name="AdditionalFees" >
+    <Description>
+      Other fees that don't fit into the categories provided.
+    </Description>
+  </Field>
+
+  <Field name="Tariff" >
+    <Description>
+      Customs tariffs and levies.
+    </Description>
+  </Field>
+
+  <Field name="Tax" >
+    <Description>
+      Taxes relating to the shipment, like sales tax, VAT, etc.
+    </Description>
+  </Field>
+
+  <Field name="Delivery" >
+    <Description>
+      Fees associated with the delivery, appointment, COD, retry, etc.
+    </Description>
+  </Field>
+
+  <Field name="Handling" >
+    <Description>
+      For additionally handling, normally for non-machineable.
+    </Description>
+  </Field>
+
+  <Field name="SpecialGoods" >
+    <Description>
+      Fees for non-standard shipped goods, dangerous goods, fresh flowers, etc.
+    </Description>
+  </Field>
+
+  <Field name="Pickup" >
+    <Description>
+      For shipment pickup services fees.
+    </Description>
+  </Field>
+
+  <Field name="LocationFee" >
+    <Description>
+      Fees for rural areas, residential delivery, anything added as a result of the location.
+    </Description>
+  </Field>
+
+  <Field name="Oversize" >
+    <Description>
+      Fees related to the shape, weight, or size of the shipment.
+    </Description>
+  </Field>
+
+  <Field name="Returns" >
+    <Description>
+      Return fees stemming from a return label.
+    </Description>
+  </Field>
+
+  <Field name="Notifications" >
+    <Description>
+      Priority notifications from the carrier, opting into special notifications for services.
+    </Description>
+  </Field>
+
+  <Field name="Tip">
+    <Description>
+      Amount to be paid to the driver, used for local delivery and courier services
+    </Description>
+  </Field>
+</Reference>

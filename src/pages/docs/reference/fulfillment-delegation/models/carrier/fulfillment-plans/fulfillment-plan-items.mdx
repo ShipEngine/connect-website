@@ -1,0 +1,37 @@
+---
+title: FulfillmentPlanItems
+description: Basic structure of information about the fulfillment plan for a set of items
+---
+
+FulfillmentPlanItems
+===============================================
+This represents information about the fulfillment plan for a set of items
+
+<Reference>
+  <Field name="external_sales_order_identifiers" nullable={true}>
+    <Type>
+    [Identifier](./../identifier.mdx)[]
+    </Type>
+    <Description>
+      A list of identifiers for the sales order.
+    </Description>
+  </Field>
+  <Field name="external_product_identifiers" nullable={true}>
+    <Type>
+    [Identifier](./../identifier.mdx)[]
+    </Type>
+    <Description>
+      A list of identifiers specific to the selling channel.
+    </Description>
+  </Field>
+  <Field name="name" type="string" nullable={true}>
+    <Description>
+      The name of the item.
+    </Description>
+  </Field>
+  <Field name="quantity" type="number" nullable={true}>
+    <Description>
+      The number of items.
+    </Description>
+  </Field>
+</Reference>

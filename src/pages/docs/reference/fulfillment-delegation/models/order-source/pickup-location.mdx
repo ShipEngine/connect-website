@@ -1,0 +1,21 @@
+---
+title: PickupLocation
+description: Basic structure for information about a drop off / pickup location
+---
+
+PickupLocation
+===============================================
+Basic structure for information about a drop off / pickup location
+
+<Reference>
+  <Field name="carrier_id" type="string" nullable={false}>
+    <Description>
+      An id specific to the carrier about this drop off / pickup location
+    </Description>
+  </Field>
+  <Field name="relay_id" type="string" nullable={false}>
+    <Description>
+      The id of a relay point used for the drop off / pickup location
+    </Description>
+  </Field>
+</Reference>

@@ -1,0 +1,34 @@
+---
+title: LabelPackage
+description: Basic structure for package information provided by the carrier
+---
+
+LabelPackage
+===============================================
+This represents package information provided by the carrier
+
+<Reference>
+  <Field name="tracking_number" type="string" nullable={true}>
+    <Description>
+      Tracking number for the package
+    </Description>
+  </Field>
+  <Field name="alternative_identifiers" nullable={true}>
+    <Type>
+        [Identifier](./../identifier.mdx)[]
+    </Type>
+    <Description>
+      Alternative identifiers associated with this package, not including the tracking number.
+    </Description>
+  </Field>
+  <Field name="documents" nullable={true}>
+    <Type>
+      [Document](./../../documents/document.mdx)[]
+    </Type>
+    <Description>
+      Package level documents for the specific package not included in the shipment level documents.
+      
+      DO NOT include duplicate documents intentionally, a document should only be added to the CreateLabelResponse or to the LabelPackage.
+    </Description>
+  </Field>
+</Reference>

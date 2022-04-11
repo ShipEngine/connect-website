@@ -1,0 +1,25 @@
+---
+title: StatusRequest
+description: This represents a request for the current status of a single fulfillment from a provider.
+---
+
+StatusRequest
+===============================================
+This represents a request for the current status of a single fulfillment from a provider.
+
+
+<Reference>
+  <Field name="auth" nullable={false}>
+    <Type>
+      [Auth](./../models/auth.mdx)
+    </Type>
+    <Description>
+      The Auth object for this request
+    </Description>
+  </Field>
+  <Field name="fulfillment_provider_order_id" type="string" nullable={false}>
+    <Description>
+        The fulfillment provider order ID for this status request
+    </Description>
+  </Field>
+</Reference>

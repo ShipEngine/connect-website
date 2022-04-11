@@ -1,0 +1,30 @@
+---
+title: CancellationRequest
+description: This represents a request for a delegated fulfillment be cancelled by the provider.
+---
+
+CancellationRequest
+===============================================
+This represents a request for a delegated fulfillment be cancelled by the provider.
+
+
+<Reference>  
+  <Field name="auth" type="string" nullable={false}>
+    <Type>
+      [Auth](./../models/auth.mdx)
+    </Type>
+    <Description>
+      The Auth object for this request
+    </Description>
+  </Field>
+  <Field name="fulfillment_provider_order_id" type="string" nullable={false}>
+    <Description>
+        The unique identifier for the fulfillment provider's order
+    </Description>
+  </Field>
+  <Field name="reason" type="string" nullable={false}>
+    <Description>
+        The reason for the cancellation
+    </Description>
+  </Field>
+</Reference>

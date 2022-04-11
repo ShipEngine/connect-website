@@ -1,0 +1,42 @@
+---
+title: SalesOrderStatus
+description: An Enum of the possible values for the status of a sales order
+---
+
+SalesOrderStatus
+===============================================
+An Enum of the possible values for the status of a sales order
+
+
+<Reference>  
+  <Field name="AwaitingPayment">
+    <Description>
+      For orders which have been placed but not yet paid for, and should not be shipped until the payment clears.
+    </Description>
+  </Field>
+  <Field name="AwaitingShipment">
+    <Description>
+      For orders which are ready to be shipped and require action from the seller.
+    </Description>
+  </Field>
+  <Field name="Cancelled">
+    <Description>
+      For orders which have been cancelled by the buyer.
+    </Description>
+  </Field>
+  <Field name="Completed">
+    <Description>
+      For orders which have already been shipped in full.
+    </Description>
+  </Field>
+  <Field name="OnHold">
+    <Description>
+      Orders imported with the "OnHold" status require attention or approval from the seller before moving to "AwaitingShipment".
+    </Description>
+  </Field>
+  <Field name="PendingFulfillment">
+    <Description>
+      Orders in the "PendingFulfillment" status have been delegated to a 3rd party fulfiller to be shipped, and it is not expected that the seller perform additional action to ship the order.
+    </Description>
+  </Field>
+</Reference>

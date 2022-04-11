@@ -1,0 +1,56 @@
+---
+title: Package
+description: The properties associated with a Package
+---
+
+Package
+===============================================
+This represents a package
+
+<Reference>
+  <Field name="package_code" type="string" nullable={true}>
+    <Description>
+      Optional code used to map to what the carrier uses to identify the packaging.
+    </Description>
+  </Field>
+  <Field name="dimension_details" nullable={true}>
+    <Type>
+      [DimensionDetails](./../units/dimension-details.mdx)[]
+    </Type>
+    <Description>
+      A list of dimension details associated with this package
+    </Description>
+  </Field>
+  <Field name="weight_details" nullable={true}>
+    <Type>
+      [WeightDetails](./../units/weight-details.mdx)
+    </Type>
+    <Description>
+      The weight details associated with the package
+    </Description>
+  </Field>
+  <Field name="insured_value" nullable={false}>
+    <Type>
+      [Currency](./currency.mdx)
+    </Type>
+    <Description>
+      The insured value of this shipment.
+    </Description>
+  </Field>
+  <Field name="label_messages" nullable={true}>
+    <Type>
+      [LabelMessage](./labels/label-message.mdx)
+    </Type>
+    <Description>
+      User defined messages for the label.
+    </Description>
+  </Field>
+  <Field name="customs" nullable={true}>
+    <Type>
+      [Customs](./customs/customs.mdx)
+    </Type>
+    <Description>
+      The customs associated with this package
+    </Description>
+  </Field>
+</Reference>

@@ -1,0 +1,43 @@
+---
+title: DimensionDetails
+description: Basic structure for package dimensions
+---
+
+DimensionDetails
+===============================================
+Basic structure for package dimensions
+
+<Reference>
+  <Field name="dimensions_in_centimeters" nullable={true}>
+    <Type>
+      [Dimensions](./dimensions.mdx)
+    </Type>
+    <Description>
+      Dimensions represented in centimeters
+    </Description>
+  </Field>
+  <Field name="dimensions_in_inches" nullable={true}>
+    <Type>
+      [Dimensions](./dimensions.mdx)
+    </Type>
+    <Description>
+      Dimensions represented in inches
+    </Description>
+  </Field>
+  <Field name="source_dimensions" nullable={true}>
+    <Type>
+      [Dimensions](./dimensions.mdx)
+    </Type>
+    <Description>
+      Source dimensions
+    </Description>
+  </Field>
+  <Field name="source_dimension_unit" nullable={true}>
+    <Type>
+      [DimensionUnit](./dimension-unit.mdx)
+    </Type>
+    <Description>
+      The specified dimension unit for the source dimensions
+    </Description>
+  </Field>
+</Reference>

@@ -1,0 +1,21 @@
+---
+title: QuantityWithReason
+description: Basic structure of a quantity with a reason for the quantity
+---
+
+QuantityWithReason
+===============================================
+Basic structure of a quantity with a reason for the quantity
+
+<Reference>
+  <Field name="value" type="number" nullable={false}>
+    <Description>
+      A numerical representation of the quantity
+    </Description>
+  </Field>
+  <Field name="reason" type="string" nullable={false}>
+    <Description>
+      Reason for the quantity (why it was cancelled, rejected, etc.)
+    </Description>
+  </Field>
+</Reference>

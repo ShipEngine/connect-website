@@ -1,0 +1,26 @@
+---
+title: OriginalOrderSource
+description: Represents information from the source marketplace (This is common with reselling goods)
+---
+
+OriginalOrderSource
+===============================================
+Represents information from the source marketplace (This is common with reselling goods)
+
+<Reference>
+  <Field name="source_id" type="string" nullable={true}>
+    <Description>
+      A unique identifier for the source marketplace
+    </Description>
+  </Field>
+  <Field name="marketplace_code" type="string" nullable={true}>
+    <Description>
+      The code for the type of marketplace
+    </Description>
+  </Field>
+  <Field name="order_id" type="string" nullable={true}>
+    <Description>
+      The unique identifier for the order at the source marketplace
+    </Description>
+  </Field>
+</Reference>

@@ -1,0 +1,25 @@
+---
+title: GetRecentChangesResponse
+description: This represents a response to a request for recent changes for all fulfillments since a specified time.
+---
+
+GetRecentChangesResponse
+===============================================
+This represents a response to a request for recent changes for all fulfillments since a specified time.
+
+
+<Reference>  
+  <Field name="changes">
+    <Type>
+      [SalesOrderStatusChange](./../models/sales-order-status-change.mdx)[]
+    </Type>
+    <Description>
+      Information about the status change
+    </Description>
+  </Field>
+  <Field name="next_request" type="any" nullable={true}>
+    <Description>
+      The next request to be processed
+    </Description>
+  </Field>
+</Reference>

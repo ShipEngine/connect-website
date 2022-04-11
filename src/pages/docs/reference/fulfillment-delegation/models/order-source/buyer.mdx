@@ -1,0 +1,31 @@
+---
+title: Buyer
+description: Contact information for the buyer of this sales order
+---
+
+Buyer
+===============================================
+Contact information for the buyer of this sales order
+
+<Reference>
+  <Field name="buyer_id" type="string" nullable={true}>
+    <Description>
+      An ID for this buyer in the vendor API
+    </Description>
+  </Field>
+  <Field name="name" type="string" nullable={true}>
+    <Description>
+      The full name of the buyer
+    </Description>
+  </Field>
+  <Field name="email" type="string" nullable={true}>
+    <Description>
+      The primary email address of the buyer
+    </Description>
+  </Field>
+  <Field name="phone" type="string" nullable={true}>
+    <Description>
+      The primary phone number of the buyer
+    </Description>
+  </Field>
+</Reference>

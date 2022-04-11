@@ -1,0 +1,21 @@
+---
+title: ResourceDownload
+description: Basic structure for a resource to download
+---
+
+ResourceDownload
+===============================================
+This represents a resource to download
+
+<Reference>
+  <Field name="href" type="string" nullable={true}>
+    <Description>
+      Public URL where the resource can be downloaded
+    </Description>
+  </Field>
+  <Field name="data" type="string" nullable={true}>
+    <Description>
+      The base64 encoded resource data
+    </Description>
+  </Field>
+</Reference>

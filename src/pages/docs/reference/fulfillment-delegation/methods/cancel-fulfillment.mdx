@@ -1,0 +1,75 @@
+---
+title: Cancel Fulfillment Method
+description: This method is for a request that a delegated fulfillment be cancelled by the client.
+---
+
+
+`CancelFulfillment()`
+===========================
+This method is for a request that a delegated fulfillment be cancelled by the client.
+
+
+Syntax
+-----------------------------------------------
+<CodeWrapper>
+```javascript
+module.exports = async function CancelFulfillment(request) {
+  // Your code here
+}
+```
+
+```typescript
+import { CancelFulfillmentRequest, CancelFulfillmentResponse } from "@shipengine/connect-fulfillment-provider-api";
+
+export default async function CancelFulfillment(
+  request: CancelFulfillmentRequest
+): Promise<CancelFulfillmentResponse> {
+  // Your code here
+}
+```
+</CodeWrapper>
+
+
+
+Parameters
+-----------------------------------------------
+
+### `CancelFulfillmentRequest`
+This represents a request for a delegated fulfillment be cancelled by the client.
+
+<Reference>  
+  <Field name="auth" nullable={false}>
+    <Type>
+      [Auth](./../models/auth.mdx)
+    </Type>
+    <Description>
+      The Auth object for this request
+    </Description>
+  </Field>
+  <Field name="fulfillment_provider_order_id" type="string" nullable={false}>
+    <Description>
+        The fulfillment provider order ID for this status request
+    </Description>
+  </Field>
+  <Field name="reason" type="string" nullable={false}>
+    <Description>
+        The reason for the cancellation
+    </Description>
+  </Field>
+</Reference>
+
+
+Return Value
+-----------------------------------------------
+### `CancelFulfillmentResponse`
+Type that represents a response to a request for a delegated fulfillment be cancelled by the client.
+
+<Reference>  
+  <Field name="reason" type="string" nullable={true}>
+    <Description>
+      The reason for immediate rejecting the cancellation. Empty if cancellation request accepted.
+    </Description>
+  </Field>
+</Reference>
+
+

@@ -533,6 +533,556 @@ export const menu: MenuContents = [
     ],
   },
   {
+    title: "Fulfillment Apps",
+    subGroups: [
+      {
+        title: "App Structure",
+        menuItems: [
+          {
+            title: "Fulfillment Provider App",
+            href: "/docs/app-definition/fulfillment-provider",
+          },
+        ],
+      },
+      {
+        title: "Methods",
+        menuItems: [
+          {
+            title: "Cancellation",
+            href: "/docs/reference/fulfillment-provider/methods/cancellation",
+          },
+          {
+            title: "Connect",
+            href: "/docs/reference/fulfillment-provider/methods/connect",
+          },
+          {
+            title: "Delegate Fulfillment",
+            href:
+              "/docs/reference/fulfillment-provider/methods/delegate-fulfillment",
+          },
+          {
+            title: "Get Recent Changes",
+            href:
+              "/docs/reference/fulfillment-provider/methods/get-recent-changes",
+          },
+          {
+            title: "Inventory",
+            href: "/docs/reference/fulfillment-provider/methods/inventory",
+          },
+          {
+            title: "Rates",
+            href: "/docs/reference/fulfillment-provider/methods/rates",
+          },
+          {
+            title: "Status",
+            href: "/docs/reference/fulfillment-provider/methods/status",
+          },
+        ],
+      },
+      {
+        title: "Reference",
+        menuItems: [
+          {
+            title: "Address",
+            href:
+              "/docs/reference/fulfillment-provider/models/order-source/address",
+          },
+          {
+            title: "AddressResidentialIndicator",
+            href:
+              "/docs/reference/fulfillment-provider/models/carrier/addresses/address-residential-indicator",
+          },
+          {
+            title: "AdvancedOptions",
+            href:
+              "/docs/reference/fulfillment-provider/models/carrier/advanced-options",
+          },
+          {
+            title: "Auth",
+            href: "/docs/reference/fulfillment-provider/models/auth",
+          },
+          {
+            title: "BillingCategories",
+            href:
+              "/docs/reference/fulfillment-provider/models/carrier/billing/billing-categories",
+          },
+          {
+            title: "BillingLineItem",
+            href:
+              "/docs/reference/fulfillment-provider/models/carrier/billing/billing-line-item",
+          },
+          {
+            title: "BillTo",
+            href:
+              "/docs/reference/fulfillment-provider/models/order-source/bill-to",
+          },
+          {
+            title: "Branding",
+            href:
+              "/docs/reference/fulfillment-provider/models/order-source/branding",
+          },
+          {
+            title: "Buyer",
+            href: "/docs/reference/fulfillment-provider/models/order-source/buyer",
+          },
+          {
+            title: "CancellationDetails",
+            href:
+              "/docs/reference/fulfillment-provider/models/carrier/pickup/cancellation-details",
+          },
+          {
+            title: "CancellationRequest",
+            href:
+              "/docs/reference/fulfillment-provider/requests/cancel-fulfillment-request",
+          },
+          {
+            title: "CancellationReason",
+            href:
+              "/docs/reference/fulfillment-provider/models/carrier/pickup/cancellation-reason",
+          },
+          {
+            title: "CancellationResponse",
+            href:
+              "/docs/reference/fulfillment-provider/responses/cancel-fulfillment-response",
+          },
+          {
+            title: "Charge",
+            href: "/docs/reference/fulfillment-provider/models/order-source/charge",
+          },
+          {
+            title: "ConfirmationTypes",
+            href:
+              "/docs/reference/fulfillment-provider/models/carrier/confirmation-types",
+          },
+          {
+            title: "ConnectRequest",
+            href: "/docs/reference/fulfillment-provider/requests/connect-request",
+          },
+          {
+            title: "ConnectResponse",
+            href: "/docs/reference/fulfillment-provider/responses/connect-response",
+          },
+          {
+            title: "Currency",
+            href: "/docs/reference/fulfillment-provider/models/carrier/currency",
+          },
+          {
+            title: "Customs",
+            href:
+              "/docs/reference/fulfillment-provider/models/carrier/customs/customs",
+          },
+          {
+            title: "CustomsContentTypes",
+            href:
+              "/docs/reference/fulfillment-provider/models/carrier/customs/customs-content-types",
+          },
+          {
+            title: "CustomsItem",
+            href:
+              "/docs/reference/fulfillment-provider/models/carrier/customs/customs-item",
+          },
+          {
+            title: "CustomsNonDelivery",
+            href:
+              "/docs/reference/fulfillment-provider/models/carrier/customs/customs-non-delivery",
+          },
+          {
+            title: "DelegationRequest",
+            href:
+              "/docs/reference/fulfillment-provider/requests/delegate-fulfillment-request",
+          },
+          {
+            title: "DelegationResponse",
+            href:
+              "/docs/reference/fulfillment-provider/responses/delegate-fulfillment-response",
+          },
+          {
+            title: "DetailedError",
+            href:
+              "/docs/reference/fulfillment-provider/models/errors/detailed-error",
+          },
+          {
+            title: "DimensionDetails",
+            href:
+              "/docs/reference/fulfillment-provider/models/units/dimension-details",
+          },
+          {
+            title: "DimensionUnit",
+            href:
+              "/docs/reference/fulfillment-provider/models/units/dimension-unit",
+          },
+          {
+            title: "Dimensions",
+            href: "/docs/reference/fulfillment-provider/models/units/dimensions",
+          },
+          {
+            title: "Document",
+            href: "/docs/reference/fulfillment-provider/models/documents/document",
+          },
+          {
+            title: "DocumentFormat",
+            href:
+              "/docs/reference/fulfillment-provider/models/documents/document-format",
+          },
+          {
+            title: "DocumentType",
+            href:
+              "/docs/reference/fulfillment-provider/models/documents/document-type",
+          },
+          {
+            title: "FormDownload",
+            href:
+              "/docs/reference/fulfillment-provider/models/carrier/labels/form-download",
+          },
+          {
+            title: "FulfillmentPlanDetails",
+            href:
+              "/docs/reference/fulfillment-provider/models/carrier/fulfillment-plans/fulfillment-plan-details",
+          },
+          {
+            title: "FulfillmentPlanItems",
+            href:
+              "/docs/reference/fulfillment-provider/models/carrier/fulfillment-plans/fulfillment-plan-items",
+          },       
+          {
+            title: "GetFulfillmentRequest",
+            href: "/docs/reference/fulfillment-provider/requests/get-fulfillment-request",
+          },
+          {
+            title: "GetFulfillmentResponse",
+            href: "/docs/reference/fulfillment-provider/responses/get-fulfillment-response",
+          }, 
+          {
+            title: "GetInventoryRequest",
+            href: "/docs/reference/fulfillment-provider/requests/get-inventory-request",
+          },
+          {
+            title: "GetInventoryResponse",
+            href:
+              "/docs/reference/fulfillment-provider/responses/get-inventory-response",
+          },
+          {
+            title: "GetRatesRequest",
+            href: "/docs/reference/fulfillment-provider/requests/get-rates-request",
+          },
+          {
+            title: "GetRatesResponse",
+            href:
+              "/docs/reference/fulfillment-provider/responses/get-rates-response",
+          },
+          {
+            title: "GetRecentChangesRequest",
+            href:
+              "/docs/reference/fulfillment-provider/requests/get-recent-changes-request",
+          },
+          {
+            title: "GetRecentChangesResponse",
+            href:
+              "/docs/reference/fulfillment-provider/responses/get-recent-changes-response",
+          },
+          {
+            title: "Identifier",
+            href: "/docs/reference/fulfillment-provider/models/carrier/identifier",
+          },
+          {
+            title: "InsuranceProviders",
+            href:
+              "/docs/reference/fulfillment-provider/models/carrier/insurance-providers",
+          },
+          {
+            title: "Label",
+            href:
+              "/docs/reference/fulfillment-provider/models/carrier/manifests/label",
+          },
+          {
+            title: "LabelDownload",
+            href:
+              "/docs/reference/fulfillment-provider/models/carrier/labels/label-download",
+          },
+          {
+            title: "LabelLayouts",
+            href:
+              "/docs/reference/fulfillment-provider/models/carrier/labels/label-layouts",
+          },
+          {
+            title: "LabelMessage",
+            href:
+              "/docs/reference/fulfillment-provider/models/carrier/labels/label-message",
+          },
+          {
+            title: "LabelPackage",
+            href:
+              "/docs/reference/fulfillment-provider/models/carrier/labels/label-package",
+          },
+          {
+            title: "LabelVoucher",
+            href:
+              "/docs/reference/fulfillment-provider/models/order-source/label-voucher",
+          },
+          {
+            title: "Manifest",
+            href:
+              "/docs/reference/fulfillment-provider/models/carrier/manifests/manifest",
+          },
+          {
+            title: "Note",
+            href: "/docs/reference/fulfillment-provider/models/order-source/note",
+          },
+          {
+            title: "NoteType",
+            href:
+              "/docs/reference/fulfillment-provider/models/order-source/note-type",
+          },
+          {
+            title: "OriginalOrderSource",
+            href:
+              "/docs/reference/fulfillment-provider/models/order-source/original-order-source",
+          },    
+          {
+            title: "Package",
+            href: "/docs/reference/fulfillment-provider/models/carrier/package",
+          },
+          {
+            title: "PackingSlip",
+            href:
+              "/docs/reference/fulfillment-provider/models/order-source/packing-slip",
+          },
+          {
+            title: "Payment",
+            href:
+              "/docs/reference/fulfillment-provider/models/order-source/payment",
+          },
+          {
+            title: "PaymentStatus",
+            href:
+              "/docs/reference/fulfillment-provider/models/order-source/payment-status",
+          },
+          {
+            title: "PickupConfirmation",
+            href:
+              "/docs/reference/fulfillment-provider/models/carrier/pickup/pickup-confirmation",
+          },
+          {
+            title: "PickupContactDetails",
+            href:
+              "/docs/reference/fulfillment-provider/models/carrier/pickup/pickup-contact-details",
+          },
+          {
+            title: "PickupLocation",
+            href:
+              "/docs/reference/fulfillment-provider/models/order-source/pickup-location",
+          },
+          {
+            title: "PickupLocationDetails",
+            href:
+              "/docs/reference/fulfillment-provider/models/carrier/pickup/pickup-location-details",
+          },
+          {
+            title: "PickupPackage",
+            href:
+              "/docs/reference/fulfillment-provider/models/carrier/pickup/pickup-package",
+          },
+          {
+            title: "PickupShipment",
+            href:
+              "/docs/reference/fulfillment-provider/models/carrier/pickup/pickup-shipment",
+          },
+          {
+            title: "PickupShipmentDetails",
+            href:
+              "/docs/reference/fulfillment-provider/models/carrier/pickup/pickup-shipment-details",
+          },
+          {
+            title: "PickupWindow",
+            href:
+              "/docs/reference/fulfillment-provider/models/carrier/pickup/pickup-window",
+          },
+          {
+            title: "Product",
+            href:
+              "/docs/reference/fulfillment-provider/models/order-source/product",
+          },
+          {
+            title: "ProductDetail",
+            href:
+              "/docs/reference/fulfillment-provider/models/order-source/product-detail",
+          },
+          {
+            title: "ProductIdentifiers",
+            href:
+              "/docs/reference/fulfillment-provider/models/order-source/product-identifiers",
+          },
+          {
+            title: "ProductUrls",
+            href:
+              "/docs/reference/fulfillment-provider/models/order-source/product-urls",
+          },
+          {
+            title: "PudoLocation",
+            href:
+              "/docs/reference/fulfillment-provider/models/carrier/addresses/pudo-location",
+          },
+          {
+            title: "QuantityWithReason",
+            href:
+              "/docs/reference/fulfillment-provider/models/quantity-with-reason",
+          },
+          {
+            title: "Rate",
+            href: "/docs/reference/fulfillment-provider/models/carrier/rates/rate",
+          },
+          {
+            title: "RawExternalSource",
+            href:
+              "/docs/reference/fulfillment-provider/models/carrier/fulfillment-plans/raw-external-source",
+          },
+          {
+            title: "RequestedFulfillment",
+            href:
+              "/docs/reference/fulfillment-provider/models/order-source/requested-fulfillment",
+          },
+          {
+            title: "RequestedFulfillmentExtensions",
+            href:
+              "/docs/reference/fulfillment-provider/models/order-source/requested-fulfillment-extensions",
+          },
+          {
+            title: "ResidentialIndicator",
+            href:
+              "/docs/reference/fulfillment-provider/models/order-source/residential-indicator",
+          },
+          {
+            title: "ResourceDownload",
+            href:
+              "/docs/reference/fulfillment-provider/models/carrier/resource-download",
+          },
+          {
+            title: "ReturnLabelDetails",
+            href:
+              "/docs/reference/fulfillment-provider/models/carrier/labels/return-label-details",
+          },
+          {
+            title: "SalesOrder",
+            href:
+              "/docs/reference/fulfillment-provider/models/order-source/sales-order",
+          },
+          {
+            title: "SalesOrderItem",
+            href:
+              "/docs/reference/fulfillment-provider/models/order-source/sales-order-item",
+          },
+          {
+            title: "SalesOrderShippingStatus",
+            href:
+              "/docs/reference/fulfillment-provider/models/sales-order-shipping-status",
+          },
+          {
+            title: "SalesOrderStatus",
+            href:
+              "/docs/reference/fulfillment-provider/models/order-source/sales-order-status",
+          },
+          {
+            title: "SalesOrderStatusItem",
+            href:
+              "/docs/reference/fulfillment-provider/models/sales-order-status-item",
+          },
+          {
+            title: "SalesOrderStatusChange",
+            href:
+              "/docs/reference/fulfillment-provider/models/sales-order-status-change",
+          },
+          {
+            title: "ShipFrom",
+            href:
+              "/docs/reference/fulfillment-provider/models/carrier/addresses/ship-from",
+          },
+          {
+            title: "ShipFromDisplay",
+            href:
+              "/docs/reference/fulfillment-provider/models/carrier/addresses/ship-from-display",
+          },
+          {
+            title: "ShipmentIdentifier",
+            href:
+              "/docs/reference/fulfillment-provider/models/carrier/pickup/shipment-identifier",
+          },
+          {
+            title: "ShipmentNotification",
+            href:
+              "/docs/reference/fulfillment-provider/models/order-source/shipment-notification",
+          },
+          {
+            title: "ShipmentNotificationItem",
+            href:
+              "/docs/reference/fulfillment-provider/models/order-source/shipment-notification-item",
+          },
+          {
+            title: "ShippedPackage",
+            href:
+              "/docs/reference/fulfillment-provider/models/carrier/pickup/shipped-package",
+          },
+          {
+            title: "ShippedShipment",
+            href:
+              "/docs/reference/fulfillment-provider/models/carrier/pickup/shipped-shipment",
+          },
+          {
+            title: "ShippingPreferences",
+            href:
+              "/docs/reference/fulfillment-provider/models/order-source/shipping-preferences",
+          },
+          {
+            title: "ShipTo",
+            href:
+              "/docs/reference/fulfillment-provider/models/carrier/addresses/ship-to",
+          },
+          {
+            title: "StandardizedErrorCode",
+            href:
+              "/docs/reference/fulfillment-provider/models/errors/standardized-error-code",
+          },
+          {
+            title: "TaxIdentifier",
+            href:
+              "/docs/reference/fulfillment-provider/models/carrier/taxes/tax-identifier",
+          },
+          {
+            title: "TaxIdentifierType",
+            href:
+              "/docs/reference/fulfillment-provider/models/carrier/taxes/tax-identifier-type",
+          },
+          {
+            title: "TimeWindow",
+            href: "/docs/reference/fulfillment-provider/models/carrier/time-window",
+          },
+          {
+            title: "VoidRequest",
+            href:
+              "/docs/reference/fulfillment-provider/models/carrier/labels/void-request",
+          },
+          {
+            title: "VoidResponse",
+            href:
+              "/docs/reference/fulfillment-provider/models/carrier/labels/void-response",
+          },
+          {
+            title: "Weight",
+            href: "/docs/reference/fulfillment-provider/models/order-source/weight",
+          },
+          {
+            title: "WeightDetails",
+            href:
+              "/docs/reference/fulfillment-provider/models/units/weight-details",
+          },
+          {
+            title: "WeightUnit",
+            href: "/docs/reference/fulfillment-provider/models/units/weight-unit",
+          },
+        ],
+      },
+    ],
+  },
+  {
     title: "Authentication",
     open: true,
     subGroups: [

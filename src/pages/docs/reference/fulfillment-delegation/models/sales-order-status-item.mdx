@@ -1,0 +1,55 @@
+---
+title: SalesOrderStatusItem
+description: Basic structure of a line item in a sales order status change
+---
+
+SalesOrderStatusItem
+===============================================
+Basic structure of a line item in a sales order status change
+
+<Reference>
+  <Field name="line_item_id" type="string" nullable={false}>
+    <Description>
+      unique identifier for this line item
+    </Description>
+  </Field>
+  <Field name="sku" type="string" nullable={false}>
+    <Description>
+      A stock-keeping unit associated with the item
+    </Description>
+  </Field>
+  <Field name="quantity" type="number" nullable={true}>
+    <Description>
+      The quantity of this item
+    </Description>
+  </Field>
+  <Field name="shipped_quantity" type="number" nullable={true}>
+    <Description>
+      The quantity of this item that was shipped
+    </Description>
+  </Field>
+  <Field name="cancelled_quantity" nullable={true}>
+    <Type>
+      [QuantityWithReason](./quantity-with-reason.mdx)
+    </Type>
+    <Description>
+      The quantity of this item that was cancelled
+    </Description>
+  </Field>
+  <Field name="rejected_quantity" nullable={true}>
+    <Type>
+      [QuantityWithReason](./quantity-with-reason.mdx)
+    </Type>
+    <Description>
+      The quantity of this item that was rejected
+    </Description>
+  </Field>
+  <Field name="unknown_quantity" nullable={true}>
+    <Type>
+      [QuantityWithReason](./quantity-with-reason.mdx)
+    </Type>
+    <Description>
+      The quantity of this item that has an unknown status
+    </Description>
+  </Field>
+</Reference>

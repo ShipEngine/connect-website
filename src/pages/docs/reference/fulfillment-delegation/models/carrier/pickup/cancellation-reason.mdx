@@ -1,0 +1,37 @@
+---
+title: CancellationReason
+description: An Enum of the possible values for reason the customer is cancelling their pickup request.
+---
+
+CancellationReason
+===============================================
+An Enum of the possible values for the reason the customer is cancelling their pickup request.
+
+
+<Reference>  
+  <Field name="Other">
+    <Description>
+      "other" - There is a reason not defined
+    </Description>
+  </Field>
+  <Field name="NotReady">
+    <Description>
+      "not_ready" - The customer is not ready to have their packages picked up
+    </Description>
+  </Field>
+  <Field name="CostTooHigh">
+    <Description>
+      "cost_too_high" - The cost for picking up was too much
+    </Description>
+  </Field>
+  <Field name="ServiceTooSlow">
+    <Description>
+      "service_too_slow" - The service pick up would have been too slow
+    </Description>
+  </Field>
+  <Field name="CarrierFailedPickup">
+    <Description>
+      "carrier_failed_pickup" - The carrier didn't pick up when they said they would
+    </Description>
+  </Field>
+</Reference>

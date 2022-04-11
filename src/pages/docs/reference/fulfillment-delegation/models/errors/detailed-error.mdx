@@ -1,0 +1,39 @@
+---
+title: DetailedError
+description: Basic structure for an error
+---
+
+DetailedError
+===============================================
+Basic structure for an error
+
+<Reference>
+  <Field name="standardized_error_code" nullable={false}>
+    <Type>
+        [StandardizedErrorCode](./standardized-error-code.mdx)
+    </Type>
+    <Description>
+      The numeric status code associated with the error. For errors that originate from an HTTP response, this should be the HTTP status code (e.g. 400, 404, 500).
+    </Description>
+  </Field>
+  <Field name="external_error_code" type="string" nullable={false}>
+    <Description>
+      This is the custom error code used by external systems @example "AMAZON_ERR_124", "shopify_bad_request_435323"
+    </Description>
+  </Field>
+  <Field name="message" type="string" nullable={false}>
+    <Description>
+      An error message that will be bubbled up to the users
+    </Description>
+  </Field>
+  <Field name="external_http_status_code" type="string" nullable={false}>
+    <Description>
+      The status code associated with this error
+    </Description>
+  </Field>
+  <Field name="raw_external_context" type="string" nullable={false}>
+    <Description>
+      The full response or error returned (serialized)
+    </Description>
+  </Field>
+</Reference>

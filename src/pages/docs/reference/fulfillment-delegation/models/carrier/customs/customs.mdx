@@ -1,0 +1,52 @@
+---
+title: Customs
+description: An object representing customs for international shipments.
+---
+
+Customs
+===============================================
+An object representing customs for international shipments.
+
+<Reference>
+  <Field name="contents" nullable={true}>
+    <Type>
+      [CustomsContentTypes](./customs-content-types.mdx)
+    </Type>
+    <Description>
+      The CustomsContentTypes associated with this declaration
+    </Description>
+  </Field>
+  <Field name="non_delivery" nullable={true}>
+    <Type>
+      [CustomsNonDelivery](./customs-non-delivery.mdx)[]
+    </Type>
+    <Description>
+      Indicates what should be done if the package cannot be delivered. If `undefined`, the default behavior
+      of the receiving country's customs department applies, which may incur charges.
+    </Description>
+  </Field>
+  <Field name="customs_items" nullable={false}>
+    <Type>
+      [CustomsItem](./customs-item.mdx)[]
+    </Type>
+    <Description>
+      Describes the contents of the package for customs purposes.
+    </Description>
+  </Field>
+  <Field name="buyer_shipping_amount_paid" nullable={true}>
+    <Type>
+      [Currency](./../currency.mdx)
+    </Type>
+    <Description>
+      Indicates how much the buyer paid for shipping, if any. This amount may be different than the shipping cost billed to the shipper.
+    </Description>
+  </Field>
+  <Field name="duties_paid" nullable={true}>
+    <Type>
+      [Currency](./../currency.mdx)
+    </Type>
+    <Description>
+      The amount of the duties paid for this declaration
+    </Description>
+  </Field>
+</Reference>

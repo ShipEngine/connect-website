@@ -1,0 +1,47 @@
+---
+title: GetInventoryResponse
+description: This represents a response to a request to get paged results of inventory from the provider.
+---
+
+GetInventoryResponse
+===============================================
+This represents a response to a request to get paged results of inventory from the provider.
+
+
+<Reference>  
+  <Field name="inventory[]" type="object[]" nullable={false}>
+    <Description>
+      Data for the reponse to a reqeust to the inventory endpoint
+    </Description>
+  </Field>
+  <Field name="inventory.sku" type="string" nullable={false}>
+    <Description>
+        A stock-keeping unit associated with a product by the order source
+    </Description>
+  </Field>
+  <Field name="inventory.warehouse_id" type="string" nullable={false}>
+    <Description>
+        The unique ID for the warehouse
+    </Description>
+  </Field>
+  <Field name="inventory.available_quantity" type="number" nullable={false}>
+    <Description>
+        Number of units available
+    </Description>
+  </Field>
+  <Field name="inventory.committed_quantity" type="string" nullable={false}>
+    <Description>
+        Number of units committed to orders
+    </Description>
+  </Field>
+  <Field name="inventory.on_hand_quantity" type="string" nullable={false}>
+    <Description>
+        Number of units on hand
+    </Description>
+  </Field>
+  <Field name="next_request" type="any" nullable={true}>
+    <Description>
+      The next request to be processed
+    </Description>
+  </Field>
+</Reference>
