@@ -177,13 +177,19 @@ An object containing information about the new label to create.
       [pickup location object](./../carrier-address.mdx#pickup-location-object)
     </Type>
     <Description>
-      If this is a pickup shipment, a pickup location will be populated for where the recipient can pickup the shipment.
+      Some carriers allow for a pickup location to be specified that differs from the `ship_from` location.
+      If the carrier supports pickup locations and this field is populated, this will be the actual origin of the shipment and the `ship_from` field will be what appears on the label.
+
+      > **Note:** Pickup location differs from `relay_points` by allowing for any arbitrary address instead of `relay_points` official carrier locations.
     </Description>
   </Field>
 
   <Field name="relay_points" type="object" nullable={true}>
     <Description>
-      If this is a shipment that uses relay points, this will show which relay points to ship from and to.
+      Some carriers allow for shipments to be sent from and delivered to carrier official locations named relay points. These official locations could be lockers or a third party business that hold packages for the carrier.
+      If this is a shipment that uses relay points, this field will show which relay points to ship from and to.
+
+      > **Note:** Relay points differs from `pickup_location` by only allowing carrier official locations returned through the [Get Relay Points](./get-relay-points.mdx) method.
     </Description>
   </Field>
 
@@ -264,7 +270,6 @@ An object containing information about the new label to create.
   </Field>
 
 </Reference>
-
 
 
 Return Value
