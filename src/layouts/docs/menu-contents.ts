@@ -120,11 +120,11 @@ export const menu: MenuContents = [
             href: "/docs/reference/pickup-confirmation",
           },
           {
-            title: "OpeningTimes",
+            title: "Opening Times",
             href: "/docs/reference/opening-times",
           },
           {
-            title: "RelayPointAddress",
+            title: "Relay Point Address",
             href: "/docs/reference/relay-point-address",
           },
         ],
