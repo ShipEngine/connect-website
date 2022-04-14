@@ -73,7 +73,7 @@ export const menu: MenuContents = [
           { title: "Get Rates", href: "/docs/reference/methods/get-rates" },
           { title: "Track", href: "/docs/reference/methods/track" },
           {
-            title: "GetRelayPoints",
+            title: "Get Relay Points",
             href: "/docs/reference/methods/get-relay-points",
           },
         ],
