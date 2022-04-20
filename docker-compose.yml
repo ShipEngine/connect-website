@@ -1,0 +1,5 @@
+services:
+  connect-site:
+    build: .
+    ports:
+      - "3000:3000"
