@@ -14,11 +14,11 @@ logo:
 toc:
   enable: true
 oasDefinitions:
-  shipping: https://api.redocly.com/registry/bundle/auctane-uff/Carrier%20API/v1/openapi.yaml?branch=main
-  orders: https://api.redocly.com/registry/bundle/auctane-uff/Order%20Source%20API/V2/openapi.yaml?branch=master
-  freight: https://api.redocly.com/registry/bundle/auctane-uff/Freight%20API/V1/openapi.yaml?branch=main
-  inventory: https://api.redocly.com/registry/bundle/auctane-uff/Inventory%20API/V1/openapi.yaml?branch=main
-  nativeRating: https://api.redocly.com/registry/bundle/auctane-uff/Native%20Raiting%20API/V1/openapi.yaml?branch=main
+  shipping: https://api.redocly.com/registry/bundle/auctane-uff/Carrier/V1/openapi.yaml?branch=master
+  orders: https://api.redocly.com/registry/bundle/auctane-uff/Orders/V1/openapi.yaml?branch=master
+  freight: https://api.redocly.com/registry/bundle/auctane-uff/Freight/V1/openapi.yaml?branch=master
+  inventory: https://api.redocly.com/registry/bundle/auctane-uff/Inventory/V1/openapi.yaml?branch=master
+  nativeRating: https://api.redocly.com/registry/bundle/auctane-uff/Native%20Rating/V1/openapi.yaml?branch=master
 
 stylesheets:
   - https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700&display=swap
