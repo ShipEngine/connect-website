@@ -1,0 +1,44 @@
+meta:
+  title: ShipEngine Connect
+  description: ShipEngine Connect powers the world's leading e-commerce solutions, including ShipStation, ShipEngine, ShippingEasy, and ShipWorks.
+  siteUrl: https://connect.shipengine.com/
+  keywords: redocly developer portal, api portal starter, api reference docs
+  lang: en-US
+linkChecker:
+  severity: warning
+  options:
+    CheckExternal: false
+logo:
+  image: ./images/shipengine-connect-logo.svg
+  altText: ShipEngine Connect
+toc:
+  enable: true
+oasDefinitions:
+  shipping: https://api.redocly.com/registry/bundle/auctane-uff/Carrier%20API/v1/openapi.yaml?branch=main
+  orders: https://api.redocly.com/registry/bundle/auctane-uff/Order%20Source%20API/V2/openapi.yaml?branch=master
+  freight: https://api.redocly.com/registry/bundle/auctane-uff/Freight%20API/V1/openapi.yaml?branch=main
+  inventory: https://api.redocly.com/registry/bundle/auctane-uff/Inventory%20API/V1/openapi.yaml?branch=main
+  nativeRating: https://api.redocly.com/registry/bundle/auctane-uff/Native%20Raiting%20API/V1/openapi.yaml?branch=main
+
+stylesheets:
+  - https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700&display=swap
+  - https://fonts.googleapis.com/css?family=Source+Code+Pro:300,400,600,700&display=swap
+  - ./main.css
+#analytics:
+  # ga:
+  # note that GA doesn't work in the development environment
+  #  trackingId: UA-45997213-1
+#scripts:
+#  - ./static/intercom.js
+nav:
+  - search: true
+
+footer:
+  copyrightText: © 2019 Shipengine. All rights reserved.
+  columns:
+    - group: Support
+      items:
+        - label: FAQ
+          page: faq.md
+        - label: Contact us
+          page: contact.mdx
