@@ -1,49 +1,31 @@
-![ShipEngine Connect](public/img/logos/shipengine-connect-logo.png)
+# Redocly API developer portal
 
-# ShipEngine Connect Website
+## Prerequisites
 
-This repo is the public website for [ShipEngine Connect](https://connect.shipengine.com/), including its documentation.
+- [node.js >= 12.22.6 and <= 16.x](https://nodejs.org/en/)
+- [yarn](https://yarnpkg.com/en/)
 
-This is a [Next.js](https://nextjs.org/) application, and it uses [MDX](https://github.com/mdx-js/mdx) for the documentation pages.
+## Install
 
-## Development Environment Setup
+    yarn install
 
-### System Requirements
+## Start development server
 
-- [Node.js v14](https://nodejs.org/) or later
-- [yarn](https://yarnpkg.com/)
-- This project works on MacOS, Windows (including WSL), or Linux
+    yarn start
 
-### Installation
+Note: search isn't functional in the development environment.
 
-Use yarn to install all dependencies needed for local development:
+## Troubleshooting
 
-```bash
-yarn
-```
+We heavily rely on caching for performance issues so if some changes are not reflected in the resulting portal try cleaning cache by running:
 
-## Development Process
+    yarn clean
 
-### Local Development
+## Docs
 
-Start the local Next.js development server, which automatically cleans the output directory, does a full re-build, monitors the source code for changes, and does incremental re-builds whenever changes are detected.
+Read the [online documentation](https://redoc.ly/docs/developer-portal/introduction/).
 
-```bash
-yarn dev
-```
+## Training program
 
-Anytime you make code changes, you should run the tests to confirm that your code didn't break anything. Currently the `lint` script simply runs ESLint to verify that the code complies with our lint rules.
-
-```bash
-yarn lint
-```
-
-### QA / Review
-
-We use [Vercel](https://vercel.com/) to host the ShipEngine Connect website. One of the nice features of Vercel is that it creates a preview URL for every Git branch and PR, so you can see how the site will look in production and share the link with others to review .
-
-Just push your changes to your branch/PR and then go to [the Vercel dashboard](https://vercel.com/shipengine) to monitor the build process and get your preview URL.
-
-### Releasing to Prod
-
-Once you've reviewed your changes on the preview website and are happy with them, releasing to production is just a matter of merging to `master` and pushing. Vercel will automatically deploy the site to [connect.shipengine.com](https://connect.shipengine.com).
+The starter template contains training exercises which will teach you how to build a developer portal.
+After you start the development server, navigate to the app and follow the instructions to get started with your training.

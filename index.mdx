@@ -1,0 +1,77 @@
+---
+title: ShipEngine Connect
+---
+
+import {
+  LandingLayout,
+  Button,
+  Box,
+  FlexSection,
+  Flex,
+  Jumbotron,
+  ThinTile,
+  WideTile,
+  Emphasis,
+  H1,
+  H2,
+  SectionHeader,
+  NavBar,
+} from '@redocly/developer-portal/ui';
+import orderIcon from './images/orders.svg';
+import packageIcon from './images/package.svg';
+import truckIcon from './images/shipping-truck.svg';
+import calculatorIcon from './images/calculator.svg';
+import thirdPartyLogisticsIcon from './images/third-party-logistics.svg';
+import cogBrowser from './images/cog-browser.svg';
+import ontrac from './images/ontrac-logo.png';
+import prestashop from './images/prestashop.jpg';
+
+export default LandingLayout;
+
+<Jumbotron>
+  <NavBar location={props.location} standalone={false} />
+  <H1>ShipEngine Connect</H1>
+  <H2>Build, Deploy, Connect</H2>
+  <Flex p={20} justifyContent="center">
+     <Button variant="outlined" size="xlarge" color="purpleButton" to="./getting-started/how-it-works.md">
+      Get started
+    </Button>
+  </Flex>
+</Jumbotron>
+<Box my={25}>
+  <SectionHeader>
+    Create your own <Emphasis> branded integration </Emphasis> today!
+  </SectionHeader>
+  <FlexSection justifyContent="space-around" flexWrap="wrap">
+    <ThinTile header="Orders" icon={orderIcon} to="./orders/index.mdx">
+        Import Orders, Notify Marketplaces, etc...
+    </ThinTile>
+    <ThinTile header="Shipping" icon={packageIcon} to="./shipping/index.md">
+        Get Rates, Create Labels, Tracking, etc...
+    </ThinTile>
+    <ThinTile header="Inventory" icon={cogBrowser} >
+      Coming Soon...
+    </ThinTile>
+    <ThinTile header="3PL" icon={thirdPartyLogisticsIcon} >
+      Coming Soon...
+    </ThinTile>
+    <ThinTile header="Freight" icon={truckIcon} >
+        Coming Soon...
+    </ThinTile>
+    <ThinTile header="Native Rating" icon={calculatorIcon} >
+        Coming Soon...
+    </ThinTile>
+  </FlexSection>
+  <SectionHeader>
+    <Emphasis>Need help? </Emphasis>
+    See our example implementations.
+  </SectionHeader>
+  <FlexSection justifyContent="space-around" flexWrap="wrap">
+    <WideTile icon={ ontrac } header="Shipping" target="_blank" to="https://github.com/ShipEngine/connect-ontrac">
+       This is an example of a shipping integration built for Ontrac.
+    </WideTile>
+    <WideTile icon={ prestashop } header="Orders" target="_blank" to="https://github.com/ShipEngine/connect-prestashop">
+        This is an example of an orders integration built for PrestaShop.
+    </WideTile>
+  </FlexSection>
+</Box>

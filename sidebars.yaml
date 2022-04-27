@@ -1,0 +1,106 @@
+gettingStarted:
+  - group: Getting Started
+    expanded: true
+    pages:
+      - page: getting-started/how-it-works.md
+        label: How It Works
+      - page: getting-started/development-environment.md
+        label: Development Environment
+      - page: getting-started/installing-nodejs.md
+        label: Installing NodeJS
+      - page: getting-started/installing-cli.md
+        label: Installing Connect CLI
+      - page: getting-started/initialize-project.md
+        label: Initialize Project
+      - page: getting-started/local-development.md
+        label: Run Project Locally
+      - page: getting-started/publishing.md
+        label: Publish Your App
+shipping:
+  - page: shipping/index.md
+  - group: Methods
+    expanded: true
+    pages:
+      - page: shipping/reference.page.yaml/*
+freight:
+  - page: freight/index.md
+  - group: Methods
+    expanded: true
+    pages:
+      - page: freight/reference.page.yaml/*
+inventory:
+  - page: inventory/index.md
+  - group: Methods
+    expanded: true
+    pages:
+      - page: inventory/reference.page.yaml/*
+nativeRating:
+  - page: native-rating/index.md
+  - group: Methods
+    expanded: true
+    pages:
+      - page: native-rating/reference.page.yaml/*
+orders:
+  - page: orders/index.mdx
+  - label: Authentication
+    page: orders/authentication.md
+  - group: Methods
+    expanded: true
+    pages:
+      - page: orders/reference.page.yaml/*
+oauth:
+  - group: OAuth
+    expanded: true
+    pages:
+      - page: oauth/index.md
+        label: Configuration
+      - page: oauth/1.0.md
+        label: OAuth 1.0
+      - page: oauth/2.0.md
+        label: OAuth 2.0
+  - group: Flow
+    expanded: true
+    pages:
+      - page: oauth/flow/authorization.md
+        label: Authorization
+      - page: oauth/flow/request-token.md
+        label: Request
+      - page: oauth/flow/refresh-token.md
+        label: Refresh
+  - group: Examples
+    expanded: true
+    pages:
+      - page: oauth/examples/definition.md
+        label: Generic
+      - page: oauth/examples/ebay.md
+        label: eBay
+      - page: oauth/examples/google.md
+        label: Google
+      - page: oauth/examples/trade-me.md
+        label: Trade Me
+  - group: Advanced Topics
+    expanded: true
+    pages:
+      - page: oauth/advanced/connection-context.md
+        label: Connection Context
+      - page: oauth/advanced/response-transformation.md
+        label: Response Transformation
+      - group: Templating
+        expanded: true
+        pages:
+          - page: oauth/templating/index.md
+            label: Overview
+          - page: oauth/templating/auth-state.md
+            label: Auth State
+          - page: oauth/templating/base64.md
+            label: Base64
+          - page: oauth/templating/callback.md
+            label: Callback
+          - page: oauth/templating/installation.md
+            label: Installation
+          - page: oauth/templating/integration.md
+            label: Integration
+          - page: oauth/templating/result-token-response.md
+            label: Result Token Response
+          - page: oauth/templating/system.md
+            label: System
