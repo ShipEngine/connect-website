@@ -4,10 +4,6 @@ ingress:
   hosts:
     - shipengine-connect-website-v1-prod.kube.seplocal.com
 
-env:
-  PGHOST: shipengine-connect-shared-prod.cluster-cby3ni8twmoi.us-east-1.rds.amazonaws.com
-  ASPNETCORE_ENVIRONMENT: Production
-
 resources:
   limits:
     cpu: 500m

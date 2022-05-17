@@ -31,36 +31,16 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 3000
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /diagnostics/liveness
+              path: /
               port: http
           readinessProbe:
             httpGet:
-              path: /diagnostics/readiness
+              path: /
               port: http
-          env:
-          {{- range $key, $value := .Values.env }}
-          - name: {{ $key }}
-            value: {{ $value | quote }}
-          {{- end }}
-          - name: SS_CONNECTION_STR
-            valueFrom:
-              secretKeyRef:
-                name: shipstation-dev
-                key: sqlserver
-          - name: SS_REDIS_STR
-            valueFrom:
-              secretKeyRef:
-                name: shipstation-dev
-                key: redis
-          - name: PGPASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: shipengine-connect-services-shared-db
-                key: data-manager
           {{- if .Values.resources }}
           resources:
             {{- with .Values.resources }}
