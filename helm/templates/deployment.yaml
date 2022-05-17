@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "infra.fullname" . }}
+  labels:
+    app: {{ template "infra.name" . }}
+    chart: {{ template "infra.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "infra.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      {{- if .Values.podAnnotations }}
+      annotations:
+        {{- with .Values.podAnnotations }}
+        {{- toYaml . | trim | nindent 8 }}
+        {{- end }}
+      {{- end }}
+      labels:
+        app: {{ template "infra.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /diagnostics/liveness
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /diagnostics/readiness
+              port: http
+          env:
+          {{- range $key, $value := .Values.env }}
+          - name: {{ $key }}
+            value: {{ $value | quote }}
+          {{- end }}
+          - name: SS_CONNECTION_STR
+            valueFrom:
+              secretKeyRef:
+                name: shipstation-dev
+                key: sqlserver
+          - name: SS_REDIS_STR
+            valueFrom:
+              secretKeyRef:
+                name: shipstation-dev
+                key: redis
+          - name: PGPASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: shipengine-connect-services-shared-db
+                key: data-manager
+          {{- if .Values.resources }}
+          resources:
+            {{- with .Values.resources }}
+            {{- toYaml . | trim | nindent 12 }}
+            {{- end }}
+          {{- end }}
+      {{- if .Values.serviceAccount.create }}
+      serviceAccountName: {{ template "infra.fullname" . }}
+      {{- end }}
