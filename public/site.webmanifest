@@ -2,7 +2,7 @@
   "name": "ShipEngine Connect",
   "short_name": "Connect",
   "description": "Integrate your carrier or marketplace with our world class e-commerce solutions and gain immediate access to a global user base",
-  "start_url": "https://connect.shipengine.com/",
+  "start_url": "https://connect-v1.shipengine.com/",
   "theme_color": "#FFFFFF",
   "background_color": "#FFFFFF",
   "display": "standalone",

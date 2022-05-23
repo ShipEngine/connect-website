@@ -4,7 +4,7 @@ import { isDev } from "./utils";
 /**
  * The URL of the ShipEngine Connect website
  */
-export const siteURL = new URL(isDev ? "http://localhost:3000" : "https://connect.shipengine.com");
+export const siteURL = new URL(isDev ? "http://localhost:3000" : "https://connect-v1.shipengine.com");
 
 /**
  * The ShipEngine Connect logo image URL
@@ -20,5 +20,5 @@ export const defaultImageURL = new URL("img/media/card-square.png", siteURL);
  * Returns the canonical URL of the current page
  */
 export function getPageURL(router: NextRouter): URL {
-  return new URL(router.pathname, siteURL);
+    return new URL(router.pathname, siteURL);
 }

@@ -3,7 +3,7 @@
   "name": "@shipengine/connect-website",
   "version": "1.0.0",
   "description": "The ShipEngine Connect website, including documentation",
-  "homepage": "https://connect.shipengine.com/",
+  "homepage": "https://connect-v1.shipengine.com/",
   "repository": {
     "type": "git",
     "url": "https://github.com/ShipEngine/connect.git"
