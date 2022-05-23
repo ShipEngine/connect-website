@@ -1,0 +1,47 @@
+name: V1 GitHub Pages
+
+on:
+  push:
+    branches:
+      - v1-ghpages
+  pull_request:
+    branches:
+      - v1-ghpages
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true  # Fetch Hugo themes (true OR recursive)
+          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+
+      - name: install node@14
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: install dependencies
+        run: yarn install --immutable --immutable-cache
+
+      - name: test
+        run: yarn run lint
+
+      - name: build
+        run: yarn run build
+
+      - name: next.js export
+        run: yarn run export
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        if: ${{ github.ref == 'refs/heads/v1-ghpages' }}
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages-v1
+          publish_dir: ./out
