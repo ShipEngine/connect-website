@@ -3,7 +3,7 @@
 ShipEngine Connect Website
 ==============================================
 
-This repo is the public website for [ShipEngine Connect](https://connect.shipengine.com/), including its documentation.
+This repo is the public website for [ShipEngine Connect v1](https://connect-v1.shipengine.com/), including its documentation.
 
 This is a [Next.js](https://nextjs.org/) application, and it uses [MDX](https://github.com/mdx-js/mdx) for the documentation pages.
 
@@ -50,10 +50,8 @@ yarn upgrade
 
 
 ### QA / Review
-We use [Vercel](https://vercel.com/) to host the ShipEngine Connect website. One of the nice features of Vercel is that it creates a preview URL for every Git branch and PR, so you can see how the site will look in production and share the link with others to review .
-
-Just push your changes to your branch/PR and then go to [the Vercel dashboard](https://vercel.com/shipengine) to monitor the build process and get your preview URL.
+We use [Github Pages](https://pages.github.com/) to host the ShipEngine Connect v1 website. There is not currently a live preview associated with pull requests. Please test your changes locally and include screenshots in your pull request description when appropriate.
 
 
 ### Releasing to Prod
-Once you've reviewed your changes on the preview website and are happy with them, releasing to production is just a matter of merging to `master` and pushing.  Vercel will automatically deploy the site to [connect.shipengine.com](https://connect.shipengine.com).
+Once you've reviewed your changes on the preview website and are happy with them, releasing to production is just a matter of merging to `v1` and pushing.  Github will automatically deploy the site to [connect-v1.shipengine.com](https://connect-v1.shipengine.com).

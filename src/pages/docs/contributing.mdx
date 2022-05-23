@@ -15,9 +15,9 @@ When contributing a Connect app to the ShipEngine Connect platform, please follo
 
 ## Getting started
 
-1. To get started with Connect, follow the [online documentation to create a new app](https://connect.shipengine.com/docs/cli#initialize-a-new-app). 
+1. To get started with Connect, follow the [online documentation to create a new app](https://connect-v1.shipengine.com/docs/cli#initialize-a-new-app).
 
-2. Once you have [installed the Connect npm package](https://connect.shipengine.com/docs/cli) => `npm i @shipengine/connect -g`, you will be able to generate a new templated base repository via the cli => `connect init`.
+2. Once you have [installed the Connect npm package](https://connect-v1.shipengine.com/docs/cli) => `npm i @shipengine/connect -g`, you will be able to generate a new templated base repository via the cli => `connect init`.
 
 3. As a best practice to help ensure that visibility is clear for any changes made after the template has been scaffolded on your local machine, we ask that you create an initial commit before adding any custom changes.
 
@@ -41,7 +41,7 @@ When contributing a Connect app to the ShipEngine Connect platform, please follo
 
 ### General guidance
 
-1. The documentation site can be found here, http://connect.shipengine.com/. This is the best single resource to answer your questions related to building a Connect app. Please familiarize yourself with these docs.
+1. The documentation site can be found here, http://connect-v1.shipengine.com/. This is the best single resource to answer your questions related to building a Connect app. Please familiarize yourself with these docs.
    - It will be helpful to review the [Sample Apps](https://github.com/ShipEngine/connect-samples) as well to get a grasp on how implementation can be handled in a few example scenarios.
 2. Do not use non-public shared packages, as they will fail to build and deploy properly inside our production environments.
    - If a package is **not** publicly hosted and available via `npm`, it should be not referenced as a dependency within your app.
@@ -55,25 +55,25 @@ When contributing a Connect app to the ShipEngine Connect platform, please follo
 
 ### Expectations for contractors
 
-1. Deliver a functional application that fulfills the outlined requirements within an established timeframe. 
+1. Deliver a functional application that fulfills the outlined requirements within an established timeframe.
 2. As development progresses, status updates and communication of any barriers should happen without delay so they can be addressed in a timely manner.
 3. Clear communication is essential to delivering a high quality integration and should be done throughout the process.
 4. Feedback on how the offering can be improved to facilitate better development should be a primary consideration.
 
 ### When the docs are not enough
 
-1. When questions arise which are not addressed within the documentation, they should be directed to the Engineering Coordinators to effectively answer the questions and work with the team to update the Connect SDK and/or documentation to clarify the situation. 
+1. When questions arise which are not addressed within the documentation, they should be directed to the Engineering Coordinators to effectively answer the questions and work with the team to update the Connect SDK and/or documentation to clarify the situation.
 2. Likewise, when there are features or elements that are supported within a Carrier or Order Source which do not correlate with any available methods in ShipEngine Connect, we would like to be made aware of them so that we can investigate and potentially fill the noted gaps in supported functionality.
 
 ### Code quality
 
 1. **Security is paramount**. As such there is a lot of time and thought that should be taken to ensure both the code as well as the process is secure. Listed below are some common considerations that should be taken to help ensure security gaps are considered and mitigated during the development phase.
    - Never store credentials inside the git repository.
-   
+
    - Frequently `client_id` and `client_secret`'s are needed to allow an integration to authenticate with 3rd party apis. The secret should always remain secret.
      - When you have the option... You should not pass secrets as part of a URL. If the API you are calling requires this, you may not have a choice. But if you have an option to send via the headers, you should choose the header option.
        - Note that when using HTTPS, even the query string will be protected, but the path is likely to still end up inside the logs.
-   
+
 2. Audit your commit history to ensure you have not committed sensitive data into the version control history.
 
    - `git grep SENSITIVE_DATA_STRING_HERE $(git rev-list --all)`

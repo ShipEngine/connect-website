@@ -18,7 +18,7 @@ export function Header() {
         </label>
         <input id="site-search" className="st-default-search-input"
           name="q" type="search" placeholder="Search" />
-        <input type="hidden" name="as_sitesearch" value="connect.shipengine.com" />
+        <input type="hidden" name="as_sitesearch" value="connect-v1.shipengine.com" />
       </form>
     </header>
   );

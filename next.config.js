@@ -6,7 +6,7 @@ const nextMDX = require("@jsdevtools/next-mdx");
 const withMDX = nextMDX({
   layoutsDir: "./src/layouts",
   pagesDir: "./src/pages",
-  siteURL: "https://connect.shipengine.com",
+  siteURL: "https://connect-v1.shipengine.com",
 });
 
 // Enable MDX in Next.js
