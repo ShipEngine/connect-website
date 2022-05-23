@@ -3,10 +3,10 @@ name: V1 GitHub Pages
 on:
   push:
     branches:
-      - ricky/v1-ghpages
+      - v1
   pull_request:
     branches:
-      - ricky/v1-ghpages
+      - v1
   workflow_dispatch: {}
 
 jobs:
@@ -18,9 +18,6 @@ jobs:
       group: ${{ github.workflow }}-${{ github.ref }}
     steps:
       - uses: actions/checkout@v3
-        with:
-          submodules: true  # Fetch Hugo themes (true OR recursive)
-          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
 
       - name: install node@14
         uses: actions/setup-node@v2
@@ -41,8 +38,9 @@ jobs:
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
-        if: ${{ github.ref == 'refs/heads/ricky/v1-ghpages' }}
+        if: ${{ github.ref == 'refs/heads/v1' }}
         with:
+          cname: connect-v1.shipengine.com
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages-v1
           publish_dir: ./out
