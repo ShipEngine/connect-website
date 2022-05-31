@@ -17,7 +17,7 @@ gettingStarted:
       - page: getting-started/publishing.md
         label: Publish Your App
 shipping:
-  - page: shipping/index.md
+  - page: shipping/index.mdx
   - group: Methods
     expanded: true
     pages:
