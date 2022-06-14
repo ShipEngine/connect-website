@@ -1,6 +1,9 @@
 ---
 title: Publishing
 ---
+# API Key
+Before you can publish your app, you will need to contact the [ShipEngine Connect Team](mailto:connect@shipengine.com) to have an API key provisioned for you.
+
 # Publishing
 You can run the `shipengine-connect publish` command to publish your application to the testing environment.
 
