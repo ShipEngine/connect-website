@@ -4,8 +4,6 @@ gettingStarted:
     pages:
       - page: getting-started/how-it-works.md
         label: How It Works
-      - page: getting-started/development-environment.md
-        label: Development Environment
       - page: getting-started/installing-nodejs.md
         label: Installing NodeJS
       - page: getting-started/installing-cli.md
