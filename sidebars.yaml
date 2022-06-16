@@ -18,6 +18,7 @@ gettingStarted:
         label: Publish Your App
 shipping:
   - page: shipping/index.mdx
+  - page: shipping/testing-guide.mdx
   - group: Methods
     expanded: true
     pages:
@@ -42,6 +43,7 @@ nativeRating:
       - page: native-rating/reference.page.yaml/*
 orders:
   - page: orders/index.mdx
+  - page: orders/testing-guide.mdx
   - label: Authentication
     page: orders/authentication.md
   - group: Methods
