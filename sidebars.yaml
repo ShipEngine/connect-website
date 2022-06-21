@@ -47,6 +47,10 @@ orders:
   - label: Authentication
     page: orders/authentication.md
   - group: Methods
+    expaned: true
+    pages:
+      - page: orders/methods/sales-orders-export.mdx
+  - group: API
     expanded: true
     pages:
       - page: orders/reference.page.yaml/*
