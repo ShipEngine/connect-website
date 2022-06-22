@@ -81,7 +81,7 @@ Once you create the order and click the Save button, you will be taken to a scre
 ### Validate Error Handling
 
 :::success Info
-These tests exercise your [`GetRates` method](../reference/operation/Get%20Rates).
+These tests exercise your [`GetRates` method](../reference/operation/GetRates).
 :::
 
 This page gets new rates as you make changes to the shipment details. You can refresh the rate information that
@@ -101,7 +101,7 @@ country supported by the carrier.
 ### Create Labels
 
 :::success Info
-These tests exercise your [`CreateLabel` method](../reference/operation/Create%20a%20Label).
+These tests exercise your [`CreateLabel` method](../reference/operation/CreateLabel).
 :::
 
 1. Create a manual order for a domestic shipment.
@@ -117,7 +117,7 @@ You should repeat the steps above for the following cases:
 ## Testing in the Rate Calculator
 
 :::success Info 
-These tests execute your [`GetRates` method](../reference/operation/Get%20Rates).
+These tests execute your [`GetRates` method](../reference/operation/GetRates).
 :::
 
 You should validate that your app performs properly when getting rates from the rate calculator in the toolbar.
@@ -137,7 +137,7 @@ and that all your metadata appears as expected when viewed through ShipStation.
 
 ### Validate Rates
 :::success Info
-These tests exercise your [`GetRates` method](../reference/operation/Get%20Rates).
+These tests exercise your [`GetRates` method](../reference/operation/GetRates).
 :::
 
 Clicking the **_Browse Rates_** button in the rate calculator makes a call to your `rateShipment` method. In this
@@ -147,7 +147,7 @@ that don't match the specified criteria.
 
 ### Create Labels
 :::success Info
-These tests exercise your [`CreateLabel` method](../reference/operation/Create%20a%20Label).
+These tests exercise your [`CreateLabel` method](../reference/operation/CreateLabel).
 :::
 
 1. Enter rate criteria that matches a rate provided by your carrier.
@@ -171,7 +171,7 @@ after you created a new manual order. It is a good idea to verify all your servi
 
 ## Voiding Labels
 :::success Info
-These tests exercise your [`VoidLabels` method](../reference/operation/Void%20a%20Label).
+These tests exercise your [`VoidLabels` method](../reference/operation/VoidLabels).
 :::
 
 If you have run through the tests above, you should now have several shipments available in the shipments grid in
@@ -194,7 +194,7 @@ created.
 
 ## Tracking Shipments
 :::success Info
-These tests exercise your [`Track` method](../reference/operation/Track%20a%20Shipment).
+These tests exercise your [`Track` method](../reference/operation/Track).
 :::
 
 ## Getting Tracking Info
@@ -226,7 +226,7 @@ If the status has changed in your backend system since you created the label, yo
 
 ## Scheduling a Pickup
 :::success Info
-These tests exercise your [`SchedulePickup` method](../reference/operation/Schedule%20Adhoc%20Pickup).
+These tests exercise your [`SchedulePickup` method](../reference/operation/SchedulePickup).
 :::
 
 1. [Create a label](https://help.shipstation.com/hc/en-us/articles/360026157651-Create-Single-Labels)
@@ -257,7 +257,7 @@ Schedule a pickup for the shipment for which you just created.
 
 ## Canceling a Pickup
 :::success Info
-These tests exercise your [`CancelPickup` method](../reference/operation/Cancel%20Adhoc%20Pickup).
+These tests exercise your [`CancelPickup` method](../reference/operation/CancelPickup).
 :::
 
 At this point, you should have a pickup scheduled that is available to cancel.
@@ -269,7 +269,7 @@ At this point, you should have a pickup scheduled that is available to cancel.
 
 ## Creating a Manifest
 :::success Info
-These tests exercise your [`CreateManifest` method](../reference/operation/Create%20Manifest).
+These tests exercise your [`CreateManifest` method](../reference/operation/CreateManifest).
 :::
 
 A manifest, also known as a SCAN form or end-of-day form, allows you to provide the carrier with a single form that can
