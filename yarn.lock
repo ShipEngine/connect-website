@@ -1710,17 +1710,17 @@
     require-from-string "^2.0.2"
     uri-js "^4.2.2"
 
-"@redocly/developer-portal@1.1.0-beta.99":
-  version "1.1.0-beta.99"
-  resolved "https://registry.yarnpkg.com/@redocly/developer-portal/-/developer-portal-1.1.0-beta.99.tgz#27c7725d6f8c4804d2e07605f1e15822bd1f82e0"
-  integrity sha512-v2irOL1dFShcvr3mkCt7fSl8g6BNTXPO+YyAfGDBIGt6oqCBF9uMAaWyQ3aqvRzNVhuZONjmz25hyfYosumeDA==
+"@redocly/developer-portal@1.1.0-beta.101":
+  version "1.1.0-beta.101"
+  resolved "https://registry.yarnpkg.com/@redocly/developer-portal/-/developer-portal-1.1.0-beta.101.tgz#db84d816bc9e1aab59968019719acebcdd554079"
+  integrity sha512-GMTy4L97kHpN+APU7zqrLOMf12Lqt+CtUPvrmtaXWqr0iLT35heH/k/miu4Bmeb9Vp9lRBB6dP2Xk2xhsKnGlA==
   dependencies:
     "@mdx-js/mdx" "0.19.0"
     "@mdx-js/tag" "0.20.3"
     "@redocly/gatsby-plugin-manifest" "3.3.2"
     "@redocly/gatsby-remark-images" "4.2.0"
     "@redocly/openapi-core" "1.0.0-beta.102"
-    "@redocly/reference-docs" "2.23.0"
+    "@redocly/reference-docs" "2.25.1"
     babel-plugin-react-html-attrs "^3.0.5"
     babel-plugin-styled-components "^1.12.0"
     buffer "^6.0.3"
@@ -1895,10 +1895,10 @@
     pluralize "^8.0.0"
     yaml-ast-parser "0.0.43"
 
-"@redocly/reference-docs@2.23.0":
-  version "2.23.0"
-  resolved "https://registry.yarnpkg.com/@redocly/reference-docs/-/reference-docs-2.23.0.tgz#0edf98df8e32974d1b08c795062006c5443fc2a2"
-  integrity sha512-RFZ6lYH0/egjg2uZD9YHU1af3Guv6dscvphaD5YgBdrmTNowPjuok3US4KaKt85kN+6zmNdY9a/ew9pVcMTn/A==
+"@redocly/reference-docs@2.25.1":
+  version "2.25.1"
+  resolved "https://registry.yarnpkg.com/@redocly/reference-docs/-/reference-docs-2.25.1.tgz#ca27a501c05bb217acc889c05d361a09faa96ccd"
+  integrity sha512-D0DB7zj/O0LKYKVmqwZYVc5p7Q+wehaD4nWX2A45U75W85cQiUuKal5Mp+Wk0COk+suMvyLnd3NeYK13RWd6DQ==
   dependencies:
     "@redocly/openapi-core" "1.0.0-beta.97"
     "@redocly/vscode-json-languageservice" "3.4.9"
