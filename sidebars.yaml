@@ -8,7 +8,7 @@ gettingStarted:
         label: Installing NodeJS
       - page: getting-started/cli.md
         label: ShipEngine Connect CLI
-      - page: getting-started/initialize-project.md
+      - page: getting-started/initialize-project.mdx
         label: Initialize Project
       - page: getting-started/local-development.md
         label: Run Project Locally
