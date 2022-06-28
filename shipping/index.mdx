@@ -13,3 +13,203 @@ import Schema from "./metadata-schema.json";
 :::success OAuth
 Learn More about defining an OAuth AuthProcess [here](../oauth/index.md)
 :::
+
+## TypeScript Example
+
+
+```TypeScript App
+import { CarrierAppMetadata } from '@shipengine/connect-carrier-api';
+
+import { DemoCarrier } from './demo-carrier';
+
+export const Metadata: CarrierAppMetadata = {
+  // DO NOT CHANGE THIS ID AFTER PUBLISHING
+  Id: '89ebe16c-29fb-4dc5-b949-349bd4625656',
+  Name: 'Example Carrier',
+  Carriers: [DemoCarrier],
+};
+```
+```TypeScript Carrier
+import {
+  Carrier,
+  LabelSizesEnum,
+  LabelFormatsEnum,
+  ShippingOptionEnum,
+  ConfirmationTypeEnum,
+} from '@shipengine/connect-carrier-api';
+import { join } from 'path';
+import { Box, Bag } from './packaging';
+import { NextDayAir, BudgetDelivery } from './shipping-services';
+
+export const DemoCarrier: Carrier = {
+  // DO NOT CHANGE THIS ID AFTER PUBLISHING
+  Id: '15b60bda-e92e-49bf-9fdb-54113d5a96fa',
+  Name: 'Demo Carrier',
+  Description: 'This is a description about the carrier',
+  PackageTypes: [Box, Bag],
+  ShippingServices: [NextDayAir, BudgetDelivery],
+  ShippingOptions: {
+    [ShippingOptionEnum.DryIce]: {
+      Name: 'Contains Dry Ice',
+      Description: 'This shipment contains dry ice.',
+    },
+    [ShippingOptionEnum.ContainsAlcohol]: {
+      Name: 'Contains Booze',
+      Description: 'The person signing needs to be of legal drinking age',
+    },
+    [ShippingOptionEnum.B13ACanada]: {
+      Name: 'B13A Canadian Export Decleration',
+      Description:
+        `The B13A is an Export Declaration and is mandatory for all export shipments valued at
+        CAD 2000.00 and over. Shipments going to U.S. Destinations (including Puerto Rico and 
+        the U.S. Virgin Islands) are not required to fill in the B13A form.`,
+    },
+  },
+  DefaultSupportedCountries: [
+    {
+      FromCountry: 'US',
+    },
+    {
+      FromCountry: 'GB',
+    },
+  ],
+  DefaultLabelSizes: [LabelSizesEnum.Inches4x6, LabelSizesEnum.Inches4x8],
+  LabelFormats: [LabelFormatsEnum.PDF, LabelFormatsEnum.ZPL],
+  DefaultConfirmationTypes: {
+    [ConfirmationTypeEnum.None]: 'No Confirmation Required',
+    [ConfirmationTypeEnum.AdultSignature]: 'Adult Required',
+  },
+  TrackingUrl: 'https://the.carrier.com/track',
+  CarrierUrl: 'https://the.carrier.com',
+  Images: {
+    Logo: join(__dirname, '../../../assets/logo.svg'),
+    Icon: join(__dirname, '../../../assets/icon.svg'),
+  },
+  AccountModals: {
+    RegistrationFormSchema: {
+      formSchema: {
+        jsonSchema: {
+          type: 'object',
+          title: 'Login Form Example',
+          required: ['email', 'password'],
+          properties: {
+            email: {
+              type: 'string',
+              title: 'Email Address',
+              format: 'email',
+            },
+            password: {
+              type: 'string',
+              title: 'Password',
+              minLength: 8,
+            },
+          },
+          description: 'Connect to your account.',
+        },
+        uiSchema: {
+          email: {
+            'ui:autofocus': true,
+            'ui:emptyValue': 'you@example.com',
+          },
+          password: {
+            'ui:help': 'Note: password is case sensitive',
+            'ui:widget': 'password',
+          },
+        },
+      },
+    },
+    SettingsFormSchema: {
+      formSchema: {
+        jsonSchema: {
+          type: 'object',
+          title: 'Login Form Example',
+          required: ['email', 'password'],
+          properties: {
+            email: {
+              type: 'string',
+              title: 'Email Address',
+              format: 'email',
+            },
+            password: {
+              type: 'string',
+              title: 'Password',
+              minLength: 8,
+            },
+          },
+          description: 'Connect to your account.',
+        },
+        uiSchema: {
+          email: {
+            'ui:autofocus': true,
+            'ui:emptyValue': 'you@example.com',
+          },
+          password: {
+            'ui:help': 'Note: password is case sensitive',
+            'ui:widget': 'password',
+          },
+        },
+      },
+    },
+  },
+};
+```
+```TypeScript Shipping Service
+import {
+  ShippingService,
+  ServiceRequiredPropertiesEnum,
+  LabelSizesEnum,
+  ServiceGradeEnum,
+  ServiceClassEnum,
+  ServiceAttributesEnum,
+} from '@shipengine/connect-carrier-api';
+
+export const BudgetDelivery: ShippingService = {
+  // DO NOT CHANGE THIS ID AFTER PUBLISHING
+  Id: '0e300710-3b08-4d18-9eb8-10dd9bde094f',
+  Name: 'Budget Delivery',
+  Abbreviation: 'budget',
+  Code: 'cheap',
+  International: false,
+  RequiredProperties: [
+    ServiceRequiredPropertiesEnum.Dimensions,
+    ServiceRequiredPropertiesEnum.Weight,
+  ],
+  SupportedLabelSizes: [LabelSizesEnum.Inches4x6],
+  SupportedCountries: [
+    {
+      FromCountry: 'GB',
+    },
+    {
+      FromCountry: 'AU',
+    },
+  ],
+  Class: ServiceClassEnum.OneDayEarly,
+  Grade: ServiceGradeEnum.Overnight,
+  ServiceAttributes: [
+    ServiceAttributesEnum.Returns,
+    ServiceAttributesEnum.MultiPackage,
+    ServiceAttributesEnum.Tracking,
+  ],
+};
+```
+```TypeScript Packaging
+import {
+  PackageAttribute,
+  PackageType,
+  RequiredToShipEnum,
+} from '@shipengine/connect-carrier-api';
+
+export const Bag: PackageType = {
+  // DO NOT CHANGE THIS ID AFTER PUBLISHING
+  Id: '4abbc03c-2146-446c-8c1d-6d768858f5a4',
+  Name: 'Bag',
+  CarrierPackageTypeCode: 'BG_1',
+  Description: 'This is a plastic bag',
+  Abbreviation: 'Bg',
+  PackageAttributes: [
+    PackageAttribute.International,
+    PackageAttribute.Domestic,
+  ],
+  RequiredToShip: [RequiredToShipEnum.Weight],
+};
+```
