@@ -6,8 +6,8 @@ gettingStarted:
         label: How It Works
       - page: getting-started/installing-nodejs.md
         label: Installing NodeJS
-      - page: getting-started/installing-cli.md
-        label: Installing Connect CLI
+      - page: getting-started/cli.md
+        label: ShipEngine Connect CLI
       - page: getting-started/initialize-project.md
         label: Initialize Project
       - page: getting-started/local-development.md

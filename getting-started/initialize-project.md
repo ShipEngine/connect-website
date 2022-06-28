@@ -2,7 +2,10 @@
 title: Initialize Project
 ---
 # Initialize Project
-Running the command `shipengine-connect init` will begin the process of creating a new ShipEngine Connect application.
+Running the command `init` will begin the process of creating a new ShipEngine Connect application.
+```
+shipengine-connect init
+```
 
 ![](./images/connect-init.png)
 

@@ -1,7 +1,11 @@
 ---
 title: How It Works
 ---
-## How It Works
+# How It Works
+:::warning Self Integrators
+Please contact the [ShipEngine Connect Team](mailto:connect@shipengine.com) at [connect@shipengine.com](mailto:connect@shipengine.com) and let them know that you are interested in becoming a self integrator.<br/><br/>
+**A signed contract must be in place prior to an integration going live.**
+:::
 Our platform will make a call out to your integration which is hosted inside of a container. Your project implements and exposes an object that can be consumed by any runtime we build. By default your project is packaged with an http web service runtime. The general idea is that you are simply implementing methods that will be passed the body of the http request as the input to the method, and the response will be serialized and returned as the response.
 
 ```mermaid

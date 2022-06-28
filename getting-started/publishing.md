@@ -1,14 +1,27 @@
 ---
 title: Publishing
 ---
-# API Key
-Before you can publish your app, you will need to contact the [ShipEngine Connect Team](mailto:connect@shipengine.com) to have an API key provisioned for you.
 
 # Publishing
+## Publish Command
 You can run the `shipengine-connect publish` command to publish your application to the testing environment.
 
 ![](./images/shipengine-connect-publish.png)
 
 After your app is successfully published you will be given login credentials to a test instance of [ShipStation](https://ship-devss111.sslocal.com/).
 
-You can then begin testing your application within shipstation. All logs your module makes in this test environment can be viewed by using the `shipengine-connect logs` command.
+## Logging
+:::info Note
+Every publish will reset the logs that you can acquire from the logs command.
+:::
+You can then begin testing your application within shipstation. All logs your module makes in this test environment can be viewed by using the `logs` command.
+
+**Write running integrations logs to terminal**
+```
+shipengine-connect logs
+```
+
+**Write running integrations logs to file**
+```
+shipengine-connect logs > logfile.log
+```
