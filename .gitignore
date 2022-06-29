@@ -1,3 +1,12 @@
-node_modules
-public/
 .DS_Store
+
+.yarn/*
+!.yarn/cache
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+node_modules/
+public/
