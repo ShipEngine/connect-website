@@ -19,6 +19,7 @@ shipping:
   - page: shipping/logging.md
   - page: shipping/error-handling.md
   - page: shipping/testing-guide.mdx
+  - page: shipping/environment-variables.md
   - group: Methods
     expanded: true
     pages:
@@ -46,6 +47,7 @@ orders:
   - page: orders/logging.md
   - page: orders/error-handling.md
   - page: orders/testing-guide.mdx
+  - page: orders/environment-variables.md
   - label: Authentication
     page: orders/authentication.md
   - group: Methods
