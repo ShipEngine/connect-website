@@ -27,6 +27,14 @@ flowchart LR
     connect-.->integration
     integration-.->thirdparty
 ```
+:::success Product Visibility
+When an application is promoted to production it becomes available to consumers of the ShipEngine platform including brands like ShipWorks, ShippingEasy, ShipStation, etc.
+
+***This however does not guarantee that a brand will choose to include your integration in their service offerings.*** 
+
+*For more details on brand availability, please reach out to your business contact with Auctane or the [ShipEngine Connect Team](mailto:connect@shipengine.com).*
+:::
+
 All types that can be found in the api documentation have a corresponding model in the SDK.
  
 ```JavaScript methods/acknowledge-orders/index.js
