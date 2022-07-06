@@ -4,8 +4,9 @@ import { CodeWrapper } from "./CodeWrapper";
 
 export const FormView = ({ form, getCode }) => {
   const [code, setCode] = useState(getCode({}));
-  const { register, watch, formState: { errors } } = useForm({ criteriaMode: 'all' });
+  const { register, watch, formState: { errors }, setValue, reset } = useForm({ reValidateMode: 'onChange',  mode: 'onChange' });
   useEffect(() => {
+    console.log(errors);
     const subscription = watch(value => {
       setCode(getCode(value));
     });
@@ -13,7 +14,7 @@ export const FormView = ({ form, getCode }) => {
   }, [watch])
   return (
     <div>
-      { form({register, errors}) }
+      { form({register, errors, setValue, reset}) }
       <CodeWrapper>{code}</CodeWrapper>
     </div>
   );
