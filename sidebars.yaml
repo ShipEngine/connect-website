@@ -56,6 +56,10 @@ orders:
     expanded: true
     pages:
       - page: orders/reference.page.yaml/*
+  - group: Tools
+    expanded: true
+    pages:
+      - page: orders/tools/order-source-definition.mdx
 oauth:
   - group: OAuth
     expanded: true
