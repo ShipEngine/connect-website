@@ -1,0 +1,588 @@
+{
+  "description": "This represents a single integration which may contain multiple branded order sources",
+  "type": "object",
+  "properties": {
+    "Id": {
+      "description": "The id for this integration",
+      "type": "string",
+      "format": "uuid"
+    },
+    "Name": {
+      "description": "The name of this integration",
+      "type": "string"
+    },
+    "ApiCode": {
+      "description": "The api code ShipEngine customers will use for this order source",
+      "type": "string"
+    },
+    "AuthProcess": {
+      "description": "The specification for authorizing with this order source",
+      "type": "object",
+      "properties": {
+        "Identifier": {
+          "description": "Identify the type of Auth being used by the integration",
+          "type": "object",
+          "properties": {
+            "AuthenticationType": {
+              "description": "The type of authentication the third party uses",
+              "type": "string",
+              "enum": ["oauth", "basic", "apikey"]
+            }
+          },
+          "required": ["AuthenticationType"],
+          "additionalProperties": false
+        },
+        "access_token": {
+          "description": "Added to allow oauth 1.0 to work.",
+          "type": "object",
+          "properties": {
+            "url_template": {
+              "description": "OAuth1 only. The url to obtain the temporary Access (aka Request) Token to start a flow",
+              "type": "string"
+            }
+          },
+          "required": ["url_template"],
+          "additionalProperties": false
+        },
+        "authorization": {
+          "description": "Authorization: the beginning of an OAuth2.0 flow that ensures the user is logged in and approves access to the Resource.",
+          "type": "object",
+          "properties": {
+            "url_template": {
+              "description": "The url to obtain the access token using the authorization code on the backend. Example: 'http://{auth_state:store_name}.store.com/admin/oauth/authorize'",
+              "example": "http://{auth_state:store_name}.store.com/admin/oauth/authorize",
+              "type": "string"
+            },
+            "query_parameters": {
+              "description": "A list of query parameters that will be attached to the url",
+              "type": "array",
+              "items": {
+                "description": "",
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "description": "The name of the parameter",
+                    "type": "string"
+                  },
+                  "value": {
+                    "description": "The value associated with the parameter",
+                    "type": "string"
+                  }
+                },
+                "required": ["name", "value"],
+                "additionalProperties": false
+              }
+            },
+            "method": {
+              "description": "The HTTP method to use when making the server-server code for token request",
+              "type": "string",
+              "enum": ["GET", "POST", "DELETE", "PUT"]
+            },
+            "body": {
+              "description": "List of parameters that are sent to the integration during the server-server authorization request. These are built using the content type specified in the headers array.",
+              "type": "array",
+              "items": {
+                "description": "",
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "description": "The name of the parameter",
+                    "type": "string"
+                  },
+                  "value": {
+                    "description": "The value associated with the parameter",
+                    "type": "string"
+                  }
+                },
+                "required": ["name", "value"],
+                "additionalProperties": false
+              }
+            },
+            "headers": {
+              "description": "List of headers that are sent to the integration when authorizing a token",
+              "type": "array",
+              "items": {
+                "description": "",
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "description": "The name of the parameter",
+                    "type": "string"
+                  },
+                  "value": {
+                    "description": "The value associated with the parameter",
+                    "type": "string"
+                  }
+                },
+                "required": ["name", "value"],
+                "additionalProperties": false
+              }
+            },
+            "nonce": {
+              "description": "A nonce query parameter included on the accept request, then returned and validated on the redirect request",
+              "type": "object",
+              "properties": {
+                "name": {
+                  "description": "",
+                  "type": "string"
+                }
+              },
+              "required": ["name"],
+              "additionalProperties": false
+            }
+          },
+          "required": ["url_template"],
+          "additionalProperties": false
+        },
+        "request_token": {
+          "description": "Request Token: server-server code for token exchange",
+          "type": "object",
+          "properties": {
+            "url_template": {
+              "description": "The url to obtain the access token using the authorization code on the backend. Example: 'http://{auth_state:store_name}.store.com/admin/oauth/request'",
+              "type": "string"
+            },
+            "query_parameters": {
+              "description": "A list of query parameters that will be attached to the url",
+              "type": "array",
+              "items": {
+                "description": "",
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "description": "The name of the parameter",
+                    "type": "string"
+                  },
+                  "value": {
+                    "description": "The value associated with the parameter",
+                    "type": "string"
+                  }
+                },
+                "required": ["name", "value"],
+                "additionalProperties": false
+              }
+            },
+            "method": {
+              "description": "Method to use when making the server-server code for token request",
+              "type": "string",
+              "enum": ["GET", "POST", "DELETE", "PUT"]
+            },
+            "body": {
+              "description": "List of parameters that are sent to the integration when exchanging the code for the token. These are built using ContentType",
+              "type": "array",
+              "items": {
+                "description": "",
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "description": "The name of the parameter",
+                    "type": "string"
+                  },
+                  "value": {
+                    "description": "The value associated with the parameter",
+                    "type": "string"
+                  }
+                },
+                "required": ["name", "value"],
+                "additionalProperties": false
+              }
+            },
+            "headers": {
+              "description": "List of headers that are sent to the integration when requesting a token",
+              "type": "array",
+              "items": {
+                "description": "",
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "description": "The name of the parameter",
+                    "type": "string"
+                  },
+                  "value": {
+                    "description": "The value associated with the parameter",
+                    "type": "string"
+                  }
+                },
+                "required": ["name", "value"],
+                "additionalProperties": false
+              }
+            },
+            "response": {
+              "description": "Response payload parsing",
+              "type": "object",
+              "properties": {
+                "access_token": {
+                  "description": "JSONPath to the JSON element for access_token",
+                  "type": "string"
+                },
+                "token_type": {
+                  "description": "JSONPath to the JSON element for token_type",
+                  "type": "string"
+                },
+                "refresh_token": {
+                  "description": "JSONPath to the JSON element for refresh_token",
+                  "type": "string"
+                },
+                "expires_in": {
+                  "description": "JSONPath to the JSON element for expires_in. Mutually exclusive with expires_at",
+                  "type": "string"
+                },
+                "expires_at": {
+                  "description": "Configuration for parsing a date-time, when the integration is lacking expires_in. Mutually exclusive with expires_in",
+                  "type": "object",
+                  "properties": {
+                    "path": {
+                      "description": "JSONPath to the JSON element containing the date-time",
+                      "type": "string"
+                    },
+                    "date_time_format": {
+                      "description": "DateTime format string compliant with https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings",
+                      "type": "string"
+                    }
+                  },
+                  "required": ["path", "date_time_format"],
+                  "additionalProperties": false
+                },
+                "connection_context": {
+                  "description": "Optional collection of properties to include in the connection_context sent back with the auth flow result. Property value may be JSONPath or a string literal.",
+                  "type": "object",
+                  "properties": {
+                    "undefined": {
+                      "description": "",
+                      "type": "string",
+                      "properties": {},
+                      "required": []
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "required": ["access_token", "token_type"],
+              "additionalProperties": false
+            }
+          },
+          "required": ["url_template"],
+          "additionalProperties": false
+        },
+        "refresh_token": {
+          "description": "Refresh Token: server-server refresh token exchange for access token **NOTE: sometimes a new RT is also created**",
+          "type": "object",
+          "properties": {
+            "url_template": {
+              "description": "The url to refresh the access token using the authorization code on the backend. Example: 'http://{auth_state:store_name}.store.com/admin/oauth/request'",
+              "type": "string"
+            },
+            "query_parameters": {
+              "description": "A list of query parameters that will be attached to the url",
+              "type": "array",
+              "items": {
+                "description": "",
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "description": "The name of the parameter",
+                    "type": "string"
+                  },
+                  "value": {
+                    "description": "The value associated with the parameter",
+                    "type": "string"
+                  }
+                },
+                "required": ["name", "value"],
+                "additionalProperties": false
+              }
+            },
+            "method": {
+              "description": "Method to use when making the server-server code for token request",
+              "type": "string",
+              "enum": ["GET", "POST", "DELETE", "PUT"]
+            },
+            "body": {
+              "description": "List of parameters that are sent to the integration during the server-server refresh token request. These are built using the content type specified in the headers array.",
+              "type": "array",
+              "items": {
+                "description": "",
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "description": "The name of the parameter",
+                    "type": "string"
+                  },
+                  "value": {
+                    "description": "The value associated with the parameter",
+                    "type": "string"
+                  }
+                },
+                "required": ["name", "value"],
+                "additionalProperties": false
+              }
+            },
+            "headers": {
+              "description": "List of headers that are sent to the integration when refreshing a token",
+              "type": "array",
+              "items": {
+                "description": "",
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "description": "The name of the parameter",
+                    "type": "string"
+                  },
+                  "value": {
+                    "description": "The value associated with the parameter",
+                    "type": "string"
+                  }
+                },
+                "required": ["name", "value"],
+                "additionalProperties": false
+              }
+            },
+            "response": {
+              "description": "Response payload parsing",
+              "type": "object",
+              "properties": {
+                "access_token": {
+                  "description": "JSONPath to the JSON element for access_token",
+                  "type": "string"
+                },
+                "token_type": {
+                  "description": "JSONPath to the JSON element for token_type",
+                  "type": "string"
+                },
+                "refresh_token": {
+                  "description": "JSONPath to the JSON element for refresh_token",
+                  "type": "string"
+                },
+                "expires_in": {
+                  "description": "JSONPath to the JSON element for expires_in. Mutually exclusive with expires_at",
+                  "type": "string"
+                },
+                "expires_at": {
+                  "description": "Configuration for parsing a date-time, when the integration is lacking expires_in. Mutually exclusive with expires_in",
+                  "type": "object",
+                  "properties": {
+                    "path": {
+                      "description": "JSONPath to the JSON element containing the date-time",
+                      "type": "string"
+                    },
+                    "date_time_format": {
+                      "description": "DateTime format string compliant with https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings",
+                      "type": "string"
+                    }
+                  },
+                  "required": ["path", "date_time_format"],
+                  "additionalProperties": false
+                },
+                "connection_context": {
+                  "description": "Optional collection of properties to include in the connection_context sent back with the auth flow result. Property value may be JSONPath or a string literal.",
+                  "type": "object",
+                  "properties": {
+                    "undefined": {
+                      "description": "",
+                      "type": "string",
+                      "properties": {},
+                      "required": []
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "required": ["access_token", "token_type"],
+              "additionalProperties": false
+            }
+          },
+          "required": ["url_template"],
+          "additionalProperties": false
+        },
+        "advanced_configuration": {
+          "description": "Advanced configurations used for oauth 1.0",
+          "type": "array",
+          "items": {
+            "description": "",
+            "type": "object",
+            "properties": {
+              "name": {
+                "description": "The name of the parameter",
+                "type": "string"
+              },
+              "value": {
+                "description": "The value associated with the parameter",
+                "type": "string"
+              }
+            },
+            "required": ["name", "value"],
+            "additionalProperties": false
+          }
+        },
+        "connections": {
+          "description": "Connections is an optional feature that an integration may provide. A common use of connections is to provide the ability to connect to a sandbox or production endpoint. Connection name values may be accessed in a flow e.g in the request_token section, the url is dynamic. Example: `'url_template': '{connection_name:$.url}/access/token/request'`",
+          "type": "object",
+          "properties": {
+            "connection_names": {
+              "description": "A unique list of connection names that the integration supports",
+              "type": "object",
+              "properties": {
+                "undefined": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {},
+                  "required": []
+                }
+              },
+              "additionalProperties": false
+            },
+            "default_connection_name": {
+              "description": "The connection name that will be used when none is selected",
+              "type": "string"
+            }
+          },
+          "required": ["connection_names", "default_connection_name"],
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "OrderSources": {
+      "description": "A list of branded order sources associated with this integration",
+      "type": "array",
+      "uniqueItems": true,
+      "minItems": 1,
+      "items": {
+        "description": "This represents a single branded order source within our system",
+        "type": "object",
+        "properties": {
+          "Id": {
+            "description": "This is a unique GUID identifier for this order source",
+            "type": "string",
+            "format": "uuid"
+          },
+          "Name": {
+            "description": "The branded name for this order source Example: 'Shopify', 'eBay', 'Amazon Canada'",
+            "type": "string",
+            "maxLength": 50
+          },
+          "ApiCode": {
+            "description": "ApiCode for this order source, used by ShipEngine customers",
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]*[a-z]$"
+          },
+          "SendEmail": {
+            "description": "Indicates whether or not our system is allowed to send emails to customers",
+            "type": "boolean"
+          },
+          "HasCustomMappings": {
+            "description": "Indicates whether or not this marketplace allows custom mappings",
+            "type": "boolean"
+          },
+          "CanLeaveFeedback": {
+            "description": "Indicates whether or not the order source allows sellers to leave feedback on customers",
+            "type": "boolean"
+          },
+          "HasCustomStatuses": {
+            "description": "Indicates whether this order source allows for custom statuses on a seller by seller basis",
+            "type": "boolean"
+          },
+          "CanConfigureTimeZone": {
+            "description": "Indicates whether or not the order source has inventory levels",
+            "type": "boolean"
+          },
+          "HasInventoryLevels": {
+            "description": "Indicates whether or not the order source has inventory levels",
+            "type": "boolean"
+          },
+          "AccountConnection": {
+            "description": "Specifies account connection information",
+            "type": "object",
+            "properties": {
+              "Name": {
+                "description": "",
+                "type": "string"
+              },
+              "ConnectionFormSchema": {
+                "description": "",
+                "type": "object",
+                "properties": {
+                  "JsonSchema": {
+                    "description": "",
+                    "type": "object",
+                    "properties": {},
+                    "additionalProperties": false
+                  },
+                  "UiSchema": {
+                    "description": "",
+                    "type": "object",
+                    "properties": {},
+                    "additionalProperties": false
+                  },
+                  "ApiContractMapping": {
+                    "description": "",
+                    "type": "object",
+                    "properties": {},
+                    "additionalProperties": false
+                  }
+                },
+                "required": ["JsonSchema", "UiSchema"],
+                "additionalProperties": false
+              },
+              "ConnectionNames": {
+                "description": "",
+                "type": "array",
+                "uniqueItems": true,
+                "items": {
+                  "description": "",
+                  "type": "string"
+                }
+              },
+              "DefaultConnectionName": {
+                "description": "",
+                "type": "string"
+              }
+            },
+            "required": ["Name", "ConnectionFormSchema"],
+            "additionalProperties": false
+          },
+          "Images": {
+            "description": "Images that will be used for this branded order source",
+            "type": "object",
+            "properties": {
+              "Icon": {
+                "description": "The full path to the logo used in modals and other areas of our platform for this order source. Use join(__dirname, '../assets/logo.svg') @example \"/dev/integration/assets/ordersource1/logo.svg\"",
+                "type": "string",
+                "pattern": "^.*.(svg)$"
+              },
+              "Logo": {
+                "description": "The full path to the icon used for this order source. Use join(__dirname, '../assets/logo.svg') @example \"/dev/integration/assets/ordersource1/icon.svg\"",
+                "type": "string",
+                "pattern": "^.*.(svg)$"
+              }
+            },
+            "required": ["Icon", "Logo"],
+            "additionalProperties": false
+          },
+          "SupportedPackingSlipTemplateVersions": {
+            "description": "This lets the platform know which packing slip templates this order source supports",
+            "type": "array",
+            "items": {
+              "description": "",
+              "type": "string",
+              "enum": ["shipstation"]
+            }
+          }
+        },
+        "required": [
+          "Id",
+          "Name",
+          "SendEmail",
+          "HasCustomMappings",
+          "CanLeaveFeedback",
+          "CanConfigureTimeZone",
+          "AccountConnection",
+          "Images"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": ["Id", "Name", "AuthProcess", "OrderSources"],
+  "additionalProperties": false
+}

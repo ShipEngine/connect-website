@@ -6,12 +6,12 @@ toc: true
 # Order App Definition
 
 import { JsonSchema } from "@redocly/developer-portal/ui";
+import Schema from "./metadata-schema.json";
 
 
 ## Metadata Definition
 <JsonSchema
-  definitionId="orders" 
-  pointer="#/components/schemas/OrderAppSchema"
+  schema={Schema}
 />
 
 :::success OAuth
