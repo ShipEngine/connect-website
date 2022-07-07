@@ -101,12 +101,6 @@ export const OrderSourceForm = ({ register, errors, setValue, reset }) => {
         </Form.Text>
       </Form.Group>
       <Form.Group className="pt-4">
-        <Form.Check label={"Can Configure TimeZone"} {...register("canConfigureTimeZone")} />
-        <Form.Text className="text-muted">
-         Indicates whether or not a user is allowed to configure their own timezone.
-        </Form.Text>
-      </Form.Group>
-      <Form.Group className="pt-4">
         <Form.Check
           label={"Has Custom Mappings"}
           {...register("hasCustomMappings")}
@@ -123,6 +117,27 @@ export const OrderSourceForm = ({ register, errors, setValue, reset }) => {
         <Form.Text className="text-muted">
           Indicates whether or not the order source allows sellers to leave
           feedback on customers.
+        </Form.Text>
+      </Form.Group>
+      <Form.Group className="pt-4">
+        <Form.Check
+          label={"Has Custom Statuses"}
+          {...register("hasCustomStatuses")}
+        />
+        <Form.Text className="text-muted">
+        Indicates whether this order source allows for custom statuses on a seller by seller basis.
+        </Form.Text>
+      </Form.Group>
+      <Form.Group className="pt-4">
+        <Form.Check label={"Can Configure TimeZone"} {...register("canConfigureTimeZone")} />
+        <Form.Text className="text-muted">
+         Indicates whether or not a user is allowed to configure their own timezone.
+        </Form.Text>
+      </Form.Group>
+      <Form.Group className="pt-4">
+        <Form.Check label={"Has Inventory Levels"} {...register("hasInventoryLevels")} />
+        <Form.Text className="text-muted">
+        Indicates whether or not the order source has inventory levels.
         </Form.Text>
       </Form.Group>
       <Form.Group className="pt-4">
@@ -144,18 +159,18 @@ export const GetCode = (values): string => {
       Name: '${values.name}',
       ApiCode: '${values.apiCode}'
       SendEmail: ${values.sendEmail},
-      CanConfigureTimeZone: ${values.canConfigureTimeZone},
-      CanLeaveFeedback: ${values.canLeaveFeedback},
       HasCustomMappings: ${values.hasCustomMappings},
+      CanLeaveFeedback: ${values.canLeaveFeedback},
       HasCustomStatuses: ${values.hasCustomStatuses},
+      CanConfigureTimeZone: ${values.canConfigureTimeZone},
       HasInventoryLevels: ${values.hasInventoryLevels},
       AccountConnection: {
           Name: '${values.name || "Order Source Name"} Connection',
-          ConnectionFormSchema,
+          ConnectionFormSchema, // Imported
       },
       Images: {
-          Logo: join(__dirname, '../../assets/{TODO: FILL ME IN}/logo.svg'),
-          Icon: join(__dirname, '../../assets/{TODO: FILL ME IN/icon.svg'),
+          Logo: join(__dirname, '../../assets/logo.svg'), // Validate
+          Icon: join(__dirname, '../../assets/icon.svg'), // Validate
       },
       SupportedPackingSlipTemplateVersions: ${ values.packingSlipTemplate ? `[
         PackingSlipTemplateVersion.ShipStation
