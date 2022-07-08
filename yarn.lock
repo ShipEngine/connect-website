@@ -1734,17 +1734,17 @@
     require-from-string "^2.0.2"
     uri-js "^4.2.2"
 
-"@redocly/developer-portal@1.1.0-beta.103":
-  version "1.1.0-beta.103"
-  resolved "https://registry.yarnpkg.com/@redocly/developer-portal/-/developer-portal-1.1.0-beta.103.tgz#f40e53e8604ef2600fc5f7c666838936a1372ad0"
-  integrity sha512-+G1QzRbBawFKauaqh7uPqQrbahfczsxf18SfPt2wigvdPADQsiuCC6pL541swuOG2kRvszgd7x9Ba/IoXpM+gQ==
+"@redocly/developer-portal@1.1.0-beta.104":
+  version "1.1.0-beta.104"
+  resolved "https://registry.yarnpkg.com/@redocly/developer-portal/-/developer-portal-1.1.0-beta.104.tgz#256f7aa330a533ce9717108ab2129bedf5997ae8"
+  integrity sha512-tGJo6nKreoafpTyGycT7PsVySwTV1QgWuRlAZ4FqPevzMRj08NlVz4ndxcM5rYQ0jSMq5iELBXymEq3WWsihWg==
   dependencies:
     "@mdx-js/mdx" "0.19.0"
     "@mdx-js/tag" "0.20.3"
     "@redocly/gatsby-plugin-manifest" "3.3.2"
     "@redocly/gatsby-remark-images" "4.2.0"
     "@redocly/openapi-core" "1.0.0-beta.103"
-    "@redocly/reference-docs" "2.26.1"
+    "@redocly/reference-docs" "2.26.3"
     babel-plugin-react-html-attrs "^3.0.5"
     babel-plugin-styled-components "^1.12.0"
     buffer "^6.0.3"
@@ -1919,15 +1919,14 @@
     pluralize "^8.0.0"
     yaml-ast-parser "0.0.43"
 
-"@redocly/reference-docs@2.26.1":
-  version "2.26.1"
-  resolved "https://registry.yarnpkg.com/@redocly/reference-docs/-/reference-docs-2.26.1.tgz#78518ea03caa2d2d0519fa8e1176cef93008e1fa"
-  integrity sha512-A2pNk++7/MHVF4TAqEfhG3OMQjGcwpkstTL5taiJ5OQSAC3bgewvkcgc2dbv0nMUW2MTXvzYZdOafwp+L/7bAw==
+"@redocly/reference-docs@2.26.3":
+  version "2.26.3"
+  resolved "https://registry.yarnpkg.com/@redocly/reference-docs/-/reference-docs-2.26.3.tgz#a94b9afbcf6c7b859440fa3cf4a3a3ee6dcff572"
+  integrity sha512-eCJGB4yV2SyPbRavQi0x05/m2M+Znp7zNBIESoFHtKDrCSqzattuHG3SSTRdlw49yV7P/QsnfGm+9oIaFTdxdQ==
   dependencies:
     "@redocly/openapi-core" "1.0.0-beta.97"
     "@redocly/vscode-json-languageservice" "3.4.9"
     "@wojtekmaj/enzyme-adapter-react-17" "^0.6.2"
-    classnames "^2.2.6"
     codemirror "^5.65.0"
     decko "^1.2.0"
     deepmerge "^4.2.2"
@@ -1950,7 +1949,6 @@
     perfect-scrollbar "^1.5.5"
     polished "^3.6.5"
     prismjs "^1.22.0"
-    prop-types "^15.7.2"
     query-string "^6.13.6"
     react-codemirror2-react-17 "1.0.0"
     react-tabs "^3.1.1"
@@ -4261,7 +4259,7 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
-classnames@^2.1.2, classnames@^2.2.6, classnames@^2.3.1:
+classnames@^2.1.2, classnames@^2.3.1:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.3.1.tgz#dfcfa3891e306ec1dad105d0e88f4417b8535e8e"
   integrity sha512-OlQdbZ7gLfGarSqxesMesDa5uz7KFbID8Kpq/SxIoNGDqY8lSYs0D+hhtBXhcdB3rcbXArFr7vlHheLk1voeNA==
