@@ -25,6 +25,10 @@ shipping:
     expanded: true
     pages:
       - page: shipping/reference.page.yaml/*
+  - group: Tools
+    expanded: true
+    pages:
+      - page: shipping/tools/shipping-service.mdx
 freight:
   - page: freight/index.md
   - group: Methods
