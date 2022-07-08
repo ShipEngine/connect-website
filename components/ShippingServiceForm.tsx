@@ -1,5 +1,12 @@
 import React, { useEffect } from "react";
-import { FormBuilder } from "./FormBuilder";
+import {
+  FormBuilder,
+  wrapInSingleQuotes,
+  required,
+  snakeCase,
+  maxLength,
+  validationRules,
+} from "./FormBuilder";
 import { v4 as uuid } from "uuid";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -32,59 +39,35 @@ export const ShippingServiceForm = ({ register, errors, setValue, reset }) => {
     reset(getDefaultValues());
   };
   return form
-    .withFieldClass("pt-3")
+    .withFieldClass("mt-3")
     .withTextField("Id", "id", true, "This is a description of the Id")
     .withTextField(
       "Service Name",
       "name",
       false,
       "The name of this shipping service ex: 'Overnight Guarantee'",
-      {
-        required: "This field is required",
-        maxLength: { value: 80, message: "The max length is 80" },
-      }
+      validationRules(required, maxLength(80))
     )
     .withTextField(
       "Api Code",
       "apiCode",
       false,
       "The identifier for this shipping service to be used in API calls.",
-      {
-        required: "This field is required",
-        pattern: {
-          value: /^[a-z][a-z0-9_]*[a-z]$/,
-          message: "Must be all lower case letters, numbers, and snake_cased",
-        },
-        maxLength: {
-          value: 50,
-          message: "The max length is 50",
-        },
-      }
+      validationRules(required, snakeCase, maxLength(50))
     )
     .withTextField(
       "Abbreviation",
       "abbreviation",
       false,
       "This is an abbreviation of the name if necessary.",
-      {
-        maxLength: {
-          value: 20,
-          message: "The max length is 20",
-        },
-      }
+      validationRules(maxLength(20))
     )
     .withTextField(
       "Service Code",
       "code",
       false,
       "This is the code that will be sent to requests, this should be the samecode the carrier's api would expect.",
-      {
-        required: "This field is required",
-        maxLength: {
-          value: 50,
-          message: "The max length is 50",
-        },
-      }
+      validationRules(required, maxLength(50))
     )
     .withSwitch(
       "Is International",
@@ -96,12 +79,7 @@ export const ShippingServiceForm = ({ register, errors, setValue, reset }) => {
       "labelCode",
       false,
       "The label code associated with this shipping service.",
-      {
-        maxLength: {
-          value: 50,
-          message: "The max length is 50",
-        },
-      }
+      validationRules(maxLength(50))
     )
     .withMultiSelect(
       "Supported Label Sizes",
@@ -118,7 +96,52 @@ export const ShippingServiceForm = ({ register, errors, setValue, reset }) => {
       ],
       "A list of label sizes supported by this service."
     )
-    .withButton('Generate New', 'outline-dark', handleReset)
+    .withSelect(
+      "Service Grade",
+      "grade",
+      ["Unspecified", "Economy", "Expedited", "Overnight", "Standard"],
+      "The grade of the service."
+    )
+    .withSelect(
+      "Service Class",
+      "class",
+      [
+        "Unspecified",
+        "Ground",
+        "OneDay",
+        "OneDayEarly",
+        "OneDayEarlyAm",
+        "TwoDay",
+        "TwoDayEarly",
+        "ThreeDay",
+      ],
+      "The class of service."
+    )
+    .withMultiSelect(
+      "Required Properties",
+      "requiredProperties",
+      ["Weight", "Dimensions"],
+      "The class of service."
+    )
+    .withMultiSelect(
+      "Service Attributes",
+      "serviceAttributes",
+      [
+        "Returns",
+        "MultiPackage",
+        "Tracking",
+        "ConsolidatorService",
+        "AutomatedTrackingAllowed",
+        "ManifestDigital",
+        "ManifestPhysical",
+        "SameDayService",
+        "Tip",
+        "DeliveryWindow",
+        "PickupOnLabelCreation",
+      ],
+      "A list of attributes about this service."
+    )
+    .withButton("Generate New", "outline-dark", handleReset)
     .render();
 };
 
@@ -131,14 +154,16 @@ export const GetCode = (values): string => {
       Code: '${values.code}',
       International: ${values.international},
       LabelCode: '${values.labelCode}',
-      Class: 'Unspecified',
-      Grade: 'Unspecified',
-      RequiredProperties: [],
+      Class: '${values.class}',
+      Grade: '${values.grade}',
+      RequiredProperties: [${values.requiredProperties?.map(
+        wrapInSingleQuotes
+      )}],
       SupportedLabelSizes: [${values.supportedLabelSizes?.map(
-        (ls) => `'${ls}'`
+        wrapInSingleQuotes
       )}],
       SupportedCountries: [],
-      ServiceAttributes: [],
+      ServiceAttributes: [${values.serviceAttributes?.map(wrapInSingleQuotes)}],
       ConfirmationTypes: [],
   }
   `;

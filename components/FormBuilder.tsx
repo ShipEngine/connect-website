@@ -6,6 +6,37 @@ const Required = () => {
   return <span style={{ color: "red" }}>*</span>;
 };
 
+export const wrapInSingleQuotes = (text) => `'${text}'`;
+
+export const required = {
+  required: "This field is required" 
+};
+
+export const snakeCase = {
+  pattern: {
+    value: /^[a-z][a-z0-9_]*[a-z]$/,
+    message: "Must be all lower case letters, numbers, and snake_cased",
+  },
+};
+
+export const maxLength = (length:number) => {
+  return {
+    maxLength: {
+      value: length,
+      message: `The max length is ${length}`,
+    }
+  }
+}
+
+export const validationRules = (...args) => {
+  return args.reduce((prev, current) => {
+    return {
+      ...prev,
+      ...current,
+    }
+  }, {});
+}
+
 export interface SelectOption {
   value: string;
   text: string;
@@ -93,7 +124,7 @@ export class FormBuilder {
   withMultiSelect(
     label: string,
     name: string,
-    options: SelectOption[],
+    options: SelectOption[] | string[],
     description?: string
   ) {
     const register = this.register;
@@ -104,9 +135,45 @@ export class FormBuilder {
           <Form.Group className={fieldClass}>
             <Form.Label>{label}:</Form.Label>
             <Form.Control as="select" multiple {...register(name)}>
-              {options.map((o) => (
-                <option value={o.value}>{o.text}</option>
-              ))}
+              {options.map((o) => {
+                if (typeof o === "string") {
+                  return <option value={o}>{o}</option>;
+                }
+                return <option value={o.value}>{o.text}</option>;
+              })}
+            </Form.Control>
+            {description ? (
+              <Form.Text className="text-muted">{description}</Form.Text>
+            ) : (
+              ""
+            )}
+          </Form.Group>
+        );
+      },
+    });
+    return this;
+  }
+
+  withSelect(
+    label: string,
+    name: string,
+    options: SelectOption[] | string[],
+    description?: string
+  ) {
+    const register = this.register;
+    const fieldClass = this.fieldClass;
+    this.fields.push({
+      render() {
+        return (
+          <Form.Group className={fieldClass}>
+            <Form.Label>{label}:</Form.Label>
+            <Form.Control as="select" {...register(name)}>
+              {options.map((o) => {
+                if (typeof o === "string") {
+                  return <option value={o}>{o}</option>;
+                }
+                return <option value={o.value}>{o.text}</option>;
+              })}
             </Form.Control>
             {description ? (
               <Form.Text className="text-muted">{description}</Form.Text>
