@@ -3,25 +3,37 @@ title: Publishing
 ---
 
 # Publishing
+
+:::warning Self Integrators
+Please contact the [ShipEngine Connect Team](mailto:connect@shipengine.com) at [connect@shipengine.com](mailto:connect@shipengine.com) and let them know that you are interested in becoming a self integrator.<br/><br/>
+**A signed contract must be in place prior to an integration going live.**
+:::
+
 ## Publish Command
-You can run the `shipengine-connect publish` command to publish your application to the testing environment.
+You can run the `shipengine-connect publish` command to publish your project
+to our test environment, where you can interact with it via the ShipStation user
+interface.
 
 ![](./images/shipengine-connect-publish.png)
 
-After your app is successfully published you will be given login credentials to a test instance of [ShipStation](https://ship-devss111.sslocal.com/).
+After your app is successfully published you will be given login credentials to
+a the [ShipStation test instance](https://ship-devss111.sslocal.com/).
 
 ## Logging
-:::info Note
-Every publish will reset the logs that you can acquire from the logs command.
-:::
-You can then begin testing your application within shipstation. All logs your module makes in this test environment can be viewed by using the `logs` command.
+While testing through ShipStation, you can access all of the logs your project
+produces via the `logs` CLI command:
 
-**Write running integrations logs to terminal**
+**Show logs for the current project**
 ```
 shipengine-connect logs
 ```
 
-**Write running integrations logs to file**
+**Capture the logs in a file**
 ```
 shipengine-connect logs > logfile.log
 ```
+
+:::info Note
+The `logs` command will return all of the log messages since the last `publish`.
+When you `publish` again, it will reset the logs.
+:::

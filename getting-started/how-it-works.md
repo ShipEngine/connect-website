@@ -2,11 +2,17 @@
 title: How It Works
 ---
 # How It Works
-:::warning Self Integrators
-Please contact the [ShipEngine Connect Team](mailto:connect@shipengine.com) at [connect@shipengine.com](mailto:connect@shipengine.com) and let them know that you are interested in becoming a self integrator.<br/><br/>
-**A signed contract must be in place prior to an integration going live.**
-:::
-Our platform will make a call out to your integration which is hosted inside of a container. Your project implements and exposes an object that can be consumed by any runtime we build. By default your project is packaged with an http web service runtime. The general idea is that you are simply implementing methods that will be passed the body of the http request as the input to the method, and the response will be serialized and returned as the response.
+This documentation will guide you through building an integration between
+products powered by ShipEngine (including ShipStation, ShippingEasy, ShipWorks)
+and another service provider.
+
+Your project implements and exposes a set of functions that can be consumed by
+our internal systems. For development, your project is embedded in an HTTP
+web application. This demonstrates how your functions might be invoked within
+our systems, while making it accessible to common tools like `curl` or [Postman](https://www.postman.com/).
+The development server will pass the body of the HTTP request as input to
+your function, and your function's result will be serialized and returned as
+the HTTP response.
 
 ```mermaid
 flowchart LR
@@ -16,26 +22,26 @@ flowchart LR
     shipengine>ShipEngine]
     shipworks>ShipWorks]
     shippingeasy>ShippingEasy]
-    auctane>Auctane Brands]
+    auctane>Auctane Products]
     thirdparty([Third Party API])
 
     shipengine-.->connect
+    shipstation-.->shipengine
     shipworks-.->shipengine
     shippingeasy-.->shipengine
     auctane-.->shipengine
-    shipstation-.->connect
     connect-.->integration
     integration-.->thirdparty
 ```
 :::success Product Visibility
-When an application is promoted to production it becomes available to consumers of the ShipEngine platform including brands like ShipWorks, ShippingEasy, ShipStation, etc.
+When an application is promoted to production it becomes available to consumers of the ShipEngine platform including products like ShipWorks, ShippingEasy, ShipStation, etc.
 
-***This however does not guarantee that a brand will choose to include your integration in their service offerings.*** 
+***This however does not guarantee that a product will choose to include your integration in their service offerings.*** 
 
-*For more details on brand availability, please reach out to your business contact with Auctane or the [ShipEngine Connect Team](mailto:connect@shipengine.com).*
+*For more details on product availability, please reach out to your business contact with Auctane or the [ShipEngine Connect Team](mailto:connect@shipengine.com).*
 :::
 
-All types that can be found in the api documentation have a corresponding model in the SDK.
+The SDK contains a TypeScript type definition for each schema in the API documentation.
  
 ```JavaScript methods/acknowledge-orders/index.js
 const { logger } = require('@shipengine/connect-runtime');
@@ -127,5 +133,7 @@ export const AcknowledgeOrders = async (
 
 ```
 :::info Recommendation
-It is recommended to use TypeScript, it acts as safety rails to make sure you are adhearing to the specification. ![](./images/type-error.png)
+If you use TypeScript, the tooling can help make sure you adhere to the specification.
+For example, it can provide compiler errors when the object you return from
+your function does not match the expected schema:  ![](./images/type-error.png)
 :::
