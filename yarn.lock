@@ -1734,17 +1734,17 @@
     require-from-string "^2.0.2"
     uri-js "^4.2.2"
 
-"@redocly/developer-portal@1.1.0-beta.104":
-  version "1.1.0-beta.104"
-  resolved "https://registry.yarnpkg.com/@redocly/developer-portal/-/developer-portal-1.1.0-beta.104.tgz#256f7aa330a533ce9717108ab2129bedf5997ae8"
-  integrity sha512-tGJo6nKreoafpTyGycT7PsVySwTV1QgWuRlAZ4FqPevzMRj08NlVz4ndxcM5rYQ0jSMq5iELBXymEq3WWsihWg==
+"@redocly/developer-portal@1.1.0-beta.106":
+  version "1.1.0-beta.106"
+  resolved "https://registry.yarnpkg.com/@redocly/developer-portal/-/developer-portal-1.1.0-beta.106.tgz#2525a69359b1f64f14ada9f61bd30ae479b4748a"
+  integrity sha512-sfoe6h/HvaX14Ts/ptroHGgrfkCiGU4dXt3O3I39j+l3WF51amf6v9CqPz12w0g9zoUJGhzxUpcarDGwtLaIgQ==
   dependencies:
     "@mdx-js/mdx" "0.19.0"
     "@mdx-js/tag" "0.20.3"
     "@redocly/gatsby-plugin-manifest" "3.3.2"
     "@redocly/gatsby-remark-images" "4.2.0"
-    "@redocly/openapi-core" "1.0.0-beta.103"
-    "@redocly/reference-docs" "2.26.3"
+    "@redocly/openapi-core" "1.0.0-beta.104"
+    "@redocly/reference-docs" "2.27.1"
     babel-plugin-react-html-attrs "^3.0.5"
     babel-plugin-styled-components "^1.12.0"
     buffer "^6.0.3"
@@ -1887,10 +1887,10 @@
     unist-util-select "^1.5.0"
     unist-util-visit-parents "^2.1.2"
 
-"@redocly/openapi-core@1.0.0-beta.103":
-  version "1.0.0-beta.103"
-  resolved "https://registry.yarnpkg.com/@redocly/openapi-core/-/openapi-core-1.0.0-beta.103.tgz#fff3fd5071d718cff6f135fe9ca3d0f154551302"
-  integrity sha512-O9ln5sQycdZsHsNbe3eZzDzi/h5mC94mCSZGrx2NbMXJNOqXOuNtG5si5Eamx/1BZgQLL+KhKCVea3QvWyjEcQ==
+"@redocly/openapi-core@1.0.0-beta.104":
+  version "1.0.0-beta.104"
+  resolved "https://registry.yarnpkg.com/@redocly/openapi-core/-/openapi-core-1.0.0-beta.104.tgz#1773d62e42cd62578d3281979f08ba6488925c98"
+  integrity sha512-9/b33gpW0BLpTZ0Ll6z5dN03CRvLUeyNOyeEUHrygRLeZgbAWfubqr0Z40boV7d9o1W4Uo/epKPrJenHbVqioQ==
   dependencies:
     "@redocly/ajv" "^8.6.4"
     "@types/node" "^14.11.8"
@@ -1919,10 +1919,10 @@
     pluralize "^8.0.0"
     yaml-ast-parser "0.0.43"
 
-"@redocly/reference-docs@2.26.3":
-  version "2.26.3"
-  resolved "https://registry.yarnpkg.com/@redocly/reference-docs/-/reference-docs-2.26.3.tgz#a94b9afbcf6c7b859440fa3cf4a3a3ee6dcff572"
-  integrity sha512-eCJGB4yV2SyPbRavQi0x05/m2M+Znp7zNBIESoFHtKDrCSqzattuHG3SSTRdlw49yV7P/QsnfGm+9oIaFTdxdQ==
+"@redocly/reference-docs@2.27.1":
+  version "2.27.1"
+  resolved "https://registry.yarnpkg.com/@redocly/reference-docs/-/reference-docs-2.27.1.tgz#c33565d86eae2f44e82866f640ea2b44afa9ce77"
+  integrity sha512-p4wR5xd/D3jJqccHdWY9cglC4g1M51Yt1/P8oQNkqciE9zzJw9wq59ArKvTsXbzAzc4wYgl+zQ6b+6Zf5FerNg==
   dependencies:
     "@redocly/openapi-core" "1.0.0-beta.97"
     "@redocly/vscode-json-languageservice" "3.4.9"
