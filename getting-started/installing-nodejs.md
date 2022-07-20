@@ -6,7 +6,7 @@ title: Installing NodeJS
 Node.js is an open-source, cross-platform, back-end JavaScript runtime environment that runs on the V8 engine and executes JavaScript code outside a web browser.
 
 ## Installing Node Directly
-You can find the link along with instructions for installing node [here](https://nodejs.org/en/download/).
+Refer to the [official installation documentation](https://nodejs.org/en/download/)
 
 ## Node Version Manager
 A useful tool for managing installed versions of NodeJS on your computer is `nvm` or Node Version Manager.
