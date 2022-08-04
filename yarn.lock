@@ -1734,17 +1734,17 @@
     require-from-string "^2.0.2"
     uri-js "^4.2.2"
 
-"@redocly/developer-portal@1.1.0-beta.104":
-  version "1.1.0-beta.104"
-  resolved "https://registry.yarnpkg.com/@redocly/developer-portal/-/developer-portal-1.1.0-beta.104.tgz#256f7aa330a533ce9717108ab2129bedf5997ae8"
-  integrity sha512-tGJo6nKreoafpTyGycT7PsVySwTV1QgWuRlAZ4FqPevzMRj08NlVz4ndxcM5rYQ0jSMq5iELBXymEq3WWsihWg==
+"@redocly/developer-portal@1.1.0-beta.109":
+  version "1.1.0-beta.109"
+  resolved "https://registry.yarnpkg.com/@redocly/developer-portal/-/developer-portal-1.1.0-beta.109.tgz#6dae52da5e8f842b7ff37f28b9dee7fbeabfd640"
+  integrity sha512-AbX4KST9dx53qgo/c3R5PKbybmHWkAw60uLFVeY4oo0K3p4UNv6ag9wdWLAO2/LFfD8+rJ1+uiURacYCVnMzJA==
   dependencies:
     "@mdx-js/mdx" "0.19.0"
     "@mdx-js/tag" "0.20.3"
     "@redocly/gatsby-plugin-manifest" "3.3.2"
     "@redocly/gatsby-remark-images" "4.2.0"
-    "@redocly/openapi-core" "1.0.0-beta.103"
-    "@redocly/reference-docs" "2.26.3"
+    "@redocly/openapi-core" "1.0.0-beta.105"
+    "@redocly/reference-docs" "2.29.0"
     babel-plugin-react-html-attrs "^3.0.5"
     babel-plugin-styled-components "^1.12.0"
     buffer "^6.0.3"
@@ -1770,10 +1770,10 @@
     gatsby-plugin-layout "2.2.0"
     gatsby-plugin-nprogress "3.2.0"
     gatsby-plugin-react-helmet "4.2.0"
+    gatsby-plugin-rudderstack "^1.1.2"
     gatsby-plugin-segment-js "3.6.0"
     gatsby-plugin-styled-components "4.2.0"
     gatsby-react-router-scroll "^4.13.0"
-    gatsby-remark-image-attributes "1.0.0-4"
     gatsby-remark-prismjs "4.2.0"
     gatsby-source-filesystem "3.2.0"
     gatsby-transformer-remark "3.2.0"
@@ -1887,10 +1887,10 @@
     unist-util-select "^1.5.0"
     unist-util-visit-parents "^2.1.2"
 
-"@redocly/openapi-core@1.0.0-beta.103":
-  version "1.0.0-beta.103"
-  resolved "https://registry.yarnpkg.com/@redocly/openapi-core/-/openapi-core-1.0.0-beta.103.tgz#fff3fd5071d718cff6f135fe9ca3d0f154551302"
-  integrity sha512-O9ln5sQycdZsHsNbe3eZzDzi/h5mC94mCSZGrx2NbMXJNOqXOuNtG5si5Eamx/1BZgQLL+KhKCVea3QvWyjEcQ==
+"@redocly/openapi-core@1.0.0-beta.105":
+  version "1.0.0-beta.105"
+  resolved "https://registry.yarnpkg.com/@redocly/openapi-core/-/openapi-core-1.0.0-beta.105.tgz#bf8ad66c086cadfe22dbaa3027494ab74f5297bd"
+  integrity sha512-8uYDMcqBOPhFgjRlg5uetW/E2uTVVRpk+YsJhaH78ZNuzBkQP5Waw5s8P8ym6myvHs5me8l5AdniY/ePLMT5xg==
   dependencies:
     "@redocly/ajv" "^8.6.4"
     "@types/node" "^14.11.8"
@@ -1919,10 +1919,10 @@
     pluralize "^8.0.0"
     yaml-ast-parser "0.0.43"
 
-"@redocly/reference-docs@2.26.3":
-  version "2.26.3"
-  resolved "https://registry.yarnpkg.com/@redocly/reference-docs/-/reference-docs-2.26.3.tgz#a94b9afbcf6c7b859440fa3cf4a3a3ee6dcff572"
-  integrity sha512-eCJGB4yV2SyPbRavQi0x05/m2M+Znp7zNBIESoFHtKDrCSqzattuHG3SSTRdlw49yV7P/QsnfGm+9oIaFTdxdQ==
+"@redocly/reference-docs@2.29.0":
+  version "2.29.0"
+  resolved "https://registry.yarnpkg.com/@redocly/reference-docs/-/reference-docs-2.29.0.tgz#c9c4716e5544d5d356bdd23cf79504465804db9b"
+  integrity sha512-+yug0QdDdBDNYNzo6lxQyqRF4EnFm8O/GHaP+4z6Z+fbVcICgokpdCEfJm2N1+mo8iJTYIBh9bcgtHPKF7jwrQ==
   dependencies:
     "@redocly/openapi-core" "1.0.0-beta.97"
     "@redocly/vscode-json-languageservice" "3.4.9"
@@ -7202,6 +7202,11 @@ gatsby-plugin-react-helmet@4.2.0:
   dependencies:
     "@babel/runtime" "^7.12.5"
 
+gatsby-plugin-rudderstack@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-rudderstack/-/gatsby-plugin-rudderstack-1.1.2.tgz#7363b9b1a3d0555428400a1600e111c6e666ffd2"
+  integrity sha512-mYKhxYgjwgdr54BIOzdRrW9V8OSrAATR6nUYFhQW4C+Xi5CkbXnmuTfFycCdXVLSpp35wovpreNm2TAbY24v9w==
+
 gatsby-plugin-segment-js@3.6.0:
   version "3.6.0"
   resolved "https://registry.yarnpkg.com/gatsby-plugin-segment-js/-/gatsby-plugin-segment-js-3.6.0.tgz#740b2a5e6730119147e0dd1fb2c39acca83e353d"
@@ -7306,13 +7311,6 @@ gatsby-recipes@^0.25.0:
     ws "^7.3.0"
     xstate "^4.9.1"
     yoga-layout-prebuilt "^1.9.6"
-
-gatsby-remark-image-attributes@1.0.0-4:
-  version "1.0.0-4"
-  resolved "https://registry.yarnpkg.com/gatsby-remark-image-attributes/-/gatsby-remark-image-attributes-1.0.0-4.tgz#46c3c9a4db8472f561410ea75b15d0000f6dd84e"
-  integrity sha512-k5xJoqabmsRxiN0yDcl6YSnjykOP6QTS+ZnnEnReutsh6fRl/0uWscjpjKGNrZSJ7kckZ5pooNZoo3bIHqPmrw==
-  dependencies:
-    unist-util-visit "^2.0.3"
 
 gatsby-remark-prismjs@4.2.0:
   version "4.2.0"
