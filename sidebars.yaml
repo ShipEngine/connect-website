@@ -41,7 +41,7 @@ nativeRating:
   - page: native-rating/index.md
   - page: native-rating/rate-card-structure.md
   - page: native-rating/zone-chart-structure.md
-  - page: native-rating/implementation-connect.md
+  - page: native-rating/implementation.md
   - page: native-rating/rating-logic.md
   - group: Methods
     expanded: true

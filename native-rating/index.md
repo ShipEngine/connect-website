@@ -57,3 +57,7 @@ The `Deploy` phase must be done via the [Native Rating](https://connect-rating.s
 After you've completed testing, you will need to [publish](https://connect-rating.shipengine.com/app/publishing) the carrier in Native Rating Service. This "locks in" all the modified data and it will be used by default for all rate requests.
 
 At this point, you can start modifying rates and logic again as needed and the update-deploy cycle can start again.
+
+:::success Get Started
+Begin creating your first [Native Rating Implementation](./implementation.md).
+:::

@@ -202,3 +202,11 @@ contact the [ShipEngine Connect team](mailto:connect@shipengine.com). The publis
 it is complete your rates will be available directly via the Native Rating service.
 
 If you are linking the Native Rating app to a Carrier API app, you can publish those changes now.
+
+:::warning Note
+Please note that publishing the Native Rating app from the Connect CLI makes the carrier available in Native Rating Service that can be accessed from development environments, like DDEs. To get the carrier rates in production, the carrier data needs to be [published](https://connect-rating.shipengine.com/app/publishing) via Native Rating.
+:::
+
+:::info Seller-specific Rate Card
+If there are seller-specific rate cards, please contact the [Native Rating team](mailto:connect@shipengine.com) to have the rate card applied to the particular seller.
+:::
