@@ -39,6 +39,11 @@ inventory:
       - page: inventory/reference.page.yaml/*
 nativeRating:
   - page: native-rating/index.md
+  - page: native-rating/rate-card-structure.md
+  - page: native-rating/zone-chart-structure.md
+  - page: native-rating/implementation.md
+  - page: native-rating/rating-logic.md
+  - page: native-rating/publishing.md
   - group: Methods
     expanded: true
     pages:
