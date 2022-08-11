@@ -6,10 +6,6 @@ title: Rate Card Structure
 
 The main components of the domain model are the rate card, the rate set, and the rate table which is composed of individual rates. The specifics around each of these and their relationships to each other are described below.
 
-Rates are typically provided in the form of a spreadsheet workbook. Mapping the components of that workbook may be helpful in framing/visualizing the relationship of the rate card, rate set, and rate table.
-
-![Rate Card Example](./images/rate-card-sample.png)
-
 ## Data Structures
 
 ### Rate

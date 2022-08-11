@@ -40,7 +40,7 @@ Before building your implementation, it is recommended to get the basic configur
 
 ### AppID
 
-The appId is a unique identifier required by Connect and cannot change after the app is first published. The CLI will
+The appId is a unique identifier required by Connect and cannot change after the app is first published. The CLI
 creates a random GUID and it is located in the `appId` property in `package.json` at the root of the app package.
 
 ### Name and ApiCode
@@ -68,7 +68,7 @@ The last bit of configuration that should be done is to set the id of the rate c
 any time and can change at any time, as well. If you _do_ change the name of the rate card, the previous rate card will
 **NOT** be removed the next time you publish the Connect app; however, a new rate card will be created.
 
-The rest of the rating data can be changed at will and will overwrite any changes made manually via the Native Rating api. No other
+The rest of the rating data can be changed at will and will overwrite any changes made manually via [Native Rating](https://connect-rating.shipengine.com). No other
 rate card or zone set data will be modified: only the rate card and zone set with the id specified in the rating file will
 be overwritten.
 
@@ -106,7 +106,7 @@ When the app shell is built and configured, you can [build your rating logic](./
 for building the logic from scratch, but the Connect CLI gives you a shell function to start with, located either at `./src/implementation/rate-shipments.js` or `./src/implementation/rate-shipments.ts`, depending on whether you chose Typescript or Javascript
 as your language.
 
-Any data necessary for testing can be stored in teh `./src/demo-data.ts` file described in the configuration section of this document.
+Any data necessary for testing can be stored in the `./src/demo-data.ts` file described in the configuration section of this document.
 Rates should go in the `rates` array, variables in the `variables` array, and zones (if you're using zones) in the `zones` array.
 
 ## Testing
@@ -157,7 +157,7 @@ export const DemoCarrier: Carrier = {
 ```
 
 The next step is to add a `NativeRating` property to the same carrier definition, specifying the Native Rating appId and
-the id of the default rate card that should be used by requests from the platform.
+the id of the default rate card that should be used by requests from ShipStation/ShipEngine.
 
 ```typescript
 export const DemoCarrier: Carrier = {
@@ -174,12 +174,16 @@ export const DemoCarrier: Carrier = {
 
 The `AppId` can be found in the `package.json` file of the Native Rating app. The default rate card can either be the id
 of the Connect managed rate card specified in the `./src/demo-data.ts` file or a different rate card managed manually
-via the Native Rating api. The default rate card can be changed at any time so even if you're using a manually managed
+via [Native Rating](https://connect-rating.shipengine.com). The default rate card can be changed at any time so even if you're using a manually managed
 rate card, it may be worth starting out with the Connect managed rate card to ensure everything is working correctly
 in ShipStation or ShipEngine and changing it after that.
 
 When those changes have been made, your Carrier API app changes are ready to be published but you'll need to publish
 the Native Rating app first.
+
+:::warning Seller-specific Rate Card
+All users will get rates from the default rate card defined in the carrier definition. If there are seller-specific rate cards, please contact the [Native Rating team](mailto:connect@shipengine.com) to have the rate card applied to the particular seller.
+:::
 
 ### Publishing the Native Rating app
 
@@ -204,9 +208,5 @@ it is complete your rates will be available directly via the Native Rating servi
 If you are linking the Native Rating app to a Carrier API app, you can publish those changes now.
 
 :::warning Note
-Please note that publishing the Native Rating app from the Connect CLI makes the carrier available in Native Rating Service that can be accessed from development environments, like DDEs. To get the carrier rates in production, the carrier data needs to be [published](https://connect-rating.shipengine.com/app/publishing) via Native Rating.
-:::
-
-:::info Seller-specific Rate Card
-If there are seller-specific rate cards, please contact the [Native Rating team](mailto:connect@shipengine.com) to have the rate card applied to the particular seller.
+Please note that publishing the Native Rating app from the Connect CLI makes the carrier available in Native Rating Service that can be accessed from development environments, like DDEs. To get the carrier rates in production, the carrier data needs to be [published](https://connect-rating.shipengine.com/app/publishing) via Native Rating. Learn more about publishing carrier data [here](./publishing.md).
 :::

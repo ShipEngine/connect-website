@@ -43,6 +43,7 @@ nativeRating:
   - page: native-rating/zone-chart-structure.md
   - page: native-rating/implementation.md
   - page: native-rating/rating-logic.md
+  - page: native-rating/publishing.md
   - group: Methods
     expanded: true
     pages:
