@@ -68,7 +68,7 @@ The last bit of configuration that should be done is to set the id of the rate c
 any time and can change at any time, as well. If you _do_ change the name of the rate card, the previous rate card will
 **NOT** be removed the next time you publish the Connect app; however, a new rate card will be created.
 
-The rest of the rating data can be changed at will and will overwrite any changes made manually via [Native Rating](https://connect-rating.shipengine.com). No other
+The rest of the rating data can be changed at will and will overwrite any changes made manually via Native Rating Service. No other
 rate card or zone set data will be modified: only the rate card and zone set with the id specified in the rating file will
 be overwritten.
 
@@ -174,7 +174,7 @@ export const DemoCarrier: Carrier = {
 
 The `AppId` can be found in the `package.json` file of the Native Rating app. The default rate card can either be the id
 of the Connect managed rate card specified in the `./src/demo-data.ts` file or a different rate card managed manually
-via [Native Rating](https://connect-rating.shipengine.com). The default rate card can be changed at any time so even if you're using a manually managed
+via Native Rating Service. The default rate card can be changed at any time so even if you're using a manually managed
 rate card, it may be worth starting out with the Connect managed rate card to ensure everything is working correctly
 in ShipStation or ShipEngine and changing it after that.
 
@@ -208,5 +208,5 @@ it is complete your rates will be available directly via the Native Rating servi
 If you are linking the Native Rating app to a Carrier API app, you can publish those changes now.
 
 :::warning Note
-Please note that publishing the Native Rating app from the Connect CLI makes the carrier available in Native Rating Service that can be accessed from development environments, like DDEs. To get the carrier rates in production, the carrier data needs to be [published](https://connect-rating.shipengine.com/app/publishing) via Native Rating. Learn more about publishing carrier data [here](./publishing.md).
+Please note that publishing the Native Rating app from the Connect CLI makes the carrier available in Native Rating Service that can be accessed from development environments, like DDEs. To get the carrier rates in production, the carrier data needs to be published via Native Rating Service. Learn more about publishing carrier data [here](./publishing.md).
 :::

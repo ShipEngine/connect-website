@@ -4,9 +4,11 @@ title: Publishing Carrier Data
 
 # Publishing Carrier Data
 
-The carrier rating logic, rates, and zones data need to be published via [Native Rating](https://connect-rating.shipengine.com/app/publishing) to be made available in production environment. Please note that `connect publish` pushes the data to Native Rating System and keeps it in an unpublished state. Unpublished data are only available in development environments, like DDEs, or via [Native Rating](https://connect-rating.shipengine.com/app/getRates) with the special header: `request-date: unpublished`. Once rating logic and data are finalized and ready for production, the carrier data can be published in [Native Rating](https://connect-rating.shipengine.com/app/publishing).
+The carrier rating logic, rates, and zones data need to be published via Native Rating Service to be made available in production environment. Please note that `connect publish` pushes the data to Native Rating System and keeps it in an unpublished state. Unpublished data are only available in development environments, like DDEs, or via Native Rating Service with the special header: `request-date: unpublished`. Once rating logic and data are finalized and ready for production, the carrier data can be published in Native Rating Service.
 
-![Publishing Carrier Data](./images/publishing-carrier-data.png)
+:::warning Publishing
+Please contact the [Native Rating team](mailto:connect@shipengine.com) to publish your carrier data.
+:::
 
 ## Republishing
 
