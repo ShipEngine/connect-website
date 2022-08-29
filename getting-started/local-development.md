@@ -119,3 +119,30 @@ describe("When SalesOrderExport is called with a valid request", () => {
 :::warning Mocking
 You can mock function calls to the outside world with Jest. This can be extremely useful for testing without needing valid credentials. Documentation can be found on [Jest's website here](https://jestjs.io/docs/mock-functions)
 :::
+
+## Verifying App Packaging
+
+The `shipengine-connect pack` command allows you to package your application without
+publishing it. It moves your `dependencies` into `bundledDependencies`, runs
+`npm pack`, and creates a [tarball](https://en.wikipedia.org/wiki/Tar_(computing))
+in the root of your project that you can inspect.
+
+:::warning
+If a tarball already exists in the root of your project, it will be overwritten.
+:::
+
+This provides you with visibility as to exactly what is being sent to ShipEngine
+Connect. This is useful for ensuring that you are not sending us any sensitive
+data. It is also helpful in making sure you aren't including any unnecessary files
+in your package. For example, this may help you identify packages that are listed
+in your `dependencies` that should actually be listed in your `devDependencies`.
+
+We suggest that you use the
+[`files` property](https://docs.npmjs.com/files/package.json#files) of your
+`package.json` file to list which files to _allow_ in the package. Likewise, you
+can create a [`.npmignore` file](https://docs.npmjs.com/using-npm/developers.html#keeping-files-out-of-your-package)
+to specify which files to _exclude_ from your package.
+
+```
+shipengine-connect pack
+```

@@ -5,15 +5,17 @@ gettingStarted:
       - page: getting-started/how-it-works.md
         label: How It Works
       - page: getting-started/installing-nodejs.md
-        label: Installing NodeJS
-      - page: getting-started/cli.md
-        label: ShipEngine Connect CLI
+        label: Install NodeJS
+      - page: getting-started/installing-connect.md
+        label: Install ShipEngine Connect
       - page: getting-started/initialize-project.mdx
         label: Initialize Project
       - page: getting-started/local-development.md
         label: Run Project Locally
       - page: getting-started/publishing.md
         label: Publish Your App
+      - page: getting-started/environment-variables.md
+        label: Manage Environment Variables
 shipping:
   - page: shipping/index.mdx
   - page: shipping/logging.md

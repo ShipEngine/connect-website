@@ -37,3 +37,31 @@ shipengine-connect logs > logfile.log
 The `logs` command will return all of the log messages since the last `publish`.
 When you `publish` again, it will reset the logs.
 :::
+
+### Additional Command Options
+###### `--all`
+Shows additional debugging about internal ShipEngine platform calls. By default
+you will only be shown logs specific to your app.
+
+###### `--format`
+Choose the format (`default` or `raw`) that logs are displayed in. The default is `default`.
+
+###### `--lines`
+Show the tail of the ShipEngine platform logs up to 1500 lines. The default is 500.
+
+## View App Info
+
+This command shows information about your app, such as its ID, deployed version,
+deployment status, etc.
+
+```
+shipengine-connect info
+```
+
+## Listing Your Apps
+
+This command lists all of your apps
+
+```
+shipengine-connect apps
+```
