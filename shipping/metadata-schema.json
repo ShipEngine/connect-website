@@ -1425,7 +1425,7 @@
                 "description": ""
               }
             },
-            "description": "This dictionary allows you to specify which supported delivery confirmation types the carrier offers. Setting one to undefined will use the default name in shipstation"
+            "description": "This dictionary allows you to specify which supported delivery confirmation types the carrier offers. A minimum of 1 confirmation type is required. Setting one to undefined will use the default name in shipstation"
           },
           "CarrierAttributes": {
             "type": "array",
