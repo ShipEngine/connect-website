@@ -1444,12 +1444,13 @@
           "TrackingUrl": {
             "type": "string",
             "pattern": "^((http|https):\\/\\/)([^\\/\\s]+)\\.([^(.:)\\/\\s]+)((\\/\\w+)*\\/?)([\\w\\-\\.]+[^#?\\s]+)(.*)?(#[\\w\\-]+)?$",
+            "maxLength": 200,
             "description": "This is the url template for static tracking pages ex: `http://www.shipper.com/tracking/{0}`"
           },
           "CarrierUrl": {
             "type": "string",
             "format": "uri",
-            "maxLength": 200,
+            "maxLength": 100,
             "description": "This is the url to the carriers website"
           },
           "Description": {
