@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@hookform/error-message": "^2.0.0",
-    "@redocly/developer-portal": "1.1.0-beta.104",
+    "@redocly/developer-portal": "1.1.0-beta.116",
     "bootstrap": "^5.1.3",
     "react-bootstrap": "^2.4.0",
     "react-hook-form": "^7.33.1",
