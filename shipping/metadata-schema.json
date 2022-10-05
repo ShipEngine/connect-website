@@ -794,6 +794,7 @@
               },
               "required": [
                 "Code",
+                "Abbreviation",
                 "Name",
                 "Id"
               ]
