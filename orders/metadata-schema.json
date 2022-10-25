@@ -475,15 +475,14 @@
             "type": "boolean"
           },
           "CustomFieldOptions": {
-            "description": "This tells the UI which options are available for custom fields",
+            "description": "A Custom Field Option describes a possible value that a store could send as a `sales_order_field_mapping` during `sales_orders_export` requests. These options will be used by the UI to populate settings forms automatically.",
             "type": "array",
             "uniqueItems": true,
             "items": {
-              "description": "A Custom Field Option describes a possible value that a store could send as a `sales_order_field_mapping` during `sales_orders_export` requests",
               "type": "object",
               "properties": {
                 "Field": {
-                  "description": "The name of the field being requested, which will be sent as`custom_field_*` when chosen by the seller. This value is expected to be unique per integration.",
+                  "description": "The name of the field being requested, which will be sent as `custom_field_*` when chosen by the seller. This value is expected to be unique per integration.",
                   "type": "string"
                 },
                 "DisplayName": {
