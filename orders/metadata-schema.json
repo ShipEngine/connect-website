@@ -478,7 +478,6 @@
             "description": "This tells the UI which options are available for custom fields",
             "type": "array",
             "uniqueItems": true,
-            "optional": true,
             "items": {
               "description": "A Custom Field Option describes a possible value that a store could send as a `sales_order_field_mapping` during `sales_orders_export` requests",
               "type": "object",
@@ -493,16 +492,18 @@
                 },
                 "IsAdmin": {
                   "description": "Set to true if this option must be enabled by support",
-                  "type": "boolean",
-                  "optional": "true"
+                  "type": "boolean"
                 },
                 "IsDeprecated": {
                   "description": "Set to true if this option shouldn't be shown in the UI. This does not prevent the option from being sent to the API for stores which have already chosen it.",
-                  "type": "boolean",
-                  "optional": "true"
+                  "type": "boolean"
                 }
-              }
-            }
+              },
+              "required": [
+                "Field",
+                "DisplayName"
+              ],
+              "additionalProperties": false
           },
           "CanLeaveFeedback": {
             "description": "Indicates whether or not the order source allows sellers to leave feedback on customers",
@@ -603,7 +604,6 @@
           "Id",
           "Name",
           "SendEmail",
-          "HasCustomMappings",
           "CanLeaveFeedback",
           "CanConfigureTimeZone",
           "AccountConnection",
