@@ -504,6 +504,7 @@
                 "DisplayName"
               ],
               "additionalProperties": false
+            }
           },
           "CanLeaveFeedback": {
             "description": "Indicates whether or not the order source allows sellers to leave feedback on customers",
