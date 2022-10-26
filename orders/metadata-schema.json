@@ -471,8 +471,39 @@
             "type": "boolean"
           },
           "HasCustomMappings": {
-            "description": "Indicates whether or not this marketplace allows custom mappings",
+            "description": "This field is deprecated, supply CustomFieldOptions instead.",
             "type": "boolean"
+          },
+          "CustomFieldOptions": {
+            "description": "A Custom Field Option describes a possible value that a store could send as a `sales_order_field_mapping` during `sales_orders_export` requests. These options will be used by the UI to populate settings forms automatically.",
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "object",
+              "properties": {
+                "Field": {
+                  "description": "The name of the field being requested, which will be sent as `custom_field_*` when chosen by the seller. This value is expected to be unique per integration.",
+                  "type": "string"
+                },
+                "DisplayName": {
+                  "description": "The name of this option to use in the UI",
+                  "type": "string"
+                },
+                "IsAdmin": {
+                  "description": "Set to true if this option must be enabled by support",
+                  "type": "boolean"
+                },
+                "IsDeprecated": {
+                  "description": "Set to true if this option shouldn't be shown in the UI. This does not prevent the option from being sent to the API for stores which have already chosen it.",
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "Field",
+                "DisplayName"
+              ],
+              "additionalProperties": false
+            }
           },
           "CanLeaveFeedback": {
             "description": "Indicates whether or not the order source allows sellers to leave feedback on customers",
@@ -573,7 +604,6 @@
           "Id",
           "Name",
           "SendEmail",
-          "HasCustomMappings",
           "CanLeaveFeedback",
           "CanConfigureTimeZone",
           "AccountConnection",
