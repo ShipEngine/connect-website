@@ -1,7 +1,10 @@
 # OAuth Configuration
-## Define Your Auth Process
-You will need to start by defining your auth process as being an oauth type of auth process.
-This is done by setting the `AuthProcess.Identifier.AuthenticationType = AuthenticationType.OAuth`.
+## Define Your Authorization Process
+You will need to start by declaring that your App relies uses OAuth to obtain
+credentials.
+This is done by setting the `AuthProcess.Identifier.AuthenticationType = AuthenticationType.OAuth`
+within your `AuthProcess`:
+
 ```typescript
 import {
   AuthenticationType,
@@ -11,14 +14,16 @@ import {
 
 export const AuthProcess: AuthSpecification = {
   Identifier: {
+
+// DECLARE THE APP RELIES ON OAUTH
     AuthenticationType: AuthenticationType.OAuth,
+
     IsSandbox: false,
   },
   ...
 };
 
 export const Metadata: OrderSourceAppMetadata = {
-  // DO NOT CHANGE THIS ID AFTER PUBLISHING
   Id: "bcce593b-dce3-4491-8722-a56e653c173f",
   Name: "Example",
   AuthProcess,
@@ -27,14 +32,20 @@ export const Metadata: OrderSourceAppMetadata = {
 ```
 
 :::success Pro Tip
-It is a helpful idea to give consumers of your application some details about the auth process they are going to initiate in the `AccountConnection.ConnectionFormSchema`.
+It is helpful to give consumers of your application some details about the authorization process they are going to initiate in the `AccountConnection.ConnectionFormSchema`.
 :::
 ```typescript
 export const ConnectionFormSchema: ReactForm = {
   JsonSchema: {
     title: "Example Merchant Center",
     description:
-      'Follow these steps to get connected:<br><div class="instructions"><ol><li>To connect your Example Merchant Center to ShipStation, simply provide the Merchant ID (E.g. "123456789") you intend to use below.</li></ol></div>',
+      `Follow these steps to get connected:<br>
+       <div class="instructions">
+         <ol><li>
+           To connect your Example Merchant Center to ShipStation, simply
+           provide the Merchant ID (E.g. "123456789") you intend to use below.
+         </li></ol>
+       </div>`,
     type: "object",
     required: ["merchantId"],
     properties: {
@@ -45,8 +56,15 @@ export const ConnectionFormSchema: ReactForm = {
       helpText: {
         type: "null",
         title: " ",
-        description:
-          '<div class="instructions"><ol><li value="2"> Click <b>Connect</b> to launch Example\'s consent screen, sign in with your associated Example account, then authorize ShipStation to retrieve your order information.</li></ol></div><br><i>In Example\'s <a href="https://merchants.Example.com/" target="_blank">Merchant Center</a>, find your merchant ID, which is the number at the top-right corner of the page, above the account email address.</i>',
+        description: `<div class="instructions"><ol><li value="2">
+          Click <b>Connect</b> to launch Example\'s consent screen, sign in
+          with your associated Example account, then authorize ShipStation to
+          retrieve your order information.
+       </li></ol>
+       </div><br>
+       <i>In Example\'s <a href="https://merchants.Example.com/" target="_blank">Merchant Center</a>,
+       find your merchant ID, which is the number at the top-right corner of
+       the page, above the account email address.</i>`,
       },
     },
   },
@@ -56,27 +74,36 @@ export const ConnectionFormSchema: ReactForm = {
 };
 ```
 
-The next step is to configure the rest of your AuthProcess to describe how the ShipEngine Connect platform will handle the oauth workflow.
-We currently support two flavors of oauth, more details can be found at the following links:
-- [OAuth 1](./1.0.md)
-- [OAuth 2](./2.0.md)
+The next step is to configure the your `AuthProcess` to describe each step in
+the authorization process. OAuth is a relatively loose standard, and there are
+a lot of variations. Follow the instructions for the standard that your
+application most closely adheres to:
+
+- [OAuth 1.x](./1.0.md)
+- [OAuth 2.x](./2.0.md)
 
 ## Publish
 The next step will be to publish your application using the `connect publish` command.
 
 ## Request An Installation
-> **INFO:** Your application must be published in order to have our platform establish an `OAuth Installation`, this installation process only needs to happen once and will tell our platform to start consuming your AuthProcess definition.
+:::attention
+Your application must be published before you can establish an "Installation".
+:::
 
-- Contact a member of the [ShipEngine Connect Team](mailto:connect@shipengine.com?subject=OAuth%20Installation) in order to establish a the platform installation
-    - Provide a ClientId & ClientSecret used for initiating the oauth workflow
-- Once the installation has been created you will recieve back a callback url
+Once published, contact a member of the [ShipEngine Connect Team](mailto:connect@shipengine.com?subject=OAuth%20Installation)
+to create the Installation. You will need to provide them with any application-level
+credentials. For OAuth applications, this is usually a Client ID and Client Secret.
+When the Installation is created, a _callback url_ will be generated. This is
+the URL that will be specified as the `redirect_uri` during the OAuth flow.
 
 ## Test
 :::success PRO TIP
-You may need to go back to the third parties website and set up the installation callback url as a whitelisted url.
+You may need to go back to the third party's website to add the installation callback url to an allow-list.
 :::
 
-You are ready to begin testing your OAuth workflow, login with the credentials provided to you during the `connect publish` step, and go initiate your connection workflow.
+You are ready to begin testing your OAuth workflow. Login with the credentials
+provided to you during the `connect publish` step, and go to the settings page
+to add a new connection to your integration.
 
 ## Examples
 | Integration  | Auth Version | Details |

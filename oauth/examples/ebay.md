@@ -7,10 +7,15 @@ tags:
 ---
 
 # eBay
-As part of the installation process for ebay not only was a client_id and client_secret needed, but the implementors also required a custom property `RuName` as shown in [ebays documentation](https://developer.ebay.com/api-docs/static/oauth-redirect-uri.html).
-Once a member of the ShipEngine Connect team added that custom property to the installation it was available in the `{installation:RuName}`.
+As part of the installation process for ebay, not only was a `client_id`
+and `client_secret` needed, but the implementors also required a custom property
+`RuName`, as described in [eBay's documentation](https://developer.ebay.com/api-docs/static/oauth-redirect-uri.html).
+After a member of the ShipEngine Connect team added `RuName` custom property to
+the installation it was available as `{installation:RuName}` in the process
+definition.
 
-Also please note that we were able to base64 encode the client_id and client_secret using the following template `Basic {base64:{installation:client_id}:{installation:client_secret}}`
+This example also demonstrates how you can pass base64-encoded credentials to
+build an Authorization header (see the `request_token` section).
 
 ## Definition
 ``` JSON
