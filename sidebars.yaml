@@ -73,6 +73,8 @@ oauth:
         label: OAuth 1.0
       - page: oauth/2.0.md
         label: OAuth 2.0
+      - page: oauth/connection-names.md
+        label: Connections
   - group: Flow
     expanded: true
     pages:
@@ -101,6 +103,8 @@ oauth:
         label: Integration
       - page: oauth/templating/result-token-response.md
         label: Result Token Response
+      - page: oauth/templating/connection-name.md
+        label: Connection
       - page: oauth/templating/system.md
         label: System
   - group: Examples
