@@ -7,7 +7,7 @@ tags:
 ---
 
 # Authorization
-Authorization begins with the platform acting on behalf of a ShipEnine Connect Application,
+Authorization begins with the platform acting on behalf of a ShipEngine Connect Application,
 asking an end user to give permission for the Application to access the user's
 data in the Integration. This is done by redirecting the user's browser to the
 integration, ensuring they are logged in, and accepting the scope of data-access

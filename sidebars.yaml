@@ -73,6 +73,8 @@ oauth:
         label: OAuth 1.0
       - page: oauth/2.0.md
         label: OAuth 2.0
+      - page: oauth/connection-names.md
+        label: Connections
   - group: Flow
     expanded: true
     pages:
@@ -82,6 +84,29 @@ oauth:
         label: Request
       - page: oauth/flow/refresh-token.md
         label: Refresh
+      - page: oauth/advanced/response-transformation.md
+        label: Response Transformation
+  - group: Templating
+    expanded: true
+    pages:
+      - page: oauth/templating/index.md
+        label: Overview
+      - page: oauth/templating/auth-state.md
+        label: Auth State
+      - page: oauth/templating/base64.md
+        label: Base64
+      - page: oauth/templating/callback.md
+        label: Callback
+      - page: oauth/templating/installation.md
+        label: Installation
+      - page: oauth/templating/integration.md
+        label: Integration
+      - page: oauth/templating/result-token-response.md
+        label: Result Token Response
+      - page: oauth/templating/connection-name.md
+        label: Connection
+      - page: oauth/templating/system.md
+        label: System
   - group: Examples
     expanded: true
     pages:
@@ -93,29 +118,3 @@ oauth:
         label: Google
       - page: oauth/examples/trade-me.md
         label: Trade Me
-  - group: Advanced Topics
-    expanded: true
-    pages:
-      - page: oauth/advanced/connection-context.md
-        label: Connection Context
-      - page: oauth/advanced/response-transformation.md
-        label: Response Transformation
-      - group: Templating
-        expanded: true
-        pages:
-          - page: oauth/templating/index.md
-            label: Overview
-          - page: oauth/templating/auth-state.md
-            label: Auth State
-          - page: oauth/templating/base64.md
-            label: Base64
-          - page: oauth/templating/callback.md
-            label: Callback
-          - page: oauth/templating/installation.md
-            label: Installation
-          - page: oauth/templating/integration.md
-            label: Integration
-          - page: oauth/templating/result-token-response.md
-            label: Result Token Response
-          - page: oauth/templating/system.md
-            label: System

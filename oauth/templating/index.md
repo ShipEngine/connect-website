@@ -48,4 +48,5 @@ compute data. The simplest value resolvers in the platform simply use the RHS to
 | `{integration:` | [Integration](./integration.md) |
 | `{installation:` | [Installation](./installation.md) |
 | `{result_token_response:` | [Result Token Response](./result-token-response.md) |
+| `{connection_name:` | [Connection](./connection-name.md) |
 | `{system:` | [System](./system.md) |
