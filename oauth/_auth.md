@@ -1,6 +1,6 @@
 # OAuth Configuration
 ## Define Your Authorization Process
-You will need to start by declaring that your App relies uses OAuth to obtain
+You will need to start by declaring that your App uses OAuth to obtain
 credentials.
 This is done by setting the `AuthProcess.Identifier.AuthenticationType = AuthenticationType.OAuth`
 within your `AuthProcess`:
@@ -15,7 +15,7 @@ import {
 export const AuthProcess: AuthSpecification = {
   Identifier: {
 
-// DECLARE THE APP RELIES ON OAUTH
+// DECLARE THE APP USES OAUTH
     AuthenticationType: AuthenticationType.OAuth,
 
     IsSandbox: false,

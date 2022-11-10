@@ -70,7 +70,7 @@ connections: {
 ```
 
 For this 3rd party, the URL that will be used during the authorization phase
-needs to be different, depending on if you are accessing their productin
+needs to be different, depending on if you are accessing their production
 environment, or their sandbox environment. Therefore, the `url_template`
 makes use of the `connection_name` resolver to substitute in a value from
 the `connections` section. The `connection_name` resolver will automatically
