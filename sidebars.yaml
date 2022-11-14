@@ -63,6 +63,12 @@ orders:
     expanded: true
     pages:
       - page: orders/tools/order-source-definition.mdx
+fulfillmentProvider:
+  - page: fulfillment-provider/index.mdx
+  - group: Methods
+    expanded: true
+    pages:
+      - page: fulfillment-provider/reference.page.yaml/*
 oauth:
   - group: OAuth
     expanded: true
