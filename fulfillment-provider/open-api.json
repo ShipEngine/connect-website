@@ -1,0 +1,3002 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Order API",
+    "description": "This API specification describes the canonical ShipEngine eCommerce API Order Source module. A module which implements this specification can be integrated with the ShipEngine eCommerce Platform as an Order Source.",
+    "contact": {
+      "name": "ShipEngine Connect",
+      "url": "https://connect.shipengine.com/",
+      "email": "connect@shipengine.com"
+    },
+    "license": {
+      "name": "Apache-2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0"
+    },
+    "version": "2.1.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3005"
+    }
+  ],
+  "paths": {
+    "/get_connection_context": {
+      "post": {
+        "summary": "GetConnectionContext()",
+        "description": "Return any addditional connection context not collected by the connection modal or OAuth flow.",
+        "operationId": "OrderSource_GetConnectionContext",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetConnectionContextRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetConnectionContextResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          },
+          "520": {
+            "$ref": "#/components/responses/ExternalServerError"
+          }
+        },
+        "x-codegen-request-body-name": "shipmentNotificationRequest"
+      }
+    },
+    "/shipment_notification": {
+      "post": {
+        "summary": "NotifyShipments()",
+        "description": "Notify marketplace of a shipment",
+        "operationId": "OrderSource_ShipmentNotification",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ShipmentNotificationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShipmentNotificationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          },
+          "520": {
+            "$ref": "#/components/responses/ExternalServerError"
+          }
+        },
+        "x-codegen-request-body-name": "shipmentNotificationRequest"
+      }
+    },
+    "/sales_orders_export": {
+      "post": {
+        "summary": "ExportSalesOrders()",
+        "description": "Get sales orders based on filter criteria",
+        "operationId": "OrderSource_SalesOrdersExport",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SalesOrdersExportResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          },
+          "520": {
+            "$ref": "#/components/responses/ExternalServerError"
+          }
+        },
+        "x-codegen-request-body-name": "salesOrdersExportRequest",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/SalesOrderExportRequest"
+        }
+      }
+    },
+    "/acknowledge_orders": {
+      "post": {
+        "summary": "AcknowledgeOrders()",
+        "description": "Notify marketplace that an order has been imported",
+        "operationId": "OrderSource_AcknowledgeOrders",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AcknowledgeOrdersRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AcknowledgeOrdersResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          },
+          "520": {
+            "$ref": "#/components/responses/ExternalServerError"
+          }
+        },
+        "x-codegen-request-body-name": "AcknowledgeOrdersRequest"
+      }
+    },
+    "/get_products": {
+      "post": {
+        "summary": "GetProducts()",
+        "description": "Retrieves the information for a list of products",
+        "operationId": "post-get_product_information",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/RequestBase"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "product_ids": {
+                        "type": "array",
+                        "description": "",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "products": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Product"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          },
+          "520": {
+            "$ref": "#/components/responses/ExternalServerError"
+          }
+        },
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/notification_status": {
+      "post": {
+        "summary": "NotificationStatus()",
+        "description": "This endpoint takes a list of previously pending notifications and tries to resolve their status with the third party",
+        "operationId": "post-notification_statuses",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NotificationStatusRequest"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotificationStatusResponse"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "notification_results": [
+                        {
+                          "notification_id": "string",
+                          "succeeded": true,
+                          "confirmation_code": "string",
+                          "failure_reason": "string",
+                          "status": "pending",
+                          "submission_id": "A12B2324C"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          },
+          "520": {
+            "$ref": "#/components/responses/ExternalServerError"
+          }
+        },
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/register_delivery_options": {
+      "post": {
+        "summary": "RegisterDeliveryOptions()",
+        "description": "Initiates registeration of a delivery options entry in the order source",
+        "operationId": "post-register_delivery_options",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterDeliveryOptionsRequest"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegisterDeliveryOptionsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          },
+          "520": {
+            "$ref": "#/components/responses/ExternalServerError"
+          }
+        },
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/remove_delivery_options": {
+      "post": {
+        "summary": "RemoveDeliveryOptions()",
+        "description": "Requests that the delivery options entry in the order source be deleted",
+        "operationId": "post-remove_delivery_options",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RemoveDeliveryOptionsRequest"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RemoveDeliveryOptionsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          },
+          "520": {
+            "$ref": "#/components/responses/ExternalServerError"
+          }
+        },
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/verify_delivery_options": {
+      "post": {
+        "summary": "VerifyDeliveryOptions()",
+        "description": "Verifies that the order source supports delivery options. Additionally the user has setup all required conditions to accept incoming registeration requests for delivery options.",
+        "operationId": "post-verify_delivery_options",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VerifyDeliveryOptionsRequest"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VerifyDeliveryOptionsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          },
+          "520": {
+            "$ref": "#/components/responses/ExternalServerError"
+          }
+        },
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/accept_sales_order_items": {
+      "post": {
+        "summary": "AcceptSalesOrderItems()",
+        "description": "Accept a number of items on the order for fulfillment if the marketplace supports or requires it from the shipper",
+        "operationId": "post-accept_sales_order_items",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AcceptSalesOrderItemsRequest"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AcceptSalesOrderItemsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          },
+          "520": {
+            "$ref": "#/components/responses/ExternalServerError"
+          }
+        },
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/cancel_sales_order_items": {
+      "post": {
+        "summary": "CancelSalesOrderItems()",
+        "description": "Notify the order source that the sales order items will not be shipped",
+        "operationId": "post-cancel_sales_order_items",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CancelSalesOrderItemsRequest"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CancelSalesOrderItemsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          },
+          "520": {
+            "$ref": "#/components/responses/ExternalServerError"
+          }
+        },
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/reject_sales_order_items": {
+      "post": {
+        "summary": "RejectSalesOrderItems()",
+        "description": "Notify the order source that the request to fulfill specific sales order items is being rejected",
+        "operationId": "post-reject_sales_order_items",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RejectSalesOrderItemsRequest"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RejectSalesOrderItemsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          },
+          "520": {
+            "$ref": "#/components/responses/ExternalServerError"
+          }
+        },
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/get_packing_slip_template": {
+      "post": {
+        "summary": "GetPackingSlipTemplate()",
+        "operationId": "post-get_packing_slips",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetPackingSlipTemplateResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          },
+          "520": {
+            "$ref": "#/components/responses/ExternalServerError"
+          }
+        },
+        "description": "This method is called after a user connects their store, it should provide html templates to use for packing slips. This method might return a static store wide template or call out to third party api's to get customer specific templates.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetPackingSlipTemplateRequest"
+              }
+            }
+          }
+        }
+      },
+      "parameters": []
+    }
+  },
+  "components": {
+    "responses": {
+      "BadRequest": {
+        "description": "A response to indicate that there was either a module level client error or an external client error.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/BadRequestResponse"
+            }
+          }
+        }
+      },
+      "Unauthorized": {
+        "description": "A response to indicate that the request failed to authenticate with the shipping provider.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/UnauthorizedResponse"
+            }
+          }
+        }
+      },
+      "NotFound": {
+        "description": "A response to indicate that the module does not implement this endpoint.",
+        "content": {}
+      },
+      "TooManyRequests": {
+        "description": "A response indicates that the shipping service provider has denied a request due to too many requests.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/RateLimitResponse"
+            }
+          }
+        }
+      },
+      "InternalServerError": {
+        "description": "A response indicating a server level error with the module.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/InternalServerErrorResponse"
+            }
+          }
+        }
+      },
+      "ExternalServerError": {
+        "description": "A response indicating a server level error with the external world.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ExternalServerErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "Product": {
+        "allOf": [
+          {
+            "properties": {
+              "product_id": {
+                "type": "string",
+                "description": "This ID of this product in the vendor API"
+              },
+              "name": {
+                "type": "string",
+                "description": "The product name"
+              },
+              "description": {
+                "type": "string",
+                "description": "The product description"
+              },
+              "identifiers": {
+                "type": "object",
+                "description": "Additional identifiers associated with this product",
+                "properties": {
+                  "sku": {
+                    "type": "string",
+                    "description": "The product SKU"
+                  },
+                  "upc": {
+                    "type": "string"
+                  },
+                  "isbn": {
+                    "type": "string"
+                  },
+                  "asin": {
+                    "type": "string"
+                  },
+                  "fulfillment_sku": {
+                    "type": "string"
+                  },
+                  "inventory_id": {
+                    "type": "string",
+                    "description": "The identifier needed to set and retrieve inventory levels"
+                  }
+                }
+              },
+              "details": {
+                "type": "array",
+                "description": "A list of details associated with this product",
+                "items": {
+                  "$ref": "#/components/schemas/ProductDetail"
+                }
+              },
+              "unit_cost": {
+                "type": "number",
+                "format": "decimal"
+              },
+              "weight": {
+                "$ref": "#/components/schemas/Weight"
+              },
+              "dimensions": {
+                "$ref": "#/components/schemas/Dimensions"
+              },
+              "urls": {
+                "type": "object",
+                "properties": {
+                  "product_url": {
+                    "type": "string"
+                  },
+                  "image_url": {
+                    "type": "string"
+                  },
+                  "thumbnail_url": {
+                    "type": "string"
+                  }
+                }
+              },
+              "location": {
+                "type": "string",
+                "description": "The location the product can be found in a warehouse"
+              }
+            },
+            "required": [
+              "product_id",
+              "name"
+            ]
+          }
+        ],
+        "type": "object"
+      },
+      "SalesOrder": {
+        "description": "",
+        "allOf": [
+          {
+            "required": [
+              "order_id",
+              "requested_fulfillments",
+              "status"
+            ],
+            "type": "object",
+            "properties": {
+              "order_id": {
+                "type": "string",
+                "description": "The unique identifier of the sales order from the order source"
+              },
+              "order_number": {
+                "type": "string",
+                "description": "The customer facing identifier of the sales order"
+              },
+              "status": {
+                "$ref": "#/components/schemas/SalesOrderStatus"
+              },
+              "paid_date": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "fulfilled_date": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "original_order_source": {
+                "$ref": "#/components/schemas/OriginalOrderSource"
+              },
+              "requested_fulfillments": {
+                "type": "array",
+                "description": "A list of tax charges. The description can convey the jurisdiction",
+                "items": {
+                  "required": [
+                    "items",
+                    "ship_to"
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "requested_fulfillment_id": {
+                      "type": "string",
+                      "description": "Identifier for the requested fulfillment in the vendor API"
+                    },
+                    "ship_to": {
+                      "type": "object",
+                      "description": "The destination address for this sales order",
+                      "allOf": [
+                        {
+                          "$ref": "#/components/schemas/Address"
+                        }
+                      ]
+                    },
+                    "items": {
+                      "type": "array",
+                      "description": "The line items associated with this sales order",
+                      "items": {
+                        "$ref": "#/components/schemas/SalesOrderItem"
+                      }
+                    },
+                    "extensions": {
+                      "type": "object",
+                      "properties": {
+                        "custom_field_1": {
+                          "type": "string"
+                        },
+                        "custom_field_2": {
+                          "type": "string"
+                        },
+                        "custom_field_3": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "shipping_preferences": {
+                      "type": "object",
+                      "properties": {
+                        "digital_fulfillment": {
+                          "type": "boolean",
+                          "description": "true if there are no physical items to fulfill. In this case, the ship_to may include placeholder data."
+                        },
+                        "additional_handling": {
+                          "type": "boolean"
+                        },
+                        "bill_duties_to_sender": {
+                          "type": "boolean"
+                        },
+                        "do_not_prepay_postage": {
+                          "type": "boolean",
+                          "description": "Pay for postage at drop off, for carriers that usually require prepaid postage."
+                        },
+                        "gift": {
+                          "type": "boolean"
+                        },
+                        "has_alcohol": {
+                          "type": "boolean"
+                        },
+                        "insurance_requested": {
+                          "type": "boolean"
+                        },
+                        "non_machinable": {
+                          "type": "boolean"
+                        },
+                        "saturday_delivery": {
+                          "type": "boolean"
+                        },
+                        "show_postage": {
+                          "type": "boolean",
+                          "description": "Allow display of postage paid on the shipping label"
+                        },
+                        "suppress_email_notify": {
+                          "type": "boolean"
+                        },
+                        "suppress_marketplace_notify": {
+                          "type": "boolean"
+                        },
+                        "deliver_by_date": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "hold_until_date": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "ready_to_ship_date": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "ship_by_date": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "preplanned_fulfillment_id": {
+                          "type": "string",
+                          "description": "The identifer assigned by a fulfillment planning system at checkout (Delivery Options)."
+                        },
+                        "shipping_service": {
+                          "type": "string"
+                        },
+                        "package_type": {
+                          "type": "string"
+                        },
+                        "insured_value": {
+                          "$ref": "#/components/schemas/Money"
+                        },
+                        "is_premium_program": {
+                          "type": "boolean",
+                          "description": "true if the order was placed under the terms of the order source's premium program (Amazon Prime, Walmart+, etc)"
+                        },
+                        "premium_program_name": {
+                          "type": "string",
+                          "description": "The name of the premium program, if any. This is for informational purposes. Consumers should base all logic on is_premium_program flag."
+                        },
+                        "requested_warehouse": {
+                          "type": "string"
+                        },
+                        "documents": {
+                          "type": "array",
+                          "description": "Any documents relevant to shipping that the order source provides",
+                          "items": {
+                            "$ref": "#/components/schemas/Document"
+                          }
+                        }
+                      }
+                    },
+                    "branding": {
+                      "type": "object",
+                      "properties": {
+                        "packing_slip": {
+                          "type": "object",
+                          "properties": {
+                            "url": {
+                              "type": "string",
+                              "description": "The url from which the packing slip can be downloaded"
+                            }
+                          },
+                          "description": "Packing slip associated with the brand"
+                        },
+                        "company_name": {
+                          "type": "string",
+                          "description": "Company name associated with the brand"
+                        }
+                      },
+                      "description": "The brand requested for a fulfillment"
+                    }
+                  }
+                }
+              },
+              "buyer": {
+                "$ref": "#/components/schemas/Buyer"
+              },
+              "bill_to": {
+                "type": "object",
+                "allOf": [
+                  {
+                    "type": "object",
+                    "description": "The billing address and contact information"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "email": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  {
+                    "$ref": "#/components/schemas/Address"
+                  }
+                ]
+              },
+              "currency": {
+                "type": "string",
+                "description": "The three character ISO 4217 code of the currency used for all monetary amounts"
+              },
+              "tax_identifier": {
+                "$ref": "#/components/schemas/TaxIdentifier"
+              },
+              "payment": {
+                "$ref": "#/components/schemas/Payment"
+              },
+              "ship_from": {
+                "$ref": "#/components/schemas/Address"
+              },
+              "order_url": {
+                "type": "string"
+              },
+              "notes": {
+                "type": "array",
+                "description": "Additional notes associated with this sales order",
+                "items": {
+                  "$ref": "#/components/schemas/Note"
+                }
+              },
+              "integration_context": {
+                "type": "string",
+                "description": "Data provided by the order source that should be included in calls back to the order source. This data is only meaningful to the integration and not otherwise used by the platform."
+              },
+              "created_date_time": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "modified_date_time": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        ]
+      },
+      "SalesOrderStatus": {
+        "type": "string",
+        "description": "The sales order status",
+        "enum": [
+          "AwaitingPayment",
+          "AwaitingShipment",
+          "Cancelled",
+          "Completed",
+          "OnHold",
+          "PendingFulfillment"
+        ],
+        "x-enumNames": [
+          "AwaitingPayment",
+          "AwaitingShipment",
+          "Cancelled",
+          "Completed",
+          "OnHold",
+          "PendingFulfillment"
+        ]
+      },
+      "OriginalOrderSource": {
+        "type": "object",
+        "properties": {
+          "source_id": {
+            "type": "string",
+            "description": "A unique identifier for the source marketplace"
+          },
+          "marketplace_code": {
+            "type": "string",
+            "description": "The code for the type of marketplace"
+          },
+          "order_id": {
+            "type": "string",
+            "description": "The unique identifier for the order at the source marketplace"
+          }
+        }
+      },
+      "Note": {
+        "required": [
+          "text",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "The type of note. Example Values: 'BackOrderMessage', 'ConditionNote', 'GiftMessage', 'InternalNotes', 'InStockMessage', 'MPN', 'NotesFromBuyer', 'NotesToBuyer', 'Other', 'OutOfStockMessage', 'Reason', 'SpecialInstructions', 'WarningLabel', 'FeedbackMessage'"
+          },
+          "text": {
+            "type": "string",
+            "description": "The text of the note"
+          }
+        }
+      },
+      "SalesOrderItem": {
+        "allOf": [
+          {
+            "required": [
+              "description",
+              "quantity"
+            ],
+            "type": "object",
+            "properties": {
+              "line_item_id": {
+                "type": "string",
+                "description": "An ID for the line item for the vendor API"
+              },
+              "description": {
+                "type": "string",
+                "description": "A description of the sales order item - which may differ from the product description"
+              },
+              "product": {
+                "$ref": "#/components/schemas/Product"
+              },
+              "quantity": {
+                "type": "number",
+                "description": "The item quantity for this sales order item",
+                "format": "integer"
+              },
+              "unit_price": {
+                "$ref": "#/components/schemas/Money"
+              },
+              "taxes": {
+                "type": "array",
+                "description": "A list of tax charges. The description can convey the jurisdiction",
+                "items": {
+                  "$ref": "#/components/schemas/Charge"
+                }
+              },
+              "shipping_charges": {
+                "type": "array",
+                "description": "A list of shipping charges.",
+                "items": {
+                  "$ref": "#/components/schemas/Charge"
+                }
+              },
+              "adjustments": {
+                "type": "array",
+                "description": "A list of adjustments applied that influence the order total. For example, promotions/discounts/coupons. The amount should always be a quantify of currency, not a percentage.",
+                "items": {
+                  "$ref": "#/components/schemas/Charge"
+                }
+              },
+              "item_url": {
+                "type": "string"
+              },
+              "modified_date_time": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        ]
+      },
+      "Charge": {
+        "required": [
+          "amount",
+          "description"
+        ],
+        "type": "object",
+        "properties": {
+          "amount": {
+            "$ref": "#/components/schemas/Money"
+          },
+          "description": {
+            "type": "string",
+            "description": "A description for display purposes only"
+          }
+        }
+      },
+      "Money": {
+        "type": "number",
+        "description": "The amount of the currency",
+        "format": "decimal"
+      },
+      "Address": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the individual associated with this address"
+          },
+          "company": {
+            "type": "string",
+            "description": "The name of the company associated with this address"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "address_line_1": {
+            "type": "string",
+            "description": "The first line of the address"
+          },
+          "address_line_2": {
+            "type": "string",
+            "description": "The second line of the address"
+          },
+          "address_line_3": {
+            "type": "string",
+            "description": "The third line of the address"
+          },
+          "city": {
+            "type": "string",
+            "description": "The city of the address"
+          },
+          "state_province": {
+            "type": "string",
+            "description": "The state, province, or municipality of the address"
+          },
+          "postal_code": {
+            "type": "string",
+            "description": "The postal code of the address"
+          },
+          "country_code": {
+            "type": "string",
+            "description": "The two character ISO 3166 country code of this address"
+          },
+          "residential_indicator": {
+            "type": "string",
+            "description": "Indicates this is a residential or commercial address. Values: 'R', 'C', and null"
+          },
+          "is_verified": {
+            "type": "boolean",
+            "description": "Indicates whether or not this address has been verified using an Address Verification Service. Values: true, false, and null"
+          },
+          "pickup_location": {
+            "required": [
+              "carrier_id",
+              "relay_id"
+            ],
+            "type": "object",
+            "properties": {
+              "carrier_id": {
+                "type": "string"
+              },
+              "relay_id": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "ProductDetail": {
+        "required": [
+          "name",
+          "value"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The type of the product detail. Example (non-exhaustive) values: 'Color', 'CountryOfManufacture', 'Shape', 'Size', 'Style'"
+          },
+          "value": {
+            "type": "string",
+            "description": "The value of the product detail"
+          }
+        }
+      },
+      "Buyer": {
+        "type": "object",
+        "properties": {
+          "buyer_id": {
+            "type": "string",
+            "description": "An ID for this buyer in the vendor API"
+          },
+          "name": {
+            "type": "string",
+            "description": "The full name of the buyer"
+          },
+          "email": {
+            "type": "string",
+            "description": "The primary email address of the buyer"
+          },
+          "phone": {
+            "type": "string",
+            "description": "The primary phone number of the buyer"
+          }
+        },
+        "description": "Contact information for the buyer of this sales order"
+      },
+      "TaxIdentifier": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "tax id number for the seller"
+          },
+          "type": {
+            "$ref": "#/components/schemas/TaxIdentifierType"
+          }
+        },
+        "description": "Identifiers (tax code/id, tax identifier type) for a tax"
+      },
+      "TaxIdentifierType": {
+        "title": "",
+        "type": "string",
+        "description": "The type of tax identifier.\n",
+        "enum": [
+          "TIN",
+          "EIN",
+          "SSN",
+          "VAT",
+          "ABN",
+          "IOSS",
+          "IRD",
+          "OSS",
+          "VOEC",
+          "Other"
+        ],
+        "x-enumNames": [
+          "TIN",
+          "EIN",
+          "SSN",
+          "VAT",
+          "ABN",
+          "IOSS",
+          "IRD",
+          "OSS",
+          "VOEC",
+          "Other"
+        ]
+      },
+      "Payment": {
+        "type": "object",
+        "properties": {
+          "payment_id": {
+            "type": "string",
+            "description": "An ID for this payment in the vendor API"
+          },
+          "payment_status": {
+            "$ref": "#/components/schemas/PaymentStatus"
+          },
+          "taxes": {
+            "type": "array",
+            "description": "A list of tax charges. The description can convey the jurisdiction",
+            "items": {
+              "$ref": "#/components/schemas/Charge"
+            }
+          },
+          "shipping_charges": {
+            "type": "array",
+            "description": "A list of shipping charges.",
+            "items": {
+              "$ref": "#/components/schemas/Charge"
+            }
+          },
+          "adjustments": {
+            "type": "array",
+            "description": "A list of adjustments applied that influence the order total. For example, promotions/discounts/coupons. The amount should always be a quantify of currency, not a percentage.",
+            "items": {
+              "$ref": "#/components/schemas/Charge"
+            }
+          },
+          "amount_paid": {
+            "$ref": "#/components/schemas/Money"
+          },
+          "coupon_code": {
+            "type": "string",
+            "description": "Coupon code applied to obtain a discount. The discount amounts should be included as one of the adjustments."
+          },
+          "payment_method": {
+            "type": "string",
+            "description": "The payment method"
+          },
+          "label_voucher": {
+            "$ref": "#/components/schemas/LabelVoucher"
+          },
+          "prepaid_vat": {
+            "type": "array",
+            "description": "A list containing any pre-paid vat taxes included in the amount paid",
+            "items": {
+              "$ref": "#/components/schemas/Charge"
+            }
+          }
+        }
+      },
+      "PaymentStatus": {
+        "title": "",
+        "type": "string",
+        "description": "The status of this payment. Values: 'AwaitingPayment', 'PaymentCancelled', 'PaymentFailed', 'PaymentInProcess', 'Paid', 'Other'\n",
+        "enum": [
+          "AwaitingPayment",
+          "PaymentCancelled",
+          "PaymentFailed",
+          "PaymentInProcess",
+          "Paid",
+          "Other"
+        ],
+        "x-enumNames": [
+          "AwaitingPayment",
+          "PaymentCancelled",
+          "PaymentFailed",
+          "PaymentInProcess",
+          "Paid",
+          "Other"
+        ]
+      },
+      "Weight": {
+        "required": [
+          "unit",
+          "value"
+        ],
+        "type": "object",
+        "properties": {
+          "unit": {
+            "$ref": "#/components/schemas/WeightUnit"
+          },
+          "value": {
+            "type": "number",
+            "description": "The value of the weight in weight units",
+            "format": "decimal"
+          }
+        }
+      },
+      "WeightUnit": {
+        "type": "string",
+        "description": "",
+        "enum": [
+          "Gram",
+          "Ounce",
+          "Kilogram",
+          "Pound"
+        ],
+        "x-enumNames": [
+          "Gram",
+          "Ounce",
+          "Kilogram",
+          "Pound"
+        ]
+      },
+      "Dimensions": {
+        "required": [
+          "height",
+          "length",
+          "unit",
+          "width"
+        ],
+        "type": "object",
+        "properties": {
+          "unit": {
+            "$ref": "#/components/schemas/DimensionUnit"
+          },
+          "height": {
+            "type": "number",
+            "description": "The height of the item in dimension units",
+            "format": "decimal"
+          },
+          "width": {
+            "type": "number",
+            "description": "The width of the item in dimension units",
+            "format": "decimal"
+          },
+          "length": {
+            "type": "number",
+            "description": "The length of the item in dimension units",
+            "format": "decimal"
+          }
+        }
+      },
+      "DimensionUnit": {
+        "type": "string",
+        "description": "",
+        "enum": [
+          "Centimeter",
+          "Inch"
+        ],
+        "x-enumNames": [
+          "Centimeter",
+          "Inch"
+        ]
+      },
+      "BadRequestResponse": {
+        "title": "Bad Request Response",
+        "type": "object",
+        "properties": {
+          "detailed_errors": {
+            "type": "array",
+            "description": "A list of detailed errors that occurred for this request.<br/><b>Remove all personally identifiable information.</b>",
+            "nullable": true,
+            "items": {
+              "type": "object",
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/DetailedError"
+                },
+                {
+                  "required": [
+                    "standardized_error_code"
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "standardized_error_code": {
+                      "type": "string",
+                      "description": "The ShipEngine standardized error code associated with this error.",
+                      "enum": [
+                        "generic",
+                        "serialization",
+                        "validation",
+                        "external_client_error"
+                      ],
+                      "x-nullable": false
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "description": "This model represents a response where there was a client error.",
+        "example": {
+          "detailed_errors": [
+            {
+              "standardized_error_code": "external_client_error",
+              "external_error_code": "SYS_0001",
+              "message": "This is a made up error message",
+              "external_http_status_code": 400,
+              "raw_external_context": "{transaction_id:'fake_transaction_id', error_code:'SYS_0001', error_message:'This is a made up error message' "
+            },
+            {
+              "standardized_error_code": "validation",
+              "message": "This error represents a validation failure within the module."
+            }
+          ]
+        }
+      },
+      "UnauthorizedResponse": {
+        "title": "Unauthorized Response",
+        "type": "object",
+        "properties": {
+          "detailed_errors": {
+            "type": "array",
+            "description": "A list of detailed errors that occurred for this request.<br/><b>Remove all personally identifiable information.</b>",
+            "nullable": true,
+            "items": {
+              "type": "object",
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/DetailedError"
+                },
+                {
+                  "required": [
+                    "standardized_error_code"
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "standardized_error_code": {
+                      "type": "string",
+                      "description": "The ShipEngine standardized error code associated with this error.",
+                      "enum": [
+                        "external_unauthorized_error"
+                      ],
+                      "x-nullable": false
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "description": "This model represents a response that the request was unauthorized to perform some action.",
+        "example": {
+          "detailed_errors": [
+            {
+              "standardized_error_code": "external_unauthorized_error",
+              "external_error_code": "4000001_made_up",
+              "message": "The users account has been suspended, please contact support.",
+              "external_http_status_code": 401,
+              "raw_external_context": "{ 'account_id':'123456', 'error_code':'4000001_made_up', 'error_description':'The user account has been suspended, please contact support.', 'support_number':'555-555-5555' }"
+            }
+          ]
+        }
+      },
+      "InternalServerErrorResponse": {
+        "title": "Internal Server Error Response",
+        "type": "object",
+        "properties": {
+          "detailed_errors": {
+            "type": "array",
+            "description": "A list of detailed errors that occurred for this request.<br/><b>Remove all personally identifiable information.</b>",
+            "nullable": true,
+            "items": {
+              "type": "object",
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/DetailedError"
+                },
+                {
+                  "required": [
+                    "standardized_error_code"
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "standardized_error_code": {
+                      "type": "string",
+                      "description": "The ShipEngine standardized error code associated with this error.",
+                      "enum": [
+                        "unhandled_module_exception"
+                      ],
+                      "x-nullable": false
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "description": "This model represents a module level error that was caught.",
+        "example": {
+          "detailed_errors": [
+            {
+              "standardized_error_code": "unhandled_module_exception",
+              "message": "There was an uncaught exception with the module.",
+              "raw_external_context": "{'message':'Cannot read property 'toString' of null', 'stack':'TypeError: Cannot read property 'toString' of null\n    at /home/runner/index.js:4:5\n    at Script.runInContext (vm.js:133:20)\n    at Object.<anonymous> (/run_dir/interp.js:156:20)\n    at Module._compile (internal/modules/cjs/loader.js:778:30)\n    at Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)\n    at Module.load (internal/modules/cjs/loader.js:653:32)\n    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)\n    at Function.Module._load (internal/modules/cjs/loader.js:585:3)\n    at Function.Module.runMain (internal/modules/cjs/loader.js:831:12)\n    at startup (internal/bootstrap/node.js:283:19)'}"
+            }
+          ]
+        }
+      },
+      "ExternalServerErrorResponse": {
+        "title": "External Server Error Response",
+        "type": "object",
+        "properties": {
+          "detailed_errors": {
+            "type": "array",
+            "description": "A list of detailed errors that occurred for this request.<br/><b>Remove all personally identifiable information.</b>",
+            "nullable": true,
+            "items": {
+              "type": "object",
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/DetailedError"
+                },
+                {
+                  "required": [
+                    "standardized_error_code"
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "standardized_error_code": {
+                      "type": "string",
+                      "description": "The ShipEngine standardized error code associated with this error.",
+                      "enum": [
+                        "external_server_error"
+                      ],
+                      "x-nullable": false
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "description": "This model represents a server error with the external services the module depends on.",
+        "example": {
+          "detailed_errors": [
+            {
+              "standardized_error_code": "external_server_error",
+              "external_http_status_code": 503,
+              "message": "Unable to successfully connect to provider endpoint.",
+              "raw_external_context": "Service Unavailable."
+            }
+          ]
+        }
+      },
+      "RateLimitResponse": {
+        "title": "Rate Limit Response",
+        "type": "object",
+        "properties": {
+          "retry_after_seconds": {
+            "type": "integer",
+            "description": "The number of seconds to wait before retrying the request. Optionally provided if the provider supports this and the end point is a 1 to 1 mapping.",
+            "nullable": true
+          },
+          "retry_after_time": {
+            "type": "string",
+            "description": "The date time the provider has specified to retry after. Optionally provided if the provider supports this and the end point is a 1 to 1 mapping.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "throttling_context": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "An optional grab bag of information related to the context of the provider.",
+            "nullable": true
+          }
+        },
+        "description": "This response indicates that the provider has denied a request due to too many requests, generally associated with a 429 HTTP status code.",
+        "x-examples": {
+          "Example": {
+            "retry_after_seconds": 6000,
+            "throttling_context": {}
+          }
+        }
+      },
+      "RequestBase": {
+        "required": [
+          "auth",
+          "transaction_id"
+        ],
+        "type": "object",
+        "properties": {
+          "transaction_id": {
+            "type": "string",
+            "description": "A randomly generated transaction ID, used to correlate the request and response",
+            "format": "guid"
+          },
+          "auth": {
+            "required": [
+              "order_source_api_code"
+            ],
+            "type": "object",
+            "properties": {
+              "order_source_api_code": {
+                "type": "string",
+                "description": "The unique identifier for the type of order source"
+              },
+              "username": {
+                "type": "string"
+              },
+              "password": {
+                "type": "string"
+              },
+              "access_token": {
+                "type": "string"
+              },
+              "api_key": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "connection_context": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "description": "Additional source-specific information needed to connect to the API."
+              }
+            },
+            "description": "The authorization information necessary to fulfill this request."
+          }
+        },
+        "title": ""
+      },
+      "ShipmentNotificationRequest": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/RequestBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "notifications": {
+                "type": "array",
+                "description": "A list of orders that have been shipped",
+                "items": {
+                  "$ref": "#/components/schemas/ShipmentNotification"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "ShipmentNotificationItem": {
+        "required": [
+          "description",
+          "quantity"
+        ],
+        "type": "object",
+        "properties": {
+          "line_item_id": {
+            "type": "string",
+            "description": "The order source's unique identifier for the line item"
+          },
+          "description": {
+            "type": "string",
+            "description": "A description of the sales order item - which may differ from the product description"
+          },
+          "sku": {
+            "type": "string",
+            "description": "The unique identifier for the item that was shipped"
+          },
+          "product_id": {
+            "type": "string",
+            "description": "This ID of this product in the vendor API"
+          },
+          "quantity": {
+            "type": "integer",
+            "description": "The number of items of this SKU that were shipped"
+          }
+        }
+      },
+      "ShipmentNotificationResponse": {
+        "title": "",
+        "allOf": [
+          {
+            "properties": {
+              "notification_results": {
+                "type": "array",
+                "description": "The result of each notification.",
+                "items": {
+                  "$ref": "#/components/schemas/NotificationStatus"
+                }
+              }
+            },
+            "required": [
+              "notification_results"
+            ]
+          }
+        ],
+        "x-examples": {
+          "Success": {
+            "value": {
+              "notification_results": [
+                {
+                  "notification_id": "b3d8aae5-7fe0-4064-9900-8d3e962ef618",
+                  "confirmation_code": "confirmed_123abc",
+                  "failure_reason": "string",
+                  "status": "success",
+                  "submission_id": "12134BCD232342"
+                }
+              ]
+            }
+          }
+        },
+        "type": "object"
+      },
+      "SalesOrdersExportResponse": {
+        "allOf": [
+          {
+            "required": [
+              "sales_orders"
+            ],
+            "type": "object",
+            "properties": {
+              "sales_orders": {
+                "type": "array",
+                "description": "A list of sales orders which match the request criteria",
+                "items": {
+                  "$ref": "#/components/schemas/SalesOrder"
+                }
+              },
+              "cursor": {
+                "type": "string",
+                "description": "The value to pass on subsequent requests when there is more data available."
+              }
+            }
+          }
+        ]
+      },
+      "SalesOrdersExportRequest": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/RequestBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "sales_order_status_mappings": {
+                "type": "object",
+                "additionalProperties": {
+                  "$ref": "#/components/schemas/SalesOrderStatus"
+                },
+                "description": "overwrites of default mapping of sales order statuses. Key: integration's status, Values: 'AwaitingPayment', 'AwaitingShipment', 'Cancelled', 'Completed', 'OnHold', 'PendingFulfillment'"
+              },
+              "sales_order_field_mappings": {
+                "type": "object",
+                "properties": {
+                  "custom_field_1": {
+                    "type": "string"
+                  },
+                  "custom_field_2": {
+                    "type": "string"
+                  },
+                  "custom_field_3": {
+                    "type": "string"
+                  }
+                },
+                "description": "allows for mapping of custom 3rd party SalesOrder fields to properties on RequestedFulfillmentExtensions"
+              },
+              "criteria": {
+                "type": "object",
+                "properties": {
+                  "from_date_time": {
+                    "type": "string",
+                    "description": "Return only sales orders modified on or after this date",
+                    "format": "date-time"
+                  },
+                  "to_date_time": {
+                    "type": "string",
+                    "description": "Return only sales orders modified on or before this date",
+                    "format": "date-time"
+                  }
+                }
+              },
+              "cursor": {
+                "type": "string",
+                "description": "The value returned from a previous request when more pages of data are availalble. The criteria is ignored when this value is present."
+              }
+            }
+          }
+        ]
+      },
+      "AcknowledgeOrdersRequest": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/RequestBase"
+          },
+          {
+            "required": [
+              "orders"
+            ],
+            "type": "object",
+            "properties": {
+              "orders": {
+                "type": "array",
+                "items": {
+                  "required": [
+                    "imported_date",
+                    "order_id"
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "order_id": {
+                      "type": "string"
+                    },
+                    "order_number": {
+                      "type": "string"
+                    },
+                    "imported_date": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "integration_context": {
+                      "type": "object",
+                      "properties": {},
+                      "description": "Data provided by the order source during import that is stored by the plaform so that it can be included in calls back to the order source. This data is only meaningful to the integration and not otherwise used by the platform."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "AcknowledgeOrdersResponse": {
+        "allOf": [
+          {
+            "required": [
+              "responses"
+            ],
+            "type": "object",
+            "properties": {
+              "responses": {
+                "type": "array",
+                "items": {
+                  "required": [
+                    "order_id",
+                    "succeeded"
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "order_id": {
+                      "type": "string"
+                    },
+                    "succeeded": {
+                      "type": "boolean",
+                      "description": "true or false, indicating if acknowledgement succeeded"
+                    },
+                    "failure_reason": {
+                      "type": "string",
+                      "description": "Additional context for why the acknowledgement failed."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "DetailedError": {
+        "title": "Detailed Error",
+        "type": "object",
+        "properties": {
+          "standardized_error_code": {
+            "type": "string",
+            "description": "This has been deprecated",
+            "nullable": true
+          },
+          "external_error_code": {
+            "type": "string",
+            "description": "This is a provider specific error code.",
+            "nullable": true,
+            "example": "0016"
+          },
+          "message": {
+            "type": "string",
+            "description": "A user friendly message about this error.",
+            "nullable": true,
+            "example": "Severe error return code"
+          },
+          "external_http_status_code": {
+            "type": "integer",
+            "description": "The HTTP status code returned from the external service provider.",
+            "format": "int32",
+            "nullable": true,
+            "example": 400
+          },
+          "raw_external_context": {
+            "type": "string",
+            "description": "The serialized response containing the error from an external service provider.",
+            "nullable": true
+          }
+        },
+        "description": "This model represented a detailed error"
+      },
+      "Document": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "array",
+            "description": "The document type(s) being returned. In most cases this is just a single document type; however, some\ncarriers return multiple document types in the same PDF or ZPL.",
+            "items": {
+              "$ref": "#/components/schemas/DocumentType"
+            }
+          },
+          "data": {
+            "type": "string",
+            "description": "Base64 encoded data for the document."
+          },
+          "format": {
+            "$ref": "#/components/schemas/DocumentFormat"
+          }
+        },
+        "description": "Container for a document."
+      },
+      "DocumentType": {
+        "type": "string",
+        "description": "",
+        "enum": [
+          "label",
+          "customs_form",
+          "commercial_invoice"
+        ],
+        "x-enumNames": [
+          "Label",
+          "CustomsForm",
+          "CommercialInvoice"
+        ]
+      },
+      "DocumentFormat": {
+        "type": "string",
+        "description": "",
+        "enum": [
+          "PDF",
+          "ZPL",
+          "PNG"
+        ],
+        "x-enumNames": [
+          "Pdf",
+          "Zpl",
+          "Png"
+        ]
+      },
+      "LabelVoucher": {
+        "title": "LabelVoucher",
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "Base URL for the Carrier API implementation"
+          },
+          "token": {
+            "type": "string",
+            "description": "Token needed to authenticate with the Carrier API implementation"
+          }
+        },
+        "description": "Represents information needed to leverage a third party Carrier API implementation"
+      },
+      "GetConnectionContextRequest": {
+        "title": "GetConnectionContextRequest",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/RequestBase"
+          }
+        ]
+      },
+      "GetConnectionContextResponse": {
+        "title": "GetConnectionContextRequest",
+        "allOf": [
+          {
+            "type": "object",
+            "properties": {
+              "connection_context": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "description": "Additional source-specific information needed to connect to the API."
+              }
+            }
+          }
+        ]
+      },
+      "NotificationStatusRequest": {
+        "title": "NotificationStatusRequest",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/RequestBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "notifications": {
+                "type": "array",
+                "description": "A list of pending notifications that were previously submitted and need to be resolved with the third party.",
+                "minItems": 1,
+                "items": {
+                  "$ref": "#/components/schemas/PendingNotification"
+                }
+              }
+            },
+            "required": [
+              "notifications"
+            ]
+          }
+        ]
+      },
+      "ShipmentNotification": {
+        "title": "ShipmentNotification",
+        "required": [
+          "items",
+          "notification_id",
+          "order_id"
+        ],
+        "type": "object",
+        "properties": {
+          "notification_id": {
+            "type": "string",
+            "description": "A unique identifier to correlate this shipment notification with its result in the response"
+          },
+          "order_id": {
+            "type": "string",
+            "description": "The unique identifier of the sales order from the order source"
+          },
+          "order_number": {
+            "type": "string",
+            "description": "The customer facing identifier of the sales order"
+          },
+          "tracking_number": {
+            "type": "string",
+            "description": "The identifier provided by the fulfiller for tracking the delivery progress"
+          },
+          "tracking_url": {
+            "type": "string",
+            "description": "The url where the shipment can be tracked"
+          },
+          "carrier_code": {
+            "type": "string",
+            "description": "The carrier code the order was shipped through"
+          },
+          "ext_location_id": {
+            "type": "string",
+            "description": "The order source's identifier for the location that items were shipped from"
+          },
+          "items": {
+            "type": "array",
+            "description": "The items shipped in this shipment",
+            "items": {
+              "$ref": "#/components/schemas/ShipmentNotificationItem"
+            }
+          },
+          "ship_to": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "ship_from": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "return_address": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "ship_date": {
+            "type": "string",
+            "description": "The (ISO 8601) datetime (UTC) associated with when this item was last modified\n",
+            "format": "date-time",
+            "example": "2021-03-31T18:21:14.858Z"
+          },
+          "currency": {
+            "type": "string",
+            "description": "The (ISO 4217) code describing the currency used for all amounts on this payload",
+            "example": "\"USD\", \"EUR\", \"NZD\""
+          },
+          "fulfillment_cost": {
+            "type": "number",
+            "description": "The amount of money it cost to fulfill this shipment"
+          },
+          "notes": {
+            "type": "array",
+            "description": "Additional notes associated with this notification or its sales order",
+            "items": {
+              "$ref": "#/components/schemas/Note"
+            }
+          },
+          "insurance_cost": {
+            "type": "number",
+            "description": "The total amount of insurance purchased"
+          },
+          "notify_buyer": {
+            "type": "boolean",
+            "description": "Indicates whether or not the buyer should be notified that this item has been shipped"
+          },
+          "integration_context": {
+            "type": "object",
+            "properties": {},
+            "description": "The integration context specified on the ExportSalesOrders response"
+          }
+        },
+        "description": "An individual notification that an order has been shipped"
+      },
+      "PendingNotification": {
+        "title": "Pending Notification",
+        "type": "object",
+        "description": "A notification that has been submitted to the third party but not confirmed as being successful or failed.",
+        "properties": {
+          "notification_id": {
+            "type": "string",
+            "description": "A generated unique identifier used by the caller to correlate the response to this notification."
+          },
+          "submission_id": {
+            "type": "string",
+            "description": "A unique identifier that is used to query the third party about the status of this notification, set in the shipment_notification response."
+          }
+        },
+        "required": [
+          "notification_id"
+        ]
+      },
+      "NotificationStatusResponse": {
+        "title": "NotificationStatusResponse",
+        "type": "object",
+        "description": "",
+        "properties": {
+          "notifications": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NotificationStatus"
+            }
+          }
+        }
+      },
+      "NotificationStatus": {
+        "title": "Notification Status",
+        "type": "object",
+        "description": "This represents the current state of a notification",
+        "properties": {
+          "notification_id": {
+            "type": "string",
+            "description": "The identifier used to correlate this notification result with the notification from the request."
+          },
+          "succeeded": {
+            "type": "boolean",
+            "deprecated": true,
+            "description": "Deprecated: Please use status instead."
+          },
+          "confirmation_code": {
+            "type": "string",
+            "description": "An identifier provided by the order source to acknowledge the fulfillment."
+          },
+          "failure_reason": {
+            "type": "string",
+            "description": "Additional context for why the notification failed"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "success",
+              "failure",
+              "pending"
+            ],
+            "example": "success",
+            "description": "The state of the notification."
+          },
+          "submission_id": {
+            "type": "string",
+            "description": "A unique identifier that is used to query the third party about the status of this notification in the notification_status endpoint."
+          }
+        },
+        "required": [
+          "notification_id"
+        ]
+      },
+      "RegisterDeliveryOptionsRequest": {
+        "title": "RegisterDeliveryOptionsRequest",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/RequestBase"
+          },
+          {
+            "type": "object",
+            "required": [
+              "callback_url",
+              "marketplace_key",
+              "option_key"
+            ],
+            "properties": {
+              "callback_url": {
+                "type": "string",
+                "description": "Callback url to register with the order source"
+              },
+              "marketplace_key": {
+                "type": "string",
+                "description": "Marketplace key to be returned in delivery options calls from the order source"
+              },
+              "option_key": {
+                "type": "string",
+                "description": "Option metadata to be returned in delivery options calls from the order source"
+              }
+            }
+          }
+        ]
+      },
+      "RegisterDeliveryOptionsResponse": {
+        "title": "RegisterDeliveryOptionsResponse",
+        "type": "object",
+        "description": "",
+        "required": [
+          "connection_id",
+          "succeeded"
+        ],
+        "properties": {
+          "connection_id": {
+            "type": "string",
+            "description": ""
+          },
+          "succeeded": {
+            "type": "boolean",
+            "description": ""
+          },
+          "failure_reason": {
+            "type": "string",
+            "description": ""
+          }
+        }
+      },
+      "RemoveDeliveryOptionsRequest": {
+        "title": "RemoveDeliveryOptionsRequest",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/RequestBase"
+          },
+          {
+            "type": "object",
+            "required": [
+              "connection_id"
+            ],
+            "properties": {
+              "connection_id": {
+                "type": "string",
+                "description": "Identifier for the delivery options connection in an order source"
+              }
+            }
+          }
+        ]
+      },
+      "RemoveDeliveryOptionsResponse": {
+        "title": "RemoveDeliveryOptionsResponse",
+        "type": "object",
+        "description": "",
+        "required": [
+          "succeeded"
+        ],
+        "properties": {
+          "succeeded": {
+            "type": "boolean",
+            "description": ""
+          },
+          "failure_reason": {
+            "type": "string",
+            "description": ""
+          }
+        }
+      },
+      "VerifyDeliveryOptionsRequest": {
+        "title": "VerifyDeliveryOptionsRequest",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/RequestBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "connection_id": {
+                "type": "string",
+                "description": "Identifier for the delivery options connection in an order source"
+              }
+            }
+          }
+        ]
+      },
+      "VerifyDeliveryOptionsResponse": {
+        "title": "VerifyDeliveryOptionsResponse",
+        "type": "object",
+        "description": "",
+        "required": [
+          "is_supported"
+        ],
+        "properties": {
+          "is_supported": {
+            "type": "boolean",
+            "description": ""
+          }
+        }
+      },
+      "AcceptSalesOrderItemsRequest": {
+        "title": "AcceptSalesOrderItemsRequest",
+        "description": "A request to accept any or all sales order items for fulfillment.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/RequestBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "notifications": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "notification_id",
+                    "order_id",
+                    "items"
+                  ],
+                  "properties": {
+                    "notification_id": {
+                      "type": "string"
+                    },
+                    "order_id": {
+                      "type": "string",
+                      "description": "Unique order identifier from the order source."
+                    },
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "line_item_id",
+                          "quantity"
+                        ],
+                        "properties": {
+                          "line_item_id": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string",
+                            "description": "Message that the shipper can provide about the action being performed on the item"
+                          },
+                          "quantity": {
+                            "type": "integer",
+                            "description": "The quantity of the line item to be accepted. Should always be a positive value greater than 0.",
+                            "example": 1
+                          },
+                          "product": {
+                            "type": "object",
+                            "properties": {
+                              "product_id": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "AcceptSalesOrderItemsResponse": {
+        "title": "AcceptSalesOrderItemsResponse",
+        "type": "object",
+        "description": "A response to the accept request for a number of sales order items.",
+        "properties": {
+          "notification_results": {
+            "type": "array",
+            "description": "",
+            "items": {
+              "type": "object",
+              "required": [
+                "notification_id",
+                "status"
+              ],
+              "properties": {
+                "notification_id": {
+                  "type": "string",
+                  "description": "Identifier for the requested accept notification"
+                },
+                "confirmation_code": {
+                  "type": "string",
+                  "description": "An identifier provided by the order source to accept the items on the fulfillment"
+                },
+                "failure_reason": {
+                  "type": "string",
+                  "description": "Details given by the order source if the accept action fails"
+                },
+                "status": {
+                  "type": "string",
+                  "description": "Status of the accept action on all requested items",
+                  "enum": [
+                    "success",
+                    "failure"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "CancelSalesOrderItemsRequest": {
+        "title": "CancelSalesOrderItemsRequest",
+        "description": "A request to cancel any or all sales order items in the order source.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/RequestBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "notifications": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "notification_id",
+                    "order_id",
+                    "items"
+                  ],
+                  "properties": {
+                    "notification_id": {
+                      "type": "string"
+                    },
+                    "order_id": {
+                      "type": "string",
+                      "description": "Unique order identifier from the order source."
+                    },
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "line_item_id",
+                          "quantity"
+                        ],
+                        "properties": {
+                          "line_item_id": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string",
+                            "description": "Message that the shipper can provide about the action being performed on the item"
+                          },
+                          "quantity": {
+                            "type": "integer",
+                            "description": "The quantity of the line item to be accepted. Should always be a positive value greater than 0.",
+                            "example": 1
+                          },
+                          "product": {
+                            "type": "object",
+                            "properties": {
+                              "product_id": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "CancelSalesOrderItemsResponse": {
+        "title": "CancelSalesOrderItemsResponse",
+        "type": "object",
+        "description": "A response to the cancel request for a number of sales order items.",
+        "properties": {
+          "notification_results": {
+            "type": "array",
+            "description": "",
+            "items": {
+              "type": "object",
+              "required": [
+                "notification_id",
+                "status"
+              ],
+              "properties": {
+                "notification_id": {
+                  "type": "string",
+                  "description": "Identifier for the requested cancel notification"
+                },
+                "confirmation_code": {
+                  "type": "string",
+                  "description": "An identifier provided by the order source to cancel the items on the fulfillment"
+                },
+                "failure_reason": {
+                  "type": "string",
+                  "description": "Details given by the order source if the cancel action fails"
+                },
+                "status": {
+                  "type": "string",
+                  "description": "Status of the cancel action on all requested items",
+                  "enum": [
+                    "success",
+                    "failure"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "RejectSalesOrderItemsRequest": {
+        "title": "RejectSalesOrderItemsRequest",
+        "description": "A request to reject any or all sales order items in the order source.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/RequestBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "notifications": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "notification_id",
+                    "order_id",
+                    "items"
+                  ],
+                  "properties": {
+                    "notification_id": {
+                      "type": "string"
+                    },
+                    "order_id": {
+                      "type": "string",
+                      "description": "Unique order identifier from the order source."
+                    },
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "line_item_id",
+                          "quantity"
+                        ],
+                        "properties": {
+                          "line_item_id": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string",
+                            "description": "Message that the shipper can provide about the action being performed on the item"
+                          },
+                          "quantity": {
+                            "type": "integer",
+                            "description": "The quantity of the line item to be rejected. Should always be a positive value greater than 0.",
+                            "example": 1
+                          },
+                          "product": {
+                            "type": "object",
+                            "properties": {
+                              "product_id": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "RejectSalesOrderItemsResponse": {
+        "title": "RejectSalesOrderItemsResponse",
+        "type": "object",
+        "description": "A response to the reject request for a number of sales order items.",
+        "properties": {
+          "notification_results": {
+            "type": "array",
+            "description": "",
+            "items": {
+              "type": "object",
+              "required": [
+                "notification_id",
+                "status"
+              ],
+              "properties": {
+                "notification_id": {
+                  "type": "string",
+                  "description": "Identifier for the requested reject notification"
+                },
+                "confirmation_code": {
+                  "type": "string",
+                  "description": "An identifier provided by the order source to reject the items on the fulfillment"
+                },
+                "failure_reason": {
+                  "type": "string",
+                  "description": "Details given by the order source if the reject action fails"
+                },
+                "status": {
+                  "type": "string",
+                  "description": "Status of the reject action on all requested items",
+                  "enum": [
+                    "success",
+                    "failure"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "GetPackingSlipTemplateRequest": {
+        "title": "GetPackingSlipTemplateRequest",
+        "description": "A request to get the packing slips for a given platform user.\nCurrently this will only be called when the marketplace is connected.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/RequestBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "version": {
+                "type": "string",
+                "example": "shipstation",
+                "default": "shipstation",
+                "enum": [
+                  "shipstation"
+                ],
+                "description": "This contains the desired version being requested"
+              },
+              "size": {
+                "type": "string",
+                "enum": [
+                  "four_by_six_inches",
+                  "letter"
+                ],
+                "example": "letter",
+                "description": "This is the size of packing slip that is being requested by the platform"
+              }
+            },
+            "required": [
+              "version",
+              "size"
+            ]
+          }
+        ]
+      },
+      "GetPackingSlipTemplateResponse": {
+        "title": "GetPackingSlipTemplateResponse",
+        "type": "object",
+        "properties": {
+          "packing_slip_template": {
+            "$ref": "#/components/schemas/PackingSlipTemplate"
+          }
+        },
+        "required": [
+          "packing_slip_template"
+        ]
+      },
+      "PackingSlipTemplate": {
+        "title": "PackingSlipTemplate",
+        "type": "object",
+        "description": "The html templates for a given packing slip.",
+        "properties": {
+          "header": {
+            "type": "string",
+            "description": "The html template that should be displayed at the top of the packing slip"
+          },
+          "items_header": {
+            "type": "string",
+            "description": "The html template that should be displayed above the items being printed out"
+          },
+          "  item": {
+            "type": "string",
+            "description": "The html template that will be rendered for each item"
+          },
+          "footer": {
+            "type": "string",
+            "description": "The html template that should be displayed at the bottom of the packing slip"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name that should be associated with this packing slip in the platform"
+          }
+        },
+        "required": [
+          "header",
+          "items_header",
+          "  item",
+          "footer",
+          "name"
+        ]
+      },
+      "Auth": {
+        "title": "Auth",
+        "type": "object",
+        "description": "Represents the auth information sent with every request",
+        "properties": {
+          "order_source_api_code": {
+            "type": "string",
+            "description": "The unique identifier for the type of order source"
+          },
+          "username": {
+            "type": "string",
+            "description": "The username of the seller making the request for this order source"
+          },
+          "password": {
+            "type": "string",
+            "description": "The password of the seller making the request for this order source"
+          },
+          "access_token": {
+            "type": "string",
+            "description": "The access token of the seller making the request for this order source"
+          },
+          "api_key": {
+            "type": "string",
+            "description": "The api key of the seller making the request for this order source"
+          },
+          "url": {
+            "type": "string",
+            "description": "The url of the sellers store, only used in cases where the 3rd party api can be hosted on a seller by seller basis"
+          },
+          "connection_context": {
+            "type": "object",
+            "description": "Additional source-specific information needed to connect to the API"
+          },
+          "connection_name": {
+            "type": "string",
+            "description": "The name of the connection used, if this order source has"
+          }
+        },
+        "required": [
+          "order_source_api_code"
+        ]
+      },
+      "SalesOrderExportCriteria": {
+        "title": "SalesOrderExportCriteria",
+        "type": "object",
+        "properties": {
+          "from_date_time": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The (ISO 8601) datetime (UTC) associated with the beginning of the range we would like to pull orders from",
+            "example": "2021-03-31T18:21:14.858Z"
+          },
+          "to_date_time": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The (ISO 8601) datetime (UTC) associated with the end of the range we would like to pull orders from",
+            "example": "2021-03-31T18:21:14.858Z"
+          }
+        }
+      },
+      "SalesOrderCustomFieldMappings": {
+        "title": "SalesOrderCustomFieldMappings",
+        "type": "object",
+        "properties": {
+          "custom_field_1": {
+            "type": "string"
+          },
+          "custom_field_2": {
+            "type": "string"
+          },
+          "custom_field_3": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "requestBodies": {
+      "SalesOrderExportRequest": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "transaction_id": {
+                  "type": "string",
+                  "description": "A randomly generated transaction ID, used to correlate the request and response",
+                  "format": "uuid"
+                },
+                "auth": {
+                  "$ref": "#/components/schemas/Auth"
+                },
+                "criteria": {
+                  "$ref": "#/components/schemas/SalesOrderExportCriteria"
+                },
+                "cursor": {
+                  "type": "string",
+                  "description": "Information needed to get this current batch of orders if necessary, this will be set by the export sales order response if there are additional orders to be retrieved.",
+                  "example": "\"23\", \"65f3873f-8ece-4429-935d-e35cbeeab5d5\""
+                },
+                "sales_order_field_mappings": {
+                  "$ref": "#/components/schemas/SalesOrderCustomFieldMappings"
+                },
+                "sales_order_status_mappings": {
+                  "type": "object",
+                  "description": "seller specified mappings for custom statuses coming from the 3rd parties api and the SalesOrderStatus they should map to."
+                }
+              },
+              "required": [
+                "transaction_id"
+              ]
+            },
+            "examples": {
+              "Simple Export Request": {
+                "$ref": "#/components/examples/SalesOrderExportRequest"
+              }
+            }
+          }
+        },
+        "description": "A request to export a range of sales orders"
+      }
+    },
+    "examples": {
+      "SalesOrderExportRequest": {
+        "value": {
+          "transaction_id": "0fec1e58-b197-4052-99cf-2218496c5482",
+          "auth": {
+            "order_source_api_code": "windigo",
+            "username": "user@user.com",
+            "password": "NotPassword12"
+          },
+          "criteria": {
+            "from_date_time": "2021-03-31T18:21:14.858Z",
+            "to_date_time": "2021-03-31T18:21:14.858Z"
+          }
+        }
+      }
+    }
+  },
+  "x-generator": "NSwag v12.0.11.0 (NJsonSchema v9.13.13.0 (Newtonsoft.Json v11.0.0.0))"
+}
