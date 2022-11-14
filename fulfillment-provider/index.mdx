@@ -1,0 +1,95 @@
+---
+title: Definition
+toc: true
+---
+
+# Fulfillment App Definition
+
+import { JsonSchema } from "@redocly/developer-portal/ui";
+import Schema from "./metadata-schema.json";
+
+
+## Metadata Definition
+<JsonSchema
+  schema={Schema}
+/>
+
+:::success OAuth
+Learn More about defining an OAuth AuthProcess [here](../oauth/index.md)
+:::
+
+## TypeScript Example
+```TypeScript definition/index.ts
+import { 
+  AuthenticationType,
+  OrderSourceAppMetadata
+} from "@shipengine/connect-order-source-api";
+import { brand } from "./brand.ts";
+
+export const Metadata: OrderSourceAppMetadata = {
+    Id: "79f8480f-9cec-4c51-bb3d-4887f37eba94",
+    Name: "connect-example",
+    AuthProcess: {
+        Identifier: {
+            AuthenticationType: AuthenticationType.Basic,
+            IsSandbox: false
+        }
+    },
+    OrderSources: [brand]
+};
+```
+```TypeScript definition/brand.ts
+import { join } from "path";
+import { OrderSourceDefinition } from "@shipengine/connect-order-source-api";
+import { ConnectionFormSchema } from "../forms/connect.ts";
+
+export const brand: OrderSourceDefinition = {
+    Id: '1b290f53-fd3c-4fcd-a516-e49b74058885',
+    Name: 'Connect Example',
+    ApiCode: 'connect_example'
+    SendEmail: true,
+    HasCustomMappings: false,
+    CanLeaveFeedback: false,
+    HasCustomStatuses: true,
+    CanConfigureTimeZone: false,
+    HasInventoryLevels: true,
+    AccountConnection: {
+        Name: 'Connect Example Connection',
+        ConnectionFormSchema,
+    },
+    Images: {
+        Logo: join(__dirname, '../../assets/logo.svg'),
+        Icon: join(__dirname, '../../assets/icon.svg'),
+    },
+    SupportedPackingSlipTemplateVersions: [
+    PackingSlipTemplateVersion.ShipStation
+    ]
+};
+```
+```TypeScript forms/connect.ts
+export const ConnectionFormSchema = {
+    JsonSchema: {
+        "type": "object",
+        "required": [
+            "username",
+            "password"
+        ],
+        "properties": {
+            "username": {
+                "type": "string",
+                "title": "User Name:"
+            },
+            "password": {
+                "type": "string",
+                "title": "Password:"
+            }
+        }
+    },
+    UiSchema: {
+        "password": {
+            "ui:widget": "password",
+            "ui:help": "Hint: Make it strong!"
+        }
+    }
+};
+```
