@@ -65,6 +65,12 @@ orders:
       - page: orders/tools/order-source-definition.mdx
 fulfillmentProvider:
   - page: fulfillment-provider/index.mdx
+  - page: fulfillment-provider/logging.md
+  - page: fulfillment-provider/error-handling.md
+  - page: fulfillment-provider/environment-variables.md
+  - page: fulfillment-provider/forms.md
+  - label: Authentication
+    page: fulfillment-provider/authentication.md
   - group: Methods
     expanded: true
     pages:
