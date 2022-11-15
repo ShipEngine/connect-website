@@ -1,5 +1,5 @@
 {
-  "description": "This represents a single integration which may contain multiple branded order sources",
+  "description": "This represents a single integration which may contain multiple branded fulfillment providers",
   "type": "object",
   "properties": {
     "Id": {
@@ -11,12 +11,8 @@
       "description": "The name of this integration",
       "type": "string"
     },
-    "ApiCode": {
-      "description": "The api code ShipEngine customers will use for this order source",
-      "type": "string"
-    },
     "AuthProcess": {
-      "description": "The specification for authorizing with this order source",
+      "description": "The specification for authorizing with this fulfillment provider",
       "type": "object",
       "properties": {
         "Identifier": {
@@ -442,95 +438,59 @@
       },
       "additionalProperties": false
     },
-    "OrderSources": {
-      "description": "A list of branded order sources associated with this integration",
+    "FulfillmentProviders": {
+      "description": "A list of branded fulfillment providers associated with this integration",
       "type": "array",
       "uniqueItems": true,
       "minItems": 1,
       "items": {
-        "description": "This represents a single branded order source within our system",
+        "description": "This represents a single branded fulfillment provider within our system",
         "type": "object",
         "properties": {
           "Id": {
-            "description": "This is a unique GUID identifier for this order source",
+            "description": "This is a unique GUID identifier for this fulfillment provider",
             "type": "string",
             "format": "uuid"
           },
           "Name": {
-            "description": "The branded name for this order source Example: 'Shopify', 'eBay', 'Amazon Canada'",
+            "description": "The branded name for this fulfillment provider Example: 'FBA', 'ShipWire'",
             "type": "string",
             "maxLength": 50
           },
-          "ApiCode": {
-            "description": "ApiCode for this order source, used by ShipEngine customers",
-            "type": "string",
-            "pattern": "^[a-z][a-z0-9_]*[a-z]$"
-          },
-          "SendEmail": {
-            "description": "Indicates whether or not our system is allowed to send emails to customers",
-            "type": "boolean"
-          },
-          "HasCustomMappings": {
-            "description": "This field is deprecated, supply CustomFieldOptions instead.",
-            "type": "boolean"
-          },
-          "CustomFieldOptions": {
-            "description": "A Custom Field Option describes a possible value that a store could send as a `sales_order_field_mapping` during `sales_orders_export` requests. These options will be used by the UI to populate settings forms automatically.",
+          "FulfillmentServices": {
+            "description": "",
             "type": "array",
-            "uniqueItems": true,
-            "items": {
+            "items": {              
+              "description": "",
               "type": "object",
               "properties": {
-                "Field": {
-                  "description": "The name of the field being requested, which will be sent as `custom_field_*` when chosen by the seller. This value is expected to be unique per integration.",
+                "Id": {
+                  "description": "This is a unique GUID identifier for this shipping service",
                   "type": "string"
                 },
-                "DisplayName": {
-                  "description": "The name of this option to use in the UI",
+                "Name": {
+                  "description": "Name of the shipping service",
                   "type": "string"
                 },
-                "IsAdmin": {
-                  "description": "Set to true if this option must be enabled by support",
-                  "type": "boolean"
+                "Abbreviation": {
+                  "description": "Shortened name of the shipping service",
+                  "type": "string"
                 },
-                "IsDeprecated": {
-                  "description": "Set to true if this option shouldn't be shown in the UI. This does not prevent the option from being sent to the API for stores which have already chosen it.",
-                  "type": "boolean"
+                "Code": {
+                  "description": "Api service code used for rates and labels",
+                  "type": "string"
                 }
               },
-              "required": [
-                "Field",
-                "DisplayName"
-              ],
+              "required": ["Id", "Name", "Abbreviation", "Code"],
               "additionalProperties": false
             }
           },
-          "CanLeaveFeedback": {
-            "description": "Indicates whether or not the order source allows sellers to leave feedback on customers",
-            "type": "boolean"
-          },
-          "HasCustomStatuses": {
-            "description": "Indicates whether this order source allows for custom statuses on a seller by seller basis",
-            "type": "boolean"
-          },
-          "CanConfigureTimeZone": {
-            "description": "Indicates whether or not the order source has inventory levels",
-            "type": "boolean"
-          },
-          "HasInventoryLevels": {
-            "description": "Indicates whether or not the order source has inventory levels",
-            "type": "boolean"
-          },
-          "AccountConnection": {
-            "description": "Specifies account connection information",
+          "AccountModals": {
+            "description": "Defines fields for registration",
             "type": "object",
             "properties": {
-              "Name": {
-                "description": "",
-                "type": "string"
-              },
-              "ConnectionFormSchema": {
-                "description": "",
+              "RegistrationFormSchema": {
+                "description": "Defines fields for registration",
                 "type": "object",
                 "properties": {
                   "JsonSchema": {
@@ -544,8 +504,22 @@
                     "type": "object",
                     "properties": {},
                     "additionalProperties": false
+                  }
+                },
+                "required": ["JsonSchema", "UiSchema"],
+                "additionalProperties": false
+              },
+              "SettingsFormSchema": {
+                "description": "Defines fields for changes to the connection",
+                "type": "object",
+                "properties": {
+                  "JsonSchema": {
+                    "description": "",
+                    "type": "object",
+                    "properties": {},
+                    "additionalProperties": false
                   },
-                  "ApiContractMapping": {
+                  "UiSchema": {
                     "description": "",
                     "type": "object",
                     "properties": {},
@@ -554,65 +528,40 @@
                 },
                 "required": ["JsonSchema", "UiSchema"],
                 "additionalProperties": false
-              },
-              "ConnectionNames": {
-                "description": "",
-                "type": "array",
-                "uniqueItems": true,
-                "items": {
-                  "description": "",
-                  "type": "string"
-                }
-              },
-              "DefaultConnectionName": {
-                "description": "",
-                "type": "string"
               }
             },
-            "required": ["Name", "ConnectionFormSchema"],
+            "required": ["RegistrationFormSchema", "SettingsFormSchema"],
             "additionalProperties": false
           },
           "Images": {
-            "description": "Images that will be used for this branded order source",
+            "description": "Images that will be used for this branded fulfillment provider",
             "type": "object",
             "properties": {
-              "Icon": {
-                "description": "The full path to the logo used in modals and other areas of our platform for this order source. Use join(__dirname, '../assets/logo.svg') @example \"/dev/integration/assets/ordersource1/logo.svg\"",
+              "IconUrl": {
+                "description": "The full path to the logo used in modals and other areas of our platform for this fulfillment provider. Use join(__dirname, '../assets/logo.svg') @example \"/dev/integration/assets/fulfillmentprovider1/logo.svg\"",
                 "type": "string",
                 "pattern": "^.*.(svg)$"
               },
-              "Logo": {
-                "description": "The full path to the icon used for this order source. Use join(__dirname, '../assets/logo.svg') @example \"/dev/integration/assets/ordersource1/icon.svg\"",
+              "LogoUrl": {
+                "description": "The full path to the icon used for this fulfillment provider. Use join(__dirname, '../assets/logo.svg') @example \"/dev/integration/assets/fulfillmentprovider1/icon.svg\"",
                 "type": "string",
                 "pattern": "^.*.(svg)$"
               }
             },
-            "required": ["Icon", "Logo"],
+            "required": ["IconUrl", "LogoUrl"],
             "additionalProperties": false
-          },
-          "SupportedPackingSlipTemplateVersions": {
-            "description": "This lets the platform know which packing slip templates this order source supports",
-            "type": "array",
-            "items": {
-              "description": "",
-              "type": "string",
-              "enum": ["shipstation"]
-            }
-          }
+          } 
         },
         "required": [
           "Id",
           "Name",
-          "SendEmail",
-          "CanLeaveFeedback",
-          "CanConfigureTimeZone",
-          "AccountConnection",
+          "AccountModals",
           "Images"
         ],
         "additionalProperties": false
       }
     }
   },
-  "required": ["Id", "Name", "AuthProcess", "OrderSources"],
+  "required": ["Id", "Name", "AuthProcess", "FulfillmentProviders"],
   "additionalProperties": false
 }
