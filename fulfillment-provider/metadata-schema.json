@@ -555,6 +555,7 @@
         "required": [
           "Id",
           "Name",
+          "FulfillmentServices",
           "AccountModals",
           "Images"
         ],

@@ -20,13 +20,13 @@ Learn More about defining an OAuth AuthProcess [here](../oauth/index.md)
 
 ## TypeScript Example
 ```TypeScript definition/index.ts
-import { 
+import {
   AuthenticationType,
-  OrderSourceAppMetadata
-} from "@shipengine/connect-order-source-api";
-import { brand } from "./brand.ts";
+  FulfillmentProviderAppMetadata
+} from "@shipengine/connect-fulfillment-provider-api";
+import { fulfillmentProvider } from "./fulfillment-provider";
 
-export const Metadata: OrderSourceAppMetadata = {
+export const metadata: FulfillmentProviderAppMetadata = {
     Id: "79f8480f-9cec-4c51-bb3d-4887f37eba94",
     Name: "connect-example",
     AuthProcess: {
@@ -35,61 +35,64 @@ export const Metadata: OrderSourceAppMetadata = {
             IsSandbox: false
         }
     },
-    OrderSources: [brand]
+    FulfillmentProviders: [fulfillmentProvider],
 };
 ```
-```TypeScript definition/brand.ts
-import { join } from "path";
-import { OrderSourceDefinition } from "@shipengine/connect-order-source-api";
-import { ConnectionFormSchema } from "../forms/connect.ts";
+```TypeScript definition/fulfillment-provider.ts
+import { join } from 'path';
+import { FulfillmentProviderDefinition } from '@shipengine/connect-fulfillment-provider-api';
+import { registrationForm, settingsForm } from '../forms';
 
-export const brand: OrderSourceDefinition = {
+export const fulfillmentProvider: FulfillmentProviderDefinition = {
     Id: '1b290f53-fd3c-4fcd-a516-e49b74058885',
     Name: 'Connect Example',
-    ApiCode: 'connect_example'
-    SendEmail: true,
-    HasCustomMappings: false,
-    CanLeaveFeedback: false,
-    HasCustomStatuses: true,
-    CanConfigureTimeZone: false,
-    HasInventoryLevels: true,
-    AccountConnection: {
-        Name: 'Connect Example Connection',
-        ConnectionFormSchema,
+    Description: 'This is a description about the fulfillment provider',
+    AccountModals: {
+        RegistrationFormSchema: registrationForm,
+        SettingsFormSchema: settingsForm,
     },
+    FulfillmentServices: [
+        { Id: 'b9d34927-b306-4f3e-88b6-f879eee52a0f', Name: 'Example Shipping', Abbreviation: 'ExpShipping', Code: 'std' },
+    ],
     Images: {
-        Logo: join(__dirname, '../../assets/logo.svg'),
-        Icon: join(__dirname, '../../assets/icon.svg'),
+        LogoUrl: join(__dirname, '../../assets/logo.svg'),
+        IconUrl: join(__dirname, '../../assets/icon.svg'),
     },
-    SupportedPackingSlipTemplateVersions: [
-    PackingSlipTemplateVersion.ShipStation
-    ]
 };
 ```
-```TypeScript forms/connect.ts
-export const ConnectionFormSchema = {
+```TypeScript forms/registration-form.ts
+export const registrationForm = {
     JsonSchema: {
-        "type": "object",
-        "required": [
-            "username",
-            "password"
-        ],
-        "properties": {
-            "username": {
-                "type": "string",
-                "title": "User Name:"
-            },
-            "password": {
-                "type": "string",
-                "title": "Password:"
+        title: 'Connect Example Connection',
+        description: 'Sample Form Description',
+        type: 'object',
+        properties: {
+            username: {
+                type: 'string',
+                title: 'Username',
             }
-        }
+        },
+        required: ['username']
     },
     UiSchema: {
-        "password": {
-            "ui:widget": "password",
-            "ui:help": "Hint: Make it strong!"
+        username: {
+            'ui:help': 'Your username',
         }
     }
+};
+```
+```TypeScript forms/settings-form.ts
+export const settingsForm = {
+  JsonSchema: {
+      title: 'Connect Example Connection',
+      description: 'Sample Form Description',
+      type: 'object',
+      properties: {
+
+      }
+  },
+  UiSchema: {
+
+  }
 };
 ```
