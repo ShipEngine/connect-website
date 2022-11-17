@@ -39,7 +39,9 @@ export const registrationForm: ReactForm = {
   JsonSchema: {
     title: "Example Merchant Center",
     description:
-      'Follow these steps to get connected:<br><div class="instructions"><ol><li>To connect your Example Merchant Center to ShipStation, simply provide the Merchant ID (E.g. "123456789") you intend to use below.</li></ol></div>',
+      `Follow these steps to get connected:
+      <br><div class="instructions"><ol><li>To connect your Example Merchant Center to ShipStation, 
+      simply provide the Merchant ID (E.g. "123456789") you intend to use below.</li></ol></div>`,
     type: "object",
     required: ["merchantId"],
     properties: {
@@ -51,7 +53,12 @@ export const registrationForm: ReactForm = {
         type: "null",
         title: " ",
         description:
-          '<div class="instructions"><ol><li value="2"> Click <b>Connect</b> to launch Example\'s consent screen, sign in with your associated Example account, then authorize ShipStation access to send fulfillments.</li></ol></div><br><i>In Example\'s <a href="https://merchants.Example.com/" target="_blank">Merchant Center</a>, find your merchant ID, which is the number at the top-right corner of the page, above the account email address.</i>',
+          `<div class="instructions"><ol><li value="2"> Click <b>Connect</b> to launch Example\'s 
+          consent screen, sign in with your associated Example account, then authorize ShipStation 
+          access to send fulfillments.</li></ol></div><br><i>In Example\'s 
+          <a href="https://merchants.Example.com/" target="_blank">Merchant Center</a>, find your 
+          merchant ID, which is the number at the top-right corner of the page, above the account 
+          email address.</i>`,
       },
     },
   },
