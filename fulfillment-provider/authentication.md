@@ -32,10 +32,10 @@ export const Metadata: FulfillmentProviderAppMetadata = {
 ```
 
 :::success Pro Tip
-It is a helpful idea to give consumers of your application some details about the auth process they are going to initiate in the `AccountConnection.ConnectionFormSchema`.
+It is a helpful idea to give consumers of your application some details about the auth process they are going to initiate in the `AccountModals.RegistrationFormSchema`.
 :::
 ```typescript
-export const ConnectionFormSchema: ReactForm = {
+export const registrationForm: ReactForm = {
   JsonSchema: {
     title: "Example Merchant Center",
     description:
