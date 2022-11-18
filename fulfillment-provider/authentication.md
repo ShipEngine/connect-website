@@ -97,3 +97,4 @@ You are ready to begin testing your OAuth workflow, login with the credentials p
 | [Google](../oauth/examples/google.md) | OAuth 2 | `uses result_token_response` |
 | [Trade Me](../oauth/examples/trade-me.md) | OAuth 1 | `uses auth1 redirector`, `uses response transformation` |
 
+
