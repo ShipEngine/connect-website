@@ -19,6 +19,7 @@ oasDefinitions:
   freight: https://api.redocly.com/registry/bundle/auctane-uff/Freight/V1/openapi.yaml?branch=master
   inventory: https://api.redocly.com/registry/bundle/auctane-uff/Inventory/V1/openapi.yaml?branch=master
   nativeRating: https://api.redocly.com/registry/bundle/auctane-uff/Native%20Rating/V1/openapi.yaml?branch=master
+  fulfillmentProvider: https://api.redocly.com/registry/bundle/auctane-uff/Fulfillment%20Provider/V1/openapi.yaml?branch=master
 
 stylesheets:
   - https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700&display=swap
