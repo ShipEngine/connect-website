@@ -599,7 +599,7 @@
                 "Abbreviation": {
                   "type": "string",
                   "maxLength": 20,
-                  "description": "This is an abbreviation of the name, can match the name if it is short enough"
+                  "description": "This is an abbreviation of the name if necessary"
                 },
                 "PackageAttributes": {
                   "type": "array",
@@ -774,7 +774,7 @@
                 "Abbreviation": {
                   "type": "string",
                   "maxLength": 20,
-                  "description": "This is an abbreviation of the name if necessary"
+                  "description": "This is an abbreviation of the name, can match the name if it is short enough"
                 },
                 "Name": {
                   "type": "string",
