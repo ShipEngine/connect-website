@@ -867,7 +867,7 @@
               },
               "requested_fulfillments": {
                 "type": "array",
-                "description": "A list of tax charges. The description can convey the jurisdiction",
+                "description": "A fulfillment is a group of items that expect to be shipped the same way",
                 "items": {
                   "required": [
                     "items",
