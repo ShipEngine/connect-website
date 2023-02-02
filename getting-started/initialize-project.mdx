@@ -2,6 +2,17 @@
 title: Initialize Project
 ---
 
+import {
+  FlexSection,
+  ThinTile,
+} from '@redocly/developer-portal/ui';
+import orderIcon from '../images/orders.svg';
+import packageIcon from '../images/package.svg';
+import truckIcon from '../images/shipping-truck.svg';
+import calculatorIcon from '../images/calculator.svg';
+import thirdPartyLogisticsIcon from '../images/third-party-logistics.svg';
+import cogBrowser from '../images/cog-browser.svg';
+
 # Initialize Project
 ## Connect Init
 The `init` command will begin the process of creating a new ShipEngine Connect application.
@@ -22,8 +33,27 @@ This will generate a project structure to help build your integration.
 
 ## Integration Types
 Learn more about the implementation details of the various ShipEngine Connect integration types.
-
-* [Orders](../orders/index.mdx) - Import Orders, Notify Marketplaces, push and pull inventory
-* [Shipping](../shipping/index.mdx) - Create Labels, Calculate or Retrieve Rates, Tracking
-* [3PL](../fulfillment-provider/index.mdx) - Delegate orders, shipping notifications, etc...
-* [Freight](../freight/index.md) - LTL
+<FlexSection justifyContent="space-around" flexWrap="wrap">
+    <ThinTile header="Orders" icon={orderIcon} to="../orders/index.mdx">
+      Import Orders, Notify Marketplaces, etc...
+    </ThinTile>
+    <ThinTile header="Shipping" icon={packageIcon} to="../shipping/index.mdx">
+      Get Rates, Create Labels, Tracking, etc...
+    </ThinTile>
+    <ThinTile header="Inventory" icon={cogBrowser} to="../inventory/index.md">
+      Import or publish inventory levels
+    </ThinTile>
+    <ThinTile header="3PL" icon={thirdPartyLogisticsIcon} to="../fulfillment-provider/index.mdx">
+      Delegate orders, shipping notifications, rates, etc...
+    </ThinTile>
+    <ThinTile header="Freight" icon={truckIcon} to="../freight/index.md">
+      LTL
+    </ThinTile>
+    <ThinTile
+      header="Native Rating"
+      icon={calculatorIcon}
+      to="../native-rating/index.md"
+    >
+      Implement Rating, Define Rate Cards, etc ...
+    </ThinTile>
+  </FlexSection>
