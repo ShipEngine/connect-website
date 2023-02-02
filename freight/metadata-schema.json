@@ -1,0 +1,364 @@
+{
+    "type": "object",
+    "required": [
+        "Id",
+        "ApiCode",
+        "Name",
+        "FreightCarriers",
+        "Connector"
+    ],
+    "properties": {
+        "Id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "The id for the freight app **(this GUID should not be changed after publishing)**"
+        },
+        "ApiCode": {
+            "type": "string",
+            "description": "The identifier for the freight app that will be used to route requests to the module. Must be snake cased and unique"
+        },
+        "Name": {
+            "type": "string",
+            "description": "The name of the freight app"
+        },
+        "FreightCarriers": {
+            "type": "array",
+            "uniqueItems": true,
+            "minItems": 1,
+            "description": "The freight carriers supported by the freight app",
+            "items": {
+                "type": "object",
+                "required": [
+                    "Id",
+                    "Codes",
+                    "Name",
+                    "Features",
+                    "ServiceLevels",
+                    "ContainerTypes",
+                    "AccessorialServiceGroups",
+                    "DocumentTypes",
+                    "Countries",
+                    "AccountConnection",
+                    "Images"
+                ],
+                "properties": {
+                    "Id": {
+                        "type": "string",
+                        "description": "The id for the freight carrier **(this GUID should not be changed after publishing)**"
+                    },
+                    "Codes": {
+                        "type": "array",
+                        "description": "The codes used to identify the freight carrier",
+                        "items": {
+                            "type": "object",
+                            "required": [
+                                "SCAC",
+                                "ApiCode"
+                            ],
+                            "properties": {
+                                "SCAC": {
+                                    "type": "string",
+                                    "description": "The Standard Carrier Alpha Code for the carrier"
+                                },
+                                "ApiCode": {
+                                    "type": "string",
+                                    "description": "The identifier for the freight carrier to be used in API calls. Must be snake cased and unique"
+                                }
+                            }
+                        }
+                    },
+                    "Name": {
+                        "type": "string",
+                        "description": "The name of the freight carrier"
+                    },
+                    "Features": {
+                        "type": "array",
+                        "description": "The features supported by the carrier",
+                        "items": {
+                            "type": "string",
+                            "enum": [
+                                "AutoPRO",
+                                "Connect",
+                                "Documents",
+                                "Quote",
+                                "SchedulePickup",
+                                "Tracking"
+                            ]
+                        }
+                    },
+                    "ServiceLevels": {
+                        "type": "array",
+                        "description": "The service levels supported by the carrier",
+                        "items": {
+                            "type": "object",
+                            "required": [
+                                "Id",
+                                "ApiCode",
+                                "Code",
+                                "Name",
+                                "Features"
+                            ],
+                            "properties": {
+                                "Id": {
+                                    "type": "string"
+                                },
+                                "ApiCode": {
+                                    "type": "string"
+                                },
+                                "Code": {
+                                    "type": "string"
+                                },
+                                "Name": {
+                                    "type": "string"
+                                },
+                                "Features": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string",
+                                        "enum": [
+                                            "AutoPRO",
+                                            "Connect",
+                                            "Documents",
+                                            "Quote",
+                                            "SchedulePickup",
+                                            "Tracking"
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "ContainerTypes": {
+                        "type": "array",
+                        "description": "The container types supported by the carrier",
+                        "items": {
+                            "type": "object",
+                            "required": [
+                                "Id",
+                                "ApiCode",
+                                "Code",
+                                "Name",
+                                "Features"
+                            ],
+                            "properties": {
+                                "Id": {
+                                    "type": "string"
+                                },
+                                "ApiCode": {
+                                    "type": "string"
+                                },
+                                "Code": {
+                                    "type": "string"
+                                },
+                                "Name": {
+                                    "type": "string"
+                                },
+                                "Features": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string",
+                                        "enum": [
+                                            "AutoPRO",
+                                            "Connect",
+                                            "Documents",
+                                            "Quote",
+                                            "SchedulePickup",
+                                            "Tracking"
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "AccessorialServiceGroups": {
+                        "type": "array",
+                        "description": "The accessorial services supported by the carrier, grouped and sorted as required",
+                        "items": {
+                            "type": "object",
+                            "required": [
+                                "Id",
+                                "Name",
+                                "SortOrder",
+                                "Services"
+                            ],
+                            "properties": {
+                                "Id": {
+                                    "type": "string"
+                                },
+                                "Name": {
+                                    "type": "string"
+                                },
+                                "SortOrder": {
+                                    "type": "integer",
+                                    "default": 0
+                                },
+                                "Services": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "required": [
+                                            "Id",
+                                            "ApiCode",
+                                            "Code",
+                                            "Name",
+                                            "Features",
+                                            "ResponseOnly",
+                                            "Attributes"
+                                        ],
+                                        "properties": {
+                                            "Id": {
+                                                "type": "string"
+                                            },
+                                            "ApiCode": {
+                                                "type": "string"
+                                            },
+                                            "Code": {
+                                                "type": "string"
+                                            },
+                                            "Name": {
+                                                "type": "string"
+                                            },
+                                            "Features": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string",
+                                                    "enum": [
+                                                        "AutoPRO",
+                                                        "Connect",
+                                                        "Documents",
+                                                        "Quote",
+                                                        "SchedulePickup",
+                                                        "Tracking"
+                                                    ]
+                                                }
+                                            },
+                                            "ResponseOnly": {
+                                                "type": "boolean"
+                                            },
+                                            "Attributes": {
+                                                "type": "object",
+                                                "required": [
+                                                    "JsonSchema",
+                                                    "UiSchema",
+                                                    "ApiContractMapping"
+                                                ],
+                                                "properties": {
+                                                    "JsonSchema": {
+                                                        "type": "object"
+                                                    },
+                                                    "UiSchema": {
+                                                        "type": "object"
+                                                    },
+                                                    "ApiContractMapping": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "type": "object",
+                                                            "required": [
+                                                                "apiContractField",
+                                                                "jsonSchemaProperty"
+                                                            ],
+                                                            "properties": {
+                                                                "apiContractField": {
+                                                                    "type": "string"
+                                                                },
+                                                                "jsonSchemaProperty": {
+                                                                    "type": "string"
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "DocumentTypes": {
+                        "type": "array",
+                        "description": "The document types supported by the carrier",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "Countries": {
+                        "type": "array",
+                        "description": "The countries supported by the carrier",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "AccountConnection": {
+                        "type": "object",
+                        "description": "The connection forms for the carrier, as well as the API contract mapping for use in ShipEngine",
+                        "required": [
+                            "JsonSchema",
+                            "UiSchema",
+                            "ApiContractMapping"
+                        ],
+                        "properties": {
+                            "JsonSchema": {
+                                "type": "object"
+                            },
+                            "UiSchema": {
+                                "type": "object",
+                                "required": [
+                                    "account_number"
+                                ],
+                                "properties": {
+                                    "account_number": {
+                                        "type": "object",
+                                        "required": [
+                                            "ui:autofocus"
+                                        ],
+                                        "properties": {
+                                            "ui:autofocus": {
+                                                "type": "boolean",
+                                                "default": false
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "ApiContractMapping": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "required": [
+                                        "apiContractField",
+                                        "jsonSchemaProperty"
+                                    ],
+                                    "properties": {
+                                        "apiContractField": {
+                                            "type": "string"
+                                        },
+                                        "jsonSchemaProperty": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "Images": {
+                        "type": "object",
+                        "description": "The logo and icon images for the carrier",
+                        "required": [
+                            "LogoUrl",
+                            "IconUrl"
+                        ],
+                        "properties": {
+                            "LogoUrl": {
+                                "type": "string"
+                            },
+                            "IconUrl": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

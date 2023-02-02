@@ -28,7 +28,7 @@ shipping:
     pages:
       - page: shipping/reference.page.yaml/*
 freight:
-  - page: freight/index.md
+  - page: freight/index.mdx
   - group: Methods
     expanded: true
     pages:
