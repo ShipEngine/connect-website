@@ -1,4 +1,0 @@
----
-title: Freight
----
-# Freight
