@@ -22,6 +22,7 @@ shipping:
   - page: shipping/error-handling.md
   - page: shipping/testing-guide.mdx
   - page: shipping/environment-variables.md
+  - page: shipping/rating.md
   - page: shipping/forms.md
   - group: Methods
     expanded: true
