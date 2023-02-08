@@ -1,4 +1,4 @@
-gettingStarted:
+root:
   - group: Getting Started
     expanded: true
     pages:
@@ -16,117 +16,127 @@ gettingStarted:
         label: Publish Your App
       - page: getting-started/environment-variables.md
         label: Manage Environment Variables
-shipping:
-  - page: shipping/index.mdx
-  - page: shipping/logging.md
-  - page: shipping/error-handling.md
-  - page: shipping/testing-guide.mdx
-  - page: shipping/environment-variables.md
-  - page: shipping/forms.md
-  - group: Methods
-    expanded: true
+      - group: OAuth
+        expanded: false
+        pages:
+          - page: oauth/index.md
+            label: Configuration
+          - page: oauth/1.0.md
+            label: OAuth 1.0
+          - page: oauth/2.0.md
+            label: OAuth 2.0
+          - page: oauth/connection-names.md
+            label: Connections
+          - group: Flow
+            expanded: false
+            pages:
+              - page: oauth/flow/authorization.md
+                label: Authorization
+              - page: oauth/flow/request-token.md
+                label: Request
+              - page: oauth/flow/refresh-token.md
+                label: Refresh
+              - page: oauth/advanced/response-transformation.md
+                label: Response Transformation
+          - group: Templating
+            page: oauth/templating/index.md
+            expanded: false
+            pages:
+              - page: oauth/templating/auth-state.md
+                label: Auth State
+              - page: oauth/templating/base64.md
+                label: Base64
+              - page: oauth/templating/callback.md
+                label: Callback
+              - page: oauth/templating/installation.md
+                label: Installation
+              - page: oauth/templating/integration.md
+                label: Integration
+              - page: oauth/templating/result-token-response.md
+                label: Result Token Response
+              - page: oauth/templating/connection-name.md
+                label: Connection
+              - page: oauth/templating/system.md
+                label: System
+          - group: Examples
+            expanded: false
+            pages:
+              - page: oauth/examples/definition.md
+                label: Generic
+              - page: oauth/examples/ebay.md
+                label: eBay
+              - page: oauth/examples/google.md
+                label: Google
+              - page: oauth/examples/trade-me.md
+                label: Trade Me
+  - group: Shipping
+    expanded: false
     pages:
-      - page: shipping/reference.page.yaml/*
-freight:
-  - page: freight/index.mdx
-  - group: Methods
-    expanded: true
+    - page: shipping/index.mdx
+    - page: shipping/logging.md
+    - page: shipping/error-handling.md
+    - page: shipping/testing-guide.mdx
+    - page: shipping/environment-variables.md
+    - page: shipping/forms.md
+    - group: Methods
+      expanded: true
+      pages:
+        - page: shipping/reference.page.yaml/*
+  - group: Freight
+    expanded: false
+    page: freight/index.mdx
     pages:
-      - page: freight/reference.page.yaml/*
-inventory:
-  - page: inventory/index.md
-  - group: Methods
-    expanded: true
+    - group: Methods
+      expanded: true
+      pages:
+        - page: freight/reference.page.yaml/*
+  - group: Inventory
+    expanded: false
+    page: inventory/index.md
     pages:
-      - page: inventory/reference.page.yaml/*
-nativeRating:
-  - page: native-rating/index.md
-  - page: native-rating/rate-card-structure.md
-  - page: native-rating/zone-chart-structure.md
-  - page: native-rating/implementation.md
-  - page: native-rating/rating-logic.md
-  - page: native-rating/publishing.md
-orders:
-  - page: orders/index.mdx
-  - page: orders/logging.md
-  - page: orders/error-handling.md
-  - page: orders/testing-guide.mdx
-  - page: orders/environment-variables.md
-  - page: orders/forms.md
-  - label: Authentication
-    page: orders/authentication.md
-  - group: Methods
-    expanded: true
+    - group: Methods
+      expanded: true
+      pages:
+        - page: inventory/reference.page.yaml/*
+  - group: Native Rating
+    expanded: false
+    page: native-rating/index.md
     pages:
-      - page: orders/reference.page.yaml/*
-  - group: Tools
-    expanded: true
+    - page: native-rating/rate-card-structure.md
+    - page: native-rating/zone-chart-structure.md
+    - page: native-rating/implementation.md
+    - page: native-rating/rating-logic.md
+    - page: native-rating/publishing.md
+  - group: Orders
+    page: orders/index.mdx
+    expanded: false
     pages:
-      - page: orders/tools/order-source-definition.mdx
-fulfillmentProvider:
-  - page: fulfillment-provider/index.mdx
-  - page: fulfillment-provider/logging.md
-  - page: fulfillment-provider/error-handling.md
-  - page: fulfillment-provider/environment-variables.md
-  - page: fulfillment-provider/forms.md
-  - label: Authentication
-    page: fulfillment-provider/authentication.md
-  - group: Methods
-    expanded: true
+    - page: orders/logging.md
+    - page: orders/error-handling.md
+    - page: orders/testing-guide.mdx
+    - page: orders/environment-variables.md
+    - page: orders/forms.md
+    - label: Authentication
+      page: orders/authentication.md
+    - group: Methods
+      expanded: true
+      pages:
+        - page: orders/reference.page.yaml/*
+    - group: Tools
+      expanded: true
+      pages:
+        - page: orders/tools/order-source-definition.mdx
+  - group: Fulfillment Provider
+    page: fulfillment-provider/index.mdx
+    expanded: false
     pages:
-      - page: fulfillment-provider/reference.page.yaml/*
-oauth:
-  - group: OAuth
-    expanded: true
-    pages:
-      - page: oauth/index.md
-        label: Configuration
-      - page: oauth/1.0.md
-        label: OAuth 1.0
-      - page: oauth/2.0.md
-        label: OAuth 2.0
-      - page: oauth/connection-names.md
-        label: Connections
-  - group: Flow
-    expanded: true
-    pages:
-      - page: oauth/flow/authorization.md
-        label: Authorization
-      - page: oauth/flow/request-token.md
-        label: Request
-      - page: oauth/flow/refresh-token.md
-        label: Refresh
-      - page: oauth/advanced/response-transformation.md
-        label: Response Transformation
-  - group: Templating
-    expanded: true
-    pages:
-      - page: oauth/templating/index.md
-        label: Overview
-      - page: oauth/templating/auth-state.md
-        label: Auth State
-      - page: oauth/templating/base64.md
-        label: Base64
-      - page: oauth/templating/callback.md
-        label: Callback
-      - page: oauth/templating/installation.md
-        label: Installation
-      - page: oauth/templating/integration.md
-        label: Integration
-      - page: oauth/templating/result-token-response.md
-        label: Result Token Response
-      - page: oauth/templating/connection-name.md
-        label: Connection
-      - page: oauth/templating/system.md
-        label: System
-  - group: Examples
-    expanded: true
-    pages:
-      - page: oauth/examples/definition.md
-        label: Generic
-      - page: oauth/examples/ebay.md
-        label: eBay
-      - page: oauth/examples/google.md
-        label: Google
-      - page: oauth/examples/trade-me.md
-        label: Trade Me
+    - page: fulfillment-provider/logging.md
+    - page: fulfillment-provider/error-handling.md
+    - page: fulfillment-provider/environment-variables.md
+    - page: fulfillment-provider/forms.md
+    - label: Authentication
+      page: fulfillment-provider/authentication.md
+    - group: Methods
+      expanded: true
+      pages:
+        - page: fulfillment-provider/reference.page.yaml/*
