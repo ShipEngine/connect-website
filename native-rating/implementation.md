@@ -6,36 +6,7 @@ title: Building an Implementation
 
 ## Setup
 
-### Install the CLI
-
-First, ensure that you have [Node](https://nodejs.org/en/) v12+ and [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) installed. Mac users will also need the development tools installed, but you will be prompted to install them when you run the CLI.
-
-To install [ShipEngine Connect CLI](https://connect.shipengine.com/), run the following command from your terminal:
-
-```bash
-npm install --global @shipengine/connect
-```
-
-Verify that the CLI was installed correctly:
-
-```bash
-connect --version
-```
-
-### Create the Native Rating app
-
-The Connect CLI can create a Carrier app with Native Rating for you by running the following from your command line,
-replacing `my-native-rating-app` with the path you want to use for the app:
-
-```bash
-mkdir my-native-rating-app
-cd my-native-rating-app
-connect init
-```
-
-As you work through the wizard to create the Connect app, you will need to answer 'Y' to the question `will this app use native rating`. This will set up the build configuration for the rating logic.
-
-When this is finished, you will have a "fully working" Carrier connect app that uses Native Rating, ready to be modified however you see fit.
+Follow the [getting started](/getting-started/installing-nodejs/) walkthrough. On the [Initialize Project](/getting-started/initialize-project/) step, choose `Carrier app` when asked "what type of app are you building" and answer `Y` when asked "will this app use native rating". When this is finished, you will have a "fully working" Carrier connect app that uses Native Rating, ready to be modified however you see fit.
 
 ## Configuration
 
