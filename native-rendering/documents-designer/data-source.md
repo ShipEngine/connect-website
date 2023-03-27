@@ -21,8 +21,8 @@ $['shipment']['tracking_number']
 Special leading character `@` can be used as reference to current object, but not in all cases. It depends on the document type. For instance, for Package document type we can use `@package` reference to handle date from each package consecutively in multi package shipment.
 
 3. Root element can start either with `$.` or `.`
-4. Relative nested object path have to be start from `.`
-If nested object is started from `$.` it means root element reference. In this case no relation will be consider.
+4. Relative nested object path has to begin with `.`
+`$.` always means the root element reference.
 5. **Double dots ..property are NOT handled at all**
 6. Wildcard selecting all elements `[*]` can be used in an array only. Regardless of their indexes it means all items of the array.
 7. **Wildcard selecting all elements `.*` for object (means all properties) is NOT allowed. E.g. `shipment.*`**
