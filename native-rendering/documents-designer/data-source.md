@@ -1,3 +1,7 @@
+---
+title: Documents data source
+---
+
 # Document data source
 
 During template design creation, document data can be accessed using JSONPath syntax. You can use both, the dot notation:

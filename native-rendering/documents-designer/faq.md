@@ -1,14 +1,18 @@
-# TypeScript Library
+---
+title: Documents Designer FAQ
+---
+
+# Documents Designer FAQ
 
 ## How to enable syntax suggestions in formula editor?
 Please use Ctrl + space.
 
 ## Why some print objects in design are mark as red?
-Printed object is marked as red in the design view when it is located outside the printable page area.
+Printed object is marked as red in the design view when it is located outside the printable page area. 
 ![](./images/object-out-of-print-area.png)
 
 ## How to generate proper page counts for multi page documents?
-Pages count is now after all document precalculation. 
+Pages count is now after all document precalculation.  
 It is why proper value can be rendered only for print object put on Group band with IsDocumentSummary=true property.
 
 ## How to calculate whole document summary on first page?
@@ -28,4 +32,4 @@ You can use package alias syntax:
 Package reference `@package` works only for `Package` document type
 
 ## Why is one document rendered to few documents?
-When multi page document is rendered to png format then every rendered page is return as single document with page number in document name.
+When multi page document is rendered to png format then every rendered page is return as single document with page number in document name.  

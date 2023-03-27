@@ -1,3 +1,7 @@
+---
+title: Documents Designer
+---
+
 # Documents Designer
 
 ## What is Documents Designer? 
@@ -6,7 +10,8 @@ The application offers to create and design your native document template.
 
 ## Who can use Documents Designer?
 
-At this point, Documents Designer is a tool for internal usage.
+Everyone building a Connect app that requires native documents.  
+At this point, Documents Designer is a tool for Windows platform only.
 
 ## Guide
 

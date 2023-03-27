@@ -1,4 +1,8 @@
-# Design window  
+---
+title: Designer Window
+---
+
+# Designer Window
 
 ## Full window view
 
@@ -10,10 +14,10 @@
 
 Elements included here are actions for adding new objects to the document:
 
-*  **Insert function** \- field with function
+*  **Insert function** - field with function
 *  **Insert text** - field with fixed or dynamic text
-*  **Insert barcode -** field to print one of all supported barcodes
-*  **Insert table** \- logical table containing sections: **Header**, **Row**, **Footer**
-*  **Insert shape -** field to print rectangles
-*  **Insert Image** - insert simple image selected from drive
+*  **Insert barcode** - field to print one of all supported barcodes
+*  **Insert table** - logical table containing sections: **Header**, **Row**, **Footer**
+*  **Insert shape** - field to print rectangles
+*  **Insert image** - insert simple image selected from local folder
 *  **Insert group band** - logical container for other print objects
