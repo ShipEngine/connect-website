@@ -78,6 +78,11 @@ root:
     - page: shipping/testing-guide.mdx
     - page: shipping/environment-variables.md
     - page: shipping/forms.md
+    - group: Native Documents
+      expanded: false
+      page: native-rendering/index.md
+      pages:
+        - page: native-rendering/documents-designer/documents-designer.md
     - group: Methods
       expanded: true
       pages:
