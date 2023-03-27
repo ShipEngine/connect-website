@@ -50,4 +50,4 @@ In order to use Native Documents in production, you have to add the `RENDERING_H
 environment:
   RENDERING_HOST: "#{RENDERING_HOST}"
 ```
-The value will be substituted by Octopus, according to environment where the module is deployed to.  
+The value will be substituted by the deployment tool, according to environment where the module is deployed to.  
