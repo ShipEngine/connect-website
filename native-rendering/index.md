@@ -4,9 +4,9 @@ title: Native Documents
 
 # Native Documents
 
-The Cross-platform Rendering service allows you to render native documents (such as labels and customs) into Pdf, Png, and Zpl formats, using templates created in Documents Designer (Windows application).  
+The cross-platform Rendering service allows you to render native documents (such as labels and customs) into Pdf, Png and Zpl formats, using templates created in Documents Designer (Windows application).  
 
-The `@shipengine/connect-rendering-client` provides the ability to use the Rendering Service that allows carrier integrators to render native documents.  
+The `@shipengine/connect-rendering-client` provides carrier integrators with the ability to use the Rendering Service.
 
 ## Usage
 
@@ -50,4 +50,4 @@ In order to use Native Documents in production, you have to add the `RENDERING_H
 environment:
   RENDERING_HOST: "#{RENDERING_HOST}"
 ```
-The value will be substituted by Octopus, according to environment where the module is deployed to.  
+The value will be substituted by the deployment tool, according to environment where the module is deployed to.  

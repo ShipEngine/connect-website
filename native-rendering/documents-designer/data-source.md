@@ -1,10 +1,10 @@
 ---
-title: Documents data model
+title: Document data model
 ---
 
 # Document data model
 
-While creating a document template, you can access the document data using JSONPath syntax. You can use both, the dot notation:
+While creating a document template, you can access the data model using JSONPath syntax. You can use both, the dot notation:
 
 ```code
 $.shipment.tracking_number
@@ -14,22 +14,20 @@ or the bracket notation:
 ```code
 $['shipment']['tracking_number']
 ```
-## Restrictions
+## Restrictions:
+1. Root element starts from `$.` or `.`
+2. Nested object path have to start from `.` If nested object starts from `$.` it means reference to root element. In this case no relation will be considered.
+3. The leading `$.` or `.` or `@` is mandatory. One of these has to be used to differentiate variables from JSONPath syntax.  
+Special leading char `@` can be used as reference to current object with limited usage that depends on the document type: e.g. for *package* document type we can use `@package` as reference for each package in multi package shipment.
+4. Keep in mind that JSONPath functions and filters (expressions) are very limited.
+5. Double dots `..property` is not supported.
+6. Wildcard for selecting all indexed items `[*]` can be used for arrays only and it means all items in the array.
+7. Wildcard for selecting all properties `.*` at object is not supported. e.g. `shipment.*`
 
-* Root element starts from `$.` or `.`
-* Nested object path have to start from `.`
-* The leading `$.` or `.` or `@` is not optional. One of them must be used to distinguish between variables and JSONPath syntax.
-* Special leading char `@` can be used as reference to current object with limited usage that depends of document type: e.g. for *package* document type we can use `@package` as reference for each package in multi package shipment.
-* If nested object is started from `$.` it means root element reference. In this case no relation will be consider.
-* Keep in mind that JSONPath functions and filters (expressions) are very limited.
-* Double dots ..property is not supported.
-* Wildcard for selecting all indexed items `[*]` can be used for arrays only and it means all items in the array.
-* Wildcard for selecting all properties `.*` at object is not supported. e.g. `shipment.*`
-
-## JSONPath examples
+## Examples
 
 ### Data model
-Data model as source object for JSONPath examples:
+Data model as the source object for JSONPath examples:
 ```code
 {
   "shipment":
@@ -58,7 +56,7 @@ Data model as source object for JSONPath examples:
 }
 ```
 
-### Examples
+### JSONPath
 
 #### Properties
 
@@ -68,7 +66,7 @@ $.shipment.tracking_number
 
 #### Arrays
 
-Can be reference with index or asterisk for each elements iteration
+Items can be referenced by index (starting from zero) or asterisk in the case of aggregation functions.  
 ```code
 $.shipment.packages[0].weight_details.weight_in_grams
 Sum($.shipment.packages[*].weight_details.weight_in_grams)

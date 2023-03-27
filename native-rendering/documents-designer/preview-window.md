@@ -32,7 +32,7 @@ When rendered document is multi pages (e.g. PDF), here you can choose the one yo
 For landscape documents it can be convenient to rotate the view. It has impact only on preview.
 
 ###  Refresh
-Document preview is refreshed automatically after each change on design or following preview options (request, format, dpi). Here you can manually force the refresh.
+Document preview is refreshed automatically after each change on design or preview option e.g. request data, format, dpi. Here you can manually force the refresh.
 
 ###  Zoom
 You can zoom preview by using drop down (100%) or using Ctrl + mouse scroll.  
