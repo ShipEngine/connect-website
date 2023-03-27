@@ -98,7 +98,7 @@ In this case path does not start with `$` but only with dot `.`
 
 * Items range [:n], [1,3,5], [0:2], [-n:], [n:]
 
-Json path elements range is supported as well. E.g. you can select the first n elements of the array or return only selected items if they exist in the array.
+Json path elements range is supported as well. For instance, you can select the first n elements of the array, or return only selected items, if they exist.
 
 ### Current package reference
 

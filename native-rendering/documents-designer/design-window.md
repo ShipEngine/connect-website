@@ -16,7 +16,7 @@ Elements included here are actions for adding new objects to the document:
 
 *  **Insert function** - field with function
 *  **Insert text** - field with fixed or dynamic text
-*  **Insert barcode** - field to print one of all supported barcodes
+*  **Insert barcode** - field to print one of the supported barcodes
 *  **Insert table** - logical table containing sections: **Header**, **Row**, **Footer**
 *  **Insert shape** - field to print rectangles
 *  **Insert image** - insert simple image selected from local folder
