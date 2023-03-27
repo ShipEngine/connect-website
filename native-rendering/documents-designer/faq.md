@@ -31,5 +31,5 @@ You can use package alias syntax:
 ## Why current package reference does not work?
 Package reference `@package` works only for `Package` document type
 
-## Why is one document rendered to few documents?
-When multi page document is rendered to png format then every rendered page is return as single document with page number in document name.  
+## Why is one document rendered to multiple documents?
+When multi page document is rendered to png format, then every rendered page is returned as a single document with page number in document's name.
