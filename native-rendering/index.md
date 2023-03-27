@@ -26,23 +26,23 @@ export const CreateLabel = async (request: CreateLabelRequest): Promise<CreateLa
 Your app definition must contain a document template file. The carrier metadata specifies the location of the file:
 
 ```typescript
-export const MyCarrier: Carrier = {
+export const DemoCarrier: Carrier = {
   /.../
-  DocumentTemplate: join(__dirname, '../../../assets/templates/my_carrier_code.carrier')
+  DocumentTemplate: join(__dirname, '../../../assets/templates/demo_carrier_code.carrier')
 }
 ```
 You can use the Documents Designer visual tool to design a document template file. Look at [Documents Designer tool](./documents-designer/documents-designer.md). 
 
 :::success Documents Designer
-*For more details on Documents Designer availability, please reach out to your business contact with Auctane or the [ShipEngine Connect Team](mailto:connect@shipengine.com).*
+*For more details on Rendering Service and Documents Designer availability, please reach out to your business contact with Auctane or the [ShipEngine Connect Team](mailto:connect@shipengine.com).*
 :::
 
 ### Rendering Service
 
-The environment variable `RENDERING_HOST` must be set for the ShipEngine Connect testing environment. Before `connect publish` you have to run the command indicating the correct host `{connect_rendering_host}` (which you can obtain from an Auctane):
+The environment variable `RENDERING_HOST` must be set for the ShipEngine Connect testing environment. Before `connect publish` you have to run the command indicating the correct host url `{rendering_service_url}` (which you can obtain from an Auctane):
 
 ```bash
-connect env:set RENDERING_HOST={connect_rendering_host}
+connect env:set RENDERING_HOST={rendering_service_url}
 ```
 
 In order to use Native Documents in production, you have to add the `RENDERING_HOST` environment variable to module's helm `values.yaml` file:
