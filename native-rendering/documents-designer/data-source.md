@@ -1,10 +1,10 @@
 ---
-title: Documents data source
+title: Documents data model
 ---
 
-# Document data source
+# Document data model
 
-During template design creation, document data can be accessed using JSONPath syntax. You can use both, the dot notation:
+While creating a document template, you can access the document data using JSONPath syntax. You can use both, the dot notation:
 
 ```code
 $.shipment.tracking_number
@@ -14,93 +14,100 @@ or the bracket notation:
 ```code
 $['shipment']['tracking_number']
 ```
-## Notes:
-1. For now limited JSONPath syntax can be used. Notice that filter **expressions are not supported** yet.
-2. The leading `$.` or `.` or `@` is not optional. One of them have to be be used to differentiate variables and JSONPath syntax.
-### Exception:
-Special leading char `@` can be use as reference to current object but not in all cases. It depends of document type: e.g. for Package
-document type we can use `@package` reference to handle date from each package consecutively from multi packages shipment.
+## Restrictions
 
-3. Root element can be start from `$.` or `.`
-4. Relative nested object path have to be start from `.`
-If nested object is started from `$.` it means root element reference. In this case no relation will be consider.
-5. **Double dots ..property are NOT handled at all**
-6. Wildcard selecting all elements `[*]` can be used in an array only. Regardless of their indexes it means all items of the array.
-7. **Wildcard selecting all elements `.*` for object (means all properties) is NOT allowed. E.g. `shipment.*`**
+* Root element starts from `$.` or `.`
+* Nested object path have to start from `.`
+* The leading `$.` or `.` or `@` is not optional. One of them must be used to distinguish between variables and JSONPath syntax.
+* Special leading char `@` can be used as reference to current object with limited usage that depends of document type: e.g. for *package* document type we can use `@package` as reference for each package in multi package shipment.
+* If nested object is started from `$.` it means root element reference. In this case no relation will be consider.
+* Keep in mind that JSONPath functions and filters (expressions) are very limited.
+* Double dots ..property is not supported.
+* Wildcard for selecting all indexed items `[*]` can be used for arrays only and it means all items in the array.
+* Wildcard for selecting all properties `.*` at object is not supported. e.g. `shipment.*`
 
-## JSONPath usage examples
-Below JSONPath examples are created for data source object structure:
+## JSONPath examples
+
+### Data model
+Data model as source object for JSONPath examples:
 ```code
 {
-	"shipment": {
-		"tracking_number": "123PL",
-		"packages": [
-			{
-				"weight": "12"
-			},
-			{
-				"weight": "02"
-			}
-		]
-	},
-	contract {
-	    "parameters":{
-			"Account.Number": "1234",
-			"IsBrexit" : "true"
-		}
-	}
+  "shipment":
+  {
+    "tracking_number": "US1234",
+    "packages": [
+      {
+        "weight_details":
+        {
+          "weight_in_grams": "12"
+        }
+      },
+      {
+        "weight_details":
+        {
+          "weight_in_grams": "02"
+        }
+      }
+    ],
+    "metadata":
+    {
+      "account_number": "1234",
+      "isBrexit": "true"
+    }
+  }
 }
 ```
 
-## Examples:
+### Examples
 
-### Properties
+#### Properties
 
 ```code
 $.shipment.tracking_number
 ```
 
-## Arrays
+#### Arrays
 
 Can be reference with index or asterisk for each elements iteration
 ```code
-$.shipment.packages[0].weight
-Sum($.shipment.packages[*].weight)
-$['shipment']['packages'][0]['weight']
+$.shipment.packages[0].weight_details.weight_in_grams
+Sum($.shipment.packages[*].weight_details.weight_in_grams)
+$['shipment']['packages'][0]['weight_details']['weight_in_grams']
 ```
 
-## Dictionaries
+#### Dictionaries
 
-Generally dot and bracket notation can be used but in case when dictionary key contains dot in key name you have to used bracket notation only.
+Generally dot and bracket notation can be used but in case when dictionary key contains dot in key name you have to use bracket notation only.
 ```code
-$.contract.parameters.isBrexit
-$.contract.parameters['isBrexit']
-$.contract.parameters['Account.Number']
+$.shipment.metadata.isBrexit
+$.shipment.metadata['isBrexit']
+$.shipment.metadata['account_number']
 ```
 
 ## Table data
 
-When you need to design template with dynamic array of data rows (e.g. `$.shipment.packages`) it is necessary to use table element.  
+When you need to design document with dynamic data rows (e.g. `$.shipment.packages`) it is necessary to use table element.  
+
 In this case data source has to be defined.  
 
 ![Table data](./images/table-data-source.png)<p>
+
 When you work with table you can specify:
 
-### Element by relative path
+* Item reference
 
-In this case relative path does not start with `$` but only with dot.
+In this case path does not start with `$` but only with dot `.`
 
-### Elements range [:n], [1,3,5], [0:2], [-n:], [n:]
+* Items range [:n], [1,3,5], [0:2], [-n:], [n:]
 
 Json path elements range is supported as well. E.g. you can select the first n elements of the array or return only selected items if they exist in the array.
 
-## Current Package data reference
+### Current package reference
 
 You can use current Package alias using prefix `@`
 
 ```code
-@package.weight
+@package.weight_details.weight_in_grams
 ```
 
-![](./images/package-alias.png)
-
+![](./images/package-alias.png)  

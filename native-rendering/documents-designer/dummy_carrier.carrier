@@ -6,7 +6,7 @@
     }
   ],
   "ApiCode": "dummy_carrier",
-  "Version": "1.0.26",
+  "Version": "1.0.0",
   "LabelForms": [
     {
       "Name": "standard_label",
