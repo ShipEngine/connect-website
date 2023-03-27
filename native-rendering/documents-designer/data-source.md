@@ -20,7 +20,7 @@ $['shipment']['tracking_number']
 ### Exception:
 Special leading character `@` can be used as reference to current object, but not in all cases. It depends on the document type. For instance, for Package document type we can use `@package` reference to handle date from each package consecutively in multi package shipment.
 
-3. Root element can be start from `$.` or `.`
+3. Root element can start either with `$.` or `.`
 4. Relative nested object path have to be start from `.`
 If nested object is started from `$.` it means root element reference. In this case no relation will be consider.
 5. **Double dots ..property are NOT handled at all**
