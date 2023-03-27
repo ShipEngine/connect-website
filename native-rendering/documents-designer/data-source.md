@@ -16,7 +16,7 @@ $['shipment']['tracking_number']
 ```
 ## Notes:
 1. For now limited JSONPath syntax can be used. Notice that filter **expressions are not supported** yet.
-2. The leading `$.` or `.` or `@` is not optional. One of them have to be be used to differentiate variables and JSONPath syntax.
+2. The leading `$.` or `.` or `@` is mandatory. One of these has to be used to differentiate variables from JSONPath syntax.
 ### Exception:
 Special leading char `@` can be use as reference to current object but not in all cases. It depends of document type: e.g. for Package
 document type we can use `@package` reference to handle date from each package consecutively from multi packages shipment.
