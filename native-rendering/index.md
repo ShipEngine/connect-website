@@ -6,7 +6,7 @@ title: Native Documents
 
 The cross-platform Rendering service allows you to render native documents (such as labels and customs) into Pdf, Png and Zpl formats, using templates created in Documents Designer (Windows application).  
 
-The `@shipengine/connect-rendering-client` provides the ability to use the Rendering Service that allows carrier integrators to render native documents.  
+The `@shipengine/connect-rendering-client` provides carrier integrators with the ability to use the Rendering Service.
 
 ## Usage
 
