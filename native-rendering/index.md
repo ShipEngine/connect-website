@@ -30,7 +30,8 @@ export const DemoCarrier: Carrier = {
   DocumentTemplate: join(__dirname, '../../../assets/templates/demo_carrier_code.carrier')
 }
 ```
-You can use the Documents Designer visual tool to design a document template file. See the page: [Documents Designer](./documents-designer/documents-designer.md). 
+You can use the Documents Designer visual tool to design a document template file.  
+See the page: [Documents Designer](./documents-designer/documents-designer.md). 
 
 :::success ACCESS
 *To get access to Rendering Service and Documents Designer please reach out to your business contact with Auctane or the [ShipEngine Connect Team](mailto:connect@shipengine.com).*

@@ -4,20 +4,19 @@ title: Designer Window
 
 # Designer Window
 
-## Full window view
-
 ![Full window view](./images/design-window.png)
 
-## Design objects section
+## Toolbar
 
 ![](./images/objects.png)
 
-Elements included here are actions for adding new objects to the document:
 
-*  **Insert function** - field with function
-*  **Insert text** - field with fixed or dynamic text
-*  **Insert barcode** - field to print one of all supported barcodes
-*  **Insert table** - logical table containing sections: **Header**, **Row**, **Footer**
-*  **Insert shape** - field to print rectangles
-*  **Insert image** - insert simple image selected from local folder
-*  **Insert group band** - logical container for other print objects
+*  **Insert function** - field with function (expression)
+*  **Insert text** - field to render fixed text or data model property
+*  **Insert barcode** - field to render one of the supported barcodes
+*  **Insert table** - logical table containing sections: *Header, Row, Footer*
+*  **Insert shape** - field to render rectangles
+*  **Insert image** - field to render an image (selected from local drive)
+*  **Insert group band** - logical container for rendered objects
+
+## Functions
