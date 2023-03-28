@@ -4,13 +4,13 @@ title: Documents Designer
 
 # Documents Designer
 
-## What is Documents Designer? 
+It is a Windows desktop application that allows creating templates for rendering documents from code.
 
-The application allows to create your native document template.
+[FAQ](./faq.md)
 
 ## Who can use Documents Designer?
 
-Everyone building a Connect app that requires native documents.  
+Everyone building a Connect app that requires rendering documents.
 At this point, Documents Designer is a tool for Windows platform only.
 
 ## Guide
@@ -21,11 +21,9 @@ At this point, Documents Designer is a tool for Windows platform only.
 
 [Data source](./data-source.md)
 
-## FAQ
+### Example
 
-[FAQ](./faq.md)
-
-### Example  
+This is an example template constructed using Documents Designer.
 
 <details>
   <summary>dummy_carrier.carrier</summary>

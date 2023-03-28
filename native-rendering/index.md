@@ -1,16 +1,17 @@
 ---
-title: Native Documents
+title: Document Rendering
 ---
 
-# Native Documents
+# Document Rendering
 
-The cross-platform Rendering service allows you to render native documents (such as labels and customs) into Pdf, Png and Zpl formats, using templates created in Documents Designer (Windows application).  
+The Connect runtime exposes the capability to render documents (such as labels and customs forms) from code.
+The documents can be generated  in PDF, PNG and ZPL formats, using templates created in the [Documents Designer](./documents-designer/index.md).
 
-The `@shipengine/connect-rendering-client` provides carrier integrators with the ability to use the Rendering Service.
+The `@shipengine/connect-rendering-client` provides developers with the ability to access the rendering capabilities.
 
 ## Usage
 
-This example shows you how to render the native documents via `CreateLabel` method.
+This example shows you how to render the documents within the `CreateLabel` method.
 
 ```typescript
 import {CreateLabelRequest, CreateLabelResponse} from '@shipengine/connect-carrier-api';
@@ -30,25 +31,20 @@ export const DemoCarrier: Carrier = {
   DocumentTemplate: join(__dirname, '../../../assets/templates/demo_carrier_code.carrier')
 }
 ```
-You can use the Documents Designer visual tool to design a document template file.  
-See the page: [Documents Designer](./documents-designer/documents-designer.md). 
+
+You can use the [Documents Designer](./documents-designer/index.md)
+visual tool to design a document template file.
 
 :::success ACCESS
-*To get access to Rendering Service and Documents Designer please reach out to your business contact with Auctane or the [ShipEngine Connect Team](mailto:connect@shipengine.com).*
+*To get access to rendering capabilities and Documents Designer, please reach out to your business contact with Auctane or the [ShipEngine Connect Team](mailto:connect@shipengine.com).*
 :::
 
-### Rendering Service
+### Deploy
 
-The environment variable `RENDERING_HOST` must be set for the ShipEngine Connect testing environment.  
+The environment variable `RENDERING_HOST` must be set for the ShipEngine Connect testing environment.
 
 Before run `connect publish` you have to set the variable indicating the correct host url `{rendering_service_url}` (that can be obtained from Auctane):
 
 ```bash
 connect env:set RENDERING_HOST={rendering_service_url}
 ```
-In order to use Native Documents in production, you have to add the `RENDERING_HOST` environment variable to the module's helm `values.yaml` file:
-```
-environment:
-  RENDERING_HOST: "#{RENDERING_HOST}"
-```
-The value will be substituted by the deployment tool, according to environment where the module is deployed to.  

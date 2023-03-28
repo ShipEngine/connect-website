@@ -78,13 +78,13 @@ root:
     - page: shipping/testing-guide.mdx
     - page: shipping/environment-variables.md
     - page: shipping/forms.md
-    - group: Native Documents
+    - group: Document Rendering
       expanded: false
       page: native-rendering/index.md
       pages:
         - group: Documents Designer
           expanded: true
-          page: native-rendering/documents-designer/documents-designer.md
+          page: native-rendering/documents-designer/index.md
           pages:
           - page: native-rendering/documents-designer/design-window.md
           - page: native-rendering/documents-designer/preview-window.md
