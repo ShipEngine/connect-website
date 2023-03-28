@@ -82,7 +82,14 @@ root:
       expanded: false
       page: native-rendering/index.md
       pages:
-        - page: native-rendering/documents-designer/documents-designer.md
+        - group: Documents Designer
+          expanded: true
+          page: native-rendering/documents-designer/documents-designer.md
+          pages:
+          - page: native-rendering/documents-designer/design-window.md
+          - page: native-rendering/documents-designer/preview-window.md
+          - page: native-rendering/documents-designer/data-source.md
+          - page: native-rendering/documents-designer/faq.md
     - group: Methods
       expanded: true
       pages:
