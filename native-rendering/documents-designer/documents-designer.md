@@ -6,7 +6,7 @@ title: Documents Designer
 
 ## What is Documents Designer? 
 
-The application offers to create and design your native document template.
+The application allows to create your native document template.
 
 ## Who can use Documents Designer?
 

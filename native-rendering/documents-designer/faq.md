@@ -7,21 +7,21 @@ title: Documents Designer FAQ
 ### How to enable syntax suggestions in formula editor?
 Please use Ctrl + space.
 
-### Why some print objects in design are mark as red?
+### Why are some print objects on design marked as red?
 Printed object is marked as red in the design view when it is located outside the printable page area.  
 
 ![](./images/object-out-of-print-area.png)
 
-### How to generate proper page counts for multi page documents?
+### How to generate proper page count for multi-page documents?
 Pages count is now after all document precalculation. 
 It is why proper value can be rendered only for print object put on Group band with `IsDocumentSummary=true` property.
 
 ### How to calculate whole document summary on first page?
 If there is the need to include some summary data on first page for multi page document (e.g. total weight)
-than Group band with `IsDocumentSummary=true` property must be used.
+then Group band with `IsDocumentSummary=true` property must be used.
 
 ### Why property *IsDocumentSummary* set to true doesn’t work on table’s child group?
-It works and should be use only for whole document. For tables *Footer* and *Header* group should be used instead.
+It should be used only for the whole document. For table's *Footer* and *Header*, group should be used instead.
 
 ### How to handle current package data in *Package* document type?
 You can use package alias syntax:
