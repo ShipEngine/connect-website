@@ -1,11 +1,11 @@
 ---
-title: Documents Designer FAQ
+title: FAQ
 ---
 
-# Documents Designer FAQ
+# FAQ
 
 ### How to enable syntax suggestions in formula editor?
-Please use Ctrl + space.
+Please use *Ctrl + Spacebar*.
 
 ### Why are some print objects on design marked as red?
 Printed object is marked as red in the design view when it is located outside the printable page area.  

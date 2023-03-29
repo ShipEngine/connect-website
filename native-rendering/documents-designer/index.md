@@ -15,7 +15,7 @@ At this point, Documents Designer is a tool for Windows platform only.
 
 ## Guide
 
-[Design window](./design-window.md)
+[Designer window](./design-window.md)
 
 [Document preview](./preview-window.md)
 

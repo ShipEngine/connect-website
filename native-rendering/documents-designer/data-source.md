@@ -1,10 +1,10 @@
 ---
-title: Document data model
+title: Data source
 ---
 
-# Document data model
+# Data source
 
-While creating a document template, you can access the data model using JSONPath syntax. You can use both, the dot notation:
+While creating a document template, you can access the data model using [JSONPath](https://goessner.net/articles/JsonPath/) syntax. You can use both, the dot notation:
 
 ```code
 $.shipment.tracking_number
@@ -114,6 +114,7 @@ You can also reference to the current *Package* using prefix `@`
 
 ```code
 @package.weight_details.weight_in_grams
-```  
+```
+&nbsp;
 
-![](./images/package-alias.png)  
+![](./images/package-alias.png)

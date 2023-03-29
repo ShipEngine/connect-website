@@ -1,11 +1,13 @@
 ---
-title: Preview Window
+title: Document preview
 ---
 
-# Preview Window
+# Document preview
+
 ![](./images/preview-window.png)
 
 ## Toolbar
+
 ![](images/preview-options.png)
 
 ### Request
@@ -35,4 +37,4 @@ For landscape documents it can be convenient to rotate the view. It has impact o
 Document preview is refreshed automatically after each change on design or preview option, e.g. request data, format, dpi. You can manually force the refresh.
 
 ###  Zoom
-You can zoom preview by using drop down (100%) or using Ctrl + mouse scroll.  
+You can zoom preview by using drop down [100%] or using *Ctrl + Mouse Wheel*.  
