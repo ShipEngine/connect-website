@@ -6,7 +6,7 @@ title: Document preview
 
 ![Preview](./images/preview-window.png)
 
-### Toolbar
+## Toolbar
 
 ![Toolbar](images/preview-options.png)
 

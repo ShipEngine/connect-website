@@ -13,24 +13,24 @@ Printed object is marked as red in the design view when it is located outside th
 ![](./images/object-out-of-print-area.png)
 
 ### How to generate proper page count for multi-page documents?
-Pages count is now after all document precalculation. 
-It is why proper value can be rendered only for print object put on Group band with `IsDocumentSummary=true` property.
+The number of pages can be calculated after all the pages of the document have been rendered.  
+That's why accurate *PagesCount* can only be calculated for an object that is placed in a group band with `IsDocumentSummary` set to `true`.
 
-### How to calculate whole document summary on first page?
-If there is the need to include some summary data on first page for multi page document (e.g. total weight)
-then Group band with `IsDocumentSummary=true` property must be used.
+### How to calculate the summary of the entire document on the first page?
+If there is the need to include some kind of summary details on the first page for multi-page document (e.g. total weight)
+then use a group band with the property `IsDocumentSummary=true`.
 
-### Why property *IsDocumentSummary* set to true doesn’t work on table’s child group?
-It should be used only for the whole document. For table's *Footer* and *Header*, group should be used instead.
+### Why does the *IsDocumentSummary=true* property in the table's children group not work?
+It should be used only for the entire document. For table you should use *Footer* and *Header* instead.
 
-### How to handle current package data in *Package* document type?
+### How to reference current package data in *Package* document kind?
 You can use package alias syntax:
 ```code
-@package.weight
+@package.weight_details.weight_in_grams
 ```
 
-### Why current package reference does not work?
-Package reference `@package` works only for `Package` document type.
+### Why doesn't the current package reference work for me?
+Package reference `@package` works only for `Package` document kind.
 
-### Why is one document rendered to multiple documents?
-When multi page document is rendered to Png format, then every rendered page is returned as a single document with page number in document's name.
+### Why is only one document rendered for multi-page documents?
+When multi-page document is rendered to Png format, then every rendered page is returned as a single document with page number in document's name.

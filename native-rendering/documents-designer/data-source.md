@@ -49,8 +49,7 @@ Data model as the source object for JSONPath examples:
   }
 }
 ```
-
-#### Examples
+&nbsp;
 
 ###### Properties
 
@@ -60,6 +59,7 @@ $.shipment.tracking_number
 &nbsp;
 
 ![Shipment alias](./images/shipment-alias.png)
+&nbsp;
 
 ###### Arrays
 
@@ -69,6 +69,7 @@ $.shipment.packages[0].weight_details.weight_in_grams
 Sum($.shipment.packages[*].weight_details.weight_in_grams)
 $['shipment']['packages'][0]['weight_details']['weight_in_grams']
 ```
+&nbsp;
 
 ###### Dictionaries
 
@@ -78,8 +79,9 @@ $.shipment.metadata.account_enabled
 $.shipment.metadata['account_enabled']
 $.shipment.metadata['account.number']
 ```
+&nbsp;
 
-### Table data
+#### Table data
 
 When you need to design document with dynamic data rows (e.g. `$.shipment.packages`) it is necessary to use table element.  
 
@@ -104,6 +106,7 @@ $.shipment.packages[0:2]
 $.shipment.packages[-n:]
 $.shipment.packages[n:]
 ````
+&nbsp;
 
 #### Current package reference
 
