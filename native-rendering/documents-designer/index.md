@@ -8,12 +8,12 @@ It is a Windows desktop application that allows creating templates for rendering
 
 [FAQ](./faq.md)
 
-## Who can use Documents Designer?
+### Who can use Documents Designer?
 
 Everyone building a Connect app that requires rendering documents.
 At this point, Documents Designer is a tool for Windows platform only.
 
-## Guide
+### Guide
 
 [Designer window](./design-window.md)
 
@@ -26,7 +26,7 @@ At this point, Documents Designer is a tool for Windows platform only.
 This is an example template constructed using Documents Designer.
 
 <details>
-  <summary>dummy_carrier.carrier</summary>
+  <summary>dummy_template.carrier</summary>
 
 ```json
 {

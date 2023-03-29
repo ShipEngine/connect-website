@@ -4,11 +4,11 @@ title: Designer Window
 
 # Designer Window
 
-![Full window view](./images/design-window.png)
+![Designer Window](./images/design-window.png)
 
-## Toolbar
+### Toolbar
 
-![](./images/objects.png)
+![Toolbar](./images/objects.png)
 
 
 *  **Insert function** - field with function (expression)
@@ -20,7 +20,10 @@ title: Designer Window
 *  **Insert group band** - logical container for rendered objects  
 
 
-## Functions
+### Functions
+
+![Functions](./images/functions.png)
+&nbsp;
 
 
 | **Function**     | **Example**                                     | **Description**                                                                                                            |

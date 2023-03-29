@@ -4,37 +4,37 @@ title: Document preview
 
 # Document preview
 
-![](./images/preview-window.png)
+![Preview](./images/preview-window.png)
 
-## Toolbar
+### Toolbar
 
-![](images/preview-options.png)
+![Toolbar](images/preview-options.png)
 
-### Request
+#### Request
 
 An expandable list that gives you options for selecting pre-written sample requests in the Sample input data editor (Settings).
 
-### Package
+#### Package
 
 The package indicated by the index in the sample request data for which the document preview is rendered.
 
-### Format
+#### Format
 
 The list contains formats at which we want to render the document preview.
 
-### Dpi
+#### Dpi
 
 The list contains the dpi values at which we want to render the document preview.
 
-### Page number
+####  Zoom
+You can zoom preview by using drop down [100%] or using *Ctrl + Mouse Wheel*.
 
-When rendered document is multi-page (e.g. Pdf), you can choose the one you want to preview.
-
-### Rotation
+#### Rotation
 For landscape documents it can be convenient to rotate the view. It has impact only on preview.
 
-###  Refresh
+####  Refresh
 Document preview is refreshed automatically after each change on design or preview option, e.g. request data, format, dpi. You can manually force the refresh.
 
-###  Zoom
-You can zoom preview by using drop down [100%] or using *Ctrl + Mouse Wheel*.  
+#### Page number
+
+When rendered document is multi-page (e.g. Pdf), you can choose the one you want to preview.  
