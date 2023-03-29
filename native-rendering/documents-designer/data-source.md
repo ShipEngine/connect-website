@@ -14,7 +14,7 @@ or the bracket notation:
 ```code
 $['shipment']['tracking_number']
 ```
-### Restrictions
+## Restrictions
 1. Root element starts from `$.` or `.`
 2. Nested object path have to start from `.` If nested object starts from `$.` it means reference to root element. In this case no relation will be considered.
 3. The leading `$.` or `.` or `@` is mandatory. One of these has to be used to differentiate variables from JSONPath syntax. 
@@ -24,7 +24,7 @@ $['shipment']['tracking_number']
 7. Wildcard for selecting all indexed items `[*]` can be used for arrays only and it means all items in the array.
 8. Wildcard for selecting all properties `.*` at object is not supported, e.g. `shipment.*`
 
-### Syntax
+## Syntax
 
 #### Data source
 Data model as the source object for JSONPath examples:
