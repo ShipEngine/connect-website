@@ -14,21 +14,22 @@ title: Designer Window
 
 ![Basic operations section](./images/basic-operations-section.png)
 
-Included here are basic operations on the document:
+Contains basic operations on the document:
 
 * **New** - create new blank label
 * **Open** - open label from drive
 * **Save** - save current carrier
 * **Save as** - save as .carrier
-* **Preview** - print preview
+* **Preview** - display preview
 * **Settings** - sample input data editor
 * **Save as** - save as archive .zip (all formats)
 
 ### New objects section
 
+
 ![New objects section](./images/new-object-section.png)
 
-Included here are actions for adding new objects to the document:
+Contains actions for adding new objects to the document:
 
 *  **Insert function** - field with function (expression)
 *  **Insert text** - field to render fixed text or data model property
@@ -69,7 +70,7 @@ Contains operations and actions directly related to working with the document:
 
 ![Alignment section](./images/alignment-section.png)
 
-Includes all possible alignment options in the document:
+Contains all possible alignment options in the document:
 
 * **Align Lefts** - align all selected items to left side of first selected item
 * **Align Rights** - align all selected items to right side of first selected item
@@ -78,8 +79,8 @@ Includes all possible alignment options in the document:
 * **Align Bottoms** - align all selected items to bottom of first selected item
 * **Align Middles** - align all selected items to middle of first selected item
 * **Make Same Height** - set height of all selected items to height of first selected item
-* **Make Same Width** - set width of all selected items to height of first selected item
-* **Make Same Size** - make same size of all selected items to height of first selected item
+* **Make Same Width** - set width of all selected items to width of first selected item
+* **Make Same Size** - set size of all selected items to size of first selected item
 * **Make Horizontal Spacing Equal** - set horizontal spacing between all selected items equal
 * **Increse Horizontal Spacing** - increase horizontal spacing between all selected items
 * **Decrease Horizontal Spacing** - decrease horizontal spacing between all selected items
@@ -102,5 +103,5 @@ Includes 3 sections:
 ![Properties tab](./images/properties-tab.png)
 
 * **Document** - Properties of the whole document
-* **Group** - Properties of a specific group of objects
+* **Group** - Properties of a selected group of objects
 * **Print object(s)** - Properties of a single object
