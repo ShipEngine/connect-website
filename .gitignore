@@ -1,5 +1,12 @@
+.yarn/*
+!.yarn/cache
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+
 node_modules
 public/
 .DS_Store
-.yarn/
 .next/
