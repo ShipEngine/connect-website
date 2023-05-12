@@ -11,10 +11,10 @@ The `@shipengine/connect-rendering-client` provides developers with the ability 
 
 ## Usage
 
-Developers have the ability to render the documents in the `label_format` passed in `CreateLabelRequest`.  
+Developers have the ability to render documents in a specific format, which is passed as `label_format` field in `CreateLabel` request.  
 The `GetDocuments` function expects a request and carrier definition that contains a path to the template file.
 
-This example shows you how to render the documents within the `CreateLabel` method.
+This example shows you how to render the documents within the `CreateLabel` method:  
 
 ```typescript
 import { CreateLabelRequest, CreateLabelResponse } from '@shipengine/connect-carrier-api';
@@ -26,24 +26,23 @@ export const CreateLabel = async (request: CreateLabelRequest): Promise<CreateLa
 };
 ```
 
-If you have created the template with multiple documents, it is possible to select the document to be rendered by its name.  
-In the following example, two documents are selected:
+The Documents Designer allows you to create multiple documents within a single template file. In this case, it is possible to select the document to be rendered by its name.  
+In the following example, two documents are selected:  
 
 ```typescript
 return await GetDocuments(request, DemoCarrier, ['standard_label', 'additional_label']);
 ```
 
-You have the ability to design multi-language document templates as well.  
-Remember to use the same language code in `GetDocuments` that was defined in the document template.  
+You have the ability to design multi-language document templates as well. In this case, you can use the `template.language` code in the Designer, which can be passed to `GetDocuments`.  
+This example shows how to render document in a specific language:  
 
-This example shows how to render document in specific language:
 ```typescript
 return await GetDocuments(request, DemoCarrier, ['standard_label', 'additional_label'], 'FR');
 ```
 
 ### Document Template
 
-Your app definition must contain a document template file. The carrier metadata specifies the location of the file:
+Your app definition must contain a document template file. The carrier metadata specifies the location of the file:  
 
 ```typescript
 export const DemoCarrier: Carrier = {
