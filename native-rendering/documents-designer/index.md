@@ -21,234 +21,285 @@ At this point, Documents Designer is a tool for Windows platform only.
 
 [Data source](./data-source.md)
 
+[Conditions](./conditions.md)
+
 ### Example
 
 This is an example template constructed using Documents Designer.
 
 <details>
-  <summary>dummy_template.carrier</summary>
+  <summary>demo_carrier_template.carrier</summary>
 
 ```json
 {
-  "ApiCode": "dummy_carrier",
-  "Version": "1.0.0",
-  "LabelForms": [
+  "api_code": "demo_carrier",
+  "version": "1.0.0",
+  "label_forms": [
     {
-      "Name": "standard_label",
-      "Components": [
+      "name": "standard_label",
+      "components": [
         {
           "$type": "Orion.Rendering.PrintObjects.GroupBand, Orion.Rendering",
-          "Components": [
+          "components": [
             {
               "$type": "Orion.Rendering.PrintObjects.LabelShape, Orion.Rendering",
-              "LineColor": "0, 0, 0",
-              "FillColor": "0, 0, 0",
-              "Height": 10,
-              "Width": 1490,
-              "Name": "TopHorizontalLine",
-              "Left": 10
+              "line_color": "0, 0, 0",
+              "fill_color": "0, 0, 0",
+              "height": 10,
+              "width": 1490,
+              "name": "TopHorizontalLine",
+              "left": 10
             },
             {
               "$type": "Orion.Rendering.PrintObjects.LabelShape, Orion.Rendering",
-              "LineColor": "0, 0, 0",
-              "FillColor": "0, 0, 0",
-              "Height": 10,
-              "Width": 1490,
-              "Name": "BottomHorizontalLine",
-              "Left": 10,
-              "Top": 770
+              "line_color": "0, 0, 0",
+              "fill_color": "0, 0, 0",
+              "height": 10,
+              "width": 1490,
+              "name": "BottomHorizontalLine",
+              "left": 10,
+              "top": 770
             },
             {
               "$type": "Orion.Rendering.PrintObjects.LabelShape, Orion.Rendering",
-              "LineColor": "0, 0, 0",
-              "FillColor": "0, 0, 0",
-              "Height": 990,
-              "Width": 10,
-              "Name": "RightVerticalLine",
-              "Left": 1493
+              "line_color": "0, 0, 0",
+              "fill_color": "0, 0, 0",
+              "height": 990,
+              "width": 10,
+              "name": "RightVerticalLine",
+              "left": 1493
             },
             {
               "$type": "Orion.Rendering.PrintObjects.LabelShape, Orion.Rendering",
-              "LineColor": "0, 0, 0",
-              "FillColor": "0, 0, 0",
-              "Height": 780,
-              "Width": 10,
-              "Name": "MiddleVerticalLine",
-              "Left": 950
+              "line_color": "0, 0, 0",
+              "fill_color": "0, 0, 0",
+              "height": 780,
+              "width": 10,
+              "name": "MiddleVerticalLine",
+              "left": 950
             },
             {
               "$type": "Orion.Rendering.PrintObjects.LabelShape, Orion.Rendering",
-              "LineColor": "0, 0, 0",
-              "FillColor": "0, 0, 0",
-              "Height": 10,
-              "Width": 950,
-              "Name": "MiddleHorizontalLine",
-              "Top": 360
+              "line_color": "0, 0, 0",
+              "fill_color": "0, 0, 0",
+              "height": 10,
+              "width": 950,
+              "name": "MiddleHorizontalLine",
+              "top": 360
             },
             {
               "$type": "Orion.Rendering.PrintObjects.LabelShape, Orion.Rendering",
-              "LineColor": "0, 0, 0",
-              "FillColor": "0, 0, 0",
-              "Height": 990,
-              "Width": 10,
-              "Name": "MiddleVerticalLine(1)"
+              "line_color": "0, 0, 0",
+              "fill_color": "0, 0, 0",
+              "height": 990,
+              "width": 10,
+              "name": "MiddleVerticalLine(1)"
             },
             {
               "$type": "Orion.Rendering.PrintObjects.LabelShape, Orion.Rendering",
-              "LineColor": "0, 0, 0",
-              "FillColor": "0, 0, 0",
-              "Height": 10,
-              "Width": 1490,
-              "Name": "BottomHorizontalLine(1)",
-              "Top": 980
+              "line_color": "0, 0, 0",
+              "fill_color": "0, 0, 0",
+              "height": 10,
+              "width": 1490,
+              "name": "BottomHorizontalLine(1)",
+              "top": 980
             }
           ],
-          "Width": 1503,
-          "Height": 990,
-          "Name": "Lines",
-          "Left": 7,
-          "Top": 15
+          "width": 1503,
+          "height": 990,
+          "name": "Lines",
+          "left": 7,
+          "top": 15
         },
         {
           "$type": "Orion.Rendering.PrintObjects.GroupBand, Orion.Rendering",
-          "Components": [
+          "components": [
             {
               "$type": "Orion.Rendering.PrintObjects.LabelEdit, Orion.Rendering",
-              "FontBold": true,
-              "FontName": "Noto Sans",
-              "FontSize": 12.0,
-              "FontSizeLimit": 12.0,
-              "Content": "RemoveEmptyLines(\nNewLine($.shipment.ship_to.name) +\nNewLine($.shipment.ship_to.company_name) + \nNewLine($.shipment.ship_to.address_lines[0]) + \nNewLine($.shipment.ship_to.address_lines[1]) + \nNewLine($.shipment.ship_to.city_locality) + \nNewLine($.shipment.ship_to.postal_ode) + \nNewLine(GetLocalizedCountryName($.shipment.ship_to.country_code, EN))\n)",
-              "Name": "ToData",
-              "Width": 700,
-              "Height": 280,
-              "Top": 60
+              "font_bold": true,
+              "font_name": "Noto Sans",
+              "font_size": 12.0,
+              "font_size_limit": 12.0,
+              "content": "$.shipment.ship_to.name",
+              "name": "AddressToName",
+              "width": 700,
+              "height": 60,
+              "top": 60
             },
             {
               "$type": "Orion.Rendering.PrintObjects.LabelEdit, Orion.Rendering",
-              "FontName": "Noto Sans",
-              "FontSize": 9.75,
-              "FontSizeLimit": 9.75,
-              "Content": "\"To:\"",
-              "Name": "To",
-              "Width": 700,
-              "Height": 40
+              "font_name": "Noto Sans",
+              "font_size": 9.75,
+              "font_size_limit": 9.75,
+              "content": "\"To:\"",
+              "name": "AddressToCaption",
+              "width": 700,
+              "height": 40
+            },
+            {
+              "$type": "Orion.Rendering.PrintObjects.LabelEdit, Orion.Rendering",
+              "font_bold": true,
+              "font_name": "Noto Sans",
+              "font_size": 12.0,
+              "font_size_limit": 12.0,
+              "content": "$.shipment.ship_to.city_locality + \" \" + $.shipment.ship_to.postal_code",
+              "name": "AddressToCityZip",
+              "width": 700,
+              "height": 60,
+              "top": 120
+            },
+            {
+              "$type": "Orion.Rendering.PrintObjects.LabelEdit, Orion.Rendering",
+              "font_bold": true,
+              "font_name": "Noto Sans",
+              "font_size": 12.0,
+              "font_size_limit": 12.0,
+              "content": "$.shipment.ship_to.country_code\n",
+              "name": "AddressToCountry",
+              "width": 700,
+              "height": 60,
+              "top": 180
             }
           ],
-          "Width": 700,
-          "Height": 340,
-          "Name": "ReceiverData",
-          "Left": 180,
-          "Top": 60
+          "width": 700,
+          "height": 240,
+          "name": "ReceiverData",
+          "left": 180,
+          "top": 60
         },
         {
           "$type": "Orion.Rendering.PrintObjects.GroupBand, Orion.Rendering",
-          "Components": [
+          "components": [
             {
               "$type": "Orion.Rendering.PrintObjects.LabelEdit, Orion.Rendering",
-              "FontName": "Noto Sans",
-              "FontSize": 9.75,
-              "FontSizeLimit": 9.75,
-              "Content": "\"From:\"",
-              "Name": "From",
-              "Width": 530,
-              "Height": 50
+              "font_name": "Noto Sans",
+              "font_size": 9.75,
+              "font_size_limit": 9.75,
+              "content": "\"From:\"",
+              "name": "AddressFromCaption",
+              "width": 530,
+              "height": 50
             },
             {
               "$type": "Orion.Rendering.PrintObjects.LabelEdit, Orion.Rendering",
-              "FontName": "Noto Sans",
-              "FontSize": 10.0,
-              "FontSizeLimit": 10.0,
-              "Content": "RemoveEmptyLines(\nNewLine(if(Len($.shipment.ship_from.company_name) > 0) $.shipment.ship_from.company_name else $.shipment.ship_from.name) +\nNewLine($.shipment.ship_from.address_lines[0]) + \nNewLine($.shipment.ship_from.address_lines[1]) + \nNewLine($.shipment.ship_from.city_locality) + \nNewLine($.shipment.ship_from.postal_code) + \nNewLine(GetLocalizedCountryName($.shipment.ship_from.country_code, EN))\n)",
-              "Name": "FromData",
-              "Width": 750,
-              "Height": 300,
-              "Top": 60
+              "font_bold": true,
+              "font_name": "Noto Sans",
+              "font_size": 12.0,
+              "font_size_limit": 12.0,
+              "content": "$.shipment.ship_from.name",
+              "name": "AddressFromName",
+              "width": 700,
+              "height": 60,
+              "top": 70
+            },
+            {
+              "$type": "Orion.Rendering.PrintObjects.LabelEdit, Orion.Rendering",
+              "font_bold": true,
+              "font_name": "Noto Sans",
+              "font_size": 12.0,
+              "font_size_limit": 12.0,
+              "content": "$.shipment.ship_from.city_locality + \" \" + $.shipment.ship_from.postal_code",
+              "name": "AddressFromCityZip",
+              "width": 700,
+              "height": 60,
+              "top": 130
+            },
+            {
+              "$type": "Orion.Rendering.PrintObjects.LabelEdit, Orion.Rendering",
+              "font_bold": true,
+              "font_name": "Noto Sans",
+              "font_size": 12.0,
+              "font_size_limit": 12.0,
+              "content": "$.shipment.ship_from.country_code",
+              "name": "AddressFromCountry",
+              "width": 700,
+              "height": 60,
+              "top": 190
             }
           ],
-          "Width": 750,
-          "Height": 360,
-          "Name": "SenderrData",
-          "Left": 180,
-          "Top": 400
+          "width": 700,
+          "height": 250,
+          "name": "SenderrData",
+          "left": 180,
+          "top": 400
         },
         {
           "$type": "Orion.Rendering.PrintObjects.GroupBand, Orion.Rendering",
-          "Components": [
+          "components": [
             {
               "$type": "Orion.Rendering.PrintObjects.LabelEdit, Orion.Rendering",
-              "FontName": "Noto Sans",
-              "FontSize": 9.75,
-              "FontSizeLimit": 9.75,
-              "Content": "\"Order #: \" + $.shipment.reference",
-              "Name": "Order",
-              "Width": 440,
-              "Height": 70
+              "font_italic": true,
+              "font_name": "Arial",
+              "font_size": 9.75,
+              "hor_alignment": "CenterAlign",
+              "font_size_limit": 9.75,
+              "content": "\"Carrier: \" + .shipment.carrier_name",
+              "name": "CarrierName",
+              "width": 400,
+              "height": 100,
+              "left": 30
             },
             {
               "$type": "Orion.Rendering.PrintObjects.LabelEdit, Orion.Rendering",
-              "FontName": "Noto Sans",
-              "FontSize": 9.75,
-              "FontSizeLimit": 9.75,
-              "Content": "\"ShipDate #: \" + if($.shipment.ship_datetime) DateToString($.shipment.ship_datetime, \"dd/MM/yy\") else DateToString(Now(),\"dd/MM/yy\")",
-              "Name": "DispatchDate",
-              "Width": 480,
-              "Height": 60,
-              "Top": 70
+              "font_name": "Noto Sans",
+              "font_size": 9.75,
+              "font_size_limit": 9.75,
+              "content": "\"Order #: \" + $.shipment.reference",
+              "name": "OrderNo",
+              "width": 440,
+              "height": 70,
+              "top": 150
+            },
+            {
+              "$type": "Orion.Rendering.PrintObjects.LabelEdit, Orion.Rendering",
+              "font_name": "Noto Sans",
+              "font_size": 9.75,
+              "font_size_limit": 9.75,
+              "content": "\"ShipDate #: \" + $.shipment.ship_datetime",
+              "name": "DispatchDate",
+              "width": 480,
+              "height": 60,
+              "top": 220
             },
             {
               "$type": "Orion.Rendering.PrintObjects.LabelBarcode, Orion.Rendering",
-              "Content": "$.shipment.tracking_number",
-              "BarcodeType": "QRCode",
-              "KeepCharacterCasing": true,
-              "NarrowBarWidth": 10.0,
-              "BearerBarWidth": 3.0,
-              "Align": "Center",
-              "Name": "Barcode",
-              "Width": 260,
-              "Height": 270,
-              "Left": 100,
-              "Top": 220
+              "content": "$.shipment.tracking_number",
+              "barcode_type": "QRCode",
+              "keep_character_casing": true,
+              "narrow_bar_width": 10.0,
+              "bearer_bar_width": 3.0,
+              "align": "Center",
+              "name": "QRcode",
+              "width": 260,
+              "height": 270,
+              "left": 100,
+              "top": 370
             }
           ],
-          "Width": 480,
-          "Height": 490,
-          "Name": "ShipmentData",
-          "Left": 990,
-          "Top": 260
-        },
-        {
-          "$type": "Orion.Rendering.PrintObjects.LabelEdit, Orion.Rendering",
-          "FontItalic": true,
-          "FontName": "Arial",
-          "FontSize": 9.75,
-          "HorAlignment": "CenterAlign",
-          "FontSizeLimit": 9.75,
-          "Content": "\"Carrier: \\n\\n\" + .shipment.api_code",
-          "Name": "LabelEdit",
-          "Width": 400,
-          "Height": 240,
-          "Left": 1020,
-          "Top": 110
+          "width": 480,
+          "height": 640,
+          "name": "ShipmentData",
+          "left": 990,
+          "top": 110
         },
         {
           "$type": "Orion.Rendering.PrintObjects.LabelBarcode, Orion.Rendering",
-          "Content": ".shipment.packages[0].tracking_number",
-          "NarrowBarWidth": 3.0,
-          "Align": "Center",
-          "Name": "LabelBarcode",
-          "Width": 1410,
-          "Height": 150,
-          "Left": 60,
-          "Top": 820
+          "content": ".shipment.packages[0].tracking_number",
+          "narrow_bar_width": 3.0,
+          "align": "Center",
+          "name": "LabelBarcode",
+          "width": 1410,
+          "height": 150,
+          "left": 60,
+          "top": 820
         }
       ],
-      "Landscape": true,
-      "PaperType": {
-        "Width": 1016,
-        "Height": 1524
+      "landscape": true,
+      "paper_type": {
+        "width": 1016,
+        "height": 1524
       },
-      "DocumentLevel": "Shipment"
+      "document_level": "Shipment"
     }
   ]
 }

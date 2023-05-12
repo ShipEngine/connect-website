@@ -81,33 +81,6 @@ $.shipment.metadata['account.number']
 ```
 &nbsp;
 
-#### Table data
-
-When you need to design document with dynamic data rows (e.g. `$.shipment.packages`) it is necessary to use table element.  
-
-In this case *DataSource* has to be defined.  
-
-![Table data](./images/table-data-source.png)<p>
-
-When working with a table, you can refer to elements in rows.
-
-* Item reference beginning with dot `.` w/o item name. You cannot use `$.` notation here, as this always reference the root element.
-
-````code
-.weight_details.weight_in_grams
-````
-
-* Items range. For instance, you can select the first n elements of the array, or return only selected items, if they exist.
-
-````
-$.shipment.packages[:n] 
-$.shipment.packages[1,3,5] 
-$.shipment.packages[0:2] 
-$.shipment.packages[-n:]
-$.shipment.packages[n:]
-````
-&nbsp;
-
 #### Current package reference
 
 You can also reference to the current *Package* using prefix `@`

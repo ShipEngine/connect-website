@@ -11,25 +11,45 @@ The `@shipengine/connect-rendering-client` provides developers with the ability 
 
 ## Usage
 
-This example shows you how to render the documents within the `CreateLabel` method.
+Developers have the ability to render documents in a specific format, which is passed as `label_format` field in `CreateLabel` request.  
+The `GetDocuments` function expects a request and carrier definition that contains a path to the template file.
+
+This example shows you how to render the documents within the `CreateLabel` method:  
 
 ```typescript
-import {CreateLabelRequest, CreateLabelResponse} from '@shipengine/connect-carrier-api';
-import {getDocuments, RenderingRequest} from '@shipengine/connect-rendering-client';
+import { CreateLabelRequest, CreateLabelResponse } from '@shipengine/connect-carrier-api';
+import { GetDocuments } from '@shipengine/connect-rendering-client';
+import { DemoCarrier } from '../definitions/demo-carrier';
 
 export const CreateLabel = async (request: CreateLabelRequest): Promise<CreateLabelResponse> => {
-    return await getDocuments(request.metadata.carrier_code, request);
-}
+    return await GetDocuments(request, DemoCarrier);
+};
 ```
+
+The Documents Designer allows you to create multiple documents within a single template file. In this case, it is possible to select the document to be rendered by its name.  
+In the following example, two documents are selected:  
+
+```typescript
+return await GetDocuments(request, DemoCarrier, ['standard_label', 'additional_label']);
+```
+
+You have the ability to design multi-language document templates as well. In this case, you can use the `template.language` code in the Designer, which can be passed to `GetDocuments`.  
+This example shows how to render document in a specific language:  
+
+```typescript
+return await GetDocuments(request, DemoCarrier, ['standard_label', 'additional_label'], 'FR');
+```
+
 ### Document Template
 
-Your app definition must contain a document template file. The carrier metadata specifies the location of the file:
+Your app definition must contain a document template file. The carrier metadata specifies the location of the file:  
 
 ```typescript
 export const DemoCarrier: Carrier = {
+  Name: 'Demo Carrier',
+  DocumentTemplate: join(__dirname, '../../../assets/templates/demo_carrier_template.carrier'),
   /.../
-  DocumentTemplate: join(__dirname, '../../../assets/templates/demo_carrier_code.carrier')
-}
+};
 ```
 
 You can use the [Documents Designer](./documents-designer/index.md)
@@ -39,12 +59,52 @@ visual tool to design a document template file.
 *To get access to rendering capabilities and Documents Designer, please reach out to your business contact with Auctane or the [ShipEngine Connect Team](mailto:connect@shipengine.com).*
 :::
 
-### Deploy
+### Environment Variable
 
-The environment variable `RENDERING_HOST` must be set for the ShipEngine Connect testing environment.
+The environment variable `RENDERING_HOST` must be set for the Connect testing environment.
 
 Before run `connect publish` you have to set the variable indicating the correct host url `{rendering_service_url}` (that can be obtained from Auctane):
-
 ```bash
 connect env:set RENDERING_HOST={rendering_service_url}
+```
+
+## Customs Documents
+
+For international shipments, customs declarations CN22 and CN23 are required, as well as an optional commercial invoice.  
+Whether you use a CN22 form or a CN23 depends on the weight and value of the package.  
+Depending on the carrier and the destination you need to include a commercial invoice in addition to the CN22/CN23.
+
+The following customs documents are supported by default:
+
+* CN22 (customs declaration)
+* CN23 (customs declaration)
+* CI (commercial invoice)
+
+Based on the carrier's rules, you need to decide what kind of document to render by selecting the customs document code.  
+Customs documents are available in three languages: EN (English), DE (German) and FR (French). 
+By default, customs are generated in English.  
+
+This example shows how to generate commercial invoice and customs declaration in French:
+
+```typescript
+import { CreateLabelRequest, CreateLabelResponse } from '@shipengine/connect-carrier-api';
+import { GetCustoms } from '@shipengine/connect-rendering-client';
+import { DemoCarrier } from '../definitions/demo-carrier';
+
+export const CreateLabel = async (request: CreateLabelRequest): Promise<CreateLabelResponse> => {
+    return await GetCustoms(request, DemoCarrier, ['CI', 'CN22'], 'FR');
+};
+```
+ 
+Customs declarations can be combined with the carrier label as follows:
+```typescript
+import { CreateLabelRequest, CreateLabelResponse } from '@shipengine/connect-carrier-api';
+import { GetDocuments, GetCustoms, CombineDocuments } from '@shipengine/connect-rendering-client';
+import { DemoCarrier } from '../definitions/demo-carrier';
+
+export const CreateLabel = async (request: CreateLabelRequest): Promise<CreateLabelResponse> => {
+    const carrierLabel = await GetDocuments(request, DemoCarrier);
+    const customsForms = await GetCustoms(request, DemoCarrier, ['CI', 'CN23']);    
+    return CombineDocuments(carrierLabel, customsForms);
+};
 ```
