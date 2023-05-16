@@ -14,7 +14,7 @@ Before building your implementation, it is recommended to get the basic configur
 
 ### DefaultRateCardId
 
-The `DefaultRateCardId` property is the only value required to use Native Rating for your Carrier app. This rate card will be used for any customer that does not have a rate card id specified in their seller provider settings. If all rate cards are managed via Connect, then this id should match the id of one of the rate cards defined in the `RateCards` property discussed below. If this id does _not_ match a rate card defined in the `RateCards` property, then a rate card with that id should be created manually through the Native Rating management API directly or else the Native Rating system will return an error when attempting to get rates. This value can be changed at any time.
+The `DefaultRateCardId` property is the only value required to use Native Rating for your Carrier app. This rate card will be used for any customer that does not have a rate card identifier specified in their seller provider settings. If all rate cards are managed via Connect, then this value should match the identifier of one of the rate cards defined in the `RateCards` property discussed below. If it does _not_ match a rate card defined in the `RateCards` property, then a rate card with that identifier should be created manually through the Native Rating management API directly or else the Native Rating system will return an error when attempting to get rates. This value can be changed at any time.
 
 ### RateCards
 
@@ -110,7 +110,7 @@ you don't modify this if you can avoid it. As before, it's worth keeping a backu
 The Connect tooling provides a simple test server that you can use to test your app. To start it, run the following commands:
 
 ```bash
-npm run build   # Run before first start and after any other Connect changes
+npm run build   # Run before first start and after any non-rating changes
 npm run bundle  # Run after any rating implementation changes
 npm start
 ```
@@ -132,7 +132,7 @@ All users will get rates from the default rate card defined in the carrier defin
 
 ### Publishing the Native Rating app
 
-When the implementation is complete, you can use the Connect CLI to publish the Carrier app to the development
+When the implementation is complete, you can use the Connect CLI to publish the app to the development
 environment for live testing. To do this, ensure that the package is built and bundled by running the following:
 
 ```bash
