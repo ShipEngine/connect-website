@@ -18,7 +18,9 @@ Changes that you make to rate cards, zone sets, and rating logic are not immedia
 
 To test rates that are in development, you can make a rates request like you normally would with the addition of a special header: `request-date: unpublished`. This will instruct the Native Rating service to use the absolute newest data and logic whether it has been published or not. You can also use that header to request historical data by passing a date, like this: `request-date: 2021-11-03T09:34:16.123Z`. This would cause the Native Rating service to use the published data and logic as of the specified date. If you want the most current published rates, it's best to omit the `request-date` header rather than passing the current date and time in because the Native Rating service has performance optimizations for currently published rates that are bypassed when a date is specified.
 
-**NOTE:** Once rates are published, they CANNOT be unpublished. There is a mechanism to re-publish the previously published data, however. The end result for live data is the same as unpublishing but the distinction is that if a request is made using the `request-date` header with the date and time that is within the window that the unwanted published data was available, those rates will still be served.
+:::warning Note
+Once rates are published, they CANNOT be unpublished. There is a mechanism to re-publish the previously published data, however. The end result for live data is the same as unpublishing but the distinction is that if a request is made using the `request-date` header with the date and time that is within the window that the unwanted published data was available, those rates will still be served.
+:::
 
 ## Workflow
 
