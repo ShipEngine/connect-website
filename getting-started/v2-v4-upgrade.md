@@ -12,7 +12,7 @@ Because the basic structure of Connect apps did not change between versions v2 a
 
 2. Ensure that the `package.json` has a valid `main` property that points to the entry point of the app. For Typescript apps created by the CLI, this will be `lib/index.js`. For Javascript, it would be `src/index.js`.
 
-3. Add a new top-level connect attribute to package.json, with a version property set to 3:
+3. Add a new top-level connect attribute to package.json, with a version property set to 4:
 
 ```json
 {
