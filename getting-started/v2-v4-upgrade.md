@@ -17,7 +17,7 @@ Because the basic structure of Connect apps did not change between versions v2 a
 ```json
 {
   "connect": {
-    "version": 3
+    "version": 4
   }
 }
 ```
@@ -36,7 +36,7 @@ Here is an example of a `package.json` with all the changes:
   "version": "1.0.0",
   "appId": "<< APP ID GUID >>",
   "connect": {
-    "version": 3
+    "version": 4
   },
   "dependencies": {
     "@shipengine/connect-carrier-api": "^4.0.0",
