@@ -36,7 +36,7 @@ nav:
   - search: true
 
 footer:
-  copyrightText: © 2022 ShipEngine. All rights reserved.
+  copyrightText: © ShipEngine. All rights reserved.
   columns:
     - group: Support
       items:
