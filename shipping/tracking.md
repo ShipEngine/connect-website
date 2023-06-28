@@ -15,6 +15,9 @@ the tracking information for that shipment. This Track function will be invoked
 when a user requests tracking information via a ShipEngine API.
 
 ## Bulk import
+
+> Bulk import requires an app to be built for v4+ of Connect. See [Upgrade v2 to v4](/getting-started/v2-v4-upgrade/)
+
 If a carrier provides tracking information via a bulk export mechanism, you can
 implement the ImportTrackingEvents function. It will be invoked on a regular
 schedule by the ShipEngine platform, and a separate call will be made on behalf
@@ -24,16 +27,43 @@ to the carrier. In most cases, the credentials will include information needed
 to connect to an FTP server to download files, but the actual implementation
 can vary depending on what the carrier provides and you may need to add fields
 to your registration form or settings form to collect additional data from
-sellers. Your function will be a javascript AsyncGenerator. It should download
-the bulk tracking file provided by the carrier, parse it, transform each event
-from the file into an ImportedTrackingEvent, and yield them via the generator.
+sellers.
+
+Your function must implement a javascript [AsyncGenerator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AsyncGenerator).
+The function should download the bulk tracking file provided by the carrier,
+parse it, transform each event from the file into an ImportedTrackingEvent, and
+yield each individual event via the generator.
+
 Since functions run in an environment with constrained resources (minimal
 memory and filesystem storage), and tracking files can be large, it is
-recommended that you process the file as you stream it from the source.
-There are javascript stream parsing libraries available for many common formats
-like CSV, JSON, and XML.
+recommended that you process the file and yield events as you stream it from the
+source. There are javascript stream parsing libraries available for many common
+formats like CSV, JSON, and XML.
 
-## Both
+
+An example TypeScript implementation:
+
+```typescript
+import { ImportTrackingEventsRequest, ImportedTrackingEvent, StandardizedStatusCodes } from "@shipengine/connect-carrier-api";
+export async function* ImportTrackingEvents(request: ImportTrackingEventsRequest): AsyncGenerator<ImportedTrackingEvent> {
+  // Obtain normalized events, and yield them one at a time
+  yield {
+    "tracking_info": {
+      "tracking_number": "11111",
+      "standardized_status_code": StandardizedStatusCodes.Delivered,
+    }
+  }
+  yield {
+    "tracking_info": {
+      "tracking_number": "22222",
+      "carrier_status_code": "AC",
+      "standardized_status_code": StandardizedStatusCodes.Accepted,
+    }
+  }
+}
+```
+
+## Precedence
 If you implement both the `Track` function and `ImportTrackingEvents` function,
 the ShipEngine platform will use the `Track` function to query for updates about
 each shipment but if a tracking event is imported by `ImportTrackingEvents`,
