@@ -27,12 +27,12 @@ Given the following definition for the JsonSchema
   }
 }
 ```
-When the button to connect is clicked by a user the [Register Method](../reference/operation/Register/) would recieve a payload looking something like this.
+When the "Connect" button is clicked by a user the [Register Method](../reference/operation/Register/) would recieve a payload looking something like this:
 
 ```JSON Request Payload
 {
     "registration_info": {
-        "email": "test@gmail.com",
+        "email": "test@example.com",
         "password": "password",
         "CaseSensitive": true
     },
@@ -59,5 +59,5 @@ export const Register = async (request: RegisterRequest): Promise<RegisterRespon
 }
 ```
 :::warning Notice
-Notice how the interface for the `RegistrationForm` in the typescript code defined every feild as being potentially null given the `?`. This is because we did not mark any of these fields as required in our JsonSchema.
+Notice how the interface for the `RegistrationForm` in the typescript code defined every field as being potentially null given the `?`. This is because we did not mark any of these fields as required in our JsonSchema.
 :::
