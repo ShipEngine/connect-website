@@ -82,8 +82,9 @@ root:
     page: shipping/index.mdx
     pages:
       - page: shipping/tracking.md
-      - page: shipping/testing-guide.mdx
       - page: shipping/rating.md
+      - page: shipping/paperless-labels.md
+      - page: shipping/testing-guide.mdx
       - group: Document Rendering
         expanded: false
         page: native-rendering/index.md
