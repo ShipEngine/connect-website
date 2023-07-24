@@ -12,10 +12,10 @@ root:
         label: Initialize Project
       - page: getting-started/local-development.md
         label: Run Project Locally
+      - page: getting-started/environment-variables.md
+        label: Manage Configuration
       - page: getting-started/publishing.md
         label: Publish Your App
-      - page: getting-started/environment-variables.md
-        label: Manage Environment Variables
       - page: getting-started/v2-v4-upgrade.md
         label: Upgrade v2 to v4
       - group: OAuth
@@ -79,7 +79,6 @@ root:
       - page: shipping/logging.md
       - page: shipping/error-handling.md
       - page: shipping/testing-guide.mdx
-      - page: shipping/environment-variables.md
       - page: shipping/rating.md
       - page: shipping/forms.md
       - group: Document Rendering
@@ -131,7 +130,6 @@ root:
       - page: orders/logging.md
       - page: orders/error-handling.md
       - page: orders/testing-guide.mdx
-      - page: orders/environment-variables.md
       - page: orders/forms.md
       - label: Authentication
         page: orders/authentication.md
@@ -149,7 +147,6 @@ root:
     pages:
       - page: fulfillment-provider/logging.md
       - page: fulfillment-provider/error-handling.md
-      - page: fulfillment-provider/environment-variables.md
       - page: fulfillment-provider/forms.md
       - label: Authentication
         page: fulfillment-provider/authentication.md
