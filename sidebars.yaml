@@ -101,22 +101,6 @@ root:
         expanded: true
         pages:
           - page: shipping/reference.page.yaml/*
-  - group: Freight
-    expanded: false
-    page: freight/index.mdx
-    pages:
-      - group: Methods
-        expanded: true
-        pages:
-          - page: freight/reference.page.yaml/*
-  - group: Inventory
-    expanded: false
-    page: inventory/index.md
-    pages:
-      - group: Methods
-        expanded: true
-        pages:
-          - page: inventory/reference.page.yaml/*
   - group: Native Rating
     expanded: false
     page: native-rating/index.md
@@ -126,6 +110,24 @@ root:
       - page: native-rating/implementation.md
       - page: native-rating/rating-logic.md
       - page: native-rating/publishing.md
+  - group: Freight
+    expanded: false
+    page: freight/index.mdx
+    pages:
+      - group: Methods
+        expanded: true
+        pages:
+          - page: freight/reference.page.yaml/*
+  - group: Fulfillment Provider
+    page: fulfillment-provider/index.mdx
+    expanded: false
+    pages:
+      - label: Authentication
+        page: fulfillment-provider/authentication.md
+      - group: Methods
+        expanded: true
+        pages:
+          - page: fulfillment-provider/reference.page.yaml/*
   - group: Orders
     page: orders/index.mdx
     expanded: false
@@ -141,13 +143,11 @@ root:
         expanded: true
         pages:
           - page: orders/tools/order-source-definition.mdx
-  - group: Fulfillment Provider
-    page: fulfillment-provider/index.mdx
+  - group: Inventory
     expanded: false
+    page: inventory/index.md
     pages:
-      - label: Authentication
-        page: fulfillment-provider/authentication.md
       - group: Methods
         expanded: true
         pages:
-          - page: fulfillment-provider/reference.page.yaml/*
+          - page: inventory/reference.page.yaml/*
