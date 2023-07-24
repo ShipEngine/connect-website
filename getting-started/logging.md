@@ -1,7 +1,7 @@
 # Logs
 
 
-The `@shipengine/connect-runtime` provides a wrapper for logging in the form of a `logger` object that can be imported into any file demonstrated below.
+The `@shipengine/connect-runtime` provides a wrapper for logging in the form of a `logger` object that can be imported into any file as demonstrated below:
 
 
 ```TypeScript
