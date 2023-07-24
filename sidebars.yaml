@@ -12,6 +12,8 @@ root:
         label: Initialize Project
       - page: getting-started/local-development.md
         label: Run Project Locally
+      - page: getting-started/logging.md
+        label: Logs
       - page: getting-started/environment-variables.md
         label: Manage Configuration
       - page: getting-started/publishing.md
@@ -76,7 +78,6 @@ root:
     page: shipping/index.mdx
     pages:
       - page: shipping/tracking.md
-      - page: shipping/logging.md
       - page: shipping/error-handling.md
       - page: shipping/testing-guide.mdx
       - page: shipping/rating.md
@@ -127,7 +128,6 @@ root:
     page: orders/index.mdx
     expanded: false
     pages:
-      - page: orders/logging.md
       - page: orders/error-handling.md
       - page: orders/testing-guide.mdx
       - page: orders/forms.md
@@ -145,7 +145,6 @@ root:
     page: fulfillment-provider/index.mdx
     expanded: false
     pages:
-      - page: fulfillment-provider/logging.md
       - page: fulfillment-provider/error-handling.md
       - page: fulfillment-provider/forms.md
       - label: Authentication
