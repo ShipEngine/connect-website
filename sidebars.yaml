@@ -20,6 +20,8 @@ root:
         label: Manage Configuration
       - page: getting-started/publishing.md
         label: Publish Your App
+      - page: getting-started/forms.md
+        label: User Input Forms
       - page: getting-started/v2-v4-upgrade.md
         label: Upgrade v2 to v4
       - group: OAuth
@@ -82,7 +84,6 @@ root:
       - page: shipping/tracking.md
       - page: shipping/testing-guide.mdx
       - page: shipping/rating.md
-      - page: shipping/forms.md
       - group: Document Rendering
         expanded: false
         page: native-rendering/index.md
@@ -130,7 +131,6 @@ root:
     expanded: false
     pages:
       - page: orders/testing-guide.mdx
-      - page: orders/forms.md
       - label: Authentication
         page: orders/authentication.md
       - group: Methods
@@ -145,7 +145,6 @@ root:
     page: fulfillment-provider/index.mdx
     expanded: false
     pages:
-      - page: fulfillment-provider/forms.md
       - label: Authentication
         page: fulfillment-provider/authentication.md
       - group: Methods

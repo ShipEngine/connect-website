@@ -8,7 +8,13 @@ title: Forms
 
 <embed src="../forms/_learning-more.md" />
 
-### Registration Form
+### Handling input in the `Register` method
+
+If you are building a `Carrier` app, you must implement a `Register` method to
+process the user input when a connection is created. Other types of apps do
+not currently support the `Register` method, however, all of the user input
+from the registration form is included in the `auth` part of the input in
+every function call to your app.
 
 Given the following definition for the JsonSchema
 ```JSON
@@ -59,5 +65,7 @@ export const Register = async (request: RegisterRequest): Promise<RegisterRespon
 }
 ```
 :::warning Notice
-Notice how the interface for the `RegistrationForm` in the typescript code defined every field as being potentially null given the `?`. This is because we did not mark any of these fields as required in our JsonSchema.
+Notice how the interface for the `RegistrationForm` in the typescript code
+defined every field as being potentially null given the `?`. This is because we
+did not mark any of these fields as required in our JsonSchema.
 :::
