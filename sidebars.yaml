@@ -12,10 +12,16 @@ root:
         label: Initialize Project
       - page: getting-started/local-development.md
         label: Run Project Locally
+      - page: getting-started/logging.md
+        label: Logs
+      - page: getting-started/error-handling.md
+        label: Error Handling
+      - page: getting-started/environment-variables.md
+        label: Manage Configuration
       - page: getting-started/publishing.md
         label: Publish Your App
-      - page: getting-started/environment-variables.md
-        label: Manage Environment Variables
+      - page: getting-started/forms.md
+        label: User Input Forms
       - page: getting-started/v2-v4-upgrade.md
         label: Upgrade v2 to v4
       - group: OAuth
@@ -76,12 +82,8 @@ root:
     page: shipping/index.mdx
     pages:
       - page: shipping/tracking.md
-      - page: shipping/logging.md
-      - page: shipping/error-handling.md
       - page: shipping/testing-guide.mdx
-      - page: shipping/environment-variables.md
       - page: shipping/rating.md
-      - page: shipping/forms.md
       - group: Document Rendering
         expanded: false
         page: native-rendering/index.md
@@ -99,22 +101,6 @@ root:
         expanded: true
         pages:
           - page: shipping/reference.page.yaml/*
-  - group: Freight
-    expanded: false
-    page: freight/index.mdx
-    pages:
-      - group: Methods
-        expanded: true
-        pages:
-          - page: freight/reference.page.yaml/*
-  - group: Inventory
-    expanded: false
-    page: inventory/index.md
-    pages:
-      - group: Methods
-        expanded: true
-        pages:
-          - page: inventory/reference.page.yaml/*
   - group: Native Rating
     expanded: false
     page: native-rating/index.md
@@ -124,15 +110,29 @@ root:
       - page: native-rating/implementation.md
       - page: native-rating/rating-logic.md
       - page: native-rating/publishing.md
+  - group: Freight
+    expanded: false
+    page: freight/index.mdx
+    pages:
+      - group: Methods
+        expanded: true
+        pages:
+          - page: freight/reference.page.yaml/*
+  - group: Fulfillment Provider
+    page: fulfillment-provider/index.mdx
+    expanded: false
+    pages:
+      - label: Authentication
+        page: fulfillment-provider/authentication.md
+      - group: Methods
+        expanded: true
+        pages:
+          - page: fulfillment-provider/reference.page.yaml/*
   - group: Orders
     page: orders/index.mdx
     expanded: false
     pages:
-      - page: orders/logging.md
-      - page: orders/error-handling.md
       - page: orders/testing-guide.mdx
-      - page: orders/environment-variables.md
-      - page: orders/forms.md
       - label: Authentication
         page: orders/authentication.md
       - group: Methods
@@ -143,17 +143,11 @@ root:
         expanded: true
         pages:
           - page: orders/tools/order-source-definition.mdx
-  - group: Fulfillment Provider
-    page: fulfillment-provider/index.mdx
+  - group: Inventory
     expanded: false
+    page: inventory/index.md
     pages:
-      - page: fulfillment-provider/logging.md
-      - page: fulfillment-provider/error-handling.md
-      - page: fulfillment-provider/environment-variables.md
-      - page: fulfillment-provider/forms.md
-      - label: Authentication
-        page: fulfillment-provider/authentication.md
       - group: Methods
         expanded: true
         pages:
-          - page: fulfillment-provider/reference.page.yaml/*
+          - page: inventory/reference.page.yaml/*

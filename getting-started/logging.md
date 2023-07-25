@@ -1,13 +1,8 @@
-# Logging
-:::warning Avoid
-Avoid using the generic JavaScript logging or a custom logging solution.
-```JavaScript
-// There is no way to tie this to a customers transaction
-console.log('this will get lost easily');
-```
-:::
+# Logs
 
-The `@shipengine/connect-runtime` provides a wrapper for logging in the form of a `logger` object that can be imported into any file demonstrated below.
+
+The `@shipengine/connect-runtime` provides a wrapper for logging in the form of a `logger` object that can be imported into any file as demonstrated below:
+
 
 ```TypeScript
 import { logger } from '@shipengine/connect-runtime';
@@ -38,11 +33,20 @@ export const CreateLabel = async (
   // You can also log objects
   logger.info({
     response: ...some response payload,
-    message: 'recieved a response'
+    message: 'received a response'
   })
 };
 ```
 
+
+:::warning Avoid
+Avoid using `console.log` or a third-party logging solution that does not build
+upon the Connect runtime `logger`, as the log messages
+will not include the additional context provided by the Connect runtime.
+:::
+
 :::success Runtime Logger
-The runtime logger formats messages in a way that is easier to parse, and also appends information like transaction id's an other id's that help our support team get to the root of an issue when a customer recieves an error.
+The runtime logger formats messages in a way that is easier to parse, and also
+appends information like transaction identifiers that help our support
+team get to the root of an issue when a customer receives an error.
 :::

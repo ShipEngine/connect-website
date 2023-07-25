@@ -81,7 +81,7 @@ The next step will be to publish your application using the `connect publish` co
 
 - Contact a member of the [ShipEngine Connect Team](mailto:connect@shipengine.com?subject=OAuth%20Installation) in order to establish the platform installation
     - Provide a ClientId & ClientSecret used for initiating the oauth workflow
-- Once the installation has been created you will recieve back a callback url
+- Once the installation has been created you will receive back a callback url
 
 ## Test
 :::success PRO TIP

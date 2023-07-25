@@ -1,8 +1,8 @@
 ---
-title: Managing App Environment Variables
+title: Managing Configuration
 ---
 
-# Managing Environment Variables
+# Managing Configuration
 
 The `shipengine-connect env` command allows you to set environment variables that
 will be available to your app once it is published to ShipEngine Connect. This
@@ -19,28 +19,57 @@ When you run the `shipengine-connect env` command, you will include one of its
 subcommands listed below to indicate which environment variable action you would
 like to perform.
 
-## Set Environment Variables
+## Commands
+
+### Set Environment Variables
 This subcommand sets one or more environment variables.
+
+`shipengine-connect env:set NAME=value NAME_2=value2 ... NAME_N=valueN [OPTIONS]`
+
+Example:
+
 ```bash
-shipengine-connect env:set NAME=value NAME_2=value2 ... NAME_N=valueN [OPTIONS]
+shipengine-connect env:set API_URL=https://www.sandbox.example.com/api API_KEY=3435dfafa32424
 ```
 
-## Get Environment Variables
-This subcommand lists the current value for one or more environment variables.
-```bash
-shipengine-connect env:get NAME NAME_2 ... NAME_N [OPTIONS]
+Output:
+
+```
+API_URL=https://www.sandbox.example.com/api has been set
+API_KEY=3435dfafa32424 has been set
 ```
 
-## List Environment Variables
+### List Environment Variables
 This subcommand lists the values of all environment variables.
+
+`shipengine-connect env:list [OPTIONS]`
+
+Example:
+
 ```bash
-shipengine-connect env:list [OPTIONS]
+shipengine-connect env:list
 ```
 
-## Unset Environment Variables
-This subcommand unsets one or more environment variables.
+### Get Environment Variables
+This subcommand lists the current value for one or more environment variables.
+
+`shipengine-connect env:get NAME NAME_2 ... NAME_N [OPTIONS]`
+
+Example:
+
 ```bash
-shipengine-connect env:unset NAME NAME_2 ... NAME_N [OPTIONS]
+shipengine-connect env:get API_URL
+```
+
+### Unset Environment Variables
+This subcommand unsets one or more environment variables.
+
+`shipengine-connect env:unset NAME NAME_2 ... NAME_N [OPTIONS]`
+
+Example:
+
+```bash
+shipengine-connect env:unset API_URL
 ```
 
 ## Options
@@ -54,3 +83,22 @@ This option formats the output of the `shipengine-connect list` command. Set
 this option to `table` to list the environment variables in a table format or
 `dotenv` to list the environment variables in the
 [dotenv](https://www.npmjs.com/package/dotenv) format.
+
+## Recommendations
+
+### Single File
+We typically recommend having a single file in your project where you access your enviornment variables. This could be a `constants.ts` file, and we recommend having preset values that default to staging variables.
+
+**Example**
+
+```TypeScript constants.ts
+export const API_URL = process.env.API_URL ?? 'https://www.sandbox.example.com/api';
+```
+```TypeScript consumer.ts
+import { API_URL } from './constants'
+
+```
+
+### Moving to Production
+We recommend when reaching out to the [ShipEngine Connect Team](mailto:connect@shipengine.com) to have your application moved into our production systems, that you also notify them of any environment variables that will need to be set, and what their values should be in both testing and production environments.
+
