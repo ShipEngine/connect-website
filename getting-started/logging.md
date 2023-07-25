@@ -33,7 +33,7 @@ export const CreateLabel = async (
   // You can also log objects
   logger.info({
     response: ...some response payload,
-    message: 'recieved a response'
+    message: 'received a response'
   })
 };
 ```

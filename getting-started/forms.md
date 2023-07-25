@@ -33,7 +33,7 @@ Given the following definition for the JsonSchema
   }
 }
 ```
-When the "Connect" button is clicked by a user the [Register Method](../reference/operation/Register/) would recieve a payload looking something like this:
+When the "Connect" button is clicked by a user the [Register Method](/shipping/reference/operation/Register/) would receive a payload looking something like this:
 
 ```JSON Request Payload
 {
