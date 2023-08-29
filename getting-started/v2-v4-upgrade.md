@@ -8,7 +8,7 @@ Because the basic structure of Connect apps did not change between versions v2 a
 
 ## Update package.json
 
-1. Update any Connect related package to `4.0.0` or newer and to add `@shipengine/connect-local` as a dev dependency. This package provides the test server and other functionality for running and testing a Connect app locally.
+1. Update any Connect related package to `4.0.0` or newer and to add `@shipengine/connect` as a dev dependency. This package provides the test server and other functionality for running and testing a Connect app locally.
 
 2. Ensure that the `package.json` has a valid `main` property that points to the entry point of the app. For Typescript apps created by the CLI, this will be `lib/index.js`. For Javascript, it would be `src/index.js`.
 
@@ -25,7 +25,7 @@ Because the basic structure of Connect apps did not change between versions v2 a
 4. Update the `start` script in `package.json` to use the local test server:
 
 ```json
-"start": "connect-local ."
+"start": "connect start"
 ```
 
 Here is an example of a `package.json` with all the changes:
@@ -43,11 +43,11 @@ Here is an example of a `package.json` with all the changes:
     "@shipengine/connect-runtime": "^4.0.0"
   },
   "devDependencies": {
-    "@shipengine/connect-local": "^4.0.0"
+    "@shipengine/connect": "^4.3.0"
   },
   "main": "src/index.js",
   "scripts": {
-    "start": "connect-local ."
+    "start": "connect start"
   }
 }
 ```
