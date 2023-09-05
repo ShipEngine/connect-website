@@ -43,7 +43,7 @@ Here is an example of a `package.json` with all the changes:
     "@shipengine/connect-runtime": "^4.0.0"
   },
   "devDependencies": {
-    "@shipengine/connect": "^4.3.0"
+    "@shipengine/connect": "^4.2.0"
   },
   "main": "src/index.js",
   "scripts": {
