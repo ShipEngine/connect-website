@@ -10,7 +10,7 @@ The documents can be generated  in PDF, PNG and ZPL formats, using templates cre
 ## Usage
 
 Developers have the ability to render documents in a specific format, which is passed as `label_format` field in `GetDocumentsRequest` request.  
-The `getDocuments` function expects a request and `DocumentTemplate` or path to the template file and can be use for all connect app types.
+The `getDocuments` function expects a request and `DocumentTemplate` or path to the template file and can be used for all connect app types.
 
 This example shows you how to render the documents within the `CreateLabel` method:  
 
