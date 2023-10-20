@@ -32,6 +32,12 @@ getDocumentsRequest.documentNames = ['standard_label', 'additional_label']
 return await getDocuments(GetDocumentsRequest, DemoCarrier.DocumentTemplate);
 ```
 
+If you work offline then you will receive an empty document response.
+
+:::success ACCESS
+*To get access to Documents Designer, please reach out to your business contact with Auctane or the [ShipEngine Connect Team](mailto:connect@shipengine.com).*
+:::
+
 ### Document Template
 
 Your app must contain a document template definition. For the carrier api metadata can specifies the location of the template file:  
@@ -47,9 +53,14 @@ export const DemoCarrier: Carrier = {
 You can use the [Documents Designer](./documents-designer/index.md)
 visual tool to design a document template file.
 
-:::success ACCESS
-*To get access to rendering capabilities and Documents Designer, please reach out to your business contact with Auctane or the [ShipEngine Connect Team](mailto:connect@shipengine.com).*
-:::
+### Environment Variable
+
+You must specify the following environment variable in the module's helm file `values.yaml`:
+```
+environment:
+  RENDERING_HOST: "#{RENDERING_HOST}"
+```
+This value will be substituted by deployment pipelines, according to the environment where the module is deployed to.
 
 ## Customs Documents for Carrier App
 
