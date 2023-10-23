@@ -19,15 +19,20 @@ when a user requests tracking information via a ShipEngine API.
 > Bulk import requires an app to be built for v4+ of Connect. See [Upgrade v2 to v4](/getting-started/v2-v4-upgrade/)
 
 If a carrier provides tracking information via a bulk export mechanism, you can
-implement the ImportTrackingEvents function. It will be invoked on a regular
-schedule by the ShipEngine platform, and a separate call will be made on behalf
-of each seller who has a connection to your carrier. The input does not contain
-any shipment identifiers - only the credentials associated with the connection
-to the carrier. In most cases, the credentials will include information needed
-to connect to an FTP server to download files, but the actual implementation
-can vary depending on what the carrier provides and you may need to add fields
-to your registration form or settings form to collect additional data from
-sellers.
+implement the [ImportTrackingEvents](../reference/operation/ImportTrackingEvents/)
+function. It will be invoked on a regular schedule by the ShipEngine platform.
+By default, a separate call to the function will be made for each connection to your carrier.
+However, if data for all users is included in a single download, you can
+specify that the function is only invoked once per scheduled time
+[customizing the scheduled job](../../getting-started/scheduled-jobs/).
+When a separate call is made for each connection, the credentials associated
+with the connection will be passed as input to the function. In most cases, the
+credentials will include information needed to connect to an FTP server to
+download files, but the actual implementation can vary depending on what the
+carrier provides. You may need to add fields to your registration form or
+settings form to collect additional data from shippers.
+When you override `ScheduledFunction`, you have explicit control over what data
+is sent as input to the `ImportTrackingEvents` function.
 
 Your function must implement a javascript [AsyncGenerator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AsyncGenerator).
 The function should download the bulk tracking file provided by the carrier,

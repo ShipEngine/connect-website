@@ -22,6 +22,8 @@ root:
         label: Publish Your App
       - page: getting-started/forms.md
         label: User Input Forms
+      - page: getting-started/scheduled-jobs.md
+        label: Scheduled Jobs
       - page: getting-started/v2-v4-upgrade.md
         label: Upgrade v2 to v4
       - group: OAuth
