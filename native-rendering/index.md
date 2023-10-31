@@ -7,22 +7,20 @@ title: Document Rendering
 The Connect runtime exposes the capability to render documents (such as labels and customs forms) from code.
 The documents can be generated  in PDF, PNG and ZPL formats, using templates created in the [Documents Designer](./documents-designer/index.md).
 
-The `@shipengine/connect-rendering-client` provides developers with the ability to access the rendering capabilities.
-
 ## Usage
 
-Developers have the ability to render documents in a specific format, which is passed as `label_format` field in `CreateLabel` request.  
-The `GetDocuments` function expects a request and carrier definition that contains a path to the template file.
+Developers have the ability to render documents in a specific format, which is passed as `label_format` field in `GetDocumentsRequest` request.  
+The `getDocuments` function expects a request and `DocumentTemplate` or path to the template file and can be used for all connect app types.
 
 This example shows you how to render the documents within the `CreateLabel` method:  
 
 ```typescript
 import { CreateLabelRequest, CreateLabelResponse } from '@shipengine/connect-carrier-api';
-import { GetDocuments } from '@shipengine/connect-rendering-client';
+import { getDocuments } from '@shipengine/connect-runtime';
 import { DemoCarrier } from '../definitions/demo-carrier';
 
 export const CreateLabel = async (request: CreateLabelRequest): Promise<CreateLabelResponse> => {
-    return await GetDocuments(request, DemoCarrier);
+    return await getDocuments(request, DemoCarrier.DocumentTemplate);
 };
 ```
 
@@ -30,19 +28,19 @@ The Documents Designer allows you to create multiple documents within a single t
 In the following example, two documents are selected:  
 
 ```typescript
-return await GetDocuments(request, DemoCarrier, ['standard_label', 'additional_label']);
+getDocumentsRequest.documentNames = ['standard_label', 'additional_label']
+return await getDocuments(GetDocumentsRequest, DemoCarrier.DocumentTemplate);
 ```
 
-You have the ability to design multi-language document templates as well. In this case, you can use the `template.language` code in the Designer, which can be passed to `GetDocuments`.  
-This example shows how to render document in a specific language:  
+If you work offline then you will receive an empty document response.
 
-```typescript
-return await GetDocuments(request, DemoCarrier, ['standard_label', 'additional_label'], 'FR');
-```
+:::success ACCESS
+*To get access to Documents Designer, please reach out to your business contact with Auctane or the [ShipEngine Connect Team](mailto:connect@shipengine.com).*
+:::
 
 ### Document Template
 
-Your app definition must contain a document template file. The carrier metadata specifies the location of the file:  
+Your app must contain a document template definition. For the carrier api metadata can specifies the location of the template file:  
 
 ```typescript
 export const DemoCarrier: Carrier = {
@@ -55,20 +53,16 @@ export const DemoCarrier: Carrier = {
 You can use the [Documents Designer](./documents-designer/index.md)
 visual tool to design a document template file.
 
-:::success ACCESS
-*To get access to rendering capabilities and Documents Designer, please reach out to your business contact with Auctane or the [ShipEngine Connect Team](mailto:connect@shipengine.com).*
-:::
-
 ### Environment Variable
 
-The environment variable `RENDERING_HOST` must be set for the Connect testing environment.
-
-Before run `connect publish` you have to set the variable indicating the correct host url `{rendering_service_url}` (that can be obtained from Auctane):
-```bash
-connect env:set RENDERING_HOST={rendering_service_url}
+You must specify the following environment variable in the module's helm file `values.yaml`:
 ```
+environment:
+  RENDERING_HOST: "#{RENDERING_HOST}"
+```
+This value will be substituted by deployment pipelines, according to the environment where the module is deployed to.
 
-## Customs Documents
+## Customs Documents for Carrier App
 
 For international shipments, customs declarations CN22 and CN23 are required, as well as an optional commercial invoice.  
 Whether you use a CN22 form or a CN23 depends on the weight and value of the package.  
@@ -83,28 +77,31 @@ The following customs documents are supported by default:
 Based on the carrier's rules, you need to decide what kind of document to render by selecting the customs document code.  
 Customs documents are available in three languages: EN (English), DE (German) and FR (French). 
 By default, customs are generated in English.  
+Customs documents required carrier name specified so this parameter is mandatory.
 
 This example shows how to generate commercial invoice and customs declaration in French:
 
 ```typescript
-import { CreateLabelRequest, CreateLabelResponse } from '@shipengine/connect-carrier-api';
-import { GetCustoms } from '@shipengine/connect-rendering-client';
+import { CreateLabelRequest, CreateLabelResponse, getCustoms } from '@shipengine/connect-carrier-api';
+import { GetDocumentsRequest } from '@shipengine/connect-runtime';
 import { DemoCarrier } from '../definitions/demo-carrier';
 
 export const CreateLabel = async (request: CreateLabelRequest): Promise<CreateLabelResponse> => {
-    return await GetCustoms(request, DemoCarrier, ['CI', 'CN22'], 'FR');
+    const getDocumentsRequest : GetDocumentsRequest = { ...request, ...{ language : 'FR', documentNames : ["CI","CN22"] }};
+
+    return await getCustoms(DemoCarrier.Name, getDocumentsRequest);
 };
 ```
  
 Customs declarations can be combined with the carrier label as follows:
 ```typescript
-import { CreateLabelRequest, CreateLabelResponse } from '@shipengine/connect-carrier-api';
-import { GetDocuments, GetCustoms, CombineDocuments } from '@shipengine/connect-rendering-client';
+import { CreateLabelRequest, CreateLabelResponse, getCustoms, combineDocuments } from '@shipengine/connect-carrier-api';
+import { getDocuments,  } from '@shipengine/connect-runtime';
 import { DemoCarrier } from '../definitions/demo-carrier';
 
 export const CreateLabel = async (request: CreateLabelRequest): Promise<CreateLabelResponse> => {
-    const carrierLabel = await GetDocuments(request, DemoCarrier);
-    const customsForms = await GetCustoms(request, DemoCarrier, ['CI', 'CN23']);    
-    return CombineDocuments(carrierLabel, customsForms);
+    const carrierLabel = await getDocuments(request, DemoCarrier.DocumentTemplate);
+    const customsForms = await getCustoms(DemoCarrier.Name, request);    
+    return combineDocuments(carrierLabel, customsForms);
 };
 ```
