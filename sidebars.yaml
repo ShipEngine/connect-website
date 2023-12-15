@@ -113,6 +113,7 @@ root:
       - page: native-rating/implementation.md
       - page: native-rating/rating-logic.md
       - page: native-rating/publishing.md
+      - page: native-rating/rate-card-manager.md
   - group: Freight
     expanded: false
     page: freight/index.mdx
