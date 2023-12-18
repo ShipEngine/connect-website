@@ -22,6 +22,11 @@ In order to support multiple environments, your `AuthProcess` definition must
 include a `connections` section. It requires two attributes: `connection_names`
 and `default_connection_name`.
 
+> This page only describes the OAuth aspects of connection names. If you want
+the user to be presented with a choice of connections in the UI, you must also
+declare the possible connection names in the `OrderSources.AccountConnection` section.
+See the [Metadata Definition documentation](../../orders).
+
 The `default_connection_name` must define the connection to use when one is
 not specified by the end user. In some situations, the end user will not have
 a choice, so the connection they use is driven by the `default_connection_name`.
