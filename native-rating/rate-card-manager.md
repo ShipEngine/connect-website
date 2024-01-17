@@ -29,7 +29,7 @@ Surcharge hierarchy:
 
 The `Origin location` will either be a country code, like `GB` or `US`, or a postal code/country code combination, like `LS12JS-GB` or `63123-US`. A rate card may have both origin location types defined and the carrier logic needs to define what to do in this situation. The two most straightforward approaches to dealing with this would be to either use the most specific origin or use whichever would result in the better rate.
 
-`Service` will be restricted to what is defined in the `ShippingServices` property of the [carrier definition](../shipping/index.md). The value that will be used comes from the `Code` property of each service.
+`Service` will be restricted to what is defined in the `ShippingServices` property of the [carrier definition](/shipping). The value that will be used comes from the `Code` property of each service.
 
 ```json
 {
