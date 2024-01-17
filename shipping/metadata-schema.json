@@ -1500,46 +1500,177 @@
             "description": "Indicates whether the carrier requires the label be purchased on calling create label"
           },
           "NativeRating": {
-            "type": "object",
-            "description": "If this carrier uses Native Rating, details about the connection",
             "additionalProperties": false,
+            "description": "If this carrier uses Native Rating, details about the connection",
             "properties": {
               "DefaultRateCardId": {
-                "type": "string",
-                "description": "The id of the default rate card to use for this carrier"
+                "description": "Default rate card to use for rating",
+                "type": "string"
               },
               "Path": {
-                "type": "string",
-                "description": "The path to rating logic and rate card data for this carrier"
+                "description": "Path to rating logic and rate card data for this carrier",
+                "type": "string"
               },
               "RateCards": {
-                "type": "array",
-                "uniqueItems": true,
+                "description": "Array of rate cards for the carrier",
                 "items": {
-                  "type": "object",
                   "additionalProperties": false,
+                  "description": "Configuration for a given rate card",
                   "properties": {
-                    "Id": {
-                      "type": "string",
-                      "description": "Externally facing id of the rate card."
-                    },
                     "Currency": {
-                      "type": "string",
-                      "format": "^([A-Z]{3})$",
-                      "minLength": 3,
-                      "maxLength": 3,
-                      "description": "Currency of the rate card. This uses the three-character currency code format."
+                      "description": "Currency of the rate card. This uses the three-digit currency code format.",
+                      "type": "string"
+                    },
+                    "Id": {
+                      "description": "Externally facing id of the rate card.",
+                      "type": "string"
                     }
                   },
                   "required": [
                     "Id",
-                    "Name"
-                  ]
+                    "Currency"
+                  ],
+                  "type": "object"
                 },
-                "description": "A list of rate cards available for this carrier"
+                "type": "array"
+              },
+              "SupportsUserManagedRates": {
+                "description": "Can users manage their own rates",
+                "type": "boolean"
               }
             },
-            "required": [ "DefaultRateCardId" ]
+            "type": "object"
+          },
+          "PackageRatingGroups": {
+            "description": "List of package rating groups for the carrier",
+            "items": {
+              "additionalProperties": false,
+              "description": "Details about how packages are related to rates",
+              "properties": {
+                "CarrierPackageTypeCode": {
+                  "description": "This is the code that will be sent to requests, this should be the same code the carrier's api would expect",
+                  "type": "string"
+                },
+                "DimensionLimits": {
+                  "additionalProperties": false,
+                  "description": "Maximum allowable dimensions of packages for the rating group",
+                  "properties": {
+                    "Girth": {
+                      "description": "Girth of the package as defined by the carrier",
+                      "type": "number"
+                    },
+                    "Height": {
+                      "description": "Height of the package",
+                      "type": "number"
+                    },
+                    "Length": {
+                      "description": "Length of the package",
+                      "type": "number"
+                    },
+                    "LengthPlusGirth": {
+                      "description": "Length plus girth should not exceed this amount",
+                      "type": "number"
+                    },
+                    "NoTwoSides": {
+                      "description": "No two sides exceed this amount",
+                      "type": "number"
+                    },
+                    "Unit": {
+                      "description": "Unit of the dimensions",
+                      "enum": [
+                        "inches",
+                        "centimeters"
+                      ],
+                      "type": "string"
+                    },
+                    "Volume": {
+                      "description": "Volume of the package",
+                      "type": "number"
+                    },
+                    "Width": {
+                      "description": "Width of the package",
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "Unit"
+                  ],
+                  "type": "object"
+                },
+                "Id": {
+                  "description": "Id of the rating group",
+                  "type": "string"
+                },
+                "MaxWeight": {
+                  "additionalProperties": false,
+                  "description": "Maximum allowable weight of packages for the rating group",
+                  "properties": {
+                    "Unit": {
+                      "description": "Unit of the weight",
+                      "enum": [
+                        "grams",
+                        "ounces",
+                        "kilograms",
+                        "pounds"
+                      ],
+                      "type": "string"
+                    },
+                    "Value": {
+                      "description": "Actual weight value",
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "Unit",
+                    "Value"
+                  ],
+                  "type": "object"
+                },
+                "Name": {
+                  "description": "Name of the package rating group",
+                  "type": "string"
+                },
+                "PackageTypeId": {
+                  "description": "Id of the package type to which this rating group corresponds",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "Id",
+                "PackageTypeId",
+                "Name",
+                "CarrierPackageTypeCode"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "Zones": {
+            "description": "List of possible zones used by the carrier.",
+            "items": {
+              "additionalProperties": false,
+              "description": "Basic details about a carrier zone",
+              "properties": {
+                "ApiCode": {
+                  "description": "The identifier for this zone that could be used for rating keys. Must be snake cased and unique",
+                  "type": "string"
+                },
+                "Description": {
+                  "description": "This is a human readable description about what the zone is",
+                  "type": "string"
+                },
+                "Name": {
+                  "description": "The name of this zone ex: '1' or 'EU-3'",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "Name",
+                "ApiCode"
+              ],
+              "type": "object"
+            },
+            "type": "array"
           }
         },
         "required": [

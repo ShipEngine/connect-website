@@ -46,7 +46,11 @@ If there is carrier-wide rating logic, it should be in a file named `rate-shipme
 
 Each rate card needs to have a folder named with its id. Within each rate card folder there are three files that can be specified. If the rate card has custom logic, it should be in a file within the rate card's folder named `rate-shipments.js`. If the rate card has rating data or custom variable data, it can specify files named `rates.json` or `variables.json` to define that data. The format of these files are defined below.
 
-### Data formats
+### SupportsUserManagedRates
+
+This controls whether users can manage their own rate cards through the [Rate Card Manager](./rate-card-manager.md).  If this is `true`, the rating logic must be able to handle these rate cards.
+
+## Data formats
 
 **Rates**
 
