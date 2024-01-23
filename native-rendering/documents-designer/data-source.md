@@ -15,7 +15,9 @@ or the bracket notation:
 $['shipment']['tracking_number']
 ```
 
-For each document you need to select DataSource property. Select a 'package' if you want to print label for each package, and 'shipment' if you want only one label for whole shipment.
+For each document you need to select DataSource property value:
+**package** -  prints a label for each package in the shipment;
+**shipment** - prints only one label for the whole shipment.
 
 ![Data Source](./images/data-source.png)
 &nbsp;
@@ -90,7 +92,7 @@ $.shipment.metadata['account.number']
 
 #### Current package reference
 
-If you select 'package' as DataSources, you can also reference to the current *Package* using prefix `@`
+If you select **package** as DataSource, you can also refer to the current *Package* using prefix `@`
 
 ```code
 @package.weight_details.weight_in_grams
