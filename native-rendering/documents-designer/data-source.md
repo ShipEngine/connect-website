@@ -16,8 +16,8 @@ $['shipment']['tracking_number']
 ```
 
 For each document you need to select DataSource property value:
-**package** -  prints a label for each package in the shipment;
-**shipment** - prints only one label for the whole shipment.
+* **package** -  prints a label for each package in the shipment;
+* **shipment** - prints only one label for the whole shipment.
 
 ![Data Source](./images/data-source.png)
 &nbsp;
