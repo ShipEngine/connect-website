@@ -32,6 +32,10 @@
           "required": ["AuthenticationType"],
           "additionalProperties": false
         },
+        "initiate_step": {
+          "type": "string",
+          "description": "This is the step of the OAuth flow to start at when initiated by the 3rd party. Possible values are: \"authorization\", \"request_token\""
+        },
         "access_token": {
           "description": "Added to allow oauth 1.0 to work.",
           "type": "object",
