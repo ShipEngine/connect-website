@@ -50,6 +50,16 @@ that define `connection_names`, each incoming request to their functions
 will include a `request.auth.connection_name` property indicating which
 environment to use for the given request.
 
+:::success Pro Tip
+These `AuthProcess` definitions cannot access other environment variables as defined in the [Manage Configuration documentation](../getting-started/environment-variables.md). For example, if you set the following in a `constants.ts` file: 
+
+```TypeScript constants.ts
+export const API_URL = process.env.API_URL ?? 'https://www.sandbox.example.com/api';
+```
+
+`API_URL` will not have access to check the `process.env` if you try to use `API_URL` in your `AuthProcess` definitions which typically results in unexpected values running in a production environment.
+:::
+
 ## Example
 Consider this example (partial) `AuthProcess` definition:
 
