@@ -1350,6 +1350,27 @@
                   "Description"
                 ],
                 "description": ""
+              },
+              "windsor-framework-details": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "Name": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "description": ""
+                  },
+                  "Description": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": ""
+                  }
+                },
+                "required": [
+                  "Name",
+                  "Description"
+                ],
+                "description": ""
               }
             },
             "description": ""
