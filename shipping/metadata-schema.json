@@ -1351,7 +1351,28 @@
                 ],
                 "description": ""
               },
-              "windsor-framework-details": {
+              "windsor-framework-movement-indicator": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "Name": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "description": ""
+                  },
+                  "Description": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": ""
+                  }
+                },
+                "required": [
+                  "Name",
+                  "Description"
+                ],
+                "description": ""
+              }
+               "windsor-framework-not-at-risk": {
                 "type": "object",
                 "additionalProperties": false,
                 "properties": {
