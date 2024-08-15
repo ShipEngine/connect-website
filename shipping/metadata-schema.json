@@ -682,7 +682,8 @@
                       "SameDayService",
                       "Tip",
                       "DeliveryWindow",
-                      "PickupOnLabelCreation"
+                      "PickupOnLabelCreation",
+                      "NonZeroRating"
                     ]
                   },
                   "description": "A list of attributes about this service"
@@ -1479,7 +1480,8 @@
                 "ManifestDigital",
                 "ManifestPhysical",
                 "Consolidator",
-                "Regional"
+                "Regional",
+                "NonZeroRating"
               ]
             },
             "description": "Attributes describing the carrier"
