@@ -669,23 +669,46 @@
                 },
                 "ServiceAttributes": {
                   "type": "array",
+                  "description": "A list of attributes about this service",
                   "items": {
                     "type": "string",
                     "enum": [
-                      "Returns",
-                      "MultiPackage",
-                      "Tracking",
-                      "ConsolidatorService",
+                      "AllowsShippingOnSunday",
+                      "AllowsShippingToServicePoint",
                       "AutomatedTrackingAllowed",
+                      "ConsolidatorService",
+                      "DeliveryWindow",
+                      "InboundTrackingUpdates",
                       "ManifestDigital",
                       "ManifestPhysical",
+                      "MultiPackage",
+                      "NonZeroRating",
+                      "PaperlessLabel",
+                      "PickupOnLabelCreation",
+                      "Returns",
                       "SameDayService",
                       "Tip",
-                      "DeliveryWindow",
-                      "PickupOnLabelCreation"
-                    ]
-                  },
-                  "description": "A list of attributes about this service"
+                      "Tracking"
+                    ],
+                    "x-enumDescriptions": {
+                      "AllowsShippingOnSunday": "This service supports a ship date on Sundays.",
+                      "AllowsShippingToServicePoint": "This service supports shipping to a service point.",
+                      "AutomatedTrackingAllowed": "This service allows our system to automatically check the status of a package.",
+                      "ConsolidatorService": "This service supports consolidating multiple shipments into a single larger shipment.",
+                      "DeliveryWindow": "This service supports specifying a delivery window.",
+                      "InboundTrackingUpdates": "This service supports tracking updates via inbound webhooks or file-based tracking. Not required if set at the carrier-level.",
+                      "ManifestDigital": "This service supports manifesting with no document returned to the user. Applying this at the service level will override the carrier-level attribute.",
+                      "ManifestPhysical": "This service supports manifesting with a document returned to the user. Applying this at the service level will override the carrier-level attribute.",
+                      "MultiPackage": "This service supports creating multiple packages all related to a primary tracking number.",
+                      "NonZeroRating": "This service is expected to return a non-zero shipping rate when called via GetRates method. Not required if set at the carrier-level.",
+                      "PaperlessLabel": "This service supports paperless labels.",
+                      "PickupOnLabelCreation": "This service supports automatically scheduling a pickup when the label is created.",
+                      "Returns": "This service supports return shipments.",
+                      "SameDayService": "This service supports same-day delivery service.",
+                      "Tip": "This service supports adding a tip/gratuity for the delivery person.",
+                      "Tracking": "This service supports tracking."
+                    }
+                  }
                 },
                 "SupportedCountries": {
                   "type": "array",
@@ -707,7 +730,7 @@
                       "FromCountry"
                     ]
                   },
-                  "description": "A list of countries supported by this service"
+                  "description": "A list of origin countries supported by this service"
                 },
                 "SupportedLabelSizes": {
                   "type": "array",
@@ -764,7 +787,7 @@
                 },
                 "International": {
                   "type": "boolean",
-                  "description": "Indicates whether or not this service is for international or domestic use"
+                  "description": "Indicates whether or not this service is for international or domestic use. If a service works for both international and domestic delivery, it should be defined twice with different values for this field."
                 },
                 "Code": {
                   "type": "string",
@@ -1473,16 +1496,28 @@
           "CarrierAttributes": {
             "type": "array",
             "uniqueItems": true,
+            "description": "Attributes describing the carrier",
             "items": {
               "type": "string",
               "enum": [
+                "Consolidator",
+                "InboundTrackingUpdates",
                 "ManifestDigital",
                 "ManifestPhysical",
-                "Consolidator",
-                "Regional"
-              ]
-            },
-            "description": "Attributes describing the carrier"
+                "NonZeroRating",
+                "Regional",
+                "RequiresInboundWebhook"
+              ],
+              "x-enumDescriptions": {
+                "Consolidator": "This carrier supports consolidating individual shipments into a single larger shipment.",
+                "InboundTrackingUpdates": "This carrier supports receiving tracking updates via inbound webhooks or file based tracking for all services.",
+                "ManifestDigital": "This carrier supports manifesting with no document returned to the user. This is overridden by service-level manifest attributes if they exist.",
+                "ManifestPhysical":"This carrier supports manifesting with a document returned to the user. This is overridden by service-level manifest attributes if they exist.",
+                "NonZeroRating": "This carrier is expected to return a non-zero shipping rate when called via GetRates method for all services.",
+                "Regional": "This carrier operates only within a specific geographical region.",
+                "RequiresInboundWebhook": "This carrier requires an inbound webhook ID to receive tracking updates."
+              }
+            }
           },
           "TrackingUrl": {
             "type": "string",
