@@ -973,7 +973,28 @@
                   "Name",
                   "Description"
                 ],
-                "description": ""
+                 "description": "Indicates if the Dangerous goods are present in the shipment"
+              },
+              "dangerous-goods-simple": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "Name": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "description": ""
+                  },
+                  "Description": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": ""
+                  }
+                },
+                "required": [
+                  "Name",
+                  "Description"
+                ],
+                "description": "Indicates if the Dangerous goods are present in the shipment"
               },
               "delivery-message": {
                 "type": "object",
