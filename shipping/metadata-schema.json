@@ -973,7 +973,7 @@
                   "Name",
                   "Description"
                 ],
-                 "description": "Indicates if the Dangerous goods are present in the shipment"
+                 "description": "Indicates if the Dangerous goods are present in the shipment. This object determines that Contact name and phone should be available in the ui"
               },
               "dangerous-goods-simple": {
                 "type": "object",
