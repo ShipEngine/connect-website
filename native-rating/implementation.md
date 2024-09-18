@@ -126,7 +126,7 @@ similar to the following:
 
 ![example server output](./images/native-rating-api-server-output.png)
 
-The server will show you which rate, metadata, and zone keys were requested and which were found in the sample data. See the [GetRates spec]() for the shape of the input and output of this method.
+The server will show you which rate, metadata, and zone keys were requested and which were found in the sample data. See the [GetRates spec](/shipping/reference/operation/GetRates/) for the shape of the input and output of this method.
 
 :::info Multiple carriers or rate cards
 If the integration has multiple carriers, you'll need to specify which carrier you want to get rates for by setting the `metadata.carrier_code` property of the input to the value of the `ApiCode` in the carrier's metadata. The test server will use the appropriate rating method for that carrier, using Native Rating if the carrier is set up for that or just forwarding the request to the `GetRates` method defined in the integration.
