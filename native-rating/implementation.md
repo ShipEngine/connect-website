@@ -14,7 +14,7 @@ Before building your implementation, it is recommended to get the basic configur
 
 ### DefaultRateCardId
 
-The `DefaultRateCardId` property is the only value required to use Native Rating for your Carrier app. This rate card will be used for any customer that does not have a rate card identifier specified in their seller provider settings. If all rate cards are managed via Connect, then this value should match the identifier of one of the rate cards defined in the `RateCards` property discussed below. If it does _not_ match a rate card defined in the `RateCards` property, then a rate card with that identifier should be created manually through the Native Rating management API directly or else the Native Rating system will return an error when attempting to get rates. This value can be changed at any time.
+The `DefaultRateCardId` property specifies the rate card that will be used for any customer that does not have a rate card identifier specified in their seller provider settings. If all rate cards are managed via Connect, then this value should match the identifier of one of the rate cards defined in the `RateCards` property discussed below. If it does _not_ match a rate card defined in the `RateCards` property, then a rate card with that identifier should be created manually through the Native Rating management API directly or else the Native Rating system will return an error when attempting to get rates. This value can be changed at any time.  If this value is not set, rate requests will be routed through the `GetRates` method of the module implementation instead of Native Rating by default.  Only sellers that have a rate card set will be routed through Native Rating.
 
 ### RateCards
 
@@ -121,12 +121,22 @@ npm start
 
 As pointed out by the comments, you only need to build before your first test run and after any changes made to the data. You only
 need to run bundle after making rating logic implementation changes. It doesn't hurt to run both before every start, however. Once
-the test server is running, you can make a request to `http://localhost:3005/rates` with shipment information, and should see output
+the test server is running, you can make a request to `http://localhost:3005/GetRates` with shipment information, and should see output
 similar to the following:
 
 ![example server output](./images/native-rating-api-server-output.png)
 
-The server will show you which rate, metadata, and zone keys were requested and which were found in the sample data. The server will also expose a [docs endpoint](http://localhost/3005/docs) that will serve the OpenAPI spec of the Native Rating server. This will provide the shape of the input and output required by the `rates` endpoint.
+The server will show you which rate, metadata, and zone keys were requested and which were found in the sample data. See the [GetRates spec](/shipping/reference/operation/GetRates/) for the shape of the input and output of this method.
+
+:::info Multiple carriers or rate cards
+If the integration has multiple carriers, you'll need to specify which carrier you want to get rates for by setting the `metadata.carrier_code` property of the input to the value of the `ApiCode` in the carrier's metadata. The test server will use the appropriate rating method for that carrier, using Native Rating if the carrier is set up for that or just forwarding the request to the `GetRates` method defined in the integration.
+
+Likewise, if there are multiple rate cards, or if a default rate card is not specified, you will need to specify which rate card to use for rating.  This is done by setting the value of the `metadata.native-rating-rate-card` property to a value that matches the name of a rate card defined in the integration.
+:::
+
+:::warning Misleading errors
+There is currently a bug in the carrier api spec that requires all properties in the `metadata` property to be objects.  When setting `carrier_code` or `native-rating-rate-card` to a string value, you will see a validation error that says it must be an object, but that error can be ignored.
+:::
 
 ## Deployment
 
