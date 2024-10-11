@@ -1527,7 +1527,8 @@
                 "ManifestPhysical",
                 "NonZeroRating",
                 "Regional",
-                "RequiresInboundWebhook"
+                "RequiresInboundWebhook",
+                "DetailedStatuses"
               ],
               "x-enumDescriptions": {
                 "Consolidator": "This carrier supports consolidating individual shipments into a single larger shipment.",
@@ -1536,7 +1537,8 @@
                 "ManifestPhysical":"This carrier supports manifesting with a document returned to the user. This is overridden by service-level manifest attributes if they exist.",
                 "NonZeroRating": "This carrier is expected to return a non-zero shipping rate when called via GetRates method for all services.",
                 "Regional": "This carrier operates only within a specific geographical region.",
-                "RequiresInboundWebhook": "This carrier requires an inbound webhook ID to receive tracking updates."
+                "RequiresInboundWebhook": "This carrier requires an inbound webhook ID to receive tracking updates.",
+                "DetailedStatuses": "This carrier returns status details via tracking"
               }
             }
           },
