@@ -44,6 +44,8 @@ export interface ErrorDetail {
     externalContext?: any;
     /** A standardized error code */
     errorCode?: ErrorCode;
+    /** Path to the field that caused the error, if any **/
+    fieldName?: string;
 }
 
 export declare class BadRequestError extends BaseError {
