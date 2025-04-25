@@ -1436,6 +1436,27 @@
                   "Description"
                 ],
                 "description": ""
+              },
+              "duties-taxes-paid": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "Name": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "description": ""
+                  },
+                  "Description": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": ""
+                  }
+                },
+                "required": [
+                  "Name",
+                  "Description"
+                ],
+                "description": ""
               }
             },
             "description": ""
