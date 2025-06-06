@@ -1,8 +1,11 @@
 ---
 title: Local Development
 ---
+
 # Local Development
+
 ## Project Layout
+
 ```bash
 .
 assets/ # contains logos and icons
@@ -15,6 +18,7 @@ src/ # contains entry point of code
 ```
 
 ## Running Locally
+
 :::info TypeScript
 Make sure to run `npm run-script build` to transpile your TypeScript before running any local development commands.
 :::
@@ -25,9 +29,10 @@ You can use the `npm start` command to run the test webserver locally:
 
 This will start a web application running on `http://localhost:3005/`
 
-From your browser you can go to `http://localhost:3005/docs` to see the OpenAPI
+<!-- DEPRECATED: This endpoint is no longer supported, so removing out this piece of info from website -->
+<!-- From your browser you can go to `http://localhost:3005/docs` to see the OpenAPI
 specification for your app.
-![](./images/docs-endpoint.png)
+![](./images/docs-endpoint.png) -->
 
 You can use an application like [Postman](https://www.postman.com/) or `curl`
 to make HTTP requests to the server. Each of the functions you write in
@@ -39,12 +44,15 @@ curl -X POST http://localhost:3005/GetRates
 ```
 
 ## Unit Tests
+
 Another great way to test locally is to write unit tests for your code. For
 example, you can use the [Jest](https://jestjs.io/) testing framework for
 executing the methods without needing to use the HTTP server.
 
 ### Steps for Installing Jest
+
 #### JavaScript
+
 - Run `npm install jest --save-dev`
 - Define the **test** command in **package.json** to invoke jest:
 
@@ -78,12 +86,15 @@ describe('When SalesOrderExport is called with a valid request',() => {
     })
 })
 ```
+
 - Run tests by using `npm run-script test`
 
 #### TypeScript
+
 - Run `npm install jest @types/jest ts-jest --save-dev`
 - Run `npx ts-jest config:init`
 - Define the **test** command in **package.json** to invoke jest:
+
 ```JSON
 {
         "scripts": {
@@ -91,8 +102,10 @@ describe('When SalesOrderExport is called with a valid request',() => {
         }
 }
 ```
+
 - Add a root level **/tests/** directory
 - Add a test Example: **/tests/sales-order-export.test.ts**
+
 ```TypeScript
 // /tests/sales-order-export.test.ts
 import { SalesOrdersExport } from "../src/methods/sales-orders-export";
@@ -114,6 +127,7 @@ describe("When SalesOrderExport is called with a valid request", () => {
     });
 });
 ```
+
 - Run tests by using `npm run-script test`
 
 :::warning Mocking
@@ -124,7 +138,7 @@ You can mock function calls to the outside world with Jest. This can be extremel
 
 The `shipengine-connect pack` command allows you to package your application without
 publishing it. It moves your `dependencies` into `bundledDependencies`, runs
-`npm pack`, and creates a [tarball](https://en.wikipedia.org/wiki/Tar_(computing))
+`npm pack`, and creates a [tarball](<https://en.wikipedia.org/wiki/Tar_(computing)>)
 in the root of your project that you can inspect.
 
 :::warning
