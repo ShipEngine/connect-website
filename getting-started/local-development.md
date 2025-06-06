@@ -29,7 +29,7 @@ You can use the `npm start` command to run the test webserver locally:
 
 This will start a web application running on `http://localhost:3005/`
 
-<!-- DEPRECATED: This endpoint is no longer supported, so removing out this piece of info from website -->
+<!-- DEPRECATED: This endpoint is no longer supported, so removing this information from the website -->
 <!-- From your browser you can go to `http://localhost:3005/docs` to see the OpenAPI
 specification for your app.
 ![](./images/docs-endpoint.png) -->
