@@ -1548,6 +1548,20 @@
             "maxLength": 200,
             "description": "This is the url template for static tracking pages ex: `http://www.shipper.com/tracking/{0}`"
           },
+          "TrackingSubscriptionLevel": {
+            "type": "string",
+            "enum": [
+              "None",
+              "TrackingNumber",
+              "Account"
+            ],
+            "description": "Defines the subscription level required for a carrier to provide tracking updates.",
+            "x-enumDescriptions": {
+              "None": "The carrier does not require any tracking subscription.",
+              "TrackingNumber": "The carrier requires a tracking subscription on a per tracking number basis.",
+              "Account": "The carrier requires a tracking subscription on a per account basis."
+            }
+          },
           "CarrierUrl": {
             "type": "string",
             "format": "uri",
