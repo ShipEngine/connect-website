@@ -37,6 +37,7 @@ import {
   LabelFormatsEnum,
   ShippingOptionEnum,
   ConfirmationTypeEnum,
+  TrackingSubscriptionLevel,
 } from '@shipengine/connect-carrier-api';
 import { join } from 'path';
 import { Box, Bag } from './packaging';
@@ -48,6 +49,7 @@ export const DemoCarrier: Carrier = {
   Name: 'Demo Carrier',
   ApiCode: 'demo_carrier_code',
   Description: 'This is a description about the carrier',
+  TrackingSubscriptionLevel: TrackingSubscriptionLevel.Account,
   PackageTypes: [Box, Bag],
   ShippingServices: [NextDayAir, BudgetDelivery],
   ShippingOptions: {
