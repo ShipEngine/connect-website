@@ -4,7 +4,7 @@ title: Native Rating
 
 # Native Rating
 
-Connect Native Rating package allows carrier implementers to rate natively through Connect instead of using an API that lives outside of the Auctane platform. To do this, an implementer will need to build rating logic and publish that to Connect. Once the code is published, rating data can be managed through Native Rating Service directly.
+Connect Native Rating package allows carrier implementers to rate natively through Connect instead of using an API that lives outside of ShipStation. To do this, an implementer will need to build rating logic and publish that to Connect. Once the code is published, rating data can be managed through Native Rating Service directly.
 
 ## What is Native Rating?
 

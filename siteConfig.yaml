@@ -1,7 +1,7 @@
 disableLastModified: true
 meta:
   title: ShipEngine Connect
-  description: ShipEngine Connect powers the world's leading e-commerce solutions, including ShipStation, ShipEngine, ShippingEasy, and ShipWorks.
+  description: ShipEngine Connect powers ShipStation products, including ShipStation UI and ShipStation API.
   siteUrl: https://connect.shipengine.com/
   keywords: redocly developer portal, api portal starter, api reference docs
   lang: en-US
