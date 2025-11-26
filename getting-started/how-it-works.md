@@ -2,9 +2,8 @@
 title: How It Works
 ---
 # How It Works
-This documentation will guide you through building an integration between
-products powered by ShipEngine (including ShipStation, ShippingEasy, ShipWorks)
-and another service provider.
+This documentation will guide you through building an integration for
+ShipStation products, including ShipStation UI and ShipStation API.
 
 Your project implements and exposes a set of functions that can be consumed by
 our internal systems. For development, your project is embedded in an HTTP
@@ -16,25 +15,17 @@ the HTTP response.
 
 ```mermaid
 flowchart LR
+    shipstation[ShipStation UI / API]
     connect[Connect Platform]
     integration([Your Integration])
-    shipstation>ShipStation]
-    shipengine>ShipEngine]
-    shipworks>ShipWorks]
-    shippingeasy>ShippingEasy]
-    auctane>Auctane Products]
     thirdparty([Third Party API])
 
-    shipengine-.->connect
-    shipstation-.->shipengine
-    shipworks-.->shipengine
-    shippingeasy-.->shipengine
-    auctane-.->shipengine
-    connect-.->integration
-    integration-.->thirdparty
+    shipstation-->connect
+    connect-->integration
+    integration-->thirdparty
 ```
 :::success Product Visibility
-When an application is promoted to production it becomes available to consumers of the ShipEngine platform including products like ShipWorks, ShippingEasy, ShipStation, etc.
+When an application is promoted to production it becomes available to consumers of the ShipStation products including ShipStation UI and ShipStation API.
 
 ***This however does not guarantee that a product will choose to include your integration in their service offerings.*** 
 
