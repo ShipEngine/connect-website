@@ -659,7 +659,9 @@
                           "Delivery",
                           "Signature",
                           "AdultSignature",
-                          "DirectSignature"
+                          "DirectSignature",
+                          "DeliveryCode",
+                          "AgeVerification16Plus"
                         ],
                         "description": ""
                       }
@@ -1416,7 +1418,7 @@
                 ],
                 "description": ""
               },
-               "windsor-framework-not-at-risk": {
+              "windsor-framework-not-at-risk": {
                 "type": "object",
                 "additionalProperties": false,
                 "properties": {
@@ -1436,6 +1438,48 @@
                   "Description"
                 ],
                 "description": ""
+              },
+              "delivery-as-addressed": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "Name": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "description": ""
+                  },
+                  "Description": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": ""
+                  }
+                },
+                "required": [
+                  "Name",
+                  "Description"
+                ],
+                "description": "Instructs the carrier to deliver the package only to the exact address provided"
+              },
+              "return-after-first-attempt": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "Name": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "description": ""
+                  },
+                  "Description": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": ""
+                  }
+                },
+                "required": [
+                  "Name",
+                  "Description"
+                ],
+                "description": "Ensures the shipment is immediately flagged for return to the sender if the initial delivery attempt fails"
               }
             },
             "description": ""
@@ -1510,6 +1554,14 @@
               "DirectSignature": {
                 "type": "string",
                 "description": ""
+              },
+              "DeliveryCode": {
+                "type": "string",
+                "description": ""
+              },
+              "AgeVerification16Plus": {
+                "type": "string",
+                "description": "A delivery confirmation requirement ensuring the package is only handed over to a person verified to be at least 16 years old"
               }
             },
             "description": "This dictionary allows you to specify which supported delivery confirmation types the carrier offers. A minimum of 1 confirmation type is required. Setting one to undefined will use the default name in shipstation"
