@@ -830,657 +830,657 @@
             "type": "object",
             "additionalProperties": false,
             "properties": {
-                "alcohol": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "properties": {
-                        "Name": {
-                            "type": "string",
-                            "maxLength": 50,
-                            "description": ""
-                        },
-                        "Description": {
-                            "type": "string",
-                            "maxLength": 255,
-                            "description": ""
-                        }
-                    },
-                    "required": [
-                        "Name",
-                        "Description"
-                    ],
-                    "description": "This object defines which shipping options should be made available and what those shipping options should be called in the ui"
-                },
-                "b13a-canada": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "properties": {
-                        "Name": {
-                            "type": "string",
-                            "maxLength": 50,
-                            "description": ""
-                        },
-                        "Description": {
-                            "type": "string",
-                            "maxLength": 255,
-                            "description": ""
-                        }
-                    },
-                    "required": [
-                        "Name",
-                        "Description"
-                    ],
+              "alcohol": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "Name": {
+                    "type": "string",
+                    "maxLength": 50,
                     "description": ""
-                },
-                "bill-to-sender": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "properties": {
-                        "Name": {
-                            "type": "string",
-                            "maxLength": 50,
-                            "description": ""
-                        },
-                        "Description": {
-                            "type": "string",
-                            "maxLength": 255,
-                            "description": ""
-                        }
-                    },
-                    "required": [
-                        "Name",
-                        "Description"
-                    ],
+                  },
+                  "Description": {
+                    "type": "string",
+                    "maxLength": 255,
                     "description": ""
+                  }
                 },
-                "bill-to-third-party": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "properties": {
-                        "Name": {
-                            "type": "string",
-                            "maxLength": 50,
-                            "description": ""
-                        },
-                        "Description": {
-                            "type": "string",
-                            "maxLength": 255,
-                            "description": ""
-                        }
-                    },
-                    "required": [
-                        "Name",
-                        "Description"
-                    ],
+                "required": [
+                  "Name",
+                  "Description"
+                ],
+                "description": "This object defines which shipping options should be made available and what those shipping options should be called in the ui"
+              },
+              "b13a-canada": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "Name": {
+                    "type": "string",
+                    "maxLength": 50,
                     "description": ""
-                },
-                "collect-on-delivery": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "properties": {
-                        "Name": {
-                            "type": "string",
-                            "maxLength": 50,
-                            "description": ""
-                        },
-                        "Description": {
-                            "type": "string",
-                            "maxLength": 255,
-                            "description": ""
-                        }
-                    },
-                    "required": [
-                        "Name",
-                        "Description"
-                    ],
+                  },
+                  "Description": {
+                    "type": "string",
+                    "maxLength": 255,
                     "description": ""
+                  }
                 },
-                "consequential-loss": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "properties": {
-                        "Name": {
-                            "type": "string",
-                            "maxLength": 50,
-                            "description": ""
-                        },
-                        "Description": {
-                            "type": "string",
-                            "maxLength": 255,
-                            "description": ""
-                        }
-                    },
-                    "required": [
-                        "Name",
-                        "Description"
-                    ],
+                "required": [
+                  "Name",
+                  "Description"
+                ],
+                "description": ""
+              },
+              "bill-to-sender": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "Name": {
+                    "type": "string",
+                    "maxLength": 50,
                     "description": ""
-                },
-                "dangerous-goods": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "properties": {
-                        "Name": {
-                            "type": "string",
-                            "maxLength": 50,
-                            "description": ""
-                        },
-                        "Description": {
-                            "type": "string",
-                            "maxLength": 255,
-                            "description": ""
-                        }
-                    },
-                    "required": [
-                        "Name",
-                        "Description"
-                    ],
-                    "description": "Indicates if the Dangerous goods are present in the shipment. This object determines that Contact name and phone should be provided"
-                },
-                "dangerous-goods-simple": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "properties": {
-                        "Name": {
-                            "type": "string",
-                            "maxLength": 50,
-                            "description": ""
-                        },
-                        "Description": {
-                            "type": "string",
-                            "maxLength": 255,
-                            "description": ""
-                        }
-                    },
-                    "required": [
-                        "Name",
-                        "Description"
-                    ],
-                    "description": "Indicates if the Dangerous goods are present in the shipment"
-                },
-                "delivery-message": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "properties": {
-                        "Name": {
-                            "type": "string",
-                            "maxLength": 50,
-                            "description": ""
-                        },
-                        "Description": {
-                            "type": "string",
-                            "maxLength": 255,
-                            "description": ""
-                        }
-                    },
-                    "required": [
-                        "Name",
-                        "Description"
-                    ],
+                  },
+                  "Description": {
+                    "type": "string",
+                    "maxLength": 255,
                     "description": ""
+                  }
                 },
-                "dont-prepay-postage": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "properties": {
-                        "Name": {
-                            "type": "string",
-                            "maxLength": 50,
-                            "description": ""
-                        },
-                        "Description": {
-                            "type": "string",
-                            "maxLength": 255,
-                            "description": ""
-                        }
-                    },
-                    "required": [
-                        "Name",
-                        "Description"
-                    ],
+                "required": [
+                  "Name",
+                  "Description"
+                ],
+                "description": ""
+              },
+              "bill-to-third-party": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "Name": {
+                    "type": "string",
+                    "maxLength": 50,
                     "description": ""
-                },
-                "dry-ice": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "properties": {
-                        "Name": {
-                            "type": "string",
-                            "maxLength": 50,
-                            "description": ""
-                        },
-                        "Description": {
-                            "type": "string",
-                            "maxLength": 255,
-                            "description": ""
-                        }
-                    },
-                    "required": [
-                        "Name",
-                        "Description"
-                    ],
+                  },
+                  "Description": {
+                    "type": "string",
+                    "maxLength": 255,
                     "description": ""
+                  }
                 },
-                "email-notification": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "properties": {
-                        "Name": {
-                            "type": "string",
-                            "maxLength": 50,
-                            "description": ""
-                        },
-                        "Description": {
-                            "type": "string",
-                            "maxLength": 255,
-                            "description": ""
-                        }
-                    },
-                    "required": [
-                        "Name",
-                        "Description"
-                    ],
+                "required": [
+                  "Name",
+                  "Description"
+                ],
+                "description": ""
+              },
+              "collect-on-delivery": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "Name": {
+                    "type": "string",
+                    "maxLength": 50,
                     "description": ""
-                },
-                "freight-class": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "properties": {
-                        "Name": {
-                            "type": "string",
-                            "maxLength": 50,
-                            "description": ""
-                        },
-                        "Description": {
-                            "type": "string",
-                            "maxLength": 255,
-                            "description": ""
-                        }
-                    },
-                    "required": [
-                        "Name",
-                        "Description"
-                    ],
+                  },
+                  "Description": {
+                    "type": "string",
+                    "maxLength": 255,
                     "description": ""
+                  }
                 },
-                "hold-for-pickup": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "properties": {
-                        "Name": {
-                            "type": "string",
-                            "maxLength": 50,
-                            "description": ""
-                        },
-                        "Description": {
-                            "type": "string",
-                            "maxLength": 255,
-                            "description": ""
-                        }
-                    },
-                    "required": [
-                        "Name",
-                        "Description"
-                    ],
+                "required": [
+                  "Name",
+                  "Description"
+                ],
+                "description": ""
+              },
+              "consequential-loss": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "Name": {
+                    "type": "string",
+                    "maxLength": 50,
                     "description": ""
-                },
-                "include-return-label": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "properties": {
-                        "Name": {
-                            "type": "string",
-                            "maxLength": 50,
-                            "description": ""
-                        },
-                        "Description": {
-                            "type": "string",
-                            "maxLength": 255,
-                            "description": ""
-                        }
-                    },
-                    "required": [
-                        "Name",
-                        "Description"
-                    ],
+                  },
+                  "Description": {
+                    "type": "string",
+                    "maxLength": 255,
                     "description": ""
+                  }
                 },
-                "local-collect": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "properties": {
-                        "Name": {
-                            "type": "string",
-                            "maxLength": 50,
-                            "description": ""
-                        },
-                        "Description": {
-                            "type": "string",
-                            "maxLength": 255,
-                            "description": ""
-                        }
-                    },
-                    "required": [
-                        "Name",
-                        "Description"
-                    ],
+                "required": [
+                  "Name",
+                  "Description"
+                ],
+                "description": ""
+              },
+              "dangerous-goods": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "Name": {
+                    "type": "string",
+                    "maxLength": 50,
                     "description": ""
-                },
-                "non-machinable": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "properties": {
-                        "Name": {
-                            "type": "string",
-                            "maxLength": 50,
-                            "description": ""
-                        },
-                        "Description": {
-                            "type": "string",
-                            "maxLength": 255,
-                            "description": ""
-                        }
-                    },
-                    "required": [
-                        "Name",
-                        "Description"
-                    ],
+                  },
+                  "Description": {
+                    "type": "string",
+                    "maxLength": 255,
                     "description": ""
+                  }
                 },
-                "notification-type": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "properties": {
-                        "Name": {
-                            "type": "string",
-                            "maxLength": 50,
-                            "description": ""
-                        },
-                        "Description": {
-                            "type": "string",
-                            "maxLength": 255,
-                            "description": ""
-                        }
-                    },
-                    "required": [
-                        "Name",
-                        "Description"
-                    ],
+                "required": [
+                  "Name",
+                  "Description"
+                ],
+                 "description": "Indicates if the Dangerous goods are present in the shipment. This object determines that Contact name and phone should be provided"
+              },
+              "dangerous-goods-simple": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "Name": {
+                    "type": "string",
+                    "maxLength": 50,
                     "description": ""
-                },
-                "shipper-release": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "properties": {
-                        "Name": {
-                            "type": "string",
-                            "maxLength": 50,
-                            "description": ""
-                        },
-                        "Description": {
-                            "type": "string",
-                            "maxLength": 255,
-                            "description": ""
-                        }
-                    },
-                    "required": [
-                        "Name",
-                        "Description"
-                    ],
+                  },
+                  "Description": {
+                    "type": "string",
+                    "maxLength": 255,
                     "description": ""
+                  }
                 },
-                "additional-handling": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "properties": {
-                        "Name": {
-                            "type": "string",
-                            "maxLength": 50,
-                            "description": ""
-                        },
-                        "Description": {
-                            "type": "string",
-                            "maxLength": 255,
-                            "description": ""
-                        }
-                    },
-                    "required": [
-                        "Name",
-                        "Description"
-                    ],
+                "required": [
+                  "Name",
+                  "Description"
+                ],
+                "description": "Indicates if the Dangerous goods are present in the shipment"
+              },
+              "delivery-message": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "Name": {
+                    "type": "string",
+                    "maxLength": 50,
                     "description": ""
-                },
-                "safeplace": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "properties": {
-                        "Name": {
-                            "type": "string",
-                            "maxLength": 50,
-                            "description": ""
-                        },
-                        "Description": {
-                            "type": "string",
-                            "maxLength": 255,
-                            "description": ""
-                        }
-                    },
-                    "required": [
-                        "Name",
-                        "Description"
-                    ],
+                  },
+                  "Description": {
+                    "type": "string",
+                    "maxLength": 255,
                     "description": ""
+                  }
                 },
-                "saturday-delivery": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "properties": {
-                        "Name": {
-                            "type": "string",
-                            "maxLength": 50,
-                            "description": ""
-                        },
-                        "Description": {
-                            "type": "string",
-                            "maxLength": 255,
-                            "description": ""
-                        }
-                    },
-                    "required": [
-                        "Name",
-                        "Description"
-                    ],
+                "required": [
+                  "Name",
+                  "Description"
+                ],
+                "description": ""
+              },
+              "dont-prepay-postage": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "Name": {
+                    "type": "string",
+                    "maxLength": 50,
                     "description": ""
-                },
-                "saturday-guarantee": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "properties": {
-                        "Name": {
-                            "type": "string",
-                            "maxLength": 50,
-                            "description": ""
-                        },
-                        "Description": {
-                            "type": "string",
-                            "maxLength": 255,
-                            "description": ""
-                        }
-                    },
-                    "required": [
-                        "Name",
-                        "Description"
-                    ],
+                  },
+                  "Description": {
+                    "type": "string",
+                    "maxLength": 255,
                     "description": ""
+                  }
                 },
-                "sms-notification": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "properties": {
-                        "Name": {
-                            "type": "string",
-                            "maxLength": 50,
-                            "description": ""
-                        },
-                        "Description": {
-                            "type": "string",
-                            "maxLength": 255,
-                            "description": ""
-                        }
-                    },
-                    "required": [
-                        "Name",
-                        "Description"
-                    ],
+                "required": [
+                  "Name",
+                  "Description"
+                ],
+                "description": ""
+              },
+              "dry-ice": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "Name": {
+                    "type": "string",
+                    "maxLength": 50,
                     "description": ""
-                },
-                "special-handling": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "properties": {
-                        "Name": {
-                            "type": "string",
-                            "maxLength": 50,
-                            "description": ""
-                        },
-                        "Description": {
-                            "type": "string",
-                            "maxLength": 255,
-                            "description": ""
-                        }
-                    },
-                    "required": [
-                        "Name",
-                        "Description"
-                    ],
+                  },
+                  "Description": {
+                    "type": "string",
+                    "maxLength": 255,
                     "description": ""
+                  }
                 },
-                "third-party-consignee": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "properties": {
-                        "Name": {
-                            "type": "string",
-                            "maxLength": 50,
-                            "description": ""
-                        },
-                        "Description": {
-                            "type": "string",
-                            "maxLength": 255,
-                            "description": ""
-                        }
-                    },
-                    "required": [
-                        "Name",
-                        "Description"
-                    ],
+                "required": [
+                  "Name",
+                  "Description"
+                ],
+                "description": ""
+              },
+              "email-notification": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "Name": {
+                    "type": "string",
+                    "maxLength": 50,
                     "description": ""
-                },
-                "carrier-insurance": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "properties": {
-                        "Name": {
-                            "type": "string",
-                            "maxLength": 50,
-                            "description": ""
-                        },
-                        "Description": {
-                            "type": "string",
-                            "maxLength": 255,
-                            "description": ""
-                        }
-                    },
-                    "required": [
-                        "Name",
-                        "Description"
-                    ],
+                  },
+                  "Description": {
+                    "type": "string",
+                    "maxLength": 255,
                     "description": ""
+                  }
                 },
-                "windsor-framework-movement-indicator": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "properties": {
-                        "Name": {
-                            "type": "string",
-                            "maxLength": 50,
-                            "description": ""
-                        },
-                        "Description": {
-                            "type": "string",
-                            "maxLength": 255,
-                            "description": ""
-                        }
-                    },
-                    "required": [
-                        "Name",
-                        "Description"
-                    ],
+                "required": [
+                  "Name",
+                  "Description"
+                ],
+                "description": ""
+              },
+              "freight-class": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "Name": {
+                    "type": "string",
+                    "maxLength": 50,
                     "description": ""
-                },
-                "windsor-framework-not-at-risk": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "properties": {
-                        "Name": {
-                            "type": "string",
-                            "maxLength": 50,
-                            "description": ""
-                        },
-                        "Description": {
-                            "type": "string",
-                            "maxLength": 255,
-                            "description": ""
-                        }
-                    },
-                    "required": [
-                        "Name",
-                        "Description"
-                    ],
+                  },
+                  "Description": {
+                    "type": "string",
+                    "maxLength": 255,
                     "description": ""
+                  }
                 },
-                "delivery-as-addressed": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "properties": {
-                        "Name": {
-                            "type": "string",
-                            "maxLength": 50,
-                            "description": ""
-                        },
-                        "Description": {
-                            "type": "string",
-                            "maxLength": 255,
-                            "description": ""
-                        }
-                    },
-                    "required": [
-                        "Name",
-                        "Description"
-                    ],
-                    "description": "Instructs the carrier to deliver the package only to the exact address provided"
+                "required": [
+                  "Name",
+                  "Description"
+                ],
+                "description": ""
+              },
+              "hold-for-pickup": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "Name": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "description": ""
+                  },
+                  "Description": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": ""
+                  }
                 },
-                "return-after-first-attempt": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "properties": {
-                        "Name": {
-                            "type": "string",
-                            "maxLength": 50,
-                            "description": ""
-                        },
-                        "Description": {
-                            "type": "string",
-                            "maxLength": 255,
-                            "description": ""
-                        }
-                    },
-                    "required": [
-                        "Name",
-                        "Description"
-                    ],
-                    "description": "Ensures the shipment is immediately flagged for return to the sender if the initial delivery attempt fails"
-                }
+                "required": [
+                  "Name",
+                  "Description"
+                ],
+                "description": ""
+              },
+              "include-return-label": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "Name": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "description": ""
+                  },
+                  "Description": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": ""
+                  }
+                },
+                "required": [
+                  "Name",
+                  "Description"
+                ],
+                "description": ""
+              },
+              "local-collect": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "Name": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "description": ""
+                  },
+                  "Description": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": ""
+                  }
+                },
+                "required": [
+                  "Name",
+                  "Description"
+                ],
+                "description": ""
+              },
+              "non-machinable": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "Name": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "description": ""
+                  },
+                  "Description": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": ""
+                  }
+                },
+                "required": [
+                  "Name",
+                  "Description"
+                ],
+                "description": ""
+              },
+              "notification-type": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "Name": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "description": ""
+                  },
+                  "Description": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": ""
+                  }
+                },
+                "required": [
+                  "Name",
+                  "Description"
+                ],
+                "description": ""
+              },
+              "shipper-release": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "Name": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "description": ""
+                  },
+                  "Description": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": ""
+                  }
+                },
+                "required": [
+                  "Name",
+                  "Description"
+                ],
+                "description": ""
+              },
+              "additional-handling": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "Name": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "description": ""
+                  },
+                  "Description": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": ""
+                  }
+                },
+                "required": [
+                  "Name",
+                  "Description"
+                ],
+                "description": ""
+              },
+              "safeplace": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "Name": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "description": ""
+                  },
+                  "Description": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": ""
+                  }
+                },
+                "required": [
+                  "Name",
+                  "Description"
+                ],
+                "description": ""
+              },
+              "saturday-delivery": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "Name": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "description": ""
+                  },
+                  "Description": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": ""
+                  }
+                },
+                "required": [
+                  "Name",
+                  "Description"
+                ],
+                "description": ""
+              },
+              "saturday-guarantee": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "Name": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "description": ""
+                  },
+                  "Description": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": ""
+                  }
+                },
+                "required": [
+                  "Name",
+                  "Description"
+                ],
+                "description": ""
+              },
+              "sms-notification": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "Name": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "description": ""
+                  },
+                  "Description": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": ""
+                  }
+                },
+                "required": [
+                  "Name",
+                  "Description"
+                ],
+                "description": ""
+              },
+              "special-handling": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "Name": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "description": ""
+                  },
+                  "Description": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": ""
+                  }
+                },
+                "required": [
+                  "Name",
+                  "Description"
+                ],
+                "description": ""
+              },
+              "third-party-consignee": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "Name": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "description": ""
+                  },
+                  "Description": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": ""
+                  }
+                },
+                "required": [
+                  "Name",
+                  "Description"
+                ],
+                "description": ""
+              },
+              "carrier-insurance": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "Name": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "description": ""
+                  },
+                  "Description": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": ""
+                  }
+                },
+                "required": [
+                  "Name",
+                  "Description"
+                ],
+                "description": ""
+              },
+              "windsor-framework-movement-indicator": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "Name": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "description": ""
+                  },
+                  "Description": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": ""
+                  }
+                },
+                "required": [
+                  "Name",
+                  "Description"
+                ],
+                "description": ""
+              },
+              "windsor-framework-not-at-risk": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "Name": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "description": ""
+                  },
+                  "Description": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": ""
+                  }
+                },
+                "required": [
+                  "Name",
+                  "Description"
+                ],
+                "description": ""
+              },
+              "delivery-as-addressed": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "Name": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "description": ""
+                  },
+                  "Description": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": ""
+                  }
+                },
+                "required": [
+                  "Name",
+                  "Description"
+                ],
+                "description": "Instructs the carrier to deliver the package only to the exact address provided"
+              },
+              "return-after-first-attempt": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "Name": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "description": ""
+                  },
+                  "Description": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": ""
+                  }
+                },
+                "required": [
+                  "Name",
+                  "Description"
+                ],
+                "description": "Ensures the shipment is immediately flagged for return to the sender if the initial delivery attempt fails"
+              }
             },
             "description": ""
           },
