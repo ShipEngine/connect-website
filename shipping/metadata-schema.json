@@ -975,7 +975,7 @@
                   "Name",
                   "Description"
                 ],
-                 "description": "Indicates if the Dangerous goods are present in the shipment. This object determines that Contact name and phone should be provided"
+                "description": "Indicates if the Dangerous goods are present in the shipment. This object determines that Contact name and phone should be provided"
               },
               "dangerous-goods-simple": {
                 "type": "object",
@@ -1480,6 +1480,132 @@
                   "Description"
                 ],
                 "description": "Ensures the shipment is immediately flagged for return to the sender if the initial delivery attempt fails"
+              },
+              "unpack": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "Name": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "description": ""
+                  },
+                  "Description": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": ""
+                  }
+                },
+                "required": [
+                  "Name",
+                  "Description"
+                ],
+                "description": "Indicates whether the carrier should unpack the goods after delivery."
+              },
+              "packaging-disposal": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "Name": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "description": ""
+                  },
+                  "Description": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": ""
+                  }
+                },
+                "required": [
+                  "Name",
+                  "Description"
+                ],
+                "description": "Specifies whether the carrier should remove and dispose of the packaging materials after unpacking."
+              },
+              "assembly": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "Name": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "description": ""
+                  },
+                  "Description": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": ""
+                  }
+                },
+                "required": [
+                  "Name",
+                  "Description"
+                ],
+                "description": "Determines whether assembly of the delivered product is required."
+              },
+              "disassembly": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "Name": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "description": ""
+                  },
+                  "Description": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": ""
+                  }
+                },
+                "required": [
+                  "Name",
+                  "Description"
+                ],
+                "description": "Indicates whether disassembly of existing items is required prior to delivery or installation."
+              },
+              "customer-expected-delivery-from-date": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "Name": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "description": ""
+                  },
+                  "Description": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": ""
+                  }
+                },
+                "required": [
+                  "Name",
+                  "Description"
+                ],
+                "description": "The beginning of the date range when the customer expects the shipment to be delivered."
+              },
+              "customer-expected-delivery-to-date": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "Name": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "description": ""
+                  },
+                  "Description": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": ""
+                  }
+                },
+                "required": [
+                  "Name",
+                  "Description"
+                ],
+                "description": "The end of the date range when the customer expects the shipment to be delivered."
               }
             },
             "description": ""
@@ -1586,7 +1712,7 @@
                 "Consolidator": "This carrier supports consolidating individual shipments into a single larger shipment.",
                 "InboundTrackingUpdates": "This carrier supports receiving tracking updates via inbound webhooks or file based tracking for all services.",
                 "ManifestDigital": "This carrier supports manifesting with no document returned to the user. This is overridden by service-level manifest attributes if they exist.",
-                "ManifestPhysical":"This carrier supports manifesting with a document returned to the user. This is overridden by service-level manifest attributes if they exist.",
+                "ManifestPhysical": "This carrier supports manifesting with a document returned to the user. This is overridden by service-level manifest attributes if they exist.",
                 "NonZeroRating": "This carrier is expected to return a non-zero shipping rate when called via GetRates method for all services.",
                 "Regional": "This carrier operates only within a specific geographical region.",
                 "RequiresInboundWebhook": "This carrier requires an inbound webhook ID to receive tracking updates.",
