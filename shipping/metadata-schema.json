@@ -1439,6 +1439,27 @@
                 ],
                 "description": ""
               },
+              "fragile": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "Name": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "description": ""
+                  },
+                  "Description": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": ""
+                  }
+                },
+                "required": [
+                  "Name",
+                  "Description"
+                ],
+                "description": "Indicates that the contents of the package are fragile and should be handled with care."
+              },
               "delivery-as-addressed": {
                 "type": "object",
                 "additionalProperties": false,
