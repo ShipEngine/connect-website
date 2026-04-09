@@ -1460,6 +1460,27 @@
                 ],
                 "description": "Indicates that the contents of the package are fragile and should be handled with care."
               },
+              "service-configuration-id": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "Name": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "description": ""
+                  },
+                  "Description": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "description": ""
+                  }
+                },
+                "required": [
+                  "Name",
+                  "Description"
+                ],
+                "description": "A unique ID representing a specific carrier service-level or automation rule within the carrier's or aggregator's system."
+              },
               "delivery-as-addressed": {
                 "type": "object",
                 "additionalProperties": false,
