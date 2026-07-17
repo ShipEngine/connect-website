@@ -14,11 +14,11 @@ export const theme = {
   // },
   colors: {
     purpleButton: {
-      main: '#5f27cd',
+      main: '#00E664', // Bright Green - ShipStation primary brand color
     },
     tonalOffset: 0.2,
     primary: {
-      main: '#162948',
+      main: '#11003A', // Deep Indigo - ShipStation primary brand color
       light: ({ colors }) => lighten(colors.tonalOffset, colors.primary.main),
       dark: ({ colors }) => darken(colors.tonalOffset, colors.primary.main),
       contrastText: ({ colors }) => readableColor(colors.primary.main),
@@ -48,7 +48,7 @@ export const theme = {
     //   contrastText: ({ colors }) => readableColor(colors.info.main),
     // },
     text: {
-      primary: '#424242',
+      primary: '#11003A', // Deep Indigo for text
       // secondary: '#4e566d',
     },
     // border: {
@@ -74,43 +74,43 @@ export const theme = {
     //   },
     // },
     http: {
-      get: '#6bbd5b',
-      post: '#248fb2',
-      put: '#9b708b',
-      options: '#d3ca12',
-      patch: '#e09d43',
-      delete: '#e27a7a',
+      get: '#00B750', // Mid Green
+      post: '#00AAFF', // Cyan
+      put: '#5C50FF', // Indigo
+      options: '#FFB400', // Marigold
+      patch: '#00E664', // Bright Green
+      delete: '#e27a7a', // Keep existing for visibility
       basic: '#999',
-      link: '#31bbb6',
-      head: '#c167e4',
+      link: '#00AAFF', // Cyan
+      head: '#5C50FF', // Indigo
     },
     navbar: {
-      main: '#e9f0fb',
+      main: '#F7F8FA', // Grey background from branding
       gradient: ({ colors }) => darken(colors.tonalOffset / 2, colors.navbar.main),
-      contrastText: ({ colors }) => colors.primary.main,
-      activeBgColor: ({ navbar }) => darken(navbar.main),
+      contrastText: '#11003A', // Deep Indigo text
+      activeBgColor: '#E5FCEF', // Light green tint for active state
     },
     footer: {
-      main: '#e9f0fb',
-      contrastText: ({ colors }) => colors.primary.main
+      main: '#11003A', // Deep Indigo footer
+      contrastText: '#FFFFFF' // White text on dark footer
     },
   },
 
   sidebar: {
-    backgroundColor: 'white',
-    width: '320px',
+    backgroundColor: '#F7F8FA', // Light gray background like Launchpad
+    width: '280px',
   },
 
   typography: {
-    fontSize: '18px',
-    fontColor: 'rgb(22, 41, 72)',
-    lineHeight: '1.5em',
+    fontSize: '16px', // Slightly smaller like Launchpad
+    fontColor: '#11003A', // Deep Indigo
+    lineHeight: '1.6em', // More line height for readability
     fontWeightRegular: '400',
     fontWeightBold: '600',
     fontWeightLight: '300',
-    fontFamily: 'TT_Commons,Helvetica,Arial,sans-serif',
+    fontFamily: 'Figtree,Helvetica,Arial,sans-serif', // ShipStation brand font
     headings: {
-      fontFamily: 'TT_Commons,Helvetica,Arial,sans-serif',
+      fontFamily: 'Figtree,Helvetica,Arial,sans-serif', // ShipStation brand font
       fontWeight: '600',
     },
     heading1: {
@@ -118,13 +118,13 @@ export const theme = {
       fontWeight: '600',
       fontFamily: ({ typography }) => typography.headings.fontFamily,
       lineHeight: ({ typography }) => typography.lineHeight,
-      color: 'rgb(22, 41, 72)',
+      color: '#11003A', // Deep Indigo
       capitalize: true,
     },
     heading2: {
       fontSize: '43.2px',
       fontWeight: '600',
-      color: 'rgb(22, 41, 72)',
+      color: '#11003A', // Deep Indigo
       fontFamily: ({ typography }) => typography.headings.fontFamily,
       lineHeight: ({ typography }) => typography.lineHeight,
       capitalize: false,
@@ -132,7 +132,7 @@ export const theme = {
     heading3: {
       fontSize: '1.27em',
       fontWeight: '600',
-      color: 'rgb(22, 41, 72)',
+      color: '#11003A', // Deep Indigo
       fontFamily: ({ typography }) => typography.headings.fontFamily,
       lineHeight: ({ typography }) => typography.lineHeight,
       capitalize: false,
@@ -147,16 +147,16 @@ export const theme = {
     // // ...
     // },
     code: {
-      color: '#5f27cd',
+      color: '#5C50FF', // Indigo for code
     },
     links: {
-      color: '#5f27cd',
+      color: '#5C50FF', // Indigo for links (like Launchpad)
       visited: ({ typography }) => typography.links.color,
-      hover: ({ typography }) => lighten(0.2, typography.links.color),
+      hover: '#00E664', // Bright Green on hover
     },
   },
   rightPanel: {
-    backgroundColor: '#263238',
+    backgroundColor: '#1A1D2E', // Darker, cleaner background
     width: '40%',
     // textColor: '#ffffff',
   },
