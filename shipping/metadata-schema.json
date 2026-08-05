@@ -1727,7 +1727,9 @@
                 "NonZeroRating",
                 "Regional",
                 "RequiresInboundWebhook",
-                "DetailedStatuses"
+                "DetailedStatuses",
+                "EstimatedDeliveryDate",
+                "DelayDetection"
               ],
               "x-enumDescriptions": {
                 "Consolidator": "This carrier supports consolidating individual shipments into a single larger shipment.",
@@ -1737,7 +1739,9 @@
                 "NonZeroRating": "This carrier is expected to return a non-zero shipping rate when called via GetRates method for all services.",
                 "Regional": "This carrier operates only within a specific geographical region.",
                 "RequiresInboundWebhook": "This carrier requires an inbound webhook ID to receive tracking updates.",
-                "DetailedStatuses": "This carrier returns status details via tracking"
+                "DetailedStatuses": "This carrier returns status details via tracking",
+                "EstimatedDeliveryDate": "This carrier supports machine learning-based estimated delivery date predictions derived from historical tracking data.",
+                "DelayDetection": "This carrier supports machine learning-based shipment delay risk assessment."
               }
             }
           },
