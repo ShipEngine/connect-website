@@ -10,7 +10,7 @@ linkChecker:
   options:
     CheckExternal: false
 logo:
-  image: ./images/shipstation-connect-logo.png
+  image: ./images/shipstation-logo-white.png
   altText: ShipStation Developer Hub
   link: /
   maxHeight: 60px
