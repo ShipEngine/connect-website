@@ -35,7 +35,7 @@ return await getDocuments(GetDocumentsRequest, DemoCarrier.DocumentTemplate);
 If you work offline then you will receive an empty document response.
 
 :::success ACCESS
-*To get access to Documents Designer, please reach out to your business contact with Auctane or the [ShipEngine Connect Team](mailto:connect@shipengine.com).*
+*To get access to Documents Designer, please reach out to your business contact with Auctane or the [ShipStation Team](mailto:build@shipstation.com).*
 :::
 
 ### Document Template

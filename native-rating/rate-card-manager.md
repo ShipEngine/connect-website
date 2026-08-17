@@ -111,7 +111,7 @@ This walkthrough assumes that you've created a Connect Carrier app that includes
 The Rate Card Manager needs some extra data in the carrier definition that is not supplied by default. The definitions of the properties mentioned below are in the [carrier metadata definition](../shipping/index.mdx), but examples will be provided here.
 
 #### ApiCode
-If the carrier `ApiCode` property is not set, a guid will be used instead. The code is then manually changed later in the deployment process. This is normally fine, but it makes testing with the Rate Card Manager more difficult because the carrier association can be lost when the ApiCode changes. Therefore, it is best to set it before the first publish. If you are unsure what this value should be, please contact a member of the [ShipEngine Connect Team](mailto:connect@shipengine.com?subject=ApiCode) for guidance.
+If the carrier `ApiCode` property is not set, a guid will be used instead. The code is then manually changed later in the deployment process. This is normally fine, but it makes testing with the Rate Card Manager more difficult because the carrier association can be lost when the ApiCode changes. Therefore, it is best to set it before the first publish. If you are unsure what this value should be, please contact a member of the [ShipStation Team](mailto:build@shipstation.com?subject=ApiCode) for guidance.
 
 #### PackageRatingGroups
 The `PackageRatingGroups` property defines which package types are available to the Rate Card Manager as well as weight and dimension limits. The `PackageTypeId` and `CarrierPackageTypeCode` must point to a valid entry in the `PackageTypes` property, and multiple `PackageRatingGroups` may point to the same `PackageType`. This would allow a carrier to define a single package type for use in ShipStation or ShipEngine, but that could have multiple different weight or dimension limits depending on the service. Users of ShipStation or ShipEngine will get the list defined in `PackageTypes` but users entering their rate card data will get the list defined in `PackageRatingGroups`.
@@ -532,4 +532,4 @@ This assembly step is where some final decisions about which rates to return can
 
 ## Publishing
 
-When you perform a `connect publish` to deploy your changes, the rating logic won't be applied to customer rate cards until the next time they update their data. If you need to force an update to all rate cards, contact the [ShipEngine Connect Team](mailto:connect@shipengine.com?subject=Publishing) for help.
+When you perform a `connect publish` to deploy your changes, the rating logic won't be applied to customer rate cards until the next time they update their data. If you need to force an update to all rate cards, contact the [ShipStation Team](mailto:build@shipstation.com?subject=Publishing) for help.

@@ -5,15 +5,15 @@ title: Managing Configuration
 # Managing Configuration
 
 The `shipengine-connect env` command allows you to set environment variables that
-will be available to your app once it is published to ShipEngine Connect. This
+will be available to your app once it is published. This
 allows you to manage application secrets and configuration data separately from
 your code and make changes to this data without changing your application code.
 
 You should run this command before [publishing](/getting-started/publishing/) your app.
 The values that are set at the time you run the publish command will be injected
-into your app once it is hosted in ShipEngine Connect. If you change those
+into your app once it is hosted. If you change those
 variables, you will need to re-publish your app before those changes will take
-effect in ShipEngine Connect.
+effect.
 
 When you run the `shipengine-connect env` command, you will include one of its
 subcommands listed below to indicate which environment variable action you would
@@ -100,5 +100,5 @@ import { API_URL } from './constants'
 ```
 
 ### Moving to Production
-We recommend when reaching out to the [ShipEngine Connect Team](mailto:connect@shipengine.com) to have your application moved into our production systems, that you also notify them of any environment variables that will need to be set, and what their values should be in both testing and production environments.
+We recommend when reaching out to the [ShipStation Team](mailto:build@shipstation.com) to have your application moved into our production systems, that you also notify them of any environment variables that will need to be set, and what their values should be in both testing and production environments.
 

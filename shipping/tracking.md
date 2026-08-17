@@ -4,7 +4,7 @@ title: Tracking
 
 # Tracking
 Most carriers provide a way to check on the delivery status of a shipment.
-The ShipEngine Connect platform provides flexibility to adapt to the various
+The platform provides flexibility to adapt to the various
 approaches carriers use to expose this information.
 
 ## Single item API
@@ -12,7 +12,7 @@ If a carrier provides tracking information via an HTTP API, you should implement
 the Track function in your app. It will accept various identifiers (like
 `tracking_number`) for a single shipment, and your implementation should return
 the tracking information for that shipment. This Track function will be invoked
-when a user requests tracking information via a ShipEngine API.
+when a user requests tracking information via a ShipStation API.
 
 ## Bulk import
 

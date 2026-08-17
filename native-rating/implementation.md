@@ -160,8 +160,8 @@ When that is finished, publish the app using the Connect CLI:
 connect publish
 ```
 
-This will ask for your api key which you should have received before building your integration. If you do not have one,
-contact the [ShipEngine Connect team](mailto:connect@shipengine.com). The publish process can take some time, but once
+This will ask for your Developer API key which you should have received before building your integration. If you do not have one,
+contact the [ShipStation Team](mailto:build@shipstation.com). The publish process can take some time, but once
 it is complete your rates will be available directly via the Native Rating service.
 
 :::warning Note

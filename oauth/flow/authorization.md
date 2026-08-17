@@ -7,7 +7,7 @@ tags:
 ---
 
 # Authorization
-Authorization begins with the platform acting on behalf of a ShipEngine Connect Application,
+Authorization begins with the platform acting on behalf of an Application,
 asking an end user to give permission for the Application to access the user's
 data in the Integration. This is done by redirecting the user's browser to the
 integration, ensuring they are logged in, and accepting the scope of data-access
@@ -51,4 +51,4 @@ for more information on what standards expect.
 - `query_parameters` Any query parameters that the integration's OAuth authorize
 endpoint expects to receive.
 - `nonce` A random string included in the authorization request and returned in the redirect. [This is used to prevent cross-site request forgery.](https://datatracker.ietf.org/doc/html/rfc6749#section-10.12)
-- `{system:authorize_callback_url}` will be updated using the [system resolver](../templating/system.md) with the url in ShipEngine Connect that will handle the callback.
+- `{system:authorize_callback_url}` will be updated using the [system resolver](../templating/system.md) with the url that will handle the callback.

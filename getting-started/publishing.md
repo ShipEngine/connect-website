@@ -5,7 +5,7 @@ title: Publishing
 # Publishing
 
 :::warning Self Integrators
-Please contact the [ShipEngine Connect Team](mailto:connect@shipengine.com) at [connect@shipengine.com](mailto:connect@shipengine.com) and let them know that you are interested in becoming a self integrator.<br/><br/>
+Please contact the [ShipStation Team](mailto:build@shipstation.com) at [build@shipstation.com](mailto:build@shipstation.com) and let them know that you are interested in becoming a self integrator.<br/><br/>
 **A signed contract must be in place prior to an integration going live.**
 :::
 

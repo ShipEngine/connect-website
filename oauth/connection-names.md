@@ -16,7 +16,7 @@ expose a "sandbox" environment. The API contract is exactly the same, and
 the authorization process is exactly the same, but a part of the request
 (often, the hostname) is different. It can be useful to allow access to all
 of the environments (called "Connections" in this documentation) through the
-same ShipEngine Connect App, since most of the code should be exactly the same.
+same App, since most of the code should be exactly the same.
 
 In order to support multiple environments, your `AuthProcess` definition must
 include a `connections` section. It requires two attributes: `connection_names`
