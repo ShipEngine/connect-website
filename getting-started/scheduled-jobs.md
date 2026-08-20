@@ -10,7 +10,7 @@ that are invoked on a schedule. This is useful for things like
 [bulk import of tracking event data](../../shipping/tracking/#bulk-import).
 
 To have a function in your app run on a regular basis, contact the
-[ShipEngine Connect team](mailtoc:connect@shipengien.com) to set up a schedule.
+[ShipStation Team](mailto:build@shipstation.com) to set up a schedule.
 You will need to specify the name of the function, and how often you want it
 to run.
 

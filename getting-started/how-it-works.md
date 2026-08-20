@@ -29,7 +29,7 @@ When an application is promoted to production it becomes available to consumers 
 
 ***This however does not guarantee that a product will choose to include your integration in their service offerings.*** 
 
-*For more details on product availability, please reach out to your business contact with Auctane or the [ShipEngine Connect Team](mailto:connect@shipengine.com).*
+*For more details on product availability, please reach out to your business contact with Auctane or the [ShipStation Team](mailto:build@shipstation.com).*
 :::
 
 The SDK contains a TypeScript type definition for each schema in the API documentation.

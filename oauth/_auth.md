@@ -90,7 +90,7 @@ The next step will be to publish your application using the `connect publish` co
 Your application must be published before you can establish an "Installation".
 :::
 
-Once published, contact a member of the [ShipEngine Connect Team](mailto:connect@shipengine.com?subject=OAuth%20Installation)
+Once published, contact a member of the [ShipStation Team](mailto:build@shipstation.com?subject=OAuth%20Installation)
 to create the Installation. You will need to provide them with any application-level
 credentials. For OAuth applications, this is usually a Client ID and Client Secret.
 When the Installation is created, a _callback url_ will be generated. This is

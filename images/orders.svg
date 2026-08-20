@@ -1,1 +1,24 @@
-<svg width="64" height="64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M38 50H26l-2 8h16l-2-8z" stroke="#5F27CD" stroke-width="2" stroke-miterlimit="10"/><path d="M17 58h30" stroke="#5F27CD" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round"/><path d="M59.54 6H4.46A3.46 3.46 0 0 0 1 9.46v37.08A3.46 3.46 0 0 0 4.46 50h55.08A3.46 3.46 0 0 0 63 46.54V9.46A3.46 3.46 0 0 0 59.54 6z" stroke="#5F27CD" stroke-width="2" stroke-miterlimit="10"/><rect x="5" y="10" width="54" height="36" rx="1" stroke="#5F27CD" stroke-width="2"/><path d="M35.52 50a3.52 3.52 0 0 1-7 0" stroke="#5F27CD" stroke-width="2" stroke-miterlimit="10"/><path d="M18 16l3.31 2.49c.445.326.758.802.88 1.34l2.64 11.43c.11.479.05.98-.17 1.42l-1 2a.88.88 0 0 0 .75 1.32H42" stroke="#5F27CD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M21.9 19.14l22.87.86c-2.48 11.12-2.48 11.12-10.48 11.12l-8.95-.07M33 19.55V31m-5.82-11.362L28.99 31m9.87-11.2L37.07 31m-13.65-5.87h20.16M26 40a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm14 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" stroke="#5F27CD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="ShipStation_-_Green_Blue" data-name="ShipStation - Green Blue" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #11003a;
+      }
+
+      .cls-2 {
+        fill: #00e664;
+      }
+    </style>
+  </defs>
+  <path class="cls-1" d="M51.65,60H12.35l-.99-.83-4.35-25,.99-1.17h48l.99,1.17-4.35,25-.99.83ZM13.19,58h37.62l4-23H9.19l4,23Z"/>
+  <g>
+    <rect class="cls-2" x="5" y="25" width="54" height="9"/>
+    <path class="cls-2" d="M60,35H4v-11h56v11ZM6,33h52v-7H6v7Z"/>
+  </g>
+  <rect class="cls-1" x="10.88" y="16.5" width="26.25" height="2" transform="translate(.02 35.03) rotate(-72.26)"/>
+  <rect class="cls-1" x="39" y="4.38" width="2" height="26.25" transform="translate(-3.43 13.02) rotate(-17.74)"/>
+  <rect class="cls-1" x="31" y="38.65" width="2" height="15"/>
+  <rect class="cls-1" x="19.65" y="38.62" width="2" height="15.06" transform="translate(-3.89 1.95) rotate(-4.93)"/>
+  <rect class="cls-1" x="35.82" y="45.15" width="15.06" height="2" transform="translate(-6.36 85.38) rotate(-85.07)"/>
+</svg>

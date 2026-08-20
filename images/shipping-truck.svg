@@ -1,1 +1,31 @@
-<?xml version="1.0" encoding="UTF-8"?> <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="none"><path d="M9 52H1V20.59A2.59 2.59 0 0 1 3.59 18h35.82A2.589 2.589 0 0 1 42 20.59V52H21" stroke="#5F27CD" stroke-width="2" stroke-miterlimit="10"></path><path d="M46 52h-4V26h8.35a5 5 0 0 1 4.12 2.21L63 41v11h-5" stroke="#5F27CD" stroke-width="2" stroke-miterlimit="10"></path><path d="M55.73 30.1H46V40h15.87M15 58a6 6 0 1 0 0-12 6 6 0 0 0 0 12z" stroke="#5F27CD" stroke-width="2" stroke-miterlimit="10"></path><path d="M15 53a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm37 5a6 6 0 1 0 0-12 6 6 0 0 0 0 12z" stroke="#5F27CD" stroke-width="2" stroke-miterlimit="10"></path><path d="M52 53a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" stroke="#5F27CD" stroke-width="2" stroke-miterlimit="10"></path><path d="M1 14h4m4 0h14m19 8H11M1 48h6m16 0h19m18 0h3" stroke="#5F27CD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M1 58h62" stroke="#5F27CD" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round"></path></svg> 
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="ShipStation_-_Green_Blue" data-name="ShipStation - Green Blue" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #11003a;
+      }
+
+      .cls-2 {
+        fill: #00e664;
+      }
+    </style>
+  </defs>
+  <polygon class="cls-1" points="60 44 56 44 56 42 58 42 58 31.41 48.59 22 44 22 44 42 46 42 46 44 42 44 42 20 49.41 20 60 30.59 60 44"/>
+  <polygon class="cls-1" points="43 44 28 44 28 42 42 42 42 17 15 17 15 42 18 42 18 44 14 44 13 43 13 16 14 15 43 15 44 16 44 43 43 44"/>
+  <g>
+    <polygon class="cls-2" points="49 21 43 21 43 31 59 31 49 21"/>
+    <path class="cls-1" d="M59,32h-16l-1-1v-10l1-1h6l.71.29,10,10-.71,1.71ZM44,30h12.59l-8-8h-4.59v8Z"/>
+  </g>
+  <rect class="cls-1" x="4" y="33" width="14" height="2"/>
+  <rect class="cls-1" x="7" y="27" width="14" height="2"/>
+  <rect class="cls-1" x="10" y="21" width="14" height="2"/>
+  <g>
+    <circle class="cls-2" cx="23" cy="43" r="5"/>
+    <path class="cls-1" d="M23,49c-3.31,0-6-2.69-6-6s2.69-6,6-6,6,2.69,6,6-2.69,6-6,6ZM23,39c-2.21,0-4,1.79-4,4s1.79,4,4,4,4-1.79,4-4-1.79-4-4-4Z"/>
+  </g>
+  <g>
+    <circle class="cls-2" cx="51" cy="43" r="5"/>
+    <path class="cls-1" d="M51,49c-3.31,0-6-2.69-6-6s2.69-6,6-6,6,2.69,6,6-2.69,6-6,6ZM51,39c-2.21,0-4,1.79-4,4s1.79,4,4,4,4-1.79,4-4-1.79-4-4-4Z"/>
+  </g>
+</svg>

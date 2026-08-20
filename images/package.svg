@@ -1,1 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?> <svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" fill="none"><path d="M3.44 13.49v25.53l22.12 10.04V23.53L3.44 13.49z" stroke="#5F27CD" stroke-linejoin="round"></path><path d="M47.56 13.49v25.53L25.44 49.06V23.53l22.12-10.04z" stroke="#5F27CD" stroke-linejoin="round"></path><path d="M39.46 16.9v7.63l-6.62 3V19.9M3.5 13.5l22-10 22 10m-14.17 6.49l-21.88-9.95m6.56-3.09l21.86 9.95" stroke="#5F27CD" stroke-linejoin="round"></path><path d="M6.33 32.56l6.84 3.11m-6.84-.11l4.15 1.88" stroke="#5F27CD" stroke-linecap="round" stroke-linejoin="round"></path></svg> 
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="ShipStation_-_Green_Blue" data-name="ShipStation - Green Blue" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #11003a;
+      }
+
+      .cls-2 {
+        fill: #00e664;
+      }
+    </style>
+  </defs>
+  <rect class="cls-1" x="31" y="17.58" width="2" height="32.43"/>
+  <path class="cls-1" d="M51.46,51.01H12.54l-1-1V17.58l1-1h38.91l1,1v32.43l-1,1ZM13.54,49.01h36.91v-30.43H13.54v30.43Z"/>
+  <polygon class="cls-2" points="11.47 16.5 1.05 32.71 22.86 32.71 32 18.5 41.14 32.71 62.95 32.71 52.53 16.5 11.47 16.5"/>
+</svg>

@@ -68,7 +68,7 @@ export const registrationForm: ReactForm = {
 };
 ```
 
-The next step is to configure the rest of your AuthProcess to describe how the ShipEngine Connect platform will handle the oauth workflow.
+The next step is to configure the rest of your AuthProcess to describe how the platform will handle the oauth workflow.
 We currently support two flavors of oauth, more details can be found at the following links:
 - [OAuth 1](../oauth/1.0.md)
 - [OAuth 2](../oauth/2.0.md)
@@ -79,7 +79,7 @@ The next step will be to publish your application using the `connect publish` co
 ## Request An Installation
 > **INFO:** Your application must be published in order to have our platform establish an `OAuth Installation`, this installation process only needs to happen once and will tell our platform to start consuming your AuthProcess definition.
 
-- Contact a member of the [ShipEngine Connect Team](mailto:connect@shipengine.com?subject=OAuth%20Installation) in order to establish the platform installation
+- Contact a member of the [ShipStation Team](mailto:build@shipstation.com?subject=OAuth%20Installation) in order to establish the platform installation
     - Provide a ClientId & ClientSecret used for initiating the oauth workflow
 - Once the installation has been created you will receive back a callback url
 

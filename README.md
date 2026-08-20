@@ -1,4 +1,4 @@
-# ShipEngine Connect developer portal
+# ShipStation Developer Hub
 
 ## Prerequisites
 

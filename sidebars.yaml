@@ -7,7 +7,7 @@ root:
       - page: getting-started/installing-nodejs.md
         label: Install NodeJS
       - page: getting-started/installing-connect.md
-        label: Install ShipEngine Connect
+        label: Install Connect CLI
       - page: getting-started/initialize-project.mdx
         label: Initialize Project
       - page: getting-started/local-development.md

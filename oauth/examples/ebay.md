@@ -10,7 +10,7 @@ tags:
 As part of the installation process for ebay, not only was a `client_id`
 and `client_secret` needed, but the implementors also required a custom property
 `RuName`, as described in [eBay's documentation](https://developer.ebay.com/api-docs/static/oauth-redirect-uri.html).
-After a member of the ShipEngine Connect team added `RuName` custom property to
+After a member of the ShipStation Team added `RuName` custom property to
 the installation it was available as `{installation:RuName}` in the process
 definition.
 

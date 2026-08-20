@@ -1,3 +1,562 @@
 .post {
     display: none !important;
 }
+
+/* Logo sizing - 50% smaller (60px) with transparent background */
+/* Target any image in the logo/navbar area */
+img[src*="shipstation-logo"],
+img[src*="logo.png"],
+img[src*="logo-white"],
+img[src*="transparent"] {
+    max-height: none !important;
+    height: 60px !important;
+    width: auto !important;
+    min-height: 60px !important;
+    background-color: transparent !important;
+    padding: 12px 16px !important;
+    border: none !important;
+    box-sizing: content-box !important;
+}
+
+/* Redocly-specific logo wrappers */
+nav a:first-child img,
+header a:first-child img,
+[data-role="logo"] img,
+[data-component-name*="Logo"] img,
+div[class*="Logo"] img,
+div[class*="logo"] img {
+    max-height: 60px !important;
+    height: 60px !important;
+    width: auto !important;
+    background-color: transparent !important;
+    padding: 12px 16px !important;
+}
+
+/* Force override any inline styles */
+nav img,
+header img {
+    max-height: 60px !important;
+    height: 60px !important;
+    background-color: transparent !important;
+    padding: 12px 16px !important;
+}
+
+/* Logo container - no background to let navbar color show through */
+nav a:first-child,
+header a:first-child,
+[data-role="logo"],
+div[class*="Logo"],
+div[class*="logo"],
+.VcxsY,
+a.VcxsY {
+    background-color: transparent !important;
+    background: transparent !important;
+}
+
+/* Navbar styling - deep indigo background */
+nav,
+header,
+[role="navigation"],
+div[class*="Navbar"],
+div[class*="navbar"],
+nav[class*="Navbar"],
+nav[id*="navbar"],
+.jKYvFd,
+nav.jKYvFd,
+#navbar {
+    background-color: #11003A !important;
+    background: #11003A !important;
+    color: #FFFFFF !important;
+    border-bottom: 1px solid #E5E7EB !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Navbar links - white text for dark navbar */
+nav a,
+header a,
+nav span,
+header span,
+.jKYvFd a,
+.jKYvFd span,
+nav.jKYvFd a,
+nav.jKYvFd span {
+    color: #FFFFFF !important;
+    font-weight: 500 !important;
+    transition: color 0.2s ease !important;
+    text-decoration: none !important;
+}
+
+nav a:hover,
+header a:hover,
+.jKYvFd a:hover,
+nav.jKYvFd a:hover {
+    color: #00E664 !important;
+}
+
+/* Navbar buttons - bright green like shipstation.com */
+nav button,
+header button,
+nav a[class*="button"],
+header a[class*="button"] {
+    background-color: #00E664 !important;
+    color: #11003A !important;
+    border: none !important;
+    padding: 10px 24px !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    font-size: 15px !important;
+    transition: all 0.2s ease !important;
+    text-decoration: none !important;
+}
+
+nav button:hover,
+header button:hover,
+nav a[class*="button"]:hover,
+header a[class*="button"]:hover {
+    background-color: #00B750 !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 12px rgba(0, 230, 100, 0.3) !important;
+}
+
+/* Search bar styling - light search bar on dark navbar */
+nav input[type="search"],
+header input[type="search"],
+nav input[type="text"],
+header input[type="text"] {
+    background-color: rgba(255, 255, 255, 0.15) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    color: #FFFFFF !important;
+    border-radius: 8px !important;
+    padding: 10px 16px !important;
+    font-size: 14px !important;
+    transition: all 0.2s ease !important;
+}
+
+nav input:focus,
+header input:focus {
+    background-color: rgba(255, 255, 255, 0.25) !important;
+    border-color: #00E664 !important;
+    outline: none !important;
+    box-shadow: 0 0 0 3px rgba(0, 230, 100, 0.1) !important;
+}
+
+nav input::placeholder,
+header input::placeholder {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* ShipStation-inspired styling */
+body {
+    background-color: #FAFBFC;
+    font-family: 'Figtree', 'Segoe UI', Arial, sans-serif !important;
+    color: #11003A !important;
+    line-height: 1.6 !important;
+}
+
+/* Main content area */
+main,
+[role="main"],
+div[class*="Content"] {
+    background-color: #FFFFFF !important;
+    padding: 40px !important;
+}
+
+/* Headings - ShipStation style */
+h1, h2, h3, h4, h5, h6 {
+    color: #11003A !important;
+    font-weight: 600 !important;
+    font-family: 'Figtree', sans-serif !important;
+    margin-top: 32px !important;
+    margin-bottom: 16px !important;
+}
+
+h1 {
+    font-size: 40px !important;
+    font-weight: 700 !important;
+}
+
+h2 {
+    font-size: 32px !important;
+}
+
+h3 {
+    font-size: 24px !important;
+}
+
+/* Paragraphs and text */
+p {
+    color: #11003A !important;
+    font-size: 16px !important;
+    line-height: 1.7 !important;
+    margin-bottom: 16px !important;
+}
+
+/* Links - darker green for better contrast on white */
+a {
+    color: #00B750 !important; /* Mid Green - better readability */
+    text-decoration: none !important;
+    font-weight: 500 !important;
+}
+
+a:hover {
+    color: #00873B !important; /* Dark Green on hover */
+    text-decoration: underline !important;
+}
+
+/* Better contrast for links in callout/warning boxes */
+div[class*="callout"] a,
+div[class*="warning"] a,
+div[class*="note"] a,
+div[class*="info"] a,
+div[class*="alert"] a,
+blockquote a,
+aside a,
+[style*="background-color: #F"] a,
+[style*="background: #F"] a {
+    color: #00873B !important; /* Dark Green for better contrast */
+}
+
+div[class*="callout"] a:hover,
+div[class*="warning"] a:hover,
+div[class*="note"] a:hover,
+div[class*="info"] a:hover,
+div[class*="alert"] a:hover,
+blockquote a:hover,
+aside a:hover {
+    color: #11003A !important; /* Deep Indigo on hover */
+    text-decoration: underline !important;
+}
+
+/* Smooth transitions for interactive elements */
+a, button {
+    transition: all 0.2s ease-in-out;
+}
+
+/* Enhanced button styling - ShipStation style */
+button,
+[role="button"],
+.button {
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    font-family: 'Figtree', sans-serif !important;
+    padding: 12px 24px !important;
+    font-size: 15px !important;
+    letter-spacing: 0.3px !important;
+    transition: all 0.2s ease !important;
+}
+
+/* Primary CTA buttons - Bright Green */
+button[class*="primary"],
+a[class*="primary"],
+.button-primary {
+    background-color: #00E664 !important;
+    color: #11003A !important;
+    border: none !important;
+}
+
+button[class*="primary"]:hover,
+a[class*="primary"]:hover {
+    background-color: #00B750 !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 12px rgba(0, 230, 100, 0.3) !important;
+}
+
+/* Secondary buttons - Outlined */
+button[class*="secondary"],
+button[class*="outlined"],
+a[class*="outlined"] {
+    background-color: transparent !important;
+    color: #00E664 !important;
+    border: 2px solid #00E664 !important;
+}
+
+button[class*="secondary"]:hover,
+button[class*="outlined"]:hover,
+a[class*="outlined"]:hover {
+    background-color: #00E664 !important;
+    color: #FFFFFF !important;
+}
+
+/* Card-like sections - ShipStation style */
+section {
+    border-radius: 12px;
+}
+
+/* Hero sections with better spacing - 25% bigger */
+div[class*="Jumbotron"],
+div[class*="jumbotron"],
+div[class*="hero"] {
+    background: #FFFFFF !important;
+    background-color: #FFFFFF !important;
+    background-image: none !important;
+    padding: 100px 50px !important;
+    border-radius: 0 !important;
+}
+
+/* Additional selector for background color only */
+.cQYEZV,
+div.cQYEZV {
+    background: #FFFFFF !important;
+    background-color: #FFFFFF !important;
+    background-image: none !important;
+}
+
+/* ShipStation Connect - largest title slightly smaller */
+div[class*="Jumbotron"] h1,
+div[class*="jumbotron"] h1,
+div[class*="hero"] h1,
+h1.sc-yEDbz,
+h1[class*="yEDbz"],
+.cQYEZV h1 {
+    color: #11003A !important;
+    font-size: 60px !important;
+    font-weight: 700 !important;
+    margin-bottom: 8px !important;
+    line-height: 1.5 !important;
+}
+
+/* Subtitle text - smaller for longer text */
+div[class*="Jumbotron"] h2,
+div[class*="jumbotron"] h2,
+div[class*="hero"] h2,
+h2.sc-enTqfk,
+h2[class*="enTqfk"],
+.cQYEZV h2 {
+    color: #11003A !important;
+    font-size: 28px !important;
+    font-weight: 500 !important;
+    margin-top: 0px !important;
+    margin-bottom: 40px !important;
+    line-height: 1.4 !important;
+}
+
+/* Get Started button - bigger with aligned text */
+div[class*="Jumbotron"] button,
+div[class*="jumbotron"] button,
+div[class*="hero"] button,
+div[class*="Jumbotron"] a,
+div[class*="jumbotron"] a,
+div[class*="hero"] a,
+button[role="button"],
+.button,
+a.sc-ljpcbI,
+a[class*="ljpcbI"],
+a[class*="bShNrp"],
+button.sc-jxFFCz,
+button[class*="jxFFCz"],
+a[class*="gqaFF"],
+a[class*="bgPuHN"],
+button[class*="button"],
+[class*="Button"] {
+    font-size: 20px !important;
+    padding: 16px 40px !important;
+    min-width: 200px !important;
+    font-weight: 600 !important;
+    border-width: 2px !important;
+    line-height: 1.4 !important;
+}
+
+/* Button container - reduce top spacing */
+div[class*="Jumbotron"] div[class*="Flex"],
+div[class*="jumbotron"] div[class*="Flex"],
+div[class*="hero"] div[class*="Flex"],
+.cQYEZV > div {
+    margin-top: 0px !important;
+    padding-top: 0px !important;
+}
+
+/* Sidebar styling - clean and modern */
+aside,
+[class*="Sidebar"],
+[class*="sidebar"],
+nav[class*="menu"] {
+    background-color: #FFFFFF !important;
+    border-right: 1px solid #E5E7EB !important;
+    padding: 24px 16px !important;
+}
+
+
+/* Sidebar menu items */
+aside a,
+[class*="Sidebar"] a,
+[class*="sidebar"] a,
+nav[class*="menu"] a {
+    color: #11003A !important;
+    font-weight: 500 !important;
+    padding: 10px 16px !important;
+    border-radius: 8px !important;
+    display: block !important;
+    margin-bottom: 4px !important;
+    transition: all 0.2s ease !important;
+}
+
+aside a:hover,
+[class*="Sidebar"] a:hover,
+[class*="sidebar"] a:hover,
+nav[class*="menu"] a:hover {
+    background-color: #E5FCEF !important;
+    color: #00B750 !important;
+}
+
+/* Prevent hover from removing active background on section headers */
+div[data-cy*="sidebar-item"] > div.sc-hUhoqY:hover,
+div.sc-hUhoqY.gomEHC:hover {
+    background-color: transparent !important;
+}
+
+/* Active menu items - bright green accent */
+aside a.active,
+[class*="Sidebar"] a.active,
+[class*="sidebar"] a.active,
+nav[class*="menu"] a.active,
+aside a[class*="active"],
+[class*="Sidebar"] a[class*="active"] {
+    background-color: #E5FCEF !important;
+    color: #00E664 !important;
+    font-weight: 600 !important;
+    border-left: 3px solid #00E664 !important;
+}
+
+/* Sidebar item wrapper - light green background for active/current items */
+div[data-cy*="sidebar-item"] {
+    background-color: transparent !important;
+}
+
+/* Active page highlight - for direct links with aria-current */
+div[data-cy*="sidebar-item"]:has(> a[aria-current="page"]) {
+    background-color: #E5FCEF !important;
+    border-radius: 8px !important;
+}
+
+/* Highlight only the individual active page link */
+aside a[aria-current="page"],
+aside a[aria-current="true"] {
+    background-color: #E5FCEF !important;
+    border-radius: 8px !important;
+    color: #00B750 !important;
+    font-weight: 600 !important;
+}
+
+aside a[aria-current="page"]:hover,
+aside a[aria-current="true"]:hover {
+    background-color: #E5FCEF !important;
+    color: #00B750 !important;
+}
+
+/* Ensure active link text stays bold */
+div[data-cy*="sidebar-item"]:has(a[aria-current="page"]) span,
+a[aria-current="page"] {
+    font-weight: 600 !important;
+}
+
+
+/* Clean, modern shadows */
+.card, .tile {
+    box-shadow: 0 1px 3px rgba(17, 0, 58, 0.08);
+    border-radius: 12px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover, .tile:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(17, 0, 58, 0.12);
+}
+
+/* Search bar styling */
+input[type="search"] {
+    border-radius: 24px;
+    border: 1px solid #E5E7EB;
+    padding: 8px 16px;
+}
+
+/* Code blocks - Deep Indigo background with syntax highlighting */
+pre {
+    border-radius: 8px !important;
+    background-color: #11003A !important; /* Deep Indigo background */
+    padding: 20px !important;
+    overflow-x: auto !important;
+    margin: 24px 0 !important;
+    border: 1px solid #E5E7EB !important;
+}
+
+code {
+    font-family: 'Source Code Pro', 'Courier New', monospace !important;
+    font-size: 14px !important;
+    background-color: #F7F8FA !important;
+    color: #11003A !important;
+    padding: 2px 6px !important;
+    border-radius: 4px !important;
+}
+
+pre code {
+    background-color: transparent !important;
+    color: #00E664 !important; /* Bright Green base text */
+    padding: 0 !important;
+}
+
+/* Inline code - default style */
+p code,
+li code,
+td code {
+    background-color: #E5FCEF !important;
+    color: #00873B !important;
+    padding: 3px 8px !important;
+    border-radius: 4px !important;
+    font-weight: 500 !important;
+}
+
+/* Inline code in callouts/warnings - use Deep Indigo for better contrast */
+div[class*="callout"] code,
+div[class*="warning"] code,
+div[class*="note"] code,
+div[class*="info"] code,
+div[class*="alert"] code,
+blockquote code,
+aside code,
+[style*="background-color: #F"] code,
+[style*="background: #F"] code {
+    background-color: #11003A !important; /* Deep Indigo */
+    color: #00E664 !important; /* Bright Green text */
+    padding: 3px 8px !important;
+    border-radius: 4px !important;
+    font-weight: 600 !important;
+}
+/* FORCE NAVBAR DEEP INDIGO ON ALL PAGES - MAXIMUM SPECIFICITY */
+body nav,
+body header,
+html nav,
+html header,
+* nav,
+* header {
+    background-color: #11003A !important;
+    background: #11003A !important;
+}
+
+body nav *:not(img),
+body header *:not(img),
+html nav *:not(img),
+html header *:not(img) {
+    color: #FFFFFF !important;
+}
+
+body nav a:hover,
+body header a:hover {
+    color: #00E664 !important;
+}
+
+/* NUCLEAR OPTION - Override everything for navbar */
+[class*="jKYvFd"],
+[class*="Navbar"],
+[id="navbar"],
+nav[class],
+header[class] {
+    background-color: #11003A !important;
+    background-image: none !important;
+}
+
+[class*="jKYvFd"] *:not(img):not(input),
+[class*="Navbar"] *:not(img):not(input),
+nav[class] *:not(img):not(input),
+header[class] *:not(img):not(input) {
+    color: #FFFFFF !important;
+}
