@@ -605,7 +605,11 @@ header[class] .sc-knSFqH * {
 }
 
 /* Fix code sample buttons - center text vertically */
-/* Target Copy, Expand all, Collapse all buttons */
+/* Target the specific button classes from Redocly */
+.sc-hiKfDv,
+button.sc-hiKfDv,
+.btdibX,
+button.btdibX,
 .gatsby-code-button,
 button.gatsby-code-button,
 div[class*="Panel"] button,
@@ -620,13 +624,15 @@ button[class*="collapse"],
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    line-height: 1 !important;
-    padding-top: 8px !important;
-    padding-bottom: 8px !important;
+    line-height: 1.2 !important;
+    padding: 8px 16px !important;
     vertical-align: middle !important;
+    text-align: center !important;
 }
 
-/* Reset any inherited line-height that might push text up */
+/* Reset any inherited styles that might push text */
+.sc-hiKfDv *,
+.btdibX *,
 .gatsby-code-button *,
 div[class*="code"] button *,
 pre ~ div button * {
