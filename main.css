@@ -145,6 +145,38 @@ header input::placeholder {
     color: rgba(255, 255, 255, 0.7) !important;
 }
 
+/* Search results dropdown - fix white text on white background */
+/* Target specific search result classes without breaking functionality */
+.sc-knSFqH,
+ul.sc-knSFqH,
+.sc-iKUVsf,
+div.sc-iKUVsf,
+nav ul[class*="sc-"],
+nav div[class*="sc-"],
+header ul[class*="sc-"],
+header div[class*="sc-"] {
+    color: #11003A !important;
+}
+
+/* Search result items and links */
+nav ul a,
+nav ul li,
+nav ul div,
+header ul a,
+header ul li,
+header ul div {
+    color: #11003A !important;
+}
+
+/* Search result hover states */
+nav ul a:hover,
+nav ul li:hover,
+header ul a:hover,
+header ul li:hover {
+    background-color: #E5FCEF !important;
+    color: #00B750 !important;
+}
+
 /* ShipStation-inspired styling */
 body {
     background-color: #FAFBFC;
