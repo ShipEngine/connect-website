@@ -604,11 +604,13 @@ header[class] .sc-knSFqH * {
     color: #11003A !important;
 }
 
-/* Fix code sample buttons - center text with minimal padding adjustment */
+/* Fix code sample buttons - center text and increase height */
 .sc-hiKfDv,
 button.sc-hiKfDv,
 .btdibX,
 button.btdibX {
-    padding-top: 3px !important;
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+    height: 36px !important;
 }
 
