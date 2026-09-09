@@ -604,13 +604,21 @@ header[class] .sc-knSFqH * {
     color: #11003A !important;
 }
 
-/* Fix code sample buttons - center text vertically ONLY */
-/* Minimal approach: adjust line-height and padding to center text */
+/* Fix code sample buttons - center text vertically */
+/* Target button container to ensure proper alignment */
+.sc-iTVJFM,
+div.sc-iTVJFM {
+    display: flex !important;
+    align-items: center !important;
+}
+
+/* Reset button styles to center text properly */
 .sc-hiKfDv,
 button.sc-hiKfDv,
 .btdibX,
 button.btdibX {
-    line-height: normal !important;
-    padding-top: 10px !important;
-    padding-bottom: 10px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    line-height: 1 !important;
 }
