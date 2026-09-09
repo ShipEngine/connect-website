@@ -634,13 +634,20 @@ pre > code {
 }
 
 /* Fix #3: Align collapse/expand buttons (+/-) with their corresponding lines */
-/* Target the collapse indicators in code blocks */
-/* These buttons are positioned absolute - adjust top for proper alignment */
+/* Target the collapser class specifically with higher specificity */
+.collapser,
+button.collapser,
+.bXyRzi.collapser,
+.collapser[style*="position"],
+pre .collapser,
+div[class*="code"] .collapser {
+    top: 2px !important;
+}
+
+/* Fallback for other collapse buttons */
 pre button,
 div[class*="code"] button,
-div[class*="Code"] button,
-[class*="json"] button,
-[class*="sample"] button {
+div[class*="Code"] button {
     top: 2px !important;
     vertical-align: top !important;
 }
