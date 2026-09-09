@@ -614,3 +614,13 @@ button.btdibX {
     height: 36px !important;
 }
 
+/* Fix #2: Remove white background from curly braces and symbols in code blocks */
+/* Target any code elements inside pre blocks (JSON/code samples) */
+pre code span,
+pre span,
+div[class*="code"] span,
+div[class*="Code"] span {
+    background-color: transparent !important;
+    background: transparent !important;
+}
+
