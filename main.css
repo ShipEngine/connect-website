@@ -606,16 +606,30 @@ header[class] .sc-knSFqH * {
 
 /* Fix code sample buttons - center text vertically */
 /* Target Copy, Expand all, Collapse all buttons */
+.gatsby-code-button,
+button.gatsby-code-button,
 div[class*="Panel"] button,
 div[class*="code"] button,
+div[class*="Code"] button,
 pre ~ div button,
 [class*="CodeSample"] button,
 button[class*="copy"],
 button[class*="expand"],
-button[class*="collapse"] {
+button[class*="collapse"],
+[class*="redoc"] button[class*="button"] {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     line-height: 1 !important;
-    padding: 8px 16px !important;
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+    vertical-align: middle !important;
+}
+
+/* Reset any inherited line-height that might push text up */
+.gatsby-code-button *,
+div[class*="code"] button *,
+pre ~ div button * {
+    line-height: inherit !important;
+    vertical-align: middle !important;
 }
