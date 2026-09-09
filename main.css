@@ -604,27 +604,11 @@ header[class] .sc-knSFqH * {
     color: #11003A !important;
 }
 
-/* Fix code sample buttons - center text vertically */
-/* Target the specific button classes from Redocly */
+/* Fix code sample buttons - center text vertically ONLY */
+/* Minimal approach: only adjust line-height to center text */
 .sc-hiKfDv,
 button.sc-hiKfDv,
 .btdibX,
 button.btdibX {
-    line-height: 1.4 !important;
-    font-size: 13px !important;
-    text-align: center !important;
-}
-
-/* Ensure buttons align properly in their container */
-.sc-hiKfDv,
-button.sc-hiKfDv,
-.btdibX,
-button.btdibX {
-    vertical-align: middle !important;
-}
-
-/* Reset any inherited styles that might push text */
-.sc-hiKfDv *,
-.btdibX * {
-    vertical-align: baseline !important;
+    line-height: 2.2 !important;
 }
