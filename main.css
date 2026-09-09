@@ -604,21 +604,14 @@ header[class] .sc-knSFqH * {
     color: #11003A !important;
 }
 
-/* Fix code sample buttons - center text vertically */
-/* Target button container to ensure proper alignment */
-.sc-iTVJFM,
-div.sc-iTVJFM {
-    display: flex !important;
-    align-items: center !important;
-}
-
-/* Reset button styles to center text properly */
+/* Fix code sample buttons - center text vertically WITHOUT changing layout */
+/* DO NOT touch the container - only fix the buttons */
 .sc-hiKfDv,
 button.sc-hiKfDv,
 .btdibX,
 button.btdibX {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    line-height: 1 !important;
+    display: inline-block !important;
+    line-height: 2.5 !important;
+    text-align: center !important;
+    vertical-align: middle !important;
 }
