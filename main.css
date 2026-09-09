@@ -604,14 +604,3 @@ header[class] .sc-knSFqH * {
     color: #11003A !important;
 }
 
-/* Fix code sample buttons - center text vertically WITHOUT changing layout */
-/* DO NOT touch the container - only fix the buttons */
-.sc-hiKfDv,
-button.sc-hiKfDv,
-.btdibX,
-button.btdibX {
-    display: inline-block !important;
-    line-height: 2.5 !important;
-    text-align: center !important;
-    vertical-align: middle !important;
-}
