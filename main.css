@@ -635,15 +635,13 @@ pre > code {
 
 /* Fix #3: Align collapse/expand buttons (+/-) with their corresponding lines */
 /* Target the collapse indicators in code blocks */
-button[class*="collapse"],
-button[class*="expand"],
-span[class*="collapse"],
-span[class*="expand"],
+/* These buttons are positioned absolute with top: 4px, change to top: 0 */
+pre button,
 div[class*="code"] button,
-pre button {
+div[class*="Code"] button,
+[class*="json"] button,
+[class*="sample"] button {
+    top: 0px !important;
     vertical-align: top !important;
-    line-height: 1 !important;
-    margin-top: 0 !important;
-    display: inline-block !important;
 }
 
