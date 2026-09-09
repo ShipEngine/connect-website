@@ -605,10 +605,12 @@ header[class] .sc-knSFqH * {
 }
 
 /* Fix code sample buttons - center text vertically ONLY */
-/* Minimal approach: only adjust line-height to center text */
+/* Minimal approach: adjust line-height and padding to center text */
 .sc-hiKfDv,
 button.sc-hiKfDv,
 .btdibX,
 button.btdibX {
-    line-height: 2.2 !important;
+    line-height: normal !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
 }
