@@ -146,34 +146,27 @@ header input::placeholder {
 }
 
 /* Search results dropdown - fix white text on white background */
-/* Target specific search result classes without breaking functionality */
+/* Target specific search result classes */
 .sc-knSFqH,
 ul.sc-knSFqH,
 .sc-iKUVsf,
-div.sc-iKUVsf,
-nav ul[class*="sc-"],
-nav div[class*="sc-"],
-header ul[class*="sc-"],
-header div[class*="sc-"] {
-    color: #11003A !important;
-}
-
-/* Search result items and links */
-nav ul a,
-nav ul li,
-nav ul div,
-header ul a,
-header ul li,
-header ul div {
+div.sc-iKUVsf {
+    background-color: #FFFFFF !important;
     color: #11003A !important;
 }
 
 /* Search result hover states */
-nav ul a:hover,
-nav ul li:hover,
-header ul a:hover,
-header ul li:hover {
+nav .sc-knSFqH a:hover,
+nav .sc-knSFqH div:hover,
+header .sc-knSFqH a:hover,
+header .sc-knSFqH div:hover {
     background-color: #E5FCEF !important;
+}
+
+nav .sc-knSFqH a:hover *,
+nav .sc-knSFqH div:hover *,
+header .sc-knSFqH a:hover *,
+header .sc-knSFqH div:hover * {
     color: #00B750 !important;
 }
 
@@ -564,11 +557,19 @@ html header,
     background: #11003A !important;
 }
 
-body nav *:not(img),
-body header *:not(img),
-html nav *:not(img),
-html header *:not(img) {
+body nav *:not(img):not(.sc-knSFqH):not(.sc-knSFqH *),
+body header *:not(img):not(.sc-knSFqH):not(.sc-knSFqH *),
+html nav *:not(img):not(.sc-knSFqH):not(.sc-knSFqH *),
+html header *:not(img):not(.sc-knSFqH):not(.sc-knSFqH *) {
     color: #FFFFFF !important;
+}
+
+/* Search results must have dark text */
+nav .sc-knSFqH,
+nav .sc-knSFqH *,
+header .sc-knSFqH,
+header .sc-knSFqH * {
+    color: #11003A !important;
 }
 
 body nav a:hover,
@@ -586,9 +587,19 @@ header[class] {
     background-image: none !important;
 }
 
-[class*="jKYvFd"] *:not(img):not(input),
-[class*="Navbar"] *:not(img):not(input),
-nav[class] *:not(img):not(input),
-header[class] *:not(img):not(input) {
+[class*="jKYvFd"] *:not(img):not(input):not(.sc-knSFqH):not(.sc-knSFqH *),
+[class*="Navbar"] *:not(img):not(input):not(.sc-knSFqH):not(.sc-knSFqH *),
+nav[class] *:not(img):not(input):not(.sc-knSFqH):not(.sc-knSFqH *),
+header[class] *:not(img):not(input):not(.sc-knSFqH):not(.sc-knSFqH *) {
     color: #FFFFFF !important;
+}
+
+/* FORCE search results to have dark text - override everything */
+body nav .sc-knSFqH *,
+body header .sc-knSFqH *,
+html nav .sc-knSFqH *,
+html header .sc-knSFqH *,
+nav[class] .sc-knSFqH *,
+header[class] .sc-knSFqH * {
+    color: #11003A !important;
 }
