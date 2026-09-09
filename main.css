@@ -633,3 +633,17 @@ pre > code {
     background-color: transparent !important;
 }
 
+/* Fix #3: Align collapse/expand buttons (+/-) with their corresponding lines */
+/* Target the collapse indicators in code blocks */
+button[class*="collapse"],
+button[class*="expand"],
+span[class*="collapse"],
+span[class*="expand"],
+div[class*="code"] button,
+pre button {
+    vertical-align: top !important;
+    line-height: 1 !important;
+    margin-top: 0 !important;
+    display: inline-block !important;
+}
+
