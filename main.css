@@ -604,24 +604,27 @@ header[class] .sc-knSFqH * {
     color: #11003A !important;
 }
 
-/* Fix code sample buttons - center text vertically without changing layout */
+/* Fix code sample buttons - center text vertically */
 /* Target the specific button classes from Redocly */
 .sc-hiKfDv,
 button.sc-hiKfDv,
 .btdibX,
 button.btdibX {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    line-height: 1.2 !important;
-    vertical-align: middle !important;
-    text-align: center !important;
+    line-height: 1.4 !important;
     font-size: 13px !important;
+    text-align: center !important;
+}
+
+/* Ensure buttons align properly in their container */
+.sc-hiKfDv,
+button.sc-hiKfDv,
+.btdibX,
+button.btdibX {
+    vertical-align: middle !important;
 }
 
 /* Reset any inherited styles that might push text */
 .sc-hiKfDv *,
 .btdibX * {
-    line-height: inherit !important;
-    vertical-align: middle !important;
+    vertical-align: baseline !important;
 }
