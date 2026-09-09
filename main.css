@@ -603,3 +603,19 @@ nav[class] .sc-knSFqH *,
 header[class] .sc-knSFqH * {
     color: #11003A !important;
 }
+
+/* Fix code sample buttons - center text vertically */
+/* Target Copy, Expand all, Collapse all buttons */
+div[class*="Panel"] button,
+div[class*="code"] button,
+pre ~ div button,
+[class*="CodeSample"] button,
+button[class*="copy"],
+button[class*="expand"],
+button[class*="collapse"] {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    line-height: 1 !important;
+    padding: 8px 16px !important;
+}
