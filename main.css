@@ -616,11 +616,20 @@ button.btdibX {
 
 /* Fix #2: Remove white background from curly braces and symbols in code blocks */
 /* Target any code elements inside pre blocks (JSON/code samples) */
-pre code span,
+pre *,
+pre code *,
 pre span,
-div[class*="code"] span,
-div[class*="Code"] span {
+div[class*="code"] *,
+div[class*="Code"] *,
+[class*="json"] *,
+[class*="sample"] * {
     background-color: transparent !important;
     background: transparent !important;
+}
+
+/* Also target any inline code that shouldn't have backgrounds in code blocks */
+pre code,
+pre > code {
+    background-color: transparent !important;
 }
 
