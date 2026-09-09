@@ -604,3 +604,11 @@ header[class] .sc-knSFqH * {
     color: #11003A !important;
 }
 
+/* Fix code sample buttons - center text by matching line-height to button height */
+.sc-hiKfDv,
+button.sc-hiKfDv,
+.btdibX,
+button.btdibX {
+    line-height: 30.6px !important;
+}
+
