@@ -635,13 +635,15 @@ pre > code {
 
 /* Fix #3: Align collapse/expand buttons (+/-) with their corresponding lines */
 /* Target the collapser class specifically with higher specificity */
+/* Adjust both top (vertical) and left (horizontal) positioning */
 .collapser,
 button.collapser,
 .bXyRzi.collapser,
 .collapser[style*="position"],
 pre .collapser,
 div[class*="code"] .collapser {
-    top: 1px !important;
+    top: 0px !important;
+    left: -2em !important;
 }
 
 /* Fallback for other collapse buttons */
