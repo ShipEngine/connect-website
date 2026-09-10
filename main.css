@@ -654,3 +654,14 @@ div[class*="Code"] button {
     vertical-align: top !important;
 }
 
+/* Fix #4: Brighten punctuation symbols in code blocks for better visibility */
+/* Target punctuation marks that are too dark on dark background */
+pre *[class*="punctuation"],
+pre span.token.punctuation,
+pre .punctuation,
+div[class*="code"] *[class*="punctuation"],
+div[class*="Code"] *[class*="punctuation"] {
+    color: #A0AEC0 !important;
+    opacity: 1 !important;
+}
+
