@@ -145,6 +145,31 @@ header input::placeholder {
     color: rgba(255, 255, 255, 0.7) !important;
 }
 
+/* Search results dropdown - fix white text on white background */
+/* Target specific search result classes */
+.sc-knSFqH,
+ul.sc-knSFqH,
+.sc-iKUVsf,
+div.sc-iKUVsf {
+    background-color: #FFFFFF !important;
+    color: #11003A !important;
+}
+
+/* Search result hover states */
+nav .sc-knSFqH a:hover,
+nav .sc-knSFqH div:hover,
+header .sc-knSFqH a:hover,
+header .sc-knSFqH div:hover {
+    background-color: #E5FCEF !important;
+}
+
+nav .sc-knSFqH a:hover *,
+nav .sc-knSFqH div:hover *,
+header .sc-knSFqH a:hover *,
+header .sc-knSFqH div:hover * {
+    color: #00B750 !important;
+}
+
 /* ShipStation-inspired styling */
 body {
     background-color: #FAFBFC;
@@ -532,11 +557,19 @@ html header,
     background: #11003A !important;
 }
 
-body nav *:not(img),
-body header *:not(img),
-html nav *:not(img),
-html header *:not(img) {
+body nav *:not(img):not(.sc-knSFqH):not(.sc-knSFqH *),
+body header *:not(img):not(.sc-knSFqH):not(.sc-knSFqH *),
+html nav *:not(img):not(.sc-knSFqH):not(.sc-knSFqH *),
+html header *:not(img):not(.sc-knSFqH):not(.sc-knSFqH *) {
     color: #FFFFFF !important;
+}
+
+/* Search results must have dark text */
+nav .sc-knSFqH,
+nav .sc-knSFqH *,
+header .sc-knSFqH,
+header .sc-knSFqH * {
+    color: #11003A !important;
 }
 
 body nav a:hover,
@@ -554,9 +587,96 @@ header[class] {
     background-image: none !important;
 }
 
-[class*="jKYvFd"] *:not(img):not(input),
-[class*="Navbar"] *:not(img):not(input),
-nav[class] *:not(img):not(input),
-header[class] *:not(img):not(input) {
+[class*="jKYvFd"] *:not(img):not(input):not(.sc-knSFqH):not(.sc-knSFqH *),
+[class*="Navbar"] *:not(img):not(input):not(.sc-knSFqH):not(.sc-knSFqH *),
+nav[class] *:not(img):not(input):not(.sc-knSFqH):not(.sc-knSFqH *),
+header[class] *:not(img):not(input):not(.sc-knSFqH):not(.sc-knSFqH *) {
     color: #FFFFFF !important;
 }
+
+/* FORCE search results to have dark text - override everything */
+body nav .sc-knSFqH *,
+body header .sc-knSFqH *,
+html nav .sc-knSFqH *,
+html header .sc-knSFqH *,
+nav[class] .sc-knSFqH *,
+header[class] .sc-knSFqH * {
+    color: #11003A !important;
+}
+
+/* Fix code sample buttons - center text and increase height */
+.sc-hiKfDv,
+button.sc-hiKfDv,
+.btdibX,
+button.btdibX {
+    padding-top: 4px !important;
+    padding-bottom: 4px !important;
+    height: 36px !important;
+}
+
+/* Fix #2: Remove white background from curly braces and symbols in code blocks */
+/* Target any code elements inside pre blocks (JSON/code samples) */
+pre *,
+pre code *,
+pre span,
+div[class*="code"] *,
+div[class*="Code"] *,
+[class*="json"] *,
+[class*="sample"] * {
+    background-color: transparent !important;
+    background: transparent !important;
+}
+
+/* Also target any inline code that shouldn't have backgrounds in code blocks */
+pre code,
+pre > code {
+    background-color: transparent !important;
+}
+
+/* Fix #3: Align collapse/expand buttons (+/-) with their corresponding lines */
+/* Target the collapser class specifically with higher specificity */
+/* Adjust both top (vertical) and left (horizontal) positioning */
+.collapser,
+button.collapser,
+.bXyRzi.collapser,
+.collapser[style*="position"],
+pre .collapser,
+div[class*="code"] .collapser {
+    top: -1px !important;
+    left: -2em !important;
+}
+
+/* Fallback for other collapse buttons */
+pre button,
+div[class*="code"] button,
+div[class*="Code"] button {
+    top: 2px !important;
+    vertical-align: top !important;
+}
+
+/* Fix #4: Brighten punctuation symbols in code blocks for better visibility */
+/* Target punctuation marks that are too dark on dark background */
+/* Brighten .token.punctuation elements (curly braces, commas, etc) */
+pre code .token.punctuation,
+pre .token.punctuation,
+code .token.punctuation,
+.token.punctuation,
+span.token.punctuation,
+.bjnxxl .token.punctuation,
+div[class*="code"] .token.punctuation,
+div[class*="Code"] .token.punctuation {
+    color: #E5E7EB !important;
+    opacity: 1 !important;
+}
+
+/* Brighten the base code color to make colons, underscores visible */
+/* Override code { color: #11003A !important; } from commons.css */
+code,
+pre code,
+.redoc-json code,
+div[class*="code"] code,
+.fePSOX code,
+.bXyRzi code {
+    color: #A8B4C0 !important;
+}
+
