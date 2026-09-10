@@ -504,6 +504,16 @@ pre {
     border: 1px solid #E5E7EB !important;
 }
 
+/* Darken gatsby-highlight code blocks for better text visibility */
+.gatsby-highlight,
+.gatsby-highlight pre,
+.gatsby-highlight pre[class*="language-"],
+div.gatsby-highlight,
+.tab-content pre,
+.code-snippets-tabs pre {
+    background-color: #2D3748 !important; /* Dark gray for better contrast */
+}
+
 code {
     font-family: 'Source Code Pro', 'Courier New', monospace !important;
     font-size: 14px !important;
