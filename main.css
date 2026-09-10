@@ -642,7 +642,7 @@ button.collapser,
 .collapser[style*="position"],
 pre .collapser,
 div[class*="code"] .collapser {
-    top: 0px !important;
+    top: -1px !important;
     left: -2em !important;
 }
 
