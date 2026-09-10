@@ -641,7 +641,7 @@ button.collapser,
 .collapser[style*="position"],
 pre .collapser,
 div[class*="code"] .collapser {
-    top: 2px !important;
+    top: 1px !important;
 }
 
 /* Fallback for other collapse buttons */
