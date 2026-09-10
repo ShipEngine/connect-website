@@ -670,10 +670,13 @@ div[class*="Code"] .token.punctuation {
 }
 
 /* Brighten the base code color to make colons, underscores visible */
-/* This affects plain text that doesn't have a token class */
+/* Override code { color: #11003A !important; } from commons.css */
+code,
 pre code,
 .redoc-json code,
-div[class*="code"] code {
+div[class*="code"] code,
+.fePSOX code,
+.bXyRzi code {
     color: #A8B4C0 !important;
 }
 
