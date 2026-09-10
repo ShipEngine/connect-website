@@ -656,7 +656,7 @@ div[class*="Code"] button {
 
 /* Fix #4: Brighten punctuation symbols in code blocks for better visibility */
 /* Target punctuation marks that are too dark on dark background */
-/* Need very specific selector to override code { color: #11003A } */
+/* Brighten .token.punctuation elements (curly braces, commas, etc) */
 pre code .token.punctuation,
 pre .token.punctuation,
 code .token.punctuation,
@@ -667,5 +667,13 @@ div[class*="code"] .token.punctuation,
 div[class*="Code"] .token.punctuation {
     color: #E5E7EB !important;
     opacity: 1 !important;
+}
+
+/* Brighten the base code color to make colons, underscores visible */
+/* This affects plain text that doesn't have a token class */
+pre code,
+.redoc-json code,
+div[class*="code"] code {
+    color: #A8B4C0 !important;
 }
 
