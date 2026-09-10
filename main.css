@@ -656,11 +656,15 @@ div[class*="Code"] button {
 
 /* Fix #4: Brighten punctuation symbols in code blocks for better visibility */
 /* Target punctuation marks that are too dark on dark background */
-pre *[class*="punctuation"],
-pre span.token.punctuation,
-pre .punctuation,
-div[class*="code"] *[class*="punctuation"],
-div[class*="Code"] *[class*="punctuation"] {
+/* Need very specific selector to override code { color: #11003A } */
+pre code .token.punctuation,
+pre .token.punctuation,
+code .token.punctuation,
+.token.punctuation,
+span.token.punctuation,
+.bjnxxl .token.punctuation,
+div[class*="code"] .token.punctuation,
+div[class*="Code"] .token.punctuation {
     color: #E5E7EB !important;
     opacity: 1 !important;
 }
