@@ -661,7 +661,7 @@ pre span.token.punctuation,
 pre .punctuation,
 div[class*="code"] *[class*="punctuation"],
 div[class*="Code"] *[class*="punctuation"] {
-    color: #A0AEC0 !important;
+    color: #E5E7EB !important;
     opacity: 1 !important;
 }
 
